@@ -1,0 +1,47 @@
+{
+    "author": "nestauk (https://www.nesta.org.uk/)",
+    "bugs": {
+        "url": "https://github.com/nestauk/svizzle/issues"
+    },
+    "dependencies": {
+        "lamb": "^0.57.0"
+    },
+    "devDependencies": {
+        "esm": "^3.0.84",
+        "mocha": "^5.2.0",
+        "rollup": "^0.67.3",
+        "rollup-plugin-cleanup": "^3.1.1",
+        "rollup-plugin-commonjs": "^9.2.0",
+        "rollup-plugin-node-resolve": "^3.4.0"
+    },
+    "description": "Svizzle Dev contains development helpers.",
+    "files": [
+        "dist/*",
+        "index.js",
+        "src/**/*.js",
+        "!*.spec.js"
+    ],
+    "homepage": "https://github.com/nestauk/svizzle",
+    "keywords": [
+        "development",
+        "functional programming",
+        "utility"
+    ],
+    "license": "MIT",
+    "main": "dist/index.js",
+    "module": "index.js",
+    "name": "@svizzle/dev",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "github:nestauk/svizzle",
+        "directory": "packages/tools/dev"
+    },
+    "scripts": {
+        "build": "rollup -c",
+        "test": "mocha -r esm --recursive src"
+    },
+    "version": "0.0.1"
+}

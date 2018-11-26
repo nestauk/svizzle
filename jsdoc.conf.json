@@ -1,0 +1,34 @@
+{
+    "tags": {
+        "allowUnknownTags": false
+    },
+    "source": {
+        "include": [
+            "packages"
+        ],
+        "excludePattern": "(node_modules|dist)"
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": true
+        },
+        "applicationName": "Svizzle",
+        "footer": "Nesta © 2019 (https://www.nesta.org.uk)",
+        "copyright": "Nesta © 2019",
+        "meta": {
+            "title": "Svizzle Documentation",
+            "description": "Documentation for Svizzle",
+            "keyword": "data visualisation, dataviz, svelte, components"
+        },
+        "linenums": true
+    },
+    "opts": {
+        "encoding": "utf8",
+        "recurse": true,
+        "private": false,
+        "lenient": true,
+        "destination": "./docs"
+    }
+}

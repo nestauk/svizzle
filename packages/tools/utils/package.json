@@ -1,0 +1,52 @@
+{
+    "author": "nestauk (https://www.nesta.org.uk/)",
+    "bugs": {
+        "url": "https://github.com/nestauk/svizzle/issues"
+    },
+    "dependencies": {
+        "lamb": "^0.57.0",
+        "lodash.isequal": "^4.5.0"
+    },
+    "devDependencies": {
+        "@svizzle/dev": "^0.1.0",
+        "esm": "^3.0.84",
+        "mocha": "^5.2.0",
+        "rollup": "^0.67.3",
+        "rollup-plugin-buble": "^0.19.4",
+        "rollup-plugin-cleanup": "^3.1.1",
+        "rollup-plugin-commonjs": "^9.2.0",
+        "rollup-plugin-node-resolve": "^3.4.0",
+        "rollup-plugin-terser": "^3.0.0"
+    },
+    "description": "Svizzle Utils is a library to help transforming data types.",
+    "files": [
+        "dist/*",
+        "index.js",
+        "src/**/*.js",
+        "!*.spec.js"
+    ],
+    "homepage": "https://github.com/nestauk/svizzle",
+    "keywords": [
+        "functional programming",
+        "data transformation",
+        "utility"
+    ],
+    "license": "MIT",
+    "browser": "dist/browser.js",
+    "main": "dist/index.js",
+    "module": "index.js",
+    "name": "@svizzle/utils",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "github:nestauk/svizzle",
+        "directory": "packages/tools/utils"
+    },
+    "scripts": {
+        "build": "rollup -c",
+        "test": "mocha -r esm --recursive src"
+    },
+    "version": "0.0.1"
+}

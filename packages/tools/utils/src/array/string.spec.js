@@ -1,0 +1,34 @@
+import {strict as assert} from "assert";
+
+import {
+    join,
+    joinWithDash,
+    joinWithColon,
+    joinWithSemicolon
+} from "./string";
+
+const arr = [0, 1, 2];
+
+// test joinWith ?
+describe("array -> string", function() {
+    describe("join", function() {
+        it("should join an array with commas (default behaviour)", function() {
+            assert.deepStrictEqual(join(arr),"0,1,2");
+        });
+    });
+    describe("joinWithDash", function() {
+        it("should join an array with dashes", function() {
+            assert.deepStrictEqual(joinWithDash(arr),"0-1-2");
+        });
+    });
+    describe("joinWithColon", function() {
+        it("should join an array with colons", function() {
+            assert.deepStrictEqual(joinWithColon(arr),"0:1:2");
+        });
+    });
+    describe("joinWithSemicolon", function() {
+        it("should join an array with semicolons", function() {
+            assert.deepStrictEqual(joinWithSemicolon(arr),"0;1;2");
+        });
+    });
+});
