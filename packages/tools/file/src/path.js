@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/file/path
+*/
+
 import path from "path";
 
 import * as _ from "lamb";

@@ -1,7 +1,6 @@
 import {strict as assert} from "assert";
 
 import {
-    join,
     joinWithDash,
     joinWithColon,
     joinWithSemicolon
@@ -9,13 +8,7 @@ import {
 
 const arr = [0, 1, 2];
 
-// test joinWith ?
-describe("array -> string", function() {
-    describe("join", function() {
-        it("should join an array with commas (default behaviour)", function() {
-            assert.deepStrictEqual(join(arr),"0,1,2");
-        });
-    });
+describe("Array -> String", function() {
     describe("joinWithDash", function() {
         it("should join an array with dashes", function() {
             assert.deepStrictEqual(joinWithDash(arr),"0-1-2");

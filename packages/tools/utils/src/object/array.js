@@ -1,6 +1,11 @@
+/**
+* @module @svizzle/utils/object/array
+*/
+
 import * as _ from "lamb";
 
 import {pairToKeyValueObject} from "../iterable/object";
+import {pickIfTruthy} from "./object";
 
 /**
  * Return an array of {key, value} objects from an object
@@ -30,13 +35,10 @@ export const objectToKeyValueArray = _.pipe([
  * @return {array} - The keys correspondent to truthy values
  *
  * @example
-getTruthyKeys({a: true, b: true, c: false}) // ["a", "b"]
-getTruthyKeys({a: 1, b: 0, c: false})   // ["a"]
-getTruthyKeys({a: [1, 2], b: {a: 1}, c: false})   // ["a", "b"]
+getTruthyValuesKeys({a: true, b: true, c: false}) // ["a", "b"]
+getTruthyValuesKeys({a: 1, b: 0, c: false})   // ["a"]
+getTruthyValuesKeys({a: [1, 2], b: {a: 1}, c: false})   // ["a", "b"]
  *
  * @version 0.1.0
  */
-export const getTruthyKeys = _.pipe([
-    _.pickIf(_.identity),
-    _.keys
-]);
+export const getTruthyValuesKeys = _.pipe([pickIfTruthy, _.keys]);

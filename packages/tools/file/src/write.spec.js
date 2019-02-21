@@ -1,4 +1,5 @@
 import {strict as assert} from "assert";
+import fs from "fs";
 import path from "path";
 
 import nock from "nock";
@@ -11,6 +12,8 @@ import {requestJson} from "@svizzle/request";
 import {readJson} from "./read";
 import {saveObj, saveObjPassthrough, saveResponse} from "./write";
 
+const multiIndented4 = '{\n    "a": 1,\n    "b": 2\n}'; // assets/multi.json, indent = 4
+
 describe("write", function() {
     describe("saveObj", function() {
         it("should return a function that expects an object and returns a promise that writes to the provided filepath",
@@ -22,6 +25,17 @@ describe("write", function() {
                 const writtenJson = await readJson(tmpFilepath);
 
                 assert.deepStrictEqual(writtenJson, {a: 1});
+            }
+        );
+        it("should return a function that expects an object and returns a promise that writes to the provided filepath with indentation = 4",
+            async function() {
+                const jsonPath = path.resolve(__dirname, "../test_assets", "multi.json");
+                const tmpFilepath = tempy.file();
+
+                await readJson(jsonPath).then(saveObj(tmpFilepath, 4));
+                const writtenJsonString = fs.readFileSync(tmpFilepath, "utf8");
+
+                assert.deepStrictEqual(writtenJsonString, multiIndented4);
             }
         );
     });
@@ -39,6 +53,21 @@ describe("write", function() {
 
                 assert.deepStrictEqual(writtenJson, {a: 1});
                 assert.deepStrictEqual(returnedJson, {a: 1});
+            }
+        );
+        it("should return a function that expects an object and returns a promise that writes to the provided filepath with indentation = 4 and then returns the object",
+            async function() {
+                const jsonPath = path.resolve(__dirname, "../test_assets", "multi.json");
+                const tmpFilepath = tempy.file();
+
+                const returnedJson =
+                    await readJson(jsonPath)
+                    .then(saveObjPassthrough(tmpFilepath, 4));
+
+                const writtenJsonString = fs.readFileSync(tmpFilepath, "utf8");
+
+                assert.deepStrictEqual(writtenJsonString, multiIndented4);
+                assert.deepStrictEqual(returnedJson, {a: 1, b: 2});
             }
         );
     });

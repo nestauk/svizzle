@@ -4,32 +4,32 @@ import * as _ from "lamb";
 
 import {
     objectToKeyValueArray,
-    getTruthyKeys
+    getTruthyValuesKeys
 } from "./array";
 
-describe("object -> array", function() {
+describe("Object -> Array", function() {
     describe("objectToKeyValueArray", function() {
         it("should return an array of {key, value} objects from an object", function() {
-            assert.deepEqual(
+            assert.deepStrictEqual(
                 objectToKeyValueArray({k1: "v1", k2: "v2"}),
                 [{key: "k1", value: "v1"}, {key: "k2", value: "v2"}]
             );
         });
     });
-    describe("getTruthyKeys", function() {
+    describe("getTruthyValuesKeys", function() {
         it("should return the keys with a true value", function() {
-            assert.deepEqual(
-                getTruthyKeys({a: true, b: true, c: false}),
+            assert.deepStrictEqual(
+                getTruthyValuesKeys({a: true, b: true, c: false}),
                 ["a", "b"]
             );
         });
         it("should return the keys with a truthy value", function() {
-            assert.deepEqual(
-                getTruthyKeys({a: 1, b: 0, c: false}),
+            assert.deepStrictEqual(
+                getTruthyValuesKeys({a: 1, b: 0, c: false}),
                 ["a"]
             );
-            assert.deepEqual(
-                getTruthyKeys({a: [1, 2], b: {a: 1}, c: false}),
+            assert.deepStrictEqual(
+                getTruthyValuesKeys({a: [1, 2], b: {a: 1}, c: false}),
                 ["a", "b"]
             );
         });

@@ -7,7 +7,7 @@ import {
     isGT1
 } from "./boolean";
 
-describe("number -> boolean", function() {
+describe("Number -> Boolean", function() {
     describe("is0", function() {
         it("should return true if the provided number is 0", function() {
             assert.deepStrictEqual(is0(0), true);

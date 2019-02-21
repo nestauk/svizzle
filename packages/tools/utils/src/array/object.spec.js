@@ -6,7 +6,7 @@ import {
     makeAllOccurrences
 } from "./object";
 
-describe("array -> object", function() {
+describe("Array -> Object", function() {
     describe("makeKeyedZeroes", function() {
         it("should return an object with the provided array elements as keys and all values equal to zero", function() {
             assert.deepStrictEqual(

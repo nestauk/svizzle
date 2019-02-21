@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/utils/array/boolean
+*/
+
 import * as _ from "lamb";
 
 /**

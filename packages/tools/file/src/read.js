@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/file/read
+*/
+
 import fs from "fs";
 import path from "path";
 import util from "util";

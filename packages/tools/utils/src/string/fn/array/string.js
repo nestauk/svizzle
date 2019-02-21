@@ -1,0 +1,23 @@
+/**
+* @module @svizzle/utils/array/fn/array/string
+*/
+
+import * as _ from "lamb";
+import {__} from "lamb";
+
+import {join} from "../../../array/proto/string";
+
+/**
+ * Return a function expecting an array to join with the provided separator
+ *
+ * @function
+ * @arg {string} separator
+ * @return {function}
+ *
+ * @example
+const joinWithAt = joinWith("@");
+joinWithAt([0, 1, 2]) // "1@2@3"
+ *
+ * @version 0.1.0
+ */
+export const joinWith = separator => _.partial(join, [__, separator]);

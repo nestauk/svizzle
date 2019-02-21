@@ -16,6 +16,7 @@
     "description": "Svizzle Geo contains geography related helpers.",
     "devDependencies": {
         "@svizzle/dev": "^0.1.0",
+        "@svizzle/utils": "^0.1.0",
         "esm": "^3.0.84",
         "mocha": "^5.2.0",
         "rollup": "^0.67.3",

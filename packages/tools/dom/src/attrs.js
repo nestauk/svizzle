@@ -1,4 +1,8 @@
-import * as _ from "lamb";
+/**
+* @module @svizzle/dom/attrs
+*/
+
+import {pairs, mapWith, pipe} from "lamb";
 
 import {
     isNumber,
@@ -19,14 +23,15 @@ makeStyle({color: "red", "font-size": "10px"})
  *
  * @version 0.1.0
  */
-export const makeStyle = _.pipe([
-    _.pairs,
-    _.mapWith(joinWithColon),
+export const makeStyle = pipe([
+    pairs,
+    mapWith(joinWithColon),
     joinWithSemicolon
 ]);
 
 /**
- * Return a style string from an object
+ * Return a px representation of the received number.
+ * Throws an error if the input is not a number.
  *
  * @function
  * @arg {number} number
@@ -36,16 +41,4 @@ export const makeStyle = _.pipe([
  *
  * @version 0.1.0
  */
-export const toPx = number => {
-    if (isNumber(number)) {
-        return `${number}px`;
-    } else {
-        throw "toPx: please input a number";
-    }
-}
-
-/*
-// IDEA if value is an obj, convert with appropriate fn()
-may be unefficient for primitive values though
-{color: "red", "font-size": {fn: toPx, 10}} => "color:red;font-size:10px;"
-*/
+export const toPx = number => `${number}px`

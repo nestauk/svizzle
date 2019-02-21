@@ -1,6 +1,10 @@
-import * as _ from "lamb";
-import * as d3 from "../vendor/d3";
+/**
+* @module @svizzle/request/json
+*/
 
+import * as _ from "lamb";
+import {json, text} from "d3-fetch";
+import {text as textRequest, json as jsonRequest} from "d3-request";
 import {ndjsonToArray} from "@svizzle/utils";
 
 /* json */
@@ -30,9 +34,9 @@ import {ndjsonToArray} from "@svizzle/utils";
  * @version 0.1.0
  */
 export const requestJson = (url, useFetch = true) => useFetch
-    ? d3.json(url)
+    ? json(url)
     : new Promise((resolve, reject) => {
-        d3.jsonRequest(url, (error, json) => {
+        jsonRequest(url, (error, json) => {
             if (error) { reject(error) };
             resolve(json);
         });
@@ -66,9 +70,9 @@ export const requestJson = (url, useFetch = true) => useFetch
  */
 export const requestNdjson = (url, useFetch = true) =>
     (useFetch
-        ? d3.text(url)
+        ? text(url)
         : new Promise((resolve, reject) => {
-            d3.textRequest(url, (error, text) => {
+            textRequest(url, (error, text) => {
                 if (error) { reject(error) };
                 resolve(text);
             });

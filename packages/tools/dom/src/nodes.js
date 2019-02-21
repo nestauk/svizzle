@@ -1,7 +1,9 @@
-import * as _ from "lamb";
+/**
+* @module @svizzle/dom/nodes
+*/
 
-import * as d3 from "../vendor/d3";
-
+import {select} from "d3-selection";
+import {pick} from "lamb";
 import {mapValuesToFloatPossibly} from "@svizzle/utils";
 
 /* get */
@@ -9,6 +11,8 @@ import {mapValuesToFloatPossibly} from "@svizzle/utils";
 /**
  * Return an object derived from getComputedStyle(domNode) with values converted to numbers.
  * It extracts values for `width`, `height` and all keys in `additionalProps`.
+ * Note that `additionalProps` are CSS selectors with the hyphen removed (if any) and camel cased:
+ * for example `font-size` -> `fontSize`.
  *
  * @function
  * @arg {object} DOM element
@@ -19,14 +23,14 @@ import {mapValuesToFloatPossibly} from "@svizzle/utils";
 getElementGeometry(node)
 // {width: 200, height: 100}
 
-getElementGeometry(node, ["font-size"])
-// {width: 200, height: 100, "font-size": 12}
+getElementGeometry(node, ["fontSize"])
+// {width: 200, height: 100, "fontSize": 12}
  *
  * @version 0.1.0
  */
 export const getElementGeometry = (elem, additionalProps = []) =>
     mapValuesToFloatPossibly(
-        _.pick(getComputedStyle(elem), [
+        pick(getComputedStyle(elem), [
             "width",
             "height",
             ...additionalProps
@@ -40,19 +44,20 @@ export const getElementGeometry = (elem, additionalProps = []) =>
  *
  * @function
  * @arg {object} node - DOM element
- * @arg {object} newContainer - DOM element
+ * @arg {object} newContainer - CSS selector or DOM element
  *
  * @example
-d3.selectAll("container1 .toBeMoved")
+d3.selectAll("#oldContainer .toBeMoved")
   .each(function(d, i) {
-      moveNode(this, "container2");
+      moveNode(this, "#newContainer");
   });
  *
  * @version 0.1.0
  */
 export const moveNode = (node, newContainer) =>
-    d3.select(newContainer).append(
-        () => d3.select(node).remove().node()
+    select(newContainer)
+    .append(
+        () => select(node).remove().node()
     );
 
-// TODO test with jsdom
+// TODO test

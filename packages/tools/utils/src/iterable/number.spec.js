@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import {getLength} from "./number";
 
-describe("iterable -> number", function() {
+describe("Iterable -> Number", function() {
     describe("getLength", function() {
         it("should return the length of the string", function() {
             assert.deepStrictEqual(getLength(""), 0);

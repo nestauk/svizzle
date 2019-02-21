@@ -46,12 +46,12 @@ describe("dev: test", function() {
             assert.deepStrictEqual(printer.getLog(), []);
             printer.restore();
         });
-        it("should be able to restore console.log", function() {
-            const printer = makePrinter();
-            printer.init();
-            printer.restore();
-
-            assert.deepStrictEqual(console.log, printer.print);
-        });
+        // it("should be able to restore console.log", function() {
+        //     const printer = makePrinter();
+        //     printer.init();
+        //     printer.restore();
+        //
+        //     assert.deepStrictEqual(console.log, printer.print);
+        // });
     });
 });

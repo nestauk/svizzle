@@ -7,7 +7,7 @@ import {
     isIterableNotEmpty,
 } from "./boolean";
 
-describe("iterable -> boolean", function() {
+describe("Iterable -> Boolean", function() {
     describe("isIterableEmpty", function() {
         it("should return true if the provided string is empty", function() {
             assert.deepStrictEqual(isIterableEmpty(""), true);

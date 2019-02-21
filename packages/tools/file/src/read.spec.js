@@ -40,7 +40,7 @@ describe("read", function() {
             async function() {
                 const dirPath = path.resolve(__dirname, "../test_assets");
                 const jsons = await readJsonDir(dirPath);
-                assert.deepStrictEqual(jsons, [{a: 1}, {b: 2}]);
+                assert.deepStrictEqual(jsons, [{a: 1}, {b: 2}, {a: 1, b: 2}]);
             }
         );
     });

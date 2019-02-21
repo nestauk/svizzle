@@ -1,6 +1,7 @@
 import {strict as assert} from "assert";
 
 import {
+    renameToExtension,
     renameToCss,
     renameToMinJs,
     renameToMjs,
@@ -8,6 +9,20 @@ import {
 } from "./common";
 
 describe("dev: common", function() {
+    describe("renameToExtension", function() {
+        it("should return a function expecting the filepath to rename", function() {
+            const renameToFoo = renameToExtension(".foo");
+
+            assert.deepStrictEqual(
+                renameToFoo("filepath.txt"),
+                "filepath.foo"
+            );
+            assert.deepStrictEqual(
+                renameToFoo("filepath.spec.txt"),
+                "filepath.spec.foo"
+            );
+        });
+    });
     describe("renameToCss", function() {
         it("should change extension from .js to .css", function() {
             assert.deepStrictEqual(
@@ -53,8 +68,20 @@ describe("dev: common", function() {
     describe("makeBanner", function() {
         it("should create a banner from a package.json-like object", function() {
             assert.deepStrictEqual(
-                makeBanner({name: "foo", version: "0.1.0"}),
-                "// foo v0.1.0 - © 2019 Nesta"
+                makeBanner({
+                    name: "svizzle",
+                    version: "0.1.0",
+                    author: "nestauk (https://www.nesta.org.uk/)"
+                }),
+                "// svizzle v0.1.0 - © 2019 nestauk (https://www.nesta.org.uk/)"
+            );
+            assert.deepStrictEqual(
+                makeBanner({
+                    name: "svizzle",
+                    version: "0.1.0",
+                    author: {name: "nestauk", url: "https://www.nesta.org.uk/"}
+                }),
+                "// svizzle v0.1.0 - © 2019 nestauk"
             );
         });
     });

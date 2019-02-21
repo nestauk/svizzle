@@ -1,6 +1,7 @@
 import {strict as assert} from "assert";
 
 import * as _ from "lamb";
+import {applyFnMap} from "@svizzle/utils";
 
 import {
     getOrMakeBBox,
@@ -83,7 +84,7 @@ describe("geojson", function() {
         // TODO test more subtle cases (item without appropriate lat/lng, ...)
     });
     describe("makeToPointFeature()", function() {
-        it("should return a function expecting an object and returning it as a Point feature",
+        it("should return a function expecting an object and returning it as a Point feature with the passed object as properties",
             function() {
                 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
                 const toPointFeature = makeToPointFeature(coordPicker);
@@ -96,10 +97,24 @@ describe("geojson", function() {
                 assert.deepStrictEqual(toPointFeature(item), expectedFeature);
             }
         );
+        it("should return a function expecting an object and returning it as a Point feature with the passed object, transformed, as properties",
+            function() {
+                const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
+                const propsTransformer = applyFnMap({name: _.getKey("foo")});
+                const toPointFeature = makeToPointFeature(coordPicker, propsTransformer);
+                const item = {foo: "a", lng: 0.1, lat: 0.1};
+                const expectedFeature = {
+                    type: "Feature",
+                    geometry: {type: "Point", coordinates: [0.1, 0.1]},
+                    properties: {name: "a"}
+                };
+                assert.deepStrictEqual(toPointFeature(item), expectedFeature);
+            }
+        );
         // TODO test more subtle cases (item without appropriate lat/lng, ...)
     });
     describe("makeToGeoPoints()", function() {
-        it("should return a function expecting an array of objects and returning them as a FeatureCollection of Point features",
+        it("should return a function expecting an array of objects and returning them as a FeatureCollection of Point features with the passed objects as properties",
             function() {
                 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
                 const toGeoPoints = makeToGeoPoints(coordPicker);
@@ -117,6 +132,31 @@ describe("geojson", function() {
                         type: "Feature",
                         geometry: {type: "Point", coordinates: [0.2, 0.2]},
                         properties: {foo: "b", lng: 0.2, lat: 0.2}
+                    }]
+                };
+
+                assert.deepStrictEqual(toGeoPoints(items), expectedCollection);
+            }
+        );
+        it("should return a function expecting an array of objects and returning them as a FeatureCollection of Point features with the passed objects, transformed, as properties",
+            function() {
+                const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
+                const propsTransformer = applyFnMap({name: _.getKey("foo")});
+                const toGeoPoints = makeToGeoPoints(coordPicker, propsTransformer);
+                const items = [
+                    {foo: "a", lng: 0.1, lat: 0.1},
+                    {foo: "b", lng: 0.2, lat: 0.2}
+                ];
+                const expectedCollection = {
+                    type: "FeatureCollection",
+                    features: [{
+                        type: "Feature",
+                        geometry: {type: "Point", coordinates: [0.1, 0.1]},
+                        properties: {name: "a"}
+                    }, {
+                        type: "Feature",
+                        geometry: {type: "Point", coordinates: [0.2, 0.2]},
+                        properties: {name: "b"}
                     }]
                 };
 

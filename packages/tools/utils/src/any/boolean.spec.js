@@ -6,6 +6,7 @@ import {
     isObject,
     isString,
     isNotNaN,
+    isNotNil,
     isValidNumber,
     toNumberisValidNumber,
     toFloatIsValidNumber,
@@ -15,7 +16,7 @@ function returnArgs () {
     return arguments;
 }
 
-describe("any -> boolean", function() {
+describe("Any -> Boolean", function() {
     describe("isArray", function() {
         it("should return true if the input is an array", function() {
             assert.deepStrictEqual(isArray([]), true);
@@ -79,18 +80,20 @@ describe("any -> boolean", function() {
         it("should return true is the input is not a NaN", function() {
             assert.deepStrictEqual(isNotNaN(1), true);
             assert.deepStrictEqual(isNotNaN(Infinity), true);
+            assert.deepStrictEqual(isNotNaN([123]), true);
             assert.deepStrictEqual(isNotNaN("123"), true);
             assert.deepStrictEqual(isNotNaN(true), true);
+            assert.deepStrictEqual(isNotNaN(false), true);
+            assert.deepStrictEqual(isNotNaN(null), true);
         });
         it("should return false if the input is a NaN", function() {
-            assert.deepStrictEqual(isNotNaN("123a"), false);
-            assert.deepStrictEqual(isNotNaN("foo"), false);
             assert.deepStrictEqual(isNotNaN([1, 2]), false);
             assert.deepStrictEqual(isNotNaN({a: 1}), false);
-            assert.deepStrictEqual(isNotNaN(returnArgs()), false);
+            assert.deepStrictEqual(isNotNaN("123px"), false);
+            assert.deepStrictEqual(isNotNaN("foo"), false);
             assert.deepStrictEqual(isNotNaN(undefined), false);
-
             assert.deepStrictEqual(isNotNaN(NaN), false);
+            assert.deepStrictEqual(isNotNaN(returnArgs()), false);
         });
     });
     describe("isValidNumber", function() {
@@ -192,6 +195,28 @@ describe("any -> boolean", function() {
             ].forEach(x => {
                 assert.deepStrictEqual(toFloatIsValidNumber(x), false);
             });
+        });
+    });
+
+    describe("isNotNil", function() {
+        // 👍
+        it("should return true is the input is not undefined or null", function() {
+          assert.deepStrictEqual(isNotNil(1), true);
+          assert.deepStrictEqual(isNotNil(Infinity), true);
+          assert.deepStrictEqual(isNotNil("123"), true);
+          assert.deepStrictEqual(isNotNil("123px"), true);
+          assert.deepStrictEqual(isNotNil([1, 2]), true);
+          assert.deepStrictEqual(isNotNil({a: 1}), true);
+          assert.deepStrictEqual(isNotNil(true), true);
+          assert.deepStrictEqual(isNotNil(false), true);
+          assert.deepStrictEqual(isNotNil(returnArgs()), true);
+          assert.deepStrictEqual(isNotNil(NaN), true);
+        });
+
+        // 👎
+        it("should return false if the input is undefined or null", function() {
+          assert.deepStrictEqual(isNotNil(undefined), false);
+          assert.deepStrictEqual(isNotNil(null), false);
         });
     });
 });

@@ -1,4 +1,8 @@
 /**
+* @module @svizzle/dev/test
+*/
+
+/**
  * Return a console.log interceptor
  *
  * @function
@@ -26,8 +30,8 @@ describe("tapAppendTo", function() {
 
         // 2 taps -> invoked console.logs 2 times
         const expectedLog = [
-            [[1, 2, 3], 4]],
-            [[1, 2], "a"]]
+            [[1, 2, 3], 4],
+            [[1, 2], "a"]
         ];
 
         assert.deepStrictEqual(actual1, expected1);

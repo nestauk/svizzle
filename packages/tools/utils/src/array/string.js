@@ -1,8 +1,11 @@
-import * as _ from "lamb";
-import {__} from "lamb";
+/**
+* @module @svizzle/utils/array/string
+*/
 
-export const join = _.generic(Array.prototype.join);
-export const joinWith = string => _.partial(join, [__, string]);
+import * as _ from "lamb";
+
+import {join} from "./proto/string";
+import {joinWith} from "../string/fn/array/string";
 
 /**
  * Return a string joining the provided array items with a dash

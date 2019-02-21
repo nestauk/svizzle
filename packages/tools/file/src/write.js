@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/file/write
+*/
+
 import fs from "fs";
 import stream from "stream";
 import util from "util";
@@ -21,8 +25,8 @@ const writeFile = util.promisify(fs.writeFile);
  *
  * @version 0.1.0
  */
-export const saveObj = filepath => object =>
-    writeFile(filepath, JSON.stringify(object), "utf8");
+export const saveObj = (filepath, indent = 0) => object =>
+    writeFile(filepath, JSON.stringify(object, null, indent), "utf8");
 
 /**
  * Return a function that expects an object and returns a promise that writes
@@ -40,8 +44,9 @@ export const saveObj = filepath => object =>
  *
  * @version 0.1.0
  */
-export const saveObjPassthrough = filepath => object =>
-    writeFile(filepath, JSON.stringify(object), "utf8")
+export const saveObjPassthrough = (filepath, indent = 0) =>
+  object =>
+    writeFile(filepath, JSON.stringify(object, null, indent), "utf8")
     .then(() => object);
 
 /**

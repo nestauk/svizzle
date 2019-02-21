@@ -1,58 +1,12 @@
+/**
+* @module @svizzle/utils/string/array
+*/
+
 import * as _ from "lamb";
 
 import {isTrimmedNotEmpty} from "./boolean";
-import {trim} from "./string";
-
-// splitting
-
-/**
- * Return a function that splits the input string with the provided separator or regex
- *
- * @function
- * @arg {string} - Input
- * @arg {string} - Separator or regex
- * @return {array}
- *
- * @example
- * split("a-b-c", "-") // ["a", "b", "c"]
- *
- * @version 0.1.0
- */
-export const split = _.generic(String.prototype.split);
-
-/**
- * Return a function expecting a separator or regex to split the provided string
- *
- * @function
- * @arg {string} - String to split
- * @return {function}
- *
- * @example
- * const splitStringBy = makeSplitStringBy("a.b-c,d:e");
- *
- * splitStringBy(":") // [ 'a.b-c,d', 'e' ]
- * splitStringBy("-") // [ 'a.b', 'c,d:e' ]
- *
- * @version 0.1.0
- */
-export const makeSplitStringBy = _.curry(split, 2);
-
-/**
- * Return a function expecting a string to be split using the provided separator or regex
- *
- * @function
- * @arg {string} - Separator or regex
- * @return {function}
- *
- * @example
- * const splitByDoubleDot = makeSplitBy("..");
- *
- * splitByDoubleDot("aa...a..a.a.aa.....aa..")
- * // ["aa", ".a", "a.a.aa", "", ".aa", ""]
- *
- * @version 0.1.0
- */
-export const makeSplitBy = _.curryRight(split, 2);
+import {trim} from "./proto/string";
+import {makeSplitBy} from "./fn/string/array";
 
 /**
  * Return an array by splitting by "."

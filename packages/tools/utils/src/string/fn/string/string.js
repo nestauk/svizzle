@@ -1,6 +1,8 @@
-import * as _ from "lamb";
+/**
+* @module @svizzle/utils/string/fn/string/string
+*/
 
-/* edit */
+import * as _ from "lamb";
 
 /**
  * Return a function that prepends the provided string to the input string
@@ -17,17 +19,3 @@ import * as _ from "lamb";
  * @version 0.1.0
  */
 export const prepend = pre => string => pre + string;
-
-/**
- * Return a function that trims the input string
- *
- * @function
- * @arg {string}
- * @return {string}
- *
- * @example
- * trim("   abc   \n  ") // "abc"
- *
- * @version 0.1.0
- */
-export const trim = _.generic(String.prototype.trim);

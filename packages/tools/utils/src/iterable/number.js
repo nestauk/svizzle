@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/utils/iterable/number
+*/
+
 import * as _ from "lamb";
 
 /**

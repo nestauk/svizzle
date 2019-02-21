@@ -1,8 +1,12 @@
+/**
+* @module @svizzle/utils/object/object
+*/
+
 import * as _ from "lamb";
-import {__} from "lamb";
 
 import {toFloatOrIdentity} from "../any/any";
-import {concat} from "../array/array";
+import {concat} from "../array/proto/array";
+import {mergeWith} from "../function/fn/object/object";
 
 /* map values */
 
@@ -60,93 +64,6 @@ mapValuesToNumber({a: "1.2",  b: "2s"}) // {a: 1.2,  b: NaN}
  * @version 0.1.0
  */
 export const mapValuesToNumber = _.mapValuesWith(Number);
-
-/* merge */
-
-/**
- * Return a function expecting an object to merge with the input object
- *
- * @function
- * @arg {object} inputObject - Object to be merged to the provided object
- * @return {function}
- *
- * @example
-const mergeB = mergeObj({b: 2});
-mergeB({a: 1}) // {a: 1, b: 2}
-mergeB({a: 1, b: 1}) // {a: 1, b: 2}
- *
- * @version 0.1.0
- */
-export const mergeObj = obj => _.partial(_.merge, [__, obj]);
-
-/**
- * Return a function that merges the provided value on the provided key of the expected object
- *
- * @function
- * @arg {string} key - Key where to merge the Value
- * @arg {object} object - Value to be merged
- * @return {array}
- *
- * @example
-
-const mergeFooValue = makeMergeKeyValue("foo", {b: -2, c: -3});
-
-mergeFooValue({
-    foo: {a: 1, b: 2},
-    bar: {k: 1}
-})
-=> {
-    foo: {a: 1, b: -2, c: -3},
-    bar: {k: 1}
-}
-
-mergeFooValue({
-    bar: {k: 1}
-})
-=> {
-    foo: {b: -2, c: -3},
-    bar: {k: 1}
-}
-
- *
- * @version 0.1.0
- */
-export const makeMergeKeyValue = (key, value) => object =>
-    _.merge(object, {
-        [key]: object[key]
-            ? _.merge(object[key], value)
-            : value
-    });
-
-/**
- * Return a function expecting two objects to merge using the provided merge function
- *
- * @function
- * @arg {function} fn - Merge functon
- * @return {function}
- *
- * @example
-
-const mergeWithSubtract = mergeWith(_.subtract)
-
-mergeWithSubtract(
-    {a: 8, b: 3},
-    {a: 5, b: 2, c: 7}
-)
-=>  {a: 3, b: 1, c: 7},
-
- *
- * @version 0.1.0
- */
-export const mergeWith = fn => (a, b) => _.reduce(
-    _.pairs(b),
-    (obj, [bKey, bValue]) => {
-        obj[bKey] = _.has(obj, bKey) ? fn(obj[bKey], bValue) : bValue;
-
-        return obj;
-    },
-    _.merge({}, a) // copy of a
-);
 
 /**
  * Return the merge of the two provided objects adding values of correspondent keys
@@ -230,3 +147,19 @@ mergeWithAppendTo(obj1, obj2) // obj3
  * @version 0.1.0
  */
 export const mergeWithAppendTo = mergeWith(_.appendTo);
+
+/**
+ * Return a copy of the object without falsy values
+ *
+ * @function
+ * @arg {object} - The input object
+ * @return {object} - The object with truthy values
+ *
+ * @example
+pickIfTruthy({a: true, b: true, c: false}) // {a: true, b: true}
+pickIfTruthy({a: 1, b: 0, c: false}) // {a: 1}
+pickIfTruthy({a: [1, 2], b: {a: 1}, c: false}) // {a: [1, 2], b: {a: 1}}
+ *
+ * @version 0.2.0
+ */
+export const pickIfTruthy = _.pickIf(_.identity);

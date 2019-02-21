@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/geo/geojson
+*/
+
 import * as _ from "lamb";
 import bbox from "@turf/bbox";
 import centroid from "@turf/centroid";
@@ -5,7 +9,7 @@ import {featureCollection} from "@turf/helpers";
 import truncate from "@turf/truncate";
 
 /**
- * Return or create the bbox of the provided geojson
+ * Return or create the {@link https://tools.ietf.org/html/rfc7946#section-5|bbox} of the provided geojson
  *
  * @function
  * @arg {object} - Geojson object
@@ -33,7 +37,25 @@ getOrMakeBBox({
         }
     }]
 })
-// => [-1, -1, 2, 1]
+// [-1, -1, 2, 1]
+
+getOrMakeBBox({
+    type: "FeatureCollection",
+    bbox: [-10.0, -10.0, 10.0, 10.0],
+    geometry: {
+      type: "Polygon",
+      coordinates: [
+        [
+          [-10.0, -10.0],
+          [10.0, -10.0],
+          [10.0, 10.0],
+          [-10.0, -10.0]
+        ]
+      ]
+    }
+})
+// [-10.0, -10.0, 10.0, 10.0]
+// no calculation involved here
 
  * @version 0.1.0
  */
@@ -89,29 +111,30 @@ export const makeCentroids = _.pipe([
  *
  * @function
  * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]).
+ * @arg {function} propsTransformer - The function to get the properties for the resulting point
  * @return {object} - Geojson Point feature.
  *
  * @example
 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
-const toPointFeature = makeToPointFeature(coordPicker);
+const propsTransformer = applyFnMap({name: _.getKey("foo")});
+const toPointFeature = makeToPointFeature(coordPicker, propsTransformer);
 toPointFeature({foo: "a", lng: 0.1, lat: 0.1})
 // => {
  "type": "Feature",
  "geometry": {"type": "Point", "coordinates": [0.1, 0.1]},
- "properties": {foo: "a", lng: 0.1, lat: 0.1}
+ "properties": {name: "a"}
 }
  * @version 0.1.0
  */
-export const makeToPointFeature = coordPicker => properties => ({
-    type: "Feature",
-    geometry: {
-        type: "Point",
-        coordinates: coordPicker(properties)
-    },
-    properties
-});
-
-// TODO check for item without lat/lng as defined by coordPicker
+export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
+    object => ({
+        type: "Feature",
+        geometry: {
+            type: "Point",
+            coordinates: coordPicker(object)
+        },
+        properties: propsTransformer ? propsTransformer(object) : object
+    });
 
 /**
  * Return a function expecting an array of objects and returning them as a FeatureCollection of Point features.
@@ -124,7 +147,8 @@ export const makeToPointFeature = coordPicker => properties => ({
  *
  * @example
 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
-const toGeoPoints = makeToGeoPoints(coordPicker);
+const propsTransformer = applyFnMap({name: _.getKey("foo")});
+const toGeoPoints = makeToGeoPoints(coordPicker, propsTransformer);
 toGeoPoints([
   {foo: "a", lng: 0.1, lat: 0.1},
   {foo: "b", lng: 0.2, lat: 0.2}
@@ -143,8 +167,8 @@ toGeoPoints([
 }
  * @version 0.1.0
  */
-export const makeToGeoPoints = coordPicker => _.pipe([
-    _.mapWith(makeToPointFeature(coordPicker)),
+export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
+    _.mapWith(makeToPointFeature(coordPicker, propsTransformer)),
     featureCollection
 ]);
 

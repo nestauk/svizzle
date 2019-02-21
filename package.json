@@ -1,7 +1,11 @@
 {
     "devDependencies": {
+        "docdash": "^1.0.3",
+        "gh-pages": "^2.0.1",
         "jsdoc": "^3.5.5",
-        "lerna": "^3.13.0"
+        "lerna": "^3.13.0",
+        "rimraf": "^2.6.3",
+        "serve": "^11.0.0"
     },
     "dependencies": {},
     "author": "nestauk",
@@ -13,7 +17,10 @@
         "cleannodmod": "rimraf node_modules",
         "cleanpacklocks": "rimraf packages/**/package-lock.json",
         "cleanpacks": "npm run cleandist && npm run lernaclean",
-        "doc": "rimraf docs && jsdoc -c jsdoc.conf.json",
+        "deploy": "gh-pages -d _docBuild",
+        "buildDoc": "rimraf docs && jsdoc -c jsdoc.conf.json -R README.md -d _docBuild",
+        "deployDoc": "npm run buildDoc && npm run deploy",
+        "serveDoc": "npm run buildDoc && cd _docBuild && serve",
         "lernaboot": "lerna bootstrap --hoist",
         "lernabuild": "lerna run build",
         "lernaclean": "lerna clean",

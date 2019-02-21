@@ -1,4 +1,8 @@
 /**
+* @module @svizzle/utils/iterable/object
+*/
+
+/**
  * Return the {key, value} object from a pair
  *
  * @function

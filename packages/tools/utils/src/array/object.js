@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/utils/array/object
+*/
+
 import * as _ from "lamb";
 
 /**

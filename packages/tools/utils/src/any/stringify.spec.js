@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import {stringify} from "./string";
 
-describe("any -> string", function() {
+describe("Any -> String", function() {
     describe("stringify", function() {
         it("should return a string representation of the input with indentation = 2", function() {
             assert.deepStrictEqual(stringify([]), "[]");

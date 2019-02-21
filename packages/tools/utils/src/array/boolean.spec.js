@@ -5,7 +5,7 @@ import {
     areSomeTruthy
 } from "./boolean";
 
-describe("array -> boolean", function() {
+describe("Array -> Boolean", function() {
     describe("areAllTruthy", function() {
         it("should return true if all elements of the provided array are true", function() {
             assert.deepStrictEqual(

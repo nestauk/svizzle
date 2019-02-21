@@ -1,3 +1,36 @@
+## `@svizzle/utils` v0.2.0
+
+- added missing tests and docs
+
+- moved functions returning functions in `fn/` directories.
+
+  For example `makeKeysGetter`:
+  - expects an array and returns a function that expects an object and returns an array;
+  - hence it's in `utils/src/array/fn/object/array.js`.
+
+- moved functions derived from Javascript types in `proto/` directories.
+
+### Any -> Boolean
+
+- added `isNotNil`
+
+### Array -> (Any -> Object)
+
+- added `makeWith`
+
+### Array -> (Array -> Object)
+
+- added `makeWithKeys`, `makeWithValues`
+
+### Object -> Array
+
+- renamed: `getTruthyKeys` -> `getTruthyValuesKeys`
+
+### Object -> Object
+
+- `pickIfTruthy`
+
+
 ## `@svizzle/utils` v0.1.0
 
 ### any ->

@@ -4,7 +4,7 @@ import {makePrinter} from "@svizzle/dev";
 
 import {tapAppendTo} from "./array";
 
-describe("iterable -> array", function() {
+describe("Iterable -> Array", function() {
     let printer;
     before(function () {
         printer = makePrinter();

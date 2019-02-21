@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/utils/iterable/array
+*/
+
 import * as _ from "lamb";
 
 import {tapValue} from "../any/any";

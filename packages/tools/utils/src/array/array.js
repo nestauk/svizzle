@@ -1,47 +1,11 @@
+/**
+* @module @svizzle/utils/array/array
+*/
+
 import * as _ from "lamb";
 import isequal from "lodash.isequal";
 
-/**
- * Return a function expecting two array to concatenate
- *
- * @function
- * @arg {array} array
- * @arg {array} array
- * @return {array}
- *
- * @example concat([0, 1, 2], [3, 4]) // [0, 1, 2, 3, 4]
- *
- * @version 0.1.0
- */
-export const concat = _.generic(Array.prototype.concat);
-
-/**
- * Return a function expecting an array and removing items at the provided indices
- *
- * @function
- * @arg {array} indices
- * @return {function}
- *
- * @example
-const removeIndices = removeAt([3, 4, 8])
-const removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-// [0, 1, 2, 5, 6, 7, 9]
- *
- * @version 0.1.0
- */
-export const removeAt = indices => {
-    const reducer = _.reduceWith((acc, v, i) => {
-        if (i !== acc.next) {
-            acc.new.push(v);
-        } else {
-            acc.next = acc.indices[++acc.cursor];
-        }
-
-        return acc;
-    }, {new: [], indices, next: indices[0], cursor: 0});
-
-    return _.pipe([reducer, _.getKey("new")]);
-}
+import {concat} from "./proto/array";
 
 /**
  * Return a copy of the array with values at the provided indices swapped

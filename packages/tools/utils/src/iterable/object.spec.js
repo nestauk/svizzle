@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import {pairToKeyValueObject} from "./object";
 
-describe("iterable -> object", function() {
+describe("Iterable -> Object", function() {
     describe("pairToKeyValueObject", function() {
         describe("array", function() {
             it("should return the {key, value} object of a pair array", function() {

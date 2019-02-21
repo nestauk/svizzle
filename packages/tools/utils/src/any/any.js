@@ -1,9 +1,13 @@
+/**
+* @module @svizzle/utils/any/any
+*/
+
 import * as _ from "lamb";
 
 import {isValidNumber} from "./boolean";
 
 /**
- * Returns an empty array if the input is undefined or identity otherwise.
+ * Return an empty array if the input is undefined or identity otherwise.
  *
  * @function
  * @arg {*} - any
@@ -62,9 +66,24 @@ export const toFloatOrIdentity = x => {
  * @arg {*} - any
  * @return {*} Same as input
  *
+ * @example
+const doubleTriple = _.pipe([
+  tapValue,
+  mapWith(x => 2 * x),
+  tapValue,
+  mapWith(x => 3 * x),
+  tapValue
+])
+
+doubleTriple([1,2,3])
+// returns [6, 12, 18] and logs:
+// [1, 2, 3]
+// [2, 4, 6]
+// [6, 12, 18]
+ *
  * @version 0.1.0
  */
- export const tapValue = x => {
+export const tapValue = x => {
     console.log(x);
 
     return x;
@@ -76,6 +95,21 @@ export const toFloatOrIdentity = x => {
  * @function
  * @arg {*} - any
  * @return {*} Same as input
+ *
+ * @example
+const size = _.pipe([
+  tapType,
+  _.values,
+  tapType,
+  _.getKey("length")
+  tapType
+])
+
+size({a: 1, b: 2})
+// returns "number" and logs:
+// "object"
+// "object"
+// "number"
  *
  * @version 0.1.0
  */
@@ -91,6 +125,21 @@ export const tapType = x => {
  * @function
  * @arg {*} - any
  * @return {*} Same as input
+ *
+ * @example
+const size = _.pipe([
+  tapTypeAndValue,
+  _.values,
+  tapTypeAndValue,
+  _.getKey("length")
+  tapTypeAndValue
+])
+
+size({a: 1, b: 2})
+// returns 2, "number" and logs:
+// "object, {a: 1, b: 2}"
+// "object, [1, 2]"
+// "number, 2"
  *
  * @version 0.1.0
  */

@@ -14,7 +14,7 @@ function returnArgs () {
     return arguments;
 }
 
-describe("any -> any", function() {
+describe("Any -> Any", function() {
     describe("number|identity", function() {
         describe("toFloatOrIdentity", function() {
             it("should return a number if the input can be converted to a float, identity otherwise", function() {

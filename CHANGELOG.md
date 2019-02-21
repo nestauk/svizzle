@@ -1,5 +1,70 @@
 # Svizzle changelog
 
+## 20190411
+
+- docs:
+   - use "docdash" as the jsdoc template
+   - add a serve script
+
+- dev:
+   - add development guidelines
+   - allow versioning from `dev` only
+
+## `@svizzle/dev` v0.2.0
+
+- add `renameToExtension`
+- more generic `makeBanner`
+
+## `@svizzle/dom` v0.2.0
+
+- changed `toPx` to not throw anymore
+- should fix an import from `vendor`
+
+## `@svizzle/file` v0.2.0
+
+- `saveObj` and `saveObjPassthrough` accept a `indent` argument
+
+## `@svizzle/geo` v0.2.0
+
+- `makeToPointFeature` and `makeToGeoPoints` accept a `propsTransformer` argument
+
+## `@svizzle/request` v0.1.1
+
+- removed `vendor/` from the build
+
+## `@svizzle/utils` v0.2.0
+
+- added missing tests and docs
+
+- moved functions returning functions in `fn/` directories.
+
+  For example `makeKeysGetter`:
+  - expects an array and returns a function that expects an object and returns an array;
+  - hence it's in `utils/src/array/fn/object/array.js`.
+
+- moved functions derived from Javascript types in `proto/` directories.
+
+### Any -> Boolean
+
+- added `isNotNil`
+
+### Array -> (Any -> Object)
+
+- added `makeWith`
+
+### Array -> (Array -> Object)
+
+- added `makeWithKeys`, `makeWithValues`
+
+### Object -> Array
+
+- renamed `getTruthyKeys` to `getTruthyValuesKeys`
+
+### Object -> Object
+
+- added `pickIfTruthy`
+
+
 ## `@svizzle/dev` v0.1.0
 
 - `makeBanner`

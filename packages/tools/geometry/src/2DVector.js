@@ -1,4 +1,8 @@
 /**
+* @module @svizzle/geometry/2DVector
+*/
+
+/**
  * Calculates the length of a vector
  *
  * @function

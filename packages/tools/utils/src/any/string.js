@@ -1,4 +1,8 @@
 /**
+* @module @svizzle/utils/any/string
+*/
+
+/**
  * Return a string representation of the input with indentation = 2.
  *
  * @function

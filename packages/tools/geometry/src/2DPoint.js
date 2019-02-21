@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/geometry/2DPoint
+*/
+
 import * as _ from "lamb";
 import {__} from "lamb";
 

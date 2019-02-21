@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/utils/object/boolean
+*/
+
 import * as _ from "lamb";
 
 import {is0, isGT0} from "../number/boolean";

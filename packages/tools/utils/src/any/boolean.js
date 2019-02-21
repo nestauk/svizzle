@@ -1,3 +1,7 @@
+/**
+* @module @svizzle/utils/any/boolean
+*/
+
 import * as _ from "lamb";
 
 /**
@@ -111,12 +115,12 @@ isNotNaN(true) // true
 isNotNaN(false) // true
 isNotNaN(null) // true
 
-isNotNaN(NaN) // false
 isNotNaN([1, 2]) // false
 isNotNaN({a: 1}) // false
 isNotNaN("123px") // false
 isNotNaN("foo") // false
 isNotNaN(undefined) // false
+isNotNaN(NaN) // false
 
 function returnArgs () {
     return arguments;
@@ -251,3 +255,33 @@ export const toNumberisValidNumber = _.pipe([Number, isValidNumber]);
  * @version 0.1.0
  */
 export const toFloatIsValidNumber = _.pipe([parseFloat, isValidNumber]);
+
+/**
+ * Return true is the input is not undefined or null.
+ *
+ * @function
+ * @arg {*}
+ * @return {boolean}
+ *
+ * @example
+isNotNil(1) // true
+isNotNil(Infinity) // true
+isNotNil("123") // true
+isNotNil("123px") // true
+isNotNil([1, 2]) // true
+isNotNil({a: 1}) // true
+isNotNil(true) // true
+isNotNil(false) // true
+isNotNil(NaN) // true
+
+isNotNil(undefined) // false
+isNotNil(null) // false
+
+function returnArgs () {
+    return arguments;
+}
+isNotNil(returnArgs()) // false
+ *
+ * @version 0.2.0
+ */
+export const isNotNil = _.not(_.isNil);

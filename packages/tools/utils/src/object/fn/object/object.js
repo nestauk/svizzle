@@ -1,4 +1,11 @@
+/**
+* @module @svizzle/utils/object/fn/object/object
+*/
+
 import * as _ from "lamb";
+import {__} from "lamb";
+
+import {joinWith} from "../../../string/fn/array/string";
 
 /**
  * Return a function expecting an object to be used as the argument of the provided functions
@@ -60,3 +67,58 @@ bar,4,4,25px
 export const transformValues = fnMap => _.mapValuesWith(
     (value, key) => _.application(fnMap[key], [value])
 );
+
+/**
+ * Return a function expecting an object to merge with the input object
+ *
+ * @function
+ * @arg {object} inputObject - Object to be merged to the provided object
+ * @return {function}
+ *
+ * @example
+const mergeB = mergeObj({b: 2});
+mergeB({a: 1}) // {a: 1, b: 2}
+mergeB({a: 1, b: 1}) // {a: 1, b: 2}
+ *
+ * @version 0.1.0
+ */
+export const mergeObj = obj => _.partial(_.merge, [__, obj]);
+
+/**
+ * Return a function that merges the provided value on the provided key of the expected object
+ *
+ * @function
+ * @arg {string} key - Key where to merge the Value
+ * @arg {object} object - Value to be merged
+ * @return {function}
+ *
+ * @example
+
+const mergeFooValue = makeMergeKeyValue("foo", {b: -2, c: -3});
+
+mergeFooValue({
+    foo: {a: 1, b: 2},
+    bar: {k: 1}
+})
+=> {
+    foo: {a: 1, b: -2, c: -3},
+    bar: {k: 1}
+}
+
+mergeFooValue({
+    bar: {k: 1}
+})
+=> {
+    foo: {b: -2, c: -3},
+    bar: {k: 1}
+}
+
+ *
+ * @version 0.1.0
+ */
+export const makeMergeKeyValue = (key, value) => object =>
+    _.merge(object, {
+        [key]: object[key]
+            ? _.merge(object[key], value)
+            : value
+    });
