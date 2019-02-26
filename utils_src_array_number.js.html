@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils/src/array/number.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utils/src/array/number.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as _ from "lamb";
+
+/* random */
+
+/**
+ * Return a random number in the specified range.
+ *
+ * @function
+ * @arg {array} range
+ * @return {number}
+ *
+ * @example
+ * makeRandomNumInRange(1.2, 7.4) // 4.2
+ *
+ * @version 0.1.0
+ */
+export const makeRandomNumInRange = ([min, max]) =>
+    min + (max - min) * Math.random();
+
+/* max */
+
+/**
+ * Return the max of the numbers in the provided array
+ *
+ * @function
+ * @arg {array} array
+ * @return {number} max
+ *
+ * @example arrayMax([-1, -2, 0, 1, 2]) // 2
+ *
+ * @version 0.1.0
+ */
+export const arrayMax = _.apply(Math.max);
+
+/**
+ * Return a function expecting an array of objects and returning the max of values by the provided key.
+ * The same can be done by `arrayMaxWith(_.getKey(key))` but here we avoid invoking a function for all the items.
+ *
+ * @function
+ * @arg {string} key
+ * @return {function}
+ *
+ * @example
+
+ const maxByA = arrayMaxBy("a");
+ maxByA([{a: -1, b: -1}, {a: 0, b: 0}]) // 0
+ maxByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 2
+
+ *
+ * @version 0.1.0
+ */
+export const arrayMaxBy = key => _.reduceWith((max, item) => {
+    const value = item[key];
+
+    return value > max ? value : max;
+
+    // no need to check if _.has(item, key) because:
+    // undefined > -Infinity === false
+}, -Infinity);
+
+/**
+ * Return a function expecting an array of objects and returning the max of results
+ * of applying the provided fuction on all of the array items
+ *
+ * @function
+ * @arg {function} fn
+ * @return {function}
+ *
+ * @example
+
+const maxWithAbsSin = arrayMaxWith(_.pipe([Math.sin, Math.abs]));
+const maxWithAbsSin([-Math.PI/2, -Math.PI/4]) // 1
+const maxWithAbsSin([Math.PI/4, Math.PI/6]) // 0.7071067811865475
+
+ *
+ * @version 0.1.0
+ */
+export const arrayMaxWith = fn => _.reduceWith((max, item) => {
+    const value = fn(item);
+
+    return value > max ? value : max;
+}, -Infinity);
+
+/* min */
+
+/**
+ * Return the min of the numbers in the provided array
+ *
+ * @function
+ * @arg {array} array
+ * @return {number} min
+ *
+ * @example arrayMin([-1, -2, 0, 1, 2]) // -2
+ *
+ * @version 0.1.0
+ */
+export const arrayMin = _.apply(Math.min);
+
+/**
+ * Return a function expecting an array of numbers and returning the min of values by the provided key
+ * The same can be done by `arrayMinWith(_.getKey(key))` but here we avoid invoking a function for all the items.
+ *
+ * @function
+ * @arg {string} key
+ * @return {function}
+ *
+ * @example
+const minByA = arrayMinBy("a");
+minByA([{a: -1, b: -1}, {a: 0, b: 0}]) // -1
+minByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 1
+ *
+ * @version 0.1.0
+ */
+export const arrayMinBy = key => _.reduceWith((min, item) => {
+    const value = item[key];
+
+    return value &lt; min ? value : min;
+
+    // no need to check if _.has(item, key) because:
+    // undefined &lt; Infinity === false
+}, Infinity);
+
+/**
+ * Return a function expecting an array of objects and returning the min of results
+ * of applying the provided fuction on all of the array items
+ *
+ * @function
+ * @arg {function} fn
+ * @return {function}
+ *
+ * @example
+const minWithAbsSin = arrayMinWith(_.pipe([Math.sin, Math.abs]));
+const minWithAbsSin([-Math.PI/2, -Math.PI/4]) // 0.7071067811865475
+const minWithAbsSin([Math.PI/4, Math.PI/6]) // 0.49999999999999994
+ *
+ * @version 0.1.0
+ */
+export const arrayMinWith = fn => _.reduceWith((min, item) => {
+    const value = fn(item);
+
+    return value &lt; min ? value : min;
+}, Infinity);
+
+// IDEA
+// arrayMaxWith(fn, globalMax)
+// if we reach an expected globalMax, we found the max already, we can stop iterating the array
+// example being funcs like sin/cos being limited to [-1, 1]
+
+// TODO for By and With: what if we have string values?
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#applyFnMap">applyFnMap</a></li><li><a href="global.html#areAllTruthy">areAllTruthy</a></li><li><a href="global.html#areSomeTruthy">areSomeTruthy</a></li><li><a href="global.html#arrayMax">arrayMax</a></li><li><a href="global.html#arrayMaxBy">arrayMaxBy</a></li><li><a href="global.html#arrayMaxWith">arrayMaxWith</a></li><li><a href="global.html#arrayMin">arrayMin</a></li><li><a href="global.html#arrayMinBy">arrayMinBy</a></li><li><a href="global.html#arrayMinWith">arrayMinWith</a></li><li><a href="global.html#concat">concat</a></li><li><a href="global.html#filterJsonExtensions">filterJsonExtensions</a></li><li><a href="global.html#getDistance2D">getDistance2D</a></li><li><a href="global.html#getElementGeometry">getElementGeometry</a></li><li><a href="global.html#getLength">getLength</a></li><li><a href="global.html#getObjSize">getObjSize</a></li><li><a href="global.html#getOrMakeBBox">getOrMakeBBox</a></li><li><a href="global.html#getTruthyKeys">getTruthyKeys</a></li><li><a href="global.html#getTwoPointsCenter">getTwoPointsCenter</a></li><li><a href="global.html#hasAnyExtensionOf">hasAnyExtensionOf</a></li><li><a href="global.html#hasIterableLength1">hasIterableLength1</a></li><li><a href="global.html#is0">is0</a></li><li><a href="global.html#is1">is1</a></li><li><a href="global.html#isArray">isArray</a></li><li><a href="global.html#isGT0">isGT0</a></li><li><a href="global.html#isGT1">isGT1</a></li><li><a href="global.html#isIterableEmpty">isIterableEmpty</a></li><li><a href="global.html#isIterableLongerThan1">isIterableLongerThan1</a></li><li><a href="global.html#isIterableNotEmpty">isIterableNotEmpty</a></li><li><a href="global.html#isNotNaN">isNotNaN</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#isObject">isObject</a></li><li><a href="global.html#isObjEmpty">isObjEmpty</a></li><li><a href="global.html#isObjNotEmpty">isObjNotEmpty</a></li><li><a href="global.html#isString">isString</a></li><li><a href="global.html#isTrimmedNotEmpty">isTrimmedNotEmpty</a></li><li><a href="global.html#isValidNumber">isValidNumber</a></li><li><a href="global.html#joinWithColon">joinWithColon</a></li><li><a href="global.html#joinWithDash">joinWithDash</a></li><li><a href="global.html#joinWithSemicolon">joinWithSemicolon</a></li><li><a href="global.html#linkVector">linkVector</a></li><li><a href="global.html#makeAllOccurrences">makeAllOccurrences</a></li><li><a href="global.html#makeArrayTransformer">makeArrayTransformer</a></li><li><a href="global.html#makeBanner">makeBanner</a></li><li><a href="global.html#makeCentroids">makeCentroids</a></li><li><a href="global.html#makeEmptyArrayIfUndefined">makeEmptyArrayIfUndefined</a></li><li><a href="global.html#makeIsWithinRange">makeIsWithinRange</a></li><li><a href="global.html#makeKeyedZeroes">makeKeyedZeroes</a></li><li><a href="global.html#makeKeysGetter">makeKeysGetter</a></li><li><a href="global.html#makeLines">makeLines</a></li><li><a href="global.html#makeLinkVector">makeLinkVector</a></li><li><a href="global.html#makeMergeKeyValue">makeMergeKeyValue</a></li><li><a href="global.html#makeOccurrences">makeOccurrences</a></li><li><a href="global.html#makePosition2D">makePosition2D</a></li><li><a href="global.html#makePosition3D">makePosition3D</a></li><li><a href="global.html#makePrinter">makePrinter</a></li><li><a href="global.html#makeRandomNumInRange">makeRandomNumInRange</a></li><li><a href="global.html#makeRows">makeRows</a></li><li><a href="global.html#makeSplitBy">makeSplitBy</a></li><li><a href="global.html#makeSplitStringBy">makeSplitStringBy</a></li><li><a href="global.html#makeStyle">makeStyle</a></li><li><a href="global.html#makeToGeoPoints">makeToGeoPoints</a></li><li><a href="global.html#makeToPointFeature">makeToPointFeature</a></li><li><a href="global.html#makeVectorFeatures">makeVectorFeatures</a></li><li><a href="global.html#mapValuesToFloat">mapValuesToFloat</a></li><li><a href="global.html#mapValuesToFloatPossibly">mapValuesToFloatPossibly</a></li><li><a href="global.html#mapValuesToNumber">mapValuesToNumber</a></li><li><a href="global.html#mergeObj">mergeObj</a></li><li><a href="global.html#mergeWith">mergeWith</a></li><li><a href="global.html#mergeWithAppendTo">mergeWithAppendTo</a></li><li><a href="global.html#mergeWithConcat">mergeWithConcat</a></li><li><a href="global.html#mergeWithMerge">mergeWithMerge</a></li><li><a href="global.html#mergeWithSum">mergeWithSum</a></li><li><a href="global.html#moveNode">moveNode</a></li><li><a href="global.html#ndjsonToArray">ndjsonToArray</a></li><li><a href="global.html#objectToKeyValueArray">objectToKeyValueArray</a></li><li><a href="global.html#pairToKeyValueObject">pairToKeyValueObject</a></li><li><a href="global.html#prepend">prepend</a></li><li><a href="global.html#readCsv">readCsv</a></li><li><a href="global.html#readJson">readJson</a></li><li><a href="global.html#readJsonDir">readJsonDir</a></li><li><a href="global.html#removeAt">removeAt</a></li><li><a href="global.html#renameToCss">renameToCss</a></li><li><a href="global.html#renameToExtension">renameToExtension</a></li><li><a href="global.html#renameToMinJs">renameToMinJs</a></li><li><a href="global.html#renameToMjs">renameToMjs</a></li><li><a href="global.html#requestJson">requestJson</a></li><li><a href="global.html#requestNdjson">requestNdjson</a></li><li><a href="global.html#saveObj">saveObj</a></li><li><a href="global.html#saveObjPassthrough">saveObjPassthrough</a></li><li><a href="global.html#saveResponse">saveResponse</a></li><li><a href="global.html#setGeometryPrecision">setGeometryPrecision</a></li><li><a href="global.html#split">split</a></li><li><a href="global.html#splitByDot">splitByDot</a></li><li><a href="global.html#splitByEOL">splitByEOL</a></li><li><a href="global.html#splitBySemiColon">splitBySemiColon</a></li><li><a href="global.html#startsWith">startsWith</a></li><li><a href="global.html#stringify">stringify</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#tapAppendTo">tapAppendTo</a></li><li><a href="global.html#tapType">tapType</a></li><li><a href="global.html#tapTypeAndValue">tapTypeAndValue</a></li><li><a href="global.html#tapValue">tapValue</a></li><li><a href="global.html#toFloatIsValidNumber">toFloatIsValidNumber</a></li><li><a href="global.html#toFloatOrIdentity">toFloatOrIdentity</a></li><li><a href="global.html#toggleItem">toggleItem</a></li><li><a href="global.html#toNumberisValidNumber">toNumberisValidNumber</a></li><li><a href="global.html#toPx">toPx</a></li><li><a href="global.html#transformValues">transformValues</a></li><li><a href="global.html#trim">trim</a></li><li><a href="global.html#valuesMax">valuesMax</a></li><li><a href="global.html#valuesMaxBy">valuesMaxBy</a></li><li><a href="global.html#valuesMaxWith">valuesMaxWith</a></li><li><a href="global.html#valuesMin">valuesMin</a></li><li><a href="global.html#valuesMinBy">valuesMinBy</a></li><li><a href="global.html#valuesMinWith">valuesMinWith</a></li><li><a href="global.html#vectorLength2D">vectorLength2D</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Feb 26 2019 00:02:54 GMT+0000 (Greenwich Mean Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
