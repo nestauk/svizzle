@@ -18,7 +18,7 @@
         "cleanpacklocks": "rimraf packages/**/package-lock.json",
         "cleanpacks": "npm run cleandist && npm run lernaclean",
         "deploy": "gh-pages -d _docBuild",
-        "buildDoc": "rimraf docs && jsdoc -c jsdoc.conf.json -R README.md -d _docBuild",
+        "buildDoc": "rimraf _docBuild && jsdoc -c jsdoc.conf.json -R README.md -d _docBuild",
         "deployDoc": "npm run buildDoc && npm run deploy",
         "serveDoc": "npm run buildDoc && cd _docBuild && serve",
         "lernaboot": "lerna bootstrap --hoist",
