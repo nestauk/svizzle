@@ -2,7 +2,12 @@ import {strict as assert} from "assert";
 import path from "path";
 import * as _ from "lamb";
 
-import {readCsv, readJson, readJsonDir} from "./read";
+import {
+  readCsv,
+  readTsv,
+  readJson,
+  readJsonDir
+} from "./read";
 
 describe("read", function() {
     describe("readCsv", function() {
@@ -19,6 +24,23 @@ describe("read", function() {
                 csvParsed.columns = ["a", "b"];
 
                 assert.deepStrictEqual(csv, csvParsed);
+            }
+        );
+    });
+    describe("readTsv", function() {
+        it("should return a promise that reads and then parses a tsv file",
+            async function() {
+                const tsvPath = path.resolve(__dirname, "../test_assets", "ab.tsv");
+                const conversionFn = row => ({
+                    a: row.a,
+                    b: Number(row.b)
+                });
+                const tsv = await readTsv(tsvPath, conversionFn);
+
+                const tsvParsed = [{a: "foo", b: 1}, {a: "bar", b: 2}];
+                tsvParsed.columns = ["a", "b"];
+
+                assert.deepStrictEqual(tsv, tsvParsed);
             }
         );
     });

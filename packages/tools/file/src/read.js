@@ -6,7 +6,7 @@ import fs from "fs";
 import path from "path";
 import util from "util";
 
-import {csvParse} from "d3-dsv";
+import {csvParse, tsvParse} from "d3-dsv";
 
 import {filterJsonExtensions} from "./path";
 
@@ -14,9 +14,9 @@ const readFile = util.promisify(fs.readFile);
 const readDir = util.promisify(fs.readdir);
 
 /**
+ * [node environment]
  * Return a promise that reads and then parses a csv file.
  * You can use create a conversionFn using transformValues() from @svizzle/utils
- * [node environment]
  *
  * @function
  * @arg {string} csvPath - The filepath of the CSV file to read.
@@ -38,6 +38,32 @@ const readDir = util.promisify(fs.readdir);
 export const readCsv = (csvPath, conversionFn) =>
     readFile(csvPath, "utf-8")
     .then(str => csvParse(str, conversionFn));
+
+/**
+ * [node environment]
+ * Return a promise that reads and then parses a tsv file.
+ * You can use create a conversionFn using transformValues() from @svizzle/utils
+ *
+ * @function
+ * @arg {string} tsvPath - The filepath of the TSV file to read.
+ * @arg {function} conversionFn - A function invoked for each row to convert columns values.
+ * @see https://github.com/d3/d3-dsv#dsv_parse
+ * @return {promise}
+ *
+ * @example
+ * readTsv("source/path", row => ({
+ *   name: row.name,
+ *   amount: Number(row.amount)
+ * }))
+ * .then(x => console.log(x))
+ * .catch(err => console.error(err));
+ * // [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+ *
+ * @version 0.3.0
+ */
+export const readTsv = (tsvPath, conversionFn) =>
+    readFile(tsvPath, "utf-8")
+    .then(str => tsvParse(str, conversionFn));
 
 /**
  * Return a promise that reads and then parses a json file.
