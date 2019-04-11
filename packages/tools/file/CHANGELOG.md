@@ -1,3 +1,7 @@
+## `@svizzle/file` v0.3.0
+
+- add `readTsv`
+
 ## `@svizzle/file` v0.2.0
 
 - `saveObj` and `saveObjPassthrough` accept a `indent` argument

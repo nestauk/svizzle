@@ -1,5 +1,9 @@
 # Svizzle changelog
 
+## `@svizzle/file` v0.3.0
+
+- add `readTsv`
+
 ## 20190411
 
 - docs:
