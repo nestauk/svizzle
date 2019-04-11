@@ -116,6 +116,15 @@ export const makeCentroids = _.pipe([
  *
  * @example
 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
+
+const toPointFeature = makeToPointFeature(coordPicker);
+toPointFeature({foo: "a", lng: 0.1, lat: 0.1})
+// => {
+ "type": "Feature",
+ "geometry": {"type": "Point", "coordinates": [0.1, 0.1]},
+ "properties": {foo: "a", lng: 0.1, lat: 0.1}
+}
+
 const propsTransformer = applyFnMap({name: _.getKey("foo")});
 const toPointFeature = makeToPointFeature(coordPicker, propsTransformer);
 toPointFeature({foo: "a", lng: 0.1, lat: 0.1})
@@ -147,6 +156,25 @@ export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
  *
  * @example
 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
+
+const toGeoPoints = makeToGeoPoints(coordPicker);
+toGeoPoints([
+  {foo: "a", lng: 0.1, lat: 0.1},
+  {foo: "b", lng: 0.2, lat: 0.2}
+]);
+// => {
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "geometry": {"type": "Point", "coordinates": [0.1, 0.1]},
+    "properties": {foo: "a", lng: 0.1, lat: 0.1}
+  }, {
+    "type": "Feature",
+    "geometry": {"type": "Point", "coordinates": [0.2, 0.2]},
+    "properties": {foo: "b", lng: 0.2, lat: 0.2}
+  }]
+}
+
 const propsTransformer = applyFnMap({name: _.getKey("foo")});
 const toGeoPoints = makeToGeoPoints(coordPicker, propsTransformer);
 toGeoPoints([
@@ -158,11 +186,11 @@ toGeoPoints([
   "features": [{
     "type": "Feature",
     "geometry": {"type": "Point", "coordinates": [0.1, 0.1]},
-    "properties": {"foo": "a", lng: 0.1, lat: 0.1}
+    "properties": {"name": "a"}
   }, {
     "type": "Feature",
     "geometry": {"type": "Point", "coordinates": [0.2, 0.2]},
-    "properties": {"foo": "b", lng: 0.2, lat: 0.2}
+    "properties": {"name": "b"}
   }]
 }
  * @version 0.1.0
@@ -182,17 +210,17 @@ export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
  * @return {function}
  *
  * @example
-const shortenGeometry = setGeometryPrecision(4);
+const truncateGeometry = setGeometryPrecision(4);
 const point = {
   "type": "Feature",
   "geometry": {"type": "Point", "coordinates": [0.1234567, 0.12341]},
-  "properties": {}
+  "properties": {"name": "a"}
 };
-shortenGeometry(point)
-=> {
+truncateGeometry(point)
+// => {
   "type": "Feature",
   "geometry": {"type": "Point", "coordinates": [0.1234, 0.1234]},
-  "properties": {}
+  "properties": {"name": "a"}
 }
  * @version 0.1.0
  */
