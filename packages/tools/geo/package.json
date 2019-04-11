@@ -5,7 +5,7 @@
         "url": "https://github.com/nestauk/svizzle/issues"
     },
     "dependencies": {
-        "@svizzle/file": "^0.1.0",
+        "@svizzle/file": "^0.2.0",
         "@turf/bbox": "^6.0.1",
         "@turf/centroid": "^6.0.2",
         "@turf/helpers": "^6.1.4",
@@ -15,8 +15,8 @@
     },
     "description": "Svizzle Geo contains geography related helpers.",
     "devDependencies": {
-        "@svizzle/dev": "^0.1.0",
-        "@svizzle/utils": "^0.1.0",
+        "@svizzle/dev": "^0.2.0",
+        "@svizzle/utils": "^0.2.0",
         "esm": "^3.0.84",
         "mocha": "^5.2.0",
         "rollup": "^0.67.3",
@@ -54,5 +54,5 @@
         "build": "rollup -c",
         "test": "mocha -r esm --recursive src"
     },
-    "version": "0.1.0"
+    "version": "0.2.0"
 }

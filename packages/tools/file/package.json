@@ -4,14 +4,14 @@
         "url": "https://github.com/nestauk/svizzle/issues"
     },
     "dependencies": {
-        "@svizzle/utils": "^0.1.0",
+        "@svizzle/utils": "^0.2.0",
         "d3-dsv": "^1.0.10",
         "lamb": "^0.57.0"
     },
     "description": "Svizzle File contains file related helpers for node.",
     "devDependencies": {
-        "@svizzle/dev": "^0.1.0",
-        "@svizzle/request": "^0.1.0",
+        "@svizzle/dev": "^0.2.0",
+        "@svizzle/request": "^0.1.1",
         "esm": "^3.0.84",
         "mocha": "^5.2.0",
         "nock": "^10.0.6",
@@ -53,5 +53,5 @@
         "build": "rollup -c",
         "test": "mocha -r esm --recursive src"
     },
-    "version": "0.1.0"
+    "version": "0.2.0"
 }

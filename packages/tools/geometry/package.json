@@ -9,7 +9,7 @@
     },
     "description": "Svizzle Geometry contains geometry related helpers.",
     "devDependencies": {
-        "@svizzle/dev": "^0.1.0",
+        "@svizzle/dev": "^0.2.0",
         "esm": "^3.0.84",
         "mocha": "^5.2.0",
         "rollup": "^0.67.3",

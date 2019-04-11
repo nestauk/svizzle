@@ -34,7 +34,7 @@ In the `dev` branch:
 
 In the `dev` branch:
 
-- bump the versions: `lerna version --no-changelog --no-git-tag-version --no-push`:
+- Bump the versions: `lerna version --no-changelog --no-git-tag-version --no-push`:
 
   Follow instructions to bump changed packages with a `patch`, `minor` or `major` version, accept when ready.
 
@@ -45,8 +45,9 @@ In the `dev` branch:
     - re-install dependencies,
     - run tests,
     - make builds;
-  - bump versions (only allowed in `dev`);
-  - create a commit on the repo.
+  - bump versions (only allowed in `dev`).
+
+- Create a commit on the repo.
 
 - if something goes wrong or we forgot something and Lerna actually committed:
    - discard the version commit, we have 2 ways:
@@ -55,14 +56,12 @@ In the `dev` branch:
    - edit some code again;
    - **rebase again** the commits since the last release.
 
-- if everything went fine:
-    - `git push`
+- If everything went fine: - `git push`
 
-Merge to master:
-
-- `git checkout master`
-- `git merge dev`
-- `git push`
+- Merge to master:
+   - `git checkout master`
+   - `git merge dev`
+   - `git push`
 
 ## Publishing
 
