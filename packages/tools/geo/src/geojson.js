@@ -110,8 +110,8 @@ export const makeCentroids = _.pipe([
  * const getCoordinates = makeKeysGetter(["lng", "lat"])
  *
  * @function
- * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]).
- * @arg {function} propsTransformer - The function to get the properties for the resulting point
+ * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]) from the provided feature
+ * @arg {function} propsTransformer - The function to create the properties of the resulting point from the provided feature
  * @return {object} - Geojson Point feature.
  *
  * @example
@@ -151,7 +151,8 @@ export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
  * const getCoordinates = makeKeysGetter(["lng", "lat"])
  *
  * @function
- * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]).
+ * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]) from the provided features
+ * @arg {function} propsTransformer - The function to create the properties of the resulting points from the provided features
  * @return {object} - FeatureCollection of Point features
  *
  * @example
