@@ -1,5 +1,6 @@
-## `@svizzle/utils` v0.2.1 (next)
+## `@svizzle/utils` v0.3.0 (next)
 
+- added `keyValueArrayToObject`
 - updated docs
 
 ## `@svizzle/utils` v0.2.0

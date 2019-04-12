@@ -5,6 +5,41 @@
 import * as _ from "lamb";
 
 /**
+ * Return an object built using 'key's and 'value's from the objects in the provided array
+ *
+ * @function
+ * @arg {array} objects - array of objects
+ * @return {object} object
+ *
+ * @example
+const objects = [
+  {key: "ITA", value: 0},
+  {key: "FRA", value: 0},
+  {key: "BRA", value: 0},
+  {key: "GER", value: 1},
+  {key: "USA", value: 1},
+];
+
+keyValueArrayToObject(objects)
+// => {
+  "ITA": 0,
+  "FRA": 0,
+  "BRA": 0,
+  "GER": 1,
+  "USA": 1
+}
+ *
+ * @version 0.3.0
+ */
+export const keyValueArrayToObject = objects => _.reduce(objects,
+    (acc, {key, value}) => {
+        acc[key] = value;
+        return acc;
+    },
+    {}
+);
+
+/**
  * Return an object with the provided array elements as keys and all values equal to zero
  *
  * @function

@@ -1,12 +1,33 @@
 import {strict as assert} from "assert";
 
 import {
+    keyValueArrayToObject,
     makeKeyedZeroes,
     makeOccurrences,
     makeAllOccurrences
 } from "./object";
 
 describe("Array -> Object", function() {
+    describe("keyValueArrayToObject", function() {
+        it("should return an object built using 'key's and 'value's from the objects in the provided array", function() {
+            assert.deepStrictEqual(
+                keyValueArrayToObject([
+                  {key: "ITA", value: 0},
+                  {key: "FRA", value: 0},
+                  {key: "BRA", value: 0},
+                  {key: "GER", value: 1},
+                  {key: "USA", value: 1},
+                ]),
+                {
+                  "ITA": 0,
+                  "FRA": 0,
+                  "BRA": 0,
+                  "GER": 1,
+                  "USA": 1
+                }
+            );
+        });
+    });
     describe("makeKeyedZeroes", function() {
         it("should return an object with the provided array elements as keys and all values equal to zero", function() {
             assert.deepStrictEqual(
