@@ -8,8 +8,8 @@ import * as _ from "lamb";
  * Return true if the input string starts with the test string
  *
  * @function
- * @arg {string} - The input string
- * @arg {string} - The test string
+ * @arg {string} string - The input string
+ * @arg {string} string - The test string
  * @return {boolean} - True if the input string starts with the test string
  *
  * @example

@@ -12,7 +12,7 @@ import {makeSplitBy} from "./fn/string/array";
  * Return an array by splitting by "."
  *
  * @function
- * @arg {string}
+ * @arg {string} string
  * @return {array}
  *
  * @example
@@ -26,7 +26,7 @@ export const splitByDot = makeSplitBy(".");
  * Return an array by splitting by "\n"
  *
  * @function
- * @arg {string}
+ * @arg {string} string
  * @return {array}
  *
  * @example
@@ -40,7 +40,7 @@ export const splitByEOL = makeSplitBy("\n");
  * Return an array by splitting by ";"
  *
  * @function
- * @arg {string}
+ * @arg {string} string
  * @return {array}
  *
  * @example
@@ -54,7 +54,7 @@ export const splitBySemiColon = makeSplitBy(";");
  * Return rows in a string
  *
  * @function
- * @arg {string}
+ * @arg {string} string
  * @return {array}
  *
  * @example
@@ -72,7 +72,7 @@ export const makeLines = _.pipe([
  * Useful for CSVs.
  *
  * @function
- * @arg {string}
+ * @arg {string} string
  * @return {array}
  *
  * @example
@@ -92,7 +92,7 @@ export const makeRows = _.pipe([
  * Return an array from a ndjson string
  *
  * @function
- * @arg {string}
+ * @arg {string} ndjsonString
  * @return {array}
  *
  * @example

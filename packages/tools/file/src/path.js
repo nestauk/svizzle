@@ -13,7 +13,7 @@ import {mergeObj} from "@svizzle/utils";
  * [node environment]
  *
  * @function
- * @arg {array} - An array of extensions.
+ * @arg {array} - An array of extensions
  * @return {boolean}
  *
  * @example
@@ -32,7 +32,7 @@ export const hasAnyExtensionOf = extensions =>
  * [node environment]
  *
  * @function
- * @arg {string} - Array of file names.
+ * @arg {string} - Array of file names
  * @return {array}
  *
  * @example
@@ -50,7 +50,7 @@ export const filterJsonExtensions =
  * [node environment]
  *
  * @function
- * @arg {string} ext - file extension, including the dot (`.txt`, `.csv`, etc).
+ * @arg {string} ext - file extension, including the dot (`.txt`, `.csv`, etc)
  * @return {function}
  *
  * @example

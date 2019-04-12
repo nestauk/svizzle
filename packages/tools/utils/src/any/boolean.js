@@ -8,7 +8,7 @@ import * as _ from "lamb";
  * Return true is the input is an array
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example
@@ -30,7 +30,7 @@ export const isArray = _.isType("Array");
  * Return true is the input is a number
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example
@@ -53,7 +53,7 @@ export const isNumber = _.isType("Number");
  * Return true is the input is an object
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example
@@ -77,7 +77,7 @@ export const isObject = _.isType("Object");
  * Return true is the input is a string
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example
@@ -103,7 +103,7 @@ export const isString = _.isType("String");
  * Remember that {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#Confusing_special-case_behavior|isNaN coerces the input with Number()} to the output can be a bit surprising.
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example
@@ -135,7 +135,7 @@ export const isNotNaN = _.not(isNaN);
  * Return true is the input is a valid number (including not being NaN)
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example
@@ -175,7 +175,7 @@ export const isValidNumber = _.allOf([isNumber, isNotNaN]);
  * Return true if the input, converted to Number, is indeed a number
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example
@@ -217,7 +217,7 @@ export const toNumberisValidNumber = _.pipe([Number, isValidNumber]);
  * Return true if the input, parsed to float, is a valid number
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example
@@ -260,7 +260,7 @@ export const toFloatIsValidNumber = _.pipe([parseFloat, isValidNumber]);
  * Return true is the input is not undefined or null.
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {boolean}
  *
  * @example

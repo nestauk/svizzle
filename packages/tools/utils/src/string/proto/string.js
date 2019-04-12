@@ -8,7 +8,7 @@ import * as _ from "lamb";
  * Return a string by trimming white space of the provided string
  *
  * @function
- * @arg {string}
+ * @arg {string} string
  * @return {string}
  *
  * @example

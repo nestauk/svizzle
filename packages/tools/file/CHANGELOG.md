@@ -1,3 +1,7 @@
+## `@svizzle/file` v0.3.1 (next)
+
+- updated docs
+
 ## `@svizzle/file` v0.3.0
 
 - add `readTsv`

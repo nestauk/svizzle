@@ -1,3 +1,7 @@
+## `@svizzle/utils` v0.2.1 (next)
+
+- updated docs
+
 ## `@svizzle/utils` v0.2.0
 
 - added missing tests and docs

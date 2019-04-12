@@ -8,7 +8,7 @@ import * as _ from "lamb";
  * Return `true` if the input number is 0.
  *
  * @function
- * @arg {number}
+ * @arg {number} number
  * @return {boolean}
  *
  * @example
@@ -23,7 +23,7 @@ export const is0 = _.is(0);
  * Return `true` if the input number is 1.
  *
  * @function
- * @arg {number}
+ * @arg {number} number
  * @return {boolean}
  *
  * @example
@@ -38,7 +38,7 @@ export const is1 = _.is(1);
  * Return `true` if the input number is greater than 0.
  *
  * @function
- * @arg {number}
+ * @arg {number} number
  * @return {boolean}
  *
  * @example
@@ -53,7 +53,7 @@ export const isGT0 = _.isGT(0);
  * Return `true` if the input number is greater than 1.
  *
  * @function
- * @arg {number}
+ * @arg {number} number
  * @return {boolean}
  *
  * @example

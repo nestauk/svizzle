@@ -11,7 +11,7 @@ import {joinWith} from "../string/fn/array/string";
  * Return a string joining the provided array items with a dash
  *
  * @function
- * @arg {array}
+ * @arg {array} array
  * @return {string}
  *
  * @example joinWithDash(["a", "b", "c"]) // "a-b-c"
@@ -24,7 +24,7 @@ export const joinWithDash = joinWith("-");
  * Return a string joining the provided array items with a colon
  *
  * @function
- * @arg {array}
+ * @arg {array} array
  * @return {string}
  *
  * @example joinWithColon(["a", "b", "c"]) // "a:b:c"
@@ -37,7 +37,7 @@ export const joinWithColon = joinWith(":");
  * Return a string joining the provided array items with a semicolon
  *
  * @function
- * @arg {array}
+ * @arg {array} array
  * @return {string}
  *
  * @example joinWithSemicolon(["a", "b", "c"]) // "a;b;c"

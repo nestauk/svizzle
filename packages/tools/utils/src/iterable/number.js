@@ -8,7 +8,7 @@ import * as _ from "lamb";
  * Get the length of the iterable
  *
  * @function
- * @arg {iterable}
+ * @arg {iterable} iterable
  * @return {number}
  *
  * @example

@@ -11,7 +11,7 @@ import {joinWith} from "../../../string/fn/array/string";
  * Return a function expecting an object to be used as the argument of the provided functions
  *
  * @function
- * @arg {object}
+ * @arg {object} object
  * @return {function}
  *
  * @example

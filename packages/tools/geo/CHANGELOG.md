@@ -1,3 +1,7 @@
+## `@svizzle/geo` v0.2.1 (next)
+
+- updated docs
+
 ## `@svizzle/geo` v0.2.0
 
 - `makeToPointFeature` and `makeToGeoPoints` accept a `propsTransformer` argument

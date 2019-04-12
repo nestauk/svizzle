@@ -1,3 +1,7 @@
+## `@svizzle/file` v0.2.1 (next)
+
+- updated docs
+
 ## `@svizzle/dev` v0.2.0
 
 - add `renameToExtension`

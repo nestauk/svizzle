@@ -13,7 +13,7 @@ import {getObjSize} from "./number";
  * {}  => true
  *
  * @function
- * @arg {object}
+ * @arg {object} object
  * @return {boolean}
  *
  * @example
@@ -30,7 +30,7 @@ export const isObjEmpty = _.pipe([getObjSize, is0]);
  * {a: 1}  => true
  *
  * @function
- * @arg {object}
+ * @arg {object} object
  * @return {boolean}
  *
  * @example

@@ -1,5 +1,9 @@
 # Svizzle changelog
 
+## (next)
+
+- fixed npm script
+
 ## `@svizzle/file` v0.3.0
 
 - add `readTsv`

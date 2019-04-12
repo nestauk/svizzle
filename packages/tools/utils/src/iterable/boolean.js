@@ -12,7 +12,7 @@ import {getLength} from "./number";
  * Use to check if an iterable is empty
  *
  * @function
- * @arg {iterable}
+ * @arg {iterable} iterable
  * @return {boolean}
  *
  * @example
@@ -34,7 +34,7 @@ export const isIterableEmpty = _.pipe([getLength, is0]);
  * Use to check if an iterable is not empty
  *
  * @function
- * @arg {iterable}
+ * @arg {iterable} iterable
  * @return {boolean}
  *
  * @example
@@ -56,7 +56,7 @@ export const isIterableNotEmpty = _.pipe([getLength, isGT0]);
  * Use to check if an iterable has a single element
  *
  * @function
- * @arg {iterable}
+ * @arg {iterable} iterable
  * @return {boolean}
  *
  * @example
@@ -79,7 +79,7 @@ export const hasIterableLength1 = _.pipe([getLength, is1]);
  * Use to check if an iterable has more than an element
  *
  * @function
- * @arg {iterable}
+ * @arg {iterable} iterable
  * @return {boolean}
  *
  * @example

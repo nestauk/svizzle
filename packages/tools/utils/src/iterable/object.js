@@ -6,7 +6,7 @@
  * Return the {key, value} object from a pair
  *
  * @function
- * @arg {iterable}
+ * @arg {iterable} iterable
  * @return {number}
  *
  * @example

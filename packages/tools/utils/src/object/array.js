@@ -12,7 +12,7 @@ import {pickIfTruthy} from "./object";
  *
  *
  * @function
- * @arg {number}
+ * @arg {object} object
  * @return {boolean}
  *
  * @example

@@ -33,7 +33,7 @@ export const makeEmptyArrayIfUndefined = x => _.isUndefined(x) ? [] : x;
  * Return a number if the input can be converted to float, identity otherwise
  *
  * @function
- * @arg {*}
+ * @arg {*} any
  * @return {number|*}
  *
  * @example
@@ -63,7 +63,7 @@ export const toFloatOrIdentity = x => {
  * Print and return the input.
  *
  * @function
- * @arg {*} - any
+ * @arg {*} any
  * @return {*} Same as input
  *
  * @example
@@ -93,7 +93,7 @@ export const tapValue = x => {
  * Print the input type and return the input.
  *
  * @function
- * @arg {*} - any
+ * @arg {*} any
  * @return {*} Same as input
  *
  * @example
@@ -123,7 +123,7 @@ export const tapType = x => {
  * Print the input type and value and return the input.
  *
  * @function
- * @arg {*} - any
+ * @arg {*} any
  * @return {*} Same as input
  *
  * @example

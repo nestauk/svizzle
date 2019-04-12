@@ -10,7 +10,7 @@ import {split} from "../../proto/array";
  * Return a function expecting a separator or regex to split the provided string
  *
  * @function
- * @arg {string} - String to split
+ * @arg {string} string - String to split
  * @return {function}
  *
  * @example
@@ -27,7 +27,7 @@ export const makeSplitStringBy = _.curry(split, 2);
  * Return a function expecting a string to be split using the provided separator or regex
  *
  * @function
- * @arg {string} - Separator or regex
+ * @arg {stringOrRegex} stringOrRegex - Separator or regex
  * @return {function}
  *
  * @example

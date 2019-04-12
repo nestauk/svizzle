@@ -6,7 +6,7 @@
  * Return a string representation of the input with indentation = 2.
  *
  * @function
- * @arg {*} - any
+ * @arg {*} any
  * @return {string}
  *
  * @version 0.1.0

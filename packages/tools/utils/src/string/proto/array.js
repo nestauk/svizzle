@@ -8,8 +8,8 @@ import * as _ from "lamb";
  * Return an array splitting the input string with the provided separator or regex
  *
  * @function
- * @arg {string} - Input
- * @arg {string} - Separator or regex
+ * @arg {string} string - The input string
+ * @arg {stringOrRegex} stringOrRegex - Separator or regex
  * @return {array}
  *
  * @example

@@ -6,13 +6,13 @@
  * Return a function expecting the filepath to rename
  *
  * @function
- * @arg {string}
+ * @arg {string} extension
  * @return {string}
  *
  * @example
 const renameToFoo = renameToExtension(".foo")
-renameToFoo("filepath.txt") // "filepath.foo"
-renameToFoo("filepath.spec.txt") // "filepath.spec.foo"
+renameToFoo("filename.txt") // "filename.foo"
+renameToFoo("filename.spec.txt") // "filename.spec.foo"
  *
  * @version 0.2.0
  */
@@ -29,10 +29,10 @@ export const renameToExtension = ext => filepath => {
  * dist/component.js -> dist/component.css
  *
  * @function
- * @arg {string}
+ * @arg {string} filepath
  * @return {string}
  *
- * @example renameToCss("filepath.js") // "filepath.css"
+ * @example renameToCss("filename.js") // "filename.css"
  *
  * @version 0.1.0
  */
@@ -44,10 +44,10 @@ export const renameToCss = renameToExtension(".css");
  * dist/component.js -> dist/component.min.js
  *
  * @function
- * @arg {string}
+ * @arg {string} filepath
  * @return {string}
  *
- * @example renameToMinJs("filepath.js") // "filepath.min.js"
+ * @example renameToMinJs("filename.js") // "filename.min.js"
  *
  * @version 0.1.0
  */
@@ -59,10 +59,10 @@ export const renameToMinJs = renameToExtension(".min.js");
  * dist/component.js -> dist/component.mjs
  *
  * @function
- * @arg {string}
+ * @arg {string} filepath
  * @return {string}
  *
- * @example renameToCss("filepath.js") // "filepath.mjs"
+ * @example renameToCss("filename.js") // "filename.mjs"
  *
  * @version 0.1.0
  */
