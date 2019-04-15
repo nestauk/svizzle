@@ -72,7 +72,7 @@ export const transformValues = fnMap => _.mapValuesWith(
  * Return a function expecting an object to merge with the input object
  *
  * @function
- * @arg {object} inputObject - Object to be merged to the provided object
+ * @arg {object} object - Object to be merged to the provided object
  * @return {function}
  *
  * @example

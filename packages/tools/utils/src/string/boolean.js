@@ -11,7 +11,7 @@ import {trim} from "./proto/string";
  * Return true if the trimmed string is not empty
  *
  * @function
- * @arg {string} - The input string
+ * @arg {string} string - The input string
  * @return {boolean}
  *
  * @example

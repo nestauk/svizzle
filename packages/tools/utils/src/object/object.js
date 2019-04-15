@@ -69,8 +69,8 @@ export const mapValuesToNumber = _.mapValuesWith(Number);
  * Return the merge of the two provided objects adding values of correspondent keys
  *
  * @function
- * @arg {object} - The base object
- * @arg {object} - The object to merge on the base object
+ * @arg {object} baseObject - The base object
+ * @arg {object} objectToMerge - The object to merge on the base object
  * @return {object} - The merged object
  *
  * @example
@@ -90,8 +90,8 @@ export const mergeWithSum = mergeWith(_.sum);
  * Return the merge of the two provided objects merging values of correspondent keys
  *
  * @function
- * @arg {object} - The base object
- * @arg {object} - The object to merge on the base object
+ * @arg {object} baseObject - The base object
+ * @arg {object} objectToMerge - The object to merge on the base object
  * @return {object} - The merged object
  *
  * @example
@@ -110,8 +110,8 @@ export const mergeWithMerge = mergeWith(_.merge);
  * Return the merge of the two provided objects concatenating values of correspondent keys
  *
  * @function
- * @arg {object} - The base object
- * @arg {object} - The object to merge on the base object
+ * @arg {object} baseObject - The base object
+ * @arg {object} objectToMerge - The object to merge on the base object
  * @return {object} - The merged object
  *
  * @example
@@ -131,8 +131,8 @@ export const mergeWithConcat = mergeWith(concat);
  * Return the merge of the two provided objects appending values of correspondent keys
  *
  * @function
- * @arg {object} - The base object
- * @arg {object} - The object to merge on the base object
+ * @arg {object} baseObject - The base object
+ * @arg {object} objectToMerge - The object to merge on the base object
  * @return {object} - The merged object
  *
  * @example
@@ -152,8 +152,8 @@ export const mergeWithAppendTo = mergeWith(_.appendTo);
  * Return a copy of the object without falsy values
  *
  * @function
- * @arg {object} - The input object
- * @return {object} - The object with truthy values
+ * @arg {object} object - The input object
+ * @return {object} object - The object with truthy values
  *
  * @example
 pickIfTruthy({a: true, b: true, c: false}) // {a: true, b: true}

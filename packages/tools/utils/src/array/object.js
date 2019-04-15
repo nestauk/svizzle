@@ -58,11 +58,12 @@ export const makeKeyedZeroes = _.pipe([
 ]);
 
 /**
- * Return an object of occurences of objects in the provided array containing the provided keys
+ * Return an object of occurrences of keys in the provided array containing the provided keys
  *
  * @function
  * @arg {array} objects - array of objects
- * @return {object} occurrences - occurrences of objects with the given keys
+ * @arg {array} keys - array of keys
+ * @return {object} occurrences - occurrences of keys
  *
  * @example
 const objects = [{a: 1}, {a: 6, b: -1}, {a: 2, b: 0, c: 1}, {c: 4, e: 2}];
@@ -87,7 +88,7 @@ export const makeOccurrences = (items, keys) => _.reduce(items,
 );
 
 /**
- * Return an object of occurences of all the keys contained in the objects in the provided array
+ * Return an object of occurrences of all the keys contained in the objects in the provided array
  *
  * @function
  * @arg {array} objects - array of objects

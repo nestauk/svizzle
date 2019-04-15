@@ -10,7 +10,7 @@ import {makeWithKeys} from "../array/object";
  * Return a function returning an object by assigning the results of the provided functions assigned to the provided keys.
  *
  * @function
- * @arg {array} [keys, functions] - Array of keys and functions arrays
+ * @arg {array} array - Array of keys and functions arrays
  * @return {function} - function expecting Any type and returning an Object
  *
  * @example

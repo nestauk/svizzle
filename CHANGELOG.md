@@ -3,6 +3,7 @@
 ## (next)
 
 - fixed npm script
+- updated docs
 
 ## `@svizzle/file` v0.3.0
 

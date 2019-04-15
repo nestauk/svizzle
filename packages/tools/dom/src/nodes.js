@@ -15,7 +15,7 @@ import {mapValuesToFloatPossibly} from "@svizzle/utils";
  * for example `font-size` -> `fontSize`.
  *
  * @function
- * @arg {object} DOM element
+ * @arg {object} node - DOM element
  * @arg {array} additionalProps
  * @return {object}
  *

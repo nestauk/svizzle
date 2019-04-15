@@ -31,7 +31,7 @@ export const objectToKeyValueArray = _.pipe([
  * Return the keys of the provided object with a truthy value
  *
  * @function
- * @arg {object} - The input object
+ * @arg {object} object - The input object
  * @return {array} - The keys correspondent to truthy values
  *
  * @example

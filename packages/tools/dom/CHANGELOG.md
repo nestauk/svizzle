@@ -1,3 +1,7 @@
+## `@svizzle/dom` v0.2.1 (next)
+
+- updated docs
+
 ## `@svizzle/dom` v0.2.0
 
 - changed `toPx` to not throw anymore

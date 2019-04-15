@@ -12,7 +12,7 @@ import truncate from "@turf/truncate";
  * Return or create the {@link https://tools.ietf.org/html/rfc7946#section-5|bbox} of the provided geojson
  *
  * @function
- * @arg {object} - Geojson object
+ * @arg {object} geojson - Geojson object
  * @return {array}
  *
  * @example
@@ -65,7 +65,7 @@ export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
  * Return the a collection of centroids of the provided features, each having the correspondent feature properties.
  *
  * @function
- * @arg {array} - Array of features
+ * @arg {array} features - Array of features
  * @return {object} FeatureCollection of Point features
  *
  * @example

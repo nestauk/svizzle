@@ -6,7 +6,7 @@ Lerna is in independent mode (`lerna init --independent`) so that we can version
 
 ## Basic operations
 
-- adding a dependency to add packages: `lerna add -D svelte`
+- adding a dependency to all packages: `lerna add -D svelte`
 - adding a dependency to a specific package: `lerna add nock -D --scope=@svizzle/request`
 
 (TODO describe npm scripts)
@@ -56,7 +56,7 @@ In the `dev` branch:
    - edit some code again;
    - **rebase again** the commits since the last release.
 
-- If everything went fine: - `git push`
+- If everything went fine: `git push`
 
 - Merge to master:
    - `git checkout master`
@@ -89,8 +89,8 @@ We could push them [1] but:
 
 Instead we'll tag manually a bunch of releases together:
 
-- `git tag -a 20180220`
-- `git push origin 20180220`
-- (`git push origin :20180220` to delete it if needs to be done again)
+- `git tag -a 20190220`
+- `git push origin 20190220`
+- (`git push origin :20190220` to delete it if needs to be done again)
 
 [1] one by one with `git push origin @svizzle/dev@0.1.0` etc, don't use `git push --all`

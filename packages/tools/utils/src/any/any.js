@@ -10,7 +10,7 @@ import {isValidNumber} from "./boolean";
  * Return an empty array if the input is undefined or identity otherwise.
  *
  * @function
- * @arg {*} - any
+ * @arg {*} any
  * @return {(*|array)}
  *
  * @example
