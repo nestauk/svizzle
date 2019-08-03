@@ -13,6 +13,10 @@
 
 - updated docs
 
+### Any -> (Array -> Object)
+
+- added `makeKeyed`
+
 ### Array -> Array
 
 - added `getFirstAndLast`

@@ -3,6 +3,7 @@
 */
 
 import * as _ from "lamb";
+import {makeKeyed} from "../any/fn/array/object";
 
 /**
  * Return an object built using 'key's and 'value's from the objects in the provided array
@@ -52,10 +53,7 @@ makeKeyedZeroes(["a", "b"]) -> {a: 0, b: 0}
  *
  * @version 0.1.0
  */
-export const makeKeyedZeroes = _.pipe([
-    _.collect([_.identity, _.mapWith(_.always(0))]),
-    _.apply(_.make)
-]);
+export const makeKeyedZeroes = makeKeyed(0);
 
 /**
  * Return an object of occurrences of keys in the provided array containing the provided keys
