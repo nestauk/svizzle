@@ -51,28 +51,28 @@ describe("Array -> (Array -> Array)", function() {
                 [0, 1, 2, 5, 6, 7, 9]
             );
         });
-        it("should remove values the first index", function() {
+        it("should remove the value at the first index", function() {
             const removeIndices = removeAt([0]);
             assert.deepStrictEqual(
                 removeIndices(arr1),
                 [1, 2, 3, 4, 5, 6, 7, 8, 9]
             );
         });
-        it("should remove values the last index", function() {
+        it("should remove the value at the last index", function() {
             const removeIndices = removeAt([9]);
             assert.deepStrictEqual(
                 removeIndices(arr1),
                 [0, 1, 2, 3, 4, 5, 6, 7, 8]
             );
         });
-        it("should remove values if the indices array is longer than the array", function() {
+        it("should ignore indices greater than the max index in the array", function() {
             const removeIndices = removeAt([1, 2, 3, 4]);
             assert.deepStrictEqual(
                 removeIndices(arr2),
                 [0]
             );
         });
-        it("should not remove values if the indices outseide the array range", function() {
+        it("should not remove values if the indices outside the array range", function() {
             const removeIndices = removeAt([3, 4]);
             assert.deepStrictEqual(
                 removeIndices(arr2),

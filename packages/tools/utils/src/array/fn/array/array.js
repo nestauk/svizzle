@@ -41,16 +41,19 @@ const removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
  *
  * @version 0.1.0
  */
-export const removeAt = indices => {
-    const reducer = _.reduceWith((acc, v, i) => {
+export const removeAt = indices => _.reduceWith(
+    (acc, v, i, array) => {
         if (i !== acc.next) {
-            acc.new.push(v);
+            acc.result.push(v);
         } else {
             acc.next = acc.indices[++acc.cursor];
         }
 
-        return acc;
-    }, {new: [], indices, next: indices[0], cursor: 0});
+        if (i === array.length - 1) {
+          return acc.result;
+        }
 
-    return _.pipe([reducer, _.getKey("new")]);
-}
+        return acc;
+    },
+    {result: [], indices, next: indices[0], cursor: 0}
+);
