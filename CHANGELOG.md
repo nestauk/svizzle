@@ -5,9 +5,21 @@
 - fixed npm script
 - updated docs
 
-## `@svizzle/file` v0.3.0
+## `@svizzle/file` v0.3.0 (next)
 
 - add `readTsv`
+
+## `@svizzle/utils` v0.3.0 (next)
+
+- updated docs
+
+### Array -> Array
+
+- added `getFirstAndLast`
+
+### Array -> Object
+
+- added `keyValueArrayToObject`
 
 ## 20190411
 

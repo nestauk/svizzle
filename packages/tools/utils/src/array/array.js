@@ -5,7 +5,18 @@
 import * as _ from "lamb";
 import isequal from "lodash.isequal";
 
-import {concat} from "./proto/array";
+/**
+ * Return an array containing the first and the last element of the provided array.
+ *
+ * @function
+ * @arg {array} array
+ * @return {array}
+ *
+ * @example getFirstAndLast([0, 1, 2, 3, 4]) // [0, 4]
+ *
+ * @version 0.3.0
+ */
+export const getFirstAndLast = _.collect([_.head, _.last]);
 
 /**
  * Return a copy of the array with values at the provided indices swapped

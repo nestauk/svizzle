@@ -1,7 +1,15 @@
 ## `@svizzle/utils` v0.3.0 (next)
 
-- added `keyValueArrayToObject`
 - updated docs
+
+### Array -> Array
+
+- added `getFirstAndLast`
+
+### Array -> Object
+
+- added `keyValueArrayToObject`
+
 
 ## `@svizzle/utils` v0.2.0
 
@@ -17,7 +25,7 @@
 
 ### Any -> Boolean
 
-- added `isNotNil`
+- added `isNotNil`
 
 ### Array -> (Any -> Object)
 

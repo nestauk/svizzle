@@ -1,8 +1,21 @@
 import {strict as assert} from "assert";
 
-import {swap, toggleItem} from "./array";
+import {getFirstAndLast, swap, toggleItem} from "./array";
 
 describe("Array -> Array", function() {
+    describe("getFirstAndLast", function() {
+        const arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+        it("should return an array containing the first and the last element of the provided array", function() {
+            assert.deepStrictEqual(getFirstAndLast(arr1), [0, 9]);
+        });
+        it("should return an empty array if passed an empty array", function() {
+            assert.deepStrictEqual(getFirstAndLast([0]), [0, 0]);
+        });
+        it("should return an array containing `undefined` repeated 2 times if passed an single value array", function() {
+            assert.deepStrictEqual(getFirstAndLast([]), [undefined, undefined]);
+        });
+    });
     describe("swap", function() {
         const arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
