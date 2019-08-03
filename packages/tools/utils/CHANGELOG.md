@@ -18,6 +18,14 @@
 
 - added `keyValueArrayToObject`
 
+### Function -> (Object -> Array)
+
+- added `objectToKeyValueArrayWith`
+
+### Function -> (Iterable -> Object)
+
+- added `pairToKeyValueObjectWith`
+
 
 ## `@svizzle/utils` v0.2.0
 

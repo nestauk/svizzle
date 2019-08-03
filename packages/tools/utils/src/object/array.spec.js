@@ -2,10 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {
-    objectToKeyValueArray,
-    getTruthyValuesKeys
-} from "./array";
+import {objectToKeyValueArray, getTruthyValuesKeys} from "./array";
 
 describe("Object -> Array", function() {
     describe("objectToKeyValueArray", function() {

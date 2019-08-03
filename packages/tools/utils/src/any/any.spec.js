@@ -7,7 +7,7 @@ function returnArgs () {
 }
 
 describe("Any -> Any", function() {
-    describe("number|identity", function() {
+    describe("Any -> number|identity", function() {
         describe("toFloatOrIdentity", function() {
             it("should return a number if the input can be converted to a float, identity otherwise", function() {
                 assert.deepStrictEqual(toFloatOrIdentity("2"), 2);
@@ -31,7 +31,7 @@ describe("Any -> Any", function() {
         });
     });
 
-    describe("array|identity", function() {
+    describe("Any -> identity|array", function() {
         describe("makeEmptyArrayIfUndefined()", function() {
             it("should create [] from undefined", function() {
                 assert.deepStrictEqual(makeEmptyArrayIfUndefined(undefined), []);

@@ -29,6 +29,15 @@
 
 - added `keyValueArrayToObject`
 
+### Function -> (Object -> Array)
+
+- added `objectToKeyValueArrayWith`
+
+### Function -> Iterable -> Object
+
+- added `pairToKeyValueObjectWith`
+
+
 ## 20190411
 
 - docs:
