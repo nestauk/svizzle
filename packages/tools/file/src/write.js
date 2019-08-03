@@ -16,6 +16,7 @@ const writeFile = util.promisify(fs.writeFile);
  *
  * @function
  * @arg {string} filepath - The filepath where to save the expected object
+ * @arg {number} indent - The amount of blanks to indent the output file
  * @return {function}
  *
  * @example
@@ -35,6 +36,7 @@ export const saveObj = (filepath, indent = 0) => object =>
  *
  * @function
  * @arg {string} filepath - The filepath where to save the expected object
+ * @arg {number} indent - The amount of blanks to indent the output file
  * @return {function}
  *
  * @example

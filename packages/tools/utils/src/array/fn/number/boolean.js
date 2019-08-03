@@ -3,18 +3,19 @@
 */
 
 import * as _ from "lamb";
-import {__} from "lamb";
 
 /**
- * Return a function expecting a number returning true if the number is within the provided range.
+ * Return a function expecting a number and returning true if the number is within the provided range.
+ * Note that the range is inclusive.
  *
  * @function
- * @arg {array} range - range, Array of two numbers
+ * @arg {array} range - Array of two numbers
  * @return {function}
  *
  * @example
 const isWithinRange = makeIsWithinRange([0, 5]);
 isWithinRange(2) // true
+isWithinRange(5) // true
 isWithinRange(8) // false
  *
  * @version 0.1.0

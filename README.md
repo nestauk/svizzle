@@ -8,7 +8,7 @@ All functions are documented at [https://nestauk.github.io/svizzle](https://nest
 
 ## Modules installations
 
-Svizzle is mono-repo containing the source code of various npm packages, please follow these links for installation instructions.
+Svizzle is a mono-repo containing the source code of various npm packages, please follow these links for installation instructions.
 
 **Tools**
 
