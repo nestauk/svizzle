@@ -18,10 +18,13 @@ function returnArgs () {
 
 describe("Any -> Boolean", function() {
     describe("isArray", function() {
+        // 👍
         it("should return true if the input is an array", function() {
             assert.deepStrictEqual(isArray([]), true);
             assert.deepStrictEqual(isArray([1, 2]), true);
         });
+
+        // 👎
         it("should return false if the input is not an array", function() {
             assert.deepStrictEqual(isArray(true), false);
             assert.deepStrictEqual(isArray(1), false);
@@ -33,11 +36,14 @@ describe("Any -> Boolean", function() {
         });
     });
     describe("isNumber", function() {
+        // 👍
         it("should return true if the input is a number", function() {
             assert.deepStrictEqual(isNumber(1), true);
             assert.deepStrictEqual(isNumber(NaN), true);
             assert.deepStrictEqual(isNumber(Infinity), true);
         });
+
+        // 👎
         it("should return false if the input is not a number", function() {
             assert.deepStrictEqual(isNumber(true), false);
             assert.deepStrictEqual(isNumber([1, 2]), false);
@@ -47,10 +53,13 @@ describe("Any -> Boolean", function() {
         });
     });
     describe("isObject", function() {
+        // 👍
         it("should return true if the input is an object", function() {
             assert.deepStrictEqual(isObject({}), true);
             assert.deepStrictEqual(isObject({a: 1}), true);
         });
+
+        // 👎
         it("should return false if the input is not an object", function() {
             assert.deepStrictEqual(isObject(true), false);
             assert.deepStrictEqual(isObject(1), false);
@@ -62,10 +71,13 @@ describe("Any -> Boolean", function() {
         });
     });
     describe("isString", function() {
+        // 👍
         it("should return true if the input is an object", function() {
             assert.deepStrictEqual(isString(""), true);
             assert.deepStrictEqual(isString("foo"), true);
         });
+
+        // 👎
         it("should return false if the input is not an object", function() {
             assert.deepStrictEqual(isString(true), false);
             assert.deepStrictEqual(isString(1), false);
@@ -77,6 +89,7 @@ describe("Any -> Boolean", function() {
         });
     });
     describe("isNotNaN", function() {
+        // 👍
         it("should return true is the input is not a NaN", function() {
             assert.deepStrictEqual(isNotNaN(1), true);
             assert.deepStrictEqual(isNotNaN(Infinity), true);
@@ -86,6 +99,8 @@ describe("Any -> Boolean", function() {
             assert.deepStrictEqual(isNotNaN(false), true);
             assert.deepStrictEqual(isNotNaN(null), true);
         });
+
+        // 👎
         it("should return false if the input is a NaN", function() {
             assert.deepStrictEqual(isNotNaN([1, 2]), false);
             assert.deepStrictEqual(isNotNaN({a: 1}), false);

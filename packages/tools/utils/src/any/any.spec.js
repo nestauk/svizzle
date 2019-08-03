@@ -1,14 +1,6 @@
 import {strict as assert} from "assert";
 
-import {makePrinter} from "@svizzle/dev";
-
-import {
-    makeEmptyArrayIfUndefined,
-    toFloatOrIdentity,
-    tapValue,
-    tapType,
-    tapTypeAndValue
-} from "./any";
+import {makeEmptyArrayIfUndefined, toFloatOrIdentity} from "./any";
 
 function returnArgs () {
     return arguments;
@@ -52,53 +44,6 @@ describe("Any -> Any", function() {
                 assert.deepStrictEqual(makeEmptyArrayIfUndefined([1, 2]), [1, 2]);
                 assert.deepStrictEqual(makeEmptyArrayIfUndefined({a: 1}), {a: 1});
                 assert.deepStrictEqual(makeEmptyArrayIfUndefined("str"), "str");
-            });
-        });
-    });
-
-    /* taps */
-
-    describe("taps", function() {
-        let printer;
-        before(function () {
-            printer = makePrinter();
-            printer.init();
-        });
-        beforeEach(function () {
-            printer.reset();
-        });
-        after(function () {
-            printer.restore();
-        });
-
-        describe("tapValue", function() {
-            it("should print and return the input", function() {
-                const expected = [1, 2, 3];
-                const actual = tapValue(expected);
-                const expectedLog = [[expected]];
-
-                assert.deepStrictEqual(actual, expected);
-                assert.deepStrictEqual(printer.getLog(), expectedLog);
-            });
-        });
-        describe("tapType", function() {
-            it("should print the input type and return the input", function() {
-                const actual = tapType([1, 2, 3]);
-                const expected = [1, 2, 3];
-                const expectedLog = [["Array"]];
-
-                assert.deepStrictEqual(actual, expected);
-                assert.deepStrictEqual(printer.getLog(), expectedLog);
-            });
-        });
-        describe("tapTypeAndValue", function() {
-            it("should print the input type and return the input", function() {
-                const actual = tapTypeAndValue([1, 2, 3]);
-                const expected = [1, 2, 3];
-                const expectedLog = [["Array", expected]];
-
-                assert.deepStrictEqual(actual, expected);
-                assert.deepStrictEqual(printer.getLog(), expectedLog);
             });
         });
     });

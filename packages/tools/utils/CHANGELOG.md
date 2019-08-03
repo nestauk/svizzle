@@ -2,6 +2,10 @@
 
 - updated docs
 
+### Any -> Any
+
+- `tapValue`, `tapType`, `tapTypeAndValue` now expect an optional string and return a tap function
+
 ### Any -> (Array -> Object)
 
 - added `makeKeyed`
