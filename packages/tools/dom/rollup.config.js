@@ -1,3 +1,5 @@
+import path from "path";
+import analyze from "rollup-plugin-analyzer";
 import buble from "rollup-plugin-buble";
 import cleanup from "rollup-plugin-cleanup";
 import commonjs from "rollup-plugin-commonjs";
@@ -13,6 +15,19 @@ import pkg from "./package.json";
 
 const input = pkg.module;
 const banner = makeBanner(pkg);
+const analyzer = analyze({
+  limit: 10,
+  root: path.resolve('../../../'),
+  stdout: true,
+  summaryOnly: true
+});
+const treeshake = {
+  annotations: true,
+  moduleSideEffects: id => !(
+    /@svizzle\/utils/g.test(id) ||
+    /lamb/g.test(id)
+  ),
+};
 
 const cjsConfig = {
     input,
@@ -25,8 +40,10 @@ const cjsConfig = {
     plugins: [
         resolve(),
         commonjs(),
-        cleanup()
-    ]
+        cleanup(),
+        analyzer
+    ],
+    treeshake
 };
 
 const browserConfig = {
@@ -42,8 +59,10 @@ const browserConfig = {
         resolve(),
         commonjs(),
         cleanup(),
-        buble()
-    ]
+        buble(),
+        analyzer
+    ],
+    treeshake
 };
 
 const browserMinifiedConfig = {
@@ -59,7 +78,8 @@ const browserMinifiedConfig = {
                 preamble: banner
             }
         })
-    ]
+    ],
+    treeshake
 };
 
 export default [

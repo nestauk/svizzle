@@ -1,3 +1,5 @@
+import path from "path";
+import analyze from "rollup-plugin-analyzer";
 import buble from "rollup-plugin-buble";
 import cleanup from "rollup-plugin-cleanup";
 import commonjs from "rollup-plugin-commonjs";
@@ -11,6 +13,20 @@ import {
 
 import pkg from "./package.json";
 
+const analyzer = analyze({
+  limit: 10,
+  root: path.resolve('../../../'),
+  stdout: true,
+  summaryOnly: true
+});
+const treeshake = {
+  annotations: true,
+  moduleSideEffects: id => !(
+    /just-compare/g.test(id) ||
+    /lamb/g.test(id)
+  ),
+};
+
 const cjsConfig = {
     input: pkg.module,
     output: {
@@ -22,8 +38,10 @@ const cjsConfig = {
     plugins: [
         resolve(),
         commonjs(),
-        cleanup()
-    ]
+        cleanup(),
+        analyzer
+    ],
+    treeshake
 };
 
 const browserConfig = {
@@ -39,8 +57,10 @@ const browserConfig = {
         resolve(),
         commonjs(),
         cleanup(),
-        buble()
-    ]
+        buble(),
+        analyzer
+    ],
+    treeshake
 };
 
 const browserMinifiedConfig = {
@@ -56,7 +76,8 @@ const browserMinifiedConfig = {
                 preamble: browserConfig.output.banner
             }
         })
-    ]
+    ],
+    treeshake
 };
 
 export default [

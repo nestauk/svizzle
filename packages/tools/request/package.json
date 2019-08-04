@@ -17,12 +17,13 @@
         "mocha": "^5.2.0",
         "nock": "^10.0.6",
         "node-fetch": "^2.3.0",
-        "rollup": "^0.67.3",
-        "rollup-plugin-buble": "^0.19.4",
+        "rollup": "^1.18.0",
+        "rollup-plugin-analyzer": "^3.1.2",
+        "rollup-plugin-buble": "^0.19.8",
         "rollup-plugin-cleanup": "^3.1.1",
-        "rollup-plugin-commonjs": "^9.2.0",
-        "rollup-plugin-node-resolve": "^3.4.0",
-        "rollup-plugin-terser": "^3.0.0"
+        "rollup-plugin-commonjs": "^10.0.2",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-terser": "^5.1.1"
     },
     "files": [
         "dist/*",
