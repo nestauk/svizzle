@@ -14,6 +14,10 @@
 
 - added `getFirstAndLast`
 
+### Array -> (Number -> Number)
+
+- added `makePolynomial`
+
 ### Array -> Object
 
 - added `keyValueArrayToObject`

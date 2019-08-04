@@ -25,6 +25,10 @@
 
 - added `getFirstAndLast`
 
+### Array -> (Number -> Number)
+
+- added `makePolynomial`
+
 ### Array -> Object
 
 - added `keyValueArrayToObject`
@@ -33,7 +37,7 @@
 
 - added `objectToKeyValueArrayWith`
 
-### Function -> Iterable -> Object
+### Function -> (Iterable -> Object)
 
 - added `pairToKeyValueObjectWith`
 
