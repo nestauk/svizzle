@@ -10,7 +10,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {string} key
- * @return {function}
+ * @return {function} - Array -> Number
  *
  * @example
 
@@ -37,7 +37,7 @@ export const arrayMaxBy = key => _.reduceWith((max, item) => {
  *
  * @function
  * @arg {string} key
- * @return {function}
+ * @return {function} - Array -> Number
  *
  * @example
 const minByA = arrayMinBy("a");

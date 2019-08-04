@@ -11,7 +11,7 @@ import {makeWithKeys} from "../array/object";
  *
  * @function
  * @arg {array} array - Array of keys and functions arrays
- * @return {function} - function expecting Any type and returning an Object
+ * @return {function} - Any -> Object
  *
  * @example
 const makeCircle = makeWith([

@@ -9,7 +9,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {array} cofficients - Array of cofficients, the exponent corresponding to the their index
- * @return {function}
+ * @return {function} - Number -> Number
  *
  * @example
 const poly = makePolynomial([0,2,0,4]) // x => 2 x + 4 x^3

@@ -11,7 +11,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {string} label
- * @return {function} - tap function (* => *)
+ * @return {function} - (Any -> Any), sfx: console.log
  *
  * @example
 const doubleTriple = _.pipe([
@@ -45,7 +45,7 @@ export const tapValue = label => x => {
  *
  * @function
  * @arg {string} label
- * @return {function} - tap function (* => *)
+ * @return {function} - (Any -> Any), sfx: console.log
  *
  * @example
  const size = _.pipe([
@@ -79,7 +79,7 @@ export const tapType = label => x => {
  *
  * @function
  * @arg {string} label
- * @return {function} - tap function
+ * @return {function} - (Any -> Any), sfx: console.log
  *
  * @example
 const size = _.pipe([

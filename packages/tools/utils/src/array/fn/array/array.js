@@ -10,7 +10,7 @@ import {__} from "lamb";
  *
  * @function
  * @arg {array} transforms - array of functions
- * @return {function}
+ * @return {function} - Array -> Array
  *
  * @example
 let transformer = makeArrayTransformer([x => x * 20, x => x + 3]);
@@ -32,7 +32,7 @@ export const makeArrayTransformer = fnArr => _.pipe([
  *
  * @function
  * @arg {array} indices
- * @return {function}
+ * @return {function} - Array -> Array
  *
  * @example
 const removeIndices = removeAt([3, 4, 8])

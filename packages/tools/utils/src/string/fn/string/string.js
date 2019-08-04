@@ -9,7 +9,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {string} prefix - The string to be prepended
- * @return {function}
+ * @return {function} - String -> String
  *
  * @example
  * const prefixed = prepend("prefix")

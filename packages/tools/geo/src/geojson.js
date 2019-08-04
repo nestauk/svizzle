@@ -208,7 +208,7 @@ export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
  *
  * @function
  * @arg {number} precision - coordinate decimal precision
- * @return {function}
+ * @return {function} - Geojson -> Geojson
  *
  * @example
 const truncateGeometry = setGeometryPrecision(4);

@@ -10,7 +10,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {array} range - Array of two numbers
- * @return {function}
+ * @return {function} predicate - Number -> Boolean
  *
  * @example
 const isWithinRange = makeIsWithinRange([0, 5]);

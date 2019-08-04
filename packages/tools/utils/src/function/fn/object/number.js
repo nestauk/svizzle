@@ -12,7 +12,7 @@ import {arrayMaxWith, arrayMinWith} from "../array/number";
  *
  * @function
  * @arg {function} fn
- * @return {function}
+ * @return {function} - Object -> Number
  *
  * @example
 const maxWithAbsSin = valuesMaxWith(_.pipe([Math.sin, Math.abs]));
@@ -32,7 +32,7 @@ export const valuesMaxWith = fn => _.pipe([
  *
  * @function
  * @arg {function} fn
- * @return {function}
+ * @return {function} - Object -> Number
  *
  * @example
 const minWithAbsSin = valuesMinWith(_.pipe([Math.sin, Math.abs]));

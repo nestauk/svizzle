@@ -9,7 +9,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {function} fn - Merge function
- * @return {function}
+ * @return {function} - Object -> Object
  *
  * @example
 

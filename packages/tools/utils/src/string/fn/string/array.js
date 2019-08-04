@@ -11,7 +11,7 @@ import {split} from "../../proto/array";
  *
  * @function
  * @arg {string} string - String to split
- * @return {function}
+ * @return {function} - String -> Array
  *
  * @example
  * const splitStringBy = makeSplitStringBy("a.b-c,d:e");
@@ -28,7 +28,7 @@ export const makeSplitStringBy = _.curry(split, 2);
  *
  * @function
  * @arg {stringOrRegex} stringOrRegex - Separator or regex
- * @return {function}
+ * @return {function} - String -> Array
  *
  * @example
  * const splitByDoubleDot = makeSplitBy("..");

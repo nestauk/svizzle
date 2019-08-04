@@ -12,7 +12,7 @@ import {join} from "../../../array/proto/string";
  *
  * @function
  * @arg {string} separator
- * @return {function}
+ * @return {function} - Array -> String
  *
  * @example
 const joinWithAt = joinWith("@");

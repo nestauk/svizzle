@@ -10,7 +10,7 @@ import {__} from "lamb";
  *
  * @function
  * @arg {array} keys - Array of keys
- * @return {function}
+ * @return {function} - Object -> Array
  *
  * @example
 const getCoordinates = makeKeysGetter(["lng", "lat"]);

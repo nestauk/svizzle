@@ -10,7 +10,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {function} fn
- * @return {function}
+ * @return {function} - Array -> Number
  *
  * @example
 
@@ -33,7 +33,7 @@ export const arrayMaxWith = fn => _.reduceWith((max, item) => {
  *
  * @function
  * @arg {function} fn
- * @return {function}
+ * @return {function} - Array -> Number
  *
  * @example
 const minWithAbsSin = arrayMinWith(_.pipe([Math.sin, Math.abs]));

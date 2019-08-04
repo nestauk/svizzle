@@ -45,13 +45,13 @@ export const filterJsonExtensions =
     _.filterWith(hasAnyExtensionOf([".json", ".geojson"]));
 
 /**
- * Return a function expecting a filepath that gets renamed to the provided extension.
+ * Return a function expecting a filepath and returning it renamed to the provided extension.
  * Note that if the original provided filepath has multiple extensions only the last one gets changed.
  * [node environment]
  *
  * @function
  * @arg {string} extension - file extension, including the dot (`.txt`, `.csv`, etc)
- * @return {function}
+ * @return {function} - String -> String
  *
  * @example
  * const renameToJson = renameToExtension(".json");

@@ -10,7 +10,7 @@ import {__} from "lamb";
  *
  * @function
  * @arg {array} keys - Array of keys
- * @return {function}
+ * @return {function} - Array -> Object
  *
  * @example
 const makeWithLatLng = makeWithKeys(["lng", "lat"]);
@@ -26,7 +26,7 @@ export const makeWithKeys = keys => _.partial(_.make, [keys, __]);
  *
  * @function
  * @arg {array} values - Array of values
- * @return {function}
+ * @return {function} - Array -> Object
  *
  * @example
 const makeWithTheseValues = makeWithValues([1, 2]);

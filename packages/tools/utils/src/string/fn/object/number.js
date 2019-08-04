@@ -12,7 +12,7 @@ import {arrayMaxBy, arrayMinBy} from "../array/number";
  *
  * @function
  * @arg {string} key
- * @return {function}
+ * @return {function} - Object -> Number
  *
  * @example
 const maxByK1 = valuesMaxBy("k1");
@@ -32,7 +32,7 @@ export const valuesMaxBy = key => _.pipe([
  *
  * @function
  * @arg {string} key
- * @return {function}
+ * @return {function} - Object -> Number
  *
  * @example
 const minByK1 = valuesMinBy("k1");

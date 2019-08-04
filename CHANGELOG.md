@@ -158,11 +158,10 @@
 - `requestJson`
 - `requestNdjson`
 
+
 ## `@svizzle/utils` v0.1.0
 
-### any ->
-
-*any*
+### Any -> Any
 
 - `makeEmptyArrayIfUndefined`
 - `toFloatOrIdentity`
@@ -170,7 +169,7 @@
 - `tapType`
 - `tapTypeAndValue`
 
-*boolean*
+### Any -> Boolean
 
 - `isArray`
 - `isNumber`
@@ -181,31 +180,29 @@
 - `toNumberisValidNumber`
 - `toFloatIsValidNumber`
 
-*string*
+### Any -> String
 
 - `stringify`
 
-### array ->
-
-*array*
+### Array -> Array
 
 - `concat`
 - `removeAt`
 - `swap`
 - `toggleItem`
 
-*boolean*
+### Array -> Boolean
 
 - `areAllTruthy`
 - `areSomeTruthy`
 
-*function*
+### Array -> Function
 
 - `makeKeysGetter`
 - `makeIsWithinRange`
 - `makeArrayTransformer`
 
-*number*
+### Array -> Number
 
 - `makeRandomNumInRange`
 - `arrayMax`
@@ -215,13 +212,13 @@
 - `arrayMinBy`
 - `arrayMinWith`
 
-*object*
+### Array -> Object
 
 - `makeKeyedZeroes`
 - `makeOccurrences`
 - `makeAllOccurrences`
 
-*string*
+### Array -> String
 
 - `join`
 - `joinWith`
@@ -229,54 +226,48 @@
 - `joinWithColon`
 - `joinWithSemicolon`
 
-### iterable ->
-
-*array*
+### Iterable -> Array
 
 - `tapAppendTo`
 
-*boolean*
+### Iterable -> Boolean
 
 - `isIterableEmpty`
 - `isIterableNotEmpty`
 - `hasIterableLength1`
 - `isIterableLongerThan1`
 
-*number*
+### Iterable -> Number
 
 - `getLength`
 
-*object*
+### Iterable -> Object
 
 - `pairToKeyValueObject`
 
-### number ->
-
-*boolean*
+### Number -> Boolean
 
 - `is0`
 - `is1`
 - `isGT0`
 - `isGT1`
 
-### object ->
-
-*array*
+### Object -> Array
 
 - `objectToKeyValueArray`
 - `getTruthyKeys`
 
-*boolean*
+### Object -> Boolean
 
 - `isObjEmpty`
 - `isObjNotEmpty`
 
-*function*
+### Object -> Function
 
 - `applyFnMap`
 - `transformValues`
 
-*number*
+### Object -> Number
 
 - `getObjSize`
 - `valuesMax`
@@ -286,7 +277,7 @@
 - `valuesMinBy`
 - `valuesMinWith`
 
-*object*
+### Object -> Object
 
 - `mapValuesToFloat`
 - `mapValuesToFloatPossibly`
@@ -299,9 +290,7 @@
 - `mergeWithConcat`
 - `mergeWithAppendTo`
 
-### string ->
-
-*array*
+### String -> Array
 
 - `split`
 - `makeSplitStringBy`
@@ -313,12 +302,12 @@
 - `makeRows`
 - `ndjsonToArray`
 
-*boolean*
+### String -> Boolean
 
 - `isTrimmedNotEmpty`
 - `startsWith`
 
-*string*
+### String -> String
 
 - `prepend`
 - `trim`

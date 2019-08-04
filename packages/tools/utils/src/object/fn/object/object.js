@@ -12,7 +12,7 @@ import {joinWith} from "../../../string/fn/array/string";
  *
  * @function
  * @arg {object} object
- * @return {function}
+ * @return {function} - Object -> Object
  *
  * @example
 const format = applyFnMap({
@@ -42,7 +42,7 @@ export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
  *
  * @function
  * @arg {object} fnMap - object with functions as values
- * @return {function}
+ * @return {function} - Object -> Object
  *
  * @example
 const conversionFn = transformValues({
@@ -73,7 +73,7 @@ export const transformValues = fnMap => _.mapValuesWith(
  *
  * @function
  * @arg {object} object - Object to be merged to the provided object
- * @return {function}
+ * @return {function} - Object -> Object
  *
  * @example
 const mergeB = mergeObj({b: 2});
@@ -90,7 +90,7 @@ export const mergeObj = obj => _.partial(_.merge, [__, obj]);
  * @function
  * @arg {string} key - Key where to merge the Value
  * @arg {object} object - Value to be merged
- * @return {function}
+ * @return {function} - Object -> Object
  *
  * @example
 
