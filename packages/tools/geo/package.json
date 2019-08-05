@@ -55,5 +55,6 @@
         "build": "rollup -c",
         "test": "mocha -r esm --recursive src"
     },
+    "sideEffects": true,
     "version": "0.2.0"
 }

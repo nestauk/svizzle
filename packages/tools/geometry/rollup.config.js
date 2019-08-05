@@ -23,7 +23,7 @@ const analyzer = analyze({
 });
 const treeshake = {
   annotations: true,
-  moduleSideEffects: id => !/lamb/g.test(id),
+  moduleSideEffects: false,
 };
 
 const cjsConfig = {

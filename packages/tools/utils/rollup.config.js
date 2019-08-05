@@ -14,17 +14,14 @@ import {
 import pkg from "./package.json";
 
 const analyzer = analyze({
-  limit: 10,
+  limit: 20,
   root: path.resolve('../../../'),
   stdout: true,
   summaryOnly: true
 });
 const treeshake = {
   annotations: true,
-  moduleSideEffects: id => !(
-    /just-compare/g.test(id) ||
-    /lamb/g.test(id)
-  ),
+  moduleSideEffects: false,
 };
 
 const cjsConfig = {

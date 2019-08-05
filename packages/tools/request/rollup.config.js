@@ -23,11 +23,9 @@ const analyzer = analyze({
 });
 const treeshake = {
   annotations: true,
-  moduleSideEffects: id => !(
-    /@svizzle\/utils/g.test(id) ||
-    /d3-dsv/g.test(id) ||
-    /lamb/g.test(id)
-  ),
+  moduleSideEffects: [
+    'd3-request'
+  ],
 };
 
 const cjsConfig = {

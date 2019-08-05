@@ -4,13 +4,15 @@
 
 Lerna is in independent mode (`lerna init --independent`) so that we can version components and utils independently.
 
-## Basic operations
+Basic operations:
 
 - adding a dependency to all packages: `lerna add -D svelte`
 - adding a dependency to a specific package: `lerna add nock -D --scope=@svizzle/request`
 - testing a specific package: `lerna run test --scope=@svizzle/utils`
 
-(TODO describe npm scripts)
+## npm scripts
+
+TODO
 
 ## Development
 
@@ -22,7 +24,12 @@ Lerna is in independent mode (`lerna init --independent`) so that we can version
 
 In the `dev` branch:
 
-- compile changelog for all changed/new packages using the correct version;
+- tree-shaking:
+   - update the `treeshake.moduleSideEffects` in `rollup.config.js`;
+   - check `sideEffects` for all of the updating packages: if even just one of a package dependencies have `sideEffects: true` or it is unknown, then the package `sideEffects` should be set to `true`;
+   - to help this process, check the analyzer output when running `lernabuild`;
+   - check and keep `doc/tree-shaking.md` up-to-date;
+- compile the changelog for all changed/new packages using the correct version;
 - copy the changelog from all the changed/new packages onto the global changelog;
 - based on this, for every changed packages:
    - choose the next version depending on if it's going to be a `patch`, `minor` or `major`;

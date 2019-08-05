@@ -16,10 +16,7 @@ const analyzer = analyze({
 });
 const treeshake = {
   annotations: true,
-  moduleSideEffects: id => !(
-    /@svizzle\/utils/g.test(id) ||
-    /lamb/g.test(id)
-  ),
+  moduleSideEffects: false,
 };
 
 const cjsConfig = {

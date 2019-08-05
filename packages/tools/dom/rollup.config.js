@@ -16,17 +16,14 @@ import pkg from "./package.json";
 const input = pkg.module;
 const banner = makeBanner(pkg);
 const analyzer = analyze({
-  limit: 10,
+  limit: 20,
   root: path.resolve('../../../'),
   stdout: true,
   summaryOnly: true
 });
 const treeshake = {
   annotations: true,
-  moduleSideEffects: id => !(
-    /@svizzle\/utils/g.test(id) ||
-    /lamb/g.test(id)
-  ),
+  moduleSideEffects: false,
 };
 
 const cjsConfig = {
