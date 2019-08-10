@@ -5,9 +5,15 @@
 - fixed npm script
 - updated docs
 
-## `@svizzle/file` v0.3.0 (next)
+## `@svizzle/file` v0.4.0 (next)
 
-- add `readTsv`
+- updated docs
+
+These were there since 0.1.0 but I forgot to export the `path` module so I'm now marking 'em as 0.4.0:
+
+- add `hasAnyExtensionOf`
+- add `filterJsonExtensions`
+- add `renameToExtension`
 
 ## `@svizzle/utils` v0.3.0 (next)
 

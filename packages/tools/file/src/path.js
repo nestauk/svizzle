@@ -22,7 +22,7 @@ import {mergeObj} from "@svizzle/utils";
  * isJsonOrGeojson("file.geojson") // true
  * isJsonOrGeojson("file.csv") // false
  *
- * @version 0.1.0
+ * @version 0.4.0
  */
 export const hasAnyExtensionOf = extensions =>
     fileName => extensions.includes(path.extname(fileName));
@@ -39,7 +39,7 @@ export const hasAnyExtensionOf = extensions =>
  * filterJsonExtensions(["file.json", "file.geojson", "file.csv"])
  * // ["file.json", "file.geojson"]
  *
- * @version 0.1.0
+ * @version 0.4.0
  */
 export const filterJsonExtensions =
     _.filterWith(hasAnyExtensionOf([".json", ".geojson"]));
@@ -58,7 +58,7 @@ export const filterJsonExtensions =
  * renameToJson("file.txt") // "file.json"
  * renameToJson("file.min.js") // "file.min.json"
  *
- * @version 0.1.0
+ * @version 0.4.0
  */
 export const renameToExtension = ext => _.pipe([
     path.parse,
