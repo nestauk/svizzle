@@ -24,6 +24,7 @@ TODO
 
 In the `dev` branch:
 
+- for each package, check that we're exporting from all the modules
 - tree-shaking:
    - update the `treeshake.moduleSideEffects` in `rollup.config.js`;
    - check `sideEffects` for all of the updating packages: if even just one of a package dependencies have `sideEffects: true` or it is unknown, then the package `sideEffects` should be set to `true`;

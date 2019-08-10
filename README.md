@@ -8,6 +8,8 @@ All functions are documented at [https://nestauk.github.io/svizzle](https://nest
 
 ## Modules installations
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
 Svizzle is a mono-repo containing the source code of various npm packages, please follow these links for installation instructions.
 
 **Tools**
