@@ -62,6 +62,15 @@ These were there since 0.1.0 but I forgot to export the `path` module so I'm now
 - added `isPathValue`
 - added `isNotPathValue`
 
+### Contructor -> (Function -> (Array -> Any))
+
+- added `reduceTo`
+
+### Function -> (Array -> Any)
+
+- added `reduceFromArr`
+- added `reduceFromObj`
+
 ### Function -> (Object -> Array)
 
 - added `objectToKeyValueArrayWith`

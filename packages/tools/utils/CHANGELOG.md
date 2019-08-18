@@ -45,6 +45,15 @@
 - added `isPathValue`
 - added `isNotPathValue`
 
+### Contructor -> (Function -> (Array -> Any))
+
+- added `reduceTo`
+
+### Function -> (Array -> Any)
+
+- added `reduceFromArr`
+- added `reduceFromObj`
+
 ### Function -> (Object -> Array)
 
 - added `objectToKeyValueArrayWith`
