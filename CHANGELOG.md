@@ -23,6 +23,10 @@ These were there since 0.1.0 but I forgot to export the `path` module so I'm now
 
 - `tapValue`, `tapType`, `tapTypeAndValue` now expect an optional string and return a tap function
 
+### Any -> (Any -> Boolean)
+
+- added `isNot`
+
 ### Any -> (Array -> Object)
 
 - added `makeKeyed`

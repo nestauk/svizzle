@@ -6,6 +6,10 @@
 
 - `tapValue`, `tapType`, `tapTypeAndValue` now expect an optional string and return a tap function
 
+### Any -> (Any -> Boolean)
+
+- added `isNot`
+
 ### Any -> (Array -> Object)
 
 - added `makeKeyed`
