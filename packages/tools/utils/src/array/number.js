@@ -50,3 +50,18 @@ export const arrayMax = _.apply(Math.max);
  * @version 0.1.0
  */
 export const arrayMin = _.apply(Math.min);
+
+/**
+ * Return the sum of the elements of the provided array
+ *
+ * @function
+ * @arg {array} array
+ * @return {number} sum
+ *
+ * @example
+arraySum([1, -2, 3, -4, 5]) // 3
+arraySum([]) // 0
+ *
+ * @version 0.3.0
+ */
+export const arraySum = _.reduceWith(_.sum, 0);

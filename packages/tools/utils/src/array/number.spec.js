@@ -5,6 +5,7 @@ import * as _ from "lamb";
 import {
   arrayMax,
   arrayMin,
+  arraySum,
   makeRandomNumInRange
 } from "./number";
 import {makeIsWithinRange} from "./fn/number/boolean";
@@ -30,6 +31,15 @@ describe("Array -> Number", function() {
                 assert.deepStrictEqual(arrayMin(numArray), -2);
             });
         });
+    });
+
+    describe("arraySum", function() {
+      it("should return the sum of the elements of the provided array", function() {
+        assert.deepStrictEqual(arraySum([1, -2, 3, -4, 5]), 3);
+      });
+      it("should return 0 if an empty array is provided", function() {
+        assert.deepStrictEqual(arraySum([]), 0);
+      });
     });
 
     describe("random", function() {

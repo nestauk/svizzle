@@ -18,6 +18,10 @@
 
 - added `getFirstAndLast`
 
+### Array -> Number
+
+- added `arraySum`
+
 ### Array -> (Number -> Number)
 
 - added `makePolynomial`
