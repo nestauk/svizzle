@@ -55,6 +55,13 @@ These were there since 0.1.0 but I forgot to export the `path` module so I'm now
 
 - added `keyValueArrayToObject`
 
+### Array -> (Object -> Boolean)
+
+- added `isKeyValue`
+- added `isNotKeyValue`
+- added `isPathValue`
+- added `isNotPathValue`
+
 ### Function -> (Object -> Array)
 
 - added `objectToKeyValueArrayWith`

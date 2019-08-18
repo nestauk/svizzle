@@ -38,6 +38,13 @@
 
 - added `keyValueArrayToObject`
 
+### Array -> (Object -> Boolean)
+
+- added `isKeyValue`
+- added `isNotKeyValue`
+- added `isPathValue`
+- added `isNotPathValue`
+
 ### Function -> (Object -> Array)
 
 - added `objectToKeyValueArrayWith`
