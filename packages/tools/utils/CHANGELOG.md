@@ -18,9 +18,17 @@
 
 - added `getFirstAndLast`
 
+### Array -> Boolean (proto)
+
+- added `includes`
+
 ### Array -> Number
 
 - added `arraySum`
+
+### Array -> (Any -> Boolean)
+
+- added `makeIsIncluded`
 
 ### Array -> (Number -> Number)
 

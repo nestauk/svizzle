@@ -35,9 +35,17 @@ These were there since 0.1.0 but I forgot to export the `path` module so I'm now
 
 - added `getFirstAndLast`
 
+### Array -> Boolean (proto)
+
+- added `includes`
+
 ### Array -> Number
 
 - added `arraySum`
+
+### Array -> (Any -> Boolean)
+
+- added `makeIsIncluded`
 
 ### Array -> (Number -> Number)
 
