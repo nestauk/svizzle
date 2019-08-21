@@ -79,6 +79,10 @@ These were there since 0.1.0 but I forgot to export the `path` module so I'm now
 
 - added `pairToKeyValueObjectWith`
 
+### Object -> Boolean
+
+- added `hasObjSize1`
+
 
 ## 20190411
 

@@ -4,8 +4,26 @@
 
 import * as _ from "lamb";
 
-import {is0, isGT0} from "../number/boolean";
+import {is0, is1, isGT0} from "../number/boolean";
 import {getObjSize} from "./number";
+import {getLength} from "../iterable/number";
+
+/*
+ * Return the size of the provided object
+ *
+ * @function
+ * @arg {object} object
+ * @return {boolean} boolean
+ *
+ * @example
+hasObjSize1({}) // false
+hasObjSize1({a: 1}) // true
+hasObjSize1({a: 1, b: 2}) // false
+ *
+ * @version 0.3.0
+ */
+export const hasObjSize1 = _.pipe([getObjSize, is1]);
+
 
 /**
  * Return `true` if the object is empty.
@@ -14,7 +32,7 @@ import {getObjSize} from "./number";
  *
  * @function
  * @arg {object} object
- * @return {boolean}
+ * @return {boolean} boolean
  *
  * @example
  * isObjEmpty({}) => true
@@ -31,7 +49,7 @@ export const isObjEmpty = _.pipe([getObjSize, is0]);
  *
  * @function
  * @arg {object} object
- * @return {boolean}
+ * @return {boolean} boolean
  *
  * @example
  * isObjEmpty({a: 1}) => true

@@ -62,6 +62,10 @@
 
 - added `pairToKeyValueObjectWith`
 
+### Object -> Boolean
+
+- added `hasObjSize1`
+
 
 ## `@svizzle/utils` v0.2.0
 
