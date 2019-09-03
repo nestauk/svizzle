@@ -4,12 +4,50 @@ import * as _ from "lamb";
 
 import {
   readCsv,
+  readDir,
+  readFile,
   readTsv,
   readJson,
   readJsonDir
 } from "./read";
 
 describe("read", function() {
+    describe("readFile", function() {
+      const aTxt = "I'm a text file\nfor you to read\n";
+        it("should read the file at the provided path and return a promise – no encoding",
+            async function() {
+                const txtPath = path.resolve(__dirname, "../test_assets", "a.txt");
+                const buffer = await readFile(txtPath);
+                const expected = Buffer.from(aTxt);
+                assert.deepStrictEqual(buffer, expected);
+            }
+        );
+        it("should read the file at the provided path and return a promise – with encoding",
+            async function() {
+                const txtPath = path.resolve(__dirname, "../test_assets", "a.txt");
+                const txt = await readFile(txtPath, 'utf-8');
+                assert.deepStrictEqual(txt, aTxt);
+            }
+        );
+    });
+    describe("readDir", function() {
+        const dirItems = [
+          'a.txt',
+          'a1.json',
+          'aDir',
+          'ab.csv',
+          'ab.tsv',
+          'b2.json',
+          'multi.json',
+        ];
+        it("should read a directory at the provided path and return a promise",
+            async function() {
+                const dirPath = path.resolve(__dirname, "../test_assets");
+                const items = await readDir(dirPath, 'utf-8');
+                assert.deepStrictEqual(items, dirItems);
+            }
+        );
+    });
     describe("readCsv", function() {
         it("should return a promise that reads and then parses a csv file",
             async function() {

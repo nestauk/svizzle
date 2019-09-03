@@ -2,11 +2,13 @@
 
 - updated docs
 
-These were there since 0.1.0 but I forgot to export the `path` module so I'm now marking 'em as 0.4.0:
+These were there since 0.1.0 but they weren't exported hence we're marking them as 0.4.0:
 
 - add `hasAnyExtensionOf`
 - add `filterJsonExtensions`
 - add `renameToExtension`
+- add `readFile`
+- add `readDir`
 
 ## `@svizzle/file` v0.3.0
 

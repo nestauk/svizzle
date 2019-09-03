@@ -10,8 +10,45 @@ import {csvParse, tsvParse} from "d3-dsv";
 
 import {filterJsonExtensions} from "./path";
 
-const readFile = util.promisify(fs.readFile);
-const readDir = util.promisify(fs.readdir);
+/**
+ * [node environment]
+ * Read the file at the provided path and return a promise.
+ *
+ * @function
+ * @arg {string} filePath
+ * @arg {string} encoding
+ * @return {promise}
+ *
+ * @example
+readFile("source/path.txt")
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// <Buffer 49 27 6d ...0a>
+
+readFile("source/path.txt", 'utf-8')
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// "the file content"
+ * @version 0.4.0
+ */
+export const readFile = util.promisify(fs.readFile);
+
+/**
+ * [node environment]
+ * Read a directory at the provided path and return a promise.
+ *
+ * @function
+ * @arg {string} dirPath
+ * @return {promise}
+ *
+ * @example
+readFile("source/dir/")
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// ['dir1', 'dir2', 'file1.txt', 'file2.txt', 'folder1', 'folder2']
+ * @version 0.4.0
+ */
+export const readDir = util.promisify(fs.readdir);
 
 /**
  * [node environment]
