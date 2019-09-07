@@ -1,4 +1,4 @@
-## `@svizzle/file` v0.4.0 (next)
+## `@svizzle/file` v0.4.0
 
 - add `readDsv`
 - `readCsv` and `readTsv` now accept a boolean (default to true) to pass files without a header

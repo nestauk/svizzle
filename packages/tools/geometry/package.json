@@ -5,13 +5,15 @@
         "url": "https://github.com/nestauk/svizzle/issues"
     },
     "dependencies": {
-        "lamb": "^0.57.0"
+        "lamb": "^0.58.0"
     },
     "description": "Svizzle Geometry contains geometry related helpers.",
     "devDependencies": {
         "@svizzle/dev": "^0.2.0",
         "esm": "^3.0.84",
+        "mkdirp": "^0.5.1",
         "mocha": "^5.2.0",
+        "rimraf": "^3.0.0",
         "rollup": "^1.18.0",
         "rollup-plugin-analyzer": "^3.1.2",
         "rollup-plugin-buble": "^0.19.8",
@@ -23,7 +25,9 @@
     "files": [
         "dist/*",
         "index.js",
+        "LICENSE",
         "src/**/*.js",
+        "!pkg/*",
         "!*.spec.js"
     ],
     "homepage": "https://github.com/nestauk/svizzle",
@@ -46,6 +50,10 @@
     },
     "scripts": {
         "build": "rollup -c",
+        "setpreminor": "npm --no-git-tag-version version preminor --preid=dev",
+        "setprerelease": "npm --no-git-tag-version version prerelease --preid=dev",
+        "bumppack": "npm run setprerelease && npm run pack",
+        "pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/index.js ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
         "test": "mocha -r esm --recursive src"
     },
     "sideEffects": false,

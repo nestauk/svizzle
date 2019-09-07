@@ -12,7 +12,28 @@ Basic operations:
 
 ## npm scripts
 
-TODO
+### Publishing development package tarballs between releases
+
+The first time we need to push something that would require us to bump to version the next `minor`, run `npm run setpreminor`: this will update the version to the next minor as a prerelease, say from `0.2.0` to `0.3.0-dev.0`.
+
+Run `npm run pack` to create a temporary package distribution in `pkg/`.
+This allows to test things in real like projects without having to actually publish a release on npm.
+
+For example, the first time we added a new important change to `@svizzle/utils` after we published version `0.2.0`,
+- `npm run setpreminor`
+- `npm run pack`
+- `git add pkg`
+- `git push`
+- this will give us a package tarball at https://github.com/nestauk/svizzle/raw/dev/packages/tools/utils/pkg/0.3.0-dev.0.tar.gz
+
+From the second time on, run
+- `npm run setprerelease`: this will update the version from `0.3.0-dev.0` to `0.3.0-dev.1`, from `0.3.0-dev.1` to `0.3.0-dev.2` and so on
+- `npm run pack`
+- `git add pkg`
+- `git push`
+- this will give us a package tarball at https://github.com/nestauk/svizzle/raw/dev/packages/tools/utils/pkg/0.3.0-dev.1.tar.gz (or subsequent numbers)
+
+It's important to note that these tarballs are a mean to be able to test new features on real projects or when porting a component from an app to svizzle, without having to publish to npm each and every intermediate commit, but they are subject to deletion, so use them sparingly.
 
 ## Development
 
@@ -22,8 +43,13 @@ TODO
 
 ## Preparing for new versions
 
+
 In the `dev` branch:
 
+- `npm run cleanall`
+- `npm run lernacleanboot`
+- `lerna run test`
+- `lerna run build`
 - for each package, check that we're exporting from all the modules
 - tree-shaking:
    - update the `treeshake.moduleSideEffects` in `rollup.config.js`;

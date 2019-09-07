@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.3.0 (next)
+## `@svizzle/utils` v0.3.0
 
 - updated docs
 

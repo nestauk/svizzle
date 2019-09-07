@@ -2,8 +2,9 @@
 
 ## (next)
 
-- fixed npm script
-- updated docs
+- fix npm script
+- add npm scripts to enable deploying packages tarballs on github
+- update docs
 
 ## `@svizzle/file` v0.4.0 (next)
 
