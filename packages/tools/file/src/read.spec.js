@@ -5,6 +5,7 @@ import * as _ from "lamb";
 import {
   readCsv,
   readDir,
+  readDsv,
   readFile,
   readTsv,
   readJson,
@@ -37,8 +38,12 @@ describe("read", function() {
           'aDir',
           'ab.csv',
           'ab.tsv',
+          'ab.txt',
           'b2.json',
           'multi.json',
+          'rows.csv',
+          'rows.tsv',
+          'rows.txt',
         ];
         it("should read a directory at the provided path and return a promise",
             async function() {
@@ -49,12 +54,12 @@ describe("read", function() {
         );
     });
     describe("readCsv", function() {
-        it("should return a promise that reads and then parses a csv file",
+        it("should return a promise that reads and then parses a csv file - with header",
             async function() {
                 const csvPath = path.resolve(__dirname, "../test_assets", "ab.csv");
-                const conversionFn = row => ({
-                    a: row.a,
-                    b: Number(row.b)
+                const conversionFn = ({a, b}) => ({
+                    a,
+                    b: Number(b)
                 });
                 const csv = await readCsv(csvPath, conversionFn);
 
@@ -64,19 +69,78 @@ describe("read", function() {
                 assert.deepStrictEqual(csv, csvParsed);
             }
         );
+        it("should return a promise that reads and then parses a csv file - no header",
+            async function() {
+                const csvPath = path.resolve(__dirname, "../test_assets", "rows.csv");
+                const conversionFn = ([a, b]) => ({
+                    a,
+                    b: Number(b)
+                });
+                const csv = await readCsv(csvPath, conversionFn, false);
+
+                const csvParsed = [{a: "foo", b: 1}, {a: "bar", b: 2}];
+
+                assert.deepStrictEqual(csv, csvParsed);
+            }
+        );
+    });
+    describe("readDsv", function() {
+        it("should return a promise that reads and then parses a csv file - with header",
+            async function() {
+                const txtPath = path.resolve(__dirname, "../test_assets", "ab.txt");
+                const conversionFn = ({a, b}) => ({
+                    a,
+                    b: Number(b)
+                });
+                const rows = await readDsv(txtPath, conversionFn, ";");
+
+                const rowsParsed = [{a: "foo", b: 1}, {a: "bar", b: 2}];
+                rowsParsed.columns = ["a", "b"];
+
+                assert.deepStrictEqual(rows, rowsParsed);
+            }
+        );
+        it("should return a promise that reads and then parses a csv file - no header",
+            async function() {
+                const txtPath = path.resolve(__dirname, "../test_assets", "rows.txt");
+                const conversionFn = ([a, b]) => ({
+                    a,
+                    b: Number(b)
+                });
+                const rows = await readDsv(txtPath, conversionFn, ";", false);
+
+                const rowsParsed = [{a: "foo", b: 1}, {a: "bar", b: 2}];
+
+                assert.deepStrictEqual(rows, rowsParsed);
+            }
+        );
     });
     describe("readTsv", function() {
-        it("should return a promise that reads and then parses a tsv file",
+        it("should return a promise that reads and then parses a tsv file - with header",
             async function() {
                 const tsvPath = path.resolve(__dirname, "../test_assets", "ab.tsv");
-                const conversionFn = row => ({
-                    a: row.a,
-                    b: Number(row.b)
+                const conversionFn = ({a, b}) => ({
+                    a,
+                    b: Number(b)
                 });
                 const tsv = await readTsv(tsvPath, conversionFn);
 
                 const tsvParsed = [{a: "foo", b: 1}, {a: "bar", b: 2}];
                 tsvParsed.columns = ["a", "b"];
+
+                assert.deepStrictEqual(tsv, tsvParsed);
+            }
+        );
+        it("should return a promise that reads and then parses a csv file - no header",
+            async function() {
+                const tsvPath = path.resolve(__dirname, "../test_assets", "rows.tsv");
+                const conversionFn = ([a, b]) => ({
+                    a,
+                    b: Number(b)
+                });
+                const tsv = await readTsv(tsvPath, conversionFn, false);
+
+                const tsvParsed = [{a: "foo", b: 1}, {a: "bar", b: 2}];
 
                 assert.deepStrictEqual(tsv, tsvParsed);
             }

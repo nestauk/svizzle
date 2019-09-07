@@ -6,7 +6,13 @@ import fs from "fs";
 import path from "path";
 import util from "util";
 
-import {csvParse, tsvParse} from "d3-dsv";
+import {
+  dsvFormat,
+  csvParse,
+  csvParseRows,
+  tsvParse,
+  tsvParseRows
+} from "d3-dsv";
 
 import {filterJsonExtensions} from "./path";
 
@@ -53,54 +59,140 @@ export const readDir = util.promisify(fs.readdir);
 /**
  * [node environment]
  * Return a promise that reads and then parses a csv file.
- * You can use create a conversionFn using transformValues() from @svizzle/utils
+ * You can create a conversionFn using transformValues() from @svizzle/utils
  *
  * @function
  * @arg {string} csvPath - The filepath of the CSV file to read.
  * @arg {function} conversionFn - A function invoked for each row to convert columns values.
+ * @arg {boolean} [withHeader=true] - Does the first line contain the header?
+ * @see https://github.com/d3/d3-dsv#dsv_parse
+ * @return {promise}
+ * @example
+// source/withHeader.csv
+name,amount
+annie,200
+joe,100
+readCsv("source/withHeader.csv", row => ({
+  name: row.name,
+  amount: Number(row.amount)
+}))
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+
+// source/withNoHeader.csv
+annie,200
+joe,100
+readCsv("source/withNoHeader.csv", row => ({
+  name: row.name,
+  amount: Number(row.amount)
+}), false)
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+ * @version 0.1.0
+ */
+export const readCsv = (csvPath, conversionFn, withHeader = true) =>
+    readFile(csvPath, "utf-8")
+    .then(str => withHeader
+      ? csvParse(str, conversionFn)
+      : csvParseRows(str, conversionFn)
+    );
+
+/**
+ * [node environment]
+ * Return a promise that reads and then parses a csv file.
+ * You can create a conversionFn using transformValues() from @svizzle/utils
+ *
+ * @function
+ * @arg {string} csvPath - The filepath of the CSV file to read.
+ * @arg {function} conversionFn - A function invoked for each row to convert columns values.
+ * @arg {boolean} [withHeader=true] - Does the first line contain the header?
  * @see https://github.com/d3/d3-dsv#dsv_parse
  * @return {promise}
  *
  * @example
- * readCsv("source/path", row => ({
- *   name: row.name,
- *   amount: Number(row.amount)
- * }))
- * .then(x => console.log(x))
- * .catch(err => console.error(err));
- * // [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+// source/withHeader.txt
+name;amount
+annie;200
+joe;100
+
+readDsv("source/withHeader.txt", ({name, amount}) => ({
+  name,
+  amount: Number(amount)
+}), ";")
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+
+// source/withNoHeader.txt
+annie|200
+joe|100
+readDsv("source/withNoHeader.txt", ([name, amount]) => ({
+  name,
+  amount: Number(amount)
+}), "|", false)
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
  *
- * @version 0.1.0
+ * @version 0.4.0
  */
-export const readCsv = (csvPath, conversionFn) =>
-    readFile(csvPath, "utf-8")
-    .then(str => csvParse(str, conversionFn));
+export const readDsv = (filePath, conversionFn, separator, withHeader = true) =>
+  readFile(filePath, "utf-8")
+  .then(str => {
+    const parser = dsvFormat(separator);
+
+    return withHeader
+      ? parser.parse(str, conversionFn)
+      : parser.parseRows(str, conversionFn)
+  });
 
 /**
  * [node environment]
  * Return a promise that reads and then parses a tsv file.
- * You can use create a conversionFn using transformValues() from @svizzle/utils
+ * You can create a conversionFn using transformValues() from @svizzle/utils
  *
  * @function
  * @arg {string} tsvPath - The filepath of the TSV file to read.
- * @arg {function} conversionFn - A function invoked for each row to convert columns values.
+ * @arg {function} conversionFn - A function invoked for each row to convert columns values,
+ * @arg {boolean} [withHeader=true] - Does the first line contain the header?
  * @see https://github.com/d3/d3-dsv#dsv_parse
  * @return {promise}
  *
  * @example
- * readTsv("source/path", row => ({
- *   name: row.name,
- *   amount: Number(row.amount)
- * }))
- * .then(x => console.log(x))
- * .catch(err => console.error(err));
- * // [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+// source/withHeader.txt
+name\tamount
+annie\t200
+joe\t100
+
+readTsv("source/withHeader.txt", ({name, amount}) => ({
+ name,
+ amount: Number(amount)
+}))
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+
+// source/withNoHeader.txt
+annie\t200
+joe\t100
+readTsv("source/withNoHeader.txt", ([name, amount]) => ({
+ name,
+ amount: Number(amount)
+}), false)
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
  *
  * @version 0.3.0
  */
-export const readTsv = (tsvPath, conversionFn) =>
+export const readTsv = (tsvPath, conversionFn, withHeader = true) =>
     readFile(tsvPath, "utf-8")
-    .then(str => tsvParse(str, conversionFn));
+    .then(str => withHeader
+      ? tsvParse(str, conversionFn)
+      : tsvParseRows(str, conversionFn)
+    );
 
 /**
  * Return a promise that reads and then parses a json file.
@@ -123,7 +215,7 @@ export const readJson = jsonPath =>
     .then(str => JSON.parse(str));
 
 /**
- * Return a promise returning an array of objects of the json files of a directory.
+ * Return a promise returning an array of objects of the json files of a directory, not recursively.
  * [node environment]
  *
  * @function
@@ -134,7 +226,7 @@ export const readJson = jsonPath =>
  * readJson("source/path/")
  * .then(x => console.log(x))
  * .catch(err => console.error(err));
- * // [{contentof: "json1"}, {contentof: "json2"}, {contentof: "json3"}]
+ * // [json1, json, json3, ...]
  *
  * @version 0.1.0
  */

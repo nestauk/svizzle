@@ -1,6 +1,8 @@
 ## `@svizzle/file` v0.4.0 (next)
 
-- updated docs
+- add `readDsv`
+- `readCsv` and `readTsv` now accept a boolean (default to true) to pass files without a header
+- update docs
 
 These were there since 0.1.0 but they weren't exported hence we're marking them as 0.4.0:
 
