@@ -1,12 +1,16 @@
 # Svizzle changelog
 
-## (next)
+## next
+
+- docs tweaks
+
+## 20190908
 
 - fix npm script
 - add npm scripts to enable deploying packages tarballs on github
 - update docs
 
-## `@svizzle/file` v0.4.0 (next)
+## `@svizzle/file` v0.4.0
 
 - add `readDsv`
 - `readCsv` and `readTsv` now accept a boolean (default to true) to pass files without a header
@@ -20,7 +24,7 @@ These were there since 0.1.0 but they weren't exported hence we're marking them 
 - add `readFile`
 - add `readDir`
 
-## `@svizzle/utils` v0.3.0 (next)
+## `@svizzle/utils` v0.3.0
 
 - updated docs
 
