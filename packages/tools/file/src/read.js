@@ -223,7 +223,7 @@ export const readJson = jsonPath =>
  * @return {promise}
  *
  * @example
- * readJson("source/path/")
+ * readJsonDir("source/path/")
  * .then(x => console.log(x))
  * .catch(err => console.error(err));
  * // [json1, json, json3, ...]
