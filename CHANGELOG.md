@@ -4,18 +4,24 @@
 
 - update docs
 
-## `@svizzle/file` v0.5.0
+## `@svizzle/file` v0.5.0 (next)
 
 - add `writeFile` (it was there since 0.1.0 but it wasn't exported)
 - update docs
 
-## `@svizzle/utils` v0.4.0
+## `@svizzle/utils` v0.4.0 (next)
 
 - updated docs
 
 ### Any -> Boolean
 
 - added `isNotNull`
+
+### Object -> Any
+
+- added `getId`
+- added `getKey`
+- added `getValue`
 
 
 ## 20190908

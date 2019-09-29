@@ -6,6 +6,11 @@
 
 - added `isNotNull`
 
+### Object -> Any
+
+- added `getId`
+- added `getKey`
+- added `getValue`
 
 ## `@svizzle/utils` v0.3.0
 
