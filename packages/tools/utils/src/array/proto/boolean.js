@@ -9,7 +9,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {array} array
- * @arg {any} any
+ * @arg {*} any
  * @return {boolean}
  *
  * @example includes([0, 1, 2], 2) // true

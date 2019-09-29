@@ -7,7 +7,7 @@
  *
  * @function
  * @arg {iterable} iterable
- * @return {number}
+ * @return {object}
  *
  * @example
 function func () {

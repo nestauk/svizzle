@@ -12,7 +12,7 @@ import {vectorLength2D} from "./2DVector";
  *
  * @function
  * @arg {array} pointArray - An array of 2 numbers
- * @return {object} An object with {x, y} coordinates.
+ * @return {object} - An object with {x, y} coordinates.
  *
  * @example [1, 2] => {x: 1, y: 2}
  *
@@ -26,7 +26,7 @@ export const makePosition2D = _.partial(_.make, [["x", "y"], __]);
  * @function
  * @arg {object} point - The first point
  * @arg {object} point - The second point
- * @return {number} The distance between the two points
+ * @return {number} - The distance between the two points
  *
  * @example ({x: 1, y: 1}, {x: 2, y: 2}) => 1.4142135623730951
  *
@@ -41,7 +41,7 @@ export const getDistance2D = ({x: x1, y: y1}, {x: x2, y: y2}) =>
  * @function
  * @arg {object} point - The first point
  * @arg {object} point - The second point
- * @return {object} point The center point
+ * @return {object} point - The center point
  *
  * @example ({x: 1, y: 1}, {x: 3, y: 3}) => {x: 2, y: 2}
  *

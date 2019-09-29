@@ -66,7 +66,7 @@ export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
  *
  * @function
  * @arg {array} features - Array of features
- * @return {object} FeatureCollection of Point features
+ * @return {object} collection - FeatureCollection of Point features
  *
  * @example
 
@@ -112,7 +112,7 @@ export const makeCentroids = _.pipe([
  * @function
  * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]) from the provided feature
  * @arg {function} propsTransformer - The function to create the properties of the resulting point from the provided feature
- * @return {object} - Geojson Point feature.
+ * @return {object} point - Geojson Point feature.
  *
  * @example
 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
@@ -153,7 +153,7 @@ export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
  * @function
  * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]) from the provided features
  * @arg {function} propsTransformer - The function to create the properties of the resulting points from the provided features
- * @return {object} - FeatureCollection of Point features
+ * @return {object} collection - FeatureCollection of Point features
  *
  * @example
 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);

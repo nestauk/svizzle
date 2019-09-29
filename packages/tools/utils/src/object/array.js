@@ -28,7 +28,7 @@ export const concatValues = _.pipe([_.values, _.apply(concat)]);
  *
  * @function
  * @arg {object} object
- * @return {boolean}
+ * @return {array}
  *
  * @example
 const obj = {k1: "v1", k2: "v2"}

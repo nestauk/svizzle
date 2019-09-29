@@ -10,7 +10,7 @@ import {__} from "lamb";
  *
  * @function
  * @arg {array} pointArray - An array of 3 numbers
- * @return {object} An object with {x, y, z} coordinates.
+ * @return {object} - An object with {x, y, z} coordinates.
  *
  * @example [1, 2, 3] => {x: 1, y: 2, z: 3}
  *

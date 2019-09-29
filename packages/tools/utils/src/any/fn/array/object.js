@@ -8,7 +8,7 @@ import * as _ from "lamb";
  * Return a function expecting an array of keys and returning an object with the provided value as value of those keys.
  *
  * @function
- * @arg {any} value
+ * @arg {*} value
  * @return {function} function - Array -> Object
  *
  * @example

@@ -9,7 +9,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {object} object
- * @return {any} - object.id
+ * @return {*} - object.id
  *
  * @example
 getId({id: 'foo', name: 'bar'})
@@ -24,7 +24,7 @@ export const getId = _.getKey('id');
  *
  * @function
  * @arg {object} object
- * @return {any} - object.key
+ * @return {*} - object.key
  *
  * @example
 getKey({key: 'foo', value: 'bar'})
@@ -39,7 +39,7 @@ export const getKey = _.getKey('key');
  *
  * @function
  * @arg {object} object
- * @return {any} - object.value
+ * @return {*} - object.value
  *
  * @example
 getValue({key: 'foo', value: 'bar'})
@@ -54,7 +54,7 @@ export const getValue = _.getKey('value');
  *
  * @function
  * @arg {object} object
- * @return {any} - object.values
+ * @return {*} - object.values
  *
  * @example
 getValues({key: 'foo', values: [0, 1, 2, 3]})
