@@ -9,6 +9,15 @@
 - add `writeFile` (it was there since 0.1.0 but it wasn't exported)
 - update docs
 
+## `@svizzle/utils` v0.4.0
+
+- updated docs
+
+### Any -> Boolean
+
+- added `isNotNull`
+
+
 ## 20190908
 
 - fix npm script

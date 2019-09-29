@@ -1,3 +1,12 @@
+## `@svizzle/utils` v0.4.0 (next)
+
+- updated docs
+
+### Any -> Boolean
+
+- added `isNotNull`
+
+
 ## `@svizzle/utils` v0.3.0
 
 - updated docs

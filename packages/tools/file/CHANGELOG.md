@@ -1,4 +1,4 @@
-## `@svizzle/file` v0.5.0
+## `@svizzle/file` v0.5.0 (next)
 
 - add `writeFile` (it was there since 0.1.0 but it wasn't exported)
 - update docs

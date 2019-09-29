@@ -7,6 +7,7 @@ import {
     isString,
     isNotNaN,
     isNotNil,
+    isNotNull,
     isValidNumber,
     toNumberisValidNumber,
     toFloatIsValidNumber,
@@ -232,6 +233,27 @@ describe("Any -> Boolean", function() {
         it("should return false if the input is undefined or null", function() {
           assert.deepStrictEqual(isNotNil(undefined), false);
           assert.deepStrictEqual(isNotNil(null), false);
+        });
+    });
+    describe("isNotNull", function() {
+        // 👍
+        it("should return true is the input is not null", function() {
+          assert.deepStrictEqual(isNotNull(1), true);
+          assert.deepStrictEqual(isNotNull(Infinity), true);
+          assert.deepStrictEqual(isNotNull("123"), true);
+          assert.deepStrictEqual(isNotNull("123px"), true);
+          assert.deepStrictEqual(isNotNull([1, 2]), true);
+          assert.deepStrictEqual(isNotNull({a: 1}), true);
+          assert.deepStrictEqual(isNotNull(true), true);
+          assert.deepStrictEqual(isNotNull(false), true);
+          assert.deepStrictEqual(isNotNull(returnArgs()), true);
+          assert.deepStrictEqual(isNotNull(NaN), true);
+          assert.deepStrictEqual(isNotNull(undefined), true);
+        });
+
+        // 👎
+        it("should return false if the input is null", function() {
+          assert.deepStrictEqual(isNotNull(null), false);
         });
     });
 });

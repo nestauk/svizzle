@@ -285,3 +285,33 @@ isNotNil(returnArgs()) // false
  * @version 0.2.0
  */
 export const isNotNil = _.not(_.isNil);
+
+/**
+ * Return true is the input is not null.
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+isNotNull(1) // true
+isNotNull(Infinity) // true
+isNotNull("123") // true
+isNotNull("123px") // true
+isNotNull([1, 2]) // true
+isNotNull({a: 1}) // true
+isNotNull(true) // true
+isNotNull(false) // true
+isNotNull(NaN) // true
+isNotNull(undefined) // true
+
+isNotNull(null) // false
+
+function returnArgs () {
+    return arguments;
+}
+isNotNull(returnArgs()) // true
+ *
+ * @version 0.4.0
+ */
+export const isNotNull = _.not(_.isNull);
