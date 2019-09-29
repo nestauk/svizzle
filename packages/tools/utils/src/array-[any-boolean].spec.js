@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {makeIsIncluded} from "./boolean";
+import {makeIsIncluded} from "./array-[any-boolean]";
 
 describe("Array -> (Any -> Boolean)", function() {
     describe("makeIsIncluded", function() {

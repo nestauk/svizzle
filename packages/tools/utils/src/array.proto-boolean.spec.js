@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {includes} from "./boolean";
+import {includes} from "./array.proto-boolean";
 
 describe("(prototype) Array -> (Any -> Boolean)", function() {
     describe("includes", function() {

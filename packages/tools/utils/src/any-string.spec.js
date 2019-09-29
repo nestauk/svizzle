@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {stringify} from "./string";
+import {stringify} from "./any-string";
 
 describe("Any -> String", function() {
     describe("stringify", function() {

@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/any/string
+* @module @svizzle/utils/any-string
 */
 
 /**

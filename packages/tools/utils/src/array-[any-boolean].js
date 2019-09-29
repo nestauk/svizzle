@@ -1,10 +1,10 @@
 /**
-* @module @svizzle/utils/array/fn/any/boolean
+* @module @svizzle/utils/array-[any-boolean]
 */
 
 import * as _ from "lamb";
 
-import {includes} from "../../proto/boolean";
+import {includes} from "./array.proto-boolean";
 
 /**
  * Return a function returning true if the passed value is found in the provided array
