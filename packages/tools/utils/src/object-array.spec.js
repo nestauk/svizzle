@@ -6,7 +6,7 @@ import {
   concatValues,
   getTruthyValuesKeys,
   objectToKeyValueArray,
-} from "./array";
+} from "./object-array";
 
 describe("Object -> Array", function() {
     describe("concatValues", function() {

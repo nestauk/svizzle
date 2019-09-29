@@ -1,12 +1,12 @@
 /**
-* @module @svizzle/utils/object/array
+* @module @svizzle/utils/object-array
 */
 
 import * as _ from "lamb";
 
-import {concat} from '../array/proto/array';
-import {pairToKeyValueObject} from "../iterable/object";
-import {pickIfTruthy} from "./object";
+import {concat} from './array.proto-array';
+import {pairToKeyValueObject} from "./iterable-object";
+import {pickIfTruthy} from "./object-object";
 
 /**
  * Concatenate the values of the provided objects.

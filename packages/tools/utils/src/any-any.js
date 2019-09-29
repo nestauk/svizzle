@@ -1,10 +1,10 @@
 /**
-* @module @svizzle/utils/any/any
+* @module @svizzle/utils/any-any
 */
 
 import * as _ from "lamb";
 
-import {isValidNumber} from "./boolean";
+import {isValidNumber} from "./any-boolean";
 
 /**
  * Return an empty array if the input is undefined or identity otherwise.

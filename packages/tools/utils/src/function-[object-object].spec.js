@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {mergeWith} from "./object";
+import {mergeWith} from "./function-[object-object]";
 
 describe("Function -> (Object -> Object)", function() {
     describe("mergeWith", function() {

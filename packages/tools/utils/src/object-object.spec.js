@@ -11,7 +11,7 @@ import {
     mergeWithMerge,
     mergeWithSum,
     pickIfTruthy
-} from "./object";
+} from "./object-object";
 
 describe("Object -> Object", function() {
     describe("mapValuesToFloat", function() {

@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {makeEmptyArrayIfUndefined, toFloatOrIdentity} from "./any";
+import {makeEmptyArrayIfUndefined, toFloatOrIdentity} from "./any-any";
 
 function returnArgs () {
     return arguments;

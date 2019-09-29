@@ -11,7 +11,7 @@ import {
     isValidNumber,
     toNumberisValidNumber,
     toFloatIsValidNumber,
-} from "./boolean";
+} from "./any-boolean";
 
 function returnArgs () {
     return arguments;

@@ -1,12 +1,12 @@
 /**
-* @module @svizzle/utils/object/object
+* @module @svizzle/utils/object-object
 */
 
 import * as _ from "lamb";
 
-import {toFloatOrIdentity} from "../any/any";
-import {concat} from "../array/proto/array";
-import {mergeWith} from "../function/fn/object/object";
+import {toFloatOrIdentity} from "./any-any";
+import {concat} from "./array.proto-array";
+import {mergeWith} from "./function-[object-object]";
 
 /* map values */
 

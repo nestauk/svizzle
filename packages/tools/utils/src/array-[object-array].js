@@ -1,11 +1,11 @@
 /**
-* @module @svizzle/utils/array/fn/object/array
+* @module @svizzle/utils/array-[object-array]
 */
 
 import * as _ from "lamb";
 import {__} from "lamb";
 
-import {concat} from "../../proto/array.js";
+import {concat} from "./array.proto-array";
 
 /**
  * Return a function expecting an object and returning an array of values corresponding to the provided keys.

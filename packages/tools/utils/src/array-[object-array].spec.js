@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {makeKeysGetter, pickAndConcatValues} from "./array";
+import {makeKeysGetter, pickAndConcatValues} from "./array-[object-array]";
 
 describe("Array -> (Object -> Array)", function() {
     describe("makeKeysGetter", function() {
