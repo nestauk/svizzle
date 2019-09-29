@@ -27,6 +27,10 @@
 - added `getKey`
 - added `getValue`
 
+### Object -> Array
+
+- added `concatValues`
+
 
 ## 20190908
 

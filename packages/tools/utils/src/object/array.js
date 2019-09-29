@@ -4,12 +4,27 @@
 
 import * as _ from "lamb";
 
+import {concat} from '../array/proto/array';
 import {pairToKeyValueObject} from "../iterable/object";
 import {pickIfTruthy} from "./object";
 
 /**
- * Return an array of {key, value} objects from an object
+ * Concatenate the values of the provided objects.
  *
+ * @function
+ * @arg {object} object
+ * @return {array}
+ *
+ * @example
+concatValues({a: [1, 2, 3], b: [4, 5, 6]})
+// [1, 2, 3, 4, 5, 6]
+ *
+ * @version 0.4.0
+ */
+export const concatValues = _.pipe([_.values, _.apply(concat)]);
+
+/**
+ * Return an array of {key, value} objects from an object
  *
  * @function
  * @arg {object} object

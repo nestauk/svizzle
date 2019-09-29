@@ -2,9 +2,21 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {objectToKeyValueArray, getTruthyValuesKeys} from "./array";
+import {
+  concatValues,
+  getTruthyValuesKeys,
+  objectToKeyValueArray,
+} from "./array";
 
 describe("Object -> Array", function() {
+    describe("concatValues", function() {
+        it("should concatenate the values of the provided objects", function() {
+            assert.deepStrictEqual(
+                concatValues({a: [1, 2, 3], b: [4, 5, 6]}),
+                [1, 2, 3, 4, 5, 6]
+            );
+        });
+    });
     describe("objectToKeyValueArray", function() {
         it("should return an array of {key, value} objects from an object", function() {
             assert.deepStrictEqual(

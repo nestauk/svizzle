@@ -16,6 +16,10 @@
 - added `getKey`
 - added `getValue`
 
+### Object -> Array
+
+- added `concatValues`
+
 ## `@svizzle/utils` v0.3.0
 
 - updated docs
