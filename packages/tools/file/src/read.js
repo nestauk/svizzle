@@ -18,11 +18,11 @@ import {filterJsonExtensions} from "./path";
 
 /**
  * [node environment]
- * Read the file at the provided path and return a promise.
+ * Return a promise that reads the file at the provided path.
  *
  * @function
  * @arg {string} filePath
- * @arg {string} encoding
+ * @arg {string} [encoding=null] - Encoding {@link https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings|supported by Node Buffer}
  * @return {promise}
  *
  * @example
@@ -41,7 +41,7 @@ export const readFile = util.promisify(fs.readFile);
 
 /**
  * [node environment]
- * Read a directory at the provided path and return a promise.
+ * Return a promise that reads the directory at the provided path.
  *
  * @function
  * @arg {string} dirPath
@@ -92,7 +92,11 @@ readCsv("source/withNoHeader.csv", row => ({
 // [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
  * @version 0.1.0
  */
-export const readCsv = (csvPath, conversionFn, withHeader = true) =>
+export const readCsv = (
+  csvPath,
+  conversionFn = _.identity,
+  withHeader = true
+) =>
     readFile(csvPath, "utf-8")
     .then(str => withHeader
       ? csvParse(str, conversionFn)
@@ -138,7 +142,12 @@ readDsv("source/withNoHeader.txt", ([name, amount]) => ({
  *
  * @version 0.4.0
  */
-export const readDsv = (filePath, conversionFn, separator, withHeader = true) =>
+export const readDsv = (
+  filePath,
+  conversionFn = _.identity,
+  separator,
+  withHeader = true
+) =>
   readFile(filePath, "utf-8")
   .then(str => {
     const parser = dsvFormat(separator);
@@ -187,7 +196,11 @@ readTsv("source/withNoHeader.txt", ([name, amount]) => ({
  *
  * @version 0.3.0
  */
-export const readTsv = (tsvPath, conversionFn, withHeader = true) =>
+export const readTsv = (
+  tsvPath,
+  conversionFn = _.identity,
+  withHeader = true
+) =>
     readFile(tsvPath, "utf-8")
     .then(str => withHeader
       ? tsvParse(str, conversionFn)

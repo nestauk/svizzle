@@ -15,7 +15,7 @@ import {ndjsonToArray} from "@svizzle/utils";
  *
  * @function
  * @arg {string} url - The URL for the request (GET).
- * @arg {boolean} useFetch -
+ * @arg {boolean} [useFetch=true] -
  *      Use the Fetch API? (default = `true`).
  *      Useful to pass `Modernizr.fetch` to disable the Fetch API if not available.
  * @return {promise}
@@ -50,7 +50,7 @@ export const requestJson = (url, useFetch = true) => useFetch
  *
  * @function
  * @arg {string} url - The URL for the request (GET).
- * @arg {boolean} useFetch -
+ * @arg {boolean} [useFetch=true] -
  *      Use the Fetch API? (default = `true`).
  *      Useful to pass `Modernizr.fetch` to disable the Fetch API if not available.
  * @return {promise}

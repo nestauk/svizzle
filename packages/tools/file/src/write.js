@@ -7,7 +7,38 @@ import stream from "stream";
 import util from "util";
 
 const finished = util.promisify(stream.finished);
-const writeFile = util.promisify(fs.writeFile);
+
+/**
+ * [node environment]
+ * Return a promise that writes the provided file at the provided path.
+ *
+ * @function
+ * @arg {string} filePath
+ * @arg {string|Buffer|Uint8Array} data - item to write to file
+ * @arg {string} [encoding='utf8'] - Encoding {@link https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings|supported by Node Buffer}
+ * @return {promise}
+ *
+ * @example
+ *
+writeFile('./foo.txt', JSON.stringify({a: 1, b: 2, c:3}))
+.then(() => console.log('saved'))
+.catch(err => console.error(err));
+// $ cat foo.txt
+// $ {"a":1,"b":2,"c":3}
+// $ base64 foo.txt
+// $ eyJhIjoxLCJiIjoyLCJjIjozfQ==
+
+writeFile('./foo.txt', JSON.stringify({a: 1, b: 2, c:3}), 'base64')
+.then(x => console.log(x))
+.catch(err => console.error(err));
+// $ cat foo.txt
+// $ kV?s
+// $ base64 foo.txt
+// $ a1b2cw==
+ *
+ * @version 0.5.0
+ */
+export const writeFile = util.promisify(fs.writeFile);
 
 /**
  * Return a function that expects an object and returns a promise that writes

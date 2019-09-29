@@ -15,7 +15,7 @@ import {
 describe("read", function() {
     describe("readFile", function() {
       const aTxt = "I'm a text file\nfor you to read\n";
-        it("should read the file at the provided path and return a promise – no encoding",
+        it("should return a promise that reads the file at the provided path – no encoding",
             async function() {
                 const txtPath = path.resolve(__dirname, "../test_assets", "a.txt");
                 const buffer = await readFile(txtPath);
@@ -23,7 +23,7 @@ describe("read", function() {
                 assert.deepStrictEqual(buffer, expected);
             }
         );
-        it("should read the file at the provided path and return a promise – with encoding",
+        it("should return a promise that reads the file at the provided path – with encoding",
             async function() {
                 const txtPath = path.resolve(__dirname, "../test_assets", "a.txt");
                 const txt = await readFile(txtPath, 'utf-8');
@@ -45,7 +45,7 @@ describe("read", function() {
           'rows.tsv',
           'rows.txt',
         ];
-        it("should read a directory at the provided path and return a promise",
+        it("should return a promise that reads the directory at the provided path",
             async function() {
                 const dirPath = path.resolve(__dirname, "../test_assets");
                 const items = await readDir(dirPath, 'utf-8');
