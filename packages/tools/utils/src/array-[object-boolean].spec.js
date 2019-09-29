@@ -5,7 +5,7 @@ import {
   isNotKeyValue,
   isNotPathValue,
   isPathValue,
-} from "./boolean";
+} from "./array-[object-boolean]";
 
 describe("Array -> (Object -> Array)", function() {
   describe("isKeyValue", function() {

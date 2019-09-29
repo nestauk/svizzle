@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {isNot} from './boolean';
+import {isNot} from './any-[any-boolean]';
 
 describe("Any -> (Any -> Boolean)", function() {
     describe("isnt", function() {

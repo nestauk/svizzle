@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/any/fn/any/boolean
+* @module @svizzle/utils/any-[any-boolean]
 */
 
 import * as _ from "lamb";
