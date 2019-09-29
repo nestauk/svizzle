@@ -5,7 +5,7 @@
         "jsdoc": "^3.6.3",
         "lerna": "^3.16.4",
         "rimraf": "^3.0.0",
-        "serve": "^11.1.0"
+        "serve": "^11.2.0"
     },
     "dependencies": {},
     "author": "nestauk",

@@ -3,7 +3,7 @@
 */
 
 import * as _ from "lamb";
-import compare from "just-compare";
+import isEqual from "just-compare";
 
 /**
  * Return an array containing the first and the last element of the provided array.
@@ -73,7 +73,7 @@ export const toggleItem = (array, item) => {
     let found = false;
 
     let result = _.reduce(array, (acc, x) => {
-        if (compare(x, item)) {
+        if (isEqual(x, item)) {
             found = true;
         } else {
             acc.push(x);
