@@ -3,7 +3,7 @@ import {strict as assert} from "assert";
 import {makeKeysGetter} from "./array";
 
 describe("Array -> (Object -> Array)", function() {
-    describe("makeKeysGetter()", function() {
+    describe("makeKeysGetter", function() {
         const getCoordinates = makeKeysGetter(["lng", "lat"]);
 
         it("should return a function expecting an object and returning an array of values corresponding to the provided keys", function() {

@@ -8,7 +8,7 @@ import {
 } from "./object";
 
 describe("Array -> (Array -> Object)", function() {
-    describe("makeWithKeys()", function() {
+    describe("makeWithKeys", function() {
         it("should return a function expecting an array of values and returning an object assigning the values to the provided keys", function() {
             const makeWithLatLng = makeWithKeys(["lng", "lat"]);
 
@@ -22,7 +22,7 @@ describe("Array -> (Array -> Object)", function() {
             );
         });
     });
-    describe("makeWithValues()", function() {
+    describe("makeWithValues", function() {
         it("should return a function expecting an array of keys and returning an object assigning the keys to the provided values", function() {
           const makeWithTheseValues = makeWithValues([1, 2]);
 

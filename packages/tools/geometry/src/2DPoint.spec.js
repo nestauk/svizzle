@@ -7,7 +7,7 @@ import {
 } from "./2DPoint";
 
 describe("2DPoint", function() {
-    describe("makePosition2D ()", function() {
+    describe("makePosition2D", function() {
         it("should create a point object from an array", function() {
             assert.deepStrictEqual(
                 makePosition2D([1, 2]),
@@ -15,7 +15,7 @@ describe("2DPoint", function() {
             );
         });
     });
-    describe("getDistance2D ()", function() {
+    describe("getDistance2D", function() {
         it("should return the distance between 2 points", function() {
             assert.deepStrictEqual(
                 getDistance2D({x: 1, y: 1}, {x: 2, y: 2}),
@@ -29,7 +29,7 @@ describe("2DPoint", function() {
             );
         });
     });
-    describe("getTwoPointsCenter ()", function() {
+    describe("getTwoPointsCenter", function() {
         it("should return two points center", function() {
             assert.deepStrictEqual(
                 getTwoPointsCenter({x: 1, y: 1}, {x: 3, y: 3}),

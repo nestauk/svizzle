@@ -5,7 +5,7 @@ import * as _ from "lamb";
 import {makeWith} from "./object";
 
 describe("Array -> (Any -> Object)", function() {
-    describe("makeWith()", function() {
+    describe("makeWith", function() {
         it("should return a function expecting an array and that applies the provided transforms to its elements", function() {
             const makeCircle = makeWith([
                 ["radius", "perimeter", "area"],

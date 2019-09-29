@@ -8,7 +8,7 @@ import {
 } from "./array";
 
 describe("Array -> (Array -> Array)", function() {
-    describe("makeArrayTransformer()", function() {
+    describe("makeArrayTransformer", function() {
         it("should return a function expecting an array and that applies the provided transforms to its elements", function() {
             const transformer1 = makeArrayTransformer([x => x * 20, x => x + 3]);
             assert.deepStrictEqual(

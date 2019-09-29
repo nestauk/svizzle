@@ -12,7 +12,7 @@ import {
 } from "./geojson";
 
 describe("geojson", function() {
-    describe("getOrMakeBBox()", function() {
+    describe("getOrMakeBBox", function() {
         const type = "FeatureCollection";
         const features = [{
             type: "Feature",
@@ -43,7 +43,7 @@ describe("geojson", function() {
         });
     });
 
-    describe("makeCentroids()", function() {
+    describe("makeCentroids", function() {
         it("should return the a collection of centroids of the provided features, each having the correspondent feature properties",
             function() {
                 const features = [{
@@ -83,7 +83,7 @@ describe("geojson", function() {
         );
         // TODO test more subtle cases (item without appropriate lat/lng, ...)
     });
-    describe("makeToPointFeature()", function() {
+    describe("makeToPointFeature", function() {
         it("should return a function expecting an object and returning it as a Point feature with the passed object as properties",
             function() {
                 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
@@ -113,7 +113,7 @@ describe("geojson", function() {
         );
         // TODO test more subtle cases (item without appropriate lat/lng, ...)
     });
-    describe("makeToGeoPoints()", function() {
+    describe("makeToGeoPoints", function() {
         it("should return a function expecting an array of objects and returning them as a FeatureCollection of Point features with the passed objects as properties",
             function() {
                 const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
@@ -165,7 +165,7 @@ describe("geojson", function() {
         );
         // TODO test more subtle cases (empty array, items without appropriate lat/lng, ...)
     });
-    describe("setGeometryPrecision()", function() {
+    describe("setGeometryPrecision", function() {
         it("should return a function returning a copy of the provided geojson having the geometry coordinates truncated (not rounded) to the given precision",
             function() {
                 const shortenGeometry = setGeometryPrecision(4);

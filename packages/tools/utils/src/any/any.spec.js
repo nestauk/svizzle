@@ -32,7 +32,7 @@ describe("Any -> Any", function() {
     });
 
     describe("Any -> identity|array", function() {
-        describe("makeEmptyArrayIfUndefined()", function() {
+        describe("makeEmptyArrayIfUndefined", function() {
             it("should create [] from undefined", function() {
                 assert.deepStrictEqual(makeEmptyArrayIfUndefined(undefined), []);
             });
