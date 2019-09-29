@@ -3,7 +3,7 @@ import {strict as assert} from "assert";
 import {
     areAllTruthy,
     areSomeTruthy
-} from "./boolean";
+} from "./array-boolean";
 
 describe("Array -> Boolean", function() {
     describe("areAllTruthy", function() {

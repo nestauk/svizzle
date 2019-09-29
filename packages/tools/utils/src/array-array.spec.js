@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {getFirstAndLast, swap, toggleItem} from "./array";
+import {getFirstAndLast, swap, toggleItem} from "./array-array";
 
 describe("Array -> Array", function() {
     describe("getFirstAndLast", function() {
