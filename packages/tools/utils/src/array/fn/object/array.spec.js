@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {makeKeysGetter} from "./array";
+import {makeKeysGetter, pickAndConcatValues} from "./array";
 
 describe("Array -> (Object -> Array)", function() {
     describe("makeKeysGetter", function() {
@@ -32,6 +32,21 @@ describe("Array -> (Object -> Array)", function() {
                     population: 8825000
                 }),
                 [undefined, undefined]
+            );
+        });
+    });
+
+    describe("pickAndConcatValues", function() {
+        it("should return a function expecting an object and concatenating values in the provided whitelisted keys", function() {
+          const getProducts = pickAndConcatValues(['food', 'beverage']);
+            assert.deepStrictEqual(
+                getProducts({
+                    food: ['bread', 'cheese', 'ham'],
+                    beverage: ['wine', 'water'],
+                    id: 'area1',
+                    value: 32.1,
+                }),
+                ['bread', 'cheese', 'ham', 'wine', 'water']
             );
         });
     });

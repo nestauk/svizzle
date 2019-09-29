@@ -6,6 +6,10 @@
 
 - added `isNotNull`
 
+### Array -> (Object -> Array)
+
+- added `pickAndConcatValues`
+
 ### Array -> (String -> Boolean)
 
 - added `containsOneOf`
