@@ -6,6 +6,10 @@
 
 - added `isNotNull`
 
+### Array -> (String -> Boolean)
+
+- added `containsOneOf`
+
 ### Object -> Any
 
 - added `getId`
