@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {makeKeyed} from "./object";
+import {makeKeyed} from "./any-[array-object]";
 
 function returnArgs () {
     return arguments;

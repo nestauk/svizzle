@@ -1,9 +1,9 @@
 /**
-* @module @svizzle/utils/array/object
+* @module @svizzle/utils/array-object
 */
 
 import * as _ from "lamb";
-import {makeKeyed} from "../any/fn/array/object";
+import {makeKeyed} from "./any-[array-object]";
 
 /**
  * Return an object built using 'key's and 'value's from the objects in the provided array

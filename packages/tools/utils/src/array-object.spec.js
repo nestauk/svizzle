@@ -5,7 +5,7 @@ import {
     makeKeyedZeroes,
     makeOccurrences,
     makeAllOccurrences
-} from "./object";
+} from "./array-object";
 
 describe("Array -> Object", function() {
     describe("keyValueArrayToObject", function() {
