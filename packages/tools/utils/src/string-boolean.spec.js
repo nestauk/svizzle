@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {isTrimmedNotEmpty} from "./boolean";
+import {isTrimmedNotEmpty} from "./string-boolean";
 
 describe("String -> Boolean", function() {
     describe("isTrimmedNotEmpty", function() {

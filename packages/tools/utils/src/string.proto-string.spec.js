@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {trim} from "./string";
+import {trim} from "./string.proto-string";
 
 describe("String -> String", function() {
     describe("trim", function() {

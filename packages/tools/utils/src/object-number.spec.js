@@ -6,7 +6,7 @@ import {
     getObjSize,
     valuesMax,
     valuesMin
-} from "./number";
+} from "./object-number";
 
 describe("Object -> Number", function() {
     describe("getObjSize", function() {

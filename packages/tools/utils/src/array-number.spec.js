@@ -7,8 +7,8 @@ import {
   arrayMin,
   arraySum,
   makeRandomNumInRange
-} from "./number";
-import {makeIsWithinRange} from "./fn/number/boolean";
+} from "./array-number";
+import {makeIsWithinRange} from "./array-[number-boolean]";
 
 describe("Array -> Number", function() {
     describe("max/min", function() {

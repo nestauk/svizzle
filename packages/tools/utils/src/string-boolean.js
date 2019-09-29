@@ -1,11 +1,11 @@
 /**
-* @module @svizzle/utils/string/boolean
+* @module @svizzle/utils/string-boolean
 */
 
 import * as _ from "lamb";
 
-import {isIterableNotEmpty} from "../iterable/boolean";
-import {trim} from "./proto/string";
+import {isIterableNotEmpty} from "./iterable-boolean";
+import {trim} from "./string.proto-string";
 
 /**
  * Return true if the trimmed string is not empty

@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {makeIsWithinRange} from "./boolean";
+import {makeIsWithinRange} from "./array-[number-boolean]";
 
 describe("Array -> (Number -> Boolean)", function() {
     describe("makeIsWithinRange", function() {

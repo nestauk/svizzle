@@ -5,7 +5,7 @@ import {
     is1,
     isGT0,
     isGT1
-} from "./boolean";
+} from "./number-boolean";
 
 describe("Number -> Boolean", function() {
     describe("is0", function() {

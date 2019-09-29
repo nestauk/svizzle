@@ -1,11 +1,11 @@
 /**
-* @module @svizzle/utils/object/number
+* @module @svizzle/utils/object-number
 */
 
 import * as _ from "lamb";
 
-import {arrayMax, arrayMin} from "../array/number";
-import {getLength} from "../iterable/number";
+import {arrayMax, arrayMin} from "./array-number";
+import {getLength} from "./iterable-number";
 
 /* max */
 

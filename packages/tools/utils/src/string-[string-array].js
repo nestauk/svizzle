@@ -1,10 +1,10 @@
 /**
-* @module @svizzle/utils/string/fn/string/array
+* @module @svizzle/utils/string-[string-array]
 */
 
 import * as _ from "lamb";
 
-import {split} from "../../proto/array";
+import {split} from "./string.proto-array";
 
 /**
  * Return a function expecting a separator or regex to split the provided string

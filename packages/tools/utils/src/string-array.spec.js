@@ -7,7 +7,7 @@ import {
     splitByDot,
     splitByEOL,
     splitBySemiColon
-} from "./array";
+} from "./string-array";
 
 describe("String -> Array", function() {
     describe("makeLines", function() {

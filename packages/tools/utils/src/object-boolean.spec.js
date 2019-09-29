@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {hasObjSize1, isObjEmpty, isObjNotEmpty} from "./boolean";
+import {hasObjSize1, isObjEmpty, isObjNotEmpty} from "./object-boolean";
 
 describe("Object -> Boolean", function() {
     describe("hasObjSize1", function() {

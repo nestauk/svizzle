@@ -1,12 +1,12 @@
 /**
-* @module @svizzle/utils/object/boolean
+* @module @svizzle/utils/object-boolean
 */
 
 import * as _ from "lamb";
 
-import {is0, is1, isGT0} from "../number/boolean";
-import {getObjSize} from "./number";
-import {getLength} from "../iterable/number";
+import {getLength} from "./iterable-number";
+import {is0, is1, isGT0} from "./number-boolean";
+import {getObjSize} from "./object-number";
 
 /*
  * Return the size of the provided object

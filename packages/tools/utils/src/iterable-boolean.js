@@ -1,12 +1,12 @@
 /**
-* @module @svizzle/utils/iterable/boolean
+* @module @svizzle/utils/iterable-boolean
 */
 
 import * as _ from "lamb";
 
-import {is0, is1, isGT0, isGT1} from "../number/boolean";
+import {is0, is1, isGT0, isGT1} from "./number-boolean";
 
-import {getLength} from "./number";
+import {getLength} from "./iterable-number";
 
 /**
  * Use to check if an iterable is empty

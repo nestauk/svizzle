@@ -5,7 +5,7 @@ import {
     isIterableLongerThan1,
     isIterableEmpty,
     isIterableNotEmpty,
-} from "./boolean";
+} from "./iterable-boolean";
 
 describe("Iterable -> Boolean", function() {
     describe("isIterableEmpty", function() {

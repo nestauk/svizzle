@@ -1,12 +1,12 @@
 /**
-* @module @svizzle/utils/string/array
+* @module @svizzle/utils/string-array
 */
 
 import * as _ from "lamb";
 
-import {isTrimmedNotEmpty} from "./boolean";
-import {trim} from "./proto/string";
-import {makeSplitBy} from "./fn/string/array";
+import {isTrimmedNotEmpty} from "./string-boolean";
+import {trim} from "./string.proto-string";
+import {makeSplitBy} from "./string-[string-array]";
 
 /**
  * Return an array by splitting by "."
