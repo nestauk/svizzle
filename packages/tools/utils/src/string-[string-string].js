@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/string/fn/string/string
+* @module @svizzle/utils/string-[string-string]
 */
 
 import * as _ from "lamb";

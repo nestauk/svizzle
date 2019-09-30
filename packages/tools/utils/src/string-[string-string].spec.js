@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {prepend} from "./string";
+import {prepend} from "./string-[string-string]";
 
 describe("String -> (String -> String)", function() {
     describe("prepend", function() {
