@@ -1,10 +1,10 @@
 /**
-* @module @svizzle/utils/array/fn/any/object
+* @module @svizzle/utils/array-[any-object]
 */
 
 import * as _ from "lamb";
 
-import {makeWithKeys} from "../array/object";
+import {makeWithKeys} from "./array-[array-object]";
 
 /**
  * Return a function returning an object by assigning the results of the provided functions assigned to the provided keys.

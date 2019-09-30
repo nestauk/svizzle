@@ -5,7 +5,7 @@ import * as _ from "lamb";
 import {
   makeWithKeys,
   makeWithValues
-} from "./object";
+} from "./array-[array-object]";
 
 describe("Array -> (Array -> Object)", function() {
     describe("makeWithKeys", function() {

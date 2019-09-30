@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {makeWith} from "./object";
+import {makeWith} from "./array-[any-object]";
 
 describe("Array -> (Any -> Object)", function() {
     describe("makeWith", function() {
