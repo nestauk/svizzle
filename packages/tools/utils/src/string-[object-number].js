@@ -1,10 +1,10 @@
 /**
-* @module @svizzle/utils/string/fn/object/number
+* @module @svizzle/utils/string-[object-number]
 */
 
 import * as _ from "lamb";
 
-import {arrayMaxBy, arrayMinBy} from "../array/number";
+import {arrayMaxBy, arrayMinBy} from "./string-[array-number]";
 
 /**
  * Return a function expecting an object of objects and returning the max of values by the provided key

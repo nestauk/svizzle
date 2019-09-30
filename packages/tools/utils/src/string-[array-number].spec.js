@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {arrayMaxBy, arrayMinBy} from "./number";
+import {arrayMaxBy, arrayMinBy} from "./string-[array-number]";
 
 describe("String -> (Array -> Number)", function() {
     describe("max/min", function() {
