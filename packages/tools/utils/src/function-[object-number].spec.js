@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {valuesMaxWith, valuesMinWith} from "./number";
+import {valuesMaxWith, valuesMinWith} from "./function-[object-number]";
 
 describe("Function -> (Object -> Number)", function() {
     describe("max/min", function() {

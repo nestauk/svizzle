@@ -1,10 +1,10 @@
 /**
-* @module @svizzle/utils/function/fn/object/number
+* @module @svizzle/utils/function-[object-number]
 */
 
 import * as _ from "lamb";
 
-import {arrayMaxWith, arrayMinWith} from "../array/number";
+import {arrayMaxWith, arrayMinWith} from "./function-[array-number]";
 
 /**
  * Return a function expecting an object of objects and returning the max of values by the provided key
