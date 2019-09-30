@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/array.proto-boolean
+* @module @svizzle/utils/array_proto-boolean
 */
 
 import * as _ from "lamb";

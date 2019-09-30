@@ -4,7 +4,7 @@
 
 import * as _ from "lamb";
 
-import {includes} from "./array.proto-boolean";
+import {includes} from "./array_proto-boolean";
 
 /**
  * Return a function returning true if the passed value is found in the provided array
