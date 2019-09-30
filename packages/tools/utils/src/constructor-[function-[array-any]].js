@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/constructor/fn/function/fn/array/any
+* @module @svizzle/utils/constructor-[function-[array-any]]
 */
 
 import * as _ from "lamb";

@@ -1,8 +1,8 @@
 /**
-* @module @svizzle/utils/function/fn/array/any
+* @module @svizzle/utils/function-[array-any]
 */
 
-import {reduceTo} from '../../../constructor/fn/function/fn/array/any';
+import {reduceTo} from './constructor-[function-[array-any]]';
 
 /**
  * Return a reduce function expecting an array to reduce with the passed reducer

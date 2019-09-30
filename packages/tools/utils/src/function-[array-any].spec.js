@@ -1,6 +1,6 @@
 import {strict as assert} from 'assert';
 
-import {reduceFromArr, reduceFromObj} from './any';
+import {reduceFromArr, reduceFromObj} from './function-[array-any]';
 
 describe('Function -> (Array -> Any)', function() {
   describe('reduceFromArr', function() {
