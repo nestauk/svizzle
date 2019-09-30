@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {startsWith} from "./boolean";
+import {startsWith} from "./string_proto-boolean";
 
 describe("String -> Boolean", function() {
     describe("startsWith", function() {
