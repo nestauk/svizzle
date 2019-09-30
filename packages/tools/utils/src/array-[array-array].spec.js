@@ -5,7 +5,7 @@ import * as _ from "lamb";
 import {
   makeArrayTransformer,
   removeAt
-} from "./array";
+} from "./array-[array-array]";
 
 describe("Array -> (Array -> Array)", function() {
     describe("makeArrayTransformer", function() {
