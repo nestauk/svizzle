@@ -1,11 +1,11 @@
 /**
-* @module @svizzle/utils/array/string
+* @module @svizzle/utils/array-string
 */
 
 import * as _ from "lamb";
 
-import {join} from "./proto/string";
-import {joinWith} from "../string/fn/array/string";
+import {join} from "./array_proto-string";
+import {joinWith} from "./string-[array-string]";
 
 /**
  * Return a string joining the provided array items with a dash

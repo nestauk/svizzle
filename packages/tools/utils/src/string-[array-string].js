@@ -5,7 +5,7 @@
 import * as _ from "lamb";
 import {__} from "lamb";
 
-import {join} from "../../../array/proto/string";
+import {join} from "./array_proto-string";
 
 /**
  * Return a function expecting an array to join with the provided separator

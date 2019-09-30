@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {joinWith} from "./string";
+import {joinWith} from "./string-[array-string]";
 
 describe("String -> (Array -> String)", function() {
     describe("joinWith", function() {

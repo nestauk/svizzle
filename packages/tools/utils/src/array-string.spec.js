@@ -4,7 +4,7 @@ import {
     joinWithDash,
     joinWithColon,
     joinWithSemicolon
-} from "./string";
+} from "./array-string";
 
 const arr = [0, 1, 2];
 

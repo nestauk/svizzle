@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {joinWith} from "../../../string/fn/array/string";
+import {joinWith} from "../../../string-[array-string]";
 import {
   applyFnMap,
   makeMergeKeyValue,
