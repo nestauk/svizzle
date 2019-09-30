@@ -1,11 +1,11 @@
 /**
-* @module @svizzle/utils/object/fn/object/object
+* @module @svizzle/utils/object-[object-object]
 */
 
 import * as _ from "lamb";
 import {__} from "lamb";
 
-import {joinWith} from "../../../string-[array-string]";
+import {joinWith} from "./string-[array-string]";
 
 /**
  * Return a function expecting an object to be used as the argument of the provided functions

@@ -1,10 +1,10 @@
 /**
-* @module @svizzle/utils/iterable/array
+* @module @svizzle/utils/iterable-array
 */
 
 import * as _ from "lamb";
 
-import {tapValue} from "../string/fn/any/any";
+import {tapValue} from "./string-[any-any]";
 
 /**
  * Print the provided array and element and return the result of appending the element to the array

@@ -2,13 +2,13 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {joinWith} from "../../../string-[array-string]";
 import {
   applyFnMap,
   makeMergeKeyValue,
   mergeObj,
   transformValues,
-} from "./object";
+} from "./object-[object-object]";
+import {joinWith} from "./string-[array-string]";
 
 describe("Object -> (Object -> Object)", function() {
     describe("applyFnMap", function() {

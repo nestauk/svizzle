@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import {makePrinter} from "@svizzle/dev";
 
-import {tapValue, tapType, tapTypeAndValue} from "./any";
+import {tapValue, tapType, tapTypeAndValue} from "./string-[any-any]";
 
 describe("String -> (Any -> Any)", function() {
   describe("taps", function() {

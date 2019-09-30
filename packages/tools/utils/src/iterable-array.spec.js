@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import {makePrinter} from "@svizzle/dev";
 
-import {tapAppendTo} from "./array";
+import {tapAppendTo} from "./iterable-array";
 
 describe("Iterable -> Array", function() {
     let printer;
