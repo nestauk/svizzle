@@ -6,6 +6,7 @@ import * as _ from "lamb";
 
 /**
  * Return true if the input string starts with the test string
+ * @see [String.prototype.startsWith]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith}
  *
  * @function
  * @arg {string} string - The input string

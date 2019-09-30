@@ -28,7 +28,7 @@ In this package in particular, *the modules path tries to convey the type signat
 
 For example:
 
-- [`@svizzle/utils/array/object`](https://nestauk.github.io/svizzle/module-@svizzle_utils_array_object.html) contains functions expecting an array and returning an object:
+- [`@svizzle/utils/array-object`](https://nestauk.github.io/svizzle/module-@svizzle_utils_array-object.html) contains functions expecting an array and returning an object:
 
   `Array -> Object`.
 
@@ -52,7 +52,7 @@ For example:
   makeOccurrences(objects, ["k", "a"]) // {k: 0, a: 3}
   ```
 
-- Similarly, [`@svizzle/utils/array/proto/string`](http://localhost:5000/module-@svizzle_utils_array_proto_string) contains functions derived from the `Array.prototype` hence expecting an `Array` as a first argument (and potentially other arguments of different type) and returning a `String`:
+- Similarly, [`@svizzle/utils/array_proto-string`](https://nestauk.github.io/svizzle/module-@svizzle_utils_array_proto-string) contains functions derived from the `Array.prototype` hence expecting an `Array` as a first argument (and potentially other arguments of different type) and returning a `String`:
 
   `(Array, *+) -> String`.
 

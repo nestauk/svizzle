@@ -6,6 +6,7 @@ import * as _ from "lamb";
 
 /**
  * Return an array by concatenating the provided arrays
+ * @see [Array.prototype.concat]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat}
  *
  * @function
  * @arg {...array} array

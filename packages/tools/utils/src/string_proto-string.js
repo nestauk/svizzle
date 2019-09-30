@@ -6,6 +6,7 @@ import * as _ from "lamb";
 
 /**
  * Return a string by trimming white space of the provided string
+ * @see [String.prototype.trim]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim}
  *
  * @function
  * @arg {string} string
