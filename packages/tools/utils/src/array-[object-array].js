@@ -5,7 +5,7 @@
 import * as _ from "lamb";
 import {__} from "lamb";
 
-import {concat} from "./array.proto-array";
+import {concat} from "./array_proto-array";
 
 /**
  * Return a function expecting an object and returning an array of values corresponding to the provided keys.

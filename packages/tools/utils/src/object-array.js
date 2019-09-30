@@ -4,7 +4,7 @@
 
 import * as _ from "lamb";
 
-import {concat} from './array.proto-array';
+import {concat} from './array_proto-array';
 import {pairToKeyValueObject} from "./iterable-object";
 import {pickIfTruthy} from "./object-object";
 

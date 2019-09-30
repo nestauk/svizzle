@@ -5,7 +5,7 @@
 import * as _ from "lamb";
 
 import {toFloatOrIdentity} from "./any-any";
-import {concat} from "./array.proto-array";
+import {concat} from "./array_proto-array";
 import {mergeWith} from "./function-[object-object]";
 
 /* map values */
