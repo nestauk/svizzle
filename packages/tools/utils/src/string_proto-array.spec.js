@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {split} from "./string.proto-array";
+import {split} from "./string_proto-array";
 
 describe("(prototype) String -> Array", function() {
     describe("split", function() {

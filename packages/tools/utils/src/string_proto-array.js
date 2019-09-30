@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/string.proto-array
+* @module @svizzle/utils/string_proto-array
 */
 
 import * as _ from "lamb";

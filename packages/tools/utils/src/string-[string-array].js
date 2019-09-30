@@ -4,7 +4,7 @@
 
 import * as _ from "lamb";
 
-import {split} from "./string.proto-array";
+import {split} from "./string_proto-array";
 
 /**
  * Return a function expecting a separator or regex to split the provided string
