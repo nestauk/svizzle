@@ -1,5 +1,6 @@
-## `@svizzle/utils` v0.4.0 (next)
+## `@svizzle/utils` v0.4.0
 
+- switched to a flat layout, easier to use and makes it easier to read the doc
 - updated docs
 
 ### Any -> Boolean

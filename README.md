@@ -62,7 +62,7 @@ For example:
   join([0, 1, 2], "-") // "0-1-2"
   ```
 
-- [`@svizzle/utils/array/fn/number/boolean`](https://nestauk.github.io/svizzle/module-@svizzle_utils_array_fn_number_boolean.html) contains functions expecting an `Array` and returning a function expecting an `Number` and returning a `Boolean`:
+- [`@svizzle/utils/array-[number-boolean]`](https://nestauk.github.io/svizzle/module-@svizzle_utils_array-%255Bnumber-boolean%255D.html) contains functions expecting an `Array` and returning a function expecting an `Number` and returning a `Boolean`:
 
   `Array -> (Number -> Boolean)`.
 

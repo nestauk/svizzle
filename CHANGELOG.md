@@ -2,14 +2,15 @@
 
 ## next
 
+- switched to a flat layout, easier to use and makes it easier to read the doc
 - update docs
 
-## `@svizzle/file` v0.5.0 (next)
+## `@svizzle/file` v0.5.0
 
 - add `writeFile` (it was there since 0.1.0 but it wasn't exported)
 - update docs
 
-## `@svizzle/utils` v0.4.0 (next)
+## `@svizzle/utils` v0.4.0
 
 - updated docs
 
