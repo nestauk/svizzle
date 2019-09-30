@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/string-[object-number] - Svizzle</title>
+    <title>@svizzle/utils/string-[string-string] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/string-[object-number]</h1>
+    <h1 class="page-title">@svizzle/utils/string-[string-string]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".valuesMaxBy"><span class="type-signature">(static) </span>valuesMaxBy<span class="signature">(key)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".prepend"><span class="type-signature">(static) </span>prepend<span class="signature">(prefix)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,7 +101,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Bobject-number%5D.js.html">utils/src/string-[object-number].js</a>, <a href="utils_src_string-%5Bobject-number%5D.js.html#line24">line 24</a>
+        <a href="utils_src_string-%5Bstring-string%5D.js.html">utils/src/string-[string-string].js</a>, <a href="utils_src_string-%5Bstring-string%5D.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -144,8 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function expecting an object of objects and returning the max of values by the provided key
-The same can be done by <code>valuesMaxWith(_.getKey(key))</code> but here we avoid invoking a function for all the items.</p>
+    <p>Return a function that prepends the provided string to the input string</p>
 </div>
 
 
@@ -158,9 +157,9 @@ The same can be done by <code>valuesMaxWith(_.getKey(key))</code> but here we av
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const maxByK1 = valuesMaxBy("k1");
-maxByK1({a: {k1: 1, k2: 20}, b: {k1: 3,  k2: 2}}) // 3
-maxByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}}) // 7</code></pre>
+    <pre class="prettyprint"><code>const prefixed = prepend("prefix")
+prefixed('A') // "prefixA"
+prefixed('B') // "prefixB"</code></pre>
 
 
 
@@ -190,7 +189,7 @@ maxByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}}) // 7</code></pre>
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>prefix</code></td>
             
 
             <td class="type">
@@ -206,7 +205,7 @@ maxByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}}) // 7</code></pre>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The string to be prepended</p></td>
         </tr>
 
     
@@ -233,178 +232,7 @@ maxByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}}) // 7</code></pre>
         
 <div class="param-desc">
     <ul>
-<li>Object -&gt; Number</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".valuesMinBy"><span class="type-signature">(static) </span>valuesMinBy<span class="signature">(key)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Bobject-number%5D.js.html">utils/src/string-[object-number].js</a>, <a href="utils_src_string-%5Bobject-number%5D.js.html#line44">line 44</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function expecting an object of objects and returning the min of values by the provided key
-The same can be done by <code>valuesMinWith(_.getKey(key))</code> but here we avoid invoking a function for all the items.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const minByK1 = valuesMinBy("k1");
-minByK1({a: {k1: 1, k2: 20}, b: {k1: 3,  k2: 2}}) // 1
-minByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}}) // 7</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>Object -&gt; Number</li>
+<li>String -&gt; String</li>
 </ul>
 </div>
 
@@ -446,7 +274,7 @@ minByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}}) // 7</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

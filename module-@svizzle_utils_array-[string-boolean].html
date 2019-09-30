@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/string-[string-array] - Svizzle</title>
+    <title>@svizzle/utils/array-[string-boolean] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/string-[string-array]</h1>
+    <h1 class="page-title">@svizzle/utils/array-[string-boolean]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".makeSplitBy"><span class="type-signature">(static) </span>makeSplitBy<span class="signature">(stringOrRegex)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".containsOneOf"><span class="type-signature">(static) </span>containsOneOf<span class="signature">(strings)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Bstring-array%5D.js.html">utils/src/string-[string-array].js</a>, <a href="utils_src_string-%5Bstring-array%5D.js.html#line41">line 41</a>
+        <a href="utils_src_array-%5Bstring-boolean%5D.js.html">utils/src/array-[string-boolean].js</a>, <a href="utils_src_array-%5Bstring-boolean%5D.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.4.0</li></ul></dd>
     
 
     
@@ -144,7 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function expecting a string to be split using the provided separator or regex</p>
+    <p>Return a function that checks if a string contains one of the provided strings.</p>
 </div>
 
 
@@ -157,10 +157,15 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const splitByDoubleDot = makeSplitBy("..");
-
-splitByDoubleDot("aa...a..a.a.aa.....aa..")
-// ["aa", ".a", "a.a.aa", "", ".aa", ""]</code></pre>
+    <pre class="prettyprint"><code>const isWeight = containsOneOf(['(g)', '(mg)', '(mcg)']);
+const weightLabels = [
+  'id',
+  'Energy (kcal)',
+  'Protein (g)',
+  'Cholesterol (mg)',
+  'Selenium (mcg)'
+].filter(isWeight);
+// ['Protein (g)', 'Cholesterol (mg)', 'Selenium (mcg)']</code></pre>
 
 
 
@@ -190,13 +195,13 @@ splitByDoubleDot("aa...a..a.a.aa.....aa..")
 
         <tr>
             
-                <td class="name"><code>stringOrRegex</code></td>
+                <td class="name"><code>strings</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">stringOrRegex</span>
+<span class="param-type">array</span>
 
 
             
@@ -206,7 +211,7 @@ splitByDoubleDot("aa...a..a.a.aa.....aa..")
 
             
 
-            <td class="description last"><p>Separator or regex</p></td>
+            <td class="description last"><p>strings to check against</p></td>
         </tr>
 
     
@@ -232,180 +237,7 @@ splitByDoubleDot("aa...a..a.a.aa.....aa..")
 
         
 <div class="param-desc">
-    <ul>
-<li>String -&gt; Array</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".makeSplitStringBy"><span class="type-signature">(static) </span>makeSplitStringBy<span class="signature">(string)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Bstring-array%5D.js.html">utils/src/string-[string-array].js</a>, <a href="utils_src_string-%5Bstring-array%5D.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function expecting a separator or regex to split the provided string</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const splitStringBy = makeSplitStringBy("a.b-c,d:e");
-
-splitStringBy(":") // [ "a.b-c,d", "e" ]
-splitStringBy("-") // [ "a.b", "c,d:e" ]</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>string</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>String to split</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>String -&gt; Array</li>
-</ul>
+    <p>function - String -&gt; Boolean</p>
 </div>
 
 
@@ -446,7 +278,7 @@ splitStringBy("-") // [ "a.b", "c,d:e" ]</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

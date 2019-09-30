@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/string-[array-string] - Svizzle</title>
+    <title>@svizzle/utils/array-[object-boolean] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/string-[array-string]</h1>
+    <h1 class="page-title">@svizzle/utils/array-[object-boolean]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".joinWith"><span class="type-signature">(static) </span>joinWith<span class="signature">(separator)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".isKeyValue"><span class="type-signature">(static) </span>isKeyValue<span class="signature">(pair)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Barray-string%5D.js.html">utils/src/string-[array-string].js</a>, <a href="utils_src_string-%5Barray-string%5D.js.html#line23">line 23</a>
+        <a href="utils_src_array-%5Bobject-boolean%5D.js.html">utils/src/array-[object-boolean].js</a>, <a href="utils_src_array-%5Bobject-boolean%5D.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
     
 
     
@@ -144,7 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function expecting an array to join with the provided separator</p>
+    <p>Return a predicate expecting an object and returning <code>true</code> if the value at the provided <code>key</code> is the <a href="https://ascartabelli.github.io/lamb/module-lamb.html#areSame">same</a> as the provided <code>value</code></p>
 </div>
 
 
@@ -157,8 +157,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const joinWithAt = joinWith("@");
-joinWithAt([0, 1, 2]) // "1@2@3"</code></pre>
+    <pre class="prettyprint"><code>const isUSA = isKeyValue(['country_id', 'US']);
+isUSA({country_id: 'GB', id: 123})  // false
+isUSA({country_id: 'US', id: 456})  // true</code></pre>
 
 
 
@@ -188,13 +189,13 @@ joinWithAt([0, 1, 2]) // "1@2@3"</code></pre>
 
         <tr>
             
-                <td class="name"><code>separator</code></td>
+                <td class="name"><code>pair</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">array</span>
 
 
             
@@ -204,7 +205,7 @@ joinWithAt([0, 1, 2]) // "1@2@3"</code></pre>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>[key, value]</p></td>
         </tr>
 
     
@@ -230,9 +231,511 @@ joinWithAt([0, 1, 2]) // "1@2@3"</code></pre>
 
         
 <div class="param-desc">
-    <ul>
-<li>Array -&gt; String</li>
-</ul>
+    <p>predicate - Object -&gt; Boolean</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isNotKeyValue"><span class="type-signature">(static) </span>isNotKeyValue<span class="signature">(pair)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_src_array-%5Bobject-boolean%5D.js.html">utils/src/array-[object-boolean].js</a>, <a href="utils_src_array-%5Bobject-boolean%5D.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Return a predicate expecting an object and returning <code>true</code> if the value at the provided <code>key</code> is not the <a href="https://ascartabelli.github.io/lamb/module-lamb.html#areSame">same</a> as the provided <code>value</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const isNotUSA = isNotKeyValue(['country_id', 'US']);
+isNotUSA({country_id: 'GB', id: 123})  // true
+isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pair</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[key, value]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>predicate - Object -&gt; Boolean</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isNotPathValue"><span class="type-signature">(static) </span>isNotPathValue<span class="signature">(pair)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_src_array-%5Bobject-boolean%5D.js.html">utils/src/array-[object-boolean].js</a>, <a href="utils_src_array-%5Bobject-boolean%5D.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Return a predicate expecting an object and returning <code>true</code> if the value at the provided <code>path</code> is not the <a href="https://ascartabelli.github.io/lamb/module-lamb.html#areSame">same</a> as the provided <code>value</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const isNotDefaultStatus = isNotPathValue(['item.status', 'default']);
+isNotDefaultStatus({item: {status: 'active'}, id: 123})  // true
+isNotDefaultStatus({item: {status: 'default'}, id: 456}) // false</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pair</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[path, value]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>predicate - Object -&gt; Boolean</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isPathValue"><span class="type-signature">(static) </span>isPathValue<span class="signature">(pair)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_src_array-%5Bobject-boolean%5D.js.html">utils/src/array-[object-boolean].js</a>, <a href="utils_src_array-%5Bobject-boolean%5D.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Return a predicate expecting an object and returning <code>true</code> if the value at the provided <code>path</code> is the <a href="https://ascartabelli.github.io/lamb/module-lamb.html#areSame">same</a> as the provided <code>value</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const isDefaultStatus = isPathValue(['item.status', 'default']);
+isDefaultStatus({item: {status: 'active'}, id: 123})  // false
+isDefaultStatus({item: {status: 'default'}, id: 456}) // true</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pair</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[path, value]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>predicate - Object -&gt; Boolean</p>
 </div>
 
 
@@ -273,7 +776,7 @@ joinWithAt([0, 1, 2]) // "1@2@3"</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

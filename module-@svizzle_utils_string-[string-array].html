@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/array-[number-boolean] - Svizzle</title>
+    <title>@svizzle/utils/string-[string-array] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/array-[number-boolean]</h1>
+    <h1 class="page-title">@svizzle/utils/string-[string-array]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".makeIsWithinRange"><span class="type-signature">(static) </span>makeIsWithinRange<span class="signature">(range)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".makeSplitBy"><span class="type-signature">(static) </span>makeSplitBy<span class="signature">(stringOrRegex)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,7 +101,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Bnumber-boolean%5D.js.html">utils/src/array-[number-boolean].js</a>, <a href="utils_src_array-%5Bnumber-boolean%5D.js.html#line23">line 23</a>
+        <a href="utils_src_string-%5Bstring-array%5D.js.html">utils/src/string-[string-array].js</a>, <a href="utils_src_string-%5Bstring-array%5D.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -144,8 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function expecting a number and returning true if the number is within the provided range.
-Note that the range is inclusive.</p>
+    <p>Return a function expecting a string to be split using the provided separator or regex</p>
 </div>
 
 
@@ -158,10 +157,10 @@ Note that the range is inclusive.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const isWithinRange = makeIsWithinRange([0, 5]);
-isWithinRange(2) // true
-isWithinRange(5) // true
-isWithinRange(8) // false</code></pre>
+    <pre class="prettyprint"><code>const splitByDoubleDot = makeSplitBy("..");
+
+splitByDoubleDot("aa...a..a.a.aa.....aa..")
+// ["aa", ".a", "a.a.aa", "", ".aa", ""]</code></pre>
 
 
 
@@ -191,13 +190,13 @@ isWithinRange(8) // false</code></pre>
 
         <tr>
             
-                <td class="name"><code>range</code></td>
+                <td class="name"><code>stringOrRegex</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">stringOrRegex</span>
 
 
             
@@ -207,7 +206,7 @@ isWithinRange(8) // false</code></pre>
 
             
 
-            <td class="description last"><p>Array of two numbers</p></td>
+            <td class="description last"><p>Separator or regex</p></td>
         </tr>
 
     
@@ -233,7 +232,180 @@ isWithinRange(8) // false</code></pre>
 
         
 <div class="param-desc">
-    <p>predicate - Number -&gt; Boolean</p>
+    <ul>
+<li>String -&gt; Array</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".makeSplitStringBy"><span class="type-signature">(static) </span>makeSplitStringBy<span class="signature">(string)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_src_string-%5Bstring-array%5D.js.html">utils/src/string-[string-array].js</a>, <a href="utils_src_string-%5Bstring-array%5D.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Return a function expecting a separator or regex to split the provided string</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const splitStringBy = makeSplitStringBy("a.b-c,d:e");
+
+splitStringBy(":") // [ "a.b-c,d", "e" ]
+splitStringBy("-") // [ "a.b", "c,d:e" ]</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>string</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>String to split</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>String -&gt; Array</li>
+</ul>
 </div>
 
 
@@ -274,7 +446,7 @@ isWithinRange(8) // false</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/function-[array-any] - Svizzle</title>
+    <title>@svizzle/utils/function-[iterable-object] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/function-[array-any]</h1>
+    <h1 class="page-title">@svizzle/utils/function-[iterable-object]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".reduceFromArr"><span class="type-signature">(static) </span>reduceFromArr<span class="signature">(function)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".pairToKeyValueObjectWith"><span class="type-signature">(static) </span>pairToKeyValueObjectWith<span class="signature">(accessor)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,7 +101,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_function-%5Barray-any%5D.js.html">utils/src/function-[array-any].js</a>, <a href="utils_src_function-%5Barray-any%5D.js.html#line30">line 30</a>
+        <a href="utils_src_function-%5Biterable-object%5D.js.html">utils/src/function-[iterable-object].js</a>, <a href="utils_src_function-%5Biterable-object%5D.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -144,8 +144,8 @@
 
 
 <div class="description">
-    <p>Return a reduce function expecting an array to reduce with the passed reducer
-with an empty array as the initial value</p>
+    <p>Return a function expecting an pair and returning a {key, value} object
+using the provided accessor to get the <code>value</code>.</p>
 </div>
 
 
@@ -158,17 +158,24 @@ with an empty array as the initial value</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const reduce = reduceFromArr((acc, x) => {
-  return acc.slice(-2).concat([x.value]);
-});
-reduce([
-  {a: 1, value: 2},
-  {a: 1, value: 3},
-  {a: 1, value: 0},
-  {a: 1, value: 4},
-  {a: 1, value: 7}
-])
-// [0, 4, 7]</code></pre>
+    <pre class="prettyprint"><code>const objectifySelfSum = pairToKeyValueObjectWith(x => x + x);
+const objectifyGetA = pairToKeyValueObjectWith(_.getKey('a'));
+function func () {
+  return objectifyGetA(arguments);
+}
+objectifyGetA([])             // {key: undefined, value: undefined}
+objectifyGetA([1])            // {key: 1, value: undefined}
+objectifyGetA([1, {a: 2}])    // {key: 1, value: 2}
+objectifyGetA([1, {a: 2}, 3]) // {key: 1, value: 2}
+func()                        // {key: undefined, value: undefined}
+func(1)                       // {key: 1, value: undefined}
+func(1, {a: 2})               // {key: 1, value: 2}
+func(1, {a: 2}, 3)            // {key: 1, value: 2}
+
+objectifySelfSum("")          // {key: undefined, value: undefined}
+objectifySelfSum("a")         // {key: "a", value: undefined}
+objectifySelfSum("ab")        // {key: "a", value: "bb"}
+objectifySelfSum("abc")       // {key: "a", value: "bb"}</code></pre>
 
 
 
@@ -198,7 +205,7 @@ reduce([
 
         <tr>
             
-                <td class="name"><code>function</code></td>
+                <td class="name"><code>accessor</code></td>
             
 
             <td class="type">
@@ -214,7 +221,7 @@ reduce([
 
             
 
-            <td class="description last"><p>reducer</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -241,184 +248,7 @@ reduce([
         
 <div class="param-desc">
     <ul>
-<li>Array -&gt; Any</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".reduceFromObj"><span class="type-signature">(static) </span>reduceFromObj<span class="signature">(function)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_function-%5Barray-any%5D.js.html">utils/src/function-[array-any].js</a>, <a href="utils_src_function-%5Barray-any%5D.js.html#line53">line 53</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a reduce function expecting an array to reduce with the passed reducer
-with an empty object as the initial value</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const reduce = reduceFromObj((acc, x) => {
-  acc[x.id] = x.name;
-  return acc;
-});
-reduce([
-  {id: '00', name: 'a'},
-  {id: '11', name: 'b'}
-])
-// { 11: 'b', 00: 'a' }</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>function</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>reducer</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>Array -&gt; Any</li>
+<li>Iterable -&gt; Object</li>
 </ul>
 </div>
 
@@ -460,7 +290,7 @@ reduce([
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/string-[any-any] - Svizzle</title>
+    <title>@svizzle/utils/any-[array-object] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/string-[any-any]</h1>
+    <h1 class="page-title">@svizzle/utils/any-[array-object]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".tapType"><span class="type-signature">(static) </span>tapType<span class="signature">(label)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".makeKeyed"><span class="type-signature">(static) </span>makeKeyed<span class="signature">(value)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,187 +101,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Bany-any%5D.js.html">utils/src/string-[any-any].js</a>, <a href="utils_src_string-%5Bany-any%5D.js.html#line67">line 67</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function that prints the input type (preceded by the label, if provided) and returns the input.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const size = _.pipe([
-   tapType(),
-   _.values,
-   tapType('values'),
-   _.getKey('length')
-   tapType('length'),
- ]);
-
- size({a: 1, b: 2})
- // returns 2 and logs:
- // Object
- // values: Array
- // length: Number</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>(Any -&gt; Any), sfx: console.log</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".tapTypeAndValue"><span class="type-signature">(static) </span>tapTypeAndValue<span class="signature">(label)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Bany-any%5D.js.html">utils/src/string-[any-any].js</a>, <a href="utils_src_string-%5Bany-any%5D.js.html#line101">line 101</a>
+        <a href="utils_src_any-%5Barray-object%5D.js.html">utils/src/any-[array-object].js</a>, <a href="utils_src_any-%5Barray-object%5D.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -324,7 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function that prints the input type an the input (preceded by the label, if provided) and returns the input.</p>
+    <p>Return a function expecting an array of keys and returning an object with the provided value as value of those keys.</p>
 </div>
 
 
@@ -337,19 +157,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const size = _.pipe([
-  tapTypeAndValue(),
-  _.values,
-  tapTypeAndValue('values'),
-  _.getKey('length')
-  tapTypeAndValue('length'),
-]);
-
-size({a: 1, b: 2})
-// returns 2 and logs:
-// Object {a: 1, b: 2}
-// values: Array [1, 2]
-// length: Number 2</code></pre>
+    <pre class="prettyprint"><code>const makeKeyedEmptyArray = makeKeyed([])
+makeKeyedEmptyArray([1, 2]) -> {1: [], 2: []}
+makeKeyedEmptyArray(["a", "b"]) -> {a: [], b: []}</code></pre>
 
 
 
@@ -379,13 +189,13 @@ size({a: 1, b: 2})
 
         <tr>
             
-                <td class="name"><code>label</code></td>
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">*</span>
 
 
             
@@ -421,189 +231,7 @@ size({a: 1, b: 2})
 
         
 <div class="param-desc">
-    <ul>
-<li>(Any -&gt; Any), sfx: console.log</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".tapValue"><span class="type-signature">(static) </span>tapValue<span class="signature">(label)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Bany-any%5D.js.html">utils/src/string-[any-any].js</a>, <a href="utils_src_string-%5Bany-any%5D.js.html#line33">line 33</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function that prints the input (preceded by the label, if provided) and returns the input.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const doubleTriple = _.pipe([
-  tapValue(),
-  mapWith(x => 2 * x),
-  tapValue('doubled'),
-  mapWith(x => 3 * x),
-  tapValue('tripled')
-])
-
-doubleTriple([1,2,3])
-// returns [6, 12, 18] and logs:
-// [1, 2, 3]
-// doubled: [2, 4, 6]
-// tripled: [6, 12, 18]</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>(Any -&gt; Any), sfx: console.log</li>
-</ul>
+    <p>function - Array -&gt; Object</p>
 </div>
 
 
@@ -644,7 +272,7 @@ doubleTriple([1,2,3])
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

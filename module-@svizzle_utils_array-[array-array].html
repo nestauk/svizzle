@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/array-[array-object] - Svizzle</title>
+    <title>@svizzle/utils/array-[array-array] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/array-[array-object]</h1>
+    <h1 class="page-title">@svizzle/utils/array-[array-array]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".makeWithKeys"><span class="type-signature">(static) </span>makeWithKeys<span class="signature">(keys)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".makeArrayTransformer"><span class="type-signature">(static) </span>makeArrayTransformer<span class="signature">(transforms)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Barray-object%5D.js.html">utils/src/array-[array-object].js</a>, <a href="utils_src_array-%5Barray-object%5D.js.html#line22">line 22</a>
+        <a href="utils_src_array-%5Barray-array%5D.js.html">utils/src/array-[array-array].js</a>, <a href="utils_src_array-%5Barray-array%5D.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.2.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
     
 
     
@@ -144,7 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function expecting an array of values and returning an object assigning the values to the provided keys.</p>
+    <p>Return a function expecting an array and that applies the provided transforms to its elements</p>
 </div>
 
 
@@ -157,9 +157,12 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const makeWithLatLng = makeWithKeys(["lng", "lat"]);
-makeWithLatLng([1, 2]); // {lng: 1, lat: 2}
-makeWithLatLng([10, 20]); // {lng: 10, lat: 20}</code></pre>
+    <pre class="prettyprint"><code>let transformer = makeArrayTransformer([x => x * 20, x => x + 3]);
+transformer([2, 2]) // [40, 5]
+let transformer = makeArrayTransformer([x => x * 20]);
+transformer([1, 1, 1, 1, 1]) // [20]
+let transformer = makeArrayTransformer([x => x * 20, x => x + 3]);
+transformer([1]) // [20]</code></pre>
 
 
 
@@ -189,7 +192,7 @@ makeWithLatLng([10, 20]); // {lng: 10, lat: 20}</code></pre>
 
         <tr>
             
-                <td class="name"><code>keys</code></td>
+                <td class="name"><code>transforms</code></td>
             
 
             <td class="type">
@@ -205,7 +208,7 @@ makeWithLatLng([10, 20]); // {lng: 10, lat: 20}</code></pre>
 
             
 
-            <td class="description last"><p>Array of keys</p></td>
+            <td class="description last"><p>array of functions</p></td>
         </tr>
 
     
@@ -232,7 +235,7 @@ makeWithLatLng([10, 20]); // {lng: 10, lat: 20}</code></pre>
         
 <div class="param-desc">
     <ul>
-<li>Array -&gt; Object</li>
+<li>Array -&gt; Array</li>
 </ul>
 </div>
 
@@ -259,7 +262,7 @@ makeWithLatLng([10, 20]); // {lng: 10, lat: 20}</code></pre>
 
     
 
-    <h4 class="name" id=".makeWithValues"><span class="type-signature">(static) </span>makeWithValues<span class="signature">(values)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".removeAt"><span class="type-signature">(static) </span>removeAt<span class="signature">(indices)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -271,13 +274,13 @@ makeWithLatLng([10, 20]); // {lng: 10, lat: 20}</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Barray-object%5D.js.html">utils/src/array-[array-object].js</a>, <a href="utils_src_array-%5Barray-object%5D.js.html#line38">line 38</a>
+        <a href="utils_src_array-%5Barray-array%5D.js.html">utils/src/array-[array-array].js</a>, <a href="utils_src_array-%5Barray-array%5D.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.2.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
     
 
     
@@ -314,7 +317,7 @@ makeWithLatLng([10, 20]); // {lng: 10, lat: 20}</code></pre>
 
 
 <div class="description">
-    <p>Return a function expecting an array of keys and returning an object assigning the keys to the provided values.</p>
+    <p>Return a function expecting an array and removing items at the provided indices</p>
 </div>
 
 
@@ -327,9 +330,9 @@ makeWithLatLng([10, 20]); // {lng: 10, lat: 20}</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const makeWithTheseValues = makeWithValues([1, 2]);
-makeWithTheseValues(["lng", "lat"]); // {lng: 1, lat: 2}
-makeWithTheseValues(["foo", "bar"]); // {foo: 1, bar: 2}</code></pre>
+    <pre class="prettyprint"><code>const removeIndices = removeAt([3, 4, 8])
+const removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+// [0, 1, 2, 5, 6, 7, 9]</code></pre>
 
 
 
@@ -359,7 +362,7 @@ makeWithTheseValues(["foo", "bar"]); // {foo: 1, bar: 2}</code></pre>
 
         <tr>
             
-                <td class="name"><code>values</code></td>
+                <td class="name"><code>indices</code></td>
             
 
             <td class="type">
@@ -375,7 +378,7 @@ makeWithTheseValues(["foo", "bar"]); // {foo: 1, bar: 2}</code></pre>
 
             
 
-            <td class="description last"><p>Array of values</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -402,7 +405,7 @@ makeWithTheseValues(["foo", "bar"]); // {foo: 1, bar: 2}</code></pre>
         
 <div class="param-desc">
     <ul>
-<li>Array -&gt; Object</li>
+<li>Array -&gt; Array</li>
 </ul>
 </div>
 
@@ -444,7 +447,7 @@ makeWithTheseValues(["foo", "bar"]); // {foo: 1, bar: 2}</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

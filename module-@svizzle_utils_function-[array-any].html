@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/function-[object-number] - Svizzle</title>
+    <title>@svizzle/utils/function-[array-any] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/function-[object-number]</h1>
+    <h1 class="page-title">@svizzle/utils/function-[array-any]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".valuesMaxWith"><span class="type-signature">(static) </span>valuesMaxWith<span class="signature">(fn)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".reduceFromArr"><span class="type-signature">(static) </span>reduceFromArr<span class="signature">(function)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_function-%5Bobject-number%5D.js.html">utils/src/function-[object-number].js</a>, <a href="utils_src_function-%5Bobject-number%5D.js.html#line24">line 24</a>
+        <a href="utils_src_function-%5Barray-any%5D.js.html">utils/src/function-[array-any].js</a>, <a href="utils_src_function-%5Barray-any%5D.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
     
 
     
@@ -144,8 +144,8 @@
 
 
 <div class="description">
-    <p>Return a function expecting an object of objects and returning the max of values by the provided key
-The same can be done by <code>valuesMaxWith(_.getKey(key))</code> but here we avoid invoking a function for all the items.</p>
+    <p>Return a reduce function expecting an array to reduce with the passed reducer
+with an empty array as the initial value</p>
 </div>
 
 
@@ -158,9 +158,17 @@ The same can be done by <code>valuesMaxWith(_.getKey(key))</code> but here we av
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const maxWithAbsSin = valuesMaxWith(_.pipe([Math.sin, Math.abs]));
-maxWithAbsSin({a: -Math.PI/2, b: -Math.PI/4})) // 1
-maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475</code></pre>
+    <pre class="prettyprint"><code>const reduce = reduceFromArr((acc, x) => {
+  return acc.slice(-2).concat([x.value]);
+});
+reduce([
+  {a: 1, value: 2},
+  {a: 1, value: 3},
+  {a: 1, value: 0},
+  {a: 1, value: 4},
+  {a: 1, value: 7}
+])
+// [0, 4, 7]</code></pre>
 
 
 
@@ -190,7 +198,7 @@ maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475</code></pre
 
         <tr>
             
-                <td class="name"><code>fn</code></td>
+                <td class="name"><code>function</code></td>
             
 
             <td class="type">
@@ -206,7 +214,7 @@ maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475</code></pre
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>reducer</p></td>
         </tr>
 
     
@@ -233,7 +241,7 @@ maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475</code></pre
         
 <div class="param-desc">
     <ul>
-<li>Object -&gt; Number</li>
+<li>Array -&gt; Any</li>
 </ul>
 </div>
 
@@ -260,7 +268,7 @@ maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475</code></pre
 
     
 
-    <h4 class="name" id=".valuesMinWith"><span class="type-signature">(static) </span>valuesMinWith<span class="signature">(fn)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".reduceFromObj"><span class="type-signature">(static) </span>reduceFromObj<span class="signature">(function)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -272,13 +280,13 @@ maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475</code></pre
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_function-%5Bobject-number%5D.js.html">utils/src/function-[object-number].js</a>, <a href="utils_src_function-%5Bobject-number%5D.js.html#line44">line 44</a>
+        <a href="utils_src_function-%5Barray-any%5D.js.html">utils/src/function-[array-any].js</a>, <a href="utils_src_function-%5Barray-any%5D.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
     
 
     
@@ -315,8 +323,8 @@ maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475</code></pre
 
 
 <div class="description">
-    <p>Return a function expecting an object of objects and returning the min of values by the provided key
-The same can be done by <code>valuesMinWith(_.getKey(key))</code> but here we avoid invoking a function for all the items.</p>
+    <p>Return a reduce function expecting an array to reduce with the passed reducer
+with an empty object as the initial value</p>
 </div>
 
 
@@ -329,9 +337,15 @@ The same can be done by <code>valuesMinWith(_.getKey(key))</code> but here we av
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const minWithAbsSin = valuesMinWith(_.pipe([Math.sin, Math.abs]));
-minWithAbsSin({a: -Math.PI/2, b: -Math.PI/4})) // 0.7071067811865475
-minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.49999999999999994</code></pre>
+    <pre class="prettyprint"><code>const reduce = reduceFromObj((acc, x) => {
+  acc[x.id] = x.name;
+  return acc;
+});
+reduce([
+  {id: '00', name: 'a'},
+  {id: '11', name: 'b'}
+])
+// { 11: 'b', 00: 'a' }</code></pre>
 
 
 
@@ -361,7 +375,7 @@ minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.49999999999999994</code></pr
 
         <tr>
             
-                <td class="name"><code>fn</code></td>
+                <td class="name"><code>function</code></td>
             
 
             <td class="type">
@@ -377,7 +391,7 @@ minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.49999999999999994</code></pr
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>reducer</p></td>
         </tr>
 
     
@@ -404,7 +418,7 @@ minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.49999999999999994</code></pr
         
 <div class="param-desc">
     <ul>
-<li>Object -&gt; Number</li>
+<li>Array -&gt; Any</li>
 </ul>
 </div>
 
@@ -446,7 +460,7 @@ minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.49999999999999994</code></pr
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

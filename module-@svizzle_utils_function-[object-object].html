@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/string-[array-number] - Svizzle</title>
+    <title>@svizzle/utils/function-[object-object] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/string-[array-number]</h1>
+    <h1 class="page-title">@svizzle/utils/function-[object-object]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".arrayMaxBy"><span class="type-signature">(static) </span>arrayMaxBy<span class="signature">(key)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".mergeWith"><span class="type-signature">(static) </span>mergeWith<span class="signature">(fn)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,7 +101,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Barray-number%5D.js.html">utils/src/string-[array-number].js</a>, <a href="utils_src_string-%5Barray-number%5D.js.html#line24">line 24</a>
+        <a href="utils_src_function-%5Bobject-object%5D.js.html">utils/src/function-[object-object].js</a>, <a href="utils_src_function-%5Bobject-object%5D.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -144,8 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function expecting an array of objects and returning the max of values by the provided key.
-The same can be done by <code>arrayMaxWith(_.getKey(key))</code> but here we avoid invoking a function for all the items.</p>
+    <p>Return a function expecting two objects to merge using the provided merge function</p>
 </div>
 
 
@@ -158,9 +157,13 @@ The same can be done by <code>arrayMaxWith(_.getKey(key))</code> but here we avo
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const maxByA = arrayMaxBy("a");
- maxByA([{a: -1, b: -1}, {a: 0, b: 0}]) // 0
- maxByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 2</code></pre>
+    <pre class="prettyprint"><code>const mergeWithSubtract = mergeWith(_.subtract)
+
+mergeWithSubtract(
+    {a: 8, b: 3},
+    {a: 5, b: 2, c: 7}
+)
+=>  {a: 3, b: 1, c: 7},</code></pre>
 
 
 
@@ -190,186 +193,15 @@ The same can be done by <code>arrayMaxWith(_.getKey(key))</code> but here we avo
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>fn</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>Array -&gt; Number</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
 <span class="param-type">function</span>
 
 
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".arrayMinBy"><span class="type-signature">(static) </span>arrayMinBy<span class="signature">(key)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_string-%5Barray-number%5D.js.html">utils/src/string-[array-number].js</a>, <a href="utils_src_string-%5Barray-number%5D.js.html#line49">line 49</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function expecting an array of objects and returning the min of values by the provided key
-The same can be done by <code>arrayMinWith(_.getKey(key))</code> but here we avoid invoking a function for all the items.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const minByA = arrayMinBy("a");
-minByA([{a: -1, b: -1}, {a: 0, b: 0}]) // -1
-minByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 1</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
             
             </td>
 
@@ -377,7 +209,7 @@ minByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 1</code></pre>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Merge function</p></td>
         </tr>
 
     
@@ -404,7 +236,7 @@ minByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 1</code></pre>
         
 <div class="param-desc">
     <ul>
-<li>Array -&gt; Number</li>
+<li>Object -&gt; Object</li>
 </ul>
 </div>
 
@@ -446,7 +278,7 @@ minByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 1</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

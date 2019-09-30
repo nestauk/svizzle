@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/array-[object-boolean] - Svizzle</title>
+    <title>@svizzle/utils/string-[any-any] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/array-[object-boolean]</h1>
+    <h1 class="page-title">@svizzle/utils/string-[any-any]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".isKeyValue"><span class="type-signature">(static) </span>isKeyValue<span class="signature">(pair)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".tapType"><span class="type-signature">(static) </span>tapType<span class="signature">(label)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Bobject-boolean%5D.js.html">utils/src/array-[object-boolean].js</a>, <a href="utils_src_array-%5Bobject-boolean%5D.js.html#line22">line 22</a>
+        <a href="utils_src_string-%5Bany-any%5D.js.html">utils/src/string-[any-any].js</a>, <a href="utils_src_string-%5Bany-any%5D.js.html#line67">line 67</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
     
 
     
@@ -144,7 +144,7 @@
 
 
 <div class="description">
-    <p>Return a predicate expecting an object and returning <code>true</code> if the value at the provided <code>key</code> is the <a href="https://ascartabelli.github.io/lamb/module-lamb.html#areSame">same</a> as the provided <code>value</code></p>
+    <p>Return a function that prints the input type (preceded by the label, if provided) and returns the input.</p>
 </div>
 
 
@@ -157,9 +157,19 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const isUSA = isKeyValue(['country_id', 'US']);
-isUSA({country_id: 'GB', id: 123})  // false
-isUSA({country_id: 'US', id: 456})  // true</code></pre>
+    <pre class="prettyprint"><code>const size = _.pipe([
+   tapType(),
+   _.values,
+   tapType('values'),
+   _.getKey('length')
+   tapType('length'),
+ ]);
+
+ size({a: 1, b: 2})
+ // returns 2 and logs:
+ // Object
+ // values: Array
+ // length: Number</code></pre>
 
 
 
@@ -189,13 +199,13 @@ isUSA({country_id: 'US', id: 456})  // true</code></pre>
 
         <tr>
             
-                <td class="name"><code>pair</code></td>
+                <td class="name"><code>label</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">string</span>
 
 
             
@@ -205,7 +215,7 @@ isUSA({country_id: 'US', id: 456})  // true</code></pre>
 
             
 
-            <td class="description last"><p>[key, value]</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -231,7 +241,9 @@ isUSA({country_id: 'US', id: 456})  // true</code></pre>
 
         
 <div class="param-desc">
-    <p>predicate - Object -&gt; Boolean</p>
+    <ul>
+<li>(Any -&gt; Any), sfx: console.log</li>
+</ul>
 </div>
 
 
@@ -257,7 +269,7 @@ isUSA({country_id: 'US', id: 456})  // true</code></pre>
 
     
 
-    <h4 class="name" id=".isNotKeyValue"><span class="type-signature">(static) </span>isNotKeyValue<span class="signature">(pair)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".tapTypeAndValue"><span class="type-signature">(static) </span>tapTypeAndValue<span class="signature">(label)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -269,7 +281,7 @@ isUSA({country_id: 'US', id: 456})  // true</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Bobject-boolean%5D.js.html">utils/src/array-[object-boolean].js</a>, <a href="utils_src_array-%5Bobject-boolean%5D.js.html#line38">line 38</a>
+        <a href="utils_src_string-%5Bany-any%5D.js.html">utils/src/string-[any-any].js</a>, <a href="utils_src_string-%5Bany-any%5D.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -312,7 +324,7 @@ isUSA({country_id: 'US', id: 456})  // true</code></pre>
 
 
 <div class="description">
-    <p>Return a predicate expecting an object and returning <code>true</code> if the value at the provided <code>key</code> is not the <a href="https://ascartabelli.github.io/lamb/module-lamb.html#areSame">same</a> as the provided <code>value</code></p>
+    <p>Return a function that prints the input type an the input (preceded by the label, if provided) and returns the input.</p>
 </div>
 
 
@@ -325,9 +337,19 @@ isUSA({country_id: 'US', id: 456})  // true</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const isNotUSA = isNotKeyValue(['country_id', 'US']);
-isNotUSA({country_id: 'GB', id: 123})  // true
-isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
+    <pre class="prettyprint"><code>const size = _.pipe([
+  tapTypeAndValue(),
+  _.values,
+  tapTypeAndValue('values'),
+  _.getKey('length')
+  tapTypeAndValue('length'),
+]);
+
+size({a: 1, b: 2})
+// returns 2 and logs:
+// Object {a: 1, b: 2}
+// values: Array [1, 2]
+// length: Number 2</code></pre>
 
 
 
@@ -357,13 +379,13 @@ isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
 
         <tr>
             
-                <td class="name"><code>pair</code></td>
+                <td class="name"><code>label</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">string</span>
 
 
             
@@ -373,7 +395,7 @@ isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
 
             
 
-            <td class="description last"><p>[key, value]</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -399,7 +421,9 @@ isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
 
         
 <div class="param-desc">
-    <p>predicate - Object -&gt; Boolean</p>
+    <ul>
+<li>(Any -&gt; Any), sfx: console.log</li>
+</ul>
 </div>
 
 
@@ -425,7 +449,7 @@ isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
 
     
 
-    <h4 class="name" id=".isNotPathValue"><span class="type-signature">(static) </span>isNotPathValue<span class="signature">(pair)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".tapValue"><span class="type-signature">(static) </span>tapValue<span class="signature">(label)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -437,13 +461,13 @@ isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Bobject-boolean%5D.js.html">utils/src/array-[object-boolean].js</a>, <a href="utils_src_array-%5Bobject-boolean%5D.js.html#line70">line 70</a>
+        <a href="utils_src_string-%5Bany-any%5D.js.html">utils/src/string-[any-any].js</a>, <a href="utils_src_string-%5Bany-any%5D.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
     
 
     
@@ -480,7 +504,7 @@ isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
 
 
 <div class="description">
-    <p>Return a predicate expecting an object and returning <code>true</code> if the value at the provided <code>path</code> is not the <a href="https://ascartabelli.github.io/lamb/module-lamb.html#areSame">same</a> as the provided <code>value</code></p>
+    <p>Return a function that prints the input (preceded by the label, if provided) and returns the input.</p>
 </div>
 
 
@@ -493,9 +517,19 @@ isNotUSA({country_id: 'US', id: 456})  // false</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const isNotDefaultStatus = isNotPathValue(['item.status', 'default']);
-isNotDefaultStatus({item: {status: 'active'}, id: 123})  // true
-isNotDefaultStatus({item: {status: 'default'}, id: 456}) // false</code></pre>
+    <pre class="prettyprint"><code>const doubleTriple = _.pipe([
+  tapValue(),
+  mapWith(x => 2 * x),
+  tapValue('doubled'),
+  mapWith(x => 3 * x),
+  tapValue('tripled')
+])
+
+doubleTriple([1,2,3])
+// returns [6, 12, 18] and logs:
+// [1, 2, 3]
+// doubled: [2, 4, 6]
+// tripled: [6, 12, 18]</code></pre>
 
 
 
@@ -525,13 +559,13 @@ isNotDefaultStatus({item: {status: 'default'}, id: 456}) // false</code></pre>
 
         <tr>
             
-                <td class="name"><code>pair</code></td>
+                <td class="name"><code>label</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">string</span>
 
 
             
@@ -541,7 +575,7 @@ isNotDefaultStatus({item: {status: 'default'}, id: 456}) // false</code></pre>
 
             
 
-            <td class="description last"><p>[path, value]</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -567,175 +601,9 @@ isNotDefaultStatus({item: {status: 'default'}, id: 456}) // false</code></pre>
 
         
 <div class="param-desc">
-    <p>predicate - Object -&gt; Boolean</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".isPathValue"><span class="type-signature">(static) </span>isPathValue<span class="signature">(pair)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Bobject-boolean%5D.js.html">utils/src/array-[object-boolean].js</a>, <a href="utils_src_array-%5Bobject-boolean%5D.js.html#line54">line 54</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a predicate expecting an object and returning <code>true</code> if the value at the provided <code>path</code> is the <a href="https://ascartabelli.github.io/lamb/module-lamb.html#areSame">same</a> as the provided <code>value</code></p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const isDefaultStatus = isPathValue(['item.status', 'default']);
-isDefaultStatus({item: {status: 'active'}, id: 123})  // false
-isDefaultStatus({item: {status: 'default'}, id: 456}) // true</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pair</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>[path, value]</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>predicate - Object -&gt; Boolean</p>
+    <ul>
+<li>(Any -&gt; Any), sfx: console.log</li>
+</ul>
 </div>
 
 
@@ -776,7 +644,7 @@ isDefaultStatus({item: {status: 'default'}, id: 456}) // true</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

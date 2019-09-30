@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/object-[object-object] - Svizzle</title>
+    <title>@svizzle/utils/array-[any-boolean] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/object-[object-object]</h1>
+    <h1 class="page-title">@svizzle/utils/array-[any-boolean]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".applyFnMap"><span class="type-signature">(static) </span>applyFnMap<span class="signature">(object)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".makeIsIncluded"><span class="type-signature">(static) </span>makeIsIncluded<span class="signature">(array)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_object-%5Bobject-object%5D.js.html">utils/src/object-[object-object].js</a>, <a href="utils_src_object-%5Bobject-object%5D.js.html#line37">line 37</a>
+        <a href="utils_src_array-%5Bany-boolean%5D.js.html">utils/src/array-[any-boolean].js</a>, <a href="utils_src_array-%5Bany-boolean%5D.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.3.0</li></ul></dd>
     
 
     
@@ -144,7 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function expecting an object to be used as the argument of the provided functions</p>
+    <p>Return a function returning true if the passed value is found in the provided array</p>
 </div>
 
 
@@ -157,22 +157,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const format = applyFnMap({
-    fullname: _.pipe([
-        _.collect([_.getKey("fname"), _.getKey("lname")]),
-        join(" ")
-    ]),
-    coords: _.collect([_.getKey("lng"), _.getKey("lat")])
-});
-const raw = [
-    {fname: "John", lname: "Woo", lng: 1, lat: 2},
-    {fname: "John", lname: "Foo", lng: 7, lat: 8}
-];
-const formatted = _.map(raw, format);
-// => [
-//     {fullname: "John Woo", coords: [1, 2]},
-//     {fullname: "John Foo", coords: [7, 8]}
-// ]</code></pre>
+    <pre class="prettyprint"><code>const isIncluded = makeIsIncluded([1, 2, 3]);
+isIncluded(1) // true
+isIncluded(4) // false</code></pre>
 
 
 
@@ -202,13 +189,13 @@ const formatted = _.map(raw, format);
 
         <tr>
             
-                <td class="name"><code>object</code></td>
+                <td class="name"><code>array</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">array</span>
 
 
             
@@ -218,7 +205,7 @@ const formatted = _.map(raw, format);
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Array</p></td>
         </tr>
 
     
@@ -244,571 +231,7 @@ const formatted = _.map(raw, format);
 
         
 <div class="param-desc">
-    <ul>
-<li>Object -&gt; Object</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".makeMergeKeyValue"><span class="type-signature">(static) </span>makeMergeKeyValue<span class="signature">(key, object)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_object-%5Bobject-object%5D.js.html">utils/src/object-[object-object].js</a>, <a href="utils_src_object-%5Bobject-object%5D.js.html#line119">line 119</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function that merges the provided value on the provided key of the expected object</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const mergeFooValue = makeMergeKeyValue("foo", {b: -2, c: -3});
-
-mergeFooValue({
-    foo: {a: 1, b: 2},
-    bar: {k: 1}
-})
-=> {
-    foo: {a: 1, b: -2, c: -3},
-    bar: {k: 1}
-}
-
-mergeFooValue({
-    bar: {k: 1}
-})
-=> {
-    foo: {b: -2, c: -3},
-    bar: {k: 1}
-}</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Key where to merge the Value</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Value to be merged</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>Object -&gt; Object</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".mergeObj"><span class="type-signature">(static) </span>mergeObj<span class="signature">(object)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_object-%5Bobject-object%5D.js.html">utils/src/object-[object-object].js</a>, <a href="utils_src_object-%5Bobject-object%5D.js.html#line85">line 85</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function expecting an object to merge with the input object</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const mergeB = mergeObj({b: 2});
-mergeB({a: 1}) // {a: 1, b: 2}
-mergeB({a: 1, b: 1}) // {a: 1, b: 2}</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Object to be merged to the provided object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>Object -&gt; Object</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".transformValues"><span class="type-signature">(static) </span>transformValues<span class="signature">(fnMap)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_object-%5Bobject-object%5D.js.html">utils/src/object-[object-object].js</a>, <a href="utils_src_object-%5Bobject-object%5D.js.html#line67">line 67</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function expecting an object and applying the functions in the provided object to the correspondent object values
-Can be useful with <a href="https://github.com/d3/d3-dsv#csvParse">d3.csvParse</a>, see the example below.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const conversionFn = transformValues({
-    name: _.identity,
-    a: _.pipe([Number, Math.sqrt]),
-    b: Number,
-    width: parseFloat
-});
-conversionFn({name: "foo", a: "9", b: "2", width: "10px"})
-// {name: "foo", a: 3, b: 2, width: 10}
-
-d3.csvParse("baseurl/file.csv", conversionFn);
-// [{name: "foo", a: 3, b: 2, width: 10}, {name: "bar", a: 2, b: 4, width: 25}]
-
-> baseurl/file.csv
-name,a,b,width
-foo,9,2,10px
-bar,4,4,25px</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>fnMap</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>object with functions as values</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>Object -&gt; Object</li>
-</ul>
+    <p>predicate - Any -&gt; Boolean</p>
 </div>
 
 
@@ -849,7 +272,7 @@ bar,4,4,25px</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

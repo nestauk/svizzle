@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/any-[any-boolean] - Svizzle</title>
+    <title>@svizzle/utils/array-[object-array] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/any-[any-boolean]</h1>
+    <h1 class="page-title">@svizzle/utils/array-[object-array]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".isNot"><span class="type-signature">(static) </span>isNot<span class="signature">(any)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".makeKeysGetter"><span class="type-signature">(static) </span>makeKeysGetter<span class="signature">(keys)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_any-%5Bany-boolean%5D.js.html">utils/src/any-[any-boolean].js</a>, <a href="utils_src_any-%5Bany-boolean%5D.js.html#line22">line 22</a>
+        <a href="utils_src_array-%5Bobject-array%5D.js.html">utils/src/array-[object-array].js</a>, <a href="utils_src_array-%5Bobject-array%5D.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>v0.3.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
     
 
     
@@ -144,7 +144,7 @@
 
 
 <div class="description">
-    <p>Return a function that returns true if the input is different from the provided value.</p>
+    <p>Return a function expecting an object and returning an array of values corresponding to the provided keys.</p>
 </div>
 
 
@@ -157,10 +157,14 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const isNotTwo = isNot(2);
-
-isNotTwo(3); // true
-isNotTwo(2); // false</code></pre>
+    <pre class="prettyprint"><code>const getCoordinates = makeKeysGetter(["lng", "lat"]);
+getCoordinates({
+    name: "London",
+    lat: 51.507222,
+    lng: -0.1275,
+    population: 8825000
+});
+// [-0.1275, 51.507222]</code></pre>
 
 
 
@@ -190,13 +194,13 @@ isNotTwo(2); // false</code></pre>
 
         <tr>
             
-                <td class="name"><code>any</code></td>
+                <td class="name"><code>keys</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">array</span>
 
 
             
@@ -206,7 +210,7 @@ isNotTwo(2); // false</code></pre>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Array of keys</p></td>
         </tr>
 
     
@@ -232,7 +236,184 @@ isNotTwo(2); // false</code></pre>
 
         
 <div class="param-desc">
-    <p>predicate - Any -&gt; Boolean</p>
+    <ul>
+<li>Object -&gt; Array</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".pickAndConcatValues"><span class="type-signature">(static) </span>pickAndConcatValues<span class="signature">(keys)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_src_array-%5Bobject-array%5D.js.html">utils/src/array-[object-array].js</a>, <a href="utils_src_array-%5Bobject-array%5D.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>0.4.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Return a function expecting an object and concatenating values in the provided whitelisted keys.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const getProducts = pickAndConcatValues(['food', 'beverage']);
+getProducts({
+    food: ['bread', 'cheese', 'ham'],
+    beverage: ['wine', 'water'],
+    id: 'area1',
+    value: 32.1,
+});
+// ['bread', 'cheese', 'ham', 'wine', 'water']</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>keys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Array of keys</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>Object -&gt; Array</li>
+</ul>
 </div>
 
 
@@ -273,7 +454,7 @@ isNotTwo(2); // false</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

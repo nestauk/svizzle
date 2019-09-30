@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/array-[array-array] - Svizzle</title>
+    <title>@svizzle/utils/string-[array-number] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/array-[array-array]</h1>
+    <h1 class="page-title">@svizzle/utils/string-[array-number]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".makeArrayTransformer"><span class="type-signature">(static) </span>makeArrayTransformer<span class="signature">(transforms)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id=".arrayMaxBy"><span class="type-signature">(static) </span>arrayMaxBy<span class="signature">(key)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,7 +101,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Barray-array%5D.js.html">utils/src/array-[array-array].js</a>, <a href="utils_src_array-%5Barray-array%5D.js.html#line25">line 25</a>
+        <a href="utils_src_string-%5Barray-number%5D.js.html">utils/src/string-[array-number].js</a>, <a href="utils_src_string-%5Barray-number%5D.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -144,7 +144,8 @@
 
 
 <div class="description">
-    <p>Return a function expecting an array and that applies the provided transforms to its elements</p>
+    <p>Return a function expecting an array of objects and returning the max of values by the provided key.
+The same can be done by <code>arrayMaxWith(_.getKey(key))</code> but here we avoid invoking a function for all the items.</p>
 </div>
 
 
@@ -157,12 +158,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>let transformer = makeArrayTransformer([x => x * 20, x => x + 3]);
-transformer([2, 2]) // [40, 5]
-let transformer = makeArrayTransformer([x => x * 20]);
-transformer([1, 1, 1, 1, 1]) // [20]
-let transformer = makeArrayTransformer([x => x * 20, x => x + 3]);
-transformer([1]) // [20]</code></pre>
+    <pre class="prettyprint"><code>const maxByA = arrayMaxBy("a");
+ maxByA([{a: -1, b: -1}, {a: 0, b: 0}]) // 0
+ maxByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 2</code></pre>
 
 
 
@@ -192,183 +190,13 @@ transformer([1]) // [20]</code></pre>
 
         <tr>
             
-                <td class="name"><code>transforms</code></td>
+                <td class="name"><code>key</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>array of functions</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>Array -&gt; Array</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".removeAt"><span class="type-signature">(static) </span>removeAt<span class="signature">(indices)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_src_array-%5Barray-array%5D.js.html">utils/src/array-[array-array].js</a>, <a href="utils_src_array-%5Barray-array%5D.js.html#line44">line 44</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Return a function expecting an array and removing items at the provided indices</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const removeIndices = removeAt([3, 4, 8])
-const removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-// [0, 1, 2, 5, 6, 7, 9]</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>indices</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
+<span class="param-type">string</span>
 
 
             
@@ -405,7 +233,178 @@ const removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
         
 <div class="param-desc">
     <ul>
-<li>Array -&gt; Array</li>
+<li>Array -&gt; Number</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".arrayMinBy"><span class="type-signature">(static) </span>arrayMinBy<span class="signature">(key)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_src_string-%5Barray-number%5D.js.html">utils/src/string-[array-number].js</a>, <a href="utils_src_string-%5Barray-number%5D.js.html#line49">line 49</a>
+    </li></ul></dd>
+    
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Return a function expecting an array of objects and returning the min of values by the provided key
+The same can be done by <code>arrayMinWith(_.getKey(key))</code> but here we avoid invoking a function for all the items.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const minByA = arrayMinBy("a");
+minByA([{a: -1, b: -1}, {a: 0, b: 0}]) // -1
+minByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 1</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>Array -&gt; Number</li>
 </ul>
 </div>
 
@@ -447,7 +446,7 @@ const removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 18:31:14 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 21:30:56 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
