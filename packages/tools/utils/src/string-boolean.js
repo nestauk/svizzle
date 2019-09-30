@@ -5,7 +5,7 @@
 import * as _ from "lamb";
 
 import {isIterableNotEmpty} from "./iterable-boolean";
-import {trim} from "./string.proto-string";
+import {trim} from "./string_proto-string";
 
 /**
  * Return true if the trimmed string is not empty

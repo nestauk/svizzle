@@ -5,7 +5,7 @@
 import * as _ from "lamb";
 
 import {isTrimmedNotEmpty} from "./string-boolean";
-import {trim} from "./string.proto-string";
+import {trim} from "./string_proto-string";
 import {makeSplitBy} from "./string-[string-array]";
 
 /**
