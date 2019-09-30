@@ -1,6 +1,6 @@
 import {strict as assert} from "assert";
 
-import {makePolynomial} from "./number";
+import {makePolynomial} from "./array-[number-number]";
 
 describe("Array -> (Number -> Number)", function() {
     describe("makePolynomial", function() {
