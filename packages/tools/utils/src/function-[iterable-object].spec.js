@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {pairToKeyValueObjectWith} from "./object";
+import {pairToKeyValueObjectWith} from "./function-[iterable-object]";
 
 describe("Function -> (Iterable -> Object)", function() {
   describe("pairToKeyValueObjectWith", function() {

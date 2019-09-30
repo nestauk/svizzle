@@ -1,10 +1,10 @@
 /**
-* @module @svizzle/utils/function/fn/object/array
+* @module @svizzle/utils/function-[object-array]
 */
 
 import * as _ from "lamb";
 
-import {pairToKeyValueObjectWith} from "../iterable/object";
+import {pairToKeyValueObjectWith} from "./function-[iterable-object]";
 
 /**
 * Return a function expecting an object and returning an array of {key, value} objects

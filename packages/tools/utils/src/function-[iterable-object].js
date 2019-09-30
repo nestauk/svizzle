@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/function/fn/iterable/object
+* @module @svizzle/utils/function-[iterable-object]
 */
 
 /**

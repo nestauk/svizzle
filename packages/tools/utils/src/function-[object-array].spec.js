@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {objectToKeyValueArrayWith} from "./array";
+import {objectToKeyValueArrayWith} from "./function-[object-array]";
 
 describe("Function -> (Object -> Array)", function() {
   describe("objectToKeyValueArrayWith", function() {
