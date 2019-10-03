@@ -12,11 +12,10 @@
     "name": "svizzle",
     "private": true,
     "scripts": {
-        "cleanall": "npm run cleanpacks && npm run cleanpacklocks",
+        "cleanall": "npm run cleandist && npm run lernaclean && npm run cleanpacklocks",
         "cleandist": "rimraf packages/**/dist",
         "cleannodmod": "rimraf node_modules",
         "cleanpacklocks": "rimraf packages/**/package-lock.json",
-        "cleanpacks": "npm run cleandist && npm run lernaclean",
         "deploy": "gh-pages -d _docBuild",
         "buildDoc": "rimraf _docBuild && jsdoc -c jsdoc.conf.json -R README.md -d _docBuild && ./bin/rename_doc.sh && ./bin/fix_doc.sh",
         "deployDoc": "npm run buildDoc && npm run deploy",
@@ -24,7 +23,7 @@
         "lernaboot": "lerna bootstrap --hoist",
         "lernabuild": "lerna run build",
         "lernaclean": "lerna clean",
-        "lernacleanboot": "lerna clean && npm run lernaboot",
+        "lernacleanboot": "npm run cleanall && npm run lernaboot",
         "lernatest": "lerna run test",
         "prepublishOnly": "npm run cleanall && npm run lernaboot && npm run lernatest && npm run lernabuild"
     }
