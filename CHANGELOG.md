@@ -14,6 +14,7 @@
 - added `endsWith`
 - added `endsWithNewLine`
 - added `makeEndsWith`
+- added `makeIsContained`
 - added `makeStringEndsWith`
 - added `makeStartsWith`
 - added `makeStringStartsWith`
