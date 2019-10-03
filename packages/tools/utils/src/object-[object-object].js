@@ -3,7 +3,6 @@
 */
 
 import * as _ from "lamb";
-import {__} from "lamb";
 
 import {joinWith} from "./string-[array-string]";
 
@@ -82,7 +81,7 @@ mergeB({a: 1, b: 1}) // {a: 1, b: 2}
  *
  * @version 0.1.0
  */
-export const mergeObj = obj => _.partial(_.merge, [__, obj]);
+export const mergeObj = obj => _.partial(_.merge, [_.__, obj]);
 
 /**
  * Return a function that merges the provided value on the provided key of the expected object

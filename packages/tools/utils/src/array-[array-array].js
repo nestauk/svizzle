@@ -3,7 +3,6 @@
 */
 
 import * as _ from "lamb";
-import {__} from "lamb";
 
 /**
  * Return a function expecting an array and that applies the provided transforms to its elements
@@ -23,7 +22,7 @@ transformer([1]) // [20]
  * @version 0.1.0
  */
 export const makeArrayTransformer = fnArr => _.pipe([
-    _.partial(_.zip, [fnArr, __]),
+    _.partial(_.zip, [fnArr, _.__]),
     _.mapWith(([fn, arg]) => fn(arg))
 ]);
 

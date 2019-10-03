@@ -3,7 +3,6 @@
 */
 
 import * as _ from "lamb";
-import {__} from "lamb";
 
 /**
  * Creates a position object from an array of 3 numbers
@@ -16,4 +15,4 @@ import {__} from "lamb";
  *
  * @version 0.1.0
  */
-export const makePosition3D = _.partial(_.make, [["x", "y", "z"], __]);
+export const makePosition3D = _.partial(_.make, [["x", "y", "z"], _.__]);

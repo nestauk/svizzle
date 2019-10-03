@@ -3,7 +3,6 @@
 */
 
 import * as _ from "lamb";
-import {__} from "lamb";
 
 import {join} from "./array_proto-string";
 
@@ -20,4 +19,4 @@ joinWithAt([0, 1, 2]) // "1@2@3"
  *
  * @version 0.1.0
  */
-export const joinWith = separator => _.partial(join, [__, separator]);
+export const joinWith = separator => _.partial(join, [_.__, separator]);

@@ -3,7 +3,6 @@
 */
 
 import * as _ from "lamb";
-import {__} from "lamb";
 
 import {vectorLength2D} from "./2DVector";
 
@@ -18,7 +17,7 @@ import {vectorLength2D} from "./2DVector";
  *
  * @version 0.1.0
  */
-export const makePosition2D = _.partial(_.make, [["x", "y"], __]);
+export const makePosition2D = _.partial(_.make, [["x", "y"], _.__]);
 
 /**
  * Return the distance between two 2D points

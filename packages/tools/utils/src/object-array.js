@@ -9,7 +9,7 @@ import {pairToKeyValueObject} from "./iterable-object";
 import {pickIfTruthy} from "./object-object";
 
 /**
- * Concatenate the values of the provided objects.
+ * Concatenate the values of the provided object.
  *
  * @function
  * @arg {object} object

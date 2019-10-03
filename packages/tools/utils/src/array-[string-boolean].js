@@ -9,7 +9,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {array} strings - strings to check against
- * @return {function} function - String -> Boolean
+ * @return {function} - String -> Boolean
  *
  * @example
 const isWeight = containsOneOf(['(g)', '(mg)', '(mcg)']);
