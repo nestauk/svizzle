@@ -4,6 +4,11 @@
 
 - update docs
 
+## `@svizzle/dom` v0.3.0
+
+- add `alignTags`
+- updated docs
+
 ## 20190930
 
 - switched to a flat layout, easier to use and makes it easier to read the doc

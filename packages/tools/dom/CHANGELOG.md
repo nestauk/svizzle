@@ -1,5 +1,6 @@
-## `@svizzle/dom` v0.2.1 (next)
+## `@svizzle/dom` v0.3.0 (next)
 
+- add `alignTags`
 - updated docs
 
 ## `@svizzle/dom` v0.2.0
