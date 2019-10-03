@@ -4,7 +4,8 @@ import {
     keyValueArrayToObject,
     makeKeyedZeroes,
     makeOccurrences,
-    makeAllOccurrences
+    makeAllOccurrences,
+    mergeObjects
 } from "./array-object";
 
 describe("Array -> Object", function() {
@@ -83,5 +84,17 @@ describe("Array -> Object", function() {
                 {a: 2, b: 3, c: 1}
             );
         });
+    });
+    describe("mergeObjects", function() {
+      it("should merge all the objects in the provided array", function() {
+        assert.deepStrictEqual(
+          mergeObjects([{a: 1}, {a: 6, b: -1}, {b: 1}]),
+          {a: 6, b: 1}
+        );
+        assert.deepStrictEqual(
+          mergeObjects([{b: 1}, {a: 6, b: -1}, {a: 1}]),
+          {a: 1, b: -1}
+        );
+      });
     });
 });

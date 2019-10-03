@@ -1,11 +1,14 @@
 import {strict as assert} from 'assert';
 
-import {reduceFromArr, reduceFromObj} from './function-[array-any]';
+import {
+  reduceFromEmptyArray,
+  reduceFromEmptyObject
+} from './function-[array-any]';
 
 describe('Function -> (Array -> Any)', function() {
-  describe('reduceFromArr', function() {
+  describe('reduceFromEmptyArray', function() {
     it('should return a reduce function expecting an array to reduce with the passed reducer with an empty array as the initial value', function() {
-      const reduce = reduceFromArr((acc, x) => {
+      const reduce = reduceFromEmptyArray((acc, x) => {
         return acc.slice(-2).concat([x.value]);
       });
       assert.deepStrictEqual(
@@ -20,9 +23,9 @@ describe('Function -> (Array -> Any)', function() {
       );
     });
   });
-  describe('reduceFromObj', function() {
+  describe('reduceFromEmptyObject', function() {
     it('should return a reduce function expecting an array to reduce with the passed reducer with an empty object as the initial value', function() {
-      const reduce = reduceFromObj((acc, x) => {
+      const reduce = reduceFromEmptyObject((acc, x) => {
         acc[x.id] = x.name;
         return acc;
       });

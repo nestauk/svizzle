@@ -3,6 +3,7 @@
 */
 
 import * as _ from "lamb";
+import {reduceFromEmptyArray} from "./function-[array-any]";
 
 /**
  * Return a function that computes the polynomial of the input number using the provided cofficients.
@@ -19,12 +20,12 @@ poly(5) // 510
  * @version 0.3.0
  */
 export const makePolynomial = _.pipe([
-  _.reduceWith((acc, coefficient, exponent) => {
+  reduceFromEmptyArray((acc, coefficient, exponent) => {
     if (coefficient) {
       acc.push(x => coefficient * Math.pow(x, exponent))
     }
     return acc;
-  }, []),
+  }),
   terms => _.pipe([
     _.collect(terms),
     _.reduceWith(_.sum)

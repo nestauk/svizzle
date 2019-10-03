@@ -4,8 +4,9 @@
 
 import * as _ from "lamb";
 
-import {isTrimmedNotEmpty} from "./string-boolean";
+import {reduceFromEmptyArray} from "./function-[array-any]";
 import {trim} from "./string_proto-string";
+import {isTrimmedNotEmpty} from "./string-boolean";
 import {makeSplitBy} from "./string-[string-array]";
 
 /**
@@ -102,11 +103,11 @@ export const makeRows = _.pipe([
  */
 export const ndjsonToArray = _.pipe([
     splitByEOL,
-    _.reduceWith((array, str) => {
+    reduceFromEmptyArray((array, str) => {
         if (isTrimmedNotEmpty(str)) {
             array.push(JSON.parse(str))
         }
 
         return array;
-    }, [])
+    })
 ]);

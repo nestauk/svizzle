@@ -18,8 +18,12 @@
 - added `makeStringEndsWith`
 - added `makeStartsWith`
 - added `makeStringStartsWith`
+- added `mergeObjects`
 - added `sliceString`
 - added `sliceStringAt`
+- renamed:
+  - `reduceFromArr` -> `reduceFromEmptyArray`
+  - `reduceFromObj` -> `reduceFromEmptyObject`
 - update docs
 
 

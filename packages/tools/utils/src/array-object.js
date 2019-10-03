@@ -4,6 +4,7 @@
 
 import * as _ from "lamb";
 import {makeKeyed} from "./any-[array-object]";
+import {reduceFromEmptyObject} from "./function-[array-any]";
 
 /**
  * Return an object built using 'key's and 'value's from the objects in the provided array
@@ -99,20 +100,17 @@ makeAllOccurrences(objects) // {a: 3, b: 2, c: 2, e: 1}
  *
  * @version 0.1.0
  */
-export const makeAllOccurrences = (items) => _.reduce(items,
-    (acc, item) => {
-        _.forEach(_.keys(item), key => {
-            if (_.has(acc, key)) {
-                acc[key] += 1;
-            } else {
-                acc[key] = 1;
-            }
-        });
+export const makeAllOccurrences = reduceFromEmptyObject((acc, item) => {
+  _.forEach(_.keys(item), key => {
+    if (_.has(acc, key)) {
+      acc[key] += 1;
+    } else {
+      acc[key] = 1;
+    }
+  });
 
-        return acc;
-    },
-    {}
-);
+  return acc;
+});
 
 // (items[], keys[]) => {key, value}[]
 // export const makeOccurrencesKeyValueArray = _.pipe([
@@ -120,3 +118,26 @@ export const makeAllOccurrences = (items) => _.reduce(items,
 //     objectToKeyValueArray
 // ]);
 // FIXME dependency cycles with objUtils
+
+/**
+ * Merge all the objects in the provided array.
+ * The result depends on the order of the objects in the array.
+ *
+ * @function
+ * @arg {array} objects - array of objects
+ * @return {object} - merged objects
+ *
+ * @example
+mergeObjects([{a: 1}, {a: 6, b: -1}, {b: 1}]) // {a: 6, b: 1}
+mergeObjects([{b: 1}, {a: 6, b: -1}, {a: 1}]) // {a: 1, b: -1}
+ *
+ * @version 0.5.0
+ */
+export const mergeObjects = reduceFromEmptyObject((acc, item) => {
+  _.forEach(_.pairs(item), ([key, value]) => {
+    acc[key] = value;
+  });
+
+  return acc;
+});
+// IDEA merging from right just new keys might be faster

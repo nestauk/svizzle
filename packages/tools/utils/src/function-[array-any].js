@@ -13,7 +13,7 @@ import {reduceTo} from './constructor-[function-[array-any]]';
  * @return {function} - Array -> Any
  *
  * @example
-const reduce = reduceFromArr((acc, x) => {
+const reduce = reduceFromEmptyArray((acc, x) => {
   return acc.slice(-2).concat([x.value]);
 });
 reduce([
@@ -27,7 +27,7 @@ reduce([
  *
  * @version 0.3.0
  */
-export const reduceFromArr = reduceTo(Array);
+export const reduceFromEmptyArray = reduceTo(Array);
 
 /**
  * Return a reduce function expecting an array to reduce with the passed reducer
@@ -38,7 +38,7 @@ export const reduceFromArr = reduceTo(Array);
  * @return {function} - Array -> Any
  *
  * @example
-const reduce = reduceFromObj((acc, x) => {
+const reduce = reduceFromEmptyObject((acc, x) => {
   acc[x.id] = x.name;
   return acc;
 });
@@ -50,4 +50,4 @@ reduce([
  *
  * @version 0.3.0
  */
-export const reduceFromObj = reduceTo(Object);
+export const reduceFromEmptyObject = reduceTo(Object);
