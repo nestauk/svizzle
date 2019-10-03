@@ -1,6 +1,7 @@
 ## `@svizzle/utils` v0.5.0 (next)
 
 - added `endsWith`
+- added `endsWithNewLine`
 - added `makeEndsWith`
 - added `makeStringEndsWith`
 - added `makeStartsWith`
