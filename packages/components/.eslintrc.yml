@@ -1,0 +1,17 @@
+overrides:
+  -
+    files:
+      - '**/*.svelte'
+    processor: svelte3/svelte3
+  -
+    files:
+      - '**/*.spec.js'
+    rules:
+      no-invalid-this: 'off'
+      no-new: 'off'
+plugins:
+  - svelte3
+rules:
+  brace-style: 'off'
+# settings:
+  # svelte3/ignore-styles: true
