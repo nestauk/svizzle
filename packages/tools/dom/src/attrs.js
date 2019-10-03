@@ -2,13 +2,9 @@
 * @module @svizzle/dom/attrs
 */
 
-import {pairs, mapWith, pipe} from "lamb";
+import * as _ from "lamb";
 
-import {
-    isNumber,
-    joinWithColon,
-    joinWithSemicolon
-} from "@svizzle/utils";
+import {joinWithColon, joinWithSemicolon} from "@svizzle/utils";
 
 /**
  * Return a style string from an object
@@ -23,10 +19,11 @@ makeStyle({color: "red", "font-size": "10px"})
  *
  * @version 0.1.0
  */
-export const makeStyle = pipe([
-    pairs,
-    mapWith(joinWithColon),
-    joinWithSemicolon
+export const makeStyle = _.pipe([
+  _.skipIf(_.isNil),
+  _.pairs,
+  _.mapWith(joinWithColon),
+  joinWithSemicolon
 ]);
 
 /**

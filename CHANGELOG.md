@@ -4,9 +4,10 @@
 
 - update docs
 
-## `@svizzle/dom` v0.3.0
+## `@svizzle/dom` v0.3.0 (next)
 
 - add `alignTags`
+- `makeStyle` now skips nil values
 - updated docs
 
 ## 20190930

@@ -1,6 +1,7 @@
 ## `@svizzle/dom` v0.3.0 (next)
 
 - add `alignTags`
+- `makeStyle` now skips nil values
 - updated docs
 
 ## `@svizzle/dom` v0.2.0
