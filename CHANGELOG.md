@@ -11,8 +11,14 @@
 
 ## `@svizzle/utils` v0.5.0 (next)
 
+- added `endsWith`
+- added `makeEndsWith`
+- added `makeStringEndsWith`
+- added `makeStartsWith`
+- added `makeStringStartsWith`
 - added `sliceString`
 - added `sliceStringAt`
+- update docs
 
 
 ## 20190930
