@@ -5,7 +5,27 @@
 import * as _ from "lamb";
 
 /**
- * Return a string by trimming white space of the provided string
+ * Return the portion of the provided string between the provided indices (first included, second excluded).
+ * (named `sliceString` to avoid conflict with `Array.prototype.slice`)
+ * @see [String.prototype.slice]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice}
+ *
+ * @function
+ * @arg {string} string
+ * @arg {number} beginIndex - The zero-based index at which to begin extraction
+ * @arg {number} endIndex - Optional. The zero-based index before which to end extraction. If negative, starts counting from the end.
+ * @return {string}
+ *
+ * @example
+ * sliceString("0123456789", 3) // "3456789"
+ * sliceString("0123456789", 3, 5) // "34"
+ * sliceString("0123456789", 3, -1) // "345678"
+ *
+ * @version 0.5.0
+ */
+export const sliceString = _.generic(String.prototype.slice);
+
+/**
+ * Return a string by trimming white space from the provided string
  * @see [String.prototype.trim]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim}
  *
  * @function

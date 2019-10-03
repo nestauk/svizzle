@@ -8,7 +8,12 @@
 
 - add `alignTags`
 - `makeStyle` now skips nil values
-- updated docs
+
+## `@svizzle/utils` v0.5.0 (next)
+
+- added `sliceString`
+- added `sliceStringAt`
+
 
 ## 20190930
 

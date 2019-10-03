@@ -1,5 +1,7 @@
-## next
+## `@svizzle/utils` v0.5.0 (next)
 
+- added `sliceString`
+- added `sliceStringAt`
 - update docs
 
 ## `@svizzle/utils` v0.4.0
