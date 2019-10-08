@@ -7,7 +7,7 @@ import * as _ from "lamb";
 import {arrayMaxBy, arrayMinBy} from "./string-[array-number]";
 
 /**
- * Return a function expecting an object of objects and returning the max of values by the provided key
+ * Return a function expecting an object of objects and returning the max of values by the provided key.
  * The same can be done by `valuesMaxWith(_.getKey(key))` but here we avoid invoking a function for all the items.
  *
  * @function
@@ -27,7 +27,7 @@ export const valuesMaxBy = key => _.pipe([
 ]);
 
 /**
- * Return a function expecting an object of objects and returning the min of values by the provided key
+ * Return a function expecting an object of objects and returning the min of values by the provided key.
  * The same can be done by `valuesMinWith(_.getKey(key))` but here we avoid invoking a function for all the items.
  *
  * @function
