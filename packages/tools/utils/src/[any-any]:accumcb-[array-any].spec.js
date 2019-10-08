@@ -3,7 +3,7 @@ import {strict as assert} from 'assert';
 import {
   reduceFromEmptyArray,
   reduceFromEmptyObject
-} from './function-[array-any]';
+} from './[any-any]:accumcb-[array-any]';
 
 describe('Function -> (Array -> Any)', function() {
   describe('reduceFromEmptyArray', function() {

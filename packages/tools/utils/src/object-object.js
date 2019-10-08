@@ -6,7 +6,7 @@ import * as _ from "lamb";
 
 import {toFloatOrIdentity} from "./any-any";
 import {concat} from "./array_proto-array";
-import {mergeWith} from "./function-[object-object]";
+import {mergeWith} from "./[any-any]-[object-object]";
 
 /* map values */
 

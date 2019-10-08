@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {arrayMaxWith, arrayMinWith} from "./function-[array-number]";
+import {arrayMaxWith, arrayMinWith} from "./[any-number]:accumcb-[array-number]";
 
 describe("Function -> (Array -> Number)", function() {
     describe("max/min", function() {

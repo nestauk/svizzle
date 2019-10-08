@@ -4,7 +4,7 @@
 
 import * as _ from "lamb";
 
-import {reduceFromEmptyArray} from "./function-[array-any]";
+import {reduceFromEmptyArray} from "./[any-any]:accumcb-[array-any]";
 import {trim} from "./string_proto-string";
 import {isTrimmedNotEmpty} from "./string-boolean";
 import {makeSplitBy} from "./string-[string-array]";

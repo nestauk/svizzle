@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/function-[array-any]
+* @module @svizzle/utils/[any-any]:accumcb-[array-any]
 */
 
 import {reduceTo} from './constructor-[function-[array-any]]';

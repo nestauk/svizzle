@@ -14,6 +14,7 @@
     "scripts": {
         "cleanall": "npm run cleandist && npm run lernaclean && npm run cleanpacklocks",
         "cleandist": "rimraf packages/**/dist",
+        "cleanhiddenfiles": "rimraf **/.DS_Store",
         "cleannodmod": "rimraf node_modules",
         "cleanpacklocks": "rimraf packages/**/package-lock.json",
         "deploy": "gh-pages -d _docBuild",

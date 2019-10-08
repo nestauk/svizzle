@@ -4,7 +4,7 @@
 
 import * as _ from "lamb";
 
-import {pairToKeyValueObjectWith} from "./function-[iterable-object]";
+import {pairToKeyValueObjectWith} from "./[any-any]-[iterable-object]";
 
 /**
 * Return a function expecting an object and returning an array of {key, value} objects

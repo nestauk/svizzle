@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/function-[array-number]
+* @module @svizzle/utils/[any-number]:accumcb-[array-number]
 */
 
 import * as _ from "lamb";
