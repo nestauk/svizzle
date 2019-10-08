@@ -7,6 +7,9 @@ import * as _ from "lamb";
 /**
  * Return a function expecting an array of objects and returning the max of values by the provided key.
  * The same can be done by `arrayMaxWith(_.getKey(key))` but here we avoid invoking a function for all the items.
+ * @see
+ {@link module:@svizzle/utils/array-number.arrayMax|arrayMax},
+ {@link module:@svizzle/utils/function-[array-number].arrayMaxWith|arrayMaxWith}
  *
  * @function
  * @arg {string} key
@@ -34,6 +37,9 @@ export const arrayMaxBy = key => _.reduceWith((max, item) => {
 /**
  * Return a function expecting an array of objects and returning the min of values by the provided key
  * The same can be done by `arrayMinWith(_.getKey(key))` but here we avoid invoking a function for all the items.
+ * @see
+ {@link module:@svizzle/utils/array-number.arrayMin|arrayMin},
+ {@link module:@svizzle/utils/function-[array-number].arrayMinWith|arrayMinWith}
  *
  * @function
  * @arg {string} key

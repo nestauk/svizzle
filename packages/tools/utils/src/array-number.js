@@ -25,6 +25,9 @@ export const makeRandomNumInRange = ([min, max]) =>
 
 /**
  * Return the max of the numbers in the provided array
+ * @see
+ {@link module:@svizzle/utils/string-[array-number].arrayMaxBy|arrayMaxBy},
+ {@link module:@svizzle/utils/function-[array-number].arrayMaxWith|arrayMaxWith}
  *
  * @function
  * @arg {array} array
@@ -40,6 +43,9 @@ export const arrayMax = _.apply(Math.max);
 
 /**
  * Return the min of the numbers in the provided array
+ * @see
+ {@link module:@svizzle/utils/string-[array-number].arrayMinBy|arrayMinBy},
+ {@link module:@svizzle/utils/function-[array-number].arrayMinWith|arrayMinWith}
  *
  * @function
  * @arg {array} array

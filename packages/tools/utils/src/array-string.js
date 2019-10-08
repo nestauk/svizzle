@@ -9,6 +9,7 @@ import {joinWith} from "./string-[array-string]";
 
 /**
  * Return a string joining the provided array items with a dash
+ * @see {@link module:@svizzle/utils/string-[array-string].joinWith|joinWith}
  *
  * @function
  * @arg {array} array
@@ -22,6 +23,7 @@ export const joinWithDash = joinWith("-");
 
 /**
  * Return a string joining the provided array items with a colon
+ * @see {@link module:@svizzle/utils/string-[array-string].joinWith|joinWith}
  *
  * @function
  * @arg {array} array
@@ -35,6 +37,7 @@ export const joinWithColon = joinWith(":");
 
 /**
  * Return a string joining the provided array items with a semicolon
+ * @see {@link module:@svizzle/utils/string-[array-string].joinWith|joinWith}
  *
  * @function
  * @arg {array} array

@@ -37,6 +37,7 @@ export const makeIsContained = array =>
 
 /**
  * Return a function returning true if the passed (primitive) value is found in the provided array
+ * @see {@link module:@svizzle/utils/array_proto-boolean.includes|includes}
  *
  * @function
  * @arg {array} array - Array

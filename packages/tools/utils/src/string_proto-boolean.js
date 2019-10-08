@@ -6,7 +6,10 @@ import * as _ from "lamb";
 
 /**
  * Return true if the input string ends with the test string
- * @see [String.prototype.endsWith]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith}
+ * @see
+ {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith|String.prototype.endsWith},
+ {@link module:@svizzle/utils/string-[string-boolean].makeEndsWith|makeEndsWith},
+ {@link module:@svizzle/utils/string-[string-boolean].makeStringEndsWith|makeStringEndsWith}
  *
  * @function
  * @arg {string} string - The input string
@@ -23,7 +26,10 @@ export const endsWith = _.generic(String.prototype.endsWith);
 
 /**
  * Return true if the input string starts with the test string
- * @see [String.prototype.startsWith]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith}
+ * @see
+ {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith|String.prototype.startsWith},
+ {@link module:@svizzle/utils/string-[string-boolean].makeStartsWith|makeStartsWith},
+ {@link module:@svizzle/utils/string-[string-boolean].makeStringStartsWith|makeStringStartsWith}
  *
  * @function
  * @arg {string} string - The input string

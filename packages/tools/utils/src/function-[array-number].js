@@ -7,6 +7,9 @@ import * as _ from "lamb";
 /**
  * Return a function expecting an array of objects and returning the max of results
  * of applying the provided fuction on all of the array items
+ * @see
+ {@link module:@svizzle/utils/array-number.arrayMax|arrayMax},
+ {@link module:@svizzle/utils/string-[array-number].arrayMaxBy|arrayMaxBy}
  *
  * @function
  * @arg {function} fn
@@ -30,6 +33,9 @@ export const arrayMaxWith = fn => _.reduceWith((max, item) => {
 /**
  * Return a function expecting an array of objects and returning the min of results
  * of applying the provided fuction on all of the array items
+ * @see
+ {@link module:@svizzle/utils/array-number.arrayMin|arrayMin},
+ {@link module:@svizzle/utils/string-[array-number].arrayMinBy|arrayMinBy}
  *
  * @function
  * @arg {function} fn

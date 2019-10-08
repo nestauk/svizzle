@@ -25,6 +25,10 @@ export const makeSplitStringBy = _.curry(split, 2);
 
 /**
  * Return a function expecting a string to be split using the provided separator or regex
+ * @see
+ {@link module:@svizzle/utils/string-array.splitByDot|splitByDot},
+ {@link module:@svizzle/utils/string-array.splitByEOL|splitByEOL},
+ {@link module:@svizzle/utils/string-array.splitBySemiColon|splitBySemiColon},
  *
  * @function
  * @arg {stringOrRegex} stringOrRegex - Separator or regex

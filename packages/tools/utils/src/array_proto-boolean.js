@@ -6,7 +6,9 @@ import * as _ from "lamb";
 
 /**
  * Return an function expecting a value and returning true if it is included in the provided array
- * @see [Array.prototype.includes]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes}
+ * @see
+ {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes|Array.prototype.includes},
+ {@link module:@svizzle/utils/array-[any-boolean].makeIsIncluded|makeIsIncluded}
  *
  * @function
  * @arg {array} array

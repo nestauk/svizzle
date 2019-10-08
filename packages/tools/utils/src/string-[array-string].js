@@ -8,6 +8,11 @@ import {join} from "./array_proto-string";
 
 /**
  * Return a function expecting an array to join with the provided separator
+ * @see
+ {@link module:@svizzle/utils/array_proto-string.join|join},
+ {@link module:@svizzle/utils/array-string.joinWithColon|joinWithColon},
+ {@link module:@svizzle/utils/array-string.joinWithDash|joinWithDash},
+ {@link module:@svizzle/utils/array-string.joinWithSemicolon|joinWithSemicolon},
  *
  * @function
  * @arg {string} separator

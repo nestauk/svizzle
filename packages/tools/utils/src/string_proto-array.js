@@ -6,7 +6,13 @@ import * as _ from "lamb";
 
 /**
  * Return an array splitting the input string with the provided separator or regex
- * @see [String.prototype.split]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split}
+ * @see
+ {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split|String.prototype.split},
+ {@link module:@svizzle/utils/string-[string-array].makeSplitBy|makeSplitBy},
+ {@link module:@svizzle/utils/string-[string-array].makeSplitStringBy|makeSplitStringBy},
+ {@link module:@svizzle/utils/string-array.splitByDot|splitByDot},
+ {@link module:@svizzle/utils/string-array.splitByEOL|splitByEOL},
+ {@link module:@svizzle/utils/string-array.splitBySemiColon|splitBySemiColon}
  *
  * @function
  * @arg {string} string - The input string

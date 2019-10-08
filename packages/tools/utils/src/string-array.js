@@ -11,6 +11,7 @@ import {makeSplitBy} from "./string-[string-array]";
 
 /**
  * Return an array by splitting by "."
+ * @see {@link module:@svizzle/utils/string-[string-array].makeSplitBy|makeSplitBy}
  *
  * @function
  * @arg {string} string
@@ -25,6 +26,7 @@ export const splitByDot = makeSplitBy(".");
 
 /**
  * Return an array by splitting by "\n"
+ * @see {@link module:@svizzle/utils/string-[string-array].makeSplitBy|makeSplitBy}
  *
  * @function
  * @arg {string} string
@@ -39,6 +41,7 @@ export const splitByEOL = makeSplitBy("\n");
 
 /**
  * Return an array by splitting by ";"
+ * @see {@link module:@svizzle/utils/string-[string-array].makeSplitBy|makeSplitBy}
  *
  * @function
  * @arg {string} string

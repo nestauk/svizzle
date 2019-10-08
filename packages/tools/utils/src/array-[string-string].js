@@ -7,6 +7,7 @@ import {sliceString} from "./string_proto-string";
 
 /**
  * Return a function extracting the portion of a string between the provided indices (first included, second excluded).
+ * @see {@link module:@svizzle/utils/string_proto-string.sliceString|sliceString}
  *
  * @function
  * @arg {number[]} range - [beginIndex, endIndex]
