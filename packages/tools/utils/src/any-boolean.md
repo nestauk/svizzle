@@ -1,0 +1,5 @@
+# lamb
+
+- isNil
+- isNull
+- isUndefined

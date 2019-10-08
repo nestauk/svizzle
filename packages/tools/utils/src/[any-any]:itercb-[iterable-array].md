@@ -1,0 +1,5 @@
+# lamb
+
+- flatMapWith
+- mapWith
+- uniquesBy

@@ -1,0 +1,4 @@
+# lamb
+
+- drop
+- take
