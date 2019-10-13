@@ -12,7 +12,7 @@
     "name": "svizzle",
     "private": true,
     "scripts": {
-        "cleanall": "npm run cleandist && npm run lernaclean && npm run cleanpacklocks",
+        "cleanall": "lerna clean && npm run cleandist && npm run cleanpacklocks && npm run cleanhiddenfiles",
         "cleandist": "rimraf packages/**/dist",
         "cleanhiddenfiles": "rimraf **/.DS_Store",
         "cleannodmod": "rimraf node_modules",
@@ -25,7 +25,8 @@
         "lernabuild": "lerna run build",
         "lernaclean": "lerna clean",
         "lernacleanboot": "npm run cleanall && npm run lernaboot",
+        "lernalint": "lerna run lint",
         "lernatest": "lerna run test",
-        "prepublishOnly": "npm run cleanall && npm run lernaboot && npm run lernatest && npm run lernabuild"
+        "prepublishOnly": "npm run cleanall && npm run lernaboot && lerna run lint && lerna run test && lerna run build"
     }
 }

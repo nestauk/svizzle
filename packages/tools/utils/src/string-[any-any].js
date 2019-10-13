@@ -35,7 +35,7 @@ export const tapValue = label => x => {
     console.log(`${label}:`, x);
   } else {
     console.log(x);
-  };
+  }
 
   return x;
 };
@@ -69,7 +69,7 @@ export const tapType = label => x => {
     console.log(`${label}:`, _.type(x));
   } else {
     console.log(_.type(x));
-  };
+  }
 
   return x;
 };
@@ -103,7 +103,7 @@ export const tapTypeAndValue = label => x => {
     console.log(`${label}:`, _.type(x), x);
   } else {
     console.log(_.type(x), x);
-  };
+  }
 
   return x;
 };

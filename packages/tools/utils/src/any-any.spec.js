@@ -2,9 +2,9 @@ import {strict as assert} from "assert";
 
 import {makeEmptyArrayIfUndefined, toFloatOrIdentity} from "./any-any";
 
-function returnArgs () {
-    return arguments;
-}
+// function returnArgs () {
+//     return arguments;
+// }
 
 describe("Any -> Any", function() {
     describe("Any -> number|identity", function() {

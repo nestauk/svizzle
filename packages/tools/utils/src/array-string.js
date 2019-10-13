@@ -2,9 +2,6 @@
 * @module @svizzle/utils/array-string
 */
 
-import * as _ from "lamb";
-
-import {join} from "./array_proto-string";
 import {joinWith} from "./string-[array-string]";
 
 /**

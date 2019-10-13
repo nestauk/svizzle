@@ -2,7 +2,6 @@
 * @module @svizzle/request/json
 */
 
-import * as _ from "lamb";
 import {json, text} from "d3-fetch";
 import {text as textRequest, json as jsonRequest} from "d3-request";
 import {ndjsonToArray} from "@svizzle/utils";
@@ -36,9 +35,11 @@ import {ndjsonToArray} from "@svizzle/utils";
 export const requestJson = (url, useFetch = true) => useFetch
     ? json(url)
     : new Promise((resolve, reject) => {
-        jsonRequest(url, (error, json) => {
-            if (error) { reject(error) };
-            resolve(json);
+        jsonRequest(url, (error, response) => {
+            if (error) {
+              reject(error)
+            }
+            resolve(response);
         });
     });
 
@@ -72,9 +73,11 @@ export const requestNdjson = (url, useFetch = true) =>
     (useFetch
         ? text(url)
         : new Promise((resolve, reject) => {
-            textRequest(url, (error, text) => {
-                if (error) { reject(error) };
-                resolve(text);
+            textRequest(url, (error, response) => {
+                if (error) {
+                  reject(error)
+                }
+                resolve(response);
             });
         })
     )

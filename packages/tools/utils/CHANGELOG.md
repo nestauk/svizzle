@@ -13,6 +13,8 @@
 - renamed:
   - `reduceFromArr` -> `reduceFromEmptyArray`
   - `reduceFromObj` -> `reduceFromEmptyObject`
+
+- add linting
 - update docs
 
 ## `@svizzle/utils` v0.4.0

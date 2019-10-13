@@ -5,7 +5,6 @@
 import * as _ from "lamb";
 
 import {sliceStringAt} from "./array-[string-string]";
-import {sliceString} from "./string_proto-string";
 import {endsWithNewLine} from "./string-boolean";
 
 /**

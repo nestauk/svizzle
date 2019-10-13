@@ -7,8 +7,6 @@ import tempy from "tempy";
 import fetch from "node-fetch";
 global.fetch = fetch;
 
-import {requestJson} from "@svizzle/request";
-
 import {readJson} from "./read";
 import {saveObj, saveObjPassthrough, saveResponse} from "./write";
 

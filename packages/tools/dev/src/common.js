@@ -85,10 +85,10 @@ makeBanner(pkg);
  * @version 0.1.0
  */
 export const makeBanner = pkg => {
-    const author = (typeof pkg.author) === "object"
+    const author = typeof pkg.author === "object"
         ? pkg.author.name
         : pkg.author;
-    const year = (new Date).getFullYear();
+    const year = new Date().getFullYear();
 
     return `// ${pkg.name} v${pkg.version} - © ${year} ${author}`
 }

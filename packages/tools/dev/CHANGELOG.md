@@ -1,5 +1,6 @@
-## `@svizzle/file` v0.2.1 (next)
+## `@svizzle/dev` (next)
 
+- add linting
 - updated docs
 
 ## `@svizzle/dev` v0.2.0

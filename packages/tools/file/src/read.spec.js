@@ -1,6 +1,5 @@
 import {strict as assert} from "assert";
 import path from "path";
-import * as _ from "lamb";
 
 import {
   readCsv,
@@ -92,7 +91,7 @@ describe("read", function() {
                     a,
                     b: Number(b)
                 });
-                const rows = await readDsv(txtPath, conversionFn, ";");
+                const rows = await readDsv(txtPath, ";", conversionFn);
 
                 const rowsParsed = [{a: "foo", b: 1}, {a: "bar", b: 2}];
                 rowsParsed.columns = ["a", "b"];
@@ -107,7 +106,7 @@ describe("read", function() {
                     a,
                     b: Number(b)
                 });
-                const rows = await readDsv(txtPath, conversionFn, ";", false);
+                const rows = await readDsv(txtPath, ";", conversionFn, false);
 
                 const rowsParsed = [{a: "foo", b: 1}, {a: "bar", b: 2}];
 

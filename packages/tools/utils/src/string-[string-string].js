@@ -2,8 +2,6 @@
 * @module @svizzle/utils/string-[string-string]
 */
 
-import * as _ from "lamb";
-
 /**
  * Return a function that prepends the provided string to the input string
  *

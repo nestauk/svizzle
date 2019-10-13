@@ -1,7 +1,5 @@
 import {strict as assert} from "assert";
 
-import * as _ from "lamb";
-
 import {valuesMaxBy, valuesMinBy} from "./string-[object-number]";
 
 describe("String -> (Object -> Number)", function() {

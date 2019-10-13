@@ -1,3 +1,7 @@
+## `@svizzle/geometry` (next)
+
+- add linting
+
 ## `@svizzle/geometry` v0.1.0
 
 - `getDistance2D`

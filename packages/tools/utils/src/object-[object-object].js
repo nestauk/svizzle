@@ -4,8 +4,6 @@
 
 import * as _ from "lamb";
 
-import {joinWith} from "./string-[array-string]";
-
 /**
  * Return a function expecting an object to be used as the argument of the provided functions
  *

@@ -1,5 +1,6 @@
-## `@svizzle/geo` v0.2.1 (next)
+## `@svizzle/geo` (next)
 
+- add linting
 - updated docs
 
 ## `@svizzle/geo` v0.2.0

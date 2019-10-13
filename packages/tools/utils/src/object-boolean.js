@@ -4,7 +4,6 @@
 
 import * as _ from "lamb";
 
-import {getLength} from "./iterable-number";
 import {is0, is1, isGT0} from "./number-boolean";
 import {getObjSize} from "./object-number";
 

@@ -13,12 +13,6 @@ import {makeIsWithinRange} from "./array-[number-boolean]";
 describe("Array -> Number", function() {
     describe("max/min", function() {
         const numArray = [-1, -2, 0, 1, 2];
-        const objArray = [
-            {a: -1, b: -1},
-            {a: 0, b: 0},
-            {a: 1, b: 1},
-            {a: 2, b: -2}
-        ];
 
         describe("arrayMax", function() {
             it("should return the max of the numbers in the provided array", function() {

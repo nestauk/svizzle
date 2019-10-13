@@ -63,7 +63,7 @@ export const readDir = util.promisify(fs.readdir);
  *
  * @function
  * @arg {string} csvPath - The filepath of the CSV file to read.
- * @arg {function} conversionFn - A function invoked for each row to convert columns values.
+ * @arg {function} [conversionFn=x=>x] - A function invoked for each row to convert columns values.
  * @arg {boolean} [withHeader=true] - Does the first line contain the header?
  * @see https://github.com/d3/d3-dsv#dsv_parse
  * @return {promise}
@@ -94,7 +94,7 @@ readCsv("source/withNoHeader.csv", row => ({
  */
 export const readCsv = (
   csvPath,
-  conversionFn = _.identity,
+  conversionFn = x => x,
   withHeader = true
 ) =>
     readFile(csvPath, "utf-8")
@@ -105,12 +105,13 @@ export const readCsv = (
 
 /**
  * [node environment]
- * Return a promise that reads and then parses a csv file.
+ * Return a promise that reads and then parses a file.
  * You can create a conversionFn using transformValues() from @svizzle/utils
  *
  * @function
  * @arg {string} csvPath - The filepath of the CSV file to read.
- * @arg {function} conversionFn - A function invoked for each row to convert columns values.
+ * @arg {string} separator - Separator string.
+ * @arg {function} [conversionFn=x=>x] - A function invoked for each row to convert columns values.
  * @arg {boolean} [withHeader=true] - Does the first line contain the header?
  * @see https://github.com/d3/d3-dsv#dsv_parse
  * @return {promise}
@@ -144,8 +145,8 @@ readDsv("source/withNoHeader.txt", ([name, amount]) => ({
  */
 export const readDsv = (
   filePath,
-  conversionFn = _.identity,
   separator,
+  conversionFn = x => x,
   withHeader = true
 ) =>
   readFile(filePath, "utf-8")
@@ -164,7 +165,7 @@ export const readDsv = (
  *
  * @function
  * @arg {string} tsvPath - The filepath of the TSV file to read.
- * @arg {function} conversionFn - A function invoked for each row to convert columns values,
+ * @arg {function} [conversionFn=x=>x] - A function invoked for each row to convert columns values,
  * @arg {boolean} [withHeader=true] - Does the first line contain the header?
  * @see https://github.com/d3/d3-dsv#dsv_parse
  * @return {promise}
@@ -198,7 +199,7 @@ readTsv("source/withNoHeader.txt", ([name, amount]) => ({
  */
 export const readTsv = (
   tsvPath,
-  conversionFn = _.identity,
+  conversionFn = x => x,
   withHeader = true
 ) =>
     readFile(tsvPath, "utf-8")

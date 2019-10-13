@@ -40,7 +40,7 @@ export const makeLinkVector = link => {
 
     const sourceRadius = link.source.radius || 0;
     const targetRadius = link.target.radius || 0;
-    const sign = (length >= sourceRadius) ? 1 : -1;
+    const sign = length >= sourceRadius ? 1 : -1;
 
     return {
         x1: link.source.x + versor.x * sourceRadius,

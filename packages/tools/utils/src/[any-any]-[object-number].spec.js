@@ -6,9 +6,6 @@ import {valuesMaxWith, valuesMinWith} from "./[any-any]-[object-number]";
 
 describe("Function -> (Object -> Number)", function() {
     describe("max/min", function() {
-        const objectOfObjectjs1 = {a: {k1: 1, k2: 20}, b: {k1: 3,  k2: 2}};
-        const objectOfObjectjs2 = {a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}};
-
         const angles1 = {a: -Math.PI/2, b: -Math.PI/4};
         const angles2 = {a: -Math.PI/4, b: -Math.PI/6};
 

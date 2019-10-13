@@ -2,6 +2,7 @@
 
 ## next
 
+- add linting
 - update docs
 
 ## `@svizzle/dom` v0.3.0 (next)

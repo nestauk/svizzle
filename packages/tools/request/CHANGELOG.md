@@ -1,3 +1,7 @@
+## `@svizzle/request` (next)
+
+- add linting
+
 ## `@svizzle/request` v0.1.1
 
 - removed `vendor/` from the build

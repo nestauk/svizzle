@@ -1,12 +1,9 @@
 import {strict as assert} from "assert";
 
-import * as _ from "lamb";
-
 import {arrayMaxBy, arrayMinBy} from "./string-[array-number]";
 
 describe("String -> (Array -> Number)", function() {
     describe("max/min", function() {
-        const numArray = [-1, -2, 0, 1, 2];
         const objArray = [
             {a: -1, b: -1},
             {a: 0, b: 0},
