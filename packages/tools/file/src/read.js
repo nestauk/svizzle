@@ -48,7 +48,7 @@ export const readFile = util.promisify(fs.readFile);
  * @return {promise}
  *
  * @example
-readFile("source/dir/")
+readDir("source/dir/")
 .then(x => console.log(x))
 .catch(err => console.error(err));
 // ['dir1', 'dir2', 'file1.txt', 'file2.txt', 'folder1', 'folder2']

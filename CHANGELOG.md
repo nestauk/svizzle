@@ -14,6 +14,7 @@
 
 - added `endsWith`
 - added `endsWithNewLine`
+- added `getShorter`
 - added `isArguments`
 - added `makeEndsWith`
 - added `makeIsContained`
