@@ -2,6 +2,7 @@
 
 - added `endsWith`
 - added `endsWithNewLine`
+- added `isArguments`
 - added `makeEndsWith`
 - added `makeIsContained`
 - added `makeStringEndsWith`

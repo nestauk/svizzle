@@ -5,6 +5,28 @@
 import * as _ from "lamb";
 
 /**
+ * Return true is the input is an arguments list
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+isArray([]) // false
+isArray([1, 2]) // false
+isArray({a: 1}) // false
+isArray("foo") // false
+
+function returnArgs () {
+  return arguments;
+}
+isArray(returnArgs()) // true
+ *
+ * @version 0.5.0
+ */
+export const isArguments = _.isType("Arguments");
+
+/**
  * Return true is the input is an array
  *
  * @function

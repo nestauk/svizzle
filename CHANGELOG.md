@@ -14,6 +14,7 @@
 
 - added `endsWith`
 - added `endsWithNewLine`
+- added `isArguments`
 - added `makeEndsWith`
 - added `makeIsContained`
 - added `makeStringEndsWith`
@@ -25,6 +26,8 @@
 - renamed:
   - `reduceFromArr` -> `reduceFromEmptyArray`
   - `reduceFromObj` -> `reduceFromEmptyObject`
+
+- add linting
 - update docs
 
 

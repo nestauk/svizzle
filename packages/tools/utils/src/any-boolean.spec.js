@@ -1,6 +1,7 @@
 import {strict as assert} from "assert";
 
 import {
+    isArguments,
     isArray,
     isNumber,
     isObject,
@@ -18,6 +19,24 @@ function returnArgs () {
 }
 
 describe("Any -> Boolean", function() {
+    describe("isArguments", function() {
+        // 👍
+        it("should return true if the input is an arguments list", function() {
+            assert.deepStrictEqual(isArguments(returnArgs()), true);
+        });
+
+        // 👎
+        it("should return false if the input is not an array", function() {
+            assert.deepStrictEqual(isArguments([]), false);
+            assert.deepStrictEqual(isArguments([1, 2]), false);
+            assert.deepStrictEqual(isArguments(true), false);
+            assert.deepStrictEqual(isArguments(1), false);
+            assert.deepStrictEqual(isArguments(NaN), false);
+            assert.deepStrictEqual(isArguments(Infinity), false);
+            assert.deepStrictEqual(isArguments({a: 1}), false);
+            assert.deepStrictEqual(isArguments("foo"), false);
+        });
+    });
     describe("isArray", function() {
         // 👍
         it("should return true if the input is an array", function() {
