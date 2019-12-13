@@ -1,23 +1,49 @@
 ## `@svizzle/utils` v0.5.0 (next)
 
+- added linting
+- updated docs
+
+### (Any -> Array) -> (Array -> Array)
+
+- renamed `reduceFromArr` -> `reduceFromEmptyArray`
+- renamed `reduceFromObj` -> `reduceFromEmptyObject`
+
+### Any -> Boolean
+
+- added `isArguments`
+
+### Array -> (Any -> Boolean)
+
+- added `makeIsContained`
+
+### Array -> (String -> String)
+
+- added `sliceStringAt`
+
+### Array -> Iterable
+
+- added `getShorter`
+
+### Array -> Objects
+
+- added `mergeObjects`
+
+### String -> (String -> Boolean)
+
+- added `makeEndsWith`
+- added `makeStartsWith`
+- added `makeStringEndsWith`
+- added `makeStringStartsWith`
+
+### String -> Boolean
+
 - added `endsWith`
 - added `endsWithNewLine`
-- added `getShorter`
-- added `isArguments`
-- added `makeEndsWith`
-- added `makeIsContained`
-- added `makeStringEndsWith`
-- added `makeStartsWith`
-- added `makeStringStartsWith`
-- added `mergeObjects`
-- added `sliceString`
-- added `sliceStringAt`
-- renamed:
-  - `reduceFromArr` -> `reduceFromEmptyArray`
-  - `reduceFromObj` -> `reduceFromEmptyObject`
 
-- add linting
-- update docs
+### String -> String
+
+- added `sliceString`
+
 
 ## `@svizzle/utils` v0.4.0
 
@@ -93,20 +119,20 @@
 - added `isPathValue`
 - added `isNotPathValue`
 
-### Contructor -> (Function -> (Array -> Any))
+### Contructor -> ((Any -> Any):accumcb -> (Array -> Any))
 
 - added `reduceTo`
 
-### Function -> (Array -> Any)
+### (Any -> Any):accumcb -> (Array -> Any)
 
 - added `reduceFromArr`
 - added `reduceFromObj`
 
-### Function -> (Object -> Array)
+### (Any -> Any) -> (Object -> Array)
 
 - added `objectToKeyValueArrayWith`
 
-### Function -> (Iterable -> Object)
+### (Any -> Any) -> (Iterable -> Object)
 
 - added `pairToKeyValueObjectWith`
 

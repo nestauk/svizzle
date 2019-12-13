@@ -5,7 +5,7 @@ import {
   reduceFromEmptyObject
 } from './[any-any]:accumcb-[array-any]';
 
-describe('Function -> (Array -> Any)', function() {
+describe('(Any -> Any):accumcb -> (Array -> Any)', function() {
   describe('reduceFromEmptyArray', function() {
     it('should return a reduce function expecting an array to reduce with the passed reducer with an empty array as the initial value', function() {
       const reduce = reduceFromEmptyArray((acc, x) => {

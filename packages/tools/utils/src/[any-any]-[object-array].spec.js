@@ -4,7 +4,7 @@ import * as _ from "lamb";
 
 import {objectToKeyValueArrayWith} from "./[any-any]-[object-array]";
 
-describe("Function -> (Object -> Array)", function() {
+describe("(Any -> Any) -> (Object -> Array)", function() {
   describe("objectToKeyValueArrayWith", function() {
     it("should return a function expecting an object and returning an array of {key, value} objects", function() {
       const convertToArray = objectToKeyValueArrayWith(_.getKey('a'));

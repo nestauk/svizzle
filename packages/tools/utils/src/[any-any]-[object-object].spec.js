@@ -4,7 +4,7 @@ import * as _ from "lamb";
 
 import {mergeWith} from "./[any-any]-[object-object]";
 
-describe("Function -> (Object -> Object)", function() {
+describe("(Any -> Any) -> (Object -> Object)", function() {
     describe("mergeWith", function() {
         it("should return a function expecting two objects to merge using the provided merge function", function() {
             const mergeWithSubtract = mergeWith(_.subtract);

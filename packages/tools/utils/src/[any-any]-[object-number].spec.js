@@ -4,7 +4,7 @@ import * as _ from "lamb";
 
 import {valuesMaxWith, valuesMinWith} from "./[any-any]-[object-number]";
 
-describe("Function -> (Object -> Number)", function() {
+describe("(Any -> Any) -> (Object -> Number)", function() {
     describe("max/min", function() {
         const angles1 = {a: -Math.PI/2, b: -Math.PI/4};
         const angles2 = {a: -Math.PI/4, b: -Math.PI/6};
