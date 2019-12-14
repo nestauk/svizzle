@@ -20,6 +20,10 @@
 - renamed `reduceFromArr` -> `reduceFromEmptyArray`
 - renamed `reduceFromObj` -> `reduceFromEmptyObject`
 
+### (Any -> Object) -> (Array -> Object)
+
+- added makeAllOccurrencesWith
+
 ### Any -> Boolean
 
 - added `isArguments`
