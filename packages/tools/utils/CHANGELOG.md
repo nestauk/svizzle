@@ -16,6 +16,10 @@
 
 - added `isArguments`
 
+### Array -> (Any -> Any)
+
+- added `tapWith`
+
 ### Array -> (Any -> Boolean)
 
 - added `makeIsContained`
