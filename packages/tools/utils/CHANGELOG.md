@@ -3,6 +3,10 @@
 - added linting
 - updated docs
 
+### (Any -> Array) -> (Any -> Array)
+
+- added `makeBiPermutationsWith`
+
 ### (Any -> Array) -> (Array -> Array)
 
 - renamed `reduceFromArr` -> `reduceFromEmptyArray`
