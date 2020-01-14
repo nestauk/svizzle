@@ -190,6 +190,7 @@ export const isNotNaN = _.not(isNaN);
 });
  *
  * @version 0.1.0
+ * @see {@link module:@svizzle/utils/[any-any]-[any-boolean].isValidNumberWith|isValidNumberWith}
  */
 export const isValidNumber = _.allOf([isNumber, isNotNaN]);
 

@@ -3,6 +3,22 @@
 - added linting
 - updated docs
 
+### (Any -> Any) -> (Any -> Boolean)
+
+- added `isArrayWith`
+- added `isNilWith`
+- added `isNotNaNWith`
+- added `isNotNilWith`
+- added `isNotNullWith`
+- added `isNullWith`
+- added `isNumberWith`
+- added `isObjectWith`
+- added `isStringWith`
+- added `isUndefinedWith`
+- added `isValidNumberWith`
+- added `isToNumberValidNumberWith`
+- added `isToFloatValidNumberWith`
+
 ### (Any -> Array) -> (Any -> Array)
 
 - added `makeBiPermutationsWith`
