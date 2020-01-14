@@ -48,7 +48,7 @@ export const writeFile = util.promisify(fs.writeFile);
  * @function
  * @arg {string} filepath - The filepath where to save the expected object
  * @arg {number} indent - The amount of blanks to indent the output file
- * @return {function} - Object -> Promise, sfx: fs.write
+ * @return {function} - Object -> Promise, @side_effects: fs.writeFile
  *
  * @example
  * promiseThatReturnsAnObject()
@@ -68,7 +68,7 @@ export const saveObj = (filepath, indent = 0) => object =>
  * @function
  * @arg {string} filepath - The filepath where to save the expected object
  * @arg {number} indent - The amount of blanks to indent the output file
- * @return {function} - Object -> Promise, sfx: fs.write
+ * @return {function} - Object -> Promise, @side_effects: fs.writeFile
  *
  * @example
  * promiseThatReturnsAnObject()
@@ -89,7 +89,7 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
  *
  * @function
  * @arg {string} filepath - The filepath where to save the body of the expected response.
- * @return {function} - Response -> Promise, sfx: fs.write
+ * @return {function} - Response -> Promise, @side_effects: fs.writeFile
  *
  * @example
  * promiseThatReturnsAResponse()

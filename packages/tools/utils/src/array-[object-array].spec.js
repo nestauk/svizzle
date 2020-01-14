@@ -38,16 +38,15 @@ describe("Array -> (Object -> Array)", function() {
 
     describe("pickAndConcatValues", function() {
         it("should return a function expecting an object and concatenating values in the provided whitelisted keys", function() {
-          const getProducts = pickAndConcatValues(['food', 'beverage']);
-            assert.deepStrictEqual(
-                getProducts({
-                    food: ['bread', 'cheese', 'ham'],
-                    beverage: ['wine', 'water'],
-                    id: 'area1',
-                    value: 32.1,
-                }),
-                ['bread', 'cheese', 'ham', 'wine', 'water']
-            );
+            const getProducts = pickAndConcatValues(['food', 'beverage']);
+            const actual = getProducts({
+                food: ['bread', 'cheese', 'ham'],
+                beverage: ['wine', 'water'],
+                id: 'area1',
+                value: 32.1,
+            });
+            const expected = ['bread', 'cheese', 'ham', 'wine', 'water'];
+            assert.deepStrictEqual(actual, expected);
         });
     });
 });

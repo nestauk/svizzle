@@ -30,11 +30,12 @@ const formatted = _.map(raw, format);
 // ]
  *
  * @version 0.1.0
+ * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
  */
 export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
 
 /**
- * Return a function expecting an object and applying the functions in the provided object to the correspondent object values
+ * Return a function expecting an object and applying the functions in the provided object to the correspondent object values.
  * Can be useful with [d3.csvParse]{@link https://github.com/d3/d3-dsv#csvParse}, see the example below.
  *
  * @function
@@ -60,6 +61,7 @@ foo,9,2,10px
 bar,4,4,25px
  *
  * @version 0.1.0
+ * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
  */
 export const transformValues = fnMap => _.mapValuesWith(
     (value, key) => _.application(fnMap[key], [value])

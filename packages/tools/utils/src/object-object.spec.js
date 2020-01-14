@@ -49,6 +49,11 @@ describe("Object -> Object", function() {
                 const obj3 = {a: 11, b: 2, c: 1};
                 assert.deepStrictEqual(mergeWithSum(obj1, obj2), obj3);
             });
+            it("sum: should merge 2 objects by summing correspondent values, one being empty", function() {
+                const obj1 = {a: 1,  b: 2};
+                const obj2 = {};
+                assert.deepStrictEqual(mergeWithSum(obj1, obj2), obj1);
+            });
         });
         describe("mergeWithMerge", function() {
             it("full: should merge 2 objects with same keys by merging correspondent values", function() {
