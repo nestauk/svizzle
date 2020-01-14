@@ -36,6 +36,10 @@
 
 - added `mergeObjects`
 
+### String -> (Any -> Any)
+
+- added `tapMessage`
+
 ### String -> (String -> Boolean)
 
 - added `makeEndsWith`

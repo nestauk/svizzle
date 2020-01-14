@@ -7,11 +7,41 @@ import * as _ from "lamb";
 /* taps */
 
 /**
+ * Return a function that prints a message and returns the input.
+ * This can be useful for example with saveObjPassthrough
+ *
+ * @function
+ * @arg {string} message
+ * @return {function} - (Any -> Any) @side_effects: console.log
+ *
+ * @example
+const doubleTriple = filepath => _.pipe([
+  mapWith(x => 3 * x),
+  saveObjPassthrough(filepath)
+  tapMessage(`Saved tripled items in ${someFilepath}`),
+  mapWith(x => 2 * x),
+])
+
+const fn = doubleTriple('foo/bar.json');
+fn([1, 2, 3])
+// Saves [3, 6, 9] in foo/bar.json
+// Prints 'Saves tripled items in foo/bar.json'
+// Returns [6, 12, 18]
+ *
+ * @version 0.5.0
+ */
+export const tapMessage = message => x => {
+  message && console.log(message);
+
+  return x;
+};
+
+/**
  * Return a function that prints the input (preceded by the label, if provided) and returns the input.
  *
  * @function
  * @arg {string} label
- * @return {function} - (Any -> Any), sfx: console.log
+ * @return {function} - (Any -> Any), @side_effects: console.log
  *
  * @example
 const doubleTriple = _.pipe([
@@ -45,7 +75,7 @@ export const tapValue = label => x => {
  *
  * @function
  * @arg {string} label
- * @return {function} - (Any -> Any), sfx: console.log
+ * @return {function} - (Any -> Any), @side_effects: console.log
  *
  * @example
  const size = _.pipe([
@@ -79,7 +109,7 @@ export const tapType = label => x => {
  *
  * @function
  * @arg {string} label
- * @return {function} - (Any -> Any), sfx: console.log
+ * @return {function} - (Any -> Any), @side_effects: console.log
  *
  * @example
 const size = _.pipe([

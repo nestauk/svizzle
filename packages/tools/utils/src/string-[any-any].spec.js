@@ -2,7 +2,12 @@ import {strict as assert} from "assert";
 
 import {makePrinter} from "@svizzle/dev";
 
-import {tapValue, tapType, tapTypeAndValue} from "./string-[any-any]";
+import {
+  tapMessage,
+  tapValue,
+  tapType,
+  tapTypeAndValue
+} from "./string-[any-any]";
 
 describe("String -> (Any -> Any)", function() {
   describe("taps", function() {
@@ -18,13 +23,32 @@ describe("String -> (Any -> Any)", function() {
           printer.restore();
       });
 
+      describe("tapMessage", function() {
+          it("should print and return the input - no label", function() {
+              const tap = tapMessage();
+              const expected = [1, 2, 3];
+              const actual = tap(expected);
+              const expectedLog = [];
+
+              assert.deepStrictEqual(actual, expected);
+              assert.deepStrictEqual(printer.getLog(), expectedLog);
+          });
+          it("should print and return the input - with label", function() {
+              const expected = [1, 2, 3];
+              const actual = tapMessage('message')(expected);
+              const expectedLog = [['message']];
+          
+              assert.deepStrictEqual(actual, expected);
+              assert.deepStrictEqual(printer.getLog(), expectedLog);
+          });
+      });
       describe("tapValue", function() {
           it("should print and return the input - no label", function() {
               const tap = tapValue();
               const expected = [1, 2, 3];
               const actual = tap(expected);
               const expectedLog = [[expected]];
-
+              
               assert.deepStrictEqual(actual, expected);
               assert.deepStrictEqual(printer.getLog(), expectedLog);
           });
@@ -32,7 +56,7 @@ describe("String -> (Any -> Any)", function() {
               const expected = [1, 2, 3];
               const actual = tapValue('label')(expected);
               const expectedLog = [['label:', expected]];
-
+              
               assert.deepStrictEqual(actual, expected);
               assert.deepStrictEqual(printer.getLog(), expectedLog);
           });
