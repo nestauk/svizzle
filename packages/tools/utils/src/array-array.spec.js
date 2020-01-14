@@ -1,6 +1,14 @@
 import {strict as assert} from "assert";
 
-import {getFirstAndLast, swap, toggleItem} from "./array-array";
+import {
+  getFirstAndLast,
+  sortValueAscKeyAsc,
+  sortValueAscKeyDesc,
+  sortValueDescKeyAsc,
+  sortValueDescKeyDesc,
+  swap,
+  toggleItem
+} from "./array-array";
 
 describe("Array -> Array", function() {
     describe("getFirstAndLast", function() {
@@ -15,6 +23,62 @@ describe("Array -> Array", function() {
         it("should return an array containing `undefined` repeated 2 times if passed an single value array", function() {
             assert.deepStrictEqual(getFirstAndLast([]), [undefined, undefined]);
         });
+    });
+    describe("sorting", function() {
+      const items = [
+        {key: 'b', value: 1},
+        {key: 'a', value: 4},
+        {key: 'a', value: -30},
+        {key: 'a', value: 1},
+      ];
+      describe("sortValueAscKeyAsc", function() {
+        it("should return a copy of the provided array with items sorted by `value` (ascending) then by `key` (ascending)", function() {
+          const actual = sortValueAscKeyAsc(items);
+          const expected = [
+            {key: 'a', value: -30},
+            {key: 'a', value: 1},
+            {key: 'b', value: 1},
+            {key: 'a', value: 4},
+          ];
+          assert.deepStrictEqual(actual, expected);
+        });
+      });
+      describe("sortValueAscKeyDesc", function() {
+        it("should return a copy of the provided array with items sorted by `value` (ascending) then by `key` (descending)", function() {
+          const actual = sortValueAscKeyDesc(items);
+          const expected = [
+            {key: 'a', value: -30},
+            {key: 'b', value: 1},
+            {key: 'a', value: 1},
+            {key: 'a', value: 4},
+          ];
+          assert.deepStrictEqual(actual, expected);
+        });
+      });
+      describe("sortValueDescKeyAsc", function() {
+        it("should return a copy of the provided array with items sorted by `value` (descending) then by `key` (ascending)", function() {
+          const actual = sortValueDescKeyAsc(items);
+          const expected = [
+            {key: 'a', value: 4},
+            {key: 'a', value: 1},
+            {key: 'b', value: 1},
+            {key: 'a', value: -30},
+          ];
+          assert.deepStrictEqual(actual, expected);
+        });
+      });
+      describe("sortValueDescKeyDesc", function() {
+        it("should return a copy of the provided array with items sorted by `value` (descending) then by `key` (descending)", function() {
+          const actual = sortValueDescKeyDesc(items);
+          const expected = [
+            {key: 'a', value: 4},
+            {key: 'b', value: 1},
+            {key: 'a', value: 1},
+            {key: 'a', value: -30},
+          ];
+          assert.deepStrictEqual(actual, expected);
+        });
+      });
     });
     describe("swap", function() {
         const arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -68,7 +132,6 @@ describe("Array -> Array", function() {
                 arrTailStr
             );
         });
-
         it("should remove the item if it's not in the array (obj)", function() {
             assert.deepStrictEqual(
                 toggleItem(arrTailObj, {a: 1}),

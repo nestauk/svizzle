@@ -40,6 +40,13 @@
 
 - added `sliceStringAt`
 
+### Array -> Array
+
+- added `sortValueAscKeyAsc`
+- added `sortValueAscKeyDesc`
+- added `sortValueDescKeyAsc`
+- added `sortValueDescKeyDesc`
+
 ### Array -> Iterable
 
 - added `getShorter`

@@ -5,6 +5,8 @@
 import * as _ from "lamb";
 import isEqual from "just-compare";
 
+import {getKey, getValue} from "./object-any";
+
 /**
  * Return an array containing the first and the last element of the provided array.
  *
@@ -17,6 +19,124 @@ import isEqual from "just-compare";
  * @version 0.3.0
  */
 export const getFirstAndLast = _.collect([_.head, _.last]);
+
+/**
+ * Return a copy of the provided array with items
+ * sorted by `value` (ascending) then by `key` (ascending)
+ *
+ * @function
+ * @arg {array} - key/value items
+ * @return {array} - sorted items
+ *
+ * @example
+const items = [
+  {key: 'b', value: 1},
+  {key: 'a', value: 4},
+  {key: 'a', value: -30},
+  {key: 'a', value: 1},
+];
+sortValueAscKeyAsc(items)
+[
+  {key: 'a', value: -30},
+  {key: 'a', value: 1},
+  {key: 'b', value: 1},
+  {key: 'a', value: 4},
+]
+ *
+ * @version 0.5.0
+ */
+export const sortValueAscKeyAsc = _.sortWith([getValue, getKey]);
+
+/**
+ * Return a copy of the provided array with items
+ * sorted by `value` (ascending) then by `key` (descending)
+ *
+ * @function
+ * @arg {array} - key/value items
+ * @return {array} - sorted items
+ *
+ * @example
+const items = [
+  {key: 'b', value: 1},
+  {key: 'a', value: 4},
+  {key: 'a', value: -30},
+  {key: 'a', value: 1},
+];
+sortValueAscKeyAsc(items)
+[
+  {key: 'a', value: -30},
+  {key: 'b', value: 1},
+  {key: 'a', value: 1},
+  {key: 'a', value: 4},
+]
+ *
+ * @version 0.5.0
+ */
+
+export const sortValueAscKeyDesc = _.sortWith([
+  getValue,
+  _.sorterDesc(getKey)
+]);
+
+/**
+ * Return a copy of the provided array with items
+ * sorted by `value` (descending) then by `key` (ascending)
+ *
+ * @function
+ * @arg {array} - key/value items
+ * @return {array} - sorted items
+ *
+ * @example
+const items = [
+  {key: 'b', value: 1},
+  {key: 'a', value: 4},
+  {key: 'a', value: -30},
+  {key: 'a', value: 1},
+];
+sortValueDescKeyAsc(items)
+[
+  {key: 'a', value: 4},
+  {key: 'a', value: 1},
+  {key: 'b', value: 1},
+  {key: 'a', value: -30},
+]
+ *
+ * @version 0.5.0
+ */
+export const sortValueDescKeyAsc = _.sortWith([
+  _.sorterDesc(getValue),
+  getKey
+]);
+
+/**
+ * Return a copy of the provided array with items
+ * sorted by `value` (descending) then by `key` (descending)
+ *
+ * @function
+ * @arg {array} - key/value items
+ * @return {array} - sorted items
+ *
+ * @example
+const items = [
+  {key: 'b', value: 1},
+  {key: 'a', value: 4},
+  {key: 'a', value: -30},
+  {key: 'a', value: 1},
+];
+sortValueDescKeyDesc(items)
+[
+  {key: 'a', value: 4},
+  {key: 'b', value: 1},
+  {key: 'a', value: 1},
+  {key: 'a', value: -30},
+]
+ *
+ * @version 0.5.0
+ */
+export const sortValueDescKeyDesc = _.sortWith([
+  _.sorterDesc(getValue),
+  _.sorterDesc(getKey)
+]);
 
 /**
  * Return a copy of the array with values at the provided indices swapped
