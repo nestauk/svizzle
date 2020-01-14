@@ -2,6 +2,7 @@ import {strict as assert} from "assert";
 
 import {
   getFirstAndLast,
+  makeBiPermutations,
   sortValueAscKeyAsc,
   sortValueAscKeyDesc,
   sortValueDescKeyAsc,
@@ -23,6 +24,31 @@ describe("Array -> Array", function() {
         it("should return an array containing `undefined` repeated 2 times if passed an single value array", function() {
             assert.deepStrictEqual(getFirstAndLast([]), [undefined, undefined]);
         });
+    });
+    describe("makeBiPermutations", function() {
+      it("should return the permutations of pairs of the provided items.", function() {
+        const items = [
+          {foo: "a"},
+          {foo: "b"},
+          {bar: "c"},
+          {bar: "d"}
+        ];
+        const actual = makeBiPermutations(items);
+        const expected = [
+          [{foo: "a"}, {foo: "b"}],
+          [{foo: "a"}, {bar: "c"}],
+          [{foo: "a"}, {bar: "d"}],
+          [{foo: "b"}, {bar: "c"}],
+          [{foo: "b"}, {bar: "d"}],
+          [{bar: "c"}, {bar: "d"}]
+        ];
+        assert.deepStrictEqual(actual, expected);
+      });
+      it("should return an empty array if provided an empty array", function() {
+        const actual = makeBiPermutations([]);
+        const expected = [];
+        assert.deepStrictEqual(actual, []);
+      });
     });
     describe("sorting", function() {
       const items = [

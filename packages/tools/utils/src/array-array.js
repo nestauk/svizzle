@@ -21,6 +21,41 @@ import {getKey, getValue} from "./object-any";
 export const getFirstAndLast = _.collect([_.head, _.last]);
 
 /**
+ * Return the permutations of pairs of the provided items.
+ *
+ * @function
+ * @arg {array} items
+ * @return {array} permutations - permutations of pairs of items
+ *
+ * @example
+const array = [
+  {foo: "a"},
+  {foo: "b"},
+  {bar: "c"},
+  {bar: "d"}
+];
+makeBiPermutations(array)
+=>
+[
+  [{foo: "a"}, {foo: "b"}],
+  [{foo: "a"}, {bar: "c"}],
+  [{foo: "a"}, {bar: "d"}],
+  [{foo: "b"}, {bar: "c"}],
+  [{foo: "b"}, {bar: "d"}],
+  [{bar: "c"}, {bar: "d"}]
+]
+ *
+ * @version 0.5.0
+ */
+export const makeBiPermutations = items =>
+  _.reduce(items, (acc, item, index, array) => {
+    for (let cursor = index + 1; cursor < array.length; cursor++) {
+      acc.push([item, array[cursor]]);
+    }
+    return acc;
+  }, []);
+
+/**
  * Return a copy of the provided array with items
  * sorted by `value` (ascending) then by `key` (ascending)
  *

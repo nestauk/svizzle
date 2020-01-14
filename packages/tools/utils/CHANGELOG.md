@@ -30,6 +30,7 @@
 
 ### Array -> Array
 
+- added `makeBiPermutations`
 - added `sortValueAscKeyAsc`
 - added `sortValueAscKeyDesc`
 - added `sortValueDescKeyAsc`
