@@ -46,7 +46,6 @@ describe("Array -> Array", function() {
       });
       it("should return an empty array if provided an empty array", function() {
         const actual = makeBiPermutations([]);
-        const expected = [];
         assert.deepStrictEqual(actual, []);
       });
     });
