@@ -1,11 +1,11 @@
 {
     "devDependencies": {
         "docdash": "^1.1.1",
-        "gh-pages": "^2.1.1",
+        "gh-pages": "^2.2.0",
         "jsdoc": "^3.6.3",
-        "lerna": "^3.16.4",
+        "lerna": "^3.20.2",
         "rimraf": "^3.0.0",
-        "serve": "^11.2.0"
+        "serve": "^11.3.0"
     },
     "dependencies": {},
     "author": "nestauk",
