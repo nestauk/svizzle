@@ -9,20 +9,24 @@ import {makeBanner} from "@svizzle/dev";
 import pkg from "./package.json";
 
 const analyzer = analyze({
-  limit: 10,
+  limit: 15,
   root: path.resolve('../../../'),
   stdout: true,
   summaryOnly: true
 });
+const banner = makeBanner(pkg);
+const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
+const input = pkg.module;
 const treeshake = {
   annotations: true,
-  moduleSideEffects: false,
+  moduleSideEffects: true,
 };
 
 const cjsConfig = {
-    input: pkg.module,
+    external,
+    input,
     output: {
-        banner: makeBanner(pkg),
+        banner,
         file: pkg.main,
         format: "cjs",
         indent: false

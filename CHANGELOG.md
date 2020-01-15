@@ -1,13 +1,13 @@
 # Svizzle changelog
 
-## next
+## 20200115
 
 - add linting
 - update docs
 
-## `@svizzle/dev` v0.3.0 (next)
+## `@svizzle/dev` v0.3.0
 
-- add linting
+- move `lamb` to `peerDependencies`
 - updated docs
 
 - add `tapMessage`
@@ -17,14 +17,36 @@
 - move `tapTypeAndValue` from /utils
 - move `tapValue` from /utils
 
-## `@svizzle/dom` v0.3.0 (next)
+## `@svizzle/dom` v0.3.0
 
+- move `lamb` to `peerDependencies`
 - add `alignTags`
 - `makeStyle` now skips nil values
+- updated docs
 
-## `@svizzle/utils` v0.5.0 (next)
+## `@svizzle/file` v0.6.0
 
-- added linting
+- move `lamb` to `peerDependencies`
+- update docs
+
+## `@svizzle/geo` v0.3.0
+
+- move `lamb` to `peerDependencies`
+- updated docs
+
+## `@svizzle/geometry` v0.2.0
+
+- move `lamb` to `peerDependencies`
+- update docs
+
+## `@svizzle/request` v0.2.0
+
+- move `lamb` to `peerDependencies`
+- updated docs
+
+## `@svizzle/utils` v0.5.0
+
+- move `lamb` to `peerDependencies`
 - updated docs
 
 ### (Any -> Any) -> (Any -> Boolean)

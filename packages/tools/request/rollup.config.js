@@ -13,14 +13,15 @@ import {
 
 import pkg from "./package.json";
 
-const input = pkg.module;
-const banner = makeBanner(pkg);
 const analyzer = analyze({
-  limit: 10,
+  limit: 15,
   root: path.resolve('../../../'),
   stdout: true,
   summaryOnly: true
 });
+const banner = makeBanner(pkg);
+const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
+const input = pkg.module;
 const treeshake = {
   annotations: true,
   moduleSideEffects: [
@@ -29,6 +30,7 @@ const treeshake = {
 };
 
 const cjsConfig = {
+    external,
     input,
     output: {
         banner,
@@ -40,12 +42,12 @@ const cjsConfig = {
         resolve(),
         commonjs(),
         cleanup(),
-        analyzer
     ],
     treeshake
 };
 
 const browserConfig = {
+    external,
     input,
     output: {
         banner,
@@ -59,7 +61,6 @@ const browserConfig = {
         commonjs(),
         cleanup(),
         buble(),
-        analyzer
     ],
     treeshake
 };
@@ -76,7 +77,8 @@ const browserMinifiedConfig = {
             output: {
                 preamble: banner
             }
-        })
+        }),
+        analyzer
     ],
     treeshake
 };

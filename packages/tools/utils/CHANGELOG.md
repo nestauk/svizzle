@@ -1,6 +1,6 @@
-## `@svizzle/utils` v0.5.0 (next)
+## `@svizzle/utils` v0.5.0
 
-- added linting
+- move `lamb` to `peerDependencies`
 - updated docs
 
 ### (Any -> Any) -> (Any -> Boolean)

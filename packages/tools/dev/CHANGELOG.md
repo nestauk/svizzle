@@ -1,5 +1,6 @@
-## `@svizzle/dev` v0.3.0 (next)
+## `@svizzle/dev` v0.3.0
 
+- move `lamb` to `peerDependencies`
 - add linting
 - updated docs
 

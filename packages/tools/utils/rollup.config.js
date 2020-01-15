@@ -14,20 +14,24 @@ import {
 import pkg from "./package.json";
 
 const analyzer = analyze({
-  limit: 20,
+  limit: 15,
   root: path.resolve('../../../'),
   stdout: true,
   summaryOnly: true
 });
+const banner = makeBanner(pkg);
+const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
+const input = pkg.module;
 const treeshake = {
   annotations: true,
   moduleSideEffects: false,
 };
 
 const cjsConfig = {
-    input: pkg.module,
+    external,
+    input,
     output: {
-        banner: makeBanner(pkg),
+        banner,
         file: pkg.main,
         format: "cjs",
         indent: false
@@ -36,15 +40,15 @@ const cjsConfig = {
         resolve(),
         commonjs(),
         cleanup(),
-        analyzer
     ],
     treeshake
 };
 
 const browserConfig = {
-    input: pkg.module,
+    external,
+    input,
     output: {
-        banner: makeBanner(pkg),
+        banner,
         file: pkg.browser,
         format: "umd",
         name: pkg.name,
@@ -55,7 +59,6 @@ const browserConfig = {
         commonjs(),
         cleanup(),
         buble(),
-        analyzer
     ],
     treeshake
 };
@@ -72,7 +75,8 @@ const browserMinifiedConfig = {
             output: {
                 preamble: browserConfig.output.banner
             }
-        })
+        }),
+        analyzer
     ],
     treeshake
 };

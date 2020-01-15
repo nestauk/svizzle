@@ -1,6 +1,7 @@
-## `@svizzle/file` (next)
+## `@svizzle/file` v0.6.0
 
-- add linting
+- move `lamb` to `peerDependencies`
+- update docs
 
 ## `@svizzle/file` v0.5.0
 

@@ -6,8 +6,10 @@ Lerna is in independent mode (`lerna init --independent`) so that we can version
 
 Basic operations:
 
-- adding a dependency to all packages: `lerna add -D svelte`
-- adding a dependency to a specific package: `lerna add nock -D --scope=@svizzle/request`
+- adding a dependency to all packages: `lerna add svelte`
+- adding a dev dependency to all packages: `lerna add -D svelte`
+- adding a peer dependency to all packages: `lerna add --peer svelte`
+- adding a dev dependency to a specific package: `lerna add nock -D --scope=@svizzle/request`
 - testing a specific package: `lerna run test --scope=@svizzle/utils`
 
 ## npm scripts

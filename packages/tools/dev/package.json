@@ -3,13 +3,11 @@
     "bugs": {
         "url": "https://github.com/nestauk/svizzle/issues"
     },
-    "dependencies": {
-        "lamb": "^0.58.0"
-    },
     "devDependencies": {
         "eslint": "^6.5.1",
         "eslint-plugin-import": "^2.18.2",
         "esm": "^3.0.84",
+        "lamb": "^0.58.0",
         "mkdirp": "^0.5.1",
         "mocha": "^5.2.0",
         "rimraf": "^3.0.0",
@@ -40,6 +38,9 @@
     "main": "dist/index.js",
     "module": "index.js",
     "name": "@svizzle/dev",
+    "peerDependencies": {
+        "lamb": "^0.58.0"
+    },
     "publishConfig": {
         "access": "public"
     },

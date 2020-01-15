@@ -1,6 +1,7 @@
-## `@svizzle/geometry` (next)
+## `@svizzle/geometry` v0.2.0
 
-- add linting
+- move `lamb` to `peerDependencies`
+- update docs
 
 ## `@svizzle/geometry` v0.1.0
 

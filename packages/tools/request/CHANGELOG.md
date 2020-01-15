@@ -1,6 +1,7 @@
-## `@svizzle/request` (next)
+## `@svizzle/request` v0.2.0
 
-- add linting
+- move `lamb` to `peerDependencies`
+- updated docs
 
 ## `@svizzle/request` v0.1.1
 

@@ -1,6 +1,6 @@
-## `@svizzle/geo` (next)
+## `@svizzle/geo` v0.3.0
 
-- add linting
+- move `lamb` to `peerDependencies`
 - updated docs
 
 ## `@svizzle/geo` v0.2.0

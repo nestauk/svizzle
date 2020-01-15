@@ -1,9 +1,8 @@
-## `@svizzle/dom` v0.3.0 (next)
+## `@svizzle/dom` v0.3.0
 
+- move `lamb` to `peerDependencies`
 - add `alignTags`
 - `makeStyle` now skips nil values
-
-- add linting
 - updated docs
 
 ## `@svizzle/dom` v0.2.0
