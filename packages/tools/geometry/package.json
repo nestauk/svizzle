@@ -6,7 +6,7 @@
     },
     "description": "Svizzle Geometry contains geometry related helpers.",
     "devDependencies": {
-        "@svizzle/dev": "^0.2.0",
+        "@svizzle/dev": "^0.3.0",
         "eslint": "^6.5.1",
         "eslint-plugin-import": "^2.18.2",
         "esm": "^3.0.84",
@@ -61,5 +61,5 @@
         "test": "mocha -r esm --recursive src"
     },
     "sideEffects": false,
-    "version": "0.1.0"
+    "version": "0.2.0"
 }
