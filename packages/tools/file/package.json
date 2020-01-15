@@ -67,6 +67,6 @@
         "setprerelease": "npm --no-git-tag-version version prerelease --preid=dev",
         "test": "mocha -r esm --recursive src"
     },
-    "sideEffects": false,
+    "sideEffects": true,
     "version": "0.5.0"
 }

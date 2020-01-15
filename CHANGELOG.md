@@ -5,6 +5,18 @@
 - add linting
 - update docs
 
+## `@svizzle/dev` v0.3.0 (next)
+
+- add linting
+- updated docs
+
+- add `tapMessage`
+- add `tapWith`
+- move `tapAppendTo` from /utils
+- move `tapType` from /utils
+- move `tapTypeAndValue` from /utils
+- move `tapValue` from /utils
+
 ## `@svizzle/dom` v0.3.0 (next)
 
 - add `alignTags`
@@ -48,10 +60,6 @@
 
 - added `isArguments`
 
-### Array -> (Any -> Any)
-
-- added `tapWith`
-
 ### Array -> (Any -> Boolean)
 
 - added `makeIsContained`
@@ -76,9 +84,15 @@
 
 - added `mergeObjects`
 
+### Iterable -> Array
+
+- move `tapAppendTo` to /dev
+
 ### String -> (Any -> Any)
 
-- added `tapMessage`
+- move `tapValue` to /dev
+- move `tapType` to /dev
+- move `tapTypeAndValue` to /dev
 
 ### String -> (String -> Boolean)
 

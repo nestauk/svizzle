@@ -8,12 +8,12 @@
 
 https://github.com/d3/d3/issues/3131#issuecomment-517316673
 
-`sideEffects: true`
+### `sideEffects: true`:
 
 d3
 d3-transition
 
-`sideEffects: false`
+### `sideEffects: false`:
 
 d3-array
 d3-axis

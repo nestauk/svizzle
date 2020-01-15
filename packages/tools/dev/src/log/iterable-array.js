@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/iterable-array
+* @module @svizzle/dev/log/iterable-array
 */
 
 import * as _ from "lamb";
@@ -12,7 +12,7 @@ import {tapValue} from "./string-[any-any]";
  * @function
  * @arg {iterable} iterable
  * @arg {*} any
- * @return {array}
+ * @return {array} - @sideEffects: console.log
  *
  * @example
 tapAppendTo([1, 2, 3], 4)
@@ -25,7 +25,7 @@ tapAppendTo("abc", {a: 1})
 // logs: {a: 1}
 // => ["a", "b", "c", {a: 1}]
  *
- * @version 0.1.0
+ * @version 0.3.0
  */
 export const tapAppendTo = _.tapArgs(
     _.appendTo,

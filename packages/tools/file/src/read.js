@@ -23,7 +23,7 @@ import {filterJsonExtensions} from "./path";
  * @function
  * @arg {string} filePath
  * @arg {string} [encoding=null] - Encoding {@link https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings|supported by Node Buffer}
- * @return {promise}
+ * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
 readFile("source/path.txt")
@@ -45,7 +45,7 @@ export const readFile = util.promisify(fs.readFile);
  *
  * @function
  * @arg {string} dirPath
- * @return {promise}
+ * @return {promise} - @sideEffects: fs.readdir
  *
  * @example
 readDir("source/dir/")
@@ -60,13 +60,14 @@ export const readDir = util.promisify(fs.readdir);
  * [node environment]
  * Return a promise that reads and then parses a csv file.
  * You can create a conversionFn using transformValues() from @svizzle/utils
+ * @see https://github.com/d3/d3-dsv#dsv_parse
  *
  * @function
  * @arg {string} csvPath - The filepath of the CSV file to read.
  * @arg {function} [conversionFn=x=>x] - A function invoked for each row to convert columns values.
  * @arg {boolean} [withHeader=true] - Does the first line contain the header?
- * @see https://github.com/d3/d3-dsv#dsv_parse
- * @return {promise}
+ * @return {promise} - @sideEffects: fs.readFile
+ *
  * @example
 // source/withHeader.csv
 name,amount
@@ -107,14 +108,14 @@ export const readCsv = (
  * [node environment]
  * Return a promise that reads and then parses a file.
  * You can create a conversionFn using transformValues() from @svizzle/utils
+ * @see https://github.com/d3/d3-dsv#dsv_parse
  *
  * @function
  * @arg {string} csvPath - The filepath of the CSV file to read.
  * @arg {string} separator - Separator string.
  * @arg {function} [conversionFn=x=>x] - A function invoked for each row to convert columns values.
  * @arg {boolean} [withHeader=true] - Does the first line contain the header?
- * @see https://github.com/d3/d3-dsv#dsv_parse
- * @return {promise}
+ * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
 // source/withHeader.txt
@@ -162,13 +163,13 @@ export const readDsv = (
  * [node environment]
  * Return a promise that reads and then parses a tsv file.
  * You can create a conversionFn using transformValues() from @svizzle/utils
+ * @see https://github.com/d3/d3-dsv#dsv_parse
  *
  * @function
  * @arg {string} tsvPath - The filepath of the TSV file to read.
  * @arg {function} [conversionFn=x=>x] - A function invoked for each row to convert columns values,
  * @arg {boolean} [withHeader=true] - Does the first line contain the header?
- * @see https://github.com/d3/d3-dsv#dsv_parse
- * @return {promise}
+ * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
 // source/withHeader.txt
@@ -214,7 +215,7 @@ export const readTsv = (
  *
  * @function
  * @arg {string} jsonPath - The filepath of the JSON file to read.
- * @return {promise}
+ * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
  * readJson("source/path")
@@ -234,7 +235,7 @@ export const readJson = jsonPath =>
  *
  * @function
  * @arg {string} dirPath - The path of the directory containing the JSON files to read.
- * @return {promise}
+ * @return {promise} - @sideEffects: fs.readdir, fs.readFile
  *
  * @example
  * readJsonDir("source/path/")

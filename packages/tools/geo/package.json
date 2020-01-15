@@ -66,6 +66,6 @@
         "pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/index.js ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
         "test": "mocha -r esm --recursive src"
     },
-    "sideEffects": true,
+    "sideEffects": false,
     "version": "0.2.0"
 }

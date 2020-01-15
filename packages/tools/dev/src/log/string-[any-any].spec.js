@@ -1,7 +1,6 @@
 import {strict as assert} from "assert";
 
-import {makePrinter} from "@svizzle/dev";
-
+import {makePrinter} from "../test";
 import {
   tapMessage,
   tapValue,
@@ -9,7 +8,7 @@ import {
   tapTypeAndValue
 } from "./string-[any-any]";
 
-describe("String -> (Any -> Any)", function() {
+describe("log: String -> (Any -> Any)", function() {
   describe("taps", function() {
       let printer;
       before(function () {

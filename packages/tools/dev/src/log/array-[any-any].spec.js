@@ -1,11 +1,13 @@
 import {strict as assert} from "assert";
 
-import {makePrinter} from "@svizzle/dev";
-import {arraySum} from "./array-number";
+import {reduceWith, sum} from "lamb";
 
+import {makePrinter} from "../test";
 import {tapWith} from "./array-[any-any]";
 
-describe("Array -> (Any -> Any)", function() {
+const arraySum = reduceWith(sum, 0);
+
+describe("log: Array -> (Any -> Any)", function() {
   describe("taps", function() {
       let printer;
       before(function () {

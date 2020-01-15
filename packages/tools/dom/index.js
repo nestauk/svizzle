@@ -1,3 +1,3 @@
-export * from "./src/attrs.js"
-export * from "./src/html.js"
-export * from "./src/nodes.js"
+export * from "./src/attrs"
+export * from "./src/html"
+export * from "./src/nodes"

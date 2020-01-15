@@ -36,10 +36,6 @@
 
 - added `isArguments`
 
-### Array -> (Any -> Any)
-
-- added `tapWith`
-
 ### Array -> (Any -> Boolean)
 
 - added `makeIsContained`
@@ -64,9 +60,15 @@
 
 - added `mergeObjects`
 
+### Iterable -> Array
+
+- move `tapAppendTo` to /dev
+
 ### String -> (Any -> Any)
 
-- added `tapMessage`
+- move `tapValue` to /dev
+- move `tapType` to /dev
+- move `tapTypeAndValue` to /dev
 
 ### String -> (String -> Boolean)
 

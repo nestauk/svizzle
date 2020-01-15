@@ -80,7 +80,7 @@ export const renameToMjs = renameToExtension(".mjs");
  * @example
 import pkg from "package.json";
 makeBanner(pkg);
-// "svizzle v0.1.0 - © 2019 nestauk"
+// "svizzle v0.1.0 - © 2020 nestauk"
  *
  * @version 0.1.0
  */

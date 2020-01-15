@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/array-[any-any]
+* @module @svizzle/dev/log/array-[any-any]
 */
 
 /**
@@ -8,7 +8,7 @@
  *
  * @function
  * @arg {array} - [function, label]
- * @return {function} - (Any -> Any) @side_effects: console.log
+ * @return {function} - (Any -> Any) - @sideEffects: console.log
  *
  * @example
 const doubleTriple = filepath => _.pipe([
@@ -24,7 +24,7 @@ fn([1, 2, 3])
 // Prints 'Saves tripled items in foo/bar.json – total: 18'
 // Returns [6, 12, 18]
  *
- * @version 0.5.0
+ * @version 0.3.0
  */
 export const tapWith = ([func, label]) => x => {
   if (label) {

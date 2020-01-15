@@ -16,7 +16,7 @@ const finished = util.promisify(stream.finished);
  * @arg {string} filePath
  * @arg {string|Buffer|Uint8Array} data - item to write to file
  * @arg {string} [encoding='utf8'] - Encoding {@link https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings|supported by Node Buffer}
- * @return {promise}
+ * @return {promise} - @sideEffects: fs.writeFile
  *
  * @example
  *
@@ -48,7 +48,7 @@ export const writeFile = util.promisify(fs.writeFile);
  * @function
  * @arg {string} filepath - The filepath where to save the expected object
  * @arg {number} indent - The amount of blanks to indent the output file
- * @return {function} - Object -> Promise, @side_effects: fs.writeFile
+ * @return {function} - Object -> Promise – @sideEffects: fs.writeFile
  *
  * @example
  * promiseThatReturnsAnObject()
@@ -68,7 +68,7 @@ export const saveObj = (filepath, indent = 0) => object =>
  * @function
  * @arg {string} filepath - The filepath where to save the expected object
  * @arg {number} indent - The amount of blanks to indent the output file
- * @return {function} - Object -> Promise, @side_effects: fs.writeFile
+ * @return {function} - Object -> Promise – @sideEffects: fs.writeFile
  *
  * @example
  * promiseThatReturnsAnObject()
@@ -89,7 +89,7 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
  *
  * @function
  * @arg {string} filepath - The filepath where to save the body of the expected response.
- * @return {function} - Response -> Promise, @side_effects: fs.writeFile
+ * @return {function} - Response -> Promise - @sideEffects: fs.createWriteStream
  *
  * @example
  * promiseThatReturnsAResponse()

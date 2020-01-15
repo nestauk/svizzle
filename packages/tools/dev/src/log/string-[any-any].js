@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/string-[any-any]
+* @module @svizzle/dev/log/string-[any-any]
 */
 
 import * as _ from "lamb";
@@ -12,7 +12,7 @@ import * as _ from "lamb";
  *
  * @function
  * @arg {string} message
- * @return {function} - (Any -> Any) @side_effects: console.log
+ * @return {function} - (Any -> Any) – @sideEffects: console.log
  *
  * @example
 const doubleTriple = filepath => _.pipe([
@@ -28,7 +28,7 @@ fn([1, 2, 3])
 // Prints 'Saves tripled items in foo/bar.json'
 // Returns [6, 12, 18]
  *
- * @version 0.5.0
+ * @version 0.3.0
  */
 export const tapMessage = message => x => {
   message && console.log(message);
@@ -41,7 +41,7 @@ export const tapMessage = message => x => {
  *
  * @function
  * @arg {string} label
- * @return {function} - (Any -> Any), @side_effects: console.log
+ * @return {function} - (Any -> Any) – @sideEffects: console.log
  *
  * @example
 const doubleTriple = _.pipe([
@@ -58,7 +58,7 @@ doubleTriple([1,2,3])
 // doubled: [2, 4, 6]
 // tripled: [6, 12, 18]
  *
- * @version 0.1.0
+ * @version 0.3.0
  */
 export const tapValue = label => x => {
   if (label) {
@@ -75,7 +75,7 @@ export const tapValue = label => x => {
  *
  * @function
  * @arg {string} label
- * @return {function} - (Any -> Any), @side_effects: console.log
+ * @return {function} - (Any -> Any) – @sideEffects: console.log
  *
  * @example
  const size = _.pipe([
@@ -92,7 +92,7 @@ export const tapValue = label => x => {
  // values: Array
  // length: Number
  *
- * @version 0.1.0
+ * @version 0.3.0
  */
 export const tapType = label => x => {
   if (label) {
@@ -109,7 +109,7 @@ export const tapType = label => x => {
  *
  * @function
  * @arg {string} label
- * @return {function} - (Any -> Any), @side_effects: console.log
+ * @return {function} - (Any -> Any) – @sideEffects: console.log
  *
  * @example
 const size = _.pipe([

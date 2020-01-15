@@ -1,1 +1,1 @@
-export * from "./src/json.js"
+export * from "./src/json"
