@@ -1,5 +1,9 @@
 # Svizzle changelog
 
+## next
+
+- update docs
+
 ## 20200115
 
 - add linting

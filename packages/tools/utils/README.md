@@ -6,18 +6,23 @@ https://nestauk.github.io/svizzle
 
 ### Installation
 
+`@svizzle/utils` peer-depends on `lamb` so you have to install `lamb` along with it.
+
 *npm*
 
-`npm i -S @svizzle/utils`
+
+`npm i -S lamb @svizzle/utils`
 
 *browser*
 
-`<script src="https://unpkg.com/@svizzle/utils/dist/browser.js">`
-
+```
+<script src="https://unpkg.com/lamb">
+<script src="https://unpkg.com/@svizzle/utils">
+```
 
 ### Directory structure
 
-In this package in particular, *the modules path tries to convey the type signature* of the functions in the module.
+In this package, *the modules path tries to convey the type signature* of the functions in the module.
 
 For example:
 
