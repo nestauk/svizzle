@@ -12,7 +12,11 @@ All functions are documented at [https://nestauk.github.io/svizzle](https://nest
 
 Svizzle is a mono-repo containing the source code of various npm packages: please follow these links for installation instructions.
 
-**Tools**
+**[Components](https://github.com/nestauk/svizzle/tree/master/packages/components)**
+
+- [`@svizzle/BarchartV`](https://github.com/nestauk/svizzle/tree/master/packages/components/BarchartV)
+
+**[Tools](https://github.com/nestauk/svizzle/tree/master/packages/tools)**
 
 - [`@svizzle/dev`](https://github.com/nestauk/svizzle/tree/master/packages/tools/dev)
 - [`@svizzle/dom`](https://github.com/nestauk/svizzle/tree/master/packages/tools/dom)

@@ -4,6 +4,10 @@
 
 - update docs
 
+## `@svizzle/BarchartV` v0.1.0
+
+- added the component
+
 ## 20200115
 
 - add linting
@@ -13,7 +17,6 @@
 
 - move `lamb` to `peerDependencies`
 - updated docs
-
 - add `tapMessage`
 - add `tapWith`
 - move `tapAppendTo` from /utils
@@ -80,7 +83,7 @@
 
 ### (Any -> Object) -> (Array -> Object)
 
-- added makeAllOccurrencesWith
+- added `makeAllOccurrencesWith`
 
 ### Any -> Boolean
 
