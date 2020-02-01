@@ -1,0 +1,20 @@
+overrides:
+  -
+    files:
+      - '**/*.svelte'
+    processor: svelte3/svelte3
+  -
+    files:
+      - '**/*.spec.js'
+    rules:
+      no-invalid-this: 'off'
+      no-new: 'off'
+plugins:
+  - svelte3
+rules:
+  brace-style: 'off'
+  no-invalid-this: 'off'
+  no-process-env: 'off'
+  no-tabs: 'off'
+# settings:
+  # svelte3/ignore-styles: true
