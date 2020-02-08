@@ -16,5 +16,6 @@ rules:
   no-invalid-this: 'off'
   no-process-env: 'off'
   no-tabs: 'off'
+  unused-export-let: 'off' # `export let prop` in components
 # settings:
   # svelte3/ignore-styles: true

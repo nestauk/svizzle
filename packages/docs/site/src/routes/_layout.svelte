@@ -17,13 +17,11 @@
 		height: var(--dim-header-height);
 		width: 100%;
 		padding: 0 var(--dim-padding);
-		border-bottom: 1px solid rgba(255,62,0,0.1);
+		border-bottom: 1px solid var(--color-main-lighter);
 	}
 
 	main {
-		position: relative;
 		height: var(--dim-main-height);
 		width: 100%;
-		padding: var(--dim-padding);
 	}
 </style>
