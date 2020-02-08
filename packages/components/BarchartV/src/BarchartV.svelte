@@ -2,7 +2,7 @@
   import { linearScale } from 'yootils';
   import isEqual from 'just-compare';
   import { merge } from 'lamb';
-  import { afterUpdate, createEventDispatcher } from 'svelte';
+  import { afterUpdate, beforeUpdate, createEventDispatcher } from 'svelte';
 
   import { makeStyle } from '@svizzle/dom';
   import { arrayMaxWith, getValue } from '@svizzle/utils';
@@ -11,19 +11,29 @@
 
   export let shouldResetScroll = false;
   export let focusedKey;
-  export let interactive = false;
+  export let defaultColor = null; // renders black
+  export let isInteractive = false;
   export let items;
   export let keyToColor;
+  export let keyToLabelFn;
   export let keyToLabel;
-  export let labels;
   export let title;
   export let valueAccessor = getValue;
 
   let scrollable;
   let previousItems;
+  let wasNotResettingScrollable;
 
-  $: shouldResetScroll && afterUpdate(() => {
-    if (items && !isEqual(previousItems, items)) {
+  beforeUpdate(() => {
+    wasNotResettingScrollable = !shouldResetScroll
+  });
+
+  $: if (wasNotResettingScrollable && shouldResetScroll && scrollable) {
+    scrollable.scrollTop = 0;
+  };
+
+  $: afterUpdate(() => {
+    if (items && shouldResetScroll && !isEqual(previousItems, items)) {
       scrollable.scrollTop = 0;
       previousItems = items;
     }
@@ -37,13 +47,16 @@
 
     return merge(item, {
       displayValue,
-      label: labels
-        ? labels[item.key]
-        : keyToLabel
-          ? keyToLabel(item.key)
+      label: keyToLabel && keyToLabel[item.key]
+        ? keyToLabel[item.key]
+        : keyToLabelFn
+          ? keyToLabelFn(item.key)
           : item.key,
       barStyle: makeStyle({
-        'background-color': keyToColor ? keyToColor[item.key] : null,
+        'background-color':
+          keyToColor && keyToColor[item.key]
+            ? keyToColor[item.key]
+            : defaultColor,
         width: `${scale(displayValue)}%`
       })
     })
@@ -53,7 +66,7 @@
 <div class="BarchartV">
   {#if title}
   <header>
-    <h3>{title}</h3>
+    <h2>{title}</h2>
   </header>
   {/if}
   <main
@@ -63,11 +76,11 @@
     {#each bars as {barStyle, displayValue, key, label} (key)}
     <div
       class="item"
-      class:clickable="{interactive}"
+      class:clickable="{isInteractive}"
       class:focused="{key === focusedKey}"
-      on:click="{ () => { interactive && dispatch('clicked', {id: key}) } }"
-      on:mouseenter="{ () => interactive && dispatch('entered', {id: key}) }"
-      on:mouseleave="{ () => interactive && dispatch('exited', {id: key}) }"
+      on:click="{ () => { isInteractive && dispatch('clicked', {id: key}) } }"
+      on:mouseenter="{ () => isInteractive && dispatch('entered', {id: key}) }"
+      on:mouseleave="{ () => isInteractive && dispatch('exited', {id: key}) }"
     >
       <div class="labels">
         <span>{label}</span>

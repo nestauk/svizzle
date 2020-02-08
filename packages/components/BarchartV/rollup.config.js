@@ -1,6 +1,6 @@
 import path from "path";
 
-import autoPreprocess from 'svelte-preprocess'
+import autoPreprocess from 'svelte-preprocess';
 import analyze from "rollup-plugin-analyzer";
 // import buble from "rollup-plugin-buble";
 import cleanup from "rollup-plugin-cleanup";

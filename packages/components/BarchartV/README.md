@@ -4,13 +4,15 @@ Vertical barchart.
 
 ## Props
 
-### `shouldResetScroll`
+### `defaultColor`
 
-If `true`, updating the props will reset the scroll.
+The default bar color, if any.
 
-Type: `boolean`
+If not provided bars will render in the default `background-color` of the page (most probably be `black`).
 
-Default: `false`
+Type: `string`
+
+Default: `null`
 
 ### `focusedKey`
 
@@ -20,19 +22,15 @@ Type: `string`
 
 Default: `undefined`
 
-### `interactive`
+### `isInteractive`
 
-If true emits events when interacting with the bars, the payload being an object `{id: key}`, where `key` is the key of the bar we interact with:
+If true emits events when interacting with the bars, the payload being an object `{id: key}` (`key` being the key of the bar we interacted with):
 
-- clicking on a bar dispatches a `clicked` event:
+Clicking on a bar dispatches a `clicked` event: `dispatch('clicked', {id: key})`.
 
-   `dispatch('clicked', {id: key})`
-- mouse-entering a bar dispatches a `entered` event:
+Mouse-entering a bar dispatches a `entered` event: `dispatch('entered', {id: key})`.
 
-   `dispatch('entered', {id: key})`
-- mouse-exiting a bar dispatches a `entered` event:
-
-   `dispatch('exited', {id: key})`
+Mouse-exiting a bar dispatches a `entered` event: `dispatch('exited', {id: key})`.
 
 Type: `boolean`
 
@@ -57,7 +55,9 @@ Example:
 
 ### `keyToColor`
 
-Mapping key -> bar colour string.
+By providing a object mapping bar key -> bar color, you can control the bars colour.
+
+Notice that the default color for keys not in `keyToColor` is black.
 
 Type: `object`
 
@@ -74,25 +74,7 @@ Example:
 
 ### `keyToLabel`
 
-A function taking a key and returning the bar label.
-
-Type: `function`
-
-Default: `undefined`
-
-Example:
-
-```js
-key => {
-  ...
-
-  return colourString;
-}
-```
-
-### `labels`
-
-Mapping key -> bar label.
+By providing a object mapping bar key -> bar label, you can control how the bar are labeled.
 
 Type: `object`
 
@@ -107,6 +89,24 @@ Example:
 }
 ```
 
+### `keyToLabelFn`
+
+By providing a function mapping bar key -> bar label, you can control how the bar are labeled programmatically.
+
+Type: `function`
+
+Default: `undefined`
+
+Example:
+
+```js
+key => {
+  ...
+
+  return newKey;
+}
+```
+
 ### `title`
 
 If provided, show the component title.
@@ -114,6 +114,14 @@ If provided, show the component title.
 Type: `string`
 
 Default: `undefined`
+
+### `shouldResetScroll`
+
+If `true`, updating the props will reset the scroll.
+
+Type: `boolean`
+
+Default: `false`
 
 ### `valueAccessor`
 
