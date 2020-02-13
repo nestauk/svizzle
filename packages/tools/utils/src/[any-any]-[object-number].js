@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/function-[object-number]
+* @module @svizzle/utils/[any-any]-[object-number]
 */
 
 import * as _ from "lamb";

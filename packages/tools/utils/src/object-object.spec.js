@@ -8,7 +8,8 @@ import {
     mergeWithConcat,
     mergeWithMerge,
     mergeWithSum,
-    pickIfTruthy
+    pickIfTruthy,
+    swapKeyValue
 } from "./object-object";
 
 describe("Object -> Object", function() {
@@ -104,20 +105,32 @@ describe("Object -> Object", function() {
             });
         });
     });
-    describe("pick", function() {
-      describe("pickIfTruthy", function() {
-          it("should return a copy of the object without falsy values", function() {
-              const obj1 = {a: true, b: true, c: false};
-              const exp1 = {a: true, b: true};
-              const obj2 = {a: 1, b: 0, c: false};
-              const exp2 = {a: 1};
-              const obj3 = {a: [1, 2], b: {a: 1}, c: false};
-              const exp3 = {a: [1, 2], b: {a: 1}};
+    describe("pickIfTruthy", function() {
+        it("should return a copy of the object without falsy values", function() {
+            const obj1 = {a: true, b: true, c: false};
+            const exp1 = {a: true, b: true};
+            const obj2 = {a: 1, b: 0, c: false};
+            const exp2 = {a: 1};
+            const obj3 = {a: [1, 2], b: {a: 1}, c: false};
+            const exp3 = {a: [1, 2], b: {a: 1}};
 
-              assert.deepStrictEqual(pickIfTruthy(obj1), exp1);
-              assert.deepStrictEqual(pickIfTruthy(obj2), exp2);
-              assert.deepStrictEqual(pickIfTruthy(obj3), exp3);
-          });
+            assert.deepStrictEqual(pickIfTruthy(obj1), exp1);
+            assert.deepStrictEqual(pickIfTruthy(obj2), exp2);
+            assert.deepStrictEqual(pickIfTruthy(obj3), exp3);
+        });
+    });
+    describe("swapKeyValue", function() {
+      it("Return an object with swapped keys and values - no duplicate values", function() {
+        const obj = {a: 1, b: 2, c: 'd'};
+        const expected = {1: 'a', 2: 'b', d: 'c'};
+
+        assert.deepStrictEqual(swapKeyValue(obj), expected);
       });
-    })
+      it("Return an object with swapped keys and values - with duplicate values", function() {
+        const obj = {a: 1, b: 2, c: 'd', e: 1};
+        const expected = {2: 'b', d: 'c', 1: 'e'};
+
+        assert.deepStrictEqual(swapKeyValue(obj), expected);
+      });
+    });
 });

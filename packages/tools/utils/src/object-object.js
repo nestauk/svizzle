@@ -163,3 +163,29 @@ pickIfTruthy({a: [1, 2], b: {a: 1}, c: false}) // {a: [1, 2], b: {a: 1}}
  * @version 0.2.0
  */
 export const pickIfTruthy = _.pickIf(_.identity);
+
+/**
+ * Return an object with swapped keys and values.
+ * Note that if there are duplicate values, since the keys of the resulting object have to be unique, the last occurrence of each value would be used but depending on the interpreter implementation the output keys might vary.
+ *
+ * @function
+ * @arg {object}
+ * @return {object}
+ *
+ * @example
+// unique values
+> swapKeyValue({a: 1, b: 2, c: 'd'})
+{1: 'a', 2: 'b', d: 'c'}
+
+// duplicate values
+> swapKeyValue({a: 1, b: 2, c: 'd', e: 1})
+{2: 'b', d: 'c', 1: 'e'}
+ *
+ * @version 0.6.0
+ * @see {@link module:@svizzle/utils/[any-any]-[object-object].indexValuesWith|indexValuesWith}
+ */
+export const swapKeyValue = _.pipe([
+  _.pairs,
+  _.mapWith(_.reverse),
+  _.fromPairs
+]);

@@ -2,11 +2,21 @@
 
 ## next
 
-- update docs
-
 ## `@svizzle/BarchartV` v0.1.0
 
 - added the component
+
+## `@svizzle/utils` v0.6.0 (next)
+
+### (Any -> Any) -> (Object -> Object)
+
+- add `groupValuesWith`
+- add `indexValuesWith`
+
+### Object -> Object
+
+- add `swapKeyValue`
+
 
 ## 20200115
 

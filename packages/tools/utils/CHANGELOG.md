@@ -1,3 +1,14 @@
+## `@svizzle/utils` v0.6.0 (next)
+
+### (Any -> Any) -> (Object -> Object)
+
+- add `groupValuesWith`
+- add `indexValuesWith`
+
+### Object -> Object
+
+- add `swapKeyValue`
+
 ## `@svizzle/utils` v0.5.0
 
 - move `lamb` to `peerDependencies`
