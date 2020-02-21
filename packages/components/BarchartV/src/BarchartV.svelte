@@ -12,6 +12,8 @@
   export let shouldResetScroll = false;
   export let focusedKey;
   export let defaultColor = null; // renders black
+  export let focusedKeyColor;
+  export let hoverColor;
   export let isInteractive = false;
   export let items;
   export let keyToColor;
@@ -20,24 +22,30 @@
   export let title;
   export let valueAccessor = getValue;
 
-  let scrollable;
+  let hoveredKey;
+
+  // scroll business
   let previousItems;
+  let scrollable;
   let wasNotResettingScrollable;
 
   beforeUpdate(() => {
     wasNotResettingScrollable = !shouldResetScroll
   });
-
-  $: if (wasNotResettingScrollable && shouldResetScroll && scrollable) {
-    scrollable.scrollTop = 0;
-  };
-
   $: afterUpdate(() => {
     if (items && shouldResetScroll && !isEqual(previousItems, items)) {
       scrollable.scrollTop = 0;
       previousItems = items;
     }
   });
+  $: if (wasNotResettingScrollable && shouldResetScroll && scrollable) {
+    scrollable.scrollTop = 0;
+  };
+
+  // FIXME
+  // https://github.com/sveltejs/svelte/issues/4442
+  $: focusedKeyColor = focusedKeyColor || 'rgba(0, 0, 0, 0.1)';
+  $: hoverColor = hoverColor || 'rgba(0, 0, 0, 0.05)';
 
   $: maxByValue = arrayMaxWith(valueAccessor);
   $: max = maxByValue(items);
@@ -58,7 +66,14 @@
             ? keyToColor[item.key]
             : defaultColor,
         width: `${scale(displayValue)}%`
-      })
+      }),
+      barBackgroundStyle: makeStyle({
+        'background-color': item.key === focusedKey
+          ? focusedKeyColor
+          : item.key === hoveredKey
+            ? hoverColor
+            : null
+      }),
     })
   });
 </script>
@@ -72,14 +87,18 @@
   <main
     bind:this={scrollable}
     class:titled={title}
+    on:mouseleave="{ () => hoveredKey = null }"
   >
-    {#each bars as {barStyle, displayValue, key, label} (key)}
+    {#each bars as {barStyle, barBackgroundStyle, displayValue, key, label} (key)}
     <div
       class="item"
       class:clickable="{isInteractive}"
-      class:focused="{key === focusedKey}"
+      style="{barBackgroundStyle}"
       on:click="{ () => { isInteractive && dispatch('clicked', {id: key}) } }"
-      on:mouseenter="{ () => isInteractive && dispatch('entered', {id: key}) }"
+      on:mouseenter="{ () => {
+        isInteractive && dispatch('entered', {id: key})
+        hoveredKey = key;
+      } }"
       on:mouseleave="{ () => isInteractive && dispatch('exited', {id: key}) }"
     >
       <div class="labels">
@@ -123,12 +142,6 @@
       .item {
         padding: 0.5em 0;
 
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.02);
-        }
-        &.focused {
-          background-color: rgba(0, 0, 0, 0.05);
-        }
         &.clickable {
           cursor: pointer;
         }

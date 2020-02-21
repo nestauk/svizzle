@@ -1,3 +1,3 @@
-## `@svizzle/BarchartV` v0.1.0
+## `@svizzle/BarchartV` v0.1.0 (next)
 
 - added the component

@@ -101,6 +101,44 @@ const examples = [
 	},
 	{
 		content: [
+			{tag: 'p', content: "You can set the focused bar background color by providing its `focusedKeyColor`."},
+		],
+		name: 'BarchartV',
+		props: {
+			focusedKey,
+			focusedKeyColor: 'yellow',
+			items: countryKeyValue,
+		},
+		slug: 'BarchartV-focusedKeyColor',
+		title: 'Focused key color',
+		usage: `
+			<BarchartV
+				{items}
+				focusedKey="${focusedKey}"
+				focusedKeyColor="yellow"
+			/>
+		`,
+	},
+	{
+		content: [
+			{tag: 'p', content: "You can choose the hovered bar background color by providing `hoverColor`."},
+		],
+		name: 'BarchartV',
+		props: {
+			hoverColor: 'palegreen',
+			items: countryKeyValue,
+		},
+		slug: 'BarchartV-hoverColor',
+		title: 'Hovered bar color',
+		usage: `
+			<BarchartV
+				{items}
+				hoverColor="palegreen"
+			/>
+		`,
+	},
+	{
+		content: [
 			{tag: 'p', content: "By providing a object mapping bar key -> bar label, you can control how the bar are labeled."},
 		],
 		name: 'BarchartV',

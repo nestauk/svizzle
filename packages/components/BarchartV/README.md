@@ -22,6 +22,22 @@ Type: `string`
 
 Default: `undefined`
 
+### `focusedKeyColor`
+
+The focused bar color, if any.
+
+Type: `string`
+
+Default: `rgba(0, 0, 0, 0.1)`
+
+### `hoverColor`
+
+The hovered bar color.
+
+Type: `string`
+
+Default: `rgba(0, 0, 0, 0.05)`
+
 ### `isInteractive`
 
 If true emits events when interacting with the bars, the payload being an object `{id: key}` (`key` being the key of the bar we interacted with):
