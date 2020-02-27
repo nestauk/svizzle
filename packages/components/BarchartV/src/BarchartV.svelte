@@ -9,28 +9,34 @@
 
   const dispatch = createEventDispatcher();
 
-  export let shouldResetScroll = false;
+  export let defaultColor;
   export let focusedKey;
-  export let defaultColor = null; // renders black
   export let focusedKeyColor;
   export let hoverColor;
-  export let isInteractive = false;
+  export let isInteractive;
   export let items;
   export let keyToColor;
-  export let keyToLabelFn;
   export let keyToLabel;
+  export let keyToLabelFn;
+  export let shouldResetScroll;
   export let title;
-  export let valueAccessor = getValue;
+  export let valueAccessor
+
+  // FIXME https://github.com/sveltejs/svelte/issues/4442
+  $: defaultColor = defaultColor || null; // renders black
+  $: isInteractive = isInteractive || false;
+  $: shouldResetScroll = shouldResetScroll || false;
+  $: valueAccessor = valueAccessor || getValue;
 
   let hoveredKey;
 
   // scroll business
   let previousItems;
   let scrollable;
-  let wasNotResettingScrollable;
+  let wasNotResettingScroll;
 
   beforeUpdate(() => {
-    wasNotResettingScrollable = !shouldResetScroll
+    wasNotResettingScroll = !shouldResetScroll
   });
   $: afterUpdate(() => {
     if (items && shouldResetScroll && !isEqual(previousItems, items)) {
@@ -38,12 +44,11 @@
       previousItems = items;
     }
   });
-  $: if (wasNotResettingScrollable && shouldResetScroll && scrollable) {
+  $: if (wasNotResettingScroll && shouldResetScroll && scrollable) {
     scrollable.scrollTop = 0;
   };
 
-  // FIXME
-  // https://github.com/sveltejs/svelte/issues/4442
+  // FIXME https://github.com/sveltejs/svelte/issues/4442
   $: focusedKeyColor = focusedKeyColor || 'rgba(0, 0, 0, 0.1)';
   $: hoverColor = hoverColor || 'rgba(0, 0, 0, 0.05)';
 
