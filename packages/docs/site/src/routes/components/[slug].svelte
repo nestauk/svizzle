@@ -31,6 +31,7 @@
 <script>
 	import {pairs, setIn} from 'lamb';
 	import {makeKeyed} from '@svizzle/utils';
+	import JSONTree from 'svelte-json-tree'
 
 	import Elements from '../../components/Elements.svelte'; // FIXME move ../../../components to node_modules
 	import components from './_components.js';
@@ -52,6 +53,7 @@
 	$: payloads = events ? makeKeyedEmptyString(events) : null;
 	$: current_props = props;
 	$: current_props_version = props_alt ? -1 : null;
+	$: displayProps = pairs(current_props);
 
 	const makeEventHandler = eventName =>
 		event => {
@@ -105,20 +107,27 @@
 			{/each}
 		</div>
 		{/if}
-		<h2>Props</h2>
-		{#if props_alt}
+		<div class="distancer">
+			<h2>Props</h2>
+			{#if props_alt}
+				<div class="distancer">
+					<button
+						class:active='{current_props_version === -1}'
+						on:click={setProps(-1)}
+					>Props version 1</button>
+					<button
+						class:active='{current_props_version === 1}'
+						on:click={setProps(1)}
+					>Props version 2</button>
+				</div>
+			{/if}
+			{#each displayProps as [propName, value]}
+			<h3><code>{propName}</code></h3>
 			<div class="distancer">
-				<button
-					class:active='{current_props_version === -1}'
-					on:click={setProps(-1)}
-				>Props version 1</button>
-				<button
-					class:active='{current_props_version === 1}'
-					on:click={setProps(1)}
-				>Props version 2</button>
+				<JSONTree {value} />
 			</div>
-		{/if}
-		<pre>{JSON.stringify(current_props, null, 2)}</pre>
+			{/each}
+		</div>
 	</div>
 	<div class="col col2">
 		<svelte:component

@@ -50,6 +50,10 @@ pre {
 	padding: 0.5rem;
 }
 
+.distancer {
+	margin-bottom: 1rem;
+}
+
 :root {
 	--color-main-lighter: rgb(157, 219, 249);
 	--color-main: rgb(16, 174, 249);
@@ -58,6 +62,9 @@ pre {
 	--dim-main-height: calc(100% - var(--dim-header-height));
 	--dim-padding-minor: 0.5rem;
 	--dim-padding: 1rem;
+
+	/* svelte-json-tree  */
+	--json-tree-font-size: 1.1rem;
 }
 
 /* @media screen and (min-width: 768px) {

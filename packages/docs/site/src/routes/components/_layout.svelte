@@ -11,26 +11,28 @@
 	export let segment; // 'BarchartV-defaultColor'
 </script>
 
-<div>
+<section>
 	<nav>
 		{#each groups as {key, value}}
-		<h2>{key}</h2>
-		{#each value as {slug, title}}
-		<a href="components/{slug}">
-			<p class:selected='{slug === segment}'>
-				{title}
-			</p>
-		</a>
-		{/each}
+		<div class="distancer">
+			<h2>{key}</h2>
+			{#each value as {slug, title}}
+			<a href="components/{slug}">
+				<p class:selected='{slug === segment}'>
+					{title}
+				</p>
+			</a>
+			{/each}
+		</div>
 		{/each}
 	</nav>
 	<main>
 		<slot></slot>
 	</main>
-</div>
+</section>
 
 <style>
-	div {
+	section {
 		height: 100%;
 		width: 100%;
 

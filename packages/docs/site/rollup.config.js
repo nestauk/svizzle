@@ -80,13 +80,18 @@ export default {
 			resolve({
 				dedupe: ['svelte']
 			}),
-			commonjs()
+			commonjs(),
+			json(),
 		],
 		external:
 			Object.keys(pkg.dependencies)
 			.filter(name => !name.startsWith('@svizzle'))
+			.filter(name => ![
+				'svelte-json-tree',
+			].includes(name))
 			.concat(
-				require('module').builtinModules || Object.keys(process.binding('natives'))
+				require('module').builtinModules ||
+				Object.keys(process.binding('natives'))
 			),
 
 		onwarn,
