@@ -1,8 +1,10 @@
 {
   "dependencies": {
     "@svizzle/BarchartV": "^0.1.0",
+    "@svizzle/Choropleth": "^0.1.0",
     "@svizzle/utils": "^0.5.0",
     "compression": "^1.7.1",
+    "d3-geo": "^1.11.9",
     "polka": "next",
     "rollup-plugin-terser": "^5.2.0",
     "sirv": "^0.4.0",
@@ -16,6 +18,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/runtime": "^7.0.0",
     "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "@rollup/plugin-replace": "^2.2.0",
     "@svizzle/dev": "^0.3.0",
@@ -28,7 +31,8 @@
     "rollup-plugin-babel": "^4.0.2",
     "rollup-plugin-svelte": "^5.0.1",
     "sapper": "^0.27.0",
-    "svelte": "^3.0.0"
+    "svelte": "^3.0.0",
+    "topojson-client": "^3.1.0"
   },
   "name": "@svizzle/site",
   "scripts": {

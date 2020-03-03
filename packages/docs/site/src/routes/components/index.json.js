@@ -3,7 +3,9 @@ export function get(req, res) {
 		'Content-Type': 'application/json'
 	});
 
+	// FIXME
 	res.end(JSON.stringify([
 		{name: 'BarchartV', slug: 'BarchartV'},
+		{name: 'ChoroplethSVG', slug: 'ChoroplethSVG'},
 	]));
 }

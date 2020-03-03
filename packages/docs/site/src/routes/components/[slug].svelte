@@ -7,21 +7,16 @@
 		let data = await res.json();
 
 		if (res.status === 200) {
-			if (data.fnProps) {
-				data = {
-					...data,
-					props: mapValues(data.props, (value, key) =>
+			return {
+				...data,
+				props: data.props.map(({key, value, fnProps}) => ({
+					key,
+					value: mapValues(value, (v, k) =>
 						// eslint-disable-next-line no-eval
-						data.fnProps.includes(key) ? eval(value) : value
-					),
-					props_alt: data.props_alt &&
-						mapValues(data.props_alt, (value, key) =>
-							// eslint-disable-next-line no-eval
-							data.fnProps.includes(key) ? eval(value) : value
-						)
-				}
-			}
-			return data;
+						fnProps && fnProps.includes(k) ? eval(v) : v
+					)
+				}))
+			};
 		}
 
 		this.error(res.status, data.message);
@@ -31,7 +26,7 @@
 <script>
 	import {pairs, setIn} from 'lamb';
 	import {makeKeyed} from '@svizzle/utils';
-	import JSONTree from 'svelte-json-tree'
+	import JSONTree from 'svelte-json-tree';
 
 	import Elements from '../../components/Elements.svelte'; // FIXME move ../../../components to node_modules
 	import components from './_components.js';
@@ -42,17 +37,16 @@
 	export let events;
 	export let name;
 	export let props;
-	export let props_alt;
 	export let title;
 	export let usage;
 	export let slug;
 
 	let instance;
+	let current_props_index = 0
 
 	$: component = components[name];
 	$: payloads = events ? makeKeyedEmptyString(events) : null;
-	$: current_props = props;
-	$: current_props_version = props_alt ? -1 : null;
+	$: current_props = props[current_props_index].value;
 	$: displayProps = pairs(current_props);
 
 	const makeEventHandler = eventName =>
@@ -70,15 +64,6 @@
 			const eventRemover = instance.$on(eventName, eventHandler);
 			eventRemovers.push(eventRemover);
 		});
-	}
-
-	const setProps = index => () => {
-		if (index === -1) {
-			current_props = props;
-		} else if (index === 1) {
-			current_props = props_alt
-		}
-		current_props_version = index;
 	}
 </script>
 
@@ -109,22 +94,20 @@
 		{/if}
 		<div class="distancer">
 			<h2>Props</h2>
-			{#if props_alt}
-				<div class="distancer">
-					<button
-						class:active='{current_props_version === -1}'
-						on:click={setProps(-1)}
-					>Props version 1</button>
-					<button
-						class:active='{current_props_version === 1}'
-						on:click={setProps(1)}
-					>Props version 2</button>
-				</div>
+			{#if props.length > 1}
+			<div class="distancer">
+				{#each props as {key, value}, index}
+				<button
+					class:active='{current_props_index === index}'
+					on:click='{ () => { current_props_index = index } }'
+				>{key}</button>
+				{/each}
+			</div>
 			{/if}
-			{#each displayProps as [propName, value]}
+			{#each displayProps as [propName, propValue]}
 			<h3><code>{propName}</code></h3>
 			<div class="distancer">
-				<JSONTree {value} />
+				<JSONTree value={propValue} />
 			</div>
 			{/each}
 		</div>
@@ -185,10 +168,12 @@
 	button {
 		padding: 0.5rem;
 		margin-right: 0.5rem;
+		font-size: 1.05rem;
 	}
 
 	button.active {
-		background-color: palegreen;
+		background-color: var(--color-main);
+		color: white;
 		outline: 0 none; /* used for accessibility FIXME */
 	}
 

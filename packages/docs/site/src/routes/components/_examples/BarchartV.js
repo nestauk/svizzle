@@ -20,9 +20,12 @@ const examples = [
 			{tag: 'p', content: "Note that not providing a `{title}` shows the barchart with no header."},
 		],
 		name: 'BarchartV',
-		props: {
-			items: countryKeyValue,
-		},
+		props: [{
+			key: null,
+			value: {
+				items: countryKeyValue,
+			},
+		}],
 		slug: 'BarchartV-items_default_shape',
 		title: 'Items (default shape)',
 		usage: `
@@ -34,10 +37,13 @@ const examples = [
 			{tag: 'p', content: "Providing a `{title}` shows the barchart with an `h2` header."},
 		],
 		name: 'BarchartV',
-		props: {
-			items: countryKeyValue,
-			title: myTitle
-		},
+		props: [{
+			key: null,
+			value: {
+				items: countryKeyValue,
+				title: myTitle
+			},
+		}],
 		slug: 'BarchartV-title',
 		title: 'Title',
 		usage: `
@@ -50,10 +56,13 @@ const examples = [
 			{tag: 'p', content: "Notice that the default color for keys not in `keyToColor` is black (see `AL` and `AD`)."},
 		],
 		name: 'BarchartV',
-		props: {
-			items: countryKeyValue,
-			keyToColor
-		},
+		props: [{
+			key: null,
+			value: {
+				items: countryKeyValue,
+				keyToColor
+			},
+		}],
 		slug: 'BarchartV-keyToColor',
 		title: 'Bar colors',
 		usage: `
@@ -65,11 +74,14 @@ const examples = [
 			{tag: 'p', content: "You can provide a `defaultColor` to be used for bars with no correspondent key in `keyToColor`."},
 		],
 		name: 'BarchartV',
-		props: {
-			defaultColor,
-			items: countryKeyValue,
-			keyToColor: keyToColorShort,
-		},
+		props: [{
+			key: null,
+			value: {
+				defaultColor,
+				items: countryKeyValue,
+				keyToColor: keyToColorShort,
+			},
+		}],
 		slug: 'BarchartV-defaultColor',
 		title: 'Default bars color',
 		usage: `
@@ -86,10 +98,13 @@ const examples = [
 			{tag: 'p', content: "This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection."},
 		],
 		name: 'BarchartV',
-		props: {
-			focusedKey,
-			items: countryKeyValue,
-		},
+		props: [{
+			key: null,
+			value: {
+				focusedKey,
+				items: countryKeyValue,
+			},
+		}],
 		slug: 'BarchartV-focusedKey',
 		title: 'Focused key',
 		usage: `
@@ -104,11 +119,14 @@ const examples = [
 			{tag: 'p', content: "You can set the focused bar background color by providing its `focusedKeyColor`."},
 		],
 		name: 'BarchartV',
-		props: {
-			focusedKey,
-			focusedKeyColor: 'yellow',
-			items: countryKeyValue,
-		},
+		props: [{
+			key: null,
+			value: {
+				focusedKey,
+				focusedKeyColor: 'yellow',
+				items: countryKeyValue,
+			},
+		}],
 		slug: 'BarchartV-focusedKeyColor',
 		title: 'Focused key color',
 		usage: `
@@ -124,10 +142,14 @@ const examples = [
 			{tag: 'p', content: "You can choose the hovered bar background color by providing `hoverColor`."},
 		],
 		name: 'BarchartV',
-		props: {
-			hoverColor: 'palegreen',
-			items: countryKeyValue,
-		},
+		props: [{
+			key: null,
+			value: {
+				hoverColor: 'palegreen',
+				items: countryKeyValue,
+				title: 'Hover me',
+			},
+		}],
 		slug: 'BarchartV-hoverColor',
 		title: 'Hovered bar color',
 		usage: `
@@ -142,10 +164,13 @@ const examples = [
 			{tag: 'p', content: "By providing a object mapping bar key -> bar label, you can control how the bar are labeled."},
 		],
 		name: 'BarchartV',
-		props: {
-			keyToLabel,
-			items: countryKeyValue,
-		},
+		props: [{
+			key: null,
+			value: {
+				keyToLabel,
+				items: countryKeyValue,
+			},
+		}],
 		slug: 'BarchartV-keyToLabel',
 		title: 'Labels (via mapping)',
 		usage: `
@@ -160,11 +185,14 @@ const examples = [
 			{tag: 'p', content: "By providing a function mapping bar key -> bar label, you can control how the bar are labeled programmatically."},
 		],
 		name: 'BarchartV',
-		props: {
-			keyToLabelFn: `x => '--' + x + '--'`,
-			items: countryKeyValue,
-		},
-		fnProps: ['keyToLabelFn'],
+		props: [{
+			fnProps: ['keyToLabelFn'],
+			key: null,
+			value: {
+				items: countryKeyValue,
+				keyToLabelFn: `x => '--' + x + '--'`,
+			},
+		}],
 		slug: 'BarchartV-keyToLabelFn',
 		title: 'Labels (via function)',
 		usage: `
@@ -180,8 +208,8 @@ const examples = [
 			{tag: 'p', content: "The payload is an object `{id: key}` (`key` being the key of the bar we interacted with)"},
 			{tag: 'p', content: "• Clicking on a bar dispatches a `clicked` event: `dispatch('clicked', {id: key})`."},
 			{tag: 'p', content: "• Mouse-entering a bar dispatches a `entered` event: `dispatch('entered', {id: key})`."},
-			{tag: 'p', content: "• Mouse-exiting a bar dispatches a `entered` event: `dispatch('exited', {id: key})`."},
-			{tag: 'p', content: "To try hover and click the bars of this barchart to read the correspondent event payload below."},
+			{tag: 'p', content: "• Mouse-exiting a bar dispatches a `exited` event: `dispatch('exited', {id: key})`."},
+			{tag: 'p', content: "Please hover and click the bars of this barchart to read the correspondent event payload below."},
 		],
 		events: [
 			'entered',
@@ -189,10 +217,14 @@ const examples = [
 			'clicked',
 		],
 		name: 'BarchartV',
-		props: {
-			isInteractive: true,
-			items: countryKeyValue,
-		},
+		props: [{
+			key: null,
+			value: {
+				isInteractive: true,
+				items: countryKeyValue,
+				title: 'Hover and click me',
+			},
+		}],
 		slug: 'BarchartV-isInteractive',
 		title: 'Interactivity',
 		usage: `
@@ -210,12 +242,15 @@ const examples = [
 			{tag: 'p', content: "By default we assume that `items` has the shape `{key, value}`."},
 			{tag: 'p', content: "By providing a `valueAccessor` function we can derive the bar value from `items` with different shapes."},
 		],
-		fnProps: ['valueAccessor'],
 		name: 'BarchartV',
-		props: {
-			items: countryKeyRawValue,
-			valueAccessor: 'item => Number(Math.sqrt(item.rawValue).toFixed(3))',
-		},
+		props: [{
+			fnProps: ['valueAccessor'],
+			key: null,
+			value: {
+				items: countryKeyRawValue,
+				valueAccessor: 'item => Number(Math.sqrt(item.rawValue).toFixed(3))',
+			},
+		}],
 		slug: 'BarchartV-valueAccessor',
 		title: 'Values accessor',
 		usage: `
@@ -231,14 +266,21 @@ const examples = [
 			{tag: 'p', content: "In this example, scrolling the barchart and then switching props using the buttons below should not reset the scroll."},
 		],
 		name: 'BarchartV',
-		props: {
-			shouldResetScroll: false,
-			items: countryKeyValue,
-		},
-		props_alt: {
-			shouldResetScroll: false,
-			items: countryKeyValueAlt,
-		},
+		props: [{
+			key: 'countryKeyValue',
+			value: {
+				shouldResetScroll: false,
+				items: countryKeyValue,
+				title: `When updated, scroll doesn't reset`,
+			},
+		}, {
+			key: 'countryKeyValueAlt',
+			value: {
+				shouldResetScroll: false,
+				items: countryKeyValueAlt,
+				title: `When updated, scroll doesn't reset`,
+			},
+		}],
 		slug: 'BarchartV-no-shouldResetScroll',
 		title: 'Scroll reset (disabled)',
 		usage: `
@@ -254,14 +296,21 @@ const examples = [
 			{tag: 'p', content: "In this example, scrolling the barchart and then switching props using the buttons below should reset the scroll."},
 		],
 		name: 'BarchartV',
-		props: {
-			shouldResetScroll: true,
-			items: countryKeyValue,
-		},
-		props_alt: {
-			shouldResetScroll: true,
-			items: countryKeyValueAlt,
-		},
+		props: [{
+			key: 'countryKeyValue',
+			value: {
+				shouldResetScroll: true,
+				items: countryKeyValue,
+				title: `When updated, scroll resets`,
+			},
+		}, {
+			key: 'countryKeyValueAlt',
+			value: {
+				shouldResetScroll: true,
+				items: countryKeyValueAlt,
+				title: `When updated, scroll resets`,
+			},
+		}],
 		slug: 'BarchartV-shouldResetScroll',
 		title: 'Scroll reset (enabled)',
 		usage: `
