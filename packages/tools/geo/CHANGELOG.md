@@ -1,3 +1,7 @@
+## `@svizzle/geo` v0.4.0 (next)
+
+- add `makeAddFeaturesProperty`
+
 ## `@svizzle/geo` v0.3.0
 
 - move `lamb` to `peerDependencies`

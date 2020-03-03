@@ -6,7 +6,15 @@
 
 - added the component
 
-## `@svizzle/utils` v0.6.0 (next)
+## `@svizzle/Choropleth` v0.1.0
+
+- added base components
+
+## `@svizzle/geo` v0.4.0
+
+- add `makeAddFeaturesProperty`
+
+## `@svizzle/utils` v0.6.0
 
 ### (Any -> Any) -> (Object -> Object)
 

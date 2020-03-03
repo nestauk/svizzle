@@ -5,6 +5,7 @@ import {applyFnMap} from "@svizzle/utils";
 
 import {
     getOrMakeBBox,
+    makeUpdateFeaturesProperty,
     makeCentroids,
     makeToGeoPoints,
     makeToPointFeature,
@@ -43,6 +44,90 @@ describe("geojson", function() {
         });
     });
 
+    describe("makeUpdateFeaturesProperty", function() {
+      it("should return a function expecting a geojson and creating or updating the provided property of all features using the provided map.",
+          function() {
+            const geojson = {
+              type: 'FeatureCollection',
+              features: [
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                      [[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+                    ]
+                  },
+                  properties: {iso_a2: 'BF'}
+                },
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                      [[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+                    ]
+                  },
+                  properties: {name: 'Kosovo'}
+                },
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                      [[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
+                    ]
+                  },
+                  properties: {iso_a2: 'FR'}
+                }
+              ]
+            };
+            const keyToColor = {BF: 'red', Kosovo: 'yellow'};
+            const addColor = makeUpdateFeaturesProperty({
+              propName: 'color',
+              map: keyToColor,
+              key: 'iso_a2',
+              key_alt: 'name'
+            });
+            const expectedGeojson = {
+              type: 'FeatureCollection',
+              features: [
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                      [[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+                    ]
+                  },
+                  properties: {iso_a2: 'BF', color: 'red'}
+                },
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                      [[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+                    ]
+                  },
+                  properties: {name: 'Kosovo', color: 'yellow'}
+                },
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                      [[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
+                    ]
+                  },
+                  properties: {iso_a2: 'FR', color: undefined}
+                }
+              ]
+            };
+            assert.deepStrictEqual(addColor(geojson), expectedGeojson);
+          }
+      );
+    });
     describe("makeCentroids", function() {
         it("should return the a collection of centroids of the provided features, each having the correspondent feature properties",
             function() {

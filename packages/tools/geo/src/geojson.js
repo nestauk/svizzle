@@ -62,6 +62,107 @@ getOrMakeBBox({
 export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
 
 /**
+ * Return a function expecting a geojson and creating or updating the provided property of all features using the provided map.
+ * Note that you can pass a `key or an alternative key `key_alt` e.g. when you use ISO Alpha 2 codes and you need to identify unrecognized territories with another key.
+ *
+ * @function
+ * @arg {object} geojson - Geojson object
+ * @return {array}
+ *
+ * @example
+> const geojson = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+        ]
+      },
+      properties: {iso_a2: 'BF'}
+    },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+        ]
+      },
+      properties: {name: 'Kosovo'}
+    },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
+        ]
+      },
+      properties: {iso_a2: 'FR'}
+    }
+  ]
+}
+> const keyToColor = {BF: 'red', Kosovo: 'yellow'};
+> const addColor = makeAddFeaturesProperty({
+  propName: 'color',
+  map: keyToColor,
+  key: 'iso_a2',
+  key_alt: 'name'
+});
+> const coloredFeatures = addColor(geojson);
+{
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+        ]
+      },
+      properties: {iso_a2: 'BF', color: 'red'}
+    },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+        ]
+      },
+      properties: {name: 'Kosovo', color: 'yellow'}
+    },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
+        ]
+      },
+      properties: {iso_a2: 'FR', color: undefined}
+    }
+  ]
+}
+ * @version 0.4.0
+ */
+export const makeUpdateFeaturesProperty = ({propName, map, key, key_alt}) =>
+  _.updateKey('features', _.mapWith(
+      _.updateKey('properties', properties => ({
+        ...properties,
+        [propName]: _.has(map, properties[key])
+          ? map[properties[key]]
+          : _.has(map, properties[key_alt])
+            ? map[properties[key_alt]]
+            : undefined,
+      }))
+  ));
+
+/**
  * Return the a collection of centroids of the provided features, each having the correspondent feature properties.
  *
  * @function
