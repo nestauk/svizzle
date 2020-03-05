@@ -1,6 +1,6 @@
 import {formatSvelteMarkup} from './utils';
 import {keyToColor} from './BarchartV_props';
-import {worldGeojson} from './Choropleth_props';
+import worldGeojson from '@svizzle/atlas/world_110m_iso_a2_geo.json';
 
 const examples = [
 	{

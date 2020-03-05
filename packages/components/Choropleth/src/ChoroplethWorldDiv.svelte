@@ -1,6 +1,6 @@
 <script>
   import ChoroplethDiv from './ChoroplethDiv.svelte';
-  import geojson from '../data/2/world_110m_iso_a2_geo.json';
+  import geojson from '@svizzle/atlas/world_110m_iso_a2_geo.json';
 
   export let colorDefaultFill;
   export let colorSea;

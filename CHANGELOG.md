@@ -10,6 +10,10 @@
 
 - added components
 
+## `@svizzle/atlas` v0.1.0
+
+- moved geo scripts from /Choropleth
+
 ## `@svizzle/geo` v0.4.0
 
 - add `makeAddFeaturesProperty`

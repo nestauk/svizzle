@@ -2,6 +2,7 @@
   "dependencies": {
     "@svizzle/BarchartV": "^0.1.0",
     "@svizzle/Choropleth": "^0.1.0",
+    "@svizzle/atlas": "^0.1.0",
     "@svizzle/utils": "^0.5.0",
     "compression": "^1.7.1",
     "d3-geo": "^1.11.9",

@@ -28,9 +28,8 @@ const treeshake = {
   annotations: true,
   moduleSideEffects: id => {
     // prevent from unadvertantly setting to false no matter what we install
-    if (/@svizzle\/dom/g.test(id)) return false;
     if (/@svizzle\/utils/g.test(id)) return false;
-    if (/just-compare/g.test(id)) return false;
+    if (/d3-geo/g.test(id)) return false;
     if (/lamb/g.test(id)) return false;
   }
 };

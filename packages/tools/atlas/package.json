@@ -1,0 +1,66 @@
+{
+    "author": "nestauk (https://www.nesta.org.uk/)",
+    "bugs": {
+        "url": "https://github.com/nestauk/svizzle/issues"
+    },
+    "dependencies": {},
+    "description": "Svizzle Atlas contains geographic boundaries for mapping.",
+    "devDependencies": {
+        "@svizzle/dev": "^0.3.0",
+        "@svizzle/file": "^0.6.0",
+        "@svizzle/geo": "^0.3.0",
+        "@svizzle/utils": "^0.5.0",
+        "eslint": "^6.5.1",
+        "eslint-plugin-import": "^2.18.2",
+        "esm": "^3.0.84",
+        "js-yaml": "^3.13.1",
+        "lamb": "^0.58.0",
+        "mkdirp": "^0.5.1",
+        "rimraf": "^3.0.0",
+        "topojson-client": "^3.1.0",
+        "world-atlas": "^2.0.2"
+    },
+    "files": [
+        "!pkg/*",
+        "bin/**/*",
+        "data/**/*",
+        "LICENSE",
+        "README.md"
+    ],
+    "homepage": "https://github.com/nestauk/svizzle",
+    "keywords": [
+        "boundaries",
+        "data visualisation",
+        "geojson",
+        "mapping",
+        "topojson"
+    ],
+    "license": "MIT",
+    "name": "@svizzle/atlas",
+    "peerDependencies": {
+        "lamb": "^0.58.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "github:nestauk/svizzle",
+        "directory": "packages/tools/atlas"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "npm run process && npm run dist",
+        "chmod": "chmod u+x bin/*",
+        "cleanup": "npm run chmod && bin/cleanup.sh",
+        "bumppack": "npm run setprerelease && npm run pack",
+        "lint": "eslint bin/*.js",
+        "setpreminor": "npm --no-git-tag-version version preminor --preid=dev",
+        "setprerelease": "npm --no-git-tag-version version prerelease --preid=dev",
+        "pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/README.md ${dirname}/package.json",
+        "process": "npm run chmod && bin/process.sh",
+        "dist": "npm run chmod && bin/dist.sh",
+        "postinstall": "npm run build"
+    },
+    "sideEffects": false,
+    "version": "0.1.0"
+}
