@@ -14,12 +14,16 @@
 
 - add `makeAddFeaturesProperty`
 
-## `@svizzle/utils` v0.6.0
+## `@svizzle/utils` v0.6.0 (next)
 
 ### (Any -> Any) -> (Object -> Object)
 
 - add `groupValuesWith`
 - add `indexValuesWith`
+
+### Array -> (Any -> Boolean)
+
+- renamed `makeIsContained` to `makeOccursIn`
 
 ### Object -> Object
 

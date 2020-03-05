@@ -5,6 +5,10 @@
 - add `groupValuesWith`
 - add `indexValuesWith`
 
+### Array -> (Any -> Boolean)
+
+- renamed `makeIsContained` to `makeOccursIn`
+
 ### Object -> Object
 
 - add `swapKeyValue`
