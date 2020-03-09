@@ -4,7 +4,10 @@
 
 import * as _ from "lamb";
 
+import {reduceFromEmptyArray} from "./[any-any]:accumcb-[array-any]";
+import {isArray} from "./any-boolean";
 import {concat} from './array_proto-array';
+import {isIterableNotEmpty} from "./iterable-boolean";
 import {pairToKeyValueObject} from "./iterable-object";
 import {pickIfTruthy} from "./object-object";
 
@@ -22,6 +25,43 @@ concatValues({a: [1, 2, 3], b: [4, 5, 6]})
  * @version 0.4.0
  */
 export const concatValues = _.pipe([_.values, _.apply(concat)]);
+
+/**
+ * Return an array of the permutations of the provided object values items, by key.
+ * Note that this function assumes the provided object values are arrays.
+ *
+ * @function
+ * @arg {object} object - {string: any[]}
+ * @return {array} - object[]
+ *
+ * @example
+ > makeKeyedValuesPermutations({a: [0, 1], b: [2, 3], c: [4, 5]})
+[
+  {a: 0, b: 2, c: 4}, {a: 1, b: 2, c: 4},
+  {a: 0, b: 3, c: 4}, {a: 1, b: 3, c: 4},
+  {a: 0, b: 2, c: 5}, {a: 1, b: 2, c: 5},
+  {a: 0, b: 3, c: 5}, {a: 1, b: 3, c: 5}
+]
+ *
+ * @version 0.6.0
+ */
+export const makeKeyedValuesPermutations = _.pipe([
+  _.pairs,
+  _.filterWith(_.pipe([
+    _.last,
+    _.allOf([isArray, isIterableNotEmpty])
+  ])),
+  reduceFromEmptyArray((acc, [key, values]) => {
+    const props = values.map(value => ({[key]: value}));
+
+    return acc.length === 0
+      ? props
+      : _.flatMap(
+          props,
+          prop => acc.map(obj => _.merge(obj, prop))
+        );
+  })
+]);
 
 /**
  * Return an array of {key, value} objects from an object
