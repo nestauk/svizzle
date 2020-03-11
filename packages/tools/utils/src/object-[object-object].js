@@ -64,7 +64,9 @@ bar,4,4,25px
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
  */
 export const transformValues = fnMap => _.mapValuesWith(
-    (value, key) => _.application(fnMap[key], [value])
+  (value, key) => key in fnMap
+    ? _.application(fnMap[key], [value])
+    : value
 );
 
 /**

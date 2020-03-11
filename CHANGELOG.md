@@ -29,6 +29,10 @@
 
 - renamed `makeIsContained` to `makeOccursIn`
 
+### Object -> (Object -> Object)
+
+- `transformValues`: assume identity for missing keys
+
 ### Object -> Object
 
 - add `swapKeyValue`

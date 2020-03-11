@@ -29,6 +29,12 @@ describe("Object -> (Object -> Object)", function() {
     });
 
     describe("transformValues", function() {
+        const obj = {
+          name: "foo",
+          a: "9",
+          b: "2",
+          width: "10px"
+        };
         it("should return a function expecting an object and applying the functions in the provided object to the correspondent object values", function() {
             const conversionFn = transformValues({
                 name: _.identity,
@@ -37,10 +43,24 @@ describe("Object -> (Object -> Object)", function() {
                 width: parseFloat
             });
 
-            assert.deepStrictEqual(
-                conversionFn({name: "foo", a: "9", b: "2", width: "10px"}),
-                {name: "foo", a: 3, b: 2, width: 10}
-            );
+            assert.deepStrictEqual(conversionFn(obj), {
+              name: "foo",
+              a: 3,
+              b: 2,
+              width: 10
+            });
+        });
+        it("should assume identity for not provided keys", function() {
+            const conversionFn = transformValues({
+                a: _.pipe([Number, Math.sqrt]),
+            });
+
+            assert.deepStrictEqual(conversionFn(obj), {
+              name: "foo",
+              a: 3,
+              b: "2",
+              width: "10px"
+            });
         });
     });
 
