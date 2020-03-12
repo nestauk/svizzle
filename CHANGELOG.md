@@ -29,8 +29,13 @@
 
 - renamed `makeIsContained` to `makeOccursIn`
 
+### Array -> (Object -> Object)
+
+- added `applyTransformsSequence`
+
 ### Object -> (Object -> Object)
 
+- add `transformPaths`
 - `transformValues`: assume identity for missing keys
 
 ### Object -> Object

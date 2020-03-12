@@ -2,13 +2,14 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
+import {joinWith} from "./string-[array-string]";
 import {
   applyFnMap,
   makeMergeKeyValue,
   mergeObj,
+  transformPaths,
   transformValues,
 } from "./object-[object-object]";
-import {joinWith} from "./string-[array-string]";
 
 describe("Object -> (Object -> Object)", function() {
     describe("applyFnMap", function() {
@@ -28,6 +29,62 @@ describe("Object -> (Object -> Object)", function() {
         });
     });
 
+    describe('transformPaths', function() {
+      it('should return a function that expects an object and applies the functions in the values of the input object to the values of the provided object found in the paths in the correspondent keys – orthogonal transforms', function() {
+          const transform = transformPaths({
+            'a.a2.a22': _.pipe([Number, Math.sqrt]),
+            'a.a3': parseInt,
+            'b.b2.b24': parseInt,
+            'b.b4': parseInt,
+          });
+          const obj = {
+            a: {
+              a1: 'a1',
+              a2: {
+                a21: 'a21',
+                a22: '9',
+              },
+              a3: '3px',
+              a4: '2',
+            },
+            b: {
+              b1: 'b1',
+              b2: {
+                b21: 'foo',
+                b22: '9',
+                b23: '2',
+                b24: '24px'
+              },
+              b3: '2',
+              b4: '4px'
+            },
+          };
+          const expected = {
+            a: {
+              a1: 'a1',
+              a2: {
+                a21: 'a21',
+                a22: 3,
+              },
+              a3: 3,
+              a4: '2'
+            },
+            b: {
+              b1: 'b1',
+              b2: {
+                b21: 'foo',
+                b22: '9',
+                b23: '2',
+                b24: 24
+              },
+              b3: '2',
+              b4: 4
+            },
+          };
+
+          assert.deepStrictEqual(transform(obj), expected);
+      });
+    });
     describe("transformValues", function() {
         const obj = {
           name: "foo",
