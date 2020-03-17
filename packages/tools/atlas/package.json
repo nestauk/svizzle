@@ -24,7 +24,6 @@
     },
     "files": [
         "!pkg/*",
-        "index.js",
         "gist/*.csv",
         "gist/*.json",
         "gist/*.yaml",
@@ -40,7 +39,6 @@
         "topojson"
     ],
     "license": "MIT",
-    "main": "index.js",
     "name": "@svizzle/atlas",
     "peerDependencies": {
         "lamb": "^0.58.0"

@@ -1,28 +1,38 @@
 import {formatSvelteMarkup} from './utils';
 import {keyToColor} from './BarchartV_props';
-import worldTopojson from '@svizzle/atlas/data/1/world_110m_iso_a2_topo.json';
+import World_110m_iso_a2_topo from '@svizzle/atlas/gist/World_110m_iso_a2_topo.json';
+import NUTS_RG_10M_2016_4326_LEVL_2_UK from '@svizzle/atlas/gist/NUTS_RG_10M_2016_4326_LEVL_2_UK.json';
 
 const examples = [
 	{
 		content: [
 			{tag: 'p', content: "In the most basic setup, you need to provide:"},
 			{tag: 'p', content: "• `key`, the key to be used in the features `properties` field as the region identifier;"},
-			{tag: 'p', content: "  Note that you might provide a geojson where not all the features have the provided `key`."},
+			{tag: 'p', content: "• Note that you might provide a topojson where not all the objects have the provided `key`."},
 			{tag: 'p', content: "  For example if you provide `key: 'iso_a2'` (ISO Alpha 2 codes), disputed or partially recognised countries might not have that code (e.g. `Kosovo`)."},
 			{tag: 'p', content: "  For these cases you can provide a `key_alt`, equal to `name` by default."},
-			{tag: 'p', content: "• `geojson`, the Geojson FeatureCollection of regions to be represented, with features' `properties` having the a field corresponding to the prop `key`."},
+			{tag: 'p', content: "• `topojson`, the Topojson of regions to be represented, with `properties` having the a field corresponding to the prop `key`."},
 			{tag: 'p', content: "• `keyToColor`, an object mapping region key -> region color."},
+			{tag: 'p', content: "If you don't provide `keyToColor` no `key` is needed."},
 			{tag: 'p', content: "The default projection (`geoEquirectangular`) will be applied."},
 		],
 		name: 'ChoroplethSVG',
 		props: [{
-			key: null,
+			key: 'World_110m_iso_a2_topo',
 			value: {
 				height: 600,
 				key: 'iso_a2',
 				keyToColor,
-				topojson: worldTopojson,
+				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
+				width: 600,
+			},
+		}, {
+			key: 'NUTS_RG_10M_2016_4326_LEVL_2_UK',
+			value: {
+				height: 600,
+				topojson: NUTS_RG_10M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
 				width: 600,
 			},
 		}],
@@ -33,7 +43,7 @@ const examples = [
 				{keyToColor}
 				height=600
 				key='iso_a2'
-				topojson={worldTopojson}
+				topojson={World_110m_iso_a2_topo}
 				topojsonId='countries'
 				width=600
 			/>
@@ -54,7 +64,7 @@ const examples = [
 				key: 'iso_a2',
 				keyToColor,
 				sizeStroke: 1,
-				topojson: worldTopojson,
+				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
 			},
@@ -70,7 +80,7 @@ const examples = [
 				height=600
 				key='iso_a2'
 				sizeStroke=1
-				topojson={worldTopojson}
+				topojson={World_110m_iso_a2_topo}
 				topojsonId='countries'
 				width=600
 			/>
@@ -90,7 +100,7 @@ const examples = [
 				keyToColor,
 				selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo'],
 				sizeStrokeSelected: 1.5,
-				topojson: worldTopojson,
+				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
 			},
@@ -105,7 +115,7 @@ const examples = [
 				key='iso_a2'
 				selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo']
 				sizeStrokeSelected=1.5
-				topojson={worldTopojson}
+				topojson={World_110m_iso_a2_topo}
 				topojsonId='countries'
 				width=600
 			/>
@@ -133,7 +143,7 @@ const examples = [
 				isInteractive: true,
 				key: 'iso_a2',
 				keyToColor,
-				topojson: worldTopojson,
+				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
 			},
@@ -149,7 +159,7 @@ const examples = [
 				on:clicked={onClicked}
 				on:entered={onEntered}
 				on:exited={onExited}
-				topojson={worldTopojson}
+				topojson={World_110m_iso_a2_topo}
 				topojsonId='countries'
 				width=600
 			/>
@@ -184,14 +194,14 @@ const examples = [
 				key: 'iso_a2',
 				keyToColor,
 				projection: 'geoAzimuthalEqualArea',
-				topojson: worldTopojson,
+				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
 			}
 		}, {
 			key: 'geoOrthographic',
 			value: {
-				topojson: worldTopojson,
+				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				height: 600,
 				key: 'iso_a2',
@@ -208,7 +218,7 @@ const examples = [
 				height=600
 				key='iso_a2'
 				projection='a-projection-id'
-				topojson={worldTopojson}
+				topojson={World_110m_iso_a2_topo}
 				topojsonId='countries'
 				width=600
 			/>
