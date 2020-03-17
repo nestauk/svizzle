@@ -18,6 +18,11 @@
 
 - add `makeAddFeaturesProperty`
 
+## `@svizzle/file` v0.7.0 (next)
+
+- add `saveString`
+- add `saveStringPassthrough`
+
 ## `@svizzle/utils` v0.6.0 (next)
 
 ### (Any -> Any) -> (Object -> Object)

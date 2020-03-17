@@ -1,3 +1,8 @@
+## `@svizzle/file` v0.7.0 (next)
+
+- add `saveString`
+- add `saveStringPassthrough`
+
 ## `@svizzle/file` v0.6.0
 
 - move `lamb` to `peerDependencies`

@@ -10,7 +10,7 @@ const finished = util.promisify(stream.finished);
 
 /**
  * [node environment]
- * Return a promise that writes the provided file at the provided path.
+ * Return a promise that writes the provided string to the provided path.
  *
  * @function
  * @arg {string} filePath
@@ -62,7 +62,7 @@ export const saveObj = (filepath, indent = 0) => object =>
 
 /**
  * Return a function that expects an object and returns a promise that writes
- * to the provided filepath and then returns the object.
+ * to the provided filepath and returns the object.
  * [node environment]
  *
  * @function
@@ -81,6 +81,44 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
   object =>
     writeFile(filepath, JSON.stringify(object, null, indent), "utf8")
     .then(() => object);
+
+/**
+ * Return a function that expects a string and returns a promise that writes
+ * to the provided filepath.
+ * [node environment]
+ *
+ * @function
+ * @arg {string} filepath - The filepath where to save the expected string
+ * @return {function} - String -> Promise – @sideEffects: fs.writeFile
+ *
+ * @example
+ * promiseThatReturnsAString()
+ * .then(saveString("destination/path"))
+ * .catch(err => console.error(err));
+ *
+ * @version 0.7.0
+ */
+export const saveString = filepath =>
+  string => writeFile(filepath, string, "utf8");
+
+/**
+ * Return a function that expects a string and returns a promise that writes
+ * to the provided filepath and returns the string.
+ * [node environment]
+ *
+ * @function
+ * @arg {string} filepath - The filepath where to save the expected string
+ * @return {function} - String -> Promise – @sideEffects: fs.writeFile
+ *
+ * @example
+ * promiseThatReturnsAString()
+ * .then(saveStringPassthrough("destination/path"))
+ * .catch(err => console.error(err));
+ *
+ * @version 0.7.0
+ */
+export const saveStringPassthrough = filepath =>
+  string => writeFile(filepath, string, "utf8").then(() => string);
 
 /**
  * Return a function that expects a response and returns a promise that saves
