@@ -1,0 +1,38 @@
+# https://ec.europa.eu/eurostat/cache/GISCO/distribution/v2/nuts/nuts-2016-release-notes.txt
+
+format:
+  topojson: json # https://github.com/topojson/topojson-specification
+  # geojson: geojson # http://geojson.org
+  # pbf: pbf # geobuf - geojson compressed into protocol buffers, see https://github.com/mapbox/geobuf
+  # shp: shp.zip # zipped shapefile (ESRI) http://downloads.esri.com/support/whitepapers/mo_/shapefile.pdf
+  # svg: svg.zip # zipped SVG (scalable vector graphics) https://www.w3.org/TR/SVG2/
+
+proj_epsg_id:
+#  - 3035 # EPSG:3035 (ETRS 1989 in Lambert Azimutal projection with centre in E52N10, coordinates in meters),
+#  - 3857 # EPSG:3857 (WGS84 Web Mercator Auxiliary Sphere, coordinates in meters)
+  - 4326 # EPSG:4326 (WGS84, coordinates in decimal degrees),
+
+resolution:
+  # - 01M
+  - 03M
+  - 10M
+  # - 20M
+  # - 60M # doesn't seem to be available
+
+spatialtype:
+  # - BN # boundaries (multilines)
+  # - LB # labels (points)
+  - RG # regions (multipolygons)
+
+subset:
+  - 0
+  - 1
+  - 2
+  - 3
+
+year:
+  - 2003
+  - 2006
+  - 2010
+  - 2013
+  - 2016

@@ -74,6 +74,7 @@ countries:
     EE: Estonia
     EG: Egypt
     EH: Western Sahara
+    EL: Greece # since 2010, see GR
     ER: Eritrea
     ES: Spain
     ET: Ethiopia
@@ -96,7 +97,7 @@ countries:
     GN: Guinea
     GP: Guadeloupe
     GQ: Equatorial Guinea
-    GR: Greece
+    GR: Greece # pre 2010, see EL
     GS: South Georgia and the South Sandwich Islands
     GT: Guatemala
     GU: Guam

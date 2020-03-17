@@ -15,7 +15,7 @@ const GEOMETRIES_PATH = 'objects.countries.geometries';
 const UNKNOWN = 'unknown';
 
 const ISO_A2_TO_NAME_PATH = path.resolve(__dirname, '../data/0/iso_a2_to_name_by_type.yaml');
-const WORLD_JSON_110_ISOTYPE_TOPO = path.resolve(__dirname, `../data/1/world_110m_${ISO_TYPE}_topo.json`);
+const WORLD_110_ISOTYPE_TOPO = path.resolve(__dirname, `../data/1/World_110m_${ISO_TYPE}_topo.json`);
 
 const checkProperties = _.pipe([
   _.getPath(GEOMETRIES_PATH),
@@ -46,8 +46,8 @@ readFile(ISO_A2_TO_NAME_PATH, 'utf-8')
     }))
   )
 })
-.then(saveObjPassthrough(WORLD_JSON_110_ISOTYPE_TOPO))
-.then(tapMessage(`Saved topojson with ${ISO_TYPE} property in ${WORLD_JSON_110_ISOTYPE_TOPO}\n`))
+.then(saveObjPassthrough(WORLD_110_ISOTYPE_TOPO))
+.then(tapMessage(`Saved topojson with ${ISO_TYPE} property in ${WORLD_110_ISOTYPE_TOPO}\n`))
 .then(checkProperties)
-.then(tapValue(`Amount of '${UNKNOWN}' in 'properties.${ISO_TYPE}' in ${WORLD_JSON_110_ISOTYPE_TOPO}`))
+.then(tapValue(`Amount of '${UNKNOWN}' in 'properties.${ISO_TYPE}' in ${WORLD_110_ISOTYPE_TOPO}`))
 .catch(err => console.error(err));
