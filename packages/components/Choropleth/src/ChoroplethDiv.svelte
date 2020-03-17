@@ -5,7 +5,7 @@
   export let colorSea;
   export let colorStroke;
   export let colorStrokeSelected;
-  export let geojson;
+  // export let geojson;
   export let isInteractive;
   export let key;
   export let keyToColor;
@@ -13,6 +13,8 @@
   export let selectedKeys;
   export let sizeStroke;
   export let sizeStrokeSelected;
+  export let topojson;
+  export let topojsonId;
 
   let height;
   let width;
@@ -28,7 +30,6 @@
     {colorSea}
     {colorStroke}
     {colorStrokeSelected}
-    {geojson}
     {height}
     {isInteractive}
     {key}
@@ -37,11 +38,14 @@
     {selectedKeys}
     {sizeStroke}
     {sizeStrokeSelected}
+    {topojson}
+    {topojsonId}
     {width}
     on:clicked
     on:entered
     on:exited
   />
+  <!-- {geojson} -->
 </div>
 
 <style>

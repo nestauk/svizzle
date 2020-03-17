@@ -1,6 +1,7 @@
 <script>
   import ChoroplethDiv from './ChoroplethDiv.svelte';
-  import geojson from '@svizzle/atlas/world_110m_iso_a2_geo.json';
+  import topojson from '@svizzle/atlas/data/1/world_110m_iso_a2_topo.json';
+  // FIXME unpublished for now, works only locally for now
 
   export let colorDefaultFill;
   export let colorSea;
@@ -19,15 +20,16 @@
   {colorSea}
   {colorStroke}
   {colorStrokeSelected}
-  {geojson}
   {isInteractive}
   {keyToColor}
   {projection}
   {selectedKeys}
   {sizeStroke}
   {sizeStrokeSelected}
+  {topojson}
   key='iso_a2'
   on:clicked
   on:entered
   on:exited
+  topojsonId='countries'
 />

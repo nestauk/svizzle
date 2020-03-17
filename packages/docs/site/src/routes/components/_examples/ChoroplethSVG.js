@@ -1,6 +1,6 @@
 import {formatSvelteMarkup} from './utils';
 import {keyToColor} from './BarchartV_props';
-import worldGeojson from '@svizzle/atlas/world_110m_iso_a2_geo.json';
+import worldTopojson from '@svizzle/atlas/data/1/world_110m_iso_a2_topo.json';
 
 const examples = [
 	{
@@ -18,10 +18,11 @@ const examples = [
 		props: [{
 			key: null,
 			value: {
-				geojson: worldGeojson,
 				height: 600,
 				key: 'iso_a2',
 				keyToColor,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 				width: 600,
 			},
 		}],
@@ -29,10 +30,11 @@ const examples = [
 		title: 'Basic props (world)',
 		usage: `
 			<ChoroplethSVG
-				{geojson}
 				{keyToColor}
 				height=600
 				key='iso_a2'
+				topojson={worldTopojson}
+				topojsonId='countries'
 				width=600
 			/>
 		`,
@@ -48,11 +50,12 @@ const examples = [
 				colorDefaultFill: 'palegreen',
 				colorSea: 'aqua',
 				colorStroke: 'tomato',
-				geojson: worldGeojson,
 				height: 600,
 				key: 'iso_a2',
 				keyToColor,
 				sizeStroke: 1,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 				width: 600,
 			},
 		}],
@@ -60,7 +63,6 @@ const examples = [
 		title: 'Styles (world)',
 		usage: `
 			<ChoroplethSVG
-				{geojson}
 				{keyToColor}
 				colorDefaultFill='palegreen'
 				colorSea='aqua'
@@ -68,6 +70,8 @@ const examples = [
 				height=600
 				key='iso_a2'
 				sizeStroke=1
+				topojson={worldTopojson}
+				topojsonId='countries'
 				width=600
 			/>
 		`,
@@ -81,12 +85,13 @@ const examples = [
 			key: null,
 			value: {
 				colorStrokeSelected: 'red',
-				geojson: worldGeojson,
 				height: 600,
 				key: 'iso_a2',
 				keyToColor,
 				selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo'],
 				sizeStrokeSelected: 1.5,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 				width: 600,
 			},
 		}],
@@ -94,13 +99,14 @@ const examples = [
 		title: 'Highlighted regions (world)',
 		usage: `
 			<ChoroplethSVG
-				{geojson}
 				{keyToColor}
 				colorStrokeSelected='red',
 				height=600
 				key='iso_a2'
 				selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo']
 				sizeStrokeSelected=1.5
+				topojson={worldTopojson}
+				topojsonId='countries'
 				width=600
 			/>
 		`,
@@ -123,11 +129,12 @@ const examples = [
 		props: [{
 			key: null,
 			value: {
-				geojson: worldGeojson,
 				height: 600,
 				isInteractive: true,
 				key: 'iso_a2',
 				keyToColor,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 				width: 600,
 			},
 		}],
@@ -135,7 +142,6 @@ const examples = [
 		title: 'Interactivity',
 		usage: `
 			<ChoroplethSVG
-				{geojson}
 				{keyToColor}
 				height=600
 				isInteractive={true}
@@ -143,6 +149,8 @@ const examples = [
 				on:clicked={onClicked}
 				on:entered={onEntered}
 				on:exited={onExited}
+				topojson={worldTopojson}
+				topojsonId='countries'
 				width=600
 			/>
 		`,
@@ -172,17 +180,19 @@ const examples = [
 		props: [{
 			key: 'geoAzimuthalEqualArea',
 			value: {
-				geojson: worldGeojson,
 				height: 600,
 				key: 'iso_a2',
 				keyToColor,
 				projection: 'geoAzimuthalEqualArea',
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 				width: 600,
 			}
 		}, {
 			key: 'geoOrthographic',
 			value: {
-				geojson: worldGeojson,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 				height: 600,
 				key: 'iso_a2',
 				keyToColor,
@@ -194,11 +204,12 @@ const examples = [
 		title: 'Projection',
 		usage: `
 			<ChoroplethSVG
-				{geojson}
 				{keyToColor}
 				height=600
 				key='iso_a2'
 				projection='a-projection-id'
+				topojson={worldTopojson}
+				topojsonId='countries'
 				width=600
 			/>
 		`,

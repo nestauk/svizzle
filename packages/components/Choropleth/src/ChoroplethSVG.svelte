@@ -1,10 +1,15 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { feature as geoObject } from 'topojson-client';
   import { geoPath } from 'd3-geo';
-  import * as projections from './projections';
   import * as _ from 'lamb';
-  import { makeUpdateFeaturesProperty } from '@svizzle/geo';
+  import {
+    makeUpdateFeaturesProperty,
+    setGeometryPrecision
+  } from '@svizzle/geo';
   import { isNotNullWith } from '@svizzle/utils';
+
+  import * as projections from './projections';
 
   const dispatch = createEventDispatcher();
   const hasColor = isNotNullWith(_.getPath('properties.color'));
@@ -14,30 +19,37 @@
     bottom: 10,
     left: 10,
   };
+  const truncateGeojson = setGeometryPrecision(4);
+  const topoToGeo = (topojson, id) =>
+    truncateGeojson(geoObject(topojson, topojson.objects[id]));
 
   export let colorDefaultFill;
   export let colorSea;
   export let colorStroke;
   export let colorStrokeSelected;
-  export let geojson;
-  export let height;
+  // export let geojson;
+  export let height; // required
   export let isInteractive;
-  export let key;
   export let key_alt;
+  export let key; // required
   export let keyToColor;
   export let projection;
   export let selectedKeys;
   export let sizeStroke;
   export let sizeStrokeSelected;
-  export let width;
+  export let topojson; // required
+  export let topojsonId; // required
+  export let width; // required
 
   // FIXME https://github.com/sveltejs/svelte/issues/4442
   $: colorDefaultFill = colorDefaultFill || 'white';
   $: colorSea = colorSea || 'white';
   $: colorStroke = colorStroke || 'grey';
   $: colorStrokeSelected = colorStrokeSelected || 'black';
-  $: key_alt = key_alt || 'name';
+  $: geojson = topoToGeo(topojson, topojsonId);
   $: isInteractive = isInteractive || false;
+  $: key_alt = key_alt || 'name';
+  $: keyToColor = keyToColor || {};
   $: projection = projection && projections[projection] || projections.geoEquirectangular;
   $: selectedKeys = selectedKeys || [];
   $: sizeStroke = sizeStroke || 0.5;
@@ -46,7 +58,7 @@
   $: height = Math.max(0, height - safety.top - safety.bottom);
   $: width = Math.max(0, width - safety.left - safety.right);
   $: createColoredGeojson = makeUpdateFeaturesProperty({
-    map: keyToColor, propName: 'color', key, key_alt
+    key, key_alt, map: keyToColor, propName: 'color'
   });
   $: coloredGeojson = geojson && createColoredGeojson(geojson);
   $: fitProjection = geojson && projection().fitSize([width, height], geojson);

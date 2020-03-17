@@ -1,6 +1,6 @@
 import {formatSvelteMarkup} from './utils';
 import {keyToColor} from './BarchartV_props';
-import worldGeojson from '@svizzle/atlas/world_110m_iso_a2_geo.json';
+import worldTopojson from '@svizzle/atlas/data/1/world_110m_iso_a2_topo.json';
 
 const examples = [
 	{
@@ -18,18 +18,20 @@ const examples = [
 		props: [{
 			key: null,
 			value: {
-				geojson: worldGeojson,
 				key: 'iso_a2',
 				keyToColor,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 			},
 		}],
 		slug: 'ChoroplethDiv_basic_world',
 		title: 'Basic props (world)',
 		usage: `
 			<ChoroplethDiv
-				{geojson}
 				{keyToColor}
+				{topojson}
 				key='iso_a2'
+				topojsonId='countries'
 			/>
 		`,
 	},
@@ -44,7 +46,8 @@ const examples = [
 				colorDefaultFill: 'palegreen',
 				colorSea: 'aqua',
 				colorStroke: 'tomato',
-				geojson: worldGeojson,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 				key: 'iso_a2',
 				keyToColor,
 				sizeStroke: 1,
@@ -54,13 +57,14 @@ const examples = [
 		title: 'Styles (world)',
 		usage: `
 			<ChoroplethDiv
-				{geojson}
 				{keyToColor}
+				{topojson}
 				colorDefaultFill='palegreen'
 				colorSea='aqua'
 				colorStroke='tomato'
 				key='iso_a2'
 				sizeStroke=1
+				topojsonId='countries'
 			/>
 		`,
 	},
@@ -73,23 +77,25 @@ const examples = [
 			key: null,
 			value: {
 				colorStrokeSelected: 'red',
-				geojson: worldGeojson,
 				key: 'iso_a2',
 				keyToColor,
 				selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo'],
 				sizeStrokeSelected: 1.5,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 			},
 		}],
 		slug: 'ChoroplethDiv_selectedKeys',
 		title: 'Highlighted regions (world)',
 		usage: `
 			<ChoroplethDiv
-				{geojson}
 				{keyToColor}
+				{topojson}
 				colorStrokeSelected='red',
 				key='iso_a2'
 				selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo']
 				sizeStrokeSelected=1.5
+				topojsonId='countries'
 			/>
 		`,
 	},
@@ -111,23 +117,25 @@ const examples = [
 		props: [{
 			key: null,
 			value: {
-				geojson: worldGeojson,
 				isInteractive: true,
 				key: 'iso_a2',
 				keyToColor,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 			},
 		}],
 		slug: 'ChoroplethDiv_isInteractive',
 		title: 'Interactivity',
 		usage: `
 			<ChoroplethDiv
-				{geojson}
 				{keyToColor}
+				{topojson}
 				isInteractive={true}
 				key='iso_a2'
 				on:clicked={onClicked}
 				on:entered={onEntered}
 				on:exited={onExited}
+				topojsonId='countries'
 			/>
 		`,
 	},
@@ -156,15 +164,17 @@ const examples = [
 		props: [{
 			key: 'geoAzimuthalEqualArea',
 			value: {
-				geojson: worldGeojson,
 				key: 'iso_a2',
 				keyToColor,
 				projection: 'geoAzimuthalEqualArea',
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 			},
 		}, {
 			key: 'geoEqualEarth',
 			value: {
-				geojson: worldGeojson,
+				topojson: worldTopojson,
+				topojsonId: 'countries',
 				key: 'iso_a2',
 				keyToColor,
 				projection: 'geoEqualEarth',
@@ -174,10 +184,11 @@ const examples = [
 		title: 'Projection',
 		usage: `
 			<ChoroplethDiv
-				{geojson}
 				{keyToColor}
+				{topojson}
 				key='iso_a2'
 				projection='geoAzimuthalEqualArea'
+				topojsonId='countries'
 			/>
 		`,
 	},
