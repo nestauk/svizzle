@@ -46,7 +46,7 @@
   });
   $: if (wasNotResettingScroll && shouldResetScroll && scrollable) {
     scrollable.scrollTop = 0;
-  };
+  }
 
   // FIXME https://github.com/sveltejs/svelte/issues/4442
   $: focusedKeyColor = focusedKeyColor || 'rgba(0, 0, 0, 0.1)';
@@ -92,7 +92,7 @@
   <main
     bind:this={scrollable}
     class:titled={title}
-    on:mouseleave="{ () => hoveredKey = null }"
+    on:mouseleave="{ () => { hoveredKey = null } }"
   >
     {#each bars as {barStyle, barBackgroundStyle, displayValue, key, label} (key)}
     <div
@@ -116,59 +116,58 @@
   </main>
 </div>
 
-<style lang="less">
+<style>
   .BarchartV {
-    @headerHeight: 2em;
+    --BarchartV_headerHeight: 2em;
 
     width: 100%;
     height: 100%;
     padding: 10px; /* FIXME use a variable to align with other content */
+  }
 
-    header {
-      width: 100%;
-      height: @headerHeight;
+  .BarchartV header {
+    width: 100%;
+    height: var(--BarchartV_headerHeight);
+    display: flex;
+    align-items: center;
+  }
 
-      display: flex;
-      align-items: center;
-    }
+  .BarchartV main {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    padding-right: 5px;
+  }
 
-    main {
-      width: 100%;
-      height: 100%;
-      max-height: 100%;
-      overflow-y: auto;
-      padding-right: 5px;
+  .BarchartV main.titled {
+    height: calc(100% - var(--BarchartV_headerHeight));
+    max-height: calc(100% - var(--BarchartV_headerHeight));
+  }
 
-      &.titled {
-        height: calc(100% - @headerHeight);
-        max-height: calc(100% - @headerHeight);
-      }
+  .BarchartV main .item {
+    padding: 0.5em 0;
+  }
 
-      .item {
-        padding: 0.5em 0;
+  .BarchartV main .item.clickable {
+    cursor: pointer;
+  }
 
-        &.clickable {
-          cursor: pointer;
-        }
+  .BarchartV main .item .labels {
+    line-height: 1em;
+    padding: 0;
+    margin: 0;
+    color: grey;
+    font-size: 0.9em;
+    padding-bottom: 0.15em;
 
-        .labels {
-          line-height: 1em;
-          padding: 0;
-          margin: 0;
-          color: grey;
-          font-size: 0.9em;
-          padding-bottom: 0.15em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .bar {
-          height: 4px;
-          background-color: black;
-        }
-      }
-    }
+  .BarchartV main .item .bar {
+    height: 4px;
+    background-color: black;
   }
 </style>

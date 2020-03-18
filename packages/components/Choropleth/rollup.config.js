@@ -1,6 +1,5 @@
 import path from "path";
 
-import autoPreprocess from 'svelte-preprocess';
 import analyze from "rollup-plugin-analyzer";
 import json from "@rollup/plugin-json";
 // import buble from "rollup-plugin-buble";
@@ -30,7 +29,6 @@ const input = {
   index: 'src/index.js',
 };
 const dir = 'dist';
-const preprocess = autoPreprocess();
 const treeshake = {
   annotations: true,
   moduleSideEffects: id => {
@@ -54,7 +52,7 @@ const cjsConfig = {
   plugins: [
     resolve(),
     commonjs(),
-    svelte({preprocess}),
+    svelte(),
     cleanup(),
     json(),
   ],
@@ -75,7 +73,7 @@ const makeConfig = _.pipe([
     plugins: [
       resolve(),
       commonjs(),
-      svelte({preprocess}),
+      svelte(),
       cleanup(),
       json(),
       // buble({

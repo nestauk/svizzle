@@ -1,6 +1,5 @@
 import path from "path";
 
-import autoPreprocess from 'svelte-preprocess';
 import analyze from "rollup-plugin-analyzer";
 // import buble from "rollup-plugin-buble";
 import cleanup from "rollup-plugin-cleanup";
@@ -22,7 +21,6 @@ const analyzer = analyze({
 const banner = makeBanner(pkg);
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = pkg.module;
-const preprocess = autoPreprocess();
 const treeshake = {
   annotations: true,
   moduleSideEffects: id => {
@@ -46,7 +44,7 @@ const cjsConfig = {
   plugins: [
     resolve(),
     commonjs(),
-    svelte({preprocess}),
+    svelte(),
     cleanup(),
   ],
   treeshake
@@ -65,7 +63,7 @@ const browserConfig = {
     plugins: [
       resolve(),
       commonjs(),
-      svelte({preprocess}),
+      svelte(),
       cleanup(),
       // buble({
       //   transforms: { dangerousForOf: true }
