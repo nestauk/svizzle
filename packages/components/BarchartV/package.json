@@ -54,7 +54,7 @@
         "svelte"
     ],
     "license": "MIT",
-    "browser": "dist/BarchartV.js",
+    "browser": "dist/BarchartV.browser.js",
     "main": "dist/BarchartV.js",
     "module": "src/BarchartV.svelte",
     "name": "@svizzle/BarchartV",
@@ -67,7 +67,7 @@
         "directory": "packages/components/BarchartV"
     },
     "scripts": {
-        "build": "rollup -c",
+        "build": "rimraf dist && rollup -c",
         "bumppack": "npm run setprerelease && npm run pack",
         "lint": "eslint src/*.{js,svelte}",
         "pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",

@@ -1,6 +1,6 @@
 # Svizzle changelog
 
-## next
+## 20200318
 
 ## `@svizzle/BarchartV` v0.1.0
 
@@ -10,21 +10,21 @@
 
 - added components
 
-## `@svizzle/atlas` v0.1.0 (next)
+## `@svizzle/atlas` v0.1.0
 
 - moved world boundaries scripts from /Choropleth
 - add NUTS scripts
+
+## `@svizzle/file` v0.7.0
+
+- add `saveString`
+- add `saveStringPassthrough`
 
 ## `@svizzle/geo` v0.4.0
 
 - add `makeAddFeaturesProperty`
 
-## `@svizzle/file` v0.7.0 (next)
-
-- add `saveString`
-- add `saveStringPassthrough`
-
-## `@svizzle/utils` v0.6.0 (next)
+## `@svizzle/utils` v0.6.0
 
 ### (Any -> Any) -> (Object -> Object)
 

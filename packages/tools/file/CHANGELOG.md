@@ -1,4 +1,4 @@
-## `@svizzle/file` v0.7.0 (next)
+## `@svizzle/file` v0.7.0
 
 - add `saveString`
 - add `saveStringPassthrough`

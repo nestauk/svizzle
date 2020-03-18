@@ -36,8 +36,9 @@
     "topojson-client": "^3.1.0"
   },
   "name": "@svizzle/site",
+  "private": true,
   "scripts": {
-    "build": "sapper build --legacy",
+    "sitebuild": "sapper build --legacy",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "dev": "sapper dev",
@@ -45,5 +46,5 @@
     "start": "node __sapper__/build",
     "test": "run-p --race dev cy:run"
   },
-  "version": "0.0.1"
+  "version": "0.1.0"
 }

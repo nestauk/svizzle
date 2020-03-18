@@ -10,6 +10,7 @@ import resolve from "rollup-plugin-node-resolve";
 import svelte from "rollup-plugin-svelte";
 import {terser} from "rollup-plugin-terser";
 
+import * as _ from 'lamb';
 import {makeBanner, renameToMinJs} from "@svizzle/dev";
 
 import pkg from "./package.json";
@@ -22,12 +23,19 @@ const analyzer = analyze({
 });
 const banner = makeBanner(pkg);
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
-const input = pkg.module;
+const input = {
+  ChoroplethDiv: 'src/ChoroplethDiv.svelte',
+  ChoroplethSVG: 'src/ChoroplethSVG.svelte',
+  ChoroplethWorldDiv: 'src/ChoroplethWorldDiv.svelte',
+  index: 'src/index.js',
+};
+const dir = 'dist';
 const preprocess = autoPreprocess();
 const treeshake = {
   annotations: true,
   moduleSideEffects: id => {
     // prevent from unadvertantly setting to false no matter what we install
+    if (/@svizzle\/geo/g.test(id)) return false;
     if (/@svizzle\/utils/g.test(id)) return false;
     if (/d3-geo/g.test(id)) return false;
     if (/lamb/g.test(id)) return false;
@@ -39,7 +47,7 @@ const cjsConfig = {
   input,
   output: {
     banner,
-    file: pkg.main,
+    dir,
     format: "cjs",
     indent: false
   },
@@ -53,14 +61,15 @@ const cjsConfig = {
   treeshake
 };
 
-const browserConfig = {
+const makeConfig = _.pipe([
+  _.mapValuesWith((value, name) => ({
     external,
-    input,
+    input: value,
     output: {
       banner,
-      file: pkg.browser,
-      format: "umd",
-      name: pkg.name,
+      file: `${dir}/${name}.browser.js`,
+      format: 'umd',
+      name: `${pkg.name}/${name}`,
       indent: false
     },
     plugins: [
@@ -74,28 +83,31 @@ const browserConfig = {
       // }),
     ],
     treeshake
-};
+  })),
+  _.values
+]);
 
-const browserMinifiedConfig = {
-  ...browserConfig,
+const browserConfig = makeConfig(input);
+const browserMinifiedConfig = browserConfig.map(obj => ({
+  ...obj,
   output: {
-    ...browserConfig.output,
-    file: renameToMinJs(browserConfig.output.file)
+    ...obj.output,
+    file: renameToMinJs(obj.output.file)
   },
   plugins: [
-    ...browserConfig.plugins,
+    ...obj.plugins,
     terser({
       output: {
-        preamble: browserConfig.output.banner
+        preamble: obj.output.banner
       }
     }),
     analyzer
   ],
   treeshake
-};
+}));
 
 export default [
-  browserConfig,
-  browserMinifiedConfig,
+  ...browserConfig,
+  ...browserMinifiedConfig,
   cjsConfig
 ];

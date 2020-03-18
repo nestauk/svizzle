@@ -49,10 +49,9 @@ It's important to note that these tarballs are a mean to be able to test new fea
 
 - checkout the `dev` branch.
 - for each package, check that we're exporting from all the modules in the `index.js`
-- `npm run cleanall`
 - `npm run lernacleanboot`
-- `lerna run test`
 - `lerna run build`
+- `lerna run test`
 - tree-shaking:
    - document side effects in docstrings, for example using (`@sideEffects: console.log` or `@sideEffects: fs.writeFile`): a package is supposed to be side-effects-free if there are no occurrences of `@sideEffects`;
    - update the `treeshake.moduleSideEffects` in `rollup.config.js`;

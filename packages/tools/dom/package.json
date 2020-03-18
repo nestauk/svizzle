@@ -38,7 +38,6 @@
     "homepage": "https://github.com/nestauk/svizzle",
     "keywords": [
         "DOM",
-        "functional programming",
         "utility"
     ],
     "license": "MIT",

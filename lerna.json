@@ -1,11 +1,21 @@
 {
-    "command": {
-        "version": {
-            "allowBranch": "dev"
-        }
+  "command": {
+    "version": {
+      "allowBranch": "dev"
     },
-    "packages": [
-        "packages/**"
-    ],
-    "version": "independent"
+    "publish": {
+      "ignoreChanges": [
+        "packages/docs/site/**",
+        "*.md"
+      ]
+    }
+  },
+  "ignoreChanges": [
+    "packages/docs/**",
+    "*.md"
+  ],
+  "packages": [
+    "packages/**"
+  ],
+  "version": "independent"
 }
