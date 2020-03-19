@@ -1,6 +1,7 @@
-# BarchartV
+# barchart
 
-Vertical barchart.
+A package containing barchart components for Svelte:
+- BarchartV: vertical barchart
 
 ## Props
 

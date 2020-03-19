@@ -50,17 +50,16 @@
         "svelte"
     ],
     "license": "MIT",
-    "browser": "dist/BarchartV.browser.js",
-    "main": "dist/BarchartV.js",
-    "module": "src/BarchartV.svelte",
-    "name": "@svizzle/BarchartV",
+    "main": "dist/index.js",
+    "module": "src/index.js",
+    "name": "@svizzle/barchart",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
         "url": "github:nestauk/svizzle",
-        "directory": "packages/components/BarchartV"
+        "directory": "packages/components/barchart"
     },
     "scripts": {
         "build": "rimraf dist && rollup -c",

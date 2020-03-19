@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@svizzle/BarchartV": "^0.1.0",
-    "@svizzle/Choropleth": "^0.1.0",
+    "@svizzle/barchart": "^0.1.0",
+    "@svizzle/choropleth": "^0.1.0",
     "@svizzle/atlas": "^0.1.0",
     "@svizzle/utils": "^0.6.0",
     "compression": "^1.7.1",

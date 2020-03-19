@@ -34,7 +34,7 @@ export default {
 			}),
 			resolve({
 				/* disabled as this makes the build fail with
-				> 'makeStyle' is not exported by ../../tools/dom/dist/browser.js, imported by ../../components/BarchartV/src/BarchartV.svelte
+				> 'makeStyle' is not exported by ../../tools/dom/dist/browser.js, imported by ../../components/barchart/src/BarchartV.svelte
 				*/
 				// browser: true,
 				dedupe: ['svelte']
@@ -88,8 +88,8 @@ export default {
 		external:
 			Object.keys(pkg.dependencies)
 			.filter(name => ![
-				'@svizzle/BarchartV',
-				'@svizzle/Choropleth',
+				'@svizzle/barchart',
+				'@svizzle/choropleth',
 				'@svizzle/utils',
 				'd3-geo',
 				'svelte-json-tree',

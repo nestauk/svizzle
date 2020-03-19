@@ -14,8 +14,8 @@ Svizzle is a mono-repo containing the source code of various npm packages: pleas
 
 **[Components](https://github.com/nestauk/svizzle/tree/master/packages/components)**
 
-- [`@svizzle/BarchartV`](https://github.com/nestauk/svizzle/tree/master/packages/components/BarchartV)
-- [`@svizzle/Choropleth`](https://github.com/nestauk/svizzle/tree/master/packages/components/Choropleth)
+- [`@svizzle/barchart`](https://github.com/nestauk/svizzle/tree/master/packages/components/barchart)
+- [`@svizzle/choropleth`](https://github.com/nestauk/svizzle/tree/master/packages/components/choropleth)
 
 **[Tools](https://github.com/nestauk/svizzle/tree/master/packages/tools)**
 

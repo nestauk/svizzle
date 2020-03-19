@@ -21,6 +21,7 @@ const analyzer = analyze({
   summaryOnly: true
 });
 const banner = makeBanner(pkg);
+const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = {
   ChoroplethDiv: 'src/ChoroplethDiv.svelte',
@@ -28,7 +29,6 @@ const input = {
   ChoroplethWorldDiv: 'src/ChoroplethWorldDiv.svelte',
   index: 'src/index.js',
 };
-const dir = 'dist';
 const treeshake = {
   annotations: true,
   moduleSideEffects: id => {

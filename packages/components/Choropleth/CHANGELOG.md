@@ -1,3 +1,3 @@
-## `@svizzle/Choropleth` v0.1.0 (next)
+## `@svizzle/choropleth` v0.1.0 (next)
 
 - added the component

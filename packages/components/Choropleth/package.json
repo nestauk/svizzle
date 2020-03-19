@@ -53,14 +53,14 @@
     "license": "MIT",
     "main": "dist/index.js",
     "module": "src/index.js",
-    "name": "@svizzle/Choropleth",
+    "name": "@svizzle/choropleth",
     "publishConfig": {
         "access": "public"
     },
     "repository": {
         "type": "git",
         "url": "github:nestauk/svizzle",
-        "directory": "packages/components/Choropleth"
+        "directory": "packages/components/choropleth"
     },
     "scripts": {
         "build": "rimraf dist && rollup -c",

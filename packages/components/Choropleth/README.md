@@ -1,12 +1,17 @@
-# Choropleth
+# choropleth
 
-A generic choropleth component for Svelte.
+A package containing choropleth components for Svelte:
+- ChoroplethSVG
+- ChoroplethDiv
+- ChoroplethWorldDiv
 
 ## Terminology
 
-Since the component can render different types of areas, here we're using the term "region" to refer to the geographic regions type we'll be representing (e.g. 'country', 'NUTS2', etc).
+Since these components can render different types of areas, here we're using the term "region" to refer to the geographic regions type we'll be representing (e.g. 'country', 'NUTS2', etc).
 
 ## Props
+
+Here are the props in use by these components (depending on the components some might not be used).
 
 ### `colorDefaultFill`
 
@@ -40,9 +45,9 @@ Type: `string`
 
 Default: `white`
 
-### `geojson`
+### `topojson`
 
-The Geojson FeatureCollection of regions to be represented, with features' `properties` having the a field corresponding to the prop `key`.
+The Topojson object of regions to be represented, with `properties` having the a field corresponding to the prop `key`.
 
 Type: `object`
 
@@ -76,7 +81,7 @@ Default: `undefined`
 
 ### `key_alt`
 
-You might provide geojson where not all the features have the provided `key`.
+You might provide a topojson where not all the features have the provided `key`.
 For example if you provide `key: 'iso_a2'` (ISO Alpha 2 codes), disputed or partially recognised countries might not have that code (e.g. `Kosovo`).
 For these cases you can provide a `key_alt`, equal to `name` by default.",
 

@@ -2,17 +2,17 @@
 
 ## 20200319
 
-## `@svizzle/BarchartV` v0.1.0
+## `@svizzle/barchart` v0.1.0
 
 - added the component
 
-## `@svizzle/Choropleth` v0.1.0
+## `@svizzle/choropleth` v0.1.0
 
 - added components
 
 ## `@svizzle/atlas` v0.1.0
 
-- moved world boundaries scripts from /Choropleth
+- moved world boundaries scripts from /choropleth
 - add NUTS scripts
 
 ## `@svizzle/file` v0.7.0

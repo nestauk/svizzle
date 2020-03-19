@@ -1,5 +1,5 @@
-import BarchartV from '@svizzle/BarchartV/src/BarchartV.svelte';
-import * as Choropleth from '@svizzle/Choropleth/src';
+import BarchartV from '@svizzle/barchart/src/BarchartV.svelte';
+import * as Choropleth from '@svizzle/choropleth/src';
 
 export default {
 	BarchartV,

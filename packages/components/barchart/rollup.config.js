@@ -8,6 +8,7 @@ import resolve from "rollup-plugin-node-resolve";
 import svelte from "rollup-plugin-svelte";
 import {terser} from "rollup-plugin-terser";
 
+import * as _ from 'lamb';
 import {makeBanner, renameToMinJs} from "@svizzle/dev";
 
 import pkg from "./package.json";
@@ -19,8 +20,12 @@ const analyzer = analyze({
   summaryOnly: true
 });
 const banner = makeBanner(pkg);
+const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
-const input = pkg.module;
+const input = {
+  BarchartV: 'src/BarchartV.svelte',
+  index: 'src/index.js',
+};
 const treeshake = {
   annotations: true,
   moduleSideEffects: id => {
@@ -37,7 +42,7 @@ const cjsConfig = {
   input,
   output: {
     banner,
-    file: pkg.main,
+    dir,
     format: "cjs",
     indent: false
   },
@@ -50,14 +55,15 @@ const cjsConfig = {
   treeshake
 };
 
-const browserConfig = {
+const makeConfig = _.pipe([
+  _.mapValuesWith((value, name) => ({
     external,
-    input,
+    input: value,
     output: {
       banner,
-      file: pkg.browser,
-      format: "umd",
-      name: pkg.name,
+      file: `${dir}/${name}.browser.js`,
+      format: 'umd',
+      name: `${pkg.name}/${name}`,
       indent: false
     },
     plugins: [
@@ -65,33 +71,37 @@ const browserConfig = {
       commonjs(),
       svelte(),
       cleanup(),
+      // json(),
       // buble({
       //   transforms: { dangerousForOf: true }
       // }),
     ],
     treeshake
-};
+  })),
+  _.values
+]);
 
-const browserMinifiedConfig = {
-  ...browserConfig,
+const browserConfig = makeConfig(input);
+const browserMinifiedConfig = browserConfig.map(obj => ({
+  ...obj,
   output: {
-    ...browserConfig.output,
-    file: renameToMinJs(browserConfig.output.file)
+    ...obj.output,
+    file: renameToMinJs(obj.output.file)
   },
   plugins: [
-    ...browserConfig.plugins,
+    ...obj.plugins,
     terser({
       output: {
-        preamble: browserConfig.output.banner
+        preamble: obj.output.banner
       }
     }),
     analyzer
   ],
   treeshake
-};
+}));
 
 export default [
-  browserConfig,
-  browserMinifiedConfig,
+  ...browserConfig,
+  ...browserMinifiedConfig,
   cjsConfig
 ];
