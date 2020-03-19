@@ -49,9 +49,11 @@ It's important to note that these tarballs are a mean to be able to test new fea
 
 - checkout the `dev` branch.
 - for each package, check that we're exporting from all the modules in the `index.js`
-- `npm run lernacleanboot`
-- `lerna run build`
-- `lerna run test`
+- `npm run prepublishOnly` or alternatively run its steps separately:
+   - `npm run lernacleanboot`
+   - `lerna run lint`
+   - `lerna run test`
+   - `lerna run build`
 - tree-shaking:
    - document side effects in docstrings, for example using (`@sideEffects: console.log` or `@sideEffects: fs.writeFile`): a package is supposed to be side-effects-free if there are no occurrences of `@sideEffects`;
    - update the `treeshake.moduleSideEffects` in `rollup.config.js`;
@@ -73,21 +75,12 @@ It's important to note that these tarballs are a mean to be able to test new fea
 In the `dev` branch:
 
 - Bump the versions: `lerna version --no-changelog --no-git-tag-version --no-push`:
-
-  Follow instructions to bump changed packages with a `patch`, `minor` or `major` version, accept when ready.
-
-  After accepting, this will:
-
-  - run the `prepublishOnly` script:
-    - run cleanups,
-    - re-install dependencies,
-    - run tests,
-    - make builds;
-  - bump versions (only allowed in `dev`).
+   - Follow instructions to bump changed packages with a `patch`, `minor` or `major` version, accept when ready.
+   - After accepting the final confirmation step, this will bump versions (only allowed in `dev`).
 
 - Create a commit on the repo.
 
-- if something goes wrong or we forgot something and Lerna actually committed:
+- If something goes wrong or we forgot something and Lerna actually committed:
    - discard the version commit, we have 2 ways:
       - `git revert HEAD`: creates a commit to revert the version commit created by Lerna (we will rebase anyway), or
       - `git reset --hard HEAD~1`: reset the index and the working tree to 1 commit before the commit created by Lerna;
@@ -104,7 +97,11 @@ In the `dev` branch:
 ## Publishing
 
 - `git checkout master`
-- `lerna publish from-package`.
+- `lerna publish from-package`. This will run the `prepublishOnly` script which in turn:
+    - runs cleanups,
+    - re-install dependencies,
+    - run tests,
+    - make builds.
 
 ### Tagging / releasing
 
