@@ -6,9 +6,9 @@
     "description": "Svizzle Atlas contains geographic boundaries for mapping.",
     "devDependencies": {
         "@svizzle/dev": "^0.3.0",
-        "@svizzle/file": "^0.6.0",
-        "@svizzle/geo": "^0.3.0",
-        "@svizzle/utils": "^0.5.0",
+        "@svizzle/file": "^0.7.0",
+        "@svizzle/geo": "^0.4.0",
+        "@svizzle/utils": "^0.6.0",
         "d3-dsv": "^1.2.0",
         "eslint": "^6.8.0",
         "eslint-plugin-import": "^2.18.2",

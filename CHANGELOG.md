@@ -1,6 +1,6 @@
 # Svizzle changelog
 
-## 20200318
+## 20200319
 
 ## `@svizzle/BarchartV` v0.1.0
 
