@@ -17,8 +17,6 @@
         "eslint-plugin-import": "^2.18.2",
         "eslint-plugin-svelte3": "^2.7.3",
         "esm": "^3.0.84",
-        "jsdom": "^15.1.1",
-        "jsdom-global": "^3.0.2",
         "mkdirp": "^0.5.1",
         "mocha": "^5.2.0",
         "rimraf": "^3.0.0",
@@ -67,11 +65,10 @@
     "scripts": {
         "build": "rimraf dist && rollup -c",
         "bumppack": "npm run setprerelease && npm run pack",
-        "lint": "eslint src/*.{js,svelte}",
+        "lint": "eslint src/*.svelte",
         "pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
         "setpreminor": "npm --no-git-tag-version version preminor --preid=dev",
-        "setprerelease": "npm --no-git-tag-version version prerelease --preid=dev",
-        "test": "mocha -r esm -r jsdom-global/register --recursive src"
+        "setprerelease": "npm --no-git-tag-version version prerelease --preid=dev"
     },
     "sideEffects": false,
     "version": "0.1.0"

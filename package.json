@@ -27,6 +27,6 @@
         "lernacleanboot": "npm run cleanall && npm run lernaboot",
         "lernalint": "lerna run lint",
         "lernatest": "lerna run test",
-        "prepublishOnly": "npm run cleanall && npm run lernaboot && lerna run lint && lerna run test && lerna run build"
+        "prepublishOnly": "npm run lernacleanboot && lerna run lint && lerna run test && lerna run build"
     }
 }
