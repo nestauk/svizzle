@@ -33,7 +33,10 @@ export default {
 				emitCss: true,
 			}),
 			resolve({
-				browser: true,
+				/* disabled as this makes the build fail with
+				> 'makeStyle' is not exported by ../../tools/dom/dist/browser.js, imported by ../../components/BarchartV/src/BarchartV.svelte
+				*/
+				// browser: true,
 				dedupe: ['svelte']
 			}),
 			commonjs(),
