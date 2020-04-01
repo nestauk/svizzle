@@ -66,8 +66,13 @@ export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
  * Note that you can pass a `key or an alternative key `key_alt` e.g. when you use ISO Alpha 2 codes and you need to identify unrecognized territories with another key.
  *
  * @function
- * @arg {object} geojson - Geojson object
- * @return {array}
+ * @arg {object} args - Geojson object
+ * @arg {string} args.key_alt - Alternative key to be found in properties in `key` is not found.
+ * @arg {string} args.key - Key to be found in properties
+ * @arg {object} args.map - Mapping key (string) -> string
+ * @arg {function} args.mapFn - Function key (string) -> string
+ * @arg {string} args.propName - Name of the property to be added to `properties`
+ * @return {function} - Object -> Object
  *
  * @example
 > const geojson = {
@@ -150,16 +155,36 @@ export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
 }
  * @version 0.4.0
  */
-export const makeUpdateFeaturesProperty = ({propName, map, key, key_alt}) =>
+export const makeUpdateFeaturesProperty = ({
+  key_alt,
+  key,
+  map,
+  mapFn,
+  propName,
+}) =>
   _.updateKey('features', _.mapWith(
-      _.updateKey('properties', properties => ({
-        ...properties,
-        [propName]: _.has(map, properties[key])
-          ? map[properties[key]]
-          : _.has(map, properties[key_alt])
-            ? map[properties[key_alt]]
-            : undefined,
-      }))
+      _.updateKey('properties', properties => {
+        let propValue;
+
+        if (map) {
+          propValue = _.has(map, properties[key])
+            ? map[properties[key]]
+            : _.has(map, properties[key_alt])
+              ? map[properties[key_alt]]
+              : undefined
+        } else if (mapFn) {
+          propValue = properties[key]
+            ? mapFn(properties[key])
+            : properties[key_alt]
+              ? mapFn(properties[key_alt])
+              : undefined
+        }
+
+        return {
+          ...properties,
+          [propName]: propValue
+        }
+      })
   ));
 
 /**

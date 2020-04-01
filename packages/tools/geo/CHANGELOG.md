@@ -1,4 +1,8 @@
-## `@svizzle/geo` v0.4.0 (next)
+## `@svizzle/geo` v0.4.1 (next)
+
+- `makeAddFeaturesProperty` accepts `mapFn`
+
+## `@svizzle/geo` v0.4.0
 
 - add `makeAddFeaturesProperty`
 

@@ -104,13 +104,14 @@ export const transformPaths = pathToFn => obj =>
 /**
  * Return a function that expects an object and applies the functions in the values of the input object to the correspondent values of the provided object .
  * Can be useful with [d3.csvParse]{@link https://github.com/d3/d3-dsv#csvParse}, see the example below.
+ * Since 0.6.0 it assumes identity for missing keys.
  *
  * @function
  * @arg {object} fnMap - object with functions as values
  * @return {function} - Object -> Object
  *
  * @example
-const conversionFn = transformValues({
+> const conversionFn = transformValues({
     name: _.identity,
     a: _.pipe([Number, Math.sqrt]),
     b: Number,
@@ -126,6 +127,13 @@ d3.csvParse("baseurl/file.csv", conversionFn);
 name,a,b,width
 foo,9,2,10px
 bar,4,4,25px
+
+> const conversionFn = transformValues({
+    a: _.pipe([Number, Math.sqrt]),
+});
+
+> conversionFn({name: "foo", a: "9", b: "2", width: "10px"})
+{name: "foo", a: 3, b: "2", width: "10px"}
  *
  * @version 0.1.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}

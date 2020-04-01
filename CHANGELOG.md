@@ -1,5 +1,13 @@
 # Svizzle changelog
 
+## next
+
+- updated some docs
+
+## `@svizzle/geo` v0.4.1 (next)
+
+- `makeAddFeaturesProperty` accepts `mapFn`
+
 ## 20200319
 
 ## `@svizzle/barchart` v0.1.0
