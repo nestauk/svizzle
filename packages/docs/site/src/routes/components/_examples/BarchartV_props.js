@@ -1,3 +1,7 @@
+import * as _ from 'lamb';
+import {scaleLinear, scaleOrdinal} from 'd3-scale';
+import {hsl} from 'd3-color';
+
 export const countryKeyValue = [
   { key: 'AL', value: 112 },
   { key: 'AD', value: 234 },
@@ -154,10 +158,9 @@ export const countryKeyRawValue = [
   { key: 'GB', rawValue: 56 }
 ];
 
-export const keyToColor = {
-  // keep these 2 commented for the `keyToColor` example to show 2 black bars.
-  // AL: 'antiquewhite',
-  // AD: 'aqua',
+const keyToColorFull = {
+  AL: 'antiquewhite',
+  AD: 'aqua',
   AM: 'blue',
   AT: 'blueviolet',
   AZ: 'chartreuse',
@@ -207,6 +210,9 @@ export const keyToColor = {
   GB: 'rgb(128, 0, 128)'
 }
 
+// keep these 2 commented for the `keyToColor` example to show 2 black bars.
+export const keyToColor = _.skip(keyToColorFull, ['AL', 'AD']);
+
 export const keyToColorShort = {
   AM: 'blue',
   AT: 'blueviolet',
@@ -216,6 +222,17 @@ export const keyToColorShort = {
   BA: 'aquamarine',
   BG: 'rgb(128, 128, 0)',
 }
+
+const keyToColorFullKeys = _.keys(keyToColorFull);
+const hueScale =
+  scaleLinear()
+  .domain([0, keyToColorFullKeys.length])
+  .range([0, 300]);
+
+export const keyToColorFn =
+  scaleOrdinal()
+  .domain(keyToColorFullKeys)
+  .range(keyToColorFullKeys.map((k, i) => hsl(hueScale(i), 0.5, 0.5).toString()));
 
 export const keyToLabel = {
   AL: 'Albania',

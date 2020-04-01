@@ -1,5 +1,5 @@
 import {formatSvelteMarkup} from './utils';
-import {keyToColor} from './BarchartV_props';
+import {keyToColor, keyToColorFn} from './BarchartV_props';
 import World_110m_iso_a2_topo from '@svizzle/atlas/gist/World_110m_iso_a2_topo.json';
 import NUTS_RG_10M_2016_4326_LEVL_2_UK from '@svizzle/atlas/gist/NUTS_RG_10M_2016_4326_LEVL_2_UK.json';
 
@@ -36,8 +36,39 @@ const examples = [
 				width: 600,
 			},
 		}],
-		slug: 'ChoroplethSVG_basic_world',
+		slug: 'ChoroplethSVG-basic_world',
 		title: 'Basic props (world)',
+		usage: `
+			<ChoroplethSVG
+				{keyToColor}
+				height=600
+				key='iso_a2'
+				topojson={World_110m_iso_a2_topo}
+				topojsonId='countries'
+				width=600
+			/>
+		`,
+	},
+	{
+		content: [
+			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `colorDefaultFill` (which defaults to `white`)."},
+		],
+		name: 'ChoroplethSVG',
+		props: [{
+			key: null,
+			value: {
+				height: 600,
+				key: 'iso_a2',
+				keyToColorFn,
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				width: 600,
+			},
+		}],
+		slug: 'ChoroplethSVG-keyToColorFn',
+		title: 'Colors via function',
 		usage: `
 			<ChoroplethSVG
 				{keyToColor}
@@ -69,7 +100,7 @@ const examples = [
 				width: 600,
 			},
 		}],
-		slug: 'ChoroplethSVG_colors',
+		slug: 'ChoroplethSVG-colors',
 		title: 'Styles (world)',
 		usage: `
 			<ChoroplethSVG
@@ -105,7 +136,7 @@ const examples = [
 				width: 600,
 			},
 		}],
-		slug: 'ChoroplethSVG_selectedKeys',
+		slug: 'ChoroplethSVG-selectedKeys',
 		title: 'Highlighted regions (world)',
 		usage: `
 			<ChoroplethSVG
@@ -148,7 +179,7 @@ const examples = [
 				width: 600,
 			},
 		}],
-		slug: 'ChoroplethSVG_isInteractive',
+		slug: 'ChoroplethSVG-isInteractive',
 		title: 'Interactivity',
 		usage: `
 			<ChoroplethSVG
@@ -210,7 +241,7 @@ const examples = [
 				width: 600,
 			}
 		}],
-		slug: 'ChoroplethSVG_projection',
+		slug: 'ChoroplethSVG-projection',
 		title: 'Projection',
 		usage: `
 			<ChoroplethSVG

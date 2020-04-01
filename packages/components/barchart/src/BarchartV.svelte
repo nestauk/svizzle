@@ -17,6 +17,7 @@
   export let isInteractive;
   export let items;
   export let keyToColor;
+  export let keyToColorFn;
   export let keyToLabel;
   export let keyToLabelFn;
   export let shouldResetScroll;
@@ -58,19 +59,19 @@
   $: scale = linearScale([0, max], [0, 100]);
   $: bars = items.map(item => {
     const value = valueAccessor(item);
-    const displayValue = formatFn ? formatFn(value) : value;
 
     return merge(item, {
-      displayValue,
+      displayValue: formatFn ? formatFn(value) : value,
       label: keyToLabel && keyToLabel[item.key]
         ? keyToLabel[item.key]
         : keyToLabelFn
           ? keyToLabelFn(item.key)
           : item.key,
       barStyle: makeStyle({
-        'background-color':
-          keyToColor && keyToColor[item.key]
-            ? keyToColor[item.key]
+        'background-color': keyToColor
+          ? keyToColor[item.key] || defaultColor
+          : keyToColorFn
+            ? keyToColorFn(item.key)
             : defaultColor,
         width: `${scale(value)}%`
       }),

@@ -33,7 +33,6 @@
     "description": "A vertical barchart component for Svelte.",
     "files": [
         "dist/*",
-        "src/BarchartV.svelte",
         "README.md",
         "LICENSE",
         "src/**/*.js",

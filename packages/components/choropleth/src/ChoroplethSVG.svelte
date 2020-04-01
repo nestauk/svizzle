@@ -33,6 +33,7 @@
   export let key_alt;
   export let key; // required
   export let keyToColor;
+  export let keyToColorFn;
   export let projection;
   export let selectedKeys;
   export let sizeStroke;
@@ -49,7 +50,6 @@
   $: geojson = topoToGeo(topojson, topojsonId);
   $: isInteractive = isInteractive || false;
   $: key_alt = key_alt || 'name';
-  $: keyToColor = keyToColor || {};
   $: projection = projection && projections[projection] || projections.geoEquirectangular;
   $: selectedKeys = selectedKeys || [];
   $: sizeStroke = sizeStroke || 0.5;
@@ -58,7 +58,11 @@
   $: height = Math.max(0, height - safety.top - safety.bottom);
   $: width = Math.max(0, width - safety.left - safety.right);
   $: createColoredGeojson = makeUpdateFeaturesProperty({
-    key, key_alt, map: keyToColor, propName: 'color'
+    key_alt,
+    key,
+    map: keyToColor,
+    mapFn: keyToColorFn,
+    propName: 'color',
   });
   $: coloredGeojson = geojson && createColoredGeojson(geojson);
   $: fitProjection = geojson && projection().fitSize([width, height], geojson);

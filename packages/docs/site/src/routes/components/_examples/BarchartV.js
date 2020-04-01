@@ -5,8 +5,9 @@ import {
 	countryKeyValue,
 	countryKeyValueAlt,
 	keyToColor,
+	keyToColorFn,
 	keyToColorShort,
-	keyToLabel
+	keyToLabel,
 } from './BarchartV_props';
 
 const myTitle = 'My title';
@@ -52,8 +53,8 @@ const examples = [
 	},
 	{
 		content: [
-			{tag: 'p', content: "By providing `keyToColor`, an object mapping bar key -> bar color, you can control the bars color."},
-			{tag: 'p', content: "Notice that the default color for keys not in `keyToColor` is black (see `AL` and `AD`)."},
+			{tag: 'p', content: "By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color."},
+			{tag: 'p', content: "Notice that the default color for keys not in `keyToColor` is set by `defaultColor` (black if not provided, see `AL` and `AD`)."},
 		],
 		name: 'BarchartV',
 		props: [{
@@ -64,14 +65,35 @@ const examples = [
 			},
 		}],
 		slug: 'BarchartV-keyToColor',
-		title: 'Bar colors',
+		title: 'Bar colors (via mapping)',
 		usage: `
 			<BarchartV {items} {keyToColor} />
 		`,
 	},
 	{
 		content: [
+			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `defaultColor` (which falls back to black if `defaultColor` is not provided)."},
+		],
+		name: 'BarchartV',
+		props: [{
+			key: null,
+			value: {
+				items: countryKeyValue,
+				keyToColorFn
+			},
+		}],
+		slug: 'BarchartV-keyToColorFn',
+		title: 'Bar colors (via function)',
+		usage: `
+			<BarchartV {items} {keyToColorFn} />
+		`,
+	},
+	{
+		content: [
 			{tag: 'p', content: "You can provide a `defaultColor` to be used for bars with no correspondent key in `keyToColor`."},
+			{tag: 'p', content: "If not provided, `defaultColor` is `null`, which renders `black`."},
 		],
 		name: 'BarchartV',
 		props: [{
@@ -186,11 +208,10 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			fnProps: ['keyToLabelFn'],
 			key: null,
 			value: {
 				items: countryKeyValue,
-				keyToLabelFn: `x => '--' + x + '--'`,
+				keyToLabelFn: x => `--${x}--`,
 			},
 		}],
 		slug: 'BarchartV-keyToLabelFn',
@@ -244,11 +265,10 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			fnProps: ['valueAccessor'],
 			key: null,
 			value: {
 				items: countryKeyRawValue,
-				valueAccessor: 'item => Number(Math.sqrt(item.rawValue).toFixed(3))',
+				valueAccessor: item => Number(Math.sqrt(item.rawValue).toFixed(3)),
 			},
 		}],
 		slug: 'BarchartV-valueAccessor',
@@ -267,11 +287,10 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			fnProps: ['formatFn'],
 			key: null,
 			value: {
 				items: countryKeyValue,
-				formatFn: 'x => x + "%"',
+				formatFn: x => `${x}%`,
 			},
 		}],
 		slug: 'BarchartV-formatFn',

@@ -4,7 +4,17 @@
 
 - updated some docs
 
-## `@svizzle/geo` v0.4.1 (next)
+## `@svizzle/barchart` v0.2.0
+
+- `BarchartV` accepts `keyToColorFn`
+
+## `@svizzle/choropleth` v0.2.0 (next)
+
+- `ChoroplethSVG` accepts `keyToColorFn`
+- `ChoroplethDiv` accepts `keyToColorFn`
+- `ChoroplethWorldDiv` accepts `keyToColorFn`
+
+## `@svizzle/geo` v0.4.1
 
 - `makeAddFeaturesProperty` accepts `mapFn`
 
@@ -12,11 +22,13 @@
 
 ## `@svizzle/barchart` v0.1.0
 
-- added the component
+- added `BarchartV`
 
 ## `@svizzle/choropleth` v0.1.0
 
-- added components
+- added `ChoroplethSVG`
+- added `ChoroplethDiv`
+- added `ChoroplethWorldDiv`
 
 ## `@svizzle/atlas` v0.1.0
 

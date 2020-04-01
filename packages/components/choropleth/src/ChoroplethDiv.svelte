@@ -9,6 +9,7 @@
   export let isInteractive;
   export let key;
   export let keyToColor;
+  export let keyToColorFn;
   export let projection;
   export let selectedKeys;
   export let sizeStroke;
@@ -34,6 +35,7 @@
     {isInteractive}
     {key}
     {keyToColor}
+    {keyToColorFn}
     {projection}
     {selectedKeys}
     {sizeStroke}

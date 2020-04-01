@@ -1,5 +1,5 @@
 import {formatSvelteMarkup} from './utils';
-import {keyToColor} from './BarchartV_props';
+import {keyToColor, keyToColorFn} from './BarchartV_props';
 import World_110m_iso_a2_topo from '@svizzle/atlas/gist/World_110m_iso_a2_topo.json';
 
 const examples = [
@@ -25,11 +25,38 @@ const examples = [
 				topojsonId: 'countries',
 			},
 		}],
-		slug: 'ChoroplethDiv_basic_world',
+		slug: 'ChoroplethDiv-basic_world',
 		title: 'Basic props (world)',
 		usage: `
 			<ChoroplethDiv
 				{keyToColor}
+				key='iso_a2'
+				topojson={World_110m_iso_a2_topo}
+				topojsonId='countries'
+			/>
+		`,
+	},
+	{
+		content: [
+			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `colorDefaultFill` (which defaults to `white`)."},
+		],
+		name: 'ChoroplethDiv',
+		props: [{
+			key: null,
+			value: {
+				key: 'iso_a2',
+				keyToColorFn,
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+		}],
+		slug: 'ChoroplethDiv-keyToColorFn',
+		title: 'Colors via function',
+		usage: `
+			<ChoroplethDiv
+				{keyToColorFn}
 				key='iso_a2'
 				topojson={World_110m_iso_a2_topo}
 				topojsonId='countries'
@@ -54,7 +81,7 @@ const examples = [
 				sizeStroke: 1,
 			},
 		}],
-		slug: 'ChoroplethDiv_colors',
+		slug: 'ChoroplethDiv-colors',
 		title: 'Styles (world)',
 		usage: `
 			<ChoroplethDiv
@@ -86,7 +113,7 @@ const examples = [
 				topojsonId: 'countries',
 			},
 		}],
-		slug: 'ChoroplethDiv_selectedKeys',
+		slug: 'ChoroplethDiv-selectedKeys',
 		title: 'Highlighted regions (world)',
 		usage: `
 			<ChoroplethDiv
@@ -125,7 +152,7 @@ const examples = [
 				topojsonId: 'countries',
 			},
 		}],
-		slug: 'ChoroplethDiv_isInteractive',
+		slug: 'ChoroplethDiv-isInteractive',
 		title: 'Interactivity',
 		usage: `
 			<ChoroplethDiv
@@ -181,7 +208,7 @@ const examples = [
 				projection: 'geoEqualEarth',
 			},
 		}],
-		slug: 'ChoroplethDiv_projection',
+		slug: 'ChoroplethDiv-projection',
 		title: 'Projection',
 		usage: `
 			<ChoroplethDiv

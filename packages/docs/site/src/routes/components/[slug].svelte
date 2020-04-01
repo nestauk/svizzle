@@ -1,57 +1,45 @@
 <script context="module">
-	import {mapValues} from 'lamb';
-
-	// eslint-disable-next-line consistent-return, no-unused-vars
-	export async function preload({ params, query }) {
-		const res = await this.fetch(`components/${params.slug}.json`);
-		let data = await res.json();
-
-		if (res.status === 200) {
-			return {
-				...data,
-				props: data.props.map(({key, value, fnProps}) => ({
-					key,
-					value: mapValues(value, (v, k) =>
-						// eslint-disable-next-line no-eval
-						fnProps && fnProps.includes(k) ? eval(v) : v
-					)
-				}))
-			};
-		}
-
-		this.error(res.status, data.message);
+	// eslint-disable-next-line no-unused-vars
+	export function preload({ params, query }) {
+		return params;
 	}
 </script>
 
 <script>
-	import {pairs, setIn} from 'lamb';
-	import {makeKeyed} from '@svizzle/utils';
+	import * as _ from 'lamb';
+	import {indexValuesWith, makeKeyed} from '@svizzle/utils';
 	import JSONTree from 'svelte-json-tree';
 
 	import Elements from '../../components/Elements.svelte'; // FIXME move ../../../components to node_modules
 	import components from './_components.js';
+	import * as examples from './_examples';
 
 	const makeKeyedEmptyString = makeKeyed('');
+	const makeLookup = indexValuesWith(_.getKey('slug'));
+	const lookup = makeLookup(examples);
 
-	export let content;
-	export let events;
-	export let name;
-	export let props;
-	export let title;
-	export let usage;
 	export let slug;
 
 	let instance;
-	let current_props_index = 0
+	let current_props_index = 0;
+
+	$: ({
+		props,
+		content,
+		events,
+		name,
+		title,
+		usage,
+	} = lookup[slug]);
 
 	$: component = components[name];
 	$: payloads = events ? makeKeyedEmptyString(events) : null;
 	$: current_props = props[current_props_index].value;
-	$: displayProps = pairs(current_props);
+	$: displayProps = _.pairs(current_props);
 
 	const makeEventHandler = eventName =>
 		event => {
-			payloads = setIn(payloads, eventName, JSON.stringify(event.detail));
+			payloads = _.setIn(payloads, eventName, JSON.stringify(event.detail));
 		};
 
 	let eventRemovers = [];
@@ -84,7 +72,7 @@
 		{#if payloads}
 		<h2>Events</h2>
 		<div class="distancer">
-			{#each pairs(payloads) as [key, value]}
+			{#each _.pairs(payloads) as [key, value]}
 			<div class="row">
 				<span>{key}</span>
 				<pre>{value || '[payload]'}</pre>

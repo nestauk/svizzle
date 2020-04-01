@@ -1,5 +1,5 @@
 import {formatSvelteMarkup} from './utils';
-import {keyToColor} from './BarchartV_props';
+import {keyToColor, keyToColorFn} from './BarchartV_props';
 
 const examples = [
 	{
@@ -17,11 +17,33 @@ const examples = [
 				keyToColor
 			},
 		}],
-		slug: 'ChoroplethWorldDiv_basic',
+		slug: 'ChoroplethWorldDiv-basic',
 		title: 'Basic props',
 		usage: `
 			<ChoroplethWorldDiv
 				{keyToColor}
+				key='iso_a2'
+			/>
+		`,
+	},
+	{
+		content: [
+			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `colorDefaultFill` (which defaults to `white`)."},
+		],
+		name: 'ChoroplethWorldDiv',
+		props: [{
+			key: null,
+			value: {
+				keyToColorFn,
+			},
+		}],
+		slug: 'ChoroplethWorldDiv-keyToColorFn',
+		title: 'Colors via function',
+		usage: `
+			<ChoroplethWorldDiv
+				{keyToColorFn}
 				key='iso_a2'
 			/>
 		`,
@@ -41,7 +63,7 @@ const examples = [
 				sizeStroke: 1,
 			},
 		}],
-		slug: 'ChoroplethWorldDiv_colors',
+		slug: 'ChoroplethWorldDiv-colors',
 		title: 'Styles (world)',
 		usage: `
 			<ChoroplethWorldDiv
@@ -67,7 +89,7 @@ const examples = [
 				sizeStrokeSelected: 1.5,
 			},
 		}],
-		slug: 'ChoroplethWorldDiv_selectedKeys',
+		slug: 'ChoroplethWorldDiv-selectedKeys',
 		title: 'Highlighted regions (world)',
 		usage: `
 			<ChoroplethWorldDiv
@@ -100,7 +122,7 @@ const examples = [
 				keyToColor,
 			},
 		}],
-		slug: 'ChoroplethWorldDiv_isInteractive',
+		slug: 'ChoroplethWorldDiv-isInteractive',
 		title: 'Interactivity',
 		usage: `
 			<ChoroplethWorldDiv
@@ -147,7 +169,7 @@ const examples = [
 				projection: 'geoEqualEarth',
 			},
 		}],
-		slug: 'ChoroplethWorldDiv_projection',
+		slug: 'ChoroplethWorldDiv-projection',
 		title: 'Projection',
 		usage: `
 			<ChoroplethWorldDiv
