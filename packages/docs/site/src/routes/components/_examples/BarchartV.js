@@ -262,6 +262,29 @@ const examples = [
 	},
 	{
 		content: [
+			{tag: 'p', content: "You can provide a `formatFn` function to turn the `value` in the desired string."},
+			{tag: 'p', content: "A way to use this would be to pass a function derived from `d3-format`."},
+		],
+		name: 'BarchartV',
+		props: [{
+			fnProps: ['formatFn'],
+			key: null,
+			value: {
+				items: countryKeyValue,
+				formatFn: 'x => x + "%"',
+			},
+		}],
+		slug: 'BarchartV-formatFn',
+		title: 'Values format',
+		usage: `
+			<BarchartV
+				{items}
+				formatFn={x => x + '%'}
+			/>
+		`,
+	},
+	{
+		content: [
 			{tag: 'p', content: "If `shouldResetScroll` is not provided or set to `false`, updating the props will not reset the scroll."},
 			{tag: 'p', content: "In this example, scrolling the barchart and then switching props using the buttons below should not reset the scroll."},
 		],

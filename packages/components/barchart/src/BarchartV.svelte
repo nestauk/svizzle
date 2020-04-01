@@ -12,6 +12,7 @@
   export let defaultColor;
   export let focusedKey;
   export let focusedKeyColor;
+  export let formatFn;
   export let hoverColor;
   export let isInteractive;
   export let items;
@@ -56,7 +57,8 @@
   $: max = maxByValue(items);
   $: scale = linearScale([0, max], [0, 100]);
   $: bars = items.map(item => {
-    const displayValue = valueAccessor(item);
+    const value = valueAccessor(item);
+    const displayValue = formatFn ? formatFn(value) : value;
 
     return merge(item, {
       displayValue,
@@ -70,7 +72,7 @@
           keyToColor && keyToColor[item.key]
             ? keyToColor[item.key]
             : defaultColor,
-        width: `${scale(displayValue)}%`
+        width: `${scale(value)}%`
       }),
       barBackgroundStyle: makeStyle({
         'background-color': item.key === focusedKey
