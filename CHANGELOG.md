@@ -8,15 +8,15 @@
 
 - `BarchartV` accepts `keyToColorFn`
 
-## `@svizzle/choropleth` v0.2.0 (next)
+## `@svizzle/choropleth` v0.2.0
 
 - `ChoroplethSVG` accepts `keyToColorFn`
 - `ChoroplethDiv` accepts `keyToColorFn`
-- `ChoroplethWorldDiv` accepts `keyToColorFn`
+- removed `ChoroplethWorldDiv`
 
 ## `@svizzle/atlas` v0.2.0
 
-- moved the distibution dir from a [gist](https://gist.github.com/mindrones/b9538f1b7308d1a2f2d54c927116e825) to the [svizzle_atlas_distro](https://github.com/nestauk/svizzle_atlas_distro) repo
+- moved the distribution dir from a [gist](https://gist.github.com/mindrones/b9538f1b7308d1a2f2d54c927116e825) to the [svizzle_atlas_distro](https://github.com/nestauk/svizzle_atlas_distro) repo
 
 ## `@svizzle/geo` v0.4.1
 

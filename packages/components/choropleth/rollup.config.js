@@ -26,7 +26,6 @@ const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || []
 const input = {
   ChoroplethDiv: 'src/ChoroplethDiv.svelte',
   ChoroplethSVG: 'src/ChoroplethSVG.svelte',
-  ChoroplethWorldDiv: 'src/ChoroplethWorldDiv.svelte',
   index: 'src/index.js',
 };
 const treeshake = {

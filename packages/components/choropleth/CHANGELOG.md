@@ -2,7 +2,7 @@
 
 - `ChoroplethSVG` accepts `keyToColorFn`
 - `ChoroplethDiv` accepts `keyToColorFn`
-- `ChoroplethWorldDiv` accepts `keyToColorFn`
+- removed `ChoroplethWorldDiv`
 
 ## `@svizzle/choropleth` v0.1.0
 

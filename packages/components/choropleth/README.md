@@ -3,7 +3,6 @@
 A package containing choropleth components for Svelte:
 - ChoroplethSVG
 - ChoroplethDiv
-- ChoroplethWorldDiv
 
 ## Terminology
 
