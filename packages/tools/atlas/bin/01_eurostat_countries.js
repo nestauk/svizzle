@@ -29,6 +29,10 @@ const makeEuCountries = _.pipe([
   _.sortWith([]),
 ]);
 
+/*
+- Fetch CSVs files
+- Create EU_countries_by_year.yaml
+*/
 readFile(NUTS_SPEC_PATH, 'utf-8')
 .then(yaml.safeLoad)
 .then(({year}) => Promise.all(

@@ -1,7 +1,10 @@
 import {formatSvelteMarkup} from './utils';
 import {keyToColor, keyToColorFn} from './BarchartV_props';
 import World_110m_iso_a2_topo from '@svizzle/atlas/distro/World_110m_iso_a2_topo.json';
-import NUTS_RG_10M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_10M_2016_4326_LEVL_2_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_0_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_0_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_1_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
 
 const examples = [
 	{
@@ -28,10 +31,38 @@ const examples = [
 				width: 600,
 			},
 		}, {
-			key: 'NUTS_RG_10M_2016_4326_LEVL_2_UK',
+			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
 			value: {
 				height: 600,
-				topojson: NUTS_RG_10M_2016_4326_LEVL_2_UK,
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
+				topojsonId: 'NUTS',
+				width: 600,
+			},
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
+			value: {
+				height: 600,
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
+				topojsonId: 'NUTS',
+				width: 600,
+			},
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
+			value: {
+				height: 600,
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
+				width: 600,
+			},
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			value: {
+				height: 600,
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
 				topojsonId: 'NUTS',
 				width: 600,
 			},
@@ -42,9 +73,9 @@ const examples = [
 			<ChoroplethSVG
 				{keyToColor}
 				height=600
-				key='iso_a2'
-				topojson={World_110m_iso_a2_topo}
-				topojsonId='countries'
+				{key} <!-- World: 'iso_a2', NUTS: 'NUTS_ID' -->
+				{topojson}
+				{topojsonId} <!-- World: 'countries', NUTS: 'NUTS' -->
 				width=600
 			/>
 		`,

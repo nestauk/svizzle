@@ -4,7 +4,7 @@ import path from "path";
 
 import * as _ from 'lamb';
 import yaml from 'js-yaml';
-import { filter, filterAttached } from 'topojson-simplify';
+import prune from 'topojson-simplify/src/prune';
 import { tapMessage } from '@svizzle/dev';
 import { readDir, readFile, readJson, saveObj } from '@svizzle/file';
 import {transformPaths} from '@svizzle/utils';
@@ -21,6 +21,11 @@ const makeTopojsonFilterByCountryId = countryId => transformPaths({
     ]))
 });
 
+/*
+- Read EU_countries_by_year.yaml
+- Read topojson files
+- Filter topojsons by countryId and save them
+*/
 const process = async () => {
   const filtersByYear = await readFile(EU_COUNTRIES_HISTORY_PATH, 'utf-8')
     .then(yaml.safeLoad)
@@ -40,12 +45,11 @@ const process = async () => {
       const topojson = await readJson(inPath, 'utf-8');
       const {length} = JSON.stringify(topojson);
 
-      return filtersByYear[year].map(([id, filterId]) => {
+      return filtersByYear[year].map(([id, filterByCountryId]) => {
         const outPath = path.resolve(OUT_BASE_PATH, `${name}_${id}.json`);
 
-        const filteredObjectsTopo = filterId(topojson);
-        const filterFn = filterAttached(filteredObjectsTopo);
-        const prunedTopo = filter(filteredObjectsTopo, filterFn);
+        const filteredObjectsTopo = filterByCountryId(topojson);
+        const prunedTopo = prune(filteredObjectsTopo);
 
         return saveObj(outPath)(prunedTopo)
           .then(tapMessage(`${year} ${id}: ${length} -> ${JSON.stringify(prunedTopo).length} Saved in ${outPath}`))
