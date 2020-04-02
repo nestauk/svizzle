@@ -2,6 +2,7 @@ import {strict as assert} from "assert";
 
 import {
   getFirstAndLast,
+  inclusiveRange,
   makeBiPermutations,
   sortValueAscKeyAsc,
   sortValueAscKeyDesc,
@@ -24,6 +25,17 @@ describe("Array -> Array", function() {
         it("should return an array containing `undefined` repeated 2 times if passed an single value array", function() {
             assert.deepStrictEqual(getFirstAndLast([]), [undefined, undefined]);
         });
+    });
+    describe("inclusiveRange", function() {
+      it("return the range within the provided limits, both limits being included", function() {
+        assert.deepStrictEqual(inclusiveRange([2, 5]), [2, 3, 4, 5]);
+        assert.deepStrictEqual(inclusiveRange([2, 12]), [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+        assert.deepStrictEqual(inclusiveRange([2, 12, 2]), [2, 4, 6, 8, 10, 12]);
+        assert.deepStrictEqual(inclusiveRange([2, 11, 2]), [2, 4, 6, 8, 10]);
+      });
+      it("return an empty array if limits are an empty array", function() {
+        assert.deepStrictEqual(inclusiveRange([]), []);
+      });
     });
     describe("makeBiPermutations", function() {
       it("should return the permutations of pairs of the provided items.", function() {

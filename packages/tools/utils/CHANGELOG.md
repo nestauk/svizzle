@@ -1,3 +1,9 @@
+## `@svizzle/utils` v0.7.0 (next)
+
+### Array -> Array
+
+- add `inclusiveRange`
+
 ## `@svizzle/utils` v0.6.0
 
 ### (Any -> Any) -> (Object -> Object)

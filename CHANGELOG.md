@@ -18,6 +18,12 @@
 
 - `makeAddFeaturesProperty` accepts `mapFn`
 
+## `@svizzle/utils` v0.7.0
+
+### Array -> Array
+
+- add `inclusiveRange`
+
 ## 20200319
 
 ## `@svizzle/barchart` v0.1.0

@@ -21,6 +21,33 @@ import {getKey, getValue} from "./object-any";
 export const getFirstAndLast = _.collect([_.head, _.last]);
 
 /**
+ * Return the range within the provided limits, both limits being included.
+ *
+ * @function
+ * @arg {array} args
+ * @arg {number} args.0 - start
+ * @arg {number} args.1 - end
+ * @arg {number} [args.2 = 1] - step
+ * @return {array}
+ *
+ * @example
+inclusiveRange([2, 5]) = [2, 3, 4, 5];
+inclusiveRange([2, 12]) = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+inclusiveRange([2, 12, 2]) = [2, 4, 6, 8, 10, 12];
+inclusiveRange([2, 11, 2]) = [2, 4, 6, 8, 10];
+ *
+ * @version 0.7.0
+ * @see https://ascartabelli.github.io/lamb/module-lamb.html#range
+ */
+export const inclusiveRange = ([start, end, step = 1]) => {
+  const range = _.range(start, end, step);
+
+  return range.length === 0 || _.last(range) + step > end
+    ? range
+    : _.appendTo(range, end);
+}
+
+/**
  * Return the permutations of pairs of the provided items.
  *
  * @function
