@@ -21,7 +21,6 @@
 	export let slug;
 
 	let instance;
-	let current_props_index = 0;
 
 	$: ({
 		props,
@@ -31,7 +30,7 @@
 		title,
 		usage,
 	} = lookup[slug]);
-
+	$: current_props_index = slug && 0; // reset to zero on navigation
 	$: component = components[name];
 	$: payloads = events ? makeKeyedEmptyString(events) : null;
 	$: current_props = props[current_props_index].value;
