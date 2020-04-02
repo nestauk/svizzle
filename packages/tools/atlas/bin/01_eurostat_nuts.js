@@ -60,6 +60,12 @@ const makeTopojsonUpdater = key => transformValues({
   objects: _.renameKeys({[key]: 'NUTS'}),
 });
 
+/*
+- Read nuts_spec.yaml
+- Create permutations format/proj/resolution/spatialtype/subset/year
+- Fetch topojson files
+- Assign `objects` to a 'NUTS' property
+*/
 const process = async () => {
   const permutations =
     await readFile(NUTS_SPEC_PATH, 'utf-8')

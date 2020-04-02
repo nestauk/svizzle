@@ -1,6 +1,10 @@
 import {formatSvelteMarkup} from './utils';
 import {keyToColor, keyToColorFn} from './BarchartV_props';
 import World_110m_iso_a2_topo from '@svizzle/atlas/distro/World_110m_iso_a2_topo.json';
+import NUTS_RG_03M_2016_4326_LEVL_0_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_0_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_1_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
 
 const examples = [
 	{
@@ -17,22 +21,50 @@ const examples = [
 		],
 		name: 'ChoroplethDiv',
 		props: [{
-			key: null,
+			key: 'World_110m_iso_a2_topo',
 			value: {
 				key: 'iso_a2',
 				keyToColor,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
+			}
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
+			value: {
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
+				topojsonId: 'NUTS',
+			},
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
+			value: {
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
+				topojsonId: 'NUTS',
+			},
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
+			value: {
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
+			},
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			value: {
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
 			},
 		}],
-		slug: 'ChoroplethDiv-basic_world',
-		title: 'Basic props (world)',
+		slug: 'ChoroplethDiv-basic',
+		title: 'Basic props',
 		usage: `
 			<ChoroplethDiv
+				{key} <!-- World: 'iso_a2', NUTS: 'NUTS_ID' -->
 				{keyToColor}
-				key='iso_a2'
-				topojson={World_110m_iso_a2_topo}
-				topojsonId='countries'
+				{topojson}
+				{topojsonId} <!-- World: 'countries', NUTS: 'NUTS' -->
 			/>
 		`,
 	},
