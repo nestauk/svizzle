@@ -4,6 +4,10 @@
 
 - add `inclusiveRange`
 
+### Object -> (String -> Boolean)
+
+- add `isKeyOf`
+
 ## `@svizzle/utils` v0.6.0
 
 ### (Any -> Any) -> (Object -> Object)

@@ -24,6 +24,10 @@
 
 - add `inclusiveRange`
 
+### Object -> (String -> Boolean)
+
+- add `isKeyOf`
+
 ## 20200319
 
 ## `@svizzle/barchart` v0.1.0
