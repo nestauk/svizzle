@@ -24,9 +24,9 @@
     },
     "files": [
         "!pkg/*",
-        "gist/*.csv",
-        "gist/*.json",
-        "gist/*.yaml",
+        "distro/*.csv",
+        "distro/*.json",
+        "distro/*.yaml",
         "LICENSE",
         "README.md"
     ],

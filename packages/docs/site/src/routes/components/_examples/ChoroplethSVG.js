@@ -1,7 +1,7 @@
 import {formatSvelteMarkup} from './utils';
 import {keyToColor, keyToColorFn} from './BarchartV_props';
-import World_110m_iso_a2_topo from '@svizzle/atlas/gist/World_110m_iso_a2_topo.json';
-import NUTS_RG_10M_2016_4326_LEVL_2_UK from '@svizzle/atlas/gist/NUTS_RG_10M_2016_4326_LEVL_2_UK.json';
+import World_110m_iso_a2_topo from '@svizzle/atlas/distro/World_110m_iso_a2_topo.json';
+import NUTS_RG_10M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_10M_2016_4326_LEVL_2_UK.json';
 
 const examples = [
 	{

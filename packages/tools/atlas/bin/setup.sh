@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-rimraf gist/*.json gist/*.csv gist/*.yaml && \
+rimraf distro/*.json distro/*.csv distro/*.yaml && \
 mkdirp data/1/EU/NUTS && \
 mkdirp data/2/EU/NUTS && \
 rimraf data/1/EU/NUTS/** && \

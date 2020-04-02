@@ -15,7 +15,7 @@ https://nestauk.github.io/svizzle
 
 ### Distribution files
 
-Files fetched or processed via `@svizzle/atlas` are distributed in [this gist](https://gist.github.com/mindrones/b9538f1b7308d1a2f2d54c927116e825), which is a registered as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+Files fetched or processed via `@svizzle/atlas` are distributed in [this repo](git@github.com:nestauk/svizzle_atlas_distro.git), which is a registered as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
 The first time you clone `svizzle` please use:
 

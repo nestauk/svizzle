@@ -1,3 +1,3 @@
-[submodule "packages/tools/atlas/gist"]
-	path = packages/tools/atlas/gist
-	url = git@gist.github.com:b9538f1b7308d1a2f2d54c927116e825.git
+[submodule "packages/tools/atlas/distro"]
+	path = packages/tools/atlas/distro
+	url = git@github.com:nestauk/svizzle_atlas_distro.git

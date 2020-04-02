@@ -1,6 +1,6 @@
 import {formatSvelteMarkup} from './utils';
 import {keyToColor, keyToColorFn} from './BarchartV_props';
-import World_110m_iso_a2_topo from '@svizzle/atlas/gist/World_110m_iso_a2_topo.json';
+import World_110m_iso_a2_topo from '@svizzle/atlas/distro/World_110m_iso_a2_topo.json';
 
 const examples = [
 	{

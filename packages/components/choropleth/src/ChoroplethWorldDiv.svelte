@@ -1,6 +1,6 @@
 <script>
   import ChoroplethDiv from './ChoroplethDiv.svelte';
-  import topojson from '@svizzle/atlas/gist/World_110m_iso_a2_topo.json';
+  import topojson from '@svizzle/atlas/distro/World_110m_iso_a2_topo.json';
 
   export let colorDefaultFill;
   export let colorSea;
