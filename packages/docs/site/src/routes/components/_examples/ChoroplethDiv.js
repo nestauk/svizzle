@@ -139,20 +139,20 @@ const examples = [
 				colorStrokeSelected: 'red',
 				key: 'iso_a2',
 				keyToColor,
-				selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo'],
+				selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU'],
 				sizeStrokeSelected: 1.5,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 			},
 		}],
 		slug: 'ChoroplethDiv-selectedKeys',
-		title: 'Highlighted regions (world)',
+		title: 'Selected regions',
 		usage: `
 			<ChoroplethDiv
 				{keyToColor}
 				colorStrokeSelected='red',
 				key='iso_a2'
-				selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo']
+				selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']
 				sizeStrokeSelected=1.5
 				topojson={World_110m_iso_a2_topo}
 				topojsonId='countries'

@@ -23,24 +23,26 @@
   const topoToGeo = (topojson, id) =>
     truncateGeojson(geoObject(topojson, topojson.objects[id]));
 
+  // required
+  export let height;
+  export let key;
+  export let topojson;
+  export let topojsonId;
+  export let width;
+
+  // optional
   export let colorDefaultFill;
   export let colorSea;
   export let colorStroke;
   export let colorStrokeSelected;
-  // export let geojson;
-  export let height; // required
   export let isInteractive;
   export let key_alt;
-  export let key; // required
   export let keyToColor;
   export let keyToColorFn;
   export let projection;
   export let selectedKeys;
   export let sizeStroke;
   export let sizeStrokeSelected;
-  export let topojson; // required
-  export let topojsonId; // required
-  export let width; // required
 
   // FIXME https://github.com/sveltejs/svelte/issues/4442
   $: colorDefaultFill = colorDefaultFill || 'white';
@@ -69,8 +71,11 @@
   $: geopath = fitProjection && geoPath(fitProjection);
   $: getPayload = feature => feature.properties[key] || feature.properties[key_alt];
   $: isSelected = feature =>
-    selectedKeys && selectedKeys.length &&
+    selectedKeys.length &&
     selectedKeys.includes(getPayload(feature));
+  $: isDeselected = feature =>
+    selectedKeys.length &&
+    !selectedKeys.includes(getPayload(feature));
   $: isReady = geopath && coloredGeojson;
   $: isClickable = feature => isInteractive && hasColor(feature);
 </script>
@@ -90,7 +95,7 @@
     <g class="feature" id='{key_alt}'>
       <path
         class:clickable="{isClickable(feature)}"
-        class:deselected="{!isSelected(feature)}"
+        class:deselected="{isDeselected(feature)}"
         d="{geopath(feature)}"
         fill="{feature.properties.color || colorDefaultFill}"
         stroke="{isSelected(feature) ? colorStrokeSelected : colorStroke}"
