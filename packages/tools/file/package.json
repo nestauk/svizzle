@@ -4,7 +4,7 @@
         "url": "https://github.com/nestauk/svizzle/issues"
     },
     "dependencies": {
-        "@svizzle/utils": "^0.7.0",
+        "@svizzle/utils": "^0.7.1",
         "d3-dsv": "^1.2.0"
     },
     "description": "Svizzle File contains file related helpers for node.",

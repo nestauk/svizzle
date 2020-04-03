@@ -1,5 +1,14 @@
 # Svizzle changelog
 
+## 20200411_2
+
+## `@svizzle/utils` v0.7.1
+
+### Array -> Array
+
+- `inclusiveRange` returns a single valued array when the values of the provided extent are equal
+
+
 ## 20200411
 
 - updated some docs
@@ -32,6 +41,7 @@
 ### Object -> (String -> Boolean)
 
 - add `isKeyOf`
+
 
 ## 20200319
 

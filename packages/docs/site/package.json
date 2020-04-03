@@ -3,7 +3,7 @@
     "@svizzle/atlas": "^0.2.0",
     "@svizzle/barchart": "^0.2.0",
     "@svizzle/choropleth": "^0.2.0",
-    "@svizzle/utils": "^0.7.0",
+    "@svizzle/utils": "^0.7.1",
     "compression": "^1.7.1",
     "d3-color": "^1.4.0",
     "d3-geo": "^1.11.9",

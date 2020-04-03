@@ -1,3 +1,9 @@
+## `@svizzle/utils` v0.7.1
+
+### Array -> Array
+
+- `inclusiveRange` returns a single valued array when the values of the provided extent are equal
+
 ## `@svizzle/utils` v0.7.0
 
 ### Array -> Array
