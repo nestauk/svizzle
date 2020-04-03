@@ -33,6 +33,9 @@ describe("Array -> Array", function() {
         assert.deepStrictEqual(inclusiveRange([2, 12, 2]), [2, 4, 6, 8, 10, 12]);
         assert.deepStrictEqual(inclusiveRange([2, 11, 2]), [2, 4, 6, 8, 10]);
       });
+      it("return an array if limits are equal", function() {
+        assert.deepStrictEqual(inclusiveRange([1, 1]), [1]);
+      });
       it("return an empty array if limits are an empty array", function() {
         assert.deepStrictEqual(inclusiveRange([]), []);
       });

@@ -40,6 +40,10 @@ inclusiveRange([2, 11, 2]) = [2, 4, 6, 8, 10];
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#range
  */
 export const inclusiveRange = ([start, end, step = 1]) => {
+  if (start === end) {
+    return start ? [start] : [];
+  }
+
   const range = _.range(start, end, step);
 
   return range.length === 0 || _.last(range) + step > end
