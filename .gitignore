@@ -1,7 +1,9 @@
 packages/**/dist
 packages/tools/utils/_/
+packages/tools/**/node_modules
+packages/components/**/node_modules
+/node_modules
 
-node_modules
 _docBuild
 
 .DS_Store

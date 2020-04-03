@@ -67,8 +67,8 @@ const examples = [
 				width: 600,
 			},
 		}],
-		slug: 'ChoroplethSVG-basic_world',
-		title: 'Basic props (world)',
+		slug: 'ChoroplethSVG',
+		title: 'Basic props',
 		usage: `
 			<ChoroplethSVG
 				{keyToColor}
@@ -132,7 +132,7 @@ const examples = [
 			},
 		}],
 		slug: 'ChoroplethSVG-colors',
-		title: 'Styles (world)',
+		title: 'Styles',
 		usage: `
 			<ChoroplethSVG
 				{keyToColor}

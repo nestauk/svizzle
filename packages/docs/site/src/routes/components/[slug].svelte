@@ -10,7 +10,7 @@
 	import {indexValuesWith, makeKeyed} from '@svizzle/utils';
 	import JSONTree from 'svelte-json-tree';
 
-	import Elements from '../../components/Elements.svelte'; // FIXME move ../../../components to node_modules
+	import Elements from 'app/components/Elements.svelte';
 	import components from './_components.js';
 	import * as examples from './_examples';
 

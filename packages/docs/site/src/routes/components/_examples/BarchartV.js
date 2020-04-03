@@ -27,7 +27,7 @@ const examples = [
 				items: countryKeyValue,
 			},
 		}],
-		slug: 'BarchartV-items_default_shape',
+		slug: 'BarchartV',
 		title: 'Items (default shape)',
 		usage: `
 			<BarchartV {items} />

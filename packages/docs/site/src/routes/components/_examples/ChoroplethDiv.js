@@ -57,7 +57,7 @@ const examples = [
 				topojsonId: 'NUTS',
 			},
 		}],
-		slug: 'ChoroplethDiv-basic',
+		slug: 'ChoroplethDiv',
 		title: 'Basic props',
 		usage: `
 			<ChoroplethDiv
@@ -114,7 +114,7 @@ const examples = [
 			},
 		}],
 		slug: 'ChoroplethDiv-colors',
-		title: 'Styles (world)',
+		title: 'Styles',
 		usage: `
 			<ChoroplethDiv
 				{keyToColor}
