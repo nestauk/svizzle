@@ -153,7 +153,7 @@ export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
     }
   ]
 }
- * @version 0.4.0
+ * @version 0.5.0
  */
 export const makeUpdateFeaturesProperty = ({
   key_alt,

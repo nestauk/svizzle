@@ -1,7 +1,7 @@
-## `@svizzle/choropleth` v0.2.0 (next)
+## `@svizzle/choropleth` v0.2.0
 
-- `ChoroplethSVG` accepts `keyToColorFn`
-- `ChoroplethDiv` accepts `keyToColorFn`
+- show features with full opacity if `selectedKeys` is not provided
+- added prop  `keyToColorFn`
 - removed `ChoroplethWorldDiv`
 
 ## `@svizzle/choropleth` v0.1.0

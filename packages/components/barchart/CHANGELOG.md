@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.2.0 (next)
+## `@svizzle/barchart` v0.2.0
 
 - `BarchartV` accepts `keyToColorFn`
 

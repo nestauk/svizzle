@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.7.0 (next)
+## `@svizzle/utils` v0.7.0
 
 ### Array -> Array
 
