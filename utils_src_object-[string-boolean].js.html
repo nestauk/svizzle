@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>utils/src/[any-array]-[any-array].js - Svizzle</title>
+    <title>utils/src/object-[string-boolean].js - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">utils/src/[any-array]-[any-array].js</h1>
+    <h1 class="page-title">utils/src/object-[string-boolean].js</h1>
     
 
     
@@ -51,47 +51,27 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
-* @module @svizzle/utils/[any-array]-[any-array]
+* @module @svizzle/utils/object-[string-boolean]
 */
 
-import * as _ from 'lamb';
-
-import {makeBiPermutations} from './array-array';
+import * as _ from "lamb";
 
 /**
- * Return a function returning the pair-permutations of the items returned by the provided accessor.
+ * Return a function that checks if the expected string is a key of the provided object
  *
  * @function
- * @arg {function} accessor
- * @return {function} - (Any -> Array)
+ * @arg {object} object
+ * @return {function} - String -> Boolean
  *
  * @example
-const object = {
-  key: 'foobars',
-  value: [
-    {foo: "a"},
-    {foo: "b"},
-    {bar: "c"},
-    {bar: "d"}
-  ]
-};
-const makeBiPermutations = makeBiPermutationsWith(getValue)
-=>
-[
-  [{foo: "a"}, {foo: "b"}],
-  [{foo: "a"}, {bar: "c"}],
-  [{foo: "a"}, {bar: "d"}],
-  [{foo: "b"}, {bar: "c"}],
-  [{foo: "b"}, {bar: "d"}],
-  [{bar: "c"}, {bar: "d"}]
-]
+> const isKeyOfObj = isKeyOf({a: 1, b: 2});
+> isKeyOfObj('a') // true
+> isKeyOfObj('c') // false
  *
- * @version 0.5.0
+ * @version 0.7.0
+ * @see https://ascartabelli.github.io/lamb/module-lamb.html#hasKey
  */
-export const makeBiPermutationsWith = accessor => _.pipe([
-  accessor,
-  makeBiPermutations,
-]);
+export const isKeyOf = obj => key => _.has(obj, key);
 </code></pre>
         </article>
     </section>
