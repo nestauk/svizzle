@@ -25,9 +25,9 @@ const maxWithAbsSin([Math.PI/4, Math.PI/6]) // 0.7071067811865475
  * @version 0.1.0
  */
 export const arrayMaxWith = fn => _.reduceWith((max, item) => {
-    const value = fn(item);
+	const value = fn(item);
 
-    return value > max ? value : max;
+	return value > max ? value : max;
 }, -Infinity);
 
 /**
@@ -49,7 +49,7 @@ const minWithAbsSin([Math.PI/4, Math.PI/6]) // 0.49999999999999994
  * @version 0.1.0
  */
 export const arrayMinWith = fn => _.reduceWith((min, item) => {
-    const value = fn(item);
+	const value = fn(item);
 
-    return value < min ? value : min;
+	return value < min ? value : min;
 }, Infinity);

@@ -29,13 +29,13 @@ getElementGeometry(node, ["fontSize"])
  * @version 0.1.0
  */
 export const getElementGeometry = (elem, additionalProps = []) =>
-    mapValuesToFloatPossibly(
-        pick(getComputedStyle(elem), [
-            "width",
-            "height",
-            ...additionalProps
-        ])
-    );
+	mapValuesToFloatPossibly(
+		pick(getComputedStyle(elem), [
+			"width",
+			"height",
+			...additionalProps
+		])
+	);
 
 /* edit */
 
@@ -55,9 +55,9 @@ d3.selectAll("#oldContainer .toBeMoved")
  * @version 0.1.0
  */
 export const moveNode = (node, newContainer) =>
-    select(newContainer)
-    .append(
-        () => select(node).remove().node()
-    );
+	select(newContainer)
+		.append(
+			() => select(node).remove().node()
+		);
 
 // TODO test

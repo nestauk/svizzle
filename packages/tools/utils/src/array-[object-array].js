@@ -26,8 +26,8 @@ getCoordinates({
  * @version 0.1.0
  */
 export const makeKeysGetter = _.pipe([
-    _.mapWith(_.getKey),
-    _.collect
+	_.mapWith(_.getKey),
+	_.collect
 ]);
 
 /**
@@ -50,8 +50,8 @@ getProducts({
  * @version 0.4.0
  */
 export const pickAndConcatValues =
-  whitelist => _.pipe([
-    _.pickKeys(whitelist),
-    _.values,
-    _.apply(concat)
-  ]);
+	whitelist => _.pipe([
+		_.pickKeys(whitelist),
+		_.values,
+		_.apply(concat)
+	]);

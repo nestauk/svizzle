@@ -49,9 +49,9 @@ import {concat} from "./array_proto-array";
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].indexValuesWith|indexValuesWith}
  */
 export const groupValuesWith = accessor => _.pipe([
-  _.values,
-  _.apply(concat),
-  _.groupBy(accessor)
+	_.values,
+	_.apply(concat),
+	_.groupBy(accessor)
 ]);
 
 /**
@@ -98,9 +98,9 @@ export const groupValuesWith = accessor => _.pipe([
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].groupValuesWith|groupValuesWith}
  */
 export const indexValuesWith = accessor => _.pipe([
-  _.values,
-  _.apply(concat),
-  _.indexBy(accessor)
+	_.values,
+	_.apply(concat),
+	_.indexBy(accessor)
 ]);
 
 /**
@@ -124,11 +124,11 @@ mergeWithSubtract(
  * @version 0.1.0
  */
 export const mergeWith = fn => (a, b) => _.reduce(
-    _.pairs(b),
-    (obj, [bKey, bValue]) => {
-        obj[bKey] = _.has(obj, bKey) ? fn(obj[bKey], bValue) : bValue;
+	_.pairs(b),
+	(obj, [bKey, bValue]) => {
+		obj[bKey] = _.has(obj, bKey) ? fn(obj[bKey], bValue) : bValue;
 
-        return obj;
-    },
-    _.merge({}, a) // copy of a
+		return obj;
+	},
+	_.merge({}, a) // copy of a
 );

@@ -185,7 +185,7 @@ export const pickIfTruthy = _.pickIf(_.identity);
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].indexValuesWith|indexValuesWith}
  */
 export const swapKeyValue = _.pipe([
-  _.pairs,
-  _.mapWith(_.reverse),
-  _.fromPairs
+	_.pairs,
+	_.mapWith(_.reverse),
+	_.fromPairs
 ]);

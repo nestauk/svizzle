@@ -33,15 +33,15 @@ import {ndjsonToArray} from "@svizzle/utils";
  * @version 0.1.0
  */
 export const requestJson = (url, useFetch = true) => useFetch
-    ? json(url)
-    : new Promise((resolve, reject) => {
-        jsonRequest(url, (error, response) => {
-            if (error) {
-              reject(error)
-            }
-            resolve(response);
-        });
-    });
+	? json(url)
+	: new Promise((resolve, reject) => {
+		jsonRequest(url, (error, response) => {
+			if (error) {
+				reject(error)
+			}
+			resolve(response);
+		});
+	});
 
 /* ndjson */
 
@@ -70,15 +70,15 @@ export const requestJson = (url, useFetch = true) => useFetch
  * @version 0.1.0
  */
 export const requestNdjson = (url, useFetch = true) =>
-    (useFetch
-        ? text(url)
-        : new Promise((resolve, reject) => {
-            textRequest(url, (error, response) => {
-                if (error) {
-                  reject(error)
-                }
-                resolve(response);
-            });
-        })
-    )
-    .then(ndjsonToArray);
+	(useFetch
+		? text(url)
+		: new Promise((resolve, reject) => {
+			textRequest(url, (error, response) => {
+				if (error) {
+					reject(error)
+				}
+				resolve(response);
+			});
+		})
+	)
+		.then(ndjsonToArray);

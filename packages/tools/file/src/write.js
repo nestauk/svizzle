@@ -58,7 +58,7 @@ export const writeFile = util.promisify(fs.writeFile);
  * @version 0.1.0
  */
 export const saveObj = (filepath, indent = 0) => object =>
-    writeFile(filepath, JSON.stringify(object, null, indent), "utf8");
+	writeFile(filepath, JSON.stringify(object, null, indent), "utf8");
 
 /**
  * Return a function that expects an object and returns a promise that writes
@@ -78,9 +78,9 @@ export const saveObj = (filepath, indent = 0) => object =>
  * @version 0.1.0
  */
 export const saveObjPassthrough = (filepath, indent = 0) =>
-  object =>
-    writeFile(filepath, JSON.stringify(object, null, indent), "utf8")
-    .then(() => object);
+	object =>
+		writeFile(filepath, JSON.stringify(object, null, indent), "utf8")
+			.then(() => object);
 
 /**
  * Return a function that expects a string and returns a promise that writes
@@ -99,7 +99,7 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
  * @version 0.7.0
  */
 export const saveString = filepath =>
-  string => writeFile(filepath, string, "utf8");
+	string => writeFile(filepath, string, "utf8");
 
 /**
  * Return a function that expects a string and returns a promise that writes
@@ -118,7 +118,7 @@ export const saveString = filepath =>
  * @version 0.7.0
  */
 export const saveStringPassthrough = filepath =>
-  string => writeFile(filepath, string, "utf8").then(() => string);
+	string => writeFile(filepath, string, "utf8").then(() => string);
 
 /**
  * Return a function that expects a response and returns a promise that saves
@@ -137,7 +137,7 @@ export const saveStringPassthrough = filepath =>
  * @version 0.1.0
  */
 export const saveResponse = filepath => response => {
-    const dest = fs.createWriteStream(filepath);
+	const dest = fs.createWriteStream(filepath);
 
-    return finished(response.body.pipe(dest));
+	return finished(response.body.pipe(dest));
 }

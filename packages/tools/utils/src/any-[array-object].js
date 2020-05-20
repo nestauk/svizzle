@@ -19,6 +19,6 @@ makeKeyedEmptyArray(["a", "b"]) -> {a: [], b: []}
  * @version 0.3.0
  */
 export const makeKeyed = value => _.pipe([
-    _.collect([_.identity, _.mapWith(_.always(value))]),
-    _.apply(_.make)
+	_.collect([_.identity, _.mapWith(_.always(value))]),
+	_.apply(_.make)
 ]);

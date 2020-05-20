@@ -25,12 +25,12 @@ import * as _ from "lamb";
  * @version 0.1.0
  */
 export const arrayMaxBy = key => _.reduceWith((max, item) => {
-    const value = item[key];
+	const value = item[key];
 
-    return value > max ? value : max;
+	return value > max ? value : max;
 
-    // no need to check if _.has(item, key) because:
-    // undefined > -Infinity === false
+	// no need to check if _.has(item, key) because:
+	// undefined > -Infinity === false
 }, -Infinity);
 
 
@@ -53,10 +53,10 @@ minByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 1
  * @version 0.1.0
  */
 export const arrayMinBy = key => _.reduceWith((min, item) => {
-    const value = item[key];
+	const value = item[key];
 
-    return value < min ? value : min;
+	return value < min ? value : min;
 
-    // no need to check if _.has(item, key) because:
-    // undefined < Infinity === false
+	// no need to check if _.has(item, key) because:
+	// undefined < Infinity === false
 }, Infinity);

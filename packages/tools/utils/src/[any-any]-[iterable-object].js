@@ -14,7 +14,7 @@
 const objectifySelfSum = pairToKeyValueObjectWith(x => x + x);
 const objectifyGetA = pairToKeyValueObjectWith(_.getKey('a'));
 function func () {
-  return objectifyGetA(arguments);
+	return objectifyGetA(arguments);
 }
 objectifyGetA([])             // {key: undefined, value: undefined}
 objectifyGetA([1])            // {key: 1, value: undefined}
@@ -33,7 +33,7 @@ objectifySelfSum("abc")       // {key: "a", value: "bb"}
  * @version 0.3.0
  */
 export const pairToKeyValueObjectWith =
-  accessor => ([key, item]) => ({
-    key,
-    value: item && accessor(item)
-  });
+	accessor => ([key, item]) => ({
+		key,
+		value: item && accessor(item)
+	});

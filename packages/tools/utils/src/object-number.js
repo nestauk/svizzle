@@ -34,8 +34,8 @@ export const getObjSize = _.pipe([_.keys, getLength]);
  * @version 0.1.0
  */
 export const valuesMax = _.pipe([
-    _.values,
-    arrayMax
+	_.values,
+	arrayMax
 ]);
 
 /* min */
@@ -52,6 +52,6 @@ export const valuesMax = _.pipe([
  * @version 0.1.0
  */
 export const valuesMin = _.pipe([
-    _.values,
-    arrayMin
+	_.values,
+	arrayMin
 ]);

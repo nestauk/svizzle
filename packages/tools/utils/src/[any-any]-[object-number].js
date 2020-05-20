@@ -21,8 +21,8 @@ maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475
  * @version 0.1.0
  */
 export const valuesMaxWith = fn => _.pipe([
-    _.values,
-    arrayMaxWith(fn)
+	_.values,
+	arrayMaxWith(fn)
 ]);
 
 /**
@@ -40,6 +40,6 @@ minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.49999999999999994
  * @version 0.1.0
  */
 export const valuesMinWith = fn => _.pipe([
-    _.values,
-    arrayMinWith(fn)
+	_.values,
+	arrayMinWith(fn)
 ]);

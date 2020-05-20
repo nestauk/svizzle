@@ -16,11 +16,11 @@ import {makeVectorFeatures} from "./2DVector";
  * @version 0.1.0
  */
 export const linkVector = link => {
-    const x = link.target.x - link.source.x;
-    const y = link.target.y - link.source.y;
-    const {length, versor} = makeVectorFeatures({x, y});
+	const x = link.target.x - link.source.x;
+	const y = link.target.y - link.source.y;
+	const {length, versor} = makeVectorFeatures({x, y});
 
-    return {x, y, length, versor}
+	return {x, y, length, versor}
 }
 
 /**
@@ -36,16 +36,16 @@ export const linkVector = link => {
  * @version 0.1.0
  */
 export const makeLinkVector = link => {
-    const {versor, length} = linkVector(link);
+	const {versor, length} = linkVector(link);
 
-    const sourceRadius = link.source.radius || 0;
-    const targetRadius = link.target.radius || 0;
-    const sign = length >= sourceRadius ? 1 : -1;
+	const sourceRadius = link.source.radius || 0;
+	const targetRadius = link.target.radius || 0;
+	const sign = length >= sourceRadius ? 1 : -1;
 
-    return {
-        x1: link.source.x + versor.x * sourceRadius,
-        y1: link.source.y + versor.y * sourceRadius,
-        x2: link.target.x - sign * versor.x * targetRadius,
-        y2: link.target.y - sign * versor.y * targetRadius
-    }
+	return {
+		x1: link.source.x + versor.x * sourceRadius,
+		y1: link.source.y + versor.y * sourceRadius,
+		x2: link.target.x - sign * versor.x * targetRadius,
+		y2: link.target.y - sign * versor.y * targetRadius
+	}
 }

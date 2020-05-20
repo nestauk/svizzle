@@ -40,15 +40,15 @@ inclusiveRange([2, 11, 2]) = [2, 4, 6, 8, 10];
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#range
  */
 export const inclusiveRange = ([start, end, step = 1]) => {
-  if (start === end) {
-    return start ? [start] : [];
-  }
+	if (start === end) {
+		return start ? [start] : [];
+	}
 
-  const range = _.range(start, end, step);
+	const range = _.range(start, end, step);
 
-  return range.length === 0 || _.last(range) + step > end
-    ? range
-    : _.appendTo(range, end);
+	return range.length === 0 || _.last(range) + step > end
+		? range
+		: _.appendTo(range, end);
 }
 
 /**
@@ -79,12 +79,12 @@ makeBiPermutations(array)
  * @version 0.5.0
  */
 export const makeBiPermutations = items =>
-  _.reduce(items, (acc, item, index, array) => {
-    for (let cursor = index + 1; cursor < array.length; cursor++) {
-      acc.push([item, array[cursor]]);
-    }
-    return acc;
-  }, []);
+	_.reduce(items, (acc, item, index, array) => {
+		for (let cursor = index + 1; cursor < array.length; cursor++) {
+			acc.push([item, array[cursor]]);
+		}
+		return acc;
+	}, []);
 
 /**
  * Return a copy of the provided array with items
@@ -140,8 +140,8 @@ sortValueAscKeyAsc(items)
  */
 
 export const sortValueAscKeyDesc = _.sortWith([
-  getValue,
-  _.sorterDesc(getKey)
+	getValue,
+	_.sorterDesc(getKey)
 ]);
 
 /**
@@ -170,8 +170,8 @@ sortValueDescKeyAsc(items)
  * @version 0.5.0
  */
 export const sortValueDescKeyAsc = _.sortWith([
-  _.sorterDesc(getValue),
-  getKey
+	_.sorterDesc(getValue),
+	getKey
 ]);
 
 /**
@@ -200,8 +200,8 @@ sortValueDescKeyDesc(items)
  * @version 0.5.0
  */
 export const sortValueDescKeyDesc = _.sortWith([
-  _.sorterDesc(getValue),
-  _.sorterDesc(getKey)
+	_.sorterDesc(getValue),
+	_.sorterDesc(getKey)
 ]);
 
 /**
@@ -218,19 +218,19 @@ export const sortValueDescKeyDesc = _.sortWith([
  * @version 0.1.0
  */
 export const swap = (array, indexA, indexB) => _.reduce(
-    array,
-    (acc, item, index, _array) => {
-        if (index === indexA) {
-            acc.push(_array[indexB]);
-        } else if (index === indexB) {
-            acc.push(_array[indexA]);
-        } else {
-            acc.push(item);
-        }
+	array,
+	(acc, item, index, _array) => {
+		if (index === indexA) {
+			acc.push(_array[indexB]);
+		} else if (index === indexB) {
+			acc.push(_array[indexA]);
+		} else {
+			acc.push(item);
+		}
 
-        return acc;
-    },
-    []
+		return acc;
+	},
+	[]
 );
 
 /**
@@ -256,21 +256,21 @@ toggleItem(arrTailObj, {a: 1}) // arrNo0
  * @version 0.1.0
  */
 export const toggleItem = (array, item) => {
-    let found = false;
+	let found = false;
 
-    let result = _.reduce(array, (acc, x) => {
-        if (isEqual(x, item)) {
-            found = true;
-        } else {
-            acc.push(x);
-        }
+	let result = _.reduce(array, (acc, x) => {
+		if (isEqual(x, item)) {
+			found = true;
+		} else {
+			acc.push(x);
+		}
 
-        return acc;
-    }, []);
+		return acc;
+	}, []);
 
-    if (!found) {
-        result.push(item);
-    }
+	if (!found) {
+		result.push(item);
+	}
 
-    return result;
+	return result;
 };

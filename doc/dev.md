@@ -11,6 +11,7 @@ Basic operations:
 - adding a peer dependency to all packages: `lerna add --peer svelte`
 - adding a dev dependency to a specific package: `lerna add nock -D --scope=@svizzle/request`
 - testing a specific package: `lerna run test --scope=@svizzle/utils`
+- running a script with a command line argument: `lerna run lint -- -- --fix`
 
 ## npm scripts
 

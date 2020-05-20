@@ -22,26 +22,26 @@ getShorter('') // undefined
  */
 
 export const getShorter = iterable => {
-  let result;
+	let result;
 
-  if (iterable.length > 0) {
-    let i = 0;
-    [result] = iterable;
+	if (iterable.length > 0) {
+		let i = 0;
+		[result] = iterable;
 
-    if (result.length > 0) {
-      while (++i <= iterable.length - 1) {
-        result = result.length <= iterable[i].length
-          ? result
-          : iterable[i];
+		if (result.length > 0) {
+			while (++i <= iterable.length - 1) {
+				result = result.length <= iterable[i].length
+					? result
+					: iterable[i];
 
-        // can't be shorter than zero
-        if (result.length === 0) {
-          break;
-        }
-      }
-    }
-  }
+				// can't be shorter than zero
+				if (result.length === 0) {
+					break;
+				}
+			}
+		}
+	}
 
-  // undefined if we provide an empty iterable
-  return result;
+	// undefined if we provide an empty iterable
+	return result;
 }

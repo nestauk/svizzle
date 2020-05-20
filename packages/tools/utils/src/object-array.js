@@ -46,21 +46,21 @@ export const concatValues = _.pipe([_.values, _.apply(concat)]);
  * @version 0.6.0
  */
 export const makeKeyedValuesPermutations = _.pipe([
-  _.pairs,
-  _.filterWith(_.pipe([
-    _.last,
-    _.allOf([isArray, isIterableNotEmpty])
-  ])),
-  reduceFromEmptyArray((acc, [key, values]) => {
-    const props = values.map(value => ({[key]: value}));
+	_.pairs,
+	_.filterWith(_.pipe([
+		_.last,
+		_.allOf([isArray, isIterableNotEmpty])
+	])),
+	reduceFromEmptyArray((acc, [key, values]) => {
+		const props = values.map(value => ({[key]: value}));
 
-    return acc.length === 0
-      ? props
-      : _.flatMap(
-          props,
-          prop => acc.map(obj => _.merge(obj, prop))
-        );
-  })
+		return acc.length === 0
+			? props
+			: _.flatMap(
+				props,
+				prop => acc.map(obj => _.merge(obj, prop))
+			);
+	})
 ]);
 
 /**
@@ -78,8 +78,8 @@ objectToKeyValueArray(obj)
  * @version 0.1.0
  */
 export const objectToKeyValueArray = _.pipe([
-    _.pairs,
-    _.mapWith(pairToKeyValueObject)
+	_.pairs,
+	_.mapWith(pairToKeyValueObject)
 ]);
 
 /**

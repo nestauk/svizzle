@@ -156,36 +156,36 @@ export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
  * @version 0.5.0
  */
 export const makeUpdateFeaturesProperty = ({
-  key_alt,
-  key,
-  map,
-  mapFn,
-  propName,
+	key_alt,
+	key,
+	map,
+	mapFn,
+	propName,
 }) =>
-  _.updateKey('features', _.mapWith(
-      _.updateKey('properties', properties => {
-        let propValue;
+	_.updateKey('features', _.mapWith(
+		_.updateKey('properties', properties => {
+			let propValue;
 
-        if (map) {
-          propValue = _.has(map, properties[key])
-            ? map[properties[key]]
-            : _.has(map, properties[key_alt])
-              ? map[properties[key_alt]]
-              : undefined
-        } else if (mapFn) {
-          propValue = properties[key]
-            ? mapFn(properties[key])
-            : properties[key_alt]
-              ? mapFn(properties[key_alt])
-              : undefined
-        }
+			if (map) {
+				propValue = _.has(map, properties[key])
+					? map[properties[key]]
+					: _.has(map, properties[key_alt])
+						? map[properties[key_alt]]
+						: undefined
+			} else if (mapFn) {
+				propValue = properties[key]
+					? mapFn(properties[key])
+					: properties[key_alt]
+						? mapFn(properties[key_alt])
+						: undefined
+			}
 
-        return {
-          ...properties,
-          [propName]: propValue
-        }
-      })
-  ));
+			return {
+				...properties,
+				[propName]: propValue
+			}
+		})
+	));
 
 /**
  * Return the a collection of centroids of the provided features, each having the correspondent feature properties.
@@ -226,8 +226,8 @@ makeCentroids([
  * @version 0.1.0
  */
 export const makeCentroids = _.pipe([
-    _.mapWith(feature => centroid(feature, {properties: feature.properties})),
-    featureCollection
+	_.mapWith(feature => centroid(feature, {properties: feature.properties})),
+	featureCollection
 ]);
 
 /**
@@ -262,14 +262,14 @@ toPointFeature({foo: "a", lng: 0.1, lat: 0.1})
  * @version 0.1.0
  */
 export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
-    object => ({
-        type: "Feature",
-        geometry: {
-            type: "Point",
-            coordinates: coordPicker(object)
-        },
-        properties: propsTransformer ? propsTransformer(object) : object
-    });
+	object => ({
+		type: "Feature",
+		geometry: {
+			type: "Point",
+			coordinates: coordPicker(object)
+		},
+		properties: propsTransformer ? propsTransformer(object) : object
+	});
 
 /**
  * Return a function expecting an array of objects and returning them as a FeatureCollection of Point features.
@@ -323,8 +323,8 @@ toGeoPoints([
  * @version 0.1.0
  */
 export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
-    _.mapWith(makeToPointFeature(coordPicker, propsTransformer)),
-    featureCollection
+	_.mapWith(makeToPointFeature(coordPicker, propsTransformer)),
+	featureCollection
 ]);
 
 // TODO use a reduce to include only items with lat/lng as defined by coordPicker
@@ -352,6 +352,6 @@ truncateGeometry(point)
  * @version 0.1.0
  */
 export const setGeometryPrecision = precision =>
-    geojson => truncate(geojson, {precision, mutate: false});
+	geojson => truncate(geojson, {precision, mutate: false});
 
 // TODO DOC: define FeatureCollection type

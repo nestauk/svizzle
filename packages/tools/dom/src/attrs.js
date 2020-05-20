@@ -20,10 +20,10 @@ makeStyle({color: "red", "font-size": "10px"})
  * @version 0.1.0
  */
 export const makeStyle = _.pipe([
-  _.skipIf(_.isNil),
-  _.pairs,
-  _.mapWith(joinWithColon),
-  joinWithSemicolon
+	_.skipIf(_.isNil),
+	_.pairs,
+	_.mapWith(joinWithColon),
+	joinWithSemicolon
 ]);
 
 /**

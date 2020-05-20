@@ -19,7 +19,7 @@ import * as _ from "lamb";
  * @version 0.1.0
  */
 export const makeRandomNumInRange = ([min, max]) =>
-    min + (max - min) * Math.random();
+	min + (max - min) * Math.random();
 
 /* max */
 

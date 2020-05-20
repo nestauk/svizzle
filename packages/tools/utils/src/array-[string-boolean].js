@@ -25,4 +25,4 @@ const weightLabels = [
  * @version 0.4.0
  */
 export const containsOneOf = array =>
-  string => _.someIn(array, x => string.includes(x));
+	string => _.someIn(array, x => string.includes(x));

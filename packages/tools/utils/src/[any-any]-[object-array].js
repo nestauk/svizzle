@@ -22,6 +22,6 @@ convertToArray(obj) // [{key: "k1", value: 1}, {key: "k2", value: 2}]
  * @version 0.3.0
  */
 export const objectToKeyValueArrayWith = accessor => _.pipe([
-    _.pairs,
-    _.mapWith(pairToKeyValueObjectWith(accessor))
+	_.pairs,
+	_.mapWith(pairToKeyValueObjectWith(accessor))
 ]);

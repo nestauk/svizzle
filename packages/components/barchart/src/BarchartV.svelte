@@ -38,16 +38,16 @@
   let wasNotResettingScroll;
 
   beforeUpdate(() => {
-    wasNotResettingScroll = !shouldResetScroll
+  	wasNotResettingScroll = !shouldResetScroll
   });
   $: afterUpdate(() => {
-    if (items && shouldResetScroll && !isEqual(previousItems, items)) {
-      scrollable.scrollTop = 0;
-      previousItems = items;
-    }
+  	if (items && shouldResetScroll && !isEqual(previousItems, items)) {
+  		scrollable.scrollTop = 0;
+  		previousItems = items;
+  	}
   });
   $: if (wasNotResettingScroll && shouldResetScroll && scrollable) {
-    scrollable.scrollTop = 0;
+  	scrollable.scrollTop = 0;
   }
 
   // FIXME https://github.com/sveltejs/svelte/issues/4442
@@ -58,31 +58,31 @@
   $: max = maxByValue(items);
   $: scale = linearScale([0, max], [0, 100]);
   $: bars = items.map(item => {
-    const value = valueAccessor(item);
+  	const value = valueAccessor(item);
 
-    return merge(item, {
-      displayValue: formatFn ? formatFn(value) : value,
-      label: keyToLabel && keyToLabel[item.key]
-        ? keyToLabel[item.key]
-        : keyToLabelFn
-          ? keyToLabelFn(item.key)
-          : item.key,
-      barStyle: makeStyle({
-        'background-color': keyToColor
-          ? keyToColor[item.key] || defaultColor
-          : keyToColorFn
-            ? keyToColorFn(item.key)
-            : defaultColor,
-        width: `${scale(value)}%`
-      }),
-      barBackgroundStyle: makeStyle({
-        'background-color': item.key === focusedKey
-          ? focusedKeyColor
-          : item.key === hoveredKey
-            ? hoverColor
-            : null
-      }),
-    })
+  	return merge(item, {
+  		displayValue: formatFn ? formatFn(value) : value,
+  		label: keyToLabel && keyToLabel[item.key]
+  			? keyToLabel[item.key]
+  			: keyToLabelFn
+  				? keyToLabelFn(item.key)
+  				: item.key,
+  		barStyle: makeStyle({
+  			'background-color': keyToColor
+  				? keyToColor[item.key] || defaultColor
+  				: keyToColorFn
+  					? keyToColorFn(item.key)
+  					: defaultColor,
+  			width: `${scale(value)}%`
+  		}),
+  		barBackgroundStyle: makeStyle({
+  			'background-color': item.key === focusedKey
+  				? focusedKeyColor
+  				: item.key === hoveredKey
+  					? hoverColor
+  					: null
+  		}),
+  	})
   });
 </script>
 
@@ -104,9 +104,9 @@
       style="{barBackgroundStyle}"
       on:click="{ () => { isInteractive && dispatch('clicked', {id: key}) } }"
       on:mouseenter="{ () => {
-        isInteractive && dispatch('entered', {id: key})
-        hoveredKey = key;
-      } }"
+	isInteractive && dispatch('entered', {id: key})
+	hoveredKey = key;
+} }"
       on:mouseleave="{ () => isInteractive && dispatch('exited', {id: key}) }"
     >
       <div class="labels">

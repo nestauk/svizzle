@@ -18,36 +18,36 @@ const ISO_A2_TO_NAME_PATH = path.resolve(__dirname, '../data/0/iso_a2_to_name_by
 const WORLD_110_ISOTYPE_TOPO = path.resolve(__dirname, `../data/1/World_110m_${ISO_TYPE}_topo.json`);
 
 const checkProperties = _.pipe([
-  _.getPath(GEOMETRIES_PATH),
-  _.filterWith(isPathValue([`properties.${ISO_TYPE}`, UNKNOWN])),
-  getLength
+	_.getPath(GEOMETRIES_PATH),
+	_.filterWith(isPathValue([`properties.${ISO_TYPE}`, UNKNOWN])),
+	getLength
 ]);
 
 readFile(ISO_A2_TO_NAME_PATH, 'utf-8')
-.then(yaml.safeLoad)
-.then(({countries}) => {
-  const fullNameToKey = swapKeyValue(countries.full_name);
-  const alternativeNameToKey = swapKeyValue(countries.alternative_name);
+	.then(yaml.safeLoad)
+	.then(({countries}) => {
+		const fullNameToKey = swapKeyValue(countries.full_name);
+		const alternativeNameToKey = swapKeyValue(countries.alternative_name);
 
-  return _.updatePathIn(WORLD_110_TOPOJSON, GEOMETRIES_PATH,
-    _.mapWith(obj => ({
-      ...obj,
-      properties: {
-        ...obj.properties,
-        [ISO_TYPE]:
-          fullNameToKey[obj.properties.name] ||
-          alternativeNameToKey[obj.properties.name],
-        name:
-          !fullNameToKey[obj.properties.name] &&
-          !alternativeNameToKey[obj.properties.name]
-            ? obj.properties.name
-            : undefined
-      }
-    }))
-  )
-})
-.then(saveObjPassthrough(WORLD_110_ISOTYPE_TOPO))
-.then(tapMessage(`Saved topojson with ${ISO_TYPE} property in ${WORLD_110_ISOTYPE_TOPO}\n`))
-.then(checkProperties)
-.then(tapValue(`Amount of '${UNKNOWN}' in 'properties.${ISO_TYPE}' in ${WORLD_110_ISOTYPE_TOPO}`))
-.catch(err => console.error(err));
+		return _.updatePathIn(WORLD_110_TOPOJSON, GEOMETRIES_PATH,
+			_.mapWith(obj => ({
+				...obj,
+				properties: {
+					...obj.properties,
+					[ISO_TYPE]:
+						fullNameToKey[obj.properties.name] ||
+						alternativeNameToKey[obj.properties.name],
+					name:
+						!fullNameToKey[obj.properties.name] &&
+						!alternativeNameToKey[obj.properties.name]
+							? obj.properties.name
+							: undefined
+				}
+			}))
+		)
+	})
+	.then(saveObjPassthrough(WORLD_110_ISOTYPE_TOPO))
+	.then(tapMessage(`Saved topojson with ${ISO_TYPE} property in ${WORLD_110_ISOTYPE_TOPO}\n`))
+	.then(checkProperties)
+	.then(tapValue(`Amount of '${UNKNOWN}' in 'properties.${ISO_TYPE}' in ${WORLD_110_ISOTYPE_TOPO}`))
+	.catch(err => console.error(err));

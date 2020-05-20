@@ -51,25 +51,25 @@ describe("console.log still works in other tests", function() {
  * @version 0.1.0
  */
 export const makePrinter = () => {
-    let log;
-    let print = console.log;
+	let log;
+	let print = console.log;
 
-    const reset = () => {
-        log = [];
-    }
+	const reset = () => {
+		log = [];
+	}
 
-    const init = () => {
-        reset();
-        console.log = function () {
-            log.push([].slice.call(arguments));
-        }
-    }
+	const init = () => {
+		reset();
+		console.log = function () {
+			log.push([].slice.call(arguments));
+		}
+	}
 
-    const getLog = () => log;
+	const getLog = () => log;
 
-    const restore = () => {
-        console.log = print;
-    }
+	const restore = () => {
+		console.log = print;
+	}
 
-    return {getLog, init, print, reset, restore}
+	return {getLog, init, print, reset, restore}
 };

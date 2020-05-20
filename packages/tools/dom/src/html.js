@@ -35,7 +35,7 @@
  * @version 0.3.0
  */
 export const alignTags = htmlString =>
-  htmlString
-  .replace(/>\s*</gu, '>\n<')
-  .replace(/>\s*\[/gu, '>\n[')
-  .replace(/\]\s*</gu, ']\n<');
+	htmlString
+		.replace(/>\s*</gu, '>\n<')
+		.replace(/>\s*\[/gu, '>\n[')
+		.replace(/\]\s*</gu, ']\n<');

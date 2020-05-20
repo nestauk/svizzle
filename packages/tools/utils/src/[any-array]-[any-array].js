@@ -37,6 +37,6 @@ const makeBiPermutations = makeBiPermutationsWith(getValue)
  * @version 0.5.0
  */
 export const makeBiPermutationsWith = accessor => _.pipe([
-  accessor,
-  makeBiPermutations,
+	accessor,
+	makeBiPermutations,
 ]);

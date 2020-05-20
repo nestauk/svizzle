@@ -95,11 +95,11 @@ export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
  */
 export const transformPaths = pathToFn => obj =>
-  _.reduce(_.pairs(pathToFn), (acc, [path, fn]) => {
-    const value = _.getPathIn(acc, path);
+	_.reduce(_.pairs(pathToFn), (acc, [path, fn]) => {
+		const value = _.getPathIn(acc, path);
 
-    return _.setPathIn(acc, path, _.application(fn, [value]));
-  }, _.merge({}, obj));
+		return _.setPathIn(acc, path, _.application(fn, [value]));
+	}, _.merge({}, obj));
 
 /**
  * Return a function that expects an object and applies the functions in the values of the input object to the correspondent values of the provided object .
@@ -141,9 +141,9 @@ bar,4,4,25px
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  */
 export const transformValues = fnMap => _.mapValuesWith(
-  (value, key) => key in fnMap
-    ? _.application(fnMap[key], [value])
-    : value
+	(value, key) => key in fnMap
+		? _.application(fnMap[key], [value])
+		: value
 );
 
 /**
@@ -195,8 +195,8 @@ mergeFooValue({
  * @version 0.1.0
  */
 export const makeMergeKeyValue = (key, value) => object =>
-    _.merge(object, {
-        [key]: object[key]
-            ? _.merge(object[key], value)
-            : value
-    });
+	_.merge(object, {
+		[key]: object[key]
+			? _.merge(object[key], value)
+			: value
+	});

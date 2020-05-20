@@ -30,14 +30,14 @@ makeAllOccurrences(items) // {a: 3, b: 2, c: 2, e: 1}
  * @version 0.5.0
  */
 export const makeAllOccurrencesWith = accessor =>
-  reduceFromEmptyObject((acc, item) => {
-    _.forEach(_.keys(accessor(item)), key => {
-      if (_.has(acc, key)) {
-        acc[key] += 1;
-      } else {
-        acc[key] = 1;
-      }
-    });
+	reduceFromEmptyObject((acc, item) => {
+		_.forEach(_.keys(accessor(item)), key => {
+			if (_.has(acc, key)) {
+				acc[key] += 1;
+			} else {
+				acc[key] = 1;
+			}
+		});
 
-    return acc;
-  });
+		return acc;
+	});

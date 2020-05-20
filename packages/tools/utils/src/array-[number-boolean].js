@@ -21,6 +21,6 @@ isWithinRange(8) // false
  * @version 0.1.0
  */
 export const makeIsWithinRange = range => _.allOf([
-    _.isGTE(range[0]),
-    _.isLTE(range[1])
+	_.isGTE(range[0]),
+	_.isLTE(range[1])
 ]);

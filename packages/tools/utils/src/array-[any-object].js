@@ -24,6 +24,6 @@ makeCircle(4) // {radius: 4, perimeter: 25.13, area: 50.27}
  * @version 0.2.0
  */
 export const makeWith = ([keys, functions]) => _.pipe([
-    _.collect(functions),
-    makeWithKeys(keys)
+	_.collect(functions),
+	makeWithKeys(keys)
 ]);

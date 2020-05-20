@@ -131,8 +131,8 @@ const obj = {
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  */
 export const applyTransformsSequence = pathFnPairs => obj =>
-  _.reduce(pathFnPairs, (acc, [path, fn]) => {
-    const value = _.getPathIn(acc, path);
+	_.reduce(pathFnPairs, (acc, [path, fn]) => {
+		const value = _.getPathIn(acc, path);
 
-    return _.setPathIn(acc, path, _.application(fn, [value]))
-  }, _.merge({}, obj));
+		return _.setPathIn(acc, path, _.application(fn, [value]))
+	}, _.merge({}, obj));

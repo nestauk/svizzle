@@ -25,7 +25,7 @@ import {mergeObj} from "@svizzle/utils";
  * @version 0.4.0
  */
 export const hasAnyExtensionOf = extensions =>
-    fileName => extensions.includes(path.extname(fileName));
+	fileName => extensions.includes(path.extname(fileName));
 
 /**
  * Filter an array of file names to contain only those with extension .json or .geojson.
@@ -61,10 +61,10 @@ export const filterJsonExtensions =
  * @version 0.4.0
  */
 export const renameToExtension = ext => _.pipe([
-    path.parse,
-    _.skipKeys(["base"]), // [1]
-    mergeObj({ext}),
-    path.format
+	path.parse,
+	_.skipKeys(["base"]), // [1]
+	mergeObj({ext}),
+	path.format
 ]);
 
 // [1]

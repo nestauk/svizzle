@@ -32,7 +32,7 @@ export const makePosition2D = _.partial(_.make, [["x", "y"], _.__]);
  * @version 0.1.0
  */
 export const getDistance2D = ({x: x1, y: y1}, {x: x2, y: y2}) =>
-    vectorLength2D(x2 - x1, y2 - y1);
+	vectorLength2D(x2 - x1, y2 - y1);
 
 /**
  * Return the center of two 2D points
@@ -47,6 +47,6 @@ export const getDistance2D = ({x: x1, y: y1}, {x: x2, y: y2}) =>
  * @version 0.1.0
  */
 export const getTwoPointsCenter = ({x: x1, y: y1}, {x: x2, y: y2}) => ({
-    x: (x1 + x2) / 2,
-    y: (y1 + y2) / 2
+	x: (x1 + x2) / 2,
+	y: (y1 + y2) / 2
 });

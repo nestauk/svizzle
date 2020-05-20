@@ -67,8 +67,8 @@ export const splitBySemiColon = makeSplitBy(";");
  * @version 0.1.0
  */
 export const makeLines = _.pipe([
-    trim,
-    splitByEOL
+	trim,
+	splitByEOL
 ]);
 
 /**
@@ -85,9 +85,9 @@ export const makeLines = _.pipe([
  * @version 0.1.0
  */
 export const makeRows = _.pipe([
-    trim,
-    splitByEOL,
-    _.tail
+	trim,
+	splitByEOL,
+	_.tail
 ]);
 
 /* ndjson */
@@ -105,12 +105,12 @@ export const makeRows = _.pipe([
  * @version 0.1.0
  */
 export const ndjsonToArray = _.pipe([
-    splitByEOL,
-    reduceFromEmptyArray((array, str) => {
-        if (isTrimmedNotEmpty(str)) {
-            array.push(JSON.parse(str))
-        }
+	splitByEOL,
+	reduceFromEmptyArray((array, str) => {
+		if (isTrimmedNotEmpty(str)) {
+			array.push(JSON.parse(str))
+		}
 
-        return array;
-    })
+		return array;
+	})
 ]);

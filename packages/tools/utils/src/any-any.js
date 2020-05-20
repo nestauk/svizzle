@@ -52,7 +52,7 @@ toFloatOrIdentity(undefined) // undefined
  * @version 0.1.0
  */
 export const toFloatOrIdentity = x => {
-    const parsed = parseFloat(x);
+	const parsed = parseFloat(x);
 
-    return isValidNumber(parsed) ? parsed : x;
+	return isValidNumber(parsed) ? parsed : x;
 };

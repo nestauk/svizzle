@@ -32,7 +32,7 @@ isOneOfThoseObjects({a: 3}) // false
  * @version 0.5.0
  */
 export const makeOccursIn = array =>
-  input => _.someIn(array, elem => isEqual(elem, input));
+	input => _.someIn(array, elem => isEqual(elem, input));
 
 
 /**

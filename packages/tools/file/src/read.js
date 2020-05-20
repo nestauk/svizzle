@@ -7,11 +7,11 @@ import path from "path";
 import util from "util";
 
 import {
-  dsvFormat,
-  csvParse,
-  csvParseRows,
-  tsvParse,
-  tsvParseRows
+	dsvFormat,
+	csvParse,
+	csvParseRows,
+	tsvParse,
+	tsvParseRows
 } from "d3-dsv";
 
 import {filterJsonExtensions} from "./path";
@@ -94,15 +94,15 @@ readCsv("source/withNoHeader.csv", row => ({
  * @version 0.1.0
  */
 export const readCsv = (
-  csvPath,
-  conversionFn = x => x,
-  withHeader = true
+	csvPath,
+	conversionFn = x => x,
+	withHeader = true
 ) =>
-    readFile(csvPath, "utf-8")
-    .then(str => withHeader
-      ? csvParse(str, conversionFn)
-      : csvParseRows(str, conversionFn)
-    );
+	readFile(csvPath, "utf-8")
+		.then(str => withHeader
+			? csvParse(str, conversionFn)
+			: csvParseRows(str, conversionFn)
+		);
 
 /**
  * [node environment]
@@ -145,19 +145,19 @@ readDsv("source/withNoHeader.txt", ([name, amount]) => ({
  * @version 0.4.0
  */
 export const readDsv = (
-  filePath,
-  separator,
-  conversionFn = x => x,
-  withHeader = true
+	filePath,
+	separator,
+	conversionFn = x => x,
+	withHeader = true
 ) =>
-  readFile(filePath, "utf-8")
-  .then(str => {
-    const parser = dsvFormat(separator);
+	readFile(filePath, "utf-8")
+		.then(str => {
+			const parser = dsvFormat(separator);
 
-    return withHeader
-      ? parser.parse(str, conversionFn)
-      : parser.parseRows(str, conversionFn)
-  });
+			return withHeader
+				? parser.parse(str, conversionFn)
+				: parser.parseRows(str, conversionFn)
+		});
 
 /**
  * [node environment]
@@ -199,15 +199,15 @@ readTsv("source/withNoHeader.txt", ([name, amount]) => ({
  * @version 0.3.0
  */
 export const readTsv = (
-  tsvPath,
-  conversionFn = x => x,
-  withHeader = true
+	tsvPath,
+	conversionFn = x => x,
+	withHeader = true
 ) =>
-    readFile(tsvPath, "utf-8")
-    .then(str => withHeader
-      ? tsvParse(str, conversionFn)
-      : tsvParseRows(str, conversionFn)
-    );
+	readFile(tsvPath, "utf-8")
+		.then(str => withHeader
+			? tsvParse(str, conversionFn)
+			: tsvParseRows(str, conversionFn)
+		);
 
 /**
  * Return a promise that reads and then parses a json file.
@@ -226,8 +226,8 @@ export const readTsv = (
  * @version 0.1.0
  */
 export const readJson = jsonPath =>
-    readFile(jsonPath, "utf-8")
-    .then(str => JSON.parse(str));
+	readFile(jsonPath, "utf-8")
+		.then(str => JSON.parse(str));
 
 /**
  * Return a promise returning an array of objects of the json files of a directory, not recursively.
@@ -246,12 +246,12 @@ export const readJson = jsonPath =>
  * @version 0.1.0
  */
 export const readJsonDir = dirPath =>
-    readDir(dirPath, "utf8")
-    .then(filterJsonExtensions)
-    .then(filenames => Promise.all(
-        filenames.map(filename => {
-            const filepath = path.join(dirPath, filename);
+	readDir(dirPath, "utf8")
+		.then(filterJsonExtensions)
+		.then(filenames => Promise.all(
+			filenames.map(filename => {
+				const filepath = path.join(dirPath, filename);
 
-            return readFile(filepath, "utf-8").then(JSON.parse)
-        })
-    ));
+				return readFile(filepath, "utf-8").then(JSON.parse)
+			})
+		));

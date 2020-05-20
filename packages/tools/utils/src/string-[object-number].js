@@ -22,8 +22,8 @@ maxByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}}) // 7
  * @version 0.1.0
  */
 export const valuesMaxBy = key => _.pipe([
-    _.values,
-    arrayMaxBy(key)
+	_.values,
+	arrayMaxBy(key)
 ]);
 
 /**
@@ -42,6 +42,6 @@ minByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}}) // 7
  * @version 0.1.0
  */
 export const valuesMinBy = key => _.pipe([
-    _.values,
-    arrayMinBy(key)
+	_.values,
+	arrayMinBy(key)
 ]);

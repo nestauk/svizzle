@@ -20,14 +20,14 @@ poly(5) // 510
  * @version 0.3.0
  */
 export const makePolynomial = _.pipe([
-  reduceFromEmptyArray((acc, coefficient, exponent) => {
-    if (coefficient) {
-      acc.push(x => coefficient * Math.pow(x, exponent))
-    }
-    return acc;
-  }),
-  terms => _.pipe([
-    _.collect(terms),
-    _.reduceWith(_.sum)
-  ])
+	reduceFromEmptyArray((acc, coefficient, exponent) => {
+		if (coefficient) {
+			acc.push(x => coefficient * Math.pow(x, exponent))
+		}
+		return acc;
+	}),
+	terms => _.pipe([
+		_.collect(terms),
+		_.reduceWith(_.sum)
+	])
 ]);

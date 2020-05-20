@@ -4,8 +4,8 @@
   import { geoPath } from 'd3-geo';
   import * as _ from 'lamb';
   import {
-    makeUpdateFeaturesProperty,
-    setGeometryPrecision
+  	makeUpdateFeaturesProperty,
+  	setGeometryPrecision
   } from '@svizzle/geo';
   import { isNotNullWith } from '@svizzle/utils';
 
@@ -14,14 +14,14 @@
   const dispatch = createEventDispatcher();
   const hasColor = isNotNullWith(_.getPath('properties.color'));
   const safety = {
-    top: 10,
-    right: 10,
-    bottom: 10,
-    left: 10,
+  	top: 10,
+  	right: 10,
+  	bottom: 10,
+  	left: 10,
   };
   const truncateGeojson = setGeometryPrecision(4);
   const topoToGeo = (topojson, id) =>
-    truncateGeojson(geoObject(topojson, topojson.objects[id]));
+  	truncateGeojson(geoObject(topojson, topojson.objects[id]));
 
   // required
   export let height;
@@ -60,21 +60,21 @@
   $: height = Math.max(0, height - safety.top - safety.bottom);
   $: width = Math.max(0, width - safety.left - safety.right);
   $: createColoredGeojson = makeUpdateFeaturesProperty({
-    key_alt,
-    key,
-    map: keyToColor,
-    mapFn: keyToColorFn,
-    propName: 'color',
+  	key_alt,
+  	key,
+  	map: keyToColor,
+  	mapFn: keyToColorFn,
+  	propName: 'color',
   });
   $: coloredGeojson = geojson && createColoredGeojson(geojson);
   $: fitProjection = geojson && projection().fitSize([width, height], geojson);
   $: geopath = fitProjection && geoPath(fitProjection);
   $: getPayload = feature => feature.properties[key] || feature.properties[key_alt];
   $: isSelected = feature =>
-    selectedKeys.length &&
+  	selectedKeys.length &&
     selectedKeys.includes(getPayload(feature));
   $: isDeselected = feature =>
-    selectedKeys.length &&
+  	selectedKeys.length &&
     !selectedKeys.includes(getPayload(feature));
   $: isReady = geopath && coloredGeojson;
   $: isClickable = feature => isInteractive && hasColor(feature);

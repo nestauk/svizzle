@@ -5,16 +5,16 @@
 import * as _ from 'lamb';
 
 import {
-  isArray,
-  isNotNaN,
-  isNotNil,
-  isNotNull,
-  isNumber,
-  isObject,
-  isString,
-  isValidNumber,
-  toFloatIsValidNumber,
-  toNumberisValidNumber,
+	isArray,
+	isNotNaN,
+	isNotNil,
+	isNotNull,
+	isNumber,
+	isObject,
+	isString,
+	isValidNumber,
+	toFloatIsValidNumber,
+	toNumberisValidNumber,
 } from './any-boolean.js';
 
 /**

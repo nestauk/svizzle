@@ -37,6 +37,6 @@ export const endsWithNewLine = makeEndsWith('\n');
  * @version 0.1.0
  */
 export const isTrimmedNotEmpty = _.pipe([
-    trim,
-    isIterableNotEmpty
+	trim,
+	isIterableNotEmpty
 ]);

@@ -34,11 +34,11 @@ keyValueArrayToObject(objects)
  * @version 0.3.0
  */
 export const keyValueArrayToObject = objects => _.reduce(objects,
-    (acc, {key, value}) => {
-        acc[key] = value;
-        return acc;
-    },
-    {}
+	(acc, {key, value}) => {
+		acc[key] = value;
+		return acc;
+	},
+	{}
 );
 
 /**
@@ -74,16 +74,16 @@ makeOccurrences(objects, ["k", "a"]) // {k: 0, a: 3}
  * @version 0.1.0
  */
 export const makeOccurrences = (items, keys) => _.reduce(items,
-    (acc, item) => {
-        _.forEach(keys, key => {
-            if (_.has(item, key)) {
-                acc[key] += 1;
-            }
-        });
+	(acc, item) => {
+		_.forEach(keys, key => {
+			if (_.has(item, key)) {
+				acc[key] += 1;
+			}
+		});
 
-        return acc;
-    },
-    makeKeyedZeroes(keys)
+		return acc;
+	},
+	makeKeyedZeroes(keys)
 );
 
 /**
@@ -101,15 +101,15 @@ makeAllOccurrences(objects) // {a: 3, b: 2, c: 2, e: 1}
  * @version 0.1.0
  */
 export const makeAllOccurrences = reduceFromEmptyObject((acc, item) => {
-  _.forEach(_.keys(item), key => {
-    if (_.has(acc, key)) {
-      acc[key] += 1;
-    } else {
-      acc[key] = 1;
-    }
-  });
+	_.forEach(_.keys(item), key => {
+		if (_.has(acc, key)) {
+			acc[key] += 1;
+		} else {
+			acc[key] = 1;
+		}
+	});
 
-  return acc;
+	return acc;
 });
 
 // (items[], keys[]) => {key, value}[]
@@ -134,10 +134,10 @@ mergeObjects([{b: 1}, {a: 6, b: -1}, {a: 1}]) // {a: 1, b: -1}
  * @version 0.5.0
  */
 export const mergeObjects = reduceFromEmptyObject((acc, item) => {
-  _.forEach(_.pairs(item), ([key, value]) => {
-    acc[key] = value;
-  });
+	_.forEach(_.pairs(item), ([key, value]) => {
+		acc[key] = value;
+	});
 
-  return acc;
+	return acc;
 });
 // IDEA merging from right just new keys might be faster
