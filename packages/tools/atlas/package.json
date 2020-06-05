@@ -1,69 +1,69 @@
 {
-    "author": "nestauk (https://www.nesta.org.uk/)",
-    "bugs": {
-        "url": "https://github.com/nestauk/svizzle/issues"
-    },
-    "description": "Svizzle Atlas contains geographic boundaries for mapping.",
-    "devDependencies": {
-        "@svizzle/dev": "^0.3.0",
-        "@svizzle/file": "^0.7.0",
-        "@svizzle/geo": "^0.5.0",
-        "@svizzle/utils": "^0.7.1",
-        "d3-dsv": "^1.2.0",
-        "eslint": "^6.8.0",
-        "eslint-plugin-import": "^2.18.2",
-        "esm": "^3.0.84",
-        "js-yaml": "^3.13.1",
-        "lamb": "^0.58.0",
-        "mkdirp": "^0.5.1",
-        "node-fetch": "^2.6.0",
-        "rimraf": "^3.0.0",
-        "topojson-client": "^3.1.0",
-        "topojson-simplify": "^3.0.3",
-        "world-atlas": "^2.0.2"
-    },
-    "files": [
-        "!pkg/*",
-        "distro/*.csv",
-        "distro/*.json",
-        "distro/*.yaml",
-        "LICENSE",
-        "README.md"
-    ],
-    "homepage": "https://github.com/nestauk/svizzle",
-    "keywords": [
-        "boundaries",
-        "data visualisation",
-        "geojson",
-        "mapping",
-        "topojson"
-    ],
-    "license": "MIT",
-    "name": "@svizzle/atlas",
-    "peerDependencies": {
-        "lamb": "^0.58.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "github:nestauk/svizzle",
-        "directory": "packages/tools/atlas"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "scripts": {
-        "pipeline": "npm run setup && npm run process && npm run dist",
-        "bumppack": "npm run setprerelease && npm run pack",
-        "chmod": "chmod u+x bin/*",
-        "setup": "npm run chmod && bin/setup.sh",
-        "dist": "npm run chmod && bin/dist.sh",
-        "distsetup": "npm run chmod && bin/dist_setup.sh",
-        "lint": "eslint bin/*.js",
-        "pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/README.md ${dirname}/package.json",
-        "process": "npm run chmod && bin/process.sh",
-        "setpreminor": "npm --no-git-tag-version version preminor --preid=dev",
-        "setprerelease": "npm --no-git-tag-version version prerelease --preid=dev"
-    },
-    "sideEffects": false,
-    "version": "0.2.0"
+	"author": "nestauk (https://www.nesta.org.uk/)",
+	"bugs": {
+		"url": "https://github.com/nestauk/svizzle/issues"
+	},
+	"description": "Svizzle Atlas contains geographic boundaries for mapping.",
+	"devDependencies": {
+		"@svizzle/dev": "^0.3.0",
+		"@svizzle/file": "^0.7.0",
+		"@svizzle/geo": "^0.5.0",
+		"@svizzle/utils": "^0.7.1",
+		"d3-dsv": "^1.2.0",
+		"eslint": "^6.8.0",
+		"eslint-plugin-import": "^2.18.2",
+		"esm": "^3.0.84",
+		"js-yaml": "^3.13.1",
+		"lamb": "^0.58.0",
+		"mkdirp": "^0.5.1",
+		"node-fetch": "^2.6.0",
+		"rimraf": "^3.0.0",
+		"topojson-client": "^3.1.0",
+		"topojson-simplify": "^3.0.3",
+		"world-atlas": "^2.0.2"
+	},
+	"files": [
+		"!pkg/*",
+		"distro/*.csv",
+		"distro/*.json",
+		"distro/*.yaml",
+		"LICENSE",
+		"README.md"
+	],
+	"homepage": "https://github.com/nestauk/svizzle",
+	"keywords": [
+		"boundaries",
+		"data visualisation",
+		"geojson",
+		"mapping",
+		"topojson"
+	],
+	"license": "MIT",
+	"name": "@svizzle/atlas",
+	"peerDependencies": {
+		"lamb": "^0.58.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "github:nestauk/svizzle",
+		"directory": "packages/tools/atlas"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"pipeline": "npm run setup && npm run process && npm run dist",
+		"bumppack": "npm run setprerelease && npm run pack",
+		"chmod": "chmod u+x bin/*",
+		"setup": "npm run chmod && bin/setup.sh",
+		"dist": "npm run chmod && bin/dist.sh",
+		"distsetup": "npm run chmod && bin/dist_setup.sh",
+		"lint": "eslint bin/*.js",
+		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/README.md ${dirname}/package.json",
+		"process": "npm run chmod && bin/process.sh",
+		"setpreminor": "npm --no-git-tag-version version preminor --preid=dev",
+		"setprerelease": "npm --no-git-tag-version version prerelease --preid=dev"
+	},
+	"sideEffects": false,
+	"version": "0.2.0"
 }

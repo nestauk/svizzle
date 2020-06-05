@@ -1,32 +1,32 @@
 {
-    "devDependencies": {
-        "docdash": "^1.1.1",
-        "gh-pages": "^2.2.0",
-        "jsdoc": "^3.6.3",
-        "lerna": "^3.20.2",
-        "rimraf": "^3.0.0",
-        "serve": "^11.3.0"
-    },
-    "dependencies": {},
-    "author": "nestauk",
-    "name": "svizzle",
-    "private": true,
-    "scripts": {
-        "cleanall": "lerna clean && npm run cleandist && npm run cleanpacklocks && npm run cleanhiddenfiles && lerna run cleanup",
-        "cleandist": "rimraf packages/**/dist",
-        "cleanhiddenfiles": "rimraf **/.DS_Store",
-        "cleannodmod": "rimraf node_modules",
-        "cleanpacklocks": "rimraf packages/**/package-lock.json",
-        "deploy": "gh-pages -d _docBuild",
-        "buildDoc": "rimraf _docBuild && jsdoc -c jsdoc.conf.json -R README.md -d _docBuild && ./bin/rename_doc.sh && ./bin/fix_doc.sh",
-        "deployDoc": "npm run buildDoc && npm run deploy",
-        "serveDoc": "npm run buildDoc && cd _docBuild && serve",
-        "lernaboot": "lerna bootstrap --hoist",
-        "lernabuild": "lerna run build",
-        "lernaclean": "lerna clean",
-        "lernacleanboot": "npm run cleanall && npm run lernaboot",
-        "lernalint": "lerna run lint",
-        "lernatest": "lerna run test",
-        "prepublishOnly": "npm run lernacleanboot && lerna run lint && lerna run test && lerna run build"
-    }
+	"author": "nestauk",
+	"devDependencies": {
+		"docdash": "^1.1.1",
+		"gh-pages": "^2.2.0",
+		"jsdoc": "^3.6.3",
+		"lerna": "^3.20.2",
+		"rimraf": "^3.0.0",
+		"serve": "^11.3.0"
+	},
+	"dependencies": {},
+	"name": "svizzle",
+	"private": true,
+	"scripts": {
+		"cleanall": "lerna clean && npm run cleandist && npm run cleanpacklocks && npm run cleanhiddenfiles && lerna run cleanup",
+		"cleandist": "rimraf packages/**/dist",
+		"cleanhiddenfiles": "rimraf **/.DS_Store",
+		"cleannodmod": "rimraf node_modules",
+		"cleanpacklocks": "rimraf packages/**/package-lock.json",
+		"deploy": "gh-pages -d _docBuild",
+		"buildDoc": "rimraf _docBuild && jsdoc -c jsdoc.conf.json -R README.md -d _docBuild && ./bin/rename_doc.sh && ./bin/fix_doc.sh",
+		"deployDoc": "npm run buildDoc && npm run deploy",
+		"serveDoc": "npm run buildDoc && cd _docBuild && serve",
+		"lernaboot": "lerna bootstrap --hoist",
+		"lernabuild": "lerna run build",
+		"lernaclean": "lerna clean",
+		"lernacleanboot": "npm run cleanall && npm run lernaboot",
+		"lernalint": "lerna run lint",
+		"lernatest": "lerna run test",
+		"prepublishOnly": "npm run lernacleanboot && lerna run lint && lerna run test && lerna run build"
+	}
 }

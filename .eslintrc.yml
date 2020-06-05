@@ -86,7 +86,7 @@ rules:
   linebreak-style:
     - error
     - unix
-  lines-around-comment: error
+  lines-around-comment: off
   lines-around-directive: error
   lines-between-class-members: error
   max-classes-per-file: error
@@ -210,9 +210,7 @@ rules:
   operator-assignment:
     - error
     - always
-  operator-linebreak:
-    - error
-    - null
+  operator-linebreak: off
   padded-blocks: off
   padding-line-between-statements: error
   prefer-arrow-callback: off
