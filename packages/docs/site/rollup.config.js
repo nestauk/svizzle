@@ -95,6 +95,7 @@ export default {
 				'svelte-json-tree',
 			].includes(name))
 			.concat(
+				/* eslint-disable-next-line global-require */
 				require('module').builtinModules ||
 				Object.keys(process.binding('natives'))
 			),
