@@ -32,13 +32,13 @@
     },
     "description": "A vertical barchart component for Svelte.",
     "files": [
-        "dist/*",
-        "README.md",
-        "LICENSE",
-        "src/**/*.js",
-        "src/**/*.svelte",
+        "!*.spec.js",
         "!pkg/*",
-        "!*.spec.js"
+        "dist/*",
+        "LICENSE",
+        "README.md",
+        "src/**/*.js",
+        "src/**/*.svelte"
     ],
     "homepage": "https://github.com/nestauk/svizzle",
     "keywords": [

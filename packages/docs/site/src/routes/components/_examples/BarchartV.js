@@ -2,7 +2,9 @@ import {formatSvelteMarkup} from './utils';
 
 import {
 	countryKeyRawValue,
-	countryKeyValue,
+	countryKeyValuePositive,
+	countryKeyValueNegatives,
+	countryKeyValueMixed,
 	countryKeyValueAlt,
 	keyToColor,
 	keyToColorFn,
@@ -10,21 +12,36 @@ import {
 	keyToLabel,
 } from './BarchartV_props';
 
-const myTitle = 'My title';
-const defaultColor = 'orange';
-const focusedKey = 'BY';
+const axisColor = 'red';
+const backgroundColor = 'antiquewhite';
+const barDefaultColor = 'orange';
+const barHeight = 12;
+const focusedKey = 'BG';
+const fontSize = 22;
+const textColor = 'green';
+const title = 'My title';
 
 const examples = [
 	{
 		content: [
 			{tag: 'p', content: "In the most basic setup, you need to provide a `{items}` array of objects with the shape `{key: string, value: number}`."},
-			{tag: 'p', content: "Note that not providing a `{title}` shows the barchart with no header."},
+			{tag: 'p', content: "Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default."},
 		],
 		name: 'BarchartV',
 		props: [{
-			key: null,
+			key: 'All positive values',
 			value: {
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				items: countryKeyValueNegatives,
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				items: countryKeyValueMixed,
 			},
 		}],
 		slug: 'BarchartV',
@@ -41,26 +58,127 @@ const examples = [
 		props: [{
 			key: null,
 			value: {
-				items: countryKeyValue,
-				title: myTitle
+				items: countryKeyValuePositive,
+				title
 			},
 		}],
 		slug: 'BarchartV-title',
 		title: 'Title',
 		usage: `
-			<BarchartV {items} title="${myTitle}" />
+			<BarchartV {items} title="${title}" />
+		`,
+	},
+	{
+		content: [
+			{tag: 'p', content: "You can setup a `backgroundColor` and the `textColor`."},
+			{tag: 'p', content: "`barHeight` and `fontSize` contribute to determine the distance between bars."},
+			{tag: 'p', content: "You can configure the axis color using the `axisColor` props (used in case there are values of both signs)."},
+		],
+		name: 'BarchartV',
+		props: [{
+			key: 'All positive values',
+			value: {
+				axisColor,
+				backgroundColor,
+				barHeight,
+				fontSize,
+				items: countryKeyValuePositive,
+				textColor,
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				axisColor,
+				backgroundColor,
+				barHeight,
+				fontSize,
+				items: countryKeyValueNegatives,
+				textColor,
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				axisColor,
+				backgroundColor,
+				barHeight,
+				fontSize,
+				items: countryKeyValueMixed,
+				textColor,
+			},
+		}],
+		slug: 'BarchartV-styles',
+		title: 'Styles',
+		usage: `
+			<BarchartV
+				{items}
+				axisColor = '${axisColor}'
+				backgroundColor = '${backgroundColor}'
+				barHeight = ${barHeight}
+				fontSize = ${fontSize}
+				textColor = '${textColor}'
+			/>
+		`,
+	},
+	{
+		content: [
+			{tag: 'p', content: "You can provide a `barDefaultColor` to be used for bars with no correspondent key in `keyToColor`."},
+			{tag: 'p', content: "If not provided, `barDefaultColor` is `null`, which renders `black`."},
+		],
+		name: 'BarchartV',
+		props: [{
+			key: 'All positive values',
+			value: {
+				barDefaultColor,
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorShort,
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				barDefaultColor,
+				items: countryKeyValueNegatives,
+				keyToColor: keyToColorShort,
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				barDefaultColor,
+				items: countryKeyValueMixed,
+				keyToColor: keyToColorShort,
+			},
+		}],
+		slug: 'BarchartV-barDefaultColor',
+		title: 'Default bars color',
+		usage: `
+			<BarchartV
+				barDefaultColor="${barDefaultColor}"
+				{items}
+				{keyToColor}
+			/>
 		`,
 	},
 	{
 		content: [
 			{tag: 'p', content: "By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color."},
-			{tag: 'p', content: "Notice that the default color for keys not in `keyToColor` is set by `defaultColor` (black if not provided, see `AL` and `AD`)."},
+			{tag: 'p', content: "Notice that the default color for keys not in `keyToColor` is set by `barDefaultColor` (black if not provided, see `AL` and `AD`)."},
 		],
 		name: 'BarchartV',
 		props: [{
-			key: null,
+			key: 'All positive values',
 			value: {
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
+				keyToColor
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				items: countryKeyValueNegatives,
+				keyToColor
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				items: countryKeyValueMixed,
 				keyToColor
 			},
 		}],
@@ -74,13 +192,25 @@ const examples = [
 		content: [
 			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
 			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
-			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `defaultColor` (which falls back to black if `defaultColor` is not provided)."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `barDefaultColor` (which falls back to `black` if `barDefaultColor` is not provided)."},
 		],
 		name: 'BarchartV',
 		props: [{
-			key: null,
+			key: 'All positive values',
 			value: {
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
+				keyToColorFn
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				items: countryKeyValueNegatives,
+				keyToColorFn
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				items: countryKeyValueMixed,
 				keyToColorFn
 			},
 		}],
@@ -92,39 +222,27 @@ const examples = [
 	},
 	{
 		content: [
-			{tag: 'p', content: "You can provide a `defaultColor` to be used for bars with no correspondent key in `keyToColor`."},
-			{tag: 'p', content: "If not provided, `defaultColor` is `null`, which renders `black`."},
-		],
-		name: 'BarchartV',
-		props: [{
-			key: null,
-			value: {
-				defaultColor,
-				items: countryKeyValue,
-				keyToColor: keyToColorShort,
-			},
-		}],
-		slug: 'BarchartV-defaultColor',
-		title: 'Default bars color',
-		usage: `
-			<BarchartV
-				defaultColor="${defaultColor}"
-				{items}
-				{keyToColor}
-			/>
-		`,
-	},
-	{
-		content: [
 			{tag: 'p', content: "You can set the focused bar by providing its key."},
 			{tag: 'p', content: "This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection."},
 		],
 		name: 'BarchartV',
 		props: [{
-			key: null,
+			key: 'All positive values',
 			value: {
 				focusedKey,
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				focusedKey,
+				items: countryKeyValueNegatives,
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				focusedKey,
+				items: countryKeyValueMixed,
 			},
 		}],
 		slug: 'BarchartV-focusedKey',
@@ -142,11 +260,25 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			key: null,
+			key: 'All positive values',
 			value: {
 				focusedKey,
 				focusedKeyColor: 'yellow',
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				focusedKey,
+				focusedKeyColor: 'yellow',
+				items: countryKeyValueNegatives,
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				focusedKey,
+				focusedKeyColor: 'yellow',
+				items: countryKeyValueMixed,
 			},
 		}],
 		slug: 'BarchartV-focusedKeyColor',
@@ -168,7 +300,7 @@ const examples = [
 			key: null,
 			value: {
 				hoverColor: 'palegreen',
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
 				title: 'Hover me',
 			},
 		}],
@@ -187,10 +319,22 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			key: null,
+			key: 'All positive values',
 			value: {
 				keyToLabel,
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				keyToLabel,
+				items: countryKeyValueNegatives,
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				keyToLabel,
+				items: countryKeyValueMixed,
 			},
 		}],
 		slug: 'BarchartV-keyToLabel',
@@ -210,7 +354,7 @@ const examples = [
 		props: [{
 			key: null,
 			value: {
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
 				keyToLabelFn: x => `--${x}--`,
 			},
 		}],
@@ -239,10 +383,24 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			key: null,
+			key: 'All positive values',
 			value: {
 				isInteractive: true,
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
+				title: 'Hover and click me',
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				isInteractive: true,
+				items: countryKeyValueNegatives,
+				title: 'Hover and click me',
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				isInteractive: true,
+				items: countryKeyValueMixed,
 				title: 'Hover and click me',
 			},
 		}],
@@ -276,7 +434,7 @@ const examples = [
 		usage: `
 			<BarchartV
 				{items}
-				valueAccessor={item => Number(Math.sqrt(item.rawValue).toFixed(3))}
+				valueAccessor={item => Number((item.value / 25.3).toFixed(3))}
 			/>
 		`,
 	},
@@ -287,9 +445,21 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			key: null,
+			key: 'All positive values',
 			value: {
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
+				formatFn: x => `${x}%`,
+			},
+		}, {
+			key: 'All negative values',
+			value: {
+				items: countryKeyValueNegatives,
+				formatFn: x => `${x}%`,
+			},
+		}, {
+			key: 'Mixed values',
+			value: {
+				items: countryKeyValueMixed,
 				formatFn: x => `${x}%`,
 			},
 		}],
@@ -309,10 +479,10 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			key: 'countryKeyValue',
+			key: 'countryKeyValuePositive',
 			value: {
 				shouldResetScroll: false,
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
 				title: `When updated, scroll doesn't reset`,
 			},
 		}, {
@@ -339,10 +509,10 @@ const examples = [
 		],
 		name: 'BarchartV',
 		props: [{
-			key: 'countryKeyValue',
+			key: 'countryKeyValuePositive',
 			value: {
 				shouldResetScroll: true,
-				items: countryKeyValue,
+				items: countryKeyValuePositive,
 				title: `When updated, scroll resets`,
 			},
 		}, {
