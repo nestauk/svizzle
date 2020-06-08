@@ -1,5 +1,10 @@
 # Svizzle changelog
 
+## next
+
+- update docs
+- update website dependencies
+
 ## 20200411_2
 
 ## `@svizzle/utils` v0.7.1

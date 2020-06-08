@@ -27,3 +27,7 @@ Svizzle is a mono-repo containing the source code of various npm packages: pleas
 - [`@svizzle/geometry`](https://github.com/nestauk/svizzle/tree/master/packages/tools/geometry)
 - [`@svizzle/request`](https://github.com/nestauk/svizzle/tree/master/packages/tools/request)
 - [`@svizzle/utils`](https://github.com/nestauk/svizzle/tree/master/packages/tools/utils)
+
+## Development
+
+See [here](./doc/dev.md).

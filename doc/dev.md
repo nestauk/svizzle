@@ -42,9 +42,39 @@ It's important to note that these tarballs are a mean to be able to test new fea
 
 ## Development
 
-- `git checkout dev`
-- develop loop: test, code, build, test, repeat
-- after the first commit since the last release we can open a PR dev -> master to see all changes across the packages
+### Cloning
+
+Files fetched or processed via `@svizzle/atlas` are distributed in [this repo](git@github.com:nestauk/svizzle_atlas_distro.git), which is a registered as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules), so the first time you clone `svizzle` please use:
+
+```
+git clone --recurse-submodules git@github.com:nestauk/svizzle.git
+```
+
+to make sure to fetch it.
+
+If you already cloned it and forgot `--recurse-submodules`, you can run:
+
+```
+git submodule update --init
+```
+
+### Installation
+
+In the rot dir:
+
+- `npm install`
+- `npm run lernacleanboot`
+
+### Components site
+
+To test components:
+
+- make sure to do the steps above
+- `cd packages/docs/site`
+- `npm run dev`
+- navigate to `http://localhost:3000` (or similar port)
+
+Since packages are linked in Lerna, the components website should now reload every time you update the source code of a Svizzle component.
 
 ## Preparing for new versions
 
