@@ -72,9 +72,7 @@ rules:
   indent:
     - error
     - tab
-  indent-legacy:
-    - error
-    - tab
+    - MemberExpression: 0
   init-declarations: off
   jsx-quotes: error
   key-spacing: off

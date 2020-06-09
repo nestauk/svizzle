@@ -99,10 +99,10 @@ export const readCsv = (
 	withHeader = true
 ) =>
 	readFile(csvPath, "utf-8")
-		.then(str => withHeader
-			? csvParse(str, conversionFn)
-			: csvParseRows(str, conversionFn)
-		);
+	.then(str => withHeader
+		? csvParse(str, conversionFn)
+		: csvParseRows(str, conversionFn)
+	);
 
 /**
  * [node environment]
@@ -151,13 +151,13 @@ export const readDsv = (
 	withHeader = true
 ) =>
 	readFile(filePath, "utf-8")
-		.then(str => {
-			const parser = dsvFormat(separator);
+	.then(str => {
+		const parser = dsvFormat(separator);
 
-			return withHeader
-				? parser.parse(str, conversionFn)
-				: parser.parseRows(str, conversionFn)
-		});
+		return withHeader
+			? parser.parse(str, conversionFn)
+			: parser.parseRows(str, conversionFn)
+	});
 
 /**
  * [node environment]
@@ -204,10 +204,10 @@ export const readTsv = (
 	withHeader = true
 ) =>
 	readFile(tsvPath, "utf-8")
-		.then(str => withHeader
-			? tsvParse(str, conversionFn)
-			: tsvParseRows(str, conversionFn)
-		);
+	.then(str => withHeader
+		? tsvParse(str, conversionFn)
+		: tsvParseRows(str, conversionFn)
+	);
 
 /**
  * Return a promise that reads and then parses a json file.
@@ -227,7 +227,7 @@ export const readTsv = (
  */
 export const readJson = jsonPath =>
 	readFile(jsonPath, "utf-8")
-		.then(str => JSON.parse(str));
+	.then(str => JSON.parse(str));
 
 /**
  * Return a promise returning an array of objects of the json files of a directory, not recursively.
@@ -247,11 +247,11 @@ export const readJson = jsonPath =>
  */
 export const readJsonDir = dirPath =>
 	readDir(dirPath, "utf8")
-		.then(filterJsonExtensions)
-		.then(filenames => Promise.all(
-			filenames.map(filename => {
-				const filepath = path.join(dirPath, filename);
+	.then(filterJsonExtensions)
+	.then(filenames => Promise.all(
+		filenames.map(filename => {
+			const filepath = path.join(dirPath, filename);
 
-				return readFile(filepath, "utf-8").then(JSON.parse)
-			})
-		));
+			return readFile(filepath, "utf-8").then(JSON.parse)
+		})
+	));

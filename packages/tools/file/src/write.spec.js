@@ -45,7 +45,7 @@ describe("write", function() {
 
 				const returnedJson =
 					await readJson(jsonPath)
-						.then(saveObjPassthrough(tmpFilepath));
+					.then(saveObjPassthrough(tmpFilepath));
 
 				const writtenJson = await readJson(tmpFilepath);
 
@@ -60,7 +60,7 @@ describe("write", function() {
 
 				const returnedJson =
 					await readJson(jsonPath)
-						.then(saveObjPassthrough(tmpFilepath, 4));
+					.then(saveObjPassthrough(tmpFilepath, 4));
 
 				const writtenJsonString = fs.readFileSync(tmpFilepath, "utf8");
 
@@ -76,11 +76,10 @@ describe("write", function() {
 				const obj = {a: 1, b: 2};
 
 				nock("http://this.test")
-					.get('/json')
-					.reply(200, obj);
+				.get('/json')
+				.reply(200, obj);
 
-				await fetch("http://this.test/json")
-					.then(saveResponse(tmpFilepath));
+				await fetch("http://this.test/json").then(saveResponse(tmpFilepath));
 
 				const writtenJson = await readJson(tmpFilepath);
 

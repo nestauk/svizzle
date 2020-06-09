@@ -69,9 +69,9 @@ const makeTopojsonUpdater = key => transformValues({
 const process = async () => {
 	const permutations =
 		await readFile(NUTS_SPEC_PATH, 'utf-8')
-			.then(yaml.safeLoad)
-			.then(permute)
-			.catch(err => console.error(err));
+		.then(yaml.safeLoad)
+		.then(permute)
+		.catch(err => console.error(err));
 
 	await Promise.all(
 		_.map(permutations,
@@ -88,11 +88,11 @@ const process = async () => {
 						: _.identity;
 
 					return fetch(url)
-						.then(response => response.json())
-						.then(updater)
-						.then(tapMessage(`Saving ${filePath}`))
-						.then(saveObj(filePath))
-						.catch(err => console.error(url, err));
+					.then(response => response.json())
+					.then(updater)
+					.then(tapMessage(`Saving ${filePath}`))
+					.then(saveObj(filePath))
+					.catch(err => console.error(url, err));
 				}
 			])
 		)
@@ -100,5 +100,5 @@ const process = async () => {
 }
 
 process()
-	.then(tapMessage('Done'))
-	.catch(err => console.error(err));
+.then(tapMessage('Done'))
+.catch(err => console.error(err));

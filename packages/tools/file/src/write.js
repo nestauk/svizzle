@@ -80,7 +80,7 @@ export const saveObj = (filepath, indent = 0) => object =>
 export const saveObjPassthrough = (filepath, indent = 0) =>
 	object =>
 		writeFile(filepath, JSON.stringify(object, null, indent), "utf8")
-			.then(() => object);
+		.then(() => object);
 
 /**
  * Return a function that expects a string and returns a promise that writes

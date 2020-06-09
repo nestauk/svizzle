@@ -34,25 +34,25 @@ const makeEuCountries = _.pipe([
 - Create EU_countries_by_year.yaml
 */
 readFile(NUTS_SPEC_PATH, 'utf-8')
-	.then(yaml.safeLoad)
-	.then(({year}) => Promise.all(
-		_.map(year,
-			_.pipe([
-				_.collect([_.identity, makeURL, makePathYearlyCsv]),
-				([startYear, url, filePath]) =>
-					fetch(url)
-						.then(response => response.text())
-						.then(tapMessage(`Saving ${filePath}`))
-						.then(saveStringPassthrough(filePath))
-						.then(csvString => [startYear, makeEuCountries(csvString)])
-						.catch(err => console.error(url, err))
-			])
-		)
-	))
-	.then(_.pipe([_.fromPairs, yaml.safeDump]))
-	.then(tapMessage(`Saving ${EU_COUNTRIES_HISTORY_PATH}`))
-	.then(saveString(EU_COUNTRIES_HISTORY_PATH))
-	.then(tapMessage('Done'))
-	.catch(err => console.error(err));
+.then(yaml.safeLoad)
+.then(({year}) => Promise.all(
+	_.map(year,
+		_.pipe([
+			_.collect([_.identity, makeURL, makePathYearlyCsv]),
+			([startYear, url, filePath]) =>
+				fetch(url)
+				.then(response => response.text())
+				.then(tapMessage(`Saving ${filePath}`))
+				.then(saveStringPassthrough(filePath))
+				.then(csvString => [startYear, makeEuCountries(csvString)])
+				.catch(err => console.error(url, err))
+		])
+	)
+))
+.then(_.pipe([_.fromPairs, yaml.safeDump]))
+.then(tapMessage(`Saving ${EU_COUNTRIES_HISTORY_PATH}`))
+.then(saveString(EU_COUNTRIES_HISTORY_PATH))
+.then(tapMessage('Done'))
+.catch(err => console.error(err));
 
 // [1] "properties":{"NUTS_ID":"LU","LEVL_CODE":0,"CNTR_CODE":"LU","NUTS_NAME":"Luxembourg (Grand-Duché)","FID":"LU"},"id":"LU"

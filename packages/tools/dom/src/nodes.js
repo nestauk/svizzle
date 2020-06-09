@@ -56,8 +56,8 @@ d3.selectAll("#oldContainer .toBeMoved")
  */
 export const moveNode = (node, newContainer) =>
 	select(newContainer)
-		.append(
-			() => select(node).remove().node()
-		);
+	.append(
+		() => select(node).remove().node()
+	);
 
 // TODO test

@@ -14,8 +14,8 @@ describe("request: json", function() {
 		it("should return a request to a JSON file as a promise (with Fetch)",
 			async function() {
 				nock("http://this.test")
-					.get('/json')
-					.reply(200, obj);
+				.get('/json')
+				.reply(200, obj);
 
 				const response = await requestJson("http://this.test/json");
 
@@ -45,8 +45,8 @@ describe("request: json", function() {
 		it("should return a request to a ndjson file as a promise (with Fetch)",
 			async function() {
 				nock("http://this.test")
-					.get('/ndjson')
-					.reply(200, ndjson);
+				.get('/ndjson')
+				.reply(200, ndjson);
 
 				const response = await requestNdjson("http://this.test/ndjson");
 

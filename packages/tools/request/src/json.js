@@ -81,4 +81,4 @@ export const requestNdjson = (url, useFetch = true) =>
 			});
 		})
 	)
-		.then(ndjsonToArray);
+	.then(ndjsonToArray);

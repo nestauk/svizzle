@@ -28,11 +28,11 @@ const makeTopojsonFilterByCountryId = countryId => transformPaths({
 */
 const process = async () => {
 	const filtersByYear = await readFile(EU_COUNTRIES_HISTORY_PATH, 'utf-8')
-		.then(yaml.safeLoad)
-		.then(_.mapValuesWith(
-			_.mapWith(_.collect([_.identity, makeTopojsonFilterByCountryId]))
-		))
-		.catch(err => console.error(err));
+	.then(yaml.safeLoad)
+	.then(_.mapValuesWith(
+		_.mapWith(_.collect([_.identity, makeTopojsonFilterByCountryId]))
+	))
+	.catch(err => console.error(err));
 
 	const filenames = await readDir(IN_BASE_PATH);
 
@@ -52,13 +52,13 @@ const process = async () => {
 				const prunedTopo = prune(filteredObjectsTopo);
 
 				return saveObj(outPath)(prunedTopo)
-					.then(tapMessage(`${year} ${id}: ${length} -> ${JSON.stringify(prunedTopo).length} Saved in ${outPath}`))
-					.catch(err => console.error(outPath, err));
+				.then(tapMessage(`${year} ${id}: ${length} -> ${JSON.stringify(prunedTopo).length} Saved in ${outPath}`))
+				.catch(err => console.error(outPath, err));
 			});
 		})
 	)
 }
 
 process()
-	.then(tapMessage('Done'))
-	.catch(err => console.error(err))
+.then(tapMessage('Done'))
+.catch(err => console.error(err))

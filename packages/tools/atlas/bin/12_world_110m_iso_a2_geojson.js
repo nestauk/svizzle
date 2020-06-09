@@ -13,5 +13,5 @@ const truncateGeojson = setGeometryPrecision(4);
 const geojson = truncateGeojson(feature(topojson, topojson.objects.countries));
 
 writeFile(PATH, JSON.stringify(geojson), 'utf-8')
-	.then(() => console.log(`Saved ${PATH}`))
-	.catch(err => console.error(err));
+.then(() => console.log(`Saved ${PATH}`))
+.catch(err => console.error(err));
