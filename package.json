@@ -3,12 +3,18 @@
 	"devDependencies": {
 		"docdash": "^1.1.1",
 		"gh-pages": "^2.2.0",
+		"husky": "^4.2.5",
 		"jsdoc": "^3.6.3",
 		"lerna": "^3.20.2",
 		"rimraf": "^3.0.0",
 		"serve": "^11.3.0"
 	},
 	"dependencies": {},
+	"husky": {
+		"hooks": {
+			"pre-push": "npm run lernalint"
+		}
+	},
 	"name": "svizzle",
 	"private": true,
 	"scripts": {

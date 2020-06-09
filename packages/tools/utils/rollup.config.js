@@ -14,17 +14,17 @@ import {
 import pkg from "./package.json";
 
 const analyzer = analyze({
-  limit: 15,
-  root: path.resolve('../../../'),
-  stdout: true,
-  summaryOnly: true
+	limit: 15,
+	root: path.resolve('../../../'),
+	stdout: true,
+	summaryOnly: true
 });
 const banner = makeBanner(pkg);
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = pkg.module;
 const treeshake = {
-  annotations: true,
-  moduleSideEffects: false,
+	annotations: true,
+	moduleSideEffects: false,
 };
 
 const cjsConfig = {
