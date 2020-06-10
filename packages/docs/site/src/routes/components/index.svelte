@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>Svizzle components</title>
+	<title>Svizzle Components</title>
 </svelte:head>
 
 <script context="module">
@@ -31,7 +31,8 @@
 
 <style>
 	ul {
-		margin: 0 0 1em 0;
 		line-height: 1.5;
+		list-style: none;
+		margin: 0 0 1em 0;
 	}
 </style>

@@ -1,8 +1,13 @@
 <svelte:head>
-	<title>Svizzle</title>
+	<title>Svizzle Tools</title>
 </svelte:head>
 
-<h1>Svizzle docs</h1>
-
-<style>
-</style>
+<iframe
+	frameborder='0'
+	height='100%'
+	marginheight='0'
+	marginwidth='0'
+	src='/svizzle/jsDocBuild/'
+	title='jsdoc'
+	width='100%'
+>Loading...</iframe>

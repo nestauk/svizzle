@@ -23,18 +23,17 @@
 	let instance;
 
 	$: ({
-		props,
-		content,
+		data,
+		doc,
 		events,
 		name,
 		title,
-		usage,
 	} = lookup[slug]);
-	$: current_props_index = slug && 0; // reset to zero on navigation
+	$: current_data_index = slug && 0; // reset to zero on navigation
 	$: component = components[name];
 	$: payloads = events ? makeKeyedEmptyString(events) : null;
-	$: current_props = props[current_props_index].value;
-	$: displayProps = _.pairs(current_props);
+	$: current_data = data[current_data_index];
+	$: displayProps = _.pairs(current_data.props);
 
 	const makeEventHandler = eventName =>
 		event => {
@@ -55,18 +54,18 @@
 </script>
 
 <svelte:head>
-	<title>{title}</title>
+	<title>{name}: {title} - Svizzle</title>
 </svelte:head>
 
 <main>
 	<h1>{title}</h1>
 	<div class="col col1">
 		<div class="distancer">
-			<Elements elements={content} />
+			<Elements elements={doc} />
 		</div>
 		<div class="distancer">
 			<h2>Usage</h2>
-			<pre>{usage}</pre>
+			<pre>{current_data.usage}</pre>
 		</div>
 		{#if payloads}
 		<h2>Events</h2>
@@ -81,12 +80,12 @@
 		{/if}
 		<div class="distancer">
 			<h2>Props</h2>
-			{#if props.length > 1}
+			{#if data.length > 1}
 			<div class="distancer">
-				{#each props as {key, value}, index}
+				{#each data as {key, value}, index}
 				<button
-					class:active='{current_props_index === index}'
-					on:click='{ () => { current_props_index = index } }'
+					class:active='{current_data_index === index}'
+					on:click='{ () => { current_data_index = index } }'
 				>{key}</button>
 				{/each}
 			</div>
@@ -103,17 +102,19 @@
 		<svelte:component
 			bind:this={instance}
 			this={component}
-			{...current_props}
+			{...current_data.props}
 		/>
 	</div>
 </main>
 
 <style>
 	main {
+		column-gap: 0.5rem;
 		display: grid;
 		grid-template-columns: 50% 50%;
 		grid-template-rows: 3rem calc(100% - 3rem);
 		height: 100%;
+		padding: 0.5rem;
 		width: 100%;
 	}
 
@@ -155,7 +156,7 @@
 	button {
 		padding: 0.5rem;
 		margin-right: 0.5rem;
-		font-size: 1.05rem;
+		font-size: 0.85rem;
 	}
 
 	button.active {
@@ -170,6 +171,7 @@
 
 	.col2 {
 		grid-column: 2 / span 1;
-		border: 1px solid var(--color-main);
+		border: 1px solid lightgrey;
+		box-shadow: 1px 1px 4px 1px lightgrey;
 	}
 </style>

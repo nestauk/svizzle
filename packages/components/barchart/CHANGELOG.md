@@ -1,4 +1,4 @@
-## `@svizzle/barchart` (next)
+## `@svizzle/barchart` v0.3.0 (next)
 
 - rewrite to accept negative values
 - uses SVG instead of HTML

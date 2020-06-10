@@ -1,36 +1,5 @@
 {
-    "tags": {
-        "allowUnknownTags": false
-    },
-    "source": {
-        "include": [
-            "packages/tools"
-        ],
-        "excludePattern": "(node_modules|dist)"
-    },
-    "templates": {
-        "cleverLinks": false,
-        "monospaceLinks": false,
-        "default": {
-            "outputSourceFiles": true
-        },
-        "applicationName": "Svizzle",
-        "footer": "Nesta © 2019 (https://www.nesta.org.uk)",
-        "copyright": "Nesta © 2019",
-        "linenums": true
-    },
-    "opts": {
-        "encoding": "utf8",
-        "lenient": true,
-        "private": false,
-        "recurse": true,
-        "template": "./node_modules/docdash"
-    },
-    "plugins": [
-        "plugins/markdown"
-    ],
     "docdash": {
-        "search": true,
         "collapse": false,
         "menu":{
             "Github repo":{
@@ -45,6 +14,40 @@
             "description": "Documentation for Svizzle",
             "keyword": "data visualisation, dataviz, svelte, components, utilities",
             "favicon": "./doc/cocktail_32.png"
-        }
+        },
+        "search": true
+    },
+    "opts": {
+        "encoding": "utf8",
+        "lenient": true,
+        "private": false,
+        "recurse": true,
+        "template": "./node_modules/docdash"
+    },
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "source": {
+        "include": [
+            "packages/tools"
+        ],
+        "exclude": [
+            "packages/tools/atlas"
+        ],
+        "excludePattern": "(node_modules|dist|index.js|rollup.config.js|spec.js)"
+    },
+    "tags": {
+        "allowUnknownTags": false
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": true
+        },
+        "applicationName": "Svizzle",
+        "footer": "Nesta © 2020 (https://www.nesta.org.uk)",
+        "copyright": "Nesta © 2020",
+        "linenums": true
     }
 }

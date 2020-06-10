@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-for f in _docBuild/*.html;
+for f in jsDocBuild/*.html;
   do \
     cat "$f" \
     | sed 's/%5B/\[/g' \

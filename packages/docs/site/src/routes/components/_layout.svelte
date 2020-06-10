@@ -37,7 +37,7 @@
 		width: 100%;
 
 		display: grid;
-		grid-template-columns: 15% 85%;
+		grid-template-columns: var(--dim-sidebar-width) calc(100% - var(--dim-sidebar-width));
 		grid-template-rows: 100%;
 	}
 
@@ -45,10 +45,16 @@
 		height: 100%;
 		width: 100%;
 		padding: var(--dim-padding);
-		border-right: 1px solid var(--color-main-lighter);
+		border-right: 1px solid var(--color-main);
 		overflow-y: auto;
+
+		background-color: var(--color-sidebar-bkg);
+		color: var(--color-main);
 	}
 
+	nav h2 {
+		font-family: Open Sans Regular;
+	}
 	nav a {
 		text-decoration: none;
 	}
@@ -61,12 +67,13 @@
 	}
 
 	nav p.selected {
-		background-color: var(--color-main-lighter) !important;
+		font-family: Open Sans SemiBold;
 	}
 
 	nav p:hover {
 		cursor: pointer;
-		background-color: var(--color-grey-lighter);
+		background-color: var(--color-main);
+		color: var(--color-font-light);
 	}
 
 	main {

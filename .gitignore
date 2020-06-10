@@ -4,6 +4,6 @@ packages/tools/**/node_modules
 packages/components/**/node_modules
 /node_modules
 
-_docBuild
+jsDocBuild
 
 .DS_Store

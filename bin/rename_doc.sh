@@ -2,6 +2,6 @@
 
 # %5B -> [
 # %5D -> ]
-for f in _docBuild/*.html;
+for f in jsDocBuild/*.html;
   do mv "$f" $(echo "$f" | sed 's/%5B/\[/g' | sed 's/%5D/\]/g');
 done

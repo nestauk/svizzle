@@ -3,7 +3,24 @@
 ## next
 
 - update docs
-- update website dependencies
+- update website:
+ 	- updated dependencies
+ 	- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
+  - add colors to the UK examples
+  - create a list of entries from the examples instead of relying on Sapper scraping
+	- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
+
+## `@svizzle/barchart` v0.3.0
+
+- rewrite to accept negative values
+- uses SVG instead of HTML
+- props rename: `defaultColor` -> `barDefaultColor`
+- new props:
+	- `axisColor`
+	- `backgroundColor`
+	- `barHeight` (was previously set in CSS)
+	- `fontSize` (the distance between bars depends on this now)
+	- `textColor` (was previously set in CSS)
 
 ## 20200411_2
 

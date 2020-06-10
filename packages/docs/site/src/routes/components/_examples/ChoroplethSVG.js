@@ -1,14 +1,21 @@
-import {formatSvelteMarkup} from './utils';
-import {keyToColor, keyToColorFn} from './BarchartV_props';
+import * as _ from 'lamb';
+import {transformValues} from '@svizzle/utils';
 import World_110m_iso_a2_topo from '@svizzle/atlas/distro/World_110m_iso_a2_topo.json';
 import NUTS_RG_03M_2016_4326_LEVL_0_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_0_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_1_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
 
+import {
+	keyToColorUK2016,
+	keyToColorWorld,
+	keyToColorWorldFn,
+} from './BarchartV_props';
+import {formatSvelteMarkup} from './utils';
+
 const examples = [
 	{
-		content: [
+		doc: [
 			{tag: 'p', content: "In the most basic setup, you need to provide:"},
 			{tag: 'p', content: "• `key`, the key to be used in the features `properties` field as the region identifier;"},
 			{tag: 'p', content: "• Note that you might provide a topojson where not all the objects have the provided `key`."},
@@ -20,171 +27,215 @@ const examples = [
 			{tag: 'p', content: "The default projection (`geoEquirectangular`) will be applied."},
 		],
 		name: 'ChoroplethSVG',
-		props: [{
+		data: [{
 			key: 'World_110m_iso_a2_topo',
-			value: {
+			props: {
 				height: 600,
 				key: 'iso_a2',
-				keyToColor,
+				keyToColor: keyToColorWorld,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
 			},
+			usage: `
+				<ChoroplethSVG
+					height=600
+					key='iso_a2'
+					keyToColor={keyToColorWorld}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+					width=600
+				/>
+			`,
 		}, {
 			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
-			value: {
+			props: {
 				height: 600,
 				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
 				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
 				topojsonId: 'NUTS',
 				width: 600,
 			},
+			usage: `
+				<ChoroplethSVG
+					height=600
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}
+					topojsonId='NUTS'
+					width=600
+				/>
+			`,
 		}, {
 			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
-			value: {
+			props: {
 				height: 600,
 				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
 				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
 				topojsonId: 'NUTS',
 				width: 600,
 			},
+			usage: `
+				<ChoroplethSVG
+					height=600
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}
+					topojsonId='NUTS'
+					width=600
+				/>
+			`,
 		}, {
 			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
-			value: {
+			props: {
 				height: 600,
 				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
 				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
 				topojsonId: 'NUTS',
 				width: 600,
 			},
+			usage: `
+				<ChoroplethSVG
+					height=600
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}
+					topojsonId='NUTS'
+					width=600
+				/>
+			`,
 		}, {
 			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-			value: {
+			props: {
 				height: 600,
 				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
 				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
 				topojsonId: 'NUTS',
 				width: 600,
 			},
+			usage: `
+				<ChoroplethSVG
+					height=600
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+					width=600
+				/>
+			`,
 		}],
 		slug: 'ChoroplethSVG',
 		title: 'Basic props',
-		usage: `
-			<ChoroplethSVG
-				{keyToColor}
-				height=600
-				{key} <!-- World: 'iso_a2', NUTS: 'NUTS_ID' -->
-				{topojson}
-				{topojsonId} <!-- World: 'countries', NUTS: 'NUTS' -->
-				width=600
-			/>
-		`,
 	},
 	{
-		content: [
-			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
-			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
-			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `colorDefaultFill` (which defaults to `white`)."},
-		],
-		name: 'ChoroplethSVG',
-		props: [{
-			key: null,
-			value: {
-				height: 600,
-				key: 'iso_a2',
-				keyToColorFn,
-				topojson: World_110m_iso_a2_topo,
-				topojsonId: 'countries',
-				width: 600,
-			},
-		}],
-		slug: 'ChoroplethSVG-keyToColorFn',
-		title: 'Colors via function',
-		usage: `
-			<ChoroplethSVG
-				{keyToColor}
-				height=600
-				key='iso_a2'
-				topojson={World_110m_iso_a2_topo}
-				topojsonId='countries'
-				width=600
-			/>
-		`,
-	},
-	{
-		content: [
+		doc: [
 			{tag: 'p', content: "You can customise the map colors and stroke size."},
 		],
 		name: 'ChoroplethSVG',
-		props: [{
+		data: [{
 			key: null,
-			value: {
+			props: {
 				colorDefaultFill: 'palegreen',
 				colorSea: 'aqua',
 				colorStroke: 'tomato',
 				height: 600,
 				key: 'iso_a2',
-				keyToColor,
+				keyToColor: keyToColorWorld,
 				sizeStroke: 1,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
 			},
+			usage: `
+				<ChoroplethSVG
+					{keyToColor}
+					colorDefaultFill='palegreen'
+					colorSea='aqua'
+					colorStroke='tomato'
+					height=600
+					key='iso_a2'
+					sizeStroke=1
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+					width=600
+				/>
+			`,
 		}],
-		slug: 'ChoroplethSVG-colors',
+		slug: 'ChoroplethSVG-styles',
 		title: 'Styles',
-		usage: `
-			<ChoroplethSVG
-				{keyToColor}
-				colorDefaultFill='palegreen'
-				colorSea='aqua'
-				colorStroke='tomato'
-				height=600
-				key='iso_a2'
-				sizeStroke=1
-				topojson={World_110m_iso_a2_topo}
-				topojsonId='countries'
-				width=600
-			/>
-		`,
 	},
 	{
-		content: [
+		doc: [
+			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `colorDefaultFill` (which defaults to `white`)."},
+		],
+		name: 'ChoroplethSVG',
+		data: [{
+			key: null,
+			props: {
+				height: 600,
+				key: 'iso_a2',
+				keyToColorFn: keyToColorWorldFn,
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				width: 600,
+			},
+			usage: `
+				<ChoroplethSVG
+					{keyToColorFn}
+					height=600
+					key='iso_a2'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+					width=600
+				/>
+			`,
+		}],
+		slug: 'ChoroplethSVG-keyToColorFn',
+		title: 'Colors via function',
+	},
+	{
+		doc: [
 			{tag: 'p', content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."},
 		],
 		name: 'ChoroplethSVG',
-		props: [{
+		data: [{
 			key: null,
-			value: {
+			props: {
 				colorStrokeSelected: 'red',
 				height: 600,
 				key: 'iso_a2',
-				keyToColor,
+				keyToColor: keyToColorWorld,
 				selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU'],
 				sizeStrokeSelected: 1.5,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
 			},
+			usage: `
+				<ChoroplethSVG
+					{keyToColor}
+					colorStrokeSelected='red',
+					height=600
+					key='iso_a2'
+					selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']
+					sizeStrokeSelected=1.5
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+					width=600
+				/>
+			`,
 		}],
 		slug: 'ChoroplethSVG-selectedKeys',
 		title: 'Selected regions',
-		usage: `
-			<ChoroplethSVG
-				{keyToColor}
-				colorStrokeSelected='red',
-				height=600
-				key='iso_a2'
-				selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']
-				sizeStrokeSelected=1.5
-				topojson={World_110m_iso_a2_topo}
-				topojsonId='countries'
-				width=600
-			/>
-		`,
 	},
 	{
-		content: [
+		doc: [
 			{tag: 'p', content: "If `true`, the component emits events when interacting with the regions."},
 			{tag: 'p', content: "The payload is the `key` or `key_alt` of the region being interacted with:"},
 			{tag: 'p', content: "• Clicking a region dispatches a `clicked` event;"},
@@ -198,37 +249,37 @@ const examples = [
 			'exited',
 		],
 		name: 'ChoroplethSVG',
-		props: [{
+		data: [{
 			key: null,
-			value: {
+			props: {
 				height: 600,
 				isInteractive: true,
 				key: 'iso_a2',
-				keyToColor,
+				keyToColor: keyToColorWorld,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
 			},
+			usage: `
+				<ChoroplethSVG
+					{keyToColor}
+					height=600
+					isInteractive={true}
+					key='iso_a2'
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+					width=600
+				/>
+			`,
 		}],
 		slug: 'ChoroplethSVG-isInteractive',
 		title: 'Interactivity',
-		usage: `
-			<ChoroplethSVG
-				{keyToColor}
-				height=600
-				isInteractive={true}
-				key='iso_a2'
-				on:clicked={onClicked}
-				on:entered={onEntered}
-				on:exited={onExited}
-				topojson={World_110m_iso_a2_topo}
-				topojsonId='countries'
-				width=600
-			/>
-		`,
 	},
 	{
-		content: [
+		doc: [
 			{tag: 'p', content: "The default projection is `geoEquirectangular`."},
 			{tag: 'p', content: "You can use most of the projections provided by `d3-geo`:"},
 			{tag: 'p', content: "Azimuthal Projections:"},
@@ -249,50 +300,61 @@ const examples = [
 			{tag: 'p', content: "• `geoNaturalEarth1`"},
 		],
 		name: 'ChoroplethSVG',
-		props: [{
+		data: [{
 			key: 'geoAzimuthalEqualArea',
-			value: {
+			props: {
 				height: 600,
 				key: 'iso_a2',
-				keyToColor,
+				keyToColor: keyToColorWorld,
 				projection: 'geoAzimuthalEqualArea',
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				width: 600,
-			}
+			},
+			usage: `
+				<ChoroplethSVG
+					{keyToColor}
+					height=600
+					key='iso_a2'
+					projection='geoAzimuthalEqualArea'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+					width=600
+				/>
+			`,
 		}, {
 			key: 'geoOrthographic',
-			value: {
+			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				height: 600,
 				key: 'iso_a2',
-				keyToColor,
+				keyToColor: keyToColorWorld,
 				projection: 'geoOrthographic',
 				width: 600,
-			}
+			},
+			usage: `
+				<ChoroplethSVG
+					{keyToColor}
+					height=600
+					key='iso_a2'
+					projection='geoOrthographic'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+					width=600
+				/>
+			`,
 		}],
 		slug: 'ChoroplethSVG-projection',
 		title: 'Projection',
-		usage: `
-			<ChoroplethSVG
-				{keyToColor}
-				height=600
-				key='iso_a2'
-				projection='a-projection-id'
-				topojson={World_110m_iso_a2_topo}
-				topojsonId='countries'
-				width=600
-			/>
-		`,
 	},
-].map(obj => ({
-	...obj,
-	content: obj.content.map(element => ({
-		...element,
-		content: element.content.trim(),
+].map(transformValues({
+	doc: _.mapWith(transformValues({
+		content: s => s.trim(),
 	})),
-	usage: formatSvelteMarkup(obj.usage)
-}))
+	data: _.mapWith(transformValues({
+		usage: formatSvelteMarkup
+	}))
+}));
 
 export default examples;
