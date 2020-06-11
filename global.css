@@ -77,7 +77,7 @@ pre {
 	/* --color-main: rgb(77, 92, 61); */
 	--color-main: #6d426d;
 	--color-selected: cadetblue;
-	--color-sidebar-bkg: #e2f5e1;
+	--color-sidebar-bkg: #f1feff;
 	--dim-header-height: 3rem;
 	--dim-main-height: calc(100% - var(--dim-header-height));
 	--dim-padding-minor: 0.5rem;

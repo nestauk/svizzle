@@ -1888,6 +1888,7 @@ var file = "src/node_modules/app/components/Nav.svelte";
 
 function create_fragment(ctx) {
   var nav;
+  var div0;
   var ul;
   var li0;
   var a0;
@@ -1896,9 +1897,14 @@ function create_fragment(ctx) {
   var li1;
   var a1;
   var t2;
+  var t3;
+  var div1;
+  var a2;
+  var t4;
   var block = {
     c: function create() {
       nav = element("nav");
+      div0 = element("div");
       ul = element("ul");
       li0 = element("li");
       a0 = element("a");
@@ -1907,6 +1913,10 @@ function create_fragment(ctx) {
       li1 = element("li");
       a1 = element("a");
       t2 = text("Components");
+      t3 = space();
+      div1 = element("div");
+      a2 = element("a");
+      t4 = text("Github repo");
       this.h();
     },
     l: function claim(nodes) {
@@ -1914,7 +1924,9 @@ function create_fragment(ctx) {
         class: true
       });
       var nav_nodes = children(nav);
-      ul = claim_element(nav_nodes, "UL", {
+      div0 = claim_element(nav_nodes, "DIV", {});
+      var div0_nodes = children(div0);
+      ul = claim_element(div0_nodes, "UL", {
         class: true
       });
       var ul_nodes = children(ul);
@@ -1945,35 +1957,53 @@ function create_fragment(ctx) {
       a1_nodes.forEach(detach_dev);
       li1_nodes.forEach(detach_dev);
       ul_nodes.forEach(detach_dev);
+      div0_nodes.forEach(detach_dev);
+      t3 = claim_space(nav_nodes);
+      div1 = claim_element(nav_nodes, "DIV", {});
+      var div1_nodes = children(div1);
+      a2 = claim_element(div1_nodes, "A", {
+        href: true,
+        class: true
+      });
+      var a2_nodes = children(a2);
+      t4 = claim_text(a2_nodes, "Github repo");
+      a2_nodes.forEach(detach_dev);
+      div1_nodes.forEach(detach_dev);
       nav_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
       attr_dev(a0, "href", "./");
-      attr_dev(a0, "class", "svelte-1uuok9w");
+      attr_dev(a0, "class", "svelte-1b649g2");
       toggle_class(a0, "selected",
       /*segment*/
       ctx[0] === "undefined");
-      add_location(a0, file, 7, 3, 63);
-      attr_dev(li0, "class", "svelte-1uuok9w");
-      add_location(li0, file, 6, 2, 55);
+      add_location(a0, file, 8, 4, 73);
+      attr_dev(li0, "class", "svelte-1b649g2");
+      add_location(li0, file, 7, 3, 64);
       attr_dev(a1, "rel", "prefetch");
       attr_dev(a1, "href", "./components/BarchartV");
-      attr_dev(a1, "class", "svelte-1uuok9w");
+      attr_dev(a1, "class", "svelte-1b649g2");
       toggle_class(a1, "selected",
       /*segment*/
       ctx[0] === "components");
-      add_location(a1, file, 13, 3, 159);
-      attr_dev(li1, "class", "svelte-1uuok9w");
-      add_location(li1, file, 12, 2, 151);
-      attr_dev(ul, "class", "svelte-1uuok9w");
-      add_location(ul, file, 5, 1, 48);
-      attr_dev(nav, "class", "svelte-1uuok9w");
+      add_location(a1, file, 14, 4, 175);
+      attr_dev(li1, "class", "svelte-1b649g2");
+      add_location(li1, file, 13, 3, 166);
+      attr_dev(ul, "class", "svelte-1b649g2");
+      add_location(ul, file, 6, 2, 56);
+      add_location(div0, file, 5, 1, 48);
+      attr_dev(a2, "href", "https://github.com/nestauk/svizzle");
+      attr_dev(a2, "class", "svelte-1b649g2");
+      add_location(a2, file, 23, 2, 334);
+      add_location(div1, file, 22, 1, 326);
+      attr_dev(nav, "class", "svelte-1b649g2");
       add_location(nav, file, 4, 0, 41);
     },
     m: function mount(target, anchor) {
       insert_dev(target, nav, anchor);
-      append_dev(nav, ul);
+      append_dev(nav, div0);
+      append_dev(div0, ul);
       append_dev(ul, li0);
       append_dev(li0, a0);
       append_dev(a0, t0);
@@ -1981,6 +2011,10 @@ function create_fragment(ctx) {
       append_dev(ul, li1);
       append_dev(li1, a1);
       append_dev(a1, t2);
+      append_dev(nav, t3);
+      append_dev(nav, div1);
+      append_dev(div1, a2);
+      append_dev(a2, t4);
     },
     p: function update(ctx, _ref) {
       var _ref2 = _slicedToArray(_ref, 1),
@@ -3331,24 +3365,24 @@ var App = /*#__PURE__*/function (_SvelteComponentDev) {
 var ignore = [/^\/components\.json$/, /^\/components\/groups\.json$/];
 var components = [{
   js: function js() {
-    return import('./index.721a53ad.js');
+    return import('./index.033690da.js');
   },
-  css: ["legacy/client.b7bf2db6.css"]
+  css: ["legacy/client.72374190.css"]
 }, {
   js: function js() {
-    return import('./_layout.2fbfca8c.js');
+    return import('./_layout.ceca663c.js');
   },
-  css: ["legacy/_layout.2fbfca8c.css","legacy/client.b7bf2db6.css"]
+  css: ["legacy/_layout.ceca663c.css","legacy/client.72374190.css"]
 }, {
   js: function js() {
-    return import('./index.147d89c5.js');
+    return import('./index.0384294d.js');
   },
-  css: ["legacy/index.147d89c5.css","legacy/client.b7bf2db6.css"]
+  css: ["legacy/index.0384294d.css","legacy/client.72374190.css"]
 }, {
   js: function js() {
-    return import('./[slug].e21a9e91.js');
+    return import('./[slug].86f4a86a.js');
   },
-  css: ["legacy/[slug].e21a9e91.css","legacy/client.b7bf2db6.css"]
+  css: ["legacy/[slug].86f4a86a.css","legacy/client.72374190.css"]
 }];
 var routes = function (d) {
   return [{
