@@ -1,0 +1,94 @@
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url('font/OpenSans-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans Regular';
+  src: url('font/OpenSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans Bold';
+  src: url('font/OpenSans-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans SemiBold';
+  src: url('font/OpenSans-SemiBold.ttf') format('truetype');
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html, body, #app {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background-color: white;
+	color: #333;
+	font-family: Open Sans Light, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 400;
+	line-height: 1.2;
+	margin: 0 0 0.5em 0;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+p {
+	font-size: 1.1em;
+}
+
+a {
+	color: inherit;
+}
+
+code {
+	background-color: #f0f0f0;
+	border-radius: 2px;
+	color: #555;
+	font-family: menlo, inconsolata, monospace;
+	font-size: calc(1em - 2px);
+	padding: 0.2em 0.4em;
+}
+
+pre {
+	background-color: var(--color-grey-lighter);
+	border: 1px solid lightgrey;
+	padding: 0.5rem;
+}
+
+.distancer {
+	margin-bottom: 1rem;
+}
+
+:root {
+	--color-font-light: white;
+	--color-grey-lighter: #f7f7f7;
+	/* --color-main: rgb(77, 92, 61); */
+	--color-main: #6d426d;
+	--color-selected: cadetblue;
+	--color-sidebar-bkg: #e2f5e1;
+	--dim-header-height: 3rem;
+	--dim-main-height: calc(100% - var(--dim-header-height));
+	--dim-padding-minor: 0.5rem;
+	--dim-padding: 1rem;
+	--dim-sidebar-width: 14rem;
+
+	/* svelte-json-tree  */
+	--json-tree-font-size: 1.1rem;
+}
+
+/* @media screen and (min-width: 768px) {
+	:root {
+	}
+} */
