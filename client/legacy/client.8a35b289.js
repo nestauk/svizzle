@@ -1977,7 +1977,7 @@ function create_fragment(ctx) {
       attr_dev(a0, "class", "svelte-1b649g2");
       toggle_class(a0, "selected",
       /*segment*/
-      ctx[0] === "undefined");
+      ctx[0] === undefined);
       add_location(a0, file, 8, 4, 73);
       attr_dev(li0, "class", "svelte-1b649g2");
       add_location(li0, file, 7, 3, 64);
@@ -1987,16 +1987,16 @@ function create_fragment(ctx) {
       toggle_class(a1, "selected",
       /*segment*/
       ctx[0] === "components");
-      add_location(a1, file, 14, 4, 175);
+      add_location(a1, file, 14, 4, 173);
       attr_dev(li1, "class", "svelte-1b649g2");
-      add_location(li1, file, 13, 3, 166);
+      add_location(li1, file, 13, 3, 164);
       attr_dev(ul, "class", "svelte-1b649g2");
       add_location(ul, file, 6, 2, 56);
       add_location(div0, file, 5, 1, 48);
       attr_dev(a2, "href", "https://github.com/nestauk/svizzle");
       attr_dev(a2, "class", "svelte-1b649g2");
-      add_location(a2, file, 23, 2, 334);
-      add_location(div1, file, 22, 1, 326);
+      add_location(a2, file, 23, 2, 332);
+      add_location(div1, file, 22, 1, 324);
       attr_dev(nav, "class", "svelte-1b649g2");
       add_location(nav, file, 4, 0, 41);
     },
@@ -2021,11 +2021,11 @@ function create_fragment(ctx) {
           dirty = _ref2[0];
 
       if (dirty &
-      /*segment*/
+      /*segment, undefined*/
       1) {
         toggle_class(a0, "selected",
         /*segment*/
-        ctx[0] === "undefined");
+        ctx[0] === undefined);
       }
 
       if (dirty &
@@ -3365,24 +3365,24 @@ var App = /*#__PURE__*/function (_SvelteComponentDev) {
 var ignore = [/^\/components\.json$/, /^\/components\/groups\.json$/];
 var components = [{
   js: function js() {
-    return import('./index.033690da.js');
+    return import('./index.5e9b7ee5.js');
   },
-  css: ["legacy/client.72374190.css"]
+  css: ["legacy/client.8a35b289.css"]
 }, {
   js: function js() {
-    return import('./_layout.ceca663c.js');
+    return import('./_layout.2f68843a.js');
   },
-  css: ["legacy/_layout.ceca663c.css","legacy/client.72374190.css"]
+  css: ["legacy/_layout.2f68843a.css","legacy/client.8a35b289.css"]
 }, {
   js: function js() {
-    return import('./index.0384294d.js');
+    return import('./index.2ffcbfb7.js');
   },
-  css: ["legacy/index.0384294d.css","legacy/client.72374190.css"]
+  css: ["legacy/index.2ffcbfb7.css","legacy/client.8a35b289.css"]
 }, {
   js: function js() {
-    return import('./[slug].86f4a86a.js');
+    return import('./[slug].d7dcd73b.js');
   },
-  css: ["legacy/[slug].86f4a86a.css","legacy/client.72374190.css"]
+  css: ["legacy/[slug].d7dcd73b.css","legacy/client.8a35b289.css"]
 }];
 var routes = function (d) {
   return [{

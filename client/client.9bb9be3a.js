@@ -811,7 +811,7 @@ function create_fragment(ctx) {
 		h: function hydrate() {
 			attr_dev(a0, "href", "./");
 			attr_dev(a0, "class", "svelte-1b649g2");
-			toggle_class(a0, "selected", /*segment*/ ctx[0] === "undefined");
+			toggle_class(a0, "selected", /*segment*/ ctx[0] === undefined);
 			add_location(a0, file, 8, 4, 73);
 			attr_dev(li0, "class", "svelte-1b649g2");
 			add_location(li0, file, 7, 3, 64);
@@ -819,16 +819,16 @@ function create_fragment(ctx) {
 			attr_dev(a1, "href", "./components/BarchartV");
 			attr_dev(a1, "class", "svelte-1b649g2");
 			toggle_class(a1, "selected", /*segment*/ ctx[0] === "components");
-			add_location(a1, file, 14, 4, 175);
+			add_location(a1, file, 14, 4, 173);
 			attr_dev(li1, "class", "svelte-1b649g2");
-			add_location(li1, file, 13, 3, 166);
+			add_location(li1, file, 13, 3, 164);
 			attr_dev(ul, "class", "svelte-1b649g2");
 			add_location(ul, file, 6, 2, 56);
 			add_location(div0, file, 5, 1, 48);
 			attr_dev(a2, "href", "https://github.com/nestauk/svizzle");
 			attr_dev(a2, "class", "svelte-1b649g2");
-			add_location(a2, file, 23, 2, 334);
-			add_location(div1, file, 22, 1, 326);
+			add_location(a2, file, 23, 2, 332);
+			add_location(div1, file, 22, 1, 324);
 			attr_dev(nav, "class", "svelte-1b649g2");
 			add_location(nav, file, 4, 0, 41);
 		},
@@ -849,8 +849,8 @@ function create_fragment(ctx) {
 			append_dev(a2, t4);
 		},
 		p: function update(ctx, [dirty]) {
-			if (dirty & /*segment*/ 1) {
-				toggle_class(a0, "selected", /*segment*/ ctx[0] === "undefined");
+			if (dirty & /*segment, undefined*/ 1) {
+				toggle_class(a0, "selected", /*segment*/ ctx[0] === undefined);
 			}
 
 			if (dirty & /*segment*/ 1) {
@@ -1996,20 +1996,20 @@ const ignore = [/^\/components\.json$/, /^\/components\/groups\.json$/];
 
 const components = [
 	{
-		js: () => import('./index.f573c9f9.js'),
-		css: ["client.8185c2ec.css"]
+		js: () => import('./index.20066e84.js'),
+		css: ["client.9bb9be3a.css"]
 	},
 	{
-		js: () => import('./_layout.b28cef2c.js'),
-		css: ["_layout.b28cef2c.css","client.8185c2ec.css"]
+		js: () => import('./_layout.f152898a.js'),
+		css: ["_layout.f152898a.css","client.9bb9be3a.css"]
 	},
 	{
-		js: () => import('./index.c60de9b2.js'),
-		css: ["index.c60de9b2.css","client.8185c2ec.css"]
+		js: () => import('./index.e5ac9348.js'),
+		css: ["index.e5ac9348.css","client.9bb9be3a.css"]
 	},
 	{
-		js: () => import('./[slug].2de1c1a0.js'),
-		css: ["[slug].2de1c1a0.css","client.8185c2ec.css"]
+		js: () => import('./[slug].2396d7af.js'),
+		css: ["[slug].2396d7af.css","client.9bb9be3a.css"]
 	}
 ];
 
