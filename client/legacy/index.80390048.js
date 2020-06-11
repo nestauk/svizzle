@@ -1,4 +1,4 @@
-import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, S as SvelteComponentDev, v as validate_slots, f as space, g as element, t as text, q as query_selector_all, h as detach_dev, j as claim_space, k as claim_element, l as children, m as claim_text, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, u as noop } from './client.8a35b289.js';
+import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, S as SvelteComponentDev, v as validate_slots, f as space, g as element, t as text, q as query_selector_all, h as detach_dev, j as claim_space, k as claim_element, l as children, m as claim_text, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, u as noop } from './client.2ce2e61c.js';
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -18,7 +18,7 @@ function create_fragment(ctx) {
       this.h();
     },
     l: function claim(nodes) {
-      var head_nodes = query_selector_all("[data-svelte=\"svelte-1fv7iqp\"]", document.head);
+      var head_nodes = query_selector_all("[data-svelte=\"svelte-ai3r08\"]", document.head);
       head_nodes.forEach(detach_dev);
       t0 = claim_space(nodes);
       iframe = claim_element(nodes, "IFRAME", {
@@ -36,7 +36,7 @@ function create_fragment(ctx) {
       this.h();
     },
     h: function hydrate() {
-      document.title = "Tools";
+      document.title = "Svizzle Tools";
       attr_dev(iframe, "frameborder", "0");
       attr_dev(iframe, "height", "100%");
       attr_dev(iframe, "marginheight", "0");
@@ -44,7 +44,7 @@ function create_fragment(ctx) {
       if (iframe.src !== (iframe_src_value = "/svizzle/jsDocBuild/")) attr_dev(iframe, "src", iframe_src_value);
       attr_dev(iframe, "title", "jsdoc");
       attr_dev(iframe, "width", "100%");
-      add_location(iframe, file, 4, 0, 52);
+      add_location(iframe, file, 4, 0, 60);
     },
     m: function mount(target, anchor) {
       insert_dev(target, t0, anchor);

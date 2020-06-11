@@ -1,4 +1,4 @@
-import { S as SvelteComponentDev, i as init$1, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, z as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, r as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, x as transition_in, y as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, u as destroy_each, L as globals, M as null_to_empty, N as validate_each_keys, O as createEventDispatcher, P as beforeUpdate, Q as afterUpdate, R as svg_element, T as run_all, U as add_render_callback, V as add_resize_listener, W as update_keyed_each, X as binding_callbacks, Y as destroy_block, Z as assign, q as query_selector_all, _ as get_spread_update, $ as get_spread_object } from './client.9bb9be3a.js';
+import { S as SvelteComponentDev, i as init$1, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, z as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, r as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, x as transition_in, y as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, u as destroy_each, L as globals, M as null_to_empty, N as validate_each_keys, O as createEventDispatcher, P as beforeUpdate, Q as afterUpdate, R as svg_element, T as run_all, U as add_render_callback, V as add_resize_listener, W as update_keyed_each, X as binding_callbacks, Y as destroy_block, Z as assign, q as query_selector_all, _ as get_spread_update, $ as get_spread_object } from './client.4bcd6b72.js';
 
 /**
 * @overview lamb - A lightweight, and docile, JavaScript library to help embracing functional programming.
@@ -167747,7 +167747,7 @@ function create_if_block_1$5(ctx) {
 	let t0;
 	let t1;
 	let div;
-	let each_value_2 = pairs(/*payloads*/ ctx[7]);
+	let each_value_2 = pairs(/*payloads*/ ctx[8]);
 	validate_each_argument(each_value_2);
 	let each_blocks = [];
 
@@ -167785,9 +167785,9 @@ function create_if_block_1$5(ctx) {
 			this.h();
 		},
 		h: function hydrate() {
-			add_location(h2, file$a, 71, 2, 1683);
+			add_location(h2, file$a, 71, 2, 1701);
 			attr_dev(div, "class", "distancer svelte-1yka1uv");
-			add_location(div, file$a, 72, 2, 1701);
+			add_location(div, file$a, 72, 2, 1719);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, h2, anchor);
@@ -167800,8 +167800,8 @@ function create_if_block_1$5(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*_, payloads*/ 128) {
-				each_value_2 = pairs(/*payloads*/ ctx[7]);
+			if (dirty & /*_, payloads*/ 256) {
+				each_value_2 = pairs(/*payloads*/ ctx[8]);
 				validate_each_argument(each_value_2);
 				let i;
 
@@ -167884,11 +167884,11 @@ function create_each_block_2(ctx) {
 		},
 		h: function hydrate() {
 			attr_dev(span, "class", "svelte-1yka1uv");
-			add_location(span, file$a, 75, 4, 1795);
+			add_location(span, file$a, 75, 4, 1813);
 			attr_dev(pre, "class", "svelte-1yka1uv");
-			add_location(pre, file$a, 76, 4, 1818);
+			add_location(pre, file$a, 76, 4, 1836);
 			attr_dev(div, "class", "row svelte-1yka1uv");
-			add_location(div, file$a, 74, 3, 1773);
+			add_location(div, file$a, 74, 3, 1791);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -167900,8 +167900,8 @@ function create_each_block_2(ctx) {
 			append_dev(div, t3);
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*payloads*/ 128 && t0_value !== (t0_value = /*key*/ ctx[24] + "")) set_data_dev(t0, t0_value);
-			if (dirty & /*payloads*/ 128 && t2_value !== (t2_value = (/*value*/ ctx[25] || "[payload]") + "")) set_data_dev(t2, t2_value);
+			if (dirty & /*payloads*/ 256 && t0_value !== (t0_value = /*key*/ ctx[24] + "")) set_data_dev(t0, t0_value);
+			if (dirty & /*payloads*/ 256 && t2_value !== (t2_value = (/*value*/ ctx[25] || "[payload]") + "")) set_data_dev(t2, t2_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(div);
@@ -167953,7 +167953,7 @@ function create_if_block$6(ctx) {
 		},
 		h: function hydrate() {
 			attr_dev(div, "class", "distancer svelte-1yka1uv");
-			add_location(div, file$a, 84, 3, 1963);
+			add_location(div, file$a, 84, 3, 1981);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -167963,7 +167963,7 @@ function create_if_block$6(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*current_props_index, props*/ 34) {
+			if (dirty & /*current_props_index, props*/ 66) {
 				each_value_1 = /*props*/ ctx[1];
 				validate_each_argument(each_value_1);
 				let i;
@@ -168013,7 +168013,7 @@ function create_each_block_1(ctx) {
 	let dispose;
 
 	function click_handler(...args) {
-		return /*click_handler*/ ctx[11](/*index*/ ctx[27], ...args);
+		return /*click_handler*/ ctx[12](/*index*/ ctx[27], ...args);
 	}
 
 	const block = {
@@ -168031,8 +168031,8 @@ function create_each_block_1(ctx) {
 		},
 		h: function hydrate() {
 			attr_dev(button, "class", "svelte-1yka1uv");
-			toggle_class(button, "active", /*current_props_index*/ ctx[5] === /*index*/ ctx[27]);
-			add_location(button, file$a, 86, 4, 2032);
+			toggle_class(button, "active", /*current_props_index*/ ctx[6] === /*index*/ ctx[27]);
+			add_location(button, file$a, 86, 4, 2050);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, button, anchor);
@@ -168047,8 +168047,8 @@ function create_each_block_1(ctx) {
 			ctx = new_ctx;
 			if (dirty & /*props*/ 2 && t_value !== (t_value = /*key*/ ctx[24] + "")) set_data_dev(t, t_value);
 
-			if (dirty & /*current_props_index*/ 32) {
-				toggle_class(button, "active", /*current_props_index*/ ctx[5] === /*index*/ ctx[27]);
+			if (dirty & /*current_props_index*/ 64) {
+				toggle_class(button, "active", /*current_props_index*/ ctx[6] === /*index*/ ctx[27]);
 			}
 		},
 		d: function destroy(detaching) {
@@ -168114,10 +168114,10 @@ function create_each_block$5(ctx) {
 			this.h();
 		},
 		h: function hydrate() {
-			add_location(code, file$a, 94, 7, 2257);
-			add_location(h3, file$a, 94, 3, 2253);
+			add_location(code, file$a, 94, 7, 2275);
+			add_location(h3, file$a, 94, 3, 2271);
 			attr_dev(div, "class", "distancer svelte-1yka1uv");
-			add_location(div, file$a, 95, 3, 2289);
+			add_location(div, file$a, 95, 3, 2307);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, h3, anchor);
@@ -168130,9 +168130,9 @@ function create_each_block$5(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if ((!current || dirty & /*displayProps*/ 512) && t0_value !== (t0_value = /*propName*/ ctx[20] + "")) set_data_dev(t0, t0_value);
+			if ((!current || dirty & /*displayProps*/ 1024) && t0_value !== (t0_value = /*propName*/ ctx[20] + "")) set_data_dev(t0, t0_value);
 			const jsontree_changes = {};
-			if (dirty & /*displayProps*/ 512) jsontree_changes.value = /*propValue*/ ctx[21];
+			if (dirty & /*displayProps*/ 1024) jsontree_changes.value = /*propValue*/ ctx[21];
 			jsontree.$set(jsontree_changes);
 		},
 		i: function intro(local) {
@@ -168191,16 +168191,16 @@ function create_fragment$g(ctx) {
 	let div4;
 	let switch_instance;
 	let current;
-	document.title = title_value = /*title*/ ctx[3];
+	document.title = title_value = "" + (/*name*/ ctx[3] + ": " + /*title*/ ctx[4] + " - Svizzle");
 
 	elements = new Elements({
 			props: { elements: /*content*/ ctx[2] },
 			$$inline: true
 		});
 
-	let if_block0 = /*payloads*/ ctx[7] && create_if_block_1$5(ctx);
+	let if_block0 = /*payloads*/ ctx[8] && create_if_block_1$5(ctx);
 	let if_block1 = /*props*/ ctx[1].length > 1 && create_if_block$6(ctx);
-	let each_value = /*displayProps*/ ctx[9];
+	let each_value = /*displayProps*/ ctx[10];
 	validate_each_argument(each_value);
 	let each_blocks = [];
 
@@ -168212,8 +168212,8 @@ function create_fragment$g(ctx) {
 		each_blocks[i] = null;
 	});
 
-	const switch_instance_spread_levels = [/*current_props*/ ctx[8]];
-	var switch_value = /*component*/ ctx[6];
+	const switch_instance_spread_levels = [/*current_props*/ ctx[9]];
+	var switch_value = /*component*/ ctx[7];
 
 	function switch_props(ctx) {
 		let switch_instance_props = {};
@@ -168230,7 +168230,7 @@ function create_fragment$g(ctx) {
 
 	if (switch_value) {
 		switch_instance = new switch_value(switch_props());
-		/*switch_instance_binding*/ ctx[12](switch_instance);
+		/*switch_instance_binding*/ ctx[13](switch_instance);
 	}
 
 	const block = {
@@ -168238,7 +168238,7 @@ function create_fragment$g(ctx) {
 			t0 = space();
 			main = element("main");
 			h1 = element("h1");
-			t1 = text(/*title*/ ctx[3]);
+			t1 = text(/*title*/ ctx[4]);
 			t2 = space();
 			div3 = element("div");
 			div0 = element("div");
@@ -168249,7 +168249,7 @@ function create_fragment$g(ctx) {
 			t4 = text("Usage");
 			t5 = space();
 			pre = element("pre");
-			t6 = text(/*usage*/ ctx[4]);
+			t6 = text(/*usage*/ ctx[5]);
 			t7 = space();
 			if (if_block0) if_block0.c();
 			t8 = space();
@@ -168270,14 +168270,14 @@ function create_fragment$g(ctx) {
 			this.h();
 		},
 		l: function claim(nodes) {
-			const head_nodes = query_selector_all("[data-svelte=\"svelte-1az6e94\"]", document.head);
+			const head_nodes = query_selector_all("[data-svelte=\"svelte-1sqseen\"]", document.head);
 			head_nodes.forEach(detach_dev);
 			t0 = claim_space(nodes);
 			main = claim_element(nodes, "MAIN", { class: true });
 			var main_nodes = children(main);
 			h1 = claim_element(main_nodes, "H1", { class: true });
 			var h1_nodes = children(h1);
-			t1 = claim_text(h1_nodes, /*title*/ ctx[3]);
+			t1 = claim_text(h1_nodes, /*title*/ ctx[4]);
 			h1_nodes.forEach(detach_dev);
 			t2 = claim_space(main_nodes);
 			div3 = claim_element(main_nodes, "DIV", { class: true });
@@ -168296,7 +168296,7 @@ function create_fragment$g(ctx) {
 			t5 = claim_space(div1_nodes);
 			pre = claim_element(div1_nodes, "PRE", { class: true });
 			var pre_nodes = children(pre);
-			t6 = claim_text(pre_nodes, /*usage*/ ctx[4]);
+			t6 = claim_text(pre_nodes, /*usage*/ ctx[5]);
 			pre_nodes.forEach(detach_dev);
 			div1_nodes.forEach(detach_dev);
 			t7 = claim_space(div3_nodes);
@@ -168328,23 +168328,23 @@ function create_fragment$g(ctx) {
 		},
 		h: function hydrate() {
 			attr_dev(h1, "class", "svelte-1yka1uv");
-			add_location(h1, file$a, 61, 1, 1478);
+			add_location(h1, file$a, 61, 1, 1496);
 			attr_dev(div0, "class", "distancer svelte-1yka1uv");
-			add_location(div0, file$a, 63, 2, 1521);
-			add_location(h20, file$a, 67, 3, 1618);
+			add_location(div0, file$a, 63, 2, 1539);
+			add_location(h20, file$a, 67, 3, 1636);
 			attr_dev(pre, "class", "svelte-1yka1uv");
-			add_location(pre, file$a, 68, 3, 1636);
+			add_location(pre, file$a, 68, 3, 1654);
 			attr_dev(div1, "class", "distancer svelte-1yka1uv");
-			add_location(div1, file$a, 66, 2, 1591);
-			add_location(h21, file$a, 82, 3, 1919);
+			add_location(div1, file$a, 66, 2, 1609);
+			add_location(h21, file$a, 82, 3, 1937);
 			attr_dev(div2, "class", "distancer svelte-1yka1uv");
-			add_location(div2, file$a, 81, 2, 1892);
+			add_location(div2, file$a, 81, 2, 1910);
 			attr_dev(div3, "class", "col col1 svelte-1yka1uv");
-			add_location(div3, file$a, 62, 1, 1496);
+			add_location(div3, file$a, 62, 1, 1514);
 			attr_dev(div4, "class", "col col2 svelte-1yka1uv");
-			add_location(div4, file$a, 101, 1, 2387);
+			add_location(div4, file$a, 101, 1, 2405);
 			attr_dev(main, "class", "svelte-1yka1uv");
-			add_location(main, file$a, 60, 0, 1470);
+			add_location(main, file$a, 60, 0, 1488);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, t0, anchor);
@@ -168386,17 +168386,17 @@ function create_fragment$g(ctx) {
 			current = true;
 		},
 		p: function update(ctx, [dirty]) {
-			if ((!current || dirty & /*title*/ 8) && title_value !== (title_value = /*title*/ ctx[3])) {
+			if ((!current || dirty & /*name, title*/ 24) && title_value !== (title_value = "" + (/*name*/ ctx[3] + ": " + /*title*/ ctx[4] + " - Svizzle"))) {
 				document.title = title_value;
 			}
 
-			if (!current || dirty & /*title*/ 8) set_data_dev(t1, /*title*/ ctx[3]);
+			if (!current || dirty & /*title*/ 16) set_data_dev(t1, /*title*/ ctx[4]);
 			const elements_changes = {};
 			if (dirty & /*content*/ 4) elements_changes.elements = /*content*/ ctx[2];
 			elements.$set(elements_changes);
-			if (!current || dirty & /*usage*/ 16) set_data_dev(t6, /*usage*/ ctx[4]);
+			if (!current || dirty & /*usage*/ 32) set_data_dev(t6, /*usage*/ ctx[5]);
 
-			if (/*payloads*/ ctx[7]) {
+			if (/*payloads*/ ctx[8]) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 				} else {
@@ -168422,8 +168422,8 @@ function create_fragment$g(ctx) {
 				if_block1 = null;
 			}
 
-			if (dirty & /*displayProps*/ 512) {
-				each_value = /*displayProps*/ ctx[9];
+			if (dirty & /*displayProps*/ 1024) {
+				each_value = /*displayProps*/ ctx[10];
 				validate_each_argument(each_value);
 				let i;
 
@@ -168450,11 +168450,11 @@ function create_fragment$g(ctx) {
 				check_outros();
 			}
 
-			const switch_instance_changes = (dirty & /*current_props*/ 256)
-			? get_spread_update(switch_instance_spread_levels, [get_spread_object(/*current_props*/ ctx[8])])
+			const switch_instance_changes = (dirty & /*current_props*/ 512)
+			? get_spread_update(switch_instance_spread_levels, [get_spread_object(/*current_props*/ ctx[9])])
 			: {};
 
-			if (switch_value !== (switch_value = /*component*/ ctx[6])) {
+			if (switch_value !== (switch_value = /*component*/ ctx[7])) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -168468,7 +168468,7 @@ function create_fragment$g(ctx) {
 
 				if (switch_value) {
 					switch_instance = new switch_value(switch_props());
-					/*switch_instance_binding*/ ctx[12](switch_instance);
+					/*switch_instance_binding*/ ctx[13](switch_instance);
 					create_component(switch_instance.$$.fragment);
 					transition_in(switch_instance.$$.fragment, 1);
 					mount_component(switch_instance, div4, null);
@@ -168508,7 +168508,7 @@ function create_fragment$g(ctx) {
 			if (if_block0) if_block0.d();
 			if (if_block1) if_block1.d();
 			destroy_each(each_blocks, detaching);
-			/*switch_instance_binding*/ ctx[12](null);
+			/*switch_instance_binding*/ ctx[13](null);
 			if (switch_instance) destroy_component(switch_instance);
 		}
 	};
@@ -168536,7 +168536,7 @@ function instance_1($$self, $$props, $$invalidate) {
 	let instance;
 
 	const makeEventHandler = eventName => event => {
-		$$invalidate(7, payloads = setIn(payloads, eventName, JSON.stringify(event.detail)));
+		$$invalidate(8, payloads = setIn(payloads, eventName, JSON.stringify(event.detail)));
 	};
 
 	let eventRemovers = [];
@@ -168550,7 +168550,7 @@ function instance_1($$self, $$props, $$invalidate) {
 	validate_slots("U5Bslugu5D", $$slots, []);
 
 	const click_handler = index => {
-		$$invalidate(5, current_props_index = index);
+		$$invalidate(6, current_props_index = index);
 	};
 
 	function switch_instance_binding($$value) {
@@ -168561,7 +168561,7 @@ function instance_1($$self, $$props, $$invalidate) {
 	}
 
 	$$self.$set = $$props => {
-		if ("slug" in $$props) $$invalidate(10, slug = $$props.slug);
+		if ("slug" in $$props) $$invalidate(11, slug = $$props.slug);
 	};
 
 	$$self.$capture_state = () => ({
@@ -168594,20 +168594,20 @@ function instance_1($$self, $$props, $$invalidate) {
 	});
 
 	$$self.$inject_state = $$props => {
-		if ("slug" in $$props) $$invalidate(10, slug = $$props.slug);
+		if ("slug" in $$props) $$invalidate(11, slug = $$props.slug);
 		if ("instance" in $$props) $$invalidate(0, instance = $$props.instance);
-		if ("eventRemovers" in $$props) $$invalidate(13, eventRemovers = $$props.eventRemovers);
+		if ("eventRemovers" in $$props) $$invalidate(14, eventRemovers = $$props.eventRemovers);
 		if ("props" in $$props) $$invalidate(1, props = $$props.props);
 		if ("content" in $$props) $$invalidate(2, content = $$props.content);
-		if ("events" in $$props) $$invalidate(14, events = $$props.events);
-		if ("name" in $$props) $$invalidate(15, name = $$props.name);
-		if ("title" in $$props) $$invalidate(3, title = $$props.title);
-		if ("usage" in $$props) $$invalidate(4, usage = $$props.usage);
-		if ("current_props_index" in $$props) $$invalidate(5, current_props_index = $$props.current_props_index);
-		if ("component" in $$props) $$invalidate(6, component = $$props.component);
-		if ("payloads" in $$props) $$invalidate(7, payloads = $$props.payloads);
-		if ("current_props" in $$props) $$invalidate(8, current_props = $$props.current_props);
-		if ("displayProps" in $$props) $$invalidate(9, displayProps = $$props.displayProps);
+		if ("events" in $$props) $$invalidate(15, events = $$props.events);
+		if ("name" in $$props) $$invalidate(3, name = $$props.name);
+		if ("title" in $$props) $$invalidate(4, title = $$props.title);
+		if ("usage" in $$props) $$invalidate(5, usage = $$props.usage);
+		if ("current_props_index" in $$props) $$invalidate(6, current_props_index = $$props.current_props_index);
+		if ("component" in $$props) $$invalidate(7, component = $$props.component);
+		if ("payloads" in $$props) $$invalidate(8, payloads = $$props.payloads);
+		if ("current_props" in $$props) $$invalidate(9, current_props = $$props.current_props);
+		if ("displayProps" in $$props) $$invalidate(10, displayProps = $$props.displayProps);
 	};
 
 	let props;
@@ -168627,34 +168627,34 @@ function instance_1($$self, $$props, $$invalidate) {
 	}
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*slug*/ 1024) {
-			 $$invalidate(1, { props, content, events, name, title, usage } = lookup[slug], props, ($$invalidate(2, content), $$invalidate(10, slug)), ($$invalidate(14, events), $$invalidate(10, slug)), ($$invalidate(15, name), $$invalidate(10, slug)), ($$invalidate(3, title), $$invalidate(10, slug)), ($$invalidate(4, usage), $$invalidate(10, slug)));
+		if ($$self.$$.dirty & /*slug*/ 2048) {
+			 $$invalidate(1, { props, content, events, name, title, usage } = lookup[slug], props, ($$invalidate(2, content), $$invalidate(11, slug)), ($$invalidate(15, events), $$invalidate(11, slug)), ($$invalidate(3, name), $$invalidate(11, slug)), ($$invalidate(4, title), $$invalidate(11, slug)), ($$invalidate(5, usage), $$invalidate(11, slug)));
 		}
 
-		if ($$self.$$.dirty & /*slug*/ 1024) {
-			 $$invalidate(5, current_props_index = slug && 0); // reset to zero on navigation
+		if ($$self.$$.dirty & /*slug*/ 2048) {
+			 $$invalidate(6, current_props_index = slug && 0); // reset to zero on navigation
 		}
 
-		if ($$self.$$.dirty & /*name*/ 32768) {
-			 $$invalidate(6, component = components[name]);
+		if ($$self.$$.dirty & /*name*/ 8) {
+			 $$invalidate(7, component = components[name]);
 		}
 
-		if ($$self.$$.dirty & /*events*/ 16384) {
-			 $$invalidate(7, payloads = events ? makeKeyedEmptyString(events) : null);
+		if ($$self.$$.dirty & /*events*/ 32768) {
+			 $$invalidate(8, payloads = events ? makeKeyedEmptyString(events) : null);
 		}
 
-		if ($$self.$$.dirty & /*props, current_props_index*/ 34) {
-			 $$invalidate(8, current_props = props[current_props_index].value);
+		if ($$self.$$.dirty & /*props, current_props_index*/ 66) {
+			 $$invalidate(9, current_props = props[current_props_index].value);
 		}
 
-		if ($$self.$$.dirty & /*current_props*/ 256) {
-			 $$invalidate(9, displayProps = pairs(current_props));
+		if ($$self.$$.dirty & /*current_props*/ 512) {
+			 $$invalidate(10, displayProps = pairs(current_props));
 		}
 
-		if ($$self.$$.dirty & /*slug, instance, eventRemovers, events*/ 25601) {
+		if ($$self.$$.dirty & /*slug, instance, eventRemovers, events*/ 51201) {
 			 if (slug && instance) {
 				eventRemovers.forEach(remove => remove());
-				$$invalidate(13, eventRemovers = []);
+				$$invalidate(14, eventRemovers = []);
 
 				events && events.forEach(eventName => {
 					const eventHandler = makeEventHandler(eventName);
@@ -168669,6 +168669,7 @@ function instance_1($$self, $$props, $$invalidate) {
 		instance,
 		props,
 		content,
+		name,
 		title,
 		usage,
 		current_props_index,
@@ -168685,7 +168686,7 @@ function instance_1($$self, $$props, $$invalidate) {
 class U5Bslugu5D extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init$1(this, options, instance_1, create_fragment$g, safe_not_equal, { slug: 10 });
+		init$1(this, options, instance_1, create_fragment$g, safe_not_equal, { slug: 11 });
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -168697,7 +168698,7 @@ class U5Bslugu5D extends SvelteComponentDev {
 		const { ctx } = this.$$;
 		const props = options.props || {};
 
-		if (/*slug*/ ctx[10] === undefined && !("slug" in props)) {
+		if (/*slug*/ ctx[11] === undefined && !("slug" in props)) {
 			console.warn("<U5Bslugu5D> was created without expected prop 'slug'");
 		}
 	}

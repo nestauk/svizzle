@@ -1996,20 +1996,20 @@ const ignore = [/^\/components\.json$/, /^\/components\/groups\.json$/];
 
 const components = [
 	{
-		js: () => import('./index.20066e84.js'),
-		css: ["client.9bb9be3a.css"]
+		js: () => import('./index.e4364f88.js'),
+		css: ["client.4bcd6b72.css"]
 	},
 	{
-		js: () => import('./_layout.f152898a.js'),
-		css: ["_layout.f152898a.css","client.9bb9be3a.css"]
+		js: () => import('./_layout.9b26b9ae.js'),
+		css: ["_layout.9b26b9ae.css","client.4bcd6b72.css"]
 	},
 	{
-		js: () => import('./index.e5ac9348.js'),
-		css: ["index.e5ac9348.css","client.9bb9be3a.css"]
+		js: () => import('./index.dec02950.js'),
+		css: ["index.dec02950.css","client.4bcd6b72.css"]
 	},
 	{
-		js: () => import('./[slug].2396d7af.js'),
-		css: ["[slug].2396d7af.css","client.9bb9be3a.css"]
+		js: () => import('./[slug].1df39823.js'),
+		css: ["[slug].1df39823.css","client.4bcd6b72.css"]
 	}
 ];
 

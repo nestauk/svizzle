@@ -3365,24 +3365,24 @@ var App = /*#__PURE__*/function (_SvelteComponentDev) {
 var ignore = [/^\/components\.json$/, /^\/components\/groups\.json$/];
 var components = [{
   js: function js() {
-    return import('./index.5e9b7ee5.js');
+    return import('./index.80390048.js');
   },
-  css: ["legacy/client.8a35b289.css"]
+  css: ["legacy/client.2ce2e61c.css"]
 }, {
   js: function js() {
-    return import('./_layout.2f68843a.js');
+    return import('./_layout.0d828d89.js');
   },
-  css: ["legacy/_layout.2f68843a.css","legacy/client.8a35b289.css"]
+  css: ["legacy/_layout.0d828d89.css","legacy/client.2ce2e61c.css"]
 }, {
   js: function js() {
-    return import('./index.2ffcbfb7.js');
+    return import('./index.1da57452.js');
   },
-  css: ["legacy/index.2ffcbfb7.css","legacy/client.8a35b289.css"]
+  css: ["legacy/index.1da57452.css","legacy/client.2ce2e61c.css"]
 }, {
   js: function js() {
-    return import('./[slug].d7dcd73b.js');
+    return import('./[slug].1d107c1e.js');
   },
-  css: ["legacy/[slug].d7dcd73b.css","legacy/client.8a35b289.css"]
+  css: ["legacy/[slug].1d107c1e.css","legacy/client.2ce2e61c.css"]
 }];
 var routes = function (d) {
   return [{

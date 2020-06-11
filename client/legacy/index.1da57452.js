@@ -1,4 +1,4 @@
-import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, x as validate_each_argument, v as validate_slots, g as element, t as text, f as space, k as claim_element, l as children, m as claim_text, h as detach_dev, j as claim_space, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, z as set_data_dev, q as query_selector_all, B as _slicedToArray, u as noop, A as destroy_each } from './client.8a35b289.js';
+import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, x as validate_each_argument, v as validate_slots, g as element, t as text, f as space, k as claim_element, l as children, m as claim_text, h as detach_dev, j as claim_space, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, z as set_data_dev, q as query_selector_all, B as _slicedToArray, u as noop, A as destroy_each } from './client.2ce2e61c.js';
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -117,7 +117,7 @@ function create_fragment(ctx) {
       this.h();
     },
     l: function claim(nodes) {
-      var head_nodes = query_selector_all("[data-svelte=\"svelte-1ypct35\"]", document.head);
+      var head_nodes = query_selector_all("[data-svelte=\"svelte-1n0ejc1\"]", document.head);
       head_nodes.forEach(detach_dev);
       t0 = claim_space(nodes);
       h1 = claim_element(nodes, "H1", {});
@@ -138,7 +138,7 @@ function create_fragment(ctx) {
       this.h();
     },
     h: function hydrate() {
-      document.title = "Svizzle components";
+      document.title = "Svizzle Components";
       add_location(h1, file, 18, 0, 317);
       attr_dev(ul, "class", "svelte-5hq138");
       add_location(ul, file, 20, 0, 338);
