@@ -7,13 +7,13 @@
   src: url('font/OpenSans-Regular.ttf') format('truetype');
 }
 @font-face {
-  font-family: 'Open Sans Bold';
-  src: url('font/OpenSans-Bold.ttf') format('truetype');
-}
-@font-face {
   font-family: 'Open Sans SemiBold';
   src: url('font/OpenSans-SemiBold.ttf') format('truetype');
 }
+/* @font-face {
+font-family: 'Open Sans Bold';
+src: url('font/OpenSans-Bold.ttf') format('truetype');
+} */
 
 * {
 	box-sizing: border-box;
@@ -32,6 +32,7 @@ body {
 	font-family: Open Sans Light, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	font-size: 14px;
 	line-height: 1.5;
+	overflow-y: hidden; /* the jsdoc iframe overflows a bit */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -74,7 +75,6 @@ pre {
 :root {
 	--color-font-light: white;
 	--color-grey-lighter: #f7f7f7;
-	/* --color-main: rgb(77, 92, 61); */
 	--color-main: #6d426d;
 	--color-selected: cadetblue;
 	--color-sidebar-bkg: #f1feff;

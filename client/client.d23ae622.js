@@ -810,26 +810,26 @@ function create_fragment(ctx) {
 		},
 		h: function hydrate() {
 			attr_dev(a0, "href", "./");
-			attr_dev(a0, "class", "svelte-1b649g2");
+			attr_dev(a0, "class", "svelte-1xo1ohe");
 			toggle_class(a0, "selected", /*segment*/ ctx[0] === undefined);
 			add_location(a0, file, 8, 4, 73);
-			attr_dev(li0, "class", "svelte-1b649g2");
+			attr_dev(li0, "class", "svelte-1xo1ohe");
 			add_location(li0, file, 7, 3, 64);
 			attr_dev(a1, "rel", "prefetch");
 			attr_dev(a1, "href", "./components/BarchartV");
-			attr_dev(a1, "class", "svelte-1b649g2");
+			attr_dev(a1, "class", "svelte-1xo1ohe");
 			toggle_class(a1, "selected", /*segment*/ ctx[0] === "components");
 			add_location(a1, file, 14, 4, 173);
-			attr_dev(li1, "class", "svelte-1b649g2");
+			attr_dev(li1, "class", "svelte-1xo1ohe");
 			add_location(li1, file, 13, 3, 164);
-			attr_dev(ul, "class", "svelte-1b649g2");
+			attr_dev(ul, "class", "svelte-1xo1ohe");
 			add_location(ul, file, 6, 2, 56);
 			add_location(div0, file, 5, 1, 48);
 			attr_dev(a2, "href", "https://github.com/nestauk/svizzle");
-			attr_dev(a2, "class", "svelte-1b649g2");
+			attr_dev(a2, "class", "svelte-1xo1ohe");
 			add_location(a2, file, 23, 2, 332);
 			add_location(div1, file, 22, 1, 324);
-			attr_dev(nav, "class", "svelte-1b649g2");
+			attr_dev(nav, "class", "svelte-1xo1ohe");
 			add_location(nav, file, 4, 0, 41);
 		},
 		m: function mount(target, anchor) {
@@ -1996,20 +1996,20 @@ const ignore = [/^\/components\.json$/, /^\/components\/groups\.json$/];
 
 const components = [
 	{
-		js: () => import('./index.36884ad9.js'),
-		css: ["client.f93ed82b.css"]
+		js: () => import('./index.c44d9d78.js'),
+		css: ["client.d23ae622.css"]
 	},
 	{
-		js: () => import('./_layout.1db7380f.js'),
-		css: ["_layout.1db7380f.css","client.f93ed82b.css"]
+		js: () => import('./_layout.8fef2de6.js'),
+		css: ["_layout.8fef2de6.css","client.d23ae622.css"]
 	},
 	{
-		js: () => import('./index.038dd5ad.js'),
-		css: ["index.038dd5ad.css","client.f93ed82b.css"]
+		js: () => import('./index.80e3f27d.js'),
+		css: ["index.80e3f27d.css","client.d23ae622.css"]
 	},
 	{
-		js: () => import('./[slug].4950fb2c.js'),
-		css: ["[slug].4950fb2c.css","client.f93ed82b.css"]
+		js: () => import('./[slug].ef9795b0.js'),
+		css: ["[slug].ef9795b0.css","client.d23ae622.css"]
 	}
 ];
 

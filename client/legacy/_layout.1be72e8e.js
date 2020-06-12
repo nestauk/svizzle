@@ -1,4 +1,4 @@
-import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, x as validate_each_argument, y as create_slot, v as validate_slots, g as element, t as text, f as space, k as claim_element, l as children, m as claim_text, h as detach_dev, j as claim_space, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, z as set_data_dev, A as destroy_each, B as _slicedToArray, C as update_slot, D as transition_in, E as transition_out, F as toggle_class } from './client.1baa1778.js';
+import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, x as validate_each_argument, y as create_slot, v as validate_slots, g as element, t as text, f as space, k as claim_element, l as children, m as claim_text, h as detach_dev, j as claim_space, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, z as set_data_dev, A as destroy_each, B as _slicedToArray, C as update_slot, D as transition_in, E as transition_out, F as toggle_class } from './client.af91f0bd.js';
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -51,7 +51,7 @@ function create_each_block_1(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(p, "class", "svelte-1hc583x");
+      attr_dev(p, "class", "svelte-1uzv019");
       toggle_class(p, "selected",
       /*slug*/
       ctx[8] ===
@@ -61,7 +61,7 @@ function create_each_block_1(ctx) {
       attr_dev(a, "href", a_href_value = "components/" +
       /*slug*/
       ctx[8]);
-      attr_dev(a, "class", "svelte-1hc583x");
+      attr_dev(a, "class", "svelte-1uzv019");
       add_location(a, file, 19, 3, 393);
     },
     m: function mount(target, anchor) {
@@ -164,7 +164,7 @@ function create_each_block(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(h2, "class", "svelte-1hc583x");
+      attr_dev(h2, "class", "svelte-1uzv019");
       add_location(h2, file, 17, 3, 341);
       attr_dev(div, "class", "distancer");
       add_location(div, file, 16, 2, 314);
@@ -296,11 +296,11 @@ function create_fragment(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(nav, "class", "svelte-1hc583x");
+      attr_dev(nav, "class", "svelte-1uzv019");
       add_location(nav, file, 14, 1, 273);
-      attr_dev(main, "class", "svelte-1hc583x");
+      attr_dev(main, "class", "svelte-1uzv019");
       add_location(main, file, 28, 1, 535);
-      attr_dev(section, "class", "svelte-1hc583x");
+      attr_dev(section, "class", "svelte-1uzv019");
       add_location(section, file, 13, 0, 262);
     },
     m: function mount(target, anchor) {

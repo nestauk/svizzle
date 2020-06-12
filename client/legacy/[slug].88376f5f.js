@@ -1,4 +1,4 @@
-import { G as _typeof, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init$1, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, F as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, B as _slicedToArray, u as noop$1, I as bubble, z as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, D as transition_in, E as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, A as destroy_each, T as globals, U as null_to_empty, V as validate_each_keys, W as createEventDispatcher, X as beforeUpdate, Y as afterUpdate, Z as svg_element, $ as run_all, a0 as add_render_callback, a1 as add_resize_listener, a2 as update_keyed_each, a3 as binding_callbacks, a4 as destroy_block, a5 as createCommonjsModule, a6 as unwrapExports, a7 as assign, q as query_selector_all, a8 as get_spread_update, a9 as get_spread_object } from './client.1baa1778.js';
+import { G as _typeof, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init$1, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, F as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, B as _slicedToArray, u as noop$1, I as bubble, z as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, D as transition_in, E as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, A as destroy_each, T as globals, U as null_to_empty, V as validate_each_keys, W as createEventDispatcher, X as beforeUpdate, Y as afterUpdate, Z as svg_element, $ as run_all, a0 as add_render_callback, a1 as add_resize_listener, a2 as update_keyed_each, a3 as binding_callbacks, a4 as destroy_block, a5 as createCommonjsModule, a6 as unwrapExports, a7 as assign, q as query_selector_all, a8 as get_spread_update, a9 as get_spread_object } from './client.af91f0bd.js';
 
 /**
 * @overview lamb - A lightweight, and docile, JavaScript library to help embracing functional programming.
@@ -7975,6 +7975,52 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
+
+/**
+ * Return a function that expects an object and applies the functions in the values of the input object to the correspondent values of the provided object .
+ * Can be useful with [d3.csvParse]{@link https://github.com/d3/d3-dsv#csvParse}, see the example below.
+ * Since 0.6.0 it assumes identity for missing keys.
+ *
+ * @function
+ * @arg {object} fnMap - object with functions as values
+ * @return {function} - Object -> Object
+ *
+ * @example
+> const conversionFn = transformValues({
+    name: _.identity,
+    a: _.pipe([Number, Math.sqrt]),
+    b: Number,
+    width: parseFloat
+});
+conversionFn({name: "foo", a: "9", b: "2", width: "10px"})
+// {name: "foo", a: 3, b: 2, width: 10}
+
+d3.csvParse("baseurl/file.csv", conversionFn);
+// [{name: "foo", a: 3, b: 2, width: 10}, {name: "bar", a: 2, b: 4, width: 25}]
+
+> baseurl/file.csv
+name,a,b,width
+foo,9,2,10px
+bar,4,4,25px
+
+> const conversionFn = transformValues({
+    a: _.pipe([Number, Math.sqrt]),
+});
+
+> conversionFn({name: "foo", a: "9", b: "2", width: "10px"})
+{name: "foo", a: 3, b: "2", width: "10px"}
+ *
+ * @version 0.1.0
+ * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
+ * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
+ * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
+ */
+
+var transformValues = function transformValues(fnMap) {
+  return mapValuesWith(function (value, key) {
+    return key in fnMap ? application(fnMap[key], [value]) : value;
+  });
+};
 
 var contextKey = {};
 
@@ -21447,7 +21493,7 @@ function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { 
 var components = _objectSpread$3(_objectSpread$3({}, barchart), choropleth);
 
 var formatSvelteMarkup = function formatSvelteMarkup(str) {
-  return str.trim().replace(/^\t{3}/gm, '').replace(/^\t/gm, '  ');
+  return str.trim().replace(/^\t{4}/gm, '').replace(/^\t/gm, '  ');
 };
 
 function initRange(domain, range) {
@@ -23401,7 +23447,7 @@ var countryKeyRawValue = [{
   key: 'GB',
   rawValue: 56
 }];
-var keyToColorFull = {
+var keyToColorWorldFull = {
   AL: 'antiquewhite',
   AD: 'aqua',
   AM: 'blue',
@@ -23451,10 +23497,10 @@ var keyToColorFull = {
   TR: 'yellowgreen',
   UA: 'rgb(152, 251, 152)',
   GB: 'rgb(128, 0, 128)'
-}; // keep these 2 commented for the `keyToColor` example to show 2 black bars.
+}; // keep these 2 commented for the `keyToColorWorld` example to show 2 black bars.
 
-var keyToColor = skip(keyToColorFull, ['AL', 'AD']);
-var keyToColorShort = {
+var keyToColorWorld = skip(keyToColorWorldFull, ['AL', 'AD']);
+var keyToColorWorldShort = {
   AM: 'blue',
   AT: 'blueviolet',
   AZ: 'chartreuse',
@@ -23464,12 +23510,247 @@ var keyToColorShort = {
   BG: 'rgb(128, 128, 0)'
 };
 
-var keyToColorFullKeys = keys(keyToColorFull);
+var keyToColorWorldFullKeys = keys(keyToColorWorldFull);
 
-var hueScale = linear$2().domain([0, keyToColorFullKeys.length]).range([0, 300]);
-var keyToColorFn = ordinal().domain(keyToColorFullKeys).range(keyToColorFullKeys.map(function (k, i) {
+var hueScale = linear$2().domain([0, keyToColorWorldFullKeys.length]).range([0, 300]);
+var keyToColorWorldFn = ordinal().domain(keyToColorWorldFullKeys).range(keyToColorWorldFullKeys.map(function (k, i) {
   return hsl(hueScale(i), 0.5, 0.5).toString();
 }));
+var keyToColorUK2016 = {
+  UK: 'cornsilk',
+  UKC: 'antiquewhite',
+  UKC1: 'aqua',
+  UKC11: 'aquamarine',
+  UKC12: 'azure',
+  UKC13: 'beige',
+  UKC14: 'bisque',
+  UKC2: 'black',
+  UKC21: 'blanchedalmond',
+  UKC22: 'blue',
+  UKC23: 'blueviolet',
+  UKD: 'brown',
+  UKD1: 'burlywood',
+  UKD11: 'cadetblue',
+  UKD12: 'chartreuse',
+  UKD3: 'chocolate',
+  UKD33: 'coral',
+  UKD34: 'cornflowerblue',
+  UKD35: 'cornsilk',
+  UKD36: 'crimson',
+  UKD37: 'cyan',
+  UKD4: 'darkblue',
+  UKD41: 'darkcyan',
+  UKD42: 'darkgoldenrod',
+  UKD44: 'darkgray',
+  UKD45: 'darkgreen',
+  UKD46: 'darkgrey',
+  UKD47: 'darkkhaki',
+  UKD6: 'darkmagenta',
+  UKD61: 'darkolivegreen',
+  UKD62: 'darkorange',
+  UKD63: 'darkorchid',
+  UKD7: 'darkred',
+  UKD71: 'darksalmon',
+  UKD72: 'darkseagreen',
+  UKD73: 'darkslateblue',
+  UKD74: 'darkslategray',
+  UKE: 'darkslategrey',
+  UKE1: 'darkturquoise',
+  UKE11: 'darkviolet',
+  UKE12: 'deeppink',
+  UKE13: 'deepskyblue',
+  UKE2: 'dimgray',
+  UKE21: 'dimgrey',
+  UKE22: 'dodgerblue',
+  UKE3: 'firebrick',
+  UKE31: 'floralwhite',
+  UKE32: 'forestgreen',
+  UKE4: 'fuchsia',
+  UKE41: 'gainsboro',
+  UKE42: 'ghostwhite',
+  UKE44: 'gold',
+  UKE45: 'goldenrod',
+  UKF: 'gray',
+  UKF1: 'grey',
+  UKF11: 'green',
+  UKF12: 'greenyellow',
+  UKF13: 'honeydew',
+  UKF14: 'hotpink',
+  UKF15: 'indianred',
+  UKF16: 'indigo',
+  UKF2: 'ivory',
+  UKF21: 'khaki',
+  UKF22: 'lavender',
+  UKF24: 'lavenderblush',
+  UKF25: 'lawngreen',
+  UKF3: 'lemonchiffon',
+  UKF30: 'lightblue',
+  UKG: 'lightcoral',
+  UKG1: 'lightcyan',
+  UKG11: 'lightgoldenrodyellow',
+  UKG12: 'lightgray',
+  UKG13: 'lightgreen',
+  UKG2: 'lightgrey',
+  UKG21: 'lightpink',
+  UKG22: 'lightsalmon',
+  UKG23: 'lightseagreen',
+  UKG24: 'lightskyblue',
+  UKG3: 'lightslategray',
+  UKG31: 'lightslategrey',
+  UKG32: 'lightsteelblue',
+  UKG33: 'lightyellow',
+  UKG36: 'lime',
+  UKG37: 'limegreen',
+  UKG38: 'linen',
+  UKG39: 'magenta',
+  UKH: 'maroon',
+  UKH1: 'mediumaquamarine',
+  UKH11: 'mediumblue',
+  UKH12: 'mediumorchid',
+  UKH14: 'mediumpurple',
+  UKH15: 'mediumseagreen',
+  UKH16: 'mediumslateblue',
+  UKH17: 'mediumspringgreen',
+  UKH2: 'mediumturquoise',
+  UKH21: 'mediumvioletred',
+  UKH23: 'midnightblue',
+  UKH24: 'mintcream',
+  UKH25: 'mistyrose',
+  UKH3: 'moccasin',
+  UKH31: 'navajowhite',
+  UKH32: 'navy',
+  UKH34: 'oldlace',
+  UKH35: 'olive',
+  UKH36: 'olivedrab',
+  UKH37: 'orange',
+  UKI: 'orangered',
+  UKI3: 'orchid',
+  UKI31: 'palegoldenrod',
+  UKI32: 'palegreen',
+  UKI33: 'paleturquoise',
+  UKI34: 'palevioletred',
+  UKI4: 'papayawhip',
+  UKI41: 'peachpuff',
+  UKI42: 'peru',
+  UKI43: 'pink',
+  UKI44: 'plum',
+  UKI45: 'powderblue',
+  UKI5: 'purple',
+  UKI51: 'red',
+  UKI52: 'rosybrown',
+  UKI53: 'royalblue',
+  UKI54: 'saddlebrown',
+  UKI6: 'salmon',
+  UKI61: 'sandybrown',
+  UKI62: 'seagreen',
+  UKI63: 'seashell',
+  UKI7: 'sienna',
+  UKI71: 'silver',
+  UKI72: 'skyblue',
+  UKI73: 'slateblue',
+  UKI74: 'slategray',
+  UKI75: 'slategrey',
+  UKJ: 'snow',
+  UKJ1: 'springgreen',
+  UKJ11: 'steelblue',
+  UKJ12: 'tan',
+  UKJ13: 'teal',
+  UKJ14: 'thistle',
+  UKJ2: 'tomato',
+  UKJ21: 'turquoise',
+  UKJ22: 'violet',
+  UKJ25: 'wheat',
+  UKJ26: 'white',
+  UKJ27: 'whitesmoke',
+  UKJ28: 'yellow',
+  UKJ3: 'yellowgreen',
+  UKJ31: 'aliceblue',
+  UKJ32: 'antiquewhite',
+  UKJ34: 'aqua',
+  UKJ35: 'aquamarine',
+  UKJ36: 'azure',
+  UKJ37: 'beige',
+  UKJ4: 'bisque',
+  UKJ41: 'black',
+  UKJ43: 'blanchedalmond',
+  UKJ44: 'blue',
+  UKJ45: 'blueviolet',
+  UKJ46: 'brown',
+  UKK: 'burlywood',
+  UKK1: 'cadetblue',
+  UKK11: 'chartreuse',
+  UKK12: 'chocolate',
+  UKK13: 'coral',
+  UKK14: 'cornflowerblue',
+  UKK15: 'cornsilk',
+  UKK2: 'crimson',
+  UKK21: 'cyan',
+  UKK22: 'darkblue',
+  UKK23: 'darkcyan',
+  UKK3: 'darkgoldenrod',
+  UKK30: 'darkgray',
+  UKK4: 'darkgreen',
+  UKK41: 'darkgrey',
+  UKK42: 'darkkhaki',
+  UKK43: 'darkmagenta',
+  UKL: 'darkolivegreen',
+  UKL1: 'darkorange',
+  UKL11: 'darkorchid',
+  UKL12: 'darkred',
+  UKL13: 'darksalmon',
+  UKL14: 'darkseagreen',
+  UKL15: 'darkslateblue',
+  UKL16: 'darkslategray',
+  UKL17: 'darkslategrey',
+  UKL18: 'darkturquoise',
+  UKL2: 'darkviolet',
+  UKL21: 'deeppink',
+  UKL22: 'deepskyblue',
+  UKL23: 'dimgray',
+  UKL24: 'dimgrey',
+  UKM: 'dodgerblue',
+  UKM5: 'firebrick',
+  UKM50: 'floralwhite',
+  UKM6: 'forestgreen',
+  UKM61: 'fuchsia',
+  UKM62: 'gainsboro',
+  UKM63: 'ghostwhite',
+  UKM64: 'gold',
+  UKM65: 'goldenrod',
+  UKM66: 'gray',
+  UKM7: 'grey',
+  UKM71: 'green',
+  UKM72: 'greenyellow',
+  UKM73: 'honeydew',
+  UKM75: 'hotpink',
+  UKM76: 'indianred',
+  UKM77: 'indigo',
+  UKM78: 'ivory',
+  UKM8: 'khaki',
+  UKM81: 'lavender',
+  UKM82: 'lavenderblush',
+  UKM83: 'lawngreen',
+  UKM84: 'lemonchiffon',
+  UKM9: 'lightblue',
+  UKM91: 'lightcoral',
+  UKM92: 'lightcyan',
+  UKM93: 'lightgoldenrodyellow',
+  UKM94: 'lightgray',
+  UKM95: 'lightgreen',
+  UKN: 'lightgrey',
+  UKN0: 'lightpink',
+  UKN06: 'lightsalmon',
+  UKN07: 'lightseagreen',
+  UKN08: 'lightskyblue',
+  UKN09: 'lightslategray',
+  UKN10: 'lightslategrey',
+  UKN11: 'lightsteelblue',
+  UKN12: 'lightyellow',
+  UKN13: 'lime',
+  UKN14: 'limegreen',
+  UKN15: 'linen',
+  UKN16: 'magenta'
+};
 var keyToLabel = {
   AL: 'Albania',
   AD: 'Andorra',
@@ -23522,9 +23803,6 @@ var keyToLabel = {
   GB: 'United Kingdom (UK)'
 };
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var axisColor = 'red';
 var backgroundColor = 'antiquewhite';
 var barDefaultColor = 'orange';
@@ -23534,326 +23812,342 @@ var fontSize = 22;
 var textColor = 'green';
 var title = 'My title';
 var examples = [{
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "In the most basic setup, you need to provide a `{items}` array of objects with the shape `{key: string, value: number}`."
+    content: 'In the most basic setup, you need to provide a `{items}` array of objects with the shape `{key: string, props: number}`.'
   }, {
     tag: 'p',
-    content: "Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default."
+    content: 'Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       items: countryKeyValuePositive
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       items: countryKeyValueNegatives
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       items: countryKeyValueMixed
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
   }],
   slug: 'BarchartV',
-  title: 'Basic props',
-  usage: "\n\t\t\t<BarchartV {items} />\n\t\t"
+  title: 'Basic props'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "Providing a `{title}` shows the barchart with an `h2` header."
+    content: 'Providing a `{title}` shows the barchart with an `h2` header.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       items: countryKeyValuePositive,
       title: title
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\ttitle='".concat(title, "'\n\t\t\t\t/>\n\t\t\t")
   }],
   slug: 'BarchartV-title',
-  title: 'Title',
-  usage: "\n\t\t\t<BarchartV {items} title=\"".concat(title, "\" />\n\t\t")
+  title: 'Title'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "You can setup a `backgroundColor` and the `textColor`."
+    content: 'You can setup a `backgroundColor` and the `textColor`.'
   }, {
     tag: 'p',
-    content: "`barHeight` and `fontSize` contribute to determine the distance between bars."
+    content: '`barHeight` and `fontSize` contribute to determine the distance between bars.'
   }, {
     tag: 'p',
-    content: "You can configure the axis color using the `axisColor` props (used in case there are values of both signs)."
+    content: 'You can configure the axis color using the `axisColor` props (used in case there are values of both signs).'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       axisColor: axisColor,
       backgroundColor: backgroundColor,
       barHeight: barHeight,
       fontSize: fontSize,
       items: countryKeyValuePositive,
       textColor: textColor
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\taxisColor = '".concat(axisColor, "'\n\t\t\t\t\tbackgroundColor = '").concat(backgroundColor, "'\n\t\t\t\t\tbarHeight = ").concat(barHeight, "\n\t\t\t\t\tfontSize = ").concat(fontSize, "\n\t\t\t\t\ttextColor = '").concat(textColor, "'\n\t\t\t\t/>\n\t\t\t")
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       axisColor: axisColor,
       backgroundColor: backgroundColor,
       barHeight: barHeight,
       fontSize: fontSize,
       items: countryKeyValueNegatives,
       textColor: textColor
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\taxisColor = '".concat(axisColor, "'\n\t\t\t\t\tbackgroundColor = '").concat(backgroundColor, "'\n\t\t\t\t\tbarHeight = ").concat(barHeight, "\n\t\t\t\t\tfontSize = ").concat(fontSize, "\n\t\t\t\t\ttextColor = '").concat(textColor, "'\n\t\t\t\t/>\n\t\t\t")
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       axisColor: axisColor,
       backgroundColor: backgroundColor,
       barHeight: barHeight,
       fontSize: fontSize,
       items: countryKeyValueMixed,
       textColor: textColor
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\taxisColor = '".concat(axisColor, "'\n\t\t\t\t\tbackgroundColor = '").concat(backgroundColor, "'\n\t\t\t\t\tbarHeight = ").concat(barHeight, "\n\t\t\t\t\tfontSize = ").concat(fontSize, "\n\t\t\t\t\ttextColor = '").concat(textColor, "'\n\t\t\t\t/>\n\t\t\t")
   }],
   slug: 'BarchartV-styles',
-  title: 'Styles',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{items}\n\t\t\t\taxisColor = '".concat(axisColor, "'\n\t\t\t\tbackgroundColor = '").concat(backgroundColor, "'\n\t\t\t\tbarHeight = ").concat(barHeight, "\n\t\t\t\tfontSize = ").concat(fontSize, "\n\t\t\t\ttextColor = '").concat(textColor, "'\n\t\t\t/>\n\t\t")
+  title: 'Styles'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "You can provide a `barDefaultColor` to be used for bars with no correspondent key in `keyToColor`."
+    content: 'You can provide a `barDefaultColor` to be used for bars with no correspondent key in `keyToColor`.'
   }, {
     tag: 'p',
-    content: "If not provided, `barDefaultColor` is `null`, which renders `black`."
+    content: 'If not provided, `barDefaultColor` is `null`, which renders `black`.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       barDefaultColor: barDefaultColor,
       items: countryKeyValuePositive,
-      keyToColor: keyToColorShort
-    }
+      keyToColor: keyToColorWorldShort
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tbarDefaultColor='".concat(barDefaultColor, "'\n\t\t\t\t/>\n\t\t\t")
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       barDefaultColor: barDefaultColor,
       items: countryKeyValueNegatives,
-      keyToColor: keyToColorShort
-    }
+      keyToColor: keyToColorWorldShort
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tbarDefaultColor='".concat(barDefaultColor, "'\n\t\t\t\t/>\n\t\t\t")
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       barDefaultColor: barDefaultColor,
       items: countryKeyValueMixed,
-      keyToColor: keyToColorShort
-    }
+      keyToColor: keyToColorWorldShort
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tbarDefaultColor='".concat(barDefaultColor, "'\n\t\t\t\t/>\n\t\t\t")
   }],
   slug: 'BarchartV-barDefaultColor',
-  title: 'Default bars color',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\tbarDefaultColor=\"".concat(barDefaultColor, "\"\n\t\t\t\t{items}\n\t\t\t\t{keyToColor}\n\t\t\t/>\n\t\t")
+  title: 'Default bars color'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color."
+    content: 'By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color.'
   }, {
     tag: 'p',
-    content: "Notice that the default color for keys not in `keyToColor` is set by `barDefaultColor` (black if not provided, see `AL` and `AD`)."
+    content: 'Notice that the default color for keys not in `keyToColor` is set by `barDefaultColor` (black if not provided, see `AL` and `AD`).'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       items: countryKeyValuePositive,
-      keyToColor: keyToColor
-    }
+      keyToColor: keyToColorWorld
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       items: countryKeyValueNegatives,
-      keyToColor: keyToColor
-    }
+      keyToColor: keyToColorWorld
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       items: countryKeyValueMixed,
-      keyToColor: keyToColor
-    }
+      keyToColor: keyToColorWorld
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-keyToColor',
-  title: 'Bar colors (via mapping)',
-  usage: "\n\t\t\t<BarchartV {items} {keyToColor} />\n\t\t"
+  title: 'Bar colors (via mapping)'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."
+    content: 'Instead of passing `keyToColor` you can pass a function `keyToColorFn`.'
   }, {
     tag: 'p',
-    content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."
+    content: 'Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence.'
   }, {
     tag: 'p',
-    content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `barDefaultColor` (which falls back to `black` if `barDefaultColor` is not provided)."
+    content: 'Also note that if the value returned by `keyToColorFn` is falsy the fallback is `barDefaultColor` (which falls back to `black` if `barDefaultColor` is not provided).'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       items: countryKeyValuePositive,
-      keyToColorFn: keyToColorFn
-    }
+      keyToColorFn: keyToColorWorldFn
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       items: countryKeyValueNegatives,
-      keyToColorFn: keyToColorFn
-    }
+      keyToColorFn: keyToColorWorldFn
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       items: countryKeyValueMixed,
-      keyToColorFn: keyToColorFn
-    }
+      keyToColorFn: keyToColorWorldFn
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-keyToColorFn',
-  title: 'Bar colors (via function)',
-  usage: "\n\t\t\t<BarchartV {items} {keyToColorFn} />\n\t\t"
+  title: 'Bar colors (via function)'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "You can set the focused bar by providing its key."
+    content: 'You can set the focused bar by providing its key.'
   }, {
     tag: 'p',
-    content: "This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection."
+    content: 'This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       focusedKey: focusedKey,
       items: countryKeyValuePositive
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='".concat(focusedKey, "'\n\t\t\t\t/>\n\t\t\t")
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       focusedKey: focusedKey,
       items: countryKeyValueNegatives
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='".concat(focusedKey, "'\n\t\t\t\t/>\n\t\t\t")
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       focusedKey: focusedKey,
       items: countryKeyValueMixed
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='".concat(focusedKey, "'\n\t\t\t\t/>\n\t\t\t")
   }],
   slug: 'BarchartV-focusedKey',
-  title: 'Focused key',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\tfocusedKey=\"".concat(focusedKey, "\"\n\t\t\t\t{items}\n\t\t\t/>\n\t\t")
+  title: 'Focused key'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "You can set the focused bar background color by providing its `focusedKeyColor`."
+    content: 'You can set the focused bar background color by providing its `focusedKeyColor`.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       focusedKey: focusedKey,
       focusedKeyColor: 'yellow',
       items: countryKeyValuePositive
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='".concat(focusedKey, "'\n\t\t\t\t\tfocusedKeyColor='yellow'\n\t\t\t\t/>\n\t\t\t")
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       focusedKey: focusedKey,
       focusedKeyColor: 'yellow',
       items: countryKeyValueNegatives
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='".concat(focusedKey, "'\n\t\t\t\t\tfocusedKeyColor='yellow'\n\t\t\t\t/>\n\t\t\t")
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       focusedKey: focusedKey,
       focusedKeyColor: 'yellow',
       items: countryKeyValueMixed
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='".concat(focusedKey, "'\n\t\t\t\t\tfocusedKeyColor='yellow'\n\t\t\t\t/>\n\t\t\t")
   }],
   slug: 'BarchartV-focusedKeyColor',
-  title: 'Focused key color',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{items}\n\t\t\t\tfocusedKey=\"".concat(focusedKey, "\"\n\t\t\t\tfocusedKeyColor=\"yellow\"\n\t\t\t/>\n\t\t")
+  title: 'Focused key color'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "You can choose the hovered bar background color by providing `hoverColor`."
+    content: 'You can choose the hovered bar background color by providing `hoverColor`.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       hoverColor: 'palegreen',
       items: countryKeyValuePositive,
       title: 'Hover me'
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\thoverColor='palegreen'\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-hoverColor',
-  title: 'Hovered bar color',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{items}\n\t\t\t\thoverColor=\"palegreen\"\n\t\t\t/>\n\t\t"
+  title: 'Hovered bar color'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "By providing a object mapping bar key -> bar label, you can control how the bar are labeled."
+    content: 'By providing a object mapping bar key -> bar label, you can control how the bar are labeled.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       keyToLabel: keyToLabel,
       items: countryKeyValuePositive
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       keyToLabel: keyToLabel,
       items: countryKeyValueNegatives
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       keyToLabel: keyToLabel,
       items: countryKeyValueMixed
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-keyToLabel',
-  title: 'Labels (via mapping)',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{keyToLabel}\n\t\t\t\t{items}\n\t\t\t/>\n\t\t"
+  title: 'Labels (via mapping)'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "By providing a function mapping bar key -> bar label, you can control how the bar are labeled programmatically."
+    content: 'By providing a function mapping bar key -> bar label, you can control how the bar are labeled programmatically.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       items: countryKeyValuePositive,
       keyToLabelFn: function keyToLabelFn(x) {
         return "--".concat(x, "--");
       }
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tkeyToLabelFn={x => '--' + x + '--'}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-keyToLabelFn',
-  title: 'Labels (via function)',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\tkeyToLabelFn={x => '--' + x + '--'}\n\t\t\t\t{items}\n\t\t\t/>\n\t\t"
+  title: 'Labels (via function)'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "If `true`, the component emits events when interacting with the bars."
+    content: 'If `true`, the component emits events when interacting with the bars.'
   }, {
     tag: 'p',
-    content: "The payload is an object `{id: key}` (`key` being the key of the bar we interacted with)"
+    content: 'The payload is an object `{id: key}` (`key` being the key of the bar we interacted with)'
   }, {
     tag: 'p',
     content: "• Clicking on a bar dispatches a `clicked` event: `dispatch('clicked', {id: key})`."
@@ -23865,157 +24159,163 @@ var examples = [{
     content: "• Mouse-exiting a bar dispatches a `exited` event: `dispatch('exited', {id: key})`."
   }, {
     tag: 'p',
-    content: "Please hover and click the bars of this barchart to read the correspondent event payload below."
+    content: 'Please hover and click the bars of this barchart to read the correspondent event payload below.'
   }],
   events: ['entered', 'exited', 'clicked'],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       isInteractive: true,
       items: countryKeyValuePositive,
       title: 'Hover and click me'
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       isInteractive: true,
       items: countryKeyValueNegatives,
       title: 'Hover and click me'
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       isInteractive: true,
       items: countryKeyValueMixed,
       title: 'Hover and click me'
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-isInteractive',
-  title: 'Interactivity',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{items}\n\t\t\t\tisInteractive={true}\n\t\t\t\ton:entered={onEntered}\n\t\t\t\ton:exited={onExited}\n\t\t\t\ton:clicked={onClicked}\n\t\t\t/>\n\t\t"
+  title: 'Interactivity'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "By default we assume that `items` has the shape `{key, value}`."
+    content: 'By default we assume that `items` has the shape `{key, value}`.'
   }, {
     tag: 'p',
-    content: "By providing a `valueAccessor` function we can derive the bar value from `items` with different shapes."
+    content: 'By providing a `valueAccessor` function we can derive the bar value from `items` with different shapes.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       items: countryKeyRawValue,
       valueAccessor: function valueAccessor(item) {
         return Number(Math.sqrt(item.rawValue).toFixed(3));
       }
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tvalueAccessor={item => Number((item.rawValue / 25.3).toFixed(3))}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-valueAccessor',
-  title: 'Values accessor',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{items}\n\t\t\t\tvalueAccessor={item => Number((item.rawValue / 25.3).toFixed(3))}\n\t\t\t/>\n\t\t"
+  title: 'Values accessor'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "You can provide a `formatFn` function to turn the `value` in the desired string."
+    content: 'You can provide a `formatFn` function to turn the `value` in the desired string.'
   }, {
     tag: 'p',
-    content: "A way to use this would be to pass a function derived from `d3-format`."
+    content: 'A way to use this would be to pass a function derived from `d3-format`.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'All positive values',
-    value: {
+    props: {
       items: countryKeyValuePositive,
       formatFn: function formatFn(x) {
         return "".concat(x, "%");
       }
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'All negative values',
-    value: {
+    props: {
       items: countryKeyValueNegatives,
       formatFn: function formatFn(x) {
         return "".concat(x, "%");
       }
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'Mixed values',
-    value: {
+    props: {
       items: countryKeyValueMixed,
       formatFn: function formatFn(x) {
         return "".concat(x, "%");
       }
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-formatFn',
-  title: 'Values format',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{items}\n\t\t\t\tformatFn={x => x + '%'}\n\t\t\t/>\n\t\t"
+  title: 'Values format'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "If `shouldResetScroll` is not provided or set to `false`, updating the props will not reset the scroll."
+    content: 'If `shouldResetScroll` is not provided or set to `false`, updating the props will not reset the scroll.'
   }, {
     tag: 'p',
-    content: "In this example, scrolling the barchart and then switching props using the buttons below should not reset the scroll."
+    content: 'In this example, scrolling the barchart and then switching props using the buttons below should not reset the scroll.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'countryKeyValuePositive',
-    value: {
+    props: {
       shouldResetScroll: false,
       items: countryKeyValuePositive,
       title: "When updated, scroll doesn't reset"
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={false}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'countryKeyValueAlt',
-    value: {
+    props: {
       shouldResetScroll: false,
       items: countryKeyValueAlt,
       title: "When updated, scroll doesn't reset"
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={false}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-no-shouldResetScroll',
-  title: 'Scroll reset (disabled)',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{items}\n\t\t\t\tshouldResetScroll={false}\n\t\t\t/>\n\t\t"
+  title: 'Scroll reset (disabled)'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "If `shouldResetScroll` is set to `true`, updating the props will reset the scroll."
+    content: 'If `shouldResetScroll` is set to `true`, updating the props will reset the scroll.'
   }, {
     tag: 'p',
-    content: "In this example, scrolling the barchart and then switching props using the buttons below should reset the scroll."
+    content: 'In this example, scrolling the barchart and then switching props using the buttons below should reset the scroll.'
   }],
   name: 'BarchartV',
-  props: [{
+  data: [{
     key: 'countryKeyValuePositive',
-    value: {
+    props: {
       shouldResetScroll: true,
       items: countryKeyValuePositive,
       title: "When updated, scroll resets"
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={true}\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'countryKeyValueAlt',
-    value: {
+    props: {
       shouldResetScroll: true,
       items: countryKeyValueAlt,
       title: "When updated, scroll resets"
-    }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={true}\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'BarchartV-shouldResetScroll',
-  title: 'Scroll reset (enabled)',
-  usage: "\n\t\t\t<BarchartV\n\t\t\t\t{items}\n\t\t\t\tshouldResetScroll={true}\n\t\t\t/>\n\t\t"
-}].map(function (obj) {
-  return _objectSpread$4(_objectSpread$4({}, obj), {}, {
-    content: obj.content.map(function (element) {
-      return _objectSpread$4(_objectSpread$4({}, element), {}, {
-        content: element.content.trim()
-      });
-    }),
-    usage: formatSvelteMarkup(obj.usage)
-  });
-});
+  title: 'Scroll reset (enabled)'
+}].map(transformValues({
+  doc: mapWith(transformValues({
+    content: function content(s) {
+      return s.trim();
+    }
+  })),
+  data: mapWith(transformValues({
+    usage: formatSvelteMarkup
+  }))
+}));
 
 var type$1 = "Topology";
 var objects = {
@@ -169780,11 +170080,8 @@ var NUTS_RG_03M_2016_4326_LEVL_3_UK = {
 	arcs: arcs$4
 };
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var examples$1 = [{
-  content: [{
+  doc: [{
     tag: 'p',
     content: "In the most basic setup, you need to provide:"
   }, {
@@ -169813,82 +170110,90 @@ var examples$1 = [{
     content: "The default projection (`geoEquirectangular`) will be applied."
   }],
   name: 'ChoroplethSVG',
-  props: [{
+  data: [{
     key: 'World_110m_iso_a2_topo',
-    value: {
+    props: {
       height: 600,
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tkeyToColor={keyToColorWorld}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
-    value: {
+    props: {
       height: 600,
       key: 'NUTS_ID',
+      keyToColor: keyToColorUK2016,
       topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
       topojsonId: 'NUTS',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
-    value: {
+    props: {
       height: 600,
       key: 'NUTS_ID',
+      keyToColor: keyToColorUK2016,
       topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
       topojsonId: 'NUTS',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
-    value: {
+    props: {
       height: 600,
       key: 'NUTS_ID',
+      keyToColor: keyToColorUK2016,
       topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
       topojsonId: 'NUTS',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-    value: {
+    props: {
       height: 600,
       key: 'NUTS_ID',
+      keyToColor: keyToColorUK2016,
       topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
       topojsonId: 'NUTS',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethSVG',
-  title: 'Basic props',
-  usage: "\n\t\t\t<ChoroplethSVG\n\t\t\t\t{keyToColor}\n\t\t\t\theight=600\n\t\t\t\t{key} <!-- World: 'iso_a2', NUTS: 'NUTS_ID' -->\n\t\t\t\t{topojson}\n\t\t\t\t{topojsonId} <!-- World: 'countries', NUTS: 'NUTS' -->\n\t\t\t\twidth=600\n\t\t\t/>\n\t\t"
+  title: 'Basic props'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "You can customise the map colors and stroke size."
   }],
   name: 'ChoroplethSVG',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       colorDefaultFill: 'palegreen',
       colorSea: 'aqua',
       colorStroke: 'tomato',
       height: 600,
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       sizeStroke: 1,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tcolorDefaultFill='palegreen'\n\t\t\t\t\tcolorSea='aqua'\n\t\t\t\t\tcolorStroke='tomato'\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tsizeStroke=1\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethSVG-styles',
-  title: 'Styles',
-  usage: "\n\t\t\t<ChoroplethSVG\n\t\t\t\t{keyToColor}\n\t\t\t\tcolorDefaultFill='palegreen'\n\t\t\t\tcolorSea='aqua'\n\t\t\t\tcolorStroke='tomato'\n\t\t\t\theight=600\n\t\t\t\tkey='iso_a2'\n\t\t\t\tsizeStroke=1\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t\twidth=600\n\t\t\t/>\n\t\t"
+  title: 'Styles'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."
   }, {
@@ -169899,45 +170204,45 @@ var examples$1 = [{
     content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `colorDefaultFill` (which defaults to `white`)."
   }],
   name: 'ChoroplethSVG',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       height: 600,
       key: 'iso_a2',
-      keyToColorFn: keyToColorFn,
+      keyToColorFn: keyToColorWorldFn,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethSVG-keyToColorFn',
-  title: 'Colors via function',
-  usage: "\n\t\t\t<ChoroplethSVG\n\t\t\t\t{keyToColor}\n\t\t\t\theight=600\n\t\t\t\tkey='iso_a2'\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t\twidth=600\n\t\t\t/>\n\t\t"
+  title: 'Colors via function'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."
   }],
   name: 'ChoroplethSVG',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       colorStrokeSelected: 'red',
       height: 600,
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU'],
       sizeStrokeSelected: 1.5,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tcolorStrokeSelected='red',\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tselectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']\n\t\t\t\t\tsizeStrokeSelected=1.5\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethSVG-selectedKeys',
-  title: 'Selected regions',
-  usage: "\n\t\t\t<ChoroplethSVG\n\t\t\t\t{keyToColor}\n\t\t\t\tcolorStrokeSelected='red',\n\t\t\t\theight=600\n\t\t\t\tkey='iso_a2'\n\t\t\t\tselectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']\n\t\t\t\tsizeStrokeSelected=1.5\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t\twidth=600\n\t\t\t/>\n\t\t"
+  title: 'Selected regions'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "If `true`, the component emits events when interacting with the regions."
   }, {
@@ -169958,23 +170263,23 @@ var examples$1 = [{
   }],
   events: ['clicked', 'entered', 'exited'],
   name: 'ChoroplethSVG',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       height: 600,
       isInteractive: true,
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\theight=600\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethSVG-isInteractive',
-  title: 'Interactivity',
-  usage: "\n\t\t\t<ChoroplethSVG\n\t\t\t\t{keyToColor}\n\t\t\t\theight=600\n\t\t\t\tisInteractive={true}\n\t\t\t\tkey='iso_a2'\n\t\t\t\ton:clicked={onClicked}\n\t\t\t\ton:entered={onEntered}\n\t\t\t\ton:exited={onExited}\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t\twidth=600\n\t\t\t/>\n\t\t"
+  title: 'Interactivity'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "The default projection is `geoEquirectangular`."
   }, {
@@ -170030,56 +170335,54 @@ var examples$1 = [{
     content: "• `geoNaturalEarth1`"
   }],
   name: 'ChoroplethSVG',
-  props: [{
+  data: [{
     key: 'geoAzimuthalEqualArea',
-    value: {
+    props: {
       height: 600,
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       projection: 'geoAzimuthalEqualArea',
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoAzimuthalEqualArea'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'geoOrthographic',
-    value: {
+    props: {
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries',
       height: 600,
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       projection: 'geoOrthographic',
       width: 600
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethSVG\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\theight=600\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoOrthographic'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t\twidth=600\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethSVG-projection',
-  title: 'Projection',
-  usage: "\n\t\t\t<ChoroplethSVG\n\t\t\t\t{keyToColor}\n\t\t\t\theight=600\n\t\t\t\tkey='iso_a2'\n\t\t\t\tprojection='a-projection-id'\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t\twidth=600\n\t\t\t/>\n\t\t"
-}].map(function (obj) {
-  return _objectSpread$5(_objectSpread$5({}, obj), {}, {
-    content: obj.content.map(function (element) {
-      return _objectSpread$5(_objectSpread$5({}, element), {}, {
-        content: element.content.trim()
-      });
-    }),
-    usage: formatSvelteMarkup(obj.usage)
-  });
-});
+  title: 'Projection'
+}].map(transformValues({
+  doc: mapWith(transformValues({
+    content: function content(s) {
+      return s.trim();
+    }
+  })),
+  data: mapWith(transformValues({
+    usage: formatSvelteMarkup
+  }))
+}));
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var examples$2 = [{
-  content: [{
+  doc: [{
     tag: 'p',
-    content: "In the most basic setup, you need to provide:"
+    content: 'In the most basic setup, you need to provide:'
   }, {
     tag: 'p',
-    content: "• `key`, the key to be used in the features `properties` field as the region identifier;"
+    content: '• `key`, the key to be used in the features `properties` field as the region identifier;'
   }, {
     tag: 'p',
-    content: "• Note that you might provide a topojson where not all the objects have the provided `key`."
+    content: '• Note that you might provide a topojson where not all the objects have the provided `key`.'
   }, {
     tag: 'p',
     content: "  For example if you provide `key: 'iso_a2'` (ISO Alpha 2 codes), disputed or partially recognised countries might not have that code (e.g. `Kosovo`)."
@@ -170100,70 +170403,78 @@ var examples$2 = [{
     content: "The default projection (`geoEquirectangular`) will be applied."
   }],
   name: 'ChoroplethDiv',
-  props: [{
+  data: [{
     key: 'World_110m_iso_a2_topo',
-    value: {
+    props: {
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{topojson}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tkeyToColor={keyToColorWorld}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
-    value: {
+    props: {
       key: 'NUTS_ID',
+      keyToColor: keyToColorUK2016,
       topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
       topojsonId: 'NUTS'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{topojson}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
-    value: {
+    props: {
       key: 'NUTS_ID',
+      keyToColor: keyToColorUK2016,
       topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
       topojsonId: 'NUTS'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{topojson}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
-    value: {
+    props: {
       key: 'NUTS_ID',
+      keyToColor: keyToColorUK2016,
       topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
       topojsonId: 'NUTS'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{topojson}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-    value: {
+    props: {
       key: 'NUTS_ID',
+      keyToColor: keyToColorUK2016,
       topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
       topojsonId: 'NUTS'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{topojson}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethDiv',
-  title: 'Basic props',
-  usage: "\n\t\t\t<ChoroplethDiv\n\t\t\t\t{key} <!-- World: 'iso_a2', NUTS: 'NUTS_ID' -->\n\t\t\t\t{keyToColor}\n\t\t\t\t{topojson}\n\t\t\t\t{topojsonId} <!-- World: 'countries', NUTS: 'NUTS' -->\n\t\t\t/>\n\t\t"
+  title: 'Basic props'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "You can customise the map colors and stroke size."
   }],
   name: 'ChoroplethDiv',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       colorDefaultFill: 'palegreen',
       colorSea: 'aqua',
       colorStroke: 'tomato',
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries',
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       sizeStroke: 1
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tcolorDefaultFill='palegreen'\n\t\t\t\t\tcolorSea='aqua'\n\t\t\t\t\tcolorStroke='tomato'\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tsizeStroke=1\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethDiv-styles',
-  title: 'Styles',
-  usage: "\n\t\t\t<ChoroplethDiv\n\t\t\t\t{keyToColor}\n\t\t\t\tcolorDefaultFill='palegreen'\n\t\t\t\tcolorSea='aqua'\n\t\t\t\tcolorStroke='tomato'\n\t\t\t\tkey='iso_a2'\n\t\t\t\tsizeStroke=1\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t/>\n\t\t"
+  title: 'Styles'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."
   }, {
@@ -170174,41 +170485,41 @@ var examples$2 = [{
     content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `colorDefaultFill` (which defaults to `white`)."
   }],
   name: 'ChoroplethDiv',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       key: 'iso_a2',
-      keyToColorFn: keyToColorFn,
+      keyToColorFn: keyToColorWorldFn,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethDiv-keyToColorFn',
-  title: 'Colors via function',
-  usage: "\n\t\t\t<ChoroplethDiv\n\t\t\t\t{keyToColorFn}\n\t\t\t\tkey='iso_a2'\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t/>\n\t\t"
+  title: 'Colors via function'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."
   }],
   name: 'ChoroplethDiv',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       colorStrokeSelected: 'red',
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU'],
       sizeStrokeSelected: 1.5,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tcolorStrokeSelected='red',\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tselectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']\n\t\t\t\t\tsizeStrokeSelected=1.5\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethDiv-selectedKeys',
-  title: 'Selected regions',
-  usage: "\n\t\t\t<ChoroplethDiv\n\t\t\t\t{keyToColor}\n\t\t\t\tcolorStrokeSelected='red',\n\t\t\t\tkey='iso_a2'\n\t\t\t\tselectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']\n\t\t\t\tsizeStrokeSelected=1.5\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t/>\n\t\t"
+  title: 'Selected regions'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "If `true`, the component emits events when interacting with the regions."
   }, {
@@ -170229,21 +170540,21 @@ var examples$2 = [{
   }],
   events: ['clicked', 'entered', 'exited'],
   name: 'ChoroplethDiv',
-  props: [{
+  data: [{
     key: null,
-    value: {
+    props: {
       isInteractive: true,
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethDiv-isInteractive',
-  title: 'Interactivity',
-  usage: "\n\t\t\t<ChoroplethDiv\n\t\t\t\t{keyToColor}\n\t\t\t\tisInteractive={true}\n\t\t\t\tkey='iso_a2'\n\t\t\t\ton:clicked={onClicked}\n\t\t\t\ton:entered={onEntered}\n\t\t\t\ton:exited={onExited}\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t/>\n\t\t"
+  title: 'Interactivity'
 }, {
-  content: [{
+  doc: [{
     tag: 'p',
     content: "The default projection is `geoEquirectangular`."
   }, {
@@ -170299,38 +170610,39 @@ var examples$2 = [{
     content: "• `geoNaturalEarth1`"
   }],
   name: 'ChoroplethDiv',
-  props: [{
+  data: [{
     key: 'geoAzimuthalEqualArea',
-    value: {
+    props: {
       key: 'iso_a2',
-      keyToColor: keyToColor,
+      keyToColor: keyToColorWorld,
       projection: 'geoAzimuthalEqualArea',
       topojson: World_110m_iso_a2_topo,
       topojsonId: 'countries'
-    }
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoAzimuthalEqualArea'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
   }, {
     key: 'geoEqualEarth',
-    value: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
+    props: {
       key: 'iso_a2',
-      keyToColor: keyToColor,
-      projection: 'geoEqualEarth'
-    }
+      keyToColor: keyToColorWorld,
+      projection: 'geoEqualEarth',
+      topojson: World_110m_iso_a2_topo,
+      topojsonId: 'countries'
+    },
+    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoEqualEarth'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
   }],
   slug: 'ChoroplethDiv-projection',
-  title: 'Projection',
-  usage: "\n\t\t\t<ChoroplethDiv\n\t\t\t\t{keyToColor}\n\t\t\t\tkey='iso_a2'\n\t\t\t\tprojection='geoAzimuthalEqualArea'\n\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\ttopojsonId='countries'\n\t\t\t/>\n\t\t"
-}].map(function (obj) {
-  return _objectSpread$6(_objectSpread$6({}, obj), {}, {
-    content: obj.content.map(function (element) {
-      return _objectSpread$6(_objectSpread$6({}, element), {}, {
-        content: element.content.trim()
-      });
-    }),
-    usage: formatSvelteMarkup(obj.usage)
-  });
-});
+  title: 'Projection'
+}].map(transformValues({
+  doc: mapWith(transformValues({
+    content: function content(s) {
+      return s.trim();
+    }
+  })),
+  data: mapWith(transformValues({
+    usage: formatSvelteMarkup
+  }))
+}));
 
 
 
@@ -170348,25 +170660,25 @@ var file$a = "src/routes/components/[slug].svelte";
 
 function get_each_context$5(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[20] = list[i][0];
-  child_ctx[21] = list[i][1];
+  child_ctx[19] = list[i][0];
+  child_ctx[20] = list[i][1];
   return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[24] = list[i].key;
-  child_ctx[25] = list[i].value;
-  child_ctx[27] = i;
+  child_ctx[23] = list[i].key;
+  child_ctx[24] = list[i].value;
+  child_ctx[26] = i;
   return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[24] = list[i][0];
-  child_ctx[25] = list[i][1];
+  child_ctx[23] = list[i][0];
+  child_ctx[24] = list[i][1];
   return child_ctx;
-} // (71:2) {#if payloads}
+} // (70:2) {#if payloads}
 
 
 function create_if_block_1$5(ctx) {
@@ -170377,7 +170689,7 @@ function create_if_block_1$5(ctx) {
 
   var each_value_2 = pairs(
   /*payloads*/
-  ctx[8]);
+  ctx[7]);
 
   validate_each_argument(each_value_2);
   var each_blocks = [];
@@ -170418,9 +170730,9 @@ function create_if_block_1$5(ctx) {
       this.h();
     },
     h: function hydrate() {
-      add_location(h2, file$a, 71, 2, 1701);
+      add_location(h2, file$a, 70, 2, 1691);
       attr_dev(div, "class", "distancer svelte-1yka1uv");
-      add_location(div, file$a, 72, 2, 1719);
+      add_location(div, file$a, 71, 2, 1709);
     },
     m: function mount(target, anchor) {
       insert_dev(target, h2, anchor);
@@ -170435,10 +170747,10 @@ function create_if_block_1$5(ctx) {
     p: function update(ctx, dirty) {
       if (dirty &
       /*_, payloads*/
-      256) {
+      128) {
         each_value_2 = pairs(
         /*payloads*/
-        ctx[8]);
+        ctx[7]);
         validate_each_argument(each_value_2);
 
         var _i4;
@@ -170475,11 +170787,11 @@ function create_if_block_1$5(ctx) {
     block: block,
     id: create_if_block_1$5.name,
     type: "if",
-    source: "(71:2) {#if payloads}",
+    source: "(70:2) {#if payloads}",
     ctx: ctx
   });
   return block;
-} // (74:3) {#each _.pairs(payloads) as [key, value]}
+} // (73:3) {#each _.pairs(payloads) as [key, value]}
 
 
 function create_each_block_2(ctx) {
@@ -170487,13 +170799,13 @@ function create_each_block_2(ctx) {
   var span;
   var t0_value =
   /*key*/
-  ctx[24] + "";
+  ctx[23] + "";
   var t0;
   var t1;
   var pre;
   var t2_value = (
   /*value*/
-  ctx[25] || "[payload]") + "";
+  ctx[24] || "[payload]") + "";
   var t2;
   var t3;
   var block = {
@@ -170531,11 +170843,11 @@ function create_each_block_2(ctx) {
     },
     h: function hydrate() {
       attr_dev(span, "class", "svelte-1yka1uv");
-      add_location(span, file$a, 75, 4, 1813);
+      add_location(span, file$a, 74, 4, 1803);
       attr_dev(pre, "class", "svelte-1yka1uv");
-      add_location(pre, file$a, 76, 4, 1836);
+      add_location(pre, file$a, 75, 4, 1826);
       attr_dev(div, "class", "row svelte-1yka1uv");
-      add_location(div, file$a, 74, 3, 1791);
+      add_location(div, file$a, 73, 3, 1781);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -170549,14 +170861,14 @@ function create_each_block_2(ctx) {
     p: function update(ctx, dirty) {
       if (dirty &
       /*payloads*/
-      256 && t0_value !== (t0_value =
+      128 && t0_value !== (t0_value =
       /*key*/
-      ctx[24] + "")) set_data_dev(t0, t0_value);
+      ctx[23] + "")) set_data_dev(t0, t0_value);
       if (dirty &
       /*payloads*/
-      256 && t2_value !== (t2_value = (
+      128 && t2_value !== (t2_value = (
       /*value*/
-      ctx[25] || "[payload]") + "")) set_data_dev(t2, t2_value);
+      ctx[24] || "[payload]") + "")) set_data_dev(t2, t2_value);
     },
     d: function destroy(detaching) {
       if (detaching) detach_dev(div);
@@ -170566,17 +170878,17 @@ function create_each_block_2(ctx) {
     block: block,
     id: create_each_block_2.name,
     type: "each",
-    source: "(74:3) {#each _.pairs(payloads) as [key, value]}",
+    source: "(73:3) {#each _.pairs(payloads) as [key, value]}",
     ctx: ctx
   });
   return block;
-} // (84:3) {#if props.length > 1}
+} // (83:3) {#if data.length > 1}
 
 
 function create_if_block$6(ctx) {
   var div;
   var each_value_1 =
-  /*props*/
+  /*data*/
   ctx[1];
   validate_each_argument(each_value_1);
   var each_blocks = [];
@@ -170610,7 +170922,7 @@ function create_if_block$6(ctx) {
     },
     h: function hydrate() {
       attr_dev(div, "class", "distancer svelte-1yka1uv");
-      add_location(div, file$a, 84, 3, 1981);
+      add_location(div, file$a, 83, 3, 1970);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -170621,10 +170933,10 @@ function create_if_block$6(ctx) {
     },
     p: function update(ctx, dirty) {
       if (dirty &
-      /*current_props_index, props*/
-      66) {
+      /*current_data_index, data*/
+      34) {
         each_value_1 =
-        /*props*/
+        /*data*/
         ctx[1];
         validate_each_argument(each_value_1);
 
@@ -170660,18 +170972,18 @@ function create_if_block$6(ctx) {
     block: block,
     id: create_if_block$6.name,
     type: "if",
-    source: "(84:3) {#if props.length > 1}",
+    source: "(83:3) {#if data.length > 1}",
     ctx: ctx
   });
   return block;
-} // (86:4) {#each props as {key, value}
+} // (85:4) {#each data as {key, value}
 
 
 function create_each_block_1(ctx) {
   var button;
   var t_value =
   /*key*/
-  ctx[24] + "";
+  ctx[23] + "";
   var t;
   var mounted;
   var dispose;
@@ -170685,9 +170997,9 @@ function create_each_block_1(ctx) {
 
     return (
       /*click_handler*/
-      (_ctx = ctx)[12].apply(_ctx, [
+      (_ctx = ctx)[11].apply(_ctx, [
       /*index*/
-      ctx[27]].concat(args))
+      ctx[26]].concat(args))
     );
   }
 
@@ -170709,11 +171021,11 @@ function create_each_block_1(ctx) {
     h: function hydrate() {
       attr_dev(button, "class", "svelte-1yka1uv");
       toggle_class(button, "active",
-      /*current_props_index*/
-      ctx[6] ===
+      /*current_data_index*/
+      ctx[5] ===
       /*index*/
-      ctx[27]);
-      add_location(button, file$a, 86, 4, 2050);
+      ctx[26]);
+      add_location(button, file$a, 85, 4, 2038);
     },
     m: function mount(target, anchor) {
       insert_dev(target, button, anchor);
@@ -170727,19 +171039,19 @@ function create_each_block_1(ctx) {
     p: function update(new_ctx, dirty) {
       ctx = new_ctx;
       if (dirty &
-      /*props*/
+      /*data*/
       2 && t_value !== (t_value =
       /*key*/
-      ctx[24] + "")) set_data_dev(t, t_value);
+      ctx[23] + "")) set_data_dev(t, t_value);
 
       if (dirty &
-      /*current_props_index*/
-      64) {
+      /*current_data_index*/
+      32) {
         toggle_class(button, "active",
-        /*current_props_index*/
-        ctx[6] ===
+        /*current_data_index*/
+        ctx[5] ===
         /*index*/
-        ctx[27]);
+        ctx[26]);
       }
     },
     d: function destroy(detaching) {
@@ -170752,11 +171064,11 @@ function create_each_block_1(ctx) {
     block: block,
     id: create_each_block_1.name,
     type: "each",
-    source: "(86:4) {#each props as {key, value}",
+    source: "(85:4) {#each data as {key, value}",
     ctx: ctx
   });
   return block;
-} // (94:3) {#each displayProps as [propName, propValue]}
+} // (93:3) {#each displayProps as [propName, propValue]}
 
 
 function create_each_block$5(ctx) {
@@ -170764,7 +171076,7 @@ function create_each_block$5(ctx) {
   var code;
   var t0_value =
   /*propName*/
-  ctx[20] + "";
+  ctx[19] + "";
   var t0;
   var t1;
   var div;
@@ -170775,7 +171087,7 @@ function create_each_block$5(ctx) {
     props: {
       value:
       /*propValue*/
-      ctx[21]
+      ctx[20]
     },
     $$inline: true
   });
@@ -170809,10 +171121,10 @@ function create_each_block$5(ctx) {
       this.h();
     },
     h: function hydrate() {
-      add_location(code, file$a, 94, 7, 2275);
-      add_location(h3, file$a, 94, 3, 2271);
+      add_location(code, file$a, 93, 7, 2261);
+      add_location(h3, file$a, 93, 3, 2257);
       attr_dev(div, "class", "distancer svelte-1yka1uv");
-      add_location(div, file$a, 95, 3, 2307);
+      add_location(div, file$a, 94, 3, 2293);
     },
     m: function mount(target, anchor) {
       insert_dev(target, h3, anchor);
@@ -170827,15 +171139,15 @@ function create_each_block$5(ctx) {
     p: function update(ctx, dirty) {
       if ((!current || dirty &
       /*displayProps*/
-      1024) && t0_value !== (t0_value =
+      512) && t0_value !== (t0_value =
       /*propName*/
-      ctx[20] + "")) set_data_dev(t0, t0_value);
+      ctx[19] + "")) set_data_dev(t0, t0_value);
       var jsontree_changes = {};
       if (dirty &
       /*displayProps*/
-      1024) jsontree_changes.value =
+      512) jsontree_changes.value =
       /*propValue*/
-      ctx[21];
+      ctx[20];
       jsontree.$set(jsontree_changes);
     },
     i: function intro(local) {
@@ -170858,7 +171170,7 @@ function create_each_block$5(ctx) {
     block: block,
     id: create_each_block$5.name,
     type: "each",
-    source: "(94:3) {#each displayProps as [propName, propValue]}",
+    source: "(93:3) {#each displayProps as [propName, propValue]}",
     ctx: ctx
   });
   return block;
@@ -170880,6 +171192,9 @@ function create_fragment$g(ctx) {
   var t4;
   var t5;
   var pre;
+  var t6_value =
+  /*current_data*/
+  ctx[8].usage + "";
   var t6;
   var t7;
   var t8;
@@ -170900,20 +171215,20 @@ function create_fragment$g(ctx) {
   elements = new Elements({
     props: {
       elements:
-      /*content*/
+      /*doc*/
       ctx[2]
     },
     $$inline: true
   });
   var if_block0 =
   /*payloads*/
-  ctx[8] && create_if_block_1$5(ctx);
+  ctx[7] && create_if_block_1$5(ctx);
   var if_block1 =
-  /*props*/
+  /*data*/
   ctx[1].length > 1 && create_if_block$6(ctx);
   var each_value =
   /*displayProps*/
-  ctx[10];
+  ctx[9];
   validate_each_argument(each_value);
   var each_blocks = [];
 
@@ -170928,11 +171243,11 @@ function create_fragment$g(ctx) {
   };
 
   var switch_instance_spread_levels = [
-  /*current_props*/
-  ctx[9]];
+  /*current_data*/
+  ctx[8].props];
   var switch_value =
   /*component*/
-  ctx[7];
+  ctx[6];
 
   function switch_props(ctx) {
     var switch_instance_props = {};
@@ -170951,7 +171266,7 @@ function create_fragment$g(ctx) {
     switch_instance = new switch_value(switch_props());
     /*switch_instance_binding*/
 
-    ctx[13](switch_instance);
+    ctx[12](switch_instance);
   }
 
   var block = {
@@ -170972,9 +171287,7 @@ function create_fragment$g(ctx) {
       t4 = text("Usage");
       t5 = space();
       pre = element("pre");
-      t6 = text(
-      /*usage*/
-      ctx[5]);
+      t6 = text(t6_value);
       t7 = space();
       if (if_block0) if_block0.c();
       t8 = space();
@@ -171035,9 +171348,7 @@ function create_fragment$g(ctx) {
         class: true
       });
       var pre_nodes = children(pre);
-      t6 = claim_text(pre_nodes,
-      /*usage*/
-      ctx[5]);
+      t6 = claim_text(pre_nodes, t6_value);
       pre_nodes.forEach(detach_dev);
       div1_nodes.forEach(detach_dev);
       t7 = claim_space(div3_nodes);
@@ -171073,23 +171384,23 @@ function create_fragment$g(ctx) {
     },
     h: function hydrate() {
       attr_dev(h1, "class", "svelte-1yka1uv");
-      add_location(h1, file$a, 61, 1, 1496);
+      add_location(h1, file$a, 60, 1, 1477);
       attr_dev(div0, "class", "distancer svelte-1yka1uv");
-      add_location(div0, file$a, 63, 2, 1539);
-      add_location(h20, file$a, 67, 3, 1636);
+      add_location(div0, file$a, 62, 2, 1520);
+      add_location(h20, file$a, 66, 3, 1613);
       attr_dev(pre, "class", "svelte-1yka1uv");
-      add_location(pre, file$a, 68, 3, 1654);
+      add_location(pre, file$a, 67, 3, 1631);
       attr_dev(div1, "class", "distancer svelte-1yka1uv");
-      add_location(div1, file$a, 66, 2, 1609);
-      add_location(h21, file$a, 82, 3, 1937);
+      add_location(div1, file$a, 65, 2, 1586);
+      add_location(h21, file$a, 81, 3, 1927);
       attr_dev(div2, "class", "distancer svelte-1yka1uv");
-      add_location(div2, file$a, 81, 2, 1910);
+      add_location(div2, file$a, 80, 2, 1900);
       attr_dev(div3, "class", "col col1 svelte-1yka1uv");
-      add_location(div3, file$a, 62, 1, 1514);
+      add_location(div3, file$a, 61, 1, 1495);
       attr_dev(div4, "class", "col col2 svelte-1yka1uv");
-      add_location(div4, file$a, 101, 1, 2405);
+      add_location(div4, file$a, 100, 1, 2391);
       attr_dev(main, "class", "svelte-1yka1uv");
-      add_location(main, file$a, 60, 0, 1488);
+      add_location(main, file$a, 59, 0, 1469);
     },
     m: function mount(target, anchor) {
       insert_dev(target, t0, anchor);
@@ -171151,20 +171462,20 @@ function create_fragment$g(ctx) {
       ctx[4]);
       var elements_changes = {};
       if (dirty &
-      /*content*/
+      /*doc*/
       4) elements_changes.elements =
-      /*content*/
+      /*doc*/
       ctx[2];
       elements.$set(elements_changes);
-      if (!current || dirty &
-      /*usage*/
-      32) set_data_dev(t6,
-      /*usage*/
-      ctx[5]);
+      if ((!current || dirty &
+      /*current_data*/
+      256) && t6_value !== (t6_value =
+      /*current_data*/
+      ctx[8].usage + "")) set_data_dev(t6, t6_value);
 
       if (
       /*payloads*/
-      ctx[8]) {
+      ctx[7]) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
@@ -171178,7 +171489,7 @@ function create_fragment$g(ctx) {
       }
 
       if (
-      /*props*/
+      /*data*/
       ctx[1].length > 1) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
@@ -171194,10 +171505,10 @@ function create_fragment$g(ctx) {
 
       if (dirty &
       /*displayProps*/
-      1024) {
+      512) {
         each_value =
         /*displayProps*/
-        ctx[10];
+        ctx[9];
         validate_each_argument(each_value);
 
         var _i13;
@@ -171230,14 +171541,14 @@ function create_fragment$g(ctx) {
       }
 
       var switch_instance_changes = dirty &
-      /*current_props*/
-      512 ? get_spread_update(switch_instance_spread_levels, [get_spread_object(
-      /*current_props*/
-      ctx[9])]) : {};
+      /*current_data*/
+      256 ? get_spread_update(switch_instance_spread_levels, [get_spread_object(
+      /*current_data*/
+      ctx[8].props)]) : {};
 
       if (switch_value !== (switch_value =
       /*component*/
-      ctx[7])) {
+      ctx[6])) {
         if (switch_instance) {
           group_outros();
           var old_component = switch_instance;
@@ -171251,7 +171562,7 @@ function create_fragment$g(ctx) {
           switch_instance = new switch_value(switch_props());
           /*switch_instance_binding*/
 
-          ctx[13](switch_instance);
+          ctx[12](switch_instance);
           create_component(switch_instance.$$.fragment);
           transition_in(switch_instance.$$.fragment, 1);
           mount_component(switch_instance, div4, null);
@@ -171293,7 +171604,7 @@ function create_fragment$g(ctx) {
       destroy_each(each_blocks, detaching);
       /*switch_instance_binding*/
 
-      ctx[13](null);
+      ctx[12](null);
       if (switch_instance) destroy_component(switch_instance);
     }
   };
@@ -171322,7 +171633,7 @@ function instance_1($$self, $$props, $$invalidate) {
 
   var makeEventHandler = function makeEventHandler(eventName) {
     return function (event) {
-      $$invalidate(8, payloads = setIn(payloads, eventName, JSON.stringify(event.detail)));
+      $$invalidate(7, payloads = setIn(payloads, eventName, JSON.stringify(event.detail)));
     };
   };
 
@@ -171337,7 +171648,7 @@ function instance_1($$self, $$props, $$invalidate) {
   validate_slots("U5Bslugu5D", $$slots, []);
 
   var click_handler = function click_handler(index) {
-    $$invalidate(6, current_props_index = index);
+    $$invalidate(5, current_data_index = index);
   };
 
   function switch_instance_binding($$value) {
@@ -171348,7 +171659,7 @@ function instance_1($$self, $$props, $$invalidate) {
   }
 
   $$self.$set = function ($$props) {
-    if ("slug" in $$props) $$invalidate(11, slug = $$props.slug);
+    if ("slug" in $$props) $$invalidate(10, slug = $$props.slug);
   };
 
   $$self.$capture_state = function () {
@@ -171368,47 +171679,44 @@ function instance_1($$self, $$props, $$invalidate) {
       instance: instance,
       makeEventHandler: makeEventHandler,
       eventRemovers: eventRemovers,
-      props: props,
-      content: content,
+      data: data,
+      doc: doc,
       events: events,
       name: name,
       title: title,
-      usage: usage,
-      current_props_index: current_props_index,
+      current_data_index: current_data_index,
       component: component,
       payloads: payloads,
-      current_props: current_props,
+      current_data: current_data,
       displayProps: displayProps
     };
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("slug" in $$props) $$invalidate(11, slug = $$props.slug);
+    if ("slug" in $$props) $$invalidate(10, slug = $$props.slug);
     if ("instance" in $$props) $$invalidate(0, instance = $$props.instance);
-    if ("eventRemovers" in $$props) $$invalidate(14, eventRemovers = $$props.eventRemovers);
-    if ("props" in $$props) $$invalidate(1, props = $$props.props);
-    if ("content" in $$props) $$invalidate(2, content = $$props.content);
-    if ("events" in $$props) $$invalidate(15, events = $$props.events);
+    if ("eventRemovers" in $$props) $$invalidate(13, eventRemovers = $$props.eventRemovers);
+    if ("data" in $$props) $$invalidate(1, data = $$props.data);
+    if ("doc" in $$props) $$invalidate(2, doc = $$props.doc);
+    if ("events" in $$props) $$invalidate(14, events = $$props.events);
     if ("name" in $$props) $$invalidate(3, name = $$props.name);
     if ("title" in $$props) $$invalidate(4, title = $$props.title);
-    if ("usage" in $$props) $$invalidate(5, usage = $$props.usage);
-    if ("current_props_index" in $$props) $$invalidate(6, current_props_index = $$props.current_props_index);
-    if ("component" in $$props) $$invalidate(7, component = $$props.component);
-    if ("payloads" in $$props) $$invalidate(8, payloads = $$props.payloads);
-    if ("current_props" in $$props) $$invalidate(9, current_props = $$props.current_props);
-    if ("displayProps" in $$props) $$invalidate(10, displayProps = $$props.displayProps);
+    if ("current_data_index" in $$props) $$invalidate(5, current_data_index = $$props.current_data_index);
+    if ("component" in $$props) $$invalidate(6, component = $$props.component);
+    if ("payloads" in $$props) $$invalidate(7, payloads = $$props.payloads);
+    if ("current_data" in $$props) $$invalidate(8, current_data = $$props.current_data);
+    if ("displayProps" in $$props) $$invalidate(9, displayProps = $$props.displayProps);
   };
 
-  var props;
-  var content;
+  var data;
+  var doc;
   var events;
   var name;
   var title;
-  var usage;
-  var current_props_index;
+  var current_data_index;
   var component;
   var payloads;
-  var current_props;
+  var current_data;
   var displayProps;
 
   if ($$props && "$$inject" in $$props) {
@@ -171418,51 +171726,51 @@ function instance_1($$self, $$props, $$invalidate) {
   $$self.$$.update = function () {
     if ($$self.$$.dirty &
     /*slug*/
-    2048) {
+    1024) {
       var _lookup$slug;
 
-       $$invalidate(1, (_lookup$slug = lookup[slug], props = _lookup$slug.props, content = _lookup$slug.content, events = _lookup$slug.events, name = _lookup$slug.name, title = _lookup$slug.title, usage = _lookup$slug.usage, _lookup$slug), props, ($$invalidate(2, content), $$invalidate(11, slug)), ($$invalidate(15, events), $$invalidate(11, slug)), ($$invalidate(3, name), $$invalidate(11, slug)), ($$invalidate(4, title), $$invalidate(11, slug)), ($$invalidate(5, usage), $$invalidate(11, slug)));
+       $$invalidate(1, (_lookup$slug = lookup[slug], data = _lookup$slug.data, doc = _lookup$slug.doc, events = _lookup$slug.events, name = _lookup$slug.name, title = _lookup$slug.title, _lookup$slug), data, ($$invalidate(2, doc), $$invalidate(10, slug)), ($$invalidate(14, events), $$invalidate(10, slug)), ($$invalidate(3, name), $$invalidate(10, slug)), ($$invalidate(4, title), $$invalidate(10, slug)));
     }
 
     if ($$self.$$.dirty &
     /*slug*/
-    2048) {
-       $$invalidate(6, current_props_index = slug && 0); // reset to zero on navigation
+    1024) {
+       $$invalidate(5, current_data_index = slug && 0); // reset to zero on navigation
 
     }
 
     if ($$self.$$.dirty &
     /*name*/
     8) {
-       $$invalidate(7, component = components[name]);
+       $$invalidate(6, component = components[name]);
     }
 
     if ($$self.$$.dirty &
     /*events*/
-    32768) {
-       $$invalidate(8, payloads = events ? makeKeyedEmptyString(events) : null);
+    16384) {
+       $$invalidate(7, payloads = events ? makeKeyedEmptyString(events) : null);
     }
 
     if ($$self.$$.dirty &
-    /*props, current_props_index*/
-    66) {
-       $$invalidate(9, current_props = props[current_props_index].value);
+    /*data, current_data_index*/
+    34) {
+       $$invalidate(8, current_data = data[current_data_index]);
     }
 
     if ($$self.$$.dirty &
-    /*current_props*/
-    512) {
-       $$invalidate(10, displayProps = pairs(current_props));
+    /*current_data*/
+    256) {
+       $$invalidate(9, displayProps = pairs(current_data.props));
     }
 
     if ($$self.$$.dirty &
     /*slug, instance, eventRemovers, events*/
-    51201) {
+    25601) {
        if (slug && instance) {
         eventRemovers.forEach(function (remove) {
           return remove();
         });
-        $$invalidate(14, eventRemovers = []);
+        $$invalidate(13, eventRemovers = []);
         events && events.forEach(function (eventName) {
           var eventHandler = makeEventHandler(eventName);
           var eventRemover = instance.$on(eventName, eventHandler);
@@ -171472,7 +171780,7 @@ function instance_1($$self, $$props, $$invalidate) {
     }
   };
 
-  return [instance, props, content, name, title, usage, current_props_index, component, payloads, current_props, displayProps, slug, click_handler, switch_instance_binding];
+  return [instance, data, doc, name, title, current_data_index, component, payloads, current_data, displayProps, slug, click_handler, switch_instance_binding];
 }
 
 var U5Bslugu5D = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -171487,7 +171795,7 @@ var U5Bslugu5D = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init$1(_assertThisInitialized(_this), options, instance_1, create_fragment$g, safe_not_equal, {
-      slug: 11
+      slug: 10
     });
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -171500,7 +171808,7 @@ var U5Bslugu5D = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*slug*/
-    ctx[11] === undefined && !("slug" in props)) {
+    ctx[10] === undefined && !("slug" in props)) {
       console.warn("<U5Bslugu5D> was created without expected prop 'slug'");
     }
 
