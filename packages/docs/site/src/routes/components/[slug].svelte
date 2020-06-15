@@ -1,35 +1,31 @@
 <script context="module">
+	import {lookup} from './_utils';
+
 	// eslint-disable-next-line no-unused-vars
 	export function preload({ params, query }) {
-		return params;
+		return lookup[params.slug];
 	}
 </script>
 
 <script>
 	import * as _ from 'lamb';
-	import {indexValuesWith, makeKeyed} from '@svizzle/utils';
+	import {makeKeyed} from '@svizzle/utils';
 	import JSONTree from 'svelte-json-tree';
 
 	import Elements from 'app/components/Elements.svelte';
 	import components from './_components.js';
-	import * as examples from './_examples';
 
 	const makeKeyedEmptyString = makeKeyed('');
-	const makeLookup = indexValuesWith(_.getKey('slug'));
-	const lookup = makeLookup(examples);
 
-	export let slug;
+	export let data;
+	export let doc;
+	export let events;
+	export let name;
+	export let title;
 
 	let instance;
 
-	$: ({
-		data,
-		doc,
-		events,
-		name,
-		title,
-	} = lookup[slug]);
-	$: current_data_index = slug && 0; // reset to zero on navigation
+	$: current_data_index = data && 0; // reset to zero on navigation
 	$: component = components[name];
 	$: payloads = events ? makeKeyedEmptyString(events) : null;
 	$: current_data = data[current_data_index];
@@ -41,7 +37,7 @@
 		};
 
 	let eventRemovers = [];
-	$: if (slug && instance) {
+	$: if (data && instance) {
 		eventRemovers.forEach(remove => remove());
 		eventRemovers = [];
 

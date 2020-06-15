@@ -9,6 +9,7 @@
   - add colors to the UK examples
   - create a list of entries from the examples instead of relying on Sapper scraping
 	- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
+	- optimised exported routes weight
 
 ## `@svizzle/barchart` v0.3.0
 
@@ -21,6 +22,16 @@
 	- `barHeight` (was previously set in CSS)
 	- `fontSize` (the distance between bars depends on this now)
 	- `textColor` (was previously set in CSS)
+
+## `@svizzle/utils` v0.8.0 (next)
+
+### Array -> (Array -> Array)
+
+- add `pluckKeys`
+
+### Array -> (Object -> Object)
+
+- add `pluckValuesKeys`
 
 ## 20200411_2
 

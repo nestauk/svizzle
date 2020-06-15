@@ -27,6 +27,25 @@ export const makeArrayTransformer = fnArr => _.pipe([
 ]);
 
 /**
+ * Return a function plucking the provided keys from the expected array
+ *
+ * @function
+ * @arg {array} keys - array of keys to pluck
+ * @return {function} - Array -> Array
+ *
+ * @example
+let select = pluckKeys(['a', 'k']);
+select([
+	{a: 1, b: 2, c: 3, k: 4},
+	{a: 5, b: 8},
+]) // [{a: 1, k: 4}, {a: 5}]
+ *
+ * @version 0.8.0
+ * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
+ */
+export const pluckKeys = keys => _.mapWith(_.pickKeys(keys));
+
+/**
  * Return a function expecting an array and removing items at the provided indices
  *
  * @function

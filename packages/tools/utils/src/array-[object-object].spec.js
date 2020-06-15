@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import * as _ from "lamb";
 
-import {applyTransformsSequence} from "./array-[object-object]";
+import {applyTransformsSequence, pluckValuesKeys} from "./array-[object-object]";
 
 describe("Array -> (Object -> Object)", function() {
 	describe('applyTransformsSequence', function() {
@@ -119,6 +119,33 @@ describe("Array -> (Object -> Object)", function() {
 			};
 
 			assert.deepStrictEqual(transform(obj), expected);
+		});
+	});
+
+	describe("pluckValuesKeys", function() {
+		it("should return a function plucking the provided keys from the expected object values", function() {
+			let select = pluckValuesKeys(['a', 'k']);
+			let actual = select({
+				foo: {a: 1, b: 2, c: 3, k: 4},
+				bar: {a: 5, b: 6, c: 7, k: 8}
+			});
+			let expected = {
+				foo: {a: 1, k: 4},
+				bar: {a: 5, k: 8}
+			};
+			assert.deepStrictEqual(actual, expected);
+		});
+		it("should return a function plucking the provided keys from the expected object values – missing keys", function() {
+			let select = pluckValuesKeys(['a', 'k']);
+			let actual = select({
+				foo: {a: 1, b: 2, c: 3, k: 4},
+				bar: {a: 5, b: 8}
+			});
+			let expected = {
+				foo: {a: 1, k: 4},
+				bar: {a: 5}
+			};
+			assert.deepStrictEqual(actual, expected);
 		});
 	});
 });

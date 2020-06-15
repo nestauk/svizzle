@@ -1,19 +1,12 @@
-<script context="module">
-	export function preload() {
-		return this.fetch('components/groups.json')
-			.then(r => r.json())
-			.then(groups => ({ groups }));
-	}
-</script>
-
 <script>
-	export let groups;
+	import {sidebar} from './_utils';
+
 	export let segment; // 'BarchartV-defaultColor'
 </script>
 
 <section>
 	<nav>
-		{#each groups as {key, value}}
+		{#each sidebar as {key, value}}
 		<div class="distancer">
 			<h2>{key}</h2>
 			{#each value as {slug, title}}

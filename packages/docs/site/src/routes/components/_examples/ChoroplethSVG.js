@@ -10,7 +10,7 @@ import {
 	keyToColorUK2016,
 	keyToColorWorld,
 	keyToColorWorldFn,
-} from './BarchartV_props';
+} from './props';
 import {formatSvelteMarkup} from './utils';
 
 const examples = [

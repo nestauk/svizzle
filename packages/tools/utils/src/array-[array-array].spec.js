@@ -4,6 +4,7 @@ import * as _ from "lamb";
 
 import {
 	makeArrayTransformer,
+	pluckKeys,
 	removeAt
 } from "./array-[array-array]";
 
@@ -37,6 +38,27 @@ describe("Array -> (Array -> Array)", function() {
 				transformer([1]),
 				[20]
 			);
+		});
+	});
+
+	describe("pluckKeys", function() {
+		it("should return a function plucking the provided keys from the expected array", function() {
+			let select = pluckKeys(['a', 'k']);
+			let actual = select([
+				{a: 1, b: 2, c: 3, k: 4},
+				{a: 5, k: 6, m: 7, b: 8},
+			]);
+			let expected = [{a: 1, k: 4}, {a: 5, k: 6}];
+			assert.deepStrictEqual(actual, expected);
+		});
+		it("should return a function plucking the provided keys from the expected array – missing keys", function() {
+			let select = pluckKeys(['a', 'k']);
+			let actual = select([
+				{a: 1, b: 2, c: 3},
+				{k: 6, m: 7, b: 8},
+			]);
+			let expected = [{a: 1}, {k: 6}];
+			assert.deepStrictEqual(actual, expected);
 		});
 	});
 

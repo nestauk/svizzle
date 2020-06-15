@@ -136,3 +136,26 @@ export const applyTransformsSequence = pathFnPairs => obj =>
 
 		return _.setPathIn(acc, path, _.application(fn, [value]))
 	}, _.merge({}, obj));
+
+/**
+ * Return a function plucking the provided keys from the expected object values
+ *
+ * @function
+ * @arg {array} keys - array of keys to pluck
+ * @return {function} - Object -> Object
+ *
+ * @example
+> let select = pluckValuesKeys(['a', 'k']);
+> select({
+	foo: {a: 1, b: 2, c: 3, k: 4},
+	bar: {a: 5, b: 8}
+})
+{
+	foo: {a: 1, k: 4},
+	bar: {a: 5}
+}
+ *
+ * @version 0.8.0
+ * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
+ */
+export const pluckValuesKeys = keys => _.mapValuesWith(_.pickKeys(keys));

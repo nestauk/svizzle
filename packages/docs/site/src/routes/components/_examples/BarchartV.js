@@ -13,7 +13,7 @@ import {
 	keyToColorWorldFn,
 	keyToColorWorldShort,
 	keyToLabel,
-} from './BarchartV_props';
+} from './props';
 
 const axisColor = 'red';
 const backgroundColor = 'antiquewhite';

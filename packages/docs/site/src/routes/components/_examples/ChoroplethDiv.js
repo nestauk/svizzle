@@ -12,7 +12,7 @@ import {
 	keyToColorUK2016,
 	keyToColorWorld,
 	keyToColorWorldFn,
-} from './BarchartV_props';
+} from './props';
 
 const examples = [
 	{

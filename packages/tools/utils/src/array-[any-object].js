@@ -22,6 +22,8 @@ makeCircle(3) // {radius: 3, perimeter: 18.85, area: 28.27}
 makeCircle(4) // {radius: 4, perimeter: 25.13, area: 50.27}
  *
  * @version 0.2.0
+ * @see {@link module:@svizzle/utils/array-[array-object].makeWithKeys|makeWithKeys}
+ * @see {@link module:@svizzle/utils/array-[array-object].makeWithValues|makeWithValues}
  */
 export const makeWith = ([keys, functions]) => _.pipe([
 	_.collect(functions),

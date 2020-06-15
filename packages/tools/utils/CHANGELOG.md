@@ -1,3 +1,13 @@
+## `@svizzle/utils` v0.8.0 (next)
+
+### Array -> (Array -> Array)
+
+- add `pluckKeys`
+
+### Array -> (Object -> Object)
+
+- add `pluckValuesKeys`
+
 ## `@svizzle/utils` v0.7.1
 
 ### Array -> Array
