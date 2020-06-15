@@ -1,4 +1,5 @@
-import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, x as validate_each_argument, y as create_slot, v as validate_slots, g as element, t as text, f as space, k as claim_element, l as children, m as claim_text, h as detach_dev, j as claim_space, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, z as set_data_dev, A as destroy_each, B as _slicedToArray, C as update_slot, D as transition_in, E as transition_out, F as toggle_class } from './client.af91f0bd.js';
+import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, y as _createClass, S as SvelteComponentDev, z as validate_each_argument, A as create_slot, v as validate_slots, g as element, t as text, f as space, k as claim_element, l as children, m as claim_text, h as detach_dev, j as claim_space, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, B as destroy_each, x as _slicedToArray, C as update_slot, D as transition_in, E as transition_out, F as toggle_class } from './client.f552857e.js';
+import { s as sidebar } from './_utils.324728ce.js';
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -7,17 +8,17 @@ var file = "src/routes/components/_layout.svelte";
 
 function get_each_context_1(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[8] = list[i].slug;
-  child_ctx[9] = list[i].title;
+  child_ctx[7] = list[i].slug;
+  child_ctx[8] = list[i].title;
   return child_ctx;
 }
 
 function get_each_context(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[4] = list[i].key;
-  child_ctx[5] = list[i].value;
+  child_ctx[3] = list[i].key;
+  child_ctx[4] = list[i].value;
   return child_ctx;
-} // (19:3) {#each value as {slug, title}}
+} // (12:3) {#each value as {slug, title}}
 
 
 function create_each_block_1(ctx) {
@@ -25,7 +26,7 @@ function create_each_block_1(ctx) {
   var p;
   var t_value =
   /*title*/
-  ctx[9] + "";
+  ctx[8] + "";
   var t;
   var a_href_value;
   var block = {
@@ -54,15 +55,15 @@ function create_each_block_1(ctx) {
       attr_dev(p, "class", "svelte-1uzv019");
       toggle_class(p, "selected",
       /*slug*/
-      ctx[8] ===
+      ctx[7] ===
       /*segment*/
-      ctx[1]);
-      add_location(p, file, 20, 4, 426);
+      ctx[0]);
+      add_location(p, file, 13, 4, 270);
       attr_dev(a, "href", a_href_value = "components/" +
       /*slug*/
-      ctx[8]);
+      ctx[7]);
       attr_dev(a, "class", "svelte-1uzv019");
-      add_location(a, file, 19, 3, 393);
+      add_location(a, file, 12, 3, 237);
     },
     m: function mount(target, anchor) {
       insert_dev(target, a, anchor);
@@ -71,27 +72,13 @@ function create_each_block_1(ctx) {
     },
     p: function update(ctx, dirty) {
       if (dirty &
-      /*groups*/
-      1 && t_value !== (t_value =
-      /*title*/
-      ctx[9] + "")) set_data_dev(t, t_value);
-
-      if (dirty &
-      /*groups, segment*/
-      3) {
+      /*sidebar, segment*/
+      1) {
         toggle_class(p, "selected",
         /*slug*/
-        ctx[8] ===
+        ctx[7] ===
         /*segment*/
-        ctx[1]);
-      }
-
-      if (dirty &
-      /*groups*/
-      1 && a_href_value !== (a_href_value = "components/" +
-      /*slug*/
-      ctx[8])) {
-        attr_dev(a, "href", a_href_value);
+        ctx[0]);
       }
     },
     d: function destroy(detaching) {
@@ -102,11 +89,11 @@ function create_each_block_1(ctx) {
     block: block,
     id: create_each_block_1.name,
     type: "each",
-    source: "(19:3) {#each value as {slug, title}}",
+    source: "(12:3) {#each value as {slug, title}}",
     ctx: ctx
   });
   return block;
-} // (16:2) {#each groups as {key, value}}
+} // (9:2) {#each sidebar as {key, value}}
 
 
 function create_each_block(ctx) {
@@ -114,13 +101,13 @@ function create_each_block(ctx) {
   var h2;
   var t0_value =
   /*key*/
-  ctx[4] + "";
+  ctx[3] + "";
   var t0;
   var t1;
   var t2;
   var each_value_1 =
   /*value*/
-  ctx[5];
+  ctx[4];
   validate_each_argument(each_value_1);
   var each_blocks = [];
 
@@ -165,9 +152,9 @@ function create_each_block(ctx) {
     },
     h: function hydrate() {
       attr_dev(h2, "class", "svelte-1uzv019");
-      add_location(h2, file, 17, 3, 341);
+      add_location(h2, file, 10, 3, 185);
       attr_dev(div, "class", "distancer");
-      add_location(div, file, 16, 2, 314);
+      add_location(div, file, 9, 2, 158);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -183,17 +170,11 @@ function create_each_block(ctx) {
     },
     p: function update(ctx, dirty) {
       if (dirty &
-      /*groups*/
-      1 && t0_value !== (t0_value =
-      /*key*/
-      ctx[4] + "")) set_data_dev(t0, t0_value);
-
-      if (dirty &
-      /*groups, segment*/
-      3) {
+      /*sidebar, segment*/
+      1) {
         each_value_1 =
         /*value*/
-        ctx[5];
+        ctx[4];
         validate_each_argument(each_value_1);
 
         var _i4;
@@ -228,7 +209,7 @@ function create_each_block(ctx) {
     block: block,
     id: create_each_block.name,
     type: "each",
-    source: "(16:2) {#each groups as {key, value}}",
+    source: "(9:2) {#each sidebar as {key, value}}",
     ctx: ctx
   });
   return block;
@@ -240,9 +221,7 @@ function create_fragment(ctx) {
   var t;
   var main;
   var current;
-  var each_value =
-  /*groups*/
-  ctx[0];
+  var each_value = sidebar;
   validate_each_argument(each_value);
   var each_blocks = [];
 
@@ -252,10 +231,10 @@ function create_fragment(ctx) {
 
   var default_slot_template =
   /*$$slots*/
-  ctx[3].default;
+  ctx[2].default;
   var default_slot = create_slot(default_slot_template, ctx,
   /*$$scope*/
-  ctx[2], null);
+  ctx[1], null);
   var block = {
     c: function create() {
       section = element("section");
@@ -297,11 +276,11 @@ function create_fragment(ctx) {
     },
     h: function hydrate() {
       attr_dev(nav, "class", "svelte-1uzv019");
-      add_location(nav, file, 14, 1, 273);
+      add_location(nav, file, 7, 1, 116);
       attr_dev(main, "class", "svelte-1uzv019");
-      add_location(main, file, 28, 1, 535);
+      add_location(main, file, 21, 1, 379);
       attr_dev(section, "class", "svelte-1uzv019");
-      add_location(section, file, 13, 0, 262);
+      add_location(section, file, 6, 0, 105);
     },
     m: function mount(target, anchor) {
       insert_dev(target, section, anchor);
@@ -325,11 +304,9 @@ function create_fragment(ctx) {
           dirty = _ref2[0];
 
       if (dirty &
-      /*groups, segment*/
-      3) {
-        each_value =
-        /*groups*/
-        ctx[0];
+      /*sidebar, segment*/
+      1) {
+        each_value = sidebar;
         validate_each_argument(each_value);
 
         var _i8;
@@ -358,10 +335,10 @@ function create_fragment(ctx) {
       if (default_slot) {
         if (default_slot.p && dirty &
         /*$$scope*/
-        4) {
+        2) {
           update_slot(default_slot, default_slot_template, ctx,
           /*$$scope*/
-          ctx[2], dirty, null, null);
+          ctx[1], dirty, null, null);
         }
       }
     },
@@ -390,21 +367,10 @@ function create_fragment(ctx) {
   return block;
 }
 
-function preload() {
-  return this.fetch("components/groups.json").then(function (r) {
-    return r.json();
-  }).then(function (groups) {
-    return {
-      groups: groups
-    };
-  });
-}
-
 function instance($$self, $$props, $$invalidate) {
-  var groups = $$props.groups;
   var segment = $$props.segment; // 'BarchartV-defaultColor'
 
-  var writable_props = ["groups", "segment"];
+  var writable_props = ["segment"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<Layout> was created with unknown prop '".concat(key, "'"));
   });
@@ -414,29 +380,26 @@ function instance($$self, $$props, $$invalidate) {
   validate_slots("Layout", $$slots, ['default']);
 
   $$self.$set = function ($$props) {
-    if ("groups" in $$props) $$invalidate(0, groups = $$props.groups);
-    if ("segment" in $$props) $$invalidate(1, segment = $$props.segment);
-    if ("$$scope" in $$props) $$invalidate(2, $$scope = $$props.$$scope);
+    if ("segment" in $$props) $$invalidate(0, segment = $$props.segment);
+    if ("$$scope" in $$props) $$invalidate(1, $$scope = $$props.$$scope);
   };
 
   $$self.$capture_state = function () {
     return {
-      preload: preload,
-      groups: groups,
+      sidebar: sidebar,
       segment: segment
     };
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("groups" in $$props) $$invalidate(0, groups = $$props.groups);
-    if ("segment" in $$props) $$invalidate(1, segment = $$props.segment);
+    if ("segment" in $$props) $$invalidate(0, segment = $$props.segment);
   };
 
   if ($$props && "$$inject" in $$props) {
     $$self.$inject_state($$props.$$inject);
   }
 
-  return [groups, segment, $$scope, $$slots];
+  return [segment, $$scope, $$slots];
 }
 
 var Layout = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -451,8 +414,7 @@ var Layout = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance, create_fragment, safe_not_equal, {
-      groups: 0,
-      segment: 1
+      segment: 0
     });
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -464,14 +426,8 @@ var Layout = /*#__PURE__*/function (_SvelteComponentDev) {
     var props = options.props || {};
 
     if (
-    /*groups*/
-    ctx[0] === undefined && !("groups" in props)) {
-      console.warn("<Layout> was created without expected prop 'groups'");
-    }
-
-    if (
     /*segment*/
-    ctx[1] === undefined && !("segment" in props)) {
+    ctx[0] === undefined && !("segment" in props)) {
       console.warn("<Layout> was created without expected prop 'segment'");
     }
 
@@ -479,14 +435,6 @@ var Layout = /*#__PURE__*/function (_SvelteComponentDev) {
   }
 
   _createClass(Layout, [{
-    key: "groups",
-    get: function get() {
-      throw new Error("<Layout>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<Layout>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
     key: "segment",
     get: function get() {
       throw new Error("<Layout>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
@@ -500,4 +448,3 @@ var Layout = /*#__PURE__*/function (_SvelteComponentDev) {
 }(SvelteComponentDev);
 
 export default Layout;
-export { preload };
