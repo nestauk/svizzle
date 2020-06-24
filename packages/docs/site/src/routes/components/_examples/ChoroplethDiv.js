@@ -240,7 +240,7 @@ const examples = [
 				/>
 			`,
 		}],
-		slug: 'ChoroplethDiv-isInteractive',
+		slug: 'ChoroplethDiv-interactivity',
 		title: 'Interactivity',
 	},
 	{

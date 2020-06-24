@@ -29,7 +29,8 @@
     ],
     "source": {
         "include": [
-            "packages/tools"
+            "packages/tools",
+            "packages/components"
         ],
         "exclude": [
             "packages/tools/atlas"

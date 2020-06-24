@@ -275,7 +275,7 @@ const examples = [
 				/>
 			`,
 		}],
-		slug: 'ChoroplethSVG-isInteractive',
+		slug: 'ChoroplethSVG-interactivity',
 		title: 'Interactivity',
 	},
 	{

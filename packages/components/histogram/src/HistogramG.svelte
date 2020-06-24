@@ -1,0 +1,464 @@
+<script>
+	import {createEventDispatcher} from 'svelte';
+	import {writable} from 'svelte/store';
+	import {makeStyleVars} from '@svizzle/dom';
+	import {vectorLength2D} from '@svizzle/geometry';
+	import {
+		arrayMaxWith,
+		concat,
+		getValue,
+		inclusiveRange,
+		mergeObj,
+	} from '@svizzle/utils';
+	import {scaleLinear, scaleLog} from 'd3-scale';
+	import * as _ from 'lamb';
+
+	import {
+		getBinsTicks,
+		getValuesLength,
+	} from './utils';
+
+	const dispatch = createEventDispatcher();
+	const makeMaxBarThickness = arrayMaxWith(_.getKey('barThickness'));
+
+	const defaultFlags = {
+		hideOrigin: false,
+		hideTicks: false,
+		isInteractive: false,
+		isRightToLeft: false,
+		isTopDown: false,
+		useLogScale: false,
+		withBackground: false,
+	}
+
+	const defaultGeometry = {
+		// exposed but undocumented on the site
+		brushThreshold: 10, // pixels to trigger brushing
+		fontSizeFactor: 0.6,
+		maxfontSize: 12,
+		textPadding: 5,
+
+		// documented on the site
+		originRadius: 2,
+		safetyXNoTicks: 20,
+		safetyXTicks: 50,
+		safetyXValues: 25,
+		safetyY: 20,
+	}
+
+	const defaultTheme = {
+		// exposed and documented but no example
+		brushAddStroke: 'rgb(107,248,134)',
+		brushRemoveStroke: 'rgb(246,97,20)',
+		brushStrokeOpacity: 0.8,
+		brushStrokeWidth: 8,
+
+		// exposed but undocumented on the site
+		axisStrokeWidth: 1,
+		backgroundColor: 'white',
+		binFill: 'white',
+		binStroke: 'black',
+		binStrokeWidth: 1,
+		originColor: 'black',
+		selectedBinFill: 'rgb(255, 174, 0)',
+		selectedBinStroke: 'black',
+		selectedBinStrokeWidth: 2,
+		textColor: 'black',
+	}
+
+	export let bins;
+	export let binsFill;
+	export let flags;
+	export let geometry;
+	export let height; // required
+	export let selectedBins;
+	export let theme;
+	export let ticksFormatFn;
+	export let width; // required
+
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: bins = bins || [];
+	$: flags = flags ? _.merge(defaultFlags, flags) : defaultFlags;
+	$: geometry = geometry ? _.merge(defaultGeometry, geometry) : defaultGeometry;
+	$: selectedBins = selectedBins || [];
+	$: theme = theme ? _.merge(defaultTheme, theme) : defaultTheme;
+	$: ticksFormatFn = ticksFormatFn || (x => x);
+
+	let rangesExtent = [];
+
+	$: safety = {
+		top: geometry.safetyY,
+		right: flags.isRightToLeft
+			? flags.hideTicks ? geometry.safetyXNoTicks : geometry.safetyXTicks
+			: geometry.safetyXValues,
+		bottom: geometry.safetyY,
+		left: flags.isRightToLeft
+			? geometry.safetyXValues
+			: flags.hideTicks ? geometry.safetyXNoTicks : geometry.safetyXTicks,
+	};
+	$: innerWidth = Math.max(0, width - safety.left - safety.right);
+	$: innerHeight = Math.max(
+		0,
+		height - safety.top - safety.bottom - geometry.maxfontSize
+	);
+	$: origin = {
+		x: flags.isRightToLeft ? innerWidth : 0,
+		y: flags.isTopDown ? 0 : innerHeight
+	}
+	$: direction = {
+		x: flags.isRightToLeft ? -1 : 1,
+		y: flags.isTopDown ? 1 : -1
+	}
+	$: ticksX = flags.isRightToLeft
+		? geometry.originRadius + geometry.textPadding
+		: -(geometry.originRadius + geometry.textPadding);
+	$: ticksAnchor = flags.isRightToLeft ? 'start' : 'end';
+	$: ticks = _.map(getBinsTicks(bins), tick => ({
+		tick: ticksFormatFn(tick),
+		y: flags.isTopDown ? scales.y(tick) : -scales.y(tick)
+	}));
+
+	$: useValue = bins.length && _.has(bins[0], 'value');
+	$: getBinsMax = useValue
+		? arrayMaxWith(getValue)
+		: arrayMaxWith(getValuesLength);
+	$: valuesMax = getBinsMax(bins);
+	$: rangesExtent = bins.length
+		? [bins[0].range[0], _.last(bins).range[1]]
+		: [];
+
+	/* eslint-disable indent */
+	$: scales = bins.length && {
+		x: flags.useLogScale
+			? scaleLog()
+				.domain([1, valuesMax])
+				.range([innerWidth / Math.log10(valuesMax), innerWidth])
+			: scaleLinear().domain([0, valuesMax]).range([0, innerWidth]),
+		y: scaleLinear().domain(rangesExtent).range([0, innerHeight])
+	}
+	/* eslint-enable indent */
+
+	$: bars = _.map(bins, (bin, index) => {
+		const {range, values, value} = bin;
+		const selected = selectedBins.length && selectedBins.includes(index);
+		const displayValue = values ? values.length : value;
+		const barLength = scales.x(displayValue);
+		const barThickness = scales.y(range[1]) - scales.y(range[0]);
+		const x = flags.isRightToLeft ? innerWidth - barLength : 0;
+		const y1 = flags.isTopDown
+			? scales.y(range[0])
+			: innerHeight - scales.y(range[0]) - barThickness;
+		const y2 = y1 + barThickness;
+		const labelX = flags.isRightToLeft
+			? x - geometry.textPadding
+			: barLength + geometry.textPadding;
+		const labelAnchor = flags.isRightToLeft ? 'end' : 'start';
+		const fill = bin.color
+			|| (binsFill && binsFill[index] ? binsFill[index] : theme.binFill);
+
+		return _.merge(bin, {
+			barLength,
+			barThickness,
+			displayValue,
+			fill,
+			labelAnchor,
+			labelX,
+			selected,
+			x,
+			y1,
+			y2,
+		})
+	});
+	$: maxBarThickness = makeMaxBarThickness(bars);
+	$: fontSize = Math.min(
+		geometry.maxfontSize,
+		geometry.fontSizeFactor * maxBarThickness
+	);
+
+	/* brushing */
+
+	let isMousedown = false;
+	const brushOff = {
+		delta: 0,
+		end: null,
+		origin: {x: null, y: null},
+		start: null,
+		modifier: null,
+		state: 'Off',
+	};
+	const brush = writable(brushOff);
+
+	$: isBrushing = $brush.state === 'Brushing';
+	$: isPressed = $brush.state === 'Pressed';
+	$: doesBrushAdd = $brush.modifier === 'shift';
+	$: doesBrushRemove = $brush.modifier === 'alt';
+	$: brushStroke =
+		doesBrushAdd
+			? theme.brushAddStroke
+			: doesBrushRemove
+				? theme.brushRemoveStroke
+				: null;
+	$: brushExtent = isBrushing && _.sort([$brush.start, $brush.end]);
+	$: brushRange = isBrushing && inclusiveRange(brushExtent);
+	$: brushExtentBarYs = isBrushing && _.sort([
+		bars[brushExtent[0]].y1,
+		bars[brushExtent[0]].y2,
+		bars[brushExtent[1]].y1,
+		bars[brushExtent[1]].y2,
+	]);
+	$: brushLine = isBrushing && {
+		y1: brushExtentBarYs[0],
+		y2: brushExtentBarYs[3],
+	};
+	$: if (isBrushing) {
+		selectedBins =
+			doesBrushAdd
+				? _.uniques(concat(selectedBins, brushRange))
+				: doesBrushRemove
+					? _.pullFrom(selectedBins, brushRange)
+					: brushRange;
+		dispatch('brushed', {
+			end: $brush.end,
+			selectedBins,
+			start: $brush.start,
+		});
+	}
+
+	/* style */
+
+	$: style = makeStyleVars({...theme, brushStroke});
+
+	/* events */
+
+	const getModifier = event =>
+		event.shiftKey ? 'shift' : event.altKey ? 'alt' : null;
+
+	const onMouseenter = index => () => {
+		if (isBrushing) {
+			brush.update(mergeObj({end: index}));
+		}
+		dispatch('entered', index);
+	}
+
+	const onMousedown = event => {
+		isMousedown = true;
+
+		brush.set({
+			delta: 0,
+			modifier: getModifier(event),
+			origin: {
+				x: event.offsetX,
+				y: event.offsetY,
+			},
+			state: 'Pressed',
+		});
+	}
+
+	const onMousemove = index => event => {
+		if (isPressed) {
+			const delta = vectorLength2D(
+				event.offsetX - $brush.origin.x,
+				event.offsetY - $brush.origin.y
+			);
+			if (delta > geometry.brushThreshold) {
+				brush.update(mergeObj({
+					end: index,
+					start: index,
+					state: 'Brushing',
+				}));
+				dispatch('brushstart', index);
+			} else {
+				brush.update(mergeObj({delta}));
+			}
+		}
+	}
+
+	const onMouseup = index => () => {
+		isMousedown = false;
+
+		if (isPressed) {
+			if ($brush.delta < geometry.brushThreshold) {
+				if (doesBrushAdd) {
+					selectedBins = _.uniques(_.appendTo(selectedBins, index))
+				} else if (doesBrushRemove) {
+					selectedBins = _.pullFrom(selectedBins, [index])
+				} else {
+					selectedBins = [index];
+				}
+
+				dispatch('clicked', {index, selectedBins});
+			}
+		} else if (isBrushing) {
+			dispatch('brushend', index);
+		}
+		brush.set(brushOff);
+	}
+
+	const onMouseleave = index => () => {
+		dispatch('exited', index);
+	}
+</script>
+
+<svelte:options namespace='svg' />
+
+{#if height && width && scales}
+<g
+	class='histogram'
+	class:interactive={flags.isInteractive}
+	{style}
+>
+	{#if flags.withBackground}
+	<rect class='bkg' {width} {height} />
+	{/if}
+	<g transform='translate({safety.left},{safety.top})'>
+		{#each bars as {
+			barLength,
+			barThickness,
+			displayValue,
+			fill,
+			labelAnchor,
+			labelX,
+			selected,
+			x,
+			y1,
+		}, index}
+		<g
+			class='bin'
+			transform='translate(0,{y1})'
+		>
+			{#if displayValue}
+			<rect
+				{fill}
+				{x}
+				class='bar'
+				class:selected
+				height={barThickness}
+				width={barLength}
+			/>
+			{/if}
+			<text
+				class='binsize'
+				x={labelX}
+				y={barThickness / 2}
+				font-size={fontSize}
+				text-anchor={labelAnchor}
+			>{displayValue}</text>
+			{#if flags.isInteractive}
+			<rect
+				class='sensor'
+				height={barThickness}
+				on:mousedown={onMousedown}
+				on:mouseenter={onMouseenter(index)}
+				on:mouseleave={onMouseleave(index)}
+				on:mousemove={isMousedown ? onMousemove(index) : null}
+				on:mouseup={onMouseup(index)}
+				width={innerWidth}
+			/>
+			{/if}
+		</g>
+		{/each}
+		<g
+			class='axis'
+			transform=translate({origin.x},{origin.y})
+		>
+			<line
+				y2={flags.isTopDown ? innerHeight : -innerHeight}
+			/>
+			{#if !flags.hideOrigin}
+			<circle r={geometry.originRadius}/>
+			{/if}
+			{#if !flags.hideTicks}
+			{#each ticks as {tick, y}}
+			<text
+				class='range'
+				x={ticksX}
+				{y}
+				font-size={fontSize}
+				text-anchor={ticksAnchor}
+			>{tick}</text>
+			{/each}
+			{/if}
+		</g>
+		{#if isBrushing}
+		<g
+			class='brush'
+			transform=translate({origin.x},0)
+		>
+			<line
+				y1={brushLine.y1}
+				y2={brushLine.y2}
+			/>
+		</g>
+		{/if}
+	</g>
+</g>
+{/if}
+
+<style>
+	.histogram {
+		pointer-events: none;
+	}
+	.histogram.interactive {
+		pointer-events: auto;
+	}
+
+	rect, line {
+		shape-rendering: crispEdges;
+	}
+	rect.bkg {
+		fill: var(--backgroundColor);
+		fill-opacity: var(--backgroundOpacity);
+	}
+
+	text {
+		stroke: none;
+		dominant-baseline: middle;
+		user-select: none;
+		pointer-events: none;
+	}
+	text {
+		fill: var(--textColor);
+	}
+
+	.bin {
+		pointer-events: none;
+	}
+	.bin rect.bar {
+		stroke: var(--binStroke);
+		stroke-width: var(--binStrokeWidth);
+	}
+	.bin rect.bar.selected {
+		fill: var(--selectedBinFill);
+		stroke: var(--selectedBinStroke);
+		stroke-width: var(--selectedBinStrokeWidth);
+	}
+	.bin .sensor {
+		fill: grey;
+		fill-opacity: 0;
+		stroke: none;
+		cursor: pointer;
+		pointer-events: auto;
+
+	}
+	.bin .sensor:hover {
+		fill-opacity: 0.1;
+	}
+	.bin rect.sensor {
+		stroke: none;
+	}
+
+	.axis circle {
+		fill: var(--originColor);
+	}
+	.axis line {
+		stroke: grey;
+		stroke-width: var(--axisStrokeWidth);
+	}
+
+	.brush line {
+		stroke-linecap: round;
+		stroke-opacity: var(--brushStrokeOpacity);
+		stroke-width: var(--brushStrokeWidth);
+		stroke: var(--brushStroke);
+	}
+</style>

@@ -6,18 +6,13 @@
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
 - update website:
- 	- updated dependencies
- 	- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
-  - add colors to the UK examples
-  - create a list of entries from the examples instead of relying on Sapper scraping
+	- add histogram examples
+	- updated dependencies
+	- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
+	- add colors to the UK examples
+	- create a list of entries from the examples instead of relying on Sapper scraping
 	- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
 	- optimised exported routes weight
-
-## `@svizzle/dom` v0.4.0 (next)
-
-- add `makeStyleVars`
-- docs: converted all examples to a REPL format
-- dev: using single quotes rather than double quote where possible
 
 ## `@svizzle/barchart` v0.3.0  (next)
 
@@ -30,6 +25,30 @@
 	- `barHeight` (was previously set in CSS)
 	- `fontSize` (the distance between bars depends on this now)
 	- `textColor` (was previously set in CSS)
+
+## `@svizzle/dom` v0.4.0 (next)
+
+- add `makeStyleVars`
+- docs: converted all examples to a REPL format
+- dev: using single quotes rather than double quote where possible
+
+## `@svizzle/histogram` v0.1.0
+
+- add `HistogramG.svelte`
+- add `HistogramDiv.svelte`
+- add binning utils:
+	- add `areValidBins`
+	- add `exactAmountBins`
+	- add `findFirstNonEmptyBinIndex`
+	- add `findLastNonEmptyBinIndex`
+	- add `getBinsExtent`
+	- add `getBinsItems`
+	- add `getBinsMax`
+	- add `getBinsMin`
+	- add `getBinsTicks`
+	- add `getNonEmptyBinsTicks`
+	- add `getTrimmedBinsStats`
+	- add `isNonEmptyBin`
 
 ## `@svizzle/utils` v0.8.0 (next)
 

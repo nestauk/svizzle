@@ -7,5 +7,6 @@ export function get(req, res) {
 		{name: 'BarchartV', slug: 'BarchartV'},
 		{name: 'ChoroplethSVG', slug: 'ChoroplethSVG'},
 		{name: 'ChoroplethDiv', slug: 'ChoroplethDiv'},
+		{name: 'HistogramG', slug: 'HistogramG'},
 	]));
 }

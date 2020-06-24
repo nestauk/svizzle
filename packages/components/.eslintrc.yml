@@ -3,6 +3,8 @@ overrides:
     files:
       - '**/*.svelte'
     processor: svelte3/svelte3
+    rules:
+      brace-style: 'off'
   -
     files:
       - '**/*.spec.js'
@@ -11,7 +13,3 @@ overrides:
       no-new: 'off'
 plugins:
   - svelte3
-rules:
-  brace-style: 'off'
-# settings:
-  # svelte3/ignore-styles: true

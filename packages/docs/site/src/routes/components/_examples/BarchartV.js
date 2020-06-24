@@ -247,7 +247,7 @@ const examples = [
 			`,
 		}],
 		slug: 'BarchartV-keyToColor',
-		title: 'Bar colors (via mapping)',
+		title: 'Bars color (via mapping)',
 	},
 	{
 		doc: [
@@ -294,7 +294,7 @@ const examples = [
 			`,
 		}],
 		slug: 'BarchartV-keyToColorFn',
-		title: 'Bar colors (via function)',
+		title: 'Bars color (via function)',
 	},
 	{
 		doc: [
@@ -545,7 +545,7 @@ const examples = [
 				/>
 			`,
 		}],
-		slug: 'BarchartV-isInteractive',
+		slug: 'BarchartV-interactivity',
 		title: 'Interactivity',
 	},
 	{

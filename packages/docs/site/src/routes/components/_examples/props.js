@@ -328,6 +328,7 @@ export const keyToColorWorldShort = {
 }
 
 const keyToColorWorldFullKeys = _.keys(keyToColorWorldFull);
+
 const hueScale =
 	scaleLinear()
 	.domain([0, keyToColorWorldFullKeys.length])

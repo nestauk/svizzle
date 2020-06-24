@@ -1,0 +1,16 @@
+digraph G {
+  /*
+  compound=true;
+  */
+  nodesep=0.9;
+  overlap=false;
+  rankdir=LR;
+  splines=true;
+
+  Off -> Pressed [label="mousedown \n store origin"];
+  Pressed -> Off [label="mouseup \n reset brush"];
+  Pressed -> Pressed [label="mousemove \n update delta"];
+  Pressed -> Brushing [label="mousemove 'enough' \n start = current bin \n event: 'brushstart'"];
+  Brushing -> Off [label="mouseup \n reset brush \n event: 'brushend'"];
+  Brushing -> Brushing [label="mouseenter \n end = entered bin \n event: 'brushed'"];
+}

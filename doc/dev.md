@@ -72,7 +72,7 @@ To test components:
 - make sure to do the steps above
 - `cd packages/docs/site`
 - `npm run dev`
-- navigate to `http://localhost:3000` (or similar port)
+- navigate to `http://localhost:3000/svizzle` (or similar port)
 
 Since packages are linked in Lerna, the components website should now reload every time you update the source code of a Svizzle component.
 

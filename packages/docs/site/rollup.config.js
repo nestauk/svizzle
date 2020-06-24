@@ -89,7 +89,6 @@ export default {
 				'@svizzle/barchart',
 				'@svizzle/choropleth',
 				'@svizzle/utils',
-				'd3-geo',
 				'svelte-json-tree',
 			].includes(name))
 			.concat(
