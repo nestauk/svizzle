@@ -72,7 +72,9 @@ rules:
   indent:
     - error
     - tab
-    - MemberExpression: 0
+    -
+      MemberExpression: 0
+      SwitchCase: 1
   init-declarations: off
   jsx-quotes: error
   key-spacing: off

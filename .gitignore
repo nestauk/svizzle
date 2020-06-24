@@ -1,9 +1,9 @@
-packages/**/dist
-packages/tools/utils/_/
-packages/tools/**/node_modules
-packages/components/**/node_modules
-/node_modules
-
-jsDocBuild
-
+_
 .DS_Store
+/node_modules
+jsDocBuild
+packages/**/dist
+packages/components/**/node_modules
+packages/docs/**/node_modules
+packages/tools/**/node_modules
+packages/tools/utils/_/

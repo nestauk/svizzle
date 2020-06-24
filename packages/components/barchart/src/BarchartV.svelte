@@ -143,7 +143,7 @@
 				yText
 			}, index (key)}
 			<g
-				class:clickable='{isInteractive}'
+				class:clickable={isInteractive}
 				class='item'
 				transform='translate(0, {itemHeight * index})'
 				on:click="{ () => { isInteractive && dispatch('clicked', {id: key}) } }"

@@ -21,9 +21,17 @@
 	export let doc;
 	export let events;
 	export let name;
+	export let namespace;
 	export let title;
 
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: namespace = namespace || 'html';
+
 	let instance;
+	let width;
+	let height;
+
+	$: isSVG = namespace === 'svg';
 
 	$: current_data_index = data && 0; // reset to zero on navigation
 	$: component = components[name];
@@ -95,11 +103,26 @@
 		</div>
 	</div>
 	<div class="col col2">
-		<svelte:component
-			bind:this={instance}
-			this={component}
-			{...current_data.props}
-		/>
+		{#if isSVG}
+		<div class="svgwrapper"
+			bind:clientWidth="{width}"
+			bind:clientHeight="{height}"
+		>
+			<svg {width} {height}>
+				<svelte:component
+					bind:this={instance}
+					this={component}
+					{...{...current_data.props, width, height}}
+				/>
+			</svg>
+		</div>
+		{:else}
+			<svelte:component
+				bind:this={instance}
+				this={component}
+				{...current_data.props}
+			/>
+		{/if}
 	</div>
 </main>
 
@@ -169,5 +192,9 @@
 		grid-column: 2 / span 1;
 		border: 1px solid lightgrey;
 		box-shadow: 1px 1px 4px 1px lightgrey;
+	}
+	.col2 .svgwrapper {
+		height: 100%;
+		width: 100%;
 	}
 </style>
