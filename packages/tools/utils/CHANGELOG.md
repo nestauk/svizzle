@@ -8,6 +8,10 @@
 
 - add `pluckValuesKeys`
 
+### (String -> String) -> (Object -> Object)
+
+- add `renameKeysWith`
+
 ## `@svizzle/utils` v0.7.1
 
 ### Array -> Array

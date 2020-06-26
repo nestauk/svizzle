@@ -11,7 +11,11 @@
 	- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
 	- optimised exported routes weight
 
-## `@svizzle/barchart` v0.3.0
+## `@svizzle/dom` v0.4.0 (next)
+
+- add `makeStyleVars`
+
+## `@svizzle/barchart` v0.3.0  (next)
 
 - rewrite to accept negative values
 - uses SVG instead of HTML
@@ -32,6 +36,10 @@
 ### Array -> (Object -> Object)
 
 - add `pluckValuesKeys`
+
+### (String -> String) -> (Object -> Object)
+
+- add `renameKeysWith`
 
 ## 20200411_2
 

@@ -1,3 +1,7 @@
+## `@svizzle/dom` v0.4.0 (next)
+
+- add `makeStyleVars`
+
 ## `@svizzle/dom` v0.3.0
 
 - move `lamb` to `peerDependencies`
