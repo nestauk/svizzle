@@ -41,7 +41,7 @@ inclusiveRange([2, 11, 2]) = [2, 4, 6, 8, 10];
  */
 export const inclusiveRange = ([start, end, step = 1]) => {
 	if (start === end) {
-		return start ? [start] : [];
+		return !_.isUndefined(start) ? [start] : [];
 	}
 
 	const range = _.range(start, end, step);

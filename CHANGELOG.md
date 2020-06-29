@@ -37,6 +37,10 @@
 
 - add `pluckValuesKeys`
 
+### Array -> Array
+
+- Fix `inclusiveRange` returning an empty array when the extent has 2 zeroes
+
 ### (String -> String) -> (Object -> Object)
 
 - add `renameKeysWith`
