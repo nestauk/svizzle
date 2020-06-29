@@ -37,6 +37,10 @@
 
 - add `isEqualTo`
 
+### Any -> (Object -> Boolean)
+
+- add `hasValue`
+
 ### Array -> (Array -> Array)
 
 - add `pluckKeys`
