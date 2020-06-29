@@ -23,6 +23,27 @@ hasObjSize1({a: 1, b: 2}) // false
  */
 export const hasObjSize1 = _.pipe([getObjSize, is1]);
 
+/*
+ * Return true is some of the provided object properties are `null`
+ *
+ * @function
+ * @arg {object} object
+ * @return {boolean} boolean
+ *
+ * @example
+> hasSomeNullValues({a: 1})
+false
+> hasSomeNullValues({a: 1, b: undefined})
+false
+> hasSomeNullValues({a: 1, b: undefined, c: null})
+true
+ *
+ * @version 0.8.0
+ */
+export const hasSomeNullValues = _.pipe([
+	_.pairs,
+	_.some(_.pipe([_.getAt(1), _.isNull])),
+]);
 
 /**
  * Return `true` if the object is empty.

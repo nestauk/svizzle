@@ -1,5 +1,13 @@
 ## `@svizzle/utils` v0.8.0 (next)
 
+### (String -> String) -> (Object -> Object)
+
+- add `renameKeysWith`
+
+### Any -> (Any -> Boolean)
+
+- add `isEqualTo`
+
 ### Array -> (Array -> Array)
 
 - add `pluckKeys`
@@ -12,9 +20,9 @@
 
 - Fix `inclusiveRange` returning an empty array when the extent has 2 zeroes
 
-### (String -> String) -> (Object -> Object)
+### Object -> Boolean
 
-- add `renameKeysWith`
+- add `hasSomeNullValues`
 
 ## `@svizzle/utils` v0.7.1
 

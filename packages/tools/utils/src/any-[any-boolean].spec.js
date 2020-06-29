@@ -1,9 +1,27 @@
 import {strict as assert} from "assert";
 
-import {isNot} from './any-[any-boolean]';
+import {isEqualTo, isNot} from './any-[any-boolean]';
 
 describe("Any -> (Any -> Boolean)", function() {
-	describe("isnt", function() {
+	describe("isEqualTo", function() {
+		it("should return a function that returns true if the input value is equal to the provided value – object", function() {
+			const obj1 = {a: 1, b: [1,2]};
+			const obj2 = {a: 1, b: [1, 2, 3]};
+			const isEqualToObj = isEqualTo(obj1);
+
+			assert.deepStrictEqual(isEqualToObj(obj1), true);
+			assert.deepStrictEqual(isEqualToObj(obj2), false);
+		});
+		it("should return a function that returns true if the input value is equal to the provided value – array", function() {
+			const arr1 = [1, 2, {a: 1}];
+			const arr2 = [1, 2, {a: 1}, 3];
+			const isEqualToArray = isEqualTo(arr1);
+
+			assert.deepStrictEqual(isEqualToArray(arr1), true);
+			assert.deepStrictEqual(isEqualToArray(arr2), false);
+		});
+	});
+	describe("isNot", function() {
 		it("should return true if the input number is different from the provided value", function() {
 			const isNotTwo = isNot(2);
 
