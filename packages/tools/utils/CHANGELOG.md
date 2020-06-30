@@ -28,6 +28,10 @@
 
 - add `hasSomeNullValues`
 
+### String -> String
+
+- add `capitalize`
+
 ## `@svizzle/utils` v0.7.1
 
 ### Array -> Array

@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import {endsWith, startsWith} from "./string_proto-boolean";
 
-describe("String -> Boolean", function() {
+describe("(prototype) String -> Boolean", function() {
 	describe("endsWith", function() {
 		it("should return true if the input string ends with the test string", function() {
 			assert.deepStrictEqual(endsWith("Ping", "ing"), true);

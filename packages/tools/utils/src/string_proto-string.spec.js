@@ -2,7 +2,7 @@ import {strict as assert} from "assert";
 
 import {sliceString, trim} from "./string_proto-string";
 
-describe("String -> String", function() {
+describe("(prototype) String -> String", function() {
 	describe("sliceString", function() {
 		it("should return the portion of the provided string between the provided indices (first included, second excluded)", function() {
 			assert.deepStrictEqual(sliceString("0123456789", 3), "3456789");

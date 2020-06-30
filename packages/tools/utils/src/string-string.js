@@ -8,6 +8,21 @@ import {sliceStringAt} from "./array-[string-string]";
 import {endsWithNewLine} from "./string-boolean";
 
 /**
+ * Capitalise the input string
+ *
+ * @function
+ * @arg {string}
+ * @return {string}
+ *
+ * @example
+> capitalize("hello")
+"Hello"
+ *
+ * @version 0.8.0
+ */
+export const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+/**
  * Trim the last char of the provided string if it's a newline
  *
  * @function
@@ -21,5 +36,4 @@ import {endsWithNewLine} from "./string-boolean";
  *
  * @version 0.5.0
  */
-export const trimLastNewline =
-  _.when(endsWithNewLine, sliceStringAt([0, -1]));
+export const trimLastNewline = _.when(endsWithNewLine, sliceStringAt([0, -1]));

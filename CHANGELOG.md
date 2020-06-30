@@ -57,6 +57,10 @@
 
 - add `hasSomeNullValues`
 
+### String -> String
+
+- add `capitalize`
+
 ## 20200411_2
 
 ## `@svizzle/utils` v0.7.1

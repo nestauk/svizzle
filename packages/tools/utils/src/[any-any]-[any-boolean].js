@@ -129,6 +129,7 @@ isObjectWith(getValue)({key: 'a', value: {a: 1}}) // true
 isObjectWith(getValue)({key: 'a', value: 'a'}) // false
  *
  * @version 0.5.0
+ * @see {@link module:@svizzle/utils/any-boolean.isObject|isObject}
  */
 export const isObjectWith = accessor => _.pipe([accessor, isObject]);
 

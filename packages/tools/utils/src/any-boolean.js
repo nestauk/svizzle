@@ -92,6 +92,7 @@ function returnArgs () {
 isObject(returnArgs()) // false
  *
  * @version 0.1.0
+ * @see {@link module:@svizzle/utils/[any-any]-[any-boolean].isObjectWith|isObjectWith}
  */
 export const isObject = _.isType("Object");
 
