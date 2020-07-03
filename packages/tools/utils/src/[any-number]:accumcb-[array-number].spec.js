@@ -1,13 +1,13 @@
-import {strict as assert} from "assert";
+import {strict as assert} from 'assert';
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {arrayMaxWith, arrayMinWith} from "./[any-number]:accumcb-[array-number]";
+import {arrayMaxWith, arrayMinWith} from './[any-number]:accumcb-[array-number]';
 
-describe("(Any -> Number):accumcb -> (Array -> Number)", function() {
-	describe("max/min", function() {
-		describe("arrayMaxWith", function() {
-			it("should return a function expecting an array of objects and returning the max of results of applying the provided fuction on all of the array items", function() {
+describe('(Any -> Number):accumcb -> (Array -> Number)', function() {
+	describe('max/min', function() {
+		describe('arrayMaxWith', function() {
+			it('should return a function expecting an array of objects and returning the max of results of applying the provided fuction on all of the array items', function() {
 				const maxWithAbsSin = arrayMaxWith(_.pipe([Math.sin, Math.abs]));
 
 				assert.deepStrictEqual(
@@ -20,8 +20,8 @@ describe("(Any -> Number):accumcb -> (Array -> Number)", function() {
 				);
 			});
 		});
-		describe("arrayMinWith", function() {
-			it("should return a function expecting an array of objects and returning the min of results of applying the provided fuction on all of the array items", function() {
+		describe('arrayMinWith', function() {
+			it('should return a function expecting an array of objects and returning the min of results of applying the provided fuction on all of the array items', function() {
 				const minWithAbsSin = arrayMinWith(_.pipe([Math.sin, Math.abs]));
 
 				assert.deepStrictEqual(

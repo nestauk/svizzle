@@ -2,7 +2,7 @@
 * @module @svizzle/utils/string-[array-number]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return a function expecting an array of objects and returning the max of values by the provided key.
@@ -16,11 +16,11 @@ import * as _ from "lamb";
  * @return {function} - Array -> Number
  *
  * @example
-
- const maxByA = arrayMaxBy("a");
- maxByA([{a: -1, b: -1}, {a: 0, b: 0}]) // 0
- maxByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 2
-
+> maxByA = arrayMaxBy('a')
+> maxByA([{a: -1, b: -1}, {a: 0, b: 0}])
+0
+> maxByA([{a: 1, b: 1}, {a: 2, b: -2}])
+2
  *
  * @version 0.1.0
  */
@@ -46,9 +46,11 @@ export const arrayMaxBy = key => _.reduceWith((max, item) => {
  * @return {function} - Array -> Number
  *
  * @example
-const minByA = arrayMinBy("a");
-minByA([{a: -1, b: -1}, {a: 0, b: 0}]) // -1
-minByA([{a: 1, b: 1}, {a: 2, b: -2}]) // 1
+> minByA = arrayMinBy('a')
+> minByA([{a: -1, b: -1}, {a: 0, b: 0}])
+-1
+> minByA([{a: 1, b: 1}, {a: 2, b: -2}])
+1
  *
  * @version 0.1.0
  */

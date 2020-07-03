@@ -10,9 +10,11 @@
  * @return {function} - String -> String
  *
  * @example
- * const prefixed = prepend("prefix")
- * prefixed('A') // "prefixA"
- * prefixed('B') // "prefixB"
+> prefixed = prepend('prefix')
+> prefixed('A')
+'prefixA'
+> prefixed('B')
+'prefixB'
  *
  * @version 0.1.0
  */

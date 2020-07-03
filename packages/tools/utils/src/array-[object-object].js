@@ -2,7 +2,7 @@
 * @module @svizzle/utils/array-[object-object]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return a function that expects an object and applies the provided sequence of transforms to the values of the correspondent paths to the input object.
@@ -14,7 +14,7 @@ import * as _ from "lamb";
  *
  * @example
 
-const obj = {
+> obj = {
   a: {
     a1: 'a1',
     a2: {
@@ -38,12 +38,12 @@ const obj = {
 }
 
 > // orthogonal transforms
-> const transform = applyTransformsSequence([
+> transform = applyTransformsSequence([
   ['a.a2.a22', _.pipe([Number, Math.sqrt])],
   ['a.a3', parseInt],
   ['b.b2.b24', parseInt],
   ['b.b4', parseInt],
-]);
+])
 > transform(obj)
 {
   a: {
@@ -69,10 +69,10 @@ const obj = {
 }
 
 > // modifying modified paths
-> const transform = applyTransformsSequence([
+> transform = applyTransformsSequence([
   ['b', _.values],
   ['b.1', _.values],
-]);
+])
 > transform(obj)
 {
   a: {
@@ -98,11 +98,11 @@ const obj = {
 }
 
 > // modifying paths multiple times
-> const transform = applyTransformsSequence([
+> transform = applyTransformsSequence([
   ['b', _.values],
   ['b.1', _.values],
   ['b', _.flatten],
-]);
+])
 > transform(obj)
 {
   a: {
@@ -124,7 +124,6 @@ const obj = {
     '4px'
   ],
 }
- *
  * @version 0.6.0
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
@@ -145,7 +144,7 @@ export const applyTransformsSequence = pathFnPairs => obj =>
  * @return {function} - Object -> Object
  *
  * @example
-> let select = pluckValuesKeys(['a', 'k']);
+> let select = pluckValuesKeys(['a', 'k'])
 > select({
 	foo: {a: 1, b: 2, c: 3, k: 4},
 	bar: {a: 5, b: 8}

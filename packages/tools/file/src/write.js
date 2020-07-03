@@ -2,9 +2,9 @@
 * @module @svizzle/file/write
 */
 
-import fs from "fs";
-import stream from "stream";
-import util from "util";
+import fs from 'fs';
+import stream from 'stream';
+import util from 'util';
 
 const finished = util.promisify(stream.finished);
 
@@ -20,21 +20,23 @@ const finished = util.promisify(stream.finished);
  *
  * @example
  *
-writeFile('./foo.txt', JSON.stringify({a: 1, b: 2, c:3}))
+> writeFile('./foo.txt', JSON.stringify({a: 1, b: 2, c:3}))
 .then(() => console.log('saved'))
 .catch(err => console.error(err));
-// $ cat foo.txt
-// $ {"a":1,"b":2,"c":3}
-// $ base64 foo.txt
-// $ eyJhIjoxLCJiIjoyLCJjIjozfQ==
 
-writeFile('./foo.txt', JSON.stringify({a: 1, b: 2, c:3}), 'base64')
+$ cat foo.txt
+{'a':1,'b':2,'c':3}
+$ base64 foo.txt
+eyJhIjoxLCJiIjoyLCJjIjozfQ==
+
+> writeFile('./foo.txt', JSON.stringify({a: 1, b: 2, c:3}), 'base64')
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// $ cat foo.txt
-// $ kV?s
-// $ base64 foo.txt
-// $ a1b2cw==
+
+$ cat foo.txt
+kV?s
+$ base64 foo.txt
+a1b2cw==
  *
  * @version 0.5.0
  */
@@ -51,14 +53,14 @@ export const writeFile = util.promisify(fs.writeFile);
  * @return {function} - Object -> Promise – @sideEffects: fs.writeFile
  *
  * @example
- * promiseThatReturnsAnObject()
- * .then(saveObj("destination/path"))
- * .catch(err => console.error(err));
+promiseThatReturnsAnObject()
+.then(saveObj('destination/path'))
+.catch(err => console.error(err));
  *
  * @version 0.1.0
  */
 export const saveObj = (filepath, indent = 0) => object =>
-	writeFile(filepath, JSON.stringify(object, null, indent), "utf8");
+	writeFile(filepath, JSON.stringify(object, null, indent), 'utf8');
 
 /**
  * Return a function that expects an object and returns a promise that writes
@@ -71,15 +73,15 @@ export const saveObj = (filepath, indent = 0) => object =>
  * @return {function} - Object -> Promise – @sideEffects: fs.writeFile
  *
  * @example
- * promiseThatReturnsAnObject()
- * .then(saveObjPassthrough("destination/path"))
- * .catch(err => console.error(err));
+promiseThatReturnsAnObject()
+.then(saveObjPassthrough('destination/path'))
+.catch(err => console.error(err));
  *
  * @version 0.1.0
  */
 export const saveObjPassthrough = (filepath, indent = 0) =>
 	object =>
-		writeFile(filepath, JSON.stringify(object, null, indent), "utf8")
+		writeFile(filepath, JSON.stringify(object, null, indent), 'utf8')
 		.then(() => object);
 
 /**
@@ -92,14 +94,14 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
  * @return {function} - String -> Promise – @sideEffects: fs.writeFile
  *
  * @example
- * promiseThatReturnsAString()
- * .then(saveString("destination/path"))
- * .catch(err => console.error(err));
+promiseThatReturnsAString()
+.then(saveString('destination/path'))
+.catch(err => console.error(err));
  *
  * @version 0.7.0
  */
 export const saveString = filepath =>
-	string => writeFile(filepath, string, "utf8");
+	string => writeFile(filepath, string, 'utf8');
 
 /**
  * Return a function that expects a string and returns a promise that writes
@@ -111,14 +113,14 @@ export const saveString = filepath =>
  * @return {function} - String -> Promise – @sideEffects: fs.writeFile
  *
  * @example
- * promiseThatReturnsAString()
- * .then(saveStringPassthrough("destination/path"))
- * .catch(err => console.error(err));
+promiseThatReturnsAString()
+.then(saveStringPassthrough('destination/path'))
+.catch(err => console.error(err));
  *
  * @version 0.7.0
  */
 export const saveStringPassthrough = filepath =>
-	string => writeFile(filepath, string, "utf8").then(() => string);
+	string => writeFile(filepath, string, 'utf8').then(() => string);
 
 /**
  * Return a function that expects a response and returns a promise that saves
@@ -130,9 +132,9 @@ export const saveStringPassthrough = filepath =>
  * @return {function} - Response -> Promise - @sideEffects: fs.createWriteStream
  *
  * @example
- * promiseThatReturnsAResponse()
- * .then(saveResponse("destination/path"))
- * .catch(err => console.error(err));
+promiseThatReturnsAResponse()
+.then(saveResponse('destination/path'))
+.catch(err => console.error(err));
  *
  * @version 0.1.0
  */

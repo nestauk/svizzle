@@ -2,7 +2,7 @@
 * @module @svizzle/utils/string_proto-string
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return the portion of the provided string between the provided indices (first included, second excluded).
@@ -18,9 +18,12 @@ import * as _ from "lamb";
  * @return {string}
  *
  * @example
- * sliceString("0123456789", 3) // "3456789"
- * sliceString("0123456789", 3, 5) // "34"
- * sliceString("0123456789", 3, -1) // "345678"
+> sliceString('0123456789', 3)
+'3456789'
+> sliceString('0123456789', 3, 5)
+'34'
+> sliceString('0123456789', 3, -1)
+'345678'
  *
  * @version 0.5.0
  */
@@ -35,7 +38,8 @@ export const sliceString = _.generic(String.prototype.slice);
  * @return {string}
  *
  * @example
- * trim("   abc   \n  ") // "abc"
+> trim('   abc   \n  ')
+'abc'
  *
  * @version 0.1.0
  */

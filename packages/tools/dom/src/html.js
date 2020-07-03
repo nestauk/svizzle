@@ -10,7 +10,7 @@
  * @return {string} - formatted HTML string
  *
  * @example
-> const input = '<main><div class="item"><div class="labels"><span>foo</span></div> </div></main>'
+> input = '<main><div class="item"><div class="labels"><span>foo</span></div> </div></main>'
 > alignTags(input)
 <main>
 <div class="item">
@@ -20,7 +20,7 @@
 </div>
 </main>
 
-> const input = '<main><div class="item"><div class="labels"><span>[Object object]</span></div> </div></main>'
+> input = '<main><div class="item"><div class="labels"><span>[Object object]</span></div> </div></main>'
 > alignTags(input)
 <main>
 <div class="item">

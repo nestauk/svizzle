@@ -187,8 +187,10 @@ export const isValidNumberWith = accessor => _.pipe([accessor, isValidNumber]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isToNumberValidNumberWith(getValue)({key: 'a', value: '123'}) // true
-isToNumberValidNumberWith(getValue)({key: 'a', value: '123px'}) // false
+> isToNumberValidNumberWith(getValue)({key: 'a', value: '123'})
+true
+> isToNumberValidNumberWith(getValue)({key: 'a', value: '123px'})
+false
  *
  * @version 0.5.0
  * @see {@link module:@svizzle/utils/any-boolean.toNumberisValidNumber|toNumberisValidNumber}
@@ -204,8 +206,10 @@ export const isToNumberValidNumberWith =
  * @return {function} - Any -> Boolean
  *
  * @example
-isToFloatValidNumberWith(getValue)({key: 'a', value: [1]}) // true
-isToFloatValidNumberWith(getValue)({key: 'a', value: []}) // false
+> isToFloatValidNumberWith(getValue)({key: 'a', value: [1]})
+true
+> isToFloatValidNumberWith(getValue)({key: 'a', value: []})
+false
  *
  * @version 0.5.0
  * @see {@link module:@svizzle/utils/any-boolean.isToFloatValidNumberWith|isToFloatValidNumberWith}

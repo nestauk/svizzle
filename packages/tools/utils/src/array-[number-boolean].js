@@ -2,7 +2,7 @@
 * @module @svizzle/utils/array-[number-boolean]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return a function expecting a number and returning true if the number is within the provided range.
@@ -13,10 +13,13 @@ import * as _ from "lamb";
  * @return {function} predicate - Number -> Boolean
  *
  * @example
-const isWithinRange = makeIsWithinRange([0, 5]);
-isWithinRange(2) // true
-isWithinRange(5) // true
-isWithinRange(8) // false
+> isWithinRange = makeIsWithinRange([0, 5])
+> isWithinRange(2)
+true
+> isWithinRange(5)
+true
+> isWithinRange(8)
+false
  *
  * @version 0.1.0
  */

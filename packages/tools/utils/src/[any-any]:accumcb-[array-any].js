@@ -13,17 +13,17 @@ import {reduceTo} from './constructor-[[any-any]:accumcb-[array-any]]';
  * @return {function} - Array -> Any
  *
  * @example
-const reduce = reduceFromEmptyArray((acc, x) => {
+> reduce = reduceFromEmptyArray((acc, x) => {
   return acc.slice(-2).concat([x.value]);
-});
-reduce([
+})
+> reduce([
   {a: 1, value: 2},
   {a: 1, value: 3},
   {a: 1, value: 0},
   {a: 1, value: 4},
   {a: 1, value: 7}
 ])
-// [0, 4, 7]
+[0, 4, 7]
  *
  * @version 0.3.0
  */
@@ -38,15 +38,15 @@ export const reduceFromEmptyArray = reduceTo(Array);
  * @return {function} - Array -> Any
  *
  * @example
-const reduce = reduceFromEmptyObject((acc, x) => {
+> reduce = reduceFromEmptyObject((acc, x) => {
   acc[x.id] = x.name;
   return acc;
-});
-reduce([
+})
+> reduce([
   {id: '00', name: 'a'},
   {id: '11', name: 'b'}
 ])
-// { 11: 'b', 00: 'a' }
+{ 11: 'b', 00: 'a' }
  *
  * @version 0.3.0
  */

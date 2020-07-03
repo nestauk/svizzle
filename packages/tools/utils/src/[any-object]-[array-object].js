@@ -2,9 +2,9 @@
 * @module @svizzle/utils/[any-object]-[array-object]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {reduceFromEmptyObject} from "./[any-any]:accumcb-[array-any]";
+import {reduceFromEmptyObject} from './[any-any]:accumcb-[array-any]';
 
 /**
  * Return a function expecting an array and returning an object of occurrences
@@ -16,15 +16,15 @@ import {reduceFromEmptyObject} from "./[any-any]:accumcb-[array-any]";
  * @return {function} - (Array -> Object) the function to gather the keys occurrencies
  *
  * @example
-const items = [
+> items = [
   {foo: 1, bar: {a: 1}},
   {foo: 1, bar: {a: 6, b: -1}},
   {foo: 1, bar: {a: 2, b: 0, c: 1}},
   {foo: 1, bar: {c: 4, e: 2}},
-];
-
-const makeAllOccurrences = makeAllOccurrencesWith(_.getKey('bar'));
-makeAllOccurrences(items) // {a: 3, b: 2, c: 2, e: 1}
+]
+> makeAllOccurrences = makeAllOccurrencesWith(_.getKey('bar'))
+> makeAllOccurrences(items)
+{a: 3, b: 2, c: 2, e: 1}
  *
  * @see {@link module:@svizzle/utils/array-object.makeAllOccurrences|makeAllOccurrences},
  * @version 0.5.0

@@ -2,11 +2,11 @@
 * @module @svizzle/utils/string-boolean
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {isIterableNotEmpty} from "./iterable-boolean";
-import {trim} from "./string_proto-string";
-import {makeEndsWith} from "./string-[string-boolean]";
+import {isIterableNotEmpty} from './iterable-boolean';
+import {trim} from './string_proto-string';
+import {makeEndsWith} from './string-[string-boolean]';
 
 /**
  * Return true if the string ends with a newline
@@ -16,8 +16,10 @@ import {makeEndsWith} from "./string-[string-boolean]";
  * @return {boolean}
  *
  * @example
- * endsWithNewLine("abc") // false
- * endsWithNewLine("abc\n") // true
+> endsWithNewLine('abc')
+false
+> endsWithNewLine('abc\n')
+true
  *
  * @version 0.5.0
  */
@@ -31,8 +33,10 @@ export const endsWithNewLine = makeEndsWith('\n');
  * @return {boolean}
  *
  * @example
- * isTrimmedNotEmpty("  foo  ") // true
- * isTrimmedNotEmpty("  ") // false
+> isTrimmedNotEmpty('  foo  ')
+true
+> isTrimmedNotEmpty('  ')
+false
  *
  * @version 0.1.0
  */

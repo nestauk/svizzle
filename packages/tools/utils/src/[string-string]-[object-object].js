@@ -12,7 +12,7 @@ import * as _ from 'lamb';
  * @return {function} - (Object -> Object) the function renaming the object keys
  *
  * @example
-> const rename = renameKeysWith(prepend('--'));
+> rename = renameKeysWith(prepend('--'))
 > rename({foo: 1, bar: 2})
 {'--foo': 1, '--bar': 2}
  *

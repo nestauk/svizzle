@@ -2,9 +2,9 @@
 * @module @svizzle/utils/string-[string-array]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {split} from "./string_proto-array";
+import {split} from './string_proto-array';
 
 /**
  * Return a function expecting a separator or regex to split the provided string
@@ -14,10 +14,11 @@ import {split} from "./string_proto-array";
  * @return {function} - String -> Array
  *
  * @example
- * const splitStringBy = makeSplitStringBy("a.b-c,d:e");
- *
- * splitStringBy(":") // [ "a.b-c,d", "e" ]
- * splitStringBy("-") // [ "a.b", "c,d:e" ]
+> splitStringBy = makeSplitStringBy('a.b-c,d:e')
+> splitStringBy(':')
+['a.b-c,d', 'e']
+> splitStringBy('-')
+['a.b', 'c,d:e']
  *
  * @version 0.1.0
  */
@@ -35,10 +36,9 @@ export const makeSplitStringBy = _.curry(split, 2);
  * @return {function} - String -> Array
  *
  * @example
- * const splitByDoubleDot = makeSplitBy("..");
- *
- * splitByDoubleDot("aa...a..a.a.aa.....aa..")
- * // ["aa", ".a", "a.a.aa", "", ".aa", ""]
+> splitByDoubleDot = makeSplitBy('..')
+> splitByDoubleDot('aa...a..a.a.aa.....aa..')
+> ['aa', '.a', 'a.a.aa', '', '.aa', '']
  *
  * @version 0.1.0
  */

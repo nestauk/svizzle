@@ -2,7 +2,7 @@
 * @module @svizzle/utils/object-any
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Retrieve the 'id' property of the provided object.
@@ -12,8 +12,8 @@ import * as _ from "lamb";
  * @return {*} - object.id
  *
  * @example
-getId({id: 'foo', name: 'bar'})
-// 'foo'
+> getId({id: 'foo', name: 'bar'})
+'foo'
  *
  * @version 0.4.0
  */
@@ -27,8 +27,8 @@ export const getId = _.getKey('id');
  * @return {*} - object.key
  *
  * @example
-getKey({key: 'foo', value: 'bar'})
-// 'foo'
+> getKey({key: 'foo', value: 'bar'})
+'foo'
  *
  * @version 0.4.0
  */
@@ -42,8 +42,8 @@ export const getKey = _.getKey('key');
  * @return {*} - object.value
  *
  * @example
-getValue({key: 'foo', value: 'bar'})
-// 'bar'
+> getValue({key: 'foo', value: 'bar'})
+'bar'
  *
  * @version 0.4.0
  */
@@ -57,8 +57,8 @@ export const getValue = _.getKey('value');
  * @return {*} - object.values
  *
  * @example
-getValues({key: 'foo', values: [0, 1, 2, 3]})
-// [0, 1, 2, 3]
+> getValues({key: 'foo', values: [0, 1, 2, 3]})
+[0, 1, 2, 3]
  *
  * @version 0.4.0
  */

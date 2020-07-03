@@ -11,7 +11,9 @@ import * as _ from "lamb";
  * @arg {array} pointArray - An array of 3 numbers
  * @return {object} - An object with {x, y, z} coordinates.
  *
- * @example [1, 2, 3] => {x: 1, y: 2, z: 3}
+ * @example
+> makePosition3D([1, 2, 3])
+{x: 1, y: 2, z: 3}
  *
  * @version 0.1.0
  */

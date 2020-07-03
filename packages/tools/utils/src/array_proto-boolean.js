@@ -2,7 +2,7 @@
 * @module @svizzle/utils/array_proto-boolean
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return an function expecting a value and returning true if it is included in the provided array
@@ -15,8 +15,11 @@ import * as _ from "lamb";
  * @arg {*} any
  * @return {boolean}
  *
- * @example includes([0, 1, 2], 2) // true
- * @example includes([0, 1, 2], 3) // false
+ * @example
+> includes([0, 1, 2], 2)
+true
+> includes([0, 1, 2], 3)
+false
  *
  * @version 0.3.0
  */

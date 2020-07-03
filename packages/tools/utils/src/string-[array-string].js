@@ -2,9 +2,9 @@
 * @module @svizzle/utils/string-[array-string]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {join} from "./array_proto-string";
+import {join} from './array_proto-string';
 
 /**
  * Return a function expecting an array to join with the provided separator
@@ -19,8 +19,9 @@ import {join} from "./array_proto-string";
  * @return {function} - Array -> String
  *
  * @example
-const joinWithAt = joinWith("@");
-joinWithAt([0, 1, 2]) // "1@2@3"
+> joinWithAt = joinWith('@')
+> joinWithAt([0, 1, 2])
+'1@2@3'
  *
  * @version 0.1.0
  */

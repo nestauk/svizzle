@@ -2,11 +2,11 @@
 * @module @svizzle/geo/geojson
 */
 
-import * as _ from "lamb";
-import bbox from "@turf/bbox";
-import centroid from "@turf/centroid";
-import {featureCollection} from "@turf/helpers";
-import truncate from "@turf/truncate";
+import * as _ from 'lamb';
+import bbox from '@turf/bbox';
+import centroid from '@turf/centroid';
+import {featureCollection} from '@turf/helpers';
+import truncate from '@turf/truncate';
 
 /**
  * Return or create the {@link https://tools.ietf.org/html/rfc7946#section-5|bbox} of the provided geojson
@@ -16,47 +16,45 @@ import truncate from "@turf/truncate";
  * @return {array}
  *
  * @example
-
-getOrMakeBBox({
-    type: "FeatureCollection",
-    features: [{
-        type: "Feature",
-        geometry: {
-            type: "Polygon",
-            coordinates: [
-                [[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
-            ]
-        }
-    }, {
-        type: "Feature",
-        geometry: {
-            type: "Polygon",
-            coordinates: [
-                [[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
-            ]
-        }
-    }]
+> getOrMakeBBox({
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+			]
+		}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+			]
+		}
+	}]
 })
-// [-1, -1, 2, 1]
+[-1, -1, 2, 1]
 
-getOrMakeBBox({
-    type: "FeatureCollection",
-    bbox: [-10.0, -10.0, 10.0, 10.0],
-    geometry: {
-      type: "Polygon",
-      coordinates: [
-        [
-          [-10.0, -10.0],
-          [10.0, -10.0],
-          [10.0, 10.0],
-          [-10.0, -10.0]
-        ]
-      ]
-    }
+> // no calculation involved here
+> getOrMakeBBox({
+	type: 'FeatureCollection',
+	bbox: [-10.0, -10.0, 10.0, 10.0],
+	geometry: {
+	type: 'Polygon',
+	coordinates: [
+		[
+			[-10.0, -10.0],
+			[10.0, -10.0],
+			[10.0, 10.0],
+			[-10.0, -10.0]
+		]
+	]
+	}
 })
-// [-10.0, -10.0, 10.0, 10.0]
-// no calculation involved here
-
+[-10.0, -10.0, 10.0, 10.0]
  * @version 0.1.0
  */
 export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
@@ -75,83 +73,75 @@ export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
  * @return {function} - Object -> Object
  *
  * @example
-> const geojson = {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
-        ]
-      },
-      properties: {iso_a2: 'BF'}
-    },
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
-        ]
-      },
-      properties: {name: 'Kosovo'}
-    },
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
-        ]
-      },
-      properties: {iso_a2: 'FR'}
-    }
-  ]
+> geojson = {
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+			]
+		},
+		properties: {iso_a2: 'BF'}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+			]
+		},
+		properties: {name: 'Kosovo'}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
+			]
+		},
+		properties: {iso_a2: 'FR'}
+	}]
 }
-> const keyToColor = {BF: 'red', Kosovo: 'yellow'};
-> const addColor = makeAddFeaturesProperty({
-  propName: 'color',
-  map: keyToColor,
-  key: 'iso_a2',
-  key_alt: 'name'
-});
-> const coloredFeatures = addColor(geojson);
+> keyToColor = {BF: 'red', Kosovo: 'yellow'}
+> addColor = makeAddFeaturesProperty({
+	propName: 'color',
+	map: keyToColor,
+	key: 'iso_a2',
+	key_alt: 'name'
+})
+> coloredFeatures = addColor(geojson)
 {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
-        ]
-      },
-      properties: {iso_a2: 'BF', color: 'red'}
-    },
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
-        ]
-      },
-      properties: {name: 'Kosovo', color: 'yellow'}
-    },
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
-        ]
-      },
-      properties: {iso_a2: 'FR', color: undefined}
-    }
-  ]
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+			]
+		},
+		properties: {iso_a2: 'BF', color: 'red'}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+			]
+		},
+		properties: {name: 'Kosovo', color: 'yellow'}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
+			]
+		},
+		properties: {iso_a2: 'FR', color: undefined}
+	}]
 }
  * @version 0.5.0
  */
@@ -195,34 +185,34 @@ export const makeUpdateFeaturesProperty = ({
  * @return {object} collection - FeatureCollection of Point features
  *
  * @example
-
-makeCentroids([
-  {type: "Feature",
-   properties: {"foo": "a"},
-   geometry: {type: "LineString", coordinates: [
-     [[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
-   ]}
-  },
-  {type: "Feature",
-   properties: {"foo": "b"},
-   geometry: {type: "LineString", coordinates: [
-     [[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
-   ]}
-  }
+> makeCentroids([
+	{
+		type: 'Feature',
+		properties: {foo: 'a'},
+		geometry: {type: 'LineString', coordinates: [
+			[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+		]}
+	},
+	{
+		type: 'Feature',
+		properties: {foo: 'b'},
+		geometry: {type: 'LineString', coordinates: [
+			[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+		]}
+	}
 ])
-// => {
-  type: "FeatureCollection",
-  features: [{
-    type: "Feature",
-    geometry: {type: "Point", coordinates: [0.2, -0.2]},
-    properties: {foo: "a"}
-  }, {
-    type: "Feature",
-    geometry: {type: "Point", coordinates: [1.2, -0.2]},
-    properties: {foo: "b"}
-  }]
+{
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {type: 'Point', coordinates: [0.2, -0.2]},
+		properties: {foo: 'a'}
+	}, {
+		type: 'Feature',
+		geometry: {type: 'Point', coordinates: [1.2, -0.2]},
+		properties: {foo: 'b'}
+	}]
 }
-
  * @version 0.1.0
  */
 export const makeCentroids = _.pipe([
@@ -233,7 +223,7 @@ export const makeCentroids = _.pipe([
 /**
  * Return a function expecting an object and returning it as a Point feature.
  * You can define a coordPicker using {@link makeKeysGetter}:
- * const getCoordinates = makeKeysGetter(["lng", "lat"])
+ * const getCoordinates = makeKeysGetter(['lng', 'lat'])
  *
  * @function
  * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]) from the provided feature
@@ -241,31 +231,30 @@ export const makeCentroids = _.pipe([
  * @return {object} point - Geojson Point feature.
  *
  * @example
-const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
-
-const toPointFeature = makeToPointFeature(coordPicker);
-toPointFeature({foo: "a", lng: 0.1, lat: 0.1})
-// => {
- "type": "Feature",
- "geometry": {"type": "Point", "coordinates": [0.1, 0.1]},
- "properties": {foo: "a", lng: 0.1, lat: 0.1}
+> coordPicker = _.collect([_.getKey('lng'), _.getKey('lat')])
+> toPointFeature = makeToPointFeature(coordPicker)
+> toPointFeature({foo: 'a', lng: 0.1, lat: 0.1})
+{
+	type: 'Feature',
+	geometry: {type: 'Point', coordinates: [0.1, 0.1]},
+	properties: {foo: 'a', lng: 0.1, lat: 0.1}
 }
 
-const propsTransformer = applyFnMap({name: _.getKey("foo")});
-const toPointFeature = makeToPointFeature(coordPicker, propsTransformer);
-toPointFeature({foo: "a", lng: 0.1, lat: 0.1})
-// => {
- "type": "Feature",
- "geometry": {"type": "Point", "coordinates": [0.1, 0.1]},
- "properties": {name: "a"}
+> const propsTransformer = applyFnMap({name: _.getKey('foo')})
+> const toPointFeature = makeToPointFeature(coordPicker, propsTransformer)
+> toPointFeature({foo: 'a', lng: 0.1, lat: 0.1})
+{
+	type: 'Feature',
+	geometry: {type: 'Point', coordinates: [0.1, 0.1]},
+	properties: {name: 'a'}
 }
  * @version 0.1.0
  */
 export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
 	object => ({
-		type: "Feature",
+		type: 'Feature',
 		geometry: {
-			type: "Point",
+			type: 'Point',
 			coordinates: coordPicker(object)
 		},
 		properties: propsTransformer ? propsTransformer(object) : object
@@ -274,7 +263,7 @@ export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
 /**
  * Return a function expecting an array of objects and returning them as a FeatureCollection of Point features.
  * You can define a coordPicker using {@link makeKeysGetter}:
- * const getCoordinates = makeKeysGetter(["lng", "lat"])
+ * const getCoordinates = makeKeysGetter(['lng', 'lat'])
  *
  * @function
  * @arg {function} coordPicker - The function to create the point coordinates ([longitude, latitude]) from the provided features
@@ -282,43 +271,42 @@ export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
  * @return {object} collection - FeatureCollection of Point features
  *
  * @example
-const coordPicker = _.collect([_.getKey("lng"), _.getKey("lat")]);
-
-const toGeoPoints = makeToGeoPoints(coordPicker);
-toGeoPoints([
-  {foo: "a", lng: 0.1, lat: 0.1},
-  {foo: "b", lng: 0.2, lat: 0.2}
-]);
-// => {
-  "type": "FeatureCollection",
-  "features": [{
-    "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [0.1, 0.1]},
-    "properties": {foo: "a", lng: 0.1, lat: 0.1}
-  }, {
-    "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [0.2, 0.2]},
-    "properties": {foo: "b", lng: 0.2, lat: 0.2}
-  }]
+> coordPicker = _.collect([_.getKey('lng'), _.getKey('lat')])
+> toGeoPoints = makeToGeoPoints(coordPicker)
+> toGeoPoints([
+	{foo: 'a', lng: 0.1, lat: 0.1},
+	{foo: 'b', lng: 0.2, lat: 0.2}
+])
+{
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {type: 'Point', coordinates: [0.1, 0.1]},
+		properties: {foo: 'a', lng: 0.1, lat: 0.1}
+	}, {
+		type: 'Feature',
+		geometry: {type: 'Point', coordinates: [0.2, 0.2]},
+		properties: {foo: 'b', lng: 0.2, lat: 0.2}
+	}]
 }
 
-const propsTransformer = applyFnMap({name: _.getKey("foo")});
-const toGeoPoints = makeToGeoPoints(coordPicker, propsTransformer);
-toGeoPoints([
-  {foo: "a", lng: 0.1, lat: 0.1},
-  {foo: "b", lng: 0.2, lat: 0.2}
-]);
-// => {
-  "type": "FeatureCollection",
-  "features": [{
-    "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [0.1, 0.1]},
-    "properties": {"name": "a"}
-  }, {
-    "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [0.2, 0.2]},
-    "properties": {"name": "b"}
-  }]
+> propsTransformer = applyFnMap({name: _.getKey('foo')})
+> toGeoPoints = makeToGeoPoints(coordPicker, propsTransformer)
+> toGeoPoints([
+  {foo: 'a', lng: 0.1, lat: 0.1},
+  {foo: 'b', lng: 0.2, lat: 0.2}
+])
+{
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {type: 'Point', coordinates: [0.1, 0.1]},
+		properties: {name: 'a'}
+	}, {
+		type: 'Feature',
+		geometry: {type: 'Point', coordinates: [0.2, 0.2]},
+		properties: {name: 'b'}
+	}]
 }
  * @version 0.1.0
  */
@@ -337,17 +325,17 @@ export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
  * @return {function} - Geojson -> Geojson
  *
  * @example
-const truncateGeometry = setGeometryPrecision(4);
-const point = {
-  "type": "Feature",
-  "geometry": {"type": "Point", "coordinates": [0.1234567, 0.12341]},
-  "properties": {"name": "a"}
-};
-truncateGeometry(point)
-// => {
-  "type": "Feature",
-  "geometry": {"type": "Point", "coordinates": [0.1234, 0.1234]},
-  "properties": {"name": "a"}
+> truncateGeometry = setGeometryPrecision(4)
+> point = {
+	type: 'Feature',
+	geometry: {type: 'Point', coordinates: [0.1234567, 0.12341]},
+	properties: {name: 'a'}
+}
+> truncateGeometry(point)
+{
+  type: 'Feature',
+  geometry: {type: 'Point', coordinates: [0.1234, 0.1234]},
+  properties: {name: 'a'}
 }
  * @version 0.1.0
  */

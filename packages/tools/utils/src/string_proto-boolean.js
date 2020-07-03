@@ -2,7 +2,7 @@
 * @module @svizzle/utils/string_proto-boolean
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return true if the input string ends with the test string
@@ -17,8 +17,10 @@ import * as _ from "lamb";
  * @return {boolean} - True if the input string ends with the test string
  *
  * @example
- * endsWith("Ping", "ing") // true
- * endsWith("Pong", "ing") // false
+> endsWith('Ping', 'ing')
+true
+> endsWith('Pong', 'ing')
+false
  *
  * @version 0.5.0
  */
@@ -37,8 +39,10 @@ export const endsWith = _.generic(String.prototype.endsWith);
  * @return {boolean} - True if the input string starts with the test string
  *
  * @example
- * startsWith("Ping", "Pin") // true
- * startsWith("Pong", "Pin") // false
+> startsWith('Ping', 'Pin')
+true
+> startsWith('Pong', 'Pin')
+false
  *
  * @version 0.1.0
  */

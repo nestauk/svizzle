@@ -2,9 +2,9 @@
 * @module @svizzle/utils/string-[string-boolean]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {endsWith, startsWith} from "./string_proto-boolean";
+import {endsWith, startsWith} from './string_proto-boolean';
 
 /**
  * Return a function expecting a base string and checking if it ends with the provided search string.
@@ -15,10 +15,11 @@ import {endsWith, startsWith} from "./string_proto-boolean";
  * @return {function} - String -> Boolean
  *
  * @example
- * const endsWithExclamationMark = makeEndsWith("!");
- *
- * endsWithExclamationMark("Hi!") // true
- * endsWithExclamationMark("Who?") // false
+> endsWithExclamationMark = makeEndsWith('!')
+> endsWithExclamationMark('Hi!')
+true
+> endsWithExclamationMark('Who?')
+false
  *
  * @version 0.5.0
  */
@@ -33,10 +34,11 @@ export const makeEndsWith = _.curryRight(endsWith, 2);
  * @return {function} - String -> Boolean
  *
  * @example
- * const stringEndsWith = makeStringEndsWith("Hi!");
- *
- * stringEndsWith("!") // true
- * stringEndsWith("?") // false
+> stringEndsWith = makeStringEndsWith('Hi!')
+> stringEndsWith('!')
+true
+> stringEndsWith('?')
+false
  *
  * @version 0.5.0
  */
@@ -51,10 +53,11 @@ export const makeStringEndsWith = _.curry(endsWith, 2);
  * @return {function} - String -> Boolean
  *
  * @example
- * const startsWithHash = makeStartsWith("#");
- *
- * startsWithHash("# this is a bash comment") // true
- * startsWithHash("This is not") // false
+> startsWithHash = makeStartsWith('#')
+> startsWithHash('# this is a bash comment')
+true
+> startsWithHash('This is not')
+false
  *
  * @version 0.5.0
  */
@@ -69,10 +72,11 @@ export const makeStartsWith = _.curryRight(startsWith, 2);
  * @return {function} - String -> Boolean
  *
  * @example
- * const stringStartsWith = makeStringStartsWith("Hi!");
- *
- * stringStartsWith("H") // true
- * stringStartsWith("h") // false
+> stringStartsWith = makeStringStartsWith('Hi!')
+> stringStartsWith('H')
+true
+> stringStartsWith('h')
+false
  *
  * @version 0.5.0
  */

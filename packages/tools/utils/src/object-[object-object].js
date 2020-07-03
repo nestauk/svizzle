@@ -2,7 +2,7 @@
 * @module @svizzle/utils/object-[object-object]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return a function expecting an object to be used as the argument of the provided functions
@@ -12,22 +12,22 @@ import * as _ from "lamb";
  * @return {function} - Object -> Object
  *
  * @example
-const format = applyFnMap({
-    fullname: _.pipe([
-        _.collect([_.getKey("fname"), _.getKey("lname")]),
-        join(" ")
-    ]),
-    coords: _.collect([_.getKey("lng"), _.getKey("lat")])
+> format = applyFnMap({
+	fullname: _.pipe([
+		_.collect([_.getKey('fname'), _.getKey('lname')]),
+		join(' ')
+	]),
+	coords: _.collect([_.getKey('lng'), _.getKey('lat')])
 });
-const raw = [
-    {fname: "John", lname: "Woo", lng: 1, lat: 2},
-    {fname: "John", lname: "Foo", lng: 7, lat: 8}
+> raw = [
+	{fname: 'John', lname: 'Woo', lng: 1, lat: 2},
+	{fname: 'John', lname: 'Foo', lng: 7, lat: 8}
 ];
-const formatted = _.map(raw, format);
-// => [
-//     {fullname: "John Woo", coords: [1, 2]},
-//     {fullname: "John Foo", coords: [7, 8]}
-// ]
+> formatted = _.map(raw, format)
+[
+	{fullname: 'John Woo', coords: [1, 2]},
+	{fullname: 'John Foo', coords: [7, 8]}
+]
  *
  * @version 0.1.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
@@ -47,46 +47,44 @@ export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
  * @return {function} - Object -> Object
  *
  * @example
-> const transform = transformPaths({
+> transform = transformPaths({
    'a.a2.a22': _.pipe([Number, Math.sqrt]),
    'a.a3': parseInt,
    'b.b2': parseInt,
- });
+ })
 > transform({
-  a: {
-    a1: 'a1',
-    a2: {
-      a21: 'a21',
-      a22: '9',
-    },
-    a3: '3px',
-    a4: '2',
-  },
-  b: {
-    b1: 'b1',
-    b2: '4px'
-  },
+	a: {
+		a1: 'a1',
+		a2: {
+			a21: 'a21',
+			a22: '9',
+		},
+		a3: '3px',
+		a4: '2',
+	},
+	b: {
+		b1: 'b1',
+		b2: '4px'
+	},
 })
-
 {
-  a: {
-    a1: 'a1',
-    a2: {
-      a21: 'a21',
-      a22: 3,
-    },
-    a3: 3,
-    a4: '2',
-  },
-  b: {
-    b1: 'b1',
-    b2: 4
-  },
+	a: {
+		a1: 'a1',
+		a2: {
+			a21: 'a21',
+			a22: 3,
+		},
+		a3: 3,
+		a4: '2',
+	},
+	b: {
+		b1: 'b1',
+		b2: 4
+	},
 }
-
-> const dangerousTransform = transformPaths({
-   'a': _.values,     // assuming we have an object in `a`...
-   'a.0': x => 2 * x  // ...if this runs first, it could return `2 * undefined = NaN`
+> dangerousTransform = transformPaths({
+	'a': _.values,     // assuming we have an object in `a`...
+	'a.0': x => 2 * x  // ...if this runs first, it could return `2 * undefined = NaN`
  });
  *
  * @version 0.6.0
@@ -111,29 +109,28 @@ export const transformPaths = pathToFn => obj =>
  * @return {function} - Object -> Object
  *
  * @example
-> const conversionFn = transformValues({
-    name: _.identity,
-    a: _.pipe([Number, Math.sqrt]),
-    b: Number,
-    width: parseFloat
-});
-conversionFn({name: "foo", a: "9", b: "2", width: "10px"})
-// {name: "foo", a: 3, b: 2, width: 10}
+> conversionFn = transformValues({
+	name: _.identity,
+	a: _.pipe([Number, Math.sqrt]),
+	b: Number,
+	width: parseFloat
+})
+> conversionFn({name: 'foo', a: '9', b: '2', width: '10px'})
+{name: 'foo', a: 3, b: 2, width: 10}
 
-d3.csvParse("baseurl/file.csv", conversionFn);
-// [{name: "foo", a: 3, b: 2, width: 10}, {name: "bar", a: 2, b: 4, width: 25}]
-
-> baseurl/file.csv
+$ cat baseurl/file.csv
 name,a,b,width
 foo,9,2,10px
 bar,4,4,25px
 
-> const conversionFn = transformValues({
-    a: _.pipe([Number, Math.sqrt]),
-});
+> d3.csvParse('baseurl/file.csv', conversionFn)
+[{name: 'foo', a: 3, b: 2, width: 10}, {name: 'bar', a: 2, b: 4, width: 25}]
 
-> conversionFn({name: "foo", a: "9", b: "2", width: "10px"})
-{name: "foo", a: 3, b: "2", width: "10px"}
+> conversionFn = transformValues({
+	a: _.pipe([Number, Math.sqrt]),
+})
+> conversionFn({name: 'foo', a: '9', b: '2', width: '10px'})
+{name: 'foo', a: 3, b: '2', width: '10px'}
  *
  * @version 0.1.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
@@ -154,9 +151,11 @@ export const transformValues = fnMap => _.mapValuesWith(
  * @return {function} - Object -> Object
  *
  * @example
-const mergeB = mergeObj({b: 2});
-mergeB({a: 1}) // {a: 1, b: 2}
-mergeB({a: 1, b: 1}) // {a: 1, b: 2}
+> mergeB = mergeObj({b: 2})
+> mergeB({a: 1})
+{a: 1, b: 2}
+> mergeB({a: 1, b: 1})
+{a: 1, b: 2}
  *
  * @version 0.1.0
  */
@@ -172,25 +171,22 @@ export const mergeObj = obj => _.partial(_.merge, [_.__, obj]);
  *
  * @example
 
-const mergeFooValue = makeMergeKeyValue("foo", {b: -2, c: -3});
-
-mergeFooValue({
-    foo: {a: 1, b: 2},
-    bar: {k: 1}
+> mergeFooValue = makeMergeKeyValue('foo', {b: -2, c: -3})
+> mergeFooValue({
+	foo: {a: 1, b: 2},
+	bar: {k: 1}
 })
-=> {
-    foo: {a: 1, b: -2, c: -3},
-    bar: {k: 1}
+{
+	foo: {a: 1, b: -2, c: -3},
+	bar: {k: 1}
 }
-
-mergeFooValue({
-    bar: {k: 1}
+> mergeFooValue({
+	bar: {k: 1}
 })
-=> {
-    foo: {b: -2, c: -3},
-    bar: {k: 1}
+{
+	foo: {b: -2, c: -3},
+	bar: {k: 1}
 }
-
  *
  * @version 0.1.0
  */

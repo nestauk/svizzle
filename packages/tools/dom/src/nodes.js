@@ -2,9 +2,9 @@
 * @module @svizzle/dom/nodes
 */
 
-import {select} from "d3-selection";
-import {pick} from "lamb";
-import {mapValuesToFloatPossibly} from "@svizzle/utils";
+import {select} from 'd3-selection';
+import {pick} from 'lamb';
+import {mapValuesToFloatPossibly} from '@svizzle/utils';
 
 /* get */
 
@@ -23,16 +23,16 @@ import {mapValuesToFloatPossibly} from "@svizzle/utils";
 getElementGeometry(node)
 // {width: 200, height: 100}
 
-getElementGeometry(node, ["fontSize"])
-// {width: 200, height: 100, "fontSize": 12}
+getElementGeometry(node, ['fontSize'])
+// {width: 200, height: 100, 'fontSize': 12}
  *
  * @version 0.1.0
  */
 export const getElementGeometry = (elem, additionalProps = []) =>
 	mapValuesToFloatPossibly(
 		pick(getComputedStyle(elem), [
-			"width",
-			"height",
+			'width',
+			'height',
 			...additionalProps
 		])
 	);
@@ -47,9 +47,9 @@ export const getElementGeometry = (elem, additionalProps = []) =>
  * @arg {object} newContainer - CSS selector or DOM element
  *
  * @example
-d3.selectAll("#oldContainer .toBeMoved")
+d3.selectAll('#oldContainer .toBeMoved')
   .each(function(d, i) {
-      moveNode(this, "#newContainer");
+      moveNode(this, '#newContainer');
   });
  *
  * @version 0.1.0

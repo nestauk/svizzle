@@ -14,24 +14,23 @@ import {makeBiPermutations} from './array-array';
  * @return {function} - (Any -> Array)
  *
  * @example
-const object = {
+> object = {
   key: 'foobars',
   value: [
-    {foo: "a"},
-    {foo: "b"},
-    {bar: "c"},
-    {bar: "d"}
+    {foo: 'a'},
+    {foo: 'b'},
+    {bar: 'c'},
+    {bar: 'd'}
   ]
-};
-const makeBiPermutations = makeBiPermutationsWith(getValue)
-=>
+}
+> makeBiPermutations = makeBiPermutationsWith(getValue)
 [
-  [{foo: "a"}, {foo: "b"}],
-  [{foo: "a"}, {bar: "c"}],
-  [{foo: "a"}, {bar: "d"}],
-  [{foo: "b"}, {bar: "c"}],
-  [{foo: "b"}, {bar: "d"}],
-  [{bar: "c"}, {bar: "d"}]
+  [{foo: 'a'}, {foo: 'b'}],
+  [{foo: 'a'}, {bar: 'c'}],
+  [{foo: 'a'}, {bar: 'd'}],
+  [{foo: 'b'}, {bar: 'c'}],
+  [{foo: 'b'}, {bar: 'd'}],
+  [{bar: 'c'}, {bar: 'd'}]
 ]
  *
  * @version 0.5.0

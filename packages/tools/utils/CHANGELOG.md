@@ -1,5 +1,8 @@
 ## `@svizzle/utils` v0.8.0 (next)
 
+- docs: converted all examples to a REPL-like format
+- dev: using single quotes rather than double quote where possible
+
 ### (String -> String) -> (Object -> Object)
 
 - add `renameKeysWith`

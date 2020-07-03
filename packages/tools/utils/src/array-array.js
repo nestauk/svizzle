@@ -2,10 +2,10 @@
 * @module @svizzle/utils/array-array
 */
 
-import * as _ from "lamb";
-import isEqual from "just-compare";
+import * as _ from 'lamb';
+import isEqual from 'just-compare';
 
-import {getKey, getValue} from "./object-any";
+import {getKey, getValue} from './object-any';
 
 /**
  * Return an array containing the first and the last element of the provided array.
@@ -31,17 +31,21 @@ export const getFirstAndLast = _.collect([_.head, _.last]);
  * @return {array}
  *
  * @example
-inclusiveRange([2, 5]) = [2, 3, 4, 5];
-inclusiveRange([2, 12]) = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-inclusiveRange([2, 12, 2]) = [2, 4, 6, 8, 10, 12];
-inclusiveRange([2, 11, 2]) = [2, 4, 6, 8, 10];
+> inclusiveRange([2, 5])
+[2, 3, 4, 5]
+> inclusiveRange([2, 12])
+[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+> inclusiveRange([2, 12, 2])
+[2, 4, 6, 8, 10, 12]
+> inclusiveRange([2, 11, 2])
+[2, 4, 6, 8, 10];
  *
  * @version 0.7.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#range
  */
 export const inclusiveRange = ([start, end, step = 1]) => {
 	if (start === end) {
-		return !_.isUndefined(start) ? [start] : [];
+		return _.isUndefined(start) ? [] : [start];
 	}
 
 	const range = _.range(start, end, step);
@@ -59,21 +63,20 @@ export const inclusiveRange = ([start, end, step = 1]) => {
  * @return {array} permutations - permutations of pairs of items
  *
  * @example
-const array = [
-  {foo: "a"},
-  {foo: "b"},
-  {bar: "c"},
-  {bar: "d"}
-];
-makeBiPermutations(array)
-=>
+> array = [
+  {foo: 'a'},
+  {foo: 'b'},
+  {bar: 'c'},
+  {bar: 'd'}
+]
+> makeBiPermutations(array)
 [
-  [{foo: "a"}, {foo: "b"}],
-  [{foo: "a"}, {bar: "c"}],
-  [{foo: "a"}, {bar: "d"}],
-  [{foo: "b"}, {bar: "c"}],
-  [{foo: "b"}, {bar: "d"}],
-  [{bar: "c"}, {bar: "d"}]
+  [{foo: 'a'}, {foo: 'b'}],
+  [{foo: 'a'}, {bar: 'c'}],
+  [{foo: 'a'}, {bar: 'd'}],
+  [{foo: 'b'}, {bar: 'c'}],
+  [{foo: 'b'}, {bar: 'd'}],
+  [{bar: 'c'}, {bar: 'd'}]
 ]
  *
  * @version 0.5.0
@@ -95,13 +98,13 @@ export const makeBiPermutations = items =>
  * @return {array} - sorted items
  *
  * @example
-const items = [
+> items = [
   {key: 'b', value: 1},
   {key: 'a', value: 4},
   {key: 'a', value: -30},
   {key: 'a', value: 1},
-];
-sortValueAscKeyAsc(items)
+]
+> sortValueAscKeyAsc(items)
 [
   {key: 'a', value: -30},
   {key: 'a', value: 1},
@@ -122,13 +125,13 @@ export const sortValueAscKeyAsc = _.sortWith([getValue, getKey]);
  * @return {array} - sorted items
  *
  * @example
-const items = [
+> items = [
   {key: 'b', value: 1},
   {key: 'a', value: 4},
   {key: 'a', value: -30},
   {key: 'a', value: 1},
-];
-sortValueAscKeyAsc(items)
+]
+> sortValueAscKeyAsc(items)
 [
   {key: 'a', value: -30},
   {key: 'b', value: 1},
@@ -153,13 +156,13 @@ export const sortValueAscKeyDesc = _.sortWith([
  * @return {array} - sorted items
  *
  * @example
-const items = [
+> items = [
   {key: 'b', value: 1},
   {key: 'a', value: 4},
   {key: 'a', value: -30},
   {key: 'a', value: 1},
-];
-sortValueDescKeyAsc(items)
+]
+> sortValueDescKeyAsc(items)
 [
   {key: 'a', value: 4},
   {key: 'a', value: 1},
@@ -183,13 +186,13 @@ export const sortValueDescKeyAsc = _.sortWith([
  * @return {array} - sorted items
  *
  * @example
-const items = [
+> items = [
   {key: 'b', value: 1},
   {key: 'a', value: 4},
   {key: 'a', value: -30},
   {key: 'a', value: 1},
-];
-sortValueDescKeyDesc(items)
+]
+> sortValueDescKeyDesc(items)
 [
   {key: 'a', value: 4},
   {key: 'b', value: 1},
@@ -243,15 +246,19 @@ export const swap = (array, indexA, indexB) => _.reduce(
  * @return {array}
  *
  * @example
-const arr0 =  [0, 1, 2, 3, 4, 0, 1, 2, 3, 4];
-const arrNo0 =   [1, 2, 3, 4,    1, 2, 3, 4];
-const arrTail0 = [1, 2, 3, 4,    1, 2, 3, 4, 0];
-const arrTailObj = [1, 2, 3, 4, 1, 2, 3, 4, {a: 1}];
+> arr0 = [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
+> arrNo0 = [1, 2, 3, 4, 1, 2, 3, 4]
+> arrTail0 = [1, 2, 3, 4, 1, 2, 3, 4, 0]
+> arrTailObj = [1, 2, 3, 4, 1, 2, 3, 4, {a: 1}]
 
-toggleItem(arr0, 0) // arrNo0
-toggleItem(arrNo0, 0) // arrTail0
-toggleItem(arrNo0, {a: 1}) // arrTailObj
-toggleItem(arrTailObj, {a: 1}) // arrNo0
+> toggleItem(arr0, 0)
+[1, 2, 3, 4, 1, 2, 3, 4]
+> toggleItem(arrNo0, 0)
+[1, 2, 3, 4, 1, 2, 3, 4, 0]
+> toggleItem(arrNo0, {a: 1})
+[1, 2, 3, 4, 1, 2, 3, 4, {a: 1}]
+> toggleItem(arrTailObj, {a: 1})
+[1, 2, 3, 4, 1, 2, 3, 4]
  *
  * @version 0.1.0
  */

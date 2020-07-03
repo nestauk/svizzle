@@ -2,10 +2,10 @@
 * @module @svizzle/utils/object-number
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {arrayMax, arrayMin} from "./array-number";
-import {getLength} from "./iterable-number";
+import {arrayMax, arrayMin} from './array-number';
+import {getLength} from './iterable-number';
 
 /* max */
 
@@ -16,7 +16,9 @@ import {getLength} from "./iterable-number";
  * @arg {object} object
  * @return {number} size
  *
- * @example getObjSize({a: 1, b: 2}) // 2
+ * @example
+> getObjSize({a: 1, b: 2})
+2
  *
  * @version 0.1.0
  */
@@ -29,7 +31,9 @@ export const getObjSize = _.pipe([_.keys, getLength]);
  * @arg {object} object
  * @return {number} max
  *
- * @example valuesMax({a: -3, b: 2, c: 1}) // 2
+ * @example
+> valuesMax({a: -3, b: 2, c: 1})
+2
  *
  * @version 0.1.0
  */
@@ -47,7 +51,9 @@ export const valuesMax = _.pipe([
  * @arg {object} object
  * @return {number} max
  *
- * @example valuesMin({a: -3, b: 2, c: 1}) // -3
+ * @example
+> valuesMin({a: -3, b: 2, c: 1})
+-3
  *
  * @version 0.1.0
  */

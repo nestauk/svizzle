@@ -2,9 +2,9 @@
 * @module @svizzle/utils/[any-any]-[object-object]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {concat} from "./array_proto-array";
+import {concat} from './array_proto-array';
 
 /* re-shaping */
 
@@ -17,15 +17,15 @@ import {concat} from "./array_proto-array";
  * @return {function} - Object -> Object
  *
  * @example
-> const regroupedByX = groupValuesWith(obj => obj.x);
+> regroupedByX = groupValuesWith(obj => obj.x)
 
 > // single values
-> const obj1 = {
+> obj1 = {
   a: {x: 1, y: 2},
   b: {x: 3, y: 4},
   c: {x: 'a', y: 6},
   d: {x: 1, y: 8},
-};
+}
 > regroupedByX(obj1)
 {
   1: [{x: 1, y: 2}, {x: 1, y: 8}],
@@ -34,10 +34,10 @@ import {concat} from "./array_proto-array";
 }
 
 > // values as arrays
-> const obj2 = {
+> obj2 = {
   a: [{x: 1, y: 2}, {x: 3, y: 4}],
   b: [{x: 'a', y: 6}, {x: 1, y: 8}],
-};
+}
 > regroupedByX(obj2)
 {
   1: [{x: 1, y: 2}, {x: 1, y: 8}],
@@ -64,10 +64,10 @@ export const groupValuesWith = accessor => _.pipe([
  * @return {function} - Object -> Object
  *
  * @example
-> const reindexedByX = indexValuesWith(obj => obj.x);
+> reindexedByX = indexValuesWith(obj => obj.x)
 
 > // single values
-> const obj1 = {
+> obj1 = {
   unique1: {x: 'unique1', y: 2},
   unique2: {x: 'unique2', y: 4},
   unique3: {x: 'unique3', y: 6},
@@ -82,10 +82,10 @@ export const groupValuesWith = accessor => _.pipe([
 }
 
 > // values as arrays
-> const obj2 = {
+> obj2 = {
   a: [{x: 'unique1', y: 2}, {x: 'unique2', y: 4}],
   b: [{x: 'unique3', y: 6}, {x: 'unique4', y: 8}],
-};
+}
 > reindexedByX(obj2)
 {
   unique1: {x: 'unique1', y: 2},
@@ -112,13 +112,12 @@ export const indexValuesWith = accessor => _.pipe([
  *
  * @example
 
-const mergeWithSubtract = mergeWith(_.subtract)
-
-mergeWithSubtract(
+> mergeWithSubtract = mergeWith(_.subtract)
+> mergeWithSubtract(
     {a: 8, b: 3},
     {a: 5, b: 2, c: 7}
 )
-=>  {a: 3, b: 1, c: 7},
+{a: 3, b: 1, c: 7},
 
  *
  * @version 0.1.0

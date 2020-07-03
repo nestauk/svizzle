@@ -2,9 +2,9 @@
 * @module @svizzle/request/json
 */
 
-import {json, text} from "d3-fetch";
-import {text as textRequest, json as jsonRequest} from "d3-request";
-import {ndjsonToArray} from "@svizzle/utils";
+import {json, text} from 'd3-fetch';
+import {text as textRequest, json as jsonRequest} from 'd3-request';
+import {ndjsonToArray} from '@svizzle/utils';
 
 /* json */
 
@@ -20,15 +20,14 @@ import {ndjsonToArray} from "@svizzle/utils";
  * @return {promise} – @sideEffects: fetch
  *
  * @example
- * requestJson("json/url")
- * .then(x => console.log(x))
- * .catch(err => console.error(err));
- *
- * @example
- * async function foo() {
- *   const x = await requestJson("json/url");
- *   // ...;
- * }
+requestJson('json/url')
+	.then(x => console.log(x))
+	.catch(err => console.error(err));
+
+async function foo() {
+	const x = await requestJson('json/url');
+	// ...;
+}
  *
  * @version 0.1.0
  */
@@ -57,15 +56,14 @@ export const requestJson = (url, useFetch = true) => useFetch
  * @return {promise}
  *
  * @example
- * requestNdjson("ndjson/url")
- * .then(x => console.log(x))
- * .catch(err => console.error(err));
- *
- * @example
- * async function foo() {
- *   const x = await requestNdjson("ndjson/url");
- *   // ...;
- * }
+requestNdjson('ndjson/url')
+	.then(x => console.log(x))
+	.catch(err => console.error(err));
+
+async function foo() {
+	const x = await requestNdjson('ndjson/url');
+	// ...;
+}
  *
  * @version 0.1.0
  */

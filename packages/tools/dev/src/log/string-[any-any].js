@@ -15,25 +15,23 @@ import * as _ from "lamb";
  * @return {function} - (Any -> Any) – @sideEffects: console.log
  *
  * @example
-const doubleTriple = filepath => _.pipe([
-  mapWith(x => 3 * x),
-  saveObjPassthrough(filepath)
-  tapMessage(`Saved tripled items in ${someFilepath}`),
-  mapWith(x => 2 * x),
+> doubleTriple = filepath => _.pipe([
+	mapWith(x => 3 * x),
+	saveObjPassthrough(filepath)
+	tapMessage(`Saved tripled items in ${someFilepath}`),
+	mapWith(x => 2 * x),
 ])
-
-const fn = doubleTriple('foo/bar.json');
-fn([1, 2, 3])
-// Saves [3, 6, 9] in foo/bar.json
-// Prints 'Saves tripled items in foo/bar.json'
-// Returns [6, 12, 18]
+> fn = doubleTriple('foo/bar.json')
+> fn([1, 2, 3])
+[6, 12, 18]
+Saved tripled items in foo/bar.json
  *
  * @version 0.3.0
  */
 export const tapMessage = message => x => {
-  message && console.log(message);
+	message && console.log(message);
 
-  return x;
+	return x;
 };
 
 /**
@@ -44,30 +42,29 @@ export const tapMessage = message => x => {
  * @return {function} - (Any -> Any) – @sideEffects: console.log
  *
  * @example
-const doubleTriple = _.pipe([
-  tapValue(),
-  mapWith(x => 2 * x),
-  tapValue('doubled'),
-  mapWith(x => 3 * x),
-  tapValue('tripled')
+> doubleTriple = _.pipe([
+	tapValue(),
+	mapWith(x => 2 * x),
+	tapValue('doubled'),
+	mapWith(x => 3 * x),
+	tapValue('tripled')
 ])
-
-doubleTriple([1,2,3])
-// returns [6, 12, 18] and logs:
-// [1, 2, 3]
-// doubled: [2, 4, 6]
-// tripled: [6, 12, 18]
+> doubleTriple([1,2,3])
+[6, 12, 18]
+[1, 2, 3] // logged
+doubled: [2, 4, 6] // logged
+tripled: [6, 12, 18] // logged
  *
  * @version 0.3.0
  */
 export const tapValue = label => x => {
-  if (label) {
-    console.log(`${label}:`, x);
-  } else {
-    console.log(x);
-  }
+	if (label) {
+		console.log(`${label}:`, x);
+	} else {
+		console.log(x);
+	}
 
-  return x;
+	return x;
 };
 
 /**
@@ -78,30 +75,29 @@ export const tapValue = label => x => {
  * @return {function} - (Any -> Any) – @sideEffects: console.log
  *
  * @example
- const size = _.pipe([
-   tapType(),
-   _.values,
-   tapType('values'),
-   _.getKey('length')
-   tapType('length'),
- ]);
-
- size({a: 1, b: 2})
- // returns 2 and logs:
- // Object
- // values: Array
- // length: Number
+> size = _.pipe([
+	tapType(),
+	_.values,
+	tapType('values'),
+	_.getKey('length')
+	tapType('length'),
+])
+> size({a: 1, b: 2})
+2
+Object // logged
+values: Array // logged
+length: Number // logged
  *
  * @version 0.3.0
  */
 export const tapType = label => x => {
-  if (label) {
-    console.log(`${label}:`, _.type(x));
-  } else {
-    console.log(_.type(x));
-  }
+	if (label) {
+		console.log(`${label}:`, _.type(x));
+	} else {
+		console.log(_.type(x));
+	}
 
-  return x;
+	return x;
 };
 
 /**
@@ -112,28 +108,27 @@ export const tapType = label => x => {
  * @return {function} - (Any -> Any) – @sideEffects: console.log
  *
  * @example
-const size = _.pipe([
-  tapTypeAndValue(),
-  _.values,
-  tapTypeAndValue('values'),
-  _.getKey('length')
-  tapTypeAndValue('length'),
-]);
-
-size({a: 1, b: 2})
-// returns 2 and logs:
-// Object {a: 1, b: 2}
-// values: Array [1, 2]
-// length: Number 2
+> size = _.pipe([
+	tapTypeAndValue(),
+	_.values,
+	tapTypeAndValue('values'),
+	_.getKey('length')
+	tapTypeAndValue('length'),
+])
+> size({a: 1, b: 2})
+2
+Object {a: 1, b: 2} // logged
+values: Array [1, 2] // logged
+length: Number 2 // logged
  *
  * @version 0.3.0
  */
 export const tapTypeAndValue = label => x => {
-  if (label) {
-    console.log(`${label}:`, _.type(x), x);
-  } else {
-    console.log(_.type(x), x);
-  }
+	if (label) {
+		console.log(`${label}:`, _.type(x), x);
+	} else {
+		console.log(_.type(x), x);
+	}
 
-  return x;
+	return x;
 };

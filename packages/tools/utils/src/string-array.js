@@ -2,15 +2,15 @@
 * @module @svizzle/utils/string-array
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {reduceFromEmptyArray} from "./[any-any]:accumcb-[array-any]";
-import {trim} from "./string_proto-string";
-import {isTrimmedNotEmpty} from "./string-boolean";
-import {makeSplitBy} from "./string-[string-array]";
+import {reduceFromEmptyArray} from './[any-any]:accumcb-[array-any]';
+import {trim} from './string_proto-string';
+import {isTrimmedNotEmpty} from './string-boolean';
+import {makeSplitBy} from './string-[string-array]';
 
 /**
- * Return an array by splitting by "."
+ * Return an array by splitting by '.'
  * @see {@link module:@svizzle/utils/string-[string-array].makeSplitBy|makeSplitBy}
  *
  * @function
@@ -18,14 +18,15 @@ import {makeSplitBy} from "./string-[string-array]";
  * @return {array}
  *
  * @example
- * splitByDot("a.b.c") // ["a", "b", "c"]
+> splitByDot('a.b.c')
+['a', 'b', 'c']
  *
  * @version 0.1.0
  */
-export const splitByDot = makeSplitBy(".");
+export const splitByDot = makeSplitBy('.');
 
 /**
- * Return an array by splitting by "\n"
+ * Return an array by splitting by '\n'
  * @see {@link module:@svizzle/utils/string-[string-array].makeSplitBy|makeSplitBy}
  *
  * @function
@@ -33,14 +34,15 @@ export const splitByDot = makeSplitBy(".");
  * @return {array}
  *
  * @example
- * splitByDot("a\nb\nc") // ["a", "b", "c"]
+> splitByDot('a\nb\nc')
+['a', 'b', 'c']
  *
  * @version 0.1.0
  */
-export const splitByEOL = makeSplitBy("\n");
+export const splitByEOL = makeSplitBy('\n');
 
 /**
- * Return an array by splitting by ";"
+ * Return an array by splitting by ';'
  * @see {@link module:@svizzle/utils/string-[string-array].makeSplitBy|makeSplitBy}
  *
  * @function
@@ -48,11 +50,12 @@ export const splitByEOL = makeSplitBy("\n");
  * @return {array}
  *
  * @example
- * splitBySemiColon("A;B;C") // ["A", "B", "C"]
+> splitBySemiColon('A;B;C')
+['A', 'B', 'C']
  *
  * @version 0.1.0
  */
-export const splitBySemiColon = makeSplitBy(";");
+export const splitBySemiColon = makeSplitBy(';');
 
 /**
  * Return rows in a string
@@ -62,7 +65,8 @@ export const splitBySemiColon = makeSplitBy(";");
  * @return {array}
  *
  * @example
- * makeRows("A,B\n1,2\n3,4\n") // ["A,B", "1,2", "3,4"]
+> makeRows('A,B\n1,2\n3,4\n')
+['A,B', '1,2', '3,4']
  *
  * @version 0.1.0
  */
@@ -80,7 +84,8 @@ export const makeLines = _.pipe([
  * @return {array}
  *
  * @example
- * makeRows("A,B\n1,2\n3,4\n") // ["1,2", "3,4"]
+> makeRows('A,B\n1,2\n3,4\n')
+['1,2', '3,4']
  *
  * @version 0.1.0
  */
@@ -100,7 +105,8 @@ export const makeRows = _.pipe([
  * @return {array}
  *
  * @example
- * ndjsonToArray('{"a":1}\n{"b":2}\n\n') // [{a: 1}, {b: 2}]
+> ndjsonToArray('{'a':1}\n{'b':2}\n\n')
+[{a: 1}, {b: 2}]
  *
  * @version 0.1.0
  */

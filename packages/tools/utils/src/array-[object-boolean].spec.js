@@ -1,15 +1,15 @@
-import {strict as assert} from "assert";
+import {strict as assert} from 'assert';
 
 import {
 	isKeyValue,
 	isNotKeyValue,
 	isNotPathValue,
 	isPathValue,
-} from "./array-[object-boolean]";
+} from './array-[object-boolean]';
 
-describe("Array -> (Object -> Array)", function() {
-	describe("isKeyValue", function() {
-		it("should return a predicate expecting an object and returning `true` if the value at the provided `key` is the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`", function() {
+describe('Array -> (Object -> Array)', function() {
+	describe('isKeyValue', function() {
+		it('should return a predicate expecting an object and returning `true` if the value at the provided `key` is the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`', function() {
 			const isUSA = isKeyValue(['country_id', 'US']);
 
 			assert.deepStrictEqual(
@@ -22,8 +22,8 @@ describe("Array -> (Object -> Array)", function() {
 			);
 		});
 	});
-	describe("isKeyNotValue", function() {
-		it("should return a predicate expecting an object and returning `true` if the value at the provided `key` is not the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`", function() {
+	describe('isKeyNotValue', function() {
+		it('should return a predicate expecting an object and returning `true` if the value at the provided `key` is not the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`', function() {
 			const isNotUSA = isNotKeyValue(['country_id', 'US']);
 
 			assert.deepStrictEqual(
@@ -36,8 +36,8 @@ describe("Array -> (Object -> Array)", function() {
 			);
 		});
 	});
-	describe("isPathValue", function() {
-		it("should return a predicate expecting an object and returning `true` if the value at the provided `path` is the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`", function() {
+	describe('isPathValue', function() {
+		it('should return a predicate expecting an object and returning `true` if the value at the provided `path` is the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`', function() {
 			const isDefaultStatus = isPathValue(['item.status', 'default']);
 
 			assert.deepStrictEqual(
@@ -50,8 +50,8 @@ describe("Array -> (Object -> Array)", function() {
 			);
 		});
 	});
-	describe("isNotPathValue", function() {
-		it("should return a predicate expecting an object and returning `true` if the value at the provided `path` is not the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`", function() {
+	describe('isNotPathValue', function() {
+		it('should return a predicate expecting an object and returning `true` if the value at the provided `path` is not the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`', function() {
 			const isNotDefaultStatus = isNotPathValue(['item.status', 'default']);
 
 			assert.deepStrictEqual(

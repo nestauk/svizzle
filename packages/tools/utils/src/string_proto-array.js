@@ -2,7 +2,7 @@
 * @module @svizzle/utils/string_proto-array
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return an array splitting the input string with the provided separator or regex
@@ -20,7 +20,8 @@ import * as _ from "lamb";
  * @return {array}
  *
  * @example
- * split("a-b-c", "-") // ["a", "b", "c"]
+> split('a-b-c', '-')
+['a', 'b', 'c']
  *
  * @version 0.1.0
  */

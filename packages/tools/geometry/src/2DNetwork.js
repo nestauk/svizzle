@@ -11,7 +11,17 @@ import {makeVectorFeatures} from "./2DVector";
  * @arg {object} link - The edge: {source: {x, y}, target: {x, y}}
  * @return {object} - An object `{x, y, length, versor}` representing a vector with its features
  *
- * @example {source: {x, y}, target: {x, y}} => {x, y, length, versor}
+ * @example
+> linkVector({
+	source: {x: 1, y: 1},
+	target: {x: 2, y: 2}
+})
+{
+	x: 1,
+	y: 1,
+	length: 1.4142135623730951,
+	versor: {x: 0.7071067811865475, y: 0.7071067811865475}
+}
  *
  * @version 0.1.0
  */
@@ -31,7 +41,17 @@ export const linkVector = link => {
  * @arg {object} link - The edge: {source: {x, y, radius}, target: {x, y, radius}}
  * @return {object} - An object `{x1, y1, x2, y2}` representing origin and tip points
  *
- * @example {source: {x, y, radius}, target: {x, y, radius}} => {x1, y1, x2, y2}
+ * @example
+> makeLinkVector({
+	source: {x: 1, y: 1, radius: 0.1},
+	target: {x: 2, y: 2, radius: 0.1}
+})
+{
+	x1: 1.07071067811865475, // 1 + 0.1 * 0.707
+	y1: 1.07071067811865475,
+	x2: 1.9292893218813452,  // 2 - 0.1 * 0.707
+	y2: 1.9292893218813452
+}
  *
  * @version 0.1.0
  */

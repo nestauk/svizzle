@@ -2,11 +2,11 @@
 * @module @svizzle/utils/object-object
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {toFloatOrIdentity} from "./any-any";
-import {concat} from "./array_proto-array";
-import {mergeWith} from "./[any-any]-[object-object]";
+import {toFloatOrIdentity} from './any-any';
+import {concat} from './array_proto-array';
+import {mergeWith} from './[any-any]-[object-object]';
 
 /* map values */
 
@@ -20,10 +20,10 @@ import {mergeWith} from "./[any-any]-[object-object]";
  * @return {object}
  *
  * @example
-
-mapValuesToFloat({a: "1.2px",  b: "20px"}) // {a: 1.2,  b: 20}
-mapValuesToFloat({a: "1.2",  b: "h2o"}) // {a: 1.2,  b: NaN}
-
+> mapValuesToFloat({a: '1.2px',  b: '20px'})
+{a: 1.2,  b: 20}
+> mapValuesToFloat({a: '1.2',  b: 'h2o'})
+{a: 1.2,  b: NaN}
  *
  * @version 0.1.0
  */
@@ -37,10 +37,8 @@ export const mapValuesToFloat = _.mapValuesWith(parseFloat);
  * @return {object}
  *
  * @example
-
-mapValuesToFloatPossibly({a: "1.2", b: "2px", c: "h2o"})
-// {a: 1.2,  b: 2, c: "h2o"}
-
+> mapValuesToFloatPossibly({a: '1.2', b: '2px', c: 'h2o'})
+{a: 1.2,  b: 2, c: 'h2o'}
  *
  * @version 0.1.0
  */
@@ -56,10 +54,10 @@ export const mapValuesToFloatPossibly = _.mapValuesWith(toFloatOrIdentity);
  * @return {object}
  *
  * @example
-
-mapValuesToNumber({a: "1.2",  b: "2"}) // {a: 1.2,  b: 2}
-mapValuesToNumber({a: "1.2",  b: "2s"}) // {a: 1.2,  b: NaN}
-
+> mapValuesToNumber({a: '1.2',  b: '2'})
+{a: 1.2,  b: 2}
+> mapValuesToNumber({a: '1.2',  b: '2s'})
+{a: 1.2,  b: NaN}
  *
  * @version 0.1.0
  */
@@ -74,13 +72,8 @@ export const mapValuesToNumber = _.mapValuesWith(Number);
  * @return {object} - The merged object
  *
  * @example
-
-const obj1 = {a: 1,  b: 2};
-const obj2 = {a: 10,       c: 1};
-const obj3 = {a: 11, b: 2, c: 1};
-
-mergeWithSum(obj1, obj2) // obj3
-
+> mergeWithSum({a: 1, b: 2}, {a: 10, c: 1})
+{a: 11, b: 2, c: 1}
  *
  * @version 0.1.0
  */
@@ -96,11 +89,10 @@ export const mergeWithSum = mergeWith(_.sum);
  *
  * @example
 
-const obj1 = {A: {a: 1       }, B: {       b: 1}};
-const obj2 = {A: {      b: 10}, B: {a: 10      }};
-const obj3 = {A: {a: 1, b: 10}, B: {a: 10, b: 1}};
-
-mergeWithMerge(obj1, obj2) // obj3
+> obj1 = {A: {a: 1}, B: {b: 1}}
+> obj2 = {A: {b: 10}, B: {a: 10}}
+> mergeWithMerge(obj1, obj2)
+{A: {a: 1, b: 10}, B: {a: 10, b: 1}}
  *
  * @version 0.1.0
  */
@@ -116,12 +108,10 @@ export const mergeWithMerge = mergeWith(_.merge);
  *
  * @example
 
-const obj1 = {a: [1, 2, 3         ], b: [4, 5, 6         ]};
-const obj2 = {a: [         1, 2, 3], b: [         4, 5, 6]};
-const obj3 = {a: [1, 2, 3, 1, 2, 3], b: [4, 5, 6, 4, 5, 6]};
-
-mergeWithConcat(obj1, obj2) // obj3
-
+> obj1 = {a: [1, 2, 3], b: [4, 5, 6]}
+> obj2 = {a: [1, 2, 3], b: [4, 5, 6]}
+> mergeWithConcat(obj1, obj2)
+{a: [1, 2, 3, 1, 2, 3], b: [4, 5, 6, 4, 5, 6]}
  *
  * @version 0.1.0
  */
@@ -136,13 +126,10 @@ export const mergeWithConcat = mergeWith(concat);
  * @return {object} - The merged object
  *
  * @example
-
-const obj1 = {a: [1, 2, 3],    b: [4, 5, 6]     };
-const obj2 = {a:           4,  b:           [7] };
-const obj3 = {a: [1, 2, 3, 4], b: [4, 5, 6, [7]]};
-
-mergeWithAppendTo(obj1, obj2) // obj3
-
+> obj1 = {a: [1, 2, 3], b: [4, 5, 6]}
+> obj2 = {a: 4, b: [7]}
+> mergeWithAppendTo(obj1, obj2)
+{a: [1, 2, 3, 4], b: [4, 5, 6, [7]]}
  *
  * @version 0.1.0
  */
@@ -156,9 +143,12 @@ export const mergeWithAppendTo = mergeWith(_.appendTo);
  * @return {object} object - The object with truthy values
  *
  * @example
-pickIfTruthy({a: true, b: true, c: false}) // {a: true, b: true}
-pickIfTruthy({a: 1, b: 0, c: false}) // {a: 1}
-pickIfTruthy({a: [1, 2], b: {a: 1}, c: false}) // {a: [1, 2], b: {a: 1}}
+> pickIfTruthy({a: true, b: true, c: false})
+{a: true, b: true}
+> pickIfTruthy({a: 1, b: 0, c: false})
+{a: 1}
+> pickIfTruthy({a: [1, 2], b: {a: 1}, c: false})
+{a: [1, 2], b: {a: 1}}
  *
  * @version 0.2.0
  */

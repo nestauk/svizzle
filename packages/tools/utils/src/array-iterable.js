@@ -10,13 +10,20 @@
  * @return {iterable}
  *
  * @example
-getShorter([[1, 2], ['b'], [1, 2, 3], ['a']]) // ['b']
-getShorter(['abc', 'a', [1]]) // 'a'
-getShorter(['bc', 'g', '']) // ''
-getShorter([[3, 4], [1, 2]]) // [3, 4]
-getShorter(['b', 'a']) // 'b'
-getShorter([]) // undefined
-getShorter('') // undefined
+> getShorter([[1, 2], ['b'], [1, 2, 3], ['a']])
+['b']
+> getShorter(['abc', 'a', [1]])
+'a'
+> getShorter(['bc', 'g', ''])
+''
+> getShorter([[3, 4], [1, 2]])
+[3, 4]
+> getShorter(['b', 'a'])
+'b'
+> getShorter([])
+undefined
+> getShorter('')
+undefined
  *
  * @version 0.5.0
  */

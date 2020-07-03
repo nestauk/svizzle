@@ -13,13 +13,13 @@ import {isEqualTo} from './any-[any-boolean]';
  * @return {function} predicate - (Object -> Boolean)
  *
  * @example
-> const hasTwo = hasValue(2);
+> hasTwo = hasValue(2)
 > hasTwo({a: 1, b: 2})
 true
 > hasTwo({a: 1, b: 3})
 false
 
-> const hasEmptyList = hasValue([]);
+> hasEmptyList = hasValue([])
 > hasEmptyList({a: 1, b: []})
 true
 > hasEmptyList({a: 1, b: 3})

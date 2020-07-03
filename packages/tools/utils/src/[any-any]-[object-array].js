@@ -2,9 +2,9 @@
 * @module @svizzle/utils/[any-any]-[object-array]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {pairToKeyValueObjectWith} from "./[any-any]-[iterable-object]";
+import {pairToKeyValueObjectWith} from './[any-any]-[iterable-object]';
 
 /**
 * Return a function expecting an object and returning an array of {key, value} objects
@@ -15,9 +15,10 @@ import {pairToKeyValueObjectWith} from "./[any-any]-[iterable-object]";
 * @return {function} - Object -> Array
 *
 * @example
-const obj = {k1: {a: 1}, k2: {a: 2}}
-const convertToArray = objectToKeyValueArrayWith(_.getKey('a'));
-convertToArray(obj) // [{key: "k1", value: 1}, {key: "k2", value: 2}]
+> obj = {k1: {a: 1}, k2: {a: 2}}
+> convertToArray = objectToKeyValueArrayWith(_.getKey('a'))
+> convertToArray(obj)
+[{key: 'k1', value: 1}, {key: 'k2', value: 2}]
  *
  * @version 0.3.0
  */

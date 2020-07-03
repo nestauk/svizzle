@@ -2,7 +2,7 @@
 * @module @svizzle/utils/array-[array-array]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return a function expecting an array and that applies the provided transforms to its elements
@@ -12,12 +12,15 @@ import * as _ from "lamb";
  * @return {function} - Array -> Array
  *
  * @example
-let transformer = makeArrayTransformer([x => x * 20, x => x + 3]);
-transformer([2, 2]) // [40, 5]
-let transformer = makeArrayTransformer([x => x * 20]);
-transformer([1, 1, 1, 1, 1]) // [20]
-let transformer = makeArrayTransformer([x => x * 20, x => x + 3]);
-transformer([1]) // [20]
+> transformer = makeArrayTransformer([x => x * 20, x => x + 3])
+> transformer([2, 2])
+[40, 5]
+> transformer = makeArrayTransformer([x => x * 20])
+> transformer([1, 1, 1, 1, 1])
+[20]
+> transformer = makeArrayTransformer([x => x * 20, x => x + 3])
+> transformer([1])
+[20]
  *
  * @version 0.1.0
  */
@@ -34,11 +37,12 @@ export const makeArrayTransformer = fnArr => _.pipe([
  * @return {function} - Array -> Array
  *
  * @example
-let select = pluckKeys(['a', 'k']);
-select([
+> select = pluckKeys(['a', 'k'])
+> select([
 	{a: 1, b: 2, c: 3, k: 4},
 	{a: 5, b: 8},
-]) // [{a: 1, k: 4}, {a: 5}]
+])
+[{a: 1, k: 4}, {a: 5}]
  *
  * @version 0.8.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
@@ -53,9 +57,9 @@ export const pluckKeys = keys => _.mapWith(_.pickKeys(keys));
  * @return {function} - Array -> Array
  *
  * @example
-const removeIndices = removeAt([3, 4, 8])
-const removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-// [0, 1, 2, 5, 6, 7, 9]
+> removeIndices = removeAt([3, 4, 8])
+> removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+[0, 1, 2, 5, 6, 7, 9]
  *
  * @version 0.1.0
  */

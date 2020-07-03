@@ -11,7 +11,7 @@
  * @return {function} - Number -> Number
  *
  * @example
-> const roundTo2 = roundTo(2)
+> roundTo2 = roundTo(2)
 > roundTo2(2.41285)
 2.41
 > roundTo2(2.41785)

@@ -1,3 +1,9 @@
+## `@svizzle/request` (next)
+
+- dev: using single quotes rather than double quote where possible
+
+- dev: using single quotes rather than double quote where possible
+
 ## `@svizzle/request` v0.2.0
 
 - move `lamb` to `peerDependencies`

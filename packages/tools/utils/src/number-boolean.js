@@ -2,7 +2,7 @@
 * @module @svizzle/utils/number-boolean
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return `true` if the input number is 0.
@@ -12,8 +12,10 @@ import * as _ from "lamb";
  * @return {boolean}
  *
  * @example
- * is0(0) => true
- * is0(2) => false
+> is0(0)
+true
+> is0(2)
+false
  *
  * @version 0.1.0
  */
@@ -27,8 +29,10 @@ export const is0 = _.is(0);
  * @return {boolean}
  *
  * @example
- * is1(1) => true
- * is1(2) => false
+> is1(1)
+true
+> is1(2)
+false
  *
  * @version 0.1.0
  */
@@ -42,8 +46,10 @@ export const is1 = _.is(1);
  * @return {boolean}
  *
  * @example
- * isGT0(-1) => false
- * isGT0(2) => true
+> isGT0(-1)
+false
+> isGT0(2)
+true
  *
  * @version 0.1.0
  */
@@ -57,12 +63,11 @@ export const isGT0 = _.isGT(0);
  * @return {boolean}
  *
  * @example
- * isGT1(0) => false
- * isGT1(2) => true
+> isGT1(0)
+false
+> isGT1(2)
+true
  *
  * @version 0.1.0
  */
 export const isGT1 = _.isGT(1);
-
-
-// IDEA numberIsNotNaN, specific to numeric inputs

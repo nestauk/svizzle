@@ -9,7 +9,11 @@
  * @arg {object} point - A point representing a vector starting in the origin
  * @return {number} - The vector length
  *
- * @example {x: 1, y: 1} => 1.4142135623730951
+ * @example
+> vectorLength2D(1, 1)
+1.4142135623730951
+> vectorLength2D(0, 0)
+0
  *
  * @version 0.1.0
  */
@@ -22,8 +26,17 @@ export const vectorLength2D = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
  * @arg {object} point - A point representing a vector starting in the origin
  * @return {object} - The vector features: {length, versor}
  *
- * @example {x: 1, y: 1} => {length: 1.414, versor: {x: 0.707, y: 0.707}}
- * @example {x: 0, y: 0} => {length: 0, versor: {x: 0, y: 0}}
+ * @example
+> makeVectorFeatures({x: 1, y: 1})
+{
+	length: 1.4142135623730951,
+	versor: {x: 0.7071067811865475, y: 0.7071067811865475}
+}
+> makeVectorFeatures({x: 0, y: 0})
+{
+	length: 0,
+	versor: {x: 0, y: 0}
+}
  *
  * @version 0.1.0
  */
@@ -35,15 +48,3 @@ export const makeVectorFeatures = ({x, y}) => {
 
 	return {length, versor};
 }
-
-// /*
-// {x: 1, y: 1} => {x: 0.707, y: 0.707}
-// */
-// export const makeVersor = ({x, y}) => {
-//     const length = vectorLength2D(x, y);
-//
-//     return {
-//         x: length && x / length,
-//         y: length && y / length
-//     };
-// }

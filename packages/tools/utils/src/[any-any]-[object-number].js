@@ -2,9 +2,9 @@
 * @module @svizzle/utils/[any-any]-[object-number]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {arrayMaxWith, arrayMinWith} from "./[any-number]:accumcb-[array-number]";
+import {arrayMaxWith, arrayMinWith} from './[any-number]:accumcb-[array-number]';
 
 /**
  * Return a function expecting an object, applying the provided function to its values and returning the largest of the results.
@@ -14,9 +14,11 @@ import {arrayMaxWith, arrayMinWith} from "./[any-number]:accumcb-[array-number]"
  * @return {function} - Object -> Number
  *
  * @example
-const maxWithAbsSin = valuesMaxWith(_.pipe([Math.sin, Math.abs]));
-maxWithAbsSin({a: -Math.PI/2, b: -Math.PI/4})) // 1
-maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.7071067811865475
+> maxWithAbsSin = valuesMaxWith(_.pipe([Math.sin, Math.abs]))
+> maxWithAbsSin({a: -Math.PI/2, b: -Math.PI/4}))
+1
+> maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6}))
+0.7071067811865475
  *
  * @version 0.1.0
  */
@@ -33,9 +35,11 @@ export const valuesMaxWith = fn => _.pipe([
  * @return {function} - Object -> Number
  *
  * @example
-const minWithAbsSin = valuesMinWith(_.pipe([Math.sin, Math.abs]));
-minWithAbsSin({a: -Math.PI/2, b: -Math.PI/4})) // 0.7071067811865475
-minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6})) // 0.49999999999999994
+> minWithAbsSin = valuesMinWith(_.pipe([Math.sin, Math.abs]))
+> minWithAbsSin({a: -Math.PI/2, b: -Math.PI/4}))
+0.7071067811865475
+> minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6}))
+0.49999999999999994
  *
  * @version 0.1.0
  */

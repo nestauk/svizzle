@@ -2,7 +2,7 @@
 * @module @svizzle/utils/array_proto-string
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return an string by joining the provided array with the provided separator
@@ -15,7 +15,9 @@ import * as _ from "lamb";
  * @arg {string} separator
  * @return {string}
  *
- * @example join([0, 1, 2], "-") // "0-1-2"
+ * @example
+> join([0, 1, 2], '-')
+'0-1-2'
  *
  * @version 0.1.0
  */

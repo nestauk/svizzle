@@ -1,3 +1,8 @@
+## `@svizzle/file` (next)
+
+- docs: converted all examples to a REPL-like format
+- dev: using single quotes rather than double quote where possible
+
 ## `@svizzle/file` v0.7.0
 
 - add `saveString`

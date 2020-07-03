@@ -2,7 +2,7 @@
 * @module @svizzle/utils/array-number
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /* random */
 
@@ -14,7 +14,8 @@ import * as _ from "lamb";
  * @return {number}
  *
  * @example
- * makeRandomNumInRange(1.2, 7.4) // 4.2
+> makeRandomNumInRange(1.2, 7.4)
+4.2
  *
  * @version 0.1.0
  */
@@ -33,7 +34,9 @@ export const makeRandomNumInRange = ([min, max]) =>
  * @arg {array} array
  * @return {number} max
  *
- * @example arrayMax([-1, -2, 0, 1, 2]) // 2
+ * @example
+> arrayMax([-1, -2, 0, 1, 2])
+2
  *
  * @version 0.1.0
  */
@@ -51,7 +54,9 @@ export const arrayMax = _.apply(Math.max);
  * @arg {array} array
  * @return {number} min
  *
- * @example arrayMin([-1, -2, 0, 1, 2]) // -2
+ * @example
+> arrayMin([-1, -2, 0, 1, 2])
+-2
  *
  * @version 0.1.0
  */
@@ -65,8 +70,10 @@ export const arrayMin = _.apply(Math.min);
  * @return {number} sum
  *
  * @example
-arraySum([1, -2, 3, -4, 5]) // 3
-arraySum([]) // 0
+> arraySum([1, -2, 3, -4, 5])
+3
+> arraySum([])
+0
  *
  * @version 0.3.0
  */

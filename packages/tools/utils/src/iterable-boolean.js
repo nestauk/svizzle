@@ -2,11 +2,11 @@
 * @module @svizzle/utils/iterable-boolean
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {is0, is1, isGT0, isGT1} from "./number-boolean";
+import {is0, is1, isGT0, isGT1} from './number-boolean';
 
-import {getLength} from "./iterable-number";
+import {getLength} from './iterable-number';
 
 /**
  * Use to check if an iterable is empty
@@ -16,15 +16,23 @@ import {getLength} from "./iterable-number";
  * @return {boolean}
  *
  * @example
- * "string" => false
- * "" => true
- * [1, 2] => false
- * [] => true
- * function func () {
- *   return isIterableEmpty(arguments);
- * }
- * func() // => true
- * func(1, 2) // => false
+> isIterableEmpty('string')
+false
+> isIterableEmpty('')
+true
+> isIterableEmpty([1, 2])
+false
+> isIterableEmpty([])
+true
+> isIterableEmpty([])
+true
+> function func () {
+	return isIterableEmpty(arguments);
+}
+> func()
+true
+> func(1, 2)
+false
  *
  * @version 0.1.0
  */
@@ -38,15 +46,21 @@ export const isIterableEmpty = _.pipe([getLength, is0]);
  * @return {boolean}
  *
  * @example
- * "string" => true
- * "" => false
- * [1, 2] => true
- * [] => false
- * function func () {
- *   return isIterableNotEmpty(arguments);
- * }
- * func() // => false
- * func(1, 2) // => true
+> isIterableNotEmpty('string')
+true
+> isIterableNotEmpty('')
+false
+> isIterableNotEmpty([1, 2])
+true
+> isIterableNotEmpty([])
+false
+> function func () {
+	return isIterableNotEmpty(arguments);
+}
+> func()
+false
+> func(1, 2)
+true
  *
  * @version 0.1.0
  */
@@ -60,16 +74,23 @@ export const isIterableNotEmpty = _.pipe([getLength, isGT0]);
  * @return {boolean}
  *
  * @example
- * "1" => true
- * "two" => false
- * [1] => true
- * [1, 2] => false
- * function func () {
- *   return hasIterableLength1(arguments);
- * }
- * func() // => false
- * func(1) // => true
- * func(1, 2) // => false
+> hasIterableLength1('1')
+true
+> hasIterableLength1('two')
+false
+> hasIterableLength1([1])
+true
+> hasIterableLength1([1, 2])
+false
+> function func () {
+	return hasIterableLength1(arguments);
+}
+> func()
+false
+> func(1)
+true
+> func(1, 2)
+false
  *
  * @version 0.1.0
  */
@@ -83,16 +104,23 @@ export const hasIterableLength1 = _.pipe([getLength, is1]);
  * @return {boolean}
  *
  * @example
- * "1" => false
- * "two" => true
- * [1] => false
- * [1, 2] => true
- * function func () {
- *   return isIterableLongerThan1(arguments);
- * }
- * func() // => false
- * func(1) // => false
- * func(1, 2) // => true
+> isIterableLongerThan1('1')
+false
+> isIterableLongerThan1('two')
+true
+> isIterableLongerThan1([1])
+false
+> isIterableLongerThan1([1, 2])
+true
+> function func () {
+	return isIterableLongerThan1(arguments);
+}
+> func()
+false
+> func(1)
+false
+> func(1, 2)
+true
  *
  * @version 0.1.0
  */

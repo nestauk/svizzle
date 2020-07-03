@@ -1,6 +1,8 @@
 ## `@svizzle/dom` v0.4.0 (next)
 
 - add `makeStyleVars`
+- docs: converted all examples to a REPL-like format
+- dev: using single quotes rather than double quote where possible
 
 ## `@svizzle/dom` v0.3.0
 

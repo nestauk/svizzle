@@ -2,7 +2,7 @@
 * @module @svizzle/utils/any-[array-object]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return a function expecting an array of keys and returning an object with the provided value as value of those keys.
@@ -12,9 +12,11 @@ import * as _ from "lamb";
  * @return {function} function - Array -> Object
  *
  * @example
-const makeKeyedEmptyArray = makeKeyed([])
-makeKeyedEmptyArray([1, 2]) -> {1: [], 2: []}
-makeKeyedEmptyArray(["a", "b"]) -> {a: [], b: []}
+> makeKeyedEmptyArray = makeKeyed([])
+> makeKeyedEmptyArray([1, 2])
+{1: [], 2: []}
+> makeKeyedEmptyArray(['a', 'b'])
+{a: [], b: []}
  *
  * @version 0.3.0
  */

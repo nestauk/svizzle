@@ -1,10 +1,10 @@
-import {strict as assert} from "assert";
+import {strict as assert} from 'assert';
 
-import {hasValue} from "./any-[object-boolean]";
+import {hasValue} from './any-[object-boolean]';
 
-describe("Any -> (Object -> Boolean)", function() {
-	describe("hasValue", function() {
-		it("should return a function that returns true if at least one of the input object properties has the provided value – number", function() {
+describe('Any -> (Object -> Boolean)', function() {
+	describe('hasValue', function() {
+		it('should return a function that returns true if at least one of the input object properties has the provided value – number', function() {
 			const hasTwo = hasValue(2);
 
 			assert.deepStrictEqual(
@@ -16,7 +16,7 @@ describe("Any -> (Object -> Boolean)", function() {
 				false
 			);
 		});
-		it("should return a function that returns true if at least one of the input object properties has the provided value – array", function() {
+		it('should return a function that returns true if at least one of the input object properties has the provided value – array', function() {
 			const hasEmptyList = hasValue([]);
 
 			assert.deepStrictEqual(

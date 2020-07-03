@@ -1,10 +1,10 @@
-import {strict as assert} from "assert";
+import {strict as assert} from 'assert';
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {applyTransformsSequence, pluckValuesKeys} from "./array-[object-object]";
+import {applyTransformsSequence, pluckValuesKeys} from './array-[object-object]';
 
-describe("Array -> (Object -> Object)", function() {
+describe('Array -> (Object -> Object)', function() {
 	describe('applyTransformsSequence', function() {
 		const obj = {
 			a: {
@@ -122,8 +122,8 @@ describe("Array -> (Object -> Object)", function() {
 		});
 	});
 
-	describe("pluckValuesKeys", function() {
-		it("should return a function plucking the provided keys from the expected object values", function() {
+	describe('pluckValuesKeys', function() {
+		it('should return a function plucking the provided keys from the expected object values', function() {
 			let select = pluckValuesKeys(['a', 'k']);
 			let actual = select({
 				foo: {a: 1, b: 2, c: 3, k: 4},
@@ -135,7 +135,7 @@ describe("Array -> (Object -> Object)", function() {
 			};
 			assert.deepStrictEqual(actual, expected);
 		});
-		it("should return a function plucking the provided keys from the expected object values – missing keys", function() {
+		it('should return a function plucking the provided keys from the expected object values – missing keys', function() {
 			let select = pluckValuesKeys(['a', 'k']);
 			let actual = select({
 				foo: {a: 1, b: 2, c: 3, k: 4},

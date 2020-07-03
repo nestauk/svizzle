@@ -17,9 +17,11 @@ import * as _ from "lamb";
  *
  * @example
 
-const maxWithAbsSin = arrayMaxWith(_.pipe([Math.sin, Math.abs]));
-const maxWithAbsSin([-Math.PI/2, -Math.PI/4]) // 1
-const maxWithAbsSin([Math.PI/4, Math.PI/6]) // 0.7071067811865475
+> maxWithAbsSin = arrayMaxWith(_.pipe([Math.sin, Math.abs]))
+> maxWithAbsSin([-Math.PI/2, -Math.PI/4])
+1
+> maxWithAbsSin([Math.PI/4, Math.PI/6])
+0.7071067811865475
 
  *
  * @version 0.1.0
@@ -42,9 +44,11 @@ export const arrayMaxWith = fn => _.reduceWith((max, item) => {
  * @return {function} - Array -> Number
  *
  * @example
-const minWithAbsSin = arrayMinWith(_.pipe([Math.sin, Math.abs]));
-const minWithAbsSin([-Math.PI/2, -Math.PI/4]) // 0.7071067811865475
-const minWithAbsSin([Math.PI/4, Math.PI/6]) // 0.49999999999999994
+> minWithAbsSin = arrayMinWith(_.pipe([Math.sin, Math.abs]))
+> minWithAbsSin([-Math.PI/2, -Math.PI/4])
+0.7071067811865475
+> minWithAbsSin([Math.PI/4, Math.PI/6])
+0.49999999999999994
  *
  * @version 0.1.0
  */

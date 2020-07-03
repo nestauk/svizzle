@@ -2,10 +2,10 @@
 * @module @svizzle/utils/string-string
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {sliceStringAt} from "./array-[string-string]";
-import {endsWithNewLine} from "./string-boolean";
+import {sliceStringAt} from './array-[string-string]';
+import {endsWithNewLine} from './string-boolean';
 
 /**
  * Capitalise the input string
@@ -15,8 +15,8 @@ import {endsWithNewLine} from "./string-boolean";
  * @return {string}
  *
  * @example
-> capitalize("hello")
-"Hello"
+> capitalize('hello')
+'Hello'
  *
  * @version 0.8.0
  */
@@ -30,9 +30,9 @@ export const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
  * @return {array}
  *
  * @example
- * trimLastNewline("a\nb\nc") // "a\nb\nc"
- * trimLastNewline("a\nb\nc\n") // "a\nb\nc"
- * trimLastNewline("a\nb\nc\n\n") // "a\nb\nc\n"
+ * trimLastNewline('a\nb\nc') // 'a\nb\nc'
+ * trimLastNewline('a\nb\nc\n') // 'a\nb\nc'
+ * trimLastNewline('a\nb\nc\n\n') // 'a\nb\nc\n'
  *
  * @version 0.5.0
  */

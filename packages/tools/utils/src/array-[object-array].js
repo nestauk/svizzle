@@ -31,27 +31,27 @@ export const makeKeysGetter = _.pipe([
 ]);
 
 /**
- * Return a function expecting an object and concatenating values in the provided whitelisted keys.
+ * Return a function expecting an object and concatenating values in the provided list of keys.
  *
  * @function
  * @arg {array} keys - Array of keys
  * @return {function} - Object -> Array
  *
  * @example
-const getProducts = pickAndConcatValues(['food', 'beverage']);
-getProducts({
+> getProducts = pickAndConcatValues(['food', 'beverage'])
+> getProducts({
     food: ['bread', 'cheese', 'ham'],
     beverage: ['wine', 'water'],
     id: 'area1',
     value: 32.1,
-});
-// ['bread', 'cheese', 'ham', 'wine', 'water']
+})
+['bread', 'cheese', 'ham', 'wine', 'water']
  *
  * @version 0.4.0
  */
 export const pickAndConcatValues =
-	whitelist => _.pipe([
-		_.pickKeys(whitelist),
+	keys => _.pipe([
+		_.pickKeys(keys),
 		_.values,
 		_.apply(concat)
 	]);

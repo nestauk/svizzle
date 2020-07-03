@@ -10,20 +10,20 @@ describe('(Any -> Array) -> (Any -> Array)', function() {
 			const object = {
 				key: 'foobars',
 				value: [
-					{foo: "a"},
-					{foo: "b"},
-					{bar: "c"},
-					{bar: "d"}
+					{foo: 'a'},
+					{foo: 'b'},
+					{bar: 'c'},
+					{bar: 'd'}
 				]
 			};
 			const actual = makeBiPermutations(object);
 			const expected = [
-				[{foo: "a"}, {foo: "b"}],
-				[{foo: "a"}, {bar: "c"}],
-				[{foo: "a"}, {bar: "d"}],
-				[{foo: "b"}, {bar: "c"}],
-				[{foo: "b"}, {bar: "d"}],
-				[{bar: "c"}, {bar: "d"}]
+				[{foo: 'a'}, {foo: 'b'}],
+				[{foo: 'a'}, {bar: 'c'}],
+				[{foo: 'a'}, {bar: 'd'}],
+				[{foo: 'b'}, {bar: 'c'}],
+				[{foo: 'b'}, {bar: 'd'}],
+				[{bar: 'c'}, {bar: 'd'}]
 			];
 			assert.deepStrictEqual(actual, expected);
 		});

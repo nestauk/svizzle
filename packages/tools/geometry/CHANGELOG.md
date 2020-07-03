@@ -1,3 +1,8 @@
+## `@svizzle/geometry` (next)
+
+- docs: converted all examples to a REPL-like format
+- dev: using single quotes rather than double quote where possible
+
 ## `@svizzle/geometry` v0.2.0
 
 - move `lamb` to `peerDependencies`

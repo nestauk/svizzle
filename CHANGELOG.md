@@ -3,6 +3,8 @@
 ## next
 
 - update docs
+- docs: converted all examples to a REPL-like format
+- dev: using single quotes rather than double quote where possible
 - update website:
  	- updated dependencies
  	- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
@@ -14,6 +16,8 @@
 ## `@svizzle/dom` v0.4.0 (next)
 
 - add `makeStyleVars`
+- docs: converted all examples to a REPL format
+- dev: using single quotes rather than double quote where possible
 
 ## `@svizzle/barchart` v0.3.0  (next)
 
@@ -28,6 +32,9 @@
 	- `textColor` (was previously set in CSS)
 
 ## `@svizzle/utils` v0.8.0 (next)
+
+- docs: converted all examples to a REPL format
+- dev: using single quotes rather than double quote where possible
 
 ### (String -> String) -> (Object -> Object)
 

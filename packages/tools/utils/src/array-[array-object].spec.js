@@ -1,14 +1,14 @@
-import {strict as assert} from "assert";
+import {strict as assert} from 'assert';
 
 import {
 	makeWithKeys,
 	makeWithValues
-} from "./array-[array-object]";
+} from './array-[array-object]';
 
-describe("Array -> (Array -> Object)", function() {
-	describe("makeWithKeys", function() {
-		it("should return a function expecting an array of values and returning an object assigning the values to the provided keys", function() {
-			const makeWithLatLng = makeWithKeys(["lng", "lat"]);
+describe('Array -> (Array -> Object)', function() {
+	describe('makeWithKeys', function() {
+		it('should return a function expecting an array of values and returning an object assigning the values to the provided keys', function() {
+			const makeWithLatLng = makeWithKeys(['lng', 'lat']);
 
 			assert.deepStrictEqual(
 				makeWithLatLng([1, 2]),
@@ -20,16 +20,16 @@ describe("Array -> (Array -> Object)", function() {
 			);
 		});
 	});
-	describe("makeWithValues", function() {
-		it("should return a function expecting an array of keys and returning an object assigning the keys to the provided values", function() {
+	describe('makeWithValues', function() {
+		it('should return a function expecting an array of keys and returning an object assigning the keys to the provided values', function() {
 			const makeWithTheseValues = makeWithValues([1, 2]);
 
 			assert.deepStrictEqual(
-				makeWithTheseValues(["lng", "lat"]),
+				makeWithTheseValues(['lng', 'lat']),
 				{lng: 1, lat: 2}
 			);
 			assert.deepStrictEqual(
-				makeWithTheseValues(["foo", "bar"]),
+				makeWithTheseValues(['foo', 'bar']),
 				{foo: 1, bar: 2}
 			);
 		});

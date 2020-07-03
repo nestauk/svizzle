@@ -2,9 +2,9 @@
 * @module @svizzle/file/read
 */
 
-import fs from "fs";
-import path from "path";
-import util from "util";
+import fs from 'fs';
+import path from 'path';
+import util from 'util';
 
 import {
 	dsvFormat,
@@ -12,9 +12,9 @@ import {
 	csvParseRows,
 	tsvParse,
 	tsvParseRows
-} from "d3-dsv";
+} from 'd3-dsv';
 
-import {filterJsonExtensions} from "./path";
+import {filterJsonExtensions} from './path';
 
 /**
  * [node environment]
@@ -26,15 +26,17 @@ import {filterJsonExtensions} from "./path";
  * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
-readFile("source/path.txt")
+> readFile('source/path.txt')
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// <Buffer 49 27 6d ...0a>
 
-readFile("source/path.txt", 'utf-8')
+<Buffer 49 27 6d ...0a>
+
+> readFile('source/path.txt', 'utf-8')
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// "the file content"
+
+'the file content'
  * @version 0.4.0
  */
 export const readFile = util.promisify(fs.readFile);
@@ -48,10 +50,11 @@ export const readFile = util.promisify(fs.readFile);
  * @return {promise} - @sideEffects: fs.readdir
  *
  * @example
-readDir("source/dir/")
+> readDir('source/dir/')
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// ['dir1', 'dir2', 'file1.txt', 'file2.txt', 'folder1', 'folder2']
+
+['dir1', 'dir2', 'file1.txt', 'file2.txt', 'folder1', 'folder2']
  * @version 0.4.0
  */
 export const readDir = util.promisify(fs.readdir);
@@ -69,28 +72,32 @@ export const readDir = util.promisify(fs.readdir);
  * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
-// source/withHeader.csv
+$ cat source/withHeader.csv
 name,amount
 annie,200
 joe,100
-readCsv("source/withHeader.csv", row => ({
-  name: row.name,
-  amount: Number(row.amount)
+
+> readCsv('source/withHeader.csv', row => ({
+	name: row.name,
+	amount: Number(row.amount)
 }))
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
 
-// source/withNoHeader.csv
+[{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
+
+$ cat source/withNoHeader.csv
 annie,200
 joe,100
-readCsv("source/withNoHeader.csv", row => ({
-  name: row.name,
-  amount: Number(row.amount)
+
+> readCsv('source/withNoHeader.csv', row => ({
+	name: row.name,
+	amount: Number(row.amount)
 }), false)
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+
+[{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  * @version 0.1.0
  */
 export const readCsv = (
@@ -98,7 +105,7 @@ export const readCsv = (
 	conversionFn = x => x,
 	withHeader = true
 ) =>
-	readFile(csvPath, "utf-8")
+	readFile(csvPath, 'utf-8')
 	.then(str => withHeader
 		? csvParse(str, conversionFn)
 		: csvParseRows(str, conversionFn)
@@ -118,29 +125,32 @@ export const readCsv = (
  * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
-// source/withHeader.txt
+$ cat source/withHeader.txt
 name;amount
 annie;200
 joe;100
 
-readDsv("source/withHeader.txt", ({name, amount}) => ({
-  name,
-  amount: Number(amount)
-}), ";")
+> readDsv('source/withHeader.txt', ({name, amount}) => ({
+	name,
+	amount: Number(amount)
+}), ';')
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
 
-// source/withNoHeader.txt
+[{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
+
+$ cat source/withNoHeader.txt
 annie|200
 joe|100
-readDsv("source/withNoHeader.txt", ([name, amount]) => ({
-  name,
-  amount: Number(amount)
-}), "|", false)
+
+> readDsv('source/withNoHeader.txt', ([name, amount]) => ({
+	name,
+	amount: Number(amount)
+}), '|', false)
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+
+[{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
  * @version 0.4.0
  */
@@ -150,7 +160,7 @@ export const readDsv = (
 	conversionFn = x => x,
 	withHeader = true
 ) =>
-	readFile(filePath, "utf-8")
+	readFile(filePath, 'utf-8')
 	.then(str => {
 		const parser = dsvFormat(separator);
 
@@ -172,29 +182,32 @@ export const readDsv = (
  * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
-// source/withHeader.txt
+$ cat source/withHeader.txt
 name\tamount
 annie\t200
 joe\t100
 
-readTsv("source/withHeader.txt", ({name, amount}) => ({
- name,
- amount: Number(amount)
+> readTsv('source/withHeader.txt', ({name, amount}) => ({
+	name,
+	amount: Number(amount)
 }))
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
 
-// source/withNoHeader.txt
+[{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
+
+$ cat source/withNoHeader.txt
 annie\t200
 joe\t100
-readTsv("source/withNoHeader.txt", ([name, amount]) => ({
- name,
- amount: Number(amount)
+
+> readTsv('source/withNoHeader.txt', ([name, amount]) => ({
+	name,
+	amount: Number(amount)
 }), false)
 .then(x => console.log(x))
 .catch(err => console.error(err));
-// [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+
+[{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
  * @version 0.3.0
  */
@@ -203,7 +216,7 @@ export const readTsv = (
 	conversionFn = x => x,
 	withHeader = true
 ) =>
-	readFile(tsvPath, "utf-8")
+	readFile(tsvPath, 'utf-8')
 	.then(str => withHeader
 		? tsvParse(str, conversionFn)
 		: tsvParseRows(str, conversionFn)
@@ -218,15 +231,16 @@ export const readTsv = (
  * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
- * readJson("source/path")
- * .then(x => console.log(x))
- * .catch(err => console.error(err));
- * // [{name: "annie", amount: 200}, {name: "joe", amount: 100}]
+> readJson('source/path')
+.then(x => console.log(x))
+.catch(err => console.error(err));
+
+[{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
  * @version 0.1.0
  */
 export const readJson = jsonPath =>
-	readFile(jsonPath, "utf-8")
+	readFile(jsonPath, 'utf-8')
 	.then(str => JSON.parse(str));
 
 /**
@@ -238,20 +252,21 @@ export const readJson = jsonPath =>
  * @return {promise} - @sideEffects: fs.readdir, fs.readFile
  *
  * @example
- * readJsonDir("source/path/")
- * .then(x => console.log(x))
- * .catch(err => console.error(err));
- * // [json1, json, json3, ...]
+> readJsonDir('source/path/')
+.then(x => console.log(x))
+.catch(err => console.error(err));
+
+[{'a': 1}, '{'a': 2}', '{'a': 2}']
  *
  * @version 0.1.0
  */
 export const readJsonDir = dirPath =>
-	readDir(dirPath, "utf8")
+	readDir(dirPath, 'utf8')
 	.then(filterJsonExtensions)
 	.then(filenames => Promise.all(
 		filenames.map(filename => {
 			const filepath = path.join(dirPath, filename);
 
-			return readFile(filepath, "utf-8").then(JSON.parse)
+			return readFile(filepath, 'utf-8').then(JSON.parse)
 		})
 	));

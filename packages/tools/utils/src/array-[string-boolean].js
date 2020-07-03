@@ -2,7 +2,7 @@
 * @module @svizzle/utils/array-[string-boolean]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return a function that checks if a string contains one of the provided strings.
@@ -12,15 +12,15 @@ import * as _ from "lamb";
  * @return {function} - String -> Boolean
  *
  * @example
-const isWeight = containsOneOf(['(g)', '(mg)', '(mcg)']);
-const weightLabels = [
+> isWeight = containsOneOf(['(g)', '(mg)', '(mcg)'])
+> weightLabels = [
   'id',
   'Energy (kcal)',
   'Protein (g)',
   'Cholesterol (mg)',
   'Selenium (mcg)'
 ].filter(isWeight);
-// ['Protein (g)', 'Cholesterol (mg)', 'Selenium (mcg)']
+['Protein (g)', 'Cholesterol (mg)', 'Selenium (mcg)']
  *
  * @version 0.4.0
  */

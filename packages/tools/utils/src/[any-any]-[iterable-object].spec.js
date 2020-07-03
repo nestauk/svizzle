@@ -1,29 +1,29 @@
-import {strict as assert} from "assert";
+import {strict as assert} from 'assert';
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {pairToKeyValueObjectWith} from "./[any-any]-[iterable-object]";
+import {pairToKeyValueObjectWith} from './[any-any]-[iterable-object]';
 
-describe("(Any -> Any) -> (Iterable -> Object)", function() {
-	describe("pairToKeyValueObjectWith", function() {
-		it("should return a function expecting an pair and returning a {key, value} object", function() {
+describe('(Any -> Any) -> (Iterable -> Object)', function() {
+	describe('pairToKeyValueObjectWith', function() {
+		it('should return a function expecting an pair and returning a {key, value} object', function() {
 			const objectifySelfSum = pairToKeyValueObjectWith(x => x + x);
 
 			assert.deepStrictEqual(
-				objectifySelfSum(""),
+				objectifySelfSum(''),
 				{key: undefined, value: undefined}
 			);
 			assert.deepStrictEqual(
-				objectifySelfSum("a"),
-				{key: "a", value: undefined}
+				objectifySelfSum('a'),
+				{key: 'a', value: undefined}
 			);
 			assert.deepStrictEqual(
-				objectifySelfSum("ab"),
-				{key: "a", value: "bb"}
+				objectifySelfSum('ab'),
+				{key: 'a', value: 'bb'}
 			);
 			assert.deepStrictEqual(
-				objectifySelfSum("abc"),
-				{key: "a", value: "bb"}
+				objectifySelfSum('abc'),
+				{key: 'a', value: 'bb'}
 			);
 
 			const objectifyGetA = pairToKeyValueObjectWith(_.getKey('a'));

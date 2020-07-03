@@ -2,8 +2,8 @@
 * @module @svizzle/utils/array-[string-string]
 */
 
-import * as _ from "lamb";
-import {sliceString} from "./string_proto-string";
+import * as _ from 'lamb';
+import {sliceString} from './string_proto-string';
 
 /**
  * Return a function extracting the portion of a string between the provided indices (first included, second excluded).
@@ -16,9 +16,11 @@ import {sliceString} from "./string_proto-string";
  * @return {function} - Function - String -> Boolean
  *
  * @example
-const slicer = sliceStringAt([3, 5]);
-slicer('0123456789') // '34'
-slicer('abcdef') // 'de'
+> slicer = sliceStringAt([3, 5])
+> slicer('0123456789')
+'34'
+> slicer('abcdef')
+'de'
  *
  * @version 0.5.0
  */
