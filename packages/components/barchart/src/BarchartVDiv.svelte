@@ -3,21 +3,31 @@
 	import { linearScale } from 'yootils';
 	import isEqual from 'just-compare';
 	import { afterUpdate, beforeUpdate, createEventDispatcher } from 'svelte';
-	import { makeStyle } from '@svizzle/dom';
+	import { makeStyleVars } from '@svizzle/dom';
 	import { arrayMaxWith, arrayMinWith, getValue } from '@svizzle/utils';
 
 	const dispatch = createEventDispatcher();
 	const transparentColor = 'rgba(0,0,0,0)';
 
-	export let axisColor;
-	export let backgroundColor;
-	export let barDefaultColor;
+	const defaultTheme = {
+		// exposed but undocumented
+		backgroundOpacity: 1,
+
+		// exposed and documented
+		axisColor: 'grey',
+		backgroundColor: transparentColor,
+		barDefaultColor: 'black',
+		focusedKeyColor: 'rgba(0, 0, 0, 0.1)',
+		fontSize: 14,
+		headerHeight: '2rem',
+		hoverColor: 'rgba(0, 0, 0, 0.05)',
+		padding: '10px',
+		textColor: 'grey',
+	};
+
 	export let barHeight;
 	export let focusedKey;
-	export let focusedKeyColor;
-	export let fontSize;
 	export let formatFn;
-	export let hoverColor;
 	export let isInteractive;
 	export let items;
 	export let keyToColor;
@@ -25,30 +35,25 @@
 	export let keyToLabel;
 	export let keyToLabelFn;
 	export let shouldResetScroll;
-	export let textColor;
+	export let theme;
 	export let title;
 	export let valueAccessor;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: axisColor = axisColor || 'grey';
-	$: backgroundColor = backgroundColor || transparentColor;
-	$: barDefaultColor = barDefaultColor || 'black';
 	$: barHeight = barHeight || 4;
-	$: focusedKeyColor = focusedKeyColor || 'rgba(0, 0, 0, 0.1)';
-	$: fontSize = fontSize || 14;
-	$: hoverColor = hoverColor || 'rgba(0, 0, 0, 0.05)';
 	$: isInteractive = isInteractive || false;
 	$: shouldResetScroll = shouldResetScroll || false;
-	$: textColor = textColor || 'grey';
-	$: title = title || undefined;
+	$: theme = theme ? _.merge(defaultTheme, theme) : defaultTheme;
 	$: valueAccessor = valueAccessor || getValue;
 
-	let width;
-	let hoveredKey;
+	$: style = makeStyleVars(theme);
 
-	$: divStyle = makeStyle({'background-color': backgroundColor});
-	$: padding = fontSize / 2;
-	$: itemHeight = fontSize + barHeight + 3 * padding;
+	let height;
+	let hoveredKey;
+	let width;
+
+	$: barPadding = theme.fontSize / 2;
+	$: itemHeight = theme.fontSize + barHeight + 3 * barPadding;
 	$: svgHeight = itemHeight * items.length;
 	$: getMin = arrayMinWith(valueAccessor);
 	$: getMax = arrayMaxWith(valueAccessor);
@@ -66,18 +71,18 @@
 
 		return _.merge(item, {
 			barColor: keyToColor
-				? keyToColor[item.key] || barDefaultColor
+				? keyToColor[item.key] || theme.barDefaultColor
 				: keyToColorFn
 					? keyToColorFn(item.key)
-					: barDefaultColor,
+					: theme.barDefaultColor,
 			bkgColor: item.key === focusedKey
-				? focusedKeyColor
+				? theme.focusedKeyColor
 				: item.key === hoveredKey
-					? hoverColor
+					? theme.hoverColor
 					: transparentColor,
 			displayValue: formatFn ? formatFn(value) : value,
 			dxKey: crossesZero
-				? isNeg ? -padding : padding
+				? isNeg ? -barPadding : barPadding
 				: 0,
 			isNeg,
 			label: keyToLabel && keyToLabel[item.key]
@@ -87,8 +92,8 @@
 					: item.key,
 			x: getX(value),
 			xValue: value > 0 ? width: 0,
-			y: itemHeight - padding - barHeight / 2,
-			yText: itemHeight - barHeight - 2 * padding
+			y: itemHeight - barPadding - barHeight / 2,
+			yText: itemHeight - barHeight - 2 * barPadding
 		})
 	});
 
@@ -113,8 +118,8 @@
 </script>
 
 <div
-	class='BarchartV'
-	style={divStyle}
+	{style}
+	class='BarchartVDiv'
 >
 	{#if title}
 	<header>
@@ -123,71 +128,71 @@
 	{/if}
 	<main
 		bind:clientWidth={width}
+		bind:clientHeight={height}
 		bind:this={scrollable}
 		class:titled={title}
 		on:mouseleave='{ () => { hoveredKey = null } }'
 	>
 		<svg {width} height={svgHeight}>
-			{#each bars as {
-				barColor,
-				bkgColor,
-				displayValue,
-				dxKey,
-				isNeg,
-				key,
-				label,
-				length,
-				x,
-				xValue,
-				y,
-				yText
-			}, index (key)}
-			<g
-				class:clickable={isInteractive}
-				class='item'
-				transform='translate(0, {itemHeight * index})'
-				on:click="{ () => { isInteractive && dispatch('clicked', {id: key}) } }"
-				on:mouseenter="{ () => {
-					isInteractive && dispatch('entered', {id: key})
-					hoveredKey = key;
-				} }"
-				on:mouseleave="{ () => isInteractive && dispatch('exited', {id: key}) }"
-			>
-				<rect
-					{width}
-					fill={bkgColor}
-					height={itemHeight}
-				/>
-				<line
-					stroke={barColor}
-					stroke-width={barHeight}
-					x1={x0}
-					x2={x}
-					y1={y}
-					y2={y}
-				/>
-				<text
-					class:neg={isNeg}
-					class='key'
-					dx={dxKey}
-					fill={textColor}
-					font-size={fontSize}
-					x={x0}
-					y={yText}
-				>{label}</text>
-				<text
-					class:neg={isNeg}
-					class='value'
-					fill={textColor}
-					font-size={fontSize}
-					x={xValue}
-					y={yText}
-				>{displayValue}</text>
+			<rect class='bkg' {width} {height} />
+			<g>
+				{#each bars as {
+					barColor,
+					bkgColor,
+					displayValue,
+					dxKey,
+					isNeg,
+					key,
+					label,
+					length,
+					x,
+					xValue,
+					y,
+					yText
+				}, index (key)}
+				<g
+					class:clickable={isInteractive}
+					class='item'
+					transform='translate(0, {itemHeight * index})'
+					on:click="{ () => { isInteractive && dispatch('clicked', {id: key}) } }"
+					on:mouseenter="{ () => {
+						isInteractive && dispatch('entered', {id: key})
+						hoveredKey = key;
+					} }"
+					on:mouseleave="{ () => isInteractive && dispatch('exited', {id: key}) }"
+				>
+					<rect
+						{width}
+						fill={bkgColor}
+						height={itemHeight}
+					/>
+					<line
+						stroke={barColor}
+						stroke-width={barHeight}
+						x1={x0}
+						x2={x}
+						y1={y}
+						y2={y}
+					/>
+					<text
+						class:neg={isNeg}
+						class='key'
+						dx={dxKey}
+						x={x0}
+						y={yText}
+					>{label}</text>
+					<text
+						class:neg={isNeg}
+						class='value'
+						x={xValue}
+						y={yText}
+					>{displayValue}</text>
+				</g>
+				{/each}
 			</g>
-			{/each}
 			{#if crossesZero}
 			<line
-				stroke={axisColor}
+				stroke={theme.axisColor}
 				x1={x0}
 				x2={x0}
 				y2={svgHeight}
@@ -198,47 +203,54 @@
 </div>
 
 <style>
-	.BarchartV {
-		--BarchartV_headerHeight: 2em;
-
+	.BarchartVDiv {
 		width: 100%;
 		height: 100%;
-		padding: 10px; /* FIXME use a variable to align with other content */
+		padding: var(--padding);
 	}
 
-	.BarchartV header {
+	header {
 		width: 100%;
-		height: var(--BarchartV_headerHeight);
+		height: var(--headerHeight);
 		display: flex;
 		align-items: center;
 	}
 
-	.BarchartV main {
+	h2 {
+		margin: 0;
+	}
+
+	main {
 		width: 100%;
 		height: 100%;
 		max-height: 100%;
 		overflow-y: auto;
 	}
-
-	.BarchartV main.titled {
-		height: calc(100% - var(--BarchartV_headerHeight));
-		max-height: calc(100% - var(--BarchartV_headerHeight));
+	main.titled {
+		height: calc(100% - var(--headerHeight));
+		max-height: calc(100% - var(--headerHeight));
 	}
 
-	svg .item.clickable {
+	rect.bkg {
+		fill-opacity: var(--backgroundOpacity);
+		fill: var(--backgroundColor);
+	}
+	.item.clickable {
 		cursor: pointer;
 	}
 
-	svg .item text {
+	.item text {
+		fill: var(--textColor);
+		font-size: var(--fontSize);
 		stroke: none;
 	}
-	svg .item text.key.neg {
+	.item text.key.neg {
 		text-anchor: end;
 	}
-	svg .item text.value {
+	.item text.value {
 		text-anchor: end;
 	}
-	svg .item text.value.neg {
+	.item text.value.neg {
 		text-anchor: start;
 	}
 </style>

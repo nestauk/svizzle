@@ -102,8 +102,8 @@ Example:
 
 ```js
 {
-  foo: 'yellow',
-  bar: '#ff0000',
+	foo: 'yellow',
+	bar: '#ff0000',
 }
 ```
 

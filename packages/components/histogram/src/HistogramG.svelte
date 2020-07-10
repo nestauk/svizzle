@@ -47,6 +47,9 @@
 	}
 
 	const defaultTheme = {
+		// exposed but undocumented
+		backgroundOpacity: 1,
+
 		// exposed and documented but no example
 		brushAddStroke: 'rgb(107,248,134)',
 		brushRemoveStroke: 'rgb(246,97,20)',
@@ -303,7 +306,7 @@
 
 {#if height && width && scales}
 <g
-	class='histogram'
+	class='HistogramG'
 	class:interactive={flags.isInteractive}
 	{style}
 >
@@ -395,10 +398,10 @@
 {/if}
 
 <style>
-	.histogram {
+	.HistogramG {
 		pointer-events: none;
 	}
-	.histogram.interactive {
+	.HistogramG.interactive {
 		pointer-events: auto;
 	}
 

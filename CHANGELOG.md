@@ -14,17 +14,45 @@
 	- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
 	- optimised exported routes weight
 
-## `@svizzle/barchart` v0.3.0  (next)
+## `@svizzle/barchart` v0.3.0 (next)
 
+- rename the component to `BarchartVDiv`
+- add a background rect
 - rewrite to accept negative values
 - uses SVG instead of HTML
 - props rename: `defaultColor` -> `barDefaultColor`
 - new props:
-	- `axisColor`
-	- `backgroundColor`
+	- `theme`
+		- `axisColor`
+		- `backgroundColor`
+		- `backgroundOpacity`
+		- `fontSize` (the distance between bars depends on this now)
+		- `headerHeight` (was previously static in CSS)
+		- `textColor` (was previously static in CSS)
+		- `padding` (was previously static in CSS)
+		- moved these props within `theme`:
+			- `barDefaultColor` (renamed from `defaultColor`)
+			- `focusedKeyColor`
+			- `hoverColor`
 	- `barHeight` (was previously set in CSS)
-	- `fontSize` (the distance between bars depends on this now)
-	- `textColor` (was previously set in CSS)
+- temporarily removed the props doc from the README.md to avoid duplication with the website
+
+## `@svizzle/choropleth` v0.3.0 (next)
+
+- `ChoroplethG`
+	- renamed `ChoroplethSVG` to `ChoroplethG`, with root element being `<g>` rather than a `<svg>`
+	- new prop `geometry` (was the internal variable `safety`)
+	- don't use the safety for the background
+	- moved these props in a `theme` var while renaming them:
+		- `colorSea` -> `backgroundColor`
+		- `colorDefaultFill` -> `defaultFill`
+		- `colorStroke` -> `defaultStroke`
+		- `colorStrokeSelected` -> `selectedFeatureStroke`
+		- `sizeStroke` -> `defaultStrokeWidth`
+		- `sizeStrokeSelected` -> `selectedStrokeWidth`
+- `ChoroplethDiv`:
+	- added props: `title`, `padding`, `headerHeight`
+- docs, document only `ChoroplethG` with a mention of how to use `ChoroplethDiv` to reduce duplication
 
 ## `@svizzle/dom` v0.4.0 (next)
 
@@ -32,7 +60,7 @@
 - docs: converted all examples to a REPL format
 - dev: using single quotes rather than double quote where possible
 
-## `@svizzle/histogram` v0.1.0
+## `@svizzle/histogram` v0.1.0 (new)
 
 - add `HistogramG.svelte`
 - add `HistogramDiv.svelte`

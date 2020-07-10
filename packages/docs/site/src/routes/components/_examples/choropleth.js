@@ -15,6 +15,97 @@ import {formatSvelteMarkup} from './utils';
 
 const examples = [
 	{
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
+				key: 'iso_a2',
+				keyToColor: keyToColorWorld,
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					keyToColor={keyToColorWorld}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
 		doc: [
 			{tag: 'p', content: "In the most basic setup, you need to provide:"},
 			{tag: 'p', content: "• `key`, the key to be used in the features `properties` field as the region identifier;"},
@@ -26,212 +117,145 @@ const examples = [
 			{tag: 'p', content: "If you don't provide `keyToColor` no `key` is needed."},
 			{tag: 'p', content: "The default projection (`geoEquirectangular`) will be applied."},
 		],
-		name: 'ChoroplethSVG',
-		data: [{
-			key: 'World_110m_iso_a2_topo',
-			props: {
-				height: 600,
-				key: 'iso_a2',
-				keyToColor: keyToColorWorld,
-				topojson: World_110m_iso_a2_topo,
-				topojsonId: 'countries',
-				width: 600,
-			},
-			usage: `
-				<ChoroplethSVG
-					height=600
-					key='iso_a2'
-					keyToColor={keyToColorWorld}
-					topojson={World_110m_iso_a2_topo}
-					topojsonId='countries'
-					width=600
-				/>
-			`,
-		}, {
-			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
-			props: {
-				height: 600,
-				key: 'NUTS_ID',
-				keyToColor: keyToColorUK2016,
-				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
-				topojsonId: 'NUTS',
-				width: 600,
-			},
-			usage: `
-				<ChoroplethSVG
-					height=600
-					key='NUTS_ID'
-					keyToColor={keyToColorUK2016}
-					topojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}
-					topojsonId='NUTS'
-					width=600
-				/>
-			`,
-		}, {
-			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
-			props: {
-				height: 600,
-				key: 'NUTS_ID',
-				keyToColor: keyToColorUK2016,
-				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
-				topojsonId: 'NUTS',
-				width: 600,
-			},
-			usage: `
-				<ChoroplethSVG
-					height=600
-					key='NUTS_ID'
-					keyToColor={keyToColorUK2016}
-					topojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}
-					topojsonId='NUTS'
-					width=600
-				/>
-			`,
-		}, {
-			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
-			props: {
-				height: 600,
-				key: 'NUTS_ID',
-				keyToColor: keyToColorUK2016,
-				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
-				topojsonId: 'NUTS',
-				width: 600,
-			},
-			usage: `
-				<ChoroplethSVG
-					height=600
-					key='NUTS_ID'
-					keyToColor={keyToColorUK2016}
-					topojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}
-					topojsonId='NUTS'
-					width=600
-				/>
-			`,
-		}, {
-			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-			props: {
-				height: 600,
-				key: 'NUTS_ID',
-				keyToColor: keyToColorUK2016,
-				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
-				topojsonId: 'NUTS',
-				width: 600,
-			},
-			usage: `
-				<ChoroplethSVG
-					height=600
-					key='NUTS_ID'
-					keyToColor={keyToColorUK2016}
-					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
-					topojsonId='NUTS'
-					width=600
-				/>
-			`,
-		}],
-		slug: 'ChoroplethSVG',
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG',
 		title: 'Basic props',
 	},
 	{
 		doc: [
 			{tag: 'p', content: "You can customise the map colors and stroke size."},
 		],
-		name: 'ChoroplethSVG',
 		data: [{
 			key: null,
 			props: {
-				colorDefaultFill: 'palegreen',
-				colorSea: 'aqua',
-				colorStroke: 'tomato',
-				height: 600,
+				theme: {
+					backgroundColor: 'aqua',
+					defaultFill: 'palegreen',
+					defaultStroke: 'tomato',
+					defaultStrokeWidth: 1,
+				},
 				key: 'iso_a2',
 				keyToColor: keyToColorWorld,
-				sizeStroke: 1,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
-				width: 600,
 			},
 			usage: `
-				<ChoroplethSVG
+				<ChoroplethG
+					{height}
 					{keyToColor}
-					colorDefaultFill='palegreen'
-					colorSea='aqua'
-					colorStroke='tomato'
-					height=600
+					{width}
 					key='iso_a2'
-					sizeStroke=1
+					theme={{
+						backgroundColor: 'aqua',
+						defaultFill: 'palegreen',
+						defaultStroke: 'tomato',
+						defaultStrokeWidth: 1,
+					}}
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
-					width=600
 				/>
 			`,
 		}],
-		slug: 'ChoroplethSVG-styles',
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-styles',
 		title: 'Styles',
 	},
 	{
 		doc: [
 			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
 			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
-			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `colorDefaultFill` (which defaults to `white`)."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `defaultFill` (which defaults to `white`)."},
 		],
-		name: 'ChoroplethSVG',
 		data: [{
 			key: null,
 			props: {
-				height: 600,
 				key: 'iso_a2',
 				keyToColorFn: keyToColorWorldFn,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
-				width: 600,
 			},
 			usage: `
-				<ChoroplethSVG
+				<ChoroplethG
+					{height}
 					{keyToColorFn}
-					height=600
+					{width}
 					key='iso_a2'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
-					width=600
 				/>
 			`,
 		}],
-		slug: 'ChoroplethSVG-keyToColorFn',
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-keyToColorFn',
 		title: 'Colors via function',
 	},
 	{
 		doc: [
 			{tag: 'p', content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."},
 		],
-		name: 'ChoroplethSVG',
 		data: [{
-			key: null,
+			key: 'some selected countries',
 			props: {
-				colorStrokeSelected: 'red',
-				height: 600,
 				key: 'iso_a2',
-				keyToColor: keyToColorWorld,
 				selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU'],
-				sizeStrokeSelected: 1.5,
+				theme: {
+					selectedStroke: 'red',
+					selectedStrokeWidth: 1.5,
+				},
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
-				width: 600,
 			},
 			usage: `
-				<ChoroplethSVG
-					{keyToColor}
-					colorStrokeSelected='red',
-					height=600
+				<ChoroplethG
+					{height}
+					{width}
 					key='iso_a2'
 					selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']
-					sizeStrokeSelected=1.5
+					theme={{
+						selectedStroke: 'red',
+						selectedStrokeWidth: 1.5
+					}}
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
-					width=600
+				/>
+			`,
+		}, {
+			key: 'some other selected countries',
+			props: {
+				key: 'iso_a2',
+				selectedKeys: ['TD', 'US', 'AU', 'CN'],
+				theme: {
+					selectedStroke: 'palegoldenrod',
+					selectedStrokeWidth: 4,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					selectedKeys=['TD', 'US', 'AU', 'CN']
+					theme={{
+						selectedStroke: 'palegoldenrod',
+						selectedStrokeWidth: 4
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
 				/>
 			`,
 		}],
-		slug: 'ChoroplethSVG-selectedKeys',
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-selectedKeys',
 		title: 'Selected regions',
 	},
 	{
@@ -248,22 +272,20 @@ const examples = [
 			'entered',
 			'exited',
 		],
-		name: 'ChoroplethSVG',
 		data: [{
 			key: null,
 			props: {
-				height: 600,
 				isInteractive: true,
 				key: 'iso_a2',
 				keyToColor: keyToColorWorld,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
-				width: 600,
 			},
 			usage: `
-				<ChoroplethSVG
+				<ChoroplethG
+					{height}
 					{keyToColor}
-					height=600
+					{width}
 					isInteractive={true}
 					key='iso_a2'
 					on:clicked={onClicked}
@@ -271,11 +293,13 @@ const examples = [
 					on:exited={onExited}
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
-					width=600
 				/>
 			`,
 		}],
-		slug: 'ChoroplethSVG-interactivity',
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-interactivity',
 		title: 'Interactivity',
 	},
 	{
@@ -299,27 +323,24 @@ const examples = [
 			{tag: 'p', content: "• `geoTransverseMercator`"},
 			{tag: 'p', content: "• `geoNaturalEarth1`"},
 		],
-		name: 'ChoroplethSVG',
 		data: [{
 			key: 'geoAzimuthalEqualArea',
 			props: {
-				height: 600,
 				key: 'iso_a2',
 				keyToColor: keyToColorWorld,
 				projection: 'geoAzimuthalEqualArea',
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
-				width: 600,
 			},
 			usage: `
-				<ChoroplethSVG
+				<ChoroplethG
+					{height}
 					{keyToColor}
-					height=600
+					{width}
 					key='iso_a2'
 					projection='geoAzimuthalEqualArea'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
-					width=600
 				/>
 			`,
 		}, {
@@ -327,27 +348,177 @@ const examples = [
 			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
-				height: 600,
 				key: 'iso_a2',
 				keyToColor: keyToColorWorld,
 				projection: 'geoOrthographic',
-				width: 600,
 			},
 			usage: `
-				<ChoroplethSVG
+				<ChoroplethG
+					{height}
 					{keyToColor}
-					height=600
+					{width}
 					key='iso_a2'
 					projection='geoOrthographic'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
-					width=600
 				/>
 			`,
 		}],
-		slug: 'ChoroplethSVG-projection',
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-projection',
 		title: 'Projection',
 	},
+
+	{
+		data: [{
+			key: 'default geometry',
+			props: {
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'no safety',
+			props: {
+				geometry: {
+					bottom: 0,
+					left: 0,
+					right: 0,
+					top: 0,
+				},
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					geometry={{
+						bottom: 0,
+						left: 0,
+						right: 0,
+						top: 0,
+					}}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'custom geometry',
+			props: {
+				geometry: {
+					bottom: 10,
+					left: 90,
+					right: 30,
+					top: 20,
+				},
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					geometry={{
+						bottom: 10,
+						left: 90,
+						right: 30,
+						top: 20,
+					}}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can adjust the safety area using `geometry`.'},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-geometry',
+		title: 'Geometry',
+	},
+
+	{
+		doc: [
+			{tag: 'p', content: "If you need to render the choropleth as an html element, you can use `ChoroplethDiv` providing the same props but `width` and `height`."},
+			{tag: 'p', content: "This will render the choropleth in a `div`."},
+			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"},
+		],
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
+				key: 'iso_a2',
+				keyToColor: keyToColorWorld,
+				padding: '3em',
+				theme: {backgroundColor: '#eee'},
+				title: 'Some world countries',
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethDiv
+					key='iso_a2'
+					keyToColor={keyToColorWorld}
+					padding='3em'
+					theme={{backgroundColor: '#eee'}}
+					title='Some world countries
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				backgroundColor: '#eee',
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				padding: '0.5em',
+				theme: {backgroundColor: '#f1feff'},
+				title: 'UK NUTS3 (2016)',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethDiv
+					backgroundColor='#eee'
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					padding='0.5em'
+					theme={{backgroundColor: '#f1feff'}}
+					title='UK NUTS3 (2016)'
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
+		name: 'ChoroplethDiv',
+		packageName: 'choropleth',
+		slug: 'ChoroplethDiv',
+		title: 'ChoroplethDiv',
+	}
 ].map(transformValues({
 	doc: _.mapWith(transformValues({
 		content: s => s.trim(),
