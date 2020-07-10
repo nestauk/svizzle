@@ -25,27 +25,63 @@ const examples = [
 		data: [{
 			key: 'some bins {range, values}',
 			props: {bins},
-			usage: `<HistogramG {bins} />`,
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
 		}, {
 			key: 'some other bins {range, values}',
 			props: {bins: bins_2},
-			usage: `<HistogramG {bins} />`,
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
 		}, {
 			key: 'some bins {range, value}',
 			props: {bins: bins_2_value},
-			usage: `<HistogramG {bins} />`,
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
 		}, {
 			key: 'non uniform bins',
 			props: {bins: bins_value_non_uniform},
-			usage: `<HistogramG {bins} />`,
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
 		}, {
 			key: 'non-uniform non-contiguous bins',
 			props: {bins: bins_value_non_uniform_non_contiguous},
-			usage: `<HistogramG {bins} />`,
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
 		}, {
 			key: 'no bins',
 			props: {bins: []},
-			usage: `<HistogramG bins={[]} />`,
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
 		}],
 		doc: [
 			{tag: 'p', content: 'In the most basic setup, you need to provide:'},
@@ -76,6 +112,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{useLogScale: true}}
 				/>
 			`,
@@ -104,6 +142,8 @@ const examples = [
 				<HistogramG
 					{bins}
 					{binsFill}
+					{height}
+					{width}
 					theme={{
 						binStroke: 'red',
 						binStrokeWidth: 3,
@@ -125,6 +165,8 @@ const examples = [
 				<HistogramG
 					{bins}
 					{binsFill}
+					{height}
+					{width}
 					theme={{
 						binStroke: 'palegreen',
 						binStrokeWidth: 5,
@@ -157,6 +199,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{withBackground: true}}
 					theme={{backgroundColor: '${backgroundColor}'}}
 				/>
@@ -178,6 +222,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 				/>
 			`,
 		}, {
@@ -186,6 +232,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 				/>
 			`,
 		}, {
@@ -197,6 +245,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					ticksFormatFn={roundTo(2)}
 				/>
 			`,
@@ -209,6 +259,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					hideTicks={{hideTicks: true}}
 				/>
 			`,
@@ -239,6 +291,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					geometry={{
 						safetyXTicks: 160,
 					}}
@@ -257,6 +311,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{hideTicks: true}}
 					geometry={{
 						safetyXNoTicks: 50,
@@ -288,6 +344,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{isInteractive: true}}
 				/>
 			`,
@@ -301,6 +359,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{isInteractive: true}}
 					selectedBins=${JSON.stringify(selectedBins)}
 				/>
@@ -314,6 +374,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{isInteractive: true}}
 				/>
 			`,
@@ -326,6 +388,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{isInteractive: true}}
 				/>
 			`,
@@ -344,6 +408,8 @@ const examples = [
 				<HistogramG
 					{bins}
 					{binsFill}
+					{height}
+					{width}
 					flags={{isInteractive: true}}
 					theme={{
 						binStroke: 'green',
@@ -369,6 +435,8 @@ const examples = [
 				<HistogramG
 					{bins}
 					{binsFill}
+					{height}
+					{width}
 					flags={{isInteractive: true}}
 					theme={{
 						binStroke: 'green',
@@ -422,6 +490,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 				/>
 			`,
 		}, {
@@ -433,6 +503,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{isRightToLeft: true}}
 				/>
 			`,
@@ -445,6 +517,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					isTopDown={true}
 				/>
 			`,
@@ -460,6 +534,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{
 						isRightToLeft: true,
 						isTopDown: true
@@ -475,6 +551,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{hideOrigin: true}}
 				/>
 			`,
@@ -488,6 +566,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					geometry={{originRadius: 5}}
 					theme={{originColor: 'red'}}
 				/>
@@ -503,6 +583,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 				/>
 			`,
 		}, {
@@ -514,6 +596,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{isRightToLeft: true}}
 				/>
 			`,
@@ -526,6 +610,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{isTopDown: true}}
 				/>
 			`,
@@ -541,6 +627,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags={{
 						isRightToLeft: true,
 						isTopDown: true
@@ -556,6 +644,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					flags: {hideOrigin: true}
 				/>
 			`,
@@ -569,6 +659,8 @@ const examples = [
 			usage: `
 				<HistogramG
 					{bins}
+					{height}
+					{width}
 					geometry={{originRadius: 5}}
 					theme={{originColor: 'red'}}
 				/>
@@ -591,6 +683,7 @@ const examples = [
 			props: {
 				bins,
 				flags: {withBackground: true},
+				padding: '3em',
 				theme: {
 					backgroundColor,
 					binFill,
@@ -601,6 +694,7 @@ const examples = [
 				<HistogramDiv
 					{bins}
 					flags={{withBackground: true}}
+					padding='3em'
 					theme={{
 						backgroundColor: '${backgroundColor}',
 						binFill: '${binFill}',
@@ -625,9 +719,9 @@ const examples = [
 			`,
 		}],
 		doc: [
-			{tag: 'p', content: "If you prefer to render the histogram as an html element, you can use `HistogramDiv` providing the same props but `width` and `height`."},
+			{tag: 'p', content: "If you need to render the histogram as an html element, you can use `HistogramDiv` providing the same props but `width` and `height`."},
 			{tag: 'p', content: "This will render the histogram in a `div`."},
-			{tag: 'p', content: "With `HistogramDiv` you can add a `title` (rendered as a `h2`)."},
+			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"},
 		],
 		name: 'HistogramDiv',
 		packageName: 'histogram',

@@ -1,8 +1,12 @@
 <script>
+	import {makeStyleVars} from '@svizzle/dom';
+
 	import HistogramG from './HistogramG.svelte';
 
 	// html
 	export let title;
+	export let padding;
+	export let headerHeight;
 
 	// svg
 	export let bins;
@@ -13,13 +17,18 @@
 	export let theme;
 	export let ticksFormatFn;
 
+	$: padding = padding || '10px';
+	$: headerHeight = headerHeight || '2rem';
+	$: style = makeStyleVars({headerHeight, padding});
+
 	let height = 0;
 	let width = 0;
 </script>
 
 <div
-	class='histogram'
+	class='HistogramDiv'
 	class:interactive={flags && flags.isInteractive}
+	{style}
 >
 	{#if title}
 	<header class:rightToLeft={flags && flags.isRightToLeft}>
@@ -59,19 +68,19 @@
 </div>
 
 <style>
-	.histogram {
-		--header-height: 2em;
+	.HistogramDiv {
 		width: 100%;
 		height: 100%;
+		padding: var(--padding);
 		pointer-events: none;
 	}
-	.histogram.interactive {
+	.HistogramDiv.interactive {
 		pointer-events: auto;
 	}
 
 	header {
 		width: 100%;
-		height: var(--header-height);
+		height: var(--headerHeight);
 
 		display: flex;
 		align-items: center;
@@ -80,13 +89,17 @@
 		justify-content: flex-end;
 	}
 
+	h2 {
+		margin: 0;
+	}
+
 	main {
 		width: 100%;
 		height: 100%;
 		user-select: none;
 	}
 	main.titled {
-		height: calc(100% - var(--header-height));
+		height: calc(100% - var(--headerHeight));
 	}
 	main svg {
 		width: 100%;

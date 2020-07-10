@@ -25,7 +25,7 @@ rules:
     - after: true
       before: true
   block-scoped-var: error
-  block-spacing: error
+  block-spacing: off
   brace-style:
     - error
     - 1tbs

@@ -4,9 +4,8 @@ export function get(req, res) {
 	});
 
 	res.end(JSON.stringify([
-		{name: 'BarchartV', slug: 'BarchartV'},
-		{name: 'ChoroplethSVG', slug: 'ChoroplethSVG'},
-		{name: 'ChoroplethDiv', slug: 'ChoroplethDiv'},
+		{name: 'BarchartVDiv', slug: 'BarchartVDiv'},
+		{name: 'ChoroplethG', slug: 'ChoroplethG'},
 		{name: 'HistogramG', slug: 'HistogramG'},
 	]));
 }

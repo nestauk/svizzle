@@ -1,1 +1,1 @@
-export {default as BarchartV} from './BarchartV.svelte';
+export {default as BarchartVDiv} from './BarchartVDiv.svelte';
