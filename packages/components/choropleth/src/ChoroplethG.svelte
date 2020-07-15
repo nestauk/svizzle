@@ -3,6 +3,7 @@
 	import { feature as geoObject } from 'topojson-client';
 	import { geoPath } from 'd3-geo';
 	import * as _ from 'lamb';
+	import {makeStyleVars} from '@svizzle/dom';
 	import {
 		makeUpdateFeaturesProperty,
 		setGeometryPrecision
@@ -29,13 +30,17 @@
 		defaultFill: 'white',
 		defaultStroke: 'grey',
 		defaultStrokeWidth: 0.5,
+		hoverFill: '#f6f6f6',
+		hoverStroke: 'black',
+		hoverStrokeWidth: 1.5,
+		hoverStrokedasharray: '',
 		selectedStroke: 'black',
 		selectedStrokeWidth: 1,
+		deselectedOpacity: 0.25,
 	}
 
 	// required
 	export let height;
-	export let key;
 	export let topojson;
 	export let topojsonId;
 	export let width;
@@ -43,6 +48,7 @@
 	// optional
 	export let geometry;
 	export let isInteractive;
+	export let key;
 	export let key_alt;
 	export let keyToColor;
 	export let keyToColorFn;
@@ -58,7 +64,7 @@
 	$: projection = projection && projections[projection] || projections.geoEquirectangular;
 	$: selectedKeys = selectedKeys || [];
 	$: theme = theme ? _.merge(defaultTheme, theme) : defaultTheme;
-
+	$: style = makeStyleVars(theme);
 	$: innerHeight = Math.max(0, height - geometry.top - geometry.bottom);
 	$: innerWidth = Math.max(0, width - geometry.left - geometry.right);
 	$: createColoredGeojson = makeUpdateFeaturesProperty({
@@ -80,34 +86,35 @@
 	$: isDeselected = feature =>
 		selectedKeys.length &&
 		!selectedKeys.includes(getPayload(feature));
-	$: isReady = geopath && coloredGeojson;
 	$: isClickable = feature => isInteractive && hasColor(feature);
 </script>
 
 <svelte:options namespace='svg' />
 
 {#if height && width}
-<!-- {style} -->
 <g
-	class='ChoroplethG'
+	{style}
 	class:interactive={isInteractive}
->
+	class='ChoroplethG'
+	>
 	<rect
 		{height}
 		{width}
-		fill={theme.backgroundColor}
+		class='bkg'
 	/>
 	<g transform='translate({geometry.left},{geometry.top})'>
-		{#if isReady}
+		{#if coloredGeojson}
 		{#each coloredGeojson.features as feature}
-		<g class='feature' id='{key_alt}'>
+		<g
+			class:deselected={isDeselected(feature)}
+			class:selected={isSelected(feature)}
+			class='feature'
+			id={feature.properties[key] || feature.properties[key_alt]}
+		>
 			<path
 				class:clickable={isClickable(feature)}
-				class:deselected={isDeselected(feature)}
 				d={geopath(feature)}
-				fill={feature.properties.color || theme.defaultFill}
-				stroke={isSelected(feature) ? theme.selectedStroke : theme.defaultStroke}
-				stroke-width={isSelected(feature) ? theme.selectedStrokeWidth : theme.defaultStrokeWidth}
+				style='fill:{feature.properties.color || null}'
 				on:click={() => isClickable(feature) && dispatch('clicked', getPayload(feature))}
 				on:mouseenter={() => isInteractive && dispatch('entered', getPayload(feature))}
 				on:mouseleave={() => isInteractive && dispatch('exited', getPayload(feature))}
@@ -127,10 +134,30 @@
 		pointer-events: auto;
 	}
 
+	rect.bkg {
+		fill: var(--backgroundColor);
+	}
+
+	.feature path {
+		fill: var(--defaultFill);
+		fill-opacity: 1;
+		stroke: var(--defaultStroke);
+		stroke-width: var(--defaultStrokeWidth);
+	}
 	.feature path.clickable {
 		cursor: pointer;
 	}
-	.feature path.deselected {
-		fill-opacity: 0.25;
+	.feature path:hover {
+		fill: var(--hoverFill);
+		stroke: var(--hoverStroke);
+		stroke-width: var(--hoverStrokeWidth);
+		stroke-dasharray: var(--hoverStrokedasharray);
+	}
+	.feature.selected path {
+		stroke: var(--selectedStroke);
+		stroke-width: var(--selectedStrokeWidth);
+	}
+	.feature.deselected path {
+		fill-opacity: var(--deselectedOpacity);
 	}
 </style>

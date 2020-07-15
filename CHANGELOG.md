@@ -41,8 +41,14 @@
 
 - `ChoroplethG`
 	- renamed `ChoroplethSVG` to `ChoroplethG`, with root element being `<g>` rather than a `<svg>`
-	- new prop `geometry` (was the internal variable `safety`)
 	- don't use the safety for the background
+	- new props:
+		- `deselectedOpacity`
+		- `geometry` (was the internal variable `safety`)
+		- `hoverFill`
+		- `hoverStroke`
+		- `hoverStrokedasharray`
+		- `hoverStrokeWidth`
 	- moved these props in a `theme` var while renaming them:
 		- `colorSea` -> `backgroundColor`
 		- `colorDefaultFill` -> `defaultFill`
@@ -52,7 +58,9 @@
 		- `sizeStrokeSelected` -> `selectedStrokeWidth`
 - `ChoroplethDiv`:
 	- added props: `title`, `padding`, `headerHeight`
-- docs, document only `ChoroplethG` with a mention of how to use `ChoroplethDiv` to reduce duplication
+- docs:
+	- document only `ChoroplethG` with a mention of how to use `ChoroplethDiv` to reduce duplication
+	- add a specific route for `keyToColor`, it was used in toom many pages
 
 ## `@svizzle/dom` v0.4.0 (next)
 

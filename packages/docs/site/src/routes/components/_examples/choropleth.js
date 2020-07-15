@@ -18,6 +18,129 @@ const examples = [
 		data: [{
 			key: 'World_110m_iso_a2_topo',
 			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
+			props: {
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "In the most basic setup, you need to provide:"},
+			{tag: 'p', content: "• `height`, `width`;"},
+			{tag: 'p', content: "• `topojson`, the Topojson of regions to be represented, with `properties` having the a field corresponding to the prop `key`."},
+			{tag: 'p', content: "• `topojsonId`, the key to us to select items in the `objects` field inthe topojson; e.g. `NUTS` or `countries`."},
+			{tag: 'p', content: "The default projection (`geoEquirectangular`) will be applied."},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG',
+		title: 'Basic props',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				theme: {
+					backgroundColor: '#f1feff',
+					defaultFill: 'black',
+					defaultStroke: 'magenta',
+					defaultStrokeWidth: 1,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					theme={{
+						backgroundColor: '#f1feff',
+						defaultFill: 'black',
+						defaultStroke: 'magenta',
+						defaultStrokeWidth: 1,
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "You can customise the map colors and stroke size."},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-styles',
+		title: 'Styles',
+	},
+	{
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
 				key: 'iso_a2',
 				keyToColor: keyToColorWorld,
 				topojson: World_110m_iso_a2_topo,
@@ -107,66 +230,25 @@ const examples = [
 			`,
 		}],
 		doc: [
-			{tag: 'p', content: "In the most basic setup, you need to provide:"},
-			{tag: 'p', content: "• `key`, the key to be used in the features `properties` field as the region identifier;"},
+			{tag: 'p', content: "You can color features by passing:"},
+			{tag: 'p', content: "• `keyToColor`, a object mapping region `key|key_alt` to color (see below);"},
+			{tag: 'p', content: "• `key`, the key to be used in the features `properties` field as the region identifier, e.g. `iso_a2`;"},
 			{tag: 'p', content: "• Note that you might provide a topojson where not all the objects have the provided `key`."},
 			{tag: 'p', content: "  For example if you provide `key: 'iso_a2'` (ISO Alpha 2 codes), disputed or partially recognised countries might not have that code (e.g. `Kosovo`)."},
 			{tag: 'p', content: "  For these cases you can provide a `key_alt`, equal to `name` by default."},
-			{tag: 'p', content: "• `topojson`, the Topojson of regions to be represented, with `properties` having the a field corresponding to the prop `key`."},
-			{tag: 'p', content: "• `keyToColor`, an object mapping region key -> region color."},
-			{tag: 'p', content: "If you don't provide `keyToColor` no `key` is needed."},
-			{tag: 'p', content: "The default projection (`geoEquirectangular`) will be applied."},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColor` is falsy the fallback is `defaultFill` (which defaults to `white`)."},
 		],
 		name: 'ChoroplethG',
 		namespace: 'svg',
 		packageName: 'choropleth',
-		slug: 'ChoroplethG',
-		title: 'Basic props',
-	},
-	{
-		doc: [
-			{tag: 'p', content: "You can customise the map colors and stroke size."},
-		],
-		data: [{
-			key: null,
-			props: {
-				theme: {
-					backgroundColor: 'aqua',
-					defaultFill: 'palegreen',
-					defaultStroke: 'tomato',
-					defaultStrokeWidth: 1,
-				},
-				key: 'iso_a2',
-				keyToColor: keyToColorWorld,
-				topojson: World_110m_iso_a2_topo,
-				topojsonId: 'countries',
-			},
-			usage: `
-				<ChoroplethG
-					{height}
-					{keyToColor}
-					{width}
-					key='iso_a2'
-					theme={{
-						backgroundColor: 'aqua',
-						defaultFill: 'palegreen',
-						defaultStroke: 'tomato',
-						defaultStrokeWidth: 1,
-					}}
-					topojson={World_110m_iso_a2_topo}
-					topojsonId='countries'
-				/>
-			`,
-		}],
-		name: 'ChoroplethG',
-		namespace: 'svg',
-		packageName: 'choropleth',
-		slug: 'ChoroplethG-styles',
-		title: 'Styles',
+		slug: 'ChoroplethG-keyToColor',
+		title: 'Colors via map',
 	},
 	{
 		doc: [
 			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
+			{tag: 'p', content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"},
 			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
 			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `defaultFill` (which defaults to `white`)."},
 		],
@@ -198,15 +280,18 @@ const examples = [
 	{
 		doc: [
 			{tag: 'p', content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."},
+			{tag: 'p', content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"},
 		],
 		data: [{
-			key: 'some selected countries',
+			key: 'none selected',
 			props: {
 				key: 'iso_a2',
-				selectedKeys: ['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU'],
 				theme: {
-					selectedStroke: 'red',
-					selectedStrokeWidth: 1.5,
+					defaultFill: 'palegreen',
+					defaultStroke: 'red',
+					deselectedOpacity: 0.5,
+					selectedStroke: 'palegoldenrod',
+					selectedStrokeWidth: 4,
 				},
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
@@ -216,22 +301,27 @@ const examples = [
 					{height}
 					{width}
 					key='iso_a2'
-					selectedKeys=['ES', 'BR', 'N. Cyprus', 'Kosovo', 'RU']
 					theme={{
-						selectedStroke: 'red',
-						selectedStrokeWidth: 1.5
+						defaultFill: 'palegreen',
+						defaultStroke: 'red',
+						deselectedOpacity: 0.5,
+						selectedStroke: 'palegoldenrod',
+						selectedStrokeWidth: 4
 					}}
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
-			key: 'some other selected countries',
+			key: 'some countries selected',
 			props: {
 				key: 'iso_a2',
 				selectedKeys: ['TD', 'US', 'AU', 'CN'],
 				theme: {
-					selectedStroke: 'palegoldenrod',
+					defaultFill: 'palegreen',
+					defaultStroke: 'red',
+					deselectedOpacity: 0.25,
+					selectedStroke: '#00c5fa',
 					selectedStrokeWidth: 4,
 				},
 				topojson: World_110m_iso_a2_topo,
@@ -244,8 +334,11 @@ const examples = [
 					key='iso_a2'
 					selectedKeys=['TD', 'US', 'AU', 'CN']
 					theme={{
-						selectedStroke: 'palegoldenrod',
-						selectedStrokeWidth: 4
+						defaultFill: 'palegreen',
+						defaultStroke: 'red',
+						deselectedOpacity: 0.25,
+						selectedStroke: '#00c5fa',
+						selectedStrokeWidth: 4,
 					}}
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
@@ -259,32 +352,17 @@ const examples = [
 		title: 'Selected regions',
 	},
 	{
-		doc: [
-			{tag: 'p', content: "If `true`, the component emits events when interacting with the regions."},
-			{tag: 'p', content: "The payload is the `key` or `key_alt` of the region being interacted with:"},
-			{tag: 'p', content: "• Clicking a region dispatches a `clicked` event;"},
-			{tag: 'p', content: "• Mouse-entering a region dispatches a `entered` event;"},
-			{tag: 'p', content: "• Mouse-exiting a region dispatches a `exited` event."},
-			{tag: 'p', content: "Please hover and click regions of this chart to read the correspondent event payload below."},
-		],
-		events: [
-			'clicked',
-			'entered',
-			'exited',
-		],
 		data: [{
-			key: null,
+			key: 'default hover style',
 			props: {
 				isInteractive: true,
 				key: 'iso_a2',
-				keyToColor: keyToColorWorld,
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 			},
 			usage: `
 				<ChoroplethG
 					{height}
-					{keyToColor}
 					{width}
 					isInteractive={true}
 					key='iso_a2'
@@ -295,7 +373,61 @@ const examples = [
 					topojsonId='countries'
 				/>
 			`,
+		}, {
+			key: 'custom hover style',
+			props: {
+				isInteractive: true,
+				key: 'iso_a2',
+				theme: {
+					hoverFill: 'yellow',
+					hoverStroke: 'orange',
+					hoverStrokeWidth: 2,
+					hoverStrokedasharray: '2 2',
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					isInteractive={true}
+					key='iso_a2'
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+					theme={{
+						hoverFill: 'yellow',
+						hoverStroke: 'orange',
+						hoverStrokeWidth: 3,
+						hoverStrokedasharray: '4 4',
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
 		}],
+		doc: [
+			{tag: 'p', content: "To use interactivity, you need to provide:"},
+			{tag: 'p', content: "• `isInteractive` set to true;"},
+			{tag: 'p', content: "• `key` or `key_alt` (see basic props for an examplation of these)"},
+			{tag: 'p', content: "The component then emits events when interacting with the regions."},
+			{tag: 'p', content: "The payload is the `key` or `key_alt` of the region being interacted with:"},
+			{tag: 'p', content: "• Clicking a region dispatches a `clicked` event;"},
+			{tag: 'p', content: "• Mouse-entering a region dispatches a `entered` event;"},
+			{tag: 'p', content: "• Mouse-exiting a region dispatches a `exited` event."},
+			{tag: 'p', content: "You can style the hovered region by passing:"},
+			{tag: 'p', content: "• `hoverFill` (default: `#f6f6f6`),"},
+			{tag: 'p', content: "• `hoverStroke` (default: `black`),"},
+			{tag: 'p', content: "• `hoverStrokeWidth` (default: 1.5),"},
+			{tag: 'p', content: "• `hoverStrokedasharray` (default: '')."},
+			{tag: 'p', content: "Please hover and click regions of this chart to read the correspondent event payload below."},
+		],
+		events: [
+			'clicked',
+			'entered',
+			'exited',
+		],
 		name: 'ChoroplethG',
 		namespace: 'svg',
 		packageName: 'choropleth',
@@ -327,7 +459,6 @@ const examples = [
 			key: 'geoAzimuthalEqualArea',
 			props: {
 				key: 'iso_a2',
-				keyToColor: keyToColorWorld,
 				projection: 'geoAzimuthalEqualArea',
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
@@ -335,7 +466,6 @@ const examples = [
 			usage: `
 				<ChoroplethG
 					{height}
-					{keyToColor}
 					{width}
 					key='iso_a2'
 					projection='geoAzimuthalEqualArea'
@@ -349,13 +479,11 @@ const examples = [
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				key: 'iso_a2',
-				keyToColor: keyToColorWorld,
 				projection: 'geoOrthographic',
 			},
 			usage: `
 				<ChoroplethG
 					{height}
-					{keyToColor}
 					{width}
 					key='iso_a2'
 					projection='geoOrthographic'
