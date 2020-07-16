@@ -1,10 +1,19 @@
 <script>
-	import * as _ from 'lamb';
-	import { linearScale } from 'yootils';
 	import isEqual from 'just-compare';
-	import { afterUpdate, beforeUpdate, createEventDispatcher } from 'svelte';
-	import { makeStyleVars } from '@svizzle/dom';
-	import { arrayMaxWith, arrayMinWith, getValue } from '@svizzle/utils';
+	import {index} from 'lamb';
+	import {
+		afterUpdate,
+		beforeUpdate,
+		createEventDispatcher
+	} from 'svelte';
+	import {linearScale} from 'yootils';
+	import {makeStyleVars} from '@svizzle/dom';
+	import {
+		arrayMaxWith,
+		arrayMinWith,
+		getKey,
+		getValue
+	} from '@svizzle/utils';
 
 	const dispatch = createEventDispatcher();
 	const transparentColor = 'rgba(0,0,0,0)';
@@ -35,6 +44,7 @@
 	export let keyToLabel;
 	export let keyToLabelFn;
 	export let shouldResetScroll;
+	export let shouldScrollToFocusedKey;
 	export let theme;
 	export let title;
 	export let valueAccessor;
@@ -43,7 +53,7 @@
 	$: barHeight = barHeight || 4;
 	$: isInteractive = isInteractive || false;
 	$: shouldResetScroll = shouldResetScroll || false;
-	$: theme = theme ? _.merge(defaultTheme, theme) : defaultTheme;
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: valueAccessor = valueAccessor || getValue;
 
 	$: style = makeStyleVars(theme);
@@ -54,6 +64,8 @@
 
 	$: barPadding = theme.fontSize / 2;
 	$: itemHeight = theme.fontSize + barHeight + 3 * barPadding;
+	$: barY = itemHeight - barPadding - barHeight / 2;
+	$: textY = itemHeight - barHeight - 2 * barPadding;
 	$: svgHeight = itemHeight * items.length;
 	$: getMin = arrayMinWith(valueAccessor);
 	$: getMax = arrayMaxWith(valueAccessor);
@@ -65,11 +77,11 @@
 		: max > 0 ? [0, max] : [min, 0];
 	$: getX = linearScale(domain, [0, width]);
 	$: x0 = getX(0);
-	$: bars = items.map(item => {
+	$: bars = items.map((item, idx) => {
 		const value = valueAccessor(item);
 		const isNeg = value < 0;
 
-		return _.merge(item, {
+		return {...item, ...{
 			barColor: keyToColor
 				? keyToColor[item.key] || theme.barDefaultColor
 				: keyToColorFn
@@ -92,10 +104,10 @@
 					: item.key,
 			x: getX(value),
 			xValue: value > 0 ? width: 0,
-			y: itemHeight - barPadding - barHeight / 2,
-			yText: itemHeight - barHeight - 2 * barPadding
-		})
+			y: (idx + 1) * itemHeight // bottom of the item rect
+		}}
 	});
+	$: barsByKey = index(bars, getKey);
 
 	/* scroll */
 
@@ -115,6 +127,44 @@
 	$: if (wasNotResettingScroll && shouldResetScroll && scrollable) {
 		scrollable.scrollTop = 0;
 	}
+
+	$: focusedY =
+		shouldScrollToFocusedKey
+		&& focusedKey
+		&& barsByKey[focusedKey]
+		&& barsByKey[focusedKey].y;
+
+	$: if (
+		shouldScrollToFocusedKey
+		&& focusedKey
+		&& scrollable
+	) {
+		const yAbs = -scrollable.scrollTop + focusedY;
+		if (yAbs < 0) {
+			scrollable.scroll({
+				top: focusedY - itemHeight,
+				behavior: 'smooth'
+			})
+		} else if (yAbs > height) {
+			scrollable.scroll({
+				top: focusedY - height,
+				behavior: 'smooth'
+			})
+		}
+	}
+
+	/* events */
+
+	const onClick = key => () => {
+		isInteractive && dispatch('clicked', {id: key})
+	}
+	const onMouseenter = key => () => {
+		isInteractive && dispatch('entered', {id: key})
+		hoveredKey = key;
+	}
+	const onMouseleave = key => () => {
+		isInteractive && dispatch('exited', {id: key})
+	}
 </script>
 
 <div
@@ -131,10 +181,10 @@
 		bind:clientHeight={height}
 		bind:this={scrollable}
 		class:titled={title}
-		on:mouseleave='{ () => { hoveredKey = null } }'
+		on:mouseleave={() => {hoveredKey = null}}
 	>
 		<svg {width} height={svgHeight}>
-			<rect class='bkg' {width} {height} />
+			<rect class='bkg' {width} height={svgHeight} />
 			<g>
 				{#each bars as {
 					barColor,
@@ -144,22 +194,16 @@
 					isNeg,
 					key,
 					label,
-					length,
 					x,
 					xValue,
-					y,
-					yText
 				}, index (key)}
 				<g
 					class:clickable={isInteractive}
 					class='item'
+					on:click={onClick(key)}
+					on:mouseenter={onMouseenter(key)}
+					on:mouseleave={onMouseleave(key)}
 					transform='translate(0, {itemHeight * index})'
-					on:click="{ () => { isInteractive && dispatch('clicked', {id: key}) } }"
-					on:mouseenter="{ () => {
-						isInteractive && dispatch('entered', {id: key})
-						hoveredKey = key;
-					} }"
-					on:mouseleave="{ () => isInteractive && dispatch('exited', {id: key}) }"
 				>
 					<rect
 						{width}
@@ -171,21 +215,21 @@
 						stroke-width={barHeight}
 						x1={x0}
 						x2={x}
-						y1={y}
-						y2={y}
+						y1={barY}
+						y2={barY}
 					/>
 					<text
 						class:neg={isNeg}
 						class='key'
 						dx={dxKey}
 						x={x0}
-						y={yText}
+						y={textY}
 					>{label}</text>
 					<text
 						class:neg={isNeg}
 						class='value'
 						x={xValue}
-						y={yText}
+						y={textY}
 					>{displayValue}</text>
 				</g>
 				{/each}
