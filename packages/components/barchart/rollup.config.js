@@ -26,6 +26,9 @@ const input = {
 	BarchartV: 'src/BarchartVDiv.svelte',
 	index: 'src/index.js',
 };
+const removeComments = cleanup({
+	extensions: ['js', 'mjs']
+});
 const treeshake = {
 	annotations: true,
 	moduleSideEffects: id =>
@@ -49,7 +52,7 @@ const cjsConfig = {
 		resolve(),
 		commonjs(),
 		svelte(),
-		cleanup(),
+		removeComments,
 	],
 	treeshake
 };
@@ -69,7 +72,7 @@ const makeConfig = _.pipe([
 			resolve(),
 			commonjs(),
 			svelte(),
-			cleanup(),
+			removeComments,
 			// json(),
 			// buble({
 			//	 transforms: { dangerousForOf: true }

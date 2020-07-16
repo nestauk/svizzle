@@ -181,7 +181,7 @@ const examples = [
 				<BarchartV
 					{items}
 					{keyToColor}
-					theme={barDefaultColor:'${barDefaultColor}'}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
 				/>
 			`,
 		}, {
@@ -195,7 +195,7 @@ const examples = [
 				<BarchartV
 					{items}
 					{keyToColor}
-					theme={barDefaultColor:'${barDefaultColor}'}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
 				/>
 			`,
 		}, {
@@ -209,7 +209,7 @@ const examples = [
 				<BarchartV
 					{items}
 					{keyToColor}
-					theme={barDefaultColor:'${barDefaultColor}'}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
 				/>
 			`,
 		}],

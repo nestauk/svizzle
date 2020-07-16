@@ -14,7 +14,7 @@
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
 		"js-yaml": "^3.13.1",
-		"lamb": "^0.58.0",
+		"lamb": "^0.59.2",
 		"mkdirp": "^0.5.1",
 		"node-fetch": "^2.6.0",
 		"rimraf": "^3.0.0",
@@ -41,7 +41,7 @@
 	"license": "MIT",
 	"name": "@svizzle/atlas",
 	"peerDependencies": {
-		"lamb": "^0.58.0"
+		"lamb": "^0.59.2"
 	},
 	"repository": {
 		"type": "git",

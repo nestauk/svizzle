@@ -1,7 +1,8 @@
-## `@svizzle/geometry` (next)
+## `@svizzle/geometry` v0.2.1 (next)
 
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
+- Update to Lamb 0.59.2 (no renames needed)
 
 ## `@svizzle/geometry` v0.2.0
 

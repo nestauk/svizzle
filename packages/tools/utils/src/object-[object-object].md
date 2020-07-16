@@ -1,3 +1,3 @@
 # lamb
 
-- renameKeys
+- rename

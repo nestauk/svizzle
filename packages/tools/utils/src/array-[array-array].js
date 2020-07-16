@@ -47,7 +47,7 @@ export const makeArrayTransformer = fnArr => _.pipe([
  * @version 0.8.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
  */
-export const pluckKeys = keys => _.mapWith(_.pickKeys(keys));
+export const pluckKeys = keys => _.mapWith(_.pick(keys));
 
 /**
  * Return a function expecting an array and removing items at the provided indices

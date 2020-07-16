@@ -11,7 +11,15 @@
 		mergeObj,
 	} from '@svizzle/utils';
 	import {scaleLinear, scaleLog} from 'd3-scale';
-	import * as _ from 'lamb';
+	import {
+		appendTo,
+		getKey,
+		has,
+		last,
+		pullFrom,
+		sort,
+		uniques,
+	} from 'lamb';
 
 	import {
 		getBinsTicks,
@@ -19,7 +27,7 @@
 	} from './utils';
 
 	const dispatch = createEventDispatcher();
-	const makeMaxBarThickness = arrayMaxWith(_.getKey('barThickness'));
+	const makeMaxBarThickness = arrayMaxWith(getKey('barThickness'));
 
 	const defaultFlags = {
 		hideOrigin: false,
@@ -81,10 +89,10 @@
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: bins = bins || [];
-	$: flags = flags ? _.merge(defaultFlags, flags) : defaultFlags;
-	$: geometry = geometry ? _.merge(defaultGeometry, geometry) : defaultGeometry;
+	$: flags = flags ? {...defaultFlags, ...flags} : defaultFlags;
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: selectedBins = selectedBins || [];
-	$: theme = theme ? _.merge(defaultTheme, theme) : defaultTheme;
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: ticksFormatFn = ticksFormatFn || (x => x);
 
 	let rangesExtent = [];
@@ -116,18 +124,18 @@
 		? geometry.originRadius + geometry.textPadding
 		: -(geometry.originRadius + geometry.textPadding);
 	$: ticksAnchor = flags.isRightToLeft ? 'start' : 'end';
-	$: ticks = _.map(getBinsTicks(bins), tick => ({
+	$: ticks = getBinsTicks(bins).map(tick => ({
 		tick: ticksFormatFn(tick),
 		y: flags.isTopDown ? scales.y(tick) : -scales.y(tick)
 	}));
 
-	$: useValue = bins.length && _.has(bins[0], 'value');
+	$: useValue = bins.length && has(bins[0], 'value');
 	$: getBinsMax = useValue
 		? arrayMaxWith(getValue)
 		: arrayMaxWith(getValuesLength);
 	$: valuesMax = getBinsMax(bins);
 	$: rangesExtent = bins.length
-		? [bins[0].range[0], _.last(bins).range[1]]
+		? [bins[0].range[0], last(bins).range[1]]
 		: [];
 
 	/* eslint-disable indent */
@@ -141,7 +149,7 @@
 	}
 	/* eslint-enable indent */
 
-	$: bars = _.map(bins, (bin, index) => {
+	$: bars = bins.map((bin, index) => {
 		const {range, values, value} = bin;
 		const selected = selectedBins.length && selectedBins.includes(index);
 		const displayValue = values ? values.length : value;
@@ -159,7 +167,7 @@
 		const fill = bin.color
 			|| (binsFill && binsFill[index] ? binsFill[index] : theme.binFill);
 
-		return _.merge(bin, {
+		return {...bin, ...{
 			barLength,
 			barThickness,
 			displayValue,
@@ -170,7 +178,7 @@
 			x,
 			y1,
 			y2,
-		})
+		}}
 	});
 	$: maxBarThickness = makeMaxBarThickness(bars);
 	$: fontSize = Math.min(
@@ -201,9 +209,9 @@
 			: doesBrushRemove
 				? theme.brushRemoveStroke
 				: null;
-	$: brushExtent = isBrushing && _.sort([$brush.start, $brush.end]);
+	$: brushExtent = isBrushing && sort([$brush.start, $brush.end]);
 	$: brushRange = isBrushing && inclusiveRange(brushExtent);
-	$: brushExtentBarYs = isBrushing && _.sort([
+	$: brushExtentBarYs = isBrushing && sort([
 		bars[brushExtent[0]].y1,
 		bars[brushExtent[0]].y2,
 		bars[brushExtent[1]].y1,
@@ -216,9 +224,9 @@
 	$: if (isBrushing) {
 		selectedBins =
 			doesBrushAdd
-				? _.uniques(concat(selectedBins, brushRange))
+				? uniques(concat(selectedBins, brushRange))
 				: doesBrushRemove
-					? _.pullFrom(selectedBins, brushRange)
+					? pullFrom(selectedBins, brushRange)
 					: brushRange;
 		dispatch('brushed', {
 			end: $brush.end,
@@ -282,9 +290,9 @@
 		if (isPressed) {
 			if ($brush.delta < geometry.brushThreshold) {
 				if (doesBrushAdd) {
-					selectedBins = _.uniques(_.appendTo(selectedBins, index))
+					selectedBins = uniques(appendTo(selectedBins, index))
 				} else if (doesBrushRemove) {
-					selectedBins = _.pullFrom(selectedBins, [index])
+					selectedBins = pullFrom(selectedBins, [index])
 				} else {
 					selectedBins = [index];
 				}

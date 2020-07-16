@@ -1,4 +1,4 @@
 # lamb
 
-- pickKeys
-- skipKeys
+- pick
+- skip

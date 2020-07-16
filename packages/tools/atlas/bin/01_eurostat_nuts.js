@@ -57,7 +57,7 @@ const permute = _.pipe([
 ]);
 
 const makeTopojsonUpdater = key => transformValues({
-	objects: _.renameKeys({[key]: 'NUTS'}),
+	objects: _.rename({[key]: 'NUTS'}),
 });
 
 /*

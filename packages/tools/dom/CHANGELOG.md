@@ -3,6 +3,7 @@
 - add `makeStyleVars`
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
+- Update to Lamb 0.59.2 (some renames needed)
 
 ## `@svizzle/dom` v0.3.0
 

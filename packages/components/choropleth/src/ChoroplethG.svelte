@@ -1,19 +1,19 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	import { feature as geoObject } from 'topojson-client';
-	import { geoPath } from 'd3-geo';
-	import * as _ from 'lamb';
+	import {createEventDispatcher} from 'svelte';
+	import {feature as geoObject} from 'topojson-client';
+	import {geoPath} from 'd3-geo';
+	import {getPath} from 'lamb';
 	import {makeStyleVars} from '@svizzle/dom';
 	import {
 		makeUpdateFeaturesProperty,
 		setGeometryPrecision
 	} from '@svizzle/geo';
-	import { isNotNullWith } from '@svizzle/utils';
+	import {isNotNullWith} from '@svizzle/utils';
 
 	import * as projections from './projections';
 
 	const dispatch = createEventDispatcher();
-	const hasColor = isNotNullWith(_.getPath('properties.color'));
+	const hasColor = isNotNullWith(getPath('properties.color'));
 	const truncateGeojson = setGeometryPrecision(4);
 	const topoToGeo = (topojson, id) =>
 		truncateGeojson(geoObject(topojson, topojson.objects[id]));
@@ -58,12 +58,12 @@
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: geojson = topoToGeo(topojson, topojsonId);
-	$: geometry = geometry ? _.merge(defaultGeometry, geometry) : defaultGeometry;
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: isInteractive = isInteractive || false;
 	$: key_alt = key_alt || 'name';
 	$: projection = projection && projections[projection] || projections.geoEquirectangular;
 	$: selectedKeys = selectedKeys || [];
-	$: theme = theme ? _.merge(defaultTheme, theme) : defaultTheme;
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: style = makeStyleVars(theme);
 	$: innerHeight = Math.max(0, height - geometry.top - geometry.bottom);
 	$: innerWidth = Math.max(0, width - geometry.left - geometry.right);

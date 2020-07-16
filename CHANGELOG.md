@@ -5,14 +5,29 @@
 - update docs
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
-- update website:
-	- add histogram examples
-	- updated dependencies
-	- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
-	- add colors to the UK examples
-	- create a list of entries from the examples instead of relying on Sapper scraping
-	- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
-	- optimised exported routes weight
+- update to Lamb 0.59.2
+	- latest with correct `exports`: https://github.com/ascartabelli/lamb/releases/tag/v0.59.2
+	- renames: https://github.com/ascartabelli/lamb/releases/tag/v0.59.0
+		- `pick` -> `pickIn`
+		- `pickKeys` -> `pick`
+		- `pluckKey` -> `pluck`
+		- `renameKeys` -> `rename`
+		- `skipKeys` -> `skip`
+
+## website
+
+- add histogram examples
+- updated dependencies
+- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
+- add colors to the UK examples
+- create a list of entries from the examples instead of relying on Sapper scraping
+- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
+- optimised exported routes weight
+- Update to Lamb 0.59.2 (some renames needed)
+
+## `@svizzle/atlas` v0.2.1 (next)
+
+- Update to Lamb 0.59.2 (some renames needed)
 
 ## `@svizzle/barchart` v0.3.0 (next)
 
@@ -36,6 +51,7 @@
 			- `hoverColor`
 	- `barHeight` (was previously set in CSS)
 - temporarily removed the props doc from the README.md to avoid duplication with the website
+- Update to Lamb 0.59.2 (no renames needed)
 
 ## `@svizzle/choropleth` v0.3.0 (next)
 
@@ -61,12 +77,30 @@
 - docs:
 	- document only `ChoroplethG` with a mention of how to use `ChoroplethDiv` to reduce duplication
 	- add a specific route for `keyToColor`, it was used in toom many pages
+- Update to Lamb 0.59.2 (no renames needed)
+
+## `@svizzle/dev` v0.3.1 (next)
+
+- Update to Lamb 0.59.2 (no renames needed)
 
 ## `@svizzle/dom` v0.4.0 (next)
 
 - add `makeStyleVars`
 - docs: converted all examples to a REPL format
 - dev: using single quotes rather than double quote where possible
+- Update to Lamb 0.59.2 (some renames needed)
+
+## `@svizzle/file` v0.7.1 (next)
+
+- Update to Lamb 0.59.2 (some renames needed)
+
+## `@svizzle/geo` v0.5.1 (next)
+
+- Update to Lamb 0.59.2 (no renames needed)
+
+## `@svizzle/geometry` v0.2.1 (next)
+
+- Update to Lamb 0.59.2 (no renames needed)
 
 ## `@svizzle/histogram` v0.1.0 (new)
 
@@ -86,10 +120,15 @@
 	- add `getTrimmedBinsStats`
 	- add `isNonEmptyBin`
 
+## `@svizzle/request` v0.2.1 (next)
+
+- Update to Lamb 0.59.2 (no renames needed)
+
 ## `@svizzle/utils` v0.8.0 (next)
 
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
+- Update to Lamb 0.59.2 (some renames needed)
 
 ### (Any -> Any):accumcb -> (Array -> Any)
 

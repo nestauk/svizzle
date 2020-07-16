@@ -155,6 +155,6 @@ export const applyTransformsSequence = pathFnPairs => obj =>
 }
  *
  * @version 0.8.0
- * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
+ * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluck
  */
-export const pluckValuesKeys = keys => _.mapValuesWith(_.pickKeys(keys));
+export const pluckValuesKeys = keys => _.mapValuesWith(_.pick(keys));

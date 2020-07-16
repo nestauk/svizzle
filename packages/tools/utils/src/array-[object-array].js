@@ -51,7 +51,7 @@ export const makeKeysGetter = _.pipe([
  */
 export const pickAndConcatValues =
 	keys => _.pipe([
-		_.pickKeys(keys),
+		_.pick(keys),
 		_.values,
 		_.apply(concat)
 	]);

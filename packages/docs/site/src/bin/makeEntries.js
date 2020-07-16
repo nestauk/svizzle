@@ -7,7 +7,7 @@ import * as examples from '../routes/components/_examples';
 
 const makeEntries = _.pipe([
 	concatValues,
-	_.pluckKey('slug'),
+	_.pluck('slug'),
 	_.mapWith(prepend('components/')),
 	joinWith(' ')
 ]);

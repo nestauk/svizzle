@@ -28,6 +28,9 @@ const input = {
 	HistogramG: 'src/HistogramG.svelte',
 	index: 'src/index.js',
 };
+const removeComments = cleanup({
+	extensions: ['js', 'mjs']
+});
 const treeshake = {
 	annotations: true,
 	moduleSideEffects: id =>
@@ -49,8 +52,8 @@ const cjsConfig = {
 		resolve(),
 		commonjs(),
 		svelte(),
-		cleanup(),
 		json(),
+		removeComments,
 	],
 	treeshake
 };
@@ -70,8 +73,8 @@ const makeConfig = _.pipe([
 			resolve(),
 			commonjs(),
 			svelte(),
-			cleanup(),
 			json(),
+			removeComments,
 			// buble({
 			//	 transforms: { dangerousForOf: true }
 			// }),

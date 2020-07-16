@@ -1,3 +1,7 @@
+## `@svizzle/dev` v0.3.1 (next)
+
+- Update to Lamb 0.59.2 (no renames needed)
+
 ## `@svizzle/dev` (next)
 
 - docs: converted all examples to a REPL-like format

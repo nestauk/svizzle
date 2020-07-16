@@ -3,7 +3,7 @@
 */
 
 import {select} from 'd3-selection';
-import {pick} from 'lamb';
+import {pickIn} from 'lamb';
 import {mapValuesToFloatPossibly} from '@svizzle/utils';
 
 /* get */
@@ -30,7 +30,7 @@ getElementGeometry(node, ['fontSize'])
  */
 export const getElementGeometry = (elem, additionalProps = []) =>
 	mapValuesToFloatPossibly(
-		pick(getComputedStyle(elem), [
+		pickIn(getComputedStyle(elem), [
 			'width',
 			'height',
 			...additionalProps

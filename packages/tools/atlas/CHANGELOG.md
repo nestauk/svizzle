@@ -1,3 +1,7 @@
+## `@svizzle/atlas` v0.2.1 (next)
+
+- Update to Lamb 0.59.2 (some renames needed)
+
 ## `@svizzle/atlas` v0.2.0
 
 - fixed the scripts to extract NUTS topojson by country (#48)

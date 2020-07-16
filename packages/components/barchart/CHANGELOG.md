@@ -20,6 +20,7 @@
 			- `hoverColor`
 	- `barHeight` (was previously set in CSS)
 - temporarily removed the props doc from the README.md to avoid duplication with the website
+- Update to Lamb 0.59.2 (no renames needed)
 
 ## `@svizzle/barchart` v0.2.0
 

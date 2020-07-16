@@ -22,6 +22,7 @@
 - docs:
 	- document only `ChoroplethG` with a mention of how to use `ChoroplethDiv` to reduce duplication
 	- add a specific route for `keyToColor`, it was used in toom many pages
+- Update to Lamb 0.59.2 (no renames needed)
 
 ## `@svizzle/choropleth` v0.2.0
 

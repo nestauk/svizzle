@@ -315,7 +315,7 @@ const keyToColorWorldFull = {
 }
 
 // keep these 2 commented for the `keyToColorWorld` example to show 2 black bars.
-export const keyToColorWorld = _.skip(keyToColorWorldFull, ['AL', 'AD']);
+export const keyToColorWorld = _.skipIn(keyToColorWorldFull, ['AL', 'AD']);
 
 export const keyToColorWorldShort = {
 	AM: 'blue',

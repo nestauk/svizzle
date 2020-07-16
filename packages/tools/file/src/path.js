@@ -67,7 +67,7 @@ export const filterJsonExtensions =
  */
 export const renameToExtension = ext => _.pipe([
 	path.parse,
-	_.skipKeys(['base']), // [1]
+	_.skip(['base']), // [1]
 	mergeObj({ext}),
 	path.format
 ]);
