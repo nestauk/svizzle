@@ -23,7 +23,7 @@ const banner = makeBanner(pkg);
 const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = {
-	BarchartV: 'src/BarchartV.svelte',
+	BarchartV: 'src/BarchartVDiv.svelte',
 	index: 'src/index.js',
 };
 const treeshake = {
