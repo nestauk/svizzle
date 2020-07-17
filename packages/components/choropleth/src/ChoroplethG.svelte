@@ -48,8 +48,8 @@
 	// optional
 	export let geometry;
 	export let isInteractive;
-	export let key;
 	export let key_alt;
+	export let key;
 	export let keyToColor;
 	export let keyToColorFn;
 	export let projection;

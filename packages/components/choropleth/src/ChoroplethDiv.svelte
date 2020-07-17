@@ -4,21 +4,24 @@
 	import ChoroplethG from './ChoroplethG.svelte';
 
 	// html
-	export let title;
-	export let padding;
 	export let headerHeight;
+	export let padding;
+	export let title;
 
-	// svg
+	// ChoroplethG: required
+	export let topojson;
+	export let topojsonId;
+
+	// ChoroplethG: optional
+	export let geometry;
 	export let isInteractive;
+	export let key_alt;
 	export let key;
 	export let keyToColor;
 	export let keyToColorFn;
-	export let geometry;
 	export let projection;
 	export let selectedKeys;
 	export let theme;
-	export let topojson;
-	export let topojsonId;
 
 	$: padding = padding || '10px';
 	$: headerHeight = headerHeight || '2rem';
@@ -49,8 +52,10 @@
 		>
 			<ChoroplethG
 				{height}
+				{geometry}
 				{isInteractive}
 				{key}
+				{key_alt}
 				{keyToColor}
 				{keyToColorFn}
 				{projection}
