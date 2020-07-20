@@ -14,20 +14,18 @@ import {isValidNumber} from "./any-boolean";
  * @return {(*|array)}
  *
  * @example
- * undefined => []
- * [1, 2, 3] => [1, 2, 3]
- * {a: 1} => {a: 1}
- * "a" => "a"
+> makeEmptyArrayIfUndefined(undefined)
+[]
+> makeEmptyArrayIfUndefined([1, 2, 3])
+[1, 2, 3]
+> makeEmptyArrayIfUndefined({a: 1})
+{a: 1}
+> makeEmptyArrayIfUndefined('a')
+'a'
  *
  * @version 0.1.0
  */
 export const makeEmptyArrayIfUndefined = x => _.isUndefined(x) ? [] : x;
-
-// export const makeEmptyArrayIfUndefined = _.condition(
-//     _.isUndefined,
-//     _.always([]),
-//     _.identity
-// );
 
 /**
  * Return a number if the input can be converted to float, identity otherwise

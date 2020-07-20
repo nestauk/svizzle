@@ -4,8 +4,9 @@
 
 import * as _ from 'lamb';
 
-import {sliceStringAt} from './array-[string-string]';
+import {sliceString} from './string_proto-string';
 import {endsWithNewLine} from './string-boolean';
+import {getEndOfLineLength} from './string-number';
 
 /**
  * Capitalise the input string
@@ -30,10 +31,22 @@ export const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
  * @return {array}
  *
  * @example
- * trimLastNewline('a\nb\nc') // 'a\nb\nc'
- * trimLastNewline('a\nb\nc\n') // 'a\nb\nc'
- * trimLastNewline('a\nb\nc\n\n') // 'a\nb\nc\n'
+> trimLastNewline('a\nb\nc')
+'a\nb\nc'
+> trimLastNewline('a\nb\nc\n')
+'a\nb\nc'
+> trimLastNewline('a\nb\nc\n\n')
+'a\nb\nc\n'
+> trimLastNewline('a\nb\nc\r\n')
+'a\nb\nc'
+> trimLastNewline('a\nb\nc\n\r\n')
+'a\nb\nc\n'
  *
  * @version 0.5.0
  */
-export const trimLastNewline = _.when(endsWithNewLine, sliceStringAt([0, -1]));
+export const trimLastNewline =
+	_.when(endsWithNewLine, s => {
+		const L = getEndOfLineLength(s);
+
+		return sliceString(s, 0, -L);
+	});

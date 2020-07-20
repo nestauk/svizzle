@@ -22,6 +22,20 @@ describe('(Any -> Any):accumcb -> (Array -> Any)', function() {
 				[0, 4, 7]
 			);
 		});
+		it('should create a different initial array each time it gets called', function() {
+			const reduce1 = reduceFromEmptyArray((acc, x) => {
+				acc.push(x.value);
+				return acc;
+			});
+			const reduce2 = reduceFromEmptyArray((acc, x) => {
+				acc.push(x.value);
+				return acc;
+			});
+			reduce1([{value: 1}, {value: 2}]);
+			const b = reduce2([{value: 3}, {value: 4}]);
+
+			assert.notStrictEqual(b, [1, 2, 3, 4]);
+		});
 	});
 	describe('reduceFromEmptyObject', function() {
 		it('should return a reduce function expecting an array to reduce with the passed reducer with an empty object as the initial value', function() {
@@ -34,7 +48,28 @@ describe('(Any -> Any):accumcb -> (Array -> Any)', function() {
 					{id: '00', name: 'a'},
 					{id: '11', name: 'b'}
 				]),
-				{ '11': 'b', '00': 'a' }
+				{'11': 'b', '00': 'a'}
+			);
+		});
+		it('should create a different initial object each time it gets called', function() {
+			const reduce1 = reduceFromEmptyObject((acc, x) => {
+				acc[x.id] = x.name;
+				return acc;
+			});
+			const reduce2 = reduceFromEmptyObject((acc, x) => {
+				acc[x.id] = x.name;
+				return acc;
+			});
+			reduce1([
+				{id: 'a', name: 'a'},
+				{id: 'b', name: 'b'}
+			]);
+			const b = reduce2([
+				{id: 'b', name: 'c'},
+			]);
+			assert.notStrictEqual(
+				b,
+				{'c': 'c', 'b': 'b', 'a': 'a'}
 			);
 		});
 	});

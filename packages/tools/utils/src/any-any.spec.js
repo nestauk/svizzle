@@ -45,6 +45,11 @@ describe('Any -> Any', function() {
 				assert.deepStrictEqual(makeEmptyArrayIfUndefined({a: 1}), {a: 1});
 				assert.deepStrictEqual(makeEmptyArrayIfUndefined('str'), 'str');
 			});
+			it('should create different objects each time it gets called', function() {
+				const a = makeEmptyArrayIfUndefined(undefined);
+				const b = makeEmptyArrayIfUndefined(undefined);
+				assert.notStrictEqual(a, b);
+			});
 		});
 	});
 });

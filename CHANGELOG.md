@@ -88,8 +88,12 @@
 
 ## `@svizzle/utils` v0.8.0 (next)
 
-- docs: converted all examples to a REPL format
+- docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
+
+### (Any -> Any):accumcb -> (Array -> Any)
+
+- add tests to make sure `reduceFromArr` and `reduceFromObj` return a new instance of the initial value every time they get called
 
 ### (String -> String) -> (Object -> Object)
 
@@ -118,10 +122,17 @@
 ### Object -> Boolean
 
 - add `hasSomeNullValues`
+- add tests to `endsWithNewLine` to check Windows line ending
+
+### String -> Number
+
+- add `getEndOfLineLength`
 
 ### String -> String
 
 - add `capitalize`
+- make `trimLastNewline` compatible with Windows line ending
+
 
 ## 20200411_2
 

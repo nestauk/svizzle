@@ -20,10 +20,12 @@ import {makeEndsWith} from './string-[string-boolean]';
 false
 > endsWithNewLine('abc\n')
 true
+> endsWithNewLine('abc\r\n')
+true
  *
  * @version 0.5.0
  */
-export const endsWithNewLine = makeEndsWith('\n');
+export const endsWithNewLine = makeEndsWith('\n'); // s => (/\r?\n/).test(s);
 
 /**
  * Return true if the trimmed string is not empty
