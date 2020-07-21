@@ -20,7 +20,8 @@
 - updated dependencies
 - rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
 - add colors to the UK examples
-- create a list of entries from the examples instead of relying on Sapper scraping
+- use a menu to select examples rather then buttons
+- create a list of entries from the examples instead of relying on Sapper scraping them
 - during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
 - optimised exported routes weight
 - Update to Lamb 0.59.2 (some renames needed)

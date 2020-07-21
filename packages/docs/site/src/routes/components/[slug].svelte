@@ -32,11 +32,10 @@
 	let height;
 
 	$: isSVG = namespace === 'svg';
-
-	$: current_data_index = data && 0; // reset to zero on navigation
-	$: component = components[name];
 	$: payloads = events ? makeKeyedEmptyString(events) : null;
-	$: current_data = data[current_data_index];
+	$: component = components[name];
+	$: selected = data && 0;
+	$: current_data = data[selected];
 	$: displayProps = _.pairs(current_data.props);
 
 	const makeEventHandler = eventName =>
@@ -64,13 +63,34 @@
 <main>
 	<h1>{title}</h1>
 	<div class="col col1">
+
+		<!-- doc -->
 		<div class="distancer">
 			<Elements elements={doc} />
 		</div>
+
+		<!-- select -->
+		{#if data.length > 1}
 		<div class="distancer">
-			<h2>Usage</h2>
-			<pre>{current_data.usage}</pre>
+			<h2>Choose an example</h2>
+			<div class="distancer">
+				<!-- svelte-ignore a11y-no-onchange -->
+				<select
+					on:change={event => {selected = Number(event.target.value)}}
+					size={data.length}
+				>
+					{#each data as {key}, index}
+					<option
+						value={index}
+						selected={index === selected}
+					>{key}</option>
+					{/each}
+				</select>
+			</div>
 		</div>
+		{/if}
+
+		<!-- events -->
 		{#if payloads}
 		<h2>Events</h2>
 		<div class="distancer">
@@ -82,18 +102,16 @@
 			{/each}
 		</div>
 		{/if}
+
+		<!-- usage -->
+		<div class="distancer">
+			<h2>Usage</h2>
+			<pre>{current_data.usage}</pre>
+		</div>
+
+		<!-- props -->
 		<div class="distancer">
 			<h2>Props</h2>
-			{#if data.length > 1}
-			<div class="distancer">
-				{#each data as {key, value}, index}
-				<button
-					class:active='{current_data_index === index}'
-					on:click='{ () => { current_data_index = index } }'
-				>{key}</button>
-				{/each}
-			</div>
-			{/if}
 			{#each displayProps as [propName, propValue]}
 			<h3><code>{propName}</code></h3>
 			<div class="distancer">
@@ -101,6 +119,7 @@
 			</div>
 			{/each}
 		</div>
+
 	</div>
 	<div class="col col2">
 		{#if isSVG}
@@ -172,16 +191,25 @@
 		flex: 1;
 	}
 
-	button {
-		padding: 0.5rem;
-		margin-right: 0.5rem;
-		font-size: 0.85rem;
+	select {
+		font-size: 1.05rem;
+		font-family: inherit;
+		position: relative;
+		appearance: none;
+		outline: none;
+		user-select: none;
 	}
 
-	button.active {
-		background-color: var(--color-main);
-		color: white;
-		outline: 0 none; /* used for accessibility FIXME */
+	option {
+		padding: 0.5rem;
+		appearance: none;
+		outline: 0 none;
+		cursor: pointer;
+		user-select: none;
+	}
+	option[selected=true] {
+		background: linear-gradient(#FFC894,#FFC894);
+		background-color: red !important;
 	}
 
 	pre {

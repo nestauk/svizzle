@@ -441,7 +441,7 @@ const examples = [
 			{tag: 'p', content: "Azimuthal Projections:"},
 			{tag: 'p', content: "• `geoAzimuthalEqualArea`"},
 			{tag: 'p', content: "• `geoAzimuthalEquidistant`"},
-			{tag: 'p', content: "`• geoGnomonic`"},
+			{tag: 'p', content: "• `geoGnomonic`"},
 			{tag: 'p', content: "• `geoOrthographic`"},
 			{tag: 'p', content: "• `geoStereographic`"},
 			{tag: 'p', content: "Equal-Earth Projections: `geoEqualEarth`"},
@@ -474,6 +474,42 @@ const examples = [
 				/>
 			`,
 		}, {
+			key: 'geoAzimuthalEquidistant',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoAzimuthalEquidistant',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoAzimuthalEquidistant'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoGnomonic',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoGnomonic',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoGnomonic'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
 			key: 'geoOrthographic',
 			props: {
 				topojson: World_110m_iso_a2_topo,
@@ -487,6 +523,168 @@ const examples = [
 					{width}
 					key='iso_a2'
 					projection='geoOrthographic'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoStereographic',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoStereographic',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoStereographic'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoEqualEarth',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoEqualEarth',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoEqualEarth'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoConicConformal',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoConicConformal',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoConicConformal'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoConicEqualArea',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoConicEqualArea',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoConicEqualArea'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoConicEquidistant',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoConicEquidistant',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoConicEquidistant'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoEquirectangular',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoEquirectangular',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoEquirectangular'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoMercator',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoMercator',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoMercator'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoTransverseMercator',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoTransverseMercator',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoTransverseMercator'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoNaturalEarth1',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoNaturalEarth1',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoNaturalEarth1'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
