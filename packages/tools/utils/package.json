@@ -12,7 +12,7 @@
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
 		"lamb": "^0.59.2",
-		"mkdirp": "^0.5.1",
+		"mkdirp": "^1.0.4",
 		"mocha": "^5.2.0",
 		"rimraf": "^3.0.0",
 		"rollup": "^2.21.0",

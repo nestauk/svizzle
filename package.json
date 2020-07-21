@@ -1,12 +1,12 @@
 {
 	"author": "nestauk",
 	"devDependencies": {
-		"docdash": "^1.1.1",
-		"gh-pages": "^2.2.0",
+		"docdash": "^1.2.0",
+		"gh-pages": "^3.1.0",
 		"husky": "^4.2.5",
-		"jsdoc": "^3.6.3",
+		"jsdoc": "^3.6.4",
 		"lerna": "^3.22.1",
-		"rimraf": "^3.0.0",
+		"rimraf": "^3.0.2",
 		"serve": "^11.3.0"
 	},
 	"dependencies": {},

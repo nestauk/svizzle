@@ -26,6 +26,7 @@ const treeshake = {
 	annotations: true,
 	moduleSideEffects: [
 		// bin/featuresDirToCollection.js, unused by the lib
+		// currently used @turf/* have all `sideEffects: false`
 		'@svizzle/file',
 		'commander'
 	],

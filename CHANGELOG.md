@@ -96,7 +96,10 @@
 
 ## `@svizzle/geo` v0.5.1 (next)
 
+- Updated `@turf/*` to version `6.2.0-alpha.0` which is tree-shakable, hence reducing the build size (see #101)
 - Update to Lamb 0.59.2 (no renames needed)
+- docs: converted all examples to a REPL-like format
+- dev: using single quotes rather than double quote where possible
 
 ## `@svizzle/geometry` v0.2.1 (next)
 
