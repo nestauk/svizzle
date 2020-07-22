@@ -6,11 +6,9 @@ https://nestauk.github.io/svizzle
 
 ### Installation
 
-`@svizzle/atlas` peer-depends on `lamb` so you have to install `lamb` along with it.
-
 *npm*
 
-`npm i -S lamb @svizzle/atlas`
+`npm i -S @svizzle/atlas`
 
 
 ### Distribution files

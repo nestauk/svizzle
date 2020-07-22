@@ -1,6 +1,7 @@
-## `@svizzle/dev` v0.3.1 (next)
+## `@svizzle/dev` v0.4.0 (next)
 
 - Update to Lamb 0.59.2 (no renames needed)
+- Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
 ## `@svizzle/dev` (next)
 

@@ -6,17 +6,14 @@ https://nestauk.github.io/svizzle
 
 ### Installation
 
-`@svizzle/utils` peer-depends on `lamb` so you have to install `lamb` along with it.
-
 *npm*
 
 
-`npm i -S lamb @svizzle/utils`
+`npm i -S @svizzle/utils`
 
 *browser*
 
 ```
-<script src="https://unpkg.com/lamb">
 <script src="https://unpkg.com/@svizzle/utils">
 ```
 

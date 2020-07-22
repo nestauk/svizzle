@@ -3,6 +3,7 @@
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
 - Update to Lamb 0.59.2 (some renames needed)
+- Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
 ### (Any -> Any):accumcb -> (Array -> Any)
 
