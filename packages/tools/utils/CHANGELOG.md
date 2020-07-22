@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.8.0 (next)
+## `@svizzle/utils` v0.8.0
 
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible

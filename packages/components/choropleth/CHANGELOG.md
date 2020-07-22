@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.3.0 (next)
+## `@svizzle/choropleth` v0.3.0
 
 - `ChoroplethG`
 	- renamed `ChoroplethSVG` to `ChoroplethG`, with root element being `<g>` rather than a `<svg>`

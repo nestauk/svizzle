@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.3.0 (next)
+## `@svizzle/barchart` v0.3.0
 
 - rename the component to `BarchartVDiv`
 - add a background rect

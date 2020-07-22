@@ -1,6 +1,6 @@
 # Svizzle changelog
 
-## next
+## 20200722
 
 - update docs
 - docs: converted all examples to a REPL-like format
@@ -26,12 +26,12 @@
 - optimised exported routes weight
 - Update to Lamb 0.59.2 (some renames needed)
 
-## `@svizzle/atlas` v0.3.0 (next)
+## `@svizzle/atlas` v0.3.0
 
 - Update to Lamb 0.59.2 (some renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
-## `@svizzle/barchart` v0.3.0 (next)
+## `@svizzle/barchart` v0.3.0
 
 - rename the component to `BarchartVDiv`
 - add a background rect
@@ -55,7 +55,7 @@
 - temporarily removed the props doc from the README.md to avoid duplication with the website
 - Update to Lamb 0.59.2 (no renames needed)
 
-## `@svizzle/choropleth` v0.3.0 (next)
+## `@svizzle/choropleth` v0.3.0
 
 - `ChoroplethG`
 	- renamed `ChoroplethSVG` to `ChoroplethG`, with root element being `<g>` rather than a `<svg>`
@@ -81,12 +81,14 @@
 	- add a specific route for `keyToColor`, it was used in toom many pages
 - Update to Lamb 0.59.2 (no renames needed)
 
-## `@svizzle/dev` v0.4.0 (next)
+## `@svizzle/dev` v0.4.0
 
 - Update to Lamb 0.59.2 (no renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
+- docs: converted all examples to a REPL-like format
+- dev: using single quotes rather than double quote where possible
 
-## `@svizzle/dom` v0.4.0 (next)
+## `@svizzle/dom` v0.4.0
 
 - add `makeStyleVars`
 - docs: converted all examples to a REPL format
@@ -94,12 +96,12 @@
 - Update to Lamb 0.59.2 (some renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
-## `@svizzle/file` v0.8.0 (next)
+## `@svizzle/file` v0.8.0
 
 - Update to Lamb 0.59.2 (some renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
-## `@svizzle/geo` v0.6.0 (next)
+## `@svizzle/geo` v0.6.0
 
 - Updated `@turf/*` to version `6.2.0-alpha.0` which is tree-shakable, hence reducing the build size (see #101)
 - Update to Lamb 0.59.2 (no renames needed)
@@ -107,12 +109,12 @@
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
 
-## `@svizzle/geometry` v0.3.0 (next)
+## `@svizzle/geometry` v0.3.0
 
 - Update to Lamb 0.59.2 (no renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
-## `@svizzle/histogram` v0.1.0 (new)
+## `@svizzle/histogram` v0.1.0
 
 - add `HistogramG.svelte`
 - add `HistogramDiv.svelte`
@@ -130,12 +132,12 @@
 	- add `getTrimmedBinsStats`
 	- add `isNonEmptyBin`
 
-## `@svizzle/request` v0.3.0 (next)
+## `@svizzle/request` v0.3.0
 
 - Update to Lamb 0.59.2 (no renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
-## `@svizzle/utils` v0.8.0 (next)
+## `@svizzle/utils` v0.8.0
 
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible

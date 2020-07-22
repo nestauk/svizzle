@@ -1,4 +1,4 @@
-## `@svizzle/geometry` v0.3.0 (next)
+## `@svizzle/geometry` v0.3.0
 
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible

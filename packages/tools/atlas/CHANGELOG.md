@@ -1,4 +1,4 @@
-## `@svizzle/atlas` v0.3.0 (next)
+## `@svizzle/atlas` v0.3.0
 
 - Update to Lamb 0.59.2 (some renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)

@@ -1,4 +1,4 @@
-## `@svizzle/dom` v0.4.0 (next)
+## `@svizzle/dom` v0.4.0
 
 - add `makeStyleVars`
 - docs: converted all examples to a REPL-like format

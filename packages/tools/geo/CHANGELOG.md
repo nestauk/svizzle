@@ -1,4 +1,4 @@
-## `@svizzle/geo` v0.6.0 (next)
+## `@svizzle/geo` v0.6.0
 
 - Updated `@turf/*` to version `6.2.0-alpha.0` which is tree-shakable, hence reducing the build size (see #101)
 - Update to Lamb 0.59.2 (no renames needed)
