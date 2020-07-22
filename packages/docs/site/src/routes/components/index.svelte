@@ -2,7 +2,7 @@
 	<title>Svizzle Components</title>
 </svelte:head>
 
-<script context="module">
+<script context='module'>
 	export function preload({ params, query }) {
 		return this.fetch('components.json')
 			.then(r => r.json())

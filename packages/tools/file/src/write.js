@@ -53,7 +53,7 @@ export const writeFile = util.promisify(fs.writeFile);
  * @return {function} - Object -> Promise – @sideEffects: fs.writeFile
  *
  * @example
-promiseThatReturnsAnObject()
+> promiseThatReturnsAnObject()
 .then(saveObj('destination/path'))
 .catch(err => console.error(err));
  *
@@ -73,7 +73,7 @@ export const saveObj = (filepath, indent = 0) => object =>
  * @return {function} - Object -> Promise – @sideEffects: fs.writeFile
  *
  * @example
-promiseThatReturnsAnObject()
+> promiseThatReturnsAnObject()
 .then(saveObjPassthrough('destination/path'))
 .catch(err => console.error(err));
  *
@@ -94,7 +94,7 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
  * @return {function} - String -> Promise – @sideEffects: fs.writeFile
  *
  * @example
-promiseThatReturnsAString()
+> promiseThatReturnsAString()
 .then(saveString('destination/path'))
 .catch(err => console.error(err));
  *
@@ -113,7 +113,7 @@ export const saveString = filepath =>
  * @return {function} - String -> Promise – @sideEffects: fs.writeFile
  *
  * @example
-promiseThatReturnsAString()
+> promiseThatReturnsAString()
 .then(saveStringPassthrough('destination/path'))
 .catch(err => console.error(err));
  *
@@ -132,7 +132,7 @@ export const saveStringPassthrough = filepath =>
  * @return {function} - Response -> Promise - @sideEffects: fs.createWriteStream
  *
  * @example
-promiseThatReturnsAResponse()
+> promiseThatReturnsAResponse()
 .then(saveResponse('destination/path'))
 .catch(err => console.error(err));
  *

@@ -1,6 +1,6 @@
 #! /usr/bin/env node -r esm
 
-import path from "path";
+import path from 'path';
 
 import * as _ from 'lamb';
 import yaml from 'js-yaml';

@@ -40,11 +40,14 @@ For example:
   For example `makeOccurrences` expects two `Array`s and return an object of occurrences of keys in the provided array containing the provided keys:
 
   ```js
-  const objects = [{a: 1}, {a: 6, b: -1}, {a: 2, b: 0, c: 1}, {c: 4, e: 2}];
+  > objects = [{a: 1}, {a: 6, b: -1}, {a: 2, b: 0, c: 1}, {c: 4, e: 2}];
 
-  makeOccurrences(objects, ["a", "b"]) // {a: 3, b: 2}
-  makeOccurrences(objects, ["c", "e"]) // {c: 2, e: 1}
-  makeOccurrences(objects, ["k", "a"]) // {k: 0, a: 3}
+	> makeOccurrences(objects, ['a', 'b'])
+	{a: 3, b: 2}
+	> makeOccurrences(objects, ['c', 'e'])
+	{c: 2, e: 1}
+	> makeOccurrences(objects, ['k', 'a'])
+	{k: 0, a: 3}
   ```
 
 - Similarly, [`@svizzle/utils/array_proto-string`](https://nestauk.github.io/module-@svizzle_utils_array_proto-string.html) contains functions derived from the `Array.prototype` hence expecting an `Array` as a first argument (and potentially other arguments of different type) and returning a `String`:
@@ -54,7 +57,8 @@ For example:
   For example, `join` expects an `Array` and a `String` and returns an `String`.
 
   ```js
-  join([0, 1, 2], "-") // "0-1-2"
+	> join([0, 1, 2], '-')
+	'0-1-2'
   ```
 
 - [`@svizzle/utils/array-[number-boolean]`](https://nestauk.github.io/svizzle/module-@svizzle_utils_array-%255Bnumber-boolean%255D.html) contains functions expecting an `Array` and returning a function expecting an `Number` and returning a `Boolean`:
@@ -64,7 +68,9 @@ For example:
   For example, `makeIsWithinRange` expects a range (an `Array`) and returns a function expecting a `Number` and returning if that number is within the given range or not (a `Boolean`).
 
   ```js
-  const isWithinRange = makeIsWithinRange([0, 5]);
-  isWithinRange(2) // true
-  isWithinRange(8) // false
+  > isWithinRange = makeIsWithinRange([0, 5]);
+	> isWithinRange(2)
+	true
+	> isWithinRange(8)
+	false
   ```

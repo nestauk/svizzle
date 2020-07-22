@@ -20,11 +20,11 @@ import {mapValuesToFloatPossibly} from '@svizzle/utils';
  * @return {object}
  *
  * @example
-getElementGeometry(node)
-// {width: 200, height: 100}
+> getElementGeometry(node)
+{width: 200, height: 100}
 
-getElementGeometry(node, ['fontSize'])
-// {width: 200, height: 100, 'fontSize': 12}
+> getElementGeometry(node, ['fontSize'])
+{width: 200, height: 100, 'fontSize': 12}
  *
  * @version 0.1.0
  */
@@ -47,10 +47,10 @@ export const getElementGeometry = (elem, additionalProps = []) =>
  * @arg {object} newContainer - CSS selector or DOM element
  *
  * @example
-d3.selectAll('#oldContainer .toBeMoved')
-  .each(function(d, i) {
-      moveNode(this, '#newContainer');
-  });
+> d3.selectAll('#oldContainer .toBeMoved')
+	.each(function(d, i) {
+		moveNode(this, '#newContainer');
+	});
  *
  * @version 0.1.0
  */

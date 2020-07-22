@@ -2,7 +2,7 @@
 * @module @svizzle/dev/log/string-[any-any]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /* taps */
 

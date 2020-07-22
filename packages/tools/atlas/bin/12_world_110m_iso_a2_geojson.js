@@ -1,6 +1,6 @@
 #! /usr/bin/env node -r esm
 
-import path from "path";
+import path from 'path';
 
 import { feature } from 'topojson-client';
 import { writeFile } from '@svizzle/file';

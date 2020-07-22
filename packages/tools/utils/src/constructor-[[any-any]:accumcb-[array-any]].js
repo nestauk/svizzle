@@ -16,8 +16,8 @@ import * as _ from 'lamb';
  * @example
 > reduceFromEmptyObject = reduceTo(Object)
 > foo = reduceFromEmptyObject((acc, x) => {
-  acc[x.id] = x.name;
-  return acc;
+	acc[x.id] = x.name;
+	return acc;
 })
 > foo([{id: '00', name: 'a'}, {id: '11', name: 'b'}])
 Object { 11: 'b', 00: 'a' }

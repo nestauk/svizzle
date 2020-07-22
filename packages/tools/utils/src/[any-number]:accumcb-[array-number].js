@@ -2,7 +2,7 @@
 * @module @svizzle/utils/[any-number]:accumcb-[array-number]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
 /**
  * Return a function expecting an array of objects and returning the max of results

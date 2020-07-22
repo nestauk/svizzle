@@ -45,7 +45,7 @@ export const hasAnyExtensionOf = extensions =>
  * @version 0.4.0
  */
 export const filterJsonExtensions =
-    _.filterWith(hasAnyExtensionOf(['.json', '.geojson']));
+	_.filterWith(hasAnyExtensionOf(['.json', '.geojson']));
 
 /**
  * Return a function expecting a filepath and returning it renamed to the provided extension.
@@ -79,11 +79,11 @@ export const renameToExtension = ext => _.pipe([
 /*
 // version not using node's path
 const renameToExtension = ext => filepath => {
-    const split = filepath.split('.');
-    const oldExt = `.${split[split.length - 1]}`;
-    // const oldExt = `.${_.last(split)}`;
-    // not usable in dev utils to avoid depending on lamb for now
+	const split = filepath.split('.');
+	const oldExt = `.${split[split.length - 1]}`;
+	// const oldExt = `.${_.last(split)}`;
+	// not usable in dev utils to avoid depending on lamb for now
 
-    return filepath.replace(oldExt, ext);
+	return filepath.replace(oldExt, ext);
 }
 */

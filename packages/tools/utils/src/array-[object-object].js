@@ -13,116 +13,114 @@ import * as _ from 'lamb';
  * @return {function} - Object -> Object
  *
  * @example
-
 > obj = {
-  a: {
-    a1: 'a1',
-    a2: {
-      a21: 'a21',
-      a22: '9',
-    },
-    a3: '3px',
-    a4: '2',
-  },
-  b: {
-    b1: 'b1',
-    b2: {
-      b21: 'foo',
-      b22: '9',
-      b23: '2',
-      b24: '24px'
-    },
-    b3: '2',
-    b4: '4px'
-  },
+	a: {
+		a1: 'a1',
+		a2: {
+			a21: 'a21',
+			a22: '9',
+		},
+		a3: '3px',
+		a4: '2',
+	},
+	b: {
+		b1: 'b1',
+		b2: {
+			b21: 'foo',
+			b22: '9',
+			b23: '2',
+			b24: '24px'
+		},
+		b3: '2',
+		b4: '4px'
+	},
 }
-
 > // orthogonal transforms
 > transform = applyTransformsSequence([
-  ['a.a2.a22', _.pipe([Number, Math.sqrt])],
-  ['a.a3', parseInt],
-  ['b.b2.b24', parseInt],
-  ['b.b4', parseInt],
+	['a.a2.a22', _.pipe([Number, Math.sqrt])],
+	['a.a3', parseInt],
+	['b.b2.b24', parseInt],
+	['b.b4', parseInt],
 ])
 > transform(obj)
 {
-  a: {
-    a1: 'a1',
-    a2: {
-      a21: 'a21',
-      a22: 3,
-    },
-    a3: 3,
-    a4: '2'
-  },
-  b: {
-    b1: 'b1',
-    b2: {
-      b21: 'foo',
-      b22: '9',
-      b23: '2',
-      b24: 24
-    },
-    b3: '2',
-    b4: 4
-  },
+	a: {
+		a1: 'a1',
+		a2: {
+			a21: 'a21',
+			a22: 3,
+		},
+		a3: 3,
+		a4: '2'
+	},
+	b: {
+		b1: 'b1',
+		b2: {
+			b21: 'foo',
+			b22: '9',
+			b23: '2',
+			b24: 24
+		},
+		b3: '2',
+		b4: 4
+	},
 }
 
 > // modifying modified paths
 > transform = applyTransformsSequence([
-  ['b', _.values],
-  ['b.1', _.values],
+	['b', _.values],
+	['b.1', _.values],
 ])
 > transform(obj)
 {
-  a: {
-    a1: 'a1',
-    a2: {
-      a21: 'a21',
-      a22: '9',
-    },
-    a3: '3px',
-    a4: '2',
-  },
-  b: [
-    'b1',
-    [
-      'foo',
-      '9',
-      '2',
-      '24px',
-    ],
-    '2',
-    '4px'
-  ],
+	a: {
+		a1: 'a1',
+		a2: {
+			a21: 'a21',
+			a22: '9',
+		},
+		a3: '3px',
+		a4: '2',
+	},
+	b: [
+		'b1',
+		[
+			'foo',
+			'9',
+			'2',
+			'24px',
+		],
+		'2',
+		'4px'
+	],
 }
 
 > // modifying paths multiple times
 > transform = applyTransformsSequence([
-  ['b', _.values],
-  ['b.1', _.values],
-  ['b', _.flatten],
+	['b', _.values],
+	['b.1', _.values],
+	['b', _.flatten],
 ])
 > transform(obj)
 {
-  a: {
-    a1: 'a1',
-    a2: {
-      a21: 'a21',
-      a22: '9',
-    },
-    a3: '3px',
-    a4: '2',
-  },
-  b: [
-    'b1',
-    'foo',
-    '9',
-    '2',
-    '24px',
-    '2',
-    '4px'
-  ],
+	a: {
+		a1: 'a1',
+		a2: {
+			a21: 'a21',
+			a22: '9',
+		},
+		a3: '3px',
+		a4: '2',
+	},
+	b: [
+		'b1',
+		'foo',
+		'9',
+		'2',
+		'24px',
+		'2',
+		'4px'
+	],
 }
  * @version 0.6.0
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}

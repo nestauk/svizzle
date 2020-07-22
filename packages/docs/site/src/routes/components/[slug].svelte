@@ -1,4 +1,4 @@
-<script context="module">
+<script context='module'>
 	import {lookup} from './_utils';
 
 	// eslint-disable-next-line no-unused-vars
@@ -62,18 +62,18 @@
 
 <main>
 	<h1>{title}</h1>
-	<div class="col col1">
+	<div class='col col1'>
 
 		<!-- doc -->
-		<div class="distancer">
+		<div class='distancer'>
 			<Elements elements={doc} />
 		</div>
 
 		<!-- select -->
 		{#if data.length > 1}
-		<div class="distancer">
+		<div class='distancer'>
 			<h2>Choose an example</h2>
-			<div class="distancer">
+			<div class='distancer'>
 				<!-- svelte-ignore a11y-no-onchange -->
 				<select
 					on:change={event => {selected = Number(event.target.value)}}
@@ -93,9 +93,9 @@
 		<!-- events -->
 		{#if payloads}
 		<h2>Events</h2>
-		<div class="distancer">
+		<div class='distancer'>
 			{#each _.pairs(payloads) as [key, value]}
-			<div class="row">
+			<div class='row'>
 				<span>{key}</span>
 				<pre>{value || '[payload]'}</pre>
 			</div>
@@ -104,28 +104,28 @@
 		{/if}
 
 		<!-- usage -->
-		<div class="distancer">
+		<div class='distancer'>
 			<h2>Usage</h2>
 			<pre>{current_data.usage}</pre>
 		</div>
 
 		<!-- props -->
-		<div class="distancer">
+		<div class='distancer'>
 			<h2>Props</h2>
 			{#each displayProps as [propName, propValue]}
 			<h3><code>{propName}</code></h3>
-			<div class="distancer">
+			<div class='distancer'>
 				<JSONTree value={propValue} />
 			</div>
 			{/each}
 		</div>
 
 	</div>
-	<div class="col col2">
+	<div class='col col2'>
 		{#if isSVG}
-		<div class="svgwrapper"
-			bind:clientWidth="{width}"
-			bind:clientHeight="{height}"
+		<div class='svgwrapper'
+			bind:clientWidth='{width}'
+			bind:clientHeight='{height}'
 		>
 			<svg {width} {height}>
 				<svelte:component

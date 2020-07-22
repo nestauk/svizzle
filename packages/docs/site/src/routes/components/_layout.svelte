@@ -7,10 +7,10 @@
 <section>
 	<nav>
 		{#each sidebar as {key, value}}
-		<div class="distancer">
+		<div class='distancer'>
 			<h2>{key}</h2>
 			{#each value as {slug, title}}
-			<a href="components/{slug}">
+			<a href='components/{slug}'>
 				<p class:selected='{slug === segment}'>
 					{title}
 				</p>

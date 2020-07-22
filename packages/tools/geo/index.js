@@ -1,1 +1,1 @@
-export * from "./src/geojson"
+export * from './src/geojson';

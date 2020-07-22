@@ -293,8 +293,8 @@ export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
 > propsTransformer = applyFnMap({name: _.getKey('foo')})
 > toGeoPoints = makeToGeoPoints(coordPicker, propsTransformer)
 > toGeoPoints([
-  {foo: 'a', lng: 0.1, lat: 0.1},
-  {foo: 'b', lng: 0.2, lat: 0.2}
+	{foo: 'a', lng: 0.1, lat: 0.1},
+	{foo: 'b', lng: 0.2, lat: 0.2}
 ])
 {
 	type: 'FeatureCollection',
@@ -333,9 +333,9 @@ export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
 }
 > truncateGeometry(point)
 {
-  type: 'Feature',
-  geometry: {type: 'Point', coordinates: [0.1234, 0.1234]},
-  properties: {name: 'a'}
+	type: 'Feature',
+	geometry: {type: 'Point', coordinates: [0.1234, 0.1234]},
+	properties: {name: 'a'}
 }
  * @version 0.1.0
  */

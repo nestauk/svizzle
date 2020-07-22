@@ -20,10 +20,10 @@ import {mergeWith} from './[any-any]-[object-object]';
  * @return {object}
  *
  * @example
-> mapValuesToFloat({a: '1.2px',  b: '20px'})
-{a: 1.2,  b: 20}
-> mapValuesToFloat({a: '1.2',  b: 'h2o'})
-{a: 1.2,  b: NaN}
+> mapValuesToFloat({a: '1.2px', b: '20px'})
+{a: 1.2, b: 20}
+> mapValuesToFloat({a: '1.2', b: 'h2o'})
+{a: 1.2, b: NaN}
  *
  * @version 0.1.0
  */
@@ -38,7 +38,7 @@ export const mapValuesToFloat = _.mapValuesWith(parseFloat);
  *
  * @example
 > mapValuesToFloatPossibly({a: '1.2', b: '2px', c: 'h2o'})
-{a: 1.2,  b: 2, c: 'h2o'}
+{a: 1.2, b: 2, c: 'h2o'}
  *
  * @version 0.1.0
  */
@@ -54,10 +54,10 @@ export const mapValuesToFloatPossibly = _.mapValuesWith(toFloatOrIdentity);
  * @return {object}
  *
  * @example
-> mapValuesToNumber({a: '1.2',  b: '2'})
-{a: 1.2,  b: 2}
-> mapValuesToNumber({a: '1.2',  b: '2s'})
-{a: 1.2,  b: NaN}
+> mapValuesToNumber({a: '1.2', b: '2'})
+{a: 1.2, b: 2}
+> mapValuesToNumber({a: '1.2', b: '2s'})
+{a: 1.2, b: NaN}
  *
  * @version 0.1.0
  */

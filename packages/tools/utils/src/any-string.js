@@ -8,6 +8,17 @@
  * @function
  * @arg {*} any
  * @return {string}
+ * @example
+> stringify([{a: 1}, {a: 2}])
+[
+	{
+		"a": 1
+	},
+	{
+		"a": 2
+	}
+]
+ *
  *
  * @version 0.1.0
  */

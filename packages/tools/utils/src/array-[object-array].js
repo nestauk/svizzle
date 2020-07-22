@@ -2,9 +2,9 @@
 * @module @svizzle/utils/array-[object-array]
 */
 
-import * as _ from "lamb";
+import * as _ from 'lamb';
 
-import {concat} from "./array_proto-array";
+import {concat} from './array_proto-array';
 
 /**
  * Return a function expecting an object and returning an array of values corresponding to the provided keys.
@@ -14,14 +14,14 @@ import {concat} from "./array_proto-array";
  * @return {function} - Object -> Array
  *
  * @example
-const getCoordinates = makeKeysGetter(["lng", "lat"]);
-getCoordinates({
-    name: "London",
-    lat: 51.507222,
-    lng: -0.1275,
-    population: 8825000
+> getCoordinates = makeKeysGetter(['lng', 'lat']);
+> getCoordinates({
+	name: 'London',
+	lat: 51.507222,
+	lng: -0.1275,
+	population: 8825000
 });
-// [-0.1275, 51.507222]
+[-0.1275, 51.507222]
  *
  * @version 0.1.0
  */
@@ -40,10 +40,10 @@ export const makeKeysGetter = _.pipe([
  * @example
 > getProducts = pickAndConcatValues(['food', 'beverage'])
 > getProducts({
-    food: ['bread', 'cheese', 'ham'],
-    beverage: ['wine', 'water'],
-    id: 'area1',
-    value: 32.1,
+	food: ['bread', 'cheese', 'ham'],
+	beverage: ['wine', 'water'],
+	id: 'area1',
+	value: 32.1,
 })
 ['bread', 'cheese', 'ham', 'wine', 'water']
  *

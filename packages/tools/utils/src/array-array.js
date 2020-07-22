@@ -64,19 +64,19 @@ export const inclusiveRange = ([start, end, step = 1]) => {
  *
  * @example
 > array = [
-  {foo: 'a'},
-  {foo: 'b'},
-  {bar: 'c'},
-  {bar: 'd'}
+	{foo: 'a'},
+	{foo: 'b'},
+	{bar: 'c'},
+	{bar: 'd'}
 ]
 > makeBiPermutations(array)
 [
-  [{foo: 'a'}, {foo: 'b'}],
-  [{foo: 'a'}, {bar: 'c'}],
-  [{foo: 'a'}, {bar: 'd'}],
-  [{foo: 'b'}, {bar: 'c'}],
-  [{foo: 'b'}, {bar: 'd'}],
-  [{bar: 'c'}, {bar: 'd'}]
+	[{foo: 'a'}, {foo: 'b'}],
+	[{foo: 'a'}, {bar: 'c'}],
+	[{foo: 'a'}, {bar: 'd'}],
+	[{foo: 'b'}, {bar: 'c'}],
+	[{foo: 'b'}, {bar: 'd'}],
+	[{bar: 'c'}, {bar: 'd'}]
 ]
  *
  * @version 0.5.0
@@ -99,17 +99,17 @@ export const makeBiPermutations = items =>
  *
  * @example
 > items = [
-  {key: 'b', value: 1},
-  {key: 'a', value: 4},
-  {key: 'a', value: -30},
-  {key: 'a', value: 1},
+	{key: 'b', value: 1},
+	{key: 'a', value: 4},
+	{key: 'a', value: -30},
+	{key: 'a', value: 1},
 ]
 > sortValueAscKeyAsc(items)
 [
-  {key: 'a', value: -30},
-  {key: 'a', value: 1},
-  {key: 'b', value: 1},
-  {key: 'a', value: 4},
+	{key: 'a', value: -30},
+	{key: 'a', value: 1},
+	{key: 'b', value: 1},
+	{key: 'a', value: 4},
 ]
  *
  * @version 0.5.0
@@ -126,17 +126,17 @@ export const sortValueAscKeyAsc = _.sortWith([getValue, getKey]);
  *
  * @example
 > items = [
-  {key: 'b', value: 1},
-  {key: 'a', value: 4},
-  {key: 'a', value: -30},
-  {key: 'a', value: 1},
+	{key: 'b', value: 1},
+	{key: 'a', value: 4},
+	{key: 'a', value: -30},
+	{key: 'a', value: 1},
 ]
 > sortValueAscKeyAsc(items)
 [
-  {key: 'a', value: -30},
-  {key: 'b', value: 1},
-  {key: 'a', value: 1},
-  {key: 'a', value: 4},
+	{key: 'a', value: -30},
+	{key: 'b', value: 1},
+	{key: 'a', value: 1},
+	{key: 'a', value: 4},
 ]
  *
  * @version 0.5.0
@@ -157,17 +157,17 @@ export const sortValueAscKeyDesc = _.sortWith([
  *
  * @example
 > items = [
-  {key: 'b', value: 1},
-  {key: 'a', value: 4},
-  {key: 'a', value: -30},
-  {key: 'a', value: 1},
+	{key: 'b', value: 1},
+	{key: 'a', value: 4},
+	{key: 'a', value: -30},
+	{key: 'a', value: 1},
 ]
 > sortValueDescKeyAsc(items)
 [
-  {key: 'a', value: 4},
-  {key: 'a', value: 1},
-  {key: 'b', value: 1},
-  {key: 'a', value: -30},
+	{key: 'a', value: 4},
+	{key: 'a', value: 1},
+	{key: 'b', value: 1},
+	{key: 'a', value: -30},
 ]
  *
  * @version 0.5.0
@@ -187,17 +187,17 @@ export const sortValueDescKeyAsc = _.sortWith([
  *
  * @example
 > items = [
-  {key: 'b', value: 1},
-  {key: 'a', value: 4},
-  {key: 'a', value: -30},
-  {key: 'a', value: 1},
+	{key: 'b', value: 1},
+	{key: 'a', value: 4},
+	{key: 'a', value: -30},
+	{key: 'a', value: 1},
 ]
 > sortValueDescKeyDesc(items)
 [
-  {key: 'a', value: 4},
-  {key: 'b', value: 1},
-  {key: 'a', value: 1},
-  {key: 'a', value: -30},
+	{key: 'a', value: 4},
+	{key: 'b', value: 1},
+	{key: 'a', value: 1},
+	{key: 'a', value: -30},
 ]
  *
  * @version 0.5.0

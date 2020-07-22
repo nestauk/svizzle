@@ -13,9 +13,12 @@ import {reduceFromEmptyArray} from './[any-any]:accumcb-[array-any]';
  * @return {function} - Number -> Number
  *
  * @example
-> poly = makePolynomial([0,2,0,4]) // x => 2 x + 4 x^3
-> poly(2) // 36
-> poly(5) // 510
+> // x => 2 x + 4 x^3
+> poly = makePolynomial([0,2,0,4])
+> poly(2)
+36
+> poly(5)
+510
  *
  * @version 0.3.0
  */

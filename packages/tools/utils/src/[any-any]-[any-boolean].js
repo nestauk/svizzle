@@ -25,7 +25,8 @@ import {
  * @return {function} - Any -> Boolean
  *
  * @example
-isArrayWith(getValue)({key: 'a', value: [1, 2]}) // true
+> isArrayWith(getValue)({key: 'a', value: [1, 2]})
+true
  *
  * @version 0.5.0
  */
@@ -39,8 +40,10 @@ export const isArrayWith = accessor => _.pipe([accessor, isArray]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isNilWith(getValue)({key: 'a', value: null}) // true
-isNilWith(getValue)({key: 'a'}) // true
+> isNilWith(getValue)({key: 'a', value: null})
+true
+> isNilWith(getValue)({key: 'a'})
+true
  *
  * @version 0.5.0
  */
@@ -54,7 +57,8 @@ export const isNilWith = accessor => _.pipe([accessor, _.isNil]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isNotNaNWith(getValue)({key: 'a', value: 1}) // true
+> isNotNaNWith(getValue)({key: 'a', value: 1})
+true
  *
  * @version 0.5.0
  */
@@ -68,7 +72,8 @@ export const isNotNaNWith = accessor => _.pipe([accessor, isNotNaN]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isNotNilWith(getValue)({key: 'a', value: 1}) // true
+> isNotNilWith(getValue)({key: 'a', value: 1})
+true
  *
  * @version 0.5.0
  */
@@ -82,7 +87,8 @@ export const isNotNilWith = accessor => _.pipe([accessor, isNotNil]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isNotNullWith(getValue)({key: 'a', value: 1}) // true
+> isNotNullWith(getValue)({key: 'a', value: 1})
+true
  *
  * @version 0.5.0
  */
@@ -96,7 +102,8 @@ export const isNotNullWith = accessor => _.pipe([accessor, isNotNull]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isNullWith(getValue)({key: 'a', value: null}) // true
+> isNullWith(getValue)({key: 'a', value: null})
+true
  *
  * @version 0.5.0
  */
@@ -110,8 +117,10 @@ export const isNullWith = accessor => _.pipe([accessor, _.isNull]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isNumberWith(getValue)({key: 'a', value: 1}) // true
-isNumberWith(getValue)({key: 'a', value: 'a'}) // false
+> isNumberWith(getValue)({key: 'a', value: 1})
+true
+> isNumberWith(getValue)({key: 'a', value: 'a'})
+false
  *
  * @version 0.5.0
  */
@@ -125,8 +134,10 @@ export const isNumberWith = accessor => _.pipe([accessor, isNumber]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isObjectWith(getValue)({key: 'a', value: {a: 1}}) // true
-isObjectWith(getValue)({key: 'a', value: 'a'}) // false
+> isObjectWith(getValue)({key: 'a', value: {a: 1}})
+true
+> isObjectWith(getValue)({key: 'a', value: 'a'})
+false
  *
  * @version 0.5.0
  * @see {@link module:@svizzle/utils/any-boolean.isObject|isObject}
@@ -141,8 +152,10 @@ export const isObjectWith = accessor => _.pipe([accessor, isObject]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isStringWith(getValue)({key: 'a', value: 'a'}) // false
-isStringWith(getValue)({key: 'a', value: 1}) // false
+> isStringWith(getValue)({key: 'a', value: 'a'})
+false
+> isStringWith(getValue)({key: 'a', value: 1})
+false
  *
  * @version 0.5.0
  */
@@ -156,8 +169,10 @@ export const isStringWith = accessor => _.pipe([accessor, isString]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isUndefinedWith(getValue)({key: 'a', value: 'a'}) // false
-isUndefinedWith(getValue)({key: 'a', value: 1}) // false
+> isUndefinedWith(getValue)({key: 'a', value: 'a'})
+false
+> isUndefinedWith(getValue)({key: 'a', value: 1})
+false
  *
  * @version 0.5.0
  */
@@ -171,8 +186,10 @@ export const isUndefinedWith = accessor => _.pipe([accessor, _.isUndefined]);
  * @return {function} - Any -> Boolean
  *
  * @example
-isValidNumberWith(getValue)({key: 'a', value: 'a'}) // false
-isValidNumberWith(getValue)({key: 'a', value: 1}) // false
+> isValidNumberWith(getValue)({key: 'a', value: 'a'})
+false
+> isValidNumberWith(getValue)({key: 'a', value: 1})
+false
  *
  * @version 0.5.0
  * @see {@link module:@svizzle/utils/any-boolean.isValidNumber|isValidNumber}

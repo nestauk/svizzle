@@ -24,5 +24,4 @@ import {sliceString} from './string_proto-string';
  *
  * @version 0.5.0
  */
-export const sliceStringAt =
-  arr => _.partial(sliceString, [_.__, ...arr]);
+export const sliceStringAt = arr => _.partial(sliceString, [_.__, ...arr]);

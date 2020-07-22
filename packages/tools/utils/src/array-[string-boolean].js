@@ -14,11 +14,11 @@ import * as _ from 'lamb';
  * @example
 > isWeight = containsOneOf(['(g)', '(mg)', '(mcg)'])
 > weightLabels = [
-  'id',
-  'Energy (kcal)',
-  'Protein (g)',
-  'Cholesterol (mg)',
-  'Selenium (mcg)'
+	'id',
+	'Energy (kcal)',
+	'Protein (g)',
+	'Cholesterol (mg)',
+	'Selenium (mcg)'
 ].filter(isWeight);
 ['Protein (g)', 'Cholesterol (mg)', 'Selenium (mcg)']
  *

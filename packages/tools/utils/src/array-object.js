@@ -15,19 +15,19 @@ import {reduceFromEmptyObject} from './[any-any]:accumcb-[array-any]';
  *
  * @example
 > objects = [
-  {key: 'ITA', value: 0},
-  {key: 'FRA', value: 0},
-  {key: 'BRA', value: 0},
-  {key: 'GER', value: 1},
-  {key: 'USA', value: 1},
+	{key: 'ITA', value: 0},
+	{key: 'FRA', value: 0},
+	{key: 'BRA', value: 0},
+	{key: 'GER', value: 1},
+	{key: 'USA', value: 1},
 ]
 > keyValueArrayToObject(objects)
 {
-  'ITA': 0,
-  'FRA': 0,
-  'BRA': 0,
-  'GER': 1,
-  'USA': 1
+	'ITA': 0,
+	'FRA': 0,
+	'BRA': 0,
+	'GER': 1,
+	'USA': 1
 }
  *
  * @version 0.3.0

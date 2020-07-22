@@ -55,4 +55,4 @@ readFile(NUTS_SPEC_PATH, 'utf-8')
 .then(tapMessage('Done'))
 .catch(err => console.error(err));
 
-// [1] "properties":{"NUTS_ID":"LU","LEVL_CODE":0,"CNTR_CODE":"LU","NUTS_NAME":"Luxembourg (Grand-Duché)","FID":"LU"},"id":"LU"
+// [1] 'properties':{'NUTS_ID':'LU','LEVL_CODE':0,'CNTR_CODE':'LU','NUTS_NAME':'Luxembourg (Grand-Duché)','FID':'LU'},'id':'LU'
