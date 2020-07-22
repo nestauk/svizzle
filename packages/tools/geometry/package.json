@@ -4,13 +4,15 @@
 	"bugs": {
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
+	"dependencies": {
+		"lamb": "^0.59.2"
+	},
 	"description": "Svizzle Geometry contains geometry related helpers.",
 	"devDependencies": {
 		"@svizzle/dev": "^0.3.0",
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
-		"lamb": "^0.59.2",
 		"mkdirp": "^1.0.4",
 		"mocha": "^5.2.0",
 		"rimraf": "^3.0.0",
@@ -40,9 +42,6 @@
 	"main": "dist/index.js",
 	"module": "index.js",
 	"name": "@svizzle/geometry",
-	"peerDependencies": {
-		"lamb": "^0.59.2"
-	},
 	"repository": {
 		"type": "git",
 		"url": "github:nestauk/svizzle",

@@ -3,11 +3,14 @@
 	"bugs": {
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
+	"dependencies": {
+		"lamb": "^0.59.2"
+	},
+	"description": "Svizzle Dev contains development helpers.",
 	"devDependencies": {
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
-		"lamb": "^0.59.2",
 		"mkdirp": "^1.0.4",
 		"mocha": "^5.2.0",
 		"rimraf": "^3.0.0",
@@ -19,7 +22,6 @@
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-terser": "^5.2.0"
 	},
-	"description": "Svizzle Dev contains development helpers.",
 	"files": [
 		"dist/*",
 		"index.js",
@@ -38,9 +40,6 @@
 	"main": "dist/index.js",
 	"module": "index.js",
 	"name": "@svizzle/dev",
-	"peerDependencies": {
-		"lamb": "^0.59.2"
-	},
 	"publishConfig": {
 		"access": "public"
 	},

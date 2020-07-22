@@ -7,7 +7,8 @@
 	"dependencies": {
 		"@svizzle/utils": "^0.7.1",
 		"d3-fetch": "^1.1.2",
-		"d3-request": "^1.0.6"
+		"d3-request": "^1.0.6",
+		"lamb": "^0.59.2"
 	},
 	"description": "Svizzle Request contains helpers for fetching data.",
 	"devDependencies": {
@@ -15,7 +16,6 @@
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
-		"lamb": "^0.59.2",
 		"mkdirp": "^1.0.4",
 		"mocha": "^5.2.0",
 		"nock": "^10.0.6",
@@ -47,9 +47,6 @@
 	"main": "dist/index.js",
 	"module": "index.js",
 	"name": "@svizzle/request",
-	"peerDependencies": {
-		"lamb": "^0.59.2"
-	},
 	"repository": {
 		"type": "git",
 		"url": "github:nestauk/svizzle",

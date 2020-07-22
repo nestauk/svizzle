@@ -10,7 +10,8 @@
 		"@turf/centroid": "6.2.0-alpha.0",
 		"@turf/helpers": "6.2.0-alpha.0",
 		"@turf/truncate": "6.2.0-alpha.0",
-		"commander": "^2.19.0"
+		"commander": "^2.19.0",
+		"lamb": "^0.59.2"
 	},
 	"description": "Svizzle Geo contains geography related helpers.",
 	"devDependencies": {
@@ -19,7 +20,6 @@
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
-		"lamb": "^0.59.2",
 		"mkdirp": "^1.0.4",
 		"mocha": "^5.2.0",
 		"rimraf": "^3.0.0",
@@ -49,9 +49,6 @@
 	"main": "dist/index.js",
 	"module": "index.js",
 	"name": "@svizzle/geo",
-	"peerDependencies": {
-		"lamb": "^0.59.2"
-	},
 	"repository": {
 		"type": "git",
 		"url": "github:nestauk/svizzle",

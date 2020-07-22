@@ -3,6 +3,9 @@
 	"bugs": {
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
+	"dependencies": {
+		"lamb": "^0.59.2"
+	},
 	"description": "Svizzle Atlas contains geographic boundaries for mapping.",
 	"devDependencies": {
 		"@svizzle/dev": "^0.3.0",
@@ -14,7 +17,6 @@
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
 		"js-yaml": "^3.13.1",
-		"lamb": "^0.59.2",
 		"mkdirp": "^1.0.4",
 		"node-fetch": "^2.6.0",
 		"rimraf": "^3.0.0",
@@ -40,9 +42,6 @@
 	],
 	"license": "MIT",
 	"name": "@svizzle/atlas",
-	"peerDependencies": {
-		"lamb": "^0.59.2"
-	},
 	"repository": {
 		"type": "git",
 		"url": "github:nestauk/svizzle",
