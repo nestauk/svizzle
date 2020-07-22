@@ -5,15 +5,15 @@
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.3.0",
-		"@svizzle/geometry": "^0.2.0",
-		"@svizzle/utils": "^0.7.1",
+		"@svizzle/dom": "^0.4.0",
+		"@svizzle/geometry": "^0.3.0",
+		"@svizzle/utils": "^0.8.0",
 		"d3-scale": "^3.2.1",
 		"lamb": "^0.59.2"
 	},
 	"description": "Svelte histogram component and histogram utilities.",
 	"devDependencies": {
-		"@svizzle/dev": "^0.3.0",
+		"@svizzle/dev": "^0.4.0",
 		"@svizzle/file": "^0.5.0",
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.18.2",
@@ -74,5 +74,5 @@
 		"test": "mocha -r esm --recursive src/*.spec.js"
 	},
 	"sideEffects": false,
-	"version": "0.0.1"
+	"version": "0.1.0"
 }

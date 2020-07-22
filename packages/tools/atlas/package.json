@@ -8,10 +8,10 @@
 	},
 	"description": "Svizzle Atlas contains geographic boundaries for mapping.",
 	"devDependencies": {
-		"@svizzle/dev": "^0.3.0",
-		"@svizzle/file": "^0.7.0",
-		"@svizzle/geo": "^0.5.0",
-		"@svizzle/utils": "^0.7.1",
+		"@svizzle/dev": "^0.4.0",
+		"@svizzle/file": "^0.8.0",
+		"@svizzle/geo": "^0.6.0",
+		"@svizzle/utils": "^0.8.0",
 		"d3-dsv": "^1.2.0",
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.18.2",
@@ -64,5 +64,5 @@
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=dev"
 	},
 	"sideEffects": false,
-	"version": "0.2.0"
+	"version": "0.3.0"
 }
