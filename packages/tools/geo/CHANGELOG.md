@@ -1,3 +1,7 @@
+## `@svizzle/geo` v0.6.1 (next)
+
+- build: remove comments from `.mjs` files
+
 ## `@svizzle/geo` v0.6.0
 
 - Updated `@turf/*` to version `6.2.0-alpha.0` which is tree-shakable, hence reducing the build size (see #101)

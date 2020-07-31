@@ -1,3 +1,7 @@
+## `@svizzle/geometry` v0.3.1 (next)
+
+- build: remove comments from `.mjs` files
+
 ## `@svizzle/geometry` v0.3.0
 
 - docs: converted all examples to a REPL-like format

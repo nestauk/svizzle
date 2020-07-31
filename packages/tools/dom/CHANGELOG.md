@@ -1,3 +1,7 @@
+## `@svizzle/dom` v0.4.1 (next)
+
+- build: remove comments from `.mjs` files
+
 ## `@svizzle/dom` v0.4.0
 
 - add `makeStyleVars`

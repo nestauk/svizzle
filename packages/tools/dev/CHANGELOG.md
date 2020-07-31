@@ -1,4 +1,8 @@
-## `@svizzle/dev` v0.4.0 (next)
+## `@svizzle/dev` v0.4.1 (next)
+
+- build: remove comments from `.mjs` files
+
+## `@svizzle/dev` v0.4.0
 
 - Update to Lamb 0.59.2 (no renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)

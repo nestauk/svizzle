@@ -1,3 +1,7 @@
+## `@svizzle/request` v0.3.1 (next)
+
+- build: remove comments from `.mjs` files
+
 ## `@svizzle/request` v0.3.0
 
 - dev: using single quotes rather than double quote where possible

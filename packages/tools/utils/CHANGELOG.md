@@ -1,3 +1,7 @@
+## `@svizzle/utils` v0.8.1 (next)
+
+- build: remove comments from `.mjs` files
+
 ## `@svizzle/utils` v0.8.0
 
 - docs: converted all examples to a REPL-like format

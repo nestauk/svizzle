@@ -16,6 +16,9 @@ const analyzer = analyze({
 const banner = makeBanner(pkg);
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = pkg.module;
+const removeComments = cleanup({
+	extensions: ['js', 'mjs']
+});
 const treeshake = {
 	annotations: true,
 	moduleSideEffects: true,
@@ -33,7 +36,7 @@ const cjsConfig = {
 	plugins: [
 		resolve(),
 		commonjs(),
-		cleanup(),
+		removeComments,
 		analyzer
 	],
 	treeshake
