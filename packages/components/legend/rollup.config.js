@@ -5,6 +5,7 @@ import {terser} from 'rollup-plugin-terser';
 import analyze from 'rollup-plugin-analyzer';
 import cleanup from 'rollup-plugin-cleanup';
 import commonjs from 'rollup-plugin-commonjs';
+import json from '@rollup/plugin-json';
 import resolve from 'rollup-plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 
@@ -23,19 +24,22 @@ const banner = makeBanner(pkg);
 const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = {
-	BarchartVDiv: 'src/BarchartVDiv.svelte',
+	ColorBinsDiv: 'src/ColorBinsDiv.svelte',
+	ColorBinsG: 'src/ColorBinsG.svelte',
 	index: 'src/index.js',
 };
 const removeComments = cleanup({
 	extensions: ['js', 'mjs']
 });
+
 const treeshake = {
 	annotations: true,
 	moduleSideEffects: id =>
 		// prevent from unadvertantly setting to false no matter what we install
 		!(/@svizzle\/dom/gu).test(id) ||
+		!(/@svizzle\/geometry/gu).test(id) ||
 		!(/@svizzle\/utils/gu).test(id) ||
-		!(/just-compare/gu).test(id) ||
+		!(/d3-scale/gu).test(id) ||
 		!(/lamb/gu).test(id)
 }
 
@@ -47,15 +51,15 @@ const makeBrowserConfig = _.pipe([
 			banner,
 			file: `${dir}/${name}.browser.js`,
 			format: 'umd',
+			indent: false,
 			name: `${pkg.name}/${name}`,
-			indent: false
 		},
 		plugins: [
 			resolve(),
 			commonjs(),
 			svelte(),
+			json(),
 			removeComments,
-			// json(),
 			// buble({
 			//	 transforms: { dangerousForOf: true }
 			// }),
@@ -91,12 +95,13 @@ const cjsConfig = {
 		banner,
 		dir,
 		format: 'cjs',
-		indent: false
+		indent: false,
 	},
 	plugins: [
 		resolve(),
 		commonjs(),
 		svelte(),
+		json(),
 		removeComments,
 	],
 	treeshake

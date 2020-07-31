@@ -3,6 +3,7 @@
 		"@svizzle/atlas": "^0.3.0",
 		"@svizzle/barchart": "^0.3.0",
 		"@svizzle/choropleth": "^0.3.0",
+		"@svizzle/legend": "^0.0.1",
 		"@svizzle/histogram": "^0.1.0",
 		"@svizzle/utils": "^0.8.0",
 		"compression": "^1.7.1",

@@ -14,6 +14,11 @@
 
 - dist: rename `BarchartV.*.js` to `BarchartVDiv.*.js`
 
+## `@svizzle/legend` v0.1.0 (new)
+
+- add `ColorBinsG.svelte`
+- add `ColorBinsDiv.svelte`
+
 ## `@svizzle/site` v0.4.1 (next)
 
 - add linting

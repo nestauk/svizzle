@@ -3,6 +3,7 @@
 - add linting
 - extract a formatting utility from examples
 - add Germany NUTS2 2016 as it seems to be the heavier example
+- add `@svizzle/legend` docs
 
 ## `@svizzle/site` v0.3.0
 

@@ -1,7 +1,7 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 
-	import HistogramG from './HistogramG.svelte';
+	import ColorBinsG from './ColorBinsG.svelte';
 
 	// html
 	export let headerHeight;
@@ -9,8 +9,7 @@
 	export let title;
 
 	// svg
-	export let bins;
-	export let binsFill;
+	export let bins; // {range: [number, number], color: string}[]
 	export let flags;
 	export let geometry;
 	export let selectedBins;
@@ -26,12 +25,12 @@
 </script>
 
 <div
-	class='HistogramDiv'
+	class='ColorBinsDiv'
 	class:interactive={flags && flags.isInteractive}
 	{style}
 >
 	{#if title}
-	<header class:rightToLeft={flags && flags.isRightToLeft}>
+	<header>
 		<h2>{title}</h2>
 	</header>
 	{/if}
@@ -45,9 +44,8 @@
 			{height}
 		>
 			{#if bins}
-			<HistogramG
+			<ColorBinsG
 				{bins}
-				{binsFill}
 				{flags}
 				{geometry}
 				{height}
@@ -68,13 +66,13 @@
 </div>
 
 <style>
-	.HistogramDiv {
+	.ColorBinsDiv {
 		width: 100%;
 		height: 100%;
 		padding: var(--padding);
 		pointer-events: none;
 	}
-	.HistogramDiv.interactive {
+	.ColorBinsDiv.interactive {
 		pointer-events: auto;
 	}
 
@@ -85,10 +83,6 @@
 		display: flex;
 		align-items: center;
 	}
-	header.rightToLeft {
-		justify-content: flex-end;
-	}
-
 	h2 {
 		margin: 0;
 	}

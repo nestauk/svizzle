@@ -477,9 +477,6 @@
 	.bin .sensor:hover {
 		fill-opacity: 0.1;
 	}
-	.bin rect.sensor {
-		stroke: none;
-	}
 
 	.axis circle {
 		fill: var(--originColor);

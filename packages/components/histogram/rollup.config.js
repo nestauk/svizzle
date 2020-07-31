@@ -40,26 +40,7 @@ const treeshake = {
 		!(/lamb/gu).test(id)
 }
 
-const cjsConfig = {
-	external,
-	input,
-	output: {
-		banner,
-		dir,
-		format: 'cjs',
-		indent: false
-	},
-	plugins: [
-		resolve(),
-		commonjs(),
-		svelte(),
-		json(),
-		removeComments,
-	],
-	treeshake
-};
-
-const makeConfig = _.pipe([
+const makeBrowserConfig = _.pipe([
 	_.mapValuesWith((value, name) => ({
 		external,
 		input: value,
@@ -85,7 +66,7 @@ const makeConfig = _.pipe([
 	_.values
 ]);
 
-const browserConfig = makeConfig(input);
+const browserConfig = makeBrowserConfig(input);
 const browserMinifiedConfig = browserConfig.map(obj => ({
 	...obj,
 	output: {
@@ -103,6 +84,25 @@ const browserMinifiedConfig = browserConfig.map(obj => ({
 	],
 	treeshake
 }));
+
+const cjsConfig = {
+	external,
+	input,
+	output: {
+		banner,
+		dir,
+		format: 'cjs',
+		indent: false
+	},
+	plugins: [
+		resolve(),
+		commonjs(),
+		svelte(),
+		json(),
+		removeComments,
+	],
+	treeshake
+};
 
 export default [
 	...browserConfig,
