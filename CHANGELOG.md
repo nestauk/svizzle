@@ -1,5 +1,13 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/histogram` v0.2.0 (next)
+
+- props: rename `maxfontSize` to `maxFontSize`
+- add `src/utils.js` to the outputs, to be imported in browsers directly
+
+
 ## 20200722
 
 - update docs
@@ -14,7 +22,7 @@
 		- `renameKeys` -> `rename`
 		- `skipKeys` -> `skip`
 
-## website
+## `@svizzle/site` v0.3.0
 
 - add histogram examples
 - updated dependencies

@@ -27,6 +27,7 @@ const input = {
 	HistogramDiv: 'src/HistogramDiv.svelte',
 	HistogramG: 'src/HistogramG.svelte',
 	index: 'src/index.js',
+	utils: 'src/utils.js',
 };
 const removeComments = cleanup({
 	extensions: ['js', 'mjs']

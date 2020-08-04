@@ -43,7 +43,7 @@
 		// exposed but undocumented on the site
 		brushThreshold: 10, // pixels to trigger brushing
 		fontSizeFactor: 0.6,
-		maxfontSize: 12,
+		maxFontSize: 12,
 		textPadding: 5,
 
 		// documented on the site
@@ -110,7 +110,7 @@
 	$: innerWidth = Math.max(0, width - safety.left - safety.right);
 	$: innerHeight = Math.max(
 		0,
-		height - safety.top - safety.bottom - geometry.maxfontSize
+		height - safety.top - safety.bottom - geometry.maxFontSize
 	);
 	$: origin = {
 		x: flags.isRightToLeft ? innerWidth : 0,
@@ -182,7 +182,7 @@
 	});
 	$: maxBarThickness = makeMaxBarThickness(bars);
 	$: fontSize = Math.min(
-		geometry.maxfontSize,
+		geometry.maxFontSize,
 		geometry.fontSizeFactor * maxBarThickness
 	);
 
@@ -422,13 +422,11 @@
 	}
 
 	text {
-		stroke: none;
 		dominant-baseline: middle;
-		user-select: none;
-		pointer-events: none;
-	}
-	text {
 		fill: var(--textColor);
+		pointer-events: none;
+		stroke: none;
+		user-select: none;
 	}
 
 	.bin {

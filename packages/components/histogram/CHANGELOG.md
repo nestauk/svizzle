@@ -1,3 +1,8 @@
+## `@svizzle/histogram` v0.2.0 (next)
+
+- props: rename `maxfontSize` to `maxFontSize`
+- add `src/utils.js` to the outputs, to be imported in browsers directly
+
 ## `@svizzle/histogram` v0.1.0
 
 - add `HistogramG.svelte`
