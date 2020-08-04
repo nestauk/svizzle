@@ -23,7 +23,7 @@ const banner = makeBanner(pkg);
 const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = {
-	BarchartV: 'src/BarchartVDiv.svelte',
+	BarchartVDiv: 'src/BarchartVDiv.svelte',
 	index: 'src/index.js',
 };
 const removeComments = cleanup({

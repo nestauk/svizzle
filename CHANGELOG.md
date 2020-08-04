@@ -7,6 +7,9 @@
 - props: rename `maxfontSize` to `maxFontSize`
 - add `src/utils.js` to the outputs, to be imported in browsers directly
 
+## `@svizzle/barchart` v0.4.0 (next)
+
+- dist: rename `BarchartV.*.js` to `BarchartVDiv.*.js`
 
 ## 20200722
 

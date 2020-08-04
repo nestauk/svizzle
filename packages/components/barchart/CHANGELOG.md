@@ -1,3 +1,7 @@
+## `@svizzle/barchart` v0.4.0 (next)
+
+- dist: rename `BarchartV.*.js` to `BarchartVDiv.*.js`
+
 ## `@svizzle/barchart` v0.3.0
 
 - rename the component to `BarchartVDiv`
