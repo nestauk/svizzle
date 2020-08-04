@@ -47,6 +47,7 @@
 		"dev": "sapper dev",
 		"chmod": "chmod u+x src/bin/*",
 		"export": "npm run chmod && node -r esm src/bin/makeEntries.js | xargs sapper export --legacy --basepath svizzle --concurrent 1 --entry",
+		"lint": "eslint rollup.config.js 'src/**/*.{js,svelte}'",
 		"start": "node __sapper__/build",
 		"TODO_test": "run-p --race dev cy:run"
 	},
