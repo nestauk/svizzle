@@ -1,5 +1,4 @@
-import * as _ from 'lamb';
-import {transformValues, roundTo} from '@svizzle/utils';
+import {roundTo} from '@svizzle/utils';
 
 import bins from './bins.json';
 import bins_2 from './bins_2.json';
@@ -7,20 +6,19 @@ import bins_3 from './bins_3.json';
 import binsFill from './binsFill.json';
 import binsFill_2 from './binsFill_2.json';
 import bins_value_non_uniform from './bins_value_non_uniform.json';
-import {formatSvelteMarkup} from './utils';
+import {formatExamples} from './utils';
 
-const bins_2_value = _.map(bins_2,
+const bins_2_value = bins_2.map(
 	({range, values}) => ({range, value: values ? values.length : 0})
 );
-const bins_value_non_uniform_non_contiguous = _.filter(bins_value_non_uniform,
-	(v, i) => i % 2 === 0
-);
+const bins_value_non_uniform_non_contiguous =
+	bins_value_non_uniform.filter((v, i) => i % 2 === 0);
 
 const backgroundColor = 'palegreen';
 const binFill = 'orange';
 const selectedBins = [1, 5, 6];
 
-const examples = [
+export default formatExamples([
 	{
 		data: [{
 			key: 'some bins {range, values}',
@@ -728,13 +726,4 @@ const examples = [
 		slug: 'HistogramDiv',
 		title: 'HistogramDiv',
 	},
-].map(transformValues({
-	doc: _.mapWith(transformValues({
-		content: s => s.trim(),
-	})),
-	data: _.mapWith(transformValues({
-		usage: formatSvelteMarkup
-	}))
-}));
-
-export default examples;
+]);

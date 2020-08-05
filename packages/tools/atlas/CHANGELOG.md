@@ -6,7 +6,7 @@
 ## `@svizzle/atlas` v0.2.0
 
 - fixed the scripts to extract NUTS topojson by country (#48)
-- moved the distibution dir from a [gist](https://gist.github.com/mindrones/b9538f1b7308d1a2f2d54c927116e825) to the [svizzle_atlas_distro](https://github.com/nestauk/svizzle_atlas_distro) repo
+- moved the distribution dir from a [gist](https://gist.github.com/mindrones/b9538f1b7308d1a2f2d54c927116e825) to the [svizzle_atlas_distro](https://github.com/nestauk/svizzle_atlas_distro) repo
 
 ## `@svizzle/atlas` v0.1.0
 

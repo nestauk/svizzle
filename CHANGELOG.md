@@ -2,6 +2,8 @@
 
 ## next
 
+- build: remove comments from `.mjs` files for packages under `/tools`
+
 ## `@svizzle/histogram` v0.2.0 (next)
 
 - props: rename `maxfontSize` to `maxFontSize`
@@ -10,6 +12,12 @@
 ## `@svizzle/barchart` v0.4.0 (next)
 
 - dist: rename `BarchartV.*.js` to `BarchartVDiv.*.js`
+
+## `@svizzle/site` v0.4.1 (next)
+
+- add linting
+- extract a formatting utility from examples
+- add Germany NUTS2 2016 as it seems to be the heavier example
 
 ## 20200722
 
@@ -24,18 +32,6 @@
 		- `pluckKey` -> `pluck`
 		- `renameKeys` -> `rename`
 		- `skipKeys` -> `skip`
-
-## `@svizzle/site` v0.3.0
-
-- add histogram examples
-- updated dependencies
-- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
-- add colors to the UK examples
-- use a menu to select examples rather then buttons
-- create a list of entries from the examples instead of relying on Sapper scraping them
-- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
-- optimised exported routes weight
-- Update to Lamb 0.59.2 (some renames needed)
 
 ## `@svizzle/atlas` v0.3.0
 
@@ -148,6 +144,18 @@
 - Update to Lamb 0.59.2 (no renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
+## `@svizzle/site` v0.3.0
+
+- add histogram examples
+- updated dependencies
+- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
+- add colors to the UK examples
+- use a menu to select examples rather then buttons
+- create a list of entries from the examples instead of relying on Sapper scraping them
+- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
+- optimised exported routes weight
+- Update to Lamb 0.59.2 (some renames needed)
+
 ## `@svizzle/utils` v0.8.0
 
 - docs: converted all examples to a REPL-like format
@@ -224,7 +232,7 @@
 ## `@svizzle/atlas` v0.2.0
 
 - fixed the scripts to extract NUTS topojson by country (#48)
-- moved the distibution dir from a [gist](https://gist.github.com/mindrones/b9538f1b7308d1a2f2d54c927116e825) to the [svizzle_atlas_distro](https://github.com/nestauk/svizzle_atlas_distro) repo
+- moved the distribution dir from a [gist](https://gist.github.com/mindrones/b9538f1b7308d1a2f2d54c927116e825) to the [svizzle_atlas_distro](https://github.com/nestauk/svizzle_atlas_distro) repo
 
 ## `@svizzle/geo` v0.5.0
 

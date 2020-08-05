@@ -1,0 +1,20 @@
+## `@svizzle/site` v0.4.1 (next)
+
+- add linting
+- extract a formatting utility from examples
+- add Germany NUTS2 2016 as it seems to be the heavier example
+
+## `@svizzle/site` v0.3.0
+
+- add histogram examples
+- updated dependencies
+- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
+- add colors to the UK examples
+- use a menu to select examples rather then buttons
+- create a list of entries from the examples instead of relying on Sapper scraping them
+- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
+- optimised exported routes weight
+- Update to Lamb 0.59.2 (some renames needed)
+- choropleth:
+	- document only `ChoroplethG` with a mention of how to use `ChoroplethDiv` to reduce duplication
+	- add a specific route for `keyToColor`, it was used in toom many pages

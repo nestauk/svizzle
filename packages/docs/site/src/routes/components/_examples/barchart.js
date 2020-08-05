@@ -1,8 +1,3 @@
-import * as _ from 'lamb';
-import {transformValues} from '@svizzle/utils';
-
-import {formatSvelteMarkup} from './utils';
-
 import {
 	countryKeyRawValue,
 	countryKeyValuePositive,
@@ -14,6 +9,7 @@ import {
 	keyToColorWorldShort,
 	keyToLabel,
 } from './props';
+import {formatExamples} from './utils';
 
 const axisColor = 'red';
 const backgroundColor = 'antiquewhite';
@@ -23,7 +19,7 @@ const fontSize = 22;
 const textColor = 'green';
 const title = 'My title';
 
-const examples = [
+export default formatExamples([
 	{
 		data: [{
 			key: 'All positive values',
@@ -670,13 +666,4 @@ const examples = [
 		slug: 'BarchartVDiv-shouldResetScroll',
 		title: 'Scroll reset (enabled)',
 	},
-].map(transformValues({
-	doc: _.mapWith(transformValues({
-		content: s => s.trim(),
-	})),
-	data: _.mapWith(transformValues({
-		usage: formatSvelteMarkup
-	}))
-}));
-
-export default examples;
+]);

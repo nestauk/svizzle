@@ -1,19 +1,18 @@
-import * as _ from 'lamb';
-import {transformValues} from '@svizzle/utils';
 import World_110m_iso_a2_topo from '@svizzle/atlas/distro/World_110m_iso_a2_topo.json';
 import NUTS_RG_03M_2016_4326_LEVL_0_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_0_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_1_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_3_DE from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_DE.json';
 
 import {
 	keyToColorUK2016,
 	keyToColorWorld,
 	keyToColorWorldFn,
 } from './props';
-import {formatSvelteMarkup} from './utils';
+import {formatExamples} from './utils';
 
-const examples = [
+export default formatExamples([
 	{
 		data: [{
 			key: 'World_110m_iso_a2_topo',
@@ -83,6 +82,20 @@ const examples = [
 					{height}
 					{width}
 					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_DE',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_DE,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_DE}
 					topojsonId='NUTS'
 				/>
 			`,
@@ -845,13 +858,4 @@ const examples = [
 		slug: 'ChoroplethDiv',
 		title: 'ChoroplethDiv',
 	}
-].map(transformValues({
-	doc: _.mapWith(transformValues({
-		content: s => s.trim(),
-	})),
-	data: _.mapWith(transformValues({
-		usage: formatSvelteMarkup
-	}))
-}));
-
-export default examples;
+]);
