@@ -36,8 +36,8 @@
 	</header>
 	{/if}
 	<main
-		bind:clientWidth={width}
 		bind:clientHeight={height}
+		bind:clientWidth={width}
 		class:titled={title && title.length}
 	>
 		<svg

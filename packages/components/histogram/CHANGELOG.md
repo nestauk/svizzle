@@ -2,6 +2,7 @@
 
 - props: rename `maxfontSize` to `maxFontSize`
 - add `src/utils.js` to the outputs, to be imported in browsers directly
+- when interactive and a with a non-empty selection, clicking on the background resets the selection
 
 ## `@svizzle/histogram` v0.1.0
 

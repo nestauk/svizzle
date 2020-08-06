@@ -308,6 +308,11 @@
 	const onMouseleave = index => () => {
 		dispatch('exited', index);
 	}
+
+	const resetSelection = () => {
+		selectedBins = [];
+		dispatch('clicked', {selectedBins});
+	}
 </script>
 
 <svelte:options namespace='svg' />
@@ -318,9 +323,22 @@
 	class:interactive={flags.isInteractive}
 	{style}
 >
+	<!-- background -->
 	{#if flags.withBackground}
 	<rect class='bkg' {width} {height} />
 	{/if}
+
+	<!-- sensor to dismiss the selection -->
+	{#if flags.isInteractive}
+	<rect
+		{height}
+		{width}
+		class:reset={selectedBins.length > 0}
+		class='bkgSensor'
+		on:click={resetSelection}
+	/>
+	{/if}
+
 	<g transform='translate({safety.left},{safety.top})'>
 		{#each bars as {
 			barLength,
@@ -419,6 +437,13 @@
 	rect.bkg {
 		fill: var(--backgroundColor);
 		fill-opacity: var(--backgroundOpacity);
+	}
+
+	rect.bkgSensor {
+		fill-opacity: 0;
+	}
+	rect.bkgSensor.reset {
+		cursor: pointer;
 	}
 
 	text {

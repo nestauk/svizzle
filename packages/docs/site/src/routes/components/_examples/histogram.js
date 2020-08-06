@@ -14,7 +14,7 @@ const bins_2_value = bins_2.map(
 const bins_value_non_uniform_non_contiguous =
 	bins_value_non_uniform.filter((v, i) => i % 2 === 0);
 
-const backgroundColor = 'palegreen';
+const backgroundColor = '#feffd4';
 const binFill = 'orange';
 const selectedBins = [1, 5, 6];
 
@@ -448,13 +448,11 @@ export default formatExamples([
 		}],
 		doc: [
 			{tag: 'p', content: "If `isInteractive` is `true`, the component emits events when interacting with the bins."},
-			{tag: 'p', content: "Clicking a bin can select or deselect a bin depending on if it was already selected and depending on the pressed modifier key (see below)."},
 			{tag: 'p', content: "Events:"},
-			{tag: 'p', content: "• Clicking a bin dispatches a `clicked` event, with payload `{index, selectedBins}`"},
-			{tag: 'p', content: "• Mouse-entering a bin dispatches a `entered` event, with the payload being the entered bin index"},
+			{tag: 'p', content: "• Clicking a bin selects or deselects it depending on if it was already selected and depending on the pressed modifier key (see below) and dispatches a `clicked` event with payload `{index, selectedBins}`"},
+			{tag: 'p', content: "• Clicking the background resets the selection and dispatches a `clicked` event, with payload `{selectedBins: []}`"},
 			{tag: 'p', content: "• Mouse-exiting a bin dispatches a `exited` event, with the payload being the exited bin index"},
-			{tag: 'p', content: "Brushing:"},
-			{tag: 'p', content: "• Clicking a bin and dragging the pointer over other bins ('brushing') selects them and dispatches brush events:"},
+			{tag: 'p', content: "• Brushing – clicking a bin and dragging the pointer over other bins selects them and dispatches brush events:"},
 			{tag: 'p', content: "•• as soon as we start brushing, a `brushstart` event gets dispatched, the payload being the index of the bin where we started brushing;"},
 			{tag: 'p', content: "•• continuing dragging, when the pointer crosses bins a `brushed` event gets dispatched with the payload being `{selectedBins, end, start}`, the currently selected bins and the brushing start and end indices;"},
 			{tag: 'p', content: "•• when we stop dragging by releasing the pointer, a `brushend` event gets dispatched, the payload being the index of the bin where we stopped brushing."},
@@ -672,8 +670,8 @@ export default formatExamples([
 		name: 'HistogramG',
 		namespace: 'svg',
 		packageName: 'histogram',
-		slug: 'HistogramG-direction',
-		title: 'Direction',
+		slug: 'HistogramG-orientation',
+		title: 'Orientation',
 	},
 	{
 		data: [{
