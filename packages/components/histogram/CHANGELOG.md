@@ -1,4 +1,4 @@
-## `@svizzle/histogram` v0.2.0 (next)
+## `@svizzle/histogram` v0.2.0
 
 - props: rename `maxfontSize` to `maxFontSize`
 - add `src/utils.js` to the outputs, to be imported in browsers directly

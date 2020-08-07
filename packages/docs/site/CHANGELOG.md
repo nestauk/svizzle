@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.4.1 (next)
+## `@svizzle/site` v0.3.1
 
 - add linting
 - extract a formatting utility from examples

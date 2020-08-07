@@ -1,4 +1,4 @@
-## `@svizzle/dev` v0.4.1 (next)
+## `@svizzle/dev` v0.4.1
 
 - build: remove comments from `.mjs` files
 

@@ -1,29 +1,57 @@
 # Svizzle changelog
 
-## next
+## 20200807
 
 - build: remove comments from `.mjs` files for packages under `/tools`
 
-## `@svizzle/histogram` v0.2.0 (next)
+## `@svizzle/dev` v0.4.1
+
+- build: remove comments from `.mjs` files
+
+## `@svizzle/barchart` v0.4.0
+
+- dist: rename `BarchartV.*.js` to `BarchartVDiv.*.js`
+
+## `@svizzle/dom` v0.4.1
+
+- build: remove comments from `.mjs` files
+
+## `@svizzle/file` v0.8.1
+
+- build: remove comments from `.mjs` files
+
+## `@svizzle/geo` v0.6.1
+
+- build: remove comments from `.mjs` files
+
+## `@svizzle/geometry` v0.3.1
+
+- build: remove comments from `.mjs` files
+
+## `@svizzle/histogram` v0.2.0
 
 - props: rename `maxfontSize` to `maxFontSize`
 - add `src/utils.js` to the outputs, to be imported in browsers directly
 - when interactive and a with a non-empty selection, clicking on the background resets the selection
 
-## `@svizzle/barchart` v0.4.0 (next)
-
-- dist: rename `BarchartV.*.js` to `BarchartVDiv.*.js`
-
-## `@svizzle/legend` v0.1.0 (new)
+## `@svizzle/legend` v0.1.0
 
 - add `ColorBinsG.svelte`
 - add `ColorBinsDiv.svelte`
 
-## `@svizzle/site` v0.4.1 (next)
+## `@svizzle/request` v0.3.1
+
+- build: remove comments from `.mjs` files
+
+## `@svizzle/site` v0.3.1
 
 - add linting
 - extract a formatting utility from examples
 - add Germany NUTS2 2016 as it seems to be the heavier example
+
+## `@svizzle/utils` v0.8.1
+
+- build: remove comments from `.mjs` files
 
 ## 20200722
 

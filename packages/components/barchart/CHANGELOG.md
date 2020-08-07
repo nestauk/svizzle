@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.4.0 (next)
+## `@svizzle/barchart` v0.4.0
 
 - dist: rename `BarchartV.*.js` to `BarchartVDiv.*.js`
 

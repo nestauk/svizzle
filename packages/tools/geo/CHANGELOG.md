@@ -1,4 +1,4 @@
-## `@svizzle/geo` v0.6.1 (next)
+## `@svizzle/geo` v0.6.1
 
 - build: remove comments from `.mjs` files
 
