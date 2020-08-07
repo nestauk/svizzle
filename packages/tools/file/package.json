@@ -4,14 +4,14 @@
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
 	"dependencies": {
-		"@svizzle/utils": "^0.8.0",
+		"@svizzle/utils": "^0.8.1",
 		"d3-dsv": "^1.2.0",
 		"lamb": "^0.59.2"
 	},
 	"description": "Svizzle File contains file related helpers for node.",
 	"devDependencies": {
-		"@svizzle/dev": "^0.4.0",
-		"@svizzle/request": "^0.3.0",
+		"@svizzle/dev": "^0.4.1",
+		"@svizzle/request": "^0.3.1",
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
@@ -68,5 +68,5 @@
 		"test": "mocha -r esm --recursive src"
 	},
 	"sideEffects": true,
-	"version": "0.8.0"
+	"version": "0.8.1"
 }
