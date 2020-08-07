@@ -1,5 +1,3 @@
-import { F as _typeof, A as _slicedToArray } from './client.736f8e76.js';
-
 /**
 * @overview lamb - A lightweight, and docile, JavaScript library to help embracing functional programming.
 * @author Andrea Scartabelli <andrea.scartabelli@gmail.com>
@@ -7,7 +5,6 @@ import { F as _typeof, A as _slicedToArray } from './client.736f8e76.js';
 * @module lamb
 * @license MIT
 */
-
 /**
  * The placeholder object used in partial application.
  * @memberof module:lamb
@@ -19,6 +16,7 @@ import { F as _typeof, A as _slicedToArray } from './client.736f8e76.js';
  * @type {Object}
  */
 var __ = {};
+
 /**
  * Builds a function that returns a constant value.
  * It's actually the simplest form of the K combinator or Kestrel.
@@ -43,12 +41,12 @@ var __ = {};
  * @param {*} value
  * @returns {Function}
  */
-
-function always(value) {
-  return function () {
-    return value;
-  };
+function always (value) {
+    return function () {
+        return value;
+    };
 }
+
 /**
  * Verifies that the two supplied values are the same value using the "SameValueZero" comparison.<br/>
  * With this comparison <code>NaN</code> is equal to itself, but <code>0</code> and <code>-0</code> are
@@ -75,11 +73,10 @@ function always(value) {
  * @param {*} b
  * @returns {Boolean}
  */
-
-
-function areSVZ(a, b) {
-  return a !== a ? b !== b : a === b; // eslint-disable-line no-self-compare
+function areSVZ (a, b) {
+    return a !== a ? b !== b : a === b; // eslint-disable-line no-self-compare
 }
+
 /**
  * Builds a function that passes only two arguments to the given function.<br/>
  * It's simply a shortcut for a common use case of {@link module:lamb.aritize|aritize},
@@ -96,13 +93,12 @@ function areSVZ(a, b) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function binary(fn) {
-  return function (a, b) {
-    return fn.call(this, a, b);
-  };
+function binary (fn) {
+    return function (a, b) {
+        return fn.call(this, a, b);
+    };
 }
+
 /**
  * "Clamps" a number within the given limits, both included.<br/>
  * The function will convert to number all its parameters before starting any
@@ -126,19 +122,18 @@ function binary(fn) {
  * @param {Number} max
  * @returns {Number}
  */
+function clamp (n, min, max) {
+    n = +n;
+    min = +min;
+    max = +max;
 
-
-function clamp(n, min, max) {
-  n = +n;
-  min = +min;
-  max = +max;
-
-  if (min > max) {
-    return NaN;
-  } else {
-    return n < min ? min : n > max ? max : n;
-  }
+    if (min > max) {
+        return NaN;
+    } else {
+        return n < min ? min : n > max ? max : n;
+    }
 }
+
 /**
  * Builds a partially applied function.<br/>
  * The {@link module:lamb.__|__} object can be used as a placeholder for arguments.<br/>
@@ -168,30 +163,29 @@ function clamp(n, min, max) {
  * @param {Array} args
  * @returns {Function}
  */
+function partial (fn, args) {
+    return function () {
+        if (!Array.isArray(args)) {
+            return fn.apply(this, arguments);
+        }
 
+        var lastIdx = 0;
+        var newArgs = [];
+        var argsLen = args.length;
 
-function partial(fn, args) {
-  return function () {
-    if (!Array.isArray(args)) {
-      return fn.apply(this, arguments);
-    }
+        for (var i = 0, boundArg; i < argsLen; i++) {
+            boundArg = args[i];
+            newArgs[i] = boundArg === __ ? arguments[lastIdx++] : boundArg;
+        }
 
-    var lastIdx = 0;
-    var newArgs = [];
-    var argsLen = args.length;
+        for (var len = arguments.length; lastIdx < len; lastIdx++) {
+            newArgs[i++] = arguments[lastIdx];
+        }
 
-    for (var i = 0, boundArg; i < argsLen; i++) {
-      boundArg = args[i];
-      newArgs[i] = boundArg === __ ? arguments[lastIdx++] : boundArg;
-    }
-
-    for (var len = arguments.length; lastIdx < len; lastIdx++) {
-      newArgs[i++] = arguments[lastIdx];
-    }
-
-    return fn.apply(this, newArgs);
-  };
+        return fn.apply(this, newArgs);
+    };
 }
+
 /**
  * Builds a partial application of a ternary function so that its first parameter
  * is expected as the last one.<br/>
@@ -203,14 +197,14 @@ function partial(fn, args) {
  * @param {Boolean} shouldAritize
  * @returns {Function}
  */
+function _makePartial3 (fn, shouldAritize) {
+    return function (a, b) {
+        var f = shouldAritize && arguments.length !== 2 ? binary(fn) : fn;
 
-
-function _makePartial3(fn, shouldAritize) {
-  return function (a, b) {
-    var f = shouldAritize && arguments.length !== 2 ? binary(fn) : fn;
-    return partial(f, [__, a, b]);
-  };
+        return partial(f, [__, a, b]);
+    };
 }
+
 /**
  * A curried version of {@link module:lamb.clamp|clamp}, expecting a <code>min</code>
  * and a <code>max</code> value, that builds a function waiting for the number to clamp.
@@ -232,9 +226,8 @@ function _makePartial3(fn, shouldAritize) {
  * @param {Number} max
  * @returns {Function}
  */
-
-
 var clampWithin = _makePartial3(clamp);
+
 /**
  * The I combinator. Any value passed to the function is simply returned as it is.
  * @example
@@ -249,11 +242,10 @@ var clampWithin = _makePartial3(clamp);
  * @param {*} value
  * @returns {*} The value passed as parameter.
  */
-
-
-function identity(value) {
-  return value;
+function identity (value) {
+    return value;
 }
+
 /**
  * Returns a function that is the composition of the functions given as parameters.
  * The first function consumes the result of the function that follows.
@@ -278,16 +270,15 @@ function identity(value) {
  * @param {Function} b
  * @returns {Function}
  */
-
-
-function compose(a, b) {
-  return arguments.length ? function () {
-    return a.call(this, b.apply(this, arguments));
-  } : identity;
+function compose (a, b) {
+    return arguments.length ? function () {
+        return a.call(this, b.apply(this, arguments));
+    } : identity;
 }
 
 var MAX_ARRAY_LENGTH = 4294967295;
 var MAX_SAFE_INTEGER = 9007199254740991;
+
 /**
  * Converts a value to a valid array length, thus an integer within
  * <code>0</code> and <code>2<sup>32</sup> - 1</code> (both included).
@@ -295,10 +286,10 @@ var MAX_SAFE_INTEGER = 9007199254740991;
  * @param {*} value
  * @returns {Number}
  */
-
-function _toArrayLength(value) {
-  return clamp(value, 0, MAX_ARRAY_LENGTH) >>> 0;
+function _toArrayLength (value) {
+    return clamp(value, 0, MAX_ARRAY_LENGTH) >>> 0;
 }
+
 /* eslint-disable jsdoc/require-returns-check */
 
 /**
@@ -320,13 +311,12 @@ function _toArrayLength(value) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Undefined}
  */
-
-
-function forEach(arrayLike, iteratee) {
-  for (var i = 0, len = _toArrayLength(arrayLike.length); i < len; i++) {
-    iteratee(arrayLike[i], i, arrayLike);
-  }
+function forEach (arrayLike, iteratee) {
+    for (var i = 0, len = _toArrayLength(arrayLike.length); i < len; i++) {
+        iteratee(arrayLike[i], i, arrayLike);
+    }
 }
+
 /**
  * Creates generic functions out of methods.
  * @author A very little change on a great idea by [Irakli Gozalishvili]{@link https://github.com/Gozala/}.
@@ -346,9 +336,8 @@ function forEach(arrayLike, iteratee) {
  * @param {Function} method
  * @returns {Function}
  */
-
-
 var generic = Function.bind.bind(Function.call);
+
 /**
  * Verifies if a value is <code>null</code>.
  * @example
@@ -363,10 +352,10 @@ var generic = Function.bind.bind(Function.call);
  * @param {*} value
  * @returns {Boolean}
  */
-
-function isNull(value) {
-  return value === null;
+function isNull (value) {
+    return value === null;
 }
+
 /**
  * Verifies if a value is <code>undefined</code>.
  * @example
@@ -381,11 +370,10 @@ function isNull(value) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isUndefined(value) {
-  return value === void 0;
+function isUndefined (value) {
+    return value === void 0;
 }
+
 /**
  * Verifies if a value is <code>null</code> or <code>undefined</code>.
  * @example
@@ -403,11 +391,10 @@ function isUndefined(value) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isNil(value) {
-  return isNull(value) || isUndefined(value);
+function isNil (value) {
+    return isNull(value) || isUndefined(value);
 }
+
 /**
  * Curries a function of arity 2.
  * @private
@@ -415,15 +402,14 @@ function isNil(value) {
  * @param {Boolean} [isRightCurry=false]
  * @returns {Function}
  */
-
-
-function _curry2(fn, isRightCurry) {
-  return function (a) {
-    return function (b) {
-      return isRightCurry ? fn.call(this, b, a) : fn.call(this, a, b);
+function _curry2 (fn, isRightCurry) {
+    return function (a) {
+        return function (b) {
+            return isRightCurry ? fn.call(this, b, a) : fn.call(this, a, b);
+        };
     };
-  };
 }
+
 /**
  * A curried version of {@link module:lamb.areSVZ|areSVZ}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -460,9 +446,8 @@ function _curry2(fn, isRightCurry) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var isSVZ = _curry2(areSVZ);
+
 /**
  * Builds a new array by applying the iteratee function to each element of the
  * received array-like object.<br/>
@@ -481,19 +466,17 @@ var isSVZ = _curry2(areSVZ);
  * @param {ListIteratorCallback} iteratee
  * @returns {Array}
  */
+function map (arrayLike, iteratee) {
+    var len = _toArrayLength(arrayLike.length);
+    var result = Array(len);
 
+    for (var i = 0; i < len; i++) {
+        result[i] = iteratee(arrayLike[i], i, arrayLike);
+    }
 
-function map(arrayLike, iteratee) {
-  var len = _toArrayLength(arrayLike.length);
-
-  var result = Array(len);
-
-  for (var i = 0; i < len; i++) {
-    result[i] = iteratee(arrayLike[i], i, arrayLike);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.map|map} that uses the provided iteratee to
  * build a function expecting the array-like object to act upon.
@@ -512,9 +495,8 @@ function map(arrayLike, iteratee) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var mapWith = _curry2(map, true);
+
 /**
  * Like {@link module:lamb.partial|partial} will build a partially applied function and
  * it will accept placeholders.<br/>
@@ -549,35 +531,34 @@ var mapWith = _curry2(map, true);
  * @since 0.52.0
  * @returns {Function}
  */
+function partialRight (fn, args) {
+    return function () {
+        if (!Array.isArray(args)) {
+            return fn.apply(this, arguments);
+        }
 
+        var lastIdx = arguments.length - 1;
+        var argsLen = args.length;
+        var boundArgs = Array(argsLen);
+        var newArgs = [];
 
-function partialRight(fn, args) {
-  return function () {
-    if (!Array.isArray(args)) {
-      return fn.apply(this, arguments);
-    }
+        for (var i = argsLen - 1, boundArg; i > -1; i--) {
+            boundArg = args[i];
+            boundArgs[i] = boundArg === __ ? arguments[lastIdx--] : boundArg;
+        }
 
-    var lastIdx = arguments.length - 1;
-    var argsLen = args.length;
-    var boundArgs = Array(argsLen);
-    var newArgs = [];
+        for (i = 0; i <= lastIdx; i++) {
+            newArgs[i] = arguments[i];
+        }
 
-    for (var i = argsLen - 1, boundArg; i > -1; i--) {
-      boundArg = args[i];
-      boundArgs[i] = boundArg === __ ? arguments[lastIdx--] : boundArg;
-    }
+        for (var j = 0; j < argsLen; j++) {
+            newArgs[i++] = boundArgs[j];
+        }
 
-    for (i = 0; i <= lastIdx; i++) {
-      newArgs[i] = arguments[i];
-    }
-
-    for (var j = 0; j < argsLen; j++) {
-      newArgs[i++] = boundArgs[j];
-    }
-
-    return fn.apply(this, newArgs);
-  };
+        return fn.apply(this, newArgs);
+    };
 }
+
 /**
  * Builds a reduce function. The <code>step</code> parameter must be <code>1</code>
  * to build  {@link module:lamb.reduce|reduce} and <code>-1</code> to build
@@ -586,36 +567,34 @@ function partialRight(fn, args) {
  * @param {Number} step
  * @returns {Function}
  */
+function _makeReducer (step) {
+    return function (arrayLike, accumulator, initialValue) {
+        var len = _toArrayLength(arrayLike.length);
+        var idx = step === 1 ? 0 : len - 1;
+        var nCalls;
+        var result;
 
+        if (arguments.length === 3) {
+            nCalls = len;
+            result = initialValue;
+        } else {
+            if (len === 0) {
+                throw new TypeError("Reduce of empty array-like with no initial value");
+            }
 
-function _makeReducer(step) {
-  return function (arrayLike, accumulator, initialValue) {
-    var len = _toArrayLength(arrayLike.length);
+            result = arrayLike[idx];
+            idx += step;
+            nCalls = len - 1;
+        }
 
-    var idx = step === 1 ? 0 : len - 1;
-    var nCalls;
-    var result;
+        for (; nCalls--; idx += step) {
+            result = accumulator(result, arrayLike[idx], idx, arrayLike);
+        }
 
-    if (arguments.length === 3) {
-      nCalls = len;
-      result = initialValue;
-    } else {
-      if (len === 0) {
-        throw new TypeError("Reduce of empty array-like with no initial value");
-      }
-
-      result = arrayLike[idx];
-      idx += step;
-      nCalls = len - 1;
-    }
-
-    for (; nCalls--; idx += step) {
-      result = accumulator(result, arrayLike[idx], idx, arrayLike);
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Reduces (or folds) the values of an array-like object, starting from the first, to a new
  * value using the provided <code>accumulator</code> function.<br/>
@@ -634,9 +613,8 @@ function _makeReducer(step) {
  * @param {*} [initialValue]
  * @returns {*}
  */
-
-
 var reduce = _makeReducer(1);
+
 /**
  * A partial application of {@link module:lamb.reduce|reduce} that uses the
  * provided <code>accumulator</code> and the optional <code>initialValue</code> to
@@ -658,29 +636,26 @@ var reduce = _makeReducer(1);
  * @param {*} [initialValue]
  * @returns {Function}
  */
-
-
 var reduceWith = _makePartial3(reduce, true);
+
 /**
  * Converts a value to an integer.
  * @private
  * @param {*} value
  * @returns {Number}
  */
+function _toInteger (value) {
+    var n = +value;
 
-
-function _toInteger(value) {
-  var n = +value;
-
-  if (n !== n) {
-    // eslint-disable-line no-self-compare
-    return 0;
-  } else if (n % 1 === 0) {
-    return n;
-  } else {
-    return Math.floor(Math.abs(n)) * (n < 0 ? -1 : 1);
-  }
+    if (n !== n) { // eslint-disable-line no-self-compare
+        return 0;
+    } else if (n % 1 === 0) {
+        return n;
+    } else {
+        return Math.floor(Math.abs(n)) * (n < 0 ? -1 : 1);
+    }
 }
+
 /**
  * Builds an array by extracting a portion of an array-like object.<br/>
  * Note that unlike the native array method this function ensures that dense
@@ -706,34 +681,31 @@ function _toInteger(value) {
  * @param {Number} end - Index at which to end extraction. Extracts up to but not including end.
  * @returns {Array}
  */
+function slice (arrayLike, start, end) {
+    var len = _toArrayLength(arrayLike.length);
+    var begin = _toInteger(start);
+    var upTo = _toInteger(end);
 
+    if (begin < 0) {
+        begin = begin < -len ? 0 : begin + len;
+    }
 
-function slice(arrayLike, start, end) {
-  var len = _toArrayLength(arrayLike.length);
+    if (upTo < 0) {
+        upTo = upTo < -len ? 0 : upTo + len;
+    } else if (upTo > len) {
+        upTo = len;
+    }
 
-  var begin = _toInteger(start);
+    var resultLen = upTo - begin;
+    var result = resultLen > 0 ? Array(resultLen) : [];
 
-  var upTo = _toInteger(end);
+    for (var i = 0; i < resultLen; i++) {
+        result[i] = arrayLike[begin + i];
+    }
 
-  if (begin < 0) {
-    begin = begin < -len ? 0 : begin + len;
-  }
-
-  if (upTo < 0) {
-    upTo = upTo < -len ? 0 : upTo + len;
-  } else if (upTo > len) {
-    upTo = len;
-  }
-
-  var resultLen = upTo - begin;
-  var result = resultLen > 0 ? Array(resultLen) : [];
-
-  for (var i = 0; i < resultLen; i++) {
-    result[i] = arrayLike[begin + i];
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Given the <code>start</code> and <code>end</code> bounds, builds a partial application
  * of {@link module:lamb.slice|slice} expecting the array-like object to slice.<br/>
@@ -757,11 +729,10 @@ function slice(arrayLike, start, end) {
  * @param {Number} end - Index at which to end extraction. Extracts up to but not including end.
  * @returns {Function}
  */
-
-
 var sliceAt = _makePartial3(slice);
 
 var objectProtoToString = Object.prototype.toString;
+
 /**
  * Retrieves the "type tag" from the given value.
  * @example
@@ -783,10 +754,10 @@ var objectProtoToString = Object.prototype.toString;
  * @param {*} value
  * @returns {String}
  */
-
-function type(value) {
-  return objectProtoToString.call(value).slice(8, -1);
+function type (value) {
+    return objectProtoToString.call(value).slice(8, -1);
 }
+
 /**
  * Appends the given value at the end of a copy of the provided array-like object.
  * @example
@@ -804,11 +775,10 @@ function type(value) {
  * @param {*} value
  * @returns {Array}
  */
-
-
-function appendTo(arrayLike, value) {
-  return slice(arrayLike, 0, arrayLike.length).concat([value]);
+function appendTo (arrayLike, value) {
+    return slice(arrayLike, 0, arrayLike.length).concat([value]);
 }
+
 /**
  * A curried version of {@link module:lamb.appendTo|appendTo} that uses the value to append
  * to build a function expecting the array-like object to act upon.
@@ -827,9 +797,8 @@ function appendTo(arrayLike, value) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var append = _curry2(appendTo, true);
+
 /**
  * Checks if an array-like object contains the given value.<br/>
  * Please note that the equality test is made with {@link module:lamb.areSVZ|areSVZ}; so you can
@@ -852,20 +821,19 @@ var append = _curry2(appendTo, true);
  * @param {*} value
  * @returns {Boolean}
  */
+function isIn (arrayLike, value) {
+    var result = false;
 
-
-function isIn(arrayLike, value) {
-  var result = false;
-
-  for (var i = 0, len = arrayLike.length; i < len; i++) {
-    if (areSVZ(value, arrayLike[i])) {
-      result = true;
-      break;
+    for (var i = 0, len = arrayLike.length; i < len; i++) {
+        if (areSVZ(value, arrayLike[i])) {
+            result = true;
+            break;
+        }
     }
-  }
 
-  return result;
+    return result;
 }
+
 /**
  * Builds a predicate to check if an array-like object contains the given value.<br/>
  * Please note that the equality test is made with {@link module:lamb.areSVZ|areSVZ}; so you can
@@ -884,31 +852,29 @@ function isIn(arrayLike, value) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var contains = _curry2(isIn, true);
+
 /**
  * Builds a "grouping function" for an array-like object.
  * @private
  * @param {Function} makeValue
  * @returns {Function}
  */
+function _groupWith (makeValue) {
+    return function (arrayLike, iteratee) {
+        var result = {};
+        var len = arrayLike.length;
 
+        for (var i = 0, element, key; i < len; i++) {
+            element = arrayLike[i];
+            key = iteratee(element, i, arrayLike);
+            result[key] = makeValue(result[key], element);
+        }
 
-function _groupWith(makeValue) {
-  return function (arrayLike, iteratee) {
-    var result = {};
-    var len = arrayLike.length;
-
-    for (var i = 0, element, key; i < len; i++) {
-      element = arrayLike[i];
-      key = iteratee(element, i, arrayLike);
-      result[key] = makeValue(result[key], element);
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Transforms an array-like object in a lookup table with the keys generated by the provided
  * <code>iteratee</code>, having as values the count of matches for the key.
@@ -934,11 +900,10 @@ function _groupWith(makeValue) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Object}
  */
-
-
 var count = _groupWith(function (a) {
-  return a ? ++a : 1;
+    return a ? ++a : 1;
 });
+
 /**
  * A curried version of {@link module:lamb.count|count} that uses the provided iteratee to
  * build a function expecting the array-like object to act upon.
@@ -964,9 +929,8 @@ var count = _groupWith(function (a) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var countBy = _curry2(count, true);
+
 /**
  * Builds an array comprised of all values of the array-like object passing the <code>predicate</code>
  * test.<br/>
@@ -987,18 +951,17 @@ var countBy = _curry2(count, true);
  * @since 0.1.0
  * @returns {Array}
  */
+function filter (arrayLike, predicate) {
+    var len = arrayLike.length;
+    var result = [];
 
+    for (var i = 0; i < len; i++) {
+        predicate(arrayLike[i], i, arrayLike) && result.push(arrayLike[i]);
+    }
 
-function filter(arrayLike, predicate) {
-  var len = arrayLike.length;
-  var result = [];
-
-  for (var i = 0; i < len; i++) {
-    predicate(arrayLike[i], i, arrayLike) && result.push(arrayLike[i]);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Returns a predicate that negates the given one.
  * @example
@@ -1014,13 +977,12 @@ function filter(arrayLike, predicate) {
  * @param {Function} predicate
  * @returns {Function}
  */
-
-
-function not(predicate) {
-  return function () {
-    return !predicate.apply(this, arguments);
-  };
+function not (predicate) {
+    return function () {
+        return !predicate.apply(this, arguments);
+    };
 }
+
 /**
  * Using the provided iteratee, builds a function that will return an array comprised of the
  * unique elements of an array-like object. The values being compared are the ones returned by
@@ -1049,24 +1011,23 @@ function not(predicate) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
+function uniquesBy (iteratee) {
+    return function (arrayLike) {
+        var result = [];
 
+        for (var i = 0, len = arrayLike.length, seen = [], value; i < len; i++) {
+            value = iteratee(arrayLike[i], i, arrayLike);
 
-function uniquesBy(iteratee) {
-  return function (arrayLike) {
-    var result = [];
+            if (!isIn(seen, value)) {
+                seen.push(value);
+                result.push(arrayLike[i]);
+            }
+        }
 
-    for (var i = 0, len = arrayLike.length, seen = [], value; i < len; i++) {
-      value = iteratee(arrayLike[i], i, arrayLike);
-
-      if (!isIn(seen, value)) {
-        seen.push(value);
-        result.push(arrayLike[i]);
-      }
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Returns an array comprised of the unique elements of the given array-like object.<br/>
  * Note that this function uses the ["SameValueZero" comparison]{@link module:lamb.areSVZ|areSVZ}
@@ -1086,9 +1047,8 @@ function uniquesBy(iteratee) {
  * @param {ArrayLike} arrayLike
  * @returns {Array}
  */
-
-
 var uniques = uniquesBy(identity);
+
 /**
  * Returns an array of unique items present only in the first of the two given
  * array-like objects. To determine uniqueness the function uses the
@@ -1112,11 +1072,12 @@ var uniques = uniquesBy(identity);
  * @param {ArrayLike} other
  * @returns {Array}
  */
+function difference (arrayLike, other) {
+    var isNotInOther = partial(not(isIn), [other]);
 
-function difference(arrayLike, other) {
-  var isNotInOther = partial(not(isIn), [other]);
-  return uniques(filter(arrayLike, isNotInOther));
+    return uniques(filter(arrayLike, isNotInOther));
 }
+
 /**
  * Builds an array without the first <code>n</code> elements of the given array or array-like object.
  * Note that, being this only a shortcut for a specific use case of {@link module:lamb.slice|slice},
@@ -1139,11 +1100,10 @@ function difference(arrayLike, other) {
  * @param {Number} n
  * @returns {Array}
  */
-
-
-function dropFrom(arrayLike, n) {
-  return slice(arrayLike, n, arrayLike.length);
+function dropFrom (arrayLike, n) {
+    return slice(arrayLike, n, arrayLike.length);
 }
+
 /**
  * A curried version of {@link module:lamb.dropFrom|dropFrom} that expects the number of elements
  * to drop to build a function waiting for the list to take the elements from.<br/>
@@ -1165,9 +1125,8 @@ function dropFrom(arrayLike, n) {
  * @param {Number} n
  * @returns {Function}
  */
-
-
 var drop = _curry2(dropFrom, true);
+
 /**
  * Gets the index of the last element satisfying a predicate in an array-like object.
  * @private
@@ -1176,27 +1135,26 @@ var drop = _curry2(dropFrom, true);
  * @param {Boolean} fromLast
  * @returns {Number}
  */
+function _getLastHitIndex (arrayLike, predicate, fromLast) {
+    var idx;
+    var increment;
+    var len = arrayLike.length;
 
+    if (fromLast) {
+        idx = len - 1;
+        increment = -1;
+    } else {
+        idx = 0;
+        increment = 1;
+    }
 
-function _getLastHitIndex(arrayLike, predicate, fromLast) {
-  var idx;
-  var increment;
-  var len = arrayLike.length;
+    while (idx >= 0 && idx < len && predicate(arrayLike[idx], idx, arrayLike)) {
+        idx += increment;
+    }
 
-  if (fromLast) {
-    idx = len - 1;
-    increment = -1;
-  } else {
-    idx = 0;
-    increment = 1;
-  }
-
-  while (idx >= 0 && idx < len && predicate(arrayLike[idx], idx, arrayLike)) {
-    idx += increment;
-  }
-
-  return idx;
+    return idx;
 }
+
 /**
  * Helper to build the {@link module:lamb.takeWhile|takeWhile},
  * {@link module:lamb.takeLastWhile|takeLastWhile}, {@link module:lamb.dropWhile|dropWhile} and
@@ -1206,34 +1164,32 @@ function _getLastHitIndex(arrayLike, predicate, fromLast) {
  * @param {Boolean} fromLast
  * @returns {Function}
  */
+function _takeOrDropWhile (isTake, fromLast) {
+    return function (predicate) {
+        return function (arrayLike) {
+            var idxFrom;
+            var idxTo;
+            var lastHitIndex = _getLastHitIndex(arrayLike, predicate, fromLast);
 
+            if (isTake && fromLast) {
+                idxFrom = lastHitIndex + 1;
+                idxTo = arrayLike.length;
+            } else if (isTake) {
+                idxFrom = 0;
+                idxTo = lastHitIndex;
+            } else if (!isTake && fromLast) {
+                idxFrom = 0;
+                idxTo = lastHitIndex + 1;
+            } else {
+                idxFrom = lastHitIndex;
+                idxTo = arrayLike.length;
+            }
 
-function _takeOrDropWhile(isTake, fromLast) {
-  return function (predicate) {
-    return function (arrayLike) {
-      var idxFrom;
-      var idxTo;
-
-      var lastHitIndex = _getLastHitIndex(arrayLike, predicate, fromLast);
-
-      if (isTake && fromLast) {
-        idxFrom = lastHitIndex + 1;
-        idxTo = arrayLike.length;
-      } else if (isTake) {
-        idxFrom = 0;
-        idxTo = lastHitIndex;
-      } else if (!isTake && fromLast) {
-        idxFrom = 0;
-        idxTo = lastHitIndex + 1;
-      } else {
-        idxFrom = lastHitIndex;
-        idxTo = arrayLike.length;
-      }
-
-      return slice(arrayLike, idxFrom, idxTo);
+            return slice(arrayLike, idxFrom, idxTo);
+        };
     };
-  };
 }
+
 /**
  * Builds a function that drops the last elements satisfying a predicate
  * from an array or array-like object.
@@ -1255,9 +1211,8 @@ function _takeOrDropWhile(isTake, fromLast) {
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var dropLastWhile = _takeOrDropWhile(false, true);
+
 /**
  * Builds a function that drops the first elements satisfying a predicate
  * from an array or array-like object.
@@ -1279,9 +1234,8 @@ var dropLastWhile = _takeOrDropWhile(false, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var dropWhile = _takeOrDropWhile(false, false);
+
 /**
  * Helper to build the {@link module:lamb.everyIn|everyIn} or the
  * {@link module:lamb.someIn|someIn} function.
@@ -1289,19 +1243,18 @@ var dropWhile = _takeOrDropWhile(false, false);
  * @param {Boolean} defaultResult
  * @returns {Function}
  */
+function _makeArrayChecker (defaultResult) {
+    return function (arrayLike, predicate) {
+        for (var i = 0, len = arrayLike.length; i < len; i++) {
+            if (defaultResult ^ !!predicate(arrayLike[i], i, arrayLike)) {
+                return !defaultResult;
+            }
+        }
 
-
-function _makeArrayChecker(defaultResult) {
-  return function (arrayLike, predicate) {
-    for (var i = 0, len = arrayLike.length; i < len; i++) {
-      if (defaultResult ^ !!predicate(arrayLike[i], i, arrayLike)) {
-        return !defaultResult;
-      }
-    }
-
-    return defaultResult;
-  };
+        return defaultResult;
+    };
 }
+
 /**
  * Checks if all the elements in an array-like object satisfy the given predicate.<br/>
  * The function will stop calling the predicate as soon as it returns a <em>falsy</em> value.<br/>
@@ -1341,9 +1294,8 @@ function _makeArrayChecker(defaultResult) {
  * @param {ListIteratorCallback} predicate
  * @returns {Boolean}
  */
-
-
 var everyIn = _makeArrayChecker(true);
+
 /**
  * A curried version of {@link module:lamb.everyIn|everyIn} that expects a predicate
  * to build a function waiting for the array-like to act upon.
@@ -1365,9 +1317,8 @@ var everyIn = _makeArrayChecker(true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var every = _curry2(everyIn, true);
+
 /**
  * A curried version of {@link module:lamb.filter|filter} that uses the given predicate
  * to build a function expecting the array-like object to act upon.
@@ -1388,9 +1339,8 @@ var every = _curry2(everyIn, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var filterWith = _curry2(filter, true);
+
 /**
  * Helper to create the {@link module:lamb.findIndex|findIndex} and
  * {@link module:lamb.findLastIndex|findLastIndex} functions.
@@ -1400,31 +1350,30 @@ var filterWith = _curry2(filter, true);
  * @param {Boolean} fromLast
  * @returns {Number}
  */
+function _findIndex (arrayLike, predicate, fromLast) {
+    var start;
+    var increment;
+    var len = arrayLike.length;
+    var result = -1;
 
-
-function _findIndex(arrayLike, predicate, fromLast) {
-  var start;
-  var increment;
-  var len = arrayLike.length;
-  var result = -1;
-
-  if (fromLast) {
-    start = len - 1;
-    increment = -1;
-  } else {
-    start = 0;
-    increment = 1;
-  }
-
-  for (var i = start; i < len && i >= 0; i += increment) {
-    if (predicate(arrayLike[i], i, arrayLike)) {
-      result = i;
-      break;
+    if (fromLast) {
+        start = len - 1;
+        increment = -1;
+    } else {
+        start = 0;
+        increment = 1;
     }
-  }
 
-  return result;
+    for (var i = start; i < len && i >= 0; i += increment) {
+        if (predicate(arrayLike[i], i, arrayLike)) {
+            result = i;
+            break;
+        }
+    }
+
+    return result;
 }
+
 /**
  * Searches for an element satisfying the predicate in the given array-like object and returns its
  * index if the search is successful. Returns <code>-1</code> otherwise.
@@ -1451,11 +1400,10 @@ function _findIndex(arrayLike, predicate, fromLast) {
  * @param {ListIteratorCallback} predicate
  * @returns {Number}
  */
-
-
-function findIndex(arrayLike, predicate) {
-  return _findIndex(arrayLike, predicate, false);
+function findIndex (arrayLike, predicate) {
+    return _findIndex(arrayLike, predicate, false);
 }
+
 /**
  * Searches for an element satisfying the predicate in the given array-like object and returns it if
  * the search is successful. Returns <code>undefined</code> otherwise.
@@ -1482,12 +1430,12 @@ function findIndex(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {*}
  */
+function find (arrayLike, predicate) {
+    var idx = findIndex(arrayLike, predicate);
 
-
-function find(arrayLike, predicate) {
-  var idx = findIndex(arrayLike, predicate);
-  return idx === -1 ? void 0 : arrayLike[idx];
+    return idx === -1 ? void 0 : arrayLike[idx];
 }
+
 /**
  * A curried version of {@link module:lamb.findIndex|findIndex} that uses the given predicate
  * to build a function expecting the array-like object to search.
@@ -1510,9 +1458,8 @@ function find(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var findIndexWhere = _curry2(findIndex, true);
+
 /**
  * Searches for an element satisfying the predicate in the given array-like object starting from
  * the end and returns its index if the search is successful. Returns <code>-1</code> otherwise.
@@ -1538,11 +1485,10 @@ var findIndexWhere = _curry2(findIndex, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Number}
  */
-
-
-function findLastIndex(arrayLike, predicate) {
-  return _findIndex(arrayLike, predicate, true);
+function findLastIndex (arrayLike, predicate) {
+    return _findIndex(arrayLike, predicate, true);
 }
+
 /**
  * Searches for an element satisfying the predicate in the given array-like object starting from the end
  * and returns it if the search is successful. Returns <code>undefined</code> otherwise.
@@ -1569,12 +1515,12 @@ function findLastIndex(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {*}
  */
+function findLast (arrayLike, predicate) {
+    var idx = findLastIndex(arrayLike, predicate);
 
-
-function findLast(arrayLike, predicate) {
-  var idx = findLastIndex(arrayLike, predicate);
-  return idx === -1 ? void 0 : arrayLike[idx];
+    return idx === -1 ? void 0 : arrayLike[idx];
 }
+
 /**
  * A curried version of {@link module:lamb.findLastIndex|findLastIndex} that uses the given predicate
  * to build a function expecting the array-like object to search.
@@ -1596,9 +1542,8 @@ function findLast(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var findLastIndexWhere = _curry2(findLastIndex, true);
+
 /**
  * A curried version of {@link module:lamb.findLast|findLast} that uses the given
  * predicate to build a function expecting the array-like object to search.
@@ -1621,9 +1566,8 @@ var findLastIndexWhere = _curry2(findLastIndex, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var findLastWhere = _curry2(findLast, true);
+
 /**
  * A curried version of {@link module:lamb.find|find} that uses the given
  * predicate to build a function expecting the array-like object to search.
@@ -1646,9 +1590,8 @@ var findLastWhere = _curry2(findLast, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var findWhere = _curry2(find, true);
+
 /**
  * Similar to {@link module:lamb.map|map}, but if the mapping function returns an array this will
  * be concatenated, rather than pushed, to the final result.
@@ -1668,23 +1611,22 @@ var findWhere = _curry2(find, true);
  * @param {ListIteratorCallback} iteratee
  * @returns {Array}
  */
+function flatMap (array, iteratee) {
+    return reduce(array, function (result, el, idx, arr) {
+        var v = iteratee(el, idx, arr);
 
+        if (!Array.isArray(v)) {
+            v = [v];
+        }
 
-function flatMap(array, iteratee) {
-  return reduce(array, function (result, el, idx, arr) {
-    var v = iteratee(el, idx, arr);
+        for (var i = 0, len = v.length, rLen = result.length; i < len; i++) {
+            result[rLen + i] = v[i];
+        }
 
-    if (!Array.isArray(v)) {
-      v = [v];
-    }
-
-    for (var i = 0, len = v.length, rLen = result.length; i < len; i++) {
-      result[rLen + i] = v[i];
-    }
-
-    return result;
-  }, []);
+        return result;
+    }, []);
 }
+
 /**
  * A curried version of {@link module:lamb.flatMap|flatMap} that uses provided iteratee
  * to build a function expecting the array to act upon.
@@ -1703,9 +1645,8 @@ function flatMap(array, iteratee) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var flatMapWith = _curry2(flatMap, true);
+
 /**
  * Flattens an array.
  * @private
@@ -1715,30 +1656,28 @@ var flatMapWith = _curry2(flatMap, true);
  * @param {Number} idx - The next index to be filled in the output
  * @returns {Array} The output array filled with the results
  */
+function _flatten (array, isDeep, output, idx) {
+    for (var i = 0, len = array.length, value, j, vLen; i < len; i++) {
+        value = array[i];
 
+        if (!Array.isArray(value)) {
+            output[idx++] = value;
+        } else if (isDeep) {
+            _flatten(value, true, output, idx);
+            idx = output.length;
+        } else {
+            vLen = value.length;
+            output.length += vLen;
 
-function _flatten(array, isDeep, output, idx) {
-  for (var i = 0, len = array.length, value, j, vLen; i < len; i++) {
-    value = array[i];
-
-    if (!Array.isArray(value)) {
-      output[idx++] = value;
-    } else if (isDeep) {
-      _flatten(value, true, output, idx);
-
-      idx = output.length;
-    } else {
-      vLen = value.length;
-      output.length += vLen;
-
-      for (j = 0; j < vLen; j++) {
-        output[idx++] = value[j];
-      }
+            for (j = 0; j < vLen; j++) {
+                output[idx++] = value[j];
+            }
+        }
     }
-  }
 
-  return output;
+    return output;
 }
+
 /**
  * Helper to build the {@link module:lamb.flatten|flatten} and
  * {@link module:lamb.shallowFlatten|shallowFlatten} functions.
@@ -1747,11 +1686,10 @@ function _flatten(array, isDeep, output, idx) {
  * @param {Boolean} isDeep
  * @returns {Function}
  */
-
-
 var _makeArrayFlattener = _curry2(function (isDeep, array) {
-  return Array.isArray(array) ? _flatten(array, isDeep, [], 0) : slice(array, 0, array.length);
+    return Array.isArray(array) ? _flatten(array, isDeep, [], 0) : slice(array, 0, array.length);
 });
+
 /**
  * Flattens an array.
  * @example <caption>Showing the difference with <code>shallowFlatten</code>:</caption>
@@ -1768,9 +1706,8 @@ var _makeArrayFlattener = _curry2(function (isDeep, array) {
  * @param {Array} array
  * @returns {Array}
  */
-
-
 var flatten = _makeArrayFlattener(true);
+
 /**
  * Checks if the given number, even negative, represents an array-like index
  * within the provided length. If so returns its natural number equivalent.<br/>
@@ -1780,12 +1717,12 @@ var flatten = _makeArrayFlattener(true);
  * @param {Number} len
  * @returns {Number}
  */
+function _toNaturalIndex (idx, len) {
+    idx = _toInteger(idx);
 
-
-function _toNaturalIndex(idx, len) {
-  idx = _toInteger(idx);
-  return idx >= -len && idx < len ? idx < 0 ? idx + len : idx : NaN;
+    return idx >= -len && idx < len ? idx < 0 ? idx + len : idx : NaN;
 }
+
 /**
  * Retrieves the element at the given index in an array-like object.<br/>
  * Like {@link module:lamb.slice|slice} the index can be negative.<br/>
@@ -1809,13 +1746,12 @@ function _toNaturalIndex(idx, len) {
  * @param {Number} index
  * @returns {*}
  */
+function getIndex (arrayLike, index) {
+    var idx = _toNaturalIndex(index, _toArrayLength(arrayLike.length));
 
-
-function getIndex(arrayLike, index) {
-  var idx = _toNaturalIndex(index, _toArrayLength(arrayLike.length));
-
-  return idx === idx ? arrayLike[idx] : void 0; // eslint-disable-line no-self-compare
+    return idx === idx ? arrayLike[idx] : void 0; // eslint-disable-line no-self-compare
 }
+
 /**
  * A curried version of {@link module:lamb.getIndex|getIndex} that uses the provided index
  * to build a function expecting the array-like object holding the element we want to retrieve.
@@ -1840,9 +1776,8 @@ function getIndex(arrayLike, index) {
  * @param {Number} index
  * @returns {Function}
  */
-
-
 var getAt = _curry2(getIndex, true);
+
 /**
  * Transforms an array-like object into a lookup table using the provided iteratee as a grouping
  * criterion to generate keys and values.
@@ -1901,16 +1836,16 @@ var getAt = _curry2(getIndex, true);
  * @param {ListIteratorCallback} iteratee
  * @returns {Object}
  */
-
-
 var group = _groupWith(function (a, b) {
-  if (!a) {
-    return [b];
-  }
+    if (!a) {
+        return [b];
+    }
 
-  a[a.length] = b;
-  return a;
+    a[a.length] = b;
+
+    return a;
 });
+
 /**
  * A curried version of {@link module:lamb.group|group} that uses the provided iteratee
  * to build a function expecting the array-like object to act upon.
@@ -1949,9 +1884,8 @@ var group = _groupWith(function (a, b) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var groupBy = _curry2(group, true);
+
 /**
  * Retrieves the first element of an array-like object.<br/>
  * Just a common use case of {@link module:lamb.getAt|getAt} exposed for convenience.
@@ -1969,9 +1903,8 @@ var groupBy = _curry2(group, true);
  * @param {ArrayLike} arrayLike
  * @returns {*}
  */
-
-
 var head = getAt(0);
+
 /**
  * Similar to {@link module:lamb.group|group}, but the generated lookup table will have
  * only one element of the original array-like object for each value.<br/>
@@ -2023,10 +1956,10 @@ var head = getAt(0);
  * @param {ListIteratorCallback} iteratee
  * @returns {Object}
  */
-
 var index = _groupWith(function (a, b) {
-  return b;
+    return b;
 });
+
 /**
  * A curried version of {@link module:lamb.index|index} that uses the provided iteratee
  * to build a function expecting the array-like object to act upon.
@@ -2057,9 +1990,8 @@ var index = _groupWith(function (a, b) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var indexBy = _curry2(index, true);
+
 /**
  * Returns a copy of the given array-like object without the last element.
  * @example
@@ -2076,9 +2008,8 @@ var indexBy = _curry2(index, true);
  * @param {ArrayLike} arrayLike
  * @returns {Array}
  */
-
-
 var init = partial(slice, [__, 0, -1]);
+
 /**
  * Inserts the provided element in a copy of an array-like object at the
  * specified index.<br/>
@@ -2105,12 +2036,14 @@ var init = partial(slice, [__, 0, -1]);
  * @param {*} element
  * @returns {Array}
  */
+function insert (arrayLike, index, element) {
+    var result = slice(arrayLike, 0, arrayLike.length);
 
-function insert(arrayLike, index, element) {
-  var result = slice(arrayLike, 0, arrayLike.length);
-  result.splice(index, 0, element);
-  return result;
+    result.splice(index, 0, element);
+
+    return result;
 }
+
 /**
  * Builds a partial application of {@link module:lamb.insert|insert}
  * expecting the array-like object to act upon.
@@ -2133,9 +2066,8 @@ function insert(arrayLike, index, element) {
  * @param {*} element
  * @returns {Function}
  */
-
-
 var insertAt = _makePartial3(insert);
+
 /**
  * Returns an array of every unique item that is included in all two given arrays
  * or array-like objects.<br/>
@@ -2158,20 +2090,19 @@ var insertAt = _makePartial3(insert);
  * @param {ArrayLike} b
  * @returns {Array}
  */
+function intersection (a, b) {
+    var result = [];
+    var lenA = a.length;
 
-
-function intersection(a, b) {
-  var result = [];
-  var lenA = a.length;
-
-  if (lenA && b.length) {
-    for (var i = 0; i < lenA; i++) {
-      !isIn(result, a[i]) && isIn(b, a[i]) && result.push(a[i]);
+    if (lenA && b.length) {
+        for (var i = 0; i < lenA; i++) {
+            !isIn(result, a[i]) && isIn(b, a[i]) && result.push(a[i]);
+        }
     }
-  }
 
-  return result;
+    return result;
 }
+
 /**
  * Transforms an array-like object into a string by joining its elements with
  * the given separator.<br/>
@@ -2203,11 +2134,10 @@ function intersection(a, b) {
  * @param {String} separator
  * @returns {String}
  */
-
-
-function join(arrayLike, separator) {
-  return map(arrayLike, String).join(String(separator));
+function join (arrayLike, separator) {
+    return map(arrayLike, String).join(String(separator));
 }
+
 /**
  * A curried version of {@link module:lamb.join|join} that accepts an optional
  * separator and builds a function expecting the array-like object to act upon.<br/>
@@ -2228,9 +2158,8 @@ function join(arrayLike, separator) {
  * @param {String} separator
  * @returns {Function}
  */
-
-
 var joinWith = _curry2(join, true);
+
 /**
  * Retrieves the last element of an array-like object.<br/>
  * Just a common use case of {@link module:lamb.getAt|getAt} exposed for convenience.
@@ -2248,9 +2177,8 @@ var joinWith = _curry2(join, true);
  * @param {ArrayLike} arrayLike
  * @returns {*}
  */
-
-
 var last = getAt(-1);
+
 /**
  * Builds helper functions to extract portions of the arguments
  * object rather efficiently without having to write for loops
@@ -2261,20 +2189,20 @@ var last = getAt(-1);
  * @param {Number} idx
  * @returns {Function}
  */
+function _argsToArrayFrom (idx) {
+    return function () {
+        var argsLen = arguments.length || idx;
+        var len = argsLen - idx;
+        var result = Array(len);
 
-function _argsToArrayFrom(idx) {
-  return function () {
-    var argsLen = arguments.length || idx;
-    var len = argsLen - idx;
-    var result = Array(len);
+        for (var i = 0; i < len; i++) {
+            result[i] = arguments[i + idx];
+        }
 
-    for (var i = 0; i < len; i++) {
-      result[i] = arguments[i + idx];
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Generates an array with the values passed as arguments.<br/>
  * Behaves like ES6's [Array.of]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of}.
@@ -2288,9 +2216,8 @@ function _argsToArrayFrom(idx) {
  * @param {...*} value
  * @returns {Array}
  */
-
-
 var list = _argsToArrayFrom(0);
+
 /**
  * Splits an array-like object in two lists: the first with the elements satisfying the given predicate,
  * the others with the remaining elements.
@@ -2308,19 +2235,18 @@ var list = _argsToArrayFrom(0);
  * @param {ListIteratorCallback} predicate
  * @returns {Array<Array, Array>}
  */
+function partition (arrayLike, predicate) {
+    var result = [[], []];
+    var len = arrayLike.length;
 
+    for (var i = 0, el; i < len; i++) {
+        el = arrayLike[i];
+        result[predicate(el, i, arrayLike) ? 0 : 1].push(el);
+    }
 
-function partition(arrayLike, predicate) {
-  var result = [[], []];
-  var len = arrayLike.length;
-
-  for (var i = 0, el; i < len; i++) {
-    el = arrayLike[i];
-    result[predicate(el, i, arrayLike) ? 0 : 1].push(el);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.partition|partition} that uses the provided
  * predicate to build a function expecting the array-like object to act upon.
@@ -2351,9 +2277,8 @@ function partition(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var partitionWith = _curry2(partition, true);
+
 /**
  * Returns the value of the object property with the given key.
  * @example
@@ -2371,11 +2296,10 @@ var partitionWith = _curry2(partition, true);
  * @param {String} key
  * @returns {*}
  */
-
-
-function getIn(obj, key) {
-  return obj[key];
+function getIn (obj, key) {
+    return obj[key];
 }
+
 /**
  * A curried version of {@link module:lamb.getIn|getIn}.<br/>
  * Receives a property name and builds a function expecting the object from which we want to retrieve
@@ -2397,9 +2321,8 @@ function getIn(obj, key) {
  * @param {String} key
  * @returns {Function}
  */
-
-
 var getKey = _curry2(getIn, true);
+
 /**
  * A curried version of {@link module:lamb.pluckFrom|pluckFrom} expecting the key to retrieve to
  * build a function waiting for the array-like object to act upon.
@@ -2422,9 +2345,8 @@ var getKey = _curry2(getIn, true);
  * @param {String} key
  * @returns {Function}
  */
-
-
 var pluck = compose(mapWith, getKey);
+
 /**
  * "Plucks" the values of the specified key from a list of objects.
  * @example
@@ -2453,10 +2375,10 @@ var pluck = compose(mapWith, getKey);
  * @param {String} key
  * @returns {Array}
  */
-
-function pluckFrom(arrayLike, key) {
-  return map(arrayLike, getKey(key));
+function pluckFrom (arrayLike, key) {
+    return map(arrayLike, getKey(key));
 }
+
 /**
  * Creates an array copy of the given array-like object without the
  * specified values.<br/>
@@ -2482,13 +2404,12 @@ function pluckFrom(arrayLike, key) {
  * @param {ArrayLike} values
  * @returns {Array}
  */
-
-
-function pullFrom(arrayLike, values) {
-  return values ? filter(arrayLike, function (element) {
-    return !isIn(values, element);
-  }) : slice(arrayLike, 0, arrayLike.length);
+function pullFrom (arrayLike, values) {
+    return values ? filter(arrayLike, function (element) {
+        return !isIn(values, element);
+    }) : slice(arrayLike, 0, arrayLike.length);
 }
+
 /**
  * A curried version of {@link module:lamb.pullFrom|pullFrom} expecting
  * a list of values to build a function waiting for an array-like object.<br/>
@@ -2513,9 +2434,8 @@ function pullFrom(arrayLike, values) {
  * @param {ArrayLike} values
  * @returns {Function}
  */
-
-
 var pull = _curry2(pullFrom, true);
+
 /**
  * Same as {@link module:lamb.reduce|reduce}, but starts the fold operation from the last
  * element instead.<br/>
@@ -2531,9 +2451,8 @@ var pull = _curry2(pullFrom, true);
  * @param {*} [initialValue]
  * @returns {*}
  */
-
-
 var reduceRight = _makeReducer(-1);
+
 /**
  * A partial application of {@link module:lamb.reduce|reduceRight} that uses the
  * provided <code>accumulator</code> and the optional <code>initialValue</code> to
@@ -2555,9 +2474,8 @@ var reduceRight = _makeReducer(-1);
  * @param {*} [initialValue]
  * @returns {Function}
  */
-
-
 var reduceRightWith = _makePartial3(reduceRight, true);
+
 /**
  * Reverses a copy of the given array-like object.
  * @example
@@ -2573,19 +2491,17 @@ var reduceRightWith = _makePartial3(reduceRight, true);
  * @param {ArrayLike} arrayLike
  * @returns {Array}
  */
+function reverse (arrayLike) {
+    var len = _toArrayLength(arrayLike.length);
+    var result = Array(len);
 
+    for (var i = 0, ofs = len - 1; i < len; i++) {
+        result[i] = arrayLike[ofs - i];
+    }
 
-function reverse(arrayLike) {
-  var len = _toArrayLength(arrayLike.length);
-
-  var result = Array(len);
-
-  for (var i = 0, ofs = len - 1; i < len; i++) {
-    result[i] = arrayLike[ofs - i];
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Returns a copy of the given array-like with the element rotated by the desired amount.
  * Negative indexes are allowed.
@@ -2604,13 +2520,13 @@ function reverse(arrayLike) {
  * @param {Number} amount
  * @returns {Array}
  */
+function rotate (arrayLike, amount) {
+    var len = arrayLike.length;
+    var shift = amount % len;
 
-
-function rotate(arrayLike, amount) {
-  var len = arrayLike.length;
-  var shift = amount % len;
-  return slice(arrayLike, -shift, len).concat(slice(arrayLike, 0, -shift));
+    return slice(arrayLike, -shift, len).concat(slice(arrayLike, 0, -shift));
 }
+
 /**
  * A curried version of {@link module:lamb.rotate|rotate}.<br/>
  * Uses the given amount to build a function expecting the array to rotate by that amount.
@@ -2628,9 +2544,8 @@ function rotate(arrayLike, amount) {
  * @param {Number} amount
  * @returns {Function}
  */
-
-
 var rotateBy = _curry2(rotate, true);
+
 /**
  * Sets an index in an array-like object.<br/>
  * If provided with an updater function it will use it to update the current value,
@@ -2642,20 +2557,17 @@ var rotateBy = _curry2(rotate, true);
  * @param {Function} [updater]
  * @returns {Array}
  */
+function _setIndex (arrayLike, idx, value, updater) {
+    var result = slice(arrayLike, 0, arrayLike.length);
+    var n = _toNaturalIndex(idx, result.length);
 
+    if (n === n) { // eslint-disable-line no-self-compare
+        result[n] = arguments.length === 4 ? updater(arrayLike[n]) : value;
+    }
 
-function _setIndex(arrayLike, idx, value, updater) {
-  var result = slice(arrayLike, 0, arrayLike.length);
-
-  var n = _toNaturalIndex(idx, result.length);
-
-  if (n === n) {
-    // eslint-disable-line no-self-compare
-    result[n] = arguments.length === 4 ? updater(arrayLike[n]) : value;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.setIndex|setIndex} that builds
  * a function that creates a copy of an array-like object with the given
@@ -2683,9 +2595,8 @@ function _setIndex(arrayLike, idx, value, updater) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var setAt = _makePartial3(_setIndex);
+
 /**
  * Builds a new function that passes only the specified amount of arguments to the original one.<br/>
  * As {@link module:lamb.slice|slice} is used to extract the arguments, you can also
@@ -2705,21 +2616,19 @@ var setAt = _makePartial3(_setIndex);
  * @param {Number} arity
  * @returns {Function}
  */
+function aritize (fn, arity) {
+    return function () {
+        var n = _toInteger(arity);
+        var args = list.apply(null, arguments).slice(0, n);
 
+        for (var i = args.length; i < n; i++) {
+            args[i] = void 0;
+        }
 
-function aritize(fn, arity) {
-  return function () {
-    var n = _toInteger(arity);
-
-    var args = list.apply(null, arguments).slice(0, n);
-
-    for (var i = args.length; i < n; i++) {
-      args[i] = void 0;
-    }
-
-    return fn.apply(this, args);
-  };
+        return fn.apply(this, args);
+    };
 }
+
 /**
  * Creates a copy of an array-like object with the given index changed to
  * the desired value.<br/>
@@ -2743,9 +2652,8 @@ function aritize(fn, arity) {
  * @param {*} value
  * @returns {Array}
  */
-
-
 var setIndex = aritize(_setIndex, 3);
+
 /**
  * Flattens the "first level" of an array.
  * @example <caption>Showing the difference with <code>flatten</code>:</caption>
@@ -2762,8 +2670,8 @@ var setIndex = aritize(_setIndex, 3);
  * @param {Array} array
  * @returns {Array}
  */
-
 var shallowFlatten = _makeArrayFlattener(false);
+
 /**
  * Checks if at least one element in an array-like object satisfies the given predicate.<br/>
  * The function will stop calling the predicate as soon as it returns a <em>truthy</em> value.<br/>
@@ -2800,9 +2708,8 @@ var shallowFlatten = _makeArrayFlattener(false);
  * @param {ListIteratorCallback} predicate
  * @returns {Boolean}
  */
-
-
 var someIn = _makeArrayChecker(false);
+
 /**
  * A curried version of {@link module:lamb.someIn|someIn} that uses the given predicate to
  * build a function waiting for the array-like to act upon.
@@ -2824,9 +2731,8 @@ var someIn = _makeArrayChecker(false);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var some = _curry2(someIn, true);
+
 /**
  * Accepts a list of sorting criteria with at least one element
  * and builds a function that compares two values with such criteria.
@@ -2834,26 +2740,25 @@ var some = _curry2(someIn, true);
  * @param {Sorter[]} criteria
  * @returns {Function}
  */
+function _compareWith (criteria) {
+    return function (a, b) {
+        var len = criteria.length;
+        var criterion = criteria[0];
+        var result = criterion.compare(a.value, b.value);
 
+        for (var i = 1; result === 0 && i < len; i++) {
+            criterion = criteria[i];
+            result = criterion.compare(a.value, b.value);
+        }
 
-function _compareWith(criteria) {
-  return function (a, b) {
-    var len = criteria.length;
-    var criterion = criteria[0];
-    var result = criterion.compare(a.value, b.value);
+        if (result === 0) {
+            result = a.index - b.index;
+        }
 
-    for (var i = 1; result === 0 && i < len; i++) {
-      criterion = criteria[i];
-      result = criterion.compare(a.value, b.value);
-    }
-
-    if (result === 0) {
-      result = a.index - b.index;
-    }
-
-    return criterion.isDescending ? -result : result;
-  };
+        return criterion.isDescending ? -result : result;
+    };
 }
+
 /**
  * The default comparer for sorting functions.<br/>
  * If the given values are of different types they
@@ -2864,23 +2769,22 @@ function _compareWith(criteria) {
  * @param {*} b
  * @returns {Number} -1 | 0 | 1
  */
+function _comparer (a, b) {
+    var result = 0;
 
+    if (typeof a !== typeof b) {
+        a = String(a);
+        b = String(b);
+    }
 
-function _comparer(a, b) {
-  var result = 0;
+    if (!areSVZ(a, b)) {
+        // eslint-disable-next-line no-self-compare
+        result = a > b || a !== a ? 1 : -1;
+    }
 
-  if (_typeof(a) !== _typeof(b)) {
-    a = String(a);
-    b = String(b);
-  }
-
-  if (!areSVZ(a, b)) {
-    // eslint-disable-next-line no-self-compare
-    result = a > b || a !== a ? 1 : -1;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Builds a sorting criterion. If the comparer function is missing, the default
  * comparer will be used instead.
@@ -2890,40 +2794,38 @@ function _comparer(a, b) {
  * @param {Function} [comparer]
  * @returns {Sorter}
  */
-
-
-function _sorter(reader, isDescending, comparer) {
-  if (typeof reader !== "function" || reader === identity) {
-    reader = null;
-  }
-
-  if (typeof comparer !== "function") {
-    comparer = _comparer;
-  }
-
-  return {
-    isDescending: isDescending === true,
-    compare: function compare(a, b) {
-      if (reader) {
-        a = reader(a);
-        b = reader(b);
-      }
-
-      return comparer(a, b);
+function _sorter (reader, isDescending, comparer) {
+    if (typeof reader !== "function" || reader === identity) {
+        reader = null;
     }
-  };
+
+    if (typeof comparer !== "function") {
+        comparer = _comparer;
+    }
+
+    return {
+        isDescending: isDescending === true,
+        compare: function (a, b) {
+            if (reader) {
+                a = reader(a);
+                b = reader(b);
+            }
+
+            return comparer(a, b);
+        }
+    };
 }
+
 /**
  * Converts a sorting function to a sorting criterion if necessary.
  * @private
  * @param {Function} criterion
  * @returns {Sorter}
  */
-
-
-function _makeCriterion(criterion) {
-  return criterion && typeof criterion.compare === "function" ? criterion : _sorter(criterion);
+function _makeCriterion (criterion) {
+    return criterion && typeof criterion.compare === "function" ? criterion : _sorter(criterion);
 }
+
 /**
  * Builds a list of sorting criteria from a list of sorter functions. Returns a list containing
  * a single default sorting criterion if the sorter list is empty.
@@ -2931,11 +2833,10 @@ function _makeCriterion(criterion) {
  * @param {Function[]} sorters
  * @returns {Sorter[]}
  */
-
-
-function _makeCriteria(sorters) {
-  return sorters && sorters.length ? map(sorters, _makeCriterion) : [_sorter()];
+function _makeCriteria (sorters) {
+    return sorters && sorters.length ? map(sorters, _makeCriterion) : [_sorter()];
 }
+
 /**
  * Returns a [stably]{@link https://en.wikipedia.org/wiki/Sorting_algorithm#Stability} sorted
  * copy of an array-like object using the given criteria.<br/>
@@ -2997,30 +2898,24 @@ function _makeCriteria(sorters) {
  * @param {Sorter[]|Function[]} [sorters=[{@link module:lamb.sorter|sorter()}]]
  * @returns {Array}
  */
+function sort (arrayLike, sorters) {
+    var criteria = _makeCriteria(sorters);
+    var len = _toArrayLength(arrayLike.length);
+    var result = Array(len);
 
+    for (var i = 0; i < len; i++) {
+        result[i] = { value: arrayLike[i], index: i };
+    }
 
-function sort(arrayLike, sorters) {
-  var criteria = _makeCriteria(sorters);
+    result.sort(_compareWith(criteria));
 
-  var len = _toArrayLength(arrayLike.length);
+    for (i = 0; i < len; i++) {
+        result[i] = result[i].value;
+    }
 
-  var result = Array(len);
-
-  for (var i = 0; i < len; i++) {
-    result[i] = {
-      value: arrayLike[i],
-      index: i
-    };
-  }
-
-  result.sort(_compareWith(criteria));
-
-  for (i = 0; i < len; i++) {
-    result[i] = result[i].value;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Establishes at which index an element should be inserted in a sorted array to respect
  * the array order. Needs the comparer used to sort the array.
@@ -3032,32 +2927,28 @@ function sort(arrayLike, sorters) {
  * @param {Number} end
  * @returns {Number}
  */
+function _getInsertionIndex (array, element, comparer, start, end) {
+    if (array.length === 0) {
+        return 0;
+    }
 
+    var pivot = (start + end) >> 1;
+    var result = comparer(
+        { value: element, index: pivot },
+        { value: array[pivot], index: pivot }
+    );
 
-function _getInsertionIndex(array, element, comparer, start, end) {
-  if (array.length === 0) {
-    return 0;
-  }
-
-  var pivot = start + end >> 1;
-  var result = comparer({
-    value: element,
-    index: pivot
-  }, {
-    value: array[pivot],
-    index: pivot
-  });
-
-  if (end - start <= 1) {
-    return result < 0 ? pivot : pivot + 1;
-  } else if (result < 0) {
-    return _getInsertionIndex(array, element, comparer, start, pivot);
-  } else if (result === 0) {
-    return pivot + 1;
-  } else {
-    return _getInsertionIndex(array, element, comparer, pivot, end);
-  }
+    if (end - start <= 1) {
+        return result < 0 ? pivot : pivot + 1;
+    } else if (result < 0) {
+        return _getInsertionIndex(array, element, comparer, start, pivot);
+    } else if (result === 0) {
+        return pivot + 1;
+    } else {
+        return _getInsertionIndex(array, element, comparer, pivot, end);
+    }
 }
+
 /**
  * Inserts an element in a copy of a sorted array respecting the sort order.
  * @example <caption>With simple values:</caption>
@@ -3104,22 +2995,21 @@ function _getInsertionIndex(array, element, comparer, start, end) {
  * used to sort the array.
  * @returns {Array}
  */
+function sortedInsert (arrayLike, element, sorters) {
+    var result = slice(arrayLike, 0, arrayLike.length);
 
+    if (arguments.length === 1) {
+        return result;
+    }
 
-function sortedInsert(arrayLike, element, sorters) {
-  var result = slice(arrayLike, 0, arrayLike.length);
+    var criteria = _makeCriteria(sorters);
+    var idx = _getInsertionIndex(result, element, _compareWith(criteria), 0, result.length);
 
-  if (arguments.length === 1) {
+    result.splice(idx, 0, element);
+
     return result;
-  }
-
-  var criteria = _makeCriteria(sorters);
-
-  var idx = _getInsertionIndex(result, element, _compareWith(criteria), 0, result.length);
-
-  result.splice(idx, 0, element);
-  return result;
 }
+
 /**
  * Creates an ascending sort criterion with the provided <code>reader</code> and
  * <code>comparer</code>.<br/>
@@ -3138,9 +3028,8 @@ function sortedInsert(arrayLike, element, sorters) {
  * @param {Function} [comparer] An optional custom comparer function.
  * @returns {Sorter}
  */
-
-
 var sorter = partial(_sorter, [__, false, __]);
+
 /**
  * Creates a descending sort criterion with the provided <code>reader</code> and
  * <code>comparer</code>.<br/>
@@ -3159,8 +3048,8 @@ var sorter = partial(_sorter, [__, false, __]);
  * @param {Function} [comparer] An optional custom comparer function.
  * @returns {Sorter}
  */
-
 var sorterDesc = partial(_sorter, [__, true, __]);
+
 /**
  * Builds a partial application of {@link module:lamb.sort|sort} using the provided criteria.
  * The returned function expects the array-like object to sort.
@@ -3185,8 +3074,8 @@ var sorterDesc = partial(_sorter, [__, true, __]);
  * @param {Sorter[]|Function[]} [sorters=[{@link module:lamb.sorter|sorter()}]]
  * @returns {Function}
  */
-
 var sortWith = _curry2(sort, true);
+
 /**
  * Returns a copy of the given array-like object without the first element.
  * @example
@@ -3203,9 +3092,8 @@ var sortWith = _curry2(sort, true);
  * @param {ArrayLike} arrayLike
  * @returns {Array}
  */
-
-
 var tail = drop(1);
+
 /**
  * Retrieves the first <code>n</code> elements from an array or array-like object.<br/>
  * Note that, being this a shortcut for a common use case of {@link module:lamb.slice|slice},
@@ -3228,10 +3116,10 @@ var tail = drop(1);
  * @param {Number} n
  * @returns {Array}
  */
-
-function takeFrom(arrayLike, n) {
-  return slice(arrayLike, 0, n);
+function takeFrom (arrayLike, n) {
+    return slice(arrayLike, 0, n);
 }
+
 /**
  * A curried version of {@link module:lamb.takeFrom|takeFrom} that expects the number of elements
  * to retrieve to build a function waiting for the list to take the elements from.<br/>
@@ -3253,9 +3141,8 @@ function takeFrom(arrayLike, n) {
  * @param {Number} n
  * @returns {Function}
  */
-
-
 var take = _curry2(takeFrom, true);
+
 /**
  * Builds a function that takes the last elements satisfying a predicate
  * from an array or array-like object.
@@ -3277,9 +3164,8 @@ var take = _curry2(takeFrom, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var takeLastWhile = _takeOrDropWhile(true, true);
+
 /**
  * Builds a function that takes the first elements satisfying a predicate from
  * an array or array-like object.
@@ -3301,9 +3187,8 @@ var takeLastWhile = _takeOrDropWhile(true, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var takeWhile = _takeOrDropWhile(true, false);
+
 /**
  * Transposes a matrix. Can also be used to reverse a {@link module:lamb.zip|zip} operation.<br/>
  * Just like {@link module:lamb.zip|zip}, the received array-like objects will be truncated to the
@@ -3332,37 +3217,35 @@ var takeWhile = _takeOrDropWhile(true, false);
  * @param {ArrayLike<ArrayLike>} arrayLike
  * @returns {Array<Array>}
  */
+function transpose (arrayLike) {
+    var minLen = MAX_ARRAY_LENGTH;
+    var len = _toArrayLength(arrayLike.length);
 
-
-function transpose(arrayLike) {
-  var minLen = MAX_ARRAY_LENGTH;
-
-  var len = _toArrayLength(arrayLike.length);
-
-  if (len === 0) {
-    return [];
-  }
-
-  for (var j = 0, elementLen; j < len; j++) {
-    elementLen = _toArrayLength(arrayLike[j].length);
-
-    if (elementLen < minLen) {
-      minLen = elementLen;
+    if (len === 0) {
+        return [];
     }
-  }
 
-  var result = Array(minLen);
+    for (var j = 0, elementLen; j < len; j++) {
+        elementLen = _toArrayLength(arrayLike[j].length);
 
-  for (var i = 0, el; i < minLen; i++) {
-    el = result[i] = Array(len);
-
-    for (j = 0; j < len; j++) {
-      el[j] = arrayLike[j][i];
+        if (elementLen < minLen) {
+            minLen = elementLen;
+        }
     }
-  }
 
-  return result;
+    var result = Array(minLen);
+
+    for (var i = 0, el; i < minLen; i++) {
+        el = result[i] = Array(len);
+
+        for (j = 0; j < len; j++) {
+            el[j] = arrayLike[j][i];
+        }
+    }
+
+    return result;
 }
+
 /**
  * Builds a TypeError stating that it's not possible to convert the given value to the
  * desired type.
@@ -3371,11 +3254,10 @@ function transpose(arrayLike) {
  * @param {String} desiredType
  * @returns {TypeError}
  */
-
-
-function _makeTypeErrorFor(value, desiredType) {
-  return new TypeError("Cannot convert " + type(value).toLowerCase() + " to " + desiredType);
+function _makeTypeErrorFor (value, desiredType) {
+    return new TypeError("Cannot convert " + type(value).toLowerCase() + " to " + desiredType);
 }
+
 /**
  * Creates a pipeline of functions, where each function consumes the result of the previous one.
  * @example
@@ -3392,24 +3274,24 @@ function _makeTypeErrorFor(value, desiredType) {
  * @param {Function[]} functions
  * @returns {Function}
  */
-
-
-function pipe(functions) {
-  if (!Array.isArray(functions)) {
-    throw _makeTypeErrorFor(functions, "array");
-  }
-
-  var len = functions.length;
-  return len ? function () {
-    var result = functions[0].apply(this, arguments);
-
-    for (var i = 1; i < len; i++) {
-      result = functions[i].call(this, result);
+function pipe (functions) {
+    if (!Array.isArray(functions)) {
+        throw _makeTypeErrorFor(functions, "array");
     }
 
-    return result;
-  } : identity;
+    var len = functions.length;
+
+    return len ? function () {
+        var result = functions[0].apply(this, arguments);
+
+        for (var i = 1; i < len; i++) {
+            result = functions[i].call(this, result);
+        }
+
+        return result;
+    } : identity;
 }
+
 /**
  * Using the provided iteratee to transform values, builds a function that will
  * return an array of the unique elements  in the two provided array-like objects.<br/>
@@ -3432,11 +3314,10 @@ function pipe(functions) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
-function unionBy(iteratee) {
-  return pipe([binary(list), flatMapWith(drop(0)), uniquesBy(iteratee)]);
+function unionBy (iteratee) {
+    return pipe([binary(list), flatMapWith(drop(0)), uniquesBy(iteratee)]);
 }
+
 /**
  * Returns a list of every unique element present in the two given array-like objects.<br/>
  * Uses the ["SameValueZero" comparison]{@link module:lamb.areSVZ|areSVZ}
@@ -3460,9 +3341,8 @@ function unionBy(iteratee) {
  * @param {ArrayLike} b
  * @returns {Array}
  */
-
-
 var union = unionBy(identity);
+
 /**
  * Builds a function that creates a copy of an array-like object with the given index
  * changed by applying the provided function to its value.<br/>
@@ -3485,12 +3365,12 @@ var union = unionBy(identity);
  * @param {Function} updater
  * @returns {Function}
  */
-
-function updateAt(index, updater) {
-  return function (arrayLike) {
-    return _setIndex(arrayLike, index, null, updater);
-  };
+function updateAt (index, updater) {
+    return function (arrayLike) {
+        return _setIndex(arrayLike, index, null, updater);
+    };
 }
+
 /**
  * Creates a copy of an array-like object with the given index changed by applying the
  * provided function to its value.<br/>
@@ -3515,9 +3395,8 @@ function updateAt(index, updater) {
  * @param {Function} updater
  * @returns {Array}
  */
-
-
 var updateIndex = partial(_setIndex, [__, __, null, __]);
+
 /**
  * Builds a list of arrays out of the two given array-like objects by pairing items with
  * the same index.<br/>
@@ -3539,10 +3418,10 @@ var updateIndex = partial(_setIndex, [__, __, null, __]);
  * @param {ArrayLike} b
  * @returns {Array<Array>}
  */
-
-function zip(a, b) {
-  return transpose([a, b]);
+function zip (a, b) {
+    return transpose([a, b]);
 }
+
 /**
  * "{@link module:lamb.zip|Zips}" an array-like object by pairing its values with their index.
  * @example
@@ -3556,9 +3435,8 @@ function zip(a, b) {
  * @param {ArrayLike} arrayLike
  * @returns {Array<Array<*, Number>>}
  */
-
-
 var zipWithIndex = mapWith(binary(list));
+
 /**
  * Applies the given function to a list of arguments.
  * @example
@@ -3572,10 +3450,10 @@ var zipWithIndex = mapWith(binary(list));
  * @param {ArrayLike} args
  * @returns {*}
  */
-
-function application(fn, args) {
-  return fn.apply(this, Object(args));
+function application (fn, args) {
+    return fn.apply(this, Object(args));
 }
+
 /**
  * A left-curried version of {@link module:lamb.application|application}. Expects the function
  * to apply and builds a function waiting for the arguments array.
@@ -3592,9 +3470,8 @@ function application(fn, args) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
 var apply = _curry2(application);
+
 /**
  * A right-curried version of {@link module:lamb.application|application}. Expects an array-like
  * object to use as arguments and builds a function waiting for the target of the application.
@@ -3613,9 +3490,8 @@ var apply = _curry2(application);
  * @param {ArrayLike} args
  * @returns {Function}
  */
-
-
 var applyTo = _curry2(application, true);
+
 /**
  * Keeps building a partial application of the received function as long
  * as it's called with placeholders; applies the original function to
@@ -3627,38 +3503,37 @@ var applyTo = _curry2(application, true);
  * @param {Array} argsHolder
  * @returns {Function|*}
  */
+function _asPartial (fn, argsHolder) {
+    return function () {
+        var argsLen = arguments.length;
+        var lastIdx = 0;
+        var newArgs = [];
 
+        for (var i = 0, len = argsHolder.length, boundArg; i < len; i++) {
+            boundArg = argsHolder[i];
+            newArgs[i] = boundArg === __ && lastIdx < argsLen ? arguments[lastIdx++] : boundArg;
+        }
 
-function _asPartial(fn, argsHolder) {
-  return function () {
-    var argsLen = arguments.length;
-    var lastIdx = 0;
-    var newArgs = [];
+        while (lastIdx < argsLen) {
+            newArgs[i++] = arguments[lastIdx++];
+        }
 
-    for (var i = 0, len = argsHolder.length, boundArg; i < len; i++) {
-      boundArg = argsHolder[i];
-      newArgs[i] = boundArg === __ && lastIdx < argsLen ? arguments[lastIdx++] : boundArg;
-    }
+        for (i = 0; i < argsLen; i++) {
+            if (arguments[i] === __) {
+                return _asPartial(fn, newArgs);
+            }
+        }
 
-    while (lastIdx < argsLen) {
-      newArgs[i++] = arguments[lastIdx++];
-    }
+        for (i = 0, len = newArgs.length; i < len; i++) {
+            if (newArgs[i] === __) {
+                newArgs[i] = void 0;
+            }
+        }
 
-    for (i = 0; i < argsLen; i++) {
-      if (arguments[i] === __) {
-        return _asPartial(fn, newArgs);
-      }
-    }
-
-    for (i = 0, len = newArgs.length; i < len; i++) {
-      if (newArgs[i] === __) {
-        newArgs[i] = void 0;
-      }
-    }
-
-    return fn.apply(this, newArgs);
-  };
+        return fn.apply(this, newArgs);
+    };
 }
+
 /**
  * Decorates the received function so that it can be called with
  * placeholders to build a partial application of it.<br/>
@@ -3699,11 +3574,10 @@ function _asPartial(fn, argsHolder) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function asPartial(fn) {
-  return _asPartial(fn, []);
+function asPartial (fn) {
+    return _asPartial(fn, []);
 }
+
 /**
  * Accepts a series of functions and builds a new function. The functions in the series
  * will then be applied, in order, with the values received by the function built with
@@ -3731,17 +3605,16 @@ function asPartial(fn) {
  * @param {Function[]} functions
  * @returns {Function}
  */
+function collect (functions) {
+    if (!Array.isArray(functions)) {
+        throw _makeTypeErrorFor(functions, "array");
+    }
 
-
-function collect(functions) {
-  if (!Array.isArray(functions)) {
-    throw _makeTypeErrorFor(functions, "array");
-  }
-
-  return function () {
-    return map(functions, applyTo(arguments));
-  };
+    return function () {
+        return map(functions, applyTo(arguments));
+    };
 }
+
 /**
  * Used by curry functions to collect arguments until the arity is consumed,
  * then applies the original function.
@@ -3753,30 +3626,29 @@ function collect(functions) {
  * @param {Array} argsHolder
  * @returns {Function}
  */
+function _currier (fn, arity, isRightCurry, isAutoCurry, argsHolder) {
+    return function () {
+        var holderLen = argsHolder.length;
+        var argsLen = arguments.length;
+        var newArgsLen = holderLen + (argsLen > 1 && isAutoCurry ? argsLen : 1);
+        var newArgs = Array(newArgsLen);
 
+        for (var i = 0; i < holderLen; i++) {
+            newArgs[i] = argsHolder[i];
+        }
 
-function _currier(fn, arity, isRightCurry, isAutoCurry, argsHolder) {
-  return function () {
-    var holderLen = argsHolder.length;
-    var argsLen = arguments.length;
-    var newArgsLen = holderLen + (argsLen > 1 && isAutoCurry ? argsLen : 1);
-    var newArgs = Array(newArgsLen);
+        for (; i < newArgsLen; i++) {
+            newArgs[i] = arguments[i - holderLen];
+        }
 
-    for (var i = 0; i < holderLen; i++) {
-      newArgs[i] = argsHolder[i];
-    }
-
-    for (; i < newArgsLen; i++) {
-      newArgs[i] = arguments[i - holderLen];
-    }
-
-    if (newArgsLen >= arity) {
-      return fn.apply(this, isRightCurry ? newArgs.reverse() : newArgs);
-    } else {
-      return _currier(fn, arity, isRightCurry, isAutoCurry, newArgs);
-    }
-  };
+        if (newArgsLen >= arity) {
+            return fn.apply(this, isRightCurry ? newArgs.reverse() : newArgs);
+        } else {
+            return _currier(fn, arity, isRightCurry, isAutoCurry, newArgs);
+        }
+    };
 }
+
 /**
  * Curries a function of arity 3.
  * @private
@@ -3784,17 +3656,16 @@ function _currier(fn, arity, isRightCurry, isAutoCurry, argsHolder) {
  * @param {Boolean} [isRightCurry=false]
  * @returns {Function}
  */
-
-
-function _curry3(fn, isRightCurry) {
-  return function (a) {
-    return function (b) {
-      return function (c) {
-        return isRightCurry ? fn.call(this, c, b, a) : fn.call(this, a, b, c);
-      };
+function _curry3 (fn, isRightCurry) {
+    return function (a) {
+        return function (b) {
+            return function (c) {
+                return isRightCurry ? fn.call(this, c, b, a) : fn.call(this, a, b, c);
+            };
+        };
     };
-  };
 }
+
 /**
  * Prepares a function for currying. If it's not auto-currying and the arity
  * is 2 or 3 returns optimized functions, otherwise delegates the currying
@@ -3808,23 +3679,22 @@ function _curry3(fn, isRightCurry) {
  * @param {Boolean} [isAutoCurry=false]
  * @returns {Function}
  */
+function _curry (fn, arity, isRightCurry, isAutoCurry) {
+    if (arity >>> 0 !== arity) {
+        arity = fn.length;
+    }
 
-
-function _curry(fn, arity, isRightCurry, isAutoCurry) {
-  if (arity >>> 0 !== arity) {
-    arity = fn.length;
-  }
-
-  if (isAutoCurry && arity > 1 || arity > 3) {
-    return _currier(fn, arity, isRightCurry, isAutoCurry, []);
-  } else if (arity === 2) {
-    return _curry2(fn, isRightCurry);
-  } else if (arity === 3) {
-    return _curry3(fn, isRightCurry);
-  } else {
-    return fn;
-  }
+    if (isAutoCurry && arity > 1 || arity > 3) {
+        return _currier(fn, arity, isRightCurry, isAutoCurry, []);
+    } else if (arity === 2) {
+        return _curry2(fn, isRightCurry);
+    } else if (arity === 3) {
+        return _curry3(fn, isRightCurry);
+    } else {
+        return fn;
+    }
 }
+
 /**
  * Transforms the evaluation of the given function in the evaluation of a sequence of functions
  * expecting only one argument. Each function of the sequence is a partial application of the
@@ -3849,11 +3719,10 @@ function _curry(fn, arity, isRightCurry, isAutoCurry) {
  * @param {Number} [arity=fn.length]
  * @returns {Function}
  */
-
-
-function curry(fn, arity) {
-  return _curry(fn, arity, false);
+function curry (fn, arity) {
+    return _curry(fn, arity, false);
 }
+
 /**
  * Builds an auto-curried function. The resulting function can be called multiple times with
  * any number of arguments, and the original function will be applied only when the specified
@@ -3879,11 +3748,10 @@ function curry(fn, arity) {
  * @param {Number} [arity=fn.length]
  * @returns {Function}
  */
-
-
-function curryable(fn, arity) {
-  return _curry(fn, arity, false, true);
+function curryable (fn, arity) {
+    return _curry(fn, arity, false, true);
 }
+
 /**
  * Same as {@link module:lamb.curryable|curryable}, but currying starts from the rightmost argument.
  * @example
@@ -3905,11 +3773,10 @@ function curryable(fn, arity) {
  * @param {Number} [arity=fn.length]
  * @returns {Function}
  */
-
-
-function curryableRight(fn, arity) {
-  return _curry(fn, arity, true, true);
+function curryableRight (fn, arity) {
+    return _curry(fn, arity, true, true);
 }
+
 /**
  * Same as {@link module:lamb.curry|curry}, but currying starts from the rightmost argument.
  * @example
@@ -3930,11 +3797,10 @@ function curryableRight(fn, arity) {
  * @param {Number} [arity=fn.length]
  * @returns {Function}
  */
-
-
-function curryRight(fn, arity) {
-  return _curry(fn, arity, true);
+function curryRight (fn, arity) {
+    return _curry(fn, arity, true);
 }
+
 /**
  * Returns a function that will execute the given function only if it stops being called for the
  * specified timespan.<br/>
@@ -3959,22 +3825,21 @@ function curryRight(fn, arity) {
  * @param {Number} timespan - Expressed in milliseconds
  * @returns {Function}
  */
+function debounce (fn, timespan) {
+    var timeoutID;
 
+    return function () {
+        var args = arguments;
+        var debounced = function () {
+            timeoutID = null;
+            fn.apply(this, args);
+        }.bind(this);
 
-function debounce(fn, timespan) {
-  var timeoutID;
-  return function () {
-    var args = arguments;
-
-    var debounced = function () {
-      timeoutID = null;
-      fn.apply(this, args);
-    }.bind(this);
-
-    clearTimeout(timeoutID);
-    timeoutID = setTimeout(debounced, timespan);
-  };
+        clearTimeout(timeoutID);
+        timeoutID = setTimeout(debounced, timespan);
+    };
 }
+
 /**
  * Returns a function that applies the original function with the arguments in reverse order.
  * @example
@@ -3987,14 +3852,14 @@ function debounce(fn, timespan) {
  * @param {Function} fn
  * @returns {Function}
  */
+function flip (fn) {
+    return function () {
+        var args = list.apply(null, arguments).reverse();
 
-
-function flip(fn) {
-  return function () {
-    var args = list.apply(null, arguments).reverse();
-    return fn.apply(this, args);
-  };
+        return fn.apply(this, args);
+    };
 }
+
 /**
  * Builds a function that returns the argument received at the given index.<br/>
  * As with {@link module:lamb.getAt|getAt} negative indexes are allowed.<br/>
@@ -4017,13 +3882,12 @@ function flip(fn) {
  * @param {Number} idx
  * @returns {Function}
  */
-
-
-function getArgAt(idx) {
-  return function () {
-    return arguments[_toNaturalIndex(idx, arguments.length)];
-  };
+function getArgAt (idx) {
+    return function () {
+        return arguments[_toNaturalIndex(idx, arguments.length)];
+    };
 }
+
 /* eslint-disable jsdoc/check-param-names */
 
 /**
@@ -4039,29 +3903,28 @@ function getArgAt(idx) {
  * @param {...*} [args]
  * @returns {*}
  */
+function _invoke (methodName, boundArgs, target) {
+    var method = target[methodName];
 
+    if (typeof method !== "function") {
+        return void 0;
+    }
 
-function _invoke(methodName, boundArgs, target) {
-  var method = target[methodName];
+    var boundArgsLen = boundArgs ? _toArrayLength(boundArgs.length) : 0;
+    var finalArgsLen = boundArgsLen + arguments.length - 3;
+    var finalArgs = Array(finalArgsLen);
 
-  if (typeof method !== "function") {
-    return void 0;
-  }
+    for (var i = 0; i < boundArgsLen; i++) {
+        finalArgs[i] = boundArgs[i];
+    }
 
-  var boundArgsLen = boundArgs ? _toArrayLength(boundArgs.length) : 0;
-  var finalArgsLen = boundArgsLen + arguments.length - 3;
-  var finalArgs = Array(finalArgsLen);
+    for (var ofs = 3 - i; i < finalArgsLen; i++) {
+        finalArgs[i] = arguments[i + ofs];
+    }
 
-  for (var i = 0; i < boundArgsLen; i++) {
-    finalArgs[i] = boundArgs[i];
-  }
-
-  for (var ofs = 3 - i; i < finalArgsLen; i++) {
-    finalArgs[i] = arguments[i + ofs];
-  }
-
-  return method.apply(target, finalArgs);
+    return method.apply(target, finalArgs);
 }
+
 /**
  * Builds a function that will invoke the given method name on any received object and
  * return the result. If no method with such name is found the function will return
@@ -4093,11 +3956,10 @@ function _invoke(methodName, boundArgs, target) {
  * @param {ArrayLike} [boundArgs=[]]
  * @returns {Function}
  */
-
-
-function invoke(methodName, boundArgs) {
-  return partial(_invoke, [methodName, boundArgs]);
+function invoke (methodName, boundArgs) {
+    return partial(_invoke, [methodName, boundArgs]);
 }
+
 /**
  * Accepts an object and builds a function expecting a method name, and optionally arguments,
  * to call on such object.
@@ -4118,11 +3980,10 @@ function invoke(methodName, boundArgs) {
  * @param {Object} target
  * @returns {Function}
  */
-
-
-function invokeOn(target) {
-  return partial(_invoke, [__, [], target]);
+function invokeOn (target) {
+    return partial(_invoke, [__, [], target]);
 }
+
 /**
  * Builds a function that allows to map over the received arguments before applying them
  * to the original one.
@@ -4145,11 +4006,10 @@ function invokeOn(target) {
  * @param {ListIteratorCallback} mapper
  * @returns {Function}
  */
-
-
-function mapArgs(fn, mapper) {
-  return pipe([list, mapWith(mapper), apply(fn)]);
+function mapArgs (fn, mapper) {
+    return pipe([list, mapWith(mapper), apply(fn)]);
 }
+
 /**
  * Builds a function that allows to "tap" into the arguments of the original one.
  * This allows to extract simple values from complex ones, transform arguments or simply intercept them.
@@ -4169,21 +4029,20 @@ function mapArgs(fn, mapper) {
  * @param {Function[]} tappers
  * @returns {Function}
  */
+function tapArgs (fn, tappers) {
+    return function () {
+        var len = arguments.length;
+        var tappersLen = tappers.length;
+        var args = [];
 
+        for (var i = 0; i < len; i++) {
+            args.push(i < tappersLen ? tappers[i](arguments[i]) : arguments[i]);
+        }
 
-function tapArgs(fn, tappers) {
-  return function () {
-    var len = arguments.length;
-    var tappersLen = tappers.length;
-    var args = [];
-
-    for (var i = 0; i < len; i++) {
-      args.push(i < tappersLen ? tappers[i](arguments[i]) : arguments[i]);
-    }
-
-    return fn.apply(this, args);
-  };
+        return fn.apply(this, args);
+    };
 }
+
 /**
  * Returns a function that will invoke the passed function at most once in the given timespan.<br/>
  * The first call in this case happens as soon as the function is invoked; see also
@@ -4204,22 +4063,22 @@ function tapArgs(fn, tappers) {
  * @param {Number} timespan - Expressed in milliseconds.
  * @returns {Function}
  */
+function throttle (fn, timespan) {
+    var result;
+    var lastCall = 0;
 
+    return function () {
+        var now = Date.now();
 
-function throttle(fn, timespan) {
-  var result;
-  var lastCall = 0;
-  return function () {
-    var now = Date.now();
+        if (now - lastCall >= timespan) {
+            lastCall = now;
+            result = fn.apply(this, arguments);
+        }
 
-    if (now - lastCall >= timespan) {
-      lastCall = now;
-      result = fn.apply(this, arguments);
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Builds a function that passes only one argument to the given function.<br/>
  * It's simply a shortcut for a common use case of {@link module:lamb.aritize|aritize},
@@ -4237,13 +4096,12 @@ function throttle(fn, timespan) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function unary(fn) {
-  return function (a) {
-    return fn.call(this, a);
-  };
+function unary (fn) {
+    return function (a) {
+        return fn.call(this, a);
+    };
 }
+
 /**
  * Accepts a series of functions and builds a function that applies the received
  * arguments to each one and returns the first non-<code>undefined</code> value.<br/>
@@ -4277,28 +4135,27 @@ function unary(fn) {
  * @param {Function[]} functions
  * @returns {Function}
  */
-
-
-function adapter(functions) {
-  if (!Array.isArray(functions)) {
-    throw _makeTypeErrorFor(functions, "array");
-  }
-
-  return function () {
-    var len = functions.length;
-    var result;
-
-    for (var i = 0; i < len; i++) {
-      result = functions[i].apply(this, arguments);
-
-      if (!isUndefined(result)) {
-        break;
-      }
+function adapter (functions) {
+    if (!Array.isArray(functions)) {
+        throw _makeTypeErrorFor(functions, "array");
     }
 
-    return result;
-  };
+    return function () {
+        var len = functions.length;
+        var result;
+
+        for (var i = 0; i < len; i++) {
+            result = functions[i].apply(this, arguments);
+
+            if (!isUndefined(result)) {
+                break;
+            }
+        }
+
+        return result;
+    };
 }
+
 /**
  * Creates a function to check the given predicates.<br/>
  * Used to build the {@link module:lamb.allOf|allOf} and the
@@ -4307,29 +4164,28 @@ function adapter(functions) {
  * @param {Boolean} checkAll
  * @returns {Function}
  */
-
-
-function _checkPredicates(checkAll) {
-  return function (predicates) {
-    if (!Array.isArray(predicates)) {
-      throw _makeTypeErrorFor(predicates, "array");
-    }
-
-    return function () {
-      for (var i = 0, len = predicates.length, result; i < len; i++) {
-        result = predicates[i].apply(this, arguments);
-
-        if (checkAll && !result) {
-          return false;
-        } else if (!checkAll && result) {
-          return true;
+function _checkPredicates (checkAll) {
+    return function (predicates) {
+        if (!Array.isArray(predicates)) {
+            throw _makeTypeErrorFor(predicates, "array");
         }
-      }
 
-      return checkAll;
+        return function () {
+            for (var i = 0, len = predicates.length, result; i < len; i++) {
+                result = predicates[i].apply(this, arguments);
+
+                if (checkAll && !result) {
+                    return false;
+                } else if (!checkAll && result) {
+                    return true;
+                }
+            }
+
+            return checkAll;
+        };
     };
-  };
 }
+
 /**
  * Accepts an array of predicates and builds a new one that returns true if they are all satisfied
  * by the same arguments. The functions in the array will be applied one at a time until a
@@ -4350,9 +4206,8 @@ function _checkPredicates(checkAll) {
  * @param {Function[]} predicates
  * @returns {Function}
  */
-
-
 var allOf = _checkPredicates(true);
+
 /**
  * Accepts an array of predicates and builds a new one that returns true if at least one of them is
  * satisfied by the received arguments. The functions in the array will be applied one at a time
@@ -4378,9 +4233,8 @@ var allOf = _checkPredicates(true);
  * @param {Function[]} predicates
  * @returns {Function}
  */
-
-
 var anyOf = _checkPredicates(false);
+
 /**
  * Verifies that the two supplied values are the same value using the "SameValue" comparison.<br/>
  * Note that this doesn't behave as the strict equality operator, but rather as a shim of ES6's
@@ -4410,11 +4264,10 @@ var anyOf = _checkPredicates(false);
  * @param {*} b
  * @returns {Boolean}
  */
-
-
-function areSame(a, b) {
-  return a === 0 && b === 0 ? 1 / a === 1 / b : areSVZ(a, b);
+function areSame (a, b) {
+    return a === 0 && b === 0 ? 1 / a === 1 / b : areSVZ(a, b);
 }
+
 /**
  * Builds a case for {@link module:lamb.adapter|adapter}.<br/>
  * The function will apply the received arguments to <code>fn</code> if the predicate is satisfied
@@ -4439,13 +4292,12 @@ function areSame(a, b) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function casus(predicate, fn) {
-  return function () {
-    return predicate.apply(this, arguments) ? fn.apply(this, arguments) : void 0;
-  };
+function casus (predicate, fn) {
+    return function () {
+        return predicate.apply(this, arguments) ? fn.apply(this, arguments) : void 0;
+    };
 }
+
 /**
  * Builds a function that will apply the received arguments to <code>trueFn</code>,
  * if the predicate is satisfied with the same arguments, or to <code>falseFn</code> otherwise.<br/>
@@ -4472,13 +4324,12 @@ function casus(predicate, fn) {
  * @param {Function} falseFn
  * @returns {Function}
  */
-
-
-function condition(predicate, trueFn, falseFn) {
-  return function () {
-    return (predicate.apply(this, arguments) ? trueFn : falseFn).apply(this, arguments);
-  };
+function condition (predicate, trueFn, falseFn) {
+    return function () {
+        return (predicate.apply(this, arguments) ? trueFn : falseFn).apply(this, arguments);
+    };
 }
+
 /**
  * Verifies that the first given value is greater than the second.<br/>
  * Wraps the native <code>&gt;</code> operator within a function.
@@ -4507,11 +4358,10 @@ function condition(predicate, trueFn, falseFn) {
  * @param {Number|String|Date|Boolean} b
  * @returns {Boolean}
  */
-
-
-function gt(a, b) {
-  return a > b;
+function gt (a, b) {
+    return a > b;
 }
+
 /**
  * Verifies that the first given value is greater than or equal to the second.
  * Regarding equality, beware that this is simply a wrapper for the native
@@ -4534,11 +4384,10 @@ function gt(a, b) {
  * @param {Number|String|Date|Boolean} b
  * @returns {Boolean}
  */
-
-
-function gte(a, b) {
-  return a >= b;
+function gte (a, b) {
+    return a >= b;
 }
+
 /**
  * A curried version of {@link module:lamb.areSame|areSame}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4575,9 +4424,8 @@ function gte(a, b) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var is = _curry2(areSame);
+
 /**
  * A right curried version of {@link module:lamb.gt|gt}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4600,9 +4448,8 @@ var is = _curry2(areSame);
  * @param {Number|String|Date|Boolean} value
  * @returns {Function}
  */
-
-
 var isGT = _curry2(gt, true);
+
 /**
  * A right curried version of {@link module:lamb.gte|gte}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4626,9 +4473,8 @@ var isGT = _curry2(gt, true);
  * @param {Number|String|Date|Boolean} value
  * @returns {Function}
  */
-
-
 var isGTE = _curry2(gte, true);
+
 /**
  * Verifies that the first given value is less than the second.<br/>
  * Wraps the native <code>&lt;</code> operator within a function.
@@ -4657,11 +4503,10 @@ var isGTE = _curry2(gte, true);
  * @param {Number|String|Date|Boolean} b
  * @returns {Boolean}
  */
-
-
-function lt(a, b) {
-  return a < b;
+function lt (a, b) {
+    return a < b;
 }
+
 /**
  * A right curried version of {@link module:lamb.lt|lt}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4684,9 +4529,8 @@ function lt(a, b) {
  * @param {Number|String|Date|Boolean} value
  * @returns {Function}
  */
-
-
 var isLT = _curry2(lt, true);
+
 /**
  * Verifies that the first given value is less than or equal to the second.
  * Regarding equality, beware that this is simply a wrapper for the native
@@ -4709,11 +4553,10 @@ var isLT = _curry2(lt, true);
  * @param {Number|String|Date|Boolean} b
  * @returns {Boolean}
  */
-
-
-function lte(a, b) {
-  return a <= b;
+function lte (a, b) {
+    return a <= b;
 }
+
 /**
  * A right curried version of {@link module:lamb.lte|lte}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4737,9 +4580,8 @@ function lte(a, b) {
  * @param {Number|String|Date|Boolean} value
  * @returns {Function}
  */
-
-
 var isLTE = _curry2(lte, true);
+
 /**
  * Builds a unary function that will check its argument against the given predicate.
  * If the predicate isn't satisfied, the provided <code>fn</code> function will be
@@ -4765,13 +4607,12 @@ var isLTE = _curry2(lte, true);
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function unless(predicate, fn) {
-  return function (value) {
-    return predicate.call(this, value) ? value : fn.call(this, value);
-  };
+function unless (predicate, fn) {
+    return function (value) {
+        return predicate.call(this, value) ? value : fn.call(this, value);
+    };
 }
+
 /**
  * Builds a unary function that will check its argument against the given predicate.
  * If the predicate is satisfied, the provided <code>fn</code> function will be
@@ -4797,13 +4638,12 @@ function unless(predicate, fn) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function when(predicate, fn) {
-  return function (value) {
-    return predicate.call(this, value) ? fn.call(this, value) : value;
-  };
+function when (predicate, fn) {
+    return function (value) {
+        return predicate.call(this, value) ? fn.call(this, value) : value;
+    };
 }
+
 /**
  * Sums two numbers.
  * @example
@@ -4817,11 +4657,10 @@ function when(predicate, fn) {
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function sum(a, b) {
-  return a + b;
+function sum (a, b) {
+    return a + b;
 }
+
 /**
  * A curried version of {@link module:lamb.sum|sum}.
  * @example
@@ -4838,9 +4677,8 @@ function sum(a, b) {
  * @param {Number} a
  * @returns {Function}
  */
-
-
 var add = _curry2(sum, true);
+
 /**
  * Subtracts two numbers.
  * @example
@@ -4854,11 +4692,10 @@ var add = _curry2(sum, true);
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function subtract(a, b) {
-  return a - b;
+function subtract (a, b) {
+    return a - b;
 }
+
 /**
  * A curried version of {@link module:lamb.subtract|subtract} that expects the
  * subtrahend to build a function waiting for the minuend.
@@ -4876,9 +4713,8 @@ function subtract(a, b) {
  * @param {Number} a
  * @returns {Function}
  */
-
-
 var deduct = _curry2(subtract, true);
+
 /**
  * Divides two numbers.
  * @example
@@ -4892,11 +4728,10 @@ var deduct = _curry2(subtract, true);
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function divide(a, b) {
-  return a / b;
+function divide (a, b) {
+    return a / b;
 }
+
 /**
  * A curried version of {@link module:lamb.divide|divide} that expects a divisor to
  * build a function waiting for the dividend.
@@ -4914,9 +4749,8 @@ function divide(a, b) {
  * @param {Number} a
  * @returns {Function}
  */
-
-
 var divideBy = _curry2(divide, true);
+
 /**
  * Generates a sequence of values of the desired length with the provided iteratee.
  * The values being iterated, and received by the iteratee, are the results generated so far.
@@ -4934,17 +4768,16 @@ var divideBy = _curry2(divide, true);
  * @param {ListIteratorCallback} iteratee
  * @returns {Array}
  */
+function generate (start, len, iteratee) {
+    var result = [start];
 
+    for (var i = 0, limit = len - 1; i < limit; i++) {
+        result.push(iteratee(result[i], i, result));
+    }
 
-function generate(start, len, iteratee) {
-  var result = [start];
-
-  for (var i = 0, limit = len - 1; i < limit; i++) {
-    result.push(iteratee(result[i], i, result));
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Verifies whether the received value is a finite number.<br/>
  * Behaves almost as a shim of ES6's [Number.isFinite]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite},
@@ -4964,11 +4797,10 @@ function generate(start, len, iteratee) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isFinite_(value) {
-  return type(value) === "Number" && isFinite(value);
+function isFinite_ (value) {
+    return type(value) === "Number" && isFinite(value);
 }
+
 /**
  * Verifies whether the received value is a number and an integer.
  * Behaves almost as a shim of ES6's [Number.isInteger]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger},
@@ -4989,11 +4821,10 @@ function isFinite_(value) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isInteger(value) {
-  return type(value) === "Number" && value % 1 === 0;
+function isInteger (value) {
+    return type(value) === "Number" && value % 1 === 0;
 }
+
 /**
  * Verifies whether the received value is a "safe integer", meaning that is a number and that
  * can be exactly represented as an IEEE-754 double precision number.
@@ -5020,11 +4851,10 @@ function isInteger(value) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isSafeInteger(value) {
-  return isInteger(value) && Math.abs(value) <= MAX_SAFE_INTEGER;
+function isSafeInteger (value) {
+    return isInteger(value) && Math.abs(value) <= MAX_SAFE_INTEGER;
 }
+
 /**
  * Performs the modulo operation and should not be confused with the
  * {@link module:lamb.remainder|remainder}.
@@ -5047,11 +4877,10 @@ function isSafeInteger(value) {
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function modulo(a, b) {
-  return a - b * Math.floor(a / b);
+function modulo (a, b) {
+    return a - (b * Math.floor(a / b));
 }
+
 /**
  * Multiplies two numbers.
  * @example
@@ -5065,11 +4894,10 @@ function modulo(a, b) {
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function multiply(a, b) {
-  return a * b;
+function multiply (a, b) {
+    return a * b;
 }
+
 /**
  * A curried version of {@link module:lamb.multiply|multiply}.
  * @example
@@ -5085,9 +4913,8 @@ function multiply(a, b) {
  * @param {Number} a
  * @returns {Function}
  */
-
-
 var multiplyBy = _curry2(multiply, true);
+
 /**
  * Generates a random integer between two given integers, both included.
  * Note that no safety measure is taken if the provided arguments aren't integers, so
@@ -5104,11 +4931,10 @@ var multiplyBy = _curry2(multiply, true);
  * @param {Number} max
  * @returns {Number}
  */
-
-
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+function randomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
 /**
  * Converts a value to a number and returns it if it's not NaN, otherwise
  * returns zero.
@@ -5116,12 +4942,12 @@ function randomInt(min, max) {
  * @param {*} value
  * @returns {Number}
  */
+function _forceToNumber (value) {
+    var n = +value;
 
-
-function _forceToNumber(value) {
-  var n = +value;
-  return n === n ? n : 0; // eslint-disable-line no-self-compare
+    return n === n ? n : 0; // eslint-disable-line no-self-compare
 }
+
 /**
  * Generates an arithmetic progression of numbers starting from <code>start</code> up to,
  * but not including, <code>limit</code>, using the given <code>step</code>.
@@ -5147,27 +4973,26 @@ function _forceToNumber(value) {
  * @param {Number} [step=1]
  * @returns {Number[]}
  */
+function range (start, limit, step) {
+    start = _forceToNumber(start);
+    limit = _forceToNumber(limit);
+    step = arguments.length === 3 ? _forceToNumber(step) : 1;
 
+    if (step === 0) {
+        return limit === start ? [] : [start];
+    }
 
-function range(start, limit, step) {
-  start = _forceToNumber(start);
-  limit = _forceToNumber(limit);
-  step = arguments.length === 3 ? _forceToNumber(step) : 1;
+    var len = Math.max(Math.ceil((limit - start) / step), 0);
+    var result = Array(len);
 
-  if (step === 0) {
-    return limit === start ? [] : [start];
-  }
+    for (var i = 0, last = start; i < len; i++) {
+        result[i] = last;
+        last += step;
+    }
 
-  var len = Math.max(Math.ceil((limit - start) / step), 0);
-  var result = Array(len);
-
-  for (var i = 0, last = start; i < len; i++) {
-    result[i] = last;
-    last += step;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Gets the remainder of the division of two numbers.
  * Not to be confused with the {@link module:lamb.modulo|modulo} as the remainder
@@ -5188,11 +5013,10 @@ function range(start, limit, step) {
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function remainder(a, b) {
-  return a % b;
+function remainder (a, b) {
+    return a % b;
 }
+
 /**
  * Checks whether the specified key is a own enumerable property of the given object or not.
  * @private
@@ -5201,9 +5025,8 @@ function remainder(a, b) {
  * @param {String} key
  * @returns {Boolean}
  */
-
-
 var _isOwnEnumerable = generic(Object.prototype.propertyIsEnumerable);
+
 /**
  * Builds a list of the enumerable properties of an object.
  * The function is null-safe, unlike the public one.
@@ -5211,17 +5034,16 @@ var _isOwnEnumerable = generic(Object.prototype.propertyIsEnumerable);
  * @param {Object} obj
  * @returns {String[]}
  */
+function _safeEnumerables (obj) {
+    var result = [];
 
+    for (var key in obj) {
+        result.push(key);
+    }
 
-function _safeEnumerables(obj) {
-  var result = [];
-
-  for (var key in obj) {
-    result.push(key);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Checks whether the specified key is an enumerable property of the given object or not.
  * @private
@@ -5229,11 +5051,10 @@ function _safeEnumerables(obj) {
  * @param {String} key
  * @returns {Boolean}
  */
-
-
-function _isEnumerable(obj, key) {
-  return key in Object(obj) && (_isOwnEnumerable(obj, key) || ~_safeEnumerables(obj).indexOf(key));
+function _isEnumerable (obj, key) {
+    return key in Object(obj) && (_isOwnEnumerable(obj, key) || ~_safeEnumerables(obj).indexOf(key));
 }
+
 /**
  * Helper to retrieve the correct key while evaluating a path.
  * @private
@@ -5242,17 +5063,17 @@ function _isEnumerable(obj, key) {
  * @param {Boolean} includeNonEnumerables
  * @returns {String|Number|Undefined}
  */
+function _getPathKey (target, key, includeNonEnumerables) {
+    if (includeNonEnumerables && key in Object(target) || _isEnumerable(target, key)) {
+        return key;
+    }
 
+    var n = +key;
+    var len = target && target.length;
 
-function _getPathKey(target, key, includeNonEnumerables) {
-  if (includeNonEnumerables && key in Object(target) || _isEnumerable(target, key)) {
-    return key;
-  }
-
-  var n = +key;
-  var len = target && target.length;
-  return n >= -len && n < len ? n < 0 ? n + len : n : void 0;
+    return n >= -len && n < len ? n < 0 ? n + len : n : void 0;
 }
+
 /**
  * Checks if a path is valid in the given object and retrieves the path target.
  * @private
@@ -5261,36 +5082,29 @@ function _getPathKey(target, key, includeNonEnumerables) {
  * @param {Boolean} walkNonEnumerables
  * @returns {Object}
  */
-
-
-function _getPathInfo(obj, parts, walkNonEnumerables) {
-  if (isNil(obj)) {
-    throw _makeTypeErrorFor(obj, "object");
-  }
-
-  var target = obj;
-  var i = -1;
-  var len = parts.length;
-  var key;
-
-  while (++i < len) {
-    key = _getPathKey(target, parts[i], walkNonEnumerables);
-
-    if (isUndefined(key)) {
-      break;
+function _getPathInfo (obj, parts, walkNonEnumerables) {
+    if (isNil(obj)) {
+        throw _makeTypeErrorFor(obj, "object");
     }
 
-    target = target[key];
-  }
+    var target = obj;
+    var i = -1;
+    var len = parts.length;
+    var key;
 
-  return i === len ? {
-    isValid: true,
-    target: target
-  } : {
-    isValid: false,
-    target: void 0
-  };
+    while (++i < len) {
+        key = _getPathKey(target, parts[i], walkNonEnumerables);
+
+        if (isUndefined(key)) {
+            break;
+        }
+
+        target = target[key];
+    }
+
+    return i === len ? { isValid: true, target: target } : { isValid: false, target: void 0 };
 }
+
 /**
  * Splits a sting path using the provided separator and returns an array
  * of path parts.
@@ -5299,11 +5113,10 @@ function _getPathInfo(obj, parts, walkNonEnumerables) {
  * @param {String} separator
  * @returns {String[]}
  */
-
-
-function _toPathParts(path, separator) {
-  return String(path).split(separator || ".");
+function _toPathParts (path, separator) {
+    return String(path).split(separator || ".");
 }
+
 /**
  * Gets a nested property value from an object using the given path.<br/>
  * The path is a string with property names separated by dots by default, but
@@ -5355,11 +5168,10 @@ function _toPathParts(path, separator) {
  * @param {String} [separator="."]
  * @returns {*}
  */
-
-
-function getPathIn(obj, path, separator) {
-  return _getPathInfo(obj, _toPathParts(path, separator), true).target;
+function getPathIn (obj, path, separator) {
+    return _getPathInfo(obj, _toPathParts(path, separator), true).target;
 }
+
 /**
  * Builds a <code>checker</code> function meant to be used with
  * {@link module:lamb.validate|validate}.<br/>
@@ -5401,14 +5213,14 @@ function getPathIn(obj, path, separator) {
  * @returns {Function} A checker function which returns an error in the form
  * <code>["message", ["propertyA", "propertyB"]]</code> or an empty array.
  */
+function checker (predicate, message, keyPaths, pathSeparator) {
+    return function (obj) {
+        var getValues = partial(getPathIn, [obj, __, pathSeparator]);
 
-
-function checker(predicate, message, keyPaths, pathSeparator) {
-  return function (obj) {
-    var getValues = partial(getPathIn, [obj, __, pathSeparator]);
-    return predicate.apply(obj, map(keyPaths, getValues)) ? [] : [message, keyPaths];
-  };
+        return predicate.apply(obj, map(keyPaths, getValues)) ? [] : [message, keyPaths];
+    };
 }
+
 /**
  * Creates a non-null-safe version of the provided "getKeys" function.
  * @private
@@ -5416,15 +5228,14 @@ function checker(predicate, message, keyPaths, pathSeparator) {
  * @param {Function} getKeys
  * @returns {Function}
  */
-
-
 var _unsafeKeyListFrom = _curry2(function (getKeys, obj) {
-  if (isNil(obj)) {
-    throw _makeTypeErrorFor(obj, "object");
-  }
+    if (isNil(obj)) {
+        throw _makeTypeErrorFor(obj, "object");
+    }
 
-  return getKeys(obj);
+    return getKeys(obj);
 });
+
 /**
  * Creates an array with all the enumerable properties of the given object.
  * @example <caption>Showing the difference with {@link module:lamb.keys|keys}:</caption>
@@ -5445,9 +5256,8 @@ var _unsafeKeyListFrom = _curry2(function (getKeys, obj) {
  * @param {Object} obj
  * @returns {String[]}
  */
-
-
 var enumerables = _unsafeKeyListFrom(_safeEnumerables);
+
 /**
  * Builds an object from a list of key / value pairs like the one
  * returned by {@link module:lamb.pairs|pairs} or {@link module:lamb.ownPairs|ownPairs}.<br/>
@@ -5464,15 +5274,16 @@ var enumerables = _unsafeKeyListFrom(_safeEnumerables);
  * @param {Array<Array<String, *>>} pairsList
  * @returns {Object}
  */
+function fromPairs (pairsList) {
+    var result = {};
 
+    forEach(pairsList, function (pair) {
+        result[pair[0]] = pair[1];
+    });
 
-function fromPairs(pairsList) {
-  var result = {};
-  forEach(pairsList, function (pair) {
-    result[pair[0]] = pair[1];
-  });
-  return result;
+    return result;
 }
+
 /**
  * Builds a partial application of {@link module:lamb.getPathIn|getPathIn} with the given
  * path and separator, expecting the object to act upon.<br/>
@@ -5502,9 +5313,8 @@ function fromPairs(pairsList) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
-
-
 var getPath = _makePartial3(getPathIn);
+
 /**
  * Verifies the existence of a property in an object.
  * @example
@@ -5529,15 +5339,14 @@ var getPath = _makePartial3(getPathIn);
  * @param {String} key
  * @returns {Boolean}
  */
+function has (obj, key) {
+    if (typeof obj !== "object" && !isUndefined(obj)) {
+        obj = Object(obj);
+    }
 
-
-function has(obj, key) {
-  if (_typeof(obj) !== "object" && !isUndefined(obj)) {
-    obj = Object(obj);
-  }
-
-  return key in obj;
+    return key in obj;
 }
+
 /**
  * Curried version of {@link module:lamb.has|has}.<br/>
  * Returns a function expecting the object to check against the given key.
@@ -5559,9 +5368,8 @@ function has(obj, key) {
  * @param {String} key
  * @returns {Function}
  */
-
-
 var hasKey = _curry2(has, true);
+
 /**
  * Verifies if an object has the specified property and that the property isn't inherited through
  * the prototype chain.<br/>
@@ -5587,9 +5395,8 @@ var hasKey = _curry2(has, true);
  * @param {String} key
  * @returns {Boolean}
  */
-
-
 var hasOwn = generic(Object.prototype.hasOwnProperty);
+
 /**
  * Curried version of {@link module:lamb.hasOwn|hasOwn}.<br/>
  * Returns a function expecting the object to check against the given key.
@@ -5611,8 +5418,8 @@ var hasOwn = generic(Object.prototype.hasOwnProperty);
  * @param {String} key
  * @returns {Function}
  */
-
 var hasOwnKey = _curry2(hasOwn, true);
+
 /**
  * Builds a predicate expecting an object to check against the given key / value pair.<br/>
  * The value check is made with the ["SameValueZero" comparison]{@link module:lamb.areSVZ|areSVZ}.
@@ -5630,13 +5437,12 @@ var hasOwnKey = _curry2(hasOwn, true);
  * @param {*} value
  * @returns {Function}
  */
-
-
-function hasKeyValue(key, value) {
-  return function (obj) {
-    return isUndefined(value) ? has(obj, key) && obj[key] === value : areSVZ(value, obj[key]);
-  };
+function hasKeyValue (key, value) {
+    return function (obj) {
+        return isUndefined(value) ? has(obj, key) && obj[key] === value : areSVZ(value, obj[key]);
+    };
 }
+
 /**
  * Builds a predicate to check if the given path exists in an object and holds the desired value.<br/>
  * The value check is made with the ["SameValueZero" comparison]{@link module:lamb.areSVZ|areSVZ}.<br/>
@@ -5673,15 +5479,14 @@ function hasKeyValue(key, value) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
+function hasPathValue (path, value, separator) {
+    return function (obj) {
+        var pathInfo = _getPathInfo(obj, _toPathParts(path, separator), true);
 
-
-function hasPathValue(path, value, separator) {
-  return function (obj) {
-    var pathInfo = _getPathInfo(obj, _toPathParts(path, separator), true);
-
-    return pathInfo.isValid && areSVZ(pathInfo.target, value);
-  };
+        return pathInfo.isValid && areSVZ(pathInfo.target, value);
+    };
 }
+
 /**
  * A null-safe version of <code>Object.keys</code>.
  * @private
@@ -5689,9 +5494,8 @@ function hasPathValue(path, value, separator) {
  * @param {Object} obj
  * @returns {String[]}
  */
-
-
 var _safeKeys = compose(Object.keys, Object);
+
 /**
  * Retrieves the list of the own enumerable properties of an object.<br/>
  * Although [Object.keys]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys}
@@ -5717,9 +5521,8 @@ var _safeKeys = compose(Object.keys, Object);
  * @param {Object} obj
  * @returns {String[]}
  */
-
-
 var keys = _unsafeKeyListFrom(_safeKeys);
+
 /**
  * Builds a predicate to check if the given key satisfies the desired condition
  * on an object.
@@ -5741,13 +5544,12 @@ var keys = _unsafeKeyListFrom(_safeKeys);
  * @param {String} key
  * @returns {Function}
  */
-
-
-function keySatisfies(predicate, key) {
-  return function (obj) {
-    return predicate.call(this, obj[key]);
-  };
+function keySatisfies (predicate, key) {
+    return function (obj) {
+        return predicate.call(this, obj[key]);
+    };
 }
+
 /**
  * Builds an object from the two given lists, using the first one as keys and the last
  * one as values.<br/>
@@ -5768,18 +5570,17 @@ function keySatisfies(predicate, key) {
  * @param {ArrayLike} values
  * @returns {Object}
  */
+function make (names, values) {
+    var result = {};
+    var valuesLen = values.length;
 
+    for (var i = 0, len = names.length; i < len; i++) {
+        result[names[i]] = i < valuesLen ? values[i] : void 0;
+    }
 
-function make(names, values) {
-  var result = {};
-  var valuesLen = values.length;
-
-  for (var i = 0, len = names.length; i < len; i++) {
-    result[names[i]] = i < valuesLen ? values[i] : void 0;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Creates a new object by applying the given function
  * to all enumerable properties of the source one.
@@ -5799,21 +5600,20 @@ function make(names, values) {
  * @param {ObjectIteratorCallback} fn
  * @returns {Object}
  */
+function mapValues (source, fn) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "object");
+    }
 
+    var result = {};
 
-function mapValues(source, fn) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "object");
-  }
+    for (var key in source) {
+        result[key] = fn(source[key], key, source);
+    }
 
-  var result = {};
-
-  for (var key in source) {
-    result[key] = fn(source[key], key, source);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.mapValues|mapValues}.<br/>
  * Expects a mapping function to build a new function waiting for the
@@ -5836,9 +5636,8 @@ function mapValues(source, fn) {
  * @param {ObjectIteratorCallback} fn
  * @returns {Function}
  */
-
-
 var mapValuesWith = _curry2(mapValues, true);
+
 /**
  * Merges the received objects using the provided function to retrieve their keys.
  * @private
@@ -5847,16 +5646,16 @@ var mapValuesWith = _curry2(mapValues, true);
  * @param {Object} b
  * @returns {Function}
  */
+function _merge (getKeys, a, b) {
+    return reduce([a, b], function (result, source) {
+        forEach(getKeys(source), function (key) {
+            result[key] = source[key];
+        });
 
-
-function _merge(getKeys, a, b) {
-  return reduce([a, b], function (result, source) {
-    forEach(getKeys(source), function (key) {
-      result[key] = source[key];
-    });
-    return result;
-  }, {});
+        return result;
+    }, {});
 }
+
 /**
  * Merges the enumerable properties of the provided sources into a new object.<br/>
  * In case of key homonymy the last source has precedence over the first.
@@ -5880,9 +5679,8 @@ function _merge(getKeys, a, b) {
  * @param {Object} b
  * @returns {Object}
  */
-
-
 var merge = partial(_merge, [enumerables]);
+
 /**
  * Same as {@link module:lamb.merge|merge}, but only the own properties of the
  * sources are taken into account.
@@ -5914,8 +5712,8 @@ var merge = partial(_merge, [enumerables]);
  * @param {Object} b
  * @returns {Object}
  */
-
 var mergeOwn = partial(_merge, [keys]);
+
 /**
  * Accepts an object and build a function expecting a key to create a "pair" with the key
  * and its value.
@@ -5924,10 +5722,10 @@ var mergeOwn = partial(_merge, [keys]);
  * @param {Object} obj
  * @returns {Function}
  */
-
 var _keyToPairIn = _curry2(function (obj, key) {
-  return [key, obj[key]];
+    return [key, obj[key]];
 });
+
 /**
  * Using the provided function to retrieve the keys, builds a new function
  * expecting an object to create a list of key / value pairs.
@@ -5936,11 +5734,10 @@ var _keyToPairIn = _curry2(function (obj, key) {
  * @param {Function} getKeys
  * @returns {Function}
  */
-
-
 var _pairsFrom = _curry2(function (getKeys, obj) {
-  return map(getKeys(obj), _keyToPairIn(obj));
+    return map(getKeys(obj), _keyToPairIn(obj));
 });
+
 /**
  * Same as {@link module:lamb.pairs|pairs}, but only the own enumerable properties of the object are
  * taken into account.<br/>
@@ -5963,9 +5760,8 @@ var _pairsFrom = _curry2(function (getKeys, obj) {
  * @param {Object} obj
  * @returns {Array<Array<String, *>>}
  */
-
-
 var ownPairs = _pairsFrom(keys);
+
 /**
  * Using the provided function to retrieve the keys of an object, builds
  * a function expecting an object to create the list of values for such keys.
@@ -5974,13 +5770,12 @@ var ownPairs = _pairsFrom(keys);
  * @param {Function} getKeys
  * @returns {Function}
  */
-
-
 var _valuesFrom = _curry2(function (getKeys, obj) {
-  return map(getKeys(obj), function (key) {
-    return obj[key];
-  });
+    return map(getKeys(obj), function (key) {
+        return obj[key];
+    });
 });
+
 /**
  * Same as {@link module:lamb.values|values}, but only the own enumerable properties of the object are
  * taken into account.<br/>
@@ -6001,9 +5796,8 @@ var _valuesFrom = _curry2(function (getKeys, obj) {
  * @param {Object} obj
  * @returns {Array}
  */
-
-
 var ownValues = _valuesFrom(keys);
+
 /**
  * Converts an object into an array of key / value pairs of its enumerable properties.<br/>
  * See also {@link module:lamb.ownPairs|ownPairs} for picking only the own enumerable
@@ -6020,9 +5814,8 @@ var ownValues = _valuesFrom(keys);
  * @param {Object} obj
  * @returns {Array<Array<String, *>>}
  */
-
-
 var pairs = _pairsFrom(enumerables);
+
 /**
  * Checks if the provided path exists in the given object.<br/>
  * Note that the function will check even non-enumerable properties.
@@ -6051,11 +5844,10 @@ var pairs = _pairsFrom(enumerables);
  * @param {String} [separator="."]
  * @returns {Boolean}
  */
-
-
-function pathExistsIn(obj, path, separator) {
-  return _getPathInfo(obj, _toPathParts(path, separator), true).isValid;
+function pathExistsIn (obj, path, separator) {
+    return _getPathInfo(obj, _toPathParts(path, separator), true).isValid;
 }
+
 /**
  * Builds a partial application of {@link module:lamb.pathExistsIn|pathExistsIn} using the given
  * path and the optional separator. The resulting function expects the object to check.<br/>
@@ -6089,9 +5881,8 @@ function pathExistsIn(obj, path, separator) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
-
-
 var pathExists = _makePartial3(pathExistsIn);
+
 /**
  * Builds a predicate that verifies if a condition is satisfied for the given
  * path in an object.<br/>
@@ -6121,15 +5912,14 @@ var pathExists = _makePartial3(pathExistsIn);
  * @param {String} [separator="."]
  * @returns {Function}
  */
+function pathSatisfies (predicate, path, separator) {
+    return function (obj) {
+        var pathInfo = _getPathInfo(obj, _toPathParts(path, separator), true);
 
-
-function pathSatisfies(predicate, path, separator) {
-  return function (obj) {
-    var pathInfo = _getPathInfo(obj, _toPathParts(path, separator), true);
-
-    return predicate.call(this, pathInfo.target);
-  };
+        return predicate.call(this, pathInfo.target);
+    };
 }
+
 /**
  * Returns an object containing only the specified properties of the given object.<br/>
  * Non existent properties will be ignored.
@@ -6148,21 +5938,20 @@ function pathSatisfies(predicate, path, separator) {
  * @param {String[]} whitelist
  * @returns {Object}
  */
+function pickIn (source, whitelist) {
+    var result = {};
 
+    for (var i = 0, len = whitelist.length, key; i < len; i++) {
+        key = whitelist[i];
 
-function pickIn(source, whitelist) {
-  var result = {};
-
-  for (var i = 0, len = whitelist.length, key; i < len; i++) {
-    key = whitelist[i];
-
-    if (has(source, key)) {
-      result[key] = source[key];
+        if (has(source, key)) {
+            result[key] = source[key];
+        }
     }
-  }
 
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.pickIn|pickIn}, expecting a whitelist of keys to build
  * a function waiting for the object to act upon.
@@ -6200,9 +5989,8 @@ function pickIn(source, whitelist) {
  * @param {String[]} whitelist
  * @returns {Function}
  */
-
-
 var pick = _curry2(pickIn, true);
+
 /**
  * Builds a function expecting an object whose enumerable properties will be checked
  * against the given predicate.<br/>
@@ -6222,25 +6010,24 @@ var pick = _curry2(pickIn, true);
  * @param {ObjectIteratorCallback} predicate
  * @returns {Function}
  */
+function pickIf (predicate) {
+    return function (source) {
+        if (isNil(source)) {
+            throw _makeTypeErrorFor(source, "object");
+        }
 
+        var result = {};
 
-function pickIf(predicate) {
-  return function (source) {
-    if (isNil(source)) {
-      throw _makeTypeErrorFor(source, "object");
-    }
+        for (var key in source) {
+            if (predicate(source[key], key, source)) {
+                result[key] = source[key];
+            }
+        }
 
-    var result = {};
-
-    for (var key in source) {
-      if (predicate(source[key], key, source)) {
-        result[key] = source[key];
-      }
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Creates a copy of the given object with its enumerable keys renamed as
  * indicated in the provided lookup table.
@@ -6263,29 +6050,28 @@ function pickIf(predicate) {
  * @param {Object} keysMap
  * @returns {Object}
  */
+function renameIn (source, keysMap) {
+    keysMap = Object(keysMap);
+    var result = {};
+    var oldKeys = enumerables(source);
 
-
-function renameIn(source, keysMap) {
-  keysMap = Object(keysMap);
-  var result = {};
-  var oldKeys = enumerables(source);
-
-  for (var prop in keysMap) {
-    if (~oldKeys.indexOf(prop)) {
-      result[keysMap[prop]] = source[prop];
+    for (var prop in keysMap) {
+        if (~oldKeys.indexOf(prop)) {
+            result[keysMap[prop]] = source[prop];
+        }
     }
-  }
 
-  for (var i = 0, len = oldKeys.length, key; i < len; i++) {
-    key = oldKeys[i];
+    for (var i = 0, len = oldKeys.length, key; i < len; i++) {
+        key = oldKeys[i];
 
-    if (!(key in keysMap || key in result)) {
-      result[key] = source[key];
+        if (!(key in keysMap || key in result)) {
+            result[key] = source[key];
+        }
     }
-  }
 
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.renameIn|renameIn} expecting a
  * <code>keysMap</code> to build a function waiting for the object to act upon.
@@ -6315,9 +6101,8 @@ function renameIn(source, keysMap) {
  * @param {Object} keysMap
  * @returns {Function}
  */
-
-
 var rename = _curry2(renameIn, true);
+
 /**
  * Uses the provided function as a <code>keysMap</code> generator and returns
  * a function expecting the object whose keys we want to {@link module:lamb.renameIn|renameIn}.
@@ -6340,13 +6125,12 @@ var rename = _curry2(renameIn, true);
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function renameWith(fn) {
-  return function (source) {
-    return renameIn(source, fn(source));
-  };
+function renameWith (fn) {
+    return function (source) {
+        return renameIn(source, fn(source));
+    };
 }
+
 /**
  * Sets, or creates, a property in a copy of the provided object to the desired value.
  * @private
@@ -6355,18 +6139,18 @@ function renameWith(fn) {
  * @param {*} value
  * @returns {Object}
  */
+function _setIn (source, key, value) {
+    var result = {};
 
+    for (var prop in source) {
+        result[prop] = source[prop];
+    }
 
-function _setIn(source, key, value) {
-  var result = {};
+    result[key] = value;
 
-  for (var prop in source) {
-    result[prop] = source[prop];
-  }
-
-  result[key] = value;
-  return result;
+    return result;
 }
+
 /**
  * Sets the specified key to the given value in a copy of the provided object.<br/>
  * All the remaining enumerable keys of the source object will be simply copied in the
@@ -6396,15 +6180,14 @@ function _setIn(source, key, value) {
  * @param {*} value
  * @returns {Object}
  */
+function setIn (source, key, value) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "object");
+    }
 
-
-function setIn(source, key, value) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "object");
-  }
-
-  return _setIn(source, key, value);
+    return _setIn(source, key, value);
 }
+
 /**
  * Builds a partial application of {@link module:lamb.setIn|setIn} with the provided
  * <code>key</code> and <code>value</code>.<br/>
@@ -6429,9 +6212,8 @@ function setIn(source, key, value) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var setKey = _makePartial3(setIn);
+
 /**
  * Accepts a target object and a key name and verifies that the target is an array and that
  * the key is an existing index.
@@ -6440,12 +6222,12 @@ var setKey = _makePartial3(setIn);
  * @param {String|Number} key
  * @returns {Boolean}
  */
+function _isArrayIndex (target, key) {
+    var n = +key;
 
-
-function _isArrayIndex(target, key) {
-  var n = +key;
-  return Array.isArray(target) && n % 1 === 0 && !(n < 0 && _isEnumerable(target, key));
+    return Array.isArray(target) && n % 1 === 0 && !(n < 0 && _isEnumerable(target, key));
 }
+
 /**
  * Sets the object's property targeted by the given path to the desired value.<br/>
  * Works with arrays and is able to set their indexes, even negative ones.
@@ -6455,23 +6237,26 @@ function _isArrayIndex(target, key) {
  * @param {*} value
  * @returns {Object|Array}
  */
+function _setPathIn (obj, parts, value) {
+    var key = parts[0];
+    var partsLen = parts.length;
+    var v;
 
+    if (partsLen === 1) {
+        v = value;
+    } else {
+        var targetKey = _getPathKey(obj, key, false);
 
-function _setPathIn(obj, parts, value) {
-  var key = parts[0];
-  var partsLen = parts.length;
-  var v;
+        v = _setPathIn(
+            isUndefined(targetKey) ? targetKey : obj[targetKey],
+            slice(parts, 1, partsLen),
+            value
+        );
+    }
 
-  if (partsLen === 1) {
-    v = value;
-  } else {
-    var targetKey = _getPathKey(obj, key, false);
-
-    v = _setPathIn(isUndefined(targetKey) ? targetKey : obj[targetKey], slice(parts, 1, partsLen), value);
-  }
-
-  return _isArrayIndex(obj, key) ? _setIndex(obj, key, v) : _setIn(obj, key, v);
+    return _isArrayIndex(obj, key) ? _setIndex(obj, key, v) : _setIn(obj, key, v);
 }
+
 /**
  * Allows to change a nested value in a copy of the provided object.<br/>
  * The function will delegate the "set action" to {@link module:lamb.setIn|setIn} or
@@ -6531,15 +6316,14 @@ function _setPathIn(obj, parts, value) {
  * @param {String} [separator="."]
  * @returns {Object|Array}
  */
+function setPathIn (source, path, value, separator) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "object");
+    }
 
-
-function setPathIn(source, path, value, separator) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "object");
-  }
-
-  return _setPathIn(source, _toPathParts(path, separator), value);
+    return _setPathIn(source, _toPathParts(path, separator), value);
 }
+
 /**
  * Builds a partial application of {@link module:lamb.setPathIn|setPathIn} expecting the
  * object to act upon.<br/>
@@ -6560,13 +6344,12 @@ function setPathIn(source, path, value, separator) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
-
-
-function setPath(path, value, separator) {
-  return function (source) {
-    return setPathIn(source, path, value, separator);
-  };
+function setPath (path, value, separator) {
+    return function (source) {
+        return setPathIn(source, path, value, separator);
+    };
 }
+
 /**
  * Returns a copy of the source object without the specified properties.
  * @example
@@ -6585,24 +6368,23 @@ function setPath(path, value, separator) {
  * @param {String[]} blacklist
  * @returns {Object}
  */
-
-
-function skipIn(source, blacklist) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "object");
-  }
-
-  var result = {};
-  var props = make(blacklist, []);
-
-  for (var key in source) {
-    if (!(key in props)) {
-      result[key] = source[key];
+function skipIn (source, blacklist) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "object");
     }
-  }
 
-  return result;
+    var result = {};
+    var props = make(blacklist, []);
+
+    for (var key in source) {
+        if (!(key in props)) {
+            result[key] = source[key];
+        }
+    }
+
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.skipIn|skipIn}, expecting a blacklist of keys to build
  * a function waiting for the object to act upon.
@@ -6640,9 +6422,8 @@ function skipIn(source, blacklist) {
  * @param {String[]} blacklist
  * @returns {Function}
  */
-
-
 var skip = _curry2(skipIn, true);
+
 /**
  * Builds a function expecting an object whose enumerable properties will be checked
  * against the given predicate.<br/>
@@ -6663,9 +6444,8 @@ var skip = _curry2(skipIn, true);
  * @param {ObjectIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var skipIf = compose(pickIf, not);
+
 /**
  * Using the provided function to retrieve the keys of an object, builds
  * a function expecting an object to create an array containing a list
@@ -6676,14 +6456,15 @@ var skipIf = compose(pickIf, not);
  * @param {Function} getKeys
  * @returns {Function}
  */
-
 var _tearFrom = _curry2(function (getKeys, obj) {
-  return reduce(getKeys(obj), function (result, key) {
-    result[0].push(key);
-    result[1].push(obj[key]);
-    return result;
-  }, [[], []]);
+    return reduce(getKeys(obj), function (result, key) {
+        result[0].push(key);
+        result[1].push(obj[key]);
+
+        return result;
+    }, [[], []]);
 });
+
 /**
  * Tears an object apart by transforming it in an array of two lists: one containing
  * its enumerable keys, the other containing the corresponding values.<br/>
@@ -6701,9 +6482,8 @@ var _tearFrom = _curry2(function (getKeys, obj) {
  * @param {Object} obj
  * @returns {Array<String[], Array>}
  */
-
-
 var tear = _tearFrom(enumerables);
+
 /**
  * Same as {@link module:lamb.tear|tear}, but only the own properties of the object are
  * taken into account.
@@ -6725,9 +6505,8 @@ var tear = _tearFrom(enumerables);
  * @param {Object} obj
  * @returns {Array<String[], Array>}
  */
-
-
 var tearOwn = _tearFrom(keys);
+
 /**
  * Creates a copy of the given object having the desired key value updated by applying
  * the provided function to it.<br/>
@@ -6756,11 +6535,12 @@ var tearOwn = _tearFrom(keys);
  * @param {Function} updater
  * @returns {Object}
  */
-
-
-function updateIn(source, key, updater) {
-  return _isEnumerable(source, key) ? _setIn(source, key, updater(source[key])) : _merge(enumerables, source, {});
+function updateIn (source, key, updater) {
+    return _isEnumerable(source, key)
+        ? _setIn(source, key, updater(source[key]))
+        : _merge(enumerables, source, {});
 }
+
 /**
  * Builds a partial application of {@link module:lamb.updateIn|updateIn} with the provided
  * <code>key</code> and <code>updater</code>, expecting the object to act upon.<br/>
@@ -6783,9 +6563,8 @@ function updateIn(source, key, updater) {
  * @param {Function} updater
  * @returns {Function}
  */
-
-
 var updateKey = _makePartial3(updateIn);
+
 /**
  * Allows to change a nested value in a copy of the given object by applying the provided
  * function to it.<br/>
@@ -6838,19 +6617,17 @@ var updateKey = _makePartial3(updateIn);
  * @param {String} [separator="."]
  * @returns {Object|Array}
  */
+function updatePathIn (source, path, updater, separator) {
+    var parts = _toPathParts(path, separator);
+    var pathInfo = _getPathInfo(source, parts, false);
 
-
-function updatePathIn(source, path, updater, separator) {
-  var parts = _toPathParts(path, separator);
-
-  var pathInfo = _getPathInfo(source, parts, false);
-
-  if (pathInfo.isValid) {
-    return _setPathIn(source, parts, updater(pathInfo.target));
-  } else {
-    return Array.isArray(source) ? slice(source, 0, source.length) : _merge(enumerables, source, {});
-  }
+    if (pathInfo.isValid) {
+        return _setPathIn(source, parts, updater(pathInfo.target));
+    } else {
+        return Array.isArray(source) ? slice(source, 0, source.length) : _merge(enumerables, source, {});
+    }
 }
+
 /**
  * Builds a partial application of {@link module:lamb.updatePathIn|updatePathIn}
  * expecting the object to act upon.<br/>
@@ -6875,13 +6652,12 @@ function updatePathIn(source, path, updater, separator) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
-
-
-function updatePath(path, updater, separator) {
-  return function (source) {
-    return updatePathIn(source, path, updater, separator);
-  };
+function updatePath (path, updater, separator) {
+    return function (source) {
+        return updatePathIn(source, path, updater, separator);
+    };
 }
+
 /**
  * Validates an object with the given list of {@link module:lamb.checker|checker} functions.
  * @example
@@ -6912,16 +6688,16 @@ function updatePath(path, updater, separator) {
  * @returns {Array<Array<String, String[]>>} An array of errors in the form returned by
  * {@link module:lamb.checker|checker}, or an empty array.
  */
+function validate (obj, checkers) {
+    return reduce(checkers, function (errors, _checker) {
+        var result = _checker(obj);
 
+        result.length && errors.push(result);
 
-function validate(obj, checkers) {
-  return reduce(checkers, function (errors, _checker) {
-    var result = _checker(obj);
-
-    result.length && errors.push(result);
-    return errors;
-  }, []);
+        return errors;
+    }, []);
 }
+
 /**
  * A curried version of {@link module:lamb.validate|validate} accepting a list of
  * {@link module:lamb.checker|checkers} and returning a function expecting the object to validate.
@@ -6953,9 +6729,8 @@ function validate(obj, checkers) {
  * @param {Function[]} checkers
  * @returns {Function}
  */
-
-
 var validateWith = _curry2(validate, true);
+
 /**
  * Generates an array with the values of the enumerable properties of the given object.<br/>
  * See also {@link module:lamb.ownValues|ownValues} to pick only from the own properties of the object.
@@ -6972,9 +6747,8 @@ var validateWith = _curry2(validate, true);
  * @param {Object} obj
  * @returns {Array}
  */
-
-
 var values = _valuesFrom(enumerables);
+
 /**
  * A null-safe function to repeat the source string the desired amount of times.
  * @private
@@ -6982,17 +6756,16 @@ var values = _valuesFrom(enumerables);
  * @param {Number} times
  * @returns {String}
  */
+function _repeat (source, times) {
+    var result = "";
 
+    for (var i = 0; i < times; i++) {
+        result += source;
+    }
 
-function _repeat(source, times) {
-  var result = "";
-
-  for (var i = 0; i < times; i++) {
-    result += source;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Builds the prefix or suffix to be used when padding a string.
  * @private
@@ -7001,15 +6774,14 @@ function _repeat(source, times) {
  * @param {Number} len
  * @returns {String}
  */
+function _getPadding (source, char, len) {
+    if (!isNil(source) && type(source) !== "String") {
+        source = String(source);
+    }
 
-
-function _getPadding(source, char, len) {
-  if (!isNil(source) && type(source) !== "String") {
-    source = String(source);
-  }
-
-  return _repeat(String(char)[0] || "", Math.ceil(len - source.length));
+    return _repeat(String(char)[0] || "", Math.ceil(len - source.length));
 }
+
 /**
  * Pads a string to the desired length with the given char starting from the beginning of the string.
  * @example
@@ -7030,11 +6802,10 @@ function _getPadding(source, char, len) {
  * @param {Number} len
  * @returns {String}
  */
-
-
-function padLeft(source, char, len) {
-  return _getPadding(source, char, len) + source;
+function padLeft (source, char, len) {
+    return _getPadding(source, char, len) + source;
 }
+
 /**
  * Pads a string to the desired length with the given char starting from the end of the string.
  * @example
@@ -7055,11 +6826,10 @@ function padLeft(source, char, len) {
  * @param {Number} len
  * @returns {String}
  */
-
-
-function padRight(source, char, len) {
-  return source + _getPadding(source, char, len);
+function padRight (source, char, len) {
+    return source + _getPadding(source, char, len);
 }
+
 /**
  * Builds a new string by repeating the source string the desired amount of times.<br/>
  * Note that unlike the current ES6 proposal for
@@ -7078,15 +6848,14 @@ function padRight(source, char, len) {
  * @param {Number} times
  * @returns {String}
  */
+function repeat (source, times) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "string");
+    }
 
-
-function repeat(source, times) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "string");
-  }
-
-  return _repeat(source, Math.floor(times));
+    return _repeat(source, Math.floor(times));
 }
+
 /**
  * Splits a string into an array of substrings using the given separator.
  * @example
@@ -7103,9 +6872,8 @@ function repeat(source, times) {
  * @param {String|RegExp} separator
  * @returns {String[]}
  */
-
-
 var split = binary(generic(String.prototype.split));
+
 /**
  * A curried version of {@link module:lamb.split|split} that accepts
  * a separator and builds a function expecting the string to split.
@@ -7123,8 +6891,8 @@ var split = binary(generic(String.prototype.split));
  * @param {String|RegExp} separator
  * @returns {Function}
  */
-
 var splitBy = _curry2(split, true);
+
 /**
  * A generic version of <code>String.prototype.search</code>
  * @private
@@ -7133,9 +6901,8 @@ var splitBy = _curry2(split, true);
  * @param {RegExp} pattern
  * @returns {Number}
  */
-
-
 var _search = generic(String.prototype.search);
+
 /**
  * Builds a predicate expecting a string to test against the given regular expression pattern.
  * @example
@@ -7150,13 +6917,12 @@ var _search = generic(String.prototype.search);
  * @param {RegExp} pattern
  * @returns {Function}
  */
-
-
-function testWith(pattern) {
-  return function (s) {
-    return _search(s, pattern) !== -1;
-  };
+function testWith (pattern) {
+    return function (s) {
+        return _search(s, pattern) !== -1;
+    };
 }
+
 /**
  * Accepts a constructor and builds a predicate expecting an object,
  * which will be tested to verify whether the prototype of the constructor
@@ -7186,13 +6952,12 @@ function testWith(pattern) {
  * @param {*} constructor
  * @returns {Function}
  */
-
-
-function isInstanceOf(constructor) {
-  return function (obj) {
-    return obj instanceof constructor;
-  };
+function isInstanceOf (constructor) {
+    return function (obj) {
+        return obj instanceof constructor;
+    };
 }
+
 /**
  * Builds a predicate that expects a value to check against the specified type.
  * @example
@@ -7208,12 +6973,10 @@ function isInstanceOf(constructor) {
  * @param {String} typeName
  * @returns {Function}
  */
-
-
-function isType(typeName) {
-  return function (value) {
-    return type(value) === typeName;
-  };
+function isType (typeName) {
+    return function (value) {
+        return type(value) === typeName;
+    };
 }
 
 var _ = /*#__PURE__*/Object.freeze({
@@ -7432,6 +7195,7 @@ var _ = /*#__PURE__*/Object.freeze({
 /**
 * @module @svizzle/utils/any-boolean
 */
+
 /**
  * Return true is the input is an array
  *
@@ -7457,8 +7221,8 @@ false
  *
  * @version 0.1.0
  */
+const isArray = isType('Array');
 
-var isArray = isType('Array');
 /**
  * Return true is the input is a number
  *
@@ -7486,8 +7250,8 @@ false
  *
  * @version 0.1.0
  */
+const isNumber = isType('Number');
 
-var isNumber = isType('Number');
 /**
  * Return true is the input is not a NaN.
  * Remember that {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#Confusing_special-case_behavior|isNaN coerces the input with Number()} to the output can be a bit surprising.
@@ -7532,8 +7296,8 @@ false
  *
  * @version 0.1.0
  */
+const isNotNaN = not(isNaN);
 
-var isNotNaN = not(isNaN);
 /**
  * Return true is the input is a valid number (including not being NaN)
  *
@@ -7573,8 +7337,8 @@ var isNotNaN = not(isNaN);
  * @version 0.1.0
  * @see {@link module:@svizzle/utils/[any-any]-[any-boolean].isValidNumberWith|isValidNumberWith}
  */
+const isValidNumber = allOf([isNumber, isNotNaN]);
 
-var isValidNumber = allOf([isNumber, isNotNaN]);
 /**
  * Return true if the input, converted to Number, is indeed a number
  *
@@ -7611,8 +7375,8 @@ var isValidNumber = allOf([isNumber, isNotNaN]);
 [false, ...]
  * @version 0.1.0
  */
+const toNumberisValidNumber = pipe([Number, isValidNumber]);
 
-var toNumberisValidNumber = pipe([Number, isValidNumber]);
 /**
  * Return true if the input, parsed to float, is a valid number
  *
@@ -7650,8 +7414,8 @@ var toNumberisValidNumber = pipe([Number, isValidNumber]);
 [false, ...]
  * @version 0.1.0
  */
+const toFloatIsValidNumber = pipe([parseFloat, isValidNumber]);
 
-var toFloatIsValidNumber = pipe([parseFloat, isValidNumber]);
 /**
  * Return true is the input is not undefined or null.
  *
@@ -7692,8 +7456,8 @@ false
  *
  * @version 0.2.0
  */
+const isNotNil = not(isNil);
 
-var isNotNil = not(isNil);
 /**
  * Return true is the input is not null.
  *
@@ -7734,12 +7498,12 @@ true
  *
  * @version 0.4.0
  */
-
-var isNotNull = not(isNull);
+const isNotNull = not(isNull);
 
 /**
 * @module @svizzle/utils/array_proto-array
 */
+
 /**
  * Return an array by concatenating the provided arrays
  * @see
@@ -7758,8 +7522,11 @@ var isNotNull = not(isNull);
  *
  * @version 0.1.0
  */
+const concat = generic(Array.prototype.concat);
 
-var concat = generic(Array.prototype.concat);
+/**
+* @module @svizzle/utils/[any-any]-[object-object]
+*/
 
 /**
  * Return a function expecting an object and returning an index of all its values using the provided accessor.
@@ -7804,14 +7571,16 @@ var concat = generic(Array.prototype.concat);
  * @version 0.6.0
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].groupValuesWith|groupValuesWith}
  */
-
-var indexValuesWith = function indexValuesWith(accessor) {
-  return pipe([values, apply(concat), indexBy(accessor)]);
-};
+const indexValuesWith = accessor => pipe([
+	values,
+	apply(concat),
+	indexBy(accessor)
+]);
 
 /**
 * @module @svizzle/utils/constructor-[[any-any]:accumcb-[array-any]]
 */
+
 /**
  * Return a function expecting a reducer function and returning a reduce function
  * with an instance of the provided constructor as the initial value
@@ -7832,16 +7601,12 @@ Object { 11: 'b', 00: 'a' }
  *
  * @version 0.3.0
  */
-
-var reduceTo = function reduceTo(ctor) {
-  return function (fn) {
-    return reduceWith(fn, new ctor());
-  };
-};
+const reduceTo = ctor => fn => reduceWith(fn, new ctor());
 
 /**
 * @module @svizzle/utils/[any-any]:accumcb-[array-any]
 */
+
 /**
  * Return a reduce function expecting an array to reduce with the passed reducer
  * with an empty array as the initial value
@@ -7865,8 +7630,11 @@ var reduceTo = function reduceTo(ctor) {
  *
  * @version 0.3.0
  */
+const reduceFromEmptyArray = reduceTo(Array);
 
-var reduceFromEmptyArray = reduceTo(Array);
+/**
+* @module @svizzle/utils/array-[array-array]
+*/
 
 /**
  * Return a function plucking the provided keys from the expected array
@@ -7886,14 +7654,12 @@ var reduceFromEmptyArray = reduceTo(Array);
  * @version 0.8.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
  */
-
-var pluckKeys = function pluckKeys(keys) {
-  return mapWith(pick(keys));
-};
+const pluckKeys = keys => mapWith(pick(keys));
 
 /**
 * @module @svizzle/utils/number-boolean
 */
+
 /**
  * Return `true` if the input number is 0.
  *
@@ -7909,8 +7675,8 @@ false
  *
  * @version 0.1.0
  */
+const is0 = is(0);
 
-var is0 = is(0);
 /**
  * Return `true` if the input number is 1.
  *
@@ -7926,8 +7692,8 @@ false
  *
  * @version 0.1.0
  */
+const is1 = is(1);
 
-var is1 = is(1);
 /**
  * Return `true` if the input number is greater than 0.
  *
@@ -7943,8 +7709,8 @@ true
  *
  * @version 0.1.0
  */
+const isGT0 = isGT(0);
 
-var isGT0 = isGT(0);
 /**
  * Return `true` if the input number is greater than 1.
  *
@@ -7960,12 +7726,12 @@ true
  *
  * @version 0.1.0
  */
-
-var isGT1 = isGT(1);
+const isGT1 = isGT(1);
 
 /**
 * @module @svizzle/utils/iterable-number
 */
+
 /**
  * Get the length of the iterable
  *
@@ -7994,12 +7760,12 @@ var isGT1 = isGT(1);
  *
  * @version 0.1.0
  */
-
-var getLength = getKey('length');
+const getLength = getKey('length');
 
 /**
 * @module @svizzle/utils/iterable-boolean
 */
+
 /**
  * Use to check if an iterable is empty
  *
@@ -8028,8 +7794,8 @@ false
  *
  * @version 0.1.0
  */
+const isIterableEmpty = pipe([getLength, is0]);
 
-var isIterableEmpty = pipe([getLength, is0]);
 /**
  * Use to check if an iterable is not empty
  *
@@ -8056,8 +7822,8 @@ true
  *
  * @version 0.1.0
  */
+const isIterableNotEmpty = pipe([getLength, isGT0]);
 
-var isIterableNotEmpty = pipe([getLength, isGT0]);
 /**
  * Use to check if an iterable has a single element
  *
@@ -8086,8 +7852,8 @@ false
  *
  * @version 0.1.0
  */
+const hasIterableLength1 = pipe([getLength, is1]);
 
-var hasIterableLength1 = pipe([getLength, is1]);
 /**
  * Use to check if an iterable has more than an element
  *
@@ -8116,8 +7882,7 @@ true
  *
  * @version 0.1.0
  */
-
-var isIterableLongerThan1 = pipe([getLength, isGT1]);
+const isIterableLongerThan1 = pipe([getLength, isGT1]);
 
 /**
 * @module @svizzle/utils/iterable-object
@@ -8161,16 +7926,7 @@ var isIterableLongerThan1 = pipe([getLength, isGT1]);
  *
  * @version 0.1.0
  */
-var pairToKeyValueObject = function pairToKeyValueObject(_ref) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      key = _ref2[0],
-      value = _ref2[1];
-
-  return {
-    key: key,
-    value: value
-  };
-};
+const pairToKeyValueObject = ([key, value]) => ({key, value});
 
 /**
 * @module @svizzle/utils/number-[number-number]
@@ -8192,26 +7948,11 @@ var pairToKeyValueObject = function pairToKeyValueObject(_ref) {
 2.42
  * @version 0.6.0
  */
-var roundTo = function roundTo(precision) {
-  return function (x) {
-    return Number(x.toFixed(precision));
-  };
-};
+const roundTo = precision => x => Number(x.toFixed(precision));
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
+/**
+* @module @svizzle/utils/object-[object-object]
+*/
 
 /**
  * Return a function that expects an object and applies the functions in the values of the input object to the correspondent values of the provided object .
@@ -8251,12 +7992,12 @@ bar,4,4,25px
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  */
+const transformValues = fnMap => mapValuesWith(
+	(value, key) => key in fnMap
+		? application(fnMap[key], [value])
+		: value
+);
 
-var transformValues = function transformValues(fnMap) {
-  return mapValuesWith(function (value, key) {
-    return key in fnMap ? application(fnMap[key], [value]) : value;
-  });
-};
 /**
  * Return a function expecting an object to merge with the input object
  *
@@ -8273,14 +8014,12 @@ var transformValues = function transformValues(fnMap) {
  *
  * @version 0.1.0
  */
-
-var mergeObj = function mergeObj(obj) {
-  return partial(merge, [__, obj]);
-};
+const mergeObj = obj => partial(merge, [__, obj]);
 
 /**
 * @module @svizzle/utils/object-object
 */
+
 /**
  * Return a copy of the object without falsy values
  *
@@ -8298,8 +8037,8 @@ var mergeObj = function mergeObj(obj) {
  *
  * @version 0.2.0
  */
+const pickIfTruthy = pickIf(identity);
 
-var pickIfTruthy = pickIf(identity);
 /**
  * Return an object with swapped keys and values.
  * Note that if there are duplicate values, since the keys of the resulting object have to be unique, the last occurrence of each value would be used but depending on the interpreter implementation the output keys might vary.
@@ -8320,8 +8059,15 @@ var pickIfTruthy = pickIf(identity);
  * @version 0.6.0
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].indexValuesWith|indexValuesWith}
  */
+const swapKeyValue = pipe([
+	pairs,
+	mapWith(reverse),
+	fromPairs
+]);
 
-var swapKeyValue = pipe([pairs, mapWith(reverse), fromPairs]);
+/**
+* @module @svizzle/utils/object-array
+*/
 
 /**
  * Concatenate the values of the provided object.
@@ -8336,8 +8082,8 @@ var swapKeyValue = pipe([pairs, mapWith(reverse), fromPairs]);
  *
  * @version 0.4.0
  */
+const concatValues = pipe([values, apply(concat)]);
 
-var concatValues = pipe([values, apply(concat)]);
 /**
  * Return an array of the permutations of the provided object values items, by key.
  * Note that this function assumes the provided object values are arrays.
@@ -8357,21 +8103,24 @@ var concatValues = pipe([values, apply(concat)]);
  *
  * @version 0.6.0
  */
+const makeKeyedValuesPermutations = pipe([
+	pairs,
+	filterWith(pipe([
+		last,
+		allOf([isArray, isIterableNotEmpty])
+	])),
+	reduceFromEmptyArray((acc, [key, values]) => {
+		const props = values.map(value => ({[key]: value}));
 
-var makeKeyedValuesPermutations = pipe([pairs, filterWith(pipe([last, allOf([isArray, isIterableNotEmpty])])), reduceFromEmptyArray(function (acc, _ref) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      key = _ref2[0],
-      values = _ref2[1];
+		return acc.length === 0
+			? props
+			: flatMap(
+				props,
+				prop => acc.map(obj => merge(obj, prop))
+			);
+	})
+]);
 
-  var props = values.map(function (value) {
-    return _defineProperty({}, key, value);
-  });
-  return acc.length === 0 ? props : flatMap(props, function (prop) {
-    return acc.map(function (obj) {
-      return merge(obj, prop);
-    });
-  });
-})]);
 /**
  * Return an array of {key, value} objects from an object
  *
@@ -8386,8 +8135,11 @@ var makeKeyedValuesPermutations = pipe([pairs, filterWith(pipe([last, allOf([isA
  *
  * @version 0.1.0
  */
+const objectToKeyValueArray = pipe([
+	pairs,
+	mapWith(pairToKeyValueObject)
+]);
 
-var objectToKeyValueArray = pipe([pairs, mapWith(pairToKeyValueObject)]);
 /**
  * Return the keys of the provided object with a truthy value
  *
@@ -8405,47 +8157,40 @@ var objectToKeyValueArray = pipe([pairs, mapWith(pairToKeyValueObject)]);
  *
  * @version 0.1.0
  */
+const getTruthyValuesKeys = pipe([pickIfTruthy, keys]);
 
-var getTruthyValuesKeys = pipe([pickIfTruthy, keys]);
-
-var formatSvelteMarkup = function formatSvelteMarkup(str) {
-  return str.trim().replace(/^\t{4}/gm, '').replace(/^\t/gm, '  ');
-};
-
-function ascending (a, b) {
+function ascending(a, b) {
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 }
 
-function bisector (compare) {
+function bisector(compare) {
   if (compare.length === 1) compare = ascendingComparator(compare);
   return {
-    left: function left(a, x, lo, hi) {
+    left: function(a, x, lo, hi) {
       if (lo == null) lo = 0;
       if (hi == null) hi = a.length;
-
       while (lo < hi) {
         var mid = lo + hi >>> 1;
-        if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
+        if (compare(a[mid], x) < 0) lo = mid + 1;
+        else hi = mid;
       }
-
       return lo;
     },
-    right: function right(a, x, lo, hi) {
+    right: function(a, x, lo, hi) {
       if (lo == null) lo = 0;
       if (hi == null) hi = a.length;
-
       while (lo < hi) {
         var mid = lo + hi >>> 1;
-        if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
+        if (compare(a[mid], x) > 0) hi = mid;
+        else lo = mid + 1;
       }
-
       return lo;
     }
   };
 }
 
 function ascendingComparator(f) {
-  return function (d, x) {
+  return function(d, x) {
     return ascending(f(d), x);
   };
 }
@@ -8456,12 +8201,14 @@ var bisectRight = ascendingBisect.right;
 var e10 = Math.sqrt(50),
     e5 = Math.sqrt(10),
     e2 = Math.sqrt(2);
-function ticks (start, stop, count) {
+
+function ticks(start, stop, count) {
   var reverse,
       i = -1,
       n,
       ticks,
       step;
+
   stop = +stop, start = +start, count = +count;
   if (start === stop && count > 0) return [start];
   if (reverse = stop < start) n = start, start = stop, stop = n;
@@ -8471,60 +8218,49 @@ function ticks (start, stop, count) {
     start = Math.ceil(start / step);
     stop = Math.floor(stop / step);
     ticks = new Array(n = Math.ceil(stop - start + 1));
-
-    while (++i < n) {
-      ticks[i] = (start + i) * step;
-    }
+    while (++i < n) ticks[i] = (start + i) * step;
   } else {
     start = Math.floor(start * step);
     stop = Math.ceil(stop * step);
     ticks = new Array(n = Math.ceil(start - stop + 1));
-
-    while (++i < n) {
-      ticks[i] = (start - i) / step;
-    }
+    while (++i < n) ticks[i] = (start - i) / step;
   }
 
   if (reverse) ticks.reverse();
+
   return ticks;
 }
+
 function tickIncrement(start, stop, count) {
   var step = (stop - start) / Math.max(0, count),
       power = Math.floor(Math.log(step) / Math.LN10),
       error = step / Math.pow(10, power);
-  return power >= 0 ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power) : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
+  return power >= 0
+      ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power)
+      : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
 }
+
 function tickStep(start, stop, count) {
   var step0 = Math.abs(stop - start) / Math.max(0, count),
       step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)),
       error = step0 / step1;
-  if (error >= e10) step1 *= 10;else if (error >= e5) step1 *= 5;else if (error >= e2) step1 *= 2;
+  if (error >= e10) step1 *= 10;
+  else if (error >= e5) step1 *= 5;
+  else if (error >= e2) step1 *= 2;
   return stop < start ? -step1 : step1;
 }
 
 function initRange(domain, range) {
   switch (arguments.length) {
-    case 0:
-      break;
-
-    case 1:
-      this.range(domain);
-      break;
-
-    default:
-      this.range(range).domain(domain);
-      break;
+    case 0: break;
+    case 1: this.range(domain); break;
+    default: this.range(range).domain(domain); break;
   }
-
   return this;
 }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+const implicit = Symbol("implicit");
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-var implicit = Symbol("implicit");
 function ordinal() {
   var index = new Map(),
       domain = [],
@@ -8532,74 +8268,58 @@ function ordinal() {
       unknown = implicit;
 
   function scale(d) {
-    var key = d + "",
-        i = index.get(key);
-
+    var key = d + "", i = index.get(key);
     if (!i) {
       if (unknown !== implicit) return unknown;
       index.set(key, i = domain.push(d));
     }
-
     return range[(i - 1) % range.length];
   }
 
-  scale.domain = function (_) {
+  scale.domain = function(_) {
     if (!arguments.length) return domain.slice();
     domain = [], index = new Map();
-
-    var _iterator = _createForOfIteratorHelper(_),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var value = _step.value;
-        var key = value + "";
-        if (index.has(key)) continue;
-        index.set(key, domain.push(value));
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
+    for (const value of _) {
+      const key = value + "";
+      if (index.has(key)) continue;
+      index.set(key, domain.push(value));
     }
-
     return scale;
   };
 
-  scale.range = function (_) {
+  scale.range = function(_) {
     return arguments.length ? (range = Array.from(_), scale) : range.slice();
   };
 
-  scale.unknown = function (_) {
+  scale.unknown = function(_) {
     return arguments.length ? (unknown = _, scale) : unknown;
   };
 
-  scale.copy = function () {
+  scale.copy = function() {
     return ordinal(domain, range).unknown(unknown);
   };
 
   initRange.apply(scale, arguments);
+
   return scale;
 }
 
-function define (constructor, factory, prototype) {
+function define(constructor, factory, prototype) {
   constructor.prototype = factory.prototype = prototype;
   prototype.constructor = constructor;
 }
+
 function extend(parent, definition) {
   var prototype = Object.create(parent.prototype);
-
-  for (var key in definition) {
-    prototype[key] = definition[key];
-  }
-
+  for (var key in definition) prototype[key] = definition[key];
   return prototype;
 }
 
 function Color() {}
-var _darker = 0.7;
 
-var _brighter = 1 / _darker;
+var darker = 0.7;
+var brighter = 1 / darker;
+
 var reI = "\\s*([+-]?\\d+)\\s*",
     reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
     reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
@@ -8610,6 +8330,7 @@ var reI = "\\s*([+-]?\\d+)\\s*",
     reRgbaPercent = new RegExp("^rgba\\(" + [reP, reP, reP, reN] + "\\)$"),
     reHslPercent = new RegExp("^hsl\\(" + [reN, reP, reP] + "\\)$"),
     reHslaPercent = new RegExp("^hsla\\(" + [reN, reP, reP, reN] + "\\)$");
+
 var named = {
   aliceblue: 0xf0f8ff,
   antiquewhite: 0xfaebd7,
@@ -8760,15 +8481,15 @@ var named = {
   yellow: 0xffff00,
   yellowgreen: 0x9acd32
 };
+
 define(Color, color, {
-  copy: function copy(channels) {
-    return Object.assign(new this.constructor(), this, channels);
+  copy: function(channels) {
+    return Object.assign(new this.constructor, this, channels);
   },
-  displayable: function displayable() {
+  displayable: function() {
     return this.rgb().displayable();
   },
-  hex: color_formatHex,
-  // Deprecated! Use color.formatHex.
+  hex: color_formatHex, // Deprecated! Use color.formatHex.
   formatHex: color_formatHex,
   formatHsl: color_formatHsl,
   formatRgb: color_formatRgb,
@@ -8791,18 +8512,19 @@ function color(format) {
   var m, l;
   format = (format + "").trim().toLowerCase();
   return (m = reHex.exec(format)) ? (l = m[1].length, m = parseInt(m[1], 16), l === 6 ? rgbn(m) // #ff0000
-  : l === 3 ? new Rgb(m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, (m & 0xf) << 4 | m & 0xf, 1) // #f00
-  : l === 8 ? rgba(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
-  : l === 4 ? rgba(m >> 12 & 0xf | m >> 8 & 0xf0, m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, ((m & 0xf) << 4 | m & 0xf) / 0xff) // #f000
-  : null // invalid hex
-  ) : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
-  : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
-  : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
-  : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
-  : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
-  : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
-  : named.hasOwnProperty(format) ? rgbn(named[format]) // eslint-disable-line no-prototype-builtins
-  : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0) : null;
+      : l === 3 ? new Rgb((m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), ((m & 0xf) << 4) | (m & 0xf), 1) // #f00
+      : l === 8 ? rgba(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
+      : l === 4 ? rgba((m >> 12 & 0xf) | (m >> 8 & 0xf0), (m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), (((m & 0xf) << 4) | (m & 0xf)) / 0xff) // #f000
+      : null) // invalid hex
+      : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
+      : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
+      : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
+      : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
+      : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
+      : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
+      : named.hasOwnProperty(format) ? rgbn(named[format]) // eslint-disable-line no-prototype-builtins
+      : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0)
+      : null;
 }
 
 function rgbn(n) {
@@ -8816,36 +8538,41 @@ function rgba(r, g, b, a) {
 
 function rgbConvert(o) {
   if (!(o instanceof Color)) o = color(o);
-  if (!o) return new Rgb();
+  if (!o) return new Rgb;
   o = o.rgb();
   return new Rgb(o.r, o.g, o.b, o.opacity);
 }
+
 function rgb(r, g, b, opacity) {
   return arguments.length === 1 ? rgbConvert(r) : new Rgb(r, g, b, opacity == null ? 1 : opacity);
 }
+
 function Rgb(r, g, b, opacity) {
   this.r = +r;
   this.g = +g;
   this.b = +b;
   this.opacity = +opacity;
 }
+
 define(Rgb, rgb, extend(Color, {
-  brighter: function brighter(k) {
-    k = k == null ? _brighter : Math.pow(_brighter, k);
+  brighter: function(k) {
+    k = k == null ? brighter : Math.pow(brighter, k);
     return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
   },
-  darker: function darker(k) {
-    k = k == null ? _darker : Math.pow(_darker, k);
+  darker: function(k) {
+    k = k == null ? darker : Math.pow(darker, k);
     return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
   },
-  rgb: function rgb() {
+  rgb: function() {
     return this;
   },
-  displayable: function displayable() {
-    return -0.5 <= this.r && this.r < 255.5 && -0.5 <= this.g && this.g < 255.5 && -0.5 <= this.b && this.b < 255.5 && 0 <= this.opacity && this.opacity <= 1;
+  displayable: function() {
+    return (-0.5 <= this.r && this.r < 255.5)
+        && (-0.5 <= this.g && this.g < 255.5)
+        && (-0.5 <= this.b && this.b < 255.5)
+        && (0 <= this.opacity && this.opacity <= 1);
   },
-  hex: rgb_formatHex,
-  // Deprecated! Use color.formatHex.
+  hex: rgb_formatHex, // Deprecated! Use color.formatHex.
   formatHex: rgb_formatHex,
   formatRgb: rgb_formatRgb,
   toString: rgb_formatRgb
@@ -8856,9 +8583,12 @@ function rgb_formatHex() {
 }
 
 function rgb_formatRgb() {
-  var a = this.opacity;
-  a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
-  return (a === 1 ? "rgb(" : "rgba(") + Math.max(0, Math.min(255, Math.round(this.r) || 0)) + ", " + Math.max(0, Math.min(255, Math.round(this.g) || 0)) + ", " + Math.max(0, Math.min(255, Math.round(this.b) || 0)) + (a === 1 ? ")" : ", " + a + ")");
+  var a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
+  return (a === 1 ? "rgb(" : "rgba(")
+      + Math.max(0, Math.min(255, Math.round(this.r) || 0)) + ", "
+      + Math.max(0, Math.min(255, Math.round(this.g) || 0)) + ", "
+      + Math.max(0, Math.min(255, Math.round(this.b) || 0))
+      + (a === 1 ? ")" : ", " + a + ")");
 }
 
 function hex(value) {
@@ -8867,14 +8597,16 @@ function hex(value) {
 }
 
 function hsla(h, s, l, a) {
-  if (a <= 0) h = s = l = NaN;else if (l <= 0 || l >= 1) h = s = NaN;else if (s <= 0) h = NaN;
+  if (a <= 0) h = s = l = NaN;
+  else if (l <= 0 || l >= 1) h = s = NaN;
+  else if (s <= 0) h = NaN;
   return new Hsl(h, s, l, a);
 }
 
 function hslConvert(o) {
   if (o instanceof Hsl) return new Hsl(o.h, o.s, o.l, o.opacity);
   if (!(o instanceof Color)) o = color(o);
-  if (!o) return new Hsl();
+  if (!o) return new Hsl;
   if (o instanceof Hsl) return o;
   o = o.rgb();
   var r = o.r / 255,
@@ -8885,17 +8617,18 @@ function hslConvert(o) {
       h = NaN,
       s = max - min,
       l = (max + min) / 2;
-
   if (s) {
-    if (r === max) h = (g - b) / s + (g < b) * 6;else if (g === max) h = (b - r) / s + 2;else h = (r - g) / s + 4;
+    if (r === max) h = (g - b) / s + (g < b) * 6;
+    else if (g === max) h = (b - r) / s + 2;
+    else h = (r - g) / s + 4;
     s /= l < 0.5 ? max + min : 2 - max - min;
     h *= 60;
   } else {
     s = l > 0 && l < 1 ? 0 : h;
   }
-
   return new Hsl(h, s, l, o.opacity);
 }
+
 function hsl(h, s, l, opacity) {
   return arguments.length === 1 ? hslConvert(h) : new Hsl(h, s, l, opacity == null ? 1 : opacity);
 }
@@ -8908,59 +8641,74 @@ function Hsl(h, s, l, opacity) {
 }
 
 define(Hsl, hsl, extend(Color, {
-  brighter: function brighter(k) {
-    k = k == null ? _brighter : Math.pow(_brighter, k);
+  brighter: function(k) {
+    k = k == null ? brighter : Math.pow(brighter, k);
     return new Hsl(this.h, this.s, this.l * k, this.opacity);
   },
-  darker: function darker(k) {
-    k = k == null ? _darker : Math.pow(_darker, k);
+  darker: function(k) {
+    k = k == null ? darker : Math.pow(darker, k);
     return new Hsl(this.h, this.s, this.l * k, this.opacity);
   },
-  rgb: function rgb() {
+  rgb: function() {
     var h = this.h % 360 + (this.h < 0) * 360,
         s = isNaN(h) || isNaN(this.s) ? 0 : this.s,
         l = this.l,
         m2 = l + (l < 0.5 ? l : 1 - l) * s,
         m1 = 2 * l - m2;
-    return new Rgb(hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2), hsl2rgb(h, m1, m2), hsl2rgb(h < 120 ? h + 240 : h - 120, m1, m2), this.opacity);
+    return new Rgb(
+      hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2),
+      hsl2rgb(h, m1, m2),
+      hsl2rgb(h < 120 ? h + 240 : h - 120, m1, m2),
+      this.opacity
+    );
   },
-  displayable: function displayable() {
-    return (0 <= this.s && this.s <= 1 || isNaN(this.s)) && 0 <= this.l && this.l <= 1 && 0 <= this.opacity && this.opacity <= 1;
+  displayable: function() {
+    return (0 <= this.s && this.s <= 1 || isNaN(this.s))
+        && (0 <= this.l && this.l <= 1)
+        && (0 <= this.opacity && this.opacity <= 1);
   },
-  formatHsl: function formatHsl() {
-    var a = this.opacity;
-    a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
-    return (a === 1 ? "hsl(" : "hsla(") + (this.h || 0) + ", " + (this.s || 0) * 100 + "%, " + (this.l || 0) * 100 + "%" + (a === 1 ? ")" : ", " + a + ")");
+  formatHsl: function() {
+    var a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
+    return (a === 1 ? "hsl(" : "hsla(")
+        + (this.h || 0) + ", "
+        + (this.s || 0) * 100 + "%, "
+        + (this.l || 0) * 100 + "%"
+        + (a === 1 ? ")" : ", " + a + ")");
   }
 }));
-/* From FvD 13.37, CSS Color Module Level 3 */
 
+/* From FvD 13.37, CSS Color Module Level 3 */
 function hsl2rgb(h, m1, m2) {
-  return (h < 60 ? m1 + (m2 - m1) * h / 60 : h < 180 ? m2 : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60 : m1) * 255;
+  return (h < 60 ? m1 + (m2 - m1) * h / 60
+      : h < 180 ? m2
+      : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60
+      : m1) * 255;
 }
 
-function constant (x) {
-  return function () {
+function constant(x) {
+  return function() {
     return x;
   };
 }
 
 function linear(a, d) {
-  return function (t) {
+  return function(t) {
     return a + t * d;
   };
 }
 
 function exponential(a, b, y) {
-  return a = Math.pow(a, y), b = Math.pow(b, y) - a, y = 1 / y, function (t) {
+  return a = Math.pow(a, y), b = Math.pow(b, y) - a, y = 1 / y, function(t) {
     return Math.pow(a + t * b, y);
   };
 }
+
 function gamma(y) {
-  return (y = +y) === 1 ? nogamma : function (a, b) {
+  return (y = +y) === 1 ? nogamma : function(a, b) {
     return b - a ? exponential(a, b, y) : constant(isNaN(a) ? b : a);
   };
 }
+
 function nogamma(a, b) {
   var d = b - a;
   return d ? linear(a, d) : constant(isNaN(a) ? b : a);
@@ -8974,7 +8722,7 @@ var rgb$1 = (function rgbGamma(y) {
         g = color(start.g, end.g),
         b = color(start.b, end.b),
         opacity = nogamma(start.opacity, end.opacity);
-    return function (t) {
+    return function(t) {
       start.r = r(t);
       start.g = g(t);
       start.b = b(t);
@@ -8984,22 +8732,21 @@ var rgb$1 = (function rgbGamma(y) {
   }
 
   rgb$1.gamma = rgbGamma;
+
   return rgb$1;
 })(1);
 
-function numberArray (a, b) {
+function numberArray(a, b) {
   if (!b) b = [];
   var n = a ? Math.min(b.length, a.length) : 0,
       c = b.slice(),
       i;
-  return function (t) {
-    for (i = 0; i < n; ++i) {
-      c[i] = a[i] * (1 - t) + b[i] * t;
-    }
-
+  return function(t) {
+    for (i = 0; i < n; ++i) c[i] = a[i] * (1 - t) + b[i] * t;
     return c;
   };
 }
+
 function isNumberArray(x) {
   return ArrayBuffer.isView(x) && !(x instanceof DataView);
 }
@@ -9011,42 +8758,35 @@ function genericArray(a, b) {
       c = new Array(nb),
       i;
 
-  for (i = 0; i < na; ++i) {
-    x[i] = interpolate(a[i], b[i]);
-  }
+  for (i = 0; i < na; ++i) x[i] = interpolate(a[i], b[i]);
+  for (; i < nb; ++i) c[i] = b[i];
 
-  for (; i < nb; ++i) {
-    c[i] = b[i];
-  }
-
-  return function (t) {
-    for (i = 0; i < na; ++i) {
-      c[i] = x[i](t);
-    }
-
+  return function(t) {
+    for (i = 0; i < na; ++i) c[i] = x[i](t);
     return c;
   };
 }
 
-function date (a, b) {
-  var d = new Date();
-  return a = +a, b = +b, function (t) {
+function date(a, b) {
+  var d = new Date;
+  return a = +a, b = +b, function(t) {
     return d.setTime(a * (1 - t) + b * t), d;
   };
 }
 
-function interpolateNumber (a, b) {
-  return a = +a, b = +b, function (t) {
+function interpolateNumber(a, b) {
+  return a = +a, b = +b, function(t) {
     return a * (1 - t) + b * t;
   };
 }
 
-function object (a, b) {
+function object(a, b) {
   var i = {},
       c = {},
       k;
-  if (a === null || _typeof(a) !== "object") a = {};
-  if (b === null || _typeof(b) !== "object") b = {};
+
+  if (a === null || typeof a !== "object") a = {};
+  if (b === null || typeof b !== "object") b = {};
 
   for (k in b) {
     if (k in a) {
@@ -9056,11 +8796,8 @@ function object (a, b) {
     }
   }
 
-  return function (t) {
-    for (k in i) {
-      c[k] = i[k](t);
-    }
-
+  return function(t) {
+    for (k in i) c[k] = i[k](t);
     return c;
   };
 }
@@ -9069,138 +8806,128 @@ var reA = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g,
     reB = new RegExp(reA.source, "g");
 
 function zero(b) {
-  return function () {
+  return function() {
     return b;
   };
 }
 
 function one(b) {
-  return function (t) {
+  return function(t) {
     return b(t) + "";
   };
 }
 
-function string (a, b) {
-  var bi = reA.lastIndex = reB.lastIndex = 0,
-      // scan index for next number in b
-  am,
-      // current match in a
-  bm,
-      // current match in b
-  bs,
-      // string preceding current number in b, if any
-  i = -1,
-      // index in s
-  s = [],
-      // string constants and placeholders
-  q = []; // number interpolators
+function string(a, b) {
+  var bi = reA.lastIndex = reB.lastIndex = 0, // scan index for next number in b
+      am, // current match in a
+      bm, // current match in b
+      bs, // string preceding current number in b, if any
+      i = -1, // index in s
+      s = [], // string constants and placeholders
+      q = []; // number interpolators
+
   // Coerce inputs to strings.
+  a = a + "", b = b + "";
 
-  a = a + "", b = b + ""; // Interpolate pairs of numbers in a & b.
-
-  while ((am = reA.exec(a)) && (bm = reB.exec(b))) {
-    if ((bs = bm.index) > bi) {
-      // a string precedes the next number in b
+  // Interpolate pairs of numbers in a & b.
+  while ((am = reA.exec(a))
+      && (bm = reB.exec(b))) {
+    if ((bs = bm.index) > bi) { // a string precedes the next number in b
       bs = b.slice(bi, bs);
       if (s[i]) s[i] += bs; // coalesce with previous string
       else s[++i] = bs;
     }
-
-    if ((am = am[0]) === (bm = bm[0])) {
-      // numbers in a & b match
+    if ((am = am[0]) === (bm = bm[0])) { // numbers in a & b match
       if (s[i]) s[i] += bm; // coalesce with previous string
       else s[++i] = bm;
-    } else {
-      // interpolate non-matching numbers
+    } else { // interpolate non-matching numbers
       s[++i] = null;
-      q.push({
-        i: i,
-        x: interpolateNumber(am, bm)
-      });
+      q.push({i: i, x: interpolateNumber(am, bm)});
     }
-
     bi = reB.lastIndex;
-  } // Add remains of b.
+  }
 
-
+  // Add remains of b.
   if (bi < b.length) {
     bs = b.slice(bi);
     if (s[i]) s[i] += bs; // coalesce with previous string
     else s[++i] = bs;
-  } // Special optimization for only a single match.
+  }
+
+  // Special optimization for only a single match.
   // Otherwise, interpolate each of the numbers and rejoin the string.
-
-
-  return s.length < 2 ? q[0] ? one(q[0].x) : zero(b) : (b = q.length, function (t) {
-    for (var i = 0, o; i < b; ++i) {
-      s[(o = q[i]).i] = o.x(t);
-    }
-
-    return s.join("");
-  });
+  return s.length < 2 ? (q[0]
+      ? one(q[0].x)
+      : zero(b))
+      : (b = q.length, function(t) {
+          for (var i = 0, o; i < b; ++i) s[(o = q[i]).i] = o.x(t);
+          return s.join("");
+        });
 }
 
-function interpolate (a, b) {
-  var t = _typeof(b),
-      c;
-
-  return b == null || t === "boolean" ? constant(b) : (t === "number" ? interpolateNumber : t === "string" ? (c = color(b)) ? (b = c, rgb$1) : string : b instanceof color ? rgb$1 : b instanceof Date ? date : isNumberArray(b) ? numberArray : Array.isArray(b) ? genericArray : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object : interpolateNumber)(a, b);
+function interpolate(a, b) {
+  var t = typeof b, c;
+  return b == null || t === "boolean" ? constant(b)
+      : (t === "number" ? interpolateNumber
+      : t === "string" ? ((c = color(b)) ? (b = c, rgb$1) : string)
+      : b instanceof color ? rgb$1
+      : b instanceof Date ? date
+      : isNumberArray(b) ? numberArray
+      : Array.isArray(b) ? genericArray
+      : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object
+      : interpolateNumber)(a, b);
 }
 
-function interpolateRound (a, b) {
-  return a = +a, b = +b, function (t) {
+function interpolateRound(a, b) {
+  return a = +a, b = +b, function(t) {
     return Math.round(a * (1 - t) + b * t);
   };
 }
 
-function constant$1 (x) {
-  return function () {
+function constant$1(x) {
+  return function() {
     return x;
   };
 }
 
-function number (x) {
+function number(x) {
   return +x;
 }
 
 var unit = [0, 1];
+
 function identity$1(x) {
   return x;
 }
 
 function normalize(a, b) {
-  return (b -= a = +a) ? function (x) {
-    return (x - a) / b;
-  } : constant$1(isNaN(b) ? NaN : 0.5);
+  return (b -= (a = +a))
+      ? function(x) { return (x - a) / b; }
+      : constant$1(isNaN(b) ? NaN : 0.5);
 }
 
 function clamper(a, b) {
   var t;
   if (a > b) t = a, a = b, b = t;
-  return function (x) {
-    return Math.max(a, Math.min(b, x));
-  };
-} // normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
+  return function(x) { return Math.max(a, Math.min(b, x)); };
+}
+
+// normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
 // interpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding range value x in [a,b].
-
-
 function bimap(domain, range, interpolate) {
-  var d0 = domain[0],
-      d1 = domain[1],
-      r0 = range[0],
-      r1 = range[1];
-  if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
-  return function (x) {
-    return r0(d0(x));
-  };
+  var d0 = domain[0], d1 = domain[1], r0 = range[0], r1 = range[1];
+  if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);
+  else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
+  return function(x) { return r0(d0(x)); };
 }
 
 function polymap(domain, range, interpolate) {
   var j = Math.min(domain.length, range.length) - 1,
       d = new Array(j),
       r = new Array(j),
-      i = -1; // Reverse descending domains.
+      i = -1;
 
+  // Reverse descending domains.
   if (domain[j] < domain[0]) {
     domain = domain.slice().reverse();
     range = range.slice().reverse();
@@ -9211,15 +8938,21 @@ function polymap(domain, range, interpolate) {
     r[i] = interpolate(range[i], range[i + 1]);
   }
 
-  return function (x) {
+  return function(x) {
     var i = bisectRight(domain, x, 1, j) - 1;
     return r[i](d[i](x));
   };
 }
 
 function copy(source, target) {
-  return target.domain(source.domain()).range(source.range()).interpolate(source.interpolate()).clamp(source.clamp()).unknown(source.unknown());
+  return target
+      .domain(source.domain())
+      .range(source.range())
+      .interpolate(source.interpolate())
+      .clamp(source.clamp())
+      .unknown(source.unknown());
 }
+
 function transformer() {
   var domain = unit,
       range = unit,
@@ -9244,39 +8977,40 @@ function transformer() {
     return isNaN(x = +x) ? unknown : (output || (output = piecewise(domain.map(transform), range, interpolate$1)))(transform(clamp(x)));
   }
 
-  scale.invert = function (y) {
+  scale.invert = function(y) {
     return clamp(untransform((input || (input = piecewise(range, domain.map(transform), interpolateNumber)))(y)));
   };
 
-  scale.domain = function (_) {
+  scale.domain = function(_) {
     return arguments.length ? (domain = Array.from(_, number), rescale()) : domain.slice();
   };
 
-  scale.range = function (_) {
+  scale.range = function(_) {
     return arguments.length ? (range = Array.from(_), rescale()) : range.slice();
   };
 
-  scale.rangeRound = function (_) {
+  scale.rangeRound = function(_) {
     return range = Array.from(_), interpolate$1 = interpolateRound, rescale();
   };
 
-  scale.clamp = function (_) {
+  scale.clamp = function(_) {
     return arguments.length ? (clamp = _ ? true : identity$1, rescale()) : clamp !== identity$1;
   };
 
-  scale.interpolate = function (_) {
+  scale.interpolate = function(_) {
     return arguments.length ? (interpolate$1 = _, rescale()) : interpolate$1;
   };
 
-  scale.unknown = function (_) {
+  scale.unknown = function(_) {
     return arguments.length ? (unknown = _, scale) : unknown;
   };
 
-  return function (t, u) {
+  return function(t, u) {
     transform = t, untransform = u;
     return rescale();
   };
 }
+
 function continuous() {
   return transformer()(identity$1, identity$1);
 }
@@ -9284,22 +9018,24 @@ function continuous() {
 // Computes the decimal coefficient and exponent of the specified number x with
 // significant digits p, where x is positive and p is in [1, 21] or undefined.
 // For example, formatDecimal(1.23) returns ["123", 0].
-function formatDecimal (x, p) {
+function formatDecimal(x, p) {
   if ((i = (x = p ? x.toExponential(p - 1) : x.toExponential()).indexOf("e")) < 0) return null; // NaN, ±Infinity
+  var i, coefficient = x.slice(0, i);
 
-  var i,
-      coefficient = x.slice(0, i); // The string returned by toExponential either has the form \d\.\d+e[-+]\d+
+  // The string returned by toExponential either has the form \d\.\d+e[-+]\d+
   // (e.g., 1.2e+3) or the form \de[-+]\d+ (e.g., 1e+3).
-
-  return [coefficient.length > 1 ? coefficient[0] + coefficient.slice(2) : coefficient, +x.slice(i + 1)];
+  return [
+    coefficient.length > 1 ? coefficient[0] + coefficient.slice(2) : coefficient,
+    +x.slice(i + 1)
+  ];
 }
 
-function exponent (x) {
+function exponent(x) {
   return x = formatDecimal(Math.abs(x)), x ? x[1] : NaN;
 }
 
-function formatGroup (grouping, thousands) {
-  return function (value, width) {
+function formatGroup(grouping, thousands) {
+  return function(value, width) {
     var i = value.length,
         t = [],
         j = 0,
@@ -9317,9 +9053,9 @@ function formatGroup (grouping, thousands) {
   };
 }
 
-function formatNumerals (numerals) {
-  return function (value) {
-    return value.replace(/[0-9]/g, function (i) {
+function formatNumerals(numerals) {
+  return function(value) {
+    return value.replace(/[0-9]/g, function(i) {
       return numerals[+i];
     });
   };
@@ -9327,6 +9063,7 @@ function formatNumerals (numerals) {
 
 // [[fill]align][sign][symbol][0][width][,][.precision][~][type]
 var re = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
+
 function formatSpecifier(specifier) {
   if (!(match = re.exec(specifier))) throw new Error("invalid format: " + specifier);
   var match;
@@ -9343,6 +9080,7 @@ function formatSpecifier(specifier) {
     type: match[10]
   });
 }
+
 formatSpecifier.prototype = FormatSpecifier.prototype; // instanceof
 
 function FormatSpecifier(specifier) {
@@ -9358,97 +9096,80 @@ function FormatSpecifier(specifier) {
   this.type = specifier.type === undefined ? "" : specifier.type + "";
 }
 
-FormatSpecifier.prototype.toString = function () {
-  return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width === undefined ? "" : Math.max(1, this.width | 0)) + (this.comma ? "," : "") + (this.precision === undefined ? "" : "." + Math.max(0, this.precision | 0)) + (this.trim ? "~" : "") + this.type;
+FormatSpecifier.prototype.toString = function() {
+  return this.fill
+      + this.align
+      + this.sign
+      + this.symbol
+      + (this.zero ? "0" : "")
+      + (this.width === undefined ? "" : Math.max(1, this.width | 0))
+      + (this.comma ? "," : "")
+      + (this.precision === undefined ? "" : "." + Math.max(0, this.precision | 0))
+      + (this.trim ? "~" : "")
+      + this.type;
 };
 
 // Trims insignificant zeros, e.g., replaces 1.2000k with 1.2k.
-function formatTrim (s) {
+function formatTrim(s) {
   out: for (var n = s.length, i = 1, i0 = -1, i1; i < n; ++i) {
     switch (s[i]) {
-      case ".":
-        i0 = i1 = i;
-        break;
-
-      case "0":
-        if (i0 === 0) i0 = i;
-        i1 = i;
-        break;
-
-      default:
-        if (!+s[i]) break out;
-        if (i0 > 0) i0 = 0;
-        break;
+      case ".": i0 = i1 = i; break;
+      case "0": if (i0 === 0) i0 = i; i1 = i; break;
+      default: if (!+s[i]) break out; if (i0 > 0) i0 = 0; break;
     }
   }
-
   return i0 > 0 ? s.slice(0, i0) + s.slice(i1 + 1) : s;
 }
 
 var prefixExponent;
-function formatPrefixAuto (x, p) {
+
+function formatPrefixAuto(x, p) {
   var d = formatDecimal(x, p);
   if (!d) return x + "";
   var coefficient = d[0],
       exponent = d[1],
       i = exponent - (prefixExponent = Math.max(-8, Math.min(8, Math.floor(exponent / 3))) * 3) + 1,
       n = coefficient.length;
-  return i === n ? coefficient : i > n ? coefficient + new Array(i - n + 1).join("0") : i > 0 ? coefficient.slice(0, i) + "." + coefficient.slice(i) : "0." + new Array(1 - i).join("0") + formatDecimal(x, Math.max(0, p + i - 1))[0]; // less than 1y!
+  return i === n ? coefficient
+      : i > n ? coefficient + new Array(i - n + 1).join("0")
+      : i > 0 ? coefficient.slice(0, i) + "." + coefficient.slice(i)
+      : "0." + new Array(1 - i).join("0") + formatDecimal(x, Math.max(0, p + i - 1))[0]; // less than 1y!
 }
 
-function formatRounded (x, p) {
+function formatRounded(x, p) {
   var d = formatDecimal(x, p);
   if (!d) return x + "";
   var coefficient = d[0],
       exponent = d[1];
-  return exponent < 0 ? "0." + new Array(-exponent).join("0") + coefficient : coefficient.length > exponent + 1 ? coefficient.slice(0, exponent + 1) + "." + coefficient.slice(exponent + 1) : coefficient + new Array(exponent - coefficient.length + 2).join("0");
+  return exponent < 0 ? "0." + new Array(-exponent).join("0") + coefficient
+      : coefficient.length > exponent + 1 ? coefficient.slice(0, exponent + 1) + "." + coefficient.slice(exponent + 1)
+      : coefficient + new Array(exponent - coefficient.length + 2).join("0");
 }
 
 var formatTypes = {
-  "%": function _(x, p) {
-    return (x * 100).toFixed(p);
-  },
-  "b": function b(x) {
-    return Math.round(x).toString(2);
-  },
-  "c": function c(x) {
-    return x + "";
-  },
-  "d": function d(x) {
-    return Math.round(x).toString(10);
-  },
-  "e": function e(x, p) {
-    return x.toExponential(p);
-  },
-  "f": function f(x, p) {
-    return x.toFixed(p);
-  },
-  "g": function g(x, p) {
-    return x.toPrecision(p);
-  },
-  "o": function o(x) {
-    return Math.round(x).toString(8);
-  },
-  "p": function p(x, _p) {
-    return formatRounded(x * 100, _p);
-  },
+  "%": function(x, p) { return (x * 100).toFixed(p); },
+  "b": function(x) { return Math.round(x).toString(2); },
+  "c": function(x) { return x + ""; },
+  "d": function(x) { return Math.round(x).toString(10); },
+  "e": function(x, p) { return x.toExponential(p); },
+  "f": function(x, p) { return x.toFixed(p); },
+  "g": function(x, p) { return x.toPrecision(p); },
+  "o": function(x) { return Math.round(x).toString(8); },
+  "p": function(x, p) { return formatRounded(x * 100, p); },
   "r": formatRounded,
   "s": formatPrefixAuto,
-  "X": function X(x) {
-    return Math.round(x).toString(16).toUpperCase();
-  },
-  "x": function x(_x) {
-    return Math.round(_x).toString(16);
-  }
+  "X": function(x) { return Math.round(x).toString(16).toUpperCase(); },
+  "x": function(x) { return Math.round(x).toString(16); }
 };
 
-function identity$2 (x) {
+function identity$2(x) {
   return x;
 }
 
 var map$1 = Array.prototype.map,
-    prefixes = ["y", "z", "a", "f", "p", "n", "µ", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
-function formatLocale (locale) {
+    prefixes = ["y","z","a","f","p","n","µ","m","","k","M","G","T","P","E","Z","Y"];
+
+function formatLocale(locale) {
   var group = locale.grouping === undefined || locale.thousands === undefined ? identity$2 : formatGroup(map$1.call(locale.grouping, Number), locale.thousands + ""),
       currencyPrefix = locale.currency === undefined ? "" : locale.currency[0] + "",
       currencySuffix = locale.currency === undefined ? "" : locale.currency[1] + "",
@@ -9460,6 +9181,7 @@ function formatLocale (locale) {
 
   function newFormat(specifier) {
     specifier = formatSpecifier(specifier);
+
     var fill = specifier.fill,
         align = specifier.align,
         sign = specifier.sign,
@@ -9469,55 +9191,67 @@ function formatLocale (locale) {
         comma = specifier.comma,
         precision = specifier.precision,
         trim = specifier.trim,
-        type = specifier.type; // The "n" type is an alias for ",g".
+        type = specifier.type;
 
-    if (type === "n") comma = true, type = "g"; // The "" type, and any invalid type, is an alias for ".12~g".
-    else if (!formatTypes[type]) precision === undefined && (precision = 12), trim = true, type = "g"; // If zero fill is specified, padding goes after sign and before digits.
+    // The "n" type is an alias for ",g".
+    if (type === "n") comma = true, type = "g";
 
-    if (zero || fill === "0" && align === "=") zero = true, fill = "0", align = "="; // Compute the prefix and suffix.
+    // The "" type, and any invalid type, is an alias for ".12~g".
+    else if (!formatTypes[type]) precision === undefined && (precision = 12), trim = true, type = "g";
+
+    // If zero fill is specified, padding goes after sign and before digits.
+    if (zero || (fill === "0" && align === "=")) zero = true, fill = "0", align = "=";
+
+    // Compute the prefix and suffix.
     // For SI-prefix, the suffix is lazily computed.
-
     var prefix = symbol === "$" ? currencyPrefix : symbol === "#" && /[boxX]/.test(type) ? "0" + type.toLowerCase() : "",
-        suffix = symbol === "$" ? currencySuffix : /[%p]/.test(type) ? percent : ""; // What format function should we use?
+        suffix = symbol === "$" ? currencySuffix : /[%p]/.test(type) ? percent : "";
+
+    // What format function should we use?
     // Is this an integer type?
     // Can this type generate exponential notation?
-
     var formatType = formatTypes[type],
-        maybeSuffix = /[defgprs%]/.test(type); // Set the default precision if not specified,
+        maybeSuffix = /[defgprs%]/.test(type);
+
+    // Set the default precision if not specified,
     // or clamp the specified precision to the supported range.
     // For significant precision, it must be in [1, 21].
     // For fixed precision, it must be in [0, 20].
-
-    precision = precision === undefined ? 6 : /[gprs]/.test(type) ? Math.max(1, Math.min(21, precision)) : Math.max(0, Math.min(20, precision));
+    precision = precision === undefined ? 6
+        : /[gprs]/.test(type) ? Math.max(1, Math.min(21, precision))
+        : Math.max(0, Math.min(20, precision));
 
     function format(value) {
       var valuePrefix = prefix,
           valueSuffix = suffix,
-          i,
-          n,
-          c;
+          i, n, c;
 
       if (type === "c") {
         valueSuffix = formatType(value) + valueSuffix;
         value = "";
       } else {
-        value = +value; // Determine the sign. -0 is not less than 0, but 1 / -0 is!
+        value = +value;
 
-        var valueNegative = value < 0 || 1 / value < 0; // Perform the initial formatting.
+        // Determine the sign. -0 is not less than 0, but 1 / -0 is!
+        var valueNegative = value < 0 || 1 / value < 0;
 
-        value = isNaN(value) ? nan : formatType(Math.abs(value), precision); // Trim insignificant zeros.
+        // Perform the initial formatting.
+        value = isNaN(value) ? nan : formatType(Math.abs(value), precision);
 
-        if (trim) value = formatTrim(value); // If a negative value rounds to zero after formatting, and no explicit positive sign is requested, hide the sign.
+        // Trim insignificant zeros.
+        if (trim) value = formatTrim(value);
 
-        if (valueNegative && +value === 0 && sign !== "+") valueNegative = false; // Compute the prefix and suffix.
+        // If a negative value rounds to zero after formatting, and no explicit positive sign is requested, hide the sign.
+        if (valueNegative && +value === 0 && sign !== "+") valueNegative = false;
 
-        valuePrefix = (valueNegative ? sign === "(" ? sign : minus : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
-        valueSuffix = (type === "s" ? prefixes[8 + prefixExponent / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : ""); // Break the formatted value into the integer “value” part that can be
+        // Compute the prefix and suffix.
+        valuePrefix = (valueNegative ? (sign === "(" ? sign : minus) : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
+        valueSuffix = (type === "s" ? prefixes[8 + prefixExponent / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : "");
+
+        // Break the formatted value into the integer “value” part that can be
         // grouped, and fractional or exponential “suffix” part that is not.
-
         if (maybeSuffix) {
           i = -1, n = value.length;
-
           while (++i < n) {
             if (c = value.charCodeAt(i), 48 > c || c > 57) {
               valueSuffix = (c === 46 ? decimal + value.slice(i + 1) : value.slice(i)) + valueSuffix;
@@ -9526,38 +9260,30 @@ function formatLocale (locale) {
             }
           }
         }
-      } // If the fill character is not "0", grouping is applied before padding.
+      }
 
+      // If the fill character is not "0", grouping is applied before padding.
+      if (comma && !zero) value = group(value, Infinity);
 
-      if (comma && !zero) value = group(value, Infinity); // Compute the padding.
-
+      // Compute the padding.
       var length = valuePrefix.length + value.length + valueSuffix.length,
-          padding = length < width ? new Array(width - length + 1).join(fill) : ""; // If the fill character is "0", grouping is applied after padding.
+          padding = length < width ? new Array(width - length + 1).join(fill) : "";
 
-      if (comma && zero) value = group(padding + value, padding.length ? width - valueSuffix.length : Infinity), padding = ""; // Reconstruct the final output based on the desired alignment.
+      // If the fill character is "0", grouping is applied after padding.
+      if (comma && zero) value = group(padding + value, padding.length ? width - valueSuffix.length : Infinity), padding = "";
 
+      // Reconstruct the final output based on the desired alignment.
       switch (align) {
-        case "<":
-          value = valuePrefix + value + valueSuffix + padding;
-          break;
-
-        case "=":
-          value = valuePrefix + padding + value + valueSuffix;
-          break;
-
-        case "^":
-          value = padding.slice(0, length = padding.length >> 1) + valuePrefix + value + valueSuffix + padding.slice(length);
-          break;
-
-        default:
-          value = padding + valuePrefix + value + valueSuffix;
-          break;
+        case "<": value = valuePrefix + value + valueSuffix + padding; break;
+        case "=": value = valuePrefix + padding + value + valueSuffix; break;
+        case "^": value = padding.slice(0, length = padding.length >> 1) + valuePrefix + value + valueSuffix + padding.slice(length); break;
+        default: value = padding + valuePrefix + value + valueSuffix; break;
       }
 
       return numerals(value);
     }
 
-    format.toString = function () {
+    format.toString = function() {
       return specifier + "";
     };
 
@@ -9569,7 +9295,7 @@ function formatLocale (locale) {
         e = Math.max(-8, Math.min(8, Math.floor(exponent(value) / 3))) * 3,
         k = Math.pow(10, -e),
         prefix = prefixes[8 + e / 3];
-    return function (value) {
+    return function(value) {
       return f(k * value) + prefix;
     };
   }
@@ -9583,6 +9309,7 @@ function formatLocale (locale) {
 var locale;
 var format;
 var formatPrefix;
+
 defaultLocale({
   decimal: ".",
   thousands: ",",
@@ -9590,6 +9317,7 @@ defaultLocale({
   currency: ["$", ""],
   minus: "-"
 });
+
 function defaultLocale(definition) {
   locale = formatLocale(definition);
   format = locale.format;
@@ -9597,68 +9325,62 @@ function defaultLocale(definition) {
   return locale;
 }
 
-function precisionFixed (step) {
+function precisionFixed(step) {
   return Math.max(0, -exponent(Math.abs(step)));
 }
 
-function precisionPrefix (step, value) {
+function precisionPrefix(step, value) {
   return Math.max(0, Math.max(-8, Math.min(8, Math.floor(exponent(value) / 3))) * 3 - exponent(Math.abs(step)));
 }
 
-function precisionRound (step, max) {
+function precisionRound(step, max) {
   step = Math.abs(step), max = Math.abs(max) - step;
   return Math.max(0, exponent(max) - exponent(step)) + 1;
 }
 
-function tickFormat (start, stop, count, specifier) {
+function tickFormat(start, stop, count, specifier) {
   var step = tickStep(start, stop, count),
       precision;
   specifier = formatSpecifier(specifier == null ? ",f" : specifier);
-
   switch (specifier.type) {
-    case "s":
-      {
-        var value = Math.max(Math.abs(start), Math.abs(stop));
-        if (specifier.precision == null && !isNaN(precision = precisionPrefix(step, value))) specifier.precision = precision;
-        return formatPrefix(specifier, value);
-      }
-
+    case "s": {
+      var value = Math.max(Math.abs(start), Math.abs(stop));
+      if (specifier.precision == null && !isNaN(precision = precisionPrefix(step, value))) specifier.precision = precision;
+      return formatPrefix(specifier, value);
+    }
     case "":
     case "e":
     case "g":
     case "p":
-    case "r":
-      {
-        if (specifier.precision == null && !isNaN(precision = precisionRound(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
-        break;
-      }
-
+    case "r": {
+      if (specifier.precision == null && !isNaN(precision = precisionRound(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
+      break;
+    }
     case "f":
-    case "%":
-      {
-        if (specifier.precision == null && !isNaN(precision = precisionFixed(step))) specifier.precision = precision - (specifier.type === "%") * 2;
-        break;
-      }
+    case "%": {
+      if (specifier.precision == null && !isNaN(precision = precisionFixed(step))) specifier.precision = precision - (specifier.type === "%") * 2;
+      break;
+    }
   }
-
   return format(specifier);
 }
 
 function linearish(scale) {
   var domain = scale.domain;
 
-  scale.ticks = function (count) {
+  scale.ticks = function(count) {
     var d = domain();
     return ticks(d[0], d[d.length - 1], count == null ? 10 : count);
   };
 
-  scale.tickFormat = function (count, specifier) {
+  scale.tickFormat = function(count, specifier) {
     var d = domain();
     return tickFormat(d[0], d[d.length - 1], count == null ? 10 : count, specifier);
   };
 
-  scale.nice = function (count) {
+  scale.nice = function(count) {
     if (count == null) count = 10;
+
     var d = domain(),
         i0 = 0,
         i1 = d.length - 1,
@@ -9698,1637 +9420,1314 @@ function linearish(scale) {
 
   return scale;
 }
+
 function linear$1() {
   var scale = continuous();
 
-  scale.copy = function () {
+  scale.copy = function() {
     return copy(scale, linear$1());
   };
 
   initRange.apply(scale, arguments);
+
   return linearish(scale);
 }
 
-var countryKeyValuePositive = [{
-  key: 'AL',
-  value: 112
-}, {
-  key: 'AD',
-  value: 234
-}, {
-  key: 'AM',
-  value: 36
-}, {
-  key: 'AT',
-  value: 357
-}, {
-  key: 'AZ',
-  value: 123
-}, {
-  key: 'BY',
-  value: 56
-}, {
-  key: 'BE',
-  value: 15
-}, {
-  key: 'BA',
-  value: 12
-}, {
-  key: 'BG',
-  value: 568
-}, {
-  key: 'HR',
-  value: 213
-}, {
-  key: 'CY',
-  value: 456
-}, {
-  key: 'CZ',
-  value: 21
-}, {
-  key: 'DK',
-  value: 345
-}, {
-  key: 'EE',
-  value: 37
-}, {
-  key: 'FI',
-  value: 376
-}, {
-  key: 'FR',
-  value: 346
-}, {
-  key: 'GE',
-  value: 17
-}, {
-  key: 'DE',
-  value: 567
-}, {
-  key: 'GR',
-  value: 47
-}, {
-  key: 'HU',
-  value: 23
-}, {
-  key: 'IS',
-  value: 578
-}, {
-  key: 'IE',
-  value: 24
-}, {
-  key: 'IT',
-  value: 6
-}, {
-  key: 'KZ',
-  value: 5
-}, {
-  key: 'LV',
-  value: 58
-}, {
-  key: 'LI',
-  value: 5
-}, {
-  key: 'LT',
-  value: 69
-}, {
-  key: 'LU',
-  value: 23
-}, {
-  key: 'MT',
-  value: 36
-}, {
-  key: 'MD',
-  value: 57
-}, {
-  key: 'MC',
-  value: 69
-}, {
-  key: 'ME',
-  value: 223
-}, {
-  key: 'NL',
-  value: 35
-}, {
-  key: 'MK',
-  value: 57
-}, {
-  key: 'NO',
-  value: 79
-}, {
-  key: 'PL',
-  value: 12
-}, {
-  key: 'PT',
-  value: 46
-}, {
-  key: 'RO',
-  value: 37
-}, {
-  key: 'RU',
-  value: 678
-}, {
-  key: 'SM',
-  value: 345
-}, {
-  key: 'RS',
-  value: 67
-}, {
-  key: 'SK',
-  value: 23
-}, {
-  key: 'SI',
-  value: 567
-}, {
-  key: 'ES',
-  value: 23
-}, {
-  key: 'SE',
-  value: 768
-}, {
-  key: 'CH',
-  value: 56
-}, {
-  key: 'TR',
-  value: 78
-}, {
-  key: 'UA',
-  value: 2
-}, {
-  key: 'GB',
-  value: 56
-}].sort(function (a, b) {
-  return b.value - a.value;
-});
-var countryKeyValueNegatives = [{
-  key: 'AL',
-  value: -112
-}, {
-  key: 'AD',
-  value: -234
-}, {
-  key: 'AM',
-  value: -36
-}, {
-  key: 'AT',
-  value: -357
-}, {
-  key: 'AZ',
-  value: -123
-}, {
-  key: 'BY',
-  value: -56
-}, {
-  key: 'BE',
-  value: -15
-}, {
-  key: 'BA',
-  value: -12
-}, {
-  key: 'BG',
-  value: -568
-}, {
-  key: 'HR',
-  value: -213
-}, {
-  key: 'CY',
-  value: -456
-}, {
-  key: 'CZ',
-  value: -21
-}, {
-  key: 'DK',
-  value: -345
-}, {
-  key: 'EE',
-  value: -37
-}, {
-  key: 'FI',
-  value: -376
-}, {
-  key: 'FR',
-  value: -346
-}, {
-  key: 'GE',
-  value: -17
-}, {
-  key: 'DE',
-  value: -567
-}, {
-  key: 'GR',
-  value: -47
-}, {
-  key: 'HU',
-  value: -23
-}, {
-  key: 'IS',
-  value: -578
-}, {
-  key: 'IE',
-  value: -24
-}, {
-  key: 'IT',
-  value: -6
-}, {
-  key: 'KZ',
-  value: -5
-}, {
-  key: 'LV',
-  value: -58
-}, {
-  key: 'LI',
-  value: -5
-}, {
-  key: 'LT',
-  value: -69
-}, {
-  key: 'LU',
-  value: -23
-}, {
-  key: 'MT',
-  value: -36
-}, {
-  key: 'MD',
-  value: -57
-}, {
-  key: 'MC',
-  value: -69
-}, {
-  key: 'ME',
-  value: -223
-}, {
-  key: 'NL',
-  value: -35
-}, {
-  key: 'MK',
-  value: -57
-}, {
-  key: 'NO',
-  value: -79
-}, {
-  key: 'PL',
-  value: -12
-}, {
-  key: 'PT',
-  value: -46
-}, {
-  key: 'RO',
-  value: -37
-}, {
-  key: 'RU',
-  value: -678
-}, {
-  key: 'SM',
-  value: -345
-}, {
-  key: 'RS',
-  value: -67
-}, {
-  key: 'SK',
-  value: -23
-}, {
-  key: 'SI',
-  value: -567
-}, {
-  key: 'ES',
-  value: -23
-}, {
-  key: 'SE',
-  value: -768
-}, {
-  key: 'CH',
-  value: -56
-}, {
-  key: 'TR',
-  value: -78
-}, {
-  key: 'UA',
-  value: -2
-}, {
-  key: 'GB',
-  value: -56
-}].sort(function (a, b) {
-  return a.value - b.value;
-});
-var countryKeyValueMixed = [{
-  key: 'AL',
-  value: 112
-}, {
-  key: 'AD',
-  value: -234
-}, {
-  key: 'AM',
-  value: 36
-}, {
-  key: 'AT',
-  value: 357
-}, {
-  key: 'AZ',
-  value: -123
-}, {
-  key: 'BY',
-  value: 56
-}, {
-  key: 'BE',
-  value: 15
-}, {
-  key: 'BA',
-  value: -12
-}, {
-  key: 'BG',
-  value: 568
-}, {
-  key: 'HR',
-  value: -213
-}, {
-  key: 'CY',
-  value: 456
-}, {
-  key: 'CZ',
-  value: 21
-}, {
-  key: 'DK',
-  value: -345
-}, {
-  key: 'EE',
-  value: 37
-}, {
-  key: 'FI',
-  value: 376
-}, {
-  key: 'FR',
-  value: 346
-}, {
-  key: 'GE',
-  value: 17
-}, {
-  key: 'DE',
-  value: 567
-}, {
-  key: 'GR',
-  value: 47
-}, {
-  key: 'HU',
-  value: -23
-}, {
-  key: 'IS',
-  value: 578
-}, {
-  key: 'IE',
-  value: 24
-}, {
-  key: 'IT',
-  value: 6
-}, {
-  key: 'KZ',
-  value: 5
-}, {
-  key: 'LV',
-  value: -58
-}, {
-  key: 'LI',
-  value: 5
-}, {
-  key: 'LT',
-  value: 69
-}, {
-  key: 'LU',
-  value: 23
-}, {
-  key: 'MT',
-  value: 36
-}, {
-  key: 'MD',
-  value: -57
-}, {
-  key: 'MC',
-  value: 69
-}, {
-  key: 'ME',
-  value: 223
-}, {
-  key: 'NL',
-  value: 35
-}, {
-  key: 'MK',
-  value: -57
-}, {
-  key: 'NO',
-  value: 79
-}, {
-  key: 'PL',
-  value: 12
-}, {
-  key: 'PT',
-  value: -46
-}, {
-  key: 'RO',
-  value: 37
-}, {
-  key: 'RU',
-  value: 678
-}, {
-  key: 'SM',
-  value: -345
-}, {
-  key: 'RS',
-  value: 67
-}, {
-  key: 'SK',
-  value: 23
-}, {
-  key: 'SI',
-  value: 567
-}, {
-  key: 'ES',
-  value: 23
-}, {
-  key: 'SE',
-  value: 768
-}, {
-  key: 'CH',
-  value: 56
-}, {
-  key: 'TR',
-  value: 78
-}, {
-  key: 'UA',
-  value: 2
-}, {
-  key: 'GB',
-  value: 56
-}].sort(function (a, b) {
-  return b.value - a.value;
-});
-var countryKeyValueAlt = [{
-  key: 'AL',
-  value: 113
-}, {
-  key: 'AD',
-  value: 193
-}, {
-  key: 'AM',
-  value: 66
-}, {
-  key: 'AT',
-  value: 923
-}, {
-  key: 'AZ',
-  value: 8
-}, {
-  key: 'BY',
-  value: 122
-}, {
-  key: 'BE',
-  value: 6
-}, {
-  key: 'BA',
-  value: 29
-}, {
-  key: 'BG',
-  value: 272
-}, {
-  key: 'HR',
-  value: 300
-}, {
-  key: 'CY',
-  value: 585
-}, {
-  key: 'CZ',
-  value: 31
-}, {
-  key: 'DK',
-  value: 406
-}, {
-  key: 'EE',
-  value: 46
-}, {
-  key: 'FI',
-  value: 1097
-}, {
-  key: 'FR',
-  value: 611
-}, {
-  key: 'GE',
-  value: 48
-}, {
-  key: 'DE',
-  value: 30
-}, {
-  key: 'GR',
-  value: 37
-}, {
-  key: 'HU',
-  value: 11
-}, {
-  key: 'IS',
-  value: 432
-}, {
-  key: 'IE',
-  value: 52
-}, {
-  key: 'IT',
-  value: 11
-}, {
-  key: 'KZ',
-  value: 12
-}, {
-  key: 'LV',
-  value: 128
-}, {
-  key: 'LI',
-  value: 2
-}, {
-  key: 'LT',
-  value: 129
-}, {
-  key: 'LU',
-  value: 26
-}, {
-  key: 'MT',
-  value: 61
-}, {
-  key: 'MD',
-  value: 18
-}, {
-  key: 'MC',
-  value: 84
-}, {
-  key: 'ME',
-  value: 188
-}, {
-  key: 'NL',
-  value: 18
-}, {
-  key: 'MK',
-  value: 100
-}, {
-  key: 'NO',
-  value: 50
-}, {
-  key: 'PL',
-  value: 32
-}, {
-  key: 'PT',
-  value: 89
-}, {
-  key: 'RO',
-  value: 31
-}, {
-  key: 'RU',
-  value: 303
-}, {
-  key: 'SM',
-  value: 907
-}, {
-  key: 'RS',
-  value: 113
-}, {
-  key: 'SK',
-  value: 48
-}, {
-  key: 'SI',
-  value: 1272
-}, {
-  key: 'ES',
-  value: 6
-}, {
-  key: 'SE',
-  value: 291
-}, {
-  key: 'CH',
-  value: 16
-}, {
-  key: 'TR',
-  value: 16
-}, {
-  key: 'UA',
-  value: 1
-} // { key: 'GB', value: 92 }
+const countryKeyValuePositive = [
+	{ key: 'AL', value: 112 },
+	{ key: 'AD', value: 234 },
+	{ key: 'AM', value: 36 },
+	{ key: 'AT', value: 357 },
+	{ key: 'AZ', value: 123 },
+	{ key: 'BY', value: 56 },
+	{ key: 'BE', value: 15 },
+	{ key: 'BA', value: 12 },
+	{ key: 'BG', value: 568 },
+	{ key: 'HR', value: 213 },
+	{ key: 'CY', value: 456 },
+	{ key: 'CZ', value: 21 },
+	{ key: 'DK', value: 345 },
+	{ key: 'EE', value: 37 },
+	{ key: 'FI', value: 376 },
+	{ key: 'FR', value: 346 },
+	{ key: 'GE', value: 17 },
+	{ key: 'DE', value: 567 },
+	{ key: 'GR', value: 47 },
+	{ key: 'HU', value: 23 },
+	{ key: 'IS', value: 578 },
+	{ key: 'IE', value: 24 },
+	{ key: 'IT', value: 6 },
+	{ key: 'KZ', value: 5 },
+	{ key: 'LV', value: 58 },
+	{ key: 'LI', value: 5 },
+	{ key: 'LT', value: 69 },
+	{ key: 'LU', value: 23 },
+	{ key: 'MT', value: 36 },
+	{ key: 'MD', value: 57 },
+	{ key: 'MC', value: 69 },
+	{ key: 'ME', value: 223 },
+	{ key: 'NL', value: 35 },
+	{ key: 'MK', value: 57 },
+	{ key: 'NO', value: 79 },
+	{ key: 'PL', value: 12 },
+	{ key: 'PT', value: 46 },
+	{ key: 'RO', value: 37 },
+	{ key: 'RU', value: 678 },
+	{ key: 'SM', value: 345 },
+	{ key: 'RS', value: 67 },
+	{ key: 'SK', value: 23 },
+	{ key: 'SI', value: 567 },
+	{ key: 'ES', value: 23 },
+	{ key: 'SE', value: 768 },
+	{ key: 'CH', value: 56 },
+	{ key: 'TR', value: 78 },
+	{ key: 'UA', value: 2 },
+	{ key: 'GB', value: 56 }
+].sort((a, b) => b.value - a.value);
+
+const countryKeyValueNegatives = [
+	{ key: 'AL', value: -112 },
+	{ key: 'AD', value: -234 },
+	{ key: 'AM', value: -36 },
+	{ key: 'AT', value: -357 },
+	{ key: 'AZ', value: -123 },
+	{ key: 'BY', value: -56 },
+	{ key: 'BE', value: -15 },
+	{ key: 'BA', value: -12 },
+	{ key: 'BG', value: -568 },
+	{ key: 'HR', value: -213 },
+	{ key: 'CY', value: -456 },
+	{ key: 'CZ', value: -21 },
+	{ key: 'DK', value: -345 },
+	{ key: 'EE', value: -37 },
+	{ key: 'FI', value: -376 },
+	{ key: 'FR', value: -346 },
+	{ key: 'GE', value: -17 },
+	{ key: 'DE', value: -567 },
+	{ key: 'GR', value: -47 },
+	{ key: 'HU', value: -23 },
+	{ key: 'IS', value: -578 },
+	{ key: 'IE', value: -24 },
+	{ key: 'IT', value: -6 },
+	{ key: 'KZ', value: -5 },
+	{ key: 'LV', value: -58 },
+	{ key: 'LI', value: -5 },
+	{ key: 'LT', value: -69 },
+	{ key: 'LU', value: -23 },
+	{ key: 'MT', value: -36 },
+	{ key: 'MD', value: -57 },
+	{ key: 'MC', value: -69 },
+	{ key: 'ME', value: -223 },
+	{ key: 'NL', value: -35 },
+	{ key: 'MK', value: -57 },
+	{ key: 'NO', value: -79 },
+	{ key: 'PL', value: -12 },
+	{ key: 'PT', value: -46 },
+	{ key: 'RO', value: -37 },
+	{ key: 'RU', value: -678 },
+	{ key: 'SM', value: -345 },
+	{ key: 'RS', value: -67 },
+	{ key: 'SK', value: -23 },
+	{ key: 'SI', value: -567 },
+	{ key: 'ES', value: -23 },
+	{ key: 'SE', value: -768 },
+	{ key: 'CH', value: -56 },
+	{ key: 'TR', value: -78 },
+	{ key: 'UA', value: -2 },
+	{ key: 'GB', value: -56 }
+].sort((a, b) => a.value - b.value);
+
+const countryKeyValueMixed = [
+	{ key: 'AL', value: 112 },
+	{ key: 'AD', value: -234 },
+	{ key: 'AM', value: 36 },
+	{ key: 'AT', value: 357 },
+	{ key: 'AZ', value: -123 },
+	{ key: 'BY', value: 56 },
+	{ key: 'BE', value: 15 },
+	{ key: 'BA', value: -12 },
+	{ key: 'BG', value: 568 },
+	{ key: 'HR', value: -213 },
+	{ key: 'CY', value: 456 },
+	{ key: 'CZ', value: 21 },
+	{ key: 'DK', value: -345 },
+	{ key: 'EE', value: 37 },
+	{ key: 'FI', value: 376 },
+	{ key: 'FR', value: 346 },
+	{ key: 'GE', value: 17 },
+	{ key: 'DE', value: 567 },
+	{ key: 'GR', value: 47 },
+	{ key: 'HU', value: -23 },
+	{ key: 'IS', value: 578 },
+	{ key: 'IE', value: 24 },
+	{ key: 'IT', value: 6 },
+	{ key: 'KZ', value: 5 },
+	{ key: 'LV', value: -58 },
+	{ key: 'LI', value: 5 },
+	{ key: 'LT', value: 69 },
+	{ key: 'LU', value: 23 },
+	{ key: 'MT', value: 36 },
+	{ key: 'MD', value: -57 },
+	{ key: 'MC', value: 69 },
+	{ key: 'ME', value: 223 },
+	{ key: 'NL', value: 35 },
+	{ key: 'MK', value: -57 },
+	{ key: 'NO', value: 79 },
+	{ key: 'PL', value: 12 },
+	{ key: 'PT', value: -46 },
+	{ key: 'RO', value: 37 },
+	{ key: 'RU', value: 678 },
+	{ key: 'SM', value: -345 },
+	{ key: 'RS', value: 67 },
+	{ key: 'SK', value: 23 },
+	{ key: 'SI', value: 567 },
+	{ key: 'ES', value: 23 },
+	{ key: 'SE', value: 768 },
+	{ key: 'CH', value: 56 },
+	{ key: 'TR', value: 78 },
+	{ key: 'UA', value: 2 },
+	{ key: 'GB', value: 56 }
+].sort((a, b) => b.value - a.value);
+
+const countryKeyValueAlt = [
+	{ key: 'AL', value: 113 },
+	{ key: 'AD', value: 193 },
+	{ key: 'AM', value: 66 },
+	{ key: 'AT', value: 923 },
+	{ key: 'AZ', value: 8 },
+	{ key: 'BY', value: 122 },
+	{ key: 'BE', value: 6 },
+	{ key: 'BA', value: 29 },
+	{ key: 'BG', value: 272 },
+	{ key: 'HR', value: 300 },
+	{ key: 'CY', value: 585 },
+	{ key: 'CZ', value: 31 },
+	{ key: 'DK', value: 406 },
+	{ key: 'EE', value: 46 },
+	{ key: 'FI', value: 1097 },
+	{ key: 'FR', value: 611 },
+	{ key: 'GE', value: 48 },
+	{ key: 'DE', value: 30 },
+	{ key: 'GR', value: 37 },
+	{ key: 'HU', value: 11 },
+	{ key: 'IS', value: 432 },
+	{ key: 'IE', value: 52 },
+	{ key: 'IT', value: 11 },
+	{ key: 'KZ', value: 12 },
+	{ key: 'LV', value: 128 },
+	{ key: 'LI', value: 2 },
+	{ key: 'LT', value: 129 },
+	{ key: 'LU', value: 26 },
+	{ key: 'MT', value: 61 },
+	{ key: 'MD', value: 18 },
+	{ key: 'MC', value: 84 },
+	{ key: 'ME', value: 188 },
+	{ key: 'NL', value: 18 },
+	{ key: 'MK', value: 100 },
+	{ key: 'NO', value: 50 },
+	{ key: 'PL', value: 32 },
+	{ key: 'PT', value: 89 },
+	{ key: 'RO', value: 31 },
+	{ key: 'RU', value: 303 },
+	{ key: 'SM', value: 907 },
+	{ key: 'RS', value: 113 },
+	{ key: 'SK', value: 48 },
+	{ key: 'SI', value: 1272 },
+	{ key: 'ES', value: 6 },
+	{ key: 'SE', value: 291 },
+	{ key: 'CH', value: 16 },
+	{ key: 'TR', value: 16 },
+	{ key: 'UA', value: 1 },
+	// { key: 'GB', value: 92 }
 ];
-var countryKeyRawValue = [{
-  key: 'AL',
-  rawValue: 112
-}, {
-  key: 'AD',
-  rawValue: 234
-}, {
-  key: 'AM',
-  rawValue: 36
-}, {
-  key: 'AT',
-  rawValue: 357
-}, {
-  key: 'AZ',
-  rawValue: 123
-}, {
-  key: 'BY',
-  rawValue: 56
-}, {
-  key: 'BE',
-  rawValue: 15
-}, {
-  key: 'BA',
-  rawValue: 12
-}, {
-  key: 'BG',
-  rawValue: 568
-}, {
-  key: 'HR',
-  rawValue: 213
-}, {
-  key: 'CY',
-  rawValue: 456
-}, {
-  key: 'CZ',
-  rawValue: 21
-}, {
-  key: 'DK',
-  rawValue: 345
-}, {
-  key: 'EE',
-  rawValue: 37
-}, {
-  key: 'FI',
-  rawValue: 376
-}, {
-  key: 'FR',
-  rawValue: 346
-}, {
-  key: 'GE',
-  rawValue: 17
-}, {
-  key: 'DE',
-  rawValue: 567
-}, {
-  key: 'GR',
-  rawValue: 47
-}, {
-  key: 'HU',
-  rawValue: 23
-}, {
-  key: 'IS',
-  rawValue: 578
-}, {
-  key: 'IE',
-  rawValue: 24
-}, {
-  key: 'IT',
-  rawValue: 6
-}, {
-  key: 'KZ',
-  rawValue: 5
-}, {
-  key: 'LV',
-  rawValue: 58
-}, {
-  key: 'LI',
-  rawValue: 5
-}, {
-  key: 'LT',
-  rawValue: 69
-}, {
-  key: 'LU',
-  rawValue: 23
-}, {
-  key: 'MT',
-  rawValue: 36
-}, {
-  key: 'MD',
-  rawValue: 57
-}, {
-  key: 'MC',
-  rawValue: 69
-}, {
-  key: 'ME',
-  rawValue: 223
-}, {
-  key: 'NL',
-  rawValue: 35
-}, {
-  key: 'MK',
-  rawValue: 57
-}, {
-  key: 'NO',
-  rawValue: 79
-}, {
-  key: 'PL',
-  rawValue: 12
-}, {
-  key: 'PT',
-  rawValue: 46
-}, {
-  key: 'RO',
-  rawValue: 37
-}, {
-  key: 'RU',
-  rawValue: 678
-}, {
-  key: 'SM',
-  rawValue: 345
-}, {
-  key: 'RS',
-  rawValue: 67
-}, {
-  key: 'SK',
-  rawValue: 23
-}, {
-  key: 'SI',
-  rawValue: 567
-}, {
-  key: 'ES',
-  rawValue: 23
-}, {
-  key: 'SE',
-  rawValue: 768
-}, {
-  key: 'CH',
-  rawValue: 56
-}, {
-  key: 'TR',
-  rawValue: 78
-}, {
-  key: 'UA',
-  rawValue: 2
-}, {
-  key: 'GB',
-  rawValue: 56
-}];
-var keyToColorWorldFull = {
-  AL: 'antiquewhite',
-  AD: 'aqua',
-  AM: 'blue',
-  AT: 'blueviolet',
-  AZ: 'chartreuse',
-  BY: 'rgb(255, 69, 0)',
-  BE: 'brown',
-  BA: 'aquamarine',
-  BG: 'rgb(128, 128, 0)',
-  HR: 'cadetblue',
-  CY: 'deepskyblue',
-  CZ: 'gold',
-  DK: 'chocolate',
-  EE: 'cornflowerblue',
-  FI: 'dimgray',
-  FR: 'firebrick',
-  GE: 'rgb( 65, 105, 225)',
-  DE: 'greenyellow',
-  GR: 'darkgoldenrod',
-  HU: 'darkmagenta',
-  IS: 'dodgerblue',
-  IE: 'crimson',
-  IT: 'darkcyan',
-  KZ: 'darkblue',
-  LV: 'darkturquoise',
-  LI: 'coral',
-  LT: 'darkkhaki',
-  LU: 'lightsalmon',
-  MT: 'darkorchid',
-  MD: 'darkolivegreen',
-  MC: 'darkslategray',
-  ME: 'darkslateblue',
-  NL: 'rgb(216, 191, 216)',
-  MK: 'tomato',
-  NO: 'darksalmon',
-  PL: 'rgb(238, 130, 238)',
-  PT: 'darkred',
-  RO: 'red',
-  RU: 'green',
-  SM: 'rgb(188, 143, 143)',
-  RS: 'darkorange',
-  SK: 'rgb( 0, 0, 128)',
-  SI: 'darkseagreen',
-  ES: 'lightblue',
-  SE: 'mediumseagreen',
-  CH: 'rgb(255, 255, 0)',
-  TR: 'yellowgreen',
-  UA: 'rgb(152, 251, 152)',
-  GB: 'rgb(128, 0, 128)'
-}; // keep these 2 commented for the `keyToColorWorld` example to show 2 black bars.
 
-var keyToColorWorld = skipIn(keyToColorWorldFull, ['AL', 'AD']);
-var keyToColorWorldShort = {
-  AM: 'blue',
-  AT: 'blueviolet',
-  AZ: 'chartreuse',
-  BY: 'rgb(255, 69, 0)',
-  BE: 'brown',
-  BA: 'aquamarine',
-  BG: 'rgb(128, 128, 0)'
+const countryKeyRawValue = [
+	{ key: 'AL', rawValue: 112 },
+	{ key: 'AD', rawValue: 234 },
+	{ key: 'AM', rawValue: 36 },
+	{ key: 'AT', rawValue: 357 },
+	{ key: 'AZ', rawValue: 123 },
+	{ key: 'BY', rawValue: 56 },
+	{ key: 'BE', rawValue: 15 },
+	{ key: 'BA', rawValue: 12 },
+	{ key: 'BG', rawValue: 568 },
+	{ key: 'HR', rawValue: 213 },
+	{ key: 'CY', rawValue: 456 },
+	{ key: 'CZ', rawValue: 21 },
+	{ key: 'DK', rawValue: 345 },
+	{ key: 'EE', rawValue: 37 },
+	{ key: 'FI', rawValue: 376 },
+	{ key: 'FR', rawValue: 346 },
+	{ key: 'GE', rawValue: 17 },
+	{ key: 'DE', rawValue: 567 },
+	{ key: 'GR', rawValue: 47 },
+	{ key: 'HU', rawValue: 23 },
+	{ key: 'IS', rawValue: 578 },
+	{ key: 'IE', rawValue: 24 },
+	{ key: 'IT', rawValue: 6 },
+	{ key: 'KZ', rawValue: 5 },
+	{ key: 'LV', rawValue: 58 },
+	{ key: 'LI', rawValue: 5 },
+	{ key: 'LT', rawValue: 69 },
+	{ key: 'LU', rawValue: 23 },
+	{ key: 'MT', rawValue: 36 },
+	{ key: 'MD', rawValue: 57 },
+	{ key: 'MC', rawValue: 69 },
+	{ key: 'ME', rawValue: 223 },
+	{ key: 'NL', rawValue: 35 },
+	{ key: 'MK', rawValue: 57 },
+	{ key: 'NO', rawValue: 79 },
+	{ key: 'PL', rawValue: 12 },
+	{ key: 'PT', rawValue: 46 },
+	{ key: 'RO', rawValue: 37 },
+	{ key: 'RU', rawValue: 678 },
+	{ key: 'SM', rawValue: 345 },
+	{ key: 'RS', rawValue: 67 },
+	{ key: 'SK', rawValue: 23 },
+	{ key: 'SI', rawValue: 567 },
+	{ key: 'ES', rawValue: 23 },
+	{ key: 'SE', rawValue: 768 },
+	{ key: 'CH', rawValue: 56 },
+	{ key: 'TR', rawValue: 78 },
+	{ key: 'UA', rawValue: 2 },
+	{ key: 'GB', rawValue: 56 }
+];
+
+const keyToColorWorldFull = {
+	AL: 'antiquewhite',
+	AD: 'aqua',
+	AM: 'blue',
+	AT: 'blueviolet',
+	AZ: 'chartreuse',
+	BY: 'rgb(255, 69, 0)',
+	BE: 'brown',
+	BA: 'aquamarine',
+	BG: 'rgb(128, 128, 0)',
+	HR: 'cadetblue',
+	CY: 'deepskyblue',
+	CZ: 'gold',
+	DK: 'chocolate',
+	EE: 'cornflowerblue',
+	FI: 'dimgray',
+	FR: 'firebrick',
+	GE: 'rgb( 65, 105, 225)',
+	DE: 'greenyellow',
+	GR: 'darkgoldenrod',
+	HU: 'darkmagenta',
+	IS: 'dodgerblue',
+	IE: 'crimson',
+	IT: 'darkcyan',
+	KZ: 'darkblue',
+	LV: 'darkturquoise',
+	LI: 'coral',
+	LT: 'darkkhaki',
+	LU: 'lightsalmon',
+	MT: 'darkorchid',
+	MD: 'darkolivegreen',
+	MC: 'darkslategray',
+	ME: 'darkslateblue',
+	NL: 'rgb(216, 191, 216)',
+	MK: 'tomato',
+	NO: 'darksalmon',
+	PL: 'rgb(238, 130, 238)',
+	PT: 'darkred',
+	RO: 'red',
+	RU: 'green',
+	SM: 'rgb(188, 143, 143)',
+	RS: 'darkorange',
+	SK: 'rgb( 0, 0, 128)',
+	SI: 'darkseagreen',
+	ES: 'lightblue',
+	SE: 'mediumseagreen',
+	CH: 'rgb(255, 255, 0)',
+	TR: 'yellowgreen',
+	UA: 'rgb(152, 251, 152)',
+	GB: 'rgb(128, 0, 128)'
 };
 
-var keyToColorWorldFullKeys = keys(keyToColorWorldFull);
+// keep these 2 commented for the `keyToColorWorld` example to show 2 black bars.
+const keyToColorWorld = skipIn(keyToColorWorldFull, ['AL', 'AD']);
 
-var hueScale = linear$1().domain([0, keyToColorWorldFullKeys.length]).range([0, 300]);
-var keyToColorWorldFn = ordinal().domain(keyToColorWorldFullKeys).range(keyToColorWorldFullKeys.map(function (k, i) {
-  return hsl(hueScale(i), 0.5, 0.5).toString();
+const keyToColorWorldShort = {
+	AM: 'blue',
+	AT: 'blueviolet',
+	AZ: 'chartreuse',
+	BY: 'rgb(255, 69, 0)',
+	BE: 'brown',
+	BA: 'aquamarine',
+	BG: 'rgb(128, 128, 0)',
+};
+
+const keyToColorWorldFullKeys = keys(keyToColorWorldFull);
+
+const hueScale =
+	linear$1()
+	.domain([0, keyToColorWorldFullKeys.length])
+	.range([0, 300]);
+
+const keyToColorWorldFn =
+	ordinal()
+	.domain(keyToColorWorldFullKeys)
+	.range(keyToColorWorldFullKeys.map((k, i) => hsl(hueScale(i), 0.5, 0.5).toString()));
+
+const keyToColorUK2016 = {
+	UK: 'cornsilk',
+	UKC: 'antiquewhite',
+	UKC1: 'aqua',
+	UKC11: 'aquamarine',
+	UKC12: 'azure',
+	UKC13: 'beige',
+	UKC14: 'bisque',
+	UKC2: 'black',
+	UKC21: 'blanchedalmond',
+	UKC22: 'blue',
+	UKC23: 'blueviolet',
+	UKD: 'brown',
+	UKD1: 'burlywood',
+	UKD11: 'cadetblue',
+	UKD12: 'chartreuse',
+	UKD3: 'chocolate',
+	UKD33: 'coral',
+	UKD34: 'cornflowerblue',
+	UKD35: 'cornsilk',
+	UKD36: 'crimson',
+	UKD37: 'cyan',
+	UKD4: 'darkblue',
+	UKD41: 'darkcyan',
+	UKD42: 'darkgoldenrod',
+	UKD44: 'darkgray',
+	UKD45: 'darkgreen',
+	UKD46: 'darkgrey',
+	UKD47: 'darkkhaki',
+	UKD6: 'darkmagenta',
+	UKD61: 'darkolivegreen',
+	UKD62: 'darkorange',
+	UKD63: 'darkorchid',
+	UKD7: 'darkred',
+	UKD71: 'darksalmon',
+	UKD72: 'darkseagreen',
+	UKD73: 'darkslateblue',
+	UKD74: 'darkslategray',
+	UKE: 'darkslategrey',
+	UKE1: 'darkturquoise',
+	UKE11: 'darkviolet',
+	UKE12: 'deeppink',
+	UKE13: 'deepskyblue',
+	UKE2: 'dimgray',
+	UKE21: 'dimgrey',
+	UKE22: 'dodgerblue',
+	UKE3: 'firebrick',
+	UKE31: 'floralwhite',
+	UKE32: 'forestgreen',
+	UKE4: 'fuchsia',
+	UKE41: 'gainsboro',
+	UKE42: 'ghostwhite',
+	UKE44: 'gold',
+	UKE45: 'goldenrod',
+	UKF: 'gray',
+	UKF1: 'grey',
+	UKF11: 'green',
+	UKF12: 'greenyellow',
+	UKF13: 'honeydew',
+	UKF14: 'hotpink',
+	UKF15: 'indianred',
+	UKF16: 'indigo',
+	UKF2: 'ivory',
+	UKF21: 'khaki',
+	UKF22: 'lavender',
+	UKF24: 'lavenderblush',
+	UKF25: 'lawngreen',
+	UKF3: 'lemonchiffon',
+	UKF30: 'lightblue',
+	UKG: 'lightcoral',
+	UKG1: 'lightcyan',
+	UKG11: 'lightgoldenrodyellow',
+	UKG12: 'lightgray',
+	UKG13: 'lightgreen',
+	UKG2: 'lightgrey',
+	UKG21: 'lightpink',
+	UKG22: 'lightsalmon',
+	UKG23: 'lightseagreen',
+	UKG24: 'lightskyblue',
+	UKG3: 'lightslategray',
+	UKG31: 'lightslategrey',
+	UKG32: 'lightsteelblue',
+	UKG33: 'lightyellow',
+	UKG36: 'lime',
+	UKG37: 'limegreen',
+	UKG38: 'linen',
+	UKG39: 'magenta',
+	UKH: 'maroon',
+	UKH1: 'mediumaquamarine',
+	UKH11: 'mediumblue',
+	UKH12: 'mediumorchid',
+	UKH14: 'mediumpurple',
+	UKH15: 'mediumseagreen',
+	UKH16: 'mediumslateblue',
+	UKH17: 'mediumspringgreen',
+	UKH2: 'mediumturquoise',
+	UKH21: 'mediumvioletred',
+	UKH23: 'midnightblue',
+	UKH24: 'mintcream',
+	UKH25: 'mistyrose',
+	UKH3: 'moccasin',
+	UKH31: 'navajowhite',
+	UKH32: 'navy',
+	UKH34: 'oldlace',
+	UKH35: 'olive',
+	UKH36: 'olivedrab',
+	UKH37: 'orange',
+	UKI: 'orangered',
+	UKI3: 'orchid',
+	UKI31: 'palegoldenrod',
+	UKI32: 'palegreen',
+	UKI33: 'paleturquoise',
+	UKI34: 'palevioletred',
+	UKI4: 'papayawhip',
+	UKI41: 'peachpuff',
+	UKI42: 'peru',
+	UKI43: 'pink',
+	UKI44: 'plum',
+	UKI45: 'powderblue',
+	UKI5: 'purple',
+	UKI51: 'red',
+	UKI52: 'rosybrown',
+	UKI53: 'royalblue',
+	UKI54: 'saddlebrown',
+	UKI6: 'salmon',
+	UKI61: 'sandybrown',
+	UKI62: 'seagreen',
+	UKI63: 'seashell',
+	UKI7: 'sienna',
+	UKI71: 'silver',
+	UKI72: 'skyblue',
+	UKI73: 'slateblue',
+	UKI74: 'slategray',
+	UKI75: 'slategrey',
+	UKJ: 'snow',
+	UKJ1: 'springgreen',
+	UKJ11: 'steelblue',
+	UKJ12: 'tan',
+	UKJ13: 'teal',
+	UKJ14: 'thistle',
+	UKJ2: 'tomato',
+	UKJ21: 'turquoise',
+	UKJ22: 'violet',
+	UKJ25: 'wheat',
+	UKJ26: 'white',
+	UKJ27: 'whitesmoke',
+	UKJ28: 'yellow',
+	UKJ3: 'yellowgreen',
+	UKJ31: 'aliceblue',
+	UKJ32: 'antiquewhite',
+	UKJ34: 'aqua',
+	UKJ35: 'aquamarine',
+	UKJ36: 'azure',
+	UKJ37: 'beige',
+	UKJ4: 'bisque',
+	UKJ41: 'black',
+	UKJ43: 'blanchedalmond',
+	UKJ44: 'blue',
+	UKJ45: 'blueviolet',
+	UKJ46: 'brown',
+	UKK: 'burlywood',
+	UKK1: 'cadetblue',
+	UKK11: 'chartreuse',
+	UKK12: 'chocolate',
+	UKK13: 'coral',
+	UKK14: 'cornflowerblue',
+	UKK15: 'cornsilk',
+	UKK2: 'crimson',
+	UKK21: 'cyan',
+	UKK22: 'darkblue',
+	UKK23: 'darkcyan',
+	UKK3: 'darkgoldenrod',
+	UKK30: 'darkgray',
+	UKK4: 'darkgreen',
+	UKK41: 'darkgrey',
+	UKK42: 'darkkhaki',
+	UKK43: 'darkmagenta',
+	UKL: 'darkolivegreen',
+	UKL1: 'darkorange',
+	UKL11: 'darkorchid',
+	UKL12: 'darkred',
+	UKL13: 'darksalmon',
+	UKL14: 'darkseagreen',
+	UKL15: 'darkslateblue',
+	UKL16: 'darkslategray',
+	UKL17: 'darkslategrey',
+	UKL18: 'darkturquoise',
+	UKL2: 'darkviolet',
+	UKL21: 'deeppink',
+	UKL22: 'deepskyblue',
+	UKL23: 'dimgray',
+	UKL24: 'dimgrey',
+	UKM: 'dodgerblue',
+	UKM5: 'firebrick',
+	UKM50: 'floralwhite',
+	UKM6: 'forestgreen',
+	UKM61: 'fuchsia',
+	UKM62: 'gainsboro',
+	UKM63: 'ghostwhite',
+	UKM64: 'gold',
+	UKM65: 'goldenrod',
+	UKM66: 'gray',
+	UKM7: 'grey',
+	UKM71: 'green',
+	UKM72: 'greenyellow',
+	UKM73: 'honeydew',
+	UKM75: 'hotpink',
+	UKM76: 'indianred',
+	UKM77: 'indigo',
+	UKM78: 'ivory',
+	UKM8: 'khaki',
+	UKM81: 'lavender',
+	UKM82: 'lavenderblush',
+	UKM83: 'lawngreen',
+	UKM84: 'lemonchiffon',
+	UKM9: 'lightblue',
+	UKM91: 'lightcoral',
+	UKM92: 'lightcyan',
+	UKM93: 'lightgoldenrodyellow',
+	UKM94: 'lightgray',
+	UKM95: 'lightgreen',
+	UKN: 'lightgrey',
+	UKN0: 'lightpink',
+	UKN06: 'lightsalmon',
+	UKN07: 'lightseagreen',
+	UKN08: 'lightskyblue',
+	UKN09: 'lightslategray',
+	UKN10: 'lightslategrey',
+	UKN11: 'lightsteelblue',
+	UKN12: 'lightyellow',
+	UKN13: 'lime',
+	UKN14: 'limegreen',
+	UKN15: 'linen',
+	UKN16: 'magenta'
+};
+
+const keyToLabel = {
+	AL: 'Albania',
+	AD: 'Andorra',
+	AM: 'Armenia',
+	AT: 'Austria',
+	AZ: 'Azerbaijan',
+	BY: 'Belarus',
+	BE: 'Belgium',
+	BA: 'Bosnia and Herzegovina',
+	BG: 'Bulgaria',
+	HR: 'Croatia',
+	CY: 'Cyprus',
+	CZ: 'Czechia',
+	DK: 'Denmark',
+	EE: 'Estonia',
+	FI: 'Finland',
+	FR: 'France',
+	GE: 'Georgia',
+	DE: 'Germany',
+	GR: 'Greece',
+	HU: 'Hungary',
+	IS: 'Iceland',
+	IE: 'Ireland',
+	IT: 'Italy',
+	KZ: 'Kazakhstan',
+	LV: 'Latvia',
+	LI: 'Liechtenstein',
+	LT: 'Lithuania',
+	LU: 'Luxembourg',
+	MT: 'Malta',
+	MD: 'Moldova',
+	MC: 'Monaco',
+	ME: 'Montenegro',
+	NL: 'Netherlands',
+	MK: 'North Macedonia (formerly Macedonia)',
+	NO: 'Norway',
+	PL: 'Poland',
+	PT: 'Portugal',
+	RO: 'Romania',
+	RU: 'Russian Federation',
+	SM: 'San Marino',
+	RS: 'Serbia',
+	SK: 'Slovakia',
+	SI: 'Slovenia',
+	ES: 'Spain',
+	SE: 'Sweden',
+	CH: 'Switzerland',
+	TR: 'Turkey',
+	UA: 'Ukraine',
+	GB: 'United Kingdom (UK)',
+};
+
+const formatSvelteMarkup = str =>
+	str.trim()
+	.replace(/^\t{4}/gum, '')
+	.replace(/^\t/gum, '  ');
+
+const formatExamples = mapWith(transformValues({
+	doc: mapWith(transformValues({
+		content: s => s.trim(),
+	})),
+	data: mapWith(transformValues({
+		usage: formatSvelteMarkup
+	}))
 }));
-var keyToColorUK2016 = {
-  UK: 'cornsilk',
-  UKC: 'antiquewhite',
-  UKC1: 'aqua',
-  UKC11: 'aquamarine',
-  UKC12: 'azure',
-  UKC13: 'beige',
-  UKC14: 'bisque',
-  UKC2: 'black',
-  UKC21: 'blanchedalmond',
-  UKC22: 'blue',
-  UKC23: 'blueviolet',
-  UKD: 'brown',
-  UKD1: 'burlywood',
-  UKD11: 'cadetblue',
-  UKD12: 'chartreuse',
-  UKD3: 'chocolate',
-  UKD33: 'coral',
-  UKD34: 'cornflowerblue',
-  UKD35: 'cornsilk',
-  UKD36: 'crimson',
-  UKD37: 'cyan',
-  UKD4: 'darkblue',
-  UKD41: 'darkcyan',
-  UKD42: 'darkgoldenrod',
-  UKD44: 'darkgray',
-  UKD45: 'darkgreen',
-  UKD46: 'darkgrey',
-  UKD47: 'darkkhaki',
-  UKD6: 'darkmagenta',
-  UKD61: 'darkolivegreen',
-  UKD62: 'darkorange',
-  UKD63: 'darkorchid',
-  UKD7: 'darkred',
-  UKD71: 'darksalmon',
-  UKD72: 'darkseagreen',
-  UKD73: 'darkslateblue',
-  UKD74: 'darkslategray',
-  UKE: 'darkslategrey',
-  UKE1: 'darkturquoise',
-  UKE11: 'darkviolet',
-  UKE12: 'deeppink',
-  UKE13: 'deepskyblue',
-  UKE2: 'dimgray',
-  UKE21: 'dimgrey',
-  UKE22: 'dodgerblue',
-  UKE3: 'firebrick',
-  UKE31: 'floralwhite',
-  UKE32: 'forestgreen',
-  UKE4: 'fuchsia',
-  UKE41: 'gainsboro',
-  UKE42: 'ghostwhite',
-  UKE44: 'gold',
-  UKE45: 'goldenrod',
-  UKF: 'gray',
-  UKF1: 'grey',
-  UKF11: 'green',
-  UKF12: 'greenyellow',
-  UKF13: 'honeydew',
-  UKF14: 'hotpink',
-  UKF15: 'indianred',
-  UKF16: 'indigo',
-  UKF2: 'ivory',
-  UKF21: 'khaki',
-  UKF22: 'lavender',
-  UKF24: 'lavenderblush',
-  UKF25: 'lawngreen',
-  UKF3: 'lemonchiffon',
-  UKF30: 'lightblue',
-  UKG: 'lightcoral',
-  UKG1: 'lightcyan',
-  UKG11: 'lightgoldenrodyellow',
-  UKG12: 'lightgray',
-  UKG13: 'lightgreen',
-  UKG2: 'lightgrey',
-  UKG21: 'lightpink',
-  UKG22: 'lightsalmon',
-  UKG23: 'lightseagreen',
-  UKG24: 'lightskyblue',
-  UKG3: 'lightslategray',
-  UKG31: 'lightslategrey',
-  UKG32: 'lightsteelblue',
-  UKG33: 'lightyellow',
-  UKG36: 'lime',
-  UKG37: 'limegreen',
-  UKG38: 'linen',
-  UKG39: 'magenta',
-  UKH: 'maroon',
-  UKH1: 'mediumaquamarine',
-  UKH11: 'mediumblue',
-  UKH12: 'mediumorchid',
-  UKH14: 'mediumpurple',
-  UKH15: 'mediumseagreen',
-  UKH16: 'mediumslateblue',
-  UKH17: 'mediumspringgreen',
-  UKH2: 'mediumturquoise',
-  UKH21: 'mediumvioletred',
-  UKH23: 'midnightblue',
-  UKH24: 'mintcream',
-  UKH25: 'mistyrose',
-  UKH3: 'moccasin',
-  UKH31: 'navajowhite',
-  UKH32: 'navy',
-  UKH34: 'oldlace',
-  UKH35: 'olive',
-  UKH36: 'olivedrab',
-  UKH37: 'orange',
-  UKI: 'orangered',
-  UKI3: 'orchid',
-  UKI31: 'palegoldenrod',
-  UKI32: 'palegreen',
-  UKI33: 'paleturquoise',
-  UKI34: 'palevioletred',
-  UKI4: 'papayawhip',
-  UKI41: 'peachpuff',
-  UKI42: 'peru',
-  UKI43: 'pink',
-  UKI44: 'plum',
-  UKI45: 'powderblue',
-  UKI5: 'purple',
-  UKI51: 'red',
-  UKI52: 'rosybrown',
-  UKI53: 'royalblue',
-  UKI54: 'saddlebrown',
-  UKI6: 'salmon',
-  UKI61: 'sandybrown',
-  UKI62: 'seagreen',
-  UKI63: 'seashell',
-  UKI7: 'sienna',
-  UKI71: 'silver',
-  UKI72: 'skyblue',
-  UKI73: 'slateblue',
-  UKI74: 'slategray',
-  UKI75: 'slategrey',
-  UKJ: 'snow',
-  UKJ1: 'springgreen',
-  UKJ11: 'steelblue',
-  UKJ12: 'tan',
-  UKJ13: 'teal',
-  UKJ14: 'thistle',
-  UKJ2: 'tomato',
-  UKJ21: 'turquoise',
-  UKJ22: 'violet',
-  UKJ25: 'wheat',
-  UKJ26: 'white',
-  UKJ27: 'whitesmoke',
-  UKJ28: 'yellow',
-  UKJ3: 'yellowgreen',
-  UKJ31: 'aliceblue',
-  UKJ32: 'antiquewhite',
-  UKJ34: 'aqua',
-  UKJ35: 'aquamarine',
-  UKJ36: 'azure',
-  UKJ37: 'beige',
-  UKJ4: 'bisque',
-  UKJ41: 'black',
-  UKJ43: 'blanchedalmond',
-  UKJ44: 'blue',
-  UKJ45: 'blueviolet',
-  UKJ46: 'brown',
-  UKK: 'burlywood',
-  UKK1: 'cadetblue',
-  UKK11: 'chartreuse',
-  UKK12: 'chocolate',
-  UKK13: 'coral',
-  UKK14: 'cornflowerblue',
-  UKK15: 'cornsilk',
-  UKK2: 'crimson',
-  UKK21: 'cyan',
-  UKK22: 'darkblue',
-  UKK23: 'darkcyan',
-  UKK3: 'darkgoldenrod',
-  UKK30: 'darkgray',
-  UKK4: 'darkgreen',
-  UKK41: 'darkgrey',
-  UKK42: 'darkkhaki',
-  UKK43: 'darkmagenta',
-  UKL: 'darkolivegreen',
-  UKL1: 'darkorange',
-  UKL11: 'darkorchid',
-  UKL12: 'darkred',
-  UKL13: 'darksalmon',
-  UKL14: 'darkseagreen',
-  UKL15: 'darkslateblue',
-  UKL16: 'darkslategray',
-  UKL17: 'darkslategrey',
-  UKL18: 'darkturquoise',
-  UKL2: 'darkviolet',
-  UKL21: 'deeppink',
-  UKL22: 'deepskyblue',
-  UKL23: 'dimgray',
-  UKL24: 'dimgrey',
-  UKM: 'dodgerblue',
-  UKM5: 'firebrick',
-  UKM50: 'floralwhite',
-  UKM6: 'forestgreen',
-  UKM61: 'fuchsia',
-  UKM62: 'gainsboro',
-  UKM63: 'ghostwhite',
-  UKM64: 'gold',
-  UKM65: 'goldenrod',
-  UKM66: 'gray',
-  UKM7: 'grey',
-  UKM71: 'green',
-  UKM72: 'greenyellow',
-  UKM73: 'honeydew',
-  UKM75: 'hotpink',
-  UKM76: 'indianred',
-  UKM77: 'indigo',
-  UKM78: 'ivory',
-  UKM8: 'khaki',
-  UKM81: 'lavender',
-  UKM82: 'lavenderblush',
-  UKM83: 'lawngreen',
-  UKM84: 'lemonchiffon',
-  UKM9: 'lightblue',
-  UKM91: 'lightcoral',
-  UKM92: 'lightcyan',
-  UKM93: 'lightgoldenrodyellow',
-  UKM94: 'lightgray',
-  UKM95: 'lightgreen',
-  UKN: 'lightgrey',
-  UKN0: 'lightpink',
-  UKN06: 'lightsalmon',
-  UKN07: 'lightseagreen',
-  UKN08: 'lightskyblue',
-  UKN09: 'lightslategray',
-  UKN10: 'lightslategrey',
-  UKN11: 'lightsteelblue',
-  UKN12: 'lightyellow',
-  UKN13: 'lime',
-  UKN14: 'limegreen',
-  UKN15: 'linen',
-  UKN16: 'magenta'
-};
-var keyToLabel = {
-  AL: 'Albania',
-  AD: 'Andorra',
-  AM: 'Armenia',
-  AT: 'Austria',
-  AZ: 'Azerbaijan',
-  BY: 'Belarus',
-  BE: 'Belgium',
-  BA: 'Bosnia and Herzegovina',
-  BG: 'Bulgaria',
-  HR: 'Croatia',
-  CY: 'Cyprus',
-  CZ: 'Czechia',
-  DK: 'Denmark',
-  EE: 'Estonia',
-  FI: 'Finland',
-  FR: 'France',
-  GE: 'Georgia',
-  DE: 'Germany',
-  GR: 'Greece',
-  HU: 'Hungary',
-  IS: 'Iceland',
-  IE: 'Ireland',
-  IT: 'Italy',
-  KZ: 'Kazakhstan',
-  LV: 'Latvia',
-  LI: 'Liechtenstein',
-  LT: 'Lithuania',
-  LU: 'Luxembourg',
-  MT: 'Malta',
-  MD: 'Moldova',
-  MC: 'Monaco',
-  ME: 'Montenegro',
-  NL: 'Netherlands',
-  MK: 'North Macedonia (formerly Macedonia)',
-  NO: 'Norway',
-  PL: 'Poland',
-  PT: 'Portugal',
-  RO: 'Romania',
-  RU: 'Russian Federation',
-  SM: 'San Marino',
-  RS: 'Serbia',
-  SK: 'Slovakia',
-  SI: 'Slovenia',
-  ES: 'Spain',
-  SE: 'Sweden',
-  CH: 'Switzerland',
-  TR: 'Turkey',
-  UA: 'Ukraine',
-  GB: 'United Kingdom (UK)'
-};
 
-var axisColor = 'red';
-var backgroundColor = 'antiquewhite';
-var barDefaultColor = 'orange';
-var barHeight = 12;
-var fontSize = 22;
-var textColor = 'green';
-var title = 'My title';
-var examples = [{
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive
-    },
-    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives
-    },
-    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed
-    },
-    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'In the most basic setup, you need to provide a `{items}` array of objects with the shape `{key: string, props: number}`.'
-  }, {
-    tag: 'p',
-    content: 'Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv',
-  title: 'Basic props'
-}, {
-  data: [{
-    key: null,
-    props: {
-      items: countryKeyValuePositive,
-      title: title
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\ttitle='".concat(title, "'\n\t\t\t\t/>\n\t\t\t")
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'Providing a `{title}` shows the barchart with an `h2` header.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-title',
-  title: 'Title'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      barHeight: barHeight,
-      items: countryKeyValuePositive,
-      theme: {
-        axisColor: axisColor,
-        backgroundColor: backgroundColor,
-        fontSize: fontSize,
-        hoverColor: 'palegreen',
-        textColor: textColor
-      },
-      title: 'Hover me!'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tbarHeight = ".concat(barHeight, "\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\taxisColor: '").concat(axisColor, "',\n\t\t\t\t\t\tbackgroundColor: '").concat(backgroundColor, "',\n\t\t\t\t\t\tfontSize: ").concat(fontSize, ",\n\t\t\t\t\t\thoverColor: 'palegreen',\n\t\t\t\t\t\ttextColor: '").concat(textColor, "',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'All negative values',
-    props: {
-      barHeight: barHeight,
-      items: countryKeyValueNegatives,
-      theme: {
-        axisColor: axisColor,
-        backgroundColor: backgroundColor,
-        fontSize: fontSize,
-        textColor: textColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tbarHeight = ".concat(barHeight, "\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\taxisColor: '").concat(axisColor, "',\n\t\t\t\t\t\tbackgroundColor: '").concat(backgroundColor, "',\n\t\t\t\t\t\tfontSize: ").concat(fontSize, ",\n\t\t\t\t\t\ttextColor: '").concat(textColor, "'\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'Mixed values',
-    props: {
-      barHeight: barHeight,
-      items: countryKeyValueMixed,
-      theme: {
-        axisColor: axisColor,
-        backgroundColor: backgroundColor,
-        fontSize: fontSize,
-        textColor: textColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tbarHeight = ".concat(barHeight, "\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\taxisColor: '").concat(axisColor, "',\n\t\t\t\t\t\tbackgroundColor: '").concat(backgroundColor, "',\n\t\t\t\t\t\tfontSize: ").concat(fontSize, ",\n\t\t\t\t\t\ttextColor: '").concat(textColor, "'\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t")
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can setup a `backgroundColor` and the `textColor`.'
-  }, {
-    tag: 'p',
-    content: '`barHeight` and `fontSize` contribute to determine the distance between bars.'
-  }, {
-    tag: 'p',
-    content: 'You can configure the axis color using the `axisColor` props (used in case there are values of both signs).'
-  }, {
-    tag: 'p',
-    content: 'You can choose the hovered bar background color by providing `hoverColor`.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-styles',
-  title: 'Styles'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive,
-      keyToColor: keyToColorWorldShort,
-      theme: {
-        barDefaultColor: barDefaultColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\ttheme={{barDefaultColor:'".concat(barDefaultColor, "'}}\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives,
-      keyToColor: keyToColorWorldShort,
-      theme: {
-        barDefaultColor: barDefaultColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\ttheme={{barDefaultColor:'".concat(barDefaultColor, "'}}\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed,
-      keyToColor: keyToColorWorldShort,
-      theme: {
-        barDefaultColor: barDefaultColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\ttheme={{barDefaultColor:'".concat(barDefaultColor, "'}}\n\t\t\t\t/>\n\t\t\t")
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can provide a `barDefaultColor` to be used for bars with no correspondent key in `keyToColor`.'
-  }, {
-    tag: 'p',
-    content: 'If not provided, `barDefaultColor` is `null`, which renders `black`.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-barDefaultColor',
-  title: 'Default bars color'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive,
-      keyToColor: keyToColorWorld
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives,
-      keyToColor: keyToColorWorld
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed,
-      keyToColor: keyToColorWorld
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color.'
-  }, {
-    tag: 'p',
-    content: 'Notice that the default color for keys not in `keyToColor` is set by `barDefaultColor` (black if not provided, see `AL` and `AD`).'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-keyToColor',
-  title: 'Bars color (via mapping)'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive,
-      keyToColorFn: keyToColorWorldFn
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives,
-      keyToColorFn: keyToColorWorldFn
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed,
-      keyToColorFn: keyToColorWorldFn
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'Instead of passing `keyToColor` you can pass a function `keyToColorFn`.'
-  }, {
-    tag: 'p',
-    content: 'Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence.'
-  }, {
-    tag: 'p',
-    content: 'Also note that if the value returned by `keyToColorFn` is falsy the fallback is `barDefaultColor` (which falls back to `black` if `barDefaultColor` is not provided).'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-keyToColorFn',
-  title: 'Bars color (via function)'
-}, {
-  data: [{
-    key: 'A focused key (no scroll)',
-    props: {
-      focusedKey: 'CY',
-      items: countryKeyValueMixed,
-      theme: {
-        focusedKeyColor: 'yellow'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='CY'\n\t\t\t\t\ttheme={{focusedKeyColor: 'yellow'}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Another focused key',
-    props: {
-      focusedKey: 'BG',
-      items: countryKeyValueMixed,
-      shouldScrollToFocusedKey: true,
-      theme: {
-        focusedKeyColor: 'yellow'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='CY'\n\t\t\t\t\tshouldScrollToFocusedKey={true}\n\t\t\t\t\ttheme={{focusedKeyColor: 'yellow'}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Another focused key',
-    props: {
-      focusedKey: 'PL',
-      items: countryKeyValueMixed,
-      shouldScrollToFocusedKey: true,
-      theme: {
-        focusedKeyColor: 'yellow'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='PL'\n\t\t\t\t\tshouldScrollToFocusedKey={true}\n\t\t\t\t\ttheme={{focusedKeyColor: 'yellow'}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No focused key (should not scroll)',
-    props: {
-      items: countryKeyValueMixed,
-      shouldScrollToFocusedKey: true,
-      theme: {
-        focusedKeyColor: 'yellow'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldScrollToFocusedKey={true}\n\t\t\t\t\ttheme={{focusedKeyColor: 'yellow'}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can set the focused bar by providing its key.'
-  }, {
-    tag: 'p',
-    content: 'This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection.'
-  }, {
-    tag: 'p',
-    content: 'You can set the focused bar background color by providing its `focusedKeyColor`.'
-  }, {
-    tag: 'p',
-    content: 'By passing `shouldScrollToFocusedKey` to `true` you can set chart to always scroll to the focused key, if any.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-focusedKey',
-  title: 'Focused key'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      keyToLabel: keyToLabel,
-      items: countryKeyValuePositive
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      keyToLabel: keyToLabel,
-      items: countryKeyValueNegatives
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      keyToLabel: keyToLabel,
-      items: countryKeyValueMixed
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'By providing a object mapping bar key -> bar label, you can control how the bar are labeled.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-keyToLabel',
-  title: 'Labels (via mapping)'
-}, {
-  data: [{
-    key: null,
-    props: {
-      items: countryKeyValuePositive,
-      keyToLabelFn: function keyToLabelFn(x) {
-        return "--".concat(x, "--");
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tkeyToLabelFn={x => '--' + x + '--'}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'By providing a function mapping bar key -> bar label, you can control how the bar are labeled programmatically.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-keyToLabelFn',
-  title: 'Labels (via function)'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      isInteractive: true,
-      items: countryKeyValuePositive,
-      title: 'Hover and click me'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      isInteractive: true,
-      items: countryKeyValueNegatives,
-      title: 'Hover and click me'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      isInteractive: true,
-      items: countryKeyValueMixed,
-      title: 'Hover and click me'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'If `true`, the component emits events when interacting with the bars.'
-  }, {
-    tag: 'p',
-    content: 'The payload is an object `{id: key}` (`key` being the key of the bar we interacted with)'
-  }, {
-    tag: 'p',
-    content: "• Clicking on a bar dispatches a `clicked` event: `dispatch('clicked', {id: key})`."
-  }, {
-    tag: 'p',
-    content: "• Mouse-entering a bar dispatches a `entered` event: `dispatch('entered', {id: key})`."
-  }, {
-    tag: 'p',
-    content: "• Mouse-exiting a bar dispatches a `exited` event: `dispatch('exited', {id: key})`."
-  }, {
-    tag: 'p',
-    content: 'Please hover and click the bars of this barchart to read the correspondent event payload below.'
-  }],
-  events: ['entered', 'exited', 'clicked'],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-interactivity',
-  title: 'Interactivity'
-}, {
-  data: [{
-    key: null,
-    props: {
-      items: countryKeyRawValue,
-      valueAccessor: function valueAccessor(item) {
-        return Number(Math.sqrt(item.rawValue).toFixed(3));
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tvalueAccessor={item => Number((item.rawValue / 25.3).toFixed(3))}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'By default we assume that `items` has the shape `{key, value}`.'
-  }, {
-    tag: 'p',
-    content: 'By providing a `valueAccessor` function we can derive the bar value from `items` with different shapes.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-valueAccessor',
-  title: 'Values accessor'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive,
-      formatFn: function formatFn(x) {
-        return "".concat(x, "%");
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives,
-      formatFn: function formatFn(x) {
-        return "".concat(x, "%");
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed,
-      formatFn: function formatFn(x) {
-        return "".concat(x, "%");
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can provide a `formatFn` function to turn the `value` in the desired string.'
-  }, {
-    tag: 'p',
-    content: 'A way to use this would be to pass a function derived from `d3-format`.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-formatFn',
-  title: 'Values format'
-}, {
-  data: [{
-    key: 'countryKeyValuePositive',
-    props: {
-      shouldResetScroll: false,
-      items: countryKeyValuePositive,
-      title: "When updated, scroll doesn't reset"
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={false}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'countryKeyValueAlt',
-    props: {
-      shouldResetScroll: false,
-      items: countryKeyValueAlt,
-      title: "When updated, scroll doesn't reset"
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={false}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'If `shouldResetScroll` is not provided or set to `false`, updating the props will not reset the scroll.'
-  }, {
-    tag: 'p',
-    content: 'In this example, scrolling the barchart and then switching props using the buttons below should not reset the scroll.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-no-shouldResetScroll',
-  title: 'Scroll reset (disabled)'
-}, {
-  data: [{
-    key: 'countryKeyValuePositive',
-    props: {
-      shouldResetScroll: true,
-      items: countryKeyValuePositive,
-      title: "When updated, scroll resets"
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={true}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'countryKeyValueAlt',
-    props: {
-      shouldResetScroll: true,
-      items: countryKeyValueAlt,
-      title: "When updated, scroll resets"
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={true}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'If `shouldResetScroll` is set to `true`, updating the `items` prop will reset the scroll.'
-  }, {
-    tag: 'p',
-    content: 'In this example, scrolling the barchart and then updating props using the buttons below should reset the scroll.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-shouldResetScroll',
-  title: 'Scroll reset (enabled)'
-}].map(transformValues({
-  doc: mapWith(transformValues({
-    content: function content(s) {
-      return s.trim();
-    }
-  })),
-  data: mapWith(transformValues({
-    usage: formatSvelteMarkup
-  }))
-}));
+const axisColor = 'red';
+const backgroundColor = 'antiquewhite';
+const barDefaultColor = 'orange';
+const barHeight = 12;
+const fontSize = 22;
+const textColor = 'green';
+const title = 'My title';
+
+var barchart = formatExamples([
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'Mixed values',
+			props: {
+				items: countryKeyValueMixed,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'In the most basic setup, you need to provide a `{items}` array of objects with the shape `{key: string, props: number}`.'},
+			{tag: 'p', content: 'Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv',
+		title: 'Basic props',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				items: countryKeyValuePositive,
+				title
+			},
+			usage: `
+				<BarchartV
+					{items}
+					title='${title}'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'Providing a `{title}` shows the barchart with an `h2` header.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-title',
+		title: 'Title',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				barHeight,
+				items: countryKeyValuePositive,
+				theme: {
+					axisColor,
+					backgroundColor,
+					fontSize,
+					hoverColor: 'palegreen',
+					textColor,
+				},
+				title: 'Hover me!',
+			},
+			usage: `
+				<BarchartV
+					{items}
+					barHeight = ${barHeight}
+					theme={{
+						axisColor: '${axisColor}',
+						backgroundColor: '${backgroundColor}',
+						fontSize: ${fontSize},
+						hoverColor: 'palegreen',
+						textColor: '${textColor}',
+					}}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				barHeight,
+				items: countryKeyValueNegatives,
+				theme: {
+					axisColor,
+					backgroundColor,
+					fontSize,
+					textColor,
+				},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					barHeight = ${barHeight}
+					theme={{
+						axisColor: '${axisColor}',
+						backgroundColor: '${backgroundColor}',
+						fontSize: ${fontSize},
+						textColor: '${textColor}'
+					}}
+				/>
+			`,
+		}, {
+			key: 'Mixed values',
+			props: {
+				barHeight,
+				items: countryKeyValueMixed,
+				theme: {
+					axisColor,
+					backgroundColor,
+					fontSize,
+					textColor,
+				},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					barHeight = ${barHeight}
+					theme={{
+						axisColor: '${axisColor}',
+						backgroundColor: '${backgroundColor}',
+						fontSize: ${fontSize},
+						textColor: '${textColor}'
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can setup a `backgroundColor` and the `textColor`.'},
+			{tag: 'p', content: '`barHeight` and `fontSize` contribute to determine the distance between bars.'},
+			{tag: 'p', content: 'You can configure the axis color using the `axisColor` props (used in case there are values of both signs).'},
+			{tag: 'p', content: 'You can choose the hovered bar background color by providing `hoverColor`.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-styles',
+		title: 'Styles',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorWorldShort,
+				theme: {barDefaultColor},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				keyToColor: keyToColorWorldShort,
+				theme: {barDefaultColor},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
+				/>
+			`,
+		}, {
+			key: 'Mixed values',
+			props: {
+				items: countryKeyValueMixed,
+				keyToColor: keyToColorWorldShort,
+				theme: {barDefaultColor},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can provide a `barDefaultColor` to be used for bars with no correspondent key in `keyToColor`.'},
+			{tag: 'p', content: 'If not provided, `barDefaultColor` is `null`, which renders `black`.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-barDefaultColor',
+		title: 'Default bars color',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorWorld
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				keyToColor: keyToColorWorld
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+				/>
+			`,
+		}, {
+			key: 'Mixed values',
+			props: {
+				items: countryKeyValueMixed,
+				keyToColor: keyToColorWorld
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color.'},
+			{tag: 'p', content: 'Notice that the default color for keys not in `keyToColor` is set by `barDefaultColor` (black if not provided, see `AL` and `AD`).'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-keyToColor',
+		title: 'Bars color (via mapping)',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColorFn: keyToColorWorldFn
+			},
+			usage: `
+				<BarchartV
+					{keyToColorFn}
+					{items}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				keyToColorFn: keyToColorWorldFn
+			},
+			usage: `
+				<BarchartV
+					{keyToColorFn}
+					{items}
+				/>
+			`,
+		}, {
+			key: 'Mixed values',
+			props: {
+				items: countryKeyValueMixed,
+				keyToColorFn: keyToColorWorldFn
+			},
+			usage: `
+				<BarchartV
+					{keyToColorFn}
+					{items}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'Instead of passing `keyToColor` you can pass a function `keyToColorFn`.'},
+			{tag: 'p', content: 'Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence.'},
+			{tag: 'p', content: 'Also note that if the value returned by `keyToColorFn` is falsy the fallback is `barDefaultColor` (which falls back to `black` if `barDefaultColor` is not provided).'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-keyToColorFn',
+		title: 'Bars color (via function)',
+	},
+	{
+		data: [{
+			key: 'A focused key (no scroll)',
+			props: {
+				focusedKey: 'CY',
+				items: countryKeyValueMixed,
+				theme: {focusedKeyColor: 'yellow'},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					focusedKey='CY'
+					theme={{focusedKeyColor: 'yellow'}}
+				/>
+			`,
+		}, {
+			key: 'Another focused key',
+			props: {
+				focusedKey: 'BG',
+				items: countryKeyValueMixed,
+				shouldScrollToFocusedKey: true,
+				theme: {focusedKeyColor: 'yellow'},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					focusedKey='CY'
+					shouldScrollToFocusedKey={true}
+					theme={{focusedKeyColor: 'yellow'}}
+				/>
+			`,
+		}, {
+			key: 'Another focused key',
+			props: {
+				focusedKey: 'PL',
+				items: countryKeyValueMixed,
+				shouldScrollToFocusedKey: true,
+				theme: {focusedKeyColor: 'yellow'},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					focusedKey='PL'
+					shouldScrollToFocusedKey={true}
+					theme={{focusedKeyColor: 'yellow'}}
+				/>
+			`,
+		}, {
+			key: 'No focused key (should not scroll)',
+			props: {
+				items: countryKeyValueMixed,
+				shouldScrollToFocusedKey: true,
+				theme: {focusedKeyColor: 'yellow'},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldScrollToFocusedKey={true}
+					theme={{focusedKeyColor: 'yellow'}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can set the focused bar by providing its key.'},
+			{tag: 'p', content: 'This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection.'},
+			{tag: 'p', content: 'You can set the focused bar background color by providing its `focusedKeyColor`.'},
+			{tag: 'p', content: 'By passing `shouldScrollToFocusedKey` to `true` you can set chart to always scroll to the focused key, if any.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-focusedKey',
+		title: 'Focused key',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				keyToLabel,
+				items: countryKeyValuePositive,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToLabel}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				keyToLabel,
+				items: countryKeyValueNegatives,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToLabel}
+				/>
+			`,
+		}, {
+			key: 'Mixed values',
+			props: {
+				keyToLabel,
+				items: countryKeyValueMixed,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToLabel}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'By providing a object mapping bar key -> bar label, you can control how the bar are labeled.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-keyToLabel',
+		title: 'Labels (via mapping)',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				items: countryKeyValuePositive,
+				keyToLabelFn: x => `--${x}--`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					keyToLabelFn={x => '--' + x + '--'}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'By providing a function mapping bar key -> bar label, you can control how the bar are labeled programmatically.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-keyToLabelFn',
+		title: 'Labels (via function)',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				isInteractive: true,
+				items: countryKeyValuePositive,
+				title: 'Hover and click me',
+			},
+			usage: `
+				<BarchartV
+					{items}
+					isInteractive={true}
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				isInteractive: true,
+				items: countryKeyValueNegatives,
+				title: 'Hover and click me',
+			},
+			usage: `
+				<BarchartV
+					{items}
+					isInteractive={true}
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+				/>
+			`,
+		}, {
+			key: 'Mixed values',
+			props: {
+				isInteractive: true,
+				items: countryKeyValueMixed,
+				title: 'Hover and click me',
+			},
+			usage: `
+				<BarchartV
+					{items}
+					isInteractive={true}
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'If `true`, the component emits events when interacting with the bars.'},
+			{tag: 'p', content: 'The payload is an object `{id: key}` (`key` being the key of the bar we interacted with)'},
+			{tag: 'p', content: "• Clicking on a bar dispatches a `clicked` event: `dispatch('clicked', {id: key})`."},
+			{tag: 'p', content: "• Mouse-entering a bar dispatches a `entered` event: `dispatch('entered', {id: key})`."},
+			{tag: 'p', content: "• Mouse-exiting a bar dispatches a `exited` event: `dispatch('exited', {id: key})`."},
+			{tag: 'p', content: 'Please hover and click the bars of this barchart to read the correspondent event payload below.'},
+		],
+		events: [
+			'entered',
+			'exited',
+			'clicked',
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-interactivity',
+		title: 'Interactivity',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				items: countryKeyRawValue,
+				valueAccessor: item => Number(Math.sqrt(item.rawValue).toFixed(3)),
+			},
+			usage: `
+				<BarchartV
+					{items}
+					valueAccessor={item => Number((item.rawValue / 25.3).toFixed(3))}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'By default we assume that `items` has the shape `{key, value}`.'},
+			{tag: 'p', content: 'By providing a `valueAccessor` function we can derive the bar value from `items` with different shapes.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-valueAccessor',
+		title: 'Values accessor',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				formatFn: x => `${x}%`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					formatFn={x => x + '%'}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				formatFn: x => `${x}%`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					formatFn={x => x + '%'}
+				/>
+			`,
+		}, {
+			key: 'Mixed values',
+			props: {
+				items: countryKeyValueMixed,
+				formatFn: x => `${x}%`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					formatFn={x => x + '%'}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can provide a `formatFn` function to turn the `value` in the desired string.'},
+			{tag: 'p', content: 'A way to use this would be to pass a function derived from `d3-format`.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-formatFn',
+		title: 'Values format',
+	},
+	{
+		data: [{
+			key: 'countryKeyValuePositive',
+			props: {
+				shouldResetScroll: false,
+				items: countryKeyValuePositive,
+				title: `When updated, scroll doesn't reset`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldResetScroll={false}
+				/>
+			`,
+		}, {
+			key: 'countryKeyValueAlt',
+			props: {
+				shouldResetScroll: false,
+				items: countryKeyValueAlt,
+				title: `When updated, scroll doesn't reset`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldResetScroll={false}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'If `shouldResetScroll` is not provided or set to `false`, updating the props will not reset the scroll.'},
+			{tag: 'p', content: 'In this example, scrolling the barchart and then switching props using the buttons below should not reset the scroll.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-no-shouldResetScroll',
+		title: 'Scroll reset (disabled)',
+	},
+	{
+		data: [{
+			key: 'countryKeyValuePositive',
+			props: {
+				shouldResetScroll: true,
+				items: countryKeyValuePositive,
+				title: `When updated, scroll resets`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldResetScroll={true}
+				/>
+			`,
+		}, {
+			key: 'countryKeyValueAlt',
+			props: {
+				shouldResetScroll: true,
+				items: countryKeyValueAlt,
+				title: `When updated, scroll resets`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldResetScroll={true}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'If `shouldResetScroll` is set to `true`, updating the `items` prop will reset the scroll.'},
+			{tag: 'p', content: 'In this example, scrolling the barchart and then updating props using the buttons below should reset the scroll.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-shouldResetScroll',
+		title: 'Scroll reset (enabled)',
+	},
+]);
 
 var type$1 = "Topology";
 var objects = {
@@ -157093,605 +156492,64297 @@ var NUTS_RG_03M_2016_4326_LEVL_3_UK = {
 	arcs: arcs$4
 };
 
-var examples$1 = [{
-  data: [{
-    key: 'World_110m_iso_a2_topo',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
-    props: {
-      key: 'NUTS_ID',
-      topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
-    props: {
-      topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
-    props: {
-      topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-    props: {
-      topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "In the most basic setup, you need to provide:"
-  }, {
-    tag: 'p',
-    content: "• `height`, `width`;"
-  }, {
-    tag: 'p',
-    content: "• `topojson`, the Topojson of regions to be represented, with `properties` having the a field corresponding to the prop `key`."
-  }, {
-    tag: 'p',
-    content: "• `topojsonId`, the key to us to select items in the `objects` field inthe topojson; e.g. `NUTS` or `countries`."
-  }, {
-    tag: 'p',
-    content: "The default projection (`geoEquirectangular`) will be applied."
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG',
-  title: 'Basic props'
-}, {
-  data: [{
-    key: null,
-    props: {
-      theme: {
-        backgroundColor: '#f1feff',
-        defaultFill: 'black',
-        defaultStroke: 'magenta',
-        defaultStrokeWidth: 1
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbackgroundColor: '#f1feff',\n\t\t\t\t\t\tdefaultFill: 'black',\n\t\t\t\t\t\tdefaultStroke: 'magenta',\n\t\t\t\t\t\tdefaultStrokeWidth: 1,\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "You can customise the map colors and stroke size."
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-styles',
-  title: 'Styles'
-}, {
-  data: [{
-    key: 'World_110m_iso_a2_topo',
-    props: {
-      key: 'iso_a2',
-      keyToColor: keyToColorWorld,
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tkeyToColor={keyToColorWorld}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
-    props: {
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
-    props: {
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
-    props: {
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-    props: {
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "You can color features by passing:"
-  }, {
-    tag: 'p',
-    content: "• `keyToColor`, a object mapping region `key|key_alt` to color (see below);"
-  }, {
-    tag: 'p',
-    content: "• `key`, the key to be used in the features `properties` field as the region identifier, e.g. `iso_a2`;"
-  }, {
-    tag: 'p',
-    content: "• Note that you might provide a topojson where not all the objects have the provided `key`."
-  }, {
-    tag: 'p',
-    content: "  For example if you provide `key: 'iso_a2'` (ISO Alpha 2 codes), disputed or partially recognised countries might not have that code (e.g. `Kosovo`)."
-  }, {
-    tag: 'p',
-    content: "  For these cases you can provide a `key_alt`, equal to `name` by default."
-  }, {
-    tag: 'p',
-    content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."
-  }, {
-    tag: 'p',
-    content: "Also note that if the value returned by `keyToColor` is falsy the fallback is `defaultFill` (which defaults to `white`)."
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-keyToColor',
-  title: 'Colors via map'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."
-  }, {
-    tag: 'p',
-    content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"
-  }, {
-    tag: 'p',
-    content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."
-  }, {
-    tag: 'p',
-    content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `defaultFill` (which defaults to `white`)."
-  }],
-  data: [{
-    key: null,
-    props: {
-      key: 'iso_a2',
-      keyToColorFn: keyToColorWorldFn,
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-keyToColorFn',
-  title: 'Colors via function'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."
-  }, {
-    tag: 'p',
-    content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"
-  }],
-  data: [{
-    key: 'none selected',
-    props: {
-      key: 'iso_a2',
-      theme: {
-        defaultFill: 'palegreen',
-        defaultStroke: 'red',
-        deselectedOpacity: 0.5,
-        selectedStroke: 'palegoldenrod',
-        selectedStrokeWidth: 4
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tdefaultFill: 'palegreen',\n\t\t\t\t\t\tdefaultStroke: 'red',\n\t\t\t\t\t\tdeselectedOpacity: 0.5,\n\t\t\t\t\t\tselectedStroke: 'palegoldenrod',\n\t\t\t\t\t\tselectedStrokeWidth: 4\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some countries selected',
-    props: {
-      key: 'iso_a2',
-      selectedKeys: ['TD', 'US', 'AU', 'CN'],
-      theme: {
-        defaultFill: 'palegreen',
-        defaultStroke: 'red',
-        deselectedOpacity: 0.25,
-        selectedStroke: '#00c5fa',
-        selectedStrokeWidth: 4
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tselectedKeys=['TD', 'US', 'AU', 'CN']\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tdefaultFill: 'palegreen',\n\t\t\t\t\t\tdefaultStroke: 'red',\n\t\t\t\t\t\tdeselectedOpacity: 0.25,\n\t\t\t\t\t\tselectedStroke: '#00c5fa',\n\t\t\t\t\t\tselectedStrokeWidth: 4,\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-selectedKeys',
-  title: 'Selected regions'
-}, {
-  data: [{
-    key: 'default hover style',
-    props: {
-      isInteractive: true,
-      key: 'iso_a2',
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'custom hover style',
-    props: {
-      isInteractive: true,
-      key: 'iso_a2',
-      theme: {
-        hoverFill: 'yellow',
-        hoverStroke: 'orange',
-        hoverStrokeWidth: 2,
-        hoverStrokedasharray: '2 2'
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\thoverFill: 'yellow',\n\t\t\t\t\t\thoverStroke: 'orange',\n\t\t\t\t\t\thoverStrokeWidth: 3,\n\t\t\t\t\t\thoverStrokedasharray: '4 4',\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "To use interactivity, you need to provide:"
-  }, {
-    tag: 'p',
-    content: "• `isInteractive` set to true;"
-  }, {
-    tag: 'p',
-    content: "• `key` or `key_alt` (see basic props for an examplation of these)"
-  }, {
-    tag: 'p',
-    content: "The component then emits events when interacting with the regions."
-  }, {
-    tag: 'p',
-    content: "The payload is the `key` or `key_alt` of the region being interacted with:"
-  }, {
-    tag: 'p',
-    content: "• Clicking a region dispatches a `clicked` event;"
-  }, {
-    tag: 'p',
-    content: "• Mouse-entering a region dispatches a `entered` event;"
-  }, {
-    tag: 'p',
-    content: "• Mouse-exiting a region dispatches a `exited` event."
-  }, {
-    tag: 'p',
-    content: "You can style the hovered region by passing:"
-  }, {
-    tag: 'p',
-    content: "• `hoverFill` (default: `#f6f6f6`),"
-  }, {
-    tag: 'p',
-    content: "• `hoverStroke` (default: `black`),"
-  }, {
-    tag: 'p',
-    content: "• `hoverStrokeWidth` (default: 1.5),"
-  }, {
-    tag: 'p',
-    content: "• `hoverStrokedasharray` (default: '')."
-  }, {
-    tag: 'p',
-    content: "Please hover and click regions of this chart to read the correspondent event payload below."
-  }],
-  events: ['clicked', 'entered', 'exited'],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-interactivity',
-  title: 'Interactivity'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "The default projection is `geoEquirectangular`."
-  }, {
-    tag: 'p',
-    content: "You can use most of the projections provided by `d3-geo`:"
-  }, {
-    tag: 'p',
-    content: "Azimuthal Projections:"
-  }, {
-    tag: 'p',
-    content: "• `geoAzimuthalEqualArea`"
-  }, {
-    tag: 'p',
-    content: "• `geoAzimuthalEquidistant`"
-  }, {
-    tag: 'p',
-    content: "• `geoGnomonic`"
-  }, {
-    tag: 'p',
-    content: "• `geoOrthographic`"
-  }, {
-    tag: 'p',
-    content: "• `geoStereographic`"
-  }, {
-    tag: 'p',
-    content: "Equal-Earth Projections: `geoEqualEarth`"
-  }, {
-    tag: 'p',
-    content: "Conic Projections:"
-  }, {
-    tag: 'p',
-    content: "• `geoConicConformal`"
-  }, {
-    tag: 'p',
-    content: "• `geoConicEqualArea`"
-  }, {
-    tag: 'p',
-    content: "• `geoConicEquidistant`"
-  }, {
-    tag: 'p',
-    content: "Cylindrical Projections"
-  }, {
-    tag: 'p',
-    content: "• `geoEquirectangular`"
-  }, {
-    tag: 'p',
-    content: "• `geoMercator`"
-  }, {
-    tag: 'p',
-    content: "• `geoTransverseMercator`"
-  }, {
-    tag: 'p',
-    content: "• `geoNaturalEarth1`"
-  }],
-  data: [{
-    key: 'geoAzimuthalEqualArea',
-    props: {
-      key: 'iso_a2',
-      projection: 'geoAzimuthalEqualArea',
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoAzimuthalEqualArea'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoAzimuthalEquidistant',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoAzimuthalEquidistant'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoAzimuthalEquidistant'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoGnomonic',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoGnomonic'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoGnomonic'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoOrthographic',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoOrthographic'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoOrthographic'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoStereographic',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoStereographic'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoStereographic'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoEqualEarth',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoEqualEarth'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoEqualEarth'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoConicConformal',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoConicConformal'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoConicConformal'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoConicEqualArea',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoConicEqualArea'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoConicEqualArea'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoConicEquidistant',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoConicEquidistant'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoConicEquidistant'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoEquirectangular',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoEquirectangular'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoEquirectangular'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoMercator',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoMercator'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoMercator'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoTransverseMercator',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoTransverseMercator'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoTransverseMercator'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'geoNaturalEarth1',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projection: 'geoNaturalEarth1'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojection='geoNaturalEarth1'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-projection',
-  title: 'Projection'
-}, {
-  data: [{
-    key: 'default geometry',
-    props: {
-      key: 'iso_a2',
-      theme: {
-        backgroundColor: '#eee'
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttheme={{backgroundColor: '#eee'}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'no safety',
-    props: {
-      geometry: {
-        bottom: 0,
-        left: 0,
-        right: 0,
-        top: 0
-      },
-      key: 'iso_a2',
-      theme: {
-        backgroundColor: '#eee'
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tbottom: 0,\n\t\t\t\t\t\tleft: 0,\n\t\t\t\t\t\tright: 0,\n\t\t\t\t\t\ttop: 0,\n\t\t\t\t\t}}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttheme={{backgroundColor: '#eee'}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'custom geometry',
-    props: {
-      geometry: {
-        bottom: 10,
-        left: 90,
-        right: 30,
-        top: 20
-      },
-      key: 'iso_a2',
-      theme: {
-        backgroundColor: '#eee'
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tbottom: 10,\n\t\t\t\t\t\tleft: 90,\n\t\t\t\t\t\tright: 30,\n\t\t\t\t\t\ttop: 20,\n\t\t\t\t\t}}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttheme={{backgroundColor: '#eee'}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can adjust the safety area using `geometry`.'
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-geometry',
-  title: 'Geometry'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "If you need to render the choropleth as an html element, you can use `ChoroplethDiv` providing the same props but `width` and `height`."
-  }, {
-    tag: 'p',
-    content: "This will render the choropleth in a `div`."
-  }, {
-    tag: 'p',
-    content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"
-  }],
-  data: [{
-    key: 'World_110m_iso_a2_topo',
-    props: {
-      key: 'iso_a2',
-      keyToColor: keyToColorWorld,
-      padding: '3em',
-      theme: {
-        backgroundColor: '#eee'
-      },
-      title: 'Some world countries',
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tkeyToColor={keyToColorWorld}\n\t\t\t\t\tpadding='3em'\n\t\t\t\t\ttheme={{backgroundColor: '#eee'}}\n\t\t\t\t\ttitle='Some world countries\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-    props: {
-      backgroundColor: '#eee',
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      padding: '0.5em',
-      theme: {
-        backgroundColor: '#f1feff'
-      },
-      title: 'UK NUTS3 (2016)',
-      topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\tbackgroundColor='#eee'\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\tpadding='0.5em'\n\t\t\t\t\ttheme={{backgroundColor: '#f1feff'}}\n\t\t\t\t\ttitle='UK NUTS3 (2016)'\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethDiv',
-  packageName: 'choropleth',
-  slug: 'ChoroplethDiv',
-  title: 'ChoroplethDiv'
-}].map(transformValues({
-  doc: mapWith(transformValues({
-    content: function content(s) {
-      return s.trim();
-    }
-  })),
-  data: mapWith(transformValues({
-    usage: formatSvelteMarkup
-  }))
-}));
+var type$6 = "Topology";
+var transform$5 = {
+	scale: [
+		0.00001,
+		0.00001
+	],
+	translate: [
+		-63.15176,
+		-21.38696
+	]
+};
+var objects$5 = {
+	NUTS: {
+		type: "GeometryCollection",
+		geometries: [
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					],
+					[
+						11
+					]
+				],
+				id: "DEB3K",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3K",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Südwestpfalz",
+					FID: "DEB3K"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						12,
+						13,
+						14,
+						15
+					]
+				],
+				id: "DEC01",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEC01",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Regionalverband Saarbrücken",
+					FID: "DEC01"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						16,
+						17,
+						18,
+						19,
+						20
+					]
+				],
+				id: "DEC02",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEC02",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Merzig-Wadern",
+					FID: "DEC02"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						21,
+						22,
+						23,
+						24,
+						-13
+					]
+				],
+				id: "DEC03",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEC03",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neunkirchen",
+					FID: "DEC03"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						25,
+						-19,
+						26,
+						-22,
+						-16
+					]
+				],
+				id: "DEC04",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEC04",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Saarlouis",
+					FID: "DEC04"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							45,
+							46,
+							47,
+							48,
+							49
+						]
+					],
+					[
+						[
+							50,
+							51
+						]
+					],
+					[
+						[
+							52
+						]
+					]
+				],
+				id: "DE115",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE115",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ludwigsburg",
+					FID: "DE115"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-49,
+						53,
+						-51,
+						54,
+						55,
+						56,
+						57,
+						58,
+						59
+					],
+					[
+						-53
+					]
+				],
+				id: "DE116",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE116",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rems-Murr-Kreis",
+					FID: "DE116"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						60
+					]
+				],
+				id: "DE117",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE117",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Heilbronn, Stadtkreis",
+					FID: "DE117"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						61,
+						62,
+						63,
+						-55,
+						-52,
+						-54,
+						-48,
+						64,
+						65,
+						66
+					],
+					[
+						-61
+					]
+				],
+				id: "DE118",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE118",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Heilbronn, Landkreis",
+					FID: "DE118"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						67,
+						68,
+						69,
+						70,
+						71
+					]
+				],
+				id: "DEG06",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG06",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Eichsfeld",
+					FID: "DEG06"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-70,
+						72,
+						73,
+						74,
+						75,
+						76
+					]
+				],
+				id: "DEG07",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG07",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Nordhausen",
+					FID: "DEG07"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						77,
+						78,
+						79,
+						80,
+						-72,
+						81
+					]
+				],
+				id: "DEG09",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG09",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Unstrut-Hainich-Kreis",
+					FID: "DEG09"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-71,
+						-77,
+						82,
+						83,
+						84,
+						85,
+						86,
+						87,
+						-82
+					]
+				],
+				id: "DEG0A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kyffhäuserkreis",
+					FID: "DEG0A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						88,
+						89,
+						90,
+						91,
+						92,
+						93,
+						94
+					]
+				],
+				id: "DEG0B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schmalkalden-Meiningen",
+					FID: "DEG0B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-94,
+						95,
+						-79,
+						96,
+						97,
+						98
+					]
+				],
+				id: "DEG0C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Gotha",
+					FID: "DEG0C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-97,
+						-78,
+						-88,
+						99,
+						100,
+						101
+					]
+				],
+				id: "DEG0D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Sömmerda",
+					FID: "DEG0D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-90,
+						102,
+						103,
+						104,
+						105,
+						106,
+						107,
+						108
+					]
+				],
+				id: "DEG0E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hildburghausen",
+					FID: "DEG0E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-99,
+						109,
+						110,
+						111,
+						-104,
+						112,
+						-95
+					]
+				],
+				id: "DEG0F",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0F",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ilm-Kreis",
+					FID: "DEG0F"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						113,
+						114,
+						-111,
+						115,
+						-101,
+						116,
+						117,
+						118
+					],
+					[
+						119
+					]
+				],
+				id: "DEG0G",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0G",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Weimarer Land",
+					FID: "DEG0G"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						120,
+						121,
+						-106,
+						122
+					]
+				],
+				id: "DEG0H",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0H",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Sonneberg",
+					FID: "DEG0H"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						123,
+						-123,
+						-105,
+						-112,
+						-115,
+						124,
+						125
+					]
+				],
+				id: "DEG0I",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0I",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Saalfeld-Rudolstadt",
+					FID: "DEG0I"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-25,
+						126,
+						127,
+						-9,
+						128,
+						-7,
+						129,
+						-14
+					]
+				],
+				id: "DEC05",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEC05",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Saarpfalz-Kreis",
+					FID: "DEC05"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						130,
+						131,
+						-23,
+						-27,
+						-18,
+						132
+					]
+				],
+				id: "DEC06",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEC06",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "St. Wendel",
+					FID: "DEC06"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						133,
+						134,
+						135
+					]
+				],
+				id: "DED21",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED21",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Dresden, Kreisfreie Stadt",
+					FID: "DED21"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						136,
+						137,
+						138,
+						139,
+						140,
+						141,
+						-135
+					]
+				],
+				id: "DED2C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED2C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bautzen",
+					FID: "DED2C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						142,
+						143,
+						144,
+						-140,
+						145,
+						146
+					]
+				],
+				id: "DED2D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED2D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Görlitz",
+					FID: "DED2D"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-137,
+							-134,
+							147,
+							148,
+							149,
+							150,
+							151
+						]
+					],
+					[
+						[
+							152
+						]
+					]
+				],
+				id: "DED2E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED2E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Meißen",
+					FID: "DED2E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-142,
+						153,
+						154,
+						-148,
+						-136
+					]
+				],
+				id: "DED2F",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED2F",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Sächsische Schweiz-Osterzgebirge",
+					FID: "DED2F"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						155,
+						156,
+						157
+					]
+				],
+				id: "DED41",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED41",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Chemnitz, Kreisfreie Stadt",
+					FID: "DED41"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						158,
+						-158,
+						159,
+						160,
+						161,
+						162
+					]
+				],
+				id: "DED42",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED42",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Erzgebirgskreis",
+					FID: "DED42"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-36,
+							163,
+							164,
+							165,
+							166,
+							-44,
+							-39,
+							-43
+						]
+					],
+					[
+						[
+							-37,
+							-42,
+							-34
+						]
+					]
+				],
+				id: "DE138",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE138",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Konstanz",
+					FID: "DE138"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-29,
+						-28,
+						167,
+						168,
+						169,
+						-30
+					]
+				],
+				id: "DE139",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE139",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Lörrach",
+					FID: "DE139"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-40,
+						-32,
+						-31,
+						-170,
+						170,
+						171,
+						-38,
+						-33
+					]
+				],
+				id: "DE13A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE13A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Waldshut",
+					FID: "DE13A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						172,
+						173,
+						174,
+						175,
+						176,
+						177,
+						178,
+						179
+					]
+				],
+				id: "DE141",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE141",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Reutlingen",
+					FID: "DE141"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						180,
+						181,
+						182,
+						-178,
+						183
+					]
+				],
+				id: "DE142",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE142",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Tübingen, Landkreis",
+					FID: "DE142"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-177,
+						184,
+						185,
+						186,
+						187,
+						-184
+					]
+				],
+				id: "DE143",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE143",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Zollernalbkreis",
+					FID: "DE143"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						188,
+						189
+					]
+				],
+				id: "DE144",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE144",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ulm, Stadtkreis",
+					FID: "DE144"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						190,
+						191,
+						192,
+						193,
+						-189,
+						194,
+						195,
+						-174,
+						196,
+						197
+					]
+				],
+				id: "DE145",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE145",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Alb-Donau-Kreis",
+					FID: "DE145"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						198,
+						199,
+						200,
+						-175,
+						-196,
+						201,
+						202,
+						203,
+						204
+					]
+				],
+				id: "DE146",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE146",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Biberach",
+					FID: "DE146"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						205,
+						206,
+						-41,
+						-45,
+						-167,
+						207
+					]
+				],
+				id: "DE147",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE147",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bodenseekreis",
+					FID: "DE147"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						208,
+						-206,
+						209,
+						-200,
+						210,
+						211,
+						212
+					]
+				],
+				id: "DE148",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE148",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ravensburg",
+					FID: "DE148"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-185,
+						-176,
+						-201,
+						-210,
+						-208,
+						-166,
+						213
+					]
+				],
+				id: "DE149",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE149",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Sigmaringen",
+					FID: "DE149"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						214,
+						215,
+						216
+					]
+				],
+				id: "DE211",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE211",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ingolstadt, Kreisfreie Stadt",
+					FID: "DE211"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						217,
+						218,
+						219
+					]
+				],
+				id: "DE212",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE212",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "München, Kreisfreie Stadt",
+					FID: "DE212"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						220
+					]
+				],
+				id: "DE213",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE213",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rosenheim, Kreisfreie Stadt",
+					FID: "DE213"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						221,
+						222,
+						-63,
+						223
+					]
+				],
+				id: "DE119",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE119",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hohenlohekreis",
+					FID: "DE119"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						224,
+						225,
+						-56,
+						-64,
+						-223,
+						226
+					]
+				],
+				id: "DE11A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE11A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schwäbisch Hall",
+					FID: "DE11A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						227,
+						-227,
+						-222,
+						228,
+						229,
+						230,
+						231,
+						232
+					]
+				],
+				id: "DE11B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE11B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Main-Tauber-Kreis",
+					FID: "DE11B"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							233,
+							234,
+							235,
+							-198,
+							236,
+							237
+						]
+					],
+					[
+						[
+							238,
+							-192
+						]
+					]
+				],
+				id: "DE11C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE11C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Heidenheim",
+					FID: "DE11C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-238,
+						239,
+						-57,
+						-226,
+						240,
+						241
+					]
+				],
+				id: "DE11D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE11D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ostalbkreis",
+					FID: "DE11D"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							242
+						],
+						[
+							243
+						]
+					],
+					[
+						[
+							244
+						]
+					]
+				],
+				id: "DE121",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE121",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Baden-Baden, Stadtkreis",
+					FID: "DE121"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						245,
+						246
+					]
+				],
+				id: "DE122",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE122",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Karlsruhe, Stadtkreis",
+					FID: "DE122"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							247,
+							248,
+							249,
+							250,
+							-66,
+							251,
+							252,
+							253,
+							254,
+							-247
+						]
+					],
+					[
+						[
+							255
+						]
+					]
+				],
+				id: "DE123",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE123",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Karlsruhe, Landkreis",
+					FID: "DE123"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							256,
+							257,
+							258,
+							259,
+							260,
+							-254
+						],
+						[
+							-243
+						],
+						[
+							-245
+						],
+						[
+							261
+						],
+						[
+							-256
+						]
+					],
+					[
+						[
+							-244
+						]
+					]
+				],
+				id: "DE124",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE124",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rastatt",
+					FID: "DE124"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						262,
+						263,
+						264,
+						265,
+						266,
+						267
+					],
+					[
+						268
+					]
+				],
+				id: "DE22B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE22B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Straubing-Bogen",
+					FID: "DE22B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-265,
+						269,
+						270,
+						271
+					]
+				],
+				id: "DE22C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE22C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Dingolfing-Landau",
+					FID: "DE22C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						272
+					]
+				],
+				id: "DE231",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE231",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Amberg, Kreisfreie Stadt",
+					FID: "DE231"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						273
+					]
+				],
+				id: "DE232",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE232",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Regensburg, Kreisfreie Stadt",
+					FID: "DE232"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						274
+					]
+				],
+				id: "DE233",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE233",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Weiden i. d. Opf, Kreisfreie Stadt",
+					FID: "DE233"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							281,
+							282,
+							283,
+							284
+						]
+					],
+					[
+						[
+							285
+						]
+					],
+					[
+						[
+							286
+						]
+					]
+				],
+				id: "DE94H",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE94H",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wittmund",
+					FID: "DE94H"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						287,
+						-160,
+						-157,
+						288,
+						289,
+						290,
+						291,
+						-149,
+						-155
+					],
+					[
+						-153
+					]
+				],
+				id: "DED43",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED43",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mittelsachsen",
+					FID: "DED43"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						292,
+						293,
+						294,
+						295,
+						-163,
+						296
+					]
+				],
+				id: "DED44",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED44",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Vogtlandkreis",
+					FID: "DED44"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-289,
+						-156,
+						-159,
+						-296,
+						297,
+						298
+					]
+				],
+				id: "DED45",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED45",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Zwickau",
+					FID: "DED45"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						299,
+						300
+					]
+				],
+				id: "DED51",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED51",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Leipzig, Kreisfreie Stadt",
+					FID: "DED51"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						301,
+						302,
+						303,
+						304,
+						305
+					],
+					[
+						-273
+					]
+				],
+				id: "DE234",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE234",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Amberg-Sulzbach",
+					FID: "DE234"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						306,
+						307,
+						308,
+						309,
+						-268
+					]
+				],
+				id: "DE235",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE235",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Cham",
+					FID: "DE235"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-305,
+						310,
+						311,
+						312,
+						313,
+						314,
+						315
+					]
+				],
+				id: "DE236",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE236",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neumarkt i. d. OPf.",
+					FID: "DE236"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						316,
+						317,
+						318,
+						319,
+						-303
+					],
+					[
+						-275
+					]
+				],
+				id: "DE237",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE237",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neustadt a. d. Waldnaab",
+					FID: "DE237"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-267,
+						320,
+						321,
+						-312,
+						322,
+						-307
+					],
+					[
+						-274
+					]
+				],
+				id: "DE238",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE238",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Regensburg, Landkreis",
+					FID: "DE238"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-308,
+						-323,
+						-311,
+						-304,
+						-320,
+						323
+					]
+				],
+				id: "DE239",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE239",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schwandorf",
+					FID: "DE239"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						324,
+						325,
+						326,
+						-318,
+						327
+					]
+				],
+				id: "DE23A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE23A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Tirschenreuth",
+					FID: "DE23A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						328
+					]
+				],
+				id: "DE241",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE241",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bamberg, Kreisfreie Stadt",
+					FID: "DE241"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						329
+					]
+				],
+				id: "DE242",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE242",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bayreuth, Kreisfreie Stadt",
+					FID: "DE242"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						330
+					]
+				],
+				id: "DE243",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE243",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Coburg, Kreisfreie Stadt",
+					FID: "DE243"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						331
+					]
+				],
+				id: "DE244",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE244",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hof, Kreisfreie Stadt",
+					FID: "DE244"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						332,
+						333,
+						334,
+						335,
+						336,
+						337,
+						338,
+						339,
+						340
+					],
+					[
+						-329
+					]
+				],
+				id: "DE245",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE245",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bamberg, Landkreis",
+					FID: "DE245"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						341,
+						342,
+						-337,
+						343,
+						344,
+						345,
+						346,
+						-328,
+						-317,
+						-302
+					],
+					[
+						-330
+					]
+				],
+				id: "DE246",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE246",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bayreuth, Landkreis",
+					FID: "DE246"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						347,
+						348,
+						349
+					]
+				],
+				id: "DEA11",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA11",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Düsseldorf, Kreisfreie Stadt",
+					FID: "DEA11"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						350,
+						351,
+						352,
+						353,
+						354,
+						-348,
+						355
+					]
+				],
+				id: "DEA12",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA12",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Duisburg, Kreisfreie Stadt",
+					FID: "DEA12"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						356,
+						357,
+						358,
+						359,
+						360,
+						361,
+						362,
+						363
+					]
+				],
+				id: "DEA13",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA13",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Essen, Kreisfreie Stadt",
+					FID: "DEA13"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						364,
+						365,
+						366,
+						-351
+					]
+				],
+				id: "DEA14",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA14",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Krefeld, Kreisfreie Stadt",
+					FID: "DEA14"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						367,
+						368,
+						369
+					]
+				],
+				id: "DEA15",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA15",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mönchengladbach, Kreisfreie Stadt",
+					FID: "DEA15"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-359,
+						370,
+						-354,
+						371
+					]
+				],
+				id: "DEA16",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA16",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mülheim an der Ruhr, Kreisfreie Stadt",
+					FID: "DEA16"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						372,
+						373,
+						-360,
+						-372,
+						-353
+					]
+				],
+				id: "DEA17",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA17",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Oberhausen, Kreisfreie Stadt",
+					FID: "DEA17"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						374,
+						375,
+						376,
+						377
+					]
+				],
+				id: "DEA18",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA18",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Remscheid, Kreisfreie Stadt",
+					FID: "DEA18"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-375,
+						378,
+						379,
+						380
+					]
+				],
+				id: "DEA19",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA19",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Solingen, Kreisfreie Stadt",
+					FID: "DEA19"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						381,
+						382,
+						-376,
+						-381,
+						383
+					]
+				],
+				id: "DEA1A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA1A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wuppertal, Kreisfreie Stadt",
+					FID: "DEA1A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						384,
+						385,
+						386,
+						387,
+						388,
+						389
+					]
+				],
+				id: "DEA1B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA1B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kleve",
+					FID: "DEA1B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-355,
+						-371,
+						-358,
+						390,
+						-384,
+						-380,
+						391,
+						392,
+						393,
+						394,
+						-349
+					]
+				],
+				id: "DEA1C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA1C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mettmann",
+					FID: "DEA1C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-356,
+						-350,
+						-395,
+						395,
+						396,
+						397,
+						398,
+						-368,
+						399,
+						-365
+					]
+				],
+				id: "DEA1D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA1D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rhein-Kreis Neuss",
+					FID: "DEA1D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-388,
+						400,
+						-366,
+						-400,
+						-370,
+						401,
+						402,
+						403
+					]
+				],
+				id: "DEA1E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA1E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Viersen",
+					FID: "DEA1E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-401,
+						-387,
+						404,
+						405,
+						406,
+						-373,
+						-352,
+						-367
+					]
+				],
+				id: "DEA1F",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA1F",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wesel",
+					FID: "DEA1F"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						407,
+						408
+					]
+				],
+				id: "DEA22",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA22",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bonn, Kreisfreie Stadt",
+					FID: "DEA22"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						409,
+						410,
+						411,
+						412,
+						-396,
+						-394
+					]
+				],
+				id: "DEA23",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA23",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Köln, Kreisfreie Stadt",
+					FID: "DEA23"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-393,
+						413,
+						-410
+					]
+				],
+				id: "DEA24",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA24",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Leverkusen, Kreisfreie Stadt",
+					FID: "DEA24"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						414,
+						415,
+						416,
+						417,
+						-398
+					]
+				],
+				id: "DEA26",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA26",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Düren",
+					FID: "DEA26"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-118,
+						418,
+						419,
+						420,
+						421,
+						-125,
+						-114,
+						422
+					]
+				],
+				id: "DEG0J",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0J",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Saale-Holzland-Kreis",
+					FID: "DEG0J"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-422,
+						423,
+						-294,
+						424,
+						425,
+						-126
+					]
+				],
+				id: "DEG0K",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0K",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Saale-Orla-Kreis",
+					FID: "DEG0K"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						426,
+						-291,
+						427,
+						428,
+						429,
+						430,
+						-301
+					]
+				],
+				id: "DED52",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED52",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Leipzig",
+					FID: "DED52"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						431,
+						432,
+						-150,
+						-292,
+						-427,
+						-300,
+						-431,
+						433,
+						434
+					],
+					[
+						435
+					]
+				],
+				id: "DED53",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DED53",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Nordsachsen",
+					FID: "DED53"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						436,
+						437
+					]
+				],
+				id: "DEE01",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE01",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Dessau-Roßlau, Kreisfreie Stadt",
+					FID: "DEE01"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						438
+					]
+				],
+				id: "DEE02",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE02",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Halle (Saale), Kreisfreie Stadt",
+					FID: "DEE02"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						439,
+						440,
+						441
+					]
+				],
+				id: "DEE03",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE03",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Magdeburg, Kreisfreie Stadt",
+					FID: "DEE03"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						442,
+						443,
+						444,
+						445,
+						446
+					]
+				],
+				id: "DEE04",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE04",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Altmarkkreis Salzwedel",
+					FID: "DEE04"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						447,
+						448,
+						449,
+						-438,
+						450,
+						-435,
+						451,
+						452
+					]
+				],
+				id: "DEE05",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE05",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Anhalt-Bitterfeld",
+					FID: "DEE05"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						453,
+						454,
+						455,
+						456,
+						457,
+						-448,
+						458,
+						-442,
+						459
+					]
+				],
+				id: "DEE06",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE06",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Jerichower Land",
+					FID: "DEE06"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						460,
+						-460,
+						-441,
+						461,
+						462,
+						463,
+						464,
+						-443,
+						465,
+						-455
+					]
+				],
+				id: "DEE07",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE07",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Börde",
+					FID: "DEE07"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						471,
+						-107,
+						-122,
+						472,
+						473,
+						-335
+					],
+					[
+						-331
+					]
+				],
+				id: "DE247",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE247",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Coburg, Landkreis",
+					FID: "DE247"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-338,
+						-343,
+						474,
+						475
+					]
+				],
+				id: "DE248",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE248",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Forchheim",
+					FID: "DE248"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						476,
+						-346,
+						477,
+						478,
+						-425,
+						-293,
+						479
+					],
+					[
+						-332
+					]
+				],
+				id: "DE249",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE249",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hof, Landkreis",
+					FID: "DE249"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						480,
+						-473,
+						-121,
+						-124,
+						-426,
+						-479,
+						481
+					]
+				],
+				id: "DE24A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE24A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kronach",
+					FID: "DE24A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-345,
+						482,
+						-482,
+						-478
+					]
+				],
+				id: "DE24B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE24B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kulmbach",
+					FID: "DE24B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-336,
+						-474,
+						-481,
+						-483,
+						-344
+					]
+				],
+				id: "DE24C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE24C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Lichtenfels",
+					FID: "DE24C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-477,
+						483,
+						-325,
+						-347
+					]
+				],
+				id: "DE24D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE24D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wunsiedel i. Fichtelgebirge",
+					FID: "DE24D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						484
+					]
+				],
+				id: "DE251",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE251",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ansbach, Kreisfreie Stadt",
+					FID: "DE251"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						485,
+						486,
+						487,
+						488
+					]
+				],
+				id: "DE252",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE252",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Erlangen, Kreisfreie Stadt",
+					FID: "DE252"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						489,
+						-488,
+						490
+					]
+				],
+				id: "DE253",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE253",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Fürth, Kreisfreie Stadt",
+					FID: "DE253"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							491,
+							492,
+							493,
+							494,
+							-491,
+							-487,
+							495,
+							496
+						]
+					],
+					[
+						[
+							497
+						]
+					]
+				],
+				id: "DE254",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE254",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Nürnberg, Kreisfreie Stadt",
+					FID: "DE254"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-493,
+						498
+					]
+				],
+				id: "DE255",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE255",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schwabach, Kreisfreie Stadt",
+					FID: "DE255"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						499,
+						500,
+						-241,
+						-225,
+						-228,
+						501,
+						502,
+						503
+					],
+					[
+						-485
+					]
+				],
+				id: "DE256",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE256",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ansbach, Landkreis",
+					FID: "DE256"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-476,
+						504,
+						-496,
+						-486,
+						505,
+						506,
+						-339
+					]
+				],
+				id: "DE257",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE257",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Erlangen-Höchstadt",
+					FID: "DE257"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						507,
+						-506,
+						-489,
+						-490,
+						-495,
+						508,
+						-503
+					]
+				],
+				id: "DE258",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE258",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Fürth, Landkreis",
+					FID: "DE258"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-497,
+						-505,
+						-475,
+						-342,
+						-306,
+						-316,
+						509
+					],
+					[
+						-498
+					]
+				],
+				id: "DE259",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE259",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Nürnberger Land",
+					FID: "DE259"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						510,
+						511,
+						512,
+						-298,
+						-295,
+						-424,
+						-421
+					]
+				],
+				id: "DEG0L",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0L",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Greiz",
+					FID: "DEG0L"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-513,
+						513,
+						-428,
+						-290,
+						-299
+					]
+				],
+				id: "DEG0M",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0M",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Altenburger Land",
+					FID: "DEG0M"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						514,
+						515
+					]
+				],
+				id: "DEG0N",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0N",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Eisenach, Kreisfreie Stadt",
+					FID: "DEG0N"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						516,
+						517,
+						518,
+						-516,
+						519,
+						-80,
+						-96,
+						-93
+					]
+				],
+				id: "DEG0P",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG0P",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wartburgkreis",
+					FID: "DEG0P"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						520,
+						521,
+						522,
+						523,
+						524,
+						525,
+						526,
+						527
+					],
+					[
+						528
+					]
+				],
+				id: "DE21M",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21M",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Traunstein",
+					FID: "DE21M"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						529,
+						530,
+						531,
+						532,
+						533
+					]
+				],
+				id: "DE21N",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21N",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Weilheim-Schongau",
+					FID: "DE21N"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						534
+					]
+				],
+				id: "DE221",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE221",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Landshut, Kreisfreie Stadt",
+					FID: "DE221"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						535,
+						536
+					]
+				],
+				id: "DE222",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE222",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Passau, Kreisfreie Stadt",
+					FID: "DE222"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-269
+					]
+				],
+				id: "DE223",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE223",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Straubing, Kreisfreie Stadt",
+					FID: "DE223"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						537,
+						-270,
+						-264,
+						538,
+						539,
+						540
+					]
+				],
+				id: "DE224",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE224",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Deggendorf",
+					FID: "DE224"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						541,
+						-2,
+						542,
+						-540,
+						543,
+						544
+					]
+				],
+				id: "DE225",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE225",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Freyung-Grafenau",
+					FID: "DE225"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-322,
+						545,
+						546,
+						547,
+						548,
+						-313
+					]
+				],
+				id: "DE226",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE226",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kelheim",
+					FID: "DE226"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-272,
+						549,
+						550,
+						551,
+						552,
+						-546,
+						-321,
+						-266
+					],
+					[
+						-535
+					]
+				],
+				id: "DE227",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE227",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Landshut, Landkreis",
+					FID: "DE227"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						553,
+						-536,
+						554,
+						555,
+						-541,
+						-543,
+						-1
+					]
+				],
+				id: "DE228",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE228",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Passau, Landkreis",
+					FID: "DE228"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-310,
+						556,
+						-544,
+						-539,
+						-263
+					]
+				],
+				id: "DE229",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE229",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Regen",
+					FID: "DE229"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						557,
+						-550,
+						-271,
+						-538,
+						-556,
+						558,
+						559
+					]
+				],
+				id: "DE22A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE22A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rottal-Inn",
+					FID: "DE22A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-340,
+						-507,
+						-508,
+						-502,
+						-233,
+						560,
+						561
+					],
+					[
+						562
+					]
+				],
+				id: "DE25A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE25A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neustadt a. d. Aisch-Bad Windsheim",
+					FID: "DE25A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-504,
+						-509,
+						-494,
+						-499,
+						-492,
+						-510,
+						-315,
+						563,
+						564
+					]
+				],
+				id: "DE25B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE25B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Roth",
+					FID: "DE25B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						565,
+						566,
+						-500,
+						-565
+					]
+				],
+				id: "DE25C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE25C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Weißenburg-Gunzenhausen",
+					FID: "DE25C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						567,
+						568
+					]
+				],
+				id: "DE261",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE261",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Aschaffenburg, Kreisfreie Stadt",
+					FID: "DE261"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						569
+					]
+				],
+				id: "DE262",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE262",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schweinfurt, Kreisfreie Stadt",
+					FID: "DE262"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						570
+					]
+				],
+				id: "DE263",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE263",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Würzburg, Kreisfreie Stadt",
+					FID: "DE263"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						571,
+						572,
+						-569,
+						573,
+						574,
+						575,
+						576
+					]
+				],
+				id: "DE264",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE264",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Aschaffenburg, Landkreis",
+					FID: "DE264"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						577,
+						578,
+						579,
+						580,
+						581
+					]
+				],
+				id: "DE265",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE265",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bad Kissingen",
+					FID: "DE265"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-580,
+						582,
+						-91,
+						-109,
+						583,
+						584
+					]
+				],
+				id: "DE266",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE266",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rhön-Grabfeld",
+					FID: "DE266"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-334,
+						585,
+						-584,
+						-108,
+						-472
+					]
+				],
+				id: "DE267",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE267",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Haßberge",
+					FID: "DE267"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-341,
+							-562,
+							586,
+							587
+						]
+					],
+					[
+						[
+							-563
+						]
+					]
+				],
+				id: "DE268",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE268",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kitzingen",
+					FID: "DE268"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-574,
+						-568,
+						-573,
+						588,
+						-230,
+						589,
+						590,
+						591
+					]
+				],
+				id: "DE269",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE269",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Miltenberg",
+					FID: "DE269"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						592,
+						-231,
+						-589,
+						-572,
+						593,
+						-582,
+						594
+					]
+				],
+				id: "DE26A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE26A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Main-Spessart",
+					FID: "DE26A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-581,
+						-585,
+						-586,
+						-333,
+						-588,
+						595,
+						-595
+					],
+					[
+						-570
+					]
+				],
+				id: "DE26B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE26B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schweinfurt, Landkreis",
+					FID: "DE26B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-596,
+						-587,
+						-561,
+						-232,
+						-593
+					],
+					[
+						-571
+					]
+				],
+				id: "DE26C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE26C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Würzburg, Landkreis",
+					FID: "DE26C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-397,
+						-413,
+						596,
+						597,
+						-415
+					]
+				],
+				id: "DEA27",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA27",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rhein-Erft-Kreis",
+					FID: "DEA27"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						598,
+						599,
+						600,
+						601,
+						-470,
+						602,
+						-416,
+						-598
+					]
+				],
+				id: "DEA28",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA28",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Euskirchen",
+					FID: "DEA28"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-399,
+						-418,
+						603,
+						604,
+						605,
+						-402,
+						-369
+					]
+				],
+				id: "DEA29",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA29",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Heinsberg",
+					FID: "DEA29"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-377,
+						-383,
+						606,
+						607,
+						608,
+						609,
+						610,
+						611
+					]
+				],
+				id: "DEA2A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA2A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Oberbergischer Kreis",
+					FID: "DEA2A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-392,
+						-379,
+						-378,
+						-612,
+						612,
+						-411,
+						-414
+					]
+				],
+				id: "DEA2B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA2B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rheinisch-Bergischer Kreis",
+					FID: "DEA2B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-613,
+						-611,
+						613,
+						614,
+						615,
+						-409,
+						616,
+						-599,
+						-597,
+						-412
+					]
+				],
+				id: "DEA2C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA2C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rhein-Sieg-Kreis",
+					FID: "DEA2C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-471,
+						617,
+						-604,
+						-417,
+						-603,
+						-469,
+						-467
+					]
+				],
+				id: "DEA2D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA2D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Städteregion Aachen",
+					FID: "DEA2D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						618,
+						619,
+						-50,
+						-60
+					]
+				],
+				id: "DE111",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE111",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Stuttgart, Stadtkreis",
+					FID: "DE111"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-179,
+						-183,
+						620,
+						621,
+						-46,
+						-620,
+						622
+					]
+				],
+				id: "DE112",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE112",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Böblingen",
+					FID: "DE112"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-180,
+						-623,
+						-619,
+						-59,
+						623
+					]
+				],
+				id: "DE113",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE113",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Esslingen",
+					FID: "DE113"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-173,
+						-624,
+						-58,
+						-240,
+						-237,
+						-197
+					]
+				],
+				id: "DE114",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE114",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Göppingen",
+					FID: "DE114"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						624,
+						625
+					]
+				],
+				id: "DE271",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE271",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Augsburg, Kreisfreie Stadt",
+					FID: "DE271"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						626
+					]
+				],
+				id: "DE272",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE272",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kaufbeuren, Kreisfreie Stadt",
+					FID: "DE272"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						627
+					]
+				],
+				id: "DE273",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE273",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kempten (Allgäu), Kreisfreie Stadt",
+					FID: "DE273"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-204,
+						628,
+						-211,
+						-199,
+						629
+					]
+				],
+				id: "DE274",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE274",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Memmingen, Kreisfreie Stadt",
+					FID: "DE274"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						630,
+						-625,
+						631,
+						632,
+						633,
+						634,
+						635,
+						636,
+						637
+					]
+				],
+				id: "DE275",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE275",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Aichach-Friedberg",
+					FID: "DE275"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-626,
+						-631,
+						638,
+						639,
+						640,
+						641,
+						642,
+						643,
+						-632
+					]
+				],
+				id: "DE276",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE276",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Augsburg, Landkreis",
+					FID: "DE276"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-235,
+						644,
+						-643,
+						645
+					]
+				],
+				id: "DE277",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE277",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Dillingen a.d. Donau",
+					FID: "DE277"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-193,
+						-239,
+						-191,
+						-236,
+						-646,
+						-642,
+						646,
+						647
+					]
+				],
+				id: "DE278",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE278",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Günzburg",
+					FID: "DE278"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-195,
+						-190,
+						-194,
+						-648,
+						648,
+						-202
+					]
+				],
+				id: "DE279",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE279",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neu-Ulm",
+					FID: "DE279"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						649,
+						650,
+						-207,
+						-209
+					]
+				],
+				id: "DE27A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE27A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Lindau (Bodensee)",
+					FID: "DE27A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						651,
+						652,
+						653,
+						654,
+						-640,
+						655,
+						-534
+					],
+					[
+						-627
+					]
+				],
+				id: "DE27B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE27B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ostallgäu",
+					FID: "DE27B"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-655,
+							656,
+							-212,
+							-629,
+							-203,
+							-649,
+							-647,
+							-641
+						]
+					],
+					[
+						[
+							-630,
+							-205
+						]
+					]
+				],
+				id: "DE27C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE27C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Unterallgäu",
+					FID: "DE27C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						657,
+						-633,
+						-644,
+						-645,
+						-234,
+						-242,
+						-501,
+						-567,
+						658
+					]
+				],
+				id: "DE27D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE27D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Donau-Ries",
+					FID: "DE27D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						659,
+						660,
+						-650,
+						-213,
+						-657,
+						-654,
+						661
+					],
+					[
+						-628
+					]
+				],
+				id: "DE27E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE27E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Oberallgäu",
+					FID: "DE27E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						662,
+						663,
+						664,
+						665,
+						666,
+						667,
+						668,
+						669,
+						670
+					]
+				],
+				id: "DE300",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE300",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Berlin",
+					FID: "DE300"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-407,
+						671,
+						-361,
+						-374
+					]
+				],
+				id: "DEA31",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA31",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bottrop, Kreisfreie Stadt",
+					FID: "DEA31"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						672,
+						-363,
+						673,
+						674
+					]
+				],
+				id: "DEA32",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA32",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Gelsenkirchen, Kreisfreie Stadt",
+					FID: "DEA32"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						675,
+						676,
+						677
+					]
+				],
+				id: "DEA33",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA33",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Münster, Kreisfreie Stadt",
+					FID: "DEA33"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						678,
+						679,
+						680,
+						-405,
+						-386,
+						681,
+						682,
+						683
+					]
+				],
+				id: "DEA34",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA34",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Borken",
+					FID: "DEA34"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						684,
+						685,
+						-680,
+						686,
+						-676,
+						687,
+						688
+					]
+				],
+				id: "DEA35",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA35",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Coesfeld",
+					FID: "DEA35"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-674,
+						-362,
+						-672,
+						-406,
+						-681,
+						-686,
+						689,
+						690,
+						691,
+						692
+					]
+				],
+				id: "DEA36",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA36",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Recklinghausen",
+					FID: "DEA36"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						693,
+						694,
+						695,
+						-677,
+						-687,
+						-679,
+						696,
+						697,
+						698
+					]
+				],
+				id: "DEA37",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA37",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Steinfurt",
+					FID: "DEA37"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						699,
+						700,
+						701,
+						-688,
+						-678,
+						-696,
+						702
+					]
+				],
+				id: "DEA38",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA38",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Warendorf",
+					FID: "DEA38"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						703,
+						704,
+						705
+					]
+				],
+				id: "DEA41",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA41",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bielefeld, Kreisfreie Stadt",
+					FID: "DEA41"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						706,
+						-419,
+						-117,
+						-100,
+						-87,
+						707,
+						-429,
+						-514,
+						-512
+					]
+				],
+				id: "DEE08",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE08",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Burgenlandkreis",
+					FID: "DEE08"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							708,
+							709,
+							-75,
+							710,
+							711,
+							712,
+							-463
+						]
+					],
+					[
+						[
+							713
+						]
+					]
+				],
+				id: "DEE09",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE09",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Harz",
+					FID: "DEE09"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						714,
+						-83,
+						-76,
+						-710,
+						715,
+						716,
+						-85
+					],
+					[
+						-714
+					]
+				],
+				id: "DEE0A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE0A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mansfeld-Südharz",
+					FID: "DEE0A"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-708,
+							-86,
+							-717,
+							717,
+							-452,
+							-434,
+							-430
+						],
+						[
+							-439
+						]
+					],
+					[
+						[
+							-84,
+							-715
+						]
+					]
+				],
+				id: "DEE0B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE0B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Saalekreis",
+					FID: "DEE0B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-709,
+						-462,
+						-440,
+						-459,
+						-453,
+						-718,
+						-716
+					]
+				],
+				id: "DEE0C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE0C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Salzlandkreis",
+					FID: "DEE0C"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							718,
+							719
+						]
+					],
+					[
+						[
+							720
+						]
+					],
+					[
+						[
+							721
+						]
+					],
+					[
+						[
+							722,
+							723
+						]
+					]
+				],
+				id: "DE401",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE401",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Brandenburg an der Havel, Kreisfreie Stadt",
+					FID: "DE401"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						724
+					]
+				],
+				id: "DE402",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE402",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Cottbus, Kreisfreie Stadt",
+					FID: "DE402"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						725,
+						726,
+						727
+					]
+				],
+				id: "DE403",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE403",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Frankfurt (Oder), Kreisfreie Stadt",
+					FID: "DE403"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						728,
+						-665,
+						729
+					]
+				],
+				id: "DE404",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE404",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Potsdam, Kreisfreie Stadt",
+					FID: "DE404"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-668,
+						730,
+						731,
+						732,
+						733
+					]
+				],
+				id: "DE405",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE405",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Barnim",
+					FID: "DE405"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-671,
+						734,
+						735,
+						736,
+						737,
+						738
+					]
+				],
+				id: "DE406",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE406",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Dahme-Spreewald",
+					FID: "DE406"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							739,
+							-738,
+							740,
+							-151,
+							-433,
+							741
+						]
+					],
+					[
+						[
+							-436
+						]
+					]
+				],
+				id: "DE407",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE407",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Elbe-Elster",
+					FID: "DE407"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						742,
+						743,
+						-666,
+						-729,
+						744,
+						-724,
+						745,
+						-720,
+						746,
+						-457,
+						747
+					]
+				],
+				id: "DE408",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE408",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Havelland",
+					FID: "DE408"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						748,
+						-669,
+						-734,
+						749,
+						750,
+						751,
+						-727
+					]
+				],
+				id: "DE409",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE409",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Märkisch-Oderland",
+					FID: "DE409"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-744,
+						752,
+						753,
+						754,
+						-731,
+						-667
+					]
+				],
+				id: "DE40A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Oberhavel",
+					FID: "DE40A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-741,
+						-737,
+						755,
+						-138,
+						-152
+					]
+				],
+				id: "DE40B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Oberspreewald-Lausitz",
+					FID: "DE40B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-670,
+						-749,
+						-726,
+						756,
+						757,
+						758,
+						-735
+					]
+				],
+				id: "DE40C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Oder-Spree",
+					FID: "DE40C"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-748,
+							-456,
+							-466,
+							-447,
+							761,
+							762,
+							763
+						]
+					],
+					[
+						[
+							-461,
+							-454
+						]
+					]
+				],
+				id: "DEE0D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE0D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Stendal",
+					FID: "DEE0D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						764,
+						765,
+						-742,
+						-432,
+						-451,
+						-437,
+						-450
+					]
+				],
+				id: "DEE0E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEE0E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wittenberg",
+					FID: "DEE0E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						766,
+						767
+					]
+				],
+				id: "DEF01",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF01",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Flensburg, Kreisfreie Stadt",
+					FID: "DEF01"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						768,
+						769,
+						770
+					]
+				],
+				id: "DEF02",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF02",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kiel, Kreisfreie Stadt",
+					FID: "DEF02"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						771,
+						772,
+						773,
+						774,
+						775
+					]
+				],
+				id: "DEF03",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF03",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Lübeck, Kreisfreie Stadt",
+					FID: "DEF03"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						776,
+						777,
+						778
+					]
+				],
+				id: "DEF04",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF04",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neumünster, Kreisfreie Stadt",
+					FID: "DEF04"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							779,
+							780,
+							781,
+							782,
+							783
+						]
+					],
+					[
+						[
+							784
+						]
+					]
+				],
+				id: "DEF05",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF05",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Dithmarschen",
+					FID: "DEF05"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						785,
+						786,
+						787,
+						788,
+						-776,
+						789,
+						790
+					]
+				],
+				id: "DEF06",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF06",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Herzogtum Lauenburg",
+					FID: "DEF06"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-764,
+						791,
+						792,
+						793,
+						-753,
+						-743
+					]
+				],
+				id: "DE40D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ostprignitz-Ruppin",
+					FID: "DE40D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						794,
+						-765,
+						-449,
+						-458,
+						-747,
+						-719,
+						-746,
+						-723,
+						-745,
+						-730,
+						-664
+					],
+					[
+						-721
+					],
+					[
+						-722
+					]
+				],
+				id: "DE40E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Potsdam-Mittelmark",
+					FID: "DE40E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-763,
+						795,
+						796,
+						-792
+					]
+				],
+				id: "DE40F",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40F",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Prignitz",
+					FID: "DE40F"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-759,
+						797,
+						-146,
+						-139,
+						-756,
+						-736
+					],
+					[
+						-725
+					]
+				],
+				id: "DE40G",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40G",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Spree-Neiße",
+					FID: "DE40G"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-663,
+						-739,
+						-740,
+						-766,
+						-795
+					]
+				],
+				id: "DE40H",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40H",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Teltow-Fläming",
+					FID: "DE40H"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						798,
+						-732,
+						-755,
+						799,
+						800
+					]
+				],
+				id: "DE40I",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE40I",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Uckermark",
+					FID: "DE40I"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							801,
+							802,
+							803,
+							804,
+							805
+						]
+					],
+					[
+						[
+							806
+						]
+					]
+				],
+				id: "DE501",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE501",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bremen, Kreisfreie Stadt",
+					FID: "DE501"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							807,
+							808,
+							809
+						],
+						[
+							-807
+						]
+					],
+					[
+						[
+							810
+						]
+					]
+				],
+				id: "DE502",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE502",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bremerhaven, Kreisfreie Stadt",
+					FID: "DE502"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							811,
+							-788,
+							812,
+							813,
+							814,
+							815
+						]
+					],
+					[
+						[
+							816
+						]
+					],
+					[
+						[
+							817
+						]
+					]
+				],
+				id: "DE600",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE600",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hamburg",
+					FID: "DE600"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						818,
+						819
+					]
+				],
+				id: "DE711",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE711",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Darmstadt, Kreisfreie Stadt",
+					FID: "DE711"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						820,
+						821,
+						822,
+						823,
+						824,
+						825,
+						826
+					]
+				],
+				id: "DE712",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE712",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Frankfurt am Main, Kreisfreie Stadt",
+					FID: "DE712"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						827,
+						828,
+						-821
+					]
+				],
+				id: "DE713",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE713",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Offenbach am Main, Kreisfreie Stadt",
+					FID: "DE713"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						829,
+						830,
+						831,
+						832,
+						833
+					]
+				],
+				id: "DE714",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE714",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wiesbaden, Kreisfreie Stadt",
+					FID: "DE714"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-700,
+						834,
+						835,
+						-706,
+						836,
+						837,
+						838
+					]
+				],
+				id: "DEA42",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA42",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Gütersloh",
+					FID: "DEA42"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						839,
+						840,
+						841,
+						-704,
+						-836
+					]
+				],
+				id: "DEA43",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA43",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Herford",
+					FID: "DEA43"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						842,
+						843,
+						844,
+						845,
+						846,
+						847,
+						848
+					]
+				],
+				id: "DEA44",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA44",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Höxter",
+					FID: "DEA44"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-849,
+						849,
+						-837,
+						-705,
+						-842,
+						850,
+						851,
+						852,
+						853
+					]
+				],
+				id: "DEA45",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA45",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Lippe",
+					FID: "DEA45"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-851,
+						-841,
+						854,
+						855,
+						856,
+						857
+					]
+				],
+				id: "DEA46",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA46",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Minden-Lübbecke",
+					FID: "DEA46"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						858,
+						859,
+						-838,
+						-850,
+						-848
+					]
+				],
+				id: "DEA47",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA47",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Paderborn",
+					FID: "DEA47"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						860,
+						-692,
+						861,
+						862,
+						-364,
+						-673
+					]
+				],
+				id: "DEA51",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA51",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bochum, Kreisfreie Stadt",
+					FID: "DEA51"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						863,
+						-560,
+						864,
+						-527
+					]
+				],
+				id: "DE214",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE214",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Altötting",
+					FID: "DE214"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						865,
+						866,
+						-522
+					]
+				],
+				id: "DE215",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE215",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Berchtesgadener Land",
+					FID: "DE215"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							867,
+							868,
+							869,
+							870,
+							871,
+							872,
+							873,
+							874
+						]
+					],
+					[
+						[
+							875,
+							876
+						]
+					]
+				],
+				id: "DE715",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE715",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bergstraße",
+					FID: "DE715"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-874,
+						877,
+						878,
+						-820,
+						879,
+						-575,
+						-592,
+						880
+					]
+				],
+				id: "DE716",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE716",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Darmstadt-Dieburg",
+					FID: "DE716"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-873,
+						881,
+						882,
+						883,
+						-832,
+						884,
+						-823,
+						885,
+						-878
+					]
+				],
+				id: "DE717",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE717",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Groß-Gerau",
+					FID: "DE717"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						886,
+						887,
+						888,
+						889,
+						-825,
+						890
+					]
+				],
+				id: "DE718",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE718",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hochtaunuskreis",
+					FID: "DE718"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-827,
+						891,
+						892,
+						893,
+						-578,
+						-594,
+						-577,
+						894,
+						-828
+					]
+				],
+				id: "DE719",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE719",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Main-Kinzig-Kreis",
+					FID: "DE719"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-891,
+						-824,
+						-885,
+						-831,
+						895
+					]
+				],
+				id: "DE71A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE71A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Main-Taunus-Kreis",
+					FID: "DE71A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-591,
+						896,
+						897,
+						898,
+						899,
+						-877,
+						900,
+						-875,
+						-881
+					]
+				],
+				id: "DE71B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE71B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Odenwaldkreis",
+					FID: "DE71B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-879,
+						-886,
+						-822,
+						-829,
+						-895,
+						-576,
+						-880,
+						-819
+					]
+				],
+				id: "DE71C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE71C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Offenbach, Landkreis",
+					FID: "DE71C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						901,
+						902,
+						-887,
+						-896,
+						-830,
+						903
+					]
+				],
+				id: "DE71D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE71D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rheingau-Taunus-Kreis",
+					FID: "DE71D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						904,
+						905,
+						906,
+						-892,
+						-826,
+						-890
+					]
+				],
+				id: "DE71E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE71E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wetteraukreis",
+					FID: "DE71E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-906,
+						907,
+						908,
+						909
+					]
+				],
+				id: "DE721",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE721",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Gießen, Landkreis",
+					FID: "DE721"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-908,
+						-905,
+						-889,
+						910,
+						911,
+						912,
+						913
+					]
+				],
+				id: "DE722",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE722",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Lahn-Dill-Kreis",
+					FID: "DE722"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-903,
+						914,
+						915,
+						-911,
+						-888
+					]
+				],
+				id: "DE723",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE723",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Limburg-Weilburg",
+					FID: "DE723"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						916,
+						917,
+						-909,
+						-914,
+						918,
+						919
+					]
+				],
+				id: "DE724",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE724",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Marburg-Biedenkopf",
+					FID: "DE724"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-893,
+						-907,
+						-910,
+						-918,
+						920,
+						921,
+						922
+					]
+				],
+				id: "DE725",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE725",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Vogelsbergkreis",
+					FID: "DE725"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							923,
+							924
+						]
+					],
+					[
+						[
+							925
+						]
+					]
+				],
+				id: "DE731",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE731",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kassel, Kreisfreie Stadt",
+					FID: "DE731"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-691,
+						926,
+						927,
+						928,
+						-862
+					]
+				],
+				id: "DEA52",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA52",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Dortmund, Kreisfreie Stadt",
+					FID: "DEA52"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						929,
+						930,
+						-928,
+						931
+					]
+				],
+				id: "DEA53",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA53",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hagen, Kreisfreie Stadt",
+					FID: "DEA53"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						932,
+						-689,
+						-702,
+						933
+					]
+				],
+				id: "DEA54",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA54",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hamm, Kreisfreie Stadt",
+					FID: "DEA54"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-675,
+						-693,
+						-861
+					]
+				],
+				id: "DEA55",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA55",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Herne, Kreisfreie Stadt",
+					FID: "DEA55"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-382,
+						-391,
+						-357,
+						-863,
+						-929,
+						-931,
+						934,
+						-607
+					]
+				],
+				id: "DEA56",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA56",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ennepe-Ruhr-Kreis",
+					FID: "DEA56"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						935,
+						936,
+						-859,
+						-847,
+						937,
+						938,
+						939
+					]
+				],
+				id: "DEA57",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA57",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hochsauerlandkreis",
+					FID: "DEA57"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-930,
+						940,
+						941,
+						-936,
+						942,
+						-608,
+						-935
+					]
+				],
+				id: "DEA58",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA58",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Märkischer Kreis",
+					FID: "DEA58"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						943,
+						-609,
+						-943,
+						-940,
+						944
+					]
+				],
+				id: "DEA59",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA59",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Olpe",
+					FID: "DEA59"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-913,
+						945,
+						946,
+						-945,
+						-939,
+						947,
+						-919
+					]
+				],
+				id: "DEA5A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA5A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Siegen-Wittgenstein",
+					FID: "DEA5A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-860,
+						-937,
+						-942,
+						948,
+						-934,
+						-701,
+						-839
+					]
+				],
+				id: "DEA5B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA5B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Soest",
+					FID: "DEA5B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-933,
+						-949,
+						-941,
+						-932,
+						-927,
+						-690,
+						-685
+					]
+				],
+				id: "DEA5C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEA5C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Unna",
+					FID: "DEA5C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						949,
+						950,
+						951
+					]
+				],
+				id: "DEB11",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB11",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Koblenz, Kreisfreie Stadt",
+					FID: "DEB11"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-579,
+						-894,
+						-923,
+						952,
+						-517,
+						-92,
+						-583
+					]
+				],
+				id: "DE732",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE732",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Fulda",
+					FID: "DE732"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						953,
+						954,
+						-518,
+						-953,
+						-922
+					]
+				],
+				id: "DE733",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE733",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hersfeld-Rotenburg",
+					FID: "DE733"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						955,
+						956,
+						957,
+						958,
+						-925,
+						959,
+						960,
+						961,
+						962,
+						-845
+					],
+					[
+						-926
+					]
+				],
+				id: "DE734",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE734",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kassel, Landkreis",
+					FID: "DE734"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-962,
+						963,
+						-954,
+						-921,
+						-917,
+						964
+					]
+				],
+				id: "DE735",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE735",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schwalm-Eder-Kreis",
+					FID: "DE735"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-948,
+						-938,
+						-846,
+						-963,
+						-965,
+						-920
+					]
+				],
+				id: "DE736",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE736",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Waldeck-Frankenberg",
+					FID: "DE736"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-961,
+						965,
+						-68,
+						-81,
+						-520,
+						-515,
+						-519,
+						-955,
+						-964
+					]
+				],
+				id: "DE737",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE737",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Werra-Meißner-Kreis",
+					FID: "DE737"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						966,
+						967
+					]
+				],
+				id: "DE803",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE803",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rostock, Kreisfreie Stadt",
+					FID: "DE803"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						968,
+						969
+					]
+				],
+				id: "DE804",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE804",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schwerin, Kreisfreie Stadt",
+					FID: "DE804"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-754,
+						-794,
+						970,
+						971,
+						972,
+						973,
+						-800
+					]
+				],
+				id: "DE80J",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE80J",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mecklenburgische Seenplatte",
+					FID: "DE80J"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							974,
+							975,
+							-972,
+							976,
+							977,
+							978,
+							-968
+						]
+					],
+					[
+						[
+							979
+						]
+					]
+				],
+				id: "DE80K",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE80K",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Landkreis Rostock",
+					FID: "DE80K"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-976,
+							980,
+							981,
+							-973
+						]
+					],
+					[
+						[
+							982
+						]
+					],
+					[
+						[
+							983
+						]
+					],
+					[
+						[
+							984
+						]
+					],
+					[
+						[
+							985
+						]
+					],
+					[
+						[
+							986
+						]
+					],
+					[
+						[
+							987
+						]
+					]
+				],
+				id: "DE80L",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE80L",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Vorpommern-Rügen",
+					FID: "DE80L"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-790,
+						-775,
+						988,
+						-978,
+						989,
+						-969,
+						990
+					]
+				],
+				id: "DE80M",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE80M",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Nordwestmecklenburg",
+					FID: "DE80M"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-982,
+							991,
+							992,
+							993,
+							994,
+							-801,
+							-974
+						]
+					],
+					[
+						[
+							995
+						]
+					],
+					[
+						[
+							996
+						]
+					]
+				],
+				id: "DE80N",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE80N",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Vorpommern-Greifswald",
+					FID: "DE80N"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-791,
+						-991,
+						-970,
+						-990,
+						-977,
+						-971,
+						-793,
+						-797,
+						997,
+						998
+					]
+				],
+				id: "DE80O",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE80O",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ludwigslust-Parchim",
+					FID: "DE80O"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						999,
+						1000,
+						1001,
+						1002,
+						1003
+					]
+				],
+				id: "DE911",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE911",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Braunschweig, Kreisfreie Stadt",
+					FID: "DE911"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1004,
+						1005,
+						1006,
+						1007,
+						1008,
+						-1000
+					]
+				],
+				id: "DE912",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE912",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Salzgitter, Kreisfreie Stadt",
+					FID: "DE912"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1009,
+						1010
+					]
+				],
+				id: "DE913",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE913",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wolfsburg, Kreisfreie Stadt",
+					FID: "DE913"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1011,
+						-1010,
+						1012,
+						-1002,
+						1013,
+						1014,
+						1015,
+						1016,
+						-444,
+						-465
+					]
+				],
+				id: "DE914",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE914",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Gifhorn",
+					FID: "DE914"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-711,
+						-74,
+						1017,
+						1018,
+						1019,
+						1020,
+						-1006,
+						1021
+					]
+				],
+				id: "DE916",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE916",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Goslar",
+					FID: "DE916"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1022,
+						-1003,
+						-1013,
+						-1011,
+						-1012,
+						-464,
+						-713
+					]
+				],
+				id: "DE917",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE917",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Helmstedt",
+					FID: "DE917"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-408,
+						-616,
+						1023,
+						1024,
+						1025,
+						-600,
+						-617
+					],
+					[
+						1026
+					]
+				],
+				id: "DEB12",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB12",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ahrweiler",
+					FID: "DEB12"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-947,
+						1027,
+						1028,
+						-614,
+						-610,
+						-944
+					]
+				],
+				id: "DEB13",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB13",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Altenkirchen (Westerwald)",
+					FID: "DEB13"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1029,
+						1030,
+						1031,
+						1032,
+						1033,
+						1034
+					]
+				],
+				id: "DEB14",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB14",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bad Kreuznach",
+					FID: "DEB14"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-532,
+						1035,
+						1036,
+						1037,
+						1038,
+						1039
+					]
+				],
+				id: "DE216",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE216",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bad Tölz-Wolfratshausen",
+					FID: "DE216"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1040,
+						1041,
+						-218,
+						1042,
+						-636,
+						1043
+					]
+				],
+				id: "DE217",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE217",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Dachau",
+					FID: "DE217"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1044,
+						1045,
+						1046,
+						1047
+					]
+				],
+				id: "DE218",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE218",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ebersberg",
+					FID: "DE218"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-659,
+						-566,
+						-564,
+						-314,
+						-549,
+						1048,
+						-215,
+						1049
+					]
+				],
+				id: "DE219",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE219",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Eichstätt",
+					FID: "DE219"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1050,
+						-552,
+						1051,
+						-1046,
+						1052
+					]
+				],
+				id: "DE21A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Erding",
+					FID: "DE21A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1041,
+						1053,
+						-547,
+						-553,
+						-1051,
+						1054
+					]
+				],
+				id: "DE21B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Freising",
+					FID: "DE21B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1055,
+						-637,
+						-1043,
+						-220,
+						1056,
+						1057
+					]
+				],
+				id: "DE21C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Fürstenfeldbruck",
+					FID: "DE21C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1040,
+						1058,
+						1059,
+						1060,
+						1061,
+						-652,
+						-533
+					]
+				],
+				id: "DE21D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Garmisch-Partenkirchen",
+					FID: "DE21D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-656,
+						-639,
+						-638,
+						-1056,
+						1062,
+						-530
+					]
+				],
+				id: "DE21E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Landsberg am Lech",
+					FID: "DE21E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1038,
+						1063,
+						1064,
+						1065
+					]
+				],
+				id: "DE21F",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21F",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Miesbach",
+					FID: "DE21F"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-526,
+						1066,
+						-1047,
+						-1052,
+						-551,
+						-558,
+						-864
+					]
+				],
+				id: "DE21G",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21G",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mühldorf a. Inn",
+					FID: "DE21G"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1064,
+						-1037,
+						1067,
+						-1057,
+						-219,
+						-1042,
+						-1055,
+						-1053,
+						-1045,
+						1068
+					]
+				],
+				id: "DE21H",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21H",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "München, Landkreis",
+					FID: "DE21H"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-658,
+						-1050,
+						-217,
+						1069,
+						-634
+					]
+				],
+				id: "DE21I",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21I",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neuburg-Schrobenhausen",
+					FID: "DE21I"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1044,
+						-635,
+						-1070,
+						-216,
+						-1049,
+						-548,
+						-1054
+					]
+				],
+				id: "DE21J",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21J",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Pfaffenhofen a. d. Ilm",
+					FID: "DE21J"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-1019,
+							1070,
+							-956,
+							-844,
+							1071,
+							1072
+						]
+					],
+					[
+						[
+							-958,
+							1073
+						]
+					]
+				],
+				id: "DE918",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE918",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Northeim",
+					FID: "DE918"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1074,
+						1075,
+						-1014,
+						-1001,
+						-1009
+					]
+				],
+				id: "DE91A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE91A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Peine",
+					FID: "DE91A"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-712,
+							-1022,
+							-1005,
+							-1004,
+							-1023
+						]
+					],
+					[
+						[
+							1076,
+							-1007,
+							-1021
+						]
+					]
+				],
+				id: "DE91B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE91B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wolfenbüttel",
+					FID: "DE91B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-960,
+						-924,
+						-959,
+						-1074,
+						-957,
+						-1071,
+						-1018,
+						-73,
+						-69,
+						-966
+					]
+				],
+				id: "DE91C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE91C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Göttingen",
+					FID: "DE91C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-856,
+						1077,
+						1078,
+						1079,
+						1080,
+						-805,
+						1081,
+						1082
+					]
+				],
+				id: "DE922",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE922",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Diepholz",
+					FID: "DE922"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-853,
+						1083,
+						1084,
+						1085,
+						1086
+					]
+				],
+				id: "DE923",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE923",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hameln-Pyrmont",
+					FID: "DE923"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1020,
+						-1073,
+						1087,
+						-1086,
+						1088,
+						-1075,
+						-1008,
+						-1077
+					]
+				],
+				id: "DE925",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE925",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Hildesheim",
+					FID: "DE925"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1072,
+						-843,
+						-854,
+						-1087,
+						-1088
+					]
+				],
+				id: "DE926",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE926",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Holzminden",
+					FID: "DE926"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1089,
+						1090,
+						1091,
+						-857,
+						-1083,
+						1092
+					]
+				],
+				id: "DE927",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE927",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Nienburg (Weser)",
+					FID: "DE927"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-852,
+						-858,
+						-1092,
+						1093,
+						-1084
+					]
+				],
+				id: "DE928",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE928",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schaumburg",
+					FID: "DE928"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1076,
+						-1089,
+						-1085,
+						-1094,
+						-1091,
+						1094,
+						1095,
+						-1015
+					]
+				],
+				id: "DE929",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE929",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Region Hannover",
+					FID: "DE929"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1096,
+						1096,
+						1097,
+						-1016
+					]
+				],
+				id: "DE931",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE931",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Celle",
+					FID: "DE931"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-808,
+						1098,
+						1099,
+						1100,
+						1101,
+						1102
+					],
+					[
+						-811
+					]
+				],
+				id: "DE932",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE932",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Cuxhaven",
+					FID: "DE932"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1103,
+						-131,
+						1104,
+						1105,
+						1106,
+						-1030
+					]
+				],
+				id: "DEB15",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB15",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Birkenfeld",
+					FID: "DEB15"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-952,
+							1107,
+							1108,
+							1109,
+							1110,
+							-1025,
+							1111,
+							1112
+						]
+					],
+					[
+						[
+							-1027
+						]
+					]
+				],
+				id: "DEB17",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB17",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mayen-Koblenz",
+					FID: "DEB17"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							1113,
+							-1112,
+							-1024,
+							-615,
+							-1029
+						],
+						[
+							1114
+						]
+					],
+					[
+						[
+							1115
+						]
+					]
+				],
+				id: "DEB18",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB18",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neuwied",
+					FID: "DEB18"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-902,
+						1116,
+						1117,
+						-1108,
+						-951,
+						1118,
+						-915
+					]
+				],
+				id: "DEB1A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB1A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rhein-Lahn-Kreis",
+					FID: "DEB1A"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-950,
+							-1113,
+							-1114,
+							-1028,
+							-946,
+							-912,
+							-916,
+							-1119
+						],
+						[
+							-1116
+						]
+					],
+					[
+						[
+							-1115
+						]
+					]
+				],
+				id: "DEB1B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB1B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Westerwaldkreis",
+					FID: "DEB1B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1119,
+						1120,
+						1121,
+						-1110
+					]
+				],
+				id: "DEB1C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB1C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Cochem-Zell",
+					FID: "DEB1C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1107,
+						1122,
+						-1120,
+						-1109,
+						-1118,
+						1123,
+						-1031
+					]
+				],
+				id: "DEB1D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB1D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rhein-Hunsrück-Kreis",
+					FID: "DEB1D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1124
+					]
+				],
+				id: "DEB21",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB21",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Trier, Kreisfreie Stadt",
+					FID: "DEB21"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1125,
+						-1121,
+						-1123,
+						-1106,
+						1126,
+						1127
+					]
+				],
+				id: "DEB22",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB22",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bernkastel-Wittlich",
+					FID: "DEB22"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-468,
+						-602,
+						1128,
+						-1128,
+						1129,
+						1130
+					]
+				],
+				id: "DEB23",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB23",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Eifelkreis Bitburg-Prüm",
+					FID: "DEB23"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1111,
+						-1122,
+						-1126,
+						-1129,
+						-601,
+						-1026
+					]
+				],
+				id: "DEB24",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB24",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Vulkaneifel",
+					FID: "DEB24"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1131,
+						1132
+					]
+				],
+				id: "DE125",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE125",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Heidelberg, Stadtkreis",
+					FID: "DE125"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1133,
+						-869,
+						1134,
+						-1132,
+						1135,
+						1136,
+						1137,
+						1138
+					]
+				],
+				id: "DE126",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE126",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mannheim, Stadtkreis",
+					FID: "DE126"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1139,
+						-899,
+						1140,
+						-897,
+						-590,
+						-229,
+						-224,
+						-62
+					]
+				],
+				id: "DE127",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE127",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neckar-Odenwald-Kreis",
+					FID: "DE127"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-1067,
+							-525,
+							1141,
+							-1065,
+							-1069,
+							-1048
+						],
+						[
+							-221
+						]
+					],
+					[
+						[
+							-529
+						]
+					]
+				],
+				id: "DE21K",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21K",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rosenheim, Landkreis",
+					FID: "DE21K"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1068,
+						-1036,
+						-531,
+						-1063,
+						-1058
+					]
+				],
+				id: "DE21L",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE21L",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Starnberg",
+					FID: "DE21L"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1142,
+						1143,
+						1144,
+						1145,
+						-813,
+						-787
+					]
+				],
+				id: "DE933",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE933",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Harburg",
+					FID: "DE933"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1146,
+						1147,
+						-998,
+						-796,
+						-762,
+						-446
+					]
+				],
+				id: "DE934",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE934",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Lüchow-Dannenberg",
+					FID: "DE934"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1148,
+						1149,
+						-1143,
+						-786,
+						-999,
+						-1148,
+						1150,
+						1151
+					]
+				],
+				id: "DE935",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE935",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Lüneburg, Landkreis",
+					FID: "DE935"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-803,
+						1152,
+						-1102,
+						1153,
+						1154
+					]
+				],
+				id: "DE936",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE936",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Osterholz",
+					FID: "DE936"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1155,
+						-1154,
+						-1101,
+						1156,
+						-1145,
+						1157
+					],
+					[
+						1158
+					]
+				],
+				id: "DE937",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE937",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rotenburg (Wümme)",
+					FID: "DE937"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1090,
+						1159,
+						-1158,
+						-1144,
+						-1150,
+						1160,
+						-1152,
+						1161,
+						-1097,
+						-1095
+					]
+				],
+				id: "DE938",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE938",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Heidekreis",
+					FID: "DE938"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1162,
+						-814,
+						-1146,
+						-1157,
+						-1100,
+						1163,
+						1164
+					]
+				],
+				id: "DE939",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE939",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Stade",
+					FID: "DE939"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-1017,
+							-1098,
+							-1162,
+							-1151,
+							-1147,
+							-445
+						]
+					],
+					[
+						[
+							-1149,
+							-1161
+						]
+					]
+				],
+				id: "DE93A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE93A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Uelzen",
+					FID: "DE93A"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-1093,
+							-1082,
+							-804,
+							-1155,
+							-1156,
+							-1160
+						]
+					],
+					[
+						[
+							-1159
+						]
+					]
+				],
+				id: "DE93B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE93B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Verden",
+					FID: "DE93B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1165,
+						1166,
+						-806,
+						-1081
+					]
+				],
+				id: "DE941",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE941",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Delmenhorst, Kreisfreie Stadt",
+					FID: "DE941"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-1133,
+							-1135,
+							-868,
+							-901,
+							-876,
+							-900,
+							-1140,
+							-67,
+							-251,
+							1167,
+							1168,
+							-1136
+						]
+					],
+					[
+						[
+							-1141,
+							-898
+						]
+					]
+				],
+				id: "DE128",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE128",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rhein-Neckar-Kreis",
+					FID: "DE128"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1169,
+						1170
+					]
+				],
+				id: "DE129",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE129",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Pforzheim, Stadtkreis",
+					FID: "DE129"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1171,
+						-1170,
+						1172,
+						-621,
+						-182,
+						1173,
+						-257,
+						-253
+					]
+				],
+				id: "DE12A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE12A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Calw",
+					FID: "DE12A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-47,
+						-622,
+						-1173,
+						-1171,
+						-1172,
+						-252,
+						-65
+					]
+				],
+				id: "DE12B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE12B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Enzkreis",
+					FID: "DE12B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-258,
+						-1174,
+						-181,
+						-188,
+						1174,
+						1175
+					]
+				],
+				id: "DE12C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE12C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Freudenstadt",
+					FID: "DE12C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1176,
+						1177
+					]
+				],
+				id: "DE131",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE131",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Freiburg im Breisgau, Stadtkreis",
+					FID: "DE131"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-281,
+						1178,
+						-1177,
+						1179,
+						1180,
+						-171,
+						-169
+					]
+				],
+				id: "DE132",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE132",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Breisgau-Hochschwarzwald",
+					FID: "DE132"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1181,
+						-1180,
+						-1178,
+						-1179,
+						-280,
+						-279,
+						1182
+					]
+				],
+				id: "DE133",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE133",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Emmendingen",
+					FID: "DE133"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-259,
+							-1176,
+							1183,
+							1184,
+							-1183,
+							-278
+						]
+					],
+					[
+						[
+							-262
+						]
+					]
+				],
+				id: "DE134",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE134",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ortenaukreis",
+					FID: "DE134"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1184,
+						-1175,
+						-187,
+						1185,
+						1186
+					]
+				],
+				id: "DE135",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE135",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rottweil",
+					FID: "DE135"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1187,
+						-164,
+						-35,
+						-172,
+						-1181,
+						-1182,
+						-1185,
+						-1187
+					]
+				],
+				id: "DE136",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE136",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schwarzwald-Baar-Kreis",
+					FID: "DE136"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-214,
+						-165,
+						-1188,
+						-1186,
+						-186
+					]
+				],
+				id: "DE137",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE137",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Tuttlingen",
+					FID: "DE137"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							1188,
+							-761,
+							1189,
+							-784
+						]
+					],
+					[
+						[
+							1190
+						]
+					],
+					[
+						[
+							1191
+						]
+					],
+					[
+						[
+							1192
+						]
+					],
+					[
+						[
+							1193
+						]
+					],
+					[
+						[
+							1194
+						]
+					],
+					[
+						[
+							1195
+						]
+					],
+					[
+						[
+							1196
+						]
+					],
+					[
+						[
+							1197
+						]
+					],
+					[
+						[
+							1198
+						]
+					],
+					[
+						[
+							1199
+						]
+					],
+					[
+						[
+							1200
+						]
+					],
+					[
+						[
+							1201
+						]
+					],
+					[
+						[
+							1202
+						]
+					]
+				],
+				id: "DEF07",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF07",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Nordfriesland",
+					FID: "DEF07"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-773,
+							1203,
+							1204,
+							1205,
+							1206
+						]
+					],
+					[
+						[
+							1207
+						]
+					]
+				],
+				id: "DEF08",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF08",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ostholstein",
+					FID: "DEF08"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							1208,
+							1209,
+							-815,
+							-1163
+						]
+					],
+					[
+						[
+							1210
+						]
+					],
+					[
+						[
+							1211
+						]
+					]
+				],
+				id: "DEF09",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF09",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Pinneberg",
+					FID: "DEF09"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-769,
+						1212,
+						-1206,
+						1213,
+						-777,
+						1214
+					]
+				],
+				id: "DEF0A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF0A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Plön",
+					FID: "DEF0A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1215,
+						1216,
+						-770,
+						-1215,
+						-779,
+						1217,
+						1218,
+						-781,
+						1219,
+						1220
+					]
+				],
+				id: "DEF0B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF0B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rendsburg-Eckernförde",
+					FID: "DEF0B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-780,
+						-1190,
+						-760,
+						1221,
+						-767,
+						1222,
+						-1216,
+						1223,
+						-1220
+					]
+				],
+				id: "DEF0C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF0C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Schleswig-Flensburg",
+					FID: "DEF0C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-778,
+						-1214,
+						-1205,
+						1224,
+						-816,
+						-1210,
+						1225,
+						-1218
+					]
+				],
+				id: "DEF0D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF0D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Segeberg",
+					FID: "DEF0D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1226,
+						-782,
+						-1219,
+						-1226,
+						-1209,
+						-1165
+					]
+				],
+				id: "DEF0E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF0E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Steinburg",
+					FID: "DEF0E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-772,
+						-789,
+						-812,
+						-1225,
+						-1204
+					]
+				],
+				id: "DEF0F",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEF0F",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Stormarn",
+					FID: "DEF0F"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-116,
+						-110,
+						-98,
+						-102
+					]
+				],
+				id: "DEG01",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG01",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Erfurt, Kreisfreie Stadt",
+					FID: "DEG01"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-420,
+						-707,
+						-511
+					]
+				],
+				id: "DEG02",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG02",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Gera, Kreisfreie Stadt",
+					FID: "DEG02"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1105,
+						-133,
+						-17,
+						1227,
+						-1130,
+						-1127
+					],
+					[
+						-1125
+					]
+				],
+				id: "DEB25",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB25",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Trier-Saarburg",
+					FID: "DEB25"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1228,
+						-1139,
+						1229
+					]
+				],
+				id: "DEB31",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB31",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Frankenthal (Pfalz), Kreisfreie Stadt",
+					FID: "DEB31"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1230,
+						1231
+					]
+				],
+				id: "DEB32",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB32",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kaiserslautern, Kreisfreie Stadt",
+					FID: "DEB32"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							1232
+						]
+					],
+					[
+						[
+							-3,
+							1233,
+							1234
+						]
+					],
+					[
+						[
+							1235
+						]
+					]
+				],
+				id: "DEB33",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB33",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Landau in der Pfalz, Kreisfreie Stadt",
+					FID: "DEB33"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1236,
+						-1230,
+						-1138
+					]
+				],
+				id: "DEB34",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB34",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ludwigshafen am Rhein, Kreisfreie Stadt",
+					FID: "DEB34"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1237,
+						1238,
+						1239
+					]
+				],
+				id: "DE942",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE942",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Emden, Kreisfreie Stadt",
+					FID: "DE942"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1240,
+						1241,
+						1242
+					]
+				],
+				id: "DE943",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE943",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Oldenburg (Oldenburg), Kreisfreie Stadt",
+					FID: "DE943"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1243,
+						-694
+					]
+				],
+				id: "DE944",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE944",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Osnabrück, Kreisfreie Stadt",
+					FID: "DE944"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1244,
+						-833,
+						-884
+					]
+				],
+				id: "DEB35",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB35",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mainz, Kreisfreie Stadt",
+					FID: "DEB35"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1245,
+						1246,
+						1247
+					]
+				],
+				id: "DEB36",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB36",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Neustadt an der Weinstraße, Kreisfreie Stadt",
+					FID: "DEB36"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-12
+					]
+				],
+				id: "DEB37",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB37",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Pirmasens, Kreisfreie Stadt",
+					FID: "DEB37"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-250,
+						1248,
+						-1168
+					]
+				],
+				id: "DEB38",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB38",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Speyer, Kreisfreie Stadt",
+					FID: "DEB38"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-871,
+						1249,
+						1250,
+						1251
+					]
+				],
+				id: "DEB39",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB39",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Worms, Kreisfreie Stadt",
+					FID: "DEB39"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-129,
+						-8
+					]
+				],
+				id: "DEB3A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Zweibrücken, Kreisfreie Stadt",
+					FID: "DEB3A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1252,
+						1253,
+						-1033,
+						1254,
+						-882,
+						-872,
+						-1252
+					]
+				],
+				id: "DEB3B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Alzey-Worms",
+					FID: "DEB3B"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1255,
+						-1231,
+						1256,
+						1257,
+						-1253,
+						-1251,
+						1258,
+						-1247,
+						1259,
+						-1234,
+						-11
+					]
+				],
+				id: "DEB3C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Bad Dürkheim",
+					FID: "DEB3C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1034,
+						-1254,
+						-1258,
+						1260,
+						1261
+					]
+				],
+				id: "DEB3D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Donnersbergkreis",
+					FID: "DEB3D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-248,
+						-246,
+						-255,
+						-261,
+						-277,
+						1262,
+						1263
+					]
+				],
+				id: "DEB3E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Germersheim",
+					FID: "DEB3E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1257,
+						-1232,
+						-1256,
+						-10,
+						-128,
+						1264,
+						-1261
+					]
+				],
+				id: "DEB3F",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3F",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kaiserslautern, Landkreis",
+					FID: "DEB3F"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1265,
+						-127,
+						-24,
+						-132,
+						-1104,
+						-1035,
+						-1262
+					]
+				],
+				id: "DEB3G",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3G",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Kusel",
+					FID: "DEB3G"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1265,
+						-1263,
+						-276,
+						-4,
+						-1235,
+						-1260,
+						-1246
+					],
+					[
+						-1233
+					],
+					[
+						-1236
+					]
+				],
+				id: "DEB3H",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3H",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Südliche Weinstraße",
+					FID: "DEB3H"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-870,
+						-1134,
+						-1229,
+						-1237,
+						-1137,
+						-1169,
+						-1249,
+						-249,
+						-1264,
+						-1266,
+						-1248,
+						-1259,
+						-1250
+					]
+				],
+				id: "DEB3I",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3I",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Rhein-Pfalz-Kreis",
+					FID: "DEB3I"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-883,
+						-1255,
+						-1032,
+						-1124,
+						-1117,
+						-904,
+						-834,
+						-1245
+					]
+				],
+				id: "DEB3J",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEB3J",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Mainz-Bingen",
+					FID: "DEB3J"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1266,
+						1267
+					]
+				],
+				id: "DE945",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE945",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wilhelmshaven, Kreisfreie Stadt",
+					FID: "DE945"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1268,
+						1269,
+						-1242,
+						1270,
+						1271,
+						1272
+					]
+				],
+				id: "DE946",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE946",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Ammerland",
+					FID: "DE946"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							1273,
+							-283,
+							1274,
+							-1239
+						]
+					],
+					[
+						[
+							1275
+						]
+					],
+					[
+						[
+							1276
+						]
+					],
+					[
+						[
+							1277
+						]
+					],
+					[
+						[
+							1278
+						]
+					]
+				],
+				id: "DE947",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE947",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Aurich",
+					FID: "DE947"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1279,
+						1280,
+						1281,
+						-1272,
+						1282,
+						1283
+					]
+				],
+				id: "DE948",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE948",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Cloppenburg",
+					FID: "DE948"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1284,
+						-698,
+						1285,
+						1286,
+						1287,
+						1288,
+						-1281
+					]
+				],
+				id: "DE949",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE949",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Emsland",
+					FID: "DE949"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							-1269,
+							1289,
+							-285,
+							1290,
+							-1268,
+							1291,
+							1292
+						]
+					],
+					[
+						[
+							1293
+						]
+					]
+				],
+				id: "DE94A",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE94A",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Friesland (DE)",
+					FID: "DE94A"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-684,
+						1294,
+						1295,
+						1296,
+						-1286,
+						-697
+					]
+				],
+				id: "DE94B",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE94B",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Grafschaft Bentheim",
+					FID: "DE94B"
+				}
+			},
+			{
+				type: "MultiPolygon",
+				arcs: [
+					[
+						[
+							1297,
+							1298,
+							-1240,
+							-1275,
+							-282,
+							-1290,
+							-1273,
+							-1282,
+							-1289
+						]
+					],
+					[
+						[
+							1299
+						]
+					],
+					[
+						[
+							1300
+						]
+					]
+				],
+				id: "DE94C",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE94C",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Leer",
+					FID: "DE94C"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						1301,
+						-1283,
+						-1271,
+						-1241,
+						1302,
+						-1166,
+						-1080
+					]
+				],
+				id: "DE94D",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE94D",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Oldenburg, Landkreis",
+					FID: "DE94D"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1280,
+						1303,
+						-1078,
+						-855,
+						-840,
+						-835,
+						-703,
+						-695,
+						-1244,
+						-699,
+						-1285
+					]
+				],
+				id: "DE94E",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE94E",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Osnabrück, Landkreis",
+					FID: "DE94E"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-1284,
+						-1302,
+						-1079,
+						-1304
+					]
+				],
+				id: "DE94F",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE94F",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Vechta",
+					FID: "DE94F"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-802,
+						-1167,
+						-1303,
+						-1243,
+						-1270,
+						-1293,
+						1304,
+						-809,
+						-1103,
+						-1153
+					]
+				],
+				id: "DE94G",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DE94G",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Wesermarsch",
+					FID: "DE94G"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-423,
+						-119
+					]
+				],
+				id: "DEG03",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG03",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Jena, Kreisfreie Stadt",
+					FID: "DEG03"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-89,
+						-113,
+						-103
+					]
+				],
+				id: "DEG04",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG04",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Suhl, Kreisfreie Stadt",
+					FID: "DEG04"
+				}
+			},
+			{
+				type: "Polygon",
+				arcs: [
+					[
+						-120
+					]
+				],
+				id: "DEG05",
+				properties: {
+					LEVL_CODE: 3,
+					NUTS_ID: "DEG05",
+					CNTR_CODE: "DE",
+					NUTS_NAME: "Weimar, Kreisfreie Stadt",
+					FID: "DEG05"
+				}
+			}
+		]
+	}
+};
+var arcs$5 = [
+	[
+		[
+			7687885,
+			6989998
+		],
+		[
+			1806,
+			1887
+		],
+		[
+			932,
+			2915
+		],
+		[
+			1882,
+			-354
+		],
+		[
+			2812,
+			1913
+		],
+		[
+			404,
+			2335
+		],
+		[
+			1876,
+			2122
+		],
+		[
+			-831,
+			6370
+		],
+		[
+			1866,
+			1260
+		],
+		[
+			-2793,
+			1169
+		],
+		[
+			-1052,
+			441
+		]
+	],
+	[
+		[
+			7694787,
+			7010056
+		],
+		[
+			1377,
+			1432
+		],
+		[
+			843,
+			446
+		],
+		[
+			341,
+			2207
+		],
+		[
+			692,
+			461
+		],
+		[
+			936,
+			567
+		],
+		[
+			151,
+			687
+		]
+	],
+	[
+		[
+			7101941,
+			7070028
+		],
+		[
+			442,
+			-3021
+		]
+	],
+	[
+		[
+			7102383,
+			7067007
+		],
+		[
+			-3818,
+			-1495
+		],
+		[
+			-470,
+			-1621
+		],
+		[
+			4686,
+			-324
+		],
+		[
+			-459,
+			-1418
+		],
+		[
+			2893,
+			-424
+		],
+		[
+			1291,
+			-2380
+		],
+		[
+			-1115,
+			-1235
+		],
+		[
+			1223,
+			-1723
+		],
+		[
+			-515,
+			-1370
+		],
+		[
+			-1927,
+			-1847
+		],
+		[
+			-2714,
+			816
+		],
+		[
+			-869,
+			-1701
+		],
+		[
+			1217,
+			-1924
+		],
+		[
+			4411,
+			-493
+		],
+		[
+			-163,
+			-1700
+		],
+		[
+			-1902,
+			-710
+		],
+		[
+			-566,
+			-3090
+		],
+		[
+			2655,
+			-1156
+		]
+	],
+	[
+		[
+			7106241,
+			7043212
+		],
+		[
+			-2104,
+			180
+		],
+		[
+			-2747,
+			-1239
+		],
+		[
+			-6258,
+			2876
+		],
+		[
+			-4023,
+			-1630
+		],
+		[
+			-5881,
+			904
+		],
+		[
+			-2538,
+			-970
+		],
+		[
+			-3949,
+			758
+		]
+	],
+	[
+		[
+			7078741,
+			7044091
+		],
+		[
+			-1286,
+			2086
+		],
+		[
+			-5923,
+			686
+		],
+		[
+			-3229,
+			1476
+		],
+		[
+			-3763,
+			3976
+		],
+		[
+			902,
+			1590
+		],
+		[
+			-1300,
+			1533
+		],
+		[
+			-3209,
+			-190
+		],
+		[
+			-3127,
+			1569
+		],
+		[
+			-5289,
+			-826
+		],
+		[
+			-465,
+			-1149
+		]
+	],
+	[
+		[
+			7052052,
+			7054842
+		],
+		[
+			-592,
+			-225
+		],
+		[
+			-1180,
+			335
+		],
+		[
+			-729,
+			949
+		],
+		[
+			-740,
+			382
+		],
+		[
+			86,
+			872
+		],
+		[
+			-1687,
+			491
+		]
+	],
+	[
+		[
+			7047210,
+			7057646
+		],
+		[
+			3885,
+			2431
+		],
+		[
+			5562,
+			1081
+		],
+		[
+			-692,
+			2160
+		],
+		[
+			3333,
+			2658
+		],
+		[
+			-2744,
+			1760
+		],
+		[
+			-1929,
+			2595
+		]
+	],
+	[
+		[
+			7054625,
+			7070331
+		],
+		[
+			-458,
+			677
+		],
+		[
+			1217,
+			4460
+		]
+	],
+	[
+		[
+			7055384,
+			7075468
+		],
+		[
+			7930,
+			-2558
+		],
+		[
+			2362,
+			1078
+		],
+		[
+			2035,
+			-1360
+		],
+		[
+			2469,
+			774
+		],
+		[
+			2658,
+			2481
+		],
+		[
+			2246,
+			338
+		],
+		[
+			2905,
+			-2912
+		],
+		[
+			4362,
+			-1089
+		],
+		[
+			8547,
+			776
+		],
+		[
+			1907,
+			-3110
+		],
+		[
+			2403,
+			-216
+		],
+		[
+			3164,
+			1401
+		]
+	],
+	[
+		[
+			7098372,
+			7071071
+		],
+		[
+			1973,
+			840
+		],
+		[
+			1596,
+			-1883
+		]
+	],
+	[
+		[
+			7066633,
+			7058741
+		],
+		[
+			4640,
+			-3375
+		],
+		[
+			2894,
+			409
+		],
+		[
+			3,
+			-1003
+		],
+		[
+			-879,
+			-1424
+		],
+		[
+			797,
+			-20
+		],
+		[
+			1961,
+			1594
+		],
+		[
+			515,
+			-250
+		],
+		[
+			2168,
+			328
+		],
+		[
+			533,
+			906
+		],
+		[
+			-232,
+			728
+		],
+		[
+			1587,
+			679
+		],
+		[
+			71,
+			1070
+		],
+		[
+			953,
+			1011
+		],
+		[
+			-625,
+			749
+		],
+		[
+			1015,
+			952
+		],
+		[
+			-189,
+			467
+		],
+		[
+			-1272,
+			-21
+		],
+		[
+			-520,
+			-494
+		],
+		[
+			-3246,
+			-477
+		],
+		[
+			-266,
+			727
+		],
+		[
+			-1263,
+			-91
+		],
+		[
+			-300,
+			838
+		],
+		[
+			-2735,
+			142
+		],
+		[
+			-1715,
+			-1498
+		],
+		[
+			-3860,
+			-854
+		],
+		[
+			-35,
+			-1093
+		]
+	],
+	[
+		[
+			7009604,
+			7076463
+		],
+		[
+			2285,
+			-1955
+		],
+		[
+			5053,
+			8
+		],
+		[
+			4826,
+			-2671
+		],
+		[
+			1612,
+			1338
+		],
+		[
+			2633,
+			-797
+		],
+		[
+			865,
+			-2738
+		]
+	],
+	[
+		[
+			7026878,
+			7069648
+		],
+		[
+			-2725,
+			-1083
+		],
+		[
+			-837,
+			-2034
+		],
+		[
+			-1721,
+			-1131
+		],
+		[
+			2319,
+			-1794
+		],
+		[
+			2332,
+			580
+		],
+		[
+			1594,
+			-1088
+		],
+		[
+			120,
+			-3174
+		],
+		[
+			-1834,
+			-2692
+		],
+		[
+			1311,
+			-1109
+		],
+		[
+			-2154,
+			-1827
+		]
+	],
+	[
+		[
+			7025283,
+			7054296
+		],
+		[
+			-1630,
+			-615
+		],
+		[
+			25,
+			-1966
+		],
+		[
+			-3121,
+			-1565
+		],
+		[
+			-2345,
+			4939
+		],
+		[
+			-6,
+			2617
+		],
+		[
+			-2215,
+			102
+		],
+		[
+			-3135,
+			1597
+		],
+		[
+			-1989,
+			-128
+		],
+		[
+			-2760,
+			1648
+		],
+		[
+			-3282,
+			-1089
+		],
+		[
+			-3691,
+			918
+		],
+		[
+			-1700,
+			-623
+		],
+		[
+			1492,
+			-3412
+		],
+		[
+			-1954,
+			-2654
+		],
+		[
+			-6022,
+			1283
+		],
+		[
+			-3728,
+			-134
+		],
+		[
+			-2623,
+			2060
+		],
+		[
+			1428,
+			1983
+		],
+		[
+			-504,
+			1322
+		]
+	],
+	[
+		[
+			6987523,
+			7060579
+		],
+		[
+			4806,
+			698
+		],
+		[
+			4055,
+			1814
+		],
+		[
+			1961,
+			1476
+		],
+		[
+			-328,
+			1378
+		],
+		[
+			2516,
+			181
+		],
+		[
+			2298,
+			2590
+		],
+		[
+			-15,
+			4340
+		],
+		[
+			6788,
+			3407
+		]
+	],
+	[
+		[
+			6953181,
+			7093806
+		],
+		[
+			9031,
+			-897
+		],
+		[
+			2568,
+			-1024
+		],
+		[
+			6873,
+			646
+		],
+		[
+			3365,
+			-1940
+		],
+		[
+			3144,
+			2070
+		],
+		[
+			4857,
+			649
+		],
+		[
+			1321,
+			-708
+		],
+		[
+			1384,
+			955
+		],
+		[
+			7117,
+			2212
+		],
+		[
+			3168,
+			1905
+		],
+		[
+			2558,
+			-419
+		],
+		[
+			2534,
+			1862
+		],
+		[
+			3220,
+			921
+		]
+	],
+	[
+		[
+			7004321,
+			7100038
+		],
+		[
+			1140,
+			-1954
+		],
+		[
+			3782,
+			350
+		],
+		[
+			1470,
+			-1008
+		],
+		[
+			-138,
+			-7257
+		],
+		[
+			-4381,
+			-1303
+		]
+	],
+	[
+		[
+			7006194,
+			7088866
+		],
+		[
+			-3201,
+			-1936
+		],
+		[
+			-6880,
+			-1317
+		],
+		[
+			-1677,
+			-3105
+		],
+		[
+			33,
+			-2615
+		],
+		[
+			-8745,
+			-3675
+		],
+		[
+			-6051,
+			3340
+		],
+		[
+			-5157,
+			-968
+		],
+		[
+			-3641,
+			2027
+		]
+	],
+	[
+		[
+			6970875,
+			7080617
+		],
+		[
+			-12779,
+			5507
+		],
+		[
+			-3470,
+			-880
+		],
+		[
+			-2739,
+			403
+		]
+	],
+	[
+		[
+			6951887,
+			7085647
+		],
+		[
+			21,
+			1814
+		],
+		[
+			17,
+			1402
+		],
+		[
+			-295,
+			807
+		],
+		[
+			-725,
+			1986
+		],
+		[
+			375,
+			677
+		],
+		[
+			1901,
+			1473
+		]
+	],
+	[
+		[
+			7009604,
+			7076463
+		],
+		[
+			-2184,
+			3989
+		],
+		[
+			6688,
+			1920
+		]
+	],
+	[
+		[
+			7014108,
+			7082372
+		],
+		[
+			5600,
+			-1236
+		],
+		[
+			2192,
+			-1402
+		],
+		[
+			4996,
+			1819
+		],
+		[
+			3308,
+			-1081
+		],
+		[
+			6004,
+			2008
+		],
+		[
+			4227,
+			-637
+		]
+	],
+	[
+		[
+			7040435,
+			7081843
+		],
+		[
+			900,
+			-728
+		],
+		[
+			1092,
+			-35
+		],
+		[
+			1756,
+			-913
+		],
+		[
+			253,
+			-649
+		]
+	],
+	[
+		[
+			7044436,
+			7079518
+		],
+		[
+			-3484,
+			-1207
+		],
+		[
+			-3295,
+			-2580
+		],
+		[
+			1398,
+			-1686
+		],
+		[
+			50,
+			-1710
+		],
+		[
+			2323,
+			-1292
+		],
+		[
+			-2268,
+			-1913
+		],
+		[
+			-5217,
+			-1505
+		],
+		[
+			-401,
+			1461
+		],
+		[
+			-2679,
+			-558
+		],
+		[
+			-3985,
+			1120
+		]
+	],
+	[
+		[
+			6987523,
+			7060579
+		],
+		[
+			-1799,
+			-220
+		],
+		[
+			-1224,
+			518
+		],
+		[
+			-842,
+			2843
+		],
+		[
+			-2076,
+			929
+		],
+		[
+			119,
+			1950
+		],
+		[
+			-5661,
+			2818
+		],
+		[
+			-4043,
+			4094
+		],
+		[
+			-32,
+			626
+		],
+		[
+			2122,
+			18
+		],
+		[
+			732,
+			1036
+		],
+		[
+			-1511,
+			1954
+		],
+		[
+			-3889,
+			1775
+		],
+		[
+			-50,
+			941
+		],
+		[
+			1506,
+			756
+		]
+	],
+	[
+		[
+			7006194,
+			7088866
+		],
+		[
+			1145,
+			-1149
+		],
+		[
+			-621,
+			-1039
+		],
+		[
+			795,
+			-800
+		],
+		[
+			4364,
+			1196
+		],
+		[
+			2231,
+			-4702
+		]
+	],
+	[
+		[
+			7074080,
+			6897684
+		],
+		[
+			2598,
+			-1098
+		],
+		[
+			4312,
+			1569
+		],
+		[
+			2318,
+			-1756
+		],
+		[
+			-723,
+			-1139
+		],
+		[
+			-3999,
+			-453
+		]
+	],
+	[
+		[
+			7078586,
+			6894807
+		],
+		[
+			1121,
+			-850
+		],
+		[
+			488,
+			-464
+		],
+		[
+			1100,
+			-357
+		],
+		[
+			630,
+			-801
+		],
+		[
+			780,
+			-284
+		],
+		[
+			1093,
+			-105
+		],
+		[
+			1082,
+			66
+		],
+		[
+			1674,
+			624
+		]
+	],
+	[
+		[
+			7086554,
+			6892636
+		],
+		[
+			1027,
+			283
+		],
+		[
+			2863,
+			280
+		],
+		[
+			753,
+			395
+		],
+		[
+			3456,
+			828
+		],
+		[
+			1637,
+			1279
+		],
+		[
+			723,
+			1597
+		],
+		[
+			565,
+			165
+		],
+		[
+			872,
+			-111
+		],
+		[
+			484,
+			-392
+		],
+		[
+			1482,
+			113
+		],
+		[
+			1625,
+			465
+		],
+		[
+			1607,
+			30
+		],
+		[
+			939,
+			-235
+		]
+	],
+	[
+		[
+			7104587,
+			6897333
+		],
+		[
+			2586,
+			-3781
+		],
+		[
+			2446,
+			-188
+		],
+		[
+			1943,
+			991
+		],
+		[
+			6192,
+			-475
+		],
+		[
+			3942,
+			1056
+		],
+		[
+			2672,
+			-219
+		],
+		[
+			1866,
+			2099
+		],
+		[
+			5944,
+			1616
+		],
+		[
+			3671,
+			2204
+		],
+		[
+			2313,
+			-1093
+		],
+		[
+			5897,
+			46
+		],
+		[
+			1285,
+			-2111
+		],
+		[
+			2584,
+			-1491
+		],
+		[
+			5149,
+			-580
+		],
+		[
+			2377,
+			781
+		],
+		[
+			2365,
+			-737
+		]
+	],
+	[
+		[
+			7157819,
+			6895451
+		],
+		[
+			4827,
+			1073
+		],
+		[
+			-1168,
+			2264
+		],
+		[
+			5597,
+			2954
+		],
+		[
+			4358,
+			-1248
+		],
+		[
+			27,
+			-1855
+		]
+	],
+	[
+		[
+			7174736,
+			6899250
+		],
+		[
+			650,
+			1134
+		],
+		[
+			-344,
+			2680
+		],
+		[
+			855,
+			520
+		],
+		[
+			904,
+			-878
+		],
+		[
+			846,
+			937
+		],
+		[
+			-1834,
+			1954
+		]
+	],
+	[
+		[
+			7181511,
+			6907285
+		],
+		[
+			711,
+			-103
+		]
+	],
+	[
+		[
+			7166188,
+			6916315
+		],
+		[
+			6199,
+			456
+		],
+		[
+			-470,
+			2326
+		],
+		[
+			4642,
+			-293
+		]
+	],
+	[
+		[
+			7176559,
+			6918804
+		],
+		[
+			1407,
+			-3924
+		],
+		[
+			1969,
+			680
+		],
+		[
+			658,
+			2780
+		],
+		[
+			2745,
+			-1378
+		],
+		[
+			940,
+			-2314
+		],
+		[
+			2749,
+			404
+		],
+		[
+			1699,
+			-812
+		],
+		[
+			188,
+			-671
+		],
+		[
+			-2280,
+			-1780
+		],
+		[
+			1867,
+			-1603
+		],
+		[
+			-527,
+			-2222
+		]
+	],
+	[
+		[
+			7186948,
+			6907770
+		],
+		[
+			-1367,
+			1954
+		],
+		[
+			-2629,
+			55
+		],
+		[
+			-1441,
+			-2494
+		]
+	],
+	[
+		[
+			7175813,
+			6905597
+		],
+		[
+			-5023,
+			-105
+		],
+		[
+			-2603,
+			-942
+		],
+		[
+			-357,
+			-1191
+		],
+		[
+			-5422,
+			-247
+		],
+		[
+			-1008,
+			1065
+		],
+		[
+			-5109,
+			1540
+		],
+		[
+			603,
+			1376
+		],
+		[
+			-544,
+			2043
+		],
+		[
+			4134,
+			1992
+		],
+		[
+			101,
+			1943
+		],
+		[
+			1982,
+			2012
+		],
+		[
+			3621,
+			1232
+		]
+	],
+	[
+		[
+			7194747,
+			6906256
+		],
+		[
+			372,
+			2122
+		],
+		[
+			-2851,
+			1552
+		],
+		[
+			3315,
+			2347
+		],
+		[
+			1843,
+			-2194
+		],
+		[
+			4890,
+			-1241
+		],
+		[
+			-1753,
+			-1701
+		],
+		[
+			1747,
+			-1416
+		],
+		[
+			355,
+			-1562
+		]
+	],
+	[
+		[
+			7171460,
+			6898639
+		],
+		[
+			1171,
+			-322
+		],
+		[
+			718,
+			35
+		],
+		[
+			1387,
+			898
+		]
+	],
+	[
+		[
+			7264736,
+			6893841
+		],
+		[
+			2757,
+			-417
+		],
+		[
+			1071,
+			-162
+		],
+		[
+			2484,
+			-377
+		]
+	],
+	[
+		[
+			7182222,
+			6907182
+		],
+		[
+			1939,
+			1008
+		],
+		[
+			1174,
+			-300
+		],
+		[
+			764,
+			-225
+		],
+		[
+			849,
+			105
+		]
+	],
+	[
+		[
+			7187974,
+			6907964
+		],
+		[
+			2945,
+			-342
+		],
+		[
+			2747,
+			-1245
+		],
+		[
+			1081,
+			-121
+		]
+	],
+	[
+		[
+			7202665,
+			6904163
+		],
+		[
+			830,
+			-71
+		],
+		[
+			1141,
+			-557
+		],
+		[
+			574,
+			4
+		],
+		[
+			577,
+			119
+		],
+		[
+			3694,
+			761
+		],
+		[
+			2044,
+			758
+		],
+		[
+			1743,
+			917
+		],
+		[
+			2929,
+			1010
+		],
+		[
+			1136,
+			235
+		],
+		[
+			1177,
+			-106
+		],
+		[
+			2433,
+			-131
+		],
+		[
+			1604,
+			-505
+		],
+		[
+			2138,
+			-30
+		],
+		[
+			2433,
+			-1057
+		],
+		[
+			839,
+			-153
+		],
+		[
+			761,
+			-141
+		],
+		[
+			617,
+			-51
+		],
+		[
+			675,
+			292
+		],
+		[
+			887,
+			-187
+		],
+		[
+			584,
+			-528
+		],
+		[
+			775,
+			-518
+		],
+		[
+			1139,
+			61
+		]
+	],
+	[
+		[
+			7233395,
+			6904285
+		],
+		[
+			7696,
+			171
+		],
+		[
+			10745,
+			-2963
+		],
+		[
+			2236,
+			-617
+		],
+		[
+			10664,
+			-7035
+		]
+	],
+	[
+		[
+			7221661,
+			7014254
+		],
+		[
+			-3007,
+			4243
+		],
+		[
+			474,
+			2299
+		],
+		[
+			-7296,
+			1101
+		],
+		[
+			-1232,
+			2415
+		],
+		[
+			-2544,
+			1040
+		]
+	],
+	[
+		[
+			7208056,
+			7025352
+		],
+		[
+			-1747,
+			4074
+		],
+		[
+			1017,
+			1142
+		],
+		[
+			-1570,
+			635
+		],
+		[
+			-96,
+			1020
+		],
+		[
+			418,
+			664
+		],
+		[
+			3289,
+			-65
+		],
+		[
+			322,
+			1545
+		],
+		[
+			-2132,
+			2439
+		],
+		[
+			333,
+			1517
+		],
+		[
+			-5111,
+			3890
+		]
+	],
+	[
+		[
+			7202779,
+			7042213
+		],
+		[
+			1507,
+			807
+		],
+		[
+			8425,
+			-316
+		],
+		[
+			2819,
+			-1644
+		],
+		[
+			4733,
+			185
+		],
+		[
+			1507,
+			1820
+		],
+		[
+			3383,
+			763
+		],
+		[
+			1506,
+			1214
+		],
+		[
+			5395,
+			-1069
+		],
+		[
+			1830,
+			-2131
+		],
+		[
+			3427,
+			-74
+		],
+		[
+			1713,
+			-859
+		],
+		[
+			4715,
+			1773
+		],
+		[
+			1380,
+			-644
+		],
+		[
+			6717,
+			319
+		],
+		[
+			3279,
+			156
+		]
+	],
+	[
+		[
+			7255115,
+			7042513
+		],
+		[
+			-1912,
+			-1843
+		],
+		[
+			-1367,
+			-668
+		],
+		[
+			-3233,
+			-1581
+		],
+		[
+			2793,
+			-1515
+		],
+		[
+			330,
+			-1320
+		],
+		[
+			-5545,
+			-1962
+		],
+		[
+			1109,
+			-1583
+		],
+		[
+			3368,
+			-409
+		],
+		[
+			761,
+			-1956
+		],
+		[
+			-4669,
+			-704
+		],
+		[
+			-1404,
+			-1277
+		],
+		[
+			-625,
+			-2341
+		],
+		[
+			-3690,
+			-704
+		],
+		[
+			-1438,
+			-1253
+		]
+	],
+	[
+		[
+			7239593,
+			7023397
+		],
+		[
+			-2311,
+			1778
+		],
+		[
+			-3205,
+			-1578
+		],
+		[
+			-3931,
+			1034
+		],
+		[
+			-949,
+			-430
+		],
+		[
+			-926,
+			-2790
+		],
+		[
+			-1856,
+			-300
+		],
+		[
+			-2258,
+			936
+		],
+		[
+			-960,
+			-1887
+		],
+		[
+			389,
+			-3946
+		],
+		[
+			-922,
+			-1766
+		],
+		[
+			-1003,
+			-194
+		]
+	],
+	[
+		[
+			7256800,
+			7043434
+		],
+		[
+			-525,
+			-270
+		],
+		[
+			-1145,
+			-70
+		]
+	],
+	[
+		[
+			7255130,
+			7043094
+		],
+		[
+			-1079,
+			1410
+		],
+		[
+			2049,
+			353
+		],
+		[
+			700,
+			-1423
+		]
+	],
+	[
+		[
+			7251525,
+			7028930
+		],
+		[
+			0,
+			1342
+		],
+		[
+			1259,
+			427
+		],
+		[
+			404,
+			-974
+		],
+		[
+			-1663,
+			-795
+		]
+	],
+	[
+		[
+			7255115,
+			7042513
+		],
+		[
+			15,
+			581
+		]
+	],
+	[
+		[
+			7256800,
+			7043434
+		],
+		[
+			1899,
+			521
+		],
+		[
+			1660,
+			1833
+		],
+		[
+			4905,
+			808
+		]
+	],
+	[
+		[
+			7265264,
+			7046596
+		],
+		[
+			4129,
+			-2162
+		],
+		[
+			5805,
+			-402
+		],
+		[
+			971,
+			-2804
+		],
+		[
+			-715,
+			-1920
+		],
+		[
+			6330,
+			-1429
+		],
+		[
+			307,
+			-2545
+		],
+		[
+			2416,
+			-236
+		]
+	],
+	[
+		[
+			7284507,
+			7035098
+		],
+		[
+			-1022,
+			-2955
+		],
+		[
+			2077,
+			-2123
+		],
+		[
+			3744,
+			-1405
+		],
+		[
+			437,
+			-2735
+		],
+		[
+			2057,
+			-3590
+		],
+		[
+			-3934,
+			-1927
+		],
+		[
+			-2091,
+			941
+		],
+		[
+			-4615,
+			-312
+		],
+		[
+			-3617,
+			-3573
+		],
+		[
+			293,
+			-1285
+		]
+	],
+	[
+		[
+			7277836,
+			7016134
+		],
+		[
+			-4885,
+			510
+		],
+		[
+			331,
+			-2474
+		],
+		[
+			-3018,
+			-1116
+		],
+		[
+			-2688,
+			1577
+		],
+		[
+			-2090,
+			-541
+		]
+	],
+	[
+		[
+			7265486,
+			7014090
+		],
+		[
+			-1265,
+			1217
+		],
+		[
+			-4440,
+			997
+		],
+		[
+			-2577,
+			-1192
+		],
+		[
+			-2704,
+			2101
+		],
+		[
+			-1535,
+			-1453
+		],
+		[
+			-1129,
+			67
+		],
+		[
+			-5295,
+			317
+		]
+	],
+	[
+		[
+			7246541,
+			7016144
+		],
+		[
+			-2538,
+			1504
+		],
+		[
+			-3543,
+			650
+		],
+		[
+			-867,
+			5099
+		]
+	],
+	[
+		[
+			7220737,
+			7058017
+		],
+		[
+			276,
+			476
+		],
+		[
+			2525,
+			92
+		],
+		[
+			1340,
+			-285
+		],
+		[
+			1145,
+			194
+		],
+		[
+			574,
+			1267
+		],
+		[
+			4547,
+			-405
+		],
+		[
+			491,
+			-1419
+		],
+		[
+			1126,
+			63
+		],
+		[
+			3710,
+			-593
+		],
+		[
+			855,
+			-1595
+		],
+		[
+			1458,
+			-145
+		],
+		[
+			305,
+			-499
+		],
+		[
+			1762,
+			-190
+		],
+		[
+			520,
+			-680
+		],
+		[
+			-623,
+			-600
+		],
+		[
+			1520,
+			-523
+		],
+		[
+			668,
+			-765
+		],
+		[
+			-168,
+			-1500
+		],
+		[
+			2064,
+			-281
+		],
+		[
+			-14,
+			-639
+		],
+		[
+			-1148,
+			157
+		],
+		[
+			-2772,
+			-665
+		],
+		[
+			-39,
+			-370
+		],
+		[
+			-3853,
+			389
+		],
+		[
+			-1330,
+			428
+		],
+		[
+			-1438,
+			-892
+		],
+		[
+			-1397,
+			68
+		],
+		[
+			11,
+			-760
+		],
+		[
+			-1537,
+			-362
+		],
+		[
+			-878,
+			611
+		],
+		[
+			-225,
+			1253
+		],
+		[
+			-1884,
+			1391
+		],
+		[
+			2400,
+			1573
+		],
+		[
+			408,
+			851
+		],
+		[
+			-2521,
+			771
+		],
+		[
+			-650,
+			1298
+		],
+		[
+			-3682,
+			-16
+		],
+		[
+			-1573,
+			1336
+		],
+		[
+			-1973,
+			966
+		]
+	],
+	[
+		[
+			7220089,
+			7067982
+		],
+		[
+			2316,
+			-1282
+		],
+		[
+			6921,
+			-454
+		],
+		[
+			297,
+			1825
+		],
+		[
+			2989,
+			3189
+		],
+		[
+			2656,
+			-157
+		],
+		[
+			5177,
+			-1985
+		],
+		[
+			5508,
+			5034
+		],
+		[
+			650,
+			2038
+		],
+		[
+			1203,
+			827
+		],
+		[
+			4030,
+			-1567
+		],
+		[
+			849,
+			-330
+		],
+		[
+			6840,
+			10
+		]
+	],
+	[
+		[
+			7259525,
+			7075130
+		],
+		[
+			1879,
+			-1308
+		],
+		[
+			1553,
+			-2923
+		],
+		[
+			2686,
+			-1613
+		],
+		[
+			-6955,
+			-2764
+		],
+		[
+			-1491,
+			-3261
+		],
+		[
+			2242,
+			-2849
+		],
+		[
+			-2876,
+			-1937
+		],
+		[
+			-3820,
+			-607
+		],
+		[
+			-907,
+			-1165
+		],
+		[
+			-647,
+			-831
+		],
+		[
+			647,
+			-461
+		],
+		[
+			2394,
+			-1706
+		],
+		[
+			3728,
+			-351
+		],
+		[
+			-175,
+			-1449
+		],
+		[
+			1447,
+			-1141
+		],
+		[
+			108,
+			-1620
+		],
+		[
+			3944,
+			908
+		],
+		[
+			1209,
+			2061
+		],
+		[
+			3434,
+			-2562
+		]
+	],
+	[
+		[
+			7267925,
+			7049551
+		],
+		[
+			-2517,
+			-864
+		],
+		[
+			-144,
+			-2091
+		]
+	],
+	[
+		[
+			7202779,
+			7042213
+		],
+		[
+			176,
+			2331
+		]
+	],
+	[
+		[
+			7202955,
+			7044544
+		],
+		[
+			-478,
+			1671
+		],
+		[
+			1840,
+			1180
+		],
+		[
+			-163,
+			2358
+		],
+		[
+			-1940,
+			1717
+		],
+		[
+			-3793,
+			89
+		],
+		[
+			631,
+			2204
+		],
+		[
+			-2043,
+			1169
+		],
+		[
+			-10,
+			3214
+		]
+	],
+	[
+		[
+			7196999,
+			7058146
+		],
+		[
+			4518,
+			-1827
+		],
+		[
+			2538,
+			480
+		],
+		[
+			250,
+			2049
+		],
+		[
+			6480,
+			1295
+		],
+		[
+			4920,
+			3042
+		],
+		[
+			-141,
+			1464
+		],
+		[
+			3299,
+			1609
+		],
+		[
+			-782,
+			1948
+		],
+		[
+			2008,
+			-224
+		]
+	],
+	[
+		[
+			7335870,
+			7257761
+		],
+		[
+			-3258,
+			1876
+		],
+		[
+			-10000,
+			1706
+		],
+		[
+			-641,
+			1922
+		],
+		[
+			-1967,
+			1146
+		],
+		[
+			678,
+			1907
+		],
+		[
+			-7714,
+			980
+		],
+		[
+			-3321,
+			2131
+		],
+		[
+			28,
+			1884
+		],
+		[
+			-1919,
+			3282
+		],
+		[
+			254,
+			1631
+		]
+	],
+	[
+		[
+			7308010,
+			7276226
+		],
+		[
+			6325,
+			2534
+		],
+		[
+			2080,
+			1800
+		],
+		[
+			4216,
+			1233
+		],
+		[
+			1608,
+			-1019
+		],
+		[
+			1683,
+			1358
+		],
+		[
+			5590,
+			-228
+		],
+		[
+			280,
+			1228
+		],
+		[
+			2730,
+			500
+		],
+		[
+			1050,
+			2294
+		],
+		[
+			1536,
+			1059
+		],
+		[
+			2844,
+			-1079
+		],
+		[
+			6661,
+			2271
+		],
+		[
+			1357,
+			1756
+		],
+		[
+			3199,
+			797
+		],
+		[
+			2507,
+			2291
+		],
+		[
+			1197,
+			2181
+		],
+		[
+			-104,
+			2135
+		],
+		[
+			5555,
+			446
+		],
+		[
+			5707,
+			-1609
+		]
+	],
+	[
+		[
+			7364031,
+			7296174
+		],
+		[
+			-1028,
+			-2485
+		],
+		[
+			2983,
+			-1033
+		],
+		[
+			2035,
+			-1917
+		],
+		[
+			-2477,
+			-6416
+		],
+		[
+			1211,
+			-1864
+		],
+		[
+			-2737,
+			-2109
+		],
+		[
+			817,
+			-2272
+		],
+		[
+			2658,
+			-2408
+		]
+	],
+	[
+		[
+			7367493,
+			7275670
+		],
+		[
+			-3960,
+			-2644
+		]
+	],
+	[
+		[
+			7363533,
+			7273026
+		],
+		[
+			-9177,
+			-208
+		],
+		[
+			-1490,
+			-1270
+		],
+		[
+			-145,
+			-1860
+		],
+		[
+			-1753,
+			-2458
+		],
+		[
+			-4730,
+			-711
+		],
+		[
+			-402,
+			-1110
+		],
+		[
+			1043,
+			-1078
+		],
+		[
+			-813,
+			-886
+		],
+		[
+			-2826,
+			-1478
+		],
+		[
+			-8633,
+			-998
+		],
+		[
+			-468,
+			-801
+		],
+		[
+			1731,
+			-2407
+		]
+	],
+	[
+		[
+			7364031,
+			7296174
+		],
+		[
+			2848,
+			-1910
+		],
+		[
+			4535,
+			277
+		],
+		[
+			4469,
+			2000
+		],
+		[
+			4561,
+			-1737
+		],
+		[
+			980,
+			1545
+		],
+		[
+			-2194,
+			971
+		],
+		[
+			-489,
+			1489
+		],
+		[
+			889,
+			1972
+		],
+		[
+			3274,
+			1753
+		]
+	],
+	[
+		[
+			7382904,
+			7302534
+		],
+		[
+			2409,
+			381
+		]
+	],
+	[
+		[
+			7385313,
+			7302915
+		],
+		[
+			6607,
+			469
+		],
+		[
+			4520,
+			-824
+		],
+		[
+			1239,
+			-1183
+		],
+		[
+			3339,
+			427
+		],
+		[
+			751,
+			-443
+		],
+		[
+			2427,
+			-1432
+		],
+		[
+			2586,
+			404
+		]
+	],
+	[
+		[
+			7406782,
+			7300333
+		],
+		[
+			1538,
+			-1990
+		],
+		[
+			-3949,
+			-208
+		],
+		[
+			-592,
+			-1260
+		],
+		[
+			1473,
+			-2856
+		],
+		[
+			3594,
+			-1250
+		],
+		[
+			-247,
+			-1991
+		],
+		[
+			865,
+			-1896
+		],
+		[
+			2625,
+			-1950
+		],
+		[
+			-683,
+			-1715
+		],
+		[
+			1581,
+			-3833
+		]
+	],
+	[
+		[
+			7412987,
+			7281384
+		],
+		[
+			-2863,
+			-1787
+		],
+		[
+			-3674,
+			-768
+		],
+		[
+			-4681,
+			890
+		],
+		[
+			-4778,
+			909
+		],
+		[
+			-5628,
+			-2815
+		],
+		[
+			-5279,
+			699
+		],
+		[
+			-7904,
+			-681
+		],
+		[
+			-1502,
+			-1045
+		],
+		[
+			-5613,
+			1500
+		],
+		[
+			-2301,
+			-2634
+		],
+		[
+			-1271,
+			18
+		]
+	],
+	[
+		[
+			7407433,
+			7259229
+		],
+		[
+			-1509,
+			-2935
+		],
+		[
+			621,
+			-2915
+		],
+		[
+			-738,
+			-1174
+		],
+		[
+			-2603,
+			-1075
+		],
+		[
+			3,
+			-2609
+		]
+	],
+	[
+		[
+			7403207,
+			7248521
+		],
+		[
+			-1438,
+			-49
+		],
+		[
+			-8959,
+			-307
+		],
+		[
+			-2061,
+			1296
+		],
+		[
+			-2431,
+			276
+		],
+		[
+			-2089,
+			-861
+		],
+		[
+			-1130,
+			-2009
+		],
+		[
+			661,
+			-3091
+		],
+		[
+			-6984,
+			-1727
+		],
+		[
+			-2129,
+			563
+		]
+	],
+	[
+		[
+			7376647,
+			7242612
+		],
+		[
+			-1371,
+			1579
+		],
+		[
+			-7196,
+			829
+		],
+		[
+			-1723,
+			1292
+		],
+		[
+			-3074,
+			579
+		],
+		[
+			-2890,
+			-640
+		],
+		[
+			-633,
+			-1628
+		],
+		[
+			-1332,
+			-626
+		],
+		[
+			-4352,
+			2624
+		],
+		[
+			255,
+			1432
+		],
+		[
+			-2065,
+			931
+		],
+		[
+			-380,
+			1723
+		],
+		[
+			-2046,
+			809
+		],
+		[
+			-904,
+			2039
+		],
+		[
+			-2507,
+			252
+		],
+		[
+			-3202,
+			-1336
+		],
+		[
+			-1817,
+			1106
+		],
+		[
+			-5233,
+			-473
+		]
+	],
+	[
+		[
+			7336177,
+			7253104
+		],
+		[
+			-413,
+			1554
+		],
+		[
+			2698,
+			2300
+		],
+		[
+			-2592,
+			803
+		]
+	],
+	[
+		[
+			7363533,
+			7273026
+		],
+		[
+			1560,
+			-855
+		],
+		[
+			148,
+			-2210
+		],
+		[
+			1577,
+			-509
+		],
+		[
+			4981,
+			1713
+		],
+		[
+			4460,
+			-876
+		],
+		[
+			2715,
+			-2629
+		],
+		[
+			3795,
+			-1222
+		],
+		[
+			3910,
+			-6149
+		],
+		[
+			3824,
+			355
+		],
+		[
+			1240,
+			-1219
+		],
+		[
+			2992,
+			1212
+		],
+		[
+			5543,
+			113
+		],
+		[
+			1491,
+			-317
+		],
+		[
+			5664,
+			-1204
+		]
+	],
+	[
+		[
+			7412987,
+			7281384
+		],
+		[
+			3546,
+			-899
+		],
+		[
+			5541,
+			1013
+		],
+		[
+			8206,
+			-2517
+		],
+		[
+			587,
+			72
+		],
+		[
+			6348,
+			779
+		],
+		[
+			3711,
+			-1069
+		],
+		[
+			6118,
+			753
+		],
+		[
+			2612,
+			-2049
+		],
+		[
+			4666,
+			-546
+		],
+		[
+			165,
+			-2275
+		]
+	],
+	[
+		[
+			7454487,
+			7274646
+		],
+		[
+			197,
+			-661
+		],
+		[
+			590,
+			-345
+		]
+	],
+	[
+		[
+			7455274,
+			7273640
+		],
+		[
+			479,
+			-724
+		],
+		[
+			627,
+			29
+		],
+		[
+			1683,
+			-268
+		]
+	],
+	[
+		[
+			7458063,
+			7272677
+		],
+		[
+			-270,
+			-1185
+		],
+		[
+			4780,
+			-3290
+		]
+	],
+	[
+		[
+			7462573,
+			7268202
+		],
+		[
+			-6274,
+			-5320
+		],
+		[
+			-2586,
+			403
+		]
+	],
+	[
+		[
+			7453713,
+			7263285
+		],
+		[
+			-3247,
+			2456
+		],
+		[
+			-2135,
+			558
+		],
+		[
+			-935,
+			1420
+		],
+		[
+			-1232,
+			-868
+		],
+		[
+			1478,
+			-1827
+		],
+		[
+			-1973,
+			-1623
+		],
+		[
+			-4790,
+			1478
+		],
+		[
+			-3938,
+			-2421
+		],
+		[
+			-6074,
+			1873
+		],
+		[
+			-411,
+			2268
+		],
+		[
+			-2937,
+			1105
+		],
+		[
+			-2877,
+			2361
+		],
+		[
+			-2357,
+			486
+		],
+		[
+			-1430,
+			-2189
+		],
+		[
+			-5564,
+			-3627
+		],
+		[
+			507,
+			-2238
+		],
+		[
+			-708,
+			-1280
+		],
+		[
+			-3163,
+			-2140
+		],
+		[
+			-4494,
+			152
+		]
+	],
+	[
+		[
+			7388549,
+			7205045
+		],
+		[
+			-3194,
+			-245
+		],
+		[
+			-1241,
+			-3364
+		],
+		[
+			-5008,
+			1673
+		],
+		[
+			-4577,
+			-3010
+		],
+		[
+			-3828,
+			-322
+		],
+		[
+			824,
+			-2002
+		],
+		[
+			1897,
+			-535
+		]
+	],
+	[
+		[
+			7373422,
+			7197240
+		],
+		[
+			-1149,
+			-1503
+		],
+		[
+			-1754,
+			268
+		],
+		[
+			-2349,
+			-2085
+		],
+		[
+			4842,
+			-1943
+		],
+		[
+			3,
+			-1551
+		],
+		[
+			-2383,
+			-2337
+		],
+		[
+			2632,
+			-5213
+		],
+		[
+			-4576,
+			-530
+		],
+		[
+			-2709,
+			1358
+		],
+		[
+			-1447,
+			-195
+		],
+		[
+			-1224,
+			-1074
+		],
+		[
+			-354,
+			-2166
+		],
+		[
+			-2725,
+			-1387
+		]
+	],
+	[
+		[
+			7360229,
+			7178882
+		],
+		[
+			-2567,
+			-817
+		],
+		[
+			-3459,
+			611
+		],
+		[
+			-341,
+			692
+		],
+		[
+			1174,
+			1824
+		],
+		[
+			-2216,
+			792
+		],
+		[
+			-3606,
+			3354
+		],
+		[
+			-787,
+			2396
+		],
+		[
+			-9902,
+			2306
+		],
+		[
+			-687,
+			1984
+		],
+		[
+			-2713,
+			1961
+		],
+		[
+			-5920,
+			-816
+		],
+		[
+			-3067,
+			1819
+		],
+		[
+			-6828,
+			-4645
+		]
+	],
+	[
+		[
+			7319310,
+			7190343
+		],
+		[
+			12,
+			1692
+		],
+		[
+			1582,
+			2289
+		],
+		[
+			-1656,
+			5737
+		],
+		[
+			1437,
+			1050
+		],
+		[
+			2409,
+			-145
+		],
+		[
+			-162,
+			1492
+		]
+	],
+	[
+		[
+			7322932,
+			7202458
+		],
+		[
+			1713,
+			118
+		],
+		[
+			4632,
+			-1992
+		],
+		[
+			6498,
+			16
+		],
+		[
+			560,
+			2702
+		],
+		[
+			-2953,
+			2732
+		],
+		[
+			695,
+			1496
+		],
+		[
+			-361,
+			2698
+		],
+		[
+			3364,
+			2056
+		],
+		[
+			-1017,
+			3632
+		],
+		[
+			5131,
+			-701
+		],
+		[
+			6763,
+			2015
+		],
+		[
+			2664,
+			-605
+		],
+		[
+			2051,
+			495
+		],
+		[
+			648,
+			2105
+		],
+		[
+			2237,
+			1405
+		],
+		[
+			760,
+			3090
+		]
+	],
+	[
+		[
+			7356317,
+			7223720
+		],
+		[
+			1821,
+			-584
+		],
+		[
+			3937,
+			498
+		],
+		[
+			6561,
+			-2227
+		],
+		[
+			909,
+			-1991
+		],
+		[
+			-252,
+			-2128
+		],
+		[
+			1996,
+			-665
+		],
+		[
+			640,
+			-2575
+		],
+		[
+			1588,
+			-1565
+		],
+		[
+			10853,
+			-2151
+		],
+		[
+			3268,
+			1862
+		],
+		[
+			2808,
+			-1651
+		]
+	],
+	[
+		[
+			7390446,
+			7210543
+		],
+		[
+			-371,
+			-4006
+		],
+		[
+			-1526,
+			-1492
+		]
+	],
+	[
+		[
+			7356317,
+			7223720
+		],
+		[
+			-334,
+			1855
+		],
+		[
+			3265,
+			3725
+		],
+		[
+			3396,
+			724
+		],
+		[
+			866,
+			-1467
+		],
+		[
+			1133,
+			226
+		],
+		[
+			-343,
+			2142
+		],
+		[
+			1679,
+			3974
+		],
+		[
+			-2071,
+			1294
+		],
+		[
+			-35,
+			1591
+		],
+		[
+			12774,
+			4828
+		]
+	],
+	[
+		[
+			7403207,
+			7248521
+		],
+		[
+			830,
+			-2430
+		],
+		[
+			-1517,
+			-1278
+		],
+		[
+			-751,
+			-2487
+		],
+		[
+			-294,
+			-976
+		]
+	],
+	[
+		[
+			7401475,
+			7241350
+		],
+		[
+			-385,
+			-718
+		],
+		[
+			679,
+			-1520
+		],
+		[
+			2153,
+			-1219
+		],
+		[
+			-2097,
+			-1496
+		],
+		[
+			82,
+			-1025
+		],
+		[
+			2375,
+			-766
+		],
+		[
+			1302,
+			-1587
+		],
+		[
+			3432,
+			134
+		],
+		[
+			2114,
+			-1406
+		],
+		[
+			-64,
+			-1072
+		],
+		[
+			-2609,
+			-1240
+		],
+		[
+			336,
+			-1252
+		]
+	],
+	[
+		[
+			7408793,
+			7228183
+		],
+		[
+			-3362,
+			186
+		],
+		[
+			-3662,
+			-3397
+		],
+		[
+			-2753,
+			-1456
+		],
+		[
+			1310,
+			-1805
+		],
+		[
+			-2570,
+			-1109
+		],
+		[
+			551,
+			-1646
+		],
+		[
+			-917,
+			-2069
+		],
+		[
+			-1691,
+			-1230
+		],
+		[
+			-3529,
+			-753
+		],
+		[
+			-1724,
+			-4361
+		]
+	],
+	[
+		[
+			7453713,
+			7263285
+		],
+		[
+			-1549,
+			-2385
+		],
+		[
+			2605,
+			-1622
+		],
+		[
+			4259,
+			376
+		],
+		[
+			2909,
+			-2042
+		],
+		[
+			796,
+			-3321
+		],
+		[
+			-2046,
+			-1305
+		],
+		[
+			1244,
+			-2983
+		],
+		[
+			1706,
+			-763
+		]
+	],
+	[
+		[
+			7463637,
+			7249240
+		],
+		[
+			-4815,
+			-1396
+		],
+		[
+			-2273,
+			1550
+		],
+		[
+			-2148,
+			-978
+		],
+		[
+			-18976,
+			622
+		],
+		[
+			-882,
+			-2537
+		],
+		[
+			1646,
+			-4569
+		],
+		[
+			-3947,
+			-1363
+		]
+	],
+	[
+		[
+			7432242,
+			7240569
+		],
+		[
+			-1375,
+			-213
+		],
+		[
+			-2785,
+			-432
+		],
+		[
+			-2554,
+			2304
+		],
+		[
+			-1514,
+			2876
+		],
+		[
+			-3330,
+			1556
+		],
+		[
+			-4158,
+			-1934
+		],
+		[
+			-3173,
+			547
+		],
+		[
+			52,
+			-2146
+		],
+		[
+			-4608,
+			-1494
+		],
+		[
+			-1275,
+			-1239
+		],
+		[
+			-5753,
+			910
+		],
+		[
+			-294,
+			46
+		]
+	],
+	[
+		[
+			7373422,
+			7197240
+		],
+		[
+			2085,
+			60
+		],
+		[
+			6957,
+			-2218
+		],
+		[
+			3795,
+			1530
+		],
+		[
+			3830,
+			3497
+		],
+		[
+			1309,
+			-249
+		],
+		[
+			3390,
+			-3053
+		],
+		[
+			3087,
+			-16
+		]
+	],
+	[
+		[
+			7397875,
+			7196791
+		],
+		[
+			531,
+			-1132
+		],
+		[
+			1428,
+			575
+		],
+		[
+			1415,
+			-820
+		],
+		[
+			520,
+			595
+		],
+		[
+			2821,
+			3229
+		],
+		[
+			2423,
+			-1551
+		],
+		[
+			2000,
+			-3746
+		],
+		[
+			3028,
+			30
+		]
+	],
+	[
+		[
+			7412041,
+			7193971
+		],
+		[
+			269,
+			-1238
+		],
+		[
+			2127,
+			-1175
+		]
+	],
+	[
+		[
+			7414437,
+			7191558
+		],
+		[
+			462,
+			-1309
+		],
+		[
+			-1751,
+			-1457
+		],
+		[
+			1103,
+			-1873
+		],
+		[
+			3781,
+			-596
+		],
+		[
+			678,
+			-808
+		],
+		[
+			-9100,
+			-5425
+		],
+		[
+			1113,
+			-1712
+		],
+		[
+			-975,
+			-1035
+		]
+	],
+	[
+		[
+			7409748,
+			7177343
+		],
+		[
+			-1507,
+			427
+		],
+		[
+			-3421,
+			-804
+		],
+		[
+			-1931,
+			1209
+		],
+		[
+			-1120,
+			-89
+		],
+		[
+			-3431,
+			-274
+		],
+		[
+			-4720,
+			-893
+		],
+		[
+			-3161,
+			-2167
+		],
+		[
+			-3473,
+			58
+		],
+		[
+			-255,
+			-1020
+		],
+		[
+			1046,
+			-760
+		],
+		[
+			-638,
+			-2169
+		],
+		[
+			5079,
+			-2658
+		],
+		[
+			2584,
+			-194
+		],
+		[
+			1253,
+			-1268
+		],
+		[
+			3277,
+			-524
+		],
+		[
+			907,
+			-1518
+		],
+		[
+			-575,
+			-1499
+		],
+		[
+			-1983,
+			-645
+		],
+		[
+			-3055,
+			1212
+		],
+		[
+			-3259,
+			-837
+		],
+		[
+			-2841,
+			764
+		],
+		[
+			-428,
+			-1997
+		]
+	],
+	[
+		[
+			7388096,
+			7161697
+		],
+		[
+			-82,
+			-1678
+		],
+		[
+			-1069,
+			-628
+		],
+		[
+			-6196,
+			2117
+		],
+		[
+			-4561,
+			-13
+		]
+	],
+	[
+		[
+			7376188,
+			7161495
+		],
+		[
+			-721,
+			1420
+		],
+		[
+			490,
+			1103
+		],
+		[
+			-1324,
+			2054
+		],
+		[
+			722,
+			2010
+		],
+		[
+			-795,
+			1723
+		],
+		[
+			342,
+			2082
+		],
+		[
+			-3567,
+			720
+		],
+		[
+			-2007,
+			2400
+		],
+		[
+			-2487,
+			-997
+		],
+		[
+			-2143,
+			325
+		],
+		[
+			-638,
+			1529
+		],
+		[
+			-2511,
+			716
+		],
+		[
+			-1320,
+			2302
+		]
+	],
+	[
+		[
+			7408793,
+			7228183
+		],
+		[
+			17409,
+			1824
+		]
+	],
+	[
+		[
+			7426202,
+			7230007
+		],
+		[
+			229,
+			-572
+		],
+		[
+			1753,
+			-883
+		],
+		[
+			174,
+			-2015
+		],
+		[
+			2509,
+			-611
+		],
+		[
+			1261,
+			-1559
+		],
+		[
+			-692,
+			-2583
+		],
+		[
+			5929,
+			-2699
+		]
+	],
+	[
+		[
+			7437365,
+			7219085
+		],
+		[
+			-4289,
+			-2958
+		],
+		[
+			1012,
+			-2446
+		],
+		[
+			-550,
+			-1548
+		],
+		[
+			-2671,
+			-503
+		],
+		[
+			-2071,
+			-391
+		],
+		[
+			-3041,
+			433
+		],
+		[
+			-1699,
+			-3146
+		],
+		[
+			-1344,
+			-23
+		],
+		[
+			-728,
+			1712
+		],
+		[
+			-1295,
+			-915
+		],
+		[
+			-171,
+			-1660
+		],
+		[
+			-3403,
+			-629
+		],
+		[
+			597,
+			-1077
+		],
+		[
+			2849,
+			205
+		],
+		[
+			914,
+			-1546
+		],
+		[
+			-28,
+			-3191
+		],
+		[
+			2026,
+			-1668
+		],
+		[
+			-1622,
+			-4471
+		],
+		[
+			-2480,
+			-1437
+		],
+		[
+			-7330,
+			145
+		]
+	],
+	[
+		[
+			7397875,
+			7196791
+		],
+		[
+			-245,
+			1624
+		],
+		[
+			-3967,
+			1481
+		],
+		[
+			112,
+			1605
+		],
+		[
+			-1569,
+			2256
+		],
+		[
+			-3657,
+			1288
+		]
+	],
+	[
+		[
+			7465657,
+			7229320
+		],
+		[
+			-1108,
+			-554
+		],
+		[
+			-478,
+			-1668
+		],
+		[
+			-4559,
+			-2115
+		],
+		[
+			1316,
+			-2788
+		],
+		[
+			-2141,
+			-650
+		],
+		[
+			-1124,
+			-1989
+		]
+	],
+	[
+		[
+			7457563,
+			7219556
+		],
+		[
+			-2673,
+			-317
+		],
+		[
+			-1030,
+			1087
+		],
+		[
+			-1481,
+			-6
+		],
+		[
+			-1522,
+			-1720
+		],
+		[
+			-2741,
+			-450
+		],
+		[
+			-7001,
+			3858
+		],
+		[
+			-785,
+			-1937
+		],
+		[
+			-2965,
+			-986
+		]
+	],
+	[
+		[
+			7426202,
+			7230007
+		],
+		[
+			139,
+			1245
+		],
+		[
+			3922,
+			228
+		],
+		[
+			-1518,
+			3860
+		],
+		[
+			2122,
+			1265
+		],
+		[
+			1459,
+			870
+		],
+		[
+			-84,
+			3094
+		]
+	],
+	[
+		[
+			7463637,
+			7249240
+		],
+		[
+			5622,
+			-121
+		],
+		[
+			3668,
+			1350
+		],
+		[
+			4312,
+			-1464
+		],
+		[
+			4419,
+			556
+		],
+		[
+			3212,
+			-2116
+		]
+	],
+	[
+		[
+			7484870,
+			7247445
+		],
+		[
+			-1128,
+			-433
+		],
+		[
+			-271,
+			-3008
+		],
+		[
+			-1542,
+			-2034
+		],
+		[
+			-4023,
+			-887
+		],
+		[
+			-2653,
+			-1792
+		],
+		[
+			-5345,
+			-1689
+		]
+	],
+	[
+		[
+			7469908,
+			7237602
+		],
+		[
+			-4218,
+			-2866
+		],
+		[
+			21,
+			-1046
+		],
+		[
+			1387,
+			-913
+		],
+		[
+			-1441,
+			-3457
+		]
+	],
+	[
+		[
+			7438820,
+			7240588
+		],
+		[
+			834,
+			-343
+		],
+		[
+			152,
+			-789
+		],
+		[
+			2075,
+			-451
+		],
+		[
+			-584,
+			-1574
+		],
+		[
+			530,
+			-1794
+		],
+		[
+			1669,
+			-2522
+		],
+		[
+			-1521,
+			-384
+		],
+		[
+			1065,
+			-1365
+		],
+		[
+			790,
+			10
+		],
+		[
+			632,
+			-886
+		],
+		[
+			2613,
+			175
+		],
+		[
+			1125,
+			682
+		],
+		[
+			-319,
+			1078
+		],
+		[
+			688,
+			520
+		],
+		[
+			3287,
+			-154
+		],
+		[
+			3122,
+			1518
+		],
+		[
+			387,
+			794
+		],
+		[
+			-1343,
+			420
+		],
+		[
+			737,
+			1554
+		],
+		[
+			-457,
+			1152
+		],
+		[
+			-2205,
+			-1033
+		],
+		[
+			-72,
+			928
+		],
+		[
+			-1139,
+			355
+		],
+		[
+			-841,
+			826
+		],
+		[
+			1440,
+			879
+		],
+		[
+			-1116,
+			671
+		],
+		[
+			-1820,
+			-157
+		],
+		[
+			-1859,
+			632
+		],
+		[
+			-936,
+			-475
+		],
+		[
+			-1126,
+			892
+		],
+		[
+			-2042,
+			-462
+		],
+		[
+			-2457,
+			1014
+		],
+		[
+			-1309,
+			-1711
+		]
+	],
+	[
+		[
+			7441770,
+			7186638
+		],
+		[
+			-1829,
+			-979
+		],
+		[
+			357,
+			-2024
+		],
+		[
+			1598,
+			-1904
+		],
+		[
+			-522,
+			-3070
+		],
+		[
+			1909,
+			-3672
+		],
+		[
+			-1366,
+			-1052
+		],
+		[
+			276,
+			-1082
+		],
+		[
+			-1051,
+			-1111
+		],
+		[
+			668,
+			-2221
+		],
+		[
+			-963,
+			-1121
+		],
+		[
+			189,
+			-1907
+		],
+		[
+			-1426,
+			-770
+		],
+		[
+			-4341,
+			1825
+		],
+		[
+			-1099,
+			-1735
+		]
+	],
+	[
+		[
+			7434170,
+			7165815
+		],
+		[
+			-3303,
+			1429
+		],
+		[
+			-1655,
+			717
+		],
+		[
+			-519,
+			1785
+		],
+		[
+			2137,
+			1926
+		],
+		[
+			-2445,
+			2158
+		],
+		[
+			-1468,
+			260
+		],
+		[
+			-569,
+			1172
+		],
+		[
+			-6593,
+			-1858
+		],
+		[
+			-1496,
+			1310
+		],
+		[
+			-3061,
+			399
+		],
+		[
+			-1191,
+			-1524
+		],
+		[
+			-4259,
+			3754
+		]
+	],
+	[
+		[
+			7414437,
+			7191558
+		],
+		[
+			7070,
+			-731
+		],
+		[
+			1867,
+			-918
+		],
+		[
+			1842,
+			2078
+		],
+		[
+			5220,
+			958
+		],
+		[
+			431,
+			-494
+		],
+		[
+			646,
+			-738
+		],
+		[
+			-646,
+			-1008
+		],
+		[
+			-630,
+			-984
+		],
+		[
+			630,
+			-1048
+		],
+		[
+			5374,
+			-422
+		],
+		[
+			3910,
+			892
+		],
+		[
+			2716,
+			-1251
+		],
+		[
+			-1097,
+			-1254
+		]
+	],
+	[
+		[
+			7463333,
+			7181858
+		],
+		[
+			-2906,
+			-166
+		],
+		[
+			-2959,
+			1503
+		],
+		[
+			-66,
+			4575
+		],
+		[
+			1586,
+			967
+		],
+		[
+			-1872,
+			1498
+		],
+		[
+			-6848,
+			552
+		],
+		[
+			-2517,
+			-1319
+		],
+		[
+			-926,
+			-1750
+		],
+		[
+			-5055,
+			-1080
+		]
+	],
+	[
+		[
+			7457563,
+			7219556
+		],
+		[
+			536,
+			-952
+		],
+		[
+			2269,
+			-306
+		],
+		[
+			3904,
+			-2729
+		],
+		[
+			3685,
+			-366
+		],
+		[
+			1690,
+			-1428
+		]
+	],
+	[
+		[
+			7469647,
+			7213775
+		],
+		[
+			50,
+			-701
+		],
+		[
+			-2089,
+			-1172
+		],
+		[
+			-4042,
+			-906
+		],
+		[
+			-1911,
+			-2337
+		],
+		[
+			3440,
+			-2024
+		],
+		[
+			113,
+			-2347
+		],
+		[
+			3384,
+			-4732
+		],
+		[
+			5981,
+			-800
+		],
+		[
+			3485,
+			879
+		],
+		[
+			237,
+			-1526
+		],
+		[
+			-6079,
+			-4206
+		],
+		[
+			-2805,
+			433
+		],
+		[
+			-2381,
+			-1335
+		],
+		[
+			-2603,
+			-146
+		],
+		[
+			-977,
+			-2545
+		],
+		[
+			1249,
+			-2912
+		],
+		[
+			-864,
+			-1067
+		],
+		[
+			-502,
+			-4473
+		]
+	],
+	[
+		[
+			7044436,
+			7079518
+		],
+		[
+			297,
+			-1849
+		],
+		[
+			5573,
+			-1086
+		],
+		[
+			1994,
+			-1298
+		],
+		[
+			2466,
+			616
+		]
+	],
+	[
+		[
+			7054766,
+			7075901
+		],
+		[
+			618,
+			-433
+		]
+	],
+	[
+		[
+			7054625,
+			7070331
+		],
+		[
+			-1976,
+			-3217
+		],
+		[
+			-2902,
+			-387
+		],
+		[
+			-2164,
+			-2771
+		],
+		[
+			-1322,
+			94
+		],
+		[
+			-1862,
+			-1624
+		],
+		[
+			781,
+			-3049
+		],
+		[
+			2030,
+			-1731
+		]
+	],
+	[
+		[
+			7052052,
+			7054842
+		],
+		[
+			-1044,
+			-1572
+		],
+		[
+			-3416,
+			-388
+		],
+		[
+			-3381,
+			-2528
+		],
+		[
+			-4704,
+			1215
+		],
+		[
+			-4450,
+			-1044
+		],
+		[
+			-1674,
+			1075
+		],
+		[
+			-2847,
+			-609
+		],
+		[
+			-2940,
+			1669
+		],
+		[
+			-1728,
+			67
+		],
+		[
+			-585,
+			1569
+		]
+	],
+	[
+		[
+			7017974,
+			7102640
+		],
+		[
+			3183,
+			-962
+		],
+		[
+			764,
+			-684
+		],
+		[
+			2140,
+			-2031
+		],
+		[
+			8101,
+			-530
+		],
+		[
+			1076,
+			-1592
+		],
+		[
+			3876,
+			-1485
+		],
+		[
+			4249,
+			1183
+		],
+		[
+			1475,
+			-2981
+		]
+	],
+	[
+		[
+			7042838,
+			7093558
+		],
+		[
+			374,
+			-982
+		],
+		[
+			2459,
+			-1243
+		],
+		[
+			-1907,
+			-1378
+		],
+		[
+			-363,
+			-2515
+		],
+		[
+			1992,
+			-1497
+		],
+		[
+			-5003,
+			-2648
+		],
+		[
+			45,
+			-1452
+		]
+	],
+	[
+		[
+			7004321,
+			7100038
+		],
+		[
+			4440,
+			956
+		],
+		[
+			523,
+			1013
+		],
+		[
+			6884,
+			-309
+		],
+		[
+			1806,
+			942
+		]
+	],
+	[
+		[
+			7673208,
+			7245158
+		],
+		[
+			1704,
+			2911
+		],
+		[
+			1724,
+			615
+		],
+		[
+			2890,
+			-282
+		],
+		[
+			4779,
+			-468
+		],
+		[
+			195,
+			1534
+		],
+		[
+			2456,
+			2866
+		],
+		[
+			4503,
+			492
+		],
+		[
+			-1314,
+			2812
+		],
+		[
+			1647,
+			579
+		]
+	],
+	[
+		[
+			7691792,
+			7256217
+		],
+		[
+			6301,
+			-2693
+		],
+		[
+			3138,
+			870
+		],
+		[
+			1683,
+			-368
+		],
+		[
+			840,
+			-970
+		],
+		[
+			-1241,
+			-1409
+		],
+		[
+			3331,
+			-3413
+		],
+		[
+			-1178,
+			-2264
+		],
+		[
+			3333,
+			-1129
+		],
+		[
+			2098,
+			1024
+		],
+		[
+			1639,
+			-1009
+		]
+	],
+	[
+		[
+			7711736,
+			7244856
+		],
+		[
+			-597,
+			-2917
+		],
+		[
+			-2467,
+			-1688
+		],
+		[
+			-2295,
+			-218
+		],
+		[
+			-1126,
+			-1789
+		],
+		[
+			-2452,
+			-985
+		],
+		[
+			-2630,
+			449
+		],
+		[
+			-3362,
+			-1368
+		],
+		[
+			-2173,
+			259
+		],
+		[
+			-5969,
+			2879
+		],
+		[
+			-4509,
+			-309
+		],
+		[
+			-2101,
+			1404
+		],
+		[
+			-494,
+			1516
+		],
+		[
+			-2035,
+			6
+		],
+		[
+			-3601,
+			10
+		],
+		[
+			-2194,
+			1277
+		],
+		[
+			-523,
+			1776
+		]
+	],
+	[
+		[
+			7691792,
+			7256217
+		],
+		[
+			2499,
+			2042
+		],
+		[
+			-1737,
+			1871
+		],
+		[
+			1121,
+			1119
+		],
+		[
+			2218,
+			414
+		],
+		[
+			-567,
+			1676
+		],
+		[
+			1708,
+			1880
+		],
+		[
+			-1010,
+			768
+		],
+		[
+			553,
+			1071
+		],
+		[
+			-1169,
+			2075
+		],
+		[
+			2672,
+			3393
+		],
+		[
+			2468,
+			266
+		],
+		[
+			-1841,
+			3583
+		]
+	],
+	[
+		[
+			7698707,
+			7276375
+		],
+		[
+			956,
+			576
+		],
+		[
+			5091,
+			-555
+		],
+		[
+			6091,
+			1804
+		],
+		[
+			1249,
+			-324
+		],
+		[
+			632,
+			-1540
+		],
+		[
+			2192,
+			-194
+		],
+		[
+			919,
+			1949
+		],
+		[
+			3354,
+			2347
+		],
+		[
+			158,
+			1792
+		],
+		[
+			1622,
+			1068
+		],
+		[
+			-1782,
+			3047
+		],
+		[
+			3934,
+			-68
+		],
+		[
+			37,
+			1620
+		],
+		[
+			2803,
+			2690
+		],
+		[
+			2697,
+			546
+		],
+		[
+			607,
+			1713
+		],
+		[
+			2241,
+			-46
+		]
+	],
+	[
+		[
+			7731508,
+			7292800
+		],
+		[
+			11328,
+			-1042
+		],
+		[
+			4117,
+			-1098
+		],
+		[
+			1443,
+			-1225
+		],
+		[
+			5825,
+			3174
+		],
+		[
+			5732,
+			294
+		]
+	],
+	[
+		[
+			7759953,
+			7292903
+		],
+		[
+			-328,
+			-2874
+		],
+		[
+			2588,
+			-679
+		],
+		[
+			1751,
+			-5481
+		],
+		[
+			3043,
+			-1942
+		],
+		[
+			-5652,
+			-8009
+		],
+		[
+			1321,
+			-2678
+		],
+		[
+			3576,
+			160
+		],
+		[
+			2282,
+			2085
+		],
+		[
+			2795,
+			-2498
+		],
+		[
+			2460,
+			-424
+		],
+		[
+			4729,
+			-6957
+		],
+		[
+			-852,
+			-2115
+		],
+		[
+			2235,
+			-97
+		],
+		[
+			992,
+			-1213
+		],
+		[
+			2247,
+			-581
+		],
+		[
+			24,
+			-1596
+		],
+		[
+			1579,
+			-1339
+		],
+		[
+			-1725,
+			-2943
+		],
+		[
+			-2136,
+			367
+		],
+		[
+			-5143,
+			-3423
+		],
+		[
+			-2810,
+			-167
+		],
+		[
+			197,
+			-1233
+		],
+		[
+			-1908,
+			-2203
+		],
+		[
+			-8147,
+			-1110
+		],
+		[
+			1227,
+			-2904
+		]
+	],
+	[
+		[
+			7764298,
+			7243049
+		],
+		[
+			-321,
+			-1821
+		],
+		[
+			-3098,
+			947
+		],
+		[
+			-4485,
+			-1519
+		],
+		[
+			-2218,
+			574
+		],
+		[
+			-1767,
+			1627
+		],
+		[
+			-3612,
+			12
+		],
+		[
+			-1834,
+			1297
+		]
+	],
+	[
+		[
+			7746963,
+			7244166
+		],
+		[
+			-1046,
+			1346
+		],
+		[
+			-2613,
+			426
+		],
+		[
+			-2433,
+			-1003
+		],
+		[
+			-1661,
+			1263
+		],
+		[
+			-4489,
+			1142
+		],
+		[
+			-3198,
+			-1771
+		],
+		[
+			-3336,
+			1846
+		],
+		[
+			-2827,
+			-1285
+		],
+		[
+			-5323,
+			768
+		],
+		[
+			-1432,
+			-1335
+		],
+		[
+			-6869,
+			-707
+		]
+	],
+	[
+		[
+			7812594,
+			7275091
+		],
+		[
+			1085,
+			-3170
+		],
+		[
+			4703,
+			-4181
+		],
+		[
+			96,
+			-4614
+		],
+		[
+			-2177,
+			-3650
+		],
+		[
+			-1487,
+			-4715
+		],
+		[
+			-96,
+			-3533
+		],
+		[
+			-1423,
+			-1349
+		],
+		[
+			-67,
+			-2733
+		],
+		[
+			-1680,
+			-3099
+		],
+		[
+			-4438,
+			-6092
+		],
+		[
+			-252,
+			-1535
+		],
+		[
+			-1527,
+			-1130
+		],
+		[
+			-941,
+			-2648
+		],
+		[
+			-6792,
+			-5141
+		],
+		[
+			-86,
+			-1750
+		]
+	],
+	[
+		[
+			7797512,
+			7225751
+		],
+		[
+			-1573,
+			-2569
+		],
+		[
+			-873,
+			-1944
+		],
+		[
+			-2728,
+			-480
+		],
+		[
+			-4673,
+			392
+		],
+		[
+			-1446,
+			1345
+		],
+		[
+			-3547,
+			687
+		],
+		[
+			-1505,
+			525
+		],
+		[
+			-1164,
+			-109
+		],
+		[
+			-1682,
+			662
+		],
+		[
+			-562,
+			96
+		],
+		[
+			-703,
+			120
+		]
+	],
+	[
+		[
+			7777056,
+			7224476
+		],
+		[
+			3194,
+			4993
+		],
+		[
+			-110,
+			1922
+		],
+		[
+			-6521,
+			-1105
+		],
+		[
+			-1816,
+			395
+		],
+		[
+			-143,
+			821
+		],
+		[
+			2977,
+			3450
+		],
+		[
+			155,
+			2294
+		],
+		[
+			-3018,
+			2176
+		],
+		[
+			-2499,
+			-95
+		],
+		[
+			-3699,
+			1594
+		],
+		[
+			43,
+			1868
+		],
+		[
+			-1321,
+			260
+		]
+	],
+	[
+		[
+			7759953,
+			7292903
+		],
+		[
+			795,
+			1360
+		],
+		[
+			6540,
+			69
+		],
+		[
+			4947,
+			2297
+		],
+		[
+			2633,
+			-804
+		],
+		[
+			1664,
+			-2024
+		],
+		[
+			5978,
+			139
+		],
+		[
+			2946,
+			2634
+		],
+		[
+			-247,
+			1677
+		],
+		[
+			2953,
+			-1377
+		]
+	],
+	[
+		[
+			7788162,
+			7296874
+		],
+		[
+			-1463,
+			-2022
+		],
+		[
+			2355,
+			-3512
+		],
+		[
+			5586,
+			-972
+		],
+		[
+			5763,
+			-2548
+		],
+		[
+			6286,
+			-902
+		],
+		[
+			3398,
+			-1406
+		],
+		[
+			2215,
+			-2651
+		],
+		[
+			-884,
+			-4779
+		],
+		[
+			1664,
+			-2016
+		],
+		[
+			-488,
+			-975
+		]
+	],
+	[
+		[
+			7673208,
+			7245158
+		],
+		[
+			-686,
+			21
+		],
+		[
+			-582,
+			-303
+		],
+		[
+			-482,
+			-250
+		],
+		[
+			-3798,
+			-129
+		],
+		[
+			-2082,
+			265
+		],
+		[
+			-1958,
+			539
+		],
+		[
+			-3102,
+			-1113
+		],
+		[
+			-1425,
+			116
+		],
+		[
+			-721,
+			-131
+		],
+		[
+			-424,
+			-492
+		],
+		[
+			-71,
+			-970
+		],
+		[
+			-512,
+			-595
+		]
+	],
+	[
+		[
+			7657365,
+			7242116
+		],
+		[
+			-6094,
+			1378
+		],
+		[
+			-11134,
+			-2577
+		],
+		[
+			323,
+			12550
+		],
+		[
+			-4014,
+			3575
+		],
+		[
+			-1399,
+			4695
+		]
+	],
+	[
+		[
+			7635047,
+			7261737
+		],
+		[
+			-273,
+			2514
+		],
+		[
+			1612,
+			1118
+		],
+		[
+			-25,
+			2858
+		],
+		[
+			-826,
+			7168
+		],
+		[
+			-1811,
+			1167
+		],
+		[
+			2467,
+			2608
+		]
+	],
+	[
+		[
+			7636191,
+			7279170
+		],
+		[
+			1009,
+			-876
+		],
+		[
+			4458,
+			-775
+		],
+		[
+			-62,
+			1029
+		],
+		[
+			1897,
+			297
+		],
+		[
+			4642,
+			3403
+		],
+		[
+			4716,
+			-784
+		],
+		[
+			2424,
+			2253
+		],
+		[
+			2574,
+			-2574
+		],
+		[
+			2018,
+			214
+		],
+		[
+			2194,
+			-1513
+		],
+		[
+			4854,
+			-1022
+		],
+		[
+			734,
+			-1773
+		],
+		[
+			1922,
+			-1020
+		],
+		[
+			2369,
+			1099
+		],
+		[
+			1899,
+			-116
+		],
+		[
+			1749,
+			-1357
+		],
+		[
+			3938,
+			200
+		],
+		[
+			4775,
+			242
+		]
+	],
+	[
+		[
+			7684301,
+			7276097
+		],
+		[
+			4423,
+			-1195
+		],
+		[
+			9983,
+			1473
+		]
+	],
+	[
+		[
+			7638954,
+			7250423
+		],
+		[
+			654,
+			-1181
+		],
+		[
+			-2124,
+			45
+		],
+		[
+			128,
+			882
+		],
+		[
+			1342,
+			254
+		]
+	],
+	[
+		[
+			7746963,
+			7244166
+		],
+		[
+			-1548,
+			-175
+		],
+		[
+			-1880,
+			-1550
+		],
+		[
+			-77,
+			-1731
+		],
+		[
+			-1789,
+			-1232
+		],
+		[
+			-302,
+			-1921
+		],
+		[
+			2214,
+			-988
+		],
+		[
+			3977,
+			477
+		],
+		[
+			256,
+			-779
+		],
+		[
+			-1871,
+			-897
+		],
+		[
+			938,
+			-1363
+		],
+		[
+			7765,
+			-1668
+		],
+		[
+			539,
+			-1031
+		],
+		[
+			-1394,
+			-2405
+		],
+		[
+			-8219,
+			-1706
+		],
+		[
+			-3384,
+			851
+		],
+		[
+			-3184,
+			-661
+		],
+		[
+			-1638,
+			-2618
+		],
+		[
+			-6605,
+			-1587
+		],
+		[
+			-8248,
+			-3230
+		],
+		[
+			-4457,
+			-604
+		],
+		[
+			-4255,
+			1083
+		],
+		[
+			-4791,
+			-2635
+		],
+		[
+			-3411,
+			20
+		],
+		[
+			-1423,
+			-2057
+		],
+		[
+			712,
+			-2439
+		],
+		[
+			-3202,
+			-579
+		],
+		[
+			-1495,
+			-1260
+		],
+		[
+			-8399,
+			746
+		],
+		[
+			-4196,
+			-439
+		],
+		[
+			-2320,
+			-1270
+		],
+		[
+			-4883,
+			1214
+		]
+	],
+	[
+		[
+			7680393,
+			7211732
+		],
+		[
+			-867,
+			490
+		],
+		[
+			-2374,
+			1342
+		],
+		[
+			-2064,
+			2359
+		],
+		[
+			-3517,
+			804
+		],
+		[
+			-793,
+			995
+		],
+		[
+			57,
+			2345
+		],
+		[
+			-4548,
+			2606
+		],
+		[
+			-1443,
+			3860
+		],
+		[
+			-3547,
+			2897
+		],
+		[
+			-2527,
+			4016
+		],
+		[
+			2934,
+			3195
+		],
+		[
+			-3033,
+			1081
+		],
+		[
+			718,
+			3174
+		],
+		[
+			-2024,
+			1220
+		]
+	],
+	[
+		[
+			7593061,
+			7217657
+		],
+		[
+			-2947,
+			3425
+		],
+		[
+			4089,
+			1348
+		],
+		[
+			1400,
+			2958
+		]
+	],
+	[
+		[
+			7595603,
+			7225388
+		],
+		[
+			3960,
+			2804
+		],
+		[
+			3486,
+			719
+		],
+		[
+			4113,
+			-1450
+		],
+		[
+			6341,
+			457
+		],
+		[
+			1058,
+			-1845
+		],
+		[
+			-789,
+			-2093
+		],
+		[
+			5882,
+			-1060
+		],
+		[
+			399,
+			-3567
+		]
+	],
+	[
+		[
+			7620053,
+			7219353
+		],
+		[
+			-3063,
+			-3408
+		],
+		[
+			-2528,
+			375
+		],
+		[
+			-1952,
+			-1852
+		],
+		[
+			-2890,
+			-264
+		],
+		[
+			-1818,
+			-1150
+		],
+		[
+			-3317,
+			1355
+		],
+		[
+			-250,
+			2412
+		],
+		[
+			-4290,
+			1720
+		],
+		[
+			-4450,
+			-1235
+		],
+		[
+			-2434,
+			351
+		]
+	],
+	[
+		[
+			7567951,
+			7193363
+		],
+		[
+			2029,
+			1311
+		],
+		[
+			3638,
+			-534
+		],
+		[
+			2470,
+			813
+		],
+		[
+			118,
+			896
+		],
+		[
+			-3050,
+			978
+		],
+		[
+			1783,
+			3297
+		],
+		[
+			2511,
+			440
+		],
+		[
+			2359,
+			1969
+		],
+		[
+			3915,
+			-702
+		],
+		[
+			2225,
+			1143
+		],
+		[
+			-892,
+			1707
+		],
+		[
+			1556,
+			2721
+		],
+		[
+			-1117,
+			1167
+		],
+		[
+			-5240,
+			1319
+		],
+		[
+			-658,
+			815
+		],
+		[
+			2151,
+			834
+		],
+		[
+			-535,
+			2030
+		],
+		[
+			2134,
+			431
+		],
+		[
+			1380,
+			-1268
+		],
+		[
+			1691,
+			-29
+		],
+		[
+			1117,
+			1100
+		],
+		[
+			-665,
+			1847
+		],
+		[
+			4103,
+			484
+		],
+		[
+			2087,
+			1525
+		]
+	],
+	[
+		[
+			7620053,
+			7219353
+		],
+		[
+			3129,
+			-2190
+		],
+		[
+			3234,
+			515
+		],
+		[
+			2301,
+			-1789
+		],
+		[
+			5068,
+			1204
+		],
+		[
+			6978,
+			-1056
+		],
+		[
+			1810,
+			-934
+		],
+		[
+			-153,
+			-1676
+		],
+		[
+			815,
+			-557
+		],
+		[
+			8331,
+			850
+		],
+		[
+			1073,
+			-1170
+		],
+		[
+			366,
+			-2832
+		],
+		[
+			5715,
+			-4494
+		],
+		[
+			5364,
+			-1333
+		],
+		[
+			-288,
+			-869
+		],
+		[
+			1565,
+			-962
+		]
+	],
+	[
+		[
+			7665361,
+			7202060
+		],
+		[
+			-4212,
+			-2960
+		],
+		[
+			-3877,
+			1053
+		],
+		[
+			-2616,
+			2792
+		],
+		[
+			-1879,
+			571
+		],
+		[
+			-336,
+			-2284
+		],
+		[
+			-4824,
+			-1992
+		],
+		[
+			-536,
+			-2372
+		],
+		[
+			-2369,
+			-456
+		],
+		[
+			-2054,
+			1516
+		],
+		[
+			-2805,
+			-366
+		],
+		[
+			-5690,
+			-8425
+		],
+		[
+			-6113,
+			1098
+		],
+		[
+			-4465,
+			-1466
+		],
+		[
+			-4792,
+			795
+		],
+		[
+			-1347,
+			-2590
+		],
+		[
+			-443,
+			-3542
+		],
+		[
+			-7013,
+			-4305
+		]
+	],
+	[
+		[
+			7609990,
+			7179127
+		],
+		[
+			-12255,
+			5154
+		],
+		[
+			-1847,
+			-1522
+		],
+		[
+			-1677,
+			694
+		],
+		[
+			-5124,
+			-1501
+		],
+		[
+			-3401,
+			-3229
+		],
+		[
+			-3318,
+			1437
+		],
+		[
+			-8814,
+			-756
+		]
+	],
+	[
+		[
+			7573554,
+			7179404
+		],
+		[
+			-448,
+			1792
+		],
+		[
+			-7548,
+			3679
+		],
+		[
+			-1206,
+			2682
+		],
+		[
+			-2971,
+			1087
+		],
+		[
+			1198,
+			2056
+		],
+		[
+			3836,
+			1283
+		],
+		[
+			1536,
+			1380
+		]
+	],
+	[
+		[
+			7176559,
+			6918804
+		],
+		[
+			537,
+			1095
+		],
+		[
+			2095,
+			4278
+		]
+	],
+	[
+		[
+			7179191,
+			6924177
+		],
+		[
+			1951,
+			-668
+		],
+		[
+			2536,
+			422
+		],
+		[
+			1088,
+			1377
+		],
+		[
+			-247,
+			1875
+		],
+		[
+			1435,
+			-127
+		],
+		[
+			1352,
+			1310
+		],
+		[
+			1802,
+			-967
+		],
+		[
+			5802,
+			385
+		],
+		[
+			554,
+			2323
+		],
+		[
+			1450,
+			1025
+		],
+		[
+			439,
+			-3791
+		],
+		[
+			1979,
+			-702
+		],
+		[
+			4205,
+			3266
+		],
+		[
+			6597,
+			1970
+		],
+		[
+			2437,
+			-702
+		],
+		[
+			978,
+			1009
+		],
+		[
+			2832,
+			206
+		]
+	],
+	[
+		[
+			7216381,
+			6932388
+		],
+		[
+			5968,
+			259
+		],
+		[
+			-1,
+			-2243
+		],
+		[
+			7376,
+			-2179
+		],
+		[
+			147,
+			-1535
+		],
+		[
+			-1898,
+			-1891
+		],
+		[
+			61,
+			-1421
+		]
+	],
+	[
+		[
+			7228034,
+			6923378
+		],
+		[
+			-2250,
+			-403
+		],
+		[
+			-3339,
+			1270
+		],
+		[
+			567,
+			-4001
+		],
+		[
+			-3240,
+			7
+		],
+		[
+			-571,
+			-352
+		],
+		[
+			-596,
+			-587
+		],
+		[
+			4262,
+			-3182
+		],
+		[
+			9527,
+			-4115
+		],
+		[
+			975,
+			-2736
+		],
+		[
+			3226,
+			-3479
+		],
+		[
+			-3058,
+			-597
+		],
+		[
+			-142,
+			-918
+		]
+	],
+	[
+		[
+			7074080,
+			6897684
+		],
+		[
+			13,
+			1436
+		],
+		[
+			-2235,
+			2609
+		],
+		[
+			-4565,
+			3755
+		],
+		[
+			-731,
+			3132
+		],
+		[
+			2758,
+			2261
+		],
+		[
+			455,
+			2176
+		]
+	],
+	[
+		[
+			7069775,
+			6913053
+		],
+		[
+			3009,
+			3001
+		],
+		[
+			3552,
+			-116
+		],
+		[
+			1117,
+			-1349
+		],
+		[
+			3875,
+			1547
+		],
+		[
+			11534,
+			1980
+		],
+		[
+			3177,
+			1783
+		],
+		[
+			6392,
+			3589
+		],
+		[
+			2118,
+			2934
+		],
+		[
+			5067,
+			41
+		],
+		[
+			6744,
+			-1262
+		],
+		[
+			764,
+			-628
+		],
+		[
+			-137,
+			-1738
+		]
+	],
+	[
+		[
+			7116987,
+			6922835
+		],
+		[
+			-1790,
+			-1848
+		],
+		[
+			36,
+			-1088
+		],
+		[
+			123,
+			-3720
+		],
+		[
+			-2615,
+			-1264
+		],
+		[
+			-1034,
+			-3001
+		],
+		[
+			1307,
+			-1980
+		],
+		[
+			-261,
+			-1598
+		],
+		[
+			-5683,
+			-2684
+		],
+		[
+			-1920,
+			-2207
+		],
+		[
+			-2662,
+			-510
+		],
+		[
+			833,
+			-2811
+		],
+		[
+			1871,
+			-1554
+		],
+		[
+			-605,
+			-1237
+		]
+	],
+	[
+		[
+			7116987,
+			6922835
+		],
+		[
+			3180,
+			1502
+		],
+		[
+			2048,
+			-232
+		],
+		[
+			2754,
+			-4206
+		],
+		[
+			329,
+			-502
+		],
+		[
+			5366,
+			-3188
+		],
+		[
+			2627,
+			462
+		],
+		[
+			2236,
+			-1705
+		],
+		[
+			1073,
+			353
+		],
+		[
+			-281,
+			1851
+		],
+		[
+			979,
+			1275
+		],
+		[
+			-350,
+			1454
+		],
+		[
+			-178,
+			742
+		],
+		[
+			4845,
+			3067
+		],
+		[
+			11137,
+			-1004
+		],
+		[
+			6327,
+			1356
+		]
+	],
+	[
+		[
+			7159079,
+			6924060
+		],
+		[
+			6372,
+			-2866
+		],
+		[
+			693,
+			-1295
+		],
+		[
+			-536,
+			-1244
+		],
+		[
+			2070,
+			-1092
+		],
+		[
+			-1490,
+			-1248
+		]
+	],
+	[
+		[
+			7273424,
+			6992611
+		],
+		[
+			269,
+			-241
+		]
+	],
+	[
+		[
+			7273693,
+			6992370
+		],
+		[
+			277,
+			-4923
+		],
+		[
+			2918,
+			-2234
+		],
+		[
+			1880,
+			-3863
+		],
+		[
+			-1585,
+			-2817
+		],
+		[
+			-3561,
+			-572
+		],
+		[
+			1456,
+			-1927
+		],
+		[
+			-1293,
+			-3068
+		],
+		[
+			-766,
+			-1256
+		],
+		[
+			-1916,
+			-9
+		],
+		[
+			-2113,
+			-1354
+		],
+		[
+			1590,
+			-1730
+		],
+		[
+			-1428,
+			-908
+		],
+		[
+			-2950,
+			-1201
+		],
+		[
+			1433,
+			-2173
+		],
+		[
+			-3454,
+			-2368
+		]
+	],
+	[
+		[
+			7264181,
+			6961967
+		],
+		[
+			709,
+			-1492
+		],
+		[
+			-1041,
+			-1245
+		],
+		[
+			-1430,
+			-506
+		],
+		[
+			-1960,
+			634
+		],
+		[
+			-2106,
+			-1043
+		],
+		[
+			-4499,
+			442
+		],
+		[
+			-2018,
+			2001
+		],
+		[
+			-1903,
+			1888
+		]
+	],
+	[
+		[
+			7249933,
+			6962646
+		],
+		[
+			-6470,
+			4571
+		],
+		[
+			-3820,
+			-1633
+		],
+		[
+			-1902,
+			107
+		],
+		[
+			-2037,
+			1466
+		],
+		[
+			-1825,
+			-377
+		]
+	],
+	[
+		[
+			7233879,
+			6966780
+		],
+		[
+			-726,
+			929
+		],
+		[
+			-1345,
+			2033
+		],
+		[
+			4275,
+			-61
+		],
+		[
+			532,
+			2012
+		],
+		[
+			-4051,
+			1654
+		],
+		[
+			-52,
+			2095
+		],
+		[
+			-4388,
+			544
+		]
+	],
+	[
+		[
+			7228124,
+			6975986
+		],
+		[
+			-411,
+			1914
+		],
+		[
+			1721,
+			1894
+		],
+		[
+			-2362,
+			1830
+		],
+		[
+			1860,
+			3032
+		],
+		[
+			-1383,
+			1765
+		],
+		[
+			2613,
+			1687
+		],
+		[
+			-996,
+			2512
+		],
+		[
+			2817,
+			682
+		],
+		[
+			590,
+			1084
+		],
+		[
+			-413,
+			968
+		],
+		[
+			-4182,
+			2123
+		],
+		[
+			116,
+			3346
+		]
+	],
+	[
+		[
+			7228094,
+			6998823
+		],
+		[
+			2205,
+			279
+		]
+	],
+	[
+		[
+			7230299,
+			6999102
+		],
+		[
+			4743,
+			-428
+		],
+		[
+			2124,
+			-2981
+		],
+		[
+			6733,
+			-211
+		],
+		[
+			2560,
+			754
+		],
+		[
+			1569,
+			-3083
+		],
+		[
+			3808,
+			-610
+		],
+		[
+			2761,
+			-443
+		],
+		[
+			6508,
+			810
+		],
+		[
+			2164,
+			-1021
+		],
+		[
+			382,
+			-1359
+		],
+		[
+			4418,
+			52
+		],
+		[
+			5355,
+			2029
+		]
+	],
+	[
+		[
+			7192582,
+			6980324
+		],
+		[
+			-362,
+			1999
+		],
+		[
+			4810,
+			2868
+		],
+		[
+			-6283,
+			3919
+		]
+	],
+	[
+		[
+			7190747,
+			6989110
+		],
+		[
+			1319,
+			1770
+		]
+	],
+	[
+		[
+			7192066,
+			6990880
+		],
+		[
+			7426,
+			-1994
+		],
+		[
+			1528,
+			1735
+		],
+		[
+			-302,
+			1750
+		],
+		[
+			2741,
+			561
+		],
+		[
+			745,
+			1730
+		],
+		[
+			1482,
+			825
+		],
+		[
+			3158,
+			-51
+		],
+		[
+			1551,
+			1860
+		],
+		[
+			2453,
+			354
+		],
+		[
+			5691,
+			-1010
+		],
+		[
+			1716,
+			1188
+		],
+		[
+			2596,
+			-23
+		],
+		[
+			921,
+			1965
+		],
+		[
+			1607,
+			1056
+		],
+		[
+			2715,
+			-2003
+		]
+	],
+	[
+		[
+			7228124,
+			6975986
+		],
+		[
+			-5597,
+			-714
+		],
+		[
+			-6176,
+			955
+		],
+		[
+			-1297,
+			927
+		],
+		[
+			-4039,
+			-171
+		],
+		[
+			-6082,
+			1151
+		],
+		[
+			-2312,
+			573
+		],
+		[
+			-835,
+			1528
+		],
+		[
+			-4226,
+			-897
+		],
+		[
+			-4978,
+			986
+		]
+	],
+	[
+		[
+			7233879,
+			6966780
+		],
+		[
+			-7485,
+			-3398
+		],
+		[
+			899,
+			-1227
+		],
+		[
+			5709,
+			-2414
+		],
+		[
+			29,
+			-2434
+		],
+		[
+			486,
+			-1582
+		],
+		[
+			-2605,
+			-2990
+		],
+		[
+			-4743,
+			1440
+		],
+		[
+			-3414,
+			-412
+		],
+		[
+			-4736,
+			1300
+		],
+		[
+			-1960,
+			-706
+		],
+		[
+			-2641,
+			-3054
+		],
+		[
+			-2423,
+			-707
+		],
+		[
+			-443,
+			-1172
+		]
+	],
+	[
+		[
+			7210552,
+			6949424
+		],
+		[
+			-6711,
+			163
+		],
+		[
+			-2775,
+			3443
+		],
+		[
+			-2469,
+			915
+		],
+		[
+			-2659,
+			3035
+		],
+		[
+			-3641,
+			-142
+		],
+		[
+			-1997,
+			-2188
+		]
+	],
+	[
+		[
+			7190300,
+			6954650
+		],
+		[
+			-2447,
+			1634
+		],
+		[
+			477,
+			1023
+		],
+		[
+			567,
+			1215
+		],
+		[
+			-2619,
+			1996
+		],
+		[
+			-900,
+			3528
+		],
+		[
+			-4271,
+			3658
+		],
+		[
+			5170,
+			2502
+		],
+		[
+			-22,
+			1605
+		],
+		[
+			2912,
+			2290
+		],
+		[
+			-272,
+			2393
+		]
+	],
+	[
+		[
+			7188895,
+			6976494
+		],
+		[
+			1580,
+			451
+		],
+		[
+			2107,
+			3379
+		]
+	],
+	[
+		[
+			7314937,
+			6973708
+		],
+		[
+			-1650,
+			-881
+		],
+		[
+			519,
+			-1367
+		],
+		[
+			-2702,
+			-1572
+		],
+		[
+			-3414,
+			101
+		],
+		[
+			-1316,
+			602
+		],
+		[
+			1228,
+			1062
+		],
+		[
+			-210,
+			1183
+		],
+		[
+			-6852,
+			1217
+		],
+		[
+			-635,
+			1082
+		],
+		[
+			3204,
+			2960
+		],
+		[
+			5600,
+			1690
+		],
+		[
+			-2494,
+			1727
+		],
+		[
+			828,
+			1469
+		],
+		[
+			4289,
+			724
+		],
+		[
+			2105,
+			1323
+		],
+		[
+			5008,
+			-612
+		]
+	],
+	[
+		[
+			7318445,
+			6984416
+		],
+		[
+			526,
+			-2880
+		],
+		[
+			-6698,
+			-5213
+		],
+		[
+			451,
+			-947
+		],
+		[
+			1999,
+			-258
+		],
+		[
+			214,
+			-1410
+		]
+	],
+	[
+		[
+			7338254,
+			6989747
+		],
+		[
+			391,
+			-517
+		]
+	],
+	[
+		[
+			7338645,
+			6989230
+		],
+		[
+			282,
+			-514
+		]
+	],
+	[
+		[
+			7338927,
+			6988716
+		],
+		[
+			-179,
+			-835
+		],
+		[
+			-4525,
+			-1353
+		],
+		[
+			-1827,
+			-1839
+		],
+		[
+			-3830,
+			-506
+		]
+	],
+	[
+		[
+			7328566,
+			6984183
+		],
+		[
+			-2524,
+			2074
+		],
+		[
+			-3486,
+			-1590
+		],
+		[
+			-4111,
+			-251
+		]
+	],
+	[
+		[
+			7314937,
+			6973708
+		],
+		[
+			1258,
+			-843
+		],
+		[
+			160,
+			-1014
+		],
+		[
+			1141,
+			-835
+		],
+		[
+			1464,
+			-1809
+		],
+		[
+			451,
+			-504
+		],
+		[
+			113,
+			-620
+		],
+		[
+			675,
+			-374
+		],
+		[
+			1275,
+			-994
+		],
+		[
+			85,
+			-4330
+		],
+		[
+			2197,
+			-5078
+		],
+		[
+			956,
+			-2210
+		]
+	],
+	[
+		[
+			7324712,
+			6955097
+		],
+		[
+			-3837,
+			-1749
+		],
+		[
+			-1991,
+			69
+		],
+		[
+			1817,
+			3890
+		],
+		[
+			-2279,
+			4163
+		],
+		[
+			-3850,
+			1836
+		],
+		[
+			-1670,
+			1778
+		],
+		[
+			-4213,
+			607
+		],
+		[
+			-4347,
+			2020
+		],
+		[
+			-4845,
+			-3765
+		],
+		[
+			-4093,
+			-760
+		],
+		[
+			-3285,
+			-2047
+		],
+		[
+			-2184,
+			-2064
+		],
+		[
+			-748,
+			-1768
+		],
+		[
+			-299,
+			-826
+		],
+		[
+			-4667,
+			-58
+		],
+		[
+			-2586,
+			-1291
+		],
+		[
+			-2782,
+			2175
+		],
+		[
+			-1734,
+			1356
+		],
+		[
+			-2430,
+			421
+		],
+		[
+			-4422,
+			-1047
+		],
+		[
+			-3222,
+			2935
+		],
+		[
+			-2864,
+			995
+		]
+	],
+	[
+		[
+			7273693,
+			6992370
+		],
+		[
+			3097,
+			309
+		],
+		[
+			3584,
+			-1677
+		],
+		[
+			2978,
+			-83
+		],
+		[
+			4620,
+			3925
+		],
+		[
+			8882,
+			-134
+		],
+		[
+			2432,
+			2347
+		],
+		[
+			3041,
+			933
+		],
+		[
+			2282,
+			2736
+		],
+		[
+			4974,
+			1146
+		]
+	],
+	[
+		[
+			7309583,
+			7001872
+		],
+		[
+			2190,
+			-1732
+		],
+		[
+			204,
+			-1729
+		],
+		[
+			6767,
+			821
+		],
+		[
+			6638,
+			-3063
+		],
+		[
+			1462,
+			-1631
+		],
+		[
+			6900,
+			-303
+		],
+		[
+			4510,
+			-4488
+		]
+	],
+	[
+		[
+			7326671,
+			6936322
+		],
+		[
+			-1074,
+			-190
+		]
+	],
+	[
+		[
+			7325597,
+			6936132
+		],
+		[
+			-2682,
+			309
+		],
+		[
+			-2726,
+			-2382
+		],
+		[
+			-1978,
+			-600
+		],
+		[
+			-1823,
+			491
+		],
+		[
+			-737,
+			1444
+		],
+		[
+			-2129,
+			446
+		],
+		[
+			-2911,
+			-1055
+		],
+		[
+			-5493,
+			2263
+		],
+		[
+			-2726,
+			-412
+		],
+		[
+			-3151,
+			-2341
+		],
+		[
+			-3005,
+			420
+		],
+		[
+			-2012,
+			-635
+		],
+		[
+			-1998,
+			527
+		],
+		[
+			-1127,
+			1383
+		],
+		[
+			-6100,
+			858
+		],
+		[
+			-1603,
+			-1079
+		],
+		[
+			-5900,
+			-109
+		],
+		[
+			-1829,
+			3264
+		]
+	],
+	[
+		[
+			7275667,
+			6938924
+		],
+		[
+			-3470,
+			3941
+		],
+		[
+			-4306,
+			2123
+		],
+		[
+			-2838,
+			1154
+		],
+		[
+			-4037,
+			250
+		],
+		[
+			-4934,
+			2330
+		],
+		[
+			-2248,
+			-829
+		],
+		[
+			-1998,
+			190
+		],
+		[
+			-795,
+			75
+		],
+		[
+			-4532,
+			3585
+		],
+		[
+			-4511,
+			1883
+		],
+		[
+			278,
+			824
+		],
+		[
+			2451,
+			551
+		],
+		[
+			1970,
+			2306
+		],
+		[
+			-221,
+			3358
+		],
+		[
+			3457,
+			1981
+		]
+	],
+	[
+		[
+			7324712,
+			6955097
+		],
+		[
+			1362,
+			-3284
+		],
+		[
+			2748,
+			-2271
+		]
+	],
+	[
+		[
+			7328822,
+			6949542
+		],
+		[
+			592,
+			-4255
+		],
+		[
+			-1167,
+			-3280
+		],
+		[
+			502,
+			-935
+		]
+	],
+	[
+		[
+			7328749,
+			6941072
+		],
+		[
+			-334,
+			-836
+		]
+	],
+	[
+		[
+			7328415,
+			6940236
+		],
+		[
+			-1225,
+			-1138
+		],
+		[
+			115,
+			-652
+		],
+		[
+			-586,
+			-804
+		],
+		[
+			-48,
+			-1320
+		]
+	],
+	[
+		[
+			7256117,
+			6920856
+		],
+		[
+			2678,
+			73
+		],
+		[
+			1515,
+			-1030
+		],
+		[
+			698,
+			-475
+		],
+		[
+			-1977,
+			-3608
+		],
+		[
+			1581,
+			-1223
+		],
+		[
+			2763,
+			170
+		],
+		[
+			1486,
+			-946
+		],
+		[
+			234,
+			-1392
+		],
+		[
+			7360,
+			-336
+		],
+		[
+			5261,
+			-3076
+		],
+		[
+			2547,
+			104
+		],
+		[
+			1408,
+			-1887
+		],
+		[
+			5836,
+			-277
+		],
+		[
+			1713,
+			-3031
+		],
+		[
+			-1583,
+			-1502
+		],
+		[
+			-3659,
+			-465
+		],
+		[
+			413,
+			-2217
+		]
+	],
+	[
+		[
+			7284391,
+			6899738
+		],
+		[
+			-3460,
+			-44
+		],
+		[
+			-1769,
+			-1794
+		],
+		[
+			-3981,
+			-1076
+		],
+		[
+			-4133,
+			-3939
+		]
+	],
+	[
+		[
+			7228034,
+			6923378
+		],
+		[
+			6961,
+			-250
+		],
+		[
+			4218,
+			1257
+		],
+		[
+			225,
+			1967
+		],
+		[
+			1862,
+			435
+		],
+		[
+			2691,
+			-2074
+		],
+		[
+			4546,
+			234
+		],
+		[
+			3299,
+			-2457
+		],
+		[
+			1921,
+			-1431
+		],
+		[
+			2360,
+			-203
+		]
+	],
+	[
+		[
+			7322905,
+			6902623
+		],
+		[
+			-1593,
+			3654
+		],
+		[
+			-3631,
+			822
+		],
+		[
+			-2716,
+			-551
+		],
+		[
+			-3904,
+			-2456
+		],
+		[
+			-11041,
+			2322
+		],
+		[
+			-10008,
+			-7050
+		],
+		[
+			-975,
+			827
+		],
+		[
+			-2900,
+			-1127
+		],
+		[
+			-1746,
+			674
+		]
+	],
+	[
+		[
+			7256117,
+			6920856
+		],
+		[
+			-1118,
+			3665
+		],
+		[
+			-1894,
+			1989
+		],
+		[
+			1893,
+			2294
+		],
+		[
+			-113,
+			1469
+		],
+		[
+			1170,
+			514
+		],
+		[
+			-348,
+			1474
+		],
+		[
+			1832,
+			620
+		],
+		[
+			369,
+			1527
+		],
+		[
+			5826,
+			416
+		],
+		[
+			3202,
+			2510
+		],
+		[
+			2178,
+			-1901
+		],
+		[
+			1318,
+			-121
+		],
+		[
+			1071,
+			806
+		],
+		[
+			-512,
+			2807
+		],
+		[
+			1613,
+			-651
+		],
+		[
+			3063,
+			650
+		]
+	],
+	[
+		[
+			7325597,
+			6936132
+		],
+		[
+			-1536,
+			-486
+		],
+		[
+			-378,
+			-1270
+		],
+		[
+			871,
+			-1197
+		],
+		[
+			1636,
+			-768
+		]
+	],
+	[
+		[
+			7326190,
+			6932411
+		],
+		[
+			-866,
+			-5227
+		],
+		[
+			-1330,
+			-1829
+		],
+		[
+			4375,
+			-4650
+		]
+	],
+	[
+		[
+			7328369,
+			6920705
+		],
+		[
+			-258,
+			-806
+		],
+		[
+			-5891,
+			-2595
+		],
+		[
+			4278,
+			-2612
+		],
+		[
+			722,
+			-4274
+		],
+		[
+			1580,
+			-1477
+		],
+		[
+			-1019,
+			-2628
+		],
+		[
+			-3150,
+			-897
+		],
+		[
+			-1726,
+			-2793
+		]
+	],
+	[
+		[
+			7216381,
+			6932388
+		],
+		[
+			719,
+			4651
+		],
+		[
+			-1262,
+			3929
+		],
+		[
+			-3551,
+			1381
+		],
+		[
+			-1571,
+			-379
+		],
+		[
+			-1859,
+			1768
+		],
+		[
+			389,
+			662
+		],
+		[
+			4026,
+			169
+		],
+		[
+			1225,
+			997
+		],
+		[
+			-3945,
+			3858
+		]
+	],
+	[
+		[
+			7440768,
+			7016639
+		],
+		[
+			1397,
+			1079
+		],
+		[
+			11212,
+			-763
+		],
+		[
+			942,
+			3144
+		],
+		[
+			969,
+			586
+		],
+		[
+			5289,
+			-2552
+		],
+		[
+			4077,
+			-868
+		],
+		[
+			489,
+			-2230
+		],
+		[
+			-1035,
+			-1839
+		]
+	],
+	[
+		[
+			7464108,
+			7013196
+		],
+		[
+			-631,
+			-1653
+		],
+		[
+			-4166,
+			-923
+		],
+		[
+			-417,
+			-1005
+		],
+		[
+			-407,
+			-982
+		]
+	],
+	[
+		[
+			7458487,
+			7008633
+		],
+		[
+			-5359,
+			-1034
+		],
+		[
+			-1864,
+			2016
+		],
+		[
+			-710,
+			1605
+		],
+		[
+			-3326,
+			298
+		],
+		[
+			-6460,
+			5121
+		]
+	],
+	[
+		[
+			7455470,
+			6959008
+		],
+		[
+			7878,
+			1819
+		],
+		[
+			1810,
+			2684
+		]
+	],
+	[
+		[
+			7465158,
+			6963511
+		],
+		[
+			4081,
+			-1794
+		],
+		[
+			3683,
+			-197
+		],
+		[
+			1362,
+			-1365
+		],
+		[
+			2535,
+			1338
+		],
+		[
+			2679,
+			-634
+		],
+		[
+			-922,
+			-3552
+		],
+		[
+			5209,
+			-806
+		],
+		[
+			-536,
+			-2539
+		],
+		[
+			3195,
+			-1452
+		],
+		[
+			-1186,
+			-1846
+		],
+		[
+			501,
+			-1562
+		],
+		[
+			-2734,
+			-2381
+		],
+		[
+			-9871,
+			918
+		],
+		[
+			-7037,
+			-2371
+		],
+		[
+			-3356,
+			1842
+		],
+		[
+			-1988,
+			4592
+		],
+		[
+			-2374,
+			458
+		],
+		[
+			-1978,
+			-753
+		]
+	],
+	[
+		[
+			7456421,
+			6951407
+		],
+		[
+			-1996,
+			153
+		],
+		[
+			-692,
+			1920
+		],
+		[
+			-2192,
+			1330
+		],
+		[
+			2337,
+			2497
+		],
+		[
+			1592,
+			1701
+		]
+	],
+	[
+		[
+			7521077,
+			6921466
+		],
+		[
+			1491,
+			482
+		],
+		[
+			742,
+			1692
+		],
+		[
+			-440,
+			1176
+		],
+		[
+			723,
+			647
+		],
+		[
+			1432,
+			444
+		],
+		[
+			471,
+			1267
+		],
+		[
+			1641,
+			59
+		],
+		[
+			1443,
+			-383
+		],
+		[
+			194,
+			-1820
+		],
+		[
+			1466,
+			-2114
+		],
+		[
+			-2183,
+			-2836
+		],
+		[
+			-1311,
+			310
+		],
+		[
+			-905,
+			-626
+		],
+		[
+			-4467,
+			591
+		],
+		[
+			-297,
+			1111
+		]
+	],
+	[
+		[
+			7275558,
+			7081354
+		],
+		[
+			3475,
+			118
+		],
+		[
+			454,
+			-1277
+		],
+		[
+			3352,
+			-621
+		],
+		[
+			2609,
+			604
+		],
+		[
+			1378,
+			-1475
+		],
+		[
+			3058,
+			-404
+		],
+		[
+			4953,
+			913
+		],
+		[
+			1223,
+			-1348
+		],
+		[
+			2447,
+			-155
+		],
+		[
+			2225,
+			-2176
+		]
+	],
+	[
+		[
+			7300732,
+			7075533
+		],
+		[
+			-885,
+			-2139
+		],
+		[
+			1051,
+			-5496
+		],
+		[
+			-2819,
+			-1007
+		],
+		[
+			-1248,
+			-2159
+		],
+		[
+			-5206,
+			-1602
+		],
+		[
+			-2031,
+			-4706
+		],
+		[
+			-4124,
+			-552
+		],
+		[
+			-3476,
+			-4723
+		],
+		[
+			-2066,
+			-1276
+		],
+		[
+			-3416,
+			656
+		],
+		[
+			-917,
+			918
+		],
+		[
+			-2001,
+			-1500
+		],
+		[
+			2445,
+			-1401
+		],
+		[
+			-196,
+			-1070
+		],
+		[
+			-5197,
+			2367
+		],
+		[
+			-1857,
+			-1039
+		],
+		[
+			-148,
+			-1455
+		],
+		[
+			-716,
+			202
+		]
+	],
+	[
+		[
+			7259525,
+			7075130
+		],
+		[
+			571,
+			2471
+		],
+		[
+			1254,
+			580
+		],
+		[
+			4578,
+			-1759
+		],
+		[
+			6244,
+			85
+		],
+		[
+			2032,
+			1609
+		],
+		[
+			-1542,
+			2206
+		],
+		[
+			2896,
+			1032
+		]
+	],
+	[
+		[
+			7326373,
+			7077187
+		],
+		[
+			650,
+			-2717
+		],
+		[
+			-822,
+			-2017
+		],
+		[
+			2748,
+			-1641
+		],
+		[
+			-137,
+			-2045
+		],
+		[
+			1399,
+			-1980
+		],
+		[
+			-2960,
+			-1844
+		],
+		[
+			1141,
+			-6100
+		],
+		[
+			6279,
+			-3899
+		],
+		[
+			5185,
+			-1764
+		],
+		[
+			319,
+			-1646
+		],
+		[
+			-3385,
+			-2697
+		],
+		[
+			2610,
+			-1242
+		],
+		[
+			-1,
+			-1279
+		],
+		[
+			1453,
+			-1671
+		]
+	],
+	[
+		[
+			7340852,
+			7044645
+		],
+		[
+			-5483,
+			-1667
+		],
+		[
+			-2573,
+			1622
+		],
+		[
+			-6285,
+			-1995
+		],
+		[
+			-9039,
+			1078
+		],
+		[
+			-2519,
+			-1479
+		],
+		[
+			-1779,
+			515
+		],
+		[
+			178,
+			-1841
+		],
+		[
+			2846,
+			-3959
+		],
+		[
+			-5776,
+			-729
+		],
+		[
+			-1812,
+			-1424
+		],
+		[
+			-2236,
+			360
+		],
+		[
+			-1563,
+			-1232
+		],
+		[
+			-311,
+			-1918
+		],
+		[
+			-2068,
+			-1223
+		],
+		[
+			-3623,
+			-70
+		],
+		[
+			-15,
+			1589
+		],
+		[
+			-3403,
+			816
+		],
+		[
+			-837,
+			1009
+		],
+		[
+			-3943,
+			260
+		],
+		[
+			-2536,
+			1477
+		],
+		[
+			-1785,
+			-1177
+		],
+		[
+			-1783,
+			441
+		]
+	],
+	[
+		[
+			7300732,
+			7075533
+		],
+		[
+			6291,
+			289
+		],
+		[
+			1871,
+			-1517
+		],
+		[
+			4189,
+			1914
+		],
+		[
+			5395,
+			-510
+		],
+		[
+			467,
+			1425
+		],
+		[
+			3960,
+			898
+		],
+		[
+			2467,
+			69
+		],
+		[
+			1001,
+			-914
+		]
+	],
+	[
+		[
+			7327009,
+			7086013
+		],
+		[
+			-1938,
+			-2466
+		],
+		[
+			3340,
+			-1295
+		],
+		[
+			2317,
+			-4197
+		],
+		[
+			-4355,
+			-868
+		]
+	],
+	[
+		[
+			7275558,
+			7081354
+		],
+		[
+			-4961,
+			2068
+		],
+		[
+			-4091,
+			-81
+		],
+		[
+			-78,
+			2960
+		],
+		[
+			-1808,
+			1509
+		],
+		[
+			265,
+			925
+		],
+		[
+			4322,
+			2483
+		],
+		[
+			-1608,
+			1402
+		],
+		[
+			-2235,
+			4625
+		],
+		[
+			886,
+			1325
+		],
+		[
+			2419,
+			535
+		],
+		[
+			1332,
+			1936
+		],
+		[
+			-225,
+			989
+		],
+		[
+			-7766,
+			1147
+		],
+		[
+			-5742,
+			1870
+		]
+	],
+	[
+		[
+			7256268,
+			7105047
+		],
+		[
+			-398,
+			1123
+		],
+		[
+			884,
+			2292
+		],
+		[
+			-651,
+			1816
+		],
+		[
+			-1797,
+			891
+		],
+		[
+			-1533,
+			-1404
+		],
+		[
+			-1289,
+			-120
+		],
+		[
+			-1106,
+			1911
+		],
+		[
+			-3124,
+			1057
+		],
+		[
+			-157,
+			2069
+		],
+		[
+			9816,
+			2471
+		],
+		[
+			3362,
+			-964
+		],
+		[
+			2051,
+			480
+		]
+	],
+	[
+		[
+			7262326,
+			7116669
+		],
+		[
+			2991,
+			727
+		],
+		[
+			1556,
+			-2132
+		],
+		[
+			2565,
+			-106
+		],
+		[
+			1891,
+			-1722
+		],
+		[
+			295,
+			3255
+		],
+		[
+			8426,
+			1153
+		]
+	],
+	[
+		[
+			7280050,
+			7117844
+		],
+		[
+			-1677,
+			-9493
+		],
+		[
+			3626,
+			-467
+		],
+		[
+			1236,
+			2267
+		],
+		[
+			2863,
+			909
+		],
+		[
+			2758,
+			-3404
+		],
+		[
+			2404,
+			2446
+		],
+		[
+			3568,
+			1316
+		],
+		[
+			3421,
+			-2581
+		],
+		[
+			342,
+			-1625
+		],
+		[
+			-906,
+			-1944
+		],
+		[
+			3059,
+			-2762
+		],
+		[
+			1305,
+			-2447
+		],
+		[
+			-2283,
+			-1794
+		],
+		[
+			-167,
+			-1883
+		],
+		[
+			-2160,
+			-1985
+		],
+		[
+			3450,
+			-866
+		],
+		[
+			1802,
+			2818
+		],
+		[
+			3155,
+			893
+		],
+		[
+			-494,
+			-2054
+		],
+		[
+			2042,
+			-998
+		],
+		[
+			157,
+			-6679
+		],
+		[
+			2734,
+			-660
+		],
+		[
+			6369,
+			385
+		],
+		[
+			3585,
+			2786
+		],
+		[
+			-489,
+			1688
+		],
+		[
+			1909,
+			1315
+		],
+		[
+			1889,
+			27
+		]
+	],
+	[
+		[
+			7323548,
+			7093052
+		],
+		[
+			-121,
+			-2689
+		],
+		[
+			3420,
+			-709
+		],
+		[
+			-1272,
+			-2082
+		],
+		[
+			1434,
+			-1559
+		]
+	],
+	[
+		[
+			7357545,
+			7013146
+		],
+		[
+			3624,
+			-1393
+		],
+		[
+			1723,
+			-2138
+		],
+		[
+			1010,
+			-1253
+		]
+	],
+	[
+		[
+			7363902,
+			7008362
+		],
+		[
+			114,
+			-804
+		],
+		[
+			-2153,
+			-1561
+		],
+		[
+			-4606,
+			-1150
+		],
+		[
+			-951,
+			440
+		],
+		[
+			2152,
+			2571
+		],
+		[
+			-2611,
+			440
+		],
+		[
+			-2010,
+			-2706
+		],
+		[
+			-2893,
+			-1388
+		],
+		[
+			-2127,
+			3144
+		],
+		[
+			-2766,
+			-60
+		],
+		[
+			-3647,
+			1464
+		],
+		[
+			-1291,
+			-2203
+		],
+		[
+			377,
+			-2514
+		],
+		[
+			5571,
+			-4463
+		],
+		[
+			-2309,
+			-1314
+		],
+		[
+			1602,
+			-3198
+		],
+		[
+			-897,
+			-2210
+		],
+		[
+			549,
+			-1824
+		],
+		[
+			-3005,
+			-720
+		]
+	],
+	[
+		[
+			7343001,
+			6990306
+		],
+		[
+			-4747,
+			-559
+		]
+	],
+	[
+		[
+			7309583,
+			7001872
+		],
+		[
+			-1846,
+			648
+		],
+		[
+			-238,
+			846
+		],
+		[
+			1099,
+			1748
+		],
+		[
+			3258,
+			870
+		],
+		[
+			191,
+			2488
+		],
+		[
+			1983,
+			1143
+		],
+		[
+			-77,
+			1806
+		]
+	],
+	[
+		[
+			7313953,
+			7011421
+		],
+		[
+			2534,
+			696
+		],
+		[
+			53,
+			1927
+		],
+		[
+			1064,
+			1014
+		],
+		[
+			4321,
+			-1594
+		],
+		[
+			6351,
+			1937
+		],
+		[
+			1551,
+			1565
+		],
+		[
+			2356,
+			-2750
+		],
+		[
+			1340,
+			2012
+		],
+		[
+			3547,
+			545
+		],
+		[
+			11246,
+			-4802
+		],
+		[
+			2407,
+			-73
+		],
+		[
+			3463,
+			1379
+		],
+		[
+			3359,
+			-131
+		]
+	],
+	[
+		[
+			7338645,
+			6989230
+		],
+		[
+			518,
+			97
+		],
+		[
+			118,
+			-94
+		],
+		[
+			142,
+			-527
+		],
+		[
+			-496,
+			10
+		]
+	],
+	[
+		[
+			7313953,
+			7011421
+		],
+		[
+			-4885,
+			530
+		],
+		[
+			-3476,
+			1613
+		],
+		[
+			-1675,
+			-466
+		],
+		[
+			1359,
+			-1656
+		],
+		[
+			-373,
+			-701
+		],
+		[
+			-5779,
+			747
+		],
+		[
+			-3802,
+			-685
+		],
+		[
+			-3142,
+			534
+		],
+		[
+			248,
+			1701
+		],
+		[
+			-3526,
+			2855
+		],
+		[
+			-11066,
+			241
+		]
+	],
+	[
+		[
+			7340852,
+			7044645
+		],
+		[
+			125,
+			-1501
+		],
+		[
+			8637,
+			-1730
+		],
+		[
+			1238,
+			-1993
+		],
+		[
+			5309,
+			-2981
+		]
+	],
+	[
+		[
+			7356161,
+			7036440
+		],
+		[
+			-486,
+			-756
+		],
+		[
+			4137,
+			-2866
+		],
+		[
+			689,
+			-2161
+		],
+		[
+			-2064,
+			-1623
+		],
+		[
+			1711,
+			-1400
+		],
+		[
+			37,
+			-3269
+		],
+		[
+			-2158,
+			-1659
+		],
+		[
+			1852,
+			-1890
+		],
+		[
+			-1944,
+			-2230
+		],
+		[
+			72,
+			-2443
+		],
+		[
+			-1038,
+			-492
+		],
+		[
+			576,
+			-2505
+		]
+	],
+	[
+		[
+			7127941,
+			7011474
+		],
+		[
+			181,
+			271
+		],
+		[
+			6975,
+			2420
+		],
+		[
+			-2267,
+			2542
+		],
+		[
+			-2278,
+			1118
+		],
+		[
+			1800,
+			2991
+		],
+		[
+			2240,
+			1261
+		],
+		[
+			9194,
+			-4763
+		],
+		[
+			-175,
+			-2327
+		],
+		[
+			3253,
+			-2792
+		],
+		[
+			362,
+			-2580
+		],
+		[
+			-4128,
+			-3697
+		],
+		[
+			-3314,
+			-468
+		],
+		[
+			-1147,
+			465
+		],
+		[
+			-879,
+			2340
+		],
+		[
+			-2196,
+			1360
+		],
+		[
+			-7409,
+			1612
+		],
+		[
+			-212,
+			247
+		]
+	],
+	[
+		[
+			7134837,
+			7013176
+		],
+		[
+			544,
+			-1145
+		],
+		[
+			1461,
+			520
+		],
+		[
+			-752,
+			1071
+		],
+		[
+			-1253,
+			-446
+		]
+	],
+	[
+		[
+			7131046,
+			7023156
+		],
+		[
+			1780,
+			-167
+		],
+		[
+			67,
+			-628
+		],
+		[
+			-1581,
+			-686
+		],
+		[
+			-266,
+			1481
+		]
+	],
+	[
+		[
+			7142911,
+			7037690
+		],
+		[
+			1747,
+			2002
+		],
+		[
+			1891,
+			4590
+		],
+		[
+			2624,
+			2429
+		]
+	],
+	[
+		[
+			7149173,
+			7046711
+		],
+		[
+			1366,
+			-1198
+		],
+		[
+			4626,
+			-216
+		],
+		[
+			2872,
+			2156
+		],
+		[
+			539,
+			-1914
+		],
+		[
+			1915,
+			-1814
+		],
+		[
+			1606,
+			-529
+		],
+		[
+			2118,
+			593
+		],
+		[
+			2638,
+			-2248
+		],
+		[
+			-1065,
+			-4327
+		],
+		[
+			2337,
+			-3102
+		],
+		[
+			-2504,
+			-1089
+		],
+		[
+			-3750,
+			-128
+		],
+		[
+			-1945,
+			618
+		],
+		[
+			-729,
+			1831
+		],
+		[
+			-4489,
+			-652
+		],
+		[
+			-6065,
+			2723
+		],
+		[
+			-5732,
+			275
+		]
+	],
+	[
+		[
+			7149173,
+			7046711
+		],
+		[
+			1928,
+			2283
+		],
+		[
+			1199,
+			6668
+		],
+		[
+			3063,
+			4617
+		],
+		[
+			-1388,
+			1325
+		],
+		[
+			2508,
+			2074
+		]
+	],
+	[
+		[
+			7156483,
+			7063678
+		],
+		[
+			5392,
+			3316
+		]
+	],
+	[
+		[
+			7161875,
+			7066994
+		],
+		[
+			1419,
+			341
+		],
+		[
+			609,
+			364
+		]
+	],
+	[
+		[
+			7163903,
+			7067699
+		],
+		[
+			4272,
+			-2472
+		],
+		[
+			3137,
+			62
+		],
+		[
+			4804,
+			-2309
+		],
+		[
+			8041,
+			-1467
+		],
+		[
+			3308,
+			643
+		],
+		[
+			3712,
+			-2940
+		],
+		[
+			5822,
+			-1070
+		]
+	],
+	[
+		[
+			7202955,
+			7044544
+		],
+		[
+			-3301,
+			150
+		],
+		[
+			-1074,
+			-2086
+		],
+		[
+			-1432,
+			-367
+		],
+		[
+			-2840,
+			973
+		],
+		[
+			-3478,
+			-261
+		],
+		[
+			-2216,
+			-1647
+		],
+		[
+			123,
+			-2669
+		],
+		[
+			-1371,
+			-798
+		],
+		[
+			-4587,
+			245
+		],
+		[
+			-1830,
+			992
+		],
+		[
+			-1591,
+			-1162
+		],
+		[
+			-6601,
+			-631
+		],
+		[
+			-3554,
+			-3680
+		],
+		[
+			98,
+			-1612
+		],
+		[
+			1035,
+			-1050
+		],
+		[
+			-3238,
+			-2620
+		],
+		[
+			73,
+			-2565
+		],
+		[
+			-4815,
+			-2717
+		],
+		[
+			2177,
+			-2325
+		]
+	],
+	[
+		[
+			7164533,
+			7020714
+		],
+		[
+			-5423,
+			-322
+		],
+		[
+			-2271,
+			1841
+		]
+	],
+	[
+		[
+			7156839,
+			7022233
+		],
+		[
+			-1181,
+			2083
+		],
+		[
+			-5246,
+			-910
+		],
+		[
+			-4505,
+			1623
+		],
+		[
+			-1549,
+			2257
+		],
+		[
+			530,
+			2535
+		],
+		[
+			4707,
+			1334
+		],
+		[
+			697,
+			951
+		],
+		[
+			-8374,
+			2185
+		],
+		[
+			-614,
+			2497
+		]
+	],
+	[
+		[
+			7141304,
+			7036788
+		],
+		[
+			1607,
+			902
+		]
+	],
+	[
+		[
+			7152316,
+			7022999
+		],
+		[
+			1368,
+			113
+		],
+		[
+			-74,
+			-1654
+		],
+		[
+			-934,
+			49
+		],
+		[
+			-360,
+			1492
+		]
+	],
+	[
+		[
+			7156839,
+			7022233
+		],
+		[
+			-2315,
+			-736
+		],
+		[
+			808,
+			-1219
+		],
+		[
+			-273,
+			-1341
+		],
+		[
+			2825,
+			-2128
+		],
+		[
+			-183,
+			-3077
+		],
+		[
+			3672,
+			1071
+		],
+		[
+			1774,
+			-962
+		],
+		[
+			-1758,
+			-4226
+		],
+		[
+			66,
+			-709
+		],
+		[
+			-1884,
+			-687
+		],
+		[
+			146,
+			-3084
+		],
+		[
+			-3609,
+			-2493
+		]
+	],
+	[
+		[
+			7156108,
+			7002642
+		],
+		[
+			-1843,
+			-480
+		],
+		[
+			-4257,
+			-3612
+		],
+		[
+			-2856,
+			-864
+		],
+		[
+			-4998,
+			-85
+		],
+		[
+			-4777,
+			1418
+		]
+	],
+	[
+		[
+			7137377,
+			6999019
+		],
+		[
+			1422,
+			881
+		],
+		[
+			192,
+			1555
+		],
+		[
+			-3753,
+			178
+		],
+		[
+			-5857,
+			2347
+		],
+		[
+			-4049,
+			299
+		],
+		[
+			-3160,
+			1595
+		],
+		[
+			-8985,
+			1724
+		],
+		[
+			658,
+			1719
+		],
+		[
+			-653,
+			298
+		],
+		[
+			-2053,
+			939
+		]
+	],
+	[
+		[
+			7111139,
+			7010554
+		],
+		[
+			1539,
+			3905
+		],
+		[
+			3559,
+			470
+		],
+		[
+			2238,
+			2376
+		],
+		[
+			3934,
+			710
+		],
+		[
+			2923,
+			2335
+		],
+		[
+			4523,
+			8557
+		],
+		[
+			4874,
+			5255
+		],
+		[
+			3710,
+			1191
+		]
+	],
+	[
+		[
+			7138439,
+			7035353
+		],
+		[
+			672,
+			277
+		],
+		[
+			2193,
+			1158
+		]
+	],
+	[
+		[
+			7121055,
+			7010074
+		],
+		[
+			-516,
+			-1079
+		],
+		[
+			1835,
+			150
+		],
+		[
+			612,
+			880
+		],
+		[
+			-1931,
+			49
+		]
+	],
+	[
+		[
+			7591996,
+			7050172
+		],
+		[
+			2316,
+			-2665
+		],
+		[
+			1968,
+			-4833
+		],
+		[
+			6008,
+			-4970
+		],
+		[
+			2031,
+			-3561
+		]
+	],
+	[
+		[
+			7604319,
+			7034143
+		],
+		[
+			-2373,
+			-836
+		],
+		[
+			334,
+			-3757
+		],
+		[
+			-3099,
+			-1876
+		],
+		[
+			500,
+			-5232
+		],
+		[
+			-3149,
+			-1395
+		],
+		[
+			-4656,
+			986
+		],
+		[
+			-1404,
+			-1451
+		],
+		[
+			1104,
+			-2095
+		]
+	],
+	[
+		[
+			7591576,
+			7018487
+		],
+		[
+			-2583,
+			-676
+		],
+		[
+			-4206,
+			-3003
+		],
+		[
+			-10316,
+			-3411
+		],
+		[
+			-4400,
+			-42
+		],
+		[
+			-1120,
+			-1399
+		],
+		[
+			-1098,
+			391
+		],
+		[
+			843,
+			1432
+		],
+		[
+			-1070,
+			1928
+		],
+		[
+			-3073,
+			1163
+		],
+		[
+			-4370,
+			-758
+		],
+		[
+			-2877,
+			837
+		],
+		[
+			-3276,
+			-1326
+		],
+		[
+			-669,
+			-1295
+		],
+		[
+			-5246,
+			-1489
+		]
+	],
+	[
+		[
+			7548115,
+			7010839
+		],
+		[
+			-1762,
+			440
+		],
+		[
+			-1645,
+			1932
+		],
+		[
+			-3356,
+			-2105
+		],
+		[
+			-2985,
+			344
+		],
+		[
+			-3579,
+			2081
+		],
+		[
+			-1916,
+			-19
+		],
+		[
+			-4168,
+			1775
+		]
+	],
+	[
+		[
+			7528704,
+			7015287
+		],
+		[
+			156,
+			1463
+		],
+		[
+			9205,
+			3090
+		],
+		[
+			407,
+			1985
+		],
+		[
+			2133,
+			552
+		],
+		[
+			443,
+			1873
+		],
+		[
+			3503,
+			-1311
+		],
+		[
+			2676,
+			1827
+		],
+		[
+			5099,
+			-1213
+		],
+		[
+			5477,
+			2903
+		],
+		[
+			259,
+			2005
+		],
+		[
+			2488,
+			2369
+		],
+		[
+			-1335,
+			1658
+		],
+		[
+			875,
+			2487
+		],
+		[
+			-790,
+			1406
+		],
+		[
+			4424,
+			561
+		],
+		[
+			289,
+			3521
+		],
+		[
+			-934,
+			1432
+		]
+	],
+	[
+		[
+			7563079,
+			7041895
+		],
+		[
+			-114,
+			854
+		],
+		[
+			1808,
+			1730
+		],
+		[
+			2856,
+			111
+		],
+		[
+			3079,
+			2883
+		],
+		[
+			10124,
+			2009
+		],
+		[
+			2911,
+			-520
+		],
+		[
+			4550,
+			1452
+		],
+		[
+			3703,
+			-242
+		]
+	],
+	[
+		[
+			7563166,
+			7025732
+		],
+		[
+			1001,
+			-1473
+		],
+		[
+			4118,
+			-838
+		],
+		[
+			974,
+			-518
+		],
+		[
+			1313,
+			717
+		],
+		[
+			1248,
+			-475
+		],
+		[
+			743,
+			659
+		],
+		[
+			2401,
+			135
+		],
+		[
+			730,
+			773
+		],
+		[
+			1216,
+			40
+		],
+		[
+			1707,
+			1089
+		],
+		[
+			1285,
+			-725
+		],
+		[
+			1871,
+			2382
+		],
+		[
+			-716,
+			103
+		],
+		[
+			593,
+			1552
+		],
+		[
+			-2332,
+			-35
+		],
+		[
+			-1189,
+			322
+		],
+		[
+			-956,
+			-950
+		],
+		[
+			-2919,
+			306
+		],
+		[
+			-309,
+			789
+		],
+		[
+			-1783,
+			924
+		],
+		[
+			-1600,
+			92
+		],
+		[
+			-1005,
+			468
+		],
+		[
+			-987,
+			-195
+		],
+		[
+			-1009,
+			-1119
+		],
+		[
+			207,
+			-1017
+		],
+		[
+			-988,
+			-955
+		],
+		[
+			987,
+			-472
+		],
+		[
+			-289,
+			-706
+		],
+		[
+			-1666,
+			-605
+		],
+		[
+			-2646,
+			-268
+		]
+	],
+	[
+		[
+			7591576,
+			7018487
+		],
+		[
+			1193,
+			-1711
+		],
+		[
+			357,
+			-3141
+		],
+		[
+			3084,
+			-1750
+		],
+		[
+			-1150,
+			-1801
+		],
+		[
+			472,
+			-469
+		],
+		[
+			2728,
+			-2708
+		],
+		[
+			1767,
+			-348
+		],
+		[
+			986,
+			-1438
+		],
+		[
+			8491,
+			-1402
+		],
+		[
+			489,
+			-2641
+		],
+		[
+			1921,
+			-1255
+		]
+	],
+	[
+		[
+			7611914,
+			6999823
+		],
+		[
+			-5422,
+			373
+		],
+		[
+			-2375,
+			-1360
+		],
+		[
+			-3946,
+			514
+		],
+		[
+			-1298,
+			-1321
+		],
+		[
+			-5181,
+			439
+		],
+		[
+			-2083,
+			-3080
+		],
+		[
+			198,
+			-2654
+		],
+		[
+			-4665,
+			363
+		],
+		[
+			-681,
+			-2554
+		],
+		[
+			-1834,
+			121
+		],
+		[
+			-414,
+			-884
+		],
+		[
+			-5879,
+			-2635
+		],
+		[
+			-509,
+			2501
+		],
+		[
+			-2959,
+			1067
+		],
+		[
+			-4044,
+			25
+		],
+		[
+			428,
+			-2217
+		],
+		[
+			-1176,
+			-1558
+		],
+		[
+			-2561,
+			49
+		],
+		[
+			-1522,
+			1981
+		]
+	],
+	[
+		[
+			7565991,
+			6988993
+		],
+		[
+			-1962,
+			2866
+		],
+		[
+			1530,
+			1289
+		],
+		[
+			-1043,
+			1263
+		],
+		[
+			-5599,
+			110
+		],
+		[
+			-3143,
+			-1927
+		],
+		[
+			-1521,
+			1940
+		],
+		[
+			-3928,
+			1440
+		],
+		[
+			620,
+			2407
+		],
+		[
+			1282,
+			727
+		],
+		[
+			-1142,
+			2231
+		],
+		[
+			3646,
+			2236
+		],
+		[
+			-1054,
+			2868
+		],
+		[
+			-4126,
+			1241
+		],
+		[
+			-879,
+			1931
+		],
+		[
+			-557,
+			1224
+		]
+	],
+	[
+		[
+			7492904,
+			7083042
+		],
+		[
+			1016,
+			1579
+		],
+		[
+			-371,
+			710
+		],
+		[
+			1067,
+			418
+		],
+		[
+			2163,
+			-437
+		],
+		[
+			1655,
+			581
+		],
+		[
+			1257,
+			-243
+		],
+		[
+			-67,
+			1704
+		],
+		[
+			1035,
+			-97
+		],
+		[
+			1968,
+			1166
+		],
+		[
+			1028,
+			-1214
+		],
+		[
+			422,
+			-1656
+		],
+		[
+			505,
+			-514
+		],
+		[
+			1951,
+			-182
+		],
+		[
+			-510,
+			-1007
+		],
+		[
+			579,
+			-591
+		],
+		[
+			-1292,
+			-411
+		],
+		[
+			-1168,
+			-1244
+		],
+		[
+			-1803,
+			188
+		],
+		[
+			-1343,
+			-1044
+		],
+		[
+			-1504,
+			242
+		],
+		[
+			-676,
+			-1130
+		],
+		[
+			-1723,
+			735
+		],
+		[
+			-379,
+			685
+		],
+		[
+			-1268,
+			-125
+		],
+		[
+			-821,
+			481
+		],
+		[
+			-1363,
+			-187
+		],
+		[
+			119,
+			1266
+		],
+		[
+			-477,
+			327
+		]
+	],
+	[
+		[
+			7518473,
+			7039668
+		],
+		[
+			1035,
+			3490
+		],
+		[
+			4066,
+			-965
+		],
+		[
+			1233,
+			816
+		],
+		[
+			313,
+			2025
+		],
+		[
+			3453,
+			484
+		],
+		[
+			822,
+			-1601
+		],
+		[
+			2010,
+			-647
+		],
+		[
+			9,
+			-2536
+		],
+		[
+			2560,
+			-2330
+		],
+		[
+			-1336,
+			-2260
+		],
+		[
+			-4065,
+			-576
+		],
+		[
+			-5542,
+			350
+		],
+		[
+			-1580,
+			2522
+		],
+		[
+			-2978,
+			1228
+		]
+	],
+	[
+		[
+			7522016,
+			7106319
+		],
+		[
+			1873,
+			2149
+		],
+		[
+			2474,
+			28
+		],
+		[
+			2210,
+			1316
+		],
+		[
+			1240,
+			-96
+		],
+		[
+			502,
+			-715
+		],
+		[
+			1552,
+			427
+		],
+		[
+			1479,
+			-440
+		],
+		[
+			1041,
+			-1605
+		],
+		[
+			3411,
+			-302
+		],
+		[
+			365,
+			-1644
+		],
+		[
+			2012,
+			-225
+		],
+		[
+			587,
+			502
+		],
+		[
+			527,
+			-940
+		],
+		[
+			-388,
+			-2190
+		],
+		[
+			-1614,
+			-721
+		],
+		[
+			-1168,
+			1175
+		],
+		[
+			-802,
+			1397
+		],
+		[
+			-975,
+			490
+		],
+		[
+			-1209,
+			-917
+		],
+		[
+			-1254,
+			42
+		],
+		[
+			-900,
+			875
+		],
+		[
+			-851,
+			-6
+		],
+		[
+			-1126,
+			-1218
+		],
+		[
+			-92,
+			-876
+		],
+		[
+			-1342,
+			-558
+		],
+		[
+			232,
+			-878
+		],
+		[
+			-633,
+			-1083
+		],
+		[
+			-594,
+			-39
+		],
+		[
+			-6557,
+			6052
+		]
+	],
+	[
+		[
+			7106241,
+			7043212
+		],
+		[
+			2821,
+			946
+		],
+		[
+			3846,
+			-2563
+		],
+		[
+			7032,
+			-1581
+		],
+		[
+			2077,
+			-1386
+		]
+	],
+	[
+		[
+			7122017,
+			7038628
+		],
+		[
+			3315,
+			-991
+		],
+		[
+			13107,
+			-2284
+		]
+	],
+	[
+		[
+			7111139,
+			7010554
+		],
+		[
+			-1179,
+			-939
+		],
+		[
+			-5705,
+			-4539
+		],
+		[
+			-4718,
+			-2082
+		],
+		[
+			-3937,
+			-5431
+		],
+		[
+			-50,
+			-7476
+		],
+		[
+			-3507,
+			-2670
+		],
+		[
+			-566,
+			-3460
+		],
+		[
+			-2998,
+			-5893
+		],
+		[
+			921,
+			-6353
+		],
+		[
+			-4253,
+			-2459
+		],
+		[
+			-946,
+			-1543
+		],
+		[
+			-954,
+			-3286
+		]
+	],
+	[
+		[
+			7083247,
+			6964423
+		],
+		[
+			-1528,
+			-3449
+		],
+		[
+			-3165,
+			-3667
+		],
+		[
+			-5586,
+			-6472
+		]
+	],
+	[
+		[
+			7072968,
+			6950835
+		],
+		[
+			-63,
+			-574
+		]
+	],
+	[
+		[
+			7072905,
+			6950261
+		],
+		[
+			-664,
+			-7939
+		],
+		[
+			4023,
+			-3929
+		],
+		[
+			965,
+			-2400
+		],
+		[
+			-3541,
+			-4063
+		],
+		[
+			-468,
+			-3208
+		],
+		[
+			-2285,
+			-2492
+		],
+		[
+			388,
+			-3372
+		],
+		[
+			-1466,
+			-2959
+		],
+		[
+			-1528,
+			-3087
+		],
+		[
+			1446,
+			-3759
+		]
+	],
+	[
+		[
+			7102328,
+			7476283
+		],
+		[
+			-966,
+			-424
+		],
+		[
+			-913,
+			-406
+		],
+		[
+			-1761,
+			-433
+		],
+		[
+			-724,
+			839
+		],
+		[
+			-1240,
+			383
+		]
+	],
+	[
+		[
+			7096724,
+			7476242
+		],
+		[
+			-677,
+			2948
+		],
+		[
+			-3581,
+			505
+		],
+		[
+			852,
+			1366
+		],
+		[
+			-492,
+			1842
+		],
+		[
+			-3971,
+			170
+		],
+		[
+			376,
+			2403
+		],
+		[
+			-5624,
+			-430
+		],
+		[
+			-554,
+			871
+		],
+		[
+			-310,
+			2965
+		],
+		[
+			-2647,
+			2272
+		],
+		[
+			1022,
+			1594
+		],
+		[
+			-1377,
+			2004
+		],
+		[
+			-14970,
+			-1218
+		],
+		[
+			-6671,
+			-1334
+		],
+		[
+			-1245,
+			574
+		],
+		[
+			-481,
+			4547
+		],
+		[
+			336,
+			622
+		],
+		[
+			1400,
+			2588
+		],
+		[
+			7830,
+			621
+		],
+		[
+			-1355,
+			2461
+		],
+		[
+			5608,
+			2587
+		]
+	],
+	[
+		[
+			7070193,
+			7506200
+		],
+		[
+			14825,
+			2699
+		],
+		[
+			11148,
+			563
+		]
+	],
+	[
+		[
+			7096166,
+			7509462
+		],
+		[
+			2392,
+			-4405
+		],
+		[
+			64,
+			-3587
+		],
+		[
+			2032,
+			-1629
+		],
+		[
+			-493,
+			-1898
+		],
+		[
+			536,
+			-1054
+		],
+		[
+			-1624,
+			-1313
+		],
+		[
+			-2051,
+			-4734
+		],
+		[
+			290,
+			-1552
+		],
+		[
+			6325,
+			973
+		],
+		[
+			4763,
+			-532
+		],
+		[
+			61,
+			-2637
+		],
+		[
+			2471,
+			-1177
+		],
+		[
+			996,
+			-1070
+		],
+		[
+			-447,
+			-1688
+		],
+		[
+			-9812,
+			-4407
+		],
+		[
+			659,
+			-2469
+		]
+	],
+	[
+		[
+			7077995,
+			7514061
+		],
+		[
+			245,
+			-683
+		],
+		[
+			-1728,
+			-82
+		],
+		[
+			-4179,
+			243
+		],
+		[
+			-3237,
+			-474
+		],
+		[
+			-2452,
+			14
+		],
+		[
+			-860,
+			-389
+		],
+		[
+			-270,
+			-839
+		],
+		[
+			-1103,
+			-753
+		],
+		[
+			-798,
+			192
+		],
+		[
+			-1383,
+			-489
+		],
+		[
+			-988,
+			429
+		],
+		[
+			859,
+			2077
+		],
+		[
+			1054,
+			825
+		],
+		[
+			1109,
+			224
+		],
+		[
+			5771,
+			220
+		],
+		[
+			4471,
+			27
+		],
+		[
+			3489,
+			-542
+		]
+	],
+	[
+		[
+			7087217,
+			7516921
+		],
+		[
+			5004,
+			-112
+		],
+		[
+			4222,
+			41
+		],
+		[
+			115,
+			-668
+		],
+		[
+			-5701,
+			-1435
+		],
+		[
+			-1735,
+			-55
+		],
+		[
+			-4250,
+			469
+		],
+		[
+			-1561,
+			-1277
+		],
+		[
+			-1255,
+			257
+		],
+		[
+			-375,
+			655
+		],
+		[
+			1284,
+			1253
+		],
+		[
+			2042,
+			720
+		],
+		[
+			2210,
+			152
+		]
+	],
+	[
+		[
+			7680393,
+			7211732
+		],
+		[
+			-867,
+			-109
+		],
+		[
+			-3206,
+			-1699
+		],
+		[
+			-7651,
+			-803
+		],
+		[
+			183,
+			-3145
+		],
+		[
+			-1593,
+			-1489
+		],
+		[
+			-241,
+			-1639
+		],
+		[
+			-1657,
+			-788
+		]
+	],
+	[
+		[
+			7595603,
+			7225388
+		],
+		[
+			-2779,
+			548
+		],
+		[
+			-4217,
+			3250
+		],
+		[
+			-4170,
+			161
+		],
+		[
+			-3974,
+			1717
+		]
+	],
+	[
+		[
+			7580463,
+			7231064
+		],
+		[
+			-2278,
+			1822
+		],
+		[
+			-1273,
+			3889
+		]
+	],
+	[
+		[
+			7576912,
+			7236775
+		],
+		[
+			6260,
+			586
+		],
+		[
+			2657,
+			1633
+		],
+		[
+			2067,
+			237
+		],
+		[
+			-797,
+			2016
+		],
+		[
+			795,
+			2201
+		],
+		[
+			-507,
+			1843
+		],
+		[
+			2328,
+			3606
+		],
+		[
+			5114,
+			-23
+		],
+		[
+			2654,
+			-862
+		],
+		[
+			6431,
+			791
+		],
+		[
+			127,
+			3073
+		],
+		[
+			-3163,
+			2712
+		],
+		[
+			3784,
+			4634
+		],
+		[
+			3116,
+			1295
+		]
+	],
+	[
+		[
+			7607778,
+			7260517
+		],
+		[
+			5547,
+			473
+		],
+		[
+			4428,
+			-2137
+		],
+		[
+			2963,
+			1278
+		],
+		[
+			4505,
+			-158
+		],
+		[
+			823,
+			946
+		],
+		[
+			9003,
+			818
+		]
+	],
+	[
+		[
+			7525266,
+			7170499
+		],
+		[
+			-1262,
+			1126
+		],
+		[
+			-5261,
+			275
+		],
+		[
+			-5084,
+			2067
+		],
+		[
+			-554,
+			3615
+		],
+		[
+			-2549,
+			839
+		],
+		[
+			-1264,
+			2009
+		],
+		[
+			-2184,
+			739
+		]
+	],
+	[
+		[
+			7507108,
+			7181169
+		],
+		[
+			353,
+			697
+		],
+		[
+			-2554,
+			617
+		],
+		[
+			-374,
+			832
+		],
+		[
+			4793,
+			1444
+		],
+		[
+			166,
+			1303
+		],
+		[
+			1638,
+			1557
+		],
+		[
+			-3111,
+			3188
+		],
+		[
+			-3734,
+			-281
+		],
+		[
+			-1570,
+			2147
+		],
+		[
+			1146,
+			1134
+		],
+		[
+			3720,
+			1017
+		],
+		[
+			351,
+			2302
+		],
+		[
+			1658,
+			698
+		]
+	],
+	[
+		[
+			7509590,
+			7197824
+		],
+		[
+			6549,
+			3505
+		],
+		[
+			2014,
+			-3827
+		],
+		[
+			-63,
+			-2793
+		],
+		[
+			2672,
+			-597
+		],
+		[
+			3301,
+			2008
+		],
+		[
+			5023,
+			327
+		],
+		[
+			-1148,
+			1732
+		],
+		[
+			2431,
+			2590
+		],
+		[
+			2842,
+			-92
+		],
+		[
+			2696,
+			1521
+		],
+		[
+			5323,
+			-29
+		],
+		[
+			4523,
+			2532
+		],
+		[
+			1315,
+			1648
+		]
+	],
+	[
+		[
+			7547068,
+			7206349
+		],
+		[
+			2557,
+			-947
+		],
+		[
+			3139,
+			704
+		],
+		[
+			536,
+			-1391
+		],
+		[
+			3599,
+			-2251
+		],
+		[
+			-269,
+			-1627
+		],
+		[
+			3128,
+			-1446
+		],
+		[
+			-1470,
+			-2792
+		],
+		[
+			836,
+			-1455
+		],
+		[
+			3608,
+			-852
+		],
+		[
+			2619,
+			511
+		],
+		[
+			2600,
+			-1440
+		]
+	],
+	[
+		[
+			7573554,
+			7179404
+		],
+		[
+			-6993,
+			-1161
+		],
+		[
+			-2287,
+			-2170
+		],
+		[
+			-409,
+			-2180
+		],
+		[
+			-2458,
+			-135
+		],
+		[
+			-3193,
+			-2564
+		],
+		[
+			-2918,
+			-553
+		],
+		[
+			-468,
+			-2541
+		],
+		[
+			-3520,
+			-2011
+		],
+		[
+			-817,
+			-3261
+		],
+		[
+			-2093,
+			-414
+		],
+		[
+			-522,
+			-3124
+		],
+		[
+			665,
+			-1567
+		],
+		[
+			-1310,
+			-1668
+		],
+		[
+			-2613,
+			423
+		],
+		[
+			-1527,
+			1843
+		],
+		[
+			765,
+			2735
+		],
+		[
+			-4220,
+			2195
+		],
+		[
+			1847,
+			897
+		],
+		[
+			-259,
+			873
+		],
+		[
+			-5634,
+			1073
+		],
+		[
+			-628,
+			3281
+		],
+		[
+			-1575,
+			1322
+		],
+		[
+			-4814,
+			-118
+		],
+		[
+			-3307,
+			-80
+		]
+	],
+	[
+		[
+			7547068,
+			7206349
+		],
+		[
+			-4937,
+			1434
+		],
+		[
+			-1209,
+			2348
+		],
+		[
+			1165,
+			1695
+		],
+		[
+			-3940,
+			882
+		],
+		[
+			647,
+			2249
+		],
+		[
+			3134,
+			91
+		],
+		[
+			2004,
+			1776
+		],
+		[
+			-3245,
+			1039
+		],
+		[
+			-913,
+			1644
+		],
+		[
+			485,
+			1021
+		]
+	],
+	[
+		[
+			7540259,
+			7220528
+		],
+		[
+			8564,
+			460
+		],
+		[
+			5069,
+			2837
+		],
+		[
+			4353,
+			-805
+		],
+		[
+			3431,
+			3696
+		],
+		[
+			5414,
+			2440
+		],
+		[
+			11788,
+			34
+		],
+		[
+			1585,
+			1874
+		]
+	],
+	[
+		[
+			7539496,
+			7273543
+		],
+		[
+			-20,
+			2318
+		],
+		[
+			1385,
+			1181
+		],
+		[
+			1442,
+			3426
+		],
+		[
+			12212,
+			284
+		],
+		[
+			4351,
+			977
+		],
+		[
+			1025,
+			1565
+		],
+		[
+			4284,
+			-1641
+		],
+		[
+			-539,
+			-1036
+		],
+		[
+			-2459,
+			-648
+		],
+		[
+			1315,
+			-2997
+		],
+		[
+			-168,
+			-1536
+		],
+		[
+			2726,
+			-690
+		]
+	],
+	[
+		[
+			7565050,
+			7274746
+		],
+		[
+			3147,
+			-1636
+		],
+		[
+			887,
+			-2162
+		],
+		[
+			-372,
+			-1531
+		],
+		[
+			-2954,
+			-729
+		],
+		[
+			-2349,
+			-3935
+		],
+		[
+			-2921,
+			714
+		],
+		[
+			-1403,
+			1553
+		],
+		[
+			-3644,
+			-233
+		],
+		[
+			-4761,
+			1236
+		],
+		[
+			-881,
+			-1974
+		],
+		[
+			-2052,
+			-692
+		],
+		[
+			-1511,
+			-2202
+		],
+		[
+			-4809,
+			-486
+		],
+		[
+			-714,
+			285
+		],
+		[
+			-520,
+			3449
+		],
+		[
+			1730,
+			1064
+		],
+		[
+			-2704,
+			2847
+		],
+		[
+			1008,
+			2030
+		],
+		[
+			-731,
+			1199
+		]
+	],
+	[
+		[
+			7471221,
+			7110125
+		],
+		[
+			-289,
+			1685
+		],
+		[
+			2787,
+			-115
+		],
+		[
+			1312,
+			2329
+		],
+		[
+			3211,
+			729
+		]
+	],
+	[
+		[
+			7478242,
+			7114753
+		],
+		[
+			1436,
+			-1270
+		],
+		[
+			1833,
+			-4299
+		],
+		[
+			-1163,
+			-1500
+		],
+		[
+			557,
+			-1494
+		],
+		[
+			-1499,
+			-3347
+		],
+		[
+			486,
+			-1123
+		],
+		[
+			8176,
+			-556
+		],
+		[
+			1195,
+			460
+		],
+		[
+			5894,
+			2266
+		],
+		[
+			7244,
+			-1580
+		],
+		[
+			3615,
+			720
+		],
+		[
+			5696,
+			-277
+		],
+		[
+			1173,
+			-1163
+		],
+		[
+			-444,
+			-1477
+		],
+		[
+			1604,
+			-974
+		],
+		[
+			0,
+			-2642
+		],
+		[
+			7423,
+			-50
+		],
+		[
+			1328,
+			-1323
+		],
+		[
+			3600,
+			-332
+		],
+		[
+			329,
+			-1301
+		]
+	],
+	[
+		[
+			7526725,
+			7093491
+		],
+		[
+			-2325,
+			-552
+		],
+		[
+			-1725,
+			-1532
+		],
+		[
+			1812,
+			-2697
+		],
+		[
+			-431,
+			-1501
+		],
+		[
+			-4987,
+			550
+		],
+		[
+			-667,
+			-5760
+		],
+		[
+			-4117,
+			-55
+		],
+		[
+			-960,
+			-875
+		],
+		[
+			2512,
+			-2874
+		],
+		[
+			4286,
+			-448
+		],
+		[
+			1088,
+			-1215
+		],
+		[
+			-345,
+			-2365
+		],
+		[
+			-5969,
+			-503
+		],
+		[
+			816,
+			-902
+		],
+		[
+			-791,
+			-1456
+		],
+		[
+			-2750,
+			-2068
+		],
+		[
+			565,
+			-2358
+		],
+		[
+			-2933,
+			-753
+		],
+		[
+			2734,
+			-2302
+		],
+		[
+			-2861,
+			-1446
+		],
+		[
+			334,
+			-1951
+		],
+		[
+			-1413,
+			375
+		]
+	],
+	[
+		[
+			7508598,
+			7060803
+		],
+		[
+			-902,
+			3564
+		],
+		[
+			-1783,
+			1290
+		],
+		[
+			-11419,
+			2478
+		],
+		[
+			-5231,
+			3070
+		],
+		[
+			-1854,
+			1088
+		],
+		[
+			-1572,
+			-392
+		],
+		[
+			-1145,
+			-1852
+		],
+		[
+			-2799,
+			840
+		],
+		[
+			-3425,
+			2038
+		],
+		[
+			45,
+			4366
+		],
+		[
+			-1985,
+			827
+		],
+		[
+			-2425,
+			-287
+		],
+		[
+			-3151,
+			2767
+		]
+	],
+	[
+		[
+			7470952,
+			7080600
+		],
+		[
+			3131,
+			6009
+		],
+		[
+			-4633,
+			3038
+		],
+		[
+			75,
+			3092
+		],
+		[
+			-1854,
+			1339
+		],
+		[
+			3923,
+			2468
+		],
+		[
+			-222,
+			3006
+		],
+		[
+			3289,
+			1544
+		],
+		[
+			-2446,
+			3015
+		],
+		[
+			-1207,
+			3914
+		],
+		[
+			213,
+			2100
+		]
+	],
+	[
+		[
+			7563079,
+			7041895
+		],
+		[
+			-6120,
+			1443
+		],
+		[
+			1578,
+			1382
+		],
+		[
+			-1775,
+			3611
+		],
+		[
+			-2220,
+			397
+		],
+		[
+			-2374,
+			-1124
+		],
+		[
+			-4113,
+			165
+		],
+		[
+			-160,
+			721
+		],
+		[
+			1494,
+			676
+		],
+		[
+			-2692,
+			1601
+		],
+		[
+			492,
+			1379
+		],
+		[
+			-908,
+			1797
+		]
+	],
+	[
+		[
+			7546281,
+			7053943
+		],
+		[
+			5189,
+			7453
+		],
+		[
+			2203,
+			462
+		],
+		[
+			-1110,
+			1586
+		],
+		[
+			600,
+			1225
+		],
+		[
+			3562,
+			336
+		],
+		[
+			1546,
+			1213
+		],
+		[
+			2363,
+			-696
+		],
+		[
+			2608,
+			891
+		],
+		[
+			353,
+			2164
+		],
+		[
+			2243,
+			1488
+		],
+		[
+			-2033,
+			695
+		],
+		[
+			-540,
+			1804
+		],
+		[
+			207,
+			1866
+		],
+		[
+			1575,
+			1866
+		],
+		[
+			-956,
+			1892
+		],
+		[
+			1164,
+			1110
+		],
+		[
+			5006,
+			1225
+		],
+		[
+			-1586,
+			2651
+		],
+		[
+			514,
+			976
+		],
+		[
+			4487,
+			1228
+		],
+		[
+			3382,
+			2070
+		],
+		[
+			1197,
+			-103
+		],
+		[
+			297,
+			-1030
+		]
+	],
+	[
+		[
+			7578552,
+			7086315
+		],
+		[
+			1773,
+			-1417
+		],
+		[
+			841,
+			-2794
+		],
+		[
+			4579,
+			-1052
+		],
+		[
+			4656,
+			-2640
+		],
+		[
+			950,
+			-2455
+		],
+		[
+			2385,
+			-2524
+		],
+		[
+			9237,
+			-1379
+		],
+		[
+			735,
+			264
+		],
+		[
+			-75,
+			1233
+		],
+		[
+			1201,
+			92
+		],
+		[
+			7594,
+			-1650
+		],
+		[
+			5317,
+			-3050
+		],
+		[
+			617,
+			-3321
+		],
+		[
+			4986,
+			-2452
+		],
+		[
+			923,
+			-1651
+		],
+		[
+			1926,
+			-1018
+		],
+		[
+			446,
+			-1577
+		],
+		[
+			5624,
+			-2870
+		]
+	],
+	[
+		[
+			7632267,
+			7056054
+		],
+		[
+			-1080,
+			-2995
+		],
+		[
+			-3227,
+			-3096
+		],
+		[
+			-5364,
+			1572
+		],
+		[
+			-2691,
+			2536
+		],
+		[
+			-7562,
+			970
+		],
+		[
+			-2737,
+			-2098
+		],
+		[
+			-2513,
+			301
+		],
+		[
+			-1037,
+			-1500
+		],
+		[
+			-6646,
+			317
+		],
+		[
+			-4292,
+			-935
+		],
+		[
+			-1543,
+			670
+		],
+		[
+			-1409,
+			-646
+		],
+		[
+			-170,
+			-978
+		]
+	],
+	[
+		[
+			7508598,
+			7060803
+		],
+		[
+			590,
+			-628
+		],
+		[
+			171,
+			-1069
+		],
+		[
+			-593,
+			-903
+		]
+	],
+	[
+		[
+			7508766,
+			7058203
+		],
+		[
+			-2871,
+			-1908
+		],
+		[
+			-4198,
+			-737
+		],
+		[
+			-1651,
+			-1511
+		],
+		[
+			-4643,
+			1553
+		],
+		[
+			-2277,
+			-3206
+		],
+		[
+			-2944,
+			-1720
+		],
+		[
+			-386,
+			-1473
+		],
+		[
+			-533,
+			-147
+		],
+		[
+			-4177,
+			-1149
+		],
+		[
+			-2121,
+			-1634
+		],
+		[
+			720,
+			-1897
+		],
+		[
+			-1915,
+			-1975
+		],
+		[
+			-615,
+			-2090
+		]
+	],
+	[
+		[
+			7481155,
+			7040309
+		],
+		[
+			-1722,
+			-1045
+		],
+		[
+			-2539,
+			-85
+		],
+		[
+			-1787,
+			-5333
+		]
+	],
+	[
+		[
+			7475107,
+			7033846
+		],
+		[
+			-2481,
+			3563
+		],
+		[
+			-1825,
+			658
+		],
+		[
+			-1761,
+			3047
+		],
+		[
+			-1839,
+			912
+		],
+		[
+			1940,
+			2670
+		],
+		[
+			-264,
+			715
+		],
+		[
+			-3041,
+			800
+		],
+		[
+			-2105,
+			-1003
+		],
+		[
+			-4268,
+			-20
+		],
+		[
+			-5716,
+			1394
+		]
+	],
+	[
+		[
+			7453747,
+			7046582
+		],
+		[
+			-3425,
+			3496
+		],
+		[
+			-2483,
+			962
+		],
+		[
+			-257,
+			2438
+		],
+		[
+			-1656,
+			2903
+		],
+		[
+			-3923,
+			1990
+		],
+		[
+			596,
+			1216
+		],
+		[
+			3396,
+			506
+		],
+		[
+			-1124,
+			3262
+		],
+		[
+			-2047,
+			1210
+		],
+		[
+			-339,
+			1177
+		],
+		[
+			-5743,
+			576
+		],
+		[
+			-1757,
+			2016
+		],
+		[
+			1584,
+			1423
+		],
+		[
+			2837,
+			161
+		],
+		[
+			488,
+			1313
+		]
+	],
+	[
+		[
+			7439894,
+			7071231
+		],
+		[
+			8537,
+			-1960
+		],
+		[
+			5071,
+			2480
+		],
+		[
+			328,
+			962
+		],
+		[
+			-1015,
+			1545
+		],
+		[
+			1788,
+			423
+		],
+		[
+			6158,
+			5021
+		],
+		[
+			-685,
+			971
+		],
+		[
+			446,
+			900
+		],
+		[
+			8112,
+			-1702
+		],
+		[
+			2318,
+			729
+		]
+	],
+	[
+		[
+			7478242,
+			7114753
+		],
+		[
+			1149,
+			4477
+		],
+		[
+			5329,
+			-158
+		],
+		[
+			823,
+			1412
+		],
+		[
+			3720,
+			1819
+		],
+		[
+			504,
+			246
+		],
+		[
+			10893,
+			858
+		]
+	],
+	[
+		[
+			7500660,
+			7123407
+		],
+		[
+			1108,
+			-2217
+		],
+		[
+			2283,
+			-1654
+		],
+		[
+			6053,
+			-88
+		],
+		[
+			4111,
+			1020
+		],
+		[
+			2182,
+			-1034
+		],
+		[
+			894,
+			-1814
+		],
+		[
+			5903,
+			-159
+		],
+		[
+			2315,
+			3091
+		],
+		[
+			3064,
+			684
+		],
+		[
+			3992,
+			2615
+		],
+		[
+			2112,
+			-3476
+		],
+		[
+			3621,
+			-1808
+		],
+		[
+			910,
+			-2625
+		],
+		[
+			8996,
+			-1334
+		],
+		[
+			4063,
+			1015
+		],
+		[
+			1375,
+			-1303
+		],
+		[
+			1686,
+			213
+		]
+	],
+	[
+		[
+			7555328,
+			7114533
+		],
+		[
+			783,
+			-1952
+		],
+		[
+			3401,
+			-3312
+		],
+		[
+			7879,
+			-2369
+		],
+		[
+			429,
+			-5741
+		],
+		[
+			3297,
+			-746
+		],
+		[
+			1515,
+			-3265
+		],
+		[
+			-54,
+			-2147
+		],
+		[
+			1976,
+			-2086
+		]
+	],
+	[
+		[
+			7574554,
+			7092915
+		],
+		[
+			-2838,
+			650
+		],
+		[
+			-3842,
+			-1164
+		],
+		[
+			-4697,
+			1306
+		],
+		[
+			-3868,
+			-2655
+		],
+		[
+			-3499,
+			731
+		],
+		[
+			-6153,
+			-2468
+		],
+		[
+			-4434,
+			1379
+		],
+		[
+			-378,
+			1545
+		],
+		[
+			-5238,
+			1917
+		],
+		[
+			-588,
+			2337
+		],
+		[
+			-4100,
+			1332
+		],
+		[
+			-1842,
+			-2115
+		],
+		[
+			-3803,
+			-492
+		],
+		[
+			-701,
+			-475
+		],
+		[
+			-1848,
+			-1252
+		]
+	],
+	[
+		[
+			7528704,
+			7015287
+		],
+		[
+			-3778,
+			608
+		]
+	],
+	[
+		[
+			7524926,
+			7015895
+		],
+		[
+			909,
+			3307
+		],
+		[
+			-307,
+			4400
+		],
+		[
+			2574,
+			1690
+		],
+		[
+			265,
+			1022
+		],
+		[
+			-2574,
+			2790
+		],
+		[
+			-2262,
+			103
+		],
+		[
+			-1004,
+			3445
+		],
+		[
+			-4565,
+			1907
+		],
+		[
+			-3285,
+			-501
+		],
+		[
+			-1909,
+			973
+		],
+		[
+			-4788,
+			-1522
+		],
+		[
+			-38,
+			1684
+		],
+		[
+			-1964,
+			850
+		],
+		[
+			543,
+			1053
+		],
+		[
+			-2031,
+			2316
+		],
+		[
+			-3065,
+			1334
+		],
+		[
+			-5095,
+			-212
+		],
+		[
+			-4397,
+			-3403
+		],
+		[
+			-2670,
+			970
+		],
+		[
+			-834,
+			303
+		],
+		[
+			-1754,
+			1611
+		],
+		[
+			-5520,
+			294
+		]
+	],
+	[
+		[
+			7508766,
+			7058203
+		],
+		[
+			6679,
+			-1119
+		],
+		[
+			335,
+			-2298
+		],
+		[
+			4781,
+			778
+		],
+		[
+			1529,
+			-1605
+		],
+		[
+			2481,
+			-709
+		],
+		[
+			4002,
+			2430
+		],
+		[
+			1764,
+			1071
+		],
+		[
+			-93,
+			2482
+		],
+		[
+			2543,
+			1491
+		],
+		[
+			1834,
+			-3259
+		],
+		[
+			3132,
+			-1203
+		],
+		[
+			1111,
+			-2022
+		],
+		[
+			4346,
+			-272
+		],
+		[
+			712,
+			1098
+		],
+		[
+			2359,
+			-1123
+		]
+	],
+	[
+		[
+			7574554,
+			7092915
+		],
+		[
+			4716,
+			-1724
+		],
+		[
+			111,
+			-3703
+		],
+		[
+			-829,
+			-1173
+		]
+	],
+	[
+		[
+			7505545,
+			7136598
+		],
+		[
+			1582,
+			-650
+		],
+		[
+			12943,
+			1011
+		],
+		[
+			2090,
+			941
+		],
+		[
+			3643,
+			-1317
+		],
+		[
+			2770,
+			740
+		],
+		[
+			5575,
+			1490
+		],
+		[
+			1172,
+			2997
+		],
+		[
+			3907,
+			608
+		],
+		[
+			2029,
+			2094
+		]
+	],
+	[
+		[
+			7541256,
+			7144512
+		],
+		[
+			4679,
+			-281
+		],
+		[
+			1768,
+			-1886
+		],
+		[
+			1825,
+			28
+		],
+		[
+			2436,
+			-1689
+		],
+		[
+			3030,
+			-708
+		],
+		[
+			3121,
+			-1598
+		],
+		[
+			240,
+			-890
+		],
+		[
+			2913,
+			484
+		],
+		[
+			2984,
+			-1392
+		],
+		[
+			547,
+			-951
+		],
+		[
+			-2114,
+			-1719
+		],
+		[
+			177,
+			-1238
+		],
+		[
+			6302,
+			-1683
+		],
+		[
+			1111,
+			-1784
+		]
+	],
+	[
+		[
+			7570275,
+			7129205
+		],
+		[
+			-5511,
+			-6364
+		],
+		[
+			-1938,
+			-687
+		],
+		[
+			-905,
+			-4871
+		],
+		[
+			-6593,
+			-2750
+		]
+	],
+	[
+		[
+			7500660,
+			7123407
+		],
+		[
+			293,
+			676
+		],
+		[
+			-1608,
+			1994
+		],
+		[
+			848,
+			1769
+		],
+		[
+			-1750,
+			861
+		],
+		[
+			269,
+			1649
+		],
+		[
+			-1888,
+			1864
+		],
+		[
+			-289,
+			2119
+		],
+		[
+			5157,
+			559
+		],
+		[
+			3853,
+			1700
+		]
+	],
+	[
+		[
+			7401769,
+			7130133
+		],
+		[
+			5767,
+			1062
+		],
+		[
+			2167,
+			-1762
+		],
+		[
+			652,
+			-2533
+		],
+		[
+			-141,
+			-2323
+		],
+		[
+			-2566,
+			-1387
+		],
+		[
+			-5879,
+			2076
+		],
+		[
+			-1338,
+			945
+		],
+		[
+			-1314,
+			42
+		],
+		[
+			282,
+			737
+		],
+		[
+			-909,
+			-216
+		],
+		[
+			175,
+			1166
+		],
+		[
+			-795,
+			573
+		],
+		[
+			1663,
+			669
+		],
+		[
+			-167,
+			1085
+		],
+		[
+			2403,
+			-134
+		]
+	],
+	[
+		[
+			7464797,
+			7133271
+		],
+		[
+			114,
+			1019
+		],
+		[
+			3638,
+			458
+		],
+		[
+			782,
+			-378
+		],
+		[
+			310,
+			820
+		],
+		[
+			1652,
+			985
+		],
+		[
+			2119,
+			173
+		],
+		[
+			3896,
+			-923
+		],
+		[
+			1173,
+			475
+		],
+		[
+			2251,
+			12
+		],
+		[
+			-639,
+			-1063
+		],
+		[
+			-1023,
+			-438
+		],
+		[
+			2553,
+			-1702
+		],
+		[
+			-2573,
+			-947
+		],
+		[
+			-1429,
+			-869
+		],
+		[
+			-481,
+			-790
+		],
+		[
+			603,
+			-915
+		],
+		[
+			-1068,
+			-1199
+		],
+		[
+			-1873,
+			126
+		],
+		[
+			-1810,
+			-253
+		],
+		[
+			-2354,
+			81
+		],
+		[
+			616,
+			1715
+		],
+		[
+			-1596,
+			971
+		],
+		[
+			-1492,
+			185
+		],
+		[
+			-892,
+			733
+		],
+		[
+			425,
+			838
+		],
+		[
+			-1632,
+			859
+		],
+		[
+			-1270,
+			27
+		]
+	],
+	[
+		[
+			7404547,
+			7166754
+		],
+		[
+			158,
+			417
+		],
+		[
+			2650,
+			1051
+		],
+		[
+			1326,
+			-151
+		],
+		[
+			1181,
+			485
+		],
+		[
+			1317,
+			-48
+		],
+		[
+			451,
+			-538
+		],
+		[
+			2166,
+			-351
+		],
+		[
+			-4,
+			-1243
+		],
+		[
+			1995,
+			-311
+		],
+		[
+			838,
+			-668
+		],
+		[
+			1134,
+			31
+		],
+		[
+			2298,
+			720
+		],
+		[
+			1050,
+			-910
+		],
+		[
+			-2377,
+			-632
+		],
+		[
+			-552,
+			-999
+		],
+		[
+			-778,
+			103
+		],
+		[
+			-2258,
+			-816
+		],
+		[
+			-68,
+			-943
+		],
+		[
+			-2111,
+			-1133
+		],
+		[
+			-633,
+			1433
+		],
+		[
+			-1140,
+			790
+		],
+		[
+			-5152,
+			-237
+		],
+		[
+			-920,
+			1148
+		],
+		[
+			1690,
+			227
+		],
+		[
+			132,
+			1203
+		],
+		[
+			-1103,
+			252
+		],
+		[
+			-1290,
+			1120
+		]
+	],
+	[
+		[
+			7496006,
+			7169608
+		],
+		[
+			57,
+			577
+		],
+		[
+			2182,
+			741
+		],
+		[
+			379,
+			-633
+		],
+		[
+			1918,
+			334
+		],
+		[
+			2519,
+			802
+		],
+		[
+			-384,
+			1102
+		],
+		[
+			625,
+			1537
+		],
+		[
+			2083,
+			-712
+		],
+		[
+			1414,
+			553
+		],
+		[
+			1150,
+			-1204
+		],
+		[
+			2308,
+			486
+		],
+		[
+			1048,
+			-1337
+		],
+		[
+			919,
+			-172
+		],
+		[
+			-195,
+			-1507
+		],
+		[
+			-1116,
+			-17
+		],
+		[
+			32,
+			-530
+		],
+		[
+			-1982,
+			-828
+		],
+		[
+			-259,
+			-1632
+		],
+		[
+			-1012,
+			-743
+		],
+		[
+			-1195,
+			-291
+		],
+		[
+			-482,
+			-637
+		],
+		[
+			-2366,
+			35
+		],
+		[
+			-206,
+			571
+		],
+		[
+			-1291,
+			177
+		],
+		[
+			-807,
+			1004
+		],
+		[
+			-2178,
+			46
+		],
+		[
+			-304,
+			925
+		],
+		[
+			-2857,
+			1353
+		]
+	],
+	[
+		[
+			7360072,
+			7120914
+		],
+		[
+			769,
+			1337
+		],
+		[
+			-1234,
+			1116
+		],
+		[
+			1443,
+			2835
+		],
+		[
+			4651,
+			162
+		]
+	],
+	[
+		[
+			7365701,
+			7126364
+		],
+		[
+			4289,
+			104
+		],
+		[
+			6008,
+			-1874
+		],
+		[
+			5158,
+			2747
+		],
+		[
+			2697,
+			244
+		],
+		[
+			1470,
+			2824
+		],
+		[
+			3246,
+			2384
+		],
+		[
+			140,
+			1834
+		],
+		[
+			1807,
+			1046
+		],
+		[
+			605,
+			5380
+		],
+		[
+			2426,
+			1964
+		],
+		[
+			4414,
+			150
+		],
+		[
+			3227,
+			4708
+		]
+	],
+	[
+		[
+			7401188,
+			7147875
+		],
+		[
+			581,
+			32
+		],
+		[
+			1884,
+			103
+		]
+	],
+	[
+		[
+			7403653,
+			7148010
+		],
+		[
+			12,
+			-2809
+		],
+		[
+			2093,
+			-2486
+		],
+		[
+			5125,
+			481
+		],
+		[
+			4779,
+			-2678
+		],
+		[
+			15205,
+			3196
+		],
+		[
+			2116,
+			444
+		],
+		[
+			834,
+			-973
+		],
+		[
+			-2287,
+			-2025
+		],
+		[
+			5361,
+			-1418
+		],
+		[
+			2925,
+			-2090
+		]
+	],
+	[
+		[
+			7439816,
+			7137652
+		],
+		[
+			-293,
+			-1084
+		],
+		[
+			-4433,
+			-2532
+		],
+		[
+			1240,
+			-2395
+		],
+		[
+			-2382,
+			-2257
+		],
+		[
+			930,
+			-2477
+		],
+		[
+			4109,
+			-1164
+		]
+	],
+	[
+		[
+			7438987,
+			7125743
+		],
+		[
+			-1655,
+			-3295
+		],
+		[
+			-4073,
+			-183
+		],
+		[
+			-2392,
+			861
+		],
+		[
+			-4317,
+			-535
+		],
+		[
+			-1567,
+			-3098
+		],
+		[
+			-2200,
+			-1232
+		],
+		[
+			-9009,
+			-1144
+		],
+		[
+			-2050,
+			-1201
+		],
+		[
+			-2874,
+			448
+		],
+		[
+			-940,
+			-825
+		]
+	],
+	[
+		[
+			7407910,
+			7115539
+		],
+		[
+			-1390,
+			1042
+		],
+		[
+			-1341,
+			-130
+		],
+		[
+			-1996,
+			-592
+		],
+		[
+			-718,
+			-1296
+		],
+		[
+			-696,
+			-207
+		],
+		[
+			-5720,
+			-1704
+		],
+		[
+			-2985,
+			2451
+		],
+		[
+			-5834,
+			2133
+		],
+		[
+			-4452,
+			-2540
+		],
+		[
+			2651,
+			-1441
+		],
+		[
+			-141,
+			-998
+		],
+		[
+			-4670,
+			-1449
+		]
+	],
+	[
+		[
+			7380618,
+			7110808
+		],
+		[
+			-1563,
+			1872
+		],
+		[
+			-2180,
+			-37
+		],
+		[
+			-2714,
+			549
+		],
+		[
+			-1454,
+			600
+		],
+		[
+			-2387,
+			481
+		]
+	],
+	[
+		[
+			7370320,
+			7114273
+		],
+		[
+			30,
+			1107
+		],
+		[
+			-2120,
+			2666
+		],
+		[
+			-1622,
+			675
+		],
+		[
+			-3948,
+			-1247
+		],
+		[
+			407,
+			1975
+		],
+		[
+			-2995,
+			1465
+		]
+	],
+	[
+		[
+			7471221,
+			7110125
+		],
+		[
+			-1267,
+			-2032
+		],
+		[
+			1145,
+			-958
+		],
+		[
+			220,
+			-1679
+		],
+		[
+			-1020,
+			-2537
+		],
+		[
+			-3986,
+			628
+		],
+		[
+			-3759,
+			-567
+		],
+		[
+			-4975,
+			-2536
+		],
+		[
+			-2736,
+			1117
+		],
+		[
+			-913,
+			2166
+		],
+		[
+			-1885,
+			1640
+		]
+	],
+	[
+		[
+			7452045,
+			7105367
+		],
+		[
+			-942,
+			727
+		],
+		[
+			1363,
+			1659
+		],
+		[
+			-1367,
+			3477
+		],
+		[
+			2620,
+			3290
+		],
+		[
+			-630,
+			1671
+		],
+		[
+			-2701,
+			905
+		],
+		[
+			1202,
+			1860
+		],
+		[
+			-3081,
+			1188
+		],
+		[
+			-1007,
+			-1083
+		],
+		[
+			-2008,
+			-37
+		],
+		[
+			-3712,
+			3966
+		],
+		[
+			-90,
+			2564
+		],
+		[
+			-2705,
+			189
+		]
+	],
+	[
+		[
+			7439816,
+			7137652
+		],
+		[
+			749,
+			424
+		],
+		[
+			-430,
+			516
+		],
+		[
+			722,
+			100
+		]
+	],
+	[
+		[
+			7440857,
+			7138692
+		],
+		[
+			2489,
+			-1464
+		],
+		[
+			318,
+			-1811
+		],
+		[
+			9828,
+			-3024
+		],
+		[
+			1683,
+			2210
+		],
+		[
+			2579,
+			105
+		],
+		[
+			-845,
+			1754
+		],
+		[
+			625,
+			1129
+		],
+		[
+			3317,
+			-749
+		],
+		[
+			2036,
+			1087
+		],
+		[
+			10208,
+			1851
+		],
+		[
+			2016,
+			779
+		],
+		[
+			1414,
+			1721
+		],
+		[
+			3403,
+			969
+		],
+		[
+			-1071,
+			2331
+		],
+		[
+			4052,
+			1687
+		],
+		[
+			76,
+			3889
+		]
+	],
+	[
+		[
+			7482985,
+			7151156
+		],
+		[
+			2069,
+			562
+		],
+		[
+			4209,
+			-993
+		],
+		[
+			3126,
+			200
+		],
+		[
+			1698,
+			-1904
+		]
+	],
+	[
+		[
+			7494087,
+			7149021
+		],
+		[
+			2186,
+			-1120
+		],
+		[
+			-701,
+			-1869
+		],
+		[
+			2579,
+			-768
+		],
+		[
+			3872,
+			-2716
+		],
+		[
+			-682,
+			-1441
+		],
+		[
+			3332,
+			-2374
+		],
+		[
+			872,
+			-2135
+		]
+	],
+	[
+		[
+			6986662,
+			7272016
+		],
+		[
+			3346,
+			1618
+		],
+		[
+			5688,
+			-58
+		]
+	],
+	[
+		[
+			6995696,
+			7273576
+		],
+		[
+			786,
+			-3007
+		],
+		[
+			-836,
+			-3899
+		],
+		[
+			8956,
+			-1261
+		],
+		[
+			4009,
+			336
+		],
+		[
+			-780,
+			-2616
+		],
+		[
+			-5200,
+			-677
+		],
+		[
+			354,
+			-1976
+		],
+		[
+			2701,
+			-735
+		],
+		[
+			1322,
+			-1762
+		],
+		[
+			-2262,
+			-3325
+		],
+		[
+			2525,
+			-2485
+		],
+		[
+			-1594,
+			-778
+		],
+		[
+			-4896,
+			-76
+		]
+	],
+	[
+		[
+			7000781,
+			7251315
+		],
+		[
+			-484,
+			3343
+		],
+		[
+			-5019,
+			-1366
+		],
+		[
+			-931,
+			3382
+		],
+		[
+			-5097,
+			551
+		],
+		[
+			-1771,
+			3746
+		],
+		[
+			-2906,
+			572
+		],
+		[
+			2890,
+			2648
+		],
+		[
+			-1811,
+			1735
+		],
+		[
+			2788,
+			3798
+		],
+		[
+			-1778,
+			2292
+		]
+	],
+	[
+		[
+			6985793,
+			7272365
+		],
+		[
+			-4480,
+			1390
+		],
+		[
+			-327,
+			771
+		],
+		[
+			1369,
+			2506
+		],
+		[
+			-3605,
+			960
+		]
+	],
+	[
+		[
+			6978750,
+			7277992
+		],
+		[
+			-545,
+			2189
+		],
+		[
+			3166,
+			-327
+		],
+		[
+			1389,
+			3842
+		],
+		[
+			-3883,
+			5286
+		],
+		[
+			5700,
+			2075
+		],
+		[
+			-1547,
+			1693
+		],
+		[
+			576,
+			1491
+		],
+		[
+			9972,
+			-2222
+		]
+	],
+	[
+		[
+			6993578,
+			7292019
+		],
+		[
+			-109,
+			-1209
+		],
+		[
+			3650,
+			-1994
+		],
+		[
+			-939,
+			-4594
+		]
+	],
+	[
+		[
+			6996180,
+			7284222
+		],
+		[
+			796,
+			-2265
+		],
+		[
+			-115,
+			-5742
+		],
+		[
+			1361,
+			-2292
+		]
+	],
+	[
+		[
+			6998222,
+			7273923
+		],
+		[
+			-1199,
+			14
+		],
+		[
+			-763,
+			-477
+		],
+		[
+			-564,
+			116
+		]
+	],
+	[
+		[
+			6986662,
+			7272016
+		],
+		[
+			-869,
+			349
+		]
+	],
+	[
+		[
+			7028779,
+			7281300
+		],
+		[
+			-2319,
+			-2051
+		],
+		[
+			484,
+			-2526
+		]
+	],
+	[
+		[
+			7026944,
+			7276723
+		],
+		[
+			-15574,
+			-3128
+		],
+		[
+			-3011,
+			134
+		],
+		[
+			-2809,
+			1710
+		]
+	],
+	[
+		[
+			7005550,
+			7275439
+		],
+		[
+			3702,
+			2530
+		],
+		[
+			1562,
+			4431
+		],
+		[
+			-5646,
+			3425
+		]
+	],
+	[
+		[
+			7005168,
+			7285825
+		],
+		[
+			126,
+			1373
+		],
+		[
+			2723,
+			1294
+		]
+	],
+	[
+		[
+			7008017,
+			7288492
+		],
+		[
+			5520,
+			1054
+		],
+		[
+			1504,
+			2520
+		]
+	],
+	[
+		[
+			7015041,
+			7292066
+		],
+		[
+			1156,
+			-97
+		]
+	],
+	[
+		[
+			7016197,
+			7291969
+		],
+		[
+			1040,
+			-1386
+		],
+		[
+			2963,
+			-807
+		],
+		[
+			949,
+			-1260
+		],
+		[
+			694,
+			-70
+		],
+		[
+			567,
+			-315
+		],
+		[
+			20,
+			-970
+		],
+		[
+			3166,
+			-338
+		]
+	],
+	[
+		[
+			7025596,
+			7286823
+		],
+		[
+			3183,
+			-5523
+		]
+	],
+	[
+		[
+			6985793,
+			7272365
+		],
+		[
+			-5013,
+			-2522
+		],
+		[
+			-3053,
+			-410
+		],
+		[
+			-855,
+			-1613
+		],
+		[
+			-3146,
+			-441
+		]
+	],
+	[
+		[
+			6973726,
+			7267379
+		],
+		[
+			-8042,
+			312
+		],
+		[
+			-1156,
+			1010
+		],
+		[
+			1765,
+			1364
+		],
+		[
+			216,
+			1674
+		],
+		[
+			-2359,
+			1797
+		],
+		[
+			-832,
+			4471
+		],
+		[
+			5562,
+			1320
+		]
+	],
+	[
+		[
+			6968880,
+			7279327
+		],
+		[
+			2084,
+			-1499
+		],
+		[
+			7786,
+			164
+		]
+	],
+	[
+		[
+			6967390,
+			7261269
+		],
+		[
+			-3108,
+			-147
+		],
+		[
+			-710,
+			-4652
+		],
+		[
+			3432,
+			109
+		],
+		[
+			1123,
+			-3141
+		],
+		[
+			-5233,
+			-440
+		],
+		[
+			-761,
+			-1207
+		],
+		[
+			623,
+			-1589
+		],
+		[
+			-3196,
+			-699
+		],
+		[
+			15,
+			-1828
+		]
+	],
+	[
+		[
+			6959575,
+			7247675
+		],
+		[
+			-3733,
+			-219
+		],
+		[
+			-4796,
+			1188
+		],
+		[
+			-894,
+			2692
+		],
+		[
+			-4469,
+			2714
+		],
+		[
+			-1393,
+			2201
+		]
+	],
+	[
+		[
+			6944290,
+			7256251
+		],
+		[
+			2359,
+			739
+		],
+		[
+			2524,
+			4261
+		],
+		[
+			6953,
+			-617
+		],
+		[
+			4891,
+			2610
+		],
+		[
+			6373,
+			-1975
+		]
+	],
+	[
+		[
+			7005550,
+			7275439
+		],
+		[
+			-5346,
+			-490
+		],
+		[
+			-1982,
+			-1026
+		]
+	],
+	[
+		[
+			6996180,
+			7284222
+		],
+		[
+			891,
+			66
+		],
+		[
+			909,
+			-660
+		],
+		[
+			1197,
+			149
+		],
+		[
+			693,
+			700
+		],
+		[
+			2402,
+			77
+		],
+		[
+			2896,
+			1271
+		]
+	],
+	[
+		[
+			6993578,
+			7292019
+		],
+		[
+			-162,
+			1097
+		],
+		[
+			416,
+			561
+		],
+		[
+			1989,
+			1055
+		],
+		[
+			1397,
+			486
+		],
+		[
+			-495,
+			862
+		],
+		[
+			1768,
+			581
+		]
+	],
+	[
+		[
+			6998491,
+			7296661
+		],
+		[
+			2958,
+			-1297
+		],
+		[
+			3252,
+			-5011
+		],
+		[
+			3316,
+			-1861
+		]
+	],
+	[
+		[
+			7031811,
+			7254090
+		],
+		[
+			-2459,
+			-690
+		],
+		[
+			-459,
+			1848
+		]
+	],
+	[
+		[
+			7028893,
+			7255248
+		],
+		[
+			1181,
+			865
+		],
+		[
+			-222,
+			1638
+		],
+		[
+			2588,
+			2062
+		],
+		[
+			6294,
+			1229
+		],
+		[
+			6023,
+			-1807
+		]
+	],
+	[
+		[
+			7044757,
+			7259235
+		],
+		[
+			1066,
+			-2286
+		],
+		[
+			-1211,
+			-3063
+		],
+		[
+			-2618,
+			-624
+		]
+	],
+	[
+		[
+			7041994,
+			7253262
+		],
+		[
+			-632,
+			168
+		],
+		[
+			-693,
+			900
+		],
+		[
+			-588,
+			213
+		],
+		[
+			-1535,
+			-34
+		],
+		[
+			-1454,
+			214
+		],
+		[
+			-2074,
+			-811
+		],
+		[
+			-1324,
+			312
+		],
+		[
+			-1217,
+			-201
+		],
+		[
+			-666,
+			67
+		]
+	],
+	[
+		[
+			7031811,
+			7254090
+		],
+		[
+			-452,
+			-2891
+		],
+		[
+			-1393,
+			-714
+		],
+		[
+			-4724,
+			1832
+		],
+		[
+			-3750,
+			-1034
+		],
+		[
+			-3605,
+			355
+		],
+		[
+			-2939,
+			-1144
+		]
+	],
+	[
+		[
+			7014948,
+			7250494
+		],
+		[
+			-255,
+			623
+		],
+		[
+			297,
+			1332
+		],
+		[
+			-258,
+			615
+		],
+		[
+			-2406,
+			507
+		],
+		[
+			-779,
+			-415
+		],
+		[
+			-1262,
+			238
+		],
+		[
+			1073,
+			1733
+		],
+		[
+			516,
+			211
+		],
+		[
+			1500,
+			-53
+		],
+		[
+			388,
+			617
+		],
+		[
+			4146,
+			1631
+		],
+		[
+			1963,
+			1909
+		]
+	],
+	[
+		[
+			7019871,
+			7259442
+		],
+		[
+			1069,
+			363
+		],
+		[
+			915,
+			579
+		],
+		[
+			1663,
+			331
+		],
+		[
+			809,
+			-12
+		],
+		[
+			1148,
+			-434
+		],
+		[
+			375,
+			-396
+		],
+		[
+			-272,
+			-570
+		],
+		[
+			643,
+			-1595
+		],
+		[
+			521,
+			-610
+		],
+		[
+			911,
+			-196
+		],
+		[
+			-173,
+			-582
+		],
+		[
+			939,
+			-712
+		],
+		[
+			474,
+			-360
+		]
+	],
+	[
+		[
+			7031905,
+			7269986
+		],
+		[
+			2313,
+			-1639
+		],
+		[
+			6740,
+			1778
+		],
+		[
+			-63,
+			-2553
+		],
+		[
+			1639,
+			-1362
+		],
+		[
+			-250,
+			-1604
+		],
+		[
+			3561,
+			-2022
+		]
+	],
+	[
+		[
+			7045845,
+			7262584
+		],
+		[
+			-1088,
+			-3349
+		]
+	],
+	[
+		[
+			7019871,
+			7259442
+		],
+		[
+			-1610,
+			4011
+		],
+		[
+			3340,
+			1404
+		],
+		[
+			4284,
+			3884
+		],
+		[
+			6020,
+			1245
+		]
+	],
+	[
+		[
+			6931953,
+			7328776
+		],
+		[
+			3961,
+			-3015
+		],
+		[
+			7342,
+			174
+		],
+		[
+			2812,
+			-2080
+		],
+		[
+			3999,
+			-228
+		],
+		[
+			2011,
+			-1419
+		],
+		[
+			3876,
+			-703
+		]
+	],
+	[
+		[
+			6955954,
+			7321505
+		],
+		[
+			2436,
+			-2388
+		],
+		[
+			5807,
+			717
+		]
+	],
+	[
+		[
+			6964197,
+			7319834
+		],
+		[
+			3596,
+			-4377
+		],
+		[
+			-3559,
+			-1497
+		],
+		[
+			-913,
+			-3376
+		],
+		[
+			-2416,
+			-1335
+		],
+		[
+			-3460,
+			737
+		],
+		[
+			-1549,
+			3624
+		],
+		[
+			-4423,
+			-4629
+		],
+		[
+			1087,
+			-2430
+		],
+		[
+			-1939,
+			-2687
+		],
+		[
+			-5560,
+			-1831
+		],
+		[
+			3536,
+			-3247
+		],
+		[
+			3453,
+			-1189
+		],
+		[
+			1578,
+			-2280
+		],
+		[
+			4721,
+			577
+		],
+		[
+			4634,
+			-694
+		],
+		[
+			-601,
+			-1532
+		],
+		[
+			547,
+			-1656
+		],
+		[
+			-2247,
+			-1546
+		],
+		[
+			4581,
+			-4954
+		],
+		[
+			1577,
+			-4316
+		]
+	],
+	[
+		[
+			6966840,
+			7281196
+		],
+		[
+			-6095,
+			-1800
+		],
+		[
+			-5250,
+			447
+		],
+		[
+			-4650,
+			-3217
+		],
+		[
+			-5074,
+			-1883
+		],
+		[
+			-3710,
+			-376
+		],
+		[
+			-4444,
+			827
+		]
+	],
+	[
+		[
+			6937617,
+			7275194
+		],
+		[
+			-712,
+			2052
+		],
+		[
+			473,
+			1260
+		],
+		[
+			-1435,
+			661
+		],
+		[
+			1470,
+			6235
+		],
+		[
+			-1159,
+			4547
+		],
+		[
+			-5465,
+			5366
+		],
+		[
+			-6125,
+			4023
+		],
+		[
+			1893,
+			4832
+		],
+		[
+			-7575,
+			1882
+		],
+		[
+			-917,
+			2957
+		],
+		[
+			343,
+			1901
+		],
+		[
+			-3602,
+			1465
+		],
+		[
+			-3679,
+			276
+		],
+		[
+			-632,
+			830
+		]
+	],
+	[
+		[
+			6910495,
+			7313481
+		],
+		[
+			2758,
+			2576
+		],
+		[
+			-2355,
+			4082
+		],
+		[
+			390,
+			1429
+		],
+		[
+			4858,
+			849
+		],
+		[
+			5620,
+			2287
+		],
+		[
+			9026,
+			-1375
+		],
+		[
+			151,
+			1544
+		],
+		[
+			-2823,
+			2952
+		],
+		[
+			3833,
+			951
+		]
+	],
+	[
+		[
+			7026944,
+			7276723
+		],
+		[
+			3587,
+			-957
+		],
+		[
+			-431,
+			-3090
+		],
+		[
+			1805,
+			-2690
+		]
+	],
+	[
+		[
+			7014948,
+			7250494
+		],
+		[
+			-713,
+			-2638
+		]
+	],
+	[
+		[
+			7014235,
+			7247856
+		],
+		[
+			-143,
+			-1605
+		],
+		[
+			-1556,
+			-701
+		],
+		[
+			-924,
+			87
+		],
+		[
+			-590,
+			290
+		],
+		[
+			-836,
+			-194
+		],
+		[
+			-938,
+			173
+		],
+		[
+			-825,
+			566
+		],
+		[
+			-614,
+			421
+		],
+		[
+			-743,
+			-123
+		],
+		[
+			-2085,
+			-1585
+		]
+	],
+	[
+		[
+			7004981,
+			7245185
+		],
+		[
+			-3767,
+			920
+		],
+		[
+			-586,
+			458
+		],
+		[
+			-103,
+			559
+		]
+	],
+	[
+		[
+			7000525,
+			7247122
+		],
+		[
+			544,
+			526
+		],
+		[
+			2007,
+			869
+		],
+		[
+			425,
+			720
+		],
+		[
+			-620,
+			949
+		],
+		[
+			-2100,
+			1129
+		]
+	],
+	[
+		[
+			7000525,
+			7247122
+		],
+		[
+			-2432,
+			-854
+		],
+		[
+			-257,
+			-1713
+		],
+		[
+			-1500,
+			-705
+		],
+		[
+			-2077,
+			1404
+		],
+		[
+			-1720,
+			-119
+		]
+	],
+	[
+		[
+			6992539,
+			7245135
+		],
+		[
+			-1731,
+			-26
+		],
+		[
+			133,
+			-2070
+		],
+		[
+			-1410,
+			-161
+		],
+		[
+			-3138,
+			-2550
+		],
+		[
+			-7922,
+			932
+		],
+		[
+			-5067,
+			-579
+		],
+		[
+			-2788,
+			1553
+		],
+		[
+			-336,
+			1699
+		],
+		[
+			-2129,
+			553
+		],
+		[
+			-3217,
+			-847
+		],
+		[
+			-1708,
+			-1525
+		]
+	],
+	[
+		[
+			6963226,
+			7242114
+		],
+		[
+			-2129,
+			889
+		]
+	],
+	[
+		[
+			6961097,
+			7243003
+		],
+		[
+			1321,
+			1227
+		],
+		[
+			-2253,
+			882
+		],
+		[
+			185,
+			1615
+		],
+		[
+			-775,
+			948
+		]
+	],
+	[
+		[
+			6967390,
+			7261269
+		],
+		[
+			9111,
+			2467
+		],
+		[
+			-2775,
+			3643
+		]
+	],
+	[
+		[
+			6966840,
+			7281196
+		],
+		[
+			903,
+			-159
+		],
+		[
+			266,
+			-1041
+		],
+		[
+			871,
+			-669
+		]
+	],
+	[
+		[
+			6944290,
+			7256251
+		],
+		[
+			-4305,
+			1276
+		],
+		[
+			-3789,
+			-1969
+		],
+		[
+			-3539,
+			1589
+		]
+	],
+	[
+		[
+			6932657,
+			7257147
+		],
+		[
+			-1464,
+			730
+		],
+		[
+			-5920,
+			-1987
+		],
+		[
+			-1841,
+			201
+		],
+		[
+			-1207,
+			2971
+		],
+		[
+			-42,
+			1307
+		],
+		[
+			1153,
+			837
+		],
+		[
+			-894,
+			1749
+		]
+	],
+	[
+		[
+			6922442,
+			7262955
+		],
+		[
+			4874,
+			3044
+		],
+		[
+			4772,
+			5638
+		],
+		[
+			5529,
+			3557
+		]
+	],
+	[
+		[
+			6964197,
+			7319834
+		],
+		[
+			2616,
+			318
+		],
+		[
+			5348,
+			-2283
+		],
+		[
+			2554,
+			853
+		],
+		[
+			3916,
+			-272
+		],
+		[
+			3703,
+			-1908
+		],
+		[
+			3430,
+			33
+		],
+		[
+			1581,
+			-922
+		],
+		[
+			3563,
+			365
+		],
+		[
+			1819,
+			-2513
+		],
+		[
+			5308,
+			-1542
+		],
+		[
+			3677,
+			-89
+		],
+		[
+			4550,
+			1432
+		]
+	],
+	[
+		[
+			7006262,
+			7313306
+		],
+		[
+			2557,
+			-3367
+		],
+		[
+			-1963,
+			-1666
+		],
+		[
+			-1825,
+			-3433
+		],
+		[
+			373,
+			-2576
+		]
+	],
+	[
+		[
+			7005404,
+			7302264
+		],
+		[
+			-3453,
+			-453
+		],
+		[
+			249,
+			-1036
+		],
+		[
+			-1884,
+			-1363
+		],
+		[
+			1376,
+			-1042
+		],
+		[
+			-761,
+			-732
+		],
+		[
+			-2440,
+			-977
+		]
+	],
+	[
+		[
+			7036263,
+			7203650
+		],
+		[
+			-1086,
+			-107
+		],
+		[
+			-481,
+			-575
+		]
+	],
+	[
+		[
+			7034696,
+			7202968
+		],
+		[
+			-2055,
+			988
+		],
+		[
+			-4203,
+			-332
+		],
+		[
+			-2470,
+			812
+		],
+		[
+			-4458,
+			-2266
+		],
+		[
+			-3013,
+			1717
+		],
+		[
+			-625,
+			955
+		],
+		[
+			1402,
+			998
+		],
+		[
+			-1376,
+			3391
+		],
+		[
+			1337,
+			5189
+		],
+		[
+			2519,
+			1257
+		],
+		[
+			3222,
+			-631
+		],
+		[
+			2878,
+			943
+		],
+		[
+			7290,
+			-2913
+		],
+		[
+			459,
+			-759
+		],
+		[
+			-1160,
+			-2268
+		],
+		[
+			-2113,
+			-1452
+		],
+		[
+			3933,
+			-4947
+		]
+	],
+	[
+		[
+			7004981,
+			7245185
+		],
+		[
+			6563,
+			-3329
+		],
+		[
+			1689,
+			-1918
+		],
+		[
+			3053,
+			798
+		],
+		[
+			5681,
+			-166
+		]
+	],
+	[
+		[
+			7021967,
+			7240570
+		],
+		[
+			415,
+			-2781
+		],
+		[
+			2479,
+			-1320
+		],
+		[
+			-433,
+			-2230
+		],
+		[
+			2286,
+			-1198
+		],
+		[
+			2616,
+			-80
+		],
+		[
+			-407,
+			-3526
+		],
+		[
+			227,
+			-2233
+		],
+		[
+			2154,
+			-1777
+		]
+	],
+	[
+		[
+			7031304,
+			7225425
+		],
+		[
+			-7648,
+			-3455
+		],
+		[
+			-1860,
+			-96
+		],
+		[
+			-1783,
+			1706
+		],
+		[
+			-3742,
+			-1067
+		],
+		[
+			-3001,
+			275
+		]
+	],
+	[
+		[
+			7013270,
+			7222788
+		],
+		[
+			-4999,
+			200
+		],
+		[
+			-2015,
+			4998
+		],
+		[
+			-2513,
+			1275
+		],
+		[
+			-3465,
+			293
+		],
+		[
+			-3070,
+			2959
+		],
+		[
+			-429,
+			1217
+		],
+		[
+			2378,
+			3894
+		],
+		[
+			-413,
+			3320
+		],
+		[
+			-3914,
+			1932
+		],
+		[
+			-2291,
+			2259
+		]
+	],
+	[
+		[
+			7014235,
+			7247856
+		],
+		[
+			2276,
+			-751
+		],
+		[
+			5541,
+			1217
+		],
+		[
+			-238,
+			-2466
+		],
+		[
+			4588,
+			-931
+		],
+		[
+			-1801,
+			-3201
+		],
+		[
+			-2634,
+			-1154
+		]
+	],
+	[
+		[
+			6963226,
+			7242114
+		],
+		[
+			-1601,
+			-926
+		],
+		[
+			-285,
+			-2146
+		],
+		[
+			1061,
+			-1511
+		],
+		[
+			2420,
+			-1200
+		],
+		[
+			-1148,
+			-1931
+		],
+		[
+			1811,
+			-2271
+		],
+		[
+			1730,
+			-482
+		],
+		[
+			-110,
+			-2212
+		],
+		[
+			779,
+			-1232
+		],
+		[
+			2829,
+			-797
+		],
+		[
+			560,
+			-3422
+		],
+		[
+			3910,
+			-812
+		],
+		[
+			2002,
+			-1930
+		],
+		[
+			3259,
+			844
+		],
+		[
+			5186,
+			-171
+		],
+		[
+			975,
+			-2409
+		],
+		[
+			-509,
+			-1790
+		],
+		[
+			-2656,
+			-1761
+		],
+		[
+			1119,
+			-1876
+		]
+	],
+	[
+		[
+			6984558,
+			7214079
+		],
+		[
+			347,
+			-2176
+		],
+		[
+			-1473,
+			-1335
+		],
+		[
+			-5190,
+			1069
+		],
+		[
+			-3959,
+			-2297
+		],
+		[
+			668,
+			-3178
+		],
+		[
+			-2753,
+			-1723
+		],
+		[
+			355,
+			-1811
+		],
+		[
+			-1966,
+			-3693
+		],
+		[
+			-6314,
+			-29
+		],
+		[
+			-6180,
+			1557
+		],
+		[
+			-1226,
+			-837
+		]
+	],
+	[
+		[
+			6956867,
+			7199626
+		],
+		[
+			-2445,
+			-113
+		],
+		[
+			-92,
+			1437
+		],
+		[
+			1558,
+			1566
+		],
+		[
+			-3255,
+			2779
+		],
+		[
+			-4108,
+			-1268
+		],
+		[
+			-4320,
+			2031
+		],
+		[
+			-163,
+			1108
+		],
+		[
+			2047,
+			721
+		],
+		[
+			2006,
+			4523
+		],
+		[
+			2662,
+			2244
+		],
+		[
+			-414,
+			2414
+		],
+		[
+			-3332,
+			-951
+		],
+		[
+			-1452,
+			1749
+		],
+		[
+			3202,
+			2408
+		],
+		[
+			80,
+			1885
+		],
+		[
+			-1818,
+			2043
+		],
+		[
+			-73,
+			1280
+		],
+		[
+			-1946,
+			1317
+		],
+		[
+			-3504,
+			-1689
+		],
+		[
+			-3180,
+			266
+		],
+		[
+			-2721,
+			2981
+		],
+		[
+			542,
+			1078
+		],
+		[
+			1380,
+			821
+		],
+		[
+			421,
+			522
+		],
+		[
+			-424,
+			897
+		],
+		[
+			620,
+			520
+		],
+		[
+			-748,
+			694
+		],
+		[
+			-1917,
+			235
+		],
+		[
+			-848,
+			585
+		]
+	],
+	[
+		[
+			6934625,
+			7233709
+		],
+		[
+			549,
+			1825
+		],
+		[
+			6940,
+			3139
+		],
+		[
+			2128,
+			2297
+		],
+		[
+			2426,
+			-887
+		],
+		[
+			3387,
+			192
+		],
+		[
+			2950,
+			1767
+		],
+		[
+			8092,
+			961
+		]
+	],
+	[
+		[
+			7484870,
+			7247445
+		],
+		[
+			716,
+			-1605
+		],
+		[
+			3019,
+			-487
+		],
+		[
+			658,
+			-411
+		],
+		[
+			2371,
+			-1481
+		],
+		[
+			12132,
+			745
+		],
+		[
+			2441,
+			-1320
+		],
+		[
+			576,
+			-1324
+		],
+		[
+			2682,
+			141
+		],
+		[
+			3000,
+			-1334
+		],
+		[
+			6,
+			-2274
+		],
+		[
+			3238,
+			-453
+		],
+		[
+			1569,
+			-2034
+		]
+	],
+	[
+		[
+			7517278,
+			7235608
+		],
+		[
+			15,
+			-2117
+		]
+	],
+	[
+		[
+			7517293,
+			7233491
+		],
+		[
+			-3251,
+			594
+		],
+		[
+			-2006,
+			-607
+		],
+		[
+			-928,
+			-2043
+		],
+		[
+			-3730,
+			-2000
+		],
+		[
+			-4536,
+			-2347
+		],
+		[
+			3503,
+			-2746
+		],
+		[
+			-1825,
+			-1311
+		],
+		[
+			1338,
+			-1855
+		],
+		[
+			-467,
+			-1359
+		],
+		[
+			-3791,
+			-880
+		],
+		[
+			231,
+			-1434
+		]
+	],
+	[
+		[
+			7501831,
+			7217503
+		],
+		[
+			-2750,
+			-289
+		],
+		[
+			-1732,
+			732
+		],
+		[
+			-6453,
+			-892
+		],
+		[
+			-1633,
+			718
+		],
+		[
+			-1349,
+			593
+		],
+		[
+			-1072,
+			-563
+		],
+		[
+			249,
+			-1602
+		],
+		[
+			-1260,
+			-1026
+		],
+		[
+			-10420,
+			-1551
+		],
+		[
+			-5764,
+			152
+		]
+	],
+	[
+		[
+			7465657,
+			7229320
+		],
+		[
+			4592,
+			-1220
+		],
+		[
+			665,
+			-1719
+		],
+		[
+			-1595,
+			-1152
+		],
+		[
+			1854,
+			-672
+		],
+		[
+			9578,
+			2449
+		],
+		[
+			-412,
+			1514
+		],
+		[
+			1625,
+			2756
+		],
+		[
+			-513,
+			3011
+		],
+		[
+			-4404,
+			1786
+		],
+		[
+			-5109,
+			-351
+		],
+		[
+			-2030,
+			1880
+		]
+	],
+	[
+		[
+			7501831,
+			7217503
+		],
+		[
+			3207,
+			-203
+		],
+		[
+			4111,
+			-2017
+		],
+		[
+			-6742,
+			-4974
+		],
+		[
+			-334,
+			-4853
+		],
+		[
+			1861,
+			-838
+		],
+		[
+			-477,
+			-2534
+		],
+		[
+			1565,
+			-2090
+		],
+		[
+			4568,
+			-2170
+		]
+	],
+	[
+		[
+			7507108,
+			7181169
+		],
+		[
+			-9160,
+			-3201
+		],
+		[
+			-3957,
+			2497
+		],
+		[
+			-4728,
+			-1061
+		],
+		[
+			-5890,
+			-1321
+		],
+		[
+			-5702,
+			-493
+		],
+		[
+			-2166,
+			983
+		]
+	],
+	[
+		[
+			7475505,
+			7178573
+		],
+		[
+			-2594,
+			93
+		],
+		[
+			-1910,
+			-1419
+		],
+		[
+			-3469,
+			-825
+		],
+		[
+			-1043,
+			1842
+		],
+		[
+			-3023,
+			593
+		],
+		[
+			-133,
+			3001
+		]
+	],
+	[
+		[
+			7565050,
+			7274746
+		],
+		[
+			11061,
+			2455
+		],
+		[
+			1620,
+			2064
+		],
+		[
+			2110,
+			265
+		],
+		[
+			192,
+			3086
+		],
+		[
+			1959,
+			986
+		],
+		[
+			3991,
+			-259
+		],
+		[
+			8511,
+			2054
+		],
+		[
+			3027,
+			-1532
+		],
+		[
+			5287,
+			-689
+		],
+		[
+			6175,
+			-3360
+		],
+		[
+			-465,
+			-1479
+		],
+		[
+			-2258,
+			217
+		],
+		[
+			-619,
+			-868
+		],
+		[
+			3012,
+			-3116
+		],
+		[
+			-3147,
+			-1053
+		],
+		[
+			-620,
+			-2349
+		],
+		[
+			-2433,
+			-1904
+		],
+		[
+			5451,
+			-4001
+		],
+		[
+			-11,
+			-1810
+		],
+		[
+			-1533,
+			-2124
+		],
+		[
+			1418,
+			-812
+		]
+	],
+	[
+		[
+			7576912,
+			7236775
+		],
+		[
+			-1198,
+			1235
+		],
+		[
+			-2798,
+			-539
+		],
+		[
+			-4257,
+			1157
+		],
+		[
+			127,
+			2300
+		],
+		[
+			-2863,
+			883
+		],
+		[
+			-465,
+			2930
+		],
+		[
+			-3474,
+			617
+		],
+		[
+			-1140,
+			1455
+		],
+		[
+			-8462,
+			-198
+		],
+		[
+			-3827,
+			2220
+		],
+		[
+			-5024,
+			-947
+		]
+	],
+	[
+		[
+			7543531,
+			7247888
+		],
+		[
+			-5408,
+			1368
+		],
+		[
+			-468,
+			1006
+		],
+		[
+			1186,
+			1597
+		],
+		[
+			-3880,
+			1300
+		],
+		[
+			1297,
+			3499
+		],
+		[
+			-3447,
+			628
+		],
+		[
+			2442,
+			2893
+		],
+		[
+			-1155,
+			3797
+		],
+		[
+			-1883,
+			1107
+		],
+		[
+			51,
+			1164
+		]
+	],
+	[
+		[
+			7532266,
+			7266247
+		],
+		[
+			-1889,
+			4271
+		],
+		[
+			4153,
+			1430
+		]
+	],
+	[
+		[
+			7534530,
+			7271948
+		],
+		[
+			4966,
+			1595
+		]
+	],
+	[
+		[
+			7573202,
+			7301303
+		],
+		[
+			4006,
+			29
+		],
+		[
+			1662,
+			-846
+		],
+		[
+			2377,
+			1128
+		],
+		[
+			2828,
+			3152
+		],
+		[
+			7994,
+			-1224
+		],
+		[
+			7161,
+			3451
+		],
+		[
+			2887,
+			-2393
+		],
+		[
+			2070,
+			450
+		],
+		[
+			1684,
+			-1765
+		],
+		[
+			3570,
+			-464
+		],
+		[
+			2545,
+			1104
+		],
+		[
+			386,
+			1160
+		],
+		[
+			2176,
+			399
+		],
+		[
+			1967,
+			-632
+		],
+		[
+			1116,
+			-2125
+		],
+		[
+			2648,
+			737
+		]
+	],
+	[
+		[
+			7620279,
+			7303464
+		],
+		[
+			3697,
+			-3834
+		],
+		[
+			3217,
+			683
+		],
+		[
+			3479,
+			-1853
+		],
+		[
+			-960,
+			-2980
+		],
+		[
+			3992,
+			-1435
+		],
+		[
+			2203,
+			-3569
+		],
+		[
+			-2196,
+			-4315
+		],
+		[
+			1526,
+			-1758
+		],
+		[
+			-459,
+			-2104
+		],
+		[
+			1413,
+			-3129
+		]
+	],
+	[
+		[
+			7534530,
+			7271948
+		],
+		[
+			-1815,
+			7226
+		],
+		[
+			1137,
+			1891
+		],
+		[
+			-2675,
+			1143
+		],
+		[
+			-720,
+			2548
+		],
+		[
+			5032,
+			2937
+		],
+		[
+			-986,
+			2907
+		],
+		[
+			567,
+			1228
+		]
+	],
+	[
+		[
+			7535070,
+			7291828
+		],
+		[
+			4201,
+			3163
+		],
+		[
+			4664,
+			-155
+		],
+		[
+			5523,
+			2362
+		],
+		[
+			7544,
+			-217
+		],
+		[
+			2379,
+			2421
+		],
+		[
+			5264,
+			-692
+		],
+		[
+			6409,
+			935
+		],
+		[
+			2148,
+			1658
+		]
+	],
+	[
+		[
+			7632580,
+			7281277
+		],
+		[
+			1496,
+			-213
+		],
+		[
+			249,
+			1497
+		],
+		[
+			-1898,
+			-628
+		],
+		[
+			153,
+			-656
+		]
+	],
+	[
+		[
+			7543303,
+			7335725
+		],
+		[
+			-770,
+			-1417
+		],
+		[
+			563,
+			-831
+		],
+		[
+			2687,
+			190
+		],
+		[
+			1057,
+			-798
+		],
+		[
+			-709,
+			-1604
+		],
+		[
+			899,
+			-3660
+		],
+		[
+			-2292,
+			-1128
+		],
+		[
+			-831,
+			-1511
+		],
+		[
+			3299,
+			-3097
+		],
+		[
+			-958,
+			-3000
+		],
+		[
+			2839,
+			-1474
+		],
+		[
+			857,
+			-4794
+		],
+		[
+			-1177,
+			-524
+		]
+	],
+	[
+		[
+			7548767,
+			7312077
+		],
+		[
+			-2194,
+			1131
+		],
+		[
+			-3190,
+			4707
+		],
+		[
+			-4020,
+			-1122
+		],
+		[
+			-2202,
+			-1979
+		],
+		[
+			-9572,
+			3043
+		],
+		[
+			1697,
+			6613
+		],
+		[
+			-2222,
+			1792
+		],
+		[
+			350,
+			1488
+		],
+		[
+			5404,
+			1349
+		],
+		[
+			-1155,
+			2253
+		],
+		[
+			3646,
+			1368
+		],
+		[
+			1481,
+			1990
+		],
+		[
+			6513,
+			1015
+		]
+	],
+	[
+		[
+			7501070,
+			7290097
+		],
+		[
+			1664,
+			579
+		],
+		[
+			408,
+			1497
+		],
+		[
+			1634,
+			18
+		],
+		[
+			2149,
+			-975
+		],
+		[
+			730,
+			459
+		],
+		[
+			1931,
+			265
+		],
+		[
+			606,
+			-404
+		],
+		[
+			1306,
+			1092
+		],
+		[
+			5207,
+			70
+		],
+		[
+			-461,
+			-1106
+		],
+		[
+			1324,
+			-391
+		],
+		[
+			382,
+			-2017
+		],
+		[
+			822,
+			-705
+		],
+		[
+			2823,
+			-487
+		],
+		[
+			1559,
+			413
+		],
+		[
+			784,
+			-706
+		],
+		[
+			-965,
+			-1466
+		],
+		[
+			-2382,
+			-74
+		],
+		[
+			139,
+			-1364
+		],
+		[
+			-1333,
+			-409
+		],
+		[
+			-208,
+			-715
+		],
+		[
+			-1439,
+			-1443
+		],
+		[
+			245,
+			-765
+		],
+		[
+			-1875,
+			-1373
+		],
+		[
+			791,
+			-425
+		],
+		[
+			-685,
+			-632
+		],
+		[
+			-674,
+			404
+		],
+		[
+			-1883,
+			-127
+		],
+		[
+			-169,
+			-365
+		],
+		[
+			-1458,
+			628
+		],
+		[
+			-1596,
+			-13
+		],
+		[
+			-138,
+			2338
+		],
+		[
+			-3093,
+			774
+		],
+		[
+			-325,
+			777
+		],
+		[
+			1248,
+			419
+		],
+		[
+			-1785,
+			1311
+		],
+		[
+			-2319,
+			-127
+		],
+		[
+			-293,
+			865
+		],
+		[
+			-1287,
+			278
+		],
+		[
+			-849,
+			1688
+		],
+		[
+			1263,
+			193
+		],
+		[
+			-1798,
+			2021
+		]
+	],
+	[
+		[
+			7490048,
+			7348016
+		],
+		[
+			-591,
+			-652
+		],
+		[
+			1142,
+			-791
+		],
+		[
+			-54,
+			-1432
+		],
+		[
+			-1282,
+			-1265
+		],
+		[
+			-725,
+			-716
+		],
+		[
+			-4166,
+			286
+		],
+		[
+			-5489,
+			-1738
+		]
+	],
+	[
+		[
+			7478883,
+			7341708
+		],
+		[
+			-4020,
+			3762
+		],
+		[
+			-7416,
+			142
+		],
+		[
+			1993,
+			6278
+		],
+		[
+			593,
+			928
+		],
+		[
+			2071,
+			3245
+		],
+		[
+			7323,
+			2257
+		],
+		[
+			-117,
+			3106
+		],
+		[
+			2860,
+			-131
+		],
+		[
+			2067,
+			-2304
+		],
+		[
+			1394,
+			-348
+		]
+	],
+	[
+		[
+			7485631,
+			7358643
+		],
+		[
+			-1353,
+			-1336
+		],
+		[
+			1383,
+			-1645
+		],
+		[
+			307,
+			-1931
+		],
+		[
+			1184,
+			-913
+		],
+		[
+			19,
+			-3090
+		],
+		[
+			2092,
+			-1245
+		],
+		[
+			785,
+			-467
+		]
+	],
+	[
+		[
+			7473892,
+			7384565
+		],
+		[
+			-2828,
+			-4840
+		],
+		[
+			-10813,
+			-2179
+		],
+		[
+			-421,
+			2002
+		],
+		[
+			-6819,
+			1991
+		],
+		[
+			-4761,
+			-377
+		],
+		[
+			-2677,
+			1362
+		],
+		[
+			-2849,
+			-715
+		],
+		[
+			-11857,
+			403
+		],
+		[
+			-1105,
+			38
+		],
+		[
+			-5076,
+			1958
+		],
+		[
+			-3939,
+			4976
+		],
+		[
+			-4693,
+			-813
+		]
+	],
+	[
+		[
+			7416054,
+			7388371
+		],
+		[
+			-5002,
+			3993
+		],
+		[
+			-1831,
+			2588
+		],
+		[
+			381,
+			2636
+		],
+		[
+			2720,
+			1651
+		],
+		[
+			271,
+			1753
+		],
+		[
+			-5256,
+			-856
+		],
+		[
+			-5568,
+			5971
+		],
+		[
+			-3680,
+			3946
+		],
+		[
+			-3330,
+			549
+		],
+		[
+			-733,
+			2890
+		],
+		[
+			-2750,
+			3110
+		],
+		[
+			-169,
+			1677
+		]
+	],
+	[
+		[
+			7391107,
+			7418279
+		],
+		[
+			-71,
+			2116
+		],
+		[
+			490,
+			1011
+		],
+		[
+			674,
+			1391
+		],
+		[
+			2709,
+			425
+		],
+		[
+			4423,
+			694
+		]
+	],
+	[
+		[
+			7399332,
+			7423916
+		],
+		[
+			4310,
+			-476
+		],
+		[
+			5439,
+			793
+		],
+		[
+			4536,
+			2830
+		],
+		[
+			1307,
+			2464
+		],
+		[
+			4006,
+			422
+		],
+		[
+			5445,
+			-65
+		],
+		[
+			1563,
+			-1507
+		],
+		[
+			4929,
+			797
+		],
+		[
+			5272,
+			-667
+		],
+		[
+			3523,
+			-1653
+		],
+		[
+			3700,
+			384
+		],
+		[
+			2850,
+			-669
+		],
+		[
+			9493,
+			2678
+		],
+		[
+			5891,
+			3035
+		],
+		[
+			4083,
+			517
+		]
+	],
+	[
+		[
+			7465679,
+			7432799
+		],
+		[
+			3247,
+			-1467
+		],
+		[
+			2660,
+			247
+		],
+		[
+			6231,
+			-3031
+		],
+		[
+			78,
+			-3407
+		],
+		[
+			-15162,
+			-2689
+		],
+		[
+			507,
+			-1046
+		],
+		[
+			462,
+			-951
+		],
+		[
+			4546,
+			-887
+		],
+		[
+			164,
+			-948
+		],
+		[
+			-2276,
+			-2219
+		],
+		[
+			4038,
+			-1664
+		],
+		[
+			-2410,
+			-2069
+		],
+		[
+			-1188,
+			-3437
+		],
+		[
+			-3381,
+			-2091
+		],
+		[
+			61,
+			-3261
+		],
+		[
+			-6093,
+			-1553
+		],
+		[
+			-1301,
+			-1223
+		],
+		[
+			1921,
+			-1133
+		],
+		[
+			5693,
+			-735
+		],
+		[
+			5238,
+			1019
+		],
+		[
+			4816,
+			-452
+		],
+		[
+			121,
+			-3184
+		],
+		[
+			-1171,
+			-4273
+		],
+		[
+			2476,
+			-4959
+		],
+		[
+			-1064,
+			-2821
+		]
+	],
+	[
+		[
+			7504272,
+			7338902
+		],
+		[
+			5659,
+			615
+		],
+		[
+			2086,
+			1529
+		],
+		[
+			4057,
+			1073
+		],
+		[
+			2588,
+			2710
+		],
+		[
+			2303,
+			-129
+		],
+		[
+			2247,
+			1466
+		],
+		[
+			5361,
+			-394
+		],
+		[
+			4521,
+			789
+		],
+		[
+			4029,
+			2236
+		],
+		[
+			5725,
+			301
+		]
+	],
+	[
+		[
+			7542848,
+			7349098
+		],
+		[
+			3726,
+			-1229
+		],
+		[
+			1945,
+			-2419
+		],
+		[
+			4269,
+			-2242
+		]
+	],
+	[
+		[
+			7552788,
+			7343208
+		],
+		[
+			-698,
+			-1865
+		],
+		[
+			-2173,
+			-460
+		],
+		[
+			-3383,
+			-2300
+		],
+		[
+			-4544,
+			-1203
+		],
+		[
+			1313,
+			-1655
+		]
+	],
+	[
+		[
+			7548767,
+			7312077
+		],
+		[
+			-902,
+			-1115
+		],
+		[
+			2635,
+			-995
+		],
+		[
+			-600,
+			-1398
+		],
+		[
+			503,
+			-1217
+		],
+		[
+			11354,
+			1715
+		],
+		[
+			1176,
+			-1885
+		],
+		[
+			3457,
+			-2070
+		],
+		[
+			5656,
+			169
+		],
+		[
+			-188,
+			-2968
+		],
+		[
+			1344,
+			-1010
+		]
+	],
+	[
+		[
+			7535070,
+			7291828
+		],
+		[
+			-2648,
+			1694
+		],
+		[
+			-1399,
+			3166
+		],
+		[
+			-2450,
+			190
+		],
+		[
+			-9701,
+			753
+		],
+		[
+			649,
+			1622
+		],
+		[
+			-1301,
+			1830
+		],
+		[
+			838,
+			1167
+		],
+		[
+			-493,
+			728
+		],
+		[
+			-11688,
+			542
+		],
+		[
+			-5157,
+			2715
+		]
+	],
+	[
+		[
+			7501720,
+			7306235
+		],
+		[
+			-2427,
+			1181
+		],
+		[
+			1573,
+			5007
+		],
+		[
+			3053,
+			2051
+		],
+		[
+			-3517,
+			2586
+		],
+		[
+			2841,
+			3139
+		],
+		[
+			-1820,
+			2693
+		],
+		[
+			6901,
+			3601
+		],
+		[
+			3685,
+			-874
+		],
+		[
+			4854,
+			760
+		],
+		[
+			-625,
+			1200
+		],
+		[
+			-12107,
+			8600
+		],
+		[
+			141,
+			2723
+		]
+	],
+	[
+		[
+			7495706,
+			7372157
+		],
+		[
+			1301,
+			-40
+		]
+	],
+	[
+		[
+			7497007,
+			7372117
+		],
+		[
+			3358,
+			-263
+		]
+	],
+	[
+		[
+			7500365,
+			7371854
+		],
+		[
+			8375,
+			4405
+		],
+		[
+			-132,
+			1675
+		],
+		[
+			2886,
+			1101
+		],
+		[
+			2690,
+			2780
+		],
+		[
+			926,
+			3006
+		],
+		[
+			-3563,
+			5623
+		],
+		[
+			2679,
+			5528
+		],
+		[
+			686,
+			-863
+		],
+		[
+			-751,
+			-3249
+		],
+		[
+			521,
+			-1031
+		],
+		[
+			5033,
+			370
+		],
+		[
+			3190,
+			1262
+		],
+		[
+			3371,
+			-2917
+		],
+		[
+			2297,
+			-81
+		],
+		[
+			3759,
+			-133
+		]
+	],
+	[
+		[
+			7532332,
+			7389330
+		],
+		[
+			1631,
+			-809
+		],
+		[
+			2297,
+			191
+		],
+		[
+			2343,
+			1929
+		],
+		[
+			1821,
+			-214
+		],
+		[
+			1852,
+			-2495
+		],
+		[
+			3290,
+			53
+		],
+		[
+			2074,
+			-1684
+		],
+		[
+			-746,
+			-2195
+		]
+	],
+	[
+		[
+			7546894,
+			7384106
+		],
+		[
+			-3837,
+			-3900
+		],
+		[
+			2071,
+			-1113
+		],
+		[
+			-385,
+			-1696
+		],
+		[
+			681,
+			-1019
+		],
+		[
+			-1402,
+			-1319
+		],
+		[
+			1574,
+			-2078
+		],
+		[
+			-4156,
+			-4937
+		],
+		[
+			-1394,
+			-4111
+		],
+		[
+			3889,
+			-2615
+		],
+		[
+			-3507,
+			-1457
+		],
+		[
+			-867,
+			-2575
+		],
+		[
+			-2335,
+			-1329
+		],
+		[
+			2013,
+			-2802
+		],
+		[
+			499,
+			-337
+		],
+		[
+			1949,
+			-1317
+		],
+		[
+			1161,
+			-2403
+		]
+	],
+	[
+		[
+			7504272,
+			7338902
+		],
+		[
+			-1601,
+			2059
+		],
+		[
+			-3299,
+			1325
+		],
+		[
+			362,
+			1983
+		],
+		[
+			-7548,
+			1374
+		],
+		[
+			-2138,
+			2373
+		]
+	],
+	[
+		[
+			7485631,
+			7358643
+		],
+		[
+			645,
+			986
+		],
+		[
+			-683,
+			3098
+		],
+		[
+			3670,
+			2740
+		],
+		[
+			1075,
+			803
+		],
+		[
+			1956,
+			3661
+		],
+		[
+			3412,
+			2226
+		]
+	],
+	[
+		[
+			7497007,
+			7372117
+		],
+		[
+			-77,
+			1245
+		],
+		[
+			-1673,
+			664
+		],
+		[
+			-1037,
+			-327
+		],
+		[
+			-51,
+			-614
+		],
+		[
+			1537,
+			-928
+		]
+	],
+	[
+		[
+			7478883,
+			7341708
+		],
+		[
+			-3376,
+			-1351
+		],
+		[
+			10,
+			-4132
+		],
+		[
+			-1013,
+			-851
+		],
+		[
+			-8200,
+			-266
+		],
+		[
+			-5843,
+			2437
+		],
+		[
+			-1015,
+			1706
+		],
+		[
+			-2731,
+			-261
+		],
+		[
+			-1693,
+			-2008
+		],
+		[
+			-3587,
+			-661
+		],
+		[
+			-1297,
+			-1034
+		],
+		[
+			1536,
+			-3395
+		],
+		[
+			-2413,
+			-3073
+		]
+	],
+	[
+		[
+			7449261,
+			7328819
+		],
+		[
+			-5748,
+			651
+		],
+		[
+			-2169,
+			-1078
+		],
+		[
+			-6329,
+			2769
+		],
+		[
+			-2542,
+			-461
+		],
+		[
+			-915,
+			1831
+		],
+		[
+			1275,
+			2058
+		],
+		[
+			-1966,
+			997
+		],
+		[
+			-912,
+			2965
+		],
+		[
+			-4665,
+			627
+		],
+		[
+			-4005,
+			3196
+		],
+		[
+			-9668,
+			1986
+		]
+	],
+	[
+		[
+			7411617,
+			7344360
+		],
+		[
+			203,
+			2261
+		],
+		[
+			-1383,
+			2245
+		],
+		[
+			9324,
+			3952
+		],
+		[
+			1026,
+			2583
+		],
+		[
+			-3362,
+			1427
+		],
+		[
+			-469,
+			1611
+		],
+		[
+			6225,
+			3110
+		],
+		[
+			-3244,
+			3773
+		],
+		[
+			-2616,
+			1502
+		],
+		[
+			-231,
+			994
+		],
+		[
+			1244,
+			1715
+		],
+		[
+			-3627,
+			2913
+		],
+		[
+			5841,
+			1425
+		],
+		[
+			1194,
+			2142
+		],
+		[
+			-5344,
+			2443
+		],
+		[
+			-4941,
+			3878
+		],
+		[
+			-2827,
+			3541
+		]
+	],
+	[
+		[
+			7408630,
+			7385875
+		],
+		[
+			1849,
+			2284
+		],
+		[
+			5575,
+			212
+		]
+	],
+	[
+		[
+			7473892,
+			7384565
+		],
+		[
+			4820,
+			885
+		],
+		[
+			5923,
+			-840
+		],
+		[
+			3368,
+			-3492
+		],
+		[
+			-589,
+			-1313
+		],
+		[
+			543,
+			-368
+		],
+		[
+			1306,
+			-192
+		],
+		[
+			3283,
+			-480
+		],
+		[
+			1516,
+			1473
+		],
+		[
+			3409,
+			-458
+		],
+		[
+			1447,
+			-1093
+		],
+		[
+			-940,
+			-2901
+		],
+		[
+			2544,
+			-1833
+		],
+		[
+			-157,
+			-2099
+		]
+	],
+	[
+		[
+			6934107,
+			7195305
+		],
+		[
+			-1226,
+			-1440
+		],
+		[
+			1682,
+			-1646
+		],
+		[
+			-167,
+			-1417
+		]
+	],
+	[
+		[
+			6955679,
+			7171027
+		],
+		[
+			-4691,
+			-1260
+		],
+		[
+			-4501,
+			1000
+		],
+		[
+			-2385,
+			-2608
+		],
+		[
+			-819,
+			-2480
+		],
+		[
+			-6367,
+			-1413
+		],
+		[
+			-3709,
+			-2136
+		],
+		[
+			-957,
+			-1349
+		],
+		[
+			1416,
+			-1399
+		],
+		[
+			161,
+			-2281
+		],
+		[
+			-4184,
+			-1178
+		],
+		[
+			-401,
+			-1956
+		],
+		[
+			1136,
+			-925
+		],
+		[
+			-1436,
+			-1351
+		]
+	],
+	[
+		[
+			6934396,
+			7190802
+		],
+		[
+			1436,
+			-307
+		],
+		[
+			2006,
+			-2038
+		],
+		[
+			8894,
+			-57
+		]
+	],
+	[
+		[
+			6946732,
+			7188400
+		],
+		[
+			2453,
+			-963
+		],
+		[
+			400,
+			-2581
+		],
+		[
+			3032,
+			-1384
+		],
+		[
+			-737,
+			-4059
+		],
+		[
+			-2022,
+			-2702
+		],
+		[
+			5385,
+			-3823
+		],
+		[
+			436,
+			-1861
+		]
+	],
+	[
+		[
+			6917276,
+			7214126
+		],
+		[
+			1554,
+			-907
+		],
+		[
+			162,
+			-2202
+		],
+		[
+			7776,
+			-446
+		],
+		[
+			6192,
+			-6569
+		],
+		[
+			631,
+			-2496
+		],
+		[
+			1897,
+			473
+		],
+		[
+			6244,
+			-815
+		],
+		[
+			-2403,
+			-3325
+		],
+		[
+			-5222,
+			-2534
+		]
+	],
+	[
+		[
+			7401188,
+			7147875
+		],
+		[
+			581,
+			2366
+		],
+		[
+			733,
+			2985
+		],
+		[
+			-733,
+			354
+		],
+		[
+			-1383,
+			667
+		],
+		[
+			-1278,
+			-891
+		],
+		[
+			-4098,
+			-293
+		],
+		[
+			-1913,
+			843
+		],
+		[
+			-179,
+			4205
+		],
+		[
+			-2219,
+			2875
+		],
+		[
+			-2603,
+			711
+		]
+	],
+	[
+		[
+			7434170,
+			7165815
+		],
+		[
+			791,
+			-1351
+		],
+		[
+			-2429,
+			-5121
+		],
+		[
+			2463,
+			-437
+		]
+	],
+	[
+		[
+			7434995,
+			7158906
+		],
+		[
+			-2432,
+			-1497
+		],
+		[
+			-1696,
+			630
+		],
+		[
+			-617,
+			230
+		],
+		[
+			-3569,
+			-113
+		],
+		[
+			-1070,
+			1379
+		],
+		[
+			-4181,
+			-60
+		],
+		[
+			-3218,
+			978
+		],
+		[
+			-3961,
+			-556
+		],
+		[
+			1517,
+			-1751
+		],
+		[
+			-140,
+			-1504
+		],
+		[
+			-4444,
+			-782
+		],
+		[
+			-1002,
+			-1444
+		],
+		[
+			-2446,
+			-777
+		],
+		[
+			-263,
+			-782
+		],
+		[
+			2034,
+			-1354
+		],
+		[
+			-141,
+			-882
+		],
+		[
+			-4884,
+			-905
+		],
+		[
+			-829,
+			-1706
+		]
+	],
+	[
+		[
+			7452045,
+			7105367
+		],
+		[
+			-2339,
+			-740
+		],
+		[
+			-1900,
+			-2357
+		],
+		[
+			-2436,
+			-662
+		],
+		[
+			-2164,
+			-2482
+		]
+	],
+	[
+		[
+			7443206,
+			7099126
+		],
+		[
+			-3316,
+			-756
+		],
+		[
+			-2802,
+			948
+		],
+		[
+			-3624,
+			-1744
+		],
+		[
+			-2597,
+			26
+		],
+		[
+			-3673,
+			38
+		],
+		[
+			-3314,
+			1375
+		],
+		[
+			-996,
+			2240
+		],
+		[
+			-1548,
+			889
+		],
+		[
+			-3081,
+			-583
+		],
+		[
+			-255,
+			610
+		],
+		[
+			2524,
+			2031
+		],
+		[
+			-121,
+			2420
+		],
+		[
+			-3353,
+			-613
+		],
+		[
+			-851,
+			1037
+		],
+		[
+			-3396,
+			-52
+		],
+		[
+			-4639,
+			2082
+		],
+		[
+			1729,
+			1613
+		],
+		[
+			-2363,
+			1882
+		],
+		[
+			380,
+			2970
+		]
+	],
+	[
+		[
+			7531244,
+			7160681
+		],
+		[
+			-2671,
+			-454
+		],
+		[
+			-907,
+			-154
+		],
+		[
+			-4392,
+			988
+		],
+		[
+			-8184,
+			-5206
+		],
+		[
+			-3338,
+			2715
+		],
+		[
+			-2672,
+			-135
+		],
+		[
+			-965,
+			-2752
+		],
+		[
+			-8030,
+			-4882
+		],
+		[
+			-5998,
+			-1780
+		]
+	],
+	[
+		[
+			7482985,
+			7151156
+		],
+		[
+			-2038,
+			-484
+		],
+		[
+			-973,
+			604
+		],
+		[
+			3135,
+			2836
+		],
+		[
+			-2137,
+			1052
+		],
+		[
+			1405,
+			2744
+		],
+		[
+			-2140,
+			3341
+		],
+		[
+			-3919,
+			463
+		],
+		[
+			-187,
+			3439
+		],
+		[
+			-3347,
+			-700
+		],
+		[
+			-3482,
+			786
+		]
+	],
+	[
+		[
+			7469302,
+			7165237
+		],
+		[
+			-68,
+			1005
+		],
+		[
+			2242,
+			1671
+		],
+		[
+			-3019,
+			3580
+		],
+		[
+			942,
+			2498
+		],
+		[
+			3038,
+			1023
+		],
+		[
+			43,
+			1680
+		],
+		[
+			3164,
+			782
+		],
+		[
+			-139,
+			1097
+		]
+	],
+	[
+		[
+			7525266,
+			7170499
+		],
+		[
+			2057,
+			-1257
+		],
+		[
+			1113,
+			-2517
+		],
+		[
+			-3236,
+			-2930
+		],
+		[
+			6044,
+			-3114
+		]
+	],
+	[
+		[
+			7449396,
+			7154727
+		],
+		[
+			-6383,
+			272
+		],
+		[
+			-4953,
+			2346
+		],
+		[
+			-104,
+			1553
+		],
+		[
+			-2961,
+			8
+		]
+	],
+	[
+		[
+			7469302,
+			7165237
+		],
+		[
+			-4997,
+			-1502
+		],
+		[
+			-5417,
+			-3256
+		],
+		[
+			-1623,
+			-1711
+		],
+		[
+			799,
+			-1834
+		],
+		[
+			-2878,
+			-550
+		],
+		[
+			-2375,
+			1308
+		],
+		[
+			-3415,
+			-2965
+		]
+	],
+	[
+		[
+			7440857,
+			7138692
+		],
+		[
+			4,
+			1457
+		],
+		[
+			1978,
+			260
+		],
+		[
+			2292,
+			2095
+		],
+		[
+			678,
+			2036
+		],
+		[
+			-453,
+			1712
+		],
+		[
+			1551,
+			1144
+		],
+		[
+			-1051,
+			2125
+		],
+		[
+			4820,
+			2349
+		],
+		[
+			374,
+			1513
+		],
+		[
+			-1410,
+			411
+		],
+		[
+			-244,
+			933
+		]
+	],
+	[
+		[
+			7531244,
+			7160681
+		],
+		[
+			3783,
+			-3087
+		],
+		[
+			1326,
+			-2144
+		],
+		[
+			-1485,
+			-2832
+		],
+		[
+			547,
+			-2860
+		],
+		[
+			4671,
+			-1695
+		],
+		[
+			2006,
+			-1597
+		],
+		[
+			-836,
+			-1954
+		]
+	],
+	[
+		[
+			7360776,
+			7067121
+		],
+		[
+			1031,
+			851
+		],
+		[
+			1490,
+			-31
+		],
+		[
+			132,
+			-589
+		],
+		[
+			1571,
+			592
+		],
+		[
+			-481,
+			1239
+		],
+		[
+			-1558,
+			673
+		],
+		[
+			-368,
+			1349
+		],
+		[
+			2286,
+			246
+		],
+		[
+			2121,
+			-271
+		],
+		[
+			576,
+			-358
+		],
+		[
+			1279,
+			1285
+		],
+		[
+			1044,
+			547
+		],
+		[
+			2216,
+			-70
+		],
+		[
+			781,
+			469
+		],
+		[
+			990,
+			-155
+		],
+		[
+			436,
+			-840
+		],
+		[
+			1297,
+			-418
+		],
+		[
+			2228,
+			-203
+		],
+		[
+			2316,
+			-505
+		],
+		[
+			678,
+			-735
+		],
+		[
+			-2107,
+			-1357
+		],
+		[
+			-662,
+			-1307
+		],
+		[
+			-1362,
+			-1126
+		],
+		[
+			1174,
+			-1256
+		],
+		[
+			1870,
+			-719
+		],
+		[
+			-976,
+			-1050
+		],
+		[
+			407,
+			-1223
+		],
+		[
+			-3147,
+			363
+		],
+		[
+			-2817,
+			749
+		],
+		[
+			-104,
+			453
+		],
+		[
+			-1771,
+			224
+		],
+		[
+			-929,
+			780
+		],
+		[
+			-645,
+			-262
+		],
+		[
+			-1725,
+			449
+		],
+		[
+			-1271,
+			-429
+		],
+		[
+			-1311,
+			801
+		],
+		[
+			-2780,
+			137
+		],
+		[
+			644,
+			751
+		],
+		[
+			-1615,
+			160
+		],
+		[
+			-938,
+			786
+		]
+	],
+	[
+		[
+			7408459,
+			7092521
+		],
+		[
+			210,
+			1999
+		],
+		[
+			-1499,
+			1055
+		],
+		[
+			231,
+			6639
+		],
+		[
+			727,
+			771
+		],
+		[
+			4770,
+			-2605
+		],
+		[
+			6752,
+			-656
+		],
+		[
+			-1453,
+			-7491
+		]
+	],
+	[
+		[
+			7418197,
+			7092233
+		],
+		[
+			-4228,
+			142
+		]
+	],
+	[
+		[
+			7413969,
+			7092375
+		],
+		[
+			-1249,
+			379
+		],
+		[
+			-698,
+			-719
+		],
+		[
+			-3444,
+			108
+		]
+	],
+	[
+		[
+			7408578,
+			7092143
+		],
+		[
+			-119,
+			378
+		]
+	],
+	[
+		[
+			7414221,
+			7082350
+		],
+		[
+			-1495,
+			1719
+		],
+		[
+			-6993,
+			1859
+		],
+		[
+			-510,
+			2244
+		],
+		[
+			3053,
+			1531
+		],
+		[
+			302,
+			2440
+		]
+	],
+	[
+		[
+			7413969,
+			7092375
+		],
+		[
+			1700,
+			-2474
+		],
+		[
+			1989,
+			-715
+		],
+		[
+			-659,
+			-1181
+		],
+		[
+			556,
+			-1830
+		],
+		[
+			-3334,
+			-3825
+		]
+	],
+	[
+		[
+			7432101,
+			7077543
+		],
+		[
+			-1234,
+			-32
+		],
+		[
+			-4337,
+			-116
+		],
+		[
+			105,
+			-2716
+		],
+		[
+			-3478,
+			-2055
+		]
+	],
+	[
+		[
+			7423157,
+			7072624
+		],
+		[
+			-1487,
+			-284
+		],
+		[
+			-2039,
+			1347
+		],
+		[
+			-922,
+			1848
+		],
+		[
+			-3753,
+			749
+		]
+	],
+	[
+		[
+			7414956,
+			7076284
+		],
+		[
+			-508,
+			561
+		]
+	],
+	[
+		[
+			7414448,
+			7076845
+		],
+		[
+			3002,
+			1925
+		],
+		[
+			-3229,
+			3580
+		]
+	],
+	[
+		[
+			7418197,
+			7092233
+		],
+		[
+			3016,
+			-1070
+		],
+		[
+			967,
+			-1821
+		],
+		[
+			4489,
+			230
+		],
+		[
+			4198,
+			-3453
+		],
+		[
+			2127,
+			-14
+		]
+	],
+	[
+		[
+			7432994,
+			7086105
+		],
+		[
+			-3820,
+			-3382
+		],
+		[
+			2683,
+			-1721
+		],
+		[
+			2667,
+			-13
+		],
+		[
+			-1401,
+			-2955
+		],
+		[
+			-1022,
+			-491
+		]
+	],
+	[
+		[
+			7440059,
+			7082331
+		],
+		[
+			1571,
+			497
+		],
+		[
+			1555,
+			-2490
+		],
+		[
+			-1952,
+			-62
+		],
+		[
+			-446,
+			1549
+		],
+		[
+			-728,
+			506
+		]
+	],
+	[
+		[
+			7423157,
+			7072624
+		],
+		[
+			410,
+			-2257
+		],
+		[
+			-2743,
+			-118
+		],
+		[
+			-1920,
+			-1805
+		],
+		[
+			-2139,
+			-74
+		],
+		[
+			-3603,
+			2774
+		],
+		[
+			915,
+			1275
+		],
+		[
+			-1463,
+			1996
+		],
+		[
+			2342,
+			1869
+		]
+	],
+	[
+		[
+			7398940,
+			7058471
+		],
+		[
+			-8697,
+			204
+		],
+		[
+			-3451,
+			-1815
+		],
+		[
+			-2452,
+			-2995
+		],
+		[
+			-3451,
+			-2078
+		],
+		[
+			477,
+			-1870
+		],
+		[
+			-1394,
+			-2017
+		],
+		[
+			3680,
+			-2193
+		],
+		[
+			44,
+			-2114
+		],
+		[
+			-1743,
+			-2841
+		],
+		[
+			-2552,
+			-393
+		]
+	],
+	[
+		[
+			7379401,
+			7040359
+		],
+		[
+			-3273,
+			69
+		],
+		[
+			-2063,
+			1634
+		],
+		[
+			-2829,
+			-48
+		],
+		[
+			-2297,
+			-2519
+		],
+		[
+			-6646,
+			309
+		],
+		[
+			-4108,
+			-887
+		],
+		[
+			-829,
+			-1927
+		],
+		[
+			-1195,
+			-550
+		]
+	],
+	[
+		[
+			7327009,
+			7086013
+		],
+		[
+			5207,
+			474
+		],
+		[
+			1879,
+			1222
+		],
+		[
+			3891,
+			-199
+		],
+		[
+			3390,
+			-1859
+		],
+		[
+			-432,
+			-2285
+		],
+		[
+			3697,
+			-3158
+		],
+		[
+			4201,
+			1548
+		],
+		[
+			1712,
+			-1795
+		],
+		[
+			3095,
+			121
+		],
+		[
+			2566,
+			1696
+		],
+		[
+			3701,
+			-1441
+		],
+		[
+			2739,
+			-59
+		],
+		[
+			4141,
+			3313
+		],
+		[
+			3055,
+			-1074
+		],
+		[
+			6425,
+			737
+		],
+		[
+			202,
+			-905
+		],
+		[
+			-1401,
+			-736
+		],
+		[
+			375,
+			-565
+		],
+		[
+			6332,
+			222
+		],
+		[
+			3127,
+			1053
+		]
+	],
+	[
+		[
+			7384911,
+			7082323
+		],
+		[
+			3833,
+			-351
+		],
+		[
+			1139,
+			-1294
+		],
+		[
+			-655,
+			-941
+		],
+		[
+			679,
+			-993
+		],
+		[
+			11862,
+			-4365
+		],
+		[
+			191,
+			-70
+		]
+	],
+	[
+		[
+			7401960,
+			7074309
+		],
+		[
+			-30,
+			-2751
+		],
+		[
+			3346,
+			-2913
+		],
+		[
+			-155,
+			-3085
+		],
+		[
+			1096,
+			-1978
+		],
+		[
+			-4448,
+			-3124
+		],
+		[
+			-2829,
+			-1987
+		]
+	],
+	[
+		[
+			7443206,
+			7099126
+		],
+		[
+			114,
+			-1231
+		],
+		[
+			-1562,
+			-1802
+		],
+		[
+			-7162,
+			-1395
+		],
+		[
+			34,
+			-2197
+		],
+		[
+			-2277,
+			-4930
+		],
+		[
+			641,
+			-1466
+		]
+	],
+	[
+		[
+			7408459,
+			7092521
+		],
+		[
+			-2641,
+			752
+		],
+		[
+			-4049,
+			-454
+		],
+		[
+			-5016,
+			-562
+		]
+	],
+	[
+		[
+			7396753,
+			7092257
+		],
+		[
+			-373,
+			1967
+		],
+		[
+			-2011,
+			2345
+		],
+		[
+			-3427,
+			850
+		],
+		[
+			72,
+			3123
+		],
+		[
+			2244,
+			1729
+		],
+		[
+			236,
+			1896
+		],
+		[
+			-5810,
+			3073
+		],
+		[
+			-10483,
+			-721
+		],
+		[
+			-2561,
+			1761
+		],
+		[
+			3189,
+			2320
+		],
+		[
+			2789,
+			208
+		]
+	],
+	[
+		[
+			7384911,
+			7082323
+		],
+		[
+			-77,
+			3727
+		],
+		[
+			-1169,
+			2055
+		],
+		[
+			7561,
+			2275
+		],
+		[
+			2293,
+			-484
+		],
+		[
+			641,
+			1149
+		],
+		[
+			2593,
+			1212
+		]
+	],
+	[
+		[
+			7414448,
+			7076845
+		],
+		[
+			-3772,
+			-140
+		],
+		[
+			-3076,
+			-2108
+		],
+		[
+			-5640,
+			-288
+		]
+	],
+	[
+		[
+			7439894,
+			7071231
+		],
+		[
+			-5275,
+			4939
+		],
+		[
+			-2574,
+			531
+		],
+		[
+			56,
+			842
+		]
+	],
+	[
+		[
+			7517293,
+			7233491
+		],
+		[
+			2021,
+			-1485
+		],
+		[
+			-3663,
+			-5573
+		],
+		[
+			256,
+			-3403
+		],
+		[
+			2632,
+			-1950
+		],
+		[
+			6013,
+			-211
+		],
+		[
+			4021,
+			-1973
+		],
+		[
+			1656,
+			509
+		],
+		[
+			-1228,
+			1187
+		],
+		[
+			-428,
+			1518
+		],
+		[
+			-445,
+			1576
+		],
+		[
+			445,
+			486
+		],
+		[
+			1969,
+			2155
+		],
+		[
+			-1969,
+			2922
+		],
+		[
+			0,
+			898
+		],
+		[
+			268,
+			1522
+		],
+		[
+			3018,
+			723
+		],
+		[
+			-330,
+			2164
+		]
+	],
+	[
+		[
+			7531529,
+			7234556
+		],
+		[
+			1844,
+			1409
+		],
+		[
+			2947,
+			-1706
+		],
+		[
+			481,
+			-1451
+		],
+		[
+			792,
+			181
+		]
+	],
+	[
+		[
+			7537593,
+			7232989
+		],
+		[
+			2197,
+			-1683
+		],
+		[
+			-1921,
+			-1871
+		],
+		[
+			-1536,
+			-2757
+		],
+		[
+			948,
+			-1876
+		],
+		[
+			3170,
+			-811
+		],
+		[
+			-192,
+			-3463
+		]
+	],
+	[
+		[
+			7537593,
+			7232989
+		],
+		[
+			1440,
+			1163
+		],
+		[
+			595,
+			2364
+		],
+		[
+			4657,
+			4279
+		],
+		[
+			-776,
+			1531
+		],
+		[
+			-3017,
+			591
+		],
+		[
+			3039,
+			4971
+		]
+	],
+	[
+		[
+			7333411,
+			7238545
+		],
+		[
+			1983,
+			1352
+		]
+	],
+	[
+		[
+			7335394,
+			7239897
+		],
+		[
+			7232,
+			-1200
+		],
+		[
+			824,
+			2314
+		],
+		[
+			2889,
+			798
+		],
+		[
+			275,
+			1554
+		],
+		[
+			939,
+			424
+		],
+		[
+			4868,
+			-1487
+		],
+		[
+			1744,
+			-4143
+		],
+		[
+			-1332,
+			-3318
+		],
+		[
+			-3758,
+			-824
+		],
+		[
+			-2271,
+			-2037
+		],
+		[
+			-6224,
+			2128
+		],
+		[
+			-1535,
+			1376
+		],
+		[
+			-4557,
+			93
+		],
+		[
+			-1077,
+			2970
+		]
+	],
+	[
+		[
+			7322932,
+			7202458
+		],
+		[
+			-2828,
+			3374
+		],
+		[
+			-4729,
+			428
+		],
+		[
+			-4981,
+			-1203
+		],
+		[
+			1307,
+			-2360
+		],
+		[
+			-1002,
+			-1097
+		],
+		[
+			-7203,
+			942
+		],
+		[
+			144,
+			3502
+		],
+		[
+			2966,
+			1901
+		],
+		[
+			-104,
+			1408
+		],
+		[
+			2551,
+			2928
+		],
+		[
+			48,
+			1499
+		],
+		[
+			-1471,
+			918
+		],
+		[
+			164,
+			737
+		]
+	],
+	[
+		[
+			7307794,
+			7215435
+		],
+		[
+			2527,
+			1101
+		],
+		[
+			-465,
+			2005
+		],
+		[
+			1105,
+			2432
+		],
+		[
+			7457,
+			1880
+		],
+		[
+			298,
+			780
+		],
+		[
+			-1198,
+			279
+		],
+		[
+			-20,
+			985
+		],
+		[
+			3256,
+			2337
+		],
+		[
+			-2012,
+			2201
+		],
+		[
+			-1933,
+			1178
+		],
+		[
+			-1118,
+			164
+		],
+		[
+			-1222,
+			-530
+		],
+		[
+			-836,
+			-812
+		],
+		[
+			-1182,
+			0
+		],
+		[
+			1009,
+			2372
+		],
+		[
+			-2502,
+			-417
+		],
+		[
+			-236,
+			1410
+		],
+		[
+			5637,
+			-423
+		],
+		[
+			4257,
+			664
+		],
+		[
+			-3130,
+			3714
+		],
+		[
+			-154,
+			1236
+		]
+	],
+	[
+		[
+			7317332,
+			7237991
+		],
+		[
+			1225,
+			1663
+		],
+		[
+			1697,
+			283
+		],
+		[
+			7123,
+			-296
+		],
+		[
+			2235,
+			-1457
+		],
+		[
+			3799,
+			361
+		]
+	],
+	[
+		[
+			7335394,
+			7239897
+		],
+		[
+			227,
+			1940
+		],
+		[
+			-5753,
+			2860
+		],
+		[
+			260,
+			2504
+		],
+		[
+			1931,
+			2705
+		],
+		[
+			-3458,
+			2776
+		],
+		[
+			3409,
+			806
+		],
+		[
+			3095,
+			-2951
+		],
+		[
+			1072,
+			2567
+		]
+	],
+	[
+		[
+			7601194,
+			6938360
+		],
+		[
+			956,
+			-2770
+		],
+		[
+			605,
+			-633
+		]
+	],
+	[
+		[
+			7602755,
+			6934957
+		],
+		[
+			-117,
+			-2116
+		],
+		[
+			-1813,
+			-644
+		],
+		[
+			-438,
+			-2241
+		],
+		[
+			2838,
+			-2139
+		],
+		[
+			-295,
+			-993
+		],
+		[
+			-11101,
+			719
+		],
+		[
+			-2544,
+			-1768
+		],
+		[
+			-854,
+			-2954
+		],
+		[
+			1304,
+			-2922
+		],
+		[
+			2920,
+			-2091
+		],
+		[
+			5211,
+			-999
+		],
+		[
+			1468,
+			-2291
+		],
+		[
+			-4583,
+			-368
+		],
+		[
+			-7011,
+			-2215
+		],
+		[
+			-1312,
+			-3466
+		],
+		[
+			-1672,
+			-1551
+		]
+	],
+	[
+		[
+			7584756,
+			6906918
+		],
+		[
+			-8927,
+			-994
+		],
+		[
+			-3150,
+			-3996
+		]
+	],
+	[
+		[
+			7572679,
+			6901928
+		],
+		[
+			-3575,
+			296
+		],
+		[
+			-3708,
+			-894
+		],
+		[
+			-3727,
+			2519
+		],
+		[
+			-2248,
+			2403
+		],
+		[
+			-564,
+			1822
+		],
+		[
+			-6807,
+			-847
+		],
+		[
+			-3069,
+			1178
+		]
+	],
+	[
+		[
+			7548981,
+			6908405
+		],
+		[
+			425,
+			3307
+		],
+		[
+			3278,
+			2956
+		],
+		[
+			2139,
+			4900
+		],
+		[
+			1564,
+			1397
+		],
+		[
+			-3054,
+			1875
+		],
+		[
+			-663,
+			3099
+		],
+		[
+			3931,
+			1325
+		],
+		[
+			1958,
+			2831
+		],
+		[
+			-860,
+			3058
+		],
+		[
+			-4096,
+			718
+		],
+		[
+			-4838,
+			3442
+		],
+		[
+			1227,
+			5072
+		],
+		[
+			-1036,
+			3956
+		],
+		[
+			4976,
+			4093
+		]
+	],
+	[
+		[
+			7553932,
+			6950434
+		],
+		[
+			3579,
+			1095
+		],
+		[
+			2434,
+			-1519
+		],
+		[
+			2490,
+			1301
+		],
+		[
+			1778,
+			1703
+		],
+		[
+			-579,
+			479
+		],
+		[
+			507,
+			452
+		],
+		[
+			3675,
+			-519
+		],
+		[
+			2515,
+			1422
+		],
+		[
+			1466,
+			-264
+		]
+	],
+	[
+		[
+			7571797,
+			6954584
+		],
+		[
+			-1979,
+			-2673
+		],
+		[
+			2064,
+			-1352
+		],
+		[
+			217,
+			-2360
+		],
+		[
+			1425,
+			-2380
+		],
+		[
+			2993,
+			-826
+		],
+		[
+			673,
+			-1599
+		],
+		[
+			5841,
+			61
+		],
+		[
+			2853,
+			2248
+		],
+		[
+			-172,
+			3511
+		],
+		[
+			4620,
+			763
+		]
+	],
+	[
+		[
+			7590332,
+			6949977
+		],
+		[
+			936,
+			-3772
+		],
+		[
+			8075,
+			-5317
+		],
+		[
+			1851,
+			-2528
+		]
+	],
+	[
+		[
+			7553654,
+			6924825
+		],
+		[
+			597,
+			-715
+		],
+		[
+			1818,
+			33
+		],
+		[
+			292,
+			530
+		],
+		[
+			-1820,
+			1239
+		],
+		[
+			-887,
+			-1087
+		]
+	],
+	[
+		[
+			7391885,
+			6923075
+		],
+		[
+			6762,
+			1063
+		],
+		[
+			3122,
+			1746
+		],
+		[
+			4154,
+			-1061
+		],
+		[
+			3279,
+			1450
+		],
+		[
+			2897,
+			-763
+		],
+		[
+			3578,
+			3335
+		],
+		[
+			6491,
+			177
+		],
+		[
+			1077,
+			1605
+		],
+		[
+			5542,
+			1801
+		],
+		[
+			1348,
+			1609
+		]
+	],
+	[
+		[
+			7430135,
+			6934037
+		],
+		[
+			732,
+			-267
+		],
+		[
+			7443,
+			-2717
+		],
+		[
+			-3873,
+			-2415
+		],
+		[
+			-284,
+			-1292
+		],
+		[
+			7116,
+			-860
+		],
+		[
+			2310,
+			542
+		],
+		[
+			1432,
+			-2122
+		],
+		[
+			-471,
+			-2877
+		],
+		[
+			3553,
+			-1224
+		]
+	],
+	[
+		[
+			7448093,
+			6920805
+		],
+		[
+			659,
+			-906
+		],
+		[
+			691,
+			-950
+		],
+		[
+			5291,
+			-970
+		],
+		[
+			1901,
+			-4321
+		],
+		[
+			-4107,
+			-2270
+		],
+		[
+			-656,
+			-2119
+		],
+		[
+			-2288,
+			-1203
+		]
+	],
+	[
+		[
+			7449584,
+			6908066
+		],
+		[
+			-2529,
+			1886
+		],
+		[
+			-11959,
+			1867
+		],
+		[
+			-2215,
+			-1437
+		],
+		[
+			-2014,
+			852
+		],
+		[
+			-2388,
+			1010
+		],
+		[
+			-7088,
+			-765
+		],
+		[
+			-2347,
+			-2038
+		],
+		[
+			-5665,
+			503
+		],
+		[
+			-1369,
+			-1365
+		],
+		[
+			1967,
+			-2445
+		],
+		[
+			-383,
+			-1931
+		],
+		[
+			-3139,
+			-3880
+		]
+	],
+	[
+		[
+			7410455,
+			6900323
+		],
+		[
+			-4404,
+			2050
+		],
+		[
+			334,
+			2220
+		],
+		[
+			-4616,
+			102
+		],
+		[
+			-8334,
+			184
+		],
+		[
+			2120,
+			4263
+		],
+		[
+			1997,
+			1148
+		],
+		[
+			201,
+			1010
+		],
+		[
+			-2457,
+			-457
+		],
+		[
+			-5351,
+			-3412
+		],
+		[
+			-2631,
+			1539
+		],
+		[
+			2300,
+			6242
+		],
+		[
+			3347,
+			733
+		],
+		[
+			-2682,
+			2954
+		],
+		[
+			385,
+			1000
+		],
+		[
+			1221,
+			3176
+		]
+	],
+	[
+		[
+			7517700,
+			6990339
+		],
+		[
+			469,
+			746
+		],
+		[
+			8418,
+			2388
+		],
+		[
+			1008,
+			2398
+		],
+		[
+			978,
+			182
+		],
+		[
+			467,
+			-607
+		],
+		[
+			1866,
+			-995
+		],
+		[
+			521,
+			-826
+		],
+		[
+			680,
+			136
+		],
+		[
+			1918,
+			1377
+		],
+		[
+			2187,
+			813
+		],
+		[
+			1112,
+			1063
+		],
+		[
+			2454,
+			957
+		],
+		[
+			2342,
+			276
+		],
+		[
+			1283,
+			-539
+		],
+		[
+			-393,
+			-785
+		],
+		[
+			-1116,
+			-178
+		],
+		[
+			-1550,
+			-1194
+		],
+		[
+			-2,
+			-1018
+		],
+		[
+			-950,
+			-17
+		],
+		[
+			-2610,
+			-1401
+		],
+		[
+			1002,
+			-1312
+		],
+		[
+			-970,
+			-513
+		],
+		[
+			-625,
+			784
+		],
+		[
+			-2184,
+			-370
+		],
+		[
+			66,
+			-759
+		],
+		[
+			-3995,
+			-1080
+		],
+		[
+			-1503,
+			224
+		],
+		[
+			-1029,
+			641
+		],
+		[
+			-6606,
+			-913
+		],
+		[
+			-2797,
+			-76
+		],
+		[
+			-441,
+			598
+		]
+	],
+	[
+		[
+			7659019,
+			6993585
+		],
+		[
+			-5262,
+			153
+		],
+		[
+			-3152,
+			1689
+		],
+		[
+			-3225,
+			3149
+		],
+		[
+			6946,
+			1122
+		],
+		[
+			10449,
+			-819
+		],
+		[
+			1738,
+			-1085
+		]
+	],
+	[
+		[
+			7666513,
+			6997794
+		],
+		[
+			-1958,
+			-2379
+		],
+		[
+			-2509,
+			-1147
+		],
+		[
+			-2343,
+			457
+		],
+		[
+			-684,
+			-1140
+		]
+	],
+	[
+		[
+			7614605,
+			6998757
+		],
+		[
+			-2691,
+			1066
+		]
+	],
+	[
+		[
+			7604319,
+			7034143
+		],
+		[
+			2137,
+			-1653
+		],
+		[
+			3027,
+			109
+		],
+		[
+			936,
+			-855
+		],
+		[
+			2157,
+			2034
+		],
+		[
+			3726,
+			-337
+		],
+		[
+			1439,
+			-1429
+		],
+		[
+			-972,
+			-1461
+		],
+		[
+			4450,
+			-3421
+		],
+		[
+			6359,
+			145
+		],
+		[
+			6478,
+			-1484
+		],
+		[
+			666,
+			-818
+		]
+	],
+	[
+		[
+			7634722,
+			7024973
+		],
+		[
+			683,
+			-1982
+		],
+		[
+			-1413,
+			-1933
+		],
+		[
+			5263,
+			-1703
+		],
+		[
+			-19,
+			-1307
+		],
+		[
+			-1509,
+			-1529
+		],
+		[
+			2448,
+			-1436
+		],
+		[
+			-156,
+			-1182
+		],
+		[
+			1028,
+			-1099
+		]
+	],
+	[
+		[
+			7641047,
+			7012802
+		],
+		[
+			-1353,
+			-2639
+		],
+		[
+			-1683,
+			-548
+		],
+		[
+			-3113,
+			-1013
+		],
+		[
+			-4628,
+			406
+		],
+		[
+			-3555,
+			-1663
+		],
+		[
+			-1607,
+			-2263
+		],
+		[
+			173,
+			-3148
+		],
+		[
+			-1059,
+			-796
+		],
+		[
+			-6098,
+			99
+		],
+		[
+			-1229,
+			-2261
+		],
+		[
+			-2290,
+			-219
+		]
+	],
+	[
+		[
+			7670334,
+			7035475
+		],
+		[
+			1606,
+			59
+		],
+		[
+			1757,
+			-163
+		],
+		[
+			1963,
+			-2265
+		],
+		[
+			2200,
+			234
+		],
+		[
+			1666,
+			-3182
+		],
+		[
+			644,
+			-1229
+		],
+		[
+			2588,
+			-2091
+		],
+		[
+			6192,
+			59
+		],
+		[
+			2543,
+			-4316
+		],
+		[
+			2546,
+			-975
+		],
+		[
+			2287,
+			-2965
+		],
+		[
+			-320,
+			-2019
+		],
+		[
+			3121,
+			-766
+		]
+	],
+	[
+		[
+			7694787,
+			7010056
+		],
+		[
+			-1980,
+			928
+		],
+		[
+			-1816,
+			-913
+		],
+		[
+			-2451,
+			447
+		],
+		[
+			-679,
+			-903
+		],
+		[
+			-115,
+			-1893
+		],
+		[
+			-6931,
+			-531
+		],
+		[
+			-1289,
+			12
+		],
+		[
+			-4789,
+			44
+		],
+		[
+			-5011,
+			2368
+		],
+		[
+			-3338,
+			1690
+		],
+		[
+			-5576,
+			-896
+		],
+		[
+			-4212,
+			3943
+		],
+		[
+			-5459,
+			-215
+		],
+		[
+			-1581,
+			-1553
+		],
+		[
+			-2668,
+			355
+		],
+		[
+			-2263,
+			-955
+		],
+		[
+			-3582,
+			818
+		]
+	],
+	[
+		[
+			7634722,
+			7024973
+		],
+		[
+			3467,
+			-330
+		],
+		[
+			2369,
+			1527
+		],
+		[
+			2731,
+			215
+		],
+		[
+			1120,
+			4937
+		],
+		[
+			-677,
+			2992
+		],
+		[
+			4398,
+			-749
+		],
+		[
+			4098,
+			3276
+		],
+		[
+			4613,
+			-141
+		]
+	],
+	[
+		[
+			7656841,
+			7036700
+		],
+		[
+			8289,
+			-3757
+		],
+		[
+			1312,
+			2654
+		],
+		[
+			3892,
+			-122
+		]
+	],
+	[
+		[
+			7524926,
+			7015895
+		],
+		[
+			-1933,
+			-1906
+		],
+		[
+			-3722,
+			485
+		],
+		[
+			-4511,
+			-721
+		],
+		[
+			-8166,
+			-4138
+		],
+		[
+			-2267,
+			-1148
+		],
+		[
+			504,
+			-1937
+		],
+		[
+			-1606,
+			-2185
+		],
+		[
+			2232,
+			-4919
+		],
+		[
+			-614,
+			-1115
+		],
+		[
+			1352,
+			-1092
+		]
+	],
+	[
+		[
+			7506195,
+			6997219
+		],
+		[
+			-4448,
+			-408
+		],
+		[
+			-6865,
+			3136
+		],
+		[
+			-3931,
+			-1114
+		],
+		[
+			-1688,
+			506
+		],
+		[
+			-3413,
+			1022
+		]
+	],
+	[
+		[
+			7485850,
+			7000361
+		],
+		[
+			-1235,
+			1072
+		],
+		[
+			1523,
+			2154
+		],
+		[
+			-2008,
+			1563
+		],
+		[
+			1,
+			2105
+		],
+		[
+			-3163,
+			1420
+		],
+		[
+			368,
+			940
+		],
+		[
+			470,
+			1202
+		],
+		[
+			-950,
+			1881
+		],
+		[
+			5318,
+			1490
+		],
+		[
+			-1288,
+			2593
+		],
+		[
+			2234,
+			150
+		]
+	],
+	[
+		[
+			7487120,
+			7016931
+		],
+		[
+			1640,
+			1756
+		],
+		[
+			-1005,
+			1554
+		],
+		[
+			-1664,
+			93
+		],
+		[
+			-583,
+			1870
+		],
+		[
+			1453,
+			529
+		],
+		[
+			286,
+			2346
+		],
+		[
+			1991,
+			1343
+		],
+		[
+			-2070,
+			2028
+		],
+		[
+			562,
+			3105
+		],
+		[
+			-2243,
+			-820
+		],
+		[
+			-1642,
+			902
+		],
+		[
+			-4455,
+			268
+		],
+		[
+			-1116,
+			1127
+		],
+		[
+			-3167,
+			814
+		]
+	],
+	[
+		[
+			7565991,
+			6988993
+		],
+		[
+			-3523,
+			-1842
+		],
+		[
+			1087,
+			-5487
+		]
+	],
+	[
+		[
+			7563555,
+			6981664
+		],
+		[
+			-1398,
+			-1256
+		],
+		[
+			-3500,
+			-477
+		],
+		[
+			375,
+			-2014
+		],
+		[
+			-1532,
+			-1835
+		],
+		[
+			-6842,
+			-4039
+		],
+		[
+			-2700,
+			417
+		],
+		[
+			-1712,
+			-1889
+		],
+		[
+			-1562,
+			1113
+		],
+		[
+			-4453,
+			-793
+		]
+	],
+	[
+		[
+			7540231,
+			6970891
+		],
+		[
+			-2077,
+			2586
+		],
+		[
+			-3715,
+			2235
+		],
+		[
+			-200,
+			1571
+		],
+		[
+			-3142,
+			3554
+		],
+		[
+			-2524,
+			164
+		],
+		[
+			-5449,
+			355
+		],
+		[
+			-5042,
+			-1021
+		],
+		[
+			-1194,
+			1429
+		]
+	],
+	[
+		[
+			7516888,
+			6981764
+		],
+		[
+			-2125,
+			2169
+		],
+		[
+			1017,
+			4145
+		],
+		[
+			-4319,
+			601
+		],
+		[
+			848,
+			1403
+		],
+		[
+			-1112,
+			5848
+		],
+		[
+			-5002,
+			1289
+		]
+	],
+	[
+		[
+			7687885,
+			6989998
+		],
+		[
+			-8359,
+			3604
+		],
+		[
+			-4179,
+			1801
+		],
+		[
+			-3407,
+			-483
+		],
+		[
+			-5427,
+			2874
+		]
+	],
+	[
+		[
+			7659019,
+			6993585
+		],
+		[
+			1633,
+			-3942
+		],
+		[
+			-2472,
+			-4883
+		],
+		[
+			744,
+			-2822
+		],
+		[
+			-2723,
+			-5682
+		],
+		[
+			-9101,
+			-5640
+		],
+		[
+			-5835,
+			-2321
+		],
+		[
+			-8385,
+			-160
+		]
+	],
+	[
+		[
+			7632880,
+			6968135
+		],
+		[
+			-2762,
+			4288
+		],
+		[
+			-4358,
+			834
+		],
+		[
+			-2061,
+			2428
+		],
+		[
+			756,
+			1521
+		],
+		[
+			5211,
+			1394
+		],
+		[
+			2448,
+			1993
+		],
+		[
+			-4919,
+			3034
+		],
+		[
+			-775,
+			3672
+		],
+		[
+			-2406,
+			483
+		],
+		[
+			980,
+			5136
+		],
+		[
+			-3204,
+			1068
+		],
+		[
+			-6221,
+			-1759
+		],
+		[
+			-185,
+			986
+		],
+		[
+			1817,
+			1863
+		],
+		[
+			-779,
+			1628
+		],
+		[
+			-2425,
+			479
+		],
+		[
+			608,
+			1574
+		]
+	],
+	[
+		[
+			7632267,
+			7056054
+		],
+		[
+			358,
+			-3084
+		],
+		[
+			1635,
+			-1255
+		],
+		[
+			4367,
+			-1541
+		],
+		[
+			5457,
+			287
+		],
+		[
+			10333,
+			-6603
+		],
+		[
+			1301,
+			-6183
+		],
+		[
+			1123,
+			-975
+		]
+	],
+	[
+		[
+			7575905,
+			6974059
+		],
+		[
+			-1687,
+			2960
+		],
+		[
+			-2596,
+			1937
+		],
+		[
+			-2087,
+			100
+		],
+		[
+			-1057,
+			1249
+		],
+		[
+			-4923,
+			1359
+		]
+	],
+	[
+		[
+			7632880,
+			6968135
+		],
+		[
+			-1275,
+			-426
+		],
+		[
+			-14090,
+			-3251
+		],
+		[
+			-7871,
+			-5093
+		]
+	],
+	[
+		[
+			7609644,
+			6959365
+		],
+		[
+			-4683,
+			2567
+		],
+		[
+			-200,
+			2936
+		],
+		[
+			-2474,
+			796
+		],
+		[
+			-2184,
+			2045
+		],
+		[
+			-5441,
+			3369
+		],
+		[
+			-5807,
+			-182
+		],
+		[
+			-4817,
+			2054
+		],
+		[
+			-3135,
+			-670
+		],
+		[
+			-4998,
+			1779
+		]
+	],
+	[
+		[
+			7323548,
+			7093052
+		],
+		[
+			-1117,
+			4834
+		],
+		[
+			3777,
+			2951
+		]
+	],
+	[
+		[
+			7326208,
+			7100837
+		],
+		[
+			5976,
+			-2671
+		],
+		[
+			2256,
+			862
+		],
+		[
+			1067,
+			1879
+		],
+		[
+			1519,
+			752
+		],
+		[
+			6922,
+			-779
+		],
+		[
+			8166,
+			839
+		],
+		[
+			1019,
+			831
+		],
+		[
+			-1616,
+			4858
+		],
+		[
+			-3041,
+			897
+		],
+		[
+			340,
+			932
+		],
+		[
+			1868,
+			-247
+		],
+		[
+			2744,
+			2152
+		],
+		[
+			5711,
+			2230
+		],
+		[
+			4059,
+			-315
+		],
+		[
+			7122,
+			1216
+		]
+	],
+	[
+		[
+			7352658,
+			7106982
+		],
+		[
+			1057,
+			-31
+		],
+		[
+			582,
+			805
+		],
+		[
+			-721,
+			656
+		],
+		[
+			-1177,
+			-604
+		],
+		[
+			259,
+			-826
+		]
+	],
+	[
+		[
+			7453747,
+			7046582
+		],
+		[
+			3413,
+			-2647
+		],
+		[
+			-4243,
+			-3454
+		],
+		[
+			-2809,
+			16
+		],
+		[
+			-2095,
+			-1780
+		],
+		[
+			-5748,
+			1019
+		],
+		[
+			-563,
+			1840
+		],
+		[
+			-2154,
+			1872
+		],
+		[
+			-4236,
+			-97
+		]
+	],
+	[
+		[
+			7435312,
+			7043351
+		],
+		[
+			-3894,
+			3638
+		],
+		[
+			-551,
+			82
+		],
+		[
+			-4067,
+			603
+		],
+		[
+			-2962,
+			1447
+		],
+		[
+			-1769,
+			2217
+		],
+		[
+			-2094,
+			154
+		],
+		[
+			-5812,
+			2725
+		],
+		[
+			-4494,
+			-648
+		],
+		[
+			-1129,
+			-1532
+		],
+		[
+			-2384,
+			452
+		],
+		[
+			-4387,
+			2041
+		],
+		[
+			-714,
+			332
+		],
+		[
+			714,
+			1680
+		],
+		[
+			0,
+			753
+		],
+		[
+			-2113,
+			315
+		],
+		[
+			-716,
+			861
+		]
+	],
+	[
+		[
+			7435312,
+			7043351
+		],
+		[
+			-1458,
+			-1344
+		],
+		[
+			-95,
+			-1366
+		],
+		[
+			-1979,
+			-667
+		],
+		[
+			-913,
+			-1100
+		],
+		[
+			-928,
+			-1119
+		],
+		[
+			-671,
+			-2321
+		],
+		[
+			-5162,
+			-529
+		],
+		[
+			-3067,
+			-2389
+		],
+		[
+			1026,
+			-2379
+		],
+		[
+			-4262,
+			-2705
+		],
+		[
+			-4857,
+			-833
+		],
+		[
+			-1735,
+			-1683
+		],
+		[
+			-2351,
+			108
+		]
+	],
+	[
+		[
+			7408860,
+			7025024
+		],
+		[
+			-3037,
+			1663
+		],
+		[
+			-3381,
+			-241
+		],
+		[
+			-673,
+			579
+		],
+		[
+			-1343,
+			1156
+		],
+		[
+			-3165,
+			514
+		],
+		[
+			-636,
+			812
+		],
+		[
+			1387,
+			1465
+		],
+		[
+			-1820,
+			2394
+		],
+		[
+			-2938,
+			-1332
+		],
+		[
+			-785,
+			-1555
+		],
+		[
+			-3108,
+			554
+		],
+		[
+			-2262,
+			-2105
+		],
+		[
+			-4160,
+			1331
+		],
+		[
+			-464,
+			562
+		],
+		[
+			1872,
+			1804
+		],
+		[
+			116,
+			1264
+		],
+		[
+			-2462,
+			2992
+		],
+		[
+			-3266,
+			764
+		],
+		[
+			666,
+			2714
+		]
+	],
+	[
+		[
+			7238956,
+			7132176
+		],
+		[
+			-721,
+			26
+		],
+		[
+			-1143,
+			42
+		],
+		[
+			-3387,
+			-882
+		],
+		[
+			-813,
+			4
+		],
+		[
+			-835,
+			414
+		],
+		[
+			-752,
+			-739
+		],
+		[
+			-1708,
+			-284
+		],
+		[
+			-747,
+			880
+		],
+		[
+			-1941,
+			821
+		],
+		[
+			-536,
+			-70
+		],
+		[
+			-473,
+			-606
+		]
+	],
+	[
+		[
+			7225900,
+			7131782
+		],
+		[
+			-2007,
+			2323
+		],
+		[
+			114,
+			1815
+		],
+		[
+			2038,
+			765
+		],
+		[
+			-2492,
+			2384
+		],
+		[
+			1293,
+			1181
+		],
+		[
+			6236,
+			-1748
+		],
+		[
+			3185,
+			-1992
+		],
+		[
+			-518,
+			-1497
+		],
+		[
+			5207,
+			-2837
+		]
+	],
+	[
+		[
+			7331705,
+			7141814
+		],
+		[
+			2120,
+			1209
+		],
+		[
+			-689,
+			1096
+		],
+		[
+			897,
+			137
+		],
+		[
+			1184,
+			1600
+		],
+		[
+			2447,
+			-480
+		],
+		[
+			438,
+			1915
+		],
+		[
+			-686,
+			490
+		],
+		[
+			1240,
+			402
+		],
+		[
+			454,
+			-333
+		],
+		[
+			-86,
+			-1239
+		],
+		[
+			866,
+			-141
+		],
+		[
+			763,
+			942
+		],
+		[
+			757,
+			-391
+		],
+		[
+			-194,
+			-722
+		],
+		[
+			610,
+			-1110
+		],
+		[
+			44,
+			-1107
+		],
+		[
+			-2444,
+			-1330
+		],
+		[
+			-69,
+			-2494
+		],
+		[
+			-2734,
+			-604
+		],
+		[
+			-1594,
+			321
+		],
+		[
+			-1659,
+			716
+		],
+		[
+			-1665,
+			1123
+		]
+	],
+	[
+		[
+			7302406,
+			7120927
+		],
+		[
+			1203,
+			-126
+		],
+		[
+			983,
+			575
+		],
+		[
+			1202,
+			-159
+		],
+		[
+			365,
+			1827
+		],
+		[
+			1007,
+			225
+		],
+		[
+			1377,
+			-958
+		],
+		[
+			1421,
+			-229
+		],
+		[
+			1693,
+			538
+		],
+		[
+			2518,
+			-421
+		],
+		[
+			-143,
+			-919
+		],
+		[
+			1524,
+			-739
+		],
+		[
+			451,
+			-2322
+		],
+		[
+			-832,
+			-766
+		],
+		[
+			-1531,
+			163
+		],
+		[
+			-825,
+			-663
+		],
+		[
+			336,
+			-952
+		],
+		[
+			-1437,
+			-116
+		],
+		[
+			-705,
+			-635
+		],
+		[
+			1813,
+			-730
+		],
+		[
+			757,
+			-1092
+		],
+		[
+			163,
+			-1038
+		],
+		[
+			-1216,
+			-659
+		],
+		[
+			1190,
+			-882
+		],
+		[
+			-300,
+			-819
+		],
+		[
+			-3356,
+			-234
+		],
+		[
+			-1053,
+			1096
+		],
+		[
+			-367,
+			1275
+		],
+		[
+			-3140,
+			1210
+		],
+		[
+			-1716,
+			-168
+		],
+		[
+			-855,
+			746
+		],
+		[
+			1216,
+			1006
+		],
+		[
+			-1129,
+			970
+		],
+		[
+			2282,
+			719
+		],
+		[
+			-477,
+			860
+		],
+		[
+			-1719,
+			835
+		],
+		[
+			-700,
+			2582
+		]
+	],
+	[
+		[
+			7255674,
+			7147469
+		],
+		[
+			-1665,
+			-2785
+		],
+		[
+			524,
+			-848
+		],
+		[
+			1658,
+			-51
+		],
+		[
+			-668,
+			-1007
+		],
+		[
+			1134,
+			-2148
+		],
+		[
+			-493,
+			-1881
+		],
+		[
+			2725,
+			-1785
+		],
+		[
+			1264,
+			-2965
+		],
+		[
+			2282,
+			-1130
+		],
+		[
+			-955,
+			-2067
+		],
+		[
+			-3302,
+			-475
+		],
+		[
+			255,
+			-2829
+		],
+		[
+			-983,
+			-688
+		]
+	],
+	[
+		[
+			7257450,
+			7126810
+		],
+		[
+			-4613,
+			-2447
+		],
+		[
+			-1001,
+			-1337
+		],
+		[
+			-477,
+			-637
+		],
+		[
+			-3996,
+			-18
+		],
+		[
+			-3452,
+			2664
+		],
+		[
+			-3204,
+			11
+		],
+		[
+			2201,
+			4350
+		],
+		[
+			-1294,
+			1774
+		],
+		[
+			-2658,
+			1006
+		]
+	],
+	[
+		[
+			7225900,
+			7131782
+		],
+		[
+			-1112,
+			-5269
+		],
+		[
+			-2473,
+			73
+		],
+		[
+			-2131,
+			-1259
+		]
+	],
+	[
+		[
+			7220184,
+			7125327
+		],
+		[
+			-2296,
+			4586
+		],
+		[
+			-1103,
+			7917
+		]
+	],
+	[
+		[
+			7216785,
+			7137830
+		],
+		[
+			2763,
+			201
+		],
+		[
+			-1623,
+			4540
+		],
+		[
+			-4733,
+			806
+		],
+		[
+			1040,
+			2031
+		]
+	],
+	[
+		[
+			7214232,
+			7145408
+		],
+		[
+			1339,
+			2714
+		],
+		[
+			2118,
+			1572
+		],
+		[
+			9015,
+			1398
+		],
+		[
+			4300,
+			-1908
+		],
+		[
+			3410,
+			3197
+		],
+		[
+			2704,
+			861
+		],
+		[
+			14718,
+			-1742
+		],
+		[
+			3838,
+			-4031
+		]
+	],
+	[
+		[
+			7277491,
+			7161600
+		],
+		[
+			3094,
+			872
+		],
+		[
+			-893,
+			1383
+		],
+		[
+			1061,
+			1608
+		],
+		[
+			4576,
+			1455
+		],
+		[
+			3714,
+			2448
+		],
+		[
+			552,
+			3013
+		],
+		[
+			-1128,
+			1932
+		]
+	],
+	[
+		[
+			7288467,
+			7174311
+		],
+		[
+			2080,
+			3087
+		],
+		[
+			95,
+			2705
+		],
+		[
+			822,
+			887
+		],
+		[
+			3799,
+			-3
+		],
+		[
+			2067,
+			-1482
+		],
+		[
+			3401,
+			-809
+		],
+		[
+			1537,
+			658
+		],
+		[
+			1985,
+			-460
+		],
+		[
+			4489,
+			1763
+		]
+	],
+	[
+		[
+			7308742,
+			7180657
+		],
+		[
+			-510,
+			-3523
+		],
+		[
+			1917,
+			-727
+		],
+		[
+			-1443,
+			-3022
+		],
+		[
+			3822,
+			-2720
+		],
+		[
+			3794,
+			706
+		],
+		[
+			4037,
+			-2624
+		],
+		[
+			6507,
+			-433
+		],
+		[
+			443,
+			-770
+		],
+		[
+			-1661,
+			-990
+		],
+		[
+			447,
+			-606
+		],
+		[
+			6609,
+			-835
+		],
+		[
+			6794,
+			196
+		],
+		[
+			5232,
+			3387
+		],
+		[
+			2414,
+			-61
+		],
+		[
+			1745,
+			-1298
+		],
+		[
+			1160,
+			-4006
+		],
+		[
+			2140,
+			-1719
+		]
+	],
+	[
+		[
+			7352189,
+			7161612
+		],
+		[
+			-3749,
+			-2131
+		],
+		[
+			819,
+			-2746
+		],
+		[
+			-2101,
+			-1135
+		],
+		[
+			426,
+			-2014
+		],
+		[
+			-2417,
+			1087
+		],
+		[
+			-3545,
+			-1294
+		],
+		[
+			-8774,
+			463
+		],
+		[
+			-2129,
+			-781
+		],
+		[
+			-2815,
+			-3590
+		],
+		[
+			-6425,
+			-673
+		],
+		[
+			-4995,
+			578
+		],
+		[
+			-4236,
+			-2475
+		],
+		[
+			-1017,
+			-1398
+		],
+		[
+			346,
+			-1335
+		]
+	],
+	[
+		[
+			7311577,
+			7144168
+		],
+		[
+			-1333,
+			-1796
+		],
+		[
+			-2243,
+			-472
+		],
+		[
+			-2686,
+			1874
+		],
+		[
+			-3216,
+			-1558
+		],
+		[
+			-5702,
+			1278
+		],
+		[
+			1468,
+			3566
+		],
+		[
+			-2050,
+			1105
+		],
+		[
+			-743,
+			1753
+		],
+		[
+			-1578,
+			225
+		],
+		[
+			-1085,
+			1461
+		],
+		[
+			-2222,
+			85
+		],
+		[
+			-318,
+			1903
+		],
+		[
+			-4422,
+			3239
+		],
+		[
+			-865,
+			2552
+		],
+		[
+			-1703,
+			1781
+		],
+		[
+			-5388,
+			436
+		]
+	],
+	[
+		[
+			7308742,
+			7180657
+		],
+		[
+			2207,
+			548
+		],
+		[
+			6264,
+			4475
+		],
+		[
+			1828,
+			2393
+		],
+		[
+			269,
+			2270
+		]
+	],
+	[
+		[
+			7376188,
+			7161495
+		],
+		[
+			-3878,
+			-2193
+		],
+		[
+			-5505,
+			2783
+		],
+		[
+			-2152,
+			-2074
+		],
+		[
+			-4423,
+			-1644
+		]
+	],
+	[
+		[
+			7360230,
+			7158367
+		],
+		[
+			-2220,
+			2554
+		],
+		[
+			-5821,
+			691
+		]
+	],
+	[
+		[
+			7365701,
+			7126364
+		],
+		[
+			-1838,
+			1264
+		],
+		[
+			2243,
+			1586
+		],
+		[
+			-483,
+			2713
+		],
+		[
+			-14756,
+			9275
+		],
+		[
+			6487,
+			4741
+		],
+		[
+			-3444,
+			2907
+		],
+		[
+			1688,
+			4283
+		],
+		[
+			4632,
+			5234
+		]
+	],
+	[
+		[
+			7326208,
+			7100837
+		],
+		[
+			-2358,
+			1343
+		],
+		[
+			-165,
+			1388
+		],
+		[
+			4510,
+			2365
+		],
+		[
+			-648,
+			1616
+		],
+		[
+			-3021,
+			2758
+		],
+		[
+			-4173,
+			1557
+		],
+		[
+			720,
+			6922
+		],
+		[
+			769,
+			2269
+		],
+		[
+			2021,
+			1192
+		],
+		[
+			7475,
+			1388
+		],
+		[
+			469,
+			2923
+		],
+		[
+			2285,
+			1344
+		]
+	],
+	[
+		[
+			7334092,
+			7127902
+		],
+		[
+			3770,
+			2097
+		],
+		[
+			1745,
+			-2781
+		],
+		[
+			4192,
+			500
+		],
+		[
+			697,
+			-1746
+		],
+		[
+			2716,
+			-1643
+		],
+		[
+			6123,
+			1086
+		],
+		[
+			1278,
+			-3172
+		],
+		[
+			5459,
+			-1329
+		]
+	],
+	[
+		[
+			7257450,
+			7126810
+		],
+		[
+			1984,
+			-1727
+		],
+		[
+			-390,
+			-2036
+		],
+		[
+			1207,
+			-1235
+		],
+		[
+			-31,
+			-1540
+		],
+		[
+			1625,
+			-1307
+		],
+		[
+			481,
+			-2296
+		]
+	],
+	[
+		[
+			7256268,
+			7105047
+		],
+		[
+			257,
+			-1019
+		],
+		[
+			-1989,
+			-893
+		],
+		[
+			-2700,
+			883
+		],
+		[
+			-7028,
+			-746
+		],
+		[
+			-1865,
+			-1229
+		],
+		[
+			-253,
+			-2233
+		],
+		[
+			-3989,
+			-2939
+		],
+		[
+			-13224,
+			-429
+		]
+	],
+	[
+		[
+			7225477,
+			7096442
+		],
+		[
+			-3491,
+			2732
+		],
+		[
+			-118,
+			1226
+		],
+		[
+			3410,
+			2921
+		],
+		[
+			-1020,
+			4440
+		],
+		[
+			3115,
+			1022
+		],
+		[
+			2588,
+			4057
+		],
+		[
+			-3691,
+			1910
+		],
+		[
+			2017,
+			2851
+		],
+		[
+			-4045,
+			664
+		],
+		[
+			-1053,
+			2117
+		],
+		[
+			536,
+			2687
+		],
+		[
+			-2110,
+			-885
+		],
+		[
+			-2831,
+			1162
+		]
+	],
+	[
+		[
+			7218784,
+			7123346
+		],
+		[
+			104,
+			1863
+		],
+		[
+			1296,
+			118
+		]
+	],
+	[
+		[
+			7318268,
+			7133916
+		],
+		[
+			-2987,
+			-1436
+		],
+		[
+			-6616,
+			747
+		],
+		[
+			-1977,
+			-1480
+		],
+		[
+			891,
+			-3670
+		],
+		[
+			-8845,
+			-137
+		],
+		[
+			-623,
+			-1733
+		],
+		[
+			-5306,
+			109
+		],
+		[
+			-4558,
+			-4107
+		],
+		[
+			-5264,
+			-147
+		],
+		[
+			-396,
+			-1780
+		],
+		[
+			-2537,
+			-2438
+		]
+	],
+	[
+		[
+			7255674,
+			7147469
+		],
+		[
+			2456,
+			-258
+		],
+		[
+			8628,
+			1653
+		],
+		[
+			-615,
+			4065
+		],
+		[
+			1920,
+			1990
+		],
+		[
+			-2863,
+			1493
+		],
+		[
+			1205,
+			2037
+		],
+		[
+			-1476,
+			2927
+		],
+		[
+			357,
+			1283
+		],
+		[
+			4351,
+			-1310
+		],
+		[
+			2559,
+			411
+		],
+		[
+			3857,
+			-777
+		],
+		[
+			1438,
+			617
+		]
+	],
+	[
+		[
+			7311577,
+			7144168
+		],
+		[
+			1522,
+			-176
+		],
+		[
+			1982,
+			-1640
+		],
+		[
+			3653,
+			-599
+		],
+		[
+			354,
+			-2378
+		],
+		[
+			-2285,
+			-1568
+		],
+		[
+			2282,
+			-1203
+		],
+		[
+			-817,
+			-2688
+		]
+	],
+	[
+		[
+			7334092,
+			7127902
+		],
+		[
+			-1188,
+			1806
+		],
+		[
+			-2412,
+			-573
+		],
+		[
+			-4473,
+			633
+		],
+		[
+			-674,
+			1728
+		],
+		[
+			-7077,
+			2420
+		]
+	],
+	[
+		[
+			7013270,
+			7222788
+		],
+		[
+			843,
+			-1248
+		],
+		[
+			3298,
+			-1029
+		],
+		[
+			447,
+			-1666
+		],
+		[
+			-3142,
+			-730
+		],
+		[
+			-6185,
+			981
+		],
+		[
+			-6933,
+			-1904
+		]
+	],
+	[
+		[
+			7001598,
+			7217192
+		],
+		[
+			-1768,
+			-20
+		],
+		[
+			-940,
+			-1504
+		],
+		[
+			-2562,
+			-961
+		],
+		[
+			-3587,
+			-3898
+		],
+		[
+			-5949,
+			1203
+		],
+		[
+			69,
+			1676
+		],
+		[
+			-2303,
+			391
+		]
+	],
+	[
+		[
+			7001598,
+			7217192
+		],
+		[
+			365,
+			-2677
+		],
+		[
+			4449,
+			-2307
+		],
+		[
+			-5134,
+			-3281
+		],
+		[
+			-188,
+			-915
+		],
+		[
+			1562,
+			-1171
+		],
+		[
+			-1357,
+			-2768
+		],
+		[
+			1645,
+			-1526
+		],
+		[
+			3337,
+			-1010
+		],
+		[
+			-268,
+			-2227
+		],
+		[
+			-1836,
+			-622
+		],
+		[
+			-218,
+			-1154
+		],
+		[
+			869,
+			-1390
+		],
+		[
+			3060,
+			-131
+		],
+		[
+			82,
+			-1455
+		]
+	],
+	[
+		[
+			7007966,
+			7194558
+		],
+		[
+			-394,
+			-2300
+		],
+		[
+			-3486,
+			-1206
+		],
+		[
+			1327,
+			-2555
+		],
+		[
+			-1118,
+			-3060
+		],
+		[
+			-3711,
+			-1009
+		],
+		[
+			-5678,
+			2950
+		],
+		[
+			-5626,
+			-1515
+		],
+		[
+			113,
+			-738
+		],
+		[
+			1757,
+			-64
+		],
+		[
+			-820,
+			-2500
+		],
+		[
+			2578,
+			-1513
+		],
+		[
+			-196,
+			-3291
+		],
+		[
+			2535,
+			-2883
+		]
+	],
+	[
+		[
+			6995247,
+			7174874
+		],
+		[
+			-2482,
+			50
+		],
+		[
+			-7623,
+			-2290
+		],
+		[
+			-3233,
+			3007
+		],
+		[
+			-1959,
+			-2039
+		],
+		[
+			-1611,
+			-20
+		],
+		[
+			-896,
+			2375
+		],
+		[
+			-2526,
+			1297
+		],
+		[
+			-7496,
+			-2034
+		],
+		[
+			-4604,
+			-2568
+		],
+		[
+			-1595,
+			325
+		],
+		[
+			-1404,
+			2596
+		],
+		[
+			-2376,
+			129
+		],
+		[
+			-915,
+			1709
+		],
+		[
+			-2277,
+			-340
+		],
+		[
+			202,
+			-1660
+		],
+		[
+			3254,
+			-4414
+		]
+	],
+	[
+		[
+			6957706,
+			7170997
+		],
+		[
+			-2027,
+			30
+		]
+	],
+	[
+		[
+			6946732,
+			7188400
+		],
+		[
+			5417,
+			2336
+		],
+		[
+			638,
+			1039
+		],
+		[
+			-1218,
+			508
+		],
+		[
+			173,
+			2326
+		],
+		[
+			5125,
+			5017
+		]
+	],
+	[
+		[
+			6934625,
+			7233709
+		],
+		[
+			-3076,
+			-1374
+		],
+		[
+			-2638,
+			-3582
+		],
+		[
+			-5040,
+			1256
+		]
+	],
+	[
+		[
+			6923871,
+			7230009
+		],
+		[
+			-6698,
+			2319
+		],
+		[
+			-1017,
+			2118
+		],
+		[
+			1071,
+			2477
+		],
+		[
+			-7174,
+			498
+		],
+		[
+			-5032,
+			-1033
+		],
+		[
+			475,
+			2382
+		],
+		[
+			-2611,
+			3136
+		]
+	],
+	[
+		[
+			6902885,
+			7241906
+		],
+		[
+			-567,
+			1737
+		],
+		[
+			4133,
+			1395
+		],
+		[
+			2453,
+			-2461
+		],
+		[
+			1992,
+			-119
+		],
+		[
+			4406,
+			4789
+		],
+		[
+			3840,
+			1338
+		],
+		[
+			5712,
+			3610
+		],
+		[
+			6986,
+			1796
+		],
+		[
+			310,
+			673
+		],
+		[
+			-2068,
+			1403
+		],
+		[
+			2575,
+			1080
+		]
+	],
+	[
+		[
+			7045845,
+			7262584
+		],
+		[
+			2008,
+			902
+		],
+		[
+			2066,
+			-806
+		],
+		[
+			4524,
+			380
+		],
+		[
+			1086,
+			-1797
+		],
+		[
+			2177,
+			-149
+		],
+		[
+			804,
+			-977
+		]
+	],
+	[
+		[
+			7058510,
+			7260137
+		],
+		[
+			-1123,
+			-2441
+		],
+		[
+			2033,
+			-2339
+		],
+		[
+			2714,
+			-800
+		],
+		[
+			1612,
+			-2739
+		],
+		[
+			1517,
+			-394
+		],
+		[
+			66,
+			-2183
+		],
+		[
+			9131,
+			-255
+		],
+		[
+			997,
+			-530
+		],
+		[
+			241,
+			-1678
+		],
+		[
+			2179,
+			-1025
+		],
+		[
+			6358,
+			1366
+		],
+		[
+			2553,
+			-1132
+		]
+	],
+	[
+		[
+			7086788,
+			7245987
+		],
+		[
+			-1081,
+			-1056
+		],
+		[
+			2529,
+			-2831
+		],
+		[
+			-302,
+			-3456
+		],
+		[
+			2157,
+			-1926
+		],
+		[
+			2978,
+			-267
+		],
+		[
+			697,
+			-3764
+		]
+	],
+	[
+		[
+			7093766,
+			7232687
+		],
+		[
+			-4015,
+			-2149
+		],
+		[
+			15,
+			-1103
+		],
+		[
+			1102,
+			-832
+		],
+		[
+			-463,
+			-3098
+		],
+		[
+			877,
+			-1140
+		],
+		[
+			-724,
+			-917
+		],
+		[
+			-2651,
+			6
+		],
+		[
+			-3117,
+			-2265
+		],
+		[
+			-3514,
+			-457
+		]
+	],
+	[
+		[
+			7081276,
+			7220732
+		],
+		[
+			-1393,
+			1195
+		],
+		[
+			-2432,
+			-868
+		],
+		[
+			-4981,
+			1612
+		],
+		[
+			-3978,
+			-595
+		],
+		[
+			-4103,
+			3779
+		],
+		[
+			-2659,
+			835
+		],
+		[
+			1030,
+			2745
+		],
+		[
+			-658,
+			1815
+		],
+		[
+			-2170,
+			1827
+		],
+		[
+			-4908,
+			594
+		]
+	],
+	[
+		[
+			7055024,
+			7233671
+		],
+		[
+			-4484,
+			489
+		],
+		[
+			-2703,
+			2147
+		],
+		[
+			-4557,
+			-212
+		],
+		[
+			-2405,
+			1142
+		],
+		[
+			2096,
+			1769
+		],
+		[
+			836,
+			2505
+		],
+		[
+			3073,
+			637
+		],
+		[
+			1524,
+			3363
+		],
+		[
+			-5133,
+			1410
+		],
+		[
+			1385,
+			2103
+		],
+		[
+			-1730,
+			1072
+		],
+		[
+			-932,
+			3166
+		]
+	],
+	[
+		[
+			7055024,
+			7233671
+		],
+		[
+			-6253,
+			-3718
+		],
+		[
+			-4081,
+			-385
+		],
+		[
+			-4753,
+			1520
+		],
+		[
+			-5128,
+			-4708
+		],
+		[
+			-3505,
+			-955
+		]
+	],
+	[
+		[
+			7081276,
+			7220732
+		],
+		[
+			1422,
+			-943
+		],
+		[
+			490,
+			-1888
+		],
+		[
+			-2403,
+			-2092
+		],
+		[
+			-5347,
+			-619
+		],
+		[
+			-1689,
+			-2480
+		],
+		[
+			-3794,
+			405
+		],
+		[
+			-10702,
+			-3275
+		]
+	],
+	[
+		[
+			7059253,
+			7209840
+		],
+		[
+			-6877,
+			268
+		],
+		[
+			-1137,
+			-1357
+		],
+		[
+			707,
+			-2619
+		],
+		[
+			-2524,
+			-3155
+		],
+		[
+			-13006,
+			-1941
+		]
+	],
+	[
+		[
+			7036416,
+			7201036
+		],
+		[
+			-153,
+			2614
+		]
+	],
+	[
+		[
+			7034696,
+			7202968
+		],
+		[
+			-823,
+			-1815
+		],
+		[
+			-4179,
+			-2248
+		],
+		[
+			-2844,
+			741
+		],
+		[
+			-2760,
+			-2192
+		],
+		[
+			-3685,
+			1621
+		],
+		[
+			-5353,
+			-3712
+		],
+		[
+			-3021,
+			-990
+		],
+		[
+			-4065,
+			185
+		]
+	],
+	[
+		[
+			6917276,
+			7214126
+		],
+		[
+			-156,
+			2132
+		],
+		[
+			-3215,
+			2647
+		],
+		[
+			3025,
+			1125
+		],
+		[
+			1138,
+			3426
+		],
+		[
+			4623,
+			776
+		],
+		[
+			1180,
+			5777
+		]
+	],
+	[
+		[
+			7246541,
+			7016144
+		],
+		[
+			-3423,
+			-637
+		],
+		[
+			-1999,
+			-2282
+		],
+		[
+			-4176,
+			-1614
+		],
+		[
+			1769,
+			-1996
+		],
+		[
+			-366,
+			-1459
+		],
+		[
+			-2501,
+			-305
+		],
+		[
+			-4651,
+			1380
+		],
+		[
+			-5546,
+			373
+		]
+	],
+	[
+		[
+			7225648,
+			7009604
+		],
+		[
+			-5603,
+			3136
+		],
+		[
+			1616,
+			1514
+		]
+	],
+	[
+		[
+			7192066,
+			6990880
+		],
+		[
+			-1947,
+			7774
+		],
+		[
+			4375,
+			-221
+		],
+		[
+			563,
+			1850
+		],
+		[
+			-691,
+			1701
+		],
+		[
+			968,
+			2396
+		],
+		[
+			5353,
+			3299
+		],
+		[
+			1080,
+			1936
+		],
+		[
+			789,
+			1417
+		],
+		[
+			-4099,
+			1407
+		],
+		[
+			-103,
+			1622
+		],
+		[
+			-2760,
+			2413
+		]
+	],
+	[
+		[
+			7195594,
+			7016474
+		],
+		[
+			2986,
+			1928
+		],
+		[
+			3084,
+			-373
+		],
+		[
+			2288,
+			857
+		],
+		[
+			942,
+			1623
+		],
+		[
+			-1857,
+			304
+		],
+		[
+			409,
+			1865
+		],
+		[
+			2230,
+			2033
+		],
+		[
+			2380,
+			641
+		]
+	],
+	[
+		[
+			7225648,
+			7009604
+		],
+		[
+			-706,
+			-2926
+		],
+		[
+			2854,
+			-706
+		],
+		[
+			3866,
+			-3326
+		],
+		[
+			-1363,
+			-3544
+		]
+	],
+	[
+		[
+			7265486,
+			7014090
+		],
+		[
+			210,
+			-856
+		],
+		[
+			-1585,
+			-2131
+		],
+		[
+			89,
+			-1488
+		],
+		[
+			222,
+			-3690
+		],
+		[
+			2028,
+			-1404
+		],
+		[
+			3738,
+			-180
+		],
+		[
+			92,
+			-1211
+		],
+		[
+			-1208,
+			-1121
+		],
+		[
+			3408,
+			-719
+		],
+		[
+			1802,
+			-1299
+		],
+		[
+			163,
+			-3482
+		],
+		[
+			-2856,
+			-2446
+		],
+		[
+			1835,
+			-1452
+		]
+	],
+	[
+		[
+			7403584,
+			6984540
+		],
+		[
+			1702,
+			-800
+		],
+		[
+			5395,
+			-6876
+		],
+		[
+			-842,
+			-9155
+		],
+		[
+			-746,
+			-2066
+		],
+		[
+			-2842,
+			-1116
+		]
+	],
+	[
+		[
+			7406251,
+			6964527
+		],
+		[
+			-1144,
+			2356
+		],
+		[
+			84,
+			826
+		],
+		[
+			-3422,
+			113
+		],
+		[
+			-6782,
+			225
+		],
+		[
+			-2972,
+			806
+		],
+		[
+			3602,
+			4671
+		],
+		[
+			4536,
+			-71
+		],
+		[
+			611,
+			2015
+		],
+		[
+			-2283,
+			1542
+		],
+		[
+			1687,
+			2143
+		],
+		[
+			1601,
+			432
+		],
+		[
+			2044,
+			551
+		],
+		[
+			-229,
+			4404
+		]
+	],
+	[
+		[
+			7370978,
+			6926941
+		],
+		[
+			1344,
+			465
+		],
+		[
+			432,
+			824
+		],
+		[
+			1469,
+			156
+		],
+		[
+			3760,
+			2437
+		],
+		[
+			2145,
+			-527
+		],
+		[
+			-465,
+			-1492
+		],
+		[
+			819,
+			98
+		],
+		[
+			759,
+			-1708
+		],
+		[
+			-630,
+			-263
+		],
+		[
+			-51,
+			-1118
+		],
+		[
+			560,
+			-1054
+		],
+		[
+			-237,
+			-1957
+		],
+		[
+			-1509,
+			1091
+		],
+		[
+			-1043,
+			-431
+		],
+		[
+			-953,
+			585
+		],
+		[
+			-1568,
+			62
+		],
+		[
+			-975,
+			-427
+		],
+		[
+			-2037,
+			961
+		],
+		[
+			-980,
+			-14
+		],
+		[
+			294,
+			1573
+		],
+		[
+			-1134,
+			739
+		]
+	],
+	[
+		[
+			7338511,
+			6915181
+		],
+		[
+			329,
+			568
+		],
+		[
+			3504,
+			110
+		],
+		[
+			709,
+			560
+		],
+		[
+			1491,
+			-6
+		],
+		[
+			227,
+			-907
+		],
+		[
+			1471,
+			-59
+		],
+		[
+			839,
+			403
+		],
+		[
+			1055,
+			-378
+		],
+		[
+			1862,
+			63
+		],
+		[
+			515,
+			-531
+		],
+		[
+			1565,
+			5
+		],
+		[
+			833,
+			-636
+		],
+		[
+			-395,
+			-1221
+		],
+		[
+			-1475,
+			-1489
+		],
+		[
+			640,
+			-282
+		],
+		[
+			832,
+			-1331
+		],
+		[
+			-3165,
+			-125
+		],
+		[
+			-2330,
+			-1729
+		],
+		[
+			-4018,
+			790
+		],
+		[
+			-996,
+			-266
+		],
+		[
+			-64,
+			583
+		],
+		[
+			-1892,
+			813
+		],
+		[
+			1554,
+			941
+		],
+		[
+			-594,
+			737
+		],
+		[
+			273,
+			1873
+		],
+		[
+			-530,
+			679
+		],
+		[
+			-1220,
+			-175
+		],
+		[
+			-1020,
+			1010
+		]
+	],
+	[
+		[
+			7328749,
+			6941072
+		],
+		[
+			9481,
+			1764
+		],
+		[
+			-666,
+			-2961
+		],
+		[
+			-2098,
+			-1198
+		],
+		[
+			-26,
+			-3020
+		],
+		[
+			-1629,
+			-3007
+		],
+		[
+			-2908,
+			-1953
+		],
+		[
+			-4713,
+			1714
+		]
+	],
+	[
+		[
+			7326671,
+			6936322
+		],
+		[
+			376,
+			-1429
+		],
+		[
+			1361,
+			-286
+		],
+		[
+			916,
+			456
+		],
+		[
+			-1062,
+			641
+		],
+		[
+			57,
+			711
+		],
+		[
+			520,
+			852
+		],
+		[
+			1470,
+			453
+		],
+		[
+			327,
+			757
+		],
+		[
+			-1141,
+			1331
+		],
+		[
+			-1080,
+			428
+		]
+	],
+	[
+		[
+			7405517,
+			6962364
+		],
+		[
+			734,
+			2163
+		]
+	],
+	[
+		[
+			7403584,
+			6984540
+		],
+		[
+			-1815,
+			4785
+		],
+		[
+			-1,
+			3
+		],
+		[
+			1,
+			3
+		],
+		[
+			657,
+			2253
+		],
+		[
+			11031,
+			2091
+		],
+		[
+			-1286,
+			1962
+		],
+		[
+			-3424,
+			340
+		],
+		[
+			-1178,
+			1414
+		]
+	],
+	[
+		[
+			7407569,
+			6997391
+		],
+		[
+			1208,
+			1184
+		],
+		[
+			4584,
+			100
+		],
+		[
+			4114,
+			2038
+		]
+	],
+	[
+		[
+			7417475,
+			7000713
+		],
+		[
+			2917,
+			-1636
+		],
+		[
+			5884,
+			37
+		],
+		[
+			4139,
+			-1340
+		],
+		[
+			684,
+			-1835
+		],
+		[
+			-2404,
+			-1259
+		],
+		[
+			106,
+			-766
+		],
+		[
+			6467,
+			-2468
+		],
+		[
+			1839,
+			-3270
+		],
+		[
+			3804,
+			-2326
+		],
+		[
+			3806,
+			303
+		]
+	],
+	[
+		[
+			7444717,
+			6986153
+		],
+		[
+			833,
+			-140
+		],
+		[
+			-518,
+			-973
+		],
+		[
+			212,
+			-928
+		],
+		[
+			1100,
+			-189
+		]
+	],
+	[
+		[
+			7446344,
+			6983923
+		],
+		[
+			-4978,
+			-726
+		],
+		[
+			-7918,
+			-2769
+		],
+		[
+			1232,
+			-3014
+		],
+		[
+			-2632,
+			-2100
+		],
+		[
+			-74,
+			-3283
+		],
+		[
+			-1107,
+			-366
+		],
+		[
+			-2920,
+			-966
+		],
+		[
+			-1338,
+			-2990
+		],
+		[
+			630,
+			-1561
+		],
+		[
+			-386,
+			-604
+		]
+	],
+	[
+		[
+			7426853,
+			6965544
+		],
+		[
+			-1694,
+			-565
+		],
+		[
+			-2246,
+			1359
+		],
+		[
+			-1182,
+			-364
+		],
+		[
+			-2316,
+			-4225
+		],
+		[
+			1587,
+			-3009
+		],
+		[
+			-2375,
+			-745
+		]
+	],
+	[
+		[
+			7418627,
+			6957995
+		],
+		[
+			-4777,
+			1528
+		],
+		[
+			-3084,
+			-662
+		],
+		[
+			-3023,
+			3115
+		],
+		[
+			-2226,
+			388
+		]
+	],
+	[
+		[
+			7405517,
+			6962364
+		],
+		[
+			-1198,
+			-4116
+		],
+		[
+			-775,
+			-941
+		],
+		[
+			-1775,
+			-2152
+		],
+		[
+			-2561,
+			-1536
+		],
+		[
+			-4775,
+			-244
+		],
+		[
+			896,
+			-4262
+		]
+	],
+	[
+		[
+			7395329,
+			6949113
+		],
+		[
+			-3613,
+			-962
+		],
+		[
+			-2052,
+			1410
+		],
+		[
+			-4309,
+			-1078
+		]
+	],
+	[
+		[
+			7385355,
+			6948483
+		],
+		[
+			-1245,
+			2347
+		],
+		[
+			591,
+			2395
+		],
+		[
+			-821,
+			2204
+		],
+		[
+			-1630,
+			405
+		],
+		[
+			-5438,
+			-1042
+		],
+		[
+			-4853,
+			1090
+		],
+		[
+			-279,
+			650
+		],
+		[
+			1005,
+			775
+		],
+		[
+			825,
+			636
+		],
+		[
+			127,
+			1502
+		],
+		[
+			-1097,
+			463
+		]
+	],
+	[
+		[
+			7372540,
+			6959908
+		],
+		[
+			-1223,
+			2008
+		],
+		[
+			3327,
+			4540
+		],
+		[
+			-549,
+			1253
+		],
+		[
+			-1033,
+			2424
+		],
+		[
+			-8102,
+			627
+		],
+		[
+			1596,
+			2247
+		],
+		[
+			386,
+			3593
+		],
+		[
+			2751,
+			1880
+		],
+		[
+			-3483,
+			1383
+		],
+		[
+			2903,
+			1833
+		],
+		[
+			-1101,
+			4139
+		]
+	],
+	[
+		[
+			7368012,
+			6985835
+		],
+		[
+			9265,
+			2621
+		],
+		[
+			5819,
+			-60
+		],
+		[
+			2508,
+			-1413
+		],
+		[
+			4147,
+			1122
+		],
+		[
+			2409,
+			3993
+		],
+		[
+			-454,
+			1880
+		],
+		[
+			1307,
+			1375
+		],
+		[
+			-1170,
+			2683
+		],
+		[
+			1559,
+			1455
+		],
+		[
+			-289,
+			1098
+		]
+	],
+	[
+		[
+			7393113,
+			7000589
+		],
+		[
+			8656,
+			1607
+		],
+		[
+			1103,
+			205
+		],
+		[
+			1006,
+			-3466
+		],
+		[
+			3691,
+			-1544
+		]
+	],
+	[
+		[
+			7363902,
+			7008362
+		],
+		[
+			1005,
+			1253
+		],
+		[
+			3271,
+			4077
+		],
+		[
+			2070,
+			326
+		],
+		[
+			2821,
+			-845
+		],
+		[
+			3069,
+			870
+		],
+		[
+			878,
+			-1397
+		],
+		[
+			3785,
+			-916
+		],
+		[
+			-593,
+			-2115
+		],
+		[
+			-390,
+			-1392
+		],
+		[
+			-1851,
+			-1339
+		],
+		[
+			5878,
+			-2877
+		],
+		[
+			2489,
+			497
+		],
+		[
+			2153,
+			-685
+		],
+		[
+			1009,
+			952
+		],
+		[
+			793,
+			-2315
+		],
+		[
+			2297,
+			371
+		],
+		[
+			527,
+			-2238
+		]
+	],
+	[
+		[
+			7368012,
+			6985835
+		],
+		[
+			-4789,
+			1557
+		],
+		[
+			-4942,
+			-264
+		],
+		[
+			-1131,
+			4104
+		],
+		[
+			-2120,
+			-836
+		],
+		[
+			-1209,
+			-2286
+		],
+		[
+			-3040,
+			283
+		],
+		[
+			-3261,
+			-1534
+		],
+		[
+			-2241,
+			893
+		],
+		[
+			-2278,
+			2554
+		]
+	],
+	[
+		[
+			7372540,
+			6959908
+		],
+		[
+			-1689,
+			-800
+		],
+		[
+			-1890,
+			327
+		],
+		[
+			-1711,
+			1574
+		],
+		[
+			-3209,
+			-471
+		],
+		[
+			-4186,
+			-1175
+		],
+		[
+			-714,
+			-1328
+		],
+		[
+			-2819,
+			-141
+		],
+		[
+			-1105,
+			-587
+		],
+		[
+			-4333,
+			-2302
+		],
+		[
+			-3610,
+			2302
+		],
+		[
+			-609,
+			388
+		],
+		[
+			-1903,
+			-305
+		],
+		[
+			125,
+			3034
+		],
+		[
+			-2568,
+			1237
+		]
+	],
+	[
+		[
+			7342319,
+			6961661
+		],
+		[
+			1533,
+			2960
+		],
+		[
+			1967,
+			816
+		],
+		[
+			-1313,
+			1551
+		],
+		[
+			-69,
+			1622
+		],
+		[
+			-1542,
+			1235
+		],
+		[
+			-1853,
+			3873
+		],
+		[
+			-2326,
+			-205
+		],
+		[
+			-4969,
+			2798
+		],
+		[
+			-1751,
+			2341
+		],
+		[
+			726,
+			3993
+		],
+		[
+			-4156,
+			1538
+		]
+	],
+	[
+		[
+			7342319,
+			6961661
+		],
+		[
+			-1915,
+			-2675
+		],
+		[
+			-2468,
+			-1679
+		],
+		[
+			-731,
+			-2100
+		],
+		[
+			-1055,
+			-680
+		],
+		[
+			-124,
+			-1775
+		],
+		[
+			-1869,
+			-1592
+		],
+		[
+			-5335,
+			-1618
+		]
+	],
+	[
+		[
+			7322905,
+			6902623
+		],
+		[
+			-1955,
+			-5896
+		],
+		[
+			-9344,
+			-1740
+		],
+		[
+			351,
+			-1667
+		]
+	],
+	[
+		[
+			7311957,
+			6893320
+		],
+		[
+			-999,
+			-939
+		],
+		[
+			-3647,
+			-542
+		],
+		[
+			-3570,
+			1487
+		],
+		[
+			-1880,
+			-1474
+		],
+		[
+			-4669,
+			1747
+		],
+		[
+			363,
+			3479
+		],
+		[
+			-2971,
+			1118
+		],
+		[
+			-2811,
+			-810
+		],
+		[
+			-3169,
+			-4904
+		],
+		[
+			-1325,
+			-544
+		],
+		[
+			-4389,
+			-824
+		],
+		[
+			-11842,
+			1771
+		]
+	],
+	[
+		[
+			7410455,
+			6900323
+		],
+		[
+			-2040,
+			-2403
+		],
+		[
+			-5702,
+			-2136
+		],
+		[
+			1083,
+			-3403
+		]
+	],
+	[
+		[
+			7403796,
+			6892381
+		],
+		[
+			-2027,
+			-378
+		],
+		[
+			-8981,
+			-1675
+		],
+		[
+			-2219,
+			1799
+		],
+		[
+			-5051,
+			841
+		],
+		[
+			-1641,
+			1456
+		],
+		[
+			-8363,
+			1119
+		],
+		[
+			-1756,
+			-940
+		],
+		[
+			-1431,
+			-2270
+		],
+		[
+			-5296,
+			-25
+		],
+		[
+			-5705,
+			1949
+		],
+		[
+			1114,
+			3134
+		]
+	],
+	[
+		[
+			7362440,
+			6897391
+		],
+		[
+			-197,
+			1440
+		],
+		[
+			-1716,
+			977
+		],
+		[
+			4554,
+			2701
+		],
+		[
+			788,
+			2549
+		],
+		[
+			-1692,
+			1227
+		],
+		[
+			37,
+			1068
+		],
+		[
+			-2859,
+			673
+		],
+		[
+			-465,
+			3742
+		],
+		[
+			688,
+			1675
+		],
+		[
+			-2088,
+			1695
+		],
+		[
+			-940,
+			3215
+		],
+		[
+			-6198,
+			1546
+		],
+		[
+			-672,
+			168
+		],
+		[
+			-3814,
+			4437
+		]
+	],
+	[
+		[
+			7347866,
+			6924504
+		],
+		[
+			904,
+			1449
+		],
+		[
+			4170,
+			1438
+		],
+		[
+			85,
+			1200
+		],
+		[
+			-1609,
+			1602
+		],
+		[
+			363,
+			654
+		],
+		[
+			3358,
+			-2078
+		],
+		[
+			7053,
+			3636
+		],
+		[
+			3287,
+			21
+		],
+		[
+			2507,
+			4451
+		],
+		[
+			9618,
+			-2958
+		],
+		[
+			2021,
+			1953
+		],
+		[
+			1714,
+			4206
+		],
+		[
+			2007,
+			484
+		],
+		[
+			1522,
+			1619
+		],
+		[
+			-254,
+			1427
+		],
+		[
+			1225,
+			1543
+		],
+		[
+			-482,
+			3332
+		]
+	],
+	[
+		[
+			7395329,
+			6949113
+		],
+		[
+			1114,
+			-313
+		],
+		[
+			-252,
+			-868
+		],
+		[
+			-5114,
+			-4978
+		],
+		[
+			5163,
+			-1129
+		],
+		[
+			54,
+			-2098
+		],
+		[
+			1291,
+			-1799
+		],
+		[
+			-2745,
+			-5295
+		],
+		[
+			-2117,
+			-1063
+		],
+		[
+			626,
+			-2490
+		],
+		[
+			-653,
+			-1423
+		],
+		[
+			973,
+			-865
+		],
+		[
+			-3254,
+			-2390
+		],
+		[
+			1470,
+			-1327
+		]
+	],
+	[
+		[
+			7347866,
+			6924504
+		],
+		[
+			-6965,
+			-90
+		],
+		[
+			-2771,
+			-1697
+		],
+		[
+			-3772,
+			1037
+		],
+		[
+			-601,
+			-1143
+		],
+		[
+			-5388,
+			-1906
+		]
+	],
+	[
+		[
+			7415770,
+			7020884
+		],
+		[
+			-4543,
+			-1370
+		],
+		[
+			1605,
+			-1507
+		],
+		[
+			42,
+			-2135
+		],
+		[
+			1595,
+			-1247
+		],
+		[
+			-591,
+			-5010
+		],
+		[
+			37,
+			-1734
+		],
+		[
+			2834,
+			-3661
+		],
+		[
+			1986,
+			-991
+		],
+		[
+			88,
+			-1671
+		],
+		[
+			-1348,
+			-845
+		]
+	],
+	[
+		[
+			7408860,
+			7025024
+		],
+		[
+			5789,
+			-2201
+		],
+		[
+			1121,
+			-1939
+		]
+	],
+	[
+		[
+			7333011,
+			6865707
+		],
+		[
+			297,
+			2145
+		],
+		[
+			2813,
+			1873
+		],
+		[
+			-420,
+			2203
+		],
+		[
+			2526,
+			3604
+		],
+		[
+			-44,
+			1300
+		],
+		[
+			-4615,
+			669
+		],
+		[
+			-2299,
+			-1673
+		],
+		[
+			-3864,
+			47
+		],
+		[
+			-2158,
+			-1019
+		],
+		[
+			-2379,
+			4464
+		],
+		[
+			2214,
+			2214
+		],
+		[
+			-892,
+			2356
+		],
+		[
+			-2830,
+			1215
+		],
+		[
+			-2260,
+			2144
+		],
+		[
+			-3971,
+			-251
+		]
+	],
+	[
+		[
+			7315129,
+			6886998
+		],
+		[
+			-892,
+			2105
+		],
+		[
+			-2342,
+			1863
+		],
+		[
+			62,
+			2354
+		]
+	],
+	[
+		[
+			7362440,
+			6897391
+		],
+		[
+			-3920,
+			-935
+		],
+		[
+			1693,
+			-2626
+		],
+		[
+			-1554,
+			-5099
+		],
+		[
+			939,
+			-1375
+		],
+		[
+			2081,
+			-850
+		],
+		[
+			733,
+			-4133
+		],
+		[
+			-3497,
+			-2698
+		],
+		[
+			-712,
+			-2055
+		],
+		[
+			-3780,
+			-1823
+		],
+		[
+			-6004,
+			-6072
+		],
+		[
+			-393,
+			-399
+		],
+		[
+			-9148,
+			-3191
+		],
+		[
+			-5867,
+			-428
+		]
+	],
+	[
+		[
+			7657275,
+			7376321
+		],
+		[
+			-2830,
+			229
+		],
+		[
+			-5101,
+			3025
+		],
+		[
+			-2975,
+			-960
+		]
+	],
+	[
+		[
+			7646369,
+			7378615
+		],
+		[
+			-1686,
+			1409
+		],
+		[
+			-3829,
+			-788
+		],
+		[
+			-1343,
+			1311
+		],
+		[
+			-1482,
+			162
+		],
+		[
+			-5739,
+			-1353
+		],
+		[
+			-1093,
+			-1192
+		]
+	],
+	[
+		[
+			7631197,
+			7378164
+		],
+		[
+			-3551,
+			369
+		],
+		[
+			-3259,
+			1811
+		],
+		[
+			2608,
+			1976
+		],
+		[
+			-735,
+			1921
+		],
+		[
+			511,
+			1815
+		],
+		[
+			3775,
+			2822
+		]
+	],
+	[
+		[
+			7630546,
+			7388878
+		],
+		[
+			-32,
+			1152
+		],
+		[
+			-3120,
+			1535
+		],
+		[
+			2661,
+			3711
+		],
+		[
+			-592,
+			2353
+		],
+		[
+			2139,
+			957
+		]
+	],
+	[
+		[
+			7631602,
+			7398586
+		],
+		[
+			4748,
+			-824
+		],
+		[
+			-624,
+			1749
+		],
+		[
+			1145,
+			1443
+		],
+		[
+			4325,
+			615
+		],
+		[
+			2864,
+			3070
+		],
+		[
+			1225,
+			-320
+		],
+		[
+			926,
+			-2726
+		],
+		[
+			2514,
+			-526
+		],
+		[
+			3345,
+			347
+		],
+		[
+			2960,
+			2101
+		]
+	],
+	[
+		[
+			7655030,
+			7403515
+		],
+		[
+			2942,
+			-1024
+		],
+		[
+			3598,
+			1467
+		],
+		[
+			-458,
+			1391
+		],
+		[
+			2469,
+			147
+		],
+		[
+			3605,
+			-2559
+		],
+		[
+			-1895,
+			-2863
+		],
+		[
+			229,
+			-1491
+		],
+		[
+			6420,
+			-2472
+		],
+		[
+			1338,
+			-664
+		],
+		[
+			779,
+			-1774
+		],
+		[
+			2202,
+			-553
+		]
+	],
+	[
+		[
+			7676259,
+			7393120
+		],
+		[
+			4464,
+			-1706
+		],
+		[
+			-2321,
+			-1874
+		],
+		[
+			-1704,
+			-3573
+		],
+		[
+			5176,
+			146
+		]
+	],
+	[
+		[
+			7681874,
+			7386113
+		],
+		[
+			4864,
+			-1660
+		],
+		[
+			3587,
+			-1224
+		],
+		[
+			-1813,
+			-2641
+		],
+		[
+			153,
+			-1396
+		],
+		[
+			-1927,
+			-785
+		],
+		[
+			-1664,
+			-678
+		],
+		[
+			76,
+			-1245
+		]
+	],
+	[
+		[
+			7685150,
+			7376484
+		],
+		[
+			-5206,
+			-3575
+		],
+		[
+			-918,
+			705
+		],
+		[
+			596,
+			1964
+		],
+		[
+			-539,
+			835
+		],
+		[
+			-3152,
+			13
+		],
+		[
+			-1752,
+			1455
+		],
+		[
+			-2239,
+			-292
+		],
+		[
+			-2743,
+			177
+		],
+		[
+			-1425,
+			976
+		],
+		[
+			-4214,
+			-249
+		],
+		[
+			-2491,
+			2100
+		],
+		[
+			-3629,
+			-1019
+		],
+		[
+			-163,
+			-3253
+		]
+	],
+	[
+		[
+			7005404,
+			7302264
+		],
+		[
+			3108,
+			599
+		],
+		[
+			4596,
+			-1851
+		],
+		[
+			-325,
+			-1738
+		],
+		[
+			-4061,
+			-2055
+		],
+		[
+			-982,
+			-1884
+		],
+		[
+			7301,
+			-3269
+		]
+	],
+	[
+		[
+			7029132,
+			7289312
+		],
+		[
+			-678,
+			-1567
+		],
+		[
+			-2858,
+			-922
+		]
+	],
+	[
+		[
+			7016197,
+			7291969
+		],
+		[
+			1358,
+			1679
+		],
+		[
+			-2817,
+			5686
+		],
+		[
+			554,
+			1698
+		],
+		[
+			2175,
+			546
+		],
+		[
+			4350,
+			-1458
+		],
+		[
+			1274,
+			-2310
+		],
+		[
+			4155,
+			-555
+		],
+		[
+			2436,
+			-3335
+		]
+	],
+	[
+		[
+			7029682,
+			7293920
+		],
+		[
+			-1765,
+			-615
+		],
+		[
+			1215,
+			-3993
+		]
+	],
+	[
+		[
+			7076499,
+			7322757
+		],
+		[
+			-4692,
+			1291
+		],
+		[
+			-3417,
+			4416
+		],
+		[
+			-1985,
+			74
+		],
+		[
+			-737,
+			3655
+		],
+		[
+			-2717,
+			725
+		],
+		[
+			520,
+			1498
+		],
+		[
+			3483,
+			2191
+		],
+		[
+			-539,
+			2056
+		]
+	],
+	[
+		[
+			7066415,
+			7338663
+		],
+		[
+			2604,
+			3483
+		],
+		[
+			5713,
+			2372
+		],
+		[
+			3614,
+			-1448
+		],
+		[
+			2411,
+			670
+		],
+		[
+			4831,
+			-1602
+		]
+	],
+	[
+		[
+			7085588,
+			7342138
+		],
+		[
+			1790,
+			-693
+		],
+		[
+			2078,
+			-2964
+		],
+		[
+			-947,
+			-2329
+		],
+		[
+			3703,
+			-5425
+		],
+		[
+			-1636,
+			-2146
+		],
+		[
+			-5837,
+			551
+		],
+		[
+			-533,
+			-1134
+		],
+		[
+			1308,
+			-1956
+		],
+		[
+			-5282,
+			199
+		],
+		[
+			-954,
+			-1619
+		],
+		[
+			-2257,
+			-629
+		],
+		[
+			-522,
+			-1236
+		]
+	],
+	[
+		[
+			7025091,
+			7363002
+		],
+		[
+			-53,
+			-4305
+		],
+		[
+			4752,
+			-3229
+		],
+		[
+			-652,
+			-1515
+		],
+		[
+			597,
+			-920
+		],
+		[
+			552,
+			-215
+		],
+		[
+			5872,
+			-2284
+		],
+		[
+			3936,
+			-62
+		],
+		[
+			1705,
+			-2100
+		],
+		[
+			147,
+			-3837
+		]
+	],
+	[
+		[
+			7041947,
+			7344535
+		],
+		[
+			-2929,
+			-1447
+		],
+		[
+			-6585,
+			190
+		],
+		[
+			-5480,
+			-3326
+		],
+		[
+			-6138,
+			-706
+		],
+		[
+			251,
+			-1532
+		],
+		[
+			3006,
+			-2064
+		],
+		[
+			-3013,
+			-8232
+		],
+		[
+			3329,
+			-3710
+		],
+		[
+			3326,
+			-1758
+		],
+		[
+			4716,
+			-1104
+		]
+	],
+	[
+		[
+			7032430,
+			7320846
+		],
+		[
+			-6111,
+			-3330
+		],
+		[
+			-4542,
+			-998
+		],
+		[
+			-2962,
+			449
+		],
+		[
+			-2144,
+			1654
+		],
+		[
+			-3344,
+			-99
+		],
+		[
+			-2586,
+			-2387
+		],
+		[
+			-3683,
+			94
+		],
+		[
+			-796,
+			-2923
+		]
+	],
+	[
+		[
+			6955954,
+			7321505
+		],
+		[
+			-246,
+			2410
+		],
+		[
+			-1502,
+			1222
+		],
+		[
+			444,
+			686
+		],
+		[
+			7668,
+			-1459
+		],
+		[
+			20472,
+			5846
+		],
+		[
+			4661,
+			-1691
+		],
+		[
+			5532,
+			2488
+		],
+		[
+			2359,
+			3438
+		],
+		[
+			2655,
+			1004
+		],
+		[
+			-145,
+			2213
+		],
+		[
+			-7376,
+			3820
+		],
+		[
+			-6041,
+			1266
+		],
+		[
+			-500,
+			782
+		],
+		[
+			1015,
+			2049
+		],
+		[
+			4675,
+			1244
+		],
+		[
+			1598,
+			3730
+		]
+	],
+	[
+		[
+			6991223,
+			7350553
+		],
+		[
+			9687,
+			380
+		],
+		[
+			1475,
+			1885
+		],
+		[
+			1311,
+			1674
+		],
+		[
+			2772,
+			1803
+		],
+		[
+			3781,
+			711
+		],
+		[
+			3598,
+			4072
+		],
+		[
+			4709,
+			404
+		],
+		[
+			3189,
+			1351
+		]
+	],
+	[
+		[
+			7021745,
+			7362833
+		],
+		[
+			3346,
+			169
+		]
+	],
+	[
+		[
+			7085365,
+			7309934
+		],
+		[
+			-2076,
+			1385
+		],
+		[
+			-2782,
+			-1632
+		],
+		[
+			-3891,
+			310
+		],
+		[
+			-6975,
+			-2484
+		],
+		[
+			-3063,
+			3143
+		],
+		[
+			-2887,
+			-154
+		],
+		[
+			-1889,
+			1563
+		],
+		[
+			-4024,
+			-2153
+		],
+		[
+			2071,
+			-1875
+		],
+		[
+			-30,
+			-1560
+		],
+		[
+			-3688,
+			-1323
+		]
+	],
+	[
+		[
+			7056131,
+			7305154
+		],
+		[
+			-10339,
+			4304
+		],
+		[
+			-327,
+			705
+		],
+		[
+			1491,
+			2113
+		],
+		[
+			-3888,
+			1755
+		],
+		[
+			-1488,
+			1630
+		],
+		[
+			371,
+			1050
+		],
+		[
+			-1188,
+			1904
+		],
+		[
+			-4478,
+			1775
+		],
+		[
+			-3855,
+			456
+		]
+	],
+	[
+		[
+			7041947,
+			7344535
+		],
+		[
+			1655,
+			134
+		],
+		[
+			1940,
+			-1308
+		],
+		[
+			6940,
+			-1811
+		],
+		[
+			4181,
+			796
+		],
+		[
+			1521,
+			-1215
+		],
+		[
+			540,
+			-2065
+		],
+		[
+			4137,
+			-761
+		],
+		[
+			3554,
+			358
+		]
+	],
+	[
+		[
+			7076499,
+			7322757
+		],
+		[
+			5604,
+			-2179
+		],
+		[
+			4608,
+			-6653
+		],
+		[
+			2044,
+			-1492
+		]
+	],
+	[
+		[
+			7088755,
+			7312433
+		],
+		[
+			-67,
+			-649
+		],
+		[
+			-969,
+			-240
+		],
+		[
+			-710,
+			-941
+		],
+		[
+			-1644,
+			-669
+		]
+	],
+	[
+		[
+			7056131,
+			7305154
+		],
+		[
+			3063,
+			-583
+		],
+		[
+			2271,
+			-2835
+		],
+		[
+			-979,
+			-1902
+		],
+		[
+			-3517,
+			-1186
+		]
+	],
+	[
+		[
+			7056969,
+			7298648
+		],
+		[
+			-1682,
+			-641
+		],
+		[
+			-525,
+			-534
+		],
+		[
+			-819,
+			-13
+		],
+		[
+			-1594,
+			316
+		],
+		[
+			-211,
+			-797
+		],
+		[
+			-1577,
+			38
+		],
+		[
+			-1444,
+			-706
+		],
+		[
+			1218,
+			-990
+		],
+		[
+			239,
+			-917
+		],
+		[
+			-435,
+			-1630
+		],
+		[
+			1127,
+			-743
+		],
+		[
+			213,
+			-511
+		],
+		[
+			-1080,
+			-470
+		],
+		[
+			-962,
+			-32
+		],
+		[
+			-598,
+			-210
+		],
+		[
+			-1118,
+			191
+		],
+		[
+			-1085,
+			-71
+		]
+	],
+	[
+		[
+			7046636,
+			7290928
+		],
+		[
+			-2101,
+			994
+		]
+	],
+	[
+		[
+			7044535,
+			7291922
+		],
+		[
+			-1282,
+			2338
+		],
+		[
+			-3942,
+			1527
+		],
+		[
+			-6060,
+			-1767
+		],
+		[
+			-3569,
+			-100
+		]
+	],
+	[
+		[
+			7111639,
+			7371182
+		],
+		[
+			1080,
+			-1770
+		],
+		[
+			-4066,
+			-1308
+		],
+		[
+			2170,
+			-2159
+		]
+	],
+	[
+		[
+			7110823,
+			7365945
+		],
+		[
+			-2969,
+			-1249
+		],
+		[
+			-45,
+			-2898
+		],
+		[
+			-2306,
+			-3009
+		],
+		[
+			3142,
+			-2310
+		],
+		[
+			8311,
+			-789
+		],
+		[
+			202,
+			-782
+		],
+		[
+			-1593,
+			-742
+		],
+		[
+			89,
+			-1348
+		],
+		[
+			148,
+			-2221
+		],
+		[
+			-3501,
+			-470
+		],
+		[
+			-8609,
+			-3101
+		]
+	],
+	[
+		[
+			7103692,
+			7347026
+		],
+		[
+			-8921,
+			1930
+		],
+		[
+			-3862,
+			-580
+		],
+		[
+			-5321,
+			-6238
+		]
+	],
+	[
+		[
+			7025091,
+			7363002
+		],
+		[
+			3684,
+			2052
+		],
+		[
+			15594,
+			108
+		],
+		[
+			2555,
+			1561
+		]
+	],
+	[
+		[
+			7046924,
+			7366723
+		],
+		[
+			3366,
+			450
+		],
+		[
+			2994,
+			2086
+		],
+		[
+			4306,
+			958
+		],
+		[
+			1701,
+			1868
+		],
+		[
+			6609,
+			2732
+		],
+		[
+			5461,
+			1137
+		],
+		[
+			3736,
+			4362
+		],
+		[
+			-2406,
+			1959
+		],
+		[
+			3289,
+			3823
+		]
+	],
+	[
+		[
+			7075980,
+			7386098
+		],
+		[
+			7710,
+			-2041
+		],
+		[
+			3237,
+			-5223
+		],
+		[
+			9179,
+			-2931
+		],
+		[
+			8603,
+			622
+		],
+		[
+			4017,
+			-1556
+		],
+		[
+			2913,
+			-3787
+		]
+	],
+	[
+		[
+			7124821,
+			7344410
+		],
+		[
+			-1853,
+			-4533
+		],
+		[
+			2364,
+			-1288
+		],
+		[
+			731,
+			-185
+		],
+		[
+			342,
+			-3801
+		],
+		[
+			5641,
+			-3465
+		],
+		[
+			-768,
+			-3075
+		],
+		[
+			2311,
+			-2679
+		],
+		[
+			3204,
+			-1934
+		],
+		[
+			-1093,
+			-2075
+		],
+		[
+			2570,
+			-569
+		],
+		[
+			2342,
+			-1878
+		],
+		[
+			253,
+			-2661
+		],
+		[
+			2323,
+			-880
+		],
+		[
+			4002,
+			-4121
+		]
+	],
+	[
+		[
+			7147190,
+			7311266
+		],
+		[
+			-2954,
+			-4979
+		],
+		[
+			-3945,
+			-1480
+		],
+		[
+			-5152,
+			40
+		],
+		[
+			882,
+			3263
+		],
+		[
+			-5710,
+			1781
+		],
+		[
+			-3346,
+			436
+		],
+		[
+			-1633,
+			-1191
+		],
+		[
+			-12320,
+			1679
+		],
+		[
+			-3383,
+			-2061
+		]
+	],
+	[
+		[
+			7109629,
+			7308754
+		],
+		[
+			-5043,
+			533
+		],
+		[
+			-1651,
+			1941
+		],
+		[
+			-3342,
+			316
+		],
+		[
+			-1662,
+			1375
+		],
+		[
+			-5423,
+			-1587
+		],
+		[
+			-3753,
+			1101
+		]
+	],
+	[
+		[
+			7103692,
+			7347026
+		],
+		[
+			3589,
+			-3208
+		],
+		[
+			5350,
+			-1381
+		],
+		[
+			5599,
+			2821
+		],
+		[
+			4841,
+			-52
+		],
+		[
+			1750,
+			-796
+		]
+	],
+	[
+		[
+			7162330,
+			7348771
+		],
+		[
+			4293,
+			1203
+		],
+		[
+			4812,
+			-700
+		],
+		[
+			1018,
+			-2729
+		],
+		[
+			3019,
+			800
+		],
+		[
+			2343,
+			-2230
+		],
+		[
+			2789,
+			-404
+		]
+	],
+	[
+		[
+			7180604,
+			7344711
+		],
+		[
+			508,
+			-1492
+		],
+		[
+			-1363,
+			-1857
+		],
+		[
+			1308,
+			-1479
+		],
+		[
+			-1469,
+			-5324
+		],
+		[
+			-3778,
+			-3126
+		]
+	],
+	[
+		[
+			7175810,
+			7331433
+		],
+		[
+			-9275,
+			-521
+		],
+		[
+			-3034,
+			2002
+		],
+		[
+			-5140,
+			575
+		],
+		[
+			-3595,
+			1655
+		],
+		[
+			5458,
+			3238
+		],
+		[
+			364,
+			2061
+		],
+		[
+			-2647,
+			2455
+		],
+		[
+			1931,
+			1110
+		],
+		[
+			2458,
+			4763
+		]
+	],
+	[
+		[
+			7531529,
+			7234556
+		],
+		[
+			-2956,
+			691
+		],
+		[
+			-4148,
+			970
+		],
+		[
+			-7147,
+			-609
+		]
+	],
+	[
+		[
+			7462573,
+			7268202
+		],
+		[
+			3362,
+			-1633
+		],
+		[
+			2190,
+			514
+		],
+		[
+			2624,
+			-663
+		],
+		[
+			2130,
+			2412
+		],
+		[
+			4313,
+			1723
+		],
+		[
+			3294,
+			-2802
+		],
+		[
+			4587,
+			-2133
+		],
+		[
+			4190,
+			868
+		],
+		[
+			1591,
+			329
+		],
+		[
+			2740,
+			-1358
+		],
+		[
+			1041,
+			-1985
+		],
+		[
+			10973,
+			-1318
+		],
+		[
+			1740,
+			459
+		],
+		[
+			1340,
+			3114
+		],
+		[
+			11256,
+			1593
+		],
+		[
+			776,
+			-1624
+		],
+		[
+			-544,
+			-1104
+		],
+		[
+			2054,
+			-900
+		],
+		[
+			6343,
+			2132
+		],
+		[
+			1694,
+			570
+		],
+		[
+			1999,
+			-149
+		]
+	],
+	[
+		[
+			7449261,
+			7328819
+		],
+		[
+			-875,
+			-1200
+		],
+		[
+			127,
+			-3955
+		],
+		[
+			-3882,
+			-1917
+		],
+		[
+			-2842,
+			42
+		],
+		[
+			-2239,
+			-2421
+		],
+		[
+			2594,
+			-1295
+		],
+		[
+			1091,
+			-2185
+		],
+		[
+			1960,
+			-1140
+		],
+		[
+			2419,
+			-17
+		],
+		[
+			2515,
+			1615
+		],
+		[
+			4353,
+			-650
+		],
+		[
+			1234,
+			-2115
+		],
+		[
+			-379,
+			-1891
+		]
+	],
+	[
+		[
+			7455337,
+			7311690
+		],
+		[
+			-1300,
+			-3373
+		],
+		[
+			-4069,
+			-1018
+		],
+		[
+			-6936,
+			-3904
+		],
+		[
+			-3893,
+			-675
+		],
+		[
+			536,
+			-2920
+		],
+		[
+			-1612,
+			-1377
+		],
+		[
+			-2318,
+			-782
+		],
+		[
+			-4062,
+			198
+		],
+		[
+			-816,
+			-811
+		],
+		[
+			-1467,
+			-1459
+		],
+		[
+			-1827,
+			136
+		],
+		[
+			-156,
+			1847
+		],
+		[
+			-3397,
+			1241
+		],
+		[
+			-4492,
+			-563
+		],
+		[
+			-2932,
+			3001
+		],
+		[
+			-5848,
+			653
+		],
+		[
+			-3966,
+			-1551
+		]
+	],
+	[
+		[
+			7385313,
+			7302915
+		],
+		[
+			-2827,
+			2708
+		],
+		[
+			-794,
+			3858
+		],
+		[
+			-4092,
+			4809
+		],
+		[
+			-3917,
+			2513
+		],
+		[
+			-752,
+			3107
+		],
+		[
+			546,
+			3473
+		],
+		[
+			5874,
+			3957
+		],
+		[
+			438,
+			1301
+		],
+		[
+			-2996,
+			2888
+		],
+		[
+			1930,
+			2866
+		],
+		[
+			-4366,
+			1979
+		],
+		[
+			-3058,
+			2729
+		]
+	],
+	[
+		[
+			7371299,
+			7339103
+		],
+		[
+			2581,
+			850
+		],
+		[
+			4186,
+			-127
+		],
+		[
+			2360,
+			1534
+		],
+		[
+			511,
+			1645
+		],
+		[
+			14388,
+			491
+		]
+	],
+	[
+		[
+			7395325,
+			7343496
+		],
+		[
+			2901,
+			-4
+		],
+		[
+			1098,
+			229
+		],
+		[
+			1659,
+			167
+		],
+		[
+			786,
+			329
+		],
+		[
+			743,
+			311
+		],
+		[
+			7453,
+			35
+		],
+		[
+			1652,
+			-203
+		]
+	],
+	[
+		[
+			7413846,
+			7300170
+		],
+		[
+			2116,
+			534
+		],
+		[
+			-97,
+			-881
+		],
+		[
+			-831,
+			-759
+		],
+		[
+			-1188,
+			1106
+		]
+	],
+	[
+		[
+			7455274,
+			7273640
+		],
+		[
+			-129,
+			884
+		],
+		[
+			-658,
+			122
+		]
+	],
+	[
+		[
+			7455337,
+			7311690
+		],
+		[
+			3844,
+			-1441
+		],
+		[
+			5789,
+			-56
+		],
+		[
+			3292,
+			-2785
+		],
+		[
+			7006,
+			1264
+		],
+		[
+			929,
+			-1057
+		],
+		[
+			179,
+			-2603
+		],
+		[
+			8214,
+			-1547
+		],
+		[
+			2963,
+			-1749
+		],
+		[
+			1710,
+			189
+		],
+		[
+			1074,
+			119
+		]
+	],
+	[
+		[
+			7490337,
+			7302024
+		],
+		[
+			84,
+			-2101
+		],
+		[
+			-1158,
+			-838
+		],
+		[
+			-5256,
+			-3805
+		],
+		[
+			3410,
+			-3178
+		],
+		[
+			-1530,
+			-3202
+		],
+		[
+			3376,
+			-1950
+		],
+		[
+			3008,
+			-1738
+		],
+		[
+			-305,
+			-1880
+		],
+		[
+			-2255,
+			-492
+		],
+		[
+			-448,
+			-538
+		],
+		[
+			-577,
+			-692
+		],
+		[
+			-3699,
+			-489
+		],
+		[
+			-1748,
+			629
+		],
+		[
+			-1102,
+			1686
+		],
+		[
+			-3617,
+			1199
+		],
+		[
+			-3763,
+			-1502
+		],
+		[
+			-4062,
+			-328
+		],
+		[
+			-4874,
+			-2791
+		],
+		[
+			-4213,
+			-3656
+		],
+		[
+			-3296,
+			-1213
+		],
+		[
+			-983,
+			-1545
+		],
+		[
+			734,
+			-923
+		]
+	],
+	[
+		[
+			7490337,
+			7302024
+		],
+		[
+			-338,
+			1010
+		],
+		[
+			980,
+			633
+		],
+		[
+			3853,
+			-555
+		],
+		[
+			2924,
+			1119
+		],
+		[
+			2227,
+			-410
+		],
+		[
+			1737,
+			2414
+		]
+	],
+	[
+		[
+			7557994,
+			7384510
+		],
+		[
+			-316,
+			-1985
+		],
+		[
+			1280,
+			-1064
+		],
+		[
+			1214,
+			2180
+		],
+		[
+			4483,
+			1859
+		],
+		[
+			5502,
+			-1813
+		],
+		[
+			2086,
+			1608
+		],
+		[
+			1047,
+			-1645
+		],
+		[
+			3952,
+			674
+		],
+		[
+			5400,
+			-891
+		],
+		[
+			666,
+			-2945
+		],
+		[
+			-2542,
+			-2205
+		],
+		[
+			-4127,
+			-742
+		],
+		[
+			-2771,
+			-3728
+		],
+		[
+			-4930,
+			-88
+		],
+		[
+			-4199,
+			-2585
+		],
+		[
+			-6689,
+			-991
+		],
+		[
+			-3022,
+			4894
+		],
+		[
+			-1182,
+			6259
+		],
+		[
+			-2552,
+			1671
+		]
+	],
+	[
+		[
+			7551294,
+			7382973
+		],
+		[
+			6700,
+			1537
+		]
+	],
+	[
+		[
+			7580888,
+			7387967
+		],
+		[
+			872,
+			867
+		],
+		[
+			2635,
+			790
+		],
+		[
+			-588,
+			-1709
+		],
+		[
+			-1555,
+			366
+		],
+		[
+			-661,
+			-608
+		],
+		[
+			-703,
+			294
+		]
+	],
+	[
+		[
+			7575018,
+			7387347
+		],
+		[
+			584,
+			912
+		],
+		[
+			1481,
+			-571
+		],
+		[
+			-151,
+			-616
+		],
+		[
+			-1351,
+			-186
+		],
+		[
+			-563,
+			461
+		]
+	],
+	[
+		[
+			7586807,
+			7391199
+		],
+		[
+			-656,
+			-552
+		],
+		[
+			-261,
+			436
+		],
+		[
+			218,
+			634
+		],
+		[
+			698,
+			876
+		],
+		[
+			760,
+			87
+		]
+	],
+	[
+		[
+			7587566,
+			7392680
+		],
+		[
+			-759,
+			-1481
+		]
+	],
+	[
+		[
+			7742459,
+			7318214
+		],
+		[
+			102,
+			812
+		],
+		[
+			2486,
+			610
+		],
+		[
+			1172,
+			1208
+		],
+		[
+			-682,
+			376
+		],
+		[
+			52,
+			1126
+		],
+		[
+			-727,
+			801
+		],
+		[
+			881,
+			1998
+		],
+		[
+			1571,
+			-146
+		],
+		[
+			-71,
+			-498
+		],
+		[
+			1514,
+			-722
+		],
+		[
+			4362,
+			396
+		],
+		[
+			887,
+			-717
+		],
+		[
+			-969,
+			-583
+		],
+		[
+			-666,
+			-1149
+		],
+		[
+			760,
+			-811
+		],
+		[
+			1529,
+			-376
+		],
+		[
+			143,
+			-849
+		],
+		[
+			994,
+			-858
+		],
+		[
+			1854,
+			14
+		],
+		[
+			2162,
+			1328
+		],
+		[
+			735,
+			-1073
+		],
+		[
+			2077,
+			-384
+		],
+		[
+			1278,
+			410
+		],
+		[
+			768,
+			-1350
+		],
+		[
+			-398,
+			-497
+		],
+		[
+			1093,
+			-520
+		],
+		[
+			-914,
+			-589
+		],
+		[
+			-649,
+			463
+		],
+		[
+			-1516,
+			-266
+		],
+		[
+			-766,
+			-1077
+		],
+		[
+			387,
+			-549
+		],
+		[
+			-1010,
+			-323
+		],
+		[
+			247,
+			-654
+		],
+		[
+			-819,
+			-286
+		],
+		[
+			-3517,
+			638
+		],
+		[
+			-2358,
+			-158
+		],
+		[
+			379,
+			-1068
+		],
+		[
+			2312,
+			-1170
+		],
+		[
+			1676,
+			-207
+		],
+		[
+			1351,
+			-656
+		],
+		[
+			-664,
+			-1815
+		],
+		[
+			-3953,
+			-68
+		],
+		[
+			-1946,
+			945
+		],
+		[
+			-1035,
+			-1000
+		],
+		[
+			167,
+			-521
+		],
+		[
+			-3822,
+			-166
+		],
+		[
+			-3532,
+			637
+		],
+		[
+			547,
+			517
+		],
+		[
+			191,
+			1561
+		],
+		[
+			-1911,
+			393
+		],
+		[
+			-77,
+			733
+		],
+		[
+			-1421,
+			518
+		],
+		[
+			17,
+			787
+		],
+		[
+			884,
+			527
+		],
+		[
+			-901,
+			1435
+		],
+		[
+			1151,
+			533
+		],
+		[
+			-1405,
+			2340
+		]
+	],
+	[
+		[
+			7775265,
+			7365901
+		],
+		[
+			-2920,
+			386
+		],
+		[
+			-7510,
+			-2204
+		],
+		[
+			-2938,
+			2074
+		],
+		[
+			-6615,
+			-540
+		],
+		[
+			-207,
+			3770
+		],
+		[
+			3315,
+			3255
+		],
+		[
+			-2012,
+			1521
+		],
+		[
+			1174,
+			1930
+		]
+	],
+	[
+		[
+			7757552,
+			7376093
+		],
+		[
+			798,
+			2024
+		],
+		[
+			2414,
+			391
+		],
+		[
+			1901,
+			-27
+		],
+		[
+			3622,
+			-591
+		],
+		[
+			1654,
+			50
+		],
+		[
+			671,
+			257
+		]
+	],
+	[
+		[
+			7768612,
+			7378197
+		],
+		[
+			1522,
+			-1925
+		],
+		[
+			1381,
+			-4543
+		],
+		[
+			1798,
+			-1932
+		],
+		[
+			-259,
+			-2218
+		],
+		[
+			2211,
+			-1678
+		]
+	],
+	[
+		[
+			7604529,
+			7384772
+		],
+		[
+			6072,
+			4426
+		],
+		[
+			5038,
+			613
+		],
+		[
+			5894,
+			-4857
+		],
+		[
+			2832,
+			799
+		],
+		[
+			933,
+			2117
+		],
+		[
+			5248,
+			1008
+		]
+	],
+	[
+		[
+			7631197,
+			7378164
+		],
+		[
+			-2764,
+			-4176
+		],
+		[
+			-3175,
+			760
+		],
+		[
+			-7311,
+			-1450
+		],
+		[
+			-4865,
+			2293
+		],
+		[
+			-401,
+			1743
+		],
+		[
+			-3755,
+			701
+		],
+		[
+			525,
+			5702
+		],
+		[
+			-4922,
+			1035
+		]
+	],
+	[
+		[
+			7655030,
+			7403515
+		],
+		[
+			1586,
+			6819
+		],
+		[
+			67,
+			6530
+		],
+		[
+			2078,
+			2117
+		],
+		[
+			4961,
+			1331
+		],
+		[
+			718,
+			1094
+		],
+		[
+			1048,
+			1594
+		],
+		[
+			-2428,
+			2471
+		],
+		[
+			-914,
+			3833
+		],
+		[
+			-4211,
+			626
+		],
+		[
+			-923,
+			1255
+		],
+		[
+			1203,
+			656
+		],
+		[
+			-196,
+			1501
+		],
+		[
+			6871,
+			2552
+		],
+		[
+			1043,
+			839
+		],
+		[
+			1033,
+			830
+		]
+	],
+	[
+		[
+			7666966,
+			7437563
+		],
+		[
+			15446,
+			1547
+		],
+		[
+			788,
+			585
+		],
+		[
+			-837,
+			981
+		],
+		[
+			1148,
+			1765
+		],
+		[
+			3227,
+			-2
+		],
+		[
+			13112,
+			2057
+		],
+		[
+			3406,
+			-782
+		],
+		[
+			-3114,
+			-3086
+		],
+		[
+			-1747,
+			-291
+		],
+		[
+			-639,
+			-2407
+		],
+		[
+			2589,
+			-1197
+		],
+		[
+			1008,
+			-467
+		],
+		[
+			4497,
+			467
+		],
+		[
+			1632,
+			0
+		],
+		[
+			2839,
+			-2391
+		],
+		[
+			3068,
+			733
+		],
+		[
+			-32,
+			-1722
+		],
+		[
+			1838,
+			-1420
+		],
+		[
+			1426,
+			247
+		],
+		[
+			1648,
+			2038
+		],
+		[
+			3594,
+			-487
+		],
+		[
+			1690,
+			969
+		],
+		[
+			5989,
+			133
+		]
+	],
+	[
+		[
+			7729542,
+			7434833
+		],
+		[
+			-180,
+			-2229
+		],
+		[
+			1483,
+			-4349
+		]
+	],
+	[
+		[
+			7730845,
+			7428255
+		],
+		[
+			-7803,
+			208
+		],
+		[
+			-1429,
+			-1872
+		],
+		[
+			2339,
+			-1080
+		],
+		[
+			-104,
+			-952
+		],
+		[
+			-9066,
+			-601
+		],
+		[
+			-2654,
+			-2552
+		],
+		[
+			-2594,
+			-373
+		],
+		[
+			-1983,
+			-2709
+		],
+		[
+			-5585,
+			-930
+		],
+		[
+			392,
+			-969
+		],
+		[
+			-1508,
+			-1780
+		],
+		[
+			-11926,
+			-2502
+		],
+		[
+			1819,
+			-1575
+		],
+		[
+			2665,
+			-4890
+		],
+		[
+			6904,
+			2032
+		],
+		[
+			-1022,
+			-4588
+		],
+		[
+			-1452,
+			-1698
+		],
+		[
+			-9214,
+			-1475
+		],
+		[
+			-1886,
+			-1475
+		],
+		[
+			-3581,
+			-2798
+		],
+		[
+			-5602,
+			-653
+		],
+		[
+			-1296,
+			-1903
+		]
+	],
+	[
+		[
+			7685150,
+			7376484
+		],
+		[
+			1588,
+			586
+		],
+		[
+			2824,
+			-2573
+		],
+		[
+			658,
+			-3389
+		],
+		[
+			6916,
+			-1162
+		],
+		[
+			2643,
+			-2867
+		],
+		[
+			-1214,
+			-4298
+		],
+		[
+			1263,
+			-4948
+		],
+		[
+			2050,
+			-1463
+		],
+		[
+			-287,
+			-3552
+		],
+		[
+			-649,
+			-1644
+		],
+		[
+			10612,
+			882
+		],
+		[
+			13193,
+			-4267
+		],
+		[
+			4422,
+			-3701
+		],
+		[
+			4561,
+			595
+		],
+		[
+			2754,
+			1862
+		],
+		[
+			1113,
+			-3164
+		],
+		[
+			3335,
+			-1063
+		],
+		[
+			3174,
+			328
+		],
+		[
+			2843,
+			2049
+		],
+		[
+			3969,
+			817
+		],
+		[
+			3453,
+			-1396
+		],
+		[
+			2244,
+			-2445
+		],
+		[
+			3161,
+			-339
+		]
+	],
+	[
+		[
+			7759776,
+			7341332
+		],
+		[
+			-75,
+			-1335
+		],
+		[
+			-7268,
+			-1428
+		],
+		[
+			1414,
+			-6446
+		],
+		[
+			-6732,
+			10
+		],
+		[
+			-9095,
+			-3019
+		],
+		[
+			-1404,
+			-3279
+		],
+		[
+			-4085,
+			-1191
+		],
+		[
+			-8506,
+			1882
+		]
+	],
+	[
+		[
+			7724025,
+			7326526
+		],
+		[
+			-10881,
+			2072
+		],
+		[
+			-11210,
+			-777
+		],
+		[
+			-3554,
+			-3166
+		],
+		[
+			1852,
+			-2141
+		],
+		[
+			-1681,
+			-1786
+		],
+		[
+			153,
+			-2757
+		],
+		[
+			-2475,
+			-885
+		],
+		[
+			2062,
+			-2340
+		],
+		[
+			1882,
+			-453
+		],
+		[
+			86,
+			-911
+		],
+		[
+			-857,
+			-839
+		],
+		[
+			-4417,
+			-134
+		]
+	],
+	[
+		[
+			7694985,
+			7312409
+		],
+		[
+			-1366,
+			45
+		],
+		[
+			-1049,
+			1991
+		],
+		[
+			-4493,
+			6
+		],
+		[
+			-3979,
+			-2892
+		],
+		[
+			-3304,
+			1691
+		],
+		[
+			-1268,
+			-63
+		],
+		[
+			-3412,
+			-171
+		],
+		[
+			-4174,
+			918
+		],
+		[
+			-2079,
+			-265
+		],
+		[
+			-3976,
+			4230
+		]
+	],
+	[
+		[
+			7665885,
+			7317899
+		],
+		[
+			5255,
+			1914
+		],
+		[
+			-1441,
+			1851
+		],
+		[
+			-130,
+			3361
+		],
+		[
+			1954,
+			3425
+		],
+		[
+			-3893,
+			2912
+		],
+		[
+			-9915,
+			492
+		],
+		[
+			-743,
+			3477
+		],
+		[
+			1756,
+			838
+		],
+		[
+			6214,
+			-438
+		],
+		[
+			6996,
+			2786
+		],
+		[
+			6128,
+			1293
+		],
+		[
+			1598,
+			3603
+		],
+		[
+			-1851,
+			2195
+		],
+		[
+			-7826,
+			3246
+		],
+		[
+			258,
+			7625
+		],
+		[
+			2176,
+			2827
+		],
+		[
+			-3404,
+			2971
+		],
+		[
+			-6712,
+			660
+		],
+		[
+			-18,
+			1563
+		],
+		[
+			2824,
+			1603
+		],
+		[
+			-1037,
+			5266
+		],
+		[
+			-6799,
+			4952
+		]
+	],
+	[
+		[
+			7630267,
+			7324657
+		],
+		[
+			945,
+			417
+		],
+		[
+			606,
+			1881
+		],
+		[
+			2193,
+			212
+		],
+		[
+			4020,
+			-955
+		],
+		[
+			-353,
+			-3000
+		],
+		[
+			2622,
+			-2233
+		],
+		[
+			10518,
+			774
+		],
+		[
+			6198,
+			-1341
+		],
+		[
+			4083,
+			-2140
+		],
+		[
+			4786,
+			-373
+		]
+	],
+	[
+		[
+			7694985,
+			7312409
+		],
+		[
+			1274,
+			-3867
+		],
+		[
+			1729,
+			-737
+		],
+		[
+			1205,
+			-2299
+		],
+		[
+			4612,
+			-2544
+		],
+		[
+			255,
+			-2039
+		],
+		[
+			-1870,
+			-3156
+		],
+		[
+			777,
+			-1734
+		],
+		[
+			-8228,
+			-3501
+		],
+		[
+			-4661,
+			37
+		],
+		[
+			-3445,
+			-1788
+		],
+		[
+			-5757,
+			638
+		],
+		[
+			-87,
+			-1868
+		],
+		[
+			-1114,
+			-1151
+		],
+		[
+			4513,
+			-1413
+		],
+		[
+			522,
+			-1682
+		],
+		[
+			2209,
+			-2068
+		],
+		[
+			-42,
+			-2341
+		],
+		[
+			-1561,
+			-127
+		],
+		[
+			-1064,
+			-1135
+		],
+		[
+			859,
+			-2191
+		],
+		[
+			-810,
+			-1346
+		]
+	],
+	[
+		[
+			7620279,
+			7303464
+		],
+		[
+			10007,
+			3837
+		],
+		[
+			781,
+			2258
+		],
+		[
+			2345,
+			1070
+		],
+		[
+			-3176,
+			4330
+		],
+		[
+			940,
+			4164
+		],
+		[
+			-3382,
+			4694
+		],
+		[
+			2473,
+			840
+		]
+	],
+	[
+		[
+			7540096,
+			7417882
+		],
+		[
+			1930,
+			734
+		],
+		[
+			6997,
+			-322
+		],
+		[
+			4700,
+			753
+		],
+		[
+			1624,
+			-1418
+		],
+		[
+			-989,
+			-1400
+		],
+		[
+			1622,
+			-2075
+		],
+		[
+			12228,
+			-130
+		],
+		[
+			1297,
+			310
+		],
+		[
+			288,
+			1818
+		],
+		[
+			-1125,
+			1426
+		],
+		[
+			1903,
+			2022
+		],
+		[
+			3274,
+			-270
+		],
+		[
+			2683,
+			-1388
+		],
+		[
+			3165,
+			751
+		],
+		[
+			3251,
+			-3095
+		],
+		[
+			3785,
+			-1256
+		],
+		[
+			418,
+			-1156
+		],
+		[
+			-785,
+			-1508
+		],
+		[
+			3154,
+			-2684
+		],
+		[
+			8324,
+			-1880
+		],
+		[
+			212,
+			1058
+		]
+	],
+	[
+		[
+			7598052,
+			7408172
+		],
+		[
+			10239,
+			2852
+		],
+		[
+			2795,
+			-307
+		],
+		[
+			1599,
+			-1868
+		],
+		[
+			4377,
+			-1351
+		],
+		[
+			807,
+			-1720
+		],
+		[
+			6338,
+			585
+		],
+		[
+			2153,
+			-3938
+		],
+		[
+			4316,
+			-1150
+		],
+		[
+			-142,
+			-1848
+		],
+		[
+			1068,
+			-841
+		]
+	],
+	[
+		[
+			7604529,
+			7384772
+		],
+		[
+			-833,
+			-764
+		],
+		[
+			-6482,
+			1820
+		],
+		[
+			-7182,
+			-1146
+		],
+		[
+			-393,
+			1355
+		],
+		[
+			1020,
+			1037
+		],
+		[
+			-1678,
+			1458
+		],
+		[
+			758,
+			1245
+		],
+		[
+			-2932,
+			1422
+		]
+	],
+	[
+		[
+			7587566,
+			7392680
+		],
+		[
+			-3244,
+			848
+		],
+		[
+			-2008,
+			-912
+		],
+		[
+			-9924,
+			-1151
+		],
+		[
+			-6514,
+			864
+		],
+		[
+			-2361,
+			1865
+		],
+		[
+			-5028,
+			-219
+		],
+		[
+			-2221,
+			-1482
+		],
+		[
+			1619,
+			-1733
+		],
+		[
+			-871,
+			-1237
+		],
+		[
+			-183,
+			-2961
+		],
+		[
+			2904,
+			-318
+		],
+		[
+			-1741,
+			-1734
+		]
+	],
+	[
+		[
+			7551294,
+			7382973
+		],
+		[
+			-655,
+			-118
+		],
+		[
+			-1251,
+			-226
+		],
+		[
+			-1423,
+			95
+		],
+		[
+			-580,
+			426
+		],
+		[
+			-491,
+			956
+		]
+	],
+	[
+		[
+			7532332,
+			7389330
+		],
+		[
+			1182,
+			2664
+		],
+		[
+			-3656,
+			257
+		],
+		[
+			2963,
+			3845
+		],
+		[
+			-317,
+			4869
+		],
+		[
+			2882,
+			-210
+		],
+		[
+			3166,
+			1122
+		],
+		[
+			266,
+			4201
+		],
+		[
+			-3599,
+			4916
+		],
+		[
+			1896,
+			1869
+		],
+		[
+			-976,
+			2039
+		],
+		[
+			1365,
+			2380
+		],
+		[
+			2592,
+			600
+		]
+	],
+	[
+		[
+			7757552,
+			7376093
+		],
+		[
+			-5076,
+			1234
+		],
+		[
+			-2588,
+			-1052
+		],
+		[
+			-2655,
+			644
+		],
+		[
+			177,
+			1922
+		],
+		[
+			-3981,
+			1097
+		],
+		[
+			-1172,
+			5019
+		],
+		[
+			-6643,
+			3408
+		],
+		[
+			-1629,
+			-153
+		],
+		[
+			-1658,
+			-2625
+		],
+		[
+			-8390,
+			-1523
+		],
+		[
+			-2084,
+			2437
+		],
+		[
+			-3429,
+			-736
+		],
+		[
+			-2634,
+			-2032
+		],
+		[
+			-1777,
+			1455
+		],
+		[
+			-4410,
+			1075
+		],
+		[
+			-4612,
+			-338
+		],
+		[
+			-8041,
+			-3371
+		],
+		[
+			-4941,
+			962
+		],
+		[
+			-477,
+			1605
+		],
+		[
+			-1801,
+			319
+		],
+		[
+			-758,
+			1830
+		],
+		[
+			-2235,
+			1147
+		],
+		[
+			-945,
+			484
+		],
+		[
+			-2285,
+			-496
+		],
+		[
+			-1634,
+			-2292
+		]
+	],
+	[
+		[
+			7730845,
+			7428255
+		],
+		[
+			21,
+			-1940
+		],
+		[
+			-3108,
+			-3086
+		],
+		[
+			423,
+			-1378
+		],
+		[
+			2565,
+			-445
+		],
+		[
+			5778,
+			-1002
+		],
+		[
+			6472,
+			-4155
+		],
+		[
+			6799,
+			-2271
+		],
+		[
+			9025,
+			-7292
+		]
+	],
+	[
+		[
+			7758820,
+			7406686
+		],
+		[
+			1691,
+			-310
+		],
+		[
+			432,
+			-335
+		],
+		[
+			406,
+			-903
+		],
+		[
+			652,
+			-468
+		],
+		[
+			3023,
+			-1239
+		],
+		[
+			1612,
+			-741
+		],
+		[
+			5046,
+			-1544
+		]
+	],
+	[
+		[
+			7771682,
+			7401146
+		],
+		[
+			3201,
+			-1564
+		],
+		[
+			3802,
+			-3482
+		],
+		[
+			-2866,
+			-4209
+		],
+		[
+			688,
+			-1929
+		],
+		[
+			1938,
+			-1831
+		],
+		[
+			-3089,
+			-3552
+		],
+		[
+			-5177,
+			-2875
+		],
+		[
+			-1567,
+			-3507
+		]
+	],
+	[
+		[
+			7598052,
+			7408172
+		],
+		[
+			60,
+			1118
+		],
+		[
+			3664,
+			590
+		],
+		[
+			577,
+			1305
+		],
+		[
+			4667,
+			2202
+		],
+		[
+			-232,
+			3768
+		],
+		[
+			6317,
+			3583
+		],
+		[
+			-243,
+			668
+		],
+		[
+			-227,
+			623
+		],
+		[
+			1116,
+			763
+		],
+		[
+			-647,
+			1949
+		],
+		[
+			5940,
+			-110
+		],
+		[
+			-1897,
+			4296
+		],
+		[
+			2730,
+			1955
+		],
+		[
+			784,
+			3605
+		],
+		[
+			-555,
+			2246
+		],
+		[
+			-186,
+			753
+		],
+		[
+			-3736,
+			1438
+		],
+		[
+			1831,
+			2209
+		],
+		[
+			-511,
+			4378
+		],
+		[
+			-4579,
+			640
+		],
+		[
+			-3554,
+			2457
+		],
+		[
+			1944,
+			2934
+		],
+		[
+			4651,
+			1353
+		],
+		[
+			-4,
+			859
+		],
+		[
+			-2318,
+			1441
+		]
+	],
+	[
+		[
+			7613644,
+			7455195
+		],
+		[
+			9595,
+			3992
+		],
+		[
+			3231,
+			3136
+		],
+		[
+			3034,
+			974
+		],
+		[
+			3712,
+			38
+		],
+		[
+			3906,
+			-2634
+		],
+		[
+			2251,
+			1054
+		]
+	],
+	[
+		[
+			7639373,
+			7461755
+		],
+		[
+			672,
+			-2134
+		],
+		[
+			5707,
+			-3262
+		],
+		[
+			-1012,
+			-4448
+		],
+		[
+			3059,
+			-2944
+		],
+		[
+			3353,
+			-1441
+		],
+		[
+			1322,
+			-1795
+		],
+		[
+			3801,
+			-1570
+		],
+		[
+			-318,
+			-2696
+		],
+		[
+			3585,
+			-134
+		],
+		[
+			1721,
+			-1564
+		],
+		[
+			2824,
+			-592
+		],
+		[
+			1230,
+			-1602
+		],
+		[
+			1649,
+			-10
+		]
+	],
+	[
+		[
+			7724025,
+			7326526
+		],
+		[
+			-1220,
+			-4686
+		],
+		[
+			3058,
+			-1007
+		],
+		[
+			1357,
+			-2261
+		],
+		[
+			-1705,
+			-4655
+		],
+		[
+			1118,
+			-1228
+		],
+		[
+			2297,
+			-316
+		],
+		[
+			417,
+			-949
+		],
+		[
+			-744,
+			-1475
+		],
+		[
+			-1914,
+			-720
+		],
+		[
+			-1871,
+			-3220
+		],
+		[
+			2023,
+			-1177
+		],
+		[
+			1536,
+			-2234
+		],
+		[
+			3988,
+			-161
+		],
+		[
+			3166,
+			-1857
+		],
+		[
+			-1210,
+			-1662
+		],
+		[
+			-4063,
+			-2126
+		],
+		[
+			1250,
+			-3992
+		]
+	],
+	[
+		[
+			7775265,
+			7365901
+		],
+		[
+			8465,
+			-1583
+		],
+		[
+			2336,
+			-1802
+		],
+		[
+			7,
+			-1985
+		],
+		[
+			-1713,
+			-2328
+		],
+		[
+			887,
+			-2569
+		],
+		[
+			-1881,
+			-2816
+		],
+		[
+			211,
+			-2505
+		],
+		[
+			7122,
+			-4615
+		]
+	],
+	[
+		[
+			7790699,
+			7345698
+		],
+		[
+			-1238,
+			-4163
+		],
+		[
+			-2613,
+			-2720
+		]
+	],
+	[
+		[
+			7786848,
+			7338815
+		],
+		[
+			-1298,
+			972
+		],
+		[
+			-2963,
+			-551
+		],
+		[
+			-2638,
+			2109
+		],
+		[
+			-5489,
+			633
+		],
+		[
+			-3877,
+			-2535
+		],
+		[
+			-5069,
+			173
+		],
+		[
+			-2448,
+			4583
+		],
+		[
+			-2873,
+			-1422
+		],
+		[
+			-417,
+			-1445
+		]
+	],
+	[
+		[
+			7257191,
+			7621892
+		],
+		[
+			-1227,
+			875
+		],
+		[
+			-2418,
+			-303
+		],
+		[
+			-4366,
+			-3519
+		],
+		[
+			-8548,
+			837
+		],
+		[
+			-1530,
+			1653
+		],
+		[
+			-255,
+			2271
+		],
+		[
+			-5728,
+			1089
+		],
+		[
+			-6633,
+			1261
+		]
+	],
+	[
+		[
+			7226486,
+			7626056
+		],
+		[
+			-6321,
+			-36
+		],
+		[
+			-10564,
+			2835
+		],
+		[
+			-13213,
+			239
+		],
+		[
+			-3805,
+			-972
+		],
+		[
+			-4257,
+			-51
+		],
+		[
+			-4931,
+			1542
+		],
+		[
+			-4626,
+			251
+		]
+	],
+	[
+		[
+			7465679,
+			7432799
+		],
+		[
+			-1036,
+			2142
+		],
+		[
+			683,
+			1792
+		],
+		[
+			879,
+			2308
+		],
+		[
+			4330,
+			-313
+		],
+		[
+			4419,
+			3561
+		]
+	],
+	[
+		[
+			7474954,
+			7442289
+		],
+		[
+			3305,
+			97
+		],
+		[
+			307,
+			-2408
+		],
+		[
+			3911,
+			-709
+		],
+		[
+			2204,
+			-2342
+		],
+		[
+			4690,
+			327
+		],
+		[
+			9320,
+			-3434
+		],
+		[
+			581,
+			-1002
+		],
+		[
+			-870,
+			-2018
+		],
+		[
+			2232,
+			-1418
+		],
+		[
+			11898,
+			-2717
+		],
+		[
+			5653,
+			833
+		],
+		[
+			7098,
+			-910
+		],
+		[
+			2574,
+			1128
+		]
+	],
+	[
+		[
+			7527857,
+			7427716
+		],
+		[
+			-169,
+			-1375
+		],
+		[
+			885,
+			-1838
+		],
+		[
+			5771,
+			1553
+		],
+		[
+			3766,
+			-1578
+		],
+		[
+			1417,
+			-3072
+		],
+		[
+			850,
+			-1842
+		],
+		[
+			-281,
+			-1682
+		]
+	],
+	[
+		[
+			7552788,
+			7343208
+		],
+		[
+			6312,
+			-2670
+		],
+		[
+			3495,
+			1471
+		],
+		[
+			2033,
+			-2103
+		],
+		[
+			3712,
+			-991
+		],
+		[
+			1456,
+			-1743
+		],
+		[
+			6219,
+			-250
+		],
+		[
+			5562,
+			2974
+		],
+		[
+			10577,
+			-3273
+		]
+	],
+	[
+		[
+			7592154,
+			7336623
+		],
+		[
+			1398,
+			-1454
+		],
+		[
+			5934,
+			17
+		],
+		[
+			1422,
+			-2920
+		],
+		[
+			3820,
+			-588
+		],
+		[
+			3026,
+			838
+		],
+		[
+			2770,
+			-329
+		],
+		[
+			2004,
+			-1733
+		],
+		[
+			310,
+			-1416
+		],
+		[
+			6689,
+			-506
+		],
+		[
+			-1040,
+			-1957
+		],
+		[
+			816,
+			-686
+		],
+		[
+			3349,
+			-307
+		],
+		[
+			5368,
+			1283
+		],
+		[
+			1822,
+			-954
+		],
+		[
+			425,
+			-1254
+		]
+	],
+	[
+		[
+			7264371,
+			7620960
+		],
+		[
+			1444,
+			-3213
+		],
+		[
+			-577,
+			-1833
+		],
+		[
+			-2502,
+			-203
+		],
+		[
+			-1738,
+			-1411
+		],
+		[
+			-7381,
+			88
+		],
+		[
+			-1809,
+			1680
+		],
+		[
+			5661,
+			4950
+		]
+	],
+	[
+		[
+			7257469,
+			7621018
+		],
+		[
+			1156,
+			-1321
+		],
+		[
+			-369,
+			-949
+		],
+		[
+			369,
+			-436
+		],
+		[
+			627,
+			687
+		],
+		[
+			1254,
+			631
+		],
+		[
+			492,
+			507
+		],
+		[
+			577,
+			594
+		],
+		[
+			2796,
+			229
+		]
+	],
+	[
+		[
+			7332592,
+			7573271
+		],
+		[
+			2596,
+			-469
+		],
+		[
+			1554,
+			-1601
+		],
+		[
+			-2424,
+			-1503
+		],
+		[
+			1502,
+			-2593
+		],
+		[
+			-822,
+			-1728
+		],
+		[
+			-2184,
+			-1206
+		],
+		[
+			-5295,
+			76
+		]
+	],
+	[
+		[
+			7327519,
+			7564247
+		],
+		[
+			-3421,
+			1099
+		],
+		[
+			160,
+			1981
+		],
+		[
+			-2698,
+			124
+		],
+		[
+			-1951,
+			2276
+		],
+		[
+			840,
+			1986
+		],
+		[
+			3416,
+			-263
+		],
+		[
+			1407,
+			875
+		],
+		[
+			-171,
+			889
+		],
+		[
+			-5451,
+			166
+		],
+		[
+			-897,
+			727
+		],
+		[
+			3902,
+			1649
+		],
+		[
+			4670,
+			281
+		],
+		[
+			1455,
+			1416
+		],
+		[
+			-84,
+			2268
+		],
+		[
+			3332,
+			2259
+		]
+	],
+	[
+		[
+			7332028,
+			7581980
+		],
+		[
+			2014,
+			-3344
+		],
+		[
+			-4142,
+			-3585
+		],
+		[
+			473,
+			-3748
+		],
+		[
+			1313,
+			414
+		],
+		[
+			906,
+			1554
+		]
+	],
+	[
+		[
+			7373404,
+			7519161
+		],
+		[
+			-1841,
+			2456
+		],
+		[
+			4319,
+			1853
+		],
+		[
+			-3557,
+			3493
+		],
+		[
+			809,
+			1496
+		]
+	],
+	[
+		[
+			7373134,
+			7528459
+		],
+		[
+			6329,
+			-1511
+		],
+		[
+			6027,
+			2936
+		],
+		[
+			9419,
+			1850
+		],
+		[
+			804,
+			158
+		],
+		[
+			3926,
+			4690
+		],
+		[
+			-374,
+			1303
+		]
+	],
+	[
+		[
+			7399265,
+			7537885
+		],
+		[
+			3163,
+			-323
+		],
+		[
+			1335,
+			-2786
+		],
+		[
+			1779,
+			-398
+		]
+	],
+	[
+		[
+			7405542,
+			7534378
+		],
+		[
+			-296,
+			-2781
+		],
+		[
+			4310,
+			-1254
+		],
+		[
+			416,
+			-776
+		],
+		[
+			-3266,
+			-705
+		],
+		[
+			-1309,
+			1411
+		],
+		[
+			-2003,
+			432
+		],
+		[
+			-8485,
+			-4267
+		],
+		[
+			-2440,
+			-531
+		],
+		[
+			-2414,
+			-2600
+		],
+		[
+			1417,
+			-3496
+		]
+	],
+	[
+		[
+			7391472,
+			7519811
+		],
+		[
+			-2874,
+			426
+		],
+		[
+			-452,
+			-1205
+		],
+		[
+			-2242,
+			-1393
+		],
+		[
+			-4072,
+			-228
+		],
+		[
+			-3566,
+			-1474
+		],
+		[
+			-3105,
+			1005
+		],
+		[
+			-319,
+			2181
+		],
+		[
+			-1438,
+			38
+		]
+	],
+	[
+		[
+			7318661,
+			7551574
+		],
+		[
+			-1336,
+			-1242
+		],
+		[
+			-177,
+			-3400
+		],
+		[
+			1311,
+			-1041
+		],
+		[
+			-404,
+			-1222
+		],
+		[
+			2710,
+			-260
+		]
+	],
+	[
+		[
+			7320765,
+			7544409
+		],
+		[
+			-5531,
+			-3091
+		],
+		[
+			-880,
+			-70
+		],
+		[
+			-4742,
+			-376
+		]
+	],
+	[
+		[
+			7309612,
+			7540872
+		],
+		[
+			692,
+			2400
+		],
+		[
+			-1912,
+			1445
+		],
+		[
+			143,
+			4260
+		],
+		[
+			5151,
+			4297
+		],
+		[
+			4975,
+			-1700
+		]
+	],
+	[
+		[
+			7232772,
+			7572189
+		],
+		[
+			2762,
+			-1268
+		],
+		[
+			1842,
+			455
+		],
+		[
+			1175,
+			1613
+		],
+		[
+			2530,
+			-249
+		],
+		[
+			1260,
+			-1565
+		],
+		[
+			-123,
+			-2133
+		],
+		[
+			2853,
+			-2780
+		],
+		[
+			9456,
+			1330
+		]
+	],
+	[
+		[
+			7254527,
+			7567592
+		],
+		[
+			1410,
+			-2375
+		],
+		[
+			1989,
+			-493
+		],
+		[
+			1252,
+			-1608
+		],
+		[
+			-850,
+			-5608
+		],
+		[
+			784,
+			-1283
+		],
+		[
+			-12817,
+			-4794
+		],
+		[
+			-11,
+			-6391
+		]
+	],
+	[
+		[
+			7246284,
+			7545040
+		],
+		[
+			-718,
+			-1656
+		],
+		[
+			-1548,
+			-767
+		],
+		[
+			814,
+			-1369
+		],
+		[
+			593,
+			-999
+		],
+		[
+			-1251,
+			-3020
+		],
+		[
+			-7819,
+			-5177
+		],
+		[
+			-824,
+			-2831
+		],
+		[
+			636,
+			-1098
+		],
+		[
+			-1016,
+			-1417
+		]
+	],
+	[
+		[
+			7235151,
+			7526706
+		],
+		[
+			-5742,
+			-242
+		],
+		[
+			-2255,
+			115
+		],
+		[
+			-1438,
+			101
+		],
+		[
+			-2263,
+			23
+		],
+		[
+			-749,
+			44
+		],
+		[
+			-1590,
+			62
+		],
+		[
+			-667,
+			31
+		],
+		[
+			-1624,
+			-43
+		],
+		[
+			-1405,
+			-149
+		],
+		[
+			-411,
+			1679
+		],
+		[
+			-4599,
+			-441
+		],
+		[
+			-875,
+			345
+		],
+		[
+			-2451,
+			1537
+		],
+		[
+			-383,
+			505
+		],
+		[
+			-2120,
+			1048
+		],
+		[
+			-792,
+			971
+		],
+		[
+			-1317,
+			1614
+		],
+		[
+			-1854,
+			2930
+		],
+		[
+			-1767,
+			1830
+		],
+		[
+			-821,
+			849
+		],
+		[
+			-500,
+			207
+		],
+		[
+			-1093,
+			1367
+		],
+		[
+			4312,
+			1941
+		],
+		[
+			8347,
+			-667
+		],
+		[
+			2059,
+			1878
+		],
+		[
+			-5563,
+			7380
+		],
+		[
+			-6174,
+			-379
+		],
+		[
+			-3763,
+			2560
+		],
+		[
+			-1311,
+			3371
+		],
+		[
+			2222,
+			3586
+		],
+		[
+			1092,
+			4570
+		]
+	],
+	[
+		[
+			7199656,
+			7565329
+		],
+		[
+			5117,
+			-137
+		],
+		[
+			1106,
+			2171
+		],
+		[
+			8154,
+			4391
+		],
+		[
+			-126,
+			3300
+		],
+		[
+			2321,
+			1408
+		],
+		[
+			5408,
+			-1328
+		],
+		[
+			3181,
+			222
+		],
+		[
+			3369,
+			-1720
+		],
+		[
+			2288,
+			-2923
+		],
+		[
+			1036,
+			-31
+		],
+		[
+			1262,
+			1507
+		]
+	],
+	[
+		[
+			7184619,
+			7544401
+		],
+		[
+			-1147,
+			-889
+		],
+		[
+			-511,
+			728
+		],
+		[
+			271,
+			860
+		],
+		[
+			1149,
+			680
+		],
+		[
+			522,
+			-425
+		],
+		[
+			-284,
+			-954
+		]
+	],
+	[
+		[
+			7374681,
+			7475089
+		],
+		[
+			-755,
+			-274
+		],
+		[
+			-1385,
+			-59
+		],
+		[
+			-1502,
+			736
+		],
+		[
+			-622,
+			113
+		],
+		[
+			-2538,
+			138
+		],
+		[
+			-1012,
+			89
+		],
+		[
+			-1797,
+			316
+		],
+		[
+			-2976,
+			1132
+		]
+	],
+	[
+		[
+			7362094,
+			7477280
+		],
+		[
+			-9437,
+			3839
+		],
+		[
+			-6686,
+			897
+		]
+	],
+	[
+		[
+			7345971,
+			7482016
+		],
+		[
+			303,
+			1089
+		],
+		[
+			-6515,
+			3800
+		],
+		[
+			-915,
+			1426
+		]
+	],
+	[
+		[
+			7338844,
+			7488331
+		],
+		[
+			3554,
+			2423
+		],
+		[
+			2272,
+			521
+		],
+		[
+			1532,
+			2589
+		],
+		[
+			9344,
+			4079
+		],
+		[
+			1762,
+			769
+		],
+		[
+			5116,
+			-148
+		],
+		[
+			3316,
+			1169
+		],
+		[
+			-233,
+			1487
+		],
+		[
+			-5350,
+			1258
+		],
+		[
+			-3768,
+			2947
+		],
+		[
+			263,
+			2925
+		],
+		[
+			2290,
+			792
+		],
+		[
+			451,
+			925
+		],
+		[
+			-3065,
+			2128
+		],
+		[
+			6037,
+			2849
+		],
+		[
+			3072,
+			-587
+		],
+		[
+			2228,
+			552
+		],
+		[
+			2406,
+			2873
+		],
+		[
+			3333,
+			1279
+		]
+	],
+	[
+		[
+			7391472,
+			7519811
+		],
+		[
+			803,
+			-1887
+		],
+		[
+			-1039,
+			-4266
+		],
+		[
+			3673,
+			-951
+		],
+		[
+			597,
+			-154
+		],
+		[
+			1361,
+			-2179
+		],
+		[
+			3708,
+			-1460
+		],
+		[
+			6542,
+			-406
+		],
+		[
+			2011,
+			-1567
+		],
+		[
+			1240,
+			-3483
+		]
+	],
+	[
+		[
+			7410368,
+			7503458
+		],
+		[
+			-2192,
+			-2063
+		],
+		[
+			-1072,
+			-3452
+		],
+		[
+			-505,
+			-1629
+		],
+		[
+			-5347,
+			-1050
+		],
+		[
+			-3091,
+			875
+		],
+		[
+			-182,
+			-3106
+		],
+		[
+			-1224,
+			-2644
+		],
+		[
+			-1846,
+			-485
+		],
+		[
+			-720,
+			-190
+		],
+		[
+			-3316,
+			-2535
+		],
+		[
+			-5712,
+			-1262
+		],
+		[
+			-916,
+			-1518
+		],
+		[
+			-3626,
+			341
+		],
+		[
+			-1936,
+			-659
+		],
+		[
+			-1466,
+			-2803
+		],
+		[
+			-359,
+			-3666
+		],
+		[
+			-2177,
+			-2523
+		]
+	],
+	[
+		[
+			7527857,
+			7427716
+		],
+		[
+			716,
+			209
+		],
+		[
+			7286,
+			2124
+		],
+		[
+			7061,
+			498
+		],
+		[
+			-664,
+			2812
+		],
+		[
+			3857,
+			1125
+		],
+		[
+			1295,
+			2249
+		],
+		[
+			557,
+			967
+		],
+		[
+			8682,
+			1797
+		],
+		[
+			-414,
+			1941
+		],
+		[
+			674,
+			1224
+		],
+		[
+			-741,
+			954
+		],
+		[
+			-3429,
+			-2266
+		],
+		[
+			-1756,
+			214
+		],
+		[
+			-711,
+			-1124
+		],
+		[
+			-5952,
+			4135
+		],
+		[
+			682,
+			1851
+		],
+		[
+			2800,
+			965
+		],
+		[
+			581,
+			1691
+		],
+		[
+			-3537,
+			1831
+		],
+		[
+			-3,
+			1823
+		],
+		[
+			3226,
+			2545
+		],
+		[
+			-344,
+			2190
+		],
+		[
+			-2393,
+			1682
+		],
+		[
+			3699,
+			2602
+		],
+		[
+			1154,
+			812
+		],
+		[
+			-3501,
+			3248
+		],
+		[
+			-834,
+			3195
+		],
+		[
+			1838,
+			1816
+		]
+	],
+	[
+		[
+			7547686,
+			7470826
+		],
+		[
+			665,
+			-329
+		]
+	],
+	[
+		[
+			7548351,
+			7470497
+		],
+		[
+			5952,
+			-1714
+		],
+		[
+			546,
+			-1626
+		],
+		[
+			2877,
+			-1054
+		],
+		[
+			2025,
+			-2152
+		],
+		[
+			8190,
+			1155
+		],
+		[
+			7614,
+			-1757
+		],
+		[
+			4990,
+			791
+		],
+		[
+			1367,
+			-562
+		],
+		[
+			793,
+			-1823
+		],
+		[
+			7281,
+			-831
+		],
+		[
+			-168,
+			-2148
+		],
+		[
+			2264,
+			-1015
+		],
+		[
+			7282,
+			772
+		],
+		[
+			3940,
+			-1464
+		],
+		[
+			8515,
+			1308
+		],
+		[
+			647,
+			-627
+		],
+		[
+			-578,
+			-1570
+		],
+		[
+			1756,
+			-985
+		]
+	],
+	[
+		[
+			7646369,
+			7378615
+		],
+		[
+			-6697,
+			-6672
+		],
+		[
+			-7480,
+			-1623
+		],
+		[
+			-352,
+			-1584
+		],
+		[
+			-2093,
+			-712
+		],
+		[
+			829,
+			-2010
+		],
+		[
+			-3777,
+			-2155
+		],
+		[
+			-3693,
+			-5493
+		],
+		[
+			-12246,
+			-5548
+		],
+		[
+			3473,
+			-4576
+		],
+		[
+			-3305,
+			-3994
+		],
+		[
+			615,
+			-2800
+		],
+		[
+			-6084,
+			607
+		],
+		[
+			-4588,
+			-1378
+		],
+		[
+			-1784,
+			-2193
+		],
+		[
+			-7033,
+			-1861
+		]
+	],
+	[
+		[
+			7474954,
+			7442289
+		],
+		[
+			-5411,
+			1506
+		],
+		[
+			-3650,
+			-180
+		],
+		[
+			-6276,
+			2802
+		],
+		[
+			-10405,
+			-2137
+		],
+		[
+			-6263,
+			3992
+		],
+		[
+			-1200,
+			2622
+		]
+	],
+	[
+		[
+			7441749,
+			7450894
+		],
+		[
+			11765,
+			-881
+		],
+		[
+			1806,
+			2117
+		],
+		[
+			2363,
+			447
+		],
+		[
+			7597,
+			-1307
+		],
+		[
+			3199,
+			244
+		],
+		[
+			2656,
+			2613
+		],
+		[
+			362,
+			5206
+		],
+		[
+			1415,
+			1042
+		],
+		[
+			4614,
+			1972
+		],
+		[
+			6256,
+			465
+		],
+		[
+			5481,
+			-2030
+		],
+		[
+			7384,
+			782
+		],
+		[
+			552,
+			191
+		],
+		[
+			487,
+			415
+		],
+		[
+			-717,
+			1611
+		],
+		[
+			3993,
+			45
+		],
+		[
+			3713,
+			2371
+		],
+		[
+			5298,
+			73
+		],
+		[
+			2996,
+			2118
+		],
+		[
+			3600,
+			652
+		],
+		[
+			603,
+			2945
+		],
+		[
+			2963,
+			1694
+		],
+		[
+			702,
+			1812
+		],
+		[
+			1588,
+			-108
+		],
+		[
+			2267,
+			-2009
+		],
+		[
+			3881,
+			844
+		],
+		[
+			1395,
+			399
+		],
+		[
+			2532,
+			-1808
+		],
+		[
+			2088,
+			1124
+		],
+		[
+			3235,
+			316
+		],
+		[
+			3226,
+			-2911
+		],
+		[
+			6637,
+			-512
+		]
+	],
+	[
+		[
+			7786848,
+			7338815
+		],
+		[
+			-956,
+			-2895
+		],
+		[
+			1176,
+			-2616
+		],
+		[
+			-2825,
+			-4376
+		],
+		[
+			-7791,
+			-4749
+		],
+		[
+			-2160,
+			-2947
+		],
+		[
+			1394,
+			-1863
+		],
+		[
+			4036,
+			-1435
+		],
+		[
+			2148,
+			-6347
+		],
+		[
+			6704,
+			-4168
+		],
+		[
+			1926,
+			-2156
+		],
+		[
+			1000,
+			-5614
+		],
+		[
+			-3338,
+			-2775
+		]
+	],
+	[
+		[
+			7756392,
+			7471660
+		],
+		[
+			-229,
+			-2054
+		],
+		[
+			1038,
+			-2674
+		],
+		[
+			2339,
+			-949
+		],
+		[
+			413,
+			-1091
+		],
+		[
+			-2766,
+			-3137
+		],
+		[
+			-1741,
+			-1975
+		],
+		[
+			-2720,
+			-1577
+		],
+		[
+			-689,
+			-2684
+		],
+		[
+			1610,
+			-3086
+		],
+		[
+			-2471,
+			-6494
+		],
+		[
+			-1802,
+			-2196
+		],
+		[
+			-5540,
+			-3268
+		],
+		[
+			-9480,
+			-3742
+		],
+		[
+			-4812,
+			-1900
+		]
+	],
+	[
+		[
+			7639373,
+			7461755
+		],
+		[
+			1421,
+			2996
+		],
+		[
+			4432,
+			1798
+		],
+		[
+			5688,
+			-411
+		],
+		[
+			2905,
+			-2511
+		],
+		[
+			1260,
+			-84
+		],
+		[
+			4236,
+			4488
+		],
+		[
+			3950,
+			87
+		],
+		[
+			3255,
+			2435
+		],
+		[
+			953,
+			3781
+		],
+		[
+			2537,
+			1603
+		],
+		[
+			974,
+			2636
+		],
+		[
+			6530,
+			1459
+		],
+		[
+			2094,
+			3126
+		],
+		[
+			6575,
+			3444
+		]
+	],
+	[
+		[
+			7686183,
+			7486602
+		],
+		[
+			555,
+			-26
+		],
+		[
+			6758,
+			-316
+		],
+		[
+			2784,
+			1018
+		],
+		[
+			744,
+			1211
+		],
+		[
+			-4039,
+			2217
+		],
+		[
+			304,
+			2196
+		],
+		[
+			1494,
+			1170
+		],
+		[
+			2933,
+			-3291
+		],
+		[
+			4741,
+			-1745
+		],
+		[
+			868,
+			-3072
+		],
+		[
+			3069,
+			-1755
+		],
+		[
+			-340,
+			-2176
+		],
+		[
+			925,
+			-770
+		],
+		[
+			8519,
+			730
+		],
+		[
+			7259,
+			-1898
+		],
+		[
+			5377,
+			2513
+		],
+		[
+			4764,
+			-1439
+		],
+		[
+			5494,
+			219
+		],
+		[
+			867,
+			-3268
+		],
+		[
+			-1713,
+			-3273
+		],
+		[
+			-10671,
+			-7542
+		],
+		[
+			-718,
+			-2317
+		],
+		[
+			14313,
+			-429
+		],
+		[
+			6807,
+			5185
+		],
+		[
+			9115,
+			1916
+		]
+	],
+	[
+		[
+			7180666,
+			7449582
+		],
+		[
+			-3796,
+			5821
+		],
+		[
+			-9300,
+			2476
+		],
+		[
+			-3861,
+			3529
+		]
+	],
+	[
+		[
+			7163709,
+			7461408
+		],
+		[
+			3013,
+			-32
+		],
+		[
+			3630,
+			-1689
+		],
+		[
+			3915,
+			407
+		],
+		[
+			394,
+			-514
+		],
+		[
+			-1225,
+			-1433
+		],
+		[
+			1027,
+			-846
+		],
+		[
+			3635,
+			1003
+		],
+		[
+			3785,
+			-1902
+		],
+		[
+			5365,
+			380
+		],
+		[
+			2725,
+			-1562
+		],
+		[
+			7932,
+			-276
+		],
+		[
+			4114,
+			-2928
+		],
+		[
+			4257,
+			248
+		],
+		[
+			3497,
+			1453
+		],
+		[
+			3822,
+			-2414
+		]
+	],
+	[
+		[
+			7213595,
+			7451303
+		],
+		[
+			-2702,
+			-1123
+		],
+		[
+			1876,
+			-1835
+		],
+		[
+			-1154,
+			-3106
+		],
+		[
+			1074,
+			-2153
+		],
+		[
+			-5930,
+			-3288
+		]
+	],
+	[
+		[
+			7206759,
+			7439798
+		],
+		[
+			-4496,
+			1965
+		],
+		[
+			-1943,
+			-1081
+		],
+		[
+			-2994,
+			293
+		],
+		[
+			-5248,
+			2759
+		],
+		[
+			-3467,
+			-1317
+		],
+		[
+			-2293,
+			742
+		]
+	],
+	[
+		[
+			7186318,
+			7443159
+		],
+		[
+			-368,
+			745
+		],
+		[
+			253,
+			1682
+		],
+		[
+			-182,
+			735
+		],
+		[
+			-926,
+			640
+		],
+		[
+			-2720,
+			535
+		],
+		[
+			-661,
+			614
+		],
+		[
+			339,
+			888
+		],
+		[
+			-1387,
+			584
+		]
+	],
+	[
+		[
+			7167667,
+			7497943
+		],
+		[
+			1233,
+			504
+		],
+		[
+			389,
+			-504
+		],
+		[
+			3367,
+			-1382
+		],
+		[
+			-1301,
+			-2652
+		],
+		[
+			-3688,
+			4034
+		]
+	],
+	[
+		[
+			7167217,
+			7499316
+		],
+		[
+			6740,
+			-1057
+		],
+		[
+			4925,
+			419
+		],
+		[
+			-360,
+			-735
+		],
+		[
+			-969,
+			-1982
+		],
+		[
+			1935,
+			-2314
+		],
+		[
+			346,
+			-3120
+		],
+		[
+			-3742,
+			-3044
+		],
+		[
+			-11651,
+			-1566
+		]
+	],
+	[
+		[
+			7164441,
+			7485917
+		],
+		[
+			1424,
+			2282
+		],
+		[
+			4801,
+			3010
+		]
+	],
+	[
+		[
+			7170666,
+			7491209
+		],
+		[
+			-246,
+			1114
+		],
+		[
+			-4695,
+			3554
+		],
+		[
+			-1522,
+			2066
+		],
+		[
+			3014,
+			1373
+		]
+	],
+	[
+		[
+			7181529,
+			7499607
+		],
+		[
+			-660,
+			-1010
+		],
+		[
+			-1676,
+			802
+		],
+		[
+			1279,
+			717
+		],
+		[
+			1057,
+			-509
+		]
+	],
+	[
+		[
+			7322319,
+			7508398
+		],
+		[
+			1089,
+			2122
+		],
+		[
+			3635,
+			-304
+		],
+		[
+			4964,
+			2132
+		],
+		[
+			2139,
+			-694
+		],
+		[
+			-720,
+			-1600
+		],
+		[
+			-2156,
+			-891
+		],
+		[
+			-1116,
+			-2877
+		],
+		[
+			4054,
+			-1904
+		],
+		[
+			488,
+			-1825
+		],
+		[
+			2332,
+			-714
+		],
+		[
+			-2542,
+			-1803
+		],
+		[
+			-100,
+			-2097
+		],
+		[
+			-29,
+			-613
+		],
+		[
+			-3879,
+			-1043
+		],
+		[
+			119,
+			-3298
+		],
+		[
+			1480,
+			-2324
+		],
+		[
+			4146,
+			-209
+		],
+		[
+			1246,
+			-1749
+		],
+		[
+			1375,
+			-376
+		]
+	],
+	[
+		[
+			7345971,
+			7482016
+		],
+		[
+			-4576,
+			-1494
+		],
+		[
+			-2727,
+			-2135
+		],
+		[
+			-6053,
+			126
+		],
+		[
+			-12154,
+			6314
+		],
+		[
+			-3284,
+			-1926
+		],
+		[
+			195,
+			-999
+		],
+		[
+			-3847,
+			-1509
+		],
+		[
+			-2977,
+			1146
+		],
+		[
+			-3816,
+			-1242
+		],
+		[
+			202,
+			2209
+		],
+		[
+			-1453,
+			1605
+		],
+		[
+			-4663,
+			-1746
+		],
+		[
+			-5584,
+			3552
+		],
+		[
+			-147,
+			1864
+		],
+		[
+			-3025,
+			1443
+		]
+	],
+	[
+		[
+			7292062,
+			7489224
+		],
+		[
+			151,
+			4711
+		],
+		[
+			-4027,
+			519
+		]
+	],
+	[
+		[
+			7288186,
+			7494454
+		],
+		[
+			1758,
+			3489
+		],
+		[
+			1627,
+			3229
+		],
+		[
+			3845,
+			-2935
+		],
+		[
+			897,
+			-294
+		],
+		[
+			1700,
+			-557
+		],
+		[
+			880,
+			557
+		],
+		[
+			4605,
+			2915
+		],
+		[
+			2723,
+			3061
+		],
+		[
+			3493,
+			70
+		]
+	],
+	[
+		[
+			7309714,
+			7503989
+		],
+		[
+			4003,
+			-309
+		],
+		[
+			1265,
+			2883
+		],
+		[
+			6229,
+			16
+		],
+		[
+			1108,
+			1819
+		]
+	],
+	[
+		[
+			7166699,
+			7530446
+		],
+		[
+			-1655,
+			-533
+		],
+		[
+			-1262,
+			224
+		],
+		[
+			296,
+			1234
+		],
+		[
+			952,
+			535
+		],
+		[
+			1903,
+			-923
+		],
+		[
+			-234,
+			-537
+		]
+	],
+	[
+		[
+			7159076,
+			7533191
+		],
+		[
+			-1430,
+			-256
+		],
+		[
+			-527,
+			467
+		],
+		[
+			611,
+			1053
+		],
+		[
+			1247,
+			9
+		],
+		[
+			265,
+			706
+		],
+		[
+			1119,
+			-320
+		],
+		[
+			-1285,
+			-1659
+		]
+	],
+	[
+		[
+			7182626,
+			7133841
+		],
+		[
+			1539,
+			-311
+		],
+		[
+			1382,
+			238
+		],
+		[
+			2200,
+			349
+		]
+	],
+	[
+		[
+			7187747,
+			7134117
+		],
+		[
+			2062,
+			-5244
+		],
+		[
+			-2193,
+			-3756
+		],
+		[
+			-4867,
+			-2986
+		],
+		[
+			-295,
+			-2703
+		],
+		[
+			-2744,
+			-868
+		],
+		[
+			-1870,
+			945
+		],
+		[
+			-2094,
+			2710
+		],
+		[
+			-3815,
+			-116
+		],
+		[
+			-159,
+			1491
+		],
+		[
+			2462,
+			1129
+		],
+		[
+			1061,
+			2040
+		],
+		[
+			2748,
+			1720
+		],
+		[
+			-572,
+			1875
+		],
+		[
+			950,
+			2499
+		],
+		[
+			4205,
+			988
+		]
+	],
+	[
+		[
+			7193241,
+			7152369
+		],
+		[
+			-759,
+			-765
+		],
+		[
+			180,
+			-1809
+		],
+		[
+			-3810,
+			-58
+		],
+		[
+			865,
+			-1519
+		],
+		[
+			-2758,
+			-3281
+		]
+	],
+	[
+		[
+			7186959,
+			7144937
+		],
+		[
+			-7307,
+			-874
+		],
+		[
+			-704,
+			9
+		],
+		[
+			-1396,
+			19
+		],
+		[
+			-1812,
+			-1364
+		],
+		[
+			-879,
+			95
+		],
+		[
+			-504,
+			-1091
+		],
+		[
+			-49,
+			-1266
+		]
+	],
+	[
+		[
+			7174308,
+			7140465
+		],
+		[
+			-6978,
+			493
+		],
+		[
+			101,
+			1225
+		],
+		[
+			3363,
+			1852
+		],
+		[
+			-2368,
+			2718
+		],
+		[
+			-1178,
+			-1886
+		]
+	],
+	[
+		[
+			7167248,
+			7144867
+		],
+		[
+			-4310,
+			4012
+		],
+		[
+			10736,
+			3732
+		],
+		[
+			1187,
+			1346
+		],
+		[
+			-661,
+			693
+		]
+	],
+	[
+		[
+			7174200,
+			7154650
+		],
+		[
+			1908,
+			2225
+		],
+		[
+			4547,
+			2720
+		],
+		[
+			5659,
+			1727
+		]
+	],
+	[
+		[
+			7186314,
+			7161322
+		],
+		[
+			1972,
+			-1441
+		],
+		[
+			-2568,
+			-2582
+		],
+		[
+			1433,
+			-1870
+		],
+		[
+			1857,
+			-315
+		],
+		[
+			2912,
+			1338
+		],
+		[
+			2243,
+			-151
+		]
+	],
+	[
+		[
+			7194163,
+			7156301
+		],
+		[
+			1066,
+			-473
+		],
+		[
+			-1089,
+			-1205
+		],
+		[
+			-650,
+			-227
+		],
+		[
+			-249,
+			-2027
+		]
+	],
+	[
+		[
+			7193241,
+			7152369
+		],
+		[
+			3731,
+			-322
+		]
+	],
+	[
+		[
+			7196972,
+			7152047
+		],
+		[
+			-518,
+			-1896
+		],
+		[
+			907,
+			-1885
+		],
+		[
+			1768,
+			-1032
+		],
+		[
+			-419,
+			-1194
+		],
+		[
+			-4300,
+			-524
+		],
+		[
+			-2840,
+			-1915
+		],
+		[
+			-1616,
+			1231
+		],
+		[
+			-2995,
+			105
+		]
+	],
+	[
+		[
+			7132690,
+			7142122
+		],
+		[
+			-1942,
+			2085
+		],
+		[
+			-4205,
+			2153
+		],
+		[
+			1988,
+			942
+		],
+		[
+			-1264,
+			1133
+		],
+		[
+			3835,
+			2505
+		],
+		[
+			3483,
+			269
+		],
+		[
+			5495,
+			2277
+		],
+		[
+			7861,
+			-201
+		]
+	],
+	[
+		[
+			7147941,
+			7153285
+		],
+		[
+			-638,
+			-1026
+		],
+		[
+			2531,
+			-825
+		],
+		[
+			659,
+			-1941
+		],
+		[
+			2434,
+			-866
+		],
+		[
+			548,
+			-1732
+		],
+		[
+			-2476,
+			-1743
+		],
+		[
+			1653,
+			-2010
+		],
+		[
+			-3931,
+			-1880
+		],
+		[
+			-481,
+			-2512
+		]
+	],
+	[
+		[
+			7148240,
+			7138750
+		],
+		[
+			-1475,
+			93
+		],
+		[
+			-1750,
+			-641
+		],
+		[
+			-1014,
+			7
+		]
+	],
+	[
+		[
+			7144001,
+			7138209
+		],
+		[
+			-1662,
+			1556
+		],
+		[
+			-2764,
+			1701
+		],
+		[
+			-1381,
+			355
+		],
+		[
+			-4014,
+			405
+		]
+	],
+	[
+		[
+			7134180,
+			7142226
+		],
+		[
+			-1490,
+			-104
+		]
+	],
+	[
+		[
+			7124821,
+			7344410
+		],
+		[
+			511,
+			262
+		],
+		[
+			3687,
+			1307
+		],
+		[
+			5268,
+			151
+		],
+		[
+			2462,
+			2663
+		],
+		[
+			5808,
+			3170
+		],
+		[
+			10739,
+			-2329
+		],
+		[
+			2939,
+			573
+		]
+	],
+	[
+		[
+			7156235,
+			7350207
+		],
+		[
+			1662,
+			-1018
+		],
+		[
+			1982,
+			173
+		],
+		[
+			875,
+			433
+		],
+		[
+			610,
+			-617
+		],
+		[
+			966,
+			-407
+		]
+	],
+	[
+		[
+			7175810,
+			7331433
+		],
+		[
+			7776,
+			-1244
+		],
+		[
+			6429,
+			-5626
+		]
+	],
+	[
+		[
+			7190015,
+			7324563
+		],
+		[
+			-8168,
+			-468
+		],
+		[
+			-2817,
+			1930
+		],
+		[
+			-9362,
+			-3743
+		],
+		[
+			-2877,
+			-2847
+		],
+		[
+			-5037,
+			-1799
+		],
+		[
+			-4544,
+			-2876
+		],
+		[
+			-1723,
+			-4129
+		]
+	],
+	[
+		[
+			7155487,
+			7310631
+		],
+		[
+			-8297,
+			635
+		]
+	],
+	[
+		[
+			7156235,
+			7350207
+		],
+		[
+			115,
+			2014
+		],
+		[
+			1636,
+			597
+		],
+		[
+			5295,
+			1932
+		],
+		[
+			2743,
+			2294
+		],
+		[
+			-4759,
+			1383
+		],
+		[
+			-1384,
+			1258
+		],
+		[
+			1914,
+			5772
+		]
+	],
+	[
+		[
+			7161795,
+			7365457
+		],
+		[
+			11235,
+			-1298
+		],
+		[
+			5703,
+			335
+		],
+		[
+			4850,
+			-2266
+		],
+		[
+			2945,
+			1398
+		],
+		[
+			7042,
+			-4650
+		],
+		[
+			126,
+			-1587
+		],
+		[
+			-1141,
+			-1730
+		],
+		[
+			671,
+			-434
+		],
+		[
+			5596,
+			1125
+		],
+		[
+			3185,
+			1638
+		],
+		[
+			3162,
+			166
+		],
+		[
+			2719,
+			-1015
+		]
+	],
+	[
+		[
+			7207888,
+			7357139
+		],
+		[
+			-2663,
+			-2593
+		],
+		[
+			-151,
+			-1728
+		],
+		[
+			-156,
+			-1782
+		],
+		[
+			-1096,
+			-1222
+		],
+		[
+			-3605,
+			-817
+		],
+		[
+			-4373,
+			2015
+		],
+		[
+			-5983,
+			-449
+		],
+		[
+			-3044,
+			-2577
+		],
+		[
+			-4545,
+			-652
+		],
+		[
+			-1668,
+			-2623
+		]
+	],
+	[
+		[
+			7247510,
+			7324202
+		],
+		[
+			4326,
+			884
+		],
+		[
+			4210,
+			-799
+		],
+		[
+			5076,
+			509
+		],
+		[
+			-101,
+			-712
+		],
+		[
+			-2358,
+			-1444
+		],
+		[
+			457,
+			-733
+		],
+		[
+			-77,
+			-732
+		],
+		[
+			-986,
+			-1416
+		],
+		[
+			969,
+			-768
+		],
+		[
+			263,
+			-1143
+		],
+		[
+			-2980,
+			-1950
+		],
+		[
+			-971,
+			-1194
+		],
+		[
+			-1607,
+			-357
+		],
+		[
+			-867,
+			-1305
+		],
+		[
+			303,
+			-543
+		],
+		[
+			1300,
+			-604
+		],
+		[
+			-439,
+			-1240
+		],
+		[
+			1214,
+			-1752
+		],
+		[
+			-1217,
+			-1302
+		],
+		[
+			568,
+			-1472
+		],
+		[
+			-1349,
+			-826
+		],
+		[
+			-455,
+			-1481
+		],
+		[
+			1032,
+			-456
+		],
+		[
+			3087,
+			57
+		]
+	],
+	[
+		[
+			7256908,
+			7303423
+		],
+		[
+			1556,
+			354
+		],
+		[
+			758,
+			-42
+		]
+	],
+	[
+		[
+			7259222,
+			7303735
+		],
+		[
+			-1568,
+			-1740
+		],
+		[
+			-7941,
+			-2046
+		],
+		[
+			1773,
+			-2391
+		],
+		[
+			-4023,
+			-3618
+		],
+		[
+			-1660,
+			-3606
+		],
+		[
+			-7538,
+			-2742
+		],
+		[
+			-1819,
+			-2405
+		],
+		[
+			-3224,
+			-245
+		],
+		[
+			-2505,
+			-1979
+		]
+	],
+	[
+		[
+			7230717,
+			7282963
+		],
+		[
+			-6572,
+			713
+		],
+		[
+			-872,
+			1842
+		],
+		[
+			943,
+			2240
+		],
+		[
+			-1035,
+			955
+		],
+		[
+			-3814,
+			208
+		],
+		[
+			-2451,
+			1378
+		],
+		[
+			-4675,
+			-926
+		]
+	],
+	[
+		[
+			7212241,
+			7289373
+		],
+		[
+			-2604,
+			343
+		],
+		[
+			-3921,
+			2130
+		]
+	],
+	[
+		[
+			7205716,
+			7291846
+		],
+		[
+			10999,
+			4769
+		],
+		[
+			-391,
+			1490
+		],
+		[
+			-2882,
+			2044
+		],
+		[
+			378,
+			3403
+		],
+		[
+			-1137,
+			2698
+		],
+		[
+			511,
+			2216
+		],
+		[
+			1573,
+			921
+		],
+		[
+			-1326,
+			2980
+		],
+		[
+			1318,
+			2021
+		],
+		[
+			-3657,
+			3282
+		]
+	],
+	[
+		[
+			7211102,
+			7317670
+		],
+		[
+			-802,
+			2736
+		],
+		[
+			442,
+			1731
+		],
+		[
+			4115,
+			1165
+		],
+		[
+			2156,
+			3176
+		],
+		[
+			3695,
+			-365
+		],
+		[
+			7119,
+			3512
+		],
+		[
+			721,
+			-3551
+		],
+		[
+			3774,
+			-1259
+		],
+		[
+			4388,
+			-607
+		],
+		[
+			1379,
+			946
+		],
+		[
+			3208,
+			56
+		],
+		[
+			3958,
+			-1361
+		],
+		[
+			2255,
+			353
+		]
+	],
+	[
+		[
+			7211102,
+			7317670
+		],
+		[
+			-3062,
+			766
+		],
+		[
+			-1115,
+			1358
+		],
+		[
+			-5546,
+			-1129
+		],
+		[
+			-6961,
+			-30
+		],
+		[
+			-2197,
+			1704
+		],
+		[
+			-959,
+			3006
+		],
+		[
+			-1247,
+			1218
+		]
+	],
+	[
+		[
+			7207888,
+			7357139
+		],
+		[
+			5490,
+			-98
+		],
+		[
+			381,
+			1115
+		]
+	],
+	[
+		[
+			7213759,
+			7358156
+		],
+		[
+			2769,
+			-2149
+		],
+		[
+			246,
+			-3189
+		],
+		[
+			46,
+			-601
+		],
+		[
+			2229,
+			601
+		],
+		[
+			2173,
+			586
+		],
+		[
+			1783,
+			-586
+		],
+		[
+			1991,
+			-654
+		],
+		[
+			3856,
+			132
+		],
+		[
+			1879,
+			-1466
+		],
+		[
+			-1819,
+			-2122
+		],
+		[
+			1824,
+			-229
+		]
+	],
+	[
+		[
+			7230736,
+			7348479
+		],
+		[
+			3037,
+			-2491
+		],
+		[
+			-1242,
+			-2385
+		],
+		[
+			2039,
+			-3411
+		],
+		[
+			-1552,
+			-3213
+		],
+		[
+			1017,
+			-1506
+		],
+		[
+			1826,
+			-542
+		],
+		[
+			2016,
+			1226
+		],
+		[
+			4073,
+			-9
+		],
+		[
+			1048,
+			-1161
+		],
+		[
+			-607,
+			-1426
+		],
+		[
+			473,
+			-1767
+		],
+		[
+			3201,
+			-826
+		]
+	],
+	[
+		[
+			7246065,
+			7330968
+		],
+		[
+			2421,
+			-828
+		],
+		[
+			1013,
+			-1777
+		],
+		[
+			-606,
+			-3421
+		],
+		[
+			-1383,
+			-740
+		]
+	],
+	[
+		[
+			7161795,
+			7365457
+		],
+		[
+			-700,
+			2671
+		],
+		[
+			797,
+			1953
+		],
+		[
+			-2777,
+			4668
+		],
+		[
+			-4747,
+			2298
+		],
+		[
+			-7021,
+			1936
+		],
+		[
+			-310,
+			2424
+		],
+		[
+			-2140,
+			2939
+		]
+	],
+	[
+		[
+			7144897,
+			7384346
+		],
+		[
+			6833,
+			-1174
+		],
+		[
+			5293,
+			259
+		],
+		[
+			3322,
+			1394
+		],
+		[
+			1268,
+			3120
+		],
+		[
+			3941,
+			1815
+		],
+		[
+			5527,
+			-924
+		],
+		[
+			8878,
+			2762
+		],
+		[
+			3724,
+			-1150
+		],
+		[
+			1794,
+			-1708
+		]
+	],
+	[
+		[
+			7185477,
+			7388740
+		],
+		[
+			1057,
+			-10575
+		],
+		[
+			13581,
+			-386
+		],
+		[
+			4901,
+			1317
+		],
+		[
+			3683,
+			-45
+		],
+		[
+			4189,
+			2566
+		],
+		[
+			1112,
+			2249
+		],
+		[
+			2692,
+			1023
+		],
+		[
+			4209,
+			3666
+		],
+		[
+			3845,
+			-239
+		],
+		[
+			3565,
+			-1515
+		],
+		[
+			-3319,
+			-3447
+		],
+		[
+			2709,
+			-3459
+		]
+	],
+	[
+		[
+			7227701,
+			7379895
+		],
+		[
+			-4691,
+			-5791
+		],
+		[
+			-5201,
+			-1412
+		],
+		[
+			-3143,
+			-2266
+		],
+		[
+			-1885,
+			-3843
+		],
+		[
+			195,
+			-1235
+		],
+		[
+			8479,
+			-3493
+		],
+		[
+			-2160,
+			-1276
+		],
+		[
+			-147,
+			-3107
+		],
+		[
+			-5389,
+			684
+		]
+	],
+	[
+		[
+			7205716,
+			7291846
+		],
+		[
+			-2276,
+			1526
+		],
+		[
+			-6386,
+			-907
+		],
+		[
+			-727,
+			-1129
+		],
+		[
+			2034,
+			-3094
+		],
+		[
+			-6144,
+			-4551
+		],
+		[
+			-2253,
+			1375
+		],
+		[
+			-3282,
+			-281
+		],
+		[
+			-6522,
+			1904
+		],
+		[
+			-5138,
+			221
+		],
+		[
+			-5053,
+			-1433
+		]
+	],
+	[
+		[
+			7169969,
+			7285477
+		],
+		[
+			-2703,
+			2413
+		],
+		[
+			-1086,
+			3582
+		],
+		[
+			-2783,
+			1506
+		],
+		[
+			-780,
+			2273
+		],
+		[
+			2010,
+			2073
+		],
+		[
+			8681,
+			3180
+		],
+		[
+			-794,
+			3710
+		],
+		[
+			-8516,
+			2870
+		],
+		[
+			-2549,
+			3588
+		],
+		[
+			-5962,
+			-41
+		]
+	],
+	[
+		[
+			7029132,
+			7289312
+		],
+		[
+			3676,
+			2
+		],
+		[
+			2633,
+			1337
+		],
+		[
+			9094,
+			1271
+		]
+	],
+	[
+		[
+			7046636,
+			7290928
+		],
+		[
+			-869,
+			-1539
+		],
+		[
+			4228,
+			-2426
+		]
+	],
+	[
+		[
+			7049995,
+			7286963
+		],
+		[
+			-615,
+			-2388
+		],
+		[
+			-4968,
+			-521
+		],
+		[
+			-4399,
+			-4009
+		],
+		[
+			-8706,
+			104
+		],
+		[
+			-2528,
+			1151
+		]
+	],
+	[
+		[
+			7571797,
+			6954584
+		],
+		[
+			1684,
+			2082
+		],
+		[
+			-25,
+			641
+		],
+		[
+			-137,
+			3505
+		],
+		[
+			1548,
+			1182
+		],
+		[
+			-3329,
+			1775
+		],
+		[
+			891,
+			1414
+		],
+		[
+			2521,
+			691
+		],
+		[
+			-796,
+			1835
+		],
+		[
+			-2722,
+			1356
+		],
+		[
+			1167,
+			1402
+		],
+		[
+			-465,
+			1517
+		],
+		[
+			2606,
+			599
+		],
+		[
+			1165,
+			1476
+		]
+	],
+	[
+		[
+			7609644,
+			6959365
+		],
+		[
+			-6881,
+			-494
+		],
+		[
+			-1537,
+			-1564
+		],
+		[
+			-608,
+			-675
+		],
+		[
+			-636,
+			-1150
+		],
+		[
+			-1173,
+			-323
+		],
+		[
+			-219,
+			-622
+		],
+		[
+			-646,
+			-506
+		],
+		[
+			-1610,
+			-202
+		],
+		[
+			-1168,
+			-469
+		],
+		[
+			-675,
+			-1419
+		],
+		[
+			-842,
+			-892
+		],
+		[
+			-1598,
+			495
+		],
+		[
+			-954,
+			-142
+		],
+		[
+			-77,
+			-831
+		],
+		[
+			-688,
+			-594
+		]
+	],
+	[
+		[
+			7602755,
+			6934957
+		],
+		[
+			3674,
+			-721
+		],
+		[
+			2423,
+			-1513
+		],
+		[
+			6450,
+			-9007
+		],
+		[
+			-2880,
+			-3817
+		],
+		[
+			-716,
+			-948
+		],
+		[
+			-2505,
+			-1938
+		],
+		[
+			-116,
+			-2345
+		],
+		[
+			-2987,
+			-3653
+		],
+		[
+			2032,
+			-1196
+		],
+		[
+			4375,
+			-347
+		],
+		[
+			4817,
+			1287
+		],
+		[
+			5634,
+			-3551
+		],
+		[
+			1756,
+			-5230
+		],
+		[
+			-2896,
+			-2896
+		],
+		[
+			-95,
+			-1646
+		],
+		[
+			-2081,
+			-865
+		],
+		[
+			713,
+			-2193
+		],
+		[
+			-1742,
+			-2294
+		],
+		[
+			1171,
+			-1338
+		]
+	],
+	[
+		[
+			7619782,
+			6890746
+		],
+		[
+			-185,
+			-2709
+		],
+		[
+			-3725,
+			-2587
+		],
+		[
+			-2324,
+			1400
+		],
+		[
+			-1973,
+			-458
+		],
+		[
+			-5362,
+			1975
+		],
+		[
+			-6519,
+			4744
+		],
+		[
+			-2918,
+			261
+		],
+		[
+			-2393,
+			1449
+		],
+		[
+			-977,
+			1854
+		],
+		[
+			3039,
+			3706
+		],
+		[
+			-4851,
+			3252
+		],
+		[
+			1288,
+			1621
+		],
+		[
+			-8126,
+			1664
+		]
+	],
+	[
+		[
+			7205133,
+			7089062
+		],
+		[
+			-6395,
+			-677
+		],
+		[
+			-2245,
+			2495
+		],
+		[
+			-2608,
+			-642
+		],
+		[
+			-6160,
+			881
+		],
+		[
+			-3795,
+			4588
+		],
+		[
+			96,
+			5513
+		],
+		[
+			-9176,
+			-1802
+		],
+		[
+			1882,
+			-5908
+		],
+		[
+			-3418,
+			-2836
+		]
+	],
+	[
+		[
+			7173314,
+			7090674
+		],
+		[
+			-850,
+			133
+		],
+		[
+			-1244,
+			-314
+		],
+		[
+			-619,
+			177
+		],
+		[
+			-2038,
+			1540
+		],
+		[
+			-857,
+			1355
+		],
+		[
+			-3027,
+			2431
+		],
+		[
+			-1425,
+			175
+		],
+		[
+			-594,
+			950
+		],
+		[
+			-1173,
+			525
+		],
+		[
+			-1952,
+			30
+		],
+		[
+			-627,
+			-552
+		],
+		[
+			-1488,
+			-89
+		]
+	],
+	[
+		[
+			7157420,
+			7097035
+		],
+		[
+			-767,
+			1166
+		]
+	],
+	[
+		[
+			7156653,
+			7098201
+		],
+		[
+			-3294,
+			3428
+		],
+		[
+			-2323,
+			5820
+		],
+		[
+			1166,
+			1332
+		],
+		[
+			7612,
+			2995
+		]
+	],
+	[
+		[
+			7159814,
+			7111776
+		],
+		[
+			199,
+			286
+		]
+	],
+	[
+		[
+			7160013,
+			7112062
+		],
+		[
+			9532,
+			-1378
+		],
+		[
+			1558,
+			891
+		]
+	],
+	[
+		[
+			7171103,
+			7111575
+		],
+		[
+			11529,
+			-190
+		],
+		[
+			1015,
+			1789
+		],
+		[
+			1463,
+			672
+		],
+		[
+			4410,
+			-2790
+		],
+		[
+			5389,
+			1469
+		]
+	],
+	[
+		[
+			7194909,
+			7112525
+		],
+		[
+			-768,
+			-1598
+		],
+		[
+			1269,
+			-1478
+		],
+		[
+			-617,
+			-2173
+		],
+		[
+			4673,
+			-2407
+		],
+		[
+			3878,
+			-539
+		],
+		[
+			-1360,
+			-1338
+		],
+		[
+			1339,
+			-1699
+		],
+		[
+			1039,
+			-8922
+		],
+		[
+			1539,
+			-1532
+		],
+		[
+			-768,
+			-1777
+		]
+	],
+	[
+		[
+			7208364,
+			7085760
+		],
+		[
+			1358,
+			-1539
+		],
+		[
+			-4356,
+			-1554
+		],
+		[
+			-1256,
+			-1906
+		],
+		[
+			-3302,
+			-2047
+		],
+		[
+			-4792,
+			304
+		],
+		[
+			95,
+			1414
+		],
+		[
+			2467,
+			1360
+		],
+		[
+			-421,
+			3952
+		],
+		[
+			2288,
+			1087
+		],
+		[
+			2183,
+			-1318
+		],
+		[
+			2484,
+			1638
+		]
+	],
+	[
+		[
+			7205112,
+			7087151
+		],
+		[
+			3252,
+			-1391
+		]
+	],
+	[
+		[
+			7171103,
+			7111575
+		],
+		[
+			-108,
+			3817
+		],
+		[
+			-2079,
+			1837
+		],
+		[
+			911,
+			3740
+		],
+		[
+			-2384,
+			4532
+		],
+		[
+			3898,
+			1564
+		],
+		[
+			-1044,
+			3085
+		],
+		[
+			1664,
+			1048
+		],
+		[
+			153,
+			1573
+		],
+		[
+			5073,
+			2473
+		]
+	],
+	[
+		[
+			7177187,
+			7135244
+		],
+		[
+			1069,
+			-143
+		],
+		[
+			692,
+			-295
+		],
+		[
+			2023,
+			-863
+		],
+		[
+			1655,
+			-102
+		]
+	],
+	[
+		[
+			7187747,
+			7134117
+		],
+		[
+			10393,
+			-348
+		],
+		[
+			6887,
+			1691
+		],
+		[
+			4746,
+			3211
+		],
+		[
+			7012,
+			-841
+		]
+	],
+	[
+		[
+			7218784,
+			7123346
+		],
+		[
+			-2664,
+			734
+		],
+		[
+			-137,
+			-2067
+		],
+		[
+			-3697,
+			-1686
+		],
+		[
+			-1085,
+			-1996
+		],
+		[
+			-2976,
+			152
+		],
+		[
+			-1877,
+			-913
+		],
+		[
+			-4720,
+			581
+		],
+		[
+			-2617,
+			-3241
+		],
+		[
+			-4102,
+			-2385
+		]
+	],
+	[
+		[
+			7160013,
+			7112062
+		],
+		[
+			2599,
+			3022
+		],
+		[
+			-4928,
+			556
+		],
+		[
+			-2502,
+			3423
+		]
+	],
+	[
+		[
+			7155182,
+			7119063
+		],
+		[
+			-1986,
+			2195
+		],
+		[
+			98,
+			2916
+		],
+		[
+			-3451,
+			2344
+		],
+		[
+			642,
+			3778
+		],
+		[
+			-1006,
+			2451
+		]
+	],
+	[
+		[
+			7149479,
+			7132747
+		],
+		[
+			-1917,
+			3066
+		],
+		[
+			-3561,
+			2396
+		]
+	],
+	[
+		[
+			7148240,
+			7138750
+		],
+		[
+			7987,
+			-160
+		],
+		[
+			11021,
+			6277
+		]
+	],
+	[
+		[
+			7174308,
+			7140465
+		],
+		[
+			3309,
+			-3874
+		],
+		[
+			-430,
+			-1347
+		]
+	],
+	[
+		[
+			7150565,
+			7158797
+		],
+		[
+			1031,
+			1318
+		],
+		[
+			3851,
+			888
+		],
+		[
+			-1570,
+			1965
+		],
+		[
+			2206,
+			1893
+		],
+		[
+			-4094,
+			3180
+		],
+		[
+			-1357,
+			78
+		]
+	],
+	[
+		[
+			7150632,
+			7168119
+		],
+		[
+			-1361,
+			906
+		],
+		[
+			1395,
+			988
+		],
+		[
+			-3543,
+			2783
+		],
+		[
+			2935,
+			1948
+		],
+		[
+			960,
+			1634
+		],
+		[
+			2894,
+			1120
+		],
+		[
+			618,
+			1278
+		],
+		[
+			7368,
+			1425
+		]
+	],
+	[
+		[
+			7161898,
+			7180201
+		],
+		[
+			2253,
+			-1644
+		],
+		[
+			2439,
+			74
+		]
+	],
+	[
+		[
+			7166590,
+			7178631
+		],
+		[
+			3676,
+			-2624
+		],
+		[
+			5469,
+			-512
+		],
+		[
+			434,
+			-1474
+		],
+		[
+			3317,
+			-2672
+		],
+		[
+			-2583,
+			-3611
+		],
+		[
+			3987,
+			-571
+		],
+		[
+			3292,
+			-4639
+		],
+		[
+			2132,
+			-1206
+		]
+	],
+	[
+		[
+			7174200,
+			7154650
+		],
+		[
+			-1808,
+			-160
+		],
+		[
+			-2656,
+			1466
+		],
+		[
+			-4049,
+			-1156
+		],
+		[
+			-2959,
+			978
+		],
+		[
+			-2106,
+			-503
+		],
+		[
+			-2989,
+			1985
+		],
+		[
+			-3783,
+			-80
+		],
+		[
+			-3285,
+			1617
+		]
+	],
+	[
+		[
+			7194163,
+			7156301
+		],
+		[
+			370,
+			1908
+		],
+		[
+			2886,
+			811
+		],
+		[
+			-1355,
+			2995
+		],
+		[
+			4124,
+			1504
+		],
+		[
+			80,
+			2578
+		],
+		[
+			1108,
+			473
+		],
+		[
+			5144,
+			-365
+		],
+		[
+			3546,
+			-1287
+		],
+		[
+			1437,
+			-1547
+		],
+		[
+			3231,
+			367
+		],
+		[
+			2675,
+			-1648
+		],
+		[
+			2450,
+			1414
+		],
+		[
+			10722,
+			207
+		],
+		[
+			2168,
+			2708
+		],
+		[
+			2955,
+			934
+		],
+		[
+			1727,
+			4162
+		],
+		[
+			4267,
+			363
+		],
+		[
+			-853,
+			2067
+		],
+		[
+			1581,
+			1413
+		],
+		[
+			-1703,
+			1085
+		],
+		[
+			1019,
+			2941
+		],
+		[
+			2123,
+			1651
+		],
+		[
+			-15,
+			1391
+		]
+	],
+	[
+		[
+			7243850,
+			7182426
+		],
+		[
+			843,
+			2328
+		],
+		[
+			4460,
+			-1255
+		],
+		[
+			1456,
+			-2260
+		],
+		[
+			-974,
+			-2788
+		],
+		[
+			1225,
+			-1058
+		],
+		[
+			976,
+			152
+		],
+		[
+			3204,
+			499
+		],
+		[
+			3416,
+			1608
+		],
+		[
+			855,
+			1722
+		],
+		[
+			3776,
+			1391
+		]
+	],
+	[
+		[
+			7263087,
+			7182765
+		],
+		[
+			1291,
+			-2802
+		],
+		[
+			5963,
+			-2830
+		],
+		[
+			6391,
+			779
+		],
+		[
+			7887,
+			-3066
+		],
+		[
+			3848,
+			-535
+		]
+	],
+	[
+		[
+			7214232,
+			7145408
+		],
+		[
+			-4892,
+			2089
+		],
+		[
+			-5116,
+			-838
+		],
+		[
+			-1389,
+			1765
+		],
+		[
+			511,
+			2637
+		],
+		[
+			-6374,
+			986
+		]
+	],
+	[
+		[
+			7147941,
+			7153285
+		],
+		[
+			3425,
+			1434
+		],
+		[
+			-1184,
+			1467
+		],
+		[
+			383,
+			2611
+		]
+	],
+	[
+		[
+			7225477,
+			7096442
+		],
+		[
+			-408,
+			-1691
+		]
+	],
+	[
+		[
+			7225069,
+			7094751
+		],
+		[
+			-1592,
+			163
+		],
+		[
+			-422,
+			1122
+		],
+		[
+			-492,
+			107
+		],
+		[
+			-90,
+			-980
+		],
+		[
+			1522,
+			-1593
+		]
+	],
+	[
+		[
+			7223995,
+			7093570
+		],
+		[
+			3440,
+			-2891
+		],
+		[
+			-1198,
+			-773
+		],
+		[
+			-2718,
+			1399
+		]
+	],
+	[
+		[
+			7223519,
+			7091305
+		],
+		[
+			-2293,
+			-76
+		],
+		[
+			-2544,
+			-2601
+		],
+		[
+			-4979,
+			780
+		],
+		[
+			-2586,
+			-479
+		],
+		[
+			-2753,
+			-3169
+		]
+	],
+	[
+		[
+			7205112,
+			7087151
+		],
+		[
+			21,
+			1911
+		]
+	],
+	[
+		[
+			7092576,
+			7145350
+		],
+		[
+			3118,
+			1628
+		],
+		[
+			2841,
+			239
+		],
+		[
+			106,
+			2004
+		],
+		[
+			1778,
+			2096
+		],
+		[
+			6920,
+			-1615
+		],
+		[
+			613,
+			3453
+		],
+		[
+			-3531,
+			1832
+		],
+		[
+			-779,
+			1229
+		],
+		[
+			2977,
+			2884
+		],
+		[
+			7577,
+			3095
+		],
+		[
+			2602,
+			-1650
+		],
+		[
+			1790,
+			-60
+		],
+		[
+			1961,
+			1731
+		],
+		[
+			-2801,
+			2299
+		],
+		[
+			1444,
+			1194
+		],
+		[
+			2786,
+			167
+		],
+		[
+			3354,
+			-1036
+		],
+		[
+			2035,
+			1578
+		]
+	],
+	[
+		[
+			7127367,
+			7166418
+		],
+		[
+			4749,
+			67
+		],
+		[
+			4769,
+			1237
+		],
+		[
+			3842,
+			-2403
+		],
+		[
+			2616,
+			937
+		],
+		[
+			3421,
+			-117
+		],
+		[
+			3868,
+			1980
+		]
+	],
+	[
+		[
+			7132690,
+			7142122
+		],
+		[
+			-7358,
+			-1960
+		],
+		[
+			-13405,
+			-3587
+		],
+		[
+			-8569,
+			-580
+		],
+		[
+			-1584,
+			978
+		],
+		[
+			-1305,
+			2812
+		],
+		[
+			-7117,
+			4023
+		],
+		[
+			-776,
+			1542
+		]
+	],
+	[
+		[
+			7166590,
+			7178631
+		],
+		[
+			1483,
+			1256
+		],
+		[
+			1016,
+			448
+		],
+		[
+			3841,
+			-137
+		]
+	],
+	[
+		[
+			7172930,
+			7180198
+		],
+		[
+			2173,
+			1003
+		],
+		[
+			-1759,
+			1694
+		],
+		[
+			251,
+			618
+		],
+		[
+			6587,
+			3518
+		],
+		[
+			11292,
+			-1408
+		],
+		[
+			2420,
+			903
+		],
+		[
+			1473,
+			-1546
+		],
+		[
+			-415,
+			-1434
+		],
+		[
+			1016,
+			-978
+		],
+		[
+			3654,
+			-577
+		],
+		[
+			2076,
+			1019
+		],
+		[
+			3026,
+			-1503
+		],
+		[
+			1658,
+			808
+		],
+		[
+			3983,
+			-211
+		],
+		[
+			3382,
+			2258
+		],
+		[
+			-177,
+			3327
+		],
+		[
+			5849,
+			806
+		]
+	],
+	[
+		[
+			7219419,
+			7188495
+		],
+		[
+			2976,
+			-284
+		],
+		[
+			-1061,
+			-2546
+		],
+		[
+			989,
+			-1116
+		],
+		[
+			2047,
+			-404
+		],
+		[
+			379,
+			-1745
+		],
+		[
+			6214,
+			219
+		],
+		[
+			9387,
+			2246
+		],
+		[
+			2000,
+			-2104
+		],
+		[
+			1500,
+			-335
+		]
+	],
+	[
+		[
+			7172930,
+			7180198
+		],
+		[
+			-2942,
+			1044
+		],
+		[
+			-1189,
+			3969
+		],
+		[
+			4257,
+			2843
+		],
+		[
+			4802,
+			863
+		],
+		[
+			1636,
+			1236
+		],
+		[
+			-6620,
+			2103
+		],
+		[
+			3429,
+			3353
+		],
+		[
+			-3888,
+			4605
+		],
+		[
+			-4754,
+			1476
+		],
+		[
+			592,
+			2071
+		],
+		[
+			4242,
+			4861
+		]
+	],
+	[
+		[
+			7172495,
+			7208622
+		],
+		[
+			2076,
+			-2103
+		],
+		[
+			2046,
+			-162
+		],
+		[
+			3961,
+			2525
+		],
+		[
+			4517,
+			-1853
+		],
+		[
+			3434,
+			-132
+		],
+		[
+			9825,
+			2361
+		],
+		[
+			6913,
+			-1468
+		],
+		[
+			1746,
+			1467
+		]
+	],
+	[
+		[
+			7207013,
+			7209257
+		],
+		[
+			2303,
+			-369
+		],
+		[
+			2337,
+			-2141
+		],
+		[
+			217,
+			-2475
+		],
+		[
+			-1361,
+			-931
+		],
+		[
+			1068,
+			-1174
+		],
+		[
+			3496,
+			-1070
+		],
+		[
+			1202,
+			-2198
+		],
+		[
+			3623,
+			-440
+		],
+		[
+			3163,
+			-2793
+		],
+		[
+			4805,
+			-1373
+		],
+		[
+			-240,
+			-1275
+		],
+		[
+			-2424,
+			-2095
+		],
+		[
+			-5783,
+			-2428
+		]
+	],
+	[
+		[
+			7161898,
+			7180201
+		],
+		[
+			-3948,
+			2929
+		],
+		[
+			386,
+			2462
+		],
+		[
+			-2124,
+			-1102
+		],
+		[
+			-1829,
+			200
+		],
+		[
+			-2930,
+			2777
+		],
+		[
+			-761,
+			1942
+		],
+		[
+			-3539,
+			823
+		],
+		[
+			-3267,
+			1887
+		],
+		[
+			-3234,
+			3938
+		],
+		[
+			-2693,
+			919
+		],
+		[
+			-2659,
+			-1617
+		],
+		[
+			-3483,
+			1144
+		],
+		[
+			-1482,
+			2130
+		]
+	],
+	[
+		[
+			7130335,
+			7198633
+		],
+		[
+			-1964,
+			815
+		],
+		[
+			580,
+			2189
+		],
+		[
+			-2677,
+			3109
+		],
+		[
+			1480,
+			2531
+		]
+	],
+	[
+		[
+			7127754,
+			7207277
+		],
+		[
+			1795,
+			1361
+		],
+		[
+			2082,
+			3631
+		],
+		[
+			-3208,
+			4320
+		],
+		[
+			68,
+			1075
+		],
+		[
+			13606,
+			8916
+		],
+		[
+			2053,
+			83
+		],
+		[
+			1997,
+			-1682
+		],
+		[
+			4579,
+			-85
+		]
+	],
+	[
+		[
+			7150726,
+			7224896
+		],
+		[
+			4449,
+			-1763
+		],
+		[
+			-495,
+			-3187
+		],
+		[
+			817,
+			-1793
+		],
+		[
+			5105,
+			-543
+		],
+		[
+			-1772,
+			-3011
+		],
+		[
+			1449,
+			-3287
+		],
+		[
+			9158,
+			1081
+		],
+		[
+			566,
+			-2252
+		],
+		[
+			2492,
+			-1519
+		]
+	],
+	[
+		[
+			7127367,
+			7166418
+		],
+		[
+			-275,
+			1880
+		],
+		[
+			-1367,
+			1196
+		],
+		[
+			-393,
+			1862
+		],
+		[
+			-2410,
+			545
+		],
+		[
+			-1695,
+			3914
+		],
+		[
+			-1823,
+			1166
+		],
+		[
+			-2330,
+			170
+		],
+		[
+			96,
+			1480
+		],
+		[
+			-4838,
+			687
+		]
+	],
+	[
+		[
+			7112332,
+			7179318
+		],
+		[
+			-147,
+			816
+		],
+		[
+			3837,
+			4006
+		],
+		[
+			-2841,
+			3295
+		],
+		[
+			1717,
+			3544
+		],
+		[
+			4350,
+			3234
+		],
+		[
+			6084,
+			-2128
+		],
+		[
+			3251,
+			1888
+		],
+		[
+			1752,
+			4660
+		]
+	],
+	[
+		[
+			7212636,
+			7232526
+		],
+		[
+			3212,
+			-1431
+		],
+		[
+			1915,
+			-1896
+		],
+		[
+			2518,
+			1303
+		],
+		[
+			6017,
+			-339
+		],
+		[
+			1445,
+			-1375
+		],
+		[
+			-822,
+			-1679
+		],
+		[
+			3142,
+			-4749
+		]
+	],
+	[
+		[
+			7230063,
+			7222360
+		],
+		[
+			-1262,
+			-891
+		],
+		[
+			-2954,
+			-55
+		],
+		[
+			-1638,
+			-1801
+		],
+		[
+			-6712,
+			-1667
+		],
+		[
+			-1298,
+			-2285
+		],
+		[
+			-4047,
+			-1096
+		],
+		[
+			-3383,
+			-2774
+		],
+		[
+			-2427,
+			-785
+		],
+		[
+			671,
+			-1749
+		]
+	],
+	[
+		[
+			7150726,
+			7224896
+		],
+		[
+			6088,
+			4539
+		],
+		[
+			3733,
+			1196
+		],
+		[
+			788,
+			4352
+		],
+		[
+			1630,
+			618
+		]
+	],
+	[
+		[
+			7162965,
+			7235601
+		],
+		[
+			3925,
+			-1337
+		],
+		[
+			7365,
+			-554
+		],
+		[
+			4639,
+			1299
+		],
+		[
+			3466,
+			2922
+		],
+		[
+			2872,
+			11
+		],
+		[
+			3354,
+			-2503
+		],
+		[
+			3082,
+			805
+		],
+		[
+			2345,
+			-1767
+		],
+		[
+			5984,
+			411
+		],
+		[
+			5392,
+			-884
+		],
+		[
+			1230,
+			1367
+		],
+		[
+			1749,
+			-109
+		],
+		[
+			4268,
+			-2736
+		]
+	],
+	[
+		[
+			7230063,
+			7222360
+		],
+		[
+			8504,
+			-1325
+		],
+		[
+			2434,
+			-808
+		],
+		[
+			985,
+			-1218
+		],
+		[
+			9012,
+			-402
+		],
+		[
+			838,
+			-648
+		],
+		[
+			2262,
+			-1750
+		],
+		[
+			5184,
+			2051
+		]
+	],
+	[
+		[
+			7259282,
+			7218260
+		],
+		[
+			-149,
+			-2243
+		],
+		[
+			4529,
+			-1495
+		],
+		[
+			1965,
+			-2127
+		],
+		[
+			7221,
+			2741
+		],
+		[
+			2530,
+			-812
+		],
+		[
+			944,
+			-2080
+		]
+	],
+	[
+		[
+			7276322,
+			7212244
+		],
+		[
+			-218,
+			-1748
+		],
+		[
+			1124,
+			-2414
+		],
+		[
+			2573,
+			-1475
+		],
+		[
+			-2349,
+			-2905
+		],
+		[
+			1525,
+			-2115
+		],
+		[
+			-381,
+			-579
+		],
+		[
+			-2955,
+			-1593
+		],
+		[
+			-1711,
+			172
+		],
+		[
+			-3047,
+			1276
+		],
+		[
+			-1492,
+			1602
+		],
+		[
+			-3996,
+			136
+		],
+		[
+			-2718,
+			2017
+		],
+		[
+			-13,
+			-2855
+		],
+		[
+			2210,
+			-2139
+		],
+		[
+			-1617,
+			-2727
+		],
+		[
+			1287,
+			-1644
+		],
+		[
+			-3154,
+			-2035
+		],
+		[
+			-3206,
+			-6394
+		],
+		[
+			2650,
+			-614
+		],
+		[
+			84,
+			-1635
+		],
+		[
+			2169,
+			-1810
+		]
+	],
+	[
+		[
+			7270905,
+			7273834
+		],
+		[
+			1074,
+			-1138
+		]
+	],
+	[
+		[
+			7271979,
+			7272696
+		],
+		[
+			-437,
+			-976
+		],
+		[
+			-2806,
+			-1058
+		],
+		[
+			1850,
+			-1244
+		],
+		[
+			-38,
+			-1417
+		],
+		[
+			-3803,
+			-2205
+		],
+		[
+			-2268,
+			882
+		],
+		[
+			-1330,
+			-1669
+		],
+		[
+			-10037,
+			2063
+		],
+		[
+			-1274,
+			1270
+		],
+		[
+			-868,
+			865
+		],
+		[
+			868,
+			713
+		],
+		[
+			1284,
+			1053
+		],
+		[
+			-663,
+			2285
+		],
+		[
+			550,
+			437
+		],
+		[
+			4504,
+			291
+		],
+		[
+			4370,
+			-893
+		],
+		[
+			2726,
+			588
+		],
+		[
+			3931,
+			-1063
+		],
+		[
+			2367,
+			1216
+		]
+	],
+	[
+		[
+			7267763,
+			7275683
+		],
+		[
+			1352,
+			212
+		],
+		[
+			672,
+			-670
+		],
+		[
+			-420,
+			-701
+		],
+		[
+			-1080,
+			175
+		],
+		[
+			-524,
+			984
+		]
+	],
+	[
+		[
+			7056969,
+			7298648
+		],
+		[
+			808,
+			-1270
+		],
+		[
+			1458,
+			-388
+		],
+		[
+			4886,
+			773
+		],
+		[
+			3500,
+			-1251
+		],
+		[
+			6316,
+			439
+		],
+		[
+			2136,
+			-3022
+		],
+		[
+			1567,
+			-389
+		],
+		[
+			842,
+			-1280
+		],
+		[
+			-83,
+			-1294
+		],
+		[
+			-3345,
+			-1574
+		],
+		[
+			315,
+			-3036
+		],
+		[
+			-5305,
+			-1040
+		],
+		[
+			-4043,
+			-4826
+		]
+	],
+	[
+		[
+			7066021,
+			7280490
+		],
+		[
+			-1411,
+			-215
+		],
+		[
+			-1067,
+			175
+		],
+		[
+			-1834,
+			-147
+		]
+	],
+	[
+		[
+			7061709,
+			7280303
+		],
+		[
+			-242,
+			1843
+		],
+		[
+			-3720,
+			18
+		],
+		[
+			-4151,
+			3949
+		],
+		[
+			-3601,
+			850
+		]
+	],
+	[
+		[
+			7073958,
+			7277735
+		],
+		[
+			820,
+			-4277
+		],
+		[
+			-1565,
+			-1905
+		],
+		[
+			142,
+			-3078
+		],
+		[
+			-3572,
+			-2665
+		],
+		[
+			-2882,
+			-627
+		]
+	],
+	[
+		[
+			7066901,
+			7265183
+		],
+		[
+			-3263,
+			1906
+		],
+		[
+			1748,
+			1742
+		],
+		[
+			-216,
+			1213
+		],
+		[
+			-5539,
+			45
+		],
+		[
+			-2734,
+			-1840
+		],
+		[
+			-882,
+			876
+		],
+		[
+			1176,
+			2240
+		],
+		[
+			-3994,
+			1772
+		],
+		[
+			2769,
+			5172
+		],
+		[
+			3135,
+			-229
+		],
+		[
+			2608,
+			2223
+		]
+	],
+	[
+		[
+			7066021,
+			7280490
+		],
+		[
+			2973,
+			-2087
+		],
+		[
+			4964,
+			-668
+		]
+	],
+	[
+		[
+			7097891,
+			7296559
+		],
+		[
+			-1903,
+			4004
+		],
+		[
+			-5807,
+			522
+		],
+		[
+			-4003,
+			-1034
+		],
+		[
+			-2086,
+			291
+		],
+		[
+			-998,
+			4354
+		],
+		[
+			4385,
+			1705
+		],
+		[
+			-1854,
+			1696
+		],
+		[
+			-260,
+			1837
+		]
+	],
+	[
+		[
+			7109629,
+			7308754
+		],
+		[
+			3188,
+			-1182
+		],
+		[
+			1221,
+			-1327
+		],
+		[
+			-3227,
+			-510
+		],
+		[
+			-992,
+			-2649
+		],
+		[
+			-3062,
+			-2807
+		],
+		[
+			-613,
+			-1947
+		],
+		[
+			-8253,
+			-1773
+		]
+	],
+	[
+		[
+			7066901,
+			7265183
+		],
+		[
+			-2305,
+			-2449
+		],
+		[
+			-4669,
+			-1325
+		],
+		[
+			-1417,
+			-1272
+		]
+	],
+	[
+		[
+			7109160,
+			7262097
+		],
+		[
+			-1689,
+			1283
+		],
+		[
+			-1544,
+			2908
+		],
+		[
+			750,
+			1786
+		],
+		[
+			-606,
+			1312
+		],
+		[
+			2160,
+			1253
+		],
+		[
+			-69,
+			1424
+		],
+		[
+			-1977,
+			1507
+		],
+		[
+			-1803,
+			7308
+		],
+		[
+			-2829,
+			3703
+		]
+	],
+	[
+		[
+			7101553,
+			7284581
+		],
+		[
+			4089,
+			2982
+		],
+		[
+			4073,
+			-2015
+		],
+		[
+			5572,
+			399
+		],
+		[
+			5221,
+			-2413
+		],
+		[
+			4824,
+			66
+		],
+		[
+			5871,
+			-987
+		],
+		[
+			5733,
+			-3073
+		],
+		[
+			5784,
+			-375
+		],
+		[
+			3237,
+			-1485
+		],
+		[
+			10890,
+			1718
+		],
+		[
+			5894,
+			3455
+		],
+		[
+			7228,
+			2624
+		]
+	],
+	[
+		[
+			7212241,
+			7289373
+		],
+		[
+			-7739,
+			-2751
+		],
+		[
+			2477,
+			-2860
+		],
+		[
+			409,
+			-1787
+		],
+		[
+			2578,
+			-965
+		],
+		[
+			-1059,
+			-3107
+		],
+		[
+			-4494,
+			3
+		],
+		[
+			-3668,
+			-1268
+		],
+		[
+			-5273,
+			1052
+		],
+		[
+			-6563,
+			-1620
+		],
+		[
+			-4934,
+			53
+		],
+		[
+			-3559,
+			-3159
+		],
+		[
+			-2716,
+			-567
+		],
+		[
+			-6294,
+			-5536
+		],
+		[
+			4000,
+			-3413
+		],
+		[
+			9115,
+			2726
+		],
+		[
+			2415,
+			-189
+		],
+		[
+			1522,
+			-1275
+		],
+		[
+			767,
+			-3706
+		],
+		[
+			2396,
+			-1468
+		],
+		[
+			-1342,
+			-1383
+		],
+		[
+			91,
+			-2084
+		],
+		[
+			-5661,
+			-3993
+		],
+		[
+			2009,
+			-2276
+		],
+		[
+			-6268,
+			-1515
+		],
+		[
+			-10365,
+			598
+		]
+	],
+	[
+		[
+			7170085,
+			7248883
+		],
+		[
+			-6670,
+			4523
+		],
+		[
+			-7431,
+			-1415
+		],
+		[
+			-6570,
+			-3855
+		],
+		[
+			-10358,
+			994
+		]
+	],
+	[
+		[
+			7139056,
+			7249130
+		],
+		[
+			-5723,
+			3903
+		],
+		[
+			-4217,
+			197
+		],
+		[
+			599,
+			2900
+		],
+		[
+			-4062,
+			3737
+		],
+		[
+			843,
+			2623
+		],
+		[
+			-5398,
+			749
+		],
+		[
+			-11938,
+			-1142
+		]
+	],
+	[
+		[
+			7073958,
+			7277735
+		],
+		[
+			2609,
+			-74
+		],
+		[
+			1108,
+			988
+		],
+		[
+			185,
+			3174
+		],
+		[
+			-842,
+			1492
+		],
+		[
+			3101,
+			1674
+		],
+		[
+			4715,
+			1000
+		],
+		[
+			9768,
+			-319
+		],
+		[
+			4337,
+			879
+		]
+	],
+	[
+		[
+			7098939,
+			7286549
+		],
+		[
+			2614,
+			-1968
+		]
+	],
+	[
+		[
+			7109160,
+			7262097
+		],
+		[
+			852,
+			-1043
+		],
+		[
+			-1613,
+			-1631
+		],
+		[
+			425,
+			-3030
+		],
+		[
+			-2756,
+			301
+		],
+		[
+			-1507,
+			-1443
+		],
+		[
+			-6272,
+			-369
+		],
+		[
+			-2357,
+			-1291
+		],
+		[
+			2437,
+			-2246
+		],
+		[
+			-1547,
+			-4956
+		],
+		[
+			-10034,
+			-402
+		]
+	],
+	[
+		[
+			7100326,
+			7231279
+		],
+		[
+			-6560,
+			1408
+		]
+	],
+	[
+		[
+			7139056,
+			7249130
+		],
+		[
+			-1466,
+			-1567
+		],
+		[
+			1880,
+			-2934
+		],
+		[
+			-2783,
+			-3510
+		],
+		[
+			-4994,
+			-1433
+		],
+		[
+			-6361,
+			1444
+		],
+		[
+			-5286,
+			-1800
+		],
+		[
+			-2366,
+			1681
+		],
+		[
+			-542,
+			1586
+		],
+		[
+			-6449,
+			-1161
+		],
+		[
+			-1896,
+			-2350
+		],
+		[
+			442,
+			-2896
+		],
+		[
+			-1378,
+			-1568
+		],
+		[
+			-736,
+			-2787
+		],
+		[
+			-6795,
+			-556
+		]
+	],
+	[
+		[
+			7127754,
+			7207277
+		],
+		[
+			-2422,
+			1597
+		],
+		[
+			-6187,
+			-440
+		]
+	],
+	[
+		[
+			7119145,
+			7208434
+		],
+		[
+			-258,
+			2886
+		],
+		[
+			-6909,
+			5159
+		],
+		[
+			806,
+			4853
+		],
+		[
+			-989,
+			1494
+		],
+		[
+			-5570,
+			671
+		],
+		[
+			-3332,
+			2754
+		],
+		[
+			-4335,
+			655
+		],
+		[
+			9,
+			2529
+		],
+		[
+			1759,
+			1844
+		]
+	],
+	[
+		[
+			7170085,
+			7248883
+		],
+		[
+			-4330,
+			-2191
+		],
+		[
+			1833,
+			-1901
+		],
+		[
+			-1429,
+			-1855
+		],
+		[
+			2413,
+			-2384
+		],
+		[
+			-5382,
+			-3957
+		],
+		[
+			-225,
+			-994
+		]
+	],
+	[
+		[
+			7098939,
+			7286549
+		],
+		[
+			867,
+			700
+		],
+		[
+			-1287,
+			2004
+		],
+		[
+			636,
+			4776
+		],
+		[
+			-1264,
+			2530
+		]
+	],
+	[
+		[
+			7081581,
+			7176849
+		],
+		[
+			2107,
+			-781
+		],
+		[
+			307,
+			-631
+		],
+		[
+			524,
+			-211
+		],
+		[
+			-456,
+			-517
+		]
+	],
+	[
+		[
+			7084063,
+			7174709
+		],
+		[
+			-3615,
+			-3248
+		],
+		[
+			-5891,
+			-425
+		],
+		[
+			-88,
+			-1252
+		],
+		[
+			1255,
+			-1709
+		]
+	],
+	[
+		[
+			7075724,
+			7168075
+		],
+		[
+			-2422,
+			182
+		],
+		[
+			-2355,
+			-1014
+		],
+		[
+			-3162,
+			541
+		],
+		[
+			-869,
+			1526
+		],
+		[
+			1396,
+			2270
+		],
+		[
+			-3061,
+			534
+		],
+		[
+			-1171,
+			2918
+		],
+		[
+			8097,
+			4460
+		],
+		[
+			5137,
+			-3355
+		],
+		[
+			4267,
+			712
+		]
+	],
+	[
+		[
+			7276322,
+			7212244
+		],
+		[
+			5867,
+			-1364
+		],
+		[
+			1378,
+			1573
+		],
+		[
+			3448,
+			872
+		],
+		[
+			523,
+			893
+		],
+		[
+			-802,
+			1853
+		],
+		[
+			1475,
+			1672
+		],
+		[
+			3700,
+			1649
+		],
+		[
+			6275,
+			-1551
+		],
+		[
+			4932,
+			319
+		],
+		[
+			1220,
+			-1572
+		],
+		[
+			3456,
+			-1153
+		]
+	],
+	[
+		[
+			7259282,
+			7218260
+		],
+		[
+			6597,
+			2542
+		],
+		[
+			141,
+			2782
+		],
+		[
+			-2284,
+			4704
+		],
+		[
+			396,
+			1147
+		],
+		[
+			2464,
+			2913
+		],
+		[
+			4780,
+			1194
+		],
+		[
+			-1137,
+			2288
+		],
+		[
+			2236,
+			2496
+		],
+		[
+			825,
+			2641
+		],
+		[
+			4072,
+			887
+		],
+		[
+			2304,
+			2462
+		],
+		[
+			4991,
+			1978
+		],
+		[
+			5349,
+			-497
+		],
+		[
+			2913,
+			1215
+		]
+	],
+	[
+		[
+			7292929,
+			7247012
+		],
+		[
+			3980,
+			-63
+		],
+		[
+			5843,
+			-3429
+		],
+		[
+			7490,
+			-83
+		],
+		[
+			4582,
+			-2052
+		],
+		[
+			-1055,
+			-2067
+		],
+		[
+			389,
+			-895
+		],
+		[
+			3174,
+			-432
+		]
+	],
+	[
+		[
+			7259222,
+			7303735
+		],
+		[
+			5056,
+			483
+		],
+		[
+			449,
+			-2093
+		],
+		[
+			1894,
+			-664
+		],
+		[
+			3084,
+			1027
+		],
+		[
+			2560,
+			-1156
+		],
+		[
+			5338,
+			752
+		],
+		[
+			1776,
+			-2515
+		],
+		[
+			4330,
+			-2671
+		]
+	],
+	[
+		[
+			7283709,
+			7296898
+		],
+		[
+			486,
+			-543
+		],
+		[
+			-510,
+			-872
+		],
+		[
+			-1271,
+			53
+		]
+	],
+	[
+		[
+			7282414,
+			7295536
+		],
+		[
+			-2890,
+			1369
+		],
+		[
+			-966,
+			207
+		],
+		[
+			-602,
+			-182
+		],
+		[
+			-244,
+			-776
+		],
+		[
+			303,
+			-713
+		],
+		[
+			768,
+			-782
+		],
+		[
+			875,
+			-93
+		],
+		[
+			294,
+			-619
+		]
+	],
+	[
+		[
+			7279952,
+			7293947
+		],
+		[
+			-3174,
+			-197
+		],
+		[
+			-16,
+			-2147
+		],
+		[
+			-2630,
+			-1131
+		],
+		[
+			5087,
+			-4827
+		],
+		[
+			-1149,
+			-2286
+		],
+		[
+			1051,
+			-3063
+		],
+		[
+			-6401,
+			-1899
+		],
+		[
+			-1141,
+			-1633
+		],
+		[
+			790,
+			-1202
+		],
+		[
+			-1611,
+			-861
+		],
+		[
+			147,
+			-867
+		]
+	],
+	[
+		[
+			7271979,
+			7272696
+		],
+		[
+			5955,
+			-1496
+		],
+		[
+			634,
+			-1034
+		],
+		[
+			3804,
+			10
+		],
+		[
+			6034,
+			-1957
+		]
+	],
+	[
+		[
+			7288406,
+			7268219
+		],
+		[
+			-5089,
+			1042
+		],
+		[
+			-2746,
+			-868
+		],
+		[
+			436,
+			-1890
+		],
+		[
+			8201,
+			-2424
+		],
+		[
+			-1311,
+			-1049
+		],
+		[
+			-4036,
+			-542
+		],
+		[
+			-4200,
+			-2738
+		],
+		[
+			-946,
+			-915
+		],
+		[
+			57,
+			-1829
+		]
+	],
+	[
+		[
+			7278772,
+			7257006
+		],
+		[
+			-4016,
+			-907
+		],
+		[
+			-3273,
+			2133
+		],
+		[
+			-164,
+			1392
+		],
+		[
+			-4427,
+			1030
+		],
+		[
+			-2937,
+			-525
+		],
+		[
+			-4535,
+			1347
+		],
+		[
+			-3265,
+			-388
+		],
+		[
+			-4319,
+			1156
+		],
+		[
+			-2752,
+			1833
+		],
+		[
+			-5298,
+			-341
+		],
+		[
+			-2367,
+			-4870
+		],
+		[
+			-2994,
+			-533
+		],
+		[
+			-1147,
+			-1611
+		],
+		[
+			-3149,
+			-984
+		]
+	],
+	[
+		[
+			7234129,
+			7255738
+		],
+		[
+			-5845,
+			5082
+		],
+		[
+			-453,
+			2054
+		],
+		[
+			-2353,
+			797
+		],
+		[
+			-722,
+			1249
+		],
+		[
+			2193,
+			1561
+		],
+		[
+			-1314,
+			5189
+		],
+		[
+			2054,
+			1283
+		],
+		[
+			-2003,
+			2021
+		],
+		[
+			3331,
+			700
+		],
+		[
+			1793,
+			-1074
+		],
+		[
+			1406,
+			1445
+		],
+		[
+			-503,
+			2130
+		],
+		[
+			-2002,
+			1664
+		],
+		[
+			1346,
+			972
+		],
+		[
+			-340,
+			2152
+		]
+	],
+	[
+		[
+			7278772,
+			7257006
+		],
+		[
+			4800,
+			35
+		],
+		[
+			1591,
+			-2105
+		],
+		[
+			2987,
+			-1538
+		],
+		[
+			4018,
+			-97
+		],
+		[
+			935,
+			-2509
+		],
+		[
+			-174,
+			-3780
+		]
+	],
+	[
+		[
+			7212636,
+			7232526
+		],
+		[
+			5487,
+			335
+		],
+		[
+			384,
+			878
+		],
+		[
+			-1930,
+			1858
+		],
+		[
+			221,
+			1002
+		],
+		[
+			5707,
+			2806
+		],
+		[
+			2400,
+			2006
+		],
+		[
+			653,
+			1878
+		],
+		[
+			3843,
+			1190
+		],
+		[
+			2424,
+			3021
+		],
+		[
+			3632,
+			2009
+		],
+		[
+			1414,
+			1796
+		],
+		[
+			-2268,
+			2044
+		],
+		[
+			-474,
+			2389
+		]
+	],
+	[
+		[
+			7288406,
+			7268219
+		],
+		[
+			3217,
+			1177
+		],
+		[
+			636,
+			1731
+		],
+		[
+			-2981,
+			-220
+		],
+		[
+			-3406,
+			4216
+		],
+		[
+			9002,
+			2434
+		],
+		[
+			624,
+			2016
+		],
+		[
+			3192,
+			-529
+		],
+		[
+			874,
+			-2221
+		],
+		[
+			1245,
+			-607
+		],
+		[
+			-302,
+			3588
+		],
+		[
+			2534,
+			-274
+		],
+		[
+			2539,
+			999
+		],
+		[
+			2412,
+			-2643
+		],
+		[
+			18,
+			-1660
+		]
+	],
+	[
+		[
+			7515024,
+			7556193
+		],
+		[
+			8514,
+			116
+		],
+		[
+			727,
+			-5374
+		],
+		[
+			961,
+			-719
+		],
+		[
+			415,
+			3230
+		],
+		[
+			2779,
+			1707
+		],
+		[
+			-1580,
+			1777
+		],
+		[
+			8443,
+			6236
+		]
+	],
+	[
+		[
+			7535283,
+			7563166
+		],
+		[
+			6175,
+			-367
+		],
+		[
+			470,
+			-2552
+		],
+		[
+			2234,
+			-1783
+		],
+		[
+			-3285,
+			-1382
+		],
+		[
+			-5086,
+			-355
+		],
+		[
+			-2175,
+			-1653
+		],
+		[
+			-315,
+			-3036
+		],
+		[
+			-679,
+			-1424
+		],
+		[
+			2675,
+			-2450
+		],
+		[
+			-1151,
+			-2300
+		],
+		[
+			-2433,
+			-461
+		],
+		[
+			-7673,
+			-1456
+		],
+		[
+			-1688,
+			710
+		],
+		[
+			-2171,
+			4297
+		],
+		[
+			-2683,
+			2182
+		],
+		[
+			855,
+			902
+		],
+		[
+			-918,
+			1960
+		],
+		[
+			615,
+			1009
+		],
+		[
+			-3026,
+			1186
+		]
+	],
+	[
+		[
+			7445371,
+			7503991
+		],
+		[
+			485,
+			966
+		],
+		[
+			3843,
+			1445
+		],
+		[
+			1911,
+			-524
+		],
+		[
+			5517,
+			1489
+		],
+		[
+			2996,
+			-603
+		]
+	],
+	[
+		[
+			7460123,
+			7506764
+		],
+		[
+			2867,
+			-435
+		],
+		[
+			768,
+			-4001
+		],
+		[
+			1832,
+			-2237
+		],
+		[
+			-1154,
+			-2148
+		],
+		[
+			-472,
+			-878
+		],
+		[
+			-2800,
+			-886
+		],
+		[
+			1397,
+			-1434
+		],
+		[
+			-1894,
+			-1113
+		],
+		[
+			-5834,
+			-252
+		],
+		[
+			-2453,
+			1034
+		],
+		[
+			493,
+			1963
+		],
+		[
+			-1566,
+			1566
+		],
+		[
+			-911,
+			3353
+		],
+		[
+			-5025,
+			2695
+		]
+	],
+	[
+		[
+			7548351,
+			7470497
+		],
+		[
+			775,
+			2054
+		],
+		[
+			-2083,
+			1539
+		],
+		[
+			-1771,
+			81
+		],
+		[
+			-380,
+			1399
+		],
+		[
+			-1714,
+			1041
+		],
+		[
+			2889,
+			1685
+		],
+		[
+			-550,
+			2699
+		],
+		[
+			832,
+			2534
+		],
+		[
+			3741,
+			2388
+		],
+		[
+			-4439,
+			2648
+		],
+		[
+			-1163,
+			1780
+		],
+		[
+			1250,
+			5121
+		]
+	],
+	[
+		[
+			7545738,
+			7495466
+		],
+		[
+			3662,
+			2353
+		],
+		[
+			2132,
+			-579
+		],
+		[
+			3297,
+			-1536
+		],
+		[
+			1194,
+			676
+		],
+		[
+			-328,
+			1563
+		],
+		[
+			-181,
+			863
+		],
+		[
+			1055,
+			4533
+		],
+		[
+			-1480,
+			1778
+		],
+		[
+			3170,
+			714
+		],
+		[
+			3160,
+			-880
+		],
+		[
+			-557,
+			1419
+		],
+		[
+			631,
+			1501
+		],
+		[
+			3010,
+			-727
+		],
+		[
+			2144,
+			-2888
+		],
+		[
+			3847,
+			344
+		],
+		[
+			6818,
+			-1651
+		],
+		[
+			3012,
+			1653
+		],
+		[
+			-2415,
+			2873
+		],
+		[
+			886,
+			2981
+		],
+		[
+			-561,
+			3208
+		],
+		[
+			1755,
+			1984
+		],
+		[
+			4564,
+			309
+		],
+		[
+			1183,
+			3977
+		],
+		[
+			3928,
+			1049
+		],
+		[
+			1128,
+			3708
+		],
+		[
+			3649,
+			1433
+		],
+		[
+			-2352,
+			2788
+		],
+		[
+			1330,
+			1664
+		],
+		[
+			2731,
+			1192
+		],
+		[
+			-1862,
+			2894
+		],
+		[
+			2110,
+			2740
+		],
+		[
+			-357,
+			1788
+		]
+	],
+	[
+		[
+			7596041,
+			7539190
+		],
+		[
+			5974,
+			-2964
+		],
+		[
+			8945,
+			2781
+		],
+		[
+			2887,
+			86
+		]
+	],
+	[
+		[
+			7613847,
+			7539093
+		],
+		[
+			2377,
+			-1061
+		],
+		[
+			-734,
+			-1468
+		],
+		[
+			4719,
+			-627
+		],
+		[
+			2638,
+			-2182
+		],
+		[
+			1934,
+			6
+		],
+		[
+			3497,
+			-1610
+		],
+		[
+			2761,
+			719
+		],
+		[
+			3764,
+			-1430
+		],
+		[
+			1436,
+			-1758
+		],
+		[
+			-1490,
+			-1478
+		],
+		[
+			-1012,
+			-3427
+		],
+		[
+			284,
+			-2271
+		],
+		[
+			4157,
+			-2703
+		],
+		[
+			3705,
+			608
+		],
+		[
+			2763,
+			-547
+		],
+		[
+			4565,
+			3552
+		],
+		[
+			3879,
+			-389
+		],
+		[
+			1536,
+			-1329
+		],
+		[
+			-469,
+			-1698
+		],
+		[
+			-1292,
+			-1137
+		],
+		[
+			-3232,
+			-414
+		],
+		[
+			2567,
+			-2824
+		],
+		[
+			-541,
+			-1111
+		],
+		[
+			576,
+			-706
+		],
+		[
+			2784,
+			919
+		],
+		[
+			10161,
+			-1704
+		],
+		[
+			5021,
+			-4653
+		],
+		[
+			8570,
+			654
+		],
+		[
+			7967,
+			-987
+		],
+		[
+			6582,
+			-815
+		],
+		[
+			1338,
+			-64
+		],
+		[
+			-390,
+			-514
+		],
+		[
+			-948,
+			-81
+		],
+		[
+			-5757,
+			-1115
+		],
+		[
+			-825,
+			-521
+		],
+		[
+			-1451,
+			-914
+		],
+		[
+			1451,
+			-886
+		],
+		[
+			4326,
+			-2643
+		],
+		[
+			-4326,
+			-2157
+		],
+		[
+			-770,
+			-384
+		],
+		[
+			1243,
+			-2342
+		],
+		[
+			-1,
+			-2062
+		],
+		[
+			-3524,
+			-1405
+		],
+		[
+			-891,
+			-1698
+		],
+		[
+			3388,
+			-3834
+		]
+	],
+	[
+		[
+			7535283,
+			7563166
+		],
+		[
+			8446,
+			3025
+		]
+	],
+	[
+		[
+			7543729,
+			7566191
+		],
+		[
+			384,
+			-1688
+		],
+		[
+			7848,
+			-5242
+		],
+		[
+			221,
+			-1027
+		],
+		[
+			-1080,
+			-1255
+		],
+		[
+			3492,
+			-6716
+		],
+		[
+			4233,
+			437
+		],
+		[
+			3020,
+			-2533
+		],
+		[
+			8898,
+			-488
+		],
+		[
+			2731,
+			-1588
+		],
+		[
+			4448,
+			-753
+		],
+		[
+			7589,
+			-4090
+		],
+		[
+			605,
+			-330
+		],
+		[
+			1449,
+			330
+		],
+		[
+			2458,
+			560
+		],
+		[
+			1287,
+			-560
+		],
+		[
+			4729,
+			-2058
+		]
+	],
+	[
+		[
+			7545738,
+			7495466
+		],
+		[
+			-6802,
+			2477
+		],
+		[
+			-2240,
+			815
+		],
+		[
+			-2005,
+			4060
+		],
+		[
+			-4689,
+			-511
+		],
+		[
+			-1429,
+			256
+		],
+		[
+			-4892,
+			878
+		],
+		[
+			-5214,
+			3924
+		],
+		[
+			-132,
+			2532
+		],
+		[
+			-2128,
+			379
+		],
+		[
+			-2631,
+			2485
+		],
+		[
+			-8775,
+			-620
+		],
+		[
+			-5066,
+			1591
+		],
+		[
+			-1199,
+			1227
+		],
+		[
+			-3625,
+			815
+		]
+	],
+	[
+		[
+			7494911,
+			7515774
+		],
+		[
+			528,
+			3635
+		],
+		[
+			-3503,
+			2052
+		],
+		[
+			-379,
+			1790
+		],
+		[
+			619,
+			3108
+		],
+		[
+			2254,
+			1423
+		],
+		[
+			755,
+			1949
+		],
+		[
+			-321,
+			5428
+		],
+		[
+			-4132,
+			794
+		],
+		[
+			-1727,
+			-1444
+		],
+		[
+			-5970,
+			-1849
+		],
+		[
+			-2328,
+			4147
+		],
+		[
+			-6389,
+			837
+		],
+		[
+			-2964,
+			3861
+		]
+	],
+	[
+		[
+			7471354,
+			7541505
+		],
+		[
+			2023,
+			1399
+		],
+		[
+			461,
+			2060
+		],
+		[
+			3432,
+			1455
+		],
+		[
+			258,
+			1060
+		],
+		[
+			-1180,
+			1997
+		],
+		[
+			3849,
+			2562
+		],
+		[
+			3974,
+			1978
+		],
+		[
+			15564,
+			-757
+		],
+		[
+			15289,
+			2934
+		]
+	],
+	[
+		[
+			7470101,
+			7545250
+		],
+		[
+			-1518,
+			-1211
+		],
+		[
+			-9,
+			2386
+		],
+		[
+			2851,
+			1918
+		],
+		[
+			3779,
+			691
+		],
+		[
+			-12,
+			-762
+		],
+		[
+			-1524,
+			-491
+		],
+		[
+			-898,
+			-965
+		],
+		[
+			-2669,
+			-1566
+		]
+	],
+	[
+		[
+			7543729,
+			7566191
+		],
+		[
+			5695,
+			3021
+		],
+		[
+			17213,
+			17267
+		],
+		[
+			5059,
+			-2235
+		],
+		[
+			9629,
+			-1139
+		],
+		[
+			26157,
+			-756
+		],
+		[
+			-831,
+			-1170
+		],
+		[
+			-3463,
+			-811
+		],
+		[
+			-18534,
+			-530
+		],
+		[
+			594,
+			-1553
+		],
+		[
+			2633,
+			-1802
+		],
+		[
+			5602,
+			457
+		],
+		[
+			3596,
+			-3120
+		],
+		[
+			3963,
+			819
+		],
+		[
+			5268,
+			4544
+		],
+		[
+			6847,
+			2069
+		],
+		[
+			1090,
+			1669
+		],
+		[
+			1612,
+			238
+		],
+		[
+			1828,
+			-1153
+		],
+		[
+			892,
+			-3873
+		],
+		[
+			4976,
+			-2551
+		],
+		[
+			-52,
+			-3295
+		],
+		[
+			3035,
+			-2948
+		],
+		[
+			330,
+			-2619
+		],
+		[
+			5606,
+			-1005
+		],
+		[
+			5165,
+			-2814
+		],
+		[
+			5640,
+			-914
+		],
+		[
+			3837,
+			-3940
+		]
+	],
+	[
+		[
+			7647116,
+			7558047
+		],
+		[
+			-2357,
+			-2435
+		],
+		[
+			-1100,
+			-3428
+		],
+		[
+			-5364,
+			-2036
+		],
+		[
+			3857,
+			-3746
+		],
+		[
+			-43,
+			-858
+		],
+		[
+			-11138,
+			-4379
+		],
+		[
+			-6986,
+			1085
+		],
+		[
+			-8395,
+			-1918
+		],
+		[
+			-1743,
+			-1239
+		]
+	],
+	[
+		[
+			7654309,
+			7603458
+		],
+		[
+			-1027,
+			-1674
+		],
+		[
+			1206,
+			-2891
+		],
+		[
+			2868,
+			-2094
+		],
+		[
+			4002,
+			-863
+		],
+		[
+			16291,
+			1198
+		],
+		[
+			3044,
+			-1310
+		],
+		[
+			1917,
+			-1339
+		],
+		[
+			-281,
+			-2789
+		],
+		[
+			-6972,
+			-3901
+		],
+		[
+			-2349,
+			-1905
+		],
+		[
+			-336,
+			-1444
+		],
+		[
+			863,
+			-2125
+		],
+		[
+			2609,
+			-2671
+		],
+		[
+			6602,
+			-1353
+		],
+		[
+			6711,
+			-5003
+		],
+		[
+			-2947,
+			-7001
+		],
+		[
+			-1924,
+			248
+		],
+		[
+			-2761,
+			1914
+		],
+		[
+			2160,
+			2124
+		],
+		[
+			-1656,
+			2616
+		],
+		[
+			-5277,
+			-943
+		],
+		[
+			-3972,
+			1383
+		],
+		[
+			-7623,
+			-993
+		],
+		[
+			-13012,
+			-6972
+		],
+		[
+			268,
+			-775
+		],
+		[
+			2549,
+			-128
+		],
+		[
+			1436,
+			-1121
+		],
+		[
+			-156,
+			-1305
+		],
+		[
+			-2235,
+			-908
+		],
+		[
+			-6072,
+			1272
+		],
+		[
+			-1500,
+			2206
+		],
+		[
+			-5428,
+			-479
+		],
+		[
+			-5005,
+			1360
+		],
+		[
+			-2056,
+			1948
+		],
+		[
+			-3591,
+			-182
+		],
+		[
+			-228,
+			434
+		],
+		[
+			1095,
+			1430
+		],
+		[
+			-4083,
+			3002
+		],
+		[
+			1099,
+			2877
+		],
+		[
+			8797,
+			450
+		],
+		[
+			2282,
+			1322
+		],
+		[
+			-3134,
+			3648
+		],
+		[
+			-4820,
+			650
+		],
+		[
+			-728,
+			1858
+		],
+		[
+			-2521,
+			675
+		],
+		[
+			1237,
+			2282
+		],
+		[
+			2452,
+			1377
+		],
+		[
+			4220,
+			-403
+		],
+		[
+			1557,
+			-1432
+		],
+		[
+			1839,
+			698
+		],
+		[
+			-2518,
+			2988
+		],
+		[
+			-5514,
+			412
+		],
+		[
+			-485,
+			3129
+		],
+		[
+			8887,
+			806
+		],
+		[
+			5016,
+			-2389
+		],
+		[
+			1019,
+			2847
+		],
+		[
+			4978,
+			2181
+		],
+		[
+			1179,
+			-2767
+		],
+		[
+			-678,
+			-2155
+		],
+		[
+			3274,
+			201
+		],
+		[
+			2822,
+			-3881
+		],
+		[
+			5429,
+			-1523
+		],
+		[
+			190,
+			-2036
+		],
+		[
+			1420,
+			-1220
+		],
+		[
+			-301,
+			-1565
+		],
+		[
+			4191,
+			-77
+		],
+		[
+			648,
+			3907
+		],
+		[
+			-3054,
+			1908
+		],
+		[
+			-99,
+			3408
+		],
+		[
+			-1130,
+			2364
+		],
+		[
+			-9500,
+			2860
+		],
+		[
+			-3744,
+			3574
+		],
+		[
+			-4538,
+			-2586
+		],
+		[
+			-6456,
+			-1554
+		],
+		[
+			2692,
+			6791
+		],
+		[
+			-1455,
+			786
+		],
+		[
+			-4427,
+			-1183
+		],
+		[
+			342,
+			1229
+		],
+		[
+			5894,
+			2972
+		],
+		[
+			13052,
+			1083
+		],
+		[
+			1421,
+			-355
+		],
+		[
+			74,
+			-1082
+		],
+		[
+			-4039,
+			-2041
+		]
+	],
+	[
+		[
+			7629875,
+			7599072
+		],
+		[
+			571,
+			-1277
+		],
+		[
+			-879,
+			-681
+		],
+		[
+			-888,
+			1020
+		],
+		[
+			-1052,
+			-856
+		],
+		[
+			-1304,
+			-164
+		],
+		[
+			514,
+			-831
+		],
+		[
+			-472,
+			-453
+		],
+		[
+			1101,
+			-2750
+		],
+		[
+			-3629,
+			-2251
+		],
+		[
+			-412,
+			241
+		],
+		[
+			1759,
+			4760
+		],
+		[
+			-87,
+			2062
+		],
+		[
+			2186,
+			1275
+		],
+		[
+			2592,
+			-95
+		]
+	],
+	[
+		[
+			7632680,
+			7594770
+		],
+		[
+			-1033,
+			-227
+		],
+		[
+			-348,
+			760
+		],
+		[
+			447,
+			530
+		],
+		[
+			6479,
+			3497
+		],
+		[
+			-110,
+			-1563
+		],
+		[
+			-3934,
+			-1934
+		],
+		[
+			-1501,
+			-1063
+		]
+	],
+	[
+		[
+			7622717,
+			7587172
+		],
+		[
+			-962,
+			-2648
+		],
+		[
+			-523,
+			227
+		],
+		[
+			97,
+			2084
+		],
+		[
+			484,
+			1102
+		],
+		[
+			904,
+			-765
+		]
+	],
+	[
+		[
+			7620994,
+			7583808
+		],
+		[
+			-1859,
+			-913
+		],
+		[
+			-658,
+			388
+		],
+		[
+			1819,
+			1409
+		],
+		[
+			698,
+			-884
+		]
+	],
+	[
+		[
+			7670333,
+			7571242
+		],
+		[
+			-2379,
+			-551
+		],
+		[
+			-156,
+			673
+		],
+		[
+			1616,
+			689
+		],
+		[
+			919,
+			-811
+		]
+	],
+	[
+		[
+			7405542,
+			7534378
+		],
+		[
+			16490,
+			5098
+		],
+		[
+			9675,
+			357
+		],
+		[
+			7452,
+			-2928
+		],
+		[
+			1089,
+			-2860
+		],
+		[
+			1705,
+			-1452
+		],
+		[
+			7837,
+			929
+		],
+		[
+			9726,
+			-3754
+		],
+		[
+			2666,
+			1850
+		],
+		[
+			98,
+			2459
+		],
+		[
+			-2948,
+			2130
+		],
+		[
+			-4175,
+			-303
+		],
+		[
+			-752,
+			2333
+		],
+		[
+			4496,
+			2054
+		],
+		[
+			3528,
+			501
+		],
+		[
+			1184,
+			-536
+		],
+		[
+			967,
+			-1989
+		],
+		[
+			3438,
+			2913
+		],
+		[
+			3336,
+			325
+		]
+	],
+	[
+		[
+			7494911,
+			7515774
+		],
+		[
+			-3319,
+			-261
+		],
+		[
+			-4370,
+			2439
+		],
+		[
+			-2622,
+			-1189
+		],
+		[
+			-1530,
+			1070
+		],
+		[
+			-1947,
+			-2723
+		],
+		[
+			-1406,
+			1094
+		],
+		[
+			-3525,
+			-1485
+		],
+		[
+			-11265,
+			923
+		],
+		[
+			-550,
+			-739
+		],
+		[
+			840,
+			-2967
+		],
+		[
+			-1679,
+			-3819
+		],
+		[
+			-2208,
+			-88
+		],
+		[
+			-1207,
+			-1265
+		]
+	],
+	[
+		[
+			7445371,
+			7503991
+		],
+		[
+			-1002,
+			-772
+		],
+		[
+			1768,
+			-3019
+		],
+		[
+			-1582,
+			-2094
+		],
+		[
+			-8087,
+			403
+		],
+		[
+			-669,
+			-566
+		],
+		[
+			-1527,
+			-1291
+		],
+		[
+			-3761,
+			-1025
+		],
+		[
+			-1531,
+			1905
+		],
+		[
+			-1053,
+			411
+		],
+		[
+			-3065,
+			1197
+		],
+		[
+			-7898,
+			-70
+		],
+		[
+			-3146,
+			3464
+		],
+		[
+			-3450,
+			924
+		]
+	],
+	[
+		[
+			7647116,
+			7558047
+		],
+		[
+			2614,
+			-2342
+		],
+		[
+			5553,
+			-136
+		],
+		[
+			292,
+			-2056
+		],
+		[
+			5615,
+			-5092
+		],
+		[
+			1948,
+			-748
+		],
+		[
+			834,
+			244
+		],
+		[
+			62,
+			2160
+		],
+		[
+			1192,
+			854
+		],
+		[
+			8698,
+			1268
+		],
+		[
+			10483,
+			3136
+		],
+		[
+			1260,
+			-311
+		],
+		[
+			1071,
+			-1704
+		],
+		[
+			4393,
+			-1508
+		],
+		[
+			-24,
+			2970
+		],
+		[
+			4534,
+			973
+		],
+		[
+			3467,
+			-4179
+		],
+		[
+			3585,
+			-2679
+		],
+		[
+			13706,
+			-4834
+		],
+		[
+			21407,
+			-12502
+		]
+	],
+	[
+		[
+			7737806,
+			7531561
+		],
+		[
+			-2261,
+			-1534
+		],
+		[
+			939,
+			-4683
+		]
+	],
+	[
+		[
+			7736484,
+			7525344
+		],
+		[
+			-15619,
+			515
+		],
+		[
+			-11360,
+			-2599
+		],
+		[
+			-9075,
+			492
+		],
+		[
+			-156,
+			1797
+		],
+		[
+			4535,
+			1435
+		],
+		[
+			2754,
+			2123
+		],
+		[
+			83,
+			2955
+		],
+		[
+			-1666,
+			3259
+		],
+		[
+			481,
+			1346
+		],
+		[
+			3722,
+			282
+		],
+		[
+			1922,
+			-2724
+		],
+		[
+			5275,
+			-231
+		],
+		[
+			1463,
+			4445
+		],
+		[
+			-5042,
+			4809
+		],
+		[
+			-3278,
+			1311
+		],
+		[
+			-2942,
+			-245
+		],
+		[
+			-1520,
+			-2797
+		],
+		[
+			-3467,
+			-1729
+		],
+		[
+			-942,
+			290
+		],
+		[
+			0,
+			1881
+		],
+		[
+			-913,
+			768
+		],
+		[
+			-7706,
+			-1941
+		],
+		[
+			12037,
+			-9613
+		],
+		[
+			-1024,
+			-1805
+		],
+		[
+			-6509,
+			-4050
+		],
+		[
+			-265,
+			-1208
+		],
+		[
+			901,
+			-993
+		],
+		[
+			13704,
+			-6711
+		],
+		[
+			10756,
+			-2874
+		],
+		[
+			9650,
+			-873
+		],
+		[
+			6978,
+			1215
+		],
+		[
+			1442,
+			-1682
+		],
+		[
+			-940,
+			-2327
+		],
+		[
+			2167,
+			-1388
+		]
+	],
+	[
+		[
+			7741930,
+			7508477
+		],
+		[
+			1352,
+			-1567
+		],
+		[
+			-605,
+			-1533
+		],
+		[
+			1134,
+			-3145
+		],
+		[
+			2888,
+			-2189
+		],
+		[
+			-283,
+			-2100
+		],
+		[
+			-612,
+			-4552
+		],
+		[
+			1970,
+			-3938
+		],
+		[
+			2411,
+			-1503
+		],
+		[
+			551,
+			-2033
+		],
+		[
+			1414,
+			-2058
+		],
+		[
+			290,
+			-3653
+		],
+		[
+			1955,
+			-3574
+		],
+		[
+			70,
+			-2452
+		],
+		[
+			1927,
+			-2520
+		]
+	],
+	[
+		[
+			7708747,
+			7541649
+		],
+		[
+			-1159,
+			-1349
+		],
+		[
+			-949,
+			438
+		],
+		[
+			1369,
+			1467
+		],
+		[
+			739,
+			-556
+		]
+	],
+	[
+		[
+			7708076,
+			7563275
+		],
+		[
+			-832,
+			-613
+		],
+		[
+			-1177,
+			823
+		],
+		[
+			1564,
+			944
+		],
+		[
+			445,
+			-1154
+		]
+	],
+	[
+		[
+			7441749,
+			7450894
+		],
+		[
+			-967,
+			693
+		],
+		[
+			-1024,
+			735
+		],
+		[
+			-1555,
+			615
+		],
+		[
+			-1650,
+			161
+		],
+		[
+			-1660,
+			-785
+		],
+		[
+			-670,
+			-123
+		],
+		[
+			-588,
+			190
+		],
+		[
+			-674,
+			1362
+		],
+		[
+			-599,
+			618
+		]
+	],
+	[
+		[
+			7432362,
+			7454360
+		],
+		[
+			1613,
+			1055
+		],
+		[
+			278,
+			1364
+		],
+		[
+			-3386,
+			770
+		],
+		[
+			-1291,
+			293
+		],
+		[
+			-638,
+			924
+		],
+		[
+			-5449,
+			1937
+		],
+		[
+			-1024,
+			1052
+		],
+		[
+			-4418,
+			4537
+		],
+		[
+			-1938,
+			956
+		],
+		[
+			-1071,
+			3136
+		],
+		[
+			-1220,
+			1266
+		],
+		[
+			-437,
+			453
+		],
+		[
+			-6137,
+			1279
+		],
+		[
+			-8472,
+			-3945
+		],
+		[
+			-3863,
+			1090
+		],
+		[
+			-2739,
+			773
+		],
+		[
+			-6545,
+			4182
+		],
+		[
+			-10944,
+			-393
+		]
+	],
+	[
+		[
+			7365868,
+			7357381
+		],
+		[
+			-2277,
+			1820
+		],
+		[
+			-4229,
+			-9
+		],
+		[
+			-1227,
+			1632
+		]
+	],
+	[
+		[
+			7358135,
+			7360824
+		],
+		[
+			204,
+			2244
+		],
+		[
+			1291,
+			1046
+		],
+		[
+			-1613,
+			1460
+		],
+		[
+			688,
+			1289
+		],
+		[
+			-1068,
+			740
+		],
+		[
+			-703,
+			2920
+		],
+		[
+			675,
+			1196
+		]
+	],
+	[
+		[
+			7357609,
+			7371719
+		],
+		[
+			5625,
+			-738
+		],
+		[
+			-64,
+			2620
+		],
+		[
+			3534,
+			729
+		],
+		[
+			1692,
+			-592
+		],
+		[
+			352,
+			-2057
+		],
+		[
+			3635,
+			2085
+		],
+		[
+			3737,
+			-650
+		]
+	],
+	[
+		[
+			7376120,
+			7373116
+		],
+		[
+			-299,
+			-474
+		],
+		[
+			1963,
+			-1014
+		],
+		[
+			-641,
+			-2139
+		],
+		[
+			2332,
+			-1251
+		]
+	],
+	[
+		[
+			7379475,
+			7368238
+		],
+		[
+			-4559,
+			-4461
+		],
+		[
+			-113,
+			-2484
+		],
+		[
+			-1854,
+			-525
+		],
+		[
+			-517,
+			-1452
+		],
+		[
+			-6564,
+			-1935
+		]
+	],
+	[
+		[
+			7365868,
+			7357381
+		],
+		[
+			-5443,
+			-4563
+		],
+		[
+			-1986,
+			-1665
+		],
+		[
+			-30,
+			-1298
+		],
+		[
+			3250,
+			-4700
+		],
+		[
+			1902,
+			-551
+		],
+		[
+			-1425,
+			-1328
+		]
+	],
+	[
+		[
+			7362136,
+			7343276
+		],
+		[
+			-2975,
+			810
+		],
+		[
+			-3884,
+			-2330
+		],
+		[
+			-7135,
+			-1442
+		],
+		[
+			-790,
+			1124
+		],
+		[
+			-3559,
+			641
+		]
+	],
+	[
+		[
+			7343793,
+			7342079
+		],
+		[
+			1211,
+			1357
+		],
+		[
+			3758,
+			-16
+		],
+		[
+			382,
+			1567
+		],
+		[
+			-2674,
+			3693
+		],
+		[
+			-6439,
+			1667
+		],
+		[
+			-462,
+			2471
+		],
+		[
+			-992,
+			2898
+		]
+	],
+	[
+		[
+			7338577,
+			7355716
+		],
+		[
+			2347,
+			1282
+		]
+	],
+	[
+		[
+			7340924,
+			7356998
+		],
+		[
+			2838,
+			-632
+		],
+		[
+			2867,
+			984
+		],
+		[
+			2756,
+			-960
+		],
+		[
+			6680,
+			4355
+		],
+		[
+			2070,
+			79
+		]
+	],
+	[
+		[
+			7382225,
+			7376629
+		],
+		[
+			-2131,
+			5983
+		],
+		[
+			2694,
+			2206
+		],
+		[
+			6157,
+			-1494
+		],
+		[
+			1148,
+			2474
+		],
+		[
+			3148,
+			2152
+		],
+		[
+			8528,
+			-1759
+		],
+		[
+			631,
+			-130
+		],
+		[
+			1833,
+			-1353
+		]
+	],
+	[
+		[
+			7404233,
+			7384708
+		],
+		[
+			-685,
+			-3277
+		],
+		[
+			1575,
+			-2143
+		],
+		[
+			-2534,
+			-1541
+		],
+		[
+			180,
+			-1644
+		],
+		[
+			-1000,
+			-1015
+		],
+		[
+			0,
+			-349
+		],
+		[
+			1732,
+			-1626
+		],
+		[
+			-1732,
+			-1162
+		],
+		[
+			-1797,
+			-1205
+		],
+		[
+			-3490,
+			989
+		],
+		[
+			-348,
+			1426
+		],
+		[
+			-3300,
+			-462
+		],
+		[
+			-5068,
+			1632
+		],
+		[
+			-1466,
+			1473
+		],
+		[
+			-4075,
+			825
+		]
+	],
+	[
+		[
+			7408630,
+			7385875
+		],
+		[
+			-4397,
+			-1167
+		]
+	],
+	[
+		[
+			7382225,
+			7376629
+		],
+		[
+			-5324,
+			362
+		],
+		[
+			-851,
+			-736
+		],
+		[
+			783,
+			-2422
+		],
+		[
+			-713,
+			-717
+		]
+	],
+	[
+		[
+			7357609,
+			7371719
+		],
+		[
+			-1852,
+			1769
+		],
+		[
+			1400,
+			834
+		],
+		[
+			310,
+			1953
+		],
+		[
+			-3861,
+			-221
+		],
+		[
+			-2176,
+			4323
+		],
+		[
+			-7063,
+			3109
+		]
+	],
+	[
+		[
+			7344367,
+			7383486
+		],
+		[
+			-606,
+			540
+		],
+		[
+			545,
+			1485
+		],
+		[
+			-1576,
+			1727
+		],
+		[
+			940,
+			1902
+		],
+		[
+			-1120,
+			620
+		]
+	],
+	[
+		[
+			7342550,
+			7389760
+		],
+		[
+			7700,
+			4546
+		],
+		[
+			4740,
+			849
+		],
+		[
+			-1076,
+			1236
+		],
+		[
+			2196,
+			2971
+		],
+		[
+			-2348,
+			2621
+		],
+		[
+			1456,
+			2721
+		],
+		[
+			-3129,
+			6339
+		],
+		[
+			2770,
+			3083
+		],
+		[
+			771,
+			2595
+		],
+		[
+			3987,
+			3551
+		]
+	],
+	[
+		[
+			7359617,
+			7420272
+		],
+		[
+			1857,
+			-435
+		],
+		[
+			4708,
+			1569
+		],
+		[
+			1057,
+			352
+		],
+		[
+			3009,
+			89
+		],
+		[
+			556,
+			-441
+		],
+		[
+			3781,
+			-3003
+		],
+		[
+			7222,
+			-3061
+		],
+		[
+			9300,
+			2937
+		]
+	],
+	[
+		[
+			7382904,
+			7302534
+		],
+		[
+			-8067,
+			3964
+		],
+		[
+			-9107,
+			-1109
+		],
+		[
+			-2511,
+			3354
+		],
+		[
+			1167,
+			2697
+		],
+		[
+			-527,
+			1637
+		],
+		[
+			765,
+			1401
+		],
+		[
+			-656,
+			728
+		],
+		[
+			-10289,
+			2207
+		],
+		[
+			-2699,
+			-1512
+		],
+		[
+			-4574,
+			-408
+		],
+		[
+			-3156,
+			1249
+		],
+		[
+			-1389,
+			1831
+		],
+		[
+			-67,
+			1546
+		],
+		[
+			-2780,
+			1648
+		],
+		[
+			-6745,
+			-2051
+		],
+		[
+			-1722,
+			-1666
+		]
+	],
+	[
+		[
+			7330547,
+			7318050
+		],
+		[
+			-1382,
+			1566
+		],
+		[
+			-44,
+			2104
+		],
+		[
+			-2923,
+			840
+		],
+		[
+			580,
+			3040
+		],
+		[
+			-1488,
+			1236
+		],
+		[
+			88,
+			2152
+		],
+		[
+			-3649,
+			2444
+		]
+	],
+	[
+		[
+			7321729,
+			7331432
+		],
+		[
+			2510,
+			3169
+		],
+		[
+			10332,
+			-43
+		],
+		[
+			838,
+			888
+		],
+		[
+			-487,
+			3113
+		],
+		[
+			723,
+			836
+		]
+	],
+	[
+		[
+			7335645,
+			7339395
+		],
+		[
+			2742,
+			-185
+		],
+		[
+			2051,
+			602
+		],
+		[
+			2965,
+			1504
+		],
+		[
+			390,
+			763
+		]
+	],
+	[
+		[
+			7362136,
+			7343276
+		],
+		[
+			1994,
+			-2376
+		],
+		[
+			-669,
+			-2604
+		],
+		[
+			2451,
+			-1806
+		],
+		[
+			2292,
+			-448
+		],
+		[
+			3095,
+			3061
+		]
+	],
+	[
+		[
+			7395325,
+			7343496
+		],
+		[
+			-496,
+			3223
+		],
+		[
+			4202,
+			3492
+		],
+		[
+			2738,
+			905
+		],
+		[
+			2022,
+			3773
+		],
+		[
+			-269,
+			1359
+		],
+		[
+			-1753,
+			40
+		],
+		[
+			-1550,
+			-75
+		],
+		[
+			-3908,
+			2983
+		],
+		[
+			-2782,
+			452
+		],
+		[
+			-5368,
+			5092
+		],
+		[
+			-113,
+			3115
+		],
+		[
+			-835,
+			841
+		],
+		[
+			-7738,
+			-458
+		]
+	],
+	[
+		[
+			7036416,
+			7201036
+		],
+		[
+			177,
+			-3229
+		],
+		[
+			5506,
+			-2141
+		],
+		[
+			3217,
+			-5512
+		],
+		[
+			4299,
+			-3797
+		]
+	],
+	[
+		[
+			7049615,
+			7186357
+		],
+		[
+			-5375,
+			-2613
+		],
+		[
+			218,
+			-1476
+		],
+		[
+			-1735,
+			-1110
+		],
+		[
+			686,
+			-1322
+		],
+		[
+			-932,
+			-1427
+		],
+		[
+			-1680,
+			-91
+		],
+		[
+			-2918,
+			1456
+		],
+		[
+			-4731,
+			-87
+		],
+		[
+			-4119,
+			-1883
+		],
+		[
+			-2074,
+			1333
+		],
+		[
+			-1918,
+			-899
+		],
+		[
+			-2608,
+			337
+		],
+		[
+			-4620,
+			-1681
+		],
+		[
+			-1557,
+			298
+		],
+		[
+			-2642,
+			-3607
+		]
+	],
+	[
+		[
+			7013610,
+			7173585
+		],
+		[
+			-4379,
+			-3532
+		],
+		[
+			-2191,
+			-528
+		],
+		[
+			-3340,
+			1214
+		],
+		[
+			-8701,
+			809
+		],
+		[
+			248,
+			3326
+		]
+	],
+	[
+		[
+			7040375,
+			7181444
+		],
+		[
+			368,
+			-1531
+		],
+		[
+			1297,
+			752
+		],
+		[
+			108,
+			773
+		],
+		[
+			-1773,
+			6
+		]
+	],
+	[
+		[
+			7119145,
+			7208434
+		],
+		[
+			-6696,
+			-1929
+		],
+		[
+			-2235,
+			2781
+		],
+		[
+			-4768,
+			1185
+		],
+		[
+			-1312,
+			-624
+		],
+		[
+			-906,
+			-2993
+		],
+		[
+			-665,
+			-46
+		],
+		[
+			-1469,
+			394
+		],
+		[
+			-357,
+			1348
+		],
+		[
+			-1514,
+			1016
+		],
+		[
+			-2863,
+			-105
+		],
+		[
+			-809,
+			2168
+		],
+		[
+			-5428,
+			744
+		],
+		[
+			-2784,
+			-777
+		],
+		[
+			585,
+			-860
+		],
+		[
+			-2824,
+			-1495
+		],
+		[
+			226,
+			-962
+		],
+		[
+			2340,
+			-1337
+		],
+		[
+			-3046,
+			-1783
+		],
+		[
+			819,
+			-1488
+		],
+		[
+			-181,
+			-2683
+		]
+	],
+	[
+		[
+			7085258,
+			7200988
+		],
+		[
+			-2229,
+			1925
+		],
+		[
+			-2699,
+			727
+		],
+		[
+			-6086,
+			36
+		],
+		[
+			-1832,
+			-909
+		],
+		[
+			-58,
+			-2307
+		],
+		[
+			-2985,
+			643
+		],
+		[
+			1353,
+			-2671
+		],
+		[
+			-2345,
+			-2987
+		],
+		[
+			-3712,
+			686
+		],
+		[
+			-1996,
+			1106
+		],
+		[
+			-1764,
+			3135
+		],
+		[
+			2065,
+			1079
+		],
+		[
+			418,
+			3958
+		],
+		[
+			-4135,
+			4431
+		]
+	],
+	[
+		[
+			7067451,
+			7109458
+		],
+		[
+			-3009,
+			-221
+		],
+		[
+			-42,
+			1570
+		],
+		[
+			-1309,
+			1557
+		],
+		[
+			-1657,
+			868
+		],
+		[
+			-2420,
+			-744
+		],
+		[
+			-1963,
+			1393
+		],
+		[
+			-23,
+			916
+		],
+		[
+			2259,
+			2309
+		],
+		[
+			-3662,
+			2657
+		],
+		[
+			-1372,
+			3255
+		],
+		[
+			797,
+			1284
+		]
+	],
+	[
+		[
+			7055050,
+			7124302
+		],
+		[
+			1701,
+			-113
+		],
+		[
+			1249,
+			-1151
+		],
+		[
+			3975,
+			2096
+		],
+		[
+			3008,
+			-162
+		],
+		[
+			4548,
+			3151
+		],
+		[
+			2567,
+			538
+		],
+		[
+			6075,
+			3275
+		],
+		[
+			2387,
+			14
+		],
+		[
+			1684,
+			3691
+		],
+		[
+			2839,
+			1184
+		],
+		[
+			-843,
+			1745
+		],
+		[
+			4399,
+			-5
+		]
+	],
+	[
+		[
+			7088639,
+			7138565
+		],
+		[
+			2411,
+			-571
+		],
+		[
+			1959,
+			-2126
+		],
+		[
+			3822,
+			-1698
+		],
+		[
+			-1178,
+			-1056
+		],
+		[
+			270,
+			-760
+		],
+		[
+			3901,
+			527
+		],
+		[
+			4803,
+			-1155
+		],
+		[
+			2573,
+			-4637
+		],
+		[
+			2736,
+			-568
+		],
+		[
+			1507,
+			-1660
+		],
+		[
+			-505,
+			-1735
+		],
+		[
+			594,
+			-1120
+		]
+	],
+	[
+		[
+			7111532,
+			7122006
+		],
+		[
+			-3504,
+			-2353
+		],
+		[
+			255,
+			-4027
+		],
+		[
+			-2563,
+			-1704
+		]
+	],
+	[
+		[
+			7105720,
+			7113922
+		],
+		[
+			-1005,
+			801
+		],
+		[
+			-3833,
+			383
+		],
+		[
+			-3213,
+			-1057
+		],
+		[
+			-6077,
+			609
+		],
+		[
+			-413,
+			-1786
+		],
+		[
+			-3443,
+			-2289
+		],
+		[
+			649,
+			-2278
+		],
+		[
+			-2876,
+			-4358
+		]
+	],
+	[
+		[
+			7085509,
+			7103947
+		],
+		[
+			-3107,
+			-1373
+		],
+		[
+			-1384,
+			236
+		],
+		[
+			-177,
+			1116
+		],
+		[
+			1334,
+			1566
+		],
+		[
+			-2,
+			2147
+		],
+		[
+			-1017,
+			839
+		],
+		[
+			-6014,
+			-1655
+		],
+		[
+			-4428,
+			922
+		],
+		[
+			-1937,
+			2044
+		],
+		[
+			-1326,
+			-331
+		]
+	],
+	[
+		[
+			7448093,
+			6920805
+		],
+		[
+			820,
+			1552
+		],
+		[
+			-349,
+			9253
+		],
+		[
+			6076,
+			-660
+		],
+		[
+			3394,
+			5600
+		]
+	],
+	[
+		[
+			7458034,
+			6936550
+		],
+		[
+			3724,
+			-1374
+		],
+		[
+			3051,
+			686
+		],
+		[
+			2351,
+			-2120
+		],
+		[
+			4810,
+			542
+		],
+		[
+			5552,
+			-3555
+		]
+	],
+	[
+		[
+			7477522,
+			6930729
+		],
+		[
+			2392,
+			-1554
+		],
+		[
+			805,
+			-1692
+		],
+		[
+			-3838,
+			-5306
+		],
+		[
+			3205,
+			-1487
+		],
+		[
+			581,
+			-791
+		],
+		[
+			413,
+			-562
+		],
+		[
+			-2281,
+			-2478
+		],
+		[
+			2034,
+			-3375
+		],
+		[
+			-2082,
+			-1949
+		],
+		[
+			2835,
+			-1755
+		],
+		[
+			425,
+			-1594
+		],
+		[
+			-1905,
+			-2279
+		],
+		[
+			2509,
+			-3394
+		],
+		[
+			-847,
+			-1046
+		],
+		[
+			-5077,
+			-1687
+		],
+		[
+			-1088,
+			-1407
+		],
+		[
+			2861,
+			-432
+		]
+	],
+	[
+		[
+			7478464,
+			6897941
+		],
+		[
+			-239,
+			-890
+		],
+		[
+			-2520,
+			-708
+		],
+		[
+			-1623,
+			-2248
+		],
+		[
+			-324,
+			-2732
+		],
+		[
+			-1319,
+			-1064
+		],
+		[
+			-6802,
+			-976
+		],
+		[
+			-6710,
+			781
+		],
+		[
+			-2729,
+			-1876
+		]
+	],
+	[
+		[
+			7456198,
+			6888228
+		],
+		[
+			-8201,
+			3820
+		],
+		[
+			-1297,
+			1606
+		],
+		[
+			-2210,
+			573
+		],
+		[
+			-265,
+			1574
+		],
+		[
+			-2513,
+			1102
+		],
+		[
+			1478,
+			2785
+		],
+		[
+			-744,
+			3141
+		],
+		[
+			641,
+			1587
+		],
+		[
+			6555,
+			1912
+		],
+		[
+			-58,
+			1738
+		]
+	],
+	[
+		[
+			7464494,
+			6982747
+		],
+		[
+			1147,
+			-959
+		],
+		[
+			77,
+			-1750
+		],
+		[
+			2218,
+			-1828
+		],
+		[
+			-2064,
+			-1434
+		],
+		[
+			1253,
+			-1694
+		],
+		[
+			-513,
+			-944
+		],
+		[
+			5489,
+			-1849
+		],
+		[
+			945,
+			-3638
+		]
+	],
+	[
+		[
+			7473046,
+			6968651
+		],
+		[
+			-1382,
+			-795
+		],
+		[
+			-918,
+			145
+		],
+		[
+			-672,
+			-292
+		],
+		[
+			-2786,
+			-1130
+		],
+		[
+			-1900,
+			-1739
+		],
+		[
+			-230,
+			-1329
+		]
+	],
+	[
+		[
+			7455470,
+			6959008
+		],
+		[
+			-475,
+			1843
+		],
+		[
+			-1819,
+			997
+		],
+		[
+			-5836,
+			-39
+		],
+		[
+			-3323,
+			2767
+		],
+		[
+			-3681,
+			614
+		],
+		[
+			-7103,
+			2975
+		],
+		[
+			-2366,
+			-505
+		],
+		[
+			-1042,
+			-1810
+		],
+		[
+			-2972,
+			-306
+		]
+	],
+	[
+		[
+			7446344,
+			6983923
+		],
+		[
+			3153,
+			75
+		],
+		[
+			3698,
+			-1384
+		],
+		[
+			438,
+			-1410
+		],
+		[
+			2853,
+			-1613
+		],
+		[
+			2487,
+			746
+		],
+		[
+			743,
+			1263
+		],
+		[
+			4778,
+			1147
+		]
+	],
+	[
+		[
+			7499971,
+			6933521
+		],
+		[
+			-514,
+			1277
+		],
+		[
+			-7699,
+			3324
+		],
+		[
+			301,
+			2446
+		],
+		[
+			1756,
+			498
+		],
+		[
+			224,
+			2900
+		],
+		[
+			1632,
+			733
+		],
+		[
+			-4039,
+			4100
+		],
+		[
+			-1423,
+			3521
+		],
+		[
+			2275,
+			2538
+		],
+		[
+			-1317,
+			2449
+		],
+		[
+			-374,
+			3500
+		]
+	],
+	[
+		[
+			7490793,
+			6960807
+		],
+		[
+			11924,
+			-1624
+		],
+		[
+			4846,
+			-1876
+		],
+		[
+			1509,
+			-1773
+		],
+		[
+			6452,
+			330
+		],
+		[
+			3971,
+			-3001
+		]
+	],
+	[
+		[
+			7519495,
+			6952863
+		],
+		[
+			856,
+			-1101
+		],
+		[
+			3391,
+			-832
+		]
+	],
+	[
+		[
+			7523742,
+			6950930
+		],
+		[
+			-811,
+			-2158
+		],
+		[
+			-1122,
+			-570
+		],
+		[
+			1303,
+			-7512
+		],
+		[
+			1719,
+			-1594
+		],
+		[
+			-2867,
+			-2912
+		],
+		[
+			-6634,
+			-1553
+		],
+		[
+			-6211,
+			3073
+		],
+		[
+			-981,
+			-986
+		],
+		[
+			1263,
+			-3605
+		],
+		[
+			-1647,
+			-943
+		],
+		[
+			-4851,
+			1927
+		],
+		[
+			-2932,
+			-576
+		]
+	],
+	[
+		[
+			7487120,
+			7016931
+		],
+		[
+			-1880,
+			824
+		],
+		[
+			-2797,
+			-1225
+		],
+		[
+			-2632,
+			1373
+		],
+		[
+			-454,
+			1792
+		],
+		[
+			-3251,
+			291
+		],
+		[
+			-3341,
+			-2886
+		],
+		[
+			-809,
+			-1904
+		],
+		[
+			-3778,
+			-2910
+		],
+		[
+			-2043,
+			-187
+		],
+		[
+			-2027,
+			1097
+		]
+	],
+	[
+		[
+			7440768,
+			7016639
+		],
+		[
+			-3008,
+			-387
+		],
+		[
+			-6893,
+			2197
+		],
+		[
+			-3761,
+			1199
+		],
+		[
+			-4365,
+			-488
+		],
+		[
+			-1331,
+			-1087
+		],
+		[
+			-2049,
+			773
+		],
+		[
+			-301,
+			1795
+		],
+		[
+			-3290,
+			243
+		]
+	],
+	[
+		[
+			7488995,
+			6966329
+		],
+		[
+			-463,
+			1380
+		],
+		[
+			731,
+			218
+		],
+		[
+			2419,
+			719
+		],
+		[
+			229,
+			2960
+		],
+		[
+			1382,
+			2687
+		],
+		[
+			3170,
+			3340
+		],
+		[
+			2529,
+			829
+		],
+		[
+			688,
+			1423
+		],
+		[
+			7350,
+			1616
+		],
+		[
+			4152,
+			2487
+		],
+		[
+			5706,
+			-2224
+		]
+	],
+	[
+		[
+			7540231,
+			6970891
+		],
+		[
+			334,
+			-3182
+		],
+		[
+			-2910,
+			-2248
+		],
+		[
+			556,
+			-1675
+		],
+		[
+			-1284,
+			-1825
+		],
+		[
+			1126,
+			-1986
+		],
+		[
+			-318,
+			-913
+		],
+		[
+			-3554,
+			1276
+		],
+		[
+			-5608,
+			-2370
+		],
+		[
+			-1564,
+			-661
+		],
+		[
+			-629,
+			-266
+		],
+		[
+			-1517,
+			-1489
+		],
+		[
+			-5993,
+			-1119
+		],
+		[
+			625,
+			-1570
+		]
+	],
+	[
+		[
+			7490793,
+			6960807
+		],
+		[
+			-247,
+			3502
+		],
+		[
+			-1551,
+			2020
+		]
+	],
+	[
+		[
+			7464494,
+			6982747
+		],
+		[
+			3641,
+			1740
+		],
+		[
+			3084,
+			3110
+		],
+		[
+			5037,
+			-2348
+		],
+		[
+			1966,
+			855
+		],
+		[
+			2978,
+			2673
+		],
+		[
+			278,
+			6179
+		],
+		[
+			4045,
+			2424
+		],
+		[
+			-292,
+			2339
+		],
+		[
+			619,
+			642
+		]
+	],
+	[
+		[
+			7488995,
+			6966329
+		],
+		[
+			-11886,
+			-546
+		],
+		[
+			-3082,
+			1926
+		],
+		[
+			-981,
+			942
+		]
+	],
+	[
+		[
+			7428873,
+			6948458
+		],
+		[
+			-4580,
+			-739
+		],
+		[
+			-3165,
+			1362
+		],
+		[
+			-303,
+			3317
+		],
+		[
+			-4591,
+			1751
+		],
+		[
+			-961,
+			1807
+		],
+		[
+			2222,
+			1351
+		],
+		[
+			1132,
+			688
+		]
+	],
+	[
+		[
+			7456421,
+			6951407
+		],
+		[
+			-1206,
+			-1064
+		],
+		[
+			-1026,
+			282
+		],
+		[
+			-526,
+			-784
+		]
+	],
+	[
+		[
+			7453663,
+			6949841
+		],
+		[
+			-4248,
+			-365
+		],
+		[
+			-8501,
+			2724
+		],
+		[
+			-4998,
+			-1872
+		],
+		[
+			-1856,
+			-1630
+		],
+		[
+			-3193,
+			703
+		],
+		[
+			-676,
+			149
+		],
+		[
+			-1318,
+			-1092
+		]
+	],
+	[
+		[
+			7456198,
+			6888228
+		],
+		[
+			-464,
+			-565
+		],
+		[
+			-1597,
+			-893
+		],
+		[
+			-524,
+			-825
+		],
+		[
+			711,
+			-534
+		],
+		[
+			1679,
+			-82
+		],
+		[
+			1316,
+			-2148
+		]
+	],
+	[
+		[
+			7457319,
+			6883181
+		],
+		[
+			-8220,
+			246
+		],
+		[
+			-4465,
+			-2126
+		],
+		[
+			-790,
+			-1881
+		],
+		[
+			-2032,
+			-922
+		],
+		[
+			-3948,
+			11
+		],
+		[
+			2214,
+			3118
+		],
+		[
+			-3996,
+			286
+		],
+		[
+			-5215,
+			-1316
+		],
+		[
+			-2161,
+			-545
+		],
+		[
+			-2912,
+			-1746
+		],
+		[
+			-8968,
+			27
+		]
+	],
+	[
+		[
+			7416826,
+			6878333
+		],
+		[
+			-1099,
+			-203
+		],
+		[
+			-1431,
+			179
+		]
+	],
+	[
+		[
+			7414296,
+			6878309
+		],
+		[
+			-1970,
+			912
+		],
+		[
+			884,
+			2619
+		],
+		[
+			-4674,
+			3803
+		],
+		[
+			-264,
+			1176
+		],
+		[
+			-5869,
+			414
+		],
+		[
+			329,
+			1558
+		],
+		[
+			3820,
+			1450
+		],
+		[
+			-2756,
+			2140
+		]
+	],
+	[
+		[
+			7428873,
+			6948458
+		],
+		[
+			-194,
+			-7775
+		],
+		[
+			921,
+			-1448
+		],
+		[
+			1267,
+			-599
+		],
+		[
+			1035,
+			-489
+		],
+		[
+			-1035,
+			-1411
+		],
+		[
+			-527,
+			-719
+		],
+		[
+			-205,
+			-1980
+		]
+	],
+	[
+		[
+			7477522,
+			6930729
+		],
+		[
+			7310,
+			1657
+		],
+		[
+			3255,
+			-1806
+		],
+		[
+			1176,
+			218
+		],
+		[
+			1221,
+			227
+		],
+		[
+			1892,
+			1721
+		],
+		[
+			3447,
+			-1475
+		]
+	],
+	[
+		[
+			7495823,
+			6931271
+		],
+		[
+			581,
+			-2331
+		],
+		[
+			3011,
+			-2721
+		],
+		[
+			2508,
+			-1350
+		],
+		[
+			7787,
+			-1693
+		],
+		[
+			414,
+			-2015
+		],
+		[
+			-2165,
+			-1262
+		],
+		[
+			-655,
+			-381
+		],
+		[
+			6538,
+			-3232
+		],
+		[
+			909,
+			-3016
+		],
+		[
+			2054,
+			-717
+		],
+		[
+			-353,
+			-3146
+		],
+		[
+			3174,
+			-3744
+		],
+		[
+			-1163,
+			-2450
+		],
+		[
+			2409,
+			-1435
+		],
+		[
+			370,
+			-1208
+		]
+	],
+	[
+		[
+			7521242,
+			6900570
+		],
+		[
+			-3735,
+			-515
+		],
+		[
+			-2001,
+			948
+		],
+		[
+			-9233,
+			-1059
+		],
+		[
+			-5358,
+			-1168
+		],
+		[
+			-1864,
+			-1802
+		],
+		[
+			-6397,
+			718
+		],
+		[
+			-3391,
+			-172
+		],
+		[
+			-7154,
+			-364
+		],
+		[
+			-3645,
+			785
+		]
+	],
+	[
+		[
+			7553932,
+			6950434
+		],
+		[
+			-2648,
+			930
+		],
+		[
+			-3169,
+			-1912
+		],
+		[
+			-3634,
+			11
+		],
+		[
+			-4037,
+			2405
+		],
+		[
+			-4020,
+			876
+		],
+		[
+			-3414,
+			-4803
+		],
+		[
+			-1634,
+			-731
+		],
+		[
+			-2044,
+			626
+		],
+		[
+			458,
+			2345
+		],
+		[
+			-1217,
+			1047
+		],
+		[
+			-4831,
+			-298
+		]
+	],
+	[
+		[
+			7458034,
+			6936550
+		],
+		[
+			-2113,
+			1395
+		],
+		[
+			2367,
+			2022
+		],
+		[
+			-1647,
+			2098
+		],
+		[
+			242,
+			1874
+		],
+		[
+			-1042,
+			2105
+		],
+		[
+			1394,
+			2374
+		],
+		[
+			-3572,
+			1423
+		]
+	],
+	[
+		[
+			7499971,
+			6933521
+		],
+		[
+			-773,
+			-9
+		],
+		[
+			-179,
+			-878
+		],
+		[
+			-792,
+			-130
+		],
+		[
+			-493,
+			-1361
+		],
+		[
+			-1911,
+			128
+		]
+	],
+	[
+		[
+			7458487,
+			7008633
+		],
+		[
+			1698,
+			-555
+		],
+		[
+			-1295,
+			-4057
+		],
+		[
+			-4833,
+			-1963
+		],
+		[
+			-3515,
+			-2545
+		],
+		[
+			2423,
+			-2238
+		],
+		[
+			13,
+			-1399
+		],
+		[
+			-3010,
+			-273
+		],
+		[
+			937,
+			-2767
+		],
+		[
+			-3565,
+			-2455
+		],
+		[
+			-1019,
+			-2765
+		],
+		[
+			-1604,
+			-1463
+		]
+	],
+	[
+		[
+			7330547,
+			7318050
+		],
+		[
+			-676,
+			-4812
+		],
+		[
+			-2707,
+			-2145
+		],
+		[
+			3121,
+			-4412
+		],
+		[
+			-624,
+			-1146
+		],
+		[
+			1264,
+			-2359
+		],
+		[
+			-3837,
+			-2783
+		],
+		[
+			-2185,
+			333
+		],
+		[
+			-3097,
+			-954
+		],
+		[
+			-2591,
+			1120
+		],
+		[
+			-3700,
+			-863
+		],
+		[
+			-3886,
+			426
+		],
+		[
+			-3038,
+			-1481
+		],
+		[
+			-9855,
+			852
+		],
+		[
+			-2137,
+			-1191
+		],
+		[
+			-7605,
+			1402
+		],
+		[
+			-5285,
+			-3139
+		]
+	],
+	[
+		[
+			7256908,
+			7303423
+		],
+		[
+			1686,
+			783
+		],
+		[
+			-783,
+			1561
+		],
+		[
+			1830,
+			2526
+		],
+		[
+			5973,
+			3156
+		],
+		[
+			5236,
+			1525
+		],
+		[
+			2689,
+			4887
+		],
+		[
+			5561,
+			2635
+		],
+		[
+			1098,
+			1503
+		],
+		[
+			2901,
+			698
+		],
+		[
+			3103,
+			3836
+		],
+		[
+			7297,
+			-1216
+		],
+		[
+			2209,
+			1764
+		],
+		[
+			8893,
+			2230
+		]
+	],
+	[
+		[
+			7304601,
+			7329311
+		],
+		[
+			4945,
+			405
+		],
+		[
+			3705,
+			-957
+		],
+		[
+			2965,
+			1180
+		],
+		[
+			-1133,
+			2665
+		],
+		[
+			3390,
+			554
+		],
+		[
+			3256,
+			-1726
+		]
+	],
+	[
+		[
+			7282414,
+			7295536
+		],
+		[
+			-2462,
+			-1589
+		]
+	],
+	[
+		[
+			7340924,
+			7356998
+		],
+		[
+			-1203,
+			2969
+		],
+		[
+			-5609,
+			1968
+		],
+		[
+			-2891,
+			-504
+		],
+		[
+			-3037,
+			736
+		],
+		[
+			-6635,
+			-1026
+		],
+		[
+			-6347,
+			761
+		],
+		[
+			260,
+			2374
+		],
+		[
+			2288,
+			900
+		],
+		[
+			873,
+			1897
+		]
+	],
+	[
+		[
+			7318623,
+			7367073
+		],
+		[
+			4122,
+			1967
+		],
+		[
+			1047,
+			3573
+		],
+		[
+			4046,
+			-1175
+		],
+		[
+			1134,
+			2813
+		],
+		[
+			1166,
+			805
+		],
+		[
+			-1684,
+			2334
+		],
+		[
+			272,
+			711
+		],
+		[
+			4401,
+			329
+		],
+		[
+			2787,
+			2976
+		],
+		[
+			4187,
+			-402
+		],
+		[
+			963,
+			1569
+		],
+		[
+			3303,
+			913
+		]
+	],
+	[
+		[
+			7335645,
+			7339395
+		],
+		[
+			-931,
+			3691
+		],
+		[
+			459,
+			3037
+		],
+		[
+			-2240,
+			2817
+		],
+		[
+			1906,
+			2094
+		],
+		[
+			-1042,
+			1784
+		],
+		[
+			-315,
+			540
+		],
+		[
+			1994,
+			2938
+		],
+		[
+			2239,
+			212
+		],
+		[
+			862,
+			-792
+		]
+	],
+	[
+		[
+			7144897,
+			7384346
+		],
+		[
+			1111,
+			4261
+		]
+	],
+	[
+		[
+			7146008,
+			7388607
+		],
+		[
+			676,
+			3346
+		],
+		[
+			3203,
+			1948
+		],
+		[
+			-780,
+			2097
+		],
+		[
+			-2506,
+			1078
+		],
+		[
+			-1686,
+			5469
+		],
+		[
+			1469,
+			4533
+		],
+		[
+			9045,
+			3598
+		],
+		[
+			6290,
+			1457
+		],
+		[
+			286,
+			1525
+		],
+		[
+			-1515,
+			3729
+		],
+		[
+			614,
+			1415
+		]
+	],
+	[
+		[
+			7161104,
+			7418802
+		],
+		[
+			5393,
+			542
+		],
+		[
+			3123,
+			2062
+		],
+		[
+			719,
+			475
+		],
+		[
+			8022,
+			2280
+		],
+		[
+			1856,
+			5584
+		],
+		[
+			3254,
+			531
+		],
+		[
+			734,
+			984
+		],
+		[
+			-663,
+			3577
+		],
+		[
+			-2835,
+			669
+		],
+		[
+			-900,
+			1227
+		],
+		[
+			1085,
+			2862
+		]
+	],
+	[
+		[
+			7180892,
+			7439595
+		],
+		[
+			724,
+			1032
+		],
+		[
+			1412,
+			-33
+		],
+		[
+			619,
+			1493
+		],
+		[
+			566,
+			424
+		],
+		[
+			1108,
+			-22
+		],
+		[
+			997,
+			670
+		]
+	],
+	[
+		[
+			7206759,
+			7439798
+		],
+		[
+			1447,
+			-1791
+		],
+		[
+			-1794,
+			-1274
+		],
+		[
+			-201,
+			-2327
+		],
+		[
+			4376,
+			-6382
+		],
+		[
+			2745,
+			14
+		],
+		[
+			1930,
+			2605
+		],
+		[
+			1783,
+			570
+		],
+		[
+			3549,
+			-337
+		],
+		[
+			3031,
+			-1828
+		],
+		[
+			3151,
+			-657
+		]
+	],
+	[
+		[
+			7226776,
+			7428391
+		],
+		[
+			-1093,
+			-1558
+		],
+		[
+			24,
+			-1798
+		],
+		[
+			-6595,
+			-2312
+		],
+		[
+			1510,
+			-1317
+		],
+		[
+			351,
+			-7054
+		],
+		[
+			-948,
+			-2634
+		],
+		[
+			-3268,
+			-1818
+		],
+		[
+			786,
+			-2279
+		],
+		[
+			-1355,
+			-2807
+		],
+		[
+			-13082,
+			-3832
+		],
+		[
+			-194,
+			-1326
+		],
+		[
+			2000,
+			-1900
+		],
+		[
+			-919,
+			-3495
+		],
+		[
+			-3647,
+			-1612
+		],
+		[
+			-7556,
+			-723
+		],
+		[
+			-7313,
+			-3186
+		]
+	],
+	[
+		[
+			7230736,
+			7348479
+		],
+		[
+			2495,
+			2561
+		],
+		[
+			-1789,
+			1778
+		],
+		[
+			2067,
+			528
+		],
+		[
+			-1800,
+			2771
+		],
+		[
+			567,
+			1271
+		],
+		[
+			11085,
+			2952
+		],
+		[
+			7964,
+			740
+		],
+		[
+			511,
+			297
+		],
+		[
+			8171,
+			4751
+		]
+	],
+	[
+		[
+			7260007,
+			7366128
+		],
+		[
+			4872,
+			-3815
+		],
+		[
+			1404,
+			-2397
+		],
+		[
+			-999,
+			-782
+		],
+		[
+			18,
+			-3887
+		],
+		[
+			6022,
+			-107
+		],
+		[
+			4771,
+			-2322
+		],
+		[
+			2046,
+			-996
+		]
+	],
+	[
+		[
+			7278141,
+			7351822
+		],
+		[
+			5127,
+			-2884
+		],
+		[
+			-2308,
+			-2070
+		],
+		[
+			-983,
+			-2665
+		],
+		[
+			924,
+			-2648
+		],
+		[
+			-1163,
+			-1224
+		],
+		[
+			-790,
+			-2989
+		],
+		[
+			1009,
+			-2166
+		]
+	],
+	[
+		[
+			7279957,
+			7335176
+		],
+		[
+			-8483,
+			7731
+		],
+		[
+			-2684,
+			-509
+		],
+		[
+			-353,
+			-1604
+		],
+		[
+			-3736,
+			-405
+		],
+		[
+			-5232,
+			-3238
+		],
+		[
+			-7633,
+			-972
+		],
+		[
+			-1563,
+			-199
+		],
+		[
+			-494,
+			-1091
+		],
+		[
+			1544,
+			-1093
+		],
+		[
+			40,
+			-940
+		],
+		[
+			-4661,
+			-1059
+		],
+		[
+			-637,
+			-829
+		]
+	],
+	[
+		[
+			7304601,
+			7329311
+		],
+		[
+			-6428,
+			2686
+		],
+		[
+			-6767,
+			4803
+		],
+		[
+			-4482,
+			2
+		],
+		[
+			-3069,
+			-2329
+		],
+		[
+			-3898,
+			703
+		]
+	],
+	[
+		[
+			7278141,
+			7351822
+		],
+		[
+			5432,
+			440
+		],
+		[
+			836,
+			556
+		],
+		[
+			2268,
+			1509
+		],
+		[
+			535,
+			1353
+		],
+		[
+			-2518,
+			1818
+		],
+		[
+			798,
+			846
+		],
+		[
+			2610,
+			59
+		],
+		[
+			2801,
+			-2085
+		],
+		[
+			1974,
+			-5
+		],
+		[
+			3403,
+			3747
+		],
+		[
+			-335,
+			1465
+		],
+		[
+			-2330,
+			840
+		],
+		[
+			1852,
+			1684
+		],
+		[
+			5757,
+			1341
+		],
+		[
+			3689,
+			-224
+		],
+		[
+			2496,
+			1575
+		],
+		[
+			4915,
+			999
+		],
+		[
+			6299,
+			-667
+		]
+	],
+	[
+		[
+			7247736,
+			7415467
+		],
+		[
+			2051,
+			-3682
+		],
+		[
+			-1633,
+			-916
+		],
+		[
+			380,
+			-511
+		],
+		[
+			1480,
+			-14
+		],
+		[
+			1822,
+			1186
+		],
+		[
+			983,
+			639
+		],
+		[
+			4436,
+			-950
+		],
+		[
+			5488,
+			185
+		],
+		[
+			844,
+			-1992
+		],
+		[
+			2296,
+			-661
+		],
+		[
+			149,
+			-2233
+		],
+		[
+			2610,
+			-1815
+		]
+	],
+	[
+		[
+			7268642,
+			7404703
+		],
+		[
+			-1023,
+			-3141
+		],
+		[
+			-6025,
+			912
+		],
+		[
+			-4014,
+			-1871
+		],
+		[
+			-5744,
+			-1059
+		],
+		[
+			-1126,
+			-208
+		],
+		[
+			-1019,
+			-1658
+		],
+		[
+			1893,
+			-1810
+		],
+		[
+			-120,
+			-863
+		],
+		[
+			-8186,
+			-1554
+		],
+		[
+			-3231,
+			-1416
+		],
+		[
+			1386,
+			-4516
+		],
+		[
+			-1019,
+			-1786
+		],
+		[
+			2053,
+			-1563
+		]
+	],
+	[
+		[
+			7242467,
+			7384170
+		],
+		[
+			120,
+			-1381
+		],
+		[
+			-4827,
+			-811
+		],
+		[
+			-2616,
+			-1691
+		],
+		[
+			-7443,
+			-392
+		]
+	],
+	[
+		[
+			7226776,
+			7428391
+		],
+		[
+			4027,
+			-182
+		],
+		[
+			1174,
+			1005
+		],
+		[
+			1116,
+			-1752
+		],
+		[
+			2756,
+			-1348
+		],
+		[
+			-2059,
+			-1455
+		],
+		[
+			2878,
+			-1182
+		],
+		[
+			-1270,
+			-2071
+		],
+		[
+			-590,
+			-962
+		],
+		[
+			3781,
+			324
+		],
+		[
+			2164,
+			-1647
+		],
+		[
+			3748,
+			1078
+		],
+		[
+			1138,
+			-3653
+		],
+		[
+			2097,
+			-1079
+		]
+	],
+	[
+		[
+			7242467,
+			7384170
+		],
+		[
+			2309,
+			-1473
+		],
+		[
+			6750,
+			-489
+		],
+		[
+			-3756,
+			-3068
+		],
+		[
+			382,
+			-1732
+		],
+		[
+			2241,
+			-55
+		],
+		[
+			4508,
+			1672
+		],
+		[
+			1524,
+			-519
+		],
+		[
+			1497,
+			-3886
+		],
+		[
+			-2274,
+			-2704
+		],
+		[
+			401,
+			-2707
+		],
+		[
+			1332,
+			-2042
+		],
+		[
+			2626,
+			-1039
+		]
+	],
+	[
+		[
+			7268642,
+			7404703
+		],
+		[
+			1271,
+			1152
+		],
+		[
+			3442,
+			330
+		],
+		[
+			2194,
+			-2615
+		],
+		[
+			3338,
+			-1419
+		],
+		[
+			775,
+			-2257
+		],
+		[
+			1980,
+			-1014
+		],
+		[
+			3691,
+			94
+		],
+		[
+			1208,
+			2878
+		],
+		[
+			2097,
+			674
+		]
+	],
+	[
+		[
+			7288638,
+			7402526
+		],
+		[
+			9387,
+			-4025
+		],
+		[
+			4811,
+			613
+		],
+		[
+			749,
+			-1129
+		],
+		[
+			7886,
+			-451
+		],
+		[
+			2359,
+			-1467
+		],
+		[
+			-1527,
+			-2386
+		],
+		[
+			2838,
+			-1211
+		],
+		[
+			7385,
+			-160
+		],
+		[
+			2966,
+			-2402
+		],
+		[
+			3425,
+			-1159
+		],
+		[
+			4716,
+			1028
+		],
+		[
+			7808,
+			-2021
+		],
+		[
+			1109,
+			2004
+		]
+	],
+	[
+		[
+			7288638,
+			7402526
+		],
+		[
+			970,
+			1764
+		],
+		[
+			-1247,
+			2165
+		],
+		[
+			-95,
+			2968
+		],
+		[
+			2503,
+			802
+		],
+		[
+			175,
+			1763
+		],
+		[
+			7118,
+			1554
+		],
+		[
+			-380,
+			6384
+		],
+		[
+			731,
+			1480
+		],
+		[
+			1963,
+			1523
+		],
+		[
+			-621,
+			3003
+		],
+		[
+			2437,
+			2622
+		],
+		[
+			6872,
+			-865
+		],
+		[
+			4272,
+			-1918
+		],
+		[
+			8866,
+			3348
+		],
+		[
+			4381,
+			-118
+		],
+		[
+			5454,
+			2897
+		],
+		[
+			3242,
+			-581
+		],
+		[
+			3610,
+			1009
+		]
+	],
+	[
+		[
+			7338889,
+			7432326
+		],
+		[
+			4883,
+			-5950
+		],
+		[
+			3147,
+			-1750
+		],
+		[
+			437,
+			-1961
+		],
+		[
+			3662,
+			55
+		],
+		[
+			1329,
+			-1314
+		],
+		[
+			841,
+			-832
+		],
+		[
+			3475,
+			-1089
+		],
+		[
+			2954,
+			787
+		]
+	],
+	[
+		[
+			7167217,
+			7499316
+		],
+		[
+			-3497,
+			4986
+		],
+		[
+			-238,
+			3165
+		],
+		[
+			6295,
+			12546
+		],
+		[
+			1863,
+			2821
+		],
+		[
+			4875,
+			3837
+		],
+		[
+			7378,
+			1216
+		],
+		[
+			189,
+			-1075
+		],
+		[
+			4416,
+			-2586
+		],
+		[
+			5536,
+			-2030
+		],
+		[
+			11266,
+			-593
+		],
+		[
+			8002,
+			1035
+		],
+		[
+			3725,
+			-458
+		]
+	],
+	[
+		[
+			7217027,
+			7522180
+		],
+		[
+			2451,
+			-1930
+		],
+		[
+			9153,
+			-1701
+		],
+		[
+			8518,
+			-3937
+		],
+		[
+			4110,
+			419
+		],
+		[
+			2950,
+			-2909
+		],
+		[
+			-7457,
+			-5121
+		],
+		[
+			1937,
+			-1185
+		],
+		[
+			3393,
+			-151
+		],
+		[
+			183,
+			-2597
+		],
+		[
+			-2229,
+			-1373
+		],
+		[
+			-6485,
+			-1299
+		],
+		[
+			-3514,
+			-2460
+		]
+	],
+	[
+		[
+			7230037,
+			7497936
+		],
+		[
+			-3643,
+			-3303
+		],
+		[
+			-5355,
+			921
+		],
+		[
+			-3347,
+			-1176
+		],
+		[
+			-3876,
+			-144
+		],
+		[
+			-1883,
+			-2076
+		],
+		[
+			-5417,
+			-929
+		],
+		[
+			85,
+			-765
+		],
+		[
+			4286,
+			-1382
+		],
+		[
+			846,
+			-3550
+		],
+		[
+			-669,
+			-1197
+		],
+		[
+			-3657,
+			-1389
+		],
+		[
+			2505,
+			-3230
+		],
+		[
+			-4125,
+			-2853
+		]
+	],
+	[
+		[
+			7205787,
+			7476863
+		],
+		[
+			-3906,
+			1277
+		],
+		[
+			-7319,
+			-684
+		],
+		[
+			-4633,
+			-2486
+		],
+		[
+			1674,
+			-2744
+		],
+		[
+			-404,
+			-1198
+		],
+		[
+			-3293,
+			-912
+		],
+		[
+			-601,
+			-1374
+		],
+		[
+			-9015,
+			-1758
+		],
+		[
+			-6098,
+			1313
+		],
+		[
+			-2726,
+			-901
+		],
+		[
+			-3359,
+			707
+		],
+		[
+			697,
+			3832
+		],
+		[
+			-1629,
+			3446
+		]
+	],
+	[
+		[
+			7165175,
+			7475381
+		],
+		[
+			-734,
+			10536
+		]
+	],
+	[
+		[
+			7067451,
+			7109458
+		],
+		[
+			-322,
+			-2703
+		],
+		[
+			-6350,
+			-822
+		],
+		[
+			-2491,
+			-1719
+		],
+		[
+			694,
+			-3220
+		],
+		[
+			745,
+			-891
+		],
+		[
+			-1036,
+			-1859
+		],
+		[
+			-6909,
+			-19
+		],
+		[
+			-4988,
+			-3773
+		],
+		[
+			-3956,
+			-894
+		]
+	],
+	[
+		[
+			7017974,
+			7102640
+		],
+		[
+			2087,
+			1771
+		],
+		[
+			627,
+			2125
+		],
+		[
+			-1081,
+			1090
+		]
+	],
+	[
+		[
+			7019607,
+			7107626
+		],
+		[
+			8132,
+			6648
+		],
+		[
+			765,
+			2401
+		],
+		[
+			12479,
+			7261
+		],
+		[
+			-144,
+			980
+		],
+		[
+			-3412,
+			2275
+		]
+	],
+	[
+		[
+			7037427,
+			7127191
+		],
+		[
+			5495,
+			1248
+		],
+		[
+			744,
+			-1468
+		],
+		[
+			1009,
+			-202
+		],
+		[
+			3101,
+			1619
+		],
+		[
+			5430,
+			-54
+		],
+		[
+			1391,
+			-847
+		],
+		[
+			453,
+			-3185
+		]
+	],
+	[
+		[
+			7075724,
+			7168075
+		],
+		[
+			4229,
+			-3010
+		],
+		[
+			64,
+			-1020
+		],
+		[
+			-1268,
+			-788
+		]
+	],
+	[
+		[
+			7078749,
+			7163257
+		],
+		[
+			-3258,
+			1208
+		],
+		[
+			-7203,
+			469
+		],
+		[
+			-6352,
+			-5898
+		],
+		[
+			-3873,
+			626
+		],
+		[
+			-817,
+			-1455
+		],
+		[
+			375,
+			-1987
+		],
+		[
+			-1663,
+			-1201
+		],
+		[
+			-2587,
+			-248
+		]
+	],
+	[
+		[
+			7053371,
+			7154771
+		],
+		[
+			-2010,
+			2401
+		],
+		[
+			1717,
+			2448
+		],
+		[
+			-1673,
+			566
+		],
+		[
+			-2016,
+			-1417
+		],
+		[
+			-2930,
+			16
+		],
+		[
+			82,
+			1448
+		],
+		[
+			-3892,
+			3405
+		],
+		[
+			-3700,
+			1236
+		],
+		[
+			-3988,
+			40
+		],
+		[
+			-2805,
+			1756
+		],
+		[
+			-4003,
+			-1445
+		],
+		[
+			-6099,
+			1450
+		]
+	],
+	[
+		[
+			7022054,
+			7166675
+		],
+		[
+			-4135,
+			1202
+		],
+		[
+			-2460,
+			-173
+		],
+		[
+			-1957,
+			1111
+		],
+		[
+			793,
+			1515
+		],
+		[
+			3325,
+			1892
+		],
+		[
+			-1915,
+			1285
+		],
+		[
+			-2095,
+			78
+		]
+	],
+	[
+		[
+			7049615,
+			7186357
+		],
+		[
+			4005,
+			-2813
+		],
+		[
+			4890,
+			-666
+		],
+		[
+			5082,
+			-2932
+		],
+		[
+			6385,
+			803
+		],
+		[
+			3065,
+			3952
+		],
+		[
+			1969,
+			451
+		]
+	],
+	[
+		[
+			7075011,
+			7185152
+		],
+		[
+			2505,
+			-1725
+		],
+		[
+			1417,
+			587
+		],
+		[
+			393,
+			-1483
+		],
+		[
+			2734,
+			-1633
+		],
+		[
+			758,
+			-1791
+		],
+		[
+			-2923,
+			-1129
+		],
+		[
+			1686,
+			-1129
+		]
+	],
+	[
+		[
+			7085258,
+			7200988
+		],
+		[
+			-2404,
+			-1064
+		],
+		[
+			-870,
+			-1366
+		],
+		[
+			3307,
+			-3597
+		],
+		[
+			-489,
+			-3023
+		],
+		[
+			-2465,
+			-1344
+		],
+		[
+			191,
+			-2286
+		],
+		[
+			-6148,
+			-1322
+		],
+		[
+			-1300,
+			-782
+		],
+		[
+			-69,
+			-1052
+		]
+	],
+	[
+		[
+			7081455,
+			7195048
+		],
+		[
+			528,
+			-639
+		],
+		[
+			1275,
+			463
+		],
+		[
+			-92,
+			608
+		],
+		[
+			-1707,
+			441
+		],
+		[
+			-4,
+			-873
+		]
+	],
+	[
+		[
+			7084058,
+			7198331
+		],
+		[
+			537,
+			368
+		],
+		[
+			1810,
+			-246
+		],
+		[
+			-1119,
+			-1299
+		],
+		[
+			-1228,
+			1177
+		]
+	],
+	[
+		[
+			7092576,
+			7145350
+		],
+		[
+			-916,
+			1605
+		]
+	],
+	[
+		[
+			7091660,
+			7146955
+		],
+		[
+			-3890,
+			3015
+		],
+		[
+			855,
+			1663
+		],
+		[
+			-1400,
+			1941
+		],
+		[
+			-2429,
+			1731
+		],
+		[
+			-4602,
+			1280
+		],
+		[
+			-1454,
+			2821
+		],
+		[
+			-5380,
+			3283
+		],
+		[
+			1471,
+			943
+		],
+		[
+			3918,
+			-375
+		]
+	],
+	[
+		[
+			7084063,
+			7174709
+		],
+		[
+			3949,
+			669
+		],
+		[
+			2880,
+			2929
+		],
+		[
+			2697,
+			-825
+		],
+		[
+			-1020,
+			-1925
+		],
+		[
+			456,
+			-825
+		],
+		[
+			8164,
+			-832
+		],
+		[
+			1445,
+			1729
+		],
+		[
+			-548,
+			1498
+		],
+		[
+			1982,
+			1566
+		],
+		[
+			3899,
+			1207
+		],
+		[
+			2181,
+			-1068
+		],
+		[
+			2184,
+			486
+		]
+	],
+	[
+		[
+			7053371,
+			7154771
+		],
+		[
+			-1413,
+			-1311
+		],
+		[
+			264,
+			-1628
+		],
+		[
+			-3656,
+			-520
+		],
+		[
+			-2057,
+			557
+		],
+		[
+			-1633,
+			-1169
+		],
+		[
+			1848,
+			-2047
+		],
+		[
+			2990,
+			-1364
+		],
+		[
+			-1578,
+			-2890
+		],
+		[
+			2113,
+			-4342
+		],
+		[
+			-6045,
+			-2100
+		],
+		[
+			-788,
+			-2006
+		],
+		[
+			-1887,
+			170
+		],
+		[
+			-2075,
+			-1318
+		],
+		[
+			-4010,
+			525
+		]
+	],
+	[
+		[
+			7035444,
+			7135328
+		],
+		[
+			-1303,
+			2062
+		],
+		[
+			-3905,
+			577
+		],
+		[
+			-1354,
+			987
+		],
+		[
+			-4294,
+			5952
+		],
+		[
+			-6670,
+			533
+		],
+		[
+			-2225,
+			1573
+		],
+		[
+			-1953,
+			207
+		],
+		[
+			-662,
+			1268
+		]
+	],
+	[
+		[
+			7013078,
+			7148487
+		],
+		[
+			693,
+			3584
+		],
+		[
+			-2105,
+			1898
+		],
+		[
+			549,
+			1808
+		],
+		[
+			-1518,
+			3459
+		],
+		[
+			489,
+			1822
+		],
+		[
+			2540,
+			1277
+		],
+		[
+			2272,
+			-1438
+		],
+		[
+			2147,
+			399
+		],
+		[
+			2692,
+			1911
+		],
+		[
+			1217,
+			3468
+		]
+	],
+	[
+		[
+			7037427,
+			7127191
+		],
+		[
+			-656,
+			1962
+		],
+		[
+			3459,
+			3580
+		],
+		[
+			-4786,
+			2595
+		]
+	],
+	[
+		[
+			7091660,
+			7146955
+		],
+		[
+			-5430,
+			-1833
+		],
+		[
+			-3825,
+			-2732
+		],
+		[
+			6234,
+			-3825
+		]
+	],
+	[
+		[
+			6970558,
+			7111585
+		],
+		[
+			47,
+			1089
+		],
+		[
+			2267,
+			1673
+		],
+		[
+			2299,
+			-112
+		],
+		[
+			1755,
+			823
+		],
+		[
+			-709,
+			602
+		],
+		[
+			-1559,
+			242
+		],
+		[
+			752,
+			1243
+		],
+		[
+			2953,
+			118
+		],
+		[
+			362,
+			1711
+		],
+		[
+			2057,
+			941
+		],
+		[
+			1587,
+			3192
+		],
+		[
+			74,
+			753
+		],
+		[
+			1820,
+			605
+		],
+		[
+			1304,
+			-1149
+		],
+		[
+			935,
+			-2418
+		],
+		[
+			2335,
+			-544
+		],
+		[
+			-5,
+			-526
+		],
+		[
+			-3454,
+			-743
+		],
+		[
+			106,
+			-1019
+		],
+		[
+			1032,
+			168
+		],
+		[
+			2566,
+			-1209
+		],
+		[
+			-191,
+			-666
+		],
+		[
+			-1877,
+			-398
+		],
+		[
+			-662,
+			304
+		],
+		[
+			-1536,
+			-421
+		],
+		[
+			-1043,
+			-813
+		],
+		[
+			688,
+			-539
+		],
+		[
+			563,
+			443
+		],
+		[
+			1250,
+			-1397
+		],
+		[
+			2807,
+			-1238
+		],
+		[
+			-441,
+			-564
+		],
+		[
+			-1093,
+			602
+		],
+		[
+			-911,
+			-258
+		],
+		[
+			-187,
+			-1651
+		],
+		[
+			-1086,
+			-16
+		],
+		[
+			-534,
+			-711
+		],
+		[
+			-1721,
+			-235
+		],
+		[
+			-1598,
+			497
+		],
+		[
+			-1165,
+			-1021
+		],
+		[
+			-1920,
+			46
+		],
+		[
+			-1950,
+			-288
+		],
+		[
+			-160,
+			898
+		],
+		[
+			1040,
+			1135
+		],
+		[
+			-428,
+			219
+		],
+		[
+			-5487,
+			-2112
+		],
+		[
+			-68,
+			1117
+		],
+		[
+			-814,
+			1627
+		]
+	],
+	[
+		[
+			6985241,
+			7147135
+		],
+		[
+			3145,
+			930
+		],
+		[
+			2391,
+			2223
+		],
+		[
+			2510,
+			-571
+		],
+		[
+			7223,
+			1816
+		],
+		[
+			4336,
+			-2701
+		],
+		[
+			1407,
+			-2541
+		],
+		[
+			2849,
+			1030
+		],
+		[
+			1564,
+			-330
+		],
+		[
+			2412,
+			1496
+		]
+	],
+	[
+		[
+			7019607,
+			7107626
+		],
+		[
+			-3802,
+			-1476
+		],
+		[
+			-2321,
+			294
+		],
+		[
+			-1524,
+			1853
+		],
+		[
+			149,
+			2277
+		],
+		[
+			-5851,
+			3132
+		],
+		[
+			-3120,
+			2923
+		],
+		[
+			2589,
+			2533
+		],
+		[
+			3202,
+			59
+		],
+		[
+			859,
+			1121
+		],
+		[
+			-4554,
+			1712
+		],
+		[
+			-2717,
+			3638
+		],
+		[
+			-7438,
+			-1526
+		],
+		[
+			-1257,
+			1856
+		],
+		[
+			-2193,
+			611
+		],
+		[
+			-504,
+			1033
+		],
+		[
+			-3386,
+			-661
+		],
+		[
+			-1368,
+			2172
+		]
+	],
+	[
+		[
+			6986371,
+			7129177
+		],
+		[
+			-667,
+			3925
+		],
+		[
+			-2090,
+			1915
+		],
+		[
+			3940,
+			2361
+		],
+		[
+			-2164,
+			3741
+		],
+		[
+			84,
+			1446
+		],
+		[
+			1142,
+			683
+		],
+		[
+			-1683,
+			1950
+		],
+		[
+			308,
+			1937
+		]
+	],
+	[
+		[
+			6957706,
+			7170997
+		],
+		[
+			29,
+			-953
+		],
+		[
+			2086,
+			-1522
+		],
+		[
+			2263,
+			1304
+		],
+		[
+			1139,
+			-2484
+		],
+		[
+			2882,
+			-243
+		],
+		[
+			1919,
+			-2795
+		],
+		[
+			2942,
+			-616
+		],
+		[
+			959,
+			-2024
+		],
+		[
+			2061,
+			-713
+		],
+		[
+			431,
+			-2162
+		],
+		[
+			-3194,
+			-1706
+		],
+		[
+			-115,
+			-2520
+		],
+		[
+			-836,
+			-980
+		],
+		[
+			3195,
+			-1530
+		],
+		[
+			367,
+			-2287
+		],
+		[
+			5443,
+			460
+		],
+		[
+			2369,
+			-1979
+		],
+		[
+			2615,
+			-221
+		],
+		[
+			980,
+			-891
+		]
+	],
+	[
+		[
+			6986371,
+			7129177
+		],
+		[
+			-2187,
+			838
+		],
+		[
+			-5409,
+			-3531
+		],
+		[
+			-3016,
+			372
+		],
+		[
+			-833,
+			1198
+		],
+		[
+			-2120,
+			-2463
+		],
+		[
+			-4353,
+			-1232
+		],
+		[
+			-375,
+			-1586
+		],
+		[
+			-2449,
+			-271
+		],
+		[
+			-2957,
+			-1679
+		]
+	],
+	[
+		[
+			6962672,
+			7120823
+		],
+		[
+			-4350,
+			-899
+		],
+		[
+			-3017,
+			910
+		],
+		[
+			-4225,
+			2833
+		],
+		[
+			-3331,
+			-1058
+		],
+		[
+			-1468,
+			2749
+		],
+		[
+			-4588,
+			1444
+		],
+		[
+			-2934,
+			1956
+		],
+		[
+			-1866,
+			4783
+		],
+		[
+			-1897,
+			364
+		],
+		[
+			-814,
+			1310
+		],
+		[
+			-878,
+			-878
+		],
+		[
+			-969,
+			641
+		],
+		[
+			-354,
+			2068
+		],
+		[
+			-2032,
+			1165
+		],
+		[
+			-1060,
+			2133
+		],
+		[
+			429,
+			717
+		],
+		[
+			-2453,
+			3541
+		],
+		[
+			2077,
+			7089
+		]
+	],
+	[
+		[
+			7172528,
+			7080280
+		],
+		[
+			937,
+			1063
+		]
+	],
+	[
+		[
+			7173465,
+			7081343
+		],
+		[
+			2754,
+			86
+		],
+		[
+			1886,
+			1361
+		],
+		[
+			11040,
+			765
+		],
+		[
+			1549,
+			921
+		],
+		[
+			3209,
+			-2908
+		],
+		[
+			335,
+			-1981
+		],
+		[
+			-2738,
+			-3001
+		],
+		[
+			-2975,
+			-756
+		],
+		[
+			-1551,
+			-1421
+		],
+		[
+			-6105,
+			-249
+		],
+		[
+			-1233,
+			1337
+		],
+		[
+			-1558,
+			-1441
+		],
+		[
+			-2397,
+			1616
+		],
+		[
+			3736,
+			1962
+		],
+		[
+			-1192,
+			1961
+		],
+		[
+			-5697,
+			685
+		]
+	],
+	[
+		[
+			7157446,
+			7096115
+		],
+		[
+			-26,
+			920
+		]
+	],
+	[
+		[
+			7173314,
+			7090674
+		],
+		[
+			63,
+			-1959
+		],
+		[
+			-3214,
+			-1995
+		],
+		[
+			3552,
+			-2235
+		],
+		[
+			-250,
+			-3142
+		]
+	],
+	[
+		[
+			7172528,
+			7080280
+		],
+		[
+			-7620,
+			-449
+		]
+	],
+	[
+		[
+			7164908,
+			7079831
+		],
+		[
+			602,
+			2507
+		],
+		[
+			-3083,
+			709
+		]
+	],
+	[
+		[
+			7162427,
+			7083047
+		],
+		[
+			-1894,
+			78
+		],
+		[
+			-1071,
+			619
+		],
+		[
+			57,
+			740
+		],
+		[
+			1749,
+			749
+		],
+		[
+			250,
+			570
+		],
+		[
+			-1563,
+			1658
+		],
+		[
+			-449,
+			476
+		],
+		[
+			-709,
+			1733
+		],
+		[
+			-1314,
+			3208
+		]
+	],
+	[
+		[
+			7157483,
+			7092878
+		],
+		[
+			-873,
+			1528
+		],
+		[
+			178,
+			840
+		],
+		[
+			658,
+			869
+		]
+	],
+	[
+		[
+			7220089,
+			7067982
+		],
+		[
+			438,
+			1007
+		],
+		[
+			-951,
+			1598
+		],
+		[
+			-7303,
+			2555
+		],
+		[
+			-3078,
+			4188
+		],
+		[
+			4434,
+			1251
+		],
+		[
+			1008,
+			2412
+		],
+		[
+			2436,
+			-320
+		],
+		[
+			2483,
+			2651
+		],
+		[
+			-1316,
+			2491
+		],
+		[
+			5031,
+			2565
+		],
+		[
+			-684,
+			1461
+		],
+		[
+			932,
+			1464
+		]
+	],
+	[
+		[
+			7223995,
+			7093570
+		],
+		[
+			560,
+			171
+		],
+		[
+			514,
+			1010
+		]
+	],
+	[
+		[
+			7548981,
+			6908405
+		],
+		[
+			-8029,
+			-1396
+		],
+		[
+			-1181,
+			1484
+		],
+		[
+			1315,
+			3268
+		],
+		[
+			-1085,
+			621
+		],
+		[
+			-2860,
+			-2052
+		],
+		[
+			-5138,
+			-1906
+		],
+		[
+			3005,
+			-5838
+		],
+		[
+			-4,
+			-2973
+		],
+		[
+			-6431,
+			-217
+		],
+		[
+			-7331,
+			1174
+		]
+	],
+	[
+		[
+			7362094,
+			7477280
+		],
+		[
+			-740,
+			-1278
+		],
+		[
+			-2999,
+			-1574
+		],
+		[
+			-3836,
+			969
+		],
+		[
+			-6655,
+			-840
+		],
+		[
+			-636,
+			-2295
+		],
+		[
+			-5533,
+			-668
+		],
+		[
+			-783,
+			-1081
+		],
+		[
+			-3125,
+			-670
+		],
+		[
+			-1094,
+			-1773
+		],
+		[
+			3673,
+			-795
+		],
+		[
+			-770,
+			-1270
+		],
+		[
+			896,
+			-1358
+		],
+		[
+			-4090,
+			-1068
+		],
+		[
+			-964,
+			-1824
+		],
+		[
+			2737,
+			-2312
+		],
+		[
+			-104,
+			-1410
+		],
+		[
+			-10807,
+			-2176
+		],
+		[
+			-4548,
+			-4260
+		]
+	],
+	[
+		[
+			7322716,
+			7451597
+		],
+		[
+			-2816,
+			2005
+		],
+		[
+			-4537,
+			1140
+		],
+		[
+			-1800,
+			1815
+		],
+		[
+			-6686,
+			-383
+		],
+		[
+			-6956,
+			3376
+		],
+		[
+			-5085,
+			-1944
+		],
+		[
+			-11400,
+			3038
+		]
+	],
+	[
+		[
+			7283436,
+			7460644
+		],
+		[
+			-4502,
+			1111
+		],
+		[
+			-2284,
+			563
+		],
+		[
+			-2188,
+			4918
+		],
+		[
+			507,
+			1438
+		],
+		[
+			-3523,
+			3781
+		]
+	],
+	[
+		[
+			7271446,
+			7472455
+		],
+		[
+			9115,
+			6994
+		],
+		[
+			12413,
+			3280
+		],
+		[
+			-793,
+			3188
+		],
+		[
+			-2009,
+			1922
+		],
+		[
+			1890,
+			1385
+		]
+	],
+	[
+		[
+			7399332,
+			7423916
+		],
+		[
+			-2341,
+			1501
+		],
+		[
+			-689,
+			3137
+		],
+		[
+			4365,
+			3664
+		],
+		[
+			326,
+			2230
+		],
+		[
+			-878,
+			2285
+		],
+		[
+			3826,
+			1636
+		],
+		[
+			111,
+			1751
+		],
+		[
+			-1491,
+			742
+		],
+		[
+			-944,
+			1834
+		],
+		[
+			-2178,
+			621
+		],
+		[
+			-1254,
+			3151
+		],
+		[
+			-3276,
+			1194
+		],
+		[
+			-2641,
+			962
+		],
+		[
+			-1610,
+			2406
+		]
+	],
+	[
+		[
+			7390658,
+			7451030
+		],
+		[
+			4251,
+			1803
+		],
+		[
+			745,
+			315
+		],
+		[
+			9774,
+			940
+		],
+		[
+			-1149,
+			3594
+		],
+		[
+			-2100,
+			1306
+		],
+		[
+			-277,
+			2784
+		],
+		[
+			797,
+			1040
+		],
+		[
+			20370,
+			-9862
+		],
+		[
+			2602,
+			229
+		],
+		[
+			3460,
+			2044
+		],
+		[
+			3231,
+			-863
+		]
+	],
+	[
+		[
+			7330539,
+			7444373
+		],
+		[
+			-787,
+			-962
+		]
+	],
+	[
+		[
+			7329752,
+			7443411
+		],
+		[
+			-7228,
+			-337
+		],
+		[
+			-3083,
+			1151
+		],
+		[
+			-70,
+			978
+		],
+		[
+			2972,
+			87
+		],
+		[
+			4118,
+			3971
+		],
+		[
+			-3745,
+			2336
+		]
+	],
+	[
+		[
+			7390658,
+			7451030
+		],
+		[
+			-3798,
+			1972
+		],
+		[
+			-8158,
+			1847
+		],
+		[
+			-284,
+			986
+		],
+		[
+			2436,
+			686
+		],
+		[
+			-112,
+			897
+		],
+		[
+			-4394,
+			355
+		],
+		[
+			-2617,
+			-1703
+		],
+		[
+			-3965,
+			98
+		],
+		[
+			-3661,
+			2679
+		],
+		[
+			-6203,
+			-2888
+		],
+		[
+			-1586,
+			-1602
+		],
+		[
+			-3556,
+			-896
+		],
+		[
+			-1091,
+			-3271
+		],
+		[
+			-5249,
+			-175
+		],
+		[
+			-2090,
+			-2312
+		],
+		[
+			-3763,
+			391
+		],
+		[
+			-3870,
+			-957
+		],
+		[
+			-2342,
+			-1668
+		]
+	],
+	[
+		[
+			7336355,
+			7445469
+		],
+		[
+			-2735,
+			841
+		],
+		[
+			-3081,
+			-1937
+		]
+	],
+	[
+		[
+			7163709,
+			7461408
+		],
+		[
+			1466,
+			13973
+		]
+	],
+	[
+		[
+			7205787,
+			7476863
+		],
+		[
+			3386,
+			-1826
+		],
+		[
+			741,
+			-2343
+		],
+		[
+			4726,
+			-1686
+		],
+		[
+			-49,
+			-1653
+		],
+		[
+			1440,
+			-840
+		],
+		[
+			-1307,
+			-2855
+		],
+		[
+			2899,
+			-2371
+		],
+		[
+			224,
+			-1534
+		],
+		[
+			498,
+			-3427
+		],
+		[
+			3976,
+			-4502
+		]
+	],
+	[
+		[
+			7222321,
+			7453826
+		],
+		[
+			-3855,
+			-2419
+		],
+		[
+			-4871,
+			-104
+		]
+	],
+	[
+		[
+			7260648,
+			7430437
+		],
+		[
+			-721,
+			2836
+		],
+		[
+			1404,
+			2058
+		],
+		[
+			-446,
+			1402
+		],
+		[
+			-285,
+			896
+		],
+		[
+			-1324,
+			1043
+		],
+		[
+			-6716,
+			-1535
+		],
+		[
+			-3109,
+			431
+		],
+		[
+			-244,
+			2195
+		],
+		[
+			-14790,
+			3476
+		],
+		[
+			-1024,
+			2111
+		],
+		[
+			-2139,
+			1576
+		],
+		[
+			-457,
+			1654
+		],
+		[
+			2225,
+			1762
+		],
+		[
+			-145,
+			1645
+		],
+		[
+			1318,
+			1590
+		],
+		[
+			-583,
+			985
+		],
+		[
+			-2944,
+			1054
+		],
+		[
+			-1858,
+			-311
+		],
+		[
+			-2800,
+			-1999
+		],
+		[
+			-3689,
+			520
+		]
+	],
+	[
+		[
+			7230037,
+			7497936
+		],
+		[
+			1461,
+			-3966
+		],
+		[
+			1956,
+			-1771
+		],
+		[
+			7728,
+			1111
+		],
+		[
+			1852,
+			-2154
+		],
+		[
+			-4764,
+			-2823
+		],
+		[
+			532,
+			-2416
+		],
+		[
+			1707,
+			-1108
+		],
+		[
+			3071,
+			712
+		],
+		[
+			2115,
+			-1208
+		],
+		[
+			2290,
+			332
+		],
+		[
+			1592,
+			-2457
+		],
+		[
+			-192,
+			-2144
+		],
+		[
+			2840,
+			-796
+		],
+		[
+			-769,
+			-1760
+		],
+		[
+			5739,
+			-3254
+		],
+		[
+			2531,
+			-818
+		],
+		[
+			1272,
+			213
+		],
+		[
+			1409,
+			236
+		],
+		[
+			4113,
+			3168
+		],
+		[
+			5566,
+			-1398
+		],
+		[
+			-1,
+			-1101
+		],
+		[
+			-1437,
+			-1333
+		],
+		[
+			798,
+			-746
+		]
+	],
+	[
+		[
+			7283436,
+			7460644
+		],
+		[
+			4918,
+			-5415
+		],
+		[
+			-5182,
+			-773
+		],
+		[
+			-1315,
+			-1728
+		],
+		[
+			-3164,
+			-1309
+		],
+		[
+			-575,
+			-1368
+		],
+		[
+			1002,
+			-3051
+		],
+		[
+			-2230,
+			-3180
+		],
+		[
+			698,
+			-1230
+		],
+		[
+			4466,
+			-1894
+		],
+		[
+			-834,
+			-2045
+		],
+		[
+			856,
+			-1918
+		],
+		[
+			-8926,
+			-5074
+		],
+		[
+			-4845,
+			1707
+		],
+		[
+			-7657,
+			-2929
+		]
+	],
+	[
+		[
+			7231872,
+			7456414
+		],
+		[
+			1634,
+			-1257
+		],
+		[
+			1241,
+			608
+		],
+		[
+			-2012,
+			1403
+		],
+		[
+			-863,
+			-754
+		]
+	],
+	[
+		[
+			7247736,
+			7415467
+		],
+		[
+			2026,
+			1392
+		],
+		[
+			353,
+			2114
+		],
+		[
+			-835,
+			1883
+		],
+		[
+			2415,
+			550
+		],
+		[
+			1890,
+			610
+		],
+		[
+			-29,
+			2331
+		],
+		[
+			3667,
+			4308
+		],
+		[
+			3425,
+			1782
+		]
+	],
+	[
+		[
+			7329752,
+			7443411
+		],
+		[
+			592,
+			-991
+		],
+		[
+			1252,
+			473
+		],
+		[
+			-84,
+			647
+		],
+		[
+			-973,
+			833
+		]
+	],
+	[
+		[
+			7336355,
+			7445469
+		],
+		[
+			297,
+			-4055
+		],
+		[
+			-4771,
+			40
+		],
+		[
+			-636,
+			-798
+		],
+		[
+			5151,
+			-1135
+		],
+		[
+			673,
+			-2788
+		],
+		[
+			638,
+			-2646
+		],
+		[
+			1182,
+			-1761
+		]
+	],
+	[
+		[
+			7263765,
+			7509462
+		],
+		[
+			2559,
+			-2212
+		],
+		[
+			2467,
+			-5252
+		],
+		[
+			1712,
+			-1779
+		],
+		[
+			5553,
+			-2276
+		],
+		[
+			6561,
+			-2690
+		],
+		[
+			5569,
+			-799
+		]
+	],
+	[
+		[
+			7217027,
+			7522180
+		],
+		[
+			-424,
+			525
+		],
+		[
+			614,
+			219
+		],
+		[
+			929,
+			163
+		],
+		[
+			2496,
+			879
+		],
+		[
+			1560,
+			168
+		],
+		[
+			1121,
+			499
+		],
+		[
+			6086,
+			515
+		],
+		[
+			3329,
+			-26
+		],
+		[
+			4192,
+			-121
+		],
+		[
+			1305,
+			-122
+		],
+		[
+			2256,
+			-210
+		],
+		[
+			2125,
+			-188
+		],
+		[
+			-167,
+			981
+		]
+	],
+	[
+		[
+			7242449,
+			7525462
+		],
+		[
+			4654,
+			-1810
+		],
+		[
+			4131,
+			-3432
+		],
+		[
+			6379,
+			-7526
+		],
+		[
+			3385,
+			-1778
+		],
+		[
+			2767,
+			-1454
+		]
+	],
+	[
+		[
+			7180892,
+			7439595
+		],
+		[
+			-3361,
+			595
+		],
+		[
+			-773,
+			-1663
+		],
+		[
+			-2158,
+			-946
+		],
+		[
+			-1193,
+			1050
+		],
+		[
+			2110,
+			2891
+		],
+		[
+			-1699,
+			982
+		],
+		[
+			96,
+			738
+		],
+		[
+			4184,
+			3093
+		],
+		[
+			645,
+			2289
+		]
+	],
+	[
+		[
+			7178743,
+			7448624
+		],
+		[
+			1923,
+			958
+		]
+	],
+	[
+		[
+			7163903,
+			7067699
+		],
+		[
+			-581,
+			1405
+		],
+		[
+			-2778,
+			1775
+		],
+		[
+			1724,
+			1888
+		]
+	],
+	[
+		[
+			7162268,
+			7072767
+		],
+		[
+			2117,
+			1819
+		],
+		[
+			823,
+			2260
+		],
+		[
+			-2808,
+			-537
+		],
+		[
+			-548,
+			868
+		],
+		[
+			3056,
+			2654
+		]
+	],
+	[
+		[
+			7184912,
+			7022416
+		],
+		[
+			-633,
+			-193
+		]
+	],
+	[
+		[
+			7184279,
+			7022223
+		],
+		[
+			-5486,
+			1358
+		],
+		[
+			847,
+			2547
+		],
+		[
+			-611,
+			3878
+		],
+		[
+			10834,
+			1216
+		],
+		[
+			5495,
+			-5835
+		],
+		[
+			-3827,
+			-3001
+		],
+		[
+			-2757,
+			1052
+		],
+		[
+			-95,
+			-2224
+		],
+		[
+			-3767,
+			1202
+		]
+	],
+	[
+		[
+			7164533,
+			7020714
+		],
+		[
+			3158,
+			-1208
+		],
+		[
+			-375,
+			-1369
+		],
+		[
+			1602,
+			-893
+		],
+		[
+			2646,
+			2479
+		],
+		[
+			2001,
+			553
+		],
+		[
+			1880,
+			-574
+		],
+		[
+			1454,
+			1612
+		],
+		[
+			4095,
+			-1420
+		],
+		[
+			3218,
+			552
+		],
+		[
+			67,
+			1777
+		]
+	],
+	[
+		[
+			7184912,
+			7022416
+		],
+		[
+			3016,
+			-3561
+		],
+		[
+			1702,
+			-276
+		],
+		[
+			2898,
+			-2139
+		],
+		[
+			3066,
+			34
+		]
+	],
+	[
+		[
+			7190747,
+			6989110
+		],
+		[
+			-1265,
+			-164
+		],
+		[
+			-1134,
+			-1359
+		],
+		[
+			-3290,
+			-344
+		],
+		[
+			-2758,
+			2292
+		],
+		[
+			-3989,
+			-627
+		],
+		[
+			-2381,
+			491
+		],
+		[
+			-502,
+			1042
+		],
+		[
+			1825,
+			2295
+		],
+		[
+			-2219,
+			1082
+		],
+		[
+			-3539,
+			-89
+		],
+		[
+			1091,
+			2361
+		],
+		[
+			-1337,
+			-193
+		],
+		[
+			-2611,
+			1730
+		],
+		[
+			-6928,
+			1999
+		],
+		[
+			-5602,
+			3016
+		]
+	],
+	[
+		[
+			7188895,
+			6976494
+		],
+		[
+			-2993,
+			416
+		],
+		[
+			-3119,
+			1634
+		],
+		[
+			-6550,
+			-37
+		],
+		[
+			-1926,
+			873
+		],
+		[
+			-5829,
+			-399
+		],
+		[
+			-1508,
+			-1418
+		],
+		[
+			-3109,
+			-947
+		],
+		[
+			938,
+			-1962
+		],
+		[
+			-1364,
+			-1521
+		],
+		[
+			1496,
+			-1521
+		],
+		[
+			-327,
+			-1118
+		],
+		[
+			-4923,
+			-1434
+		],
+		[
+			-1647,
+			1774
+		],
+		[
+			-3475,
+			304
+		],
+		[
+			-3050,
+			1389
+		],
+		[
+			-673,
+			3771
+		],
+		[
+			-1025,
+			722
+		],
+		[
+			-1934,
+			17
+		],
+		[
+			-1085,
+			-2586
+		],
+		[
+			-1217,
+			-846
+		]
+	],
+	[
+		[
+			7145575,
+			6973605
+		],
+		[
+			-4732,
+			1632
+		],
+		[
+			267,
+			1333
+		],
+		[
+			-2297,
+			2337
+		],
+		[
+			1917,
+			1661
+		],
+		[
+			1685,
+			6118
+		],
+		[
+			-5111,
+			2779
+		],
+		[
+			-640,
+			4793
+		],
+		[
+			1865,
+			1977
+		],
+		[
+			-2198,
+			2559
+		],
+		[
+			1046,
+			225
+		]
+	],
+	[
+		[
+			7100236,
+			6943900
+		],
+		[
+			2770,
+			-3565
+		],
+		[
+			4902,
+			-924
+		],
+		[
+			41,
+			-1701
+		],
+		[
+			-949,
+			-1231
+		],
+		[
+			425,
+			-3562
+		],
+		[
+			-2373,
+			-3266
+		],
+		[
+			-2939,
+			-149
+		],
+		[
+			-572,
+			1307
+		],
+		[
+			1232,
+			2572
+		],
+		[
+			-4504,
+			2451
+		],
+		[
+			-3000,
+			-576
+		],
+		[
+			-6362,
+			1197
+		],
+		[
+			-3505,
+			-1610
+		],
+		[
+			-3505,
+			425
+		],
+		[
+			1576,
+			3117
+		],
+		[
+			2090,
+			1395
+		],
+		[
+			425,
+			2179
+		],
+		[
+			2232,
+			310
+		],
+		[
+			3961,
+			-1580
+		],
+		[
+			1781,
+			1165
+		],
+		[
+			1242,
+			3010
+		],
+		[
+			2443,
+			735
+		]
+	],
+	[
+		[
+			7097647,
+			6945599
+		],
+		[
+			1204,
+			-1180
+		],
+		[
+			1385,
+			-519
+		]
+	],
+	[
+		[
+			7072905,
+			6950261
+		],
+		[
+			3060,
+			-813
+		],
+		[
+			14041,
+			360
+		],
+		[
+			1107,
+			-873
+		],
+		[
+			-56,
+			-1489
+		],
+		[
+			6590,
+			-1847
+		]
+	],
+	[
+		[
+			7100236,
+			6943900
+		],
+		[
+			6630,
+			-110
+		],
+		[
+			882,
+			1227
+		],
+		[
+			13884,
+			-218
+		],
+		[
+			7209,
+			-5188
+		]
+	],
+	[
+		[
+			7128841,
+			6939611
+		],
+		[
+			5929,
+			-2148
+		],
+		[
+			3573,
+			796
+		],
+		[
+			7967,
+			-726
+		],
+		[
+			166,
+			-1469
+		],
+		[
+			-2496,
+			-1972
+		],
+		[
+			11522,
+			-4862
+		],
+		[
+			3083,
+			-2954
+		],
+		[
+			494,
+			-2216
+		]
+	],
+	[
+		[
+			7133210,
+			6957088
+		],
+		[
+			-3668,
+			-1914
+		],
+		[
+			-1275,
+			-3365
+		],
+		[
+			2319,
+			-5440
+		],
+		[
+			-3699,
+			-1389
+		],
+		[
+			324,
+			-3602
+		],
+		[
+			1630,
+			-1767
+		]
+	],
+	[
+		[
+			7083247,
+			6964423
+		],
+		[
+			2716,
+			-19
+		],
+		[
+			3044,
+			-1698
+		],
+		[
+			4087,
+			-101
+		],
+		[
+			3390,
+			-1095
+		],
+		[
+			4248,
+			198
+		],
+		[
+			9722,
+			-2509
+		],
+		[
+			3524,
+			276
+		],
+		[
+			2808,
+			2325
+		],
+		[
+			8986,
+			-1966
+		],
+		[
+			5044,
+			1372
+		],
+		[
+			2466,
+			-2122
+		],
+		[
+			-72,
+			-1996
+		]
+	],
+	[
+		[
+			7145575,
+			6973605
+		],
+		[
+			1665,
+			-1921
+		],
+		[
+			616,
+			-2859
+		],
+		[
+			-3234,
+			-1116
+		],
+		[
+			-1267,
+			-305
+		],
+		[
+			1413,
+			-6050
+		],
+		[
+			1459,
+			-2256
+		],
+		[
+			-1538,
+			-1791
+		],
+		[
+			-1240,
+			-1444
+		]
+	],
+	[
+		[
+			7143449,
+			6955863
+		],
+		[
+			-3772,
+			1137
+		],
+		[
+			-2516,
+			-2308
+		],
+		[
+			-3951,
+			2396
+		]
+	],
+	[
+		[
+			7190300,
+			6954650
+		],
+		[
+			-1452,
+			-1633
+		],
+		[
+			-3109,
+			-502
+		],
+		[
+			-2502,
+			-1821
+		],
+		[
+			-2347,
+			-194
+		],
+		[
+			-4539,
+			-2407
+		],
+		[
+			-961,
+			-888
+		],
+		[
+			214,
+			-1037
+		]
+	],
+	[
+		[
+			7175604,
+			6946168
+		],
+		[
+			-3034,
+			307
+		],
+		[
+			-120,
+			1708
+		],
+		[
+			-2405,
+			1434
+		],
+		[
+			-19,
+			2153
+		],
+		[
+			-3039,
+			3169
+		],
+		[
+			-4707,
+			1649
+		],
+		[
+			-3280,
+			61
+		],
+		[
+			30,
+			-2088
+		],
+		[
+			-5052,
+			1431
+		],
+		[
+			-5555,
+			-1189
+		],
+		[
+			-4974,
+			1060
+		]
+	],
+	[
+		[
+			7175604,
+			6946168
+		],
+		[
+			3605,
+			-3902
+		],
+		[
+			-610,
+			-2327
+		],
+		[
+			2522,
+			-1420
+		],
+		[
+			-185,
+			-2338
+		],
+		[
+			-2572,
+			-2366
+		],
+		[
+			-3158,
+			-224
+		],
+		[
+			-1186,
+			-1142
+		],
+		[
+			662,
+			-3356
+		],
+		[
+			2045,
+			-1258
+		],
+		[
+			-280,
+			-1537
+		],
+		[
+			2744,
+			-2121
+		]
+	],
+	[
+		[
+			7199656,
+			7565329
+		],
+		[
+			-2105,
+			2370
+		],
+		[
+			-4156,
+			-772
+		],
+		[
+			-7227,
+			893
+		],
+		[
+			-1960,
+			-1065
+		],
+		[
+			-2104,
+			18
+		],
+		[
+			-6068,
+			2916
+		],
+		[
+			-680,
+			1530
+		],
+		[
+			758,
+			1556
+		],
+		[
+			3415,
+			-183
+		],
+		[
+			4498,
+			1745
+		],
+		[
+			-80,
+			1542
+		],
+		[
+			-3465,
+			733
+		],
+		[
+			1351,
+			1726
+		],
+		[
+			21114,
+			1039
+		],
+		[
+			3578,
+			1137
+		],
+		[
+			5055,
+			3488
+		],
+		[
+			3759,
+			1020
+		],
+		[
+			1103,
+			2279
+		],
+		[
+			-3086,
+			3737
+		],
+		[
+			-3134,
+			-1046
+		],
+		[
+			-2972,
+			-3714
+		],
+		[
+			-2498,
+			-1338
+		],
+		[
+			-5356,
+			-140
+		],
+		[
+			-3010,
+			802
+		],
+		[
+			-70,
+			3061
+		],
+		[
+			6201,
+			3396
+		],
+		[
+			-181,
+			3096
+		],
+		[
+			328,
+			669
+		],
+		[
+			1431,
+			2926
+		],
+		[
+			-4074,
+			2492
+		],
+		[
+			-2154,
+			2749
+		],
+		[
+			-5284,
+			2048
+		],
+		[
+			-1483,
+			574
+		],
+		[
+			-2200,
+			3808
+		],
+		[
+			-4304,
+			1044
+		],
+		[
+			1758,
+			1396
+		],
+		[
+			-2546,
+			4886
+		],
+		[
+			-2555,
+			638
+		],
+		[
+			-5089,
+			4626
+		],
+		[
+			64,
+			4306
+		],
+		[
+			2334,
+			964
+		],
+		[
+			207,
+			1583
+		]
+	],
+	[
+		[
+			7226486,
+			7626056
+		],
+		[
+			-773,
+			-4039
+		],
+		[
+			-2133,
+			-1361
+		],
+		[
+			2997,
+			-2909
+		],
+		[
+			-672,
+			-2287
+		],
+		[
+			-2750,
+			-1402
+		],
+		[
+			-363,
+			-5167
+		],
+		[
+			4583,
+			-1084
+		],
+		[
+			4381,
+			755
+		],
+		[
+			1363,
+			-2703
+		],
+		[
+			317,
+			-629
+		],
+		[
+			3550,
+			-1656
+		],
+		[
+			-234,
+			-1717
+		],
+		[
+			4162,
+			-3014
+		],
+		[
+			-343,
+			-2252
+		],
+		[
+			1854,
+			-767
+		],
+		[
+			3622,
+			-1498
+		],
+		[
+			-2569,
+			-4727
+		],
+		[
+			4133,
+			-5470
+		],
+		[
+			-848,
+			-1755
+		],
+		[
+			-3649,
+			-2085
+		],
+		[
+			-1873,
+			-2519
+		],
+		[
+			-78,
+			-1760
+		],
+		[
+			-5134,
+			679
+		],
+		[
+			-409,
+			-1402
+		],
+		[
+			-2501,
+			-1603
+		],
+		[
+			-287,
+			-459
+		],
+		[
+			-60,
+			-1036
+		]
+	],
+	[
+		[
+			7154154,
+			7627755
+		],
+		[
+			7079,
+			-1768
+		],
+		[
+			26,
+			-516
+		],
+		[
+			-4987,
+			-1792
+		],
+		[
+			-6607,
+			2613
+		],
+		[
+			-3484,
+			-2040
+		],
+		[
+			-1037,
+			-1480
+		],
+		[
+			-62,
+			-7394
+		],
+		[
+			-733,
+			-2117
+		],
+		[
+			-1119,
+			1185
+		],
+		[
+			131,
+			3197
+		],
+		[
+			1703,
+			11747
+		],
+		[
+			1096,
+			2117
+		],
+		[
+			7735,
+			11267
+		],
+		[
+			1676,
+			1278
+		],
+		[
+			1453,
+			-18
+		],
+		[
+			-943,
+			-1303
+		],
+		[
+			1800,
+			-997
+		],
+		[
+			645,
+			-1286
+		],
+		[
+			-4504,
+			-1845
+		],
+		[
+			-2844,
+			-2597
+		],
+		[
+			139,
+			-4499
+		],
+		[
+			436,
+			-1662
+		],
+		[
+			2401,
+			-2090
+		]
+	],
+	[
+		[
+			7171943,
+			7613833
+		],
+		[
+			2024,
+			-1027
+		],
+		[
+			-315,
+			-1160
+		],
+		[
+			1148,
+			-1077
+		],
+		[
+			-1430,
+			-852
+		],
+		[
+			-624,
+			-1781
+		],
+		[
+			-849,
+			-1163
+		],
+		[
+			-1201,
+			-168
+		],
+		[
+			-2937,
+			177
+		],
+		[
+			-3965,
+			-50
+		],
+		[
+			-1823,
+			300
+		],
+		[
+			-1702,
+			966
+		],
+		[
+			-2407,
+			193
+		],
+		[
+			-2417,
+			550
+		],
+		[
+			-621,
+			440
+		],
+		[
+			-105,
+			1023
+		],
+		[
+			897,
+			1505
+		],
+		[
+			1441,
+			1175
+		],
+		[
+			1813,
+			634
+		],
+		[
+			4000,
+			387
+		],
+		[
+			920,
+			-218
+		],
+		[
+			2765,
+			405
+		],
+		[
+			329,
+			-269
+		],
+		[
+			1770,
+			432
+		],
+		[
+			3289,
+			-422
+		]
+	],
+	[
+		[
+			7179197,
+			7587670
+		],
+		[
+			-1595,
+			-39
+		],
+		[
+			-1246,
+			515
+		],
+		[
+			-1940,
+			1433
+		],
+		[
+			-501,
+			1415
+		],
+		[
+			1146,
+			1124
+		],
+		[
+			2731,
+			155
+		],
+		[
+			1405,
+			872
+		],
+		[
+			2785,
+			573
+		],
+		[
+			1936,
+			657
+		],
+		[
+			1478,
+			84
+		],
+		[
+			809,
+			-445
+		],
+		[
+			-1275,
+			-2797
+		],
+		[
+			-118,
+			-911
+		],
+		[
+			-2535,
+			-2095
+		],
+		[
+			-3080,
+			-541
+		]
+	],
+	[
+		[
+			7154594,
+			7600001
+		],
+		[
+			-2877,
+			-399
+		],
+		[
+			-2669,
+			1837
+		],
+		[
+			-3491,
+			2684
+		],
+		[
+			-1017,
+			1152
+		],
+		[
+			1254,
+			1633
+		],
+		[
+			3366,
+			1910
+		],
+		[
+			148,
+			-1029
+		],
+		[
+			2066,
+			-4062
+		],
+		[
+			1943,
+			-1011
+		],
+		[
+			-150,
+			-726
+		],
+		[
+			1605,
+			-1603
+		],
+		[
+			-178,
+			-386
+		]
+	],
+	[
+		[
+			7179226,
+			7602569
+		],
+		[
+			-3327,
+			-558
+		],
+		[
+			-2057,
+			122
+		],
+		[
+			-2455,
+			-780
+		],
+		[
+			-1591,
+			-790
+		],
+		[
+			-1722,
+			800
+		],
+		[
+			1172,
+			928
+		],
+		[
+			1259,
+			-38
+		],
+		[
+			4917,
+			646
+		],
+		[
+			3804,
+			847
+		],
+		[
+			1158,
+			668
+		],
+		[
+			1144,
+			-195
+		],
+		[
+			-651,
+			-1153
+		],
+		[
+			-1651,
+			-497
+		]
+	],
+	[
+		[
+			7172909,
+			7594694
+		],
+		[
+			-2906,
+			-361
+		],
+		[
+			-1044,
+			777
+		],
+		[
+			-2367,
+			714
+		],
+		[
+			-350,
+			666
+		],
+		[
+			4524,
+			7
+		],
+		[
+			999,
+			-673
+		],
+		[
+			1144,
+			-1130
+		]
+	],
+	[
+		[
+			7189017,
+			7602155
+		],
+		[
+			-1955,
+			-774
+		],
+		[
+			-971,
+			537
+		],
+		[
+			408,
+			715
+		],
+		[
+			2046,
+			401
+		],
+		[
+			472,
+			-879
+		]
+	],
+	[
+		[
+			7198155,
+			7593704
+		],
+		[
+			-516,
+			-833
+		],
+		[
+			-2281,
+			1024
+		],
+		[
+			704,
+			409
+		],
+		[
+			2093,
+			-600
+		]
+	],
+	[
+		[
+			7171151,
+			7584811
+		],
+		[
+			-1267,
+			-334
+		],
+		[
+			-801,
+			871
+		],
+		[
+			487,
+			536
+		],
+		[
+			1597,
+			-520
+		],
+		[
+			-16,
+			-553
+		]
+	],
+	[
+		[
+			7198169,
+			7599075
+		],
+		[
+			-1050,
+			-1260
+		],
+		[
+			-1259,
+			810
+		],
+		[
+			1691,
+			847
+		],
+		[
+			618,
+			-397
+		]
+	],
+	[
+		[
+			7188715,
+			7584735
+		],
+		[
+			-1198,
+			-384
+		],
+		[
+			-750,
+			925
+		],
+		[
+			1242,
+			802
+		],
+		[
+			706,
+			-1343
+		]
+	],
+	[
+		[
+			7161013,
+			7642955
+		],
+		[
+			-905,
+			-254
+		],
+		[
+			-1499,
+			912
+		],
+		[
+			520,
+			388
+		],
+		[
+			1647,
+			-305
+		],
+		[
+			237,
+			-741
+		]
+	],
+	[
+		[
+			7186861,
+			7606827
+		],
+		[
+			-448,
+			-1019
+		],
+		[
+			-2032,
+			478
+		],
+		[
+			544,
+			662
+		],
+		[
+			1936,
+			-121
+		]
+	],
+	[
+		[
+			7373134,
+			7528459
+		],
+		[
+			-332,
+			757
+		],
+		[
+			-4240,
+			1361
+		]
+	],
+	[
+		[
+			7368562,
+			7530577
+		],
+		[
+			1380,
+			1789
+		],
+		[
+			-2402,
+			2318
+		],
+		[
+			-55,
+			2010
+		],
+		[
+			-5675,
+			1583
+		],
+		[
+			3410,
+			2760
+		],
+		[
+			4705,
+			211
+		],
+		[
+			1339,
+			4018
+		],
+		[
+			-4958,
+			537
+		],
+		[
+			-4925,
+			-1083
+		],
+		[
+			-4458,
+			2300
+		]
+	],
+	[
+		[
+			7356923,
+			7547020
+		],
+		[
+			1107,
+			3671
+		],
+		[
+			4624,
+			-1225
+		],
+		[
+			1747,
+			1328
+		],
+		[
+			4179,
+			335
+		],
+		[
+			325,
+			933
+		],
+		[
+			-2125,
+			854
+		],
+		[
+			-3057,
+			3324
+		],
+		[
+			4190,
+			1440
+		],
+		[
+			1902,
+			3897
+		],
+		[
+			6103,
+			277
+		],
+		[
+			3637,
+			-1180
+		],
+		[
+			3395,
+			-2607
+		],
+		[
+			2817,
+			1332
+		],
+		[
+			572,
+			784
+		],
+		[
+			-1066,
+			1472
+		],
+		[
+			2296,
+			3872
+		],
+		[
+			-1459,
+			1465
+		],
+		[
+			441,
+			2211
+		]
+	],
+	[
+		[
+			7386551,
+			7569203
+		],
+		[
+			8358,
+			1086
+		],
+		[
+			13747,
+			6595
+		],
+		[
+			3907,
+			-2
+		],
+		[
+			1255,
+			-784
+		],
+		[
+			492,
+			-307
+		],
+		[
+			7486,
+			429
+		],
+		[
+			3605,
+			1955
+		],
+		[
+			2577,
+			-985
+		],
+		[
+			-1117,
+			-1484
+		],
+		[
+			-5547,
+			-1786
+		],
+		[
+			1060,
+			-1120
+		],
+		[
+			1883,
+			-14030
+		],
+		[
+			-9947,
+			-4557
+		],
+		[
+			-492,
+			-284
+		],
+		[
+			-10934,
+			-6322
+		],
+		[
+			-7176,
+			758
+		],
+		[
+			-799,
+			-1152
+		],
+		[
+			-577,
+			-832
+		],
+		[
+			-3510,
+			-2361
+		],
+		[
+			-151,
+			-1917
+		],
+		[
+			724,
+			-855
+		],
+		[
+			2027,
+			-2395
+		],
+		[
+			1487,
+			-246
+		],
+		[
+			4356,
+			-722
+		]
+	],
+	[
+		[
+			7442547,
+			7584418
+		],
+		[
+			753,
+			-1208
+		],
+		[
+			1560,
+			-1403
+		],
+		[
+			1430,
+			-2208
+		],
+		[
+			31,
+			-462
+		],
+		[
+			-2612,
+			51
+		],
+		[
+			-2615,
+			501
+		],
+		[
+			-2537,
+			141
+		],
+		[
+			-2794,
+			-185
+		],
+		[
+			-179,
+			718
+		],
+		[
+			-1982,
+			283
+		],
+		[
+			-1268,
+			-408
+		],
+		[
+			100,
+			-1255
+		],
+		[
+			-1646,
+			-124
+		],
+		[
+			-3340,
+			151
+		],
+		[
+			-2546,
+			935
+		],
+		[
+			193,
+			2159
+		],
+		[
+			-1019,
+			1222
+		],
+		[
+			-2675,
+			483
+		],
+		[
+			-1224,
+			-407
+		],
+		[
+			-3828,
+			-477
+		],
+		[
+			-645,
+			1036
+		],
+		[
+			621,
+			3041
+		],
+		[
+			1957,
+			2770
+		],
+		[
+			1571,
+			1310
+		],
+		[
+			2243,
+			1013
+		],
+		[
+			9612,
+			-1244
+		],
+		[
+			3471,
+			-1234
+		],
+		[
+			2796,
+			-714
+		],
+		[
+			1312,
+			-933
+		],
+		[
+			1508,
+			-2188
+		],
+		[
+			1752,
+			-1364
+		]
+	],
+	[
+		[
+			7263765,
+			7509462
+		],
+		[
+			9115,
+			1317
+		],
+		[
+			-825,
+			3111
+		],
+		[
+			7493,
+			2468
+		],
+		[
+			3062,
+			6734
+		],
+		[
+			-2179,
+			2142
+		],
+		[
+			78,
+			1812
+		],
+		[
+			9812,
+			954
+		]
+	],
+	[
+		[
+			7290321,
+			7528000
+		],
+		[
+			1491,
+			-2044
+		],
+		[
+			5767,
+			-2796
+		],
+		[
+			183,
+			-1820
+		],
+		[
+			2797,
+			-72
+		],
+		[
+			2362,
+			-1461
+		],
+		[
+			326,
+			-1018
+		],
+		[
+			-983,
+			-1848
+		],
+		[
+			2524,
+			-1006
+		],
+		[
+			568,
+			-2004
+		],
+		[
+			3621,
+			4
+		],
+		[
+			3203,
+			1437
+		],
+		[
+			1045,
+			-453
+		],
+		[
+			-465,
+			-2089
+		],
+		[
+			-1638,
+			-1483
+		],
+		[
+			-2159,
+			-4725
+		],
+		[
+			751,
+			-2633
+		]
+	],
+	[
+		[
+			7104666,
+			7556744
+		],
+		[
+			-833,
+			-601
+		],
+		[
+			-1482,
+			1235
+		],
+		[
+			1224,
+			404
+		],
+		[
+			1091,
+			-1038
+		]
+	],
+	[
+		[
+			7107162,
+			7556970
+		],
+		[
+			-1625,
+			-265
+		],
+		[
+			-867,
+			850
+		],
+		[
+			2128,
+			312
+		],
+		[
+			364,
+			-897
+		]
+	],
+	[
+		[
+			7332592,
+			7573271
+		],
+		[
+			5308,
+			6593
+		],
+		[
+			10351,
+			2337
+		],
+		[
+			6187,
+			-1074
+		],
+		[
+			9064,
+			-3404
+		],
+		[
+			11358,
+			-2635
+		],
+		[
+			3828,
+			-1518
+		],
+		[
+			5586,
+			-3934
+		],
+		[
+			2277,
+			-433
+		]
+	],
+	[
+		[
+			7356923,
+			7547020
+		],
+		[
+			-517,
+			-1091
+		],
+		[
+			-3140,
+			64
+		],
+		[
+			-2079,
+			1100
+		],
+		[
+			-674,
+			2054
+		],
+		[
+			-1111,
+			167
+		],
+		[
+			-5697,
+			-669
+		],
+		[
+			-12246,
+			-4264
+		],
+		[
+			-10694,
+			28
+		]
+	],
+	[
+		[
+			7318661,
+			7551574
+		],
+		[
+			7935,
+			397
+		],
+		[
+			801,
+			1256
+		],
+		[
+			631,
+			6606
+		],
+		[
+			-312,
+			1894
+		],
+		[
+			-2290,
+			878
+		],
+		[
+			2093,
+			1642
+		]
+	],
+	[
+		[
+			7309699,
+			7602368
+		],
+		[
+			1691,
+			-824
+		],
+		[
+			1166,
+			1540
+		],
+		[
+			5737,
+			-731
+		]
+	],
+	[
+		[
+			7318293,
+			7602353
+		],
+		[
+			-435,
+			-6529
+		],
+		[
+			-100,
+			-1499
+		],
+		[
+			-2788,
+			-3361
+		],
+		[
+			-4061,
+			-2226
+		],
+		[
+			-11287,
+			-2720
+		],
+		[
+			313,
+			-1279
+		],
+		[
+			2791,
+			-1077
+		],
+		[
+			25024,
+			3455
+		],
+		[
+			6754,
+			-2831
+		],
+		[
+			-2476,
+			-2306
+		]
+	],
+	[
+		[
+			7309612,
+			7540872
+		],
+		[
+			-4993,
+			-1189
+		],
+		[
+			-3010,
+			216
+		]
+	],
+	[
+		[
+			7301609,
+			7539899
+		],
+		[
+			-4646,
+			1349
+		],
+		[
+			-141,
+			1730
+		],
+		[
+			-1119,
+			644
+		],
+		[
+			-8808,
+			-490
+		],
+		[
+			-3893,
+			1492
+		],
+		[
+			-2218,
+			-1160
+		],
+		[
+			-4608,
+			151
+		],
+		[
+			-3003,
+			3807
+		],
+		[
+			-1399,
+			463
+		],
+		[
+			-9816,
+			-202
+		],
+		[
+			-960,
+			-492
+		],
+		[
+			-2678,
+			-1370
+		],
+		[
+			-12036,
+			-781
+		]
+	],
+	[
+		[
+			7254527,
+			7567592
+		],
+		[
+			1056,
+			1456
+		],
+		[
+			-838,
+			2356
+		],
+		[
+			1835,
+			1677
+		],
+		[
+			4418,
+			-369
+		],
+		[
+			2025,
+			-169
+		],
+		[
+			7741,
+			2147
+		],
+		[
+			707,
+			1248
+		],
+		[
+			-1209,
+			2378
+		],
+		[
+			454,
+			3042
+		],
+		[
+			7929,
+			2549
+		],
+		[
+			-84,
+			2070
+		],
+		[
+			4002,
+			2360
+		]
+	],
+	[
+		[
+			7282563,
+			7588337
+		],
+		[
+			3206,
+			-374
+		],
+		[
+			-180,
+			2282
+		],
+		[
+			3360,
+			1312
+		],
+		[
+			1921,
+			2175
+		],
+		[
+			5080,
+			2092
+		],
+		[
+			12504,
+			5152
+		],
+		[
+			1245,
+			1392
+		]
+	],
+	[
+		[
+			7257191,
+			7621892
+		],
+		[
+			278,
+			-874
+		]
+	],
+	[
+		[
+			7264371,
+			7620960
+		],
+		[
+			10069,
+			4733
+		],
+		[
+			123,
+			-2265
+		],
+		[
+			1387,
+			-1480
+		],
+		[
+			18555,
+			-4143
+		],
+		[
+			5040,
+			-3232
+		],
+		[
+			2437,
+			-416
+		],
+		[
+			2284,
+			946
+		],
+		[
+			1054,
+			778
+		],
+		[
+			481,
+			2083
+		],
+		[
+			950,
+			107
+		],
+		[
+			4374,
+			-1957
+		],
+		[
+			3110,
+			-5399
+		],
+		[
+			3255,
+			-2620
+		],
+		[
+			-2121,
+			-716
+		],
+		[
+			-1953,
+			774
+		],
+		[
+			-1190,
+			-1558
+		],
+		[
+			5599,
+			-2217
+		],
+		[
+			468,
+			-2025
+		]
+	],
+	[
+		[
+			7309699,
+			7602368
+		],
+		[
+			-17569,
+			-6544
+		],
+		[
+			-5783,
+			-4552
+		],
+		[
+			-6768,
+			-669
+		],
+		[
+			-2893,
+			567
+		],
+		[
+			-3725,
+			-1483
+		],
+		[
+			734,
+			-569
+		],
+		[
+			5131,
+			462
+		],
+		[
+			3737,
+			-1243
+		]
+	],
+	[
+		[
+			7368562,
+			7530577
+		],
+		[
+			-3539,
+			-1647
+		],
+		[
+			-6465,
+			-308
+		],
+		[
+			370,
+			-1658
+		],
+		[
+			-4115,
+			-1893
+		],
+		[
+			-4177,
+			-862
+		],
+		[
+			-1435,
+			1343
+		],
+		[
+			-1447,
+			134
+		],
+		[
+			-1073,
+			-1434
+		],
+		[
+			-2328,
+			-218
+		],
+		[
+			-4872,
+			-2499
+		],
+		[
+			1680,
+			-3360
+		],
+		[
+			-482,
+			-1082
+		],
+		[
+			-3305,
+			-70
+		],
+		[
+			-2925,
+			1697
+		],
+		[
+			-4572,
+			-1662
+		],
+		[
+			-1091,
+			-1129
+		],
+		[
+			590,
+			-1258
+		],
+		[
+			-2103,
+			-1339
+		],
+		[
+			-1162,
+			281
+		],
+		[
+			-366,
+			1880
+		],
+		[
+			-6123,
+			-463
+		],
+		[
+			-1949,
+			-1576
+		],
+		[
+			234,
+			-1781
+		],
+		[
+			3539,
+			-1872
+		],
+		[
+			873,
+			-1403
+		]
+	],
+	[
+		[
+			7290321,
+			7528000
+		],
+		[
+			954,
+			1102
+		],
+		[
+			-58,
+			2207
+		],
+		[
+			5053,
+			1623
+		],
+		[
+			-344,
+			1547
+		],
+		[
+			-2266,
+			996
+		],
+		[
+			-450,
+			1188
+		],
+		[
+			2120,
+			164
+		],
+		[
+			2618,
+			-1863
+		],
+		[
+			1089,
+			3436
+		],
+		[
+			2572,
+			1499
+		]
+	],
+	[
+		[
+			7242449,
+			7525462
+		],
+		[
+			-7298,
+			1244
+		]
+	],
+	[
+		[
+			6953181,
+			7093806
+		],
+		[
+			-1815,
+			2207
+		],
+		[
+			6126,
+			4981
+		],
+		[
+			1435,
+			2826
+		],
+		[
+			-681,
+			1503
+		],
+		[
+			7289,
+			4727
+		],
+		[
+			-215,
+			3388
+		],
+		[
+			1422,
+			1598
+		],
+		[
+			-542,
+			2726
+		],
+		[
+			1608,
+			1489
+		],
+		[
+			-5136,
+			1572
+		]
+	],
+	[
+		[
+			7146132,
+			7087212
+		],
+		[
+			745,
+			6372
+		],
+		[
+			8841,
+			3063
+		],
+		[
+			1728,
+			-532
+		]
+	],
+	[
+		[
+			7157483,
+			7092878
+		],
+		[
+			-3342,
+			389
+		],
+		[
+			-2489,
+			-4665
+		],
+		[
+			-5520,
+			-1390
+		]
+	],
+	[
+		[
+			7100051,
+			7074916
+		],
+		[
+			-824,
+			-330
+		]
+	],
+	[
+		[
+			7099227,
+			7074586
+		],
+		[
+			-7328,
+			3368
+		],
+		[
+			-6900,
+			-237
+		],
+		[
+			-3366,
+			3091
+		],
+		[
+			-2856,
+			658
+		],
+		[
+			-364,
+			793
+		],
+		[
+			1419,
+			1047
+		],
+		[
+			4462,
+			219
+		],
+		[
+			-1048,
+			2587
+		],
+		[
+			1250,
+			1621
+		],
+		[
+			4931,
+			-1311
+		],
+		[
+			2146,
+			999
+		],
+		[
+			2605,
+			-167
+		],
+		[
+			1801,
+			-1799
+		],
+		[
+			3267,
+			-473
+		],
+		[
+			1519,
+			-1360
+		],
+		[
+			902,
+			-3802
+		],
+		[
+			-4355,
+			-2168
+		],
+		[
+			2739,
+			-2736
+		]
+	],
+	[
+		[
+			7119439,
+			7058248
+		],
+		[
+			1922,
+			1026
+		],
+		[
+			159,
+			1842
+		],
+		[
+			3812,
+			837
+		],
+		[
+			5228,
+			-777
+		],
+		[
+			2287,
+			-3990
+		],
+		[
+			-243,
+			-1825
+		],
+		[
+			-2559,
+			752
+		],
+		[
+			-4713,
+			-476
+		],
+		[
+			-1232,
+			-1173
+		],
+		[
+			-2557,
+			10
+		],
+		[
+			-578,
+			747
+		],
+		[
+			869,
+			1986
+		],
+		[
+			-2395,
+			1041
+		]
+	],
+	[
+		[
+			7101941,
+			7070028
+		],
+		[
+			6907,
+			-434
+		]
+	],
+	[
+		[
+			7108848,
+			7069594
+		],
+		[
+			513,
+			-1304
+		],
+		[
+			2016,
+			-269
+		],
+		[
+			463,
+			-3154
+		],
+		[
+			-2526,
+			508
+		],
+		[
+			-1018,
+			1005
+		],
+		[
+			924,
+			604
+		],
+		[
+			-686,
+			478
+		],
+		[
+			-5044,
+			-1003
+		],
+		[
+			-1107,
+			548
+		]
+	],
+	[
+		[
+			7112858,
+			7056496
+		],
+		[
+			426,
+			436
+		],
+		[
+			1425,
+			-11
+		],
+		[
+			-62,
+			-1638
+		],
+		[
+			-1789,
+			1213
+		]
+	],
+	[
+		[
+			7162427,
+			7083047
+		],
+		[
+			-7457,
+			-1478
+		],
+		[
+			-4110,
+			3917
+		],
+		[
+			-4465,
+			-531
+		],
+		[
+			-1008,
+			1489
+		],
+		[
+			745,
+			768
+		]
+	],
+	[
+		[
+			7041606,
+			7471249
+		],
+		[
+			-23136,
+			1181
+		],
+		[
+			-3349,
+			2255
+		]
+	],
+	[
+		[
+			7015121,
+			7474685
+		],
+		[
+			1461,
+			1494
+		],
+		[
+			2453,
+			-1964
+		],
+		[
+			1670,
+			-113
+		],
+		[
+			4723,
+			3170
+		],
+		[
+			3227,
+			935
+		],
+		[
+			4376,
+			-689
+		],
+		[
+			8786,
+			1903
+		],
+		[
+			1263,
+			-691
+		],
+		[
+			613,
+			-2151
+		],
+		[
+			2210,
+			-1076
+		],
+		[
+			5,
+			-1791
+		]
+	],
+	[
+		[
+			7045908,
+			7473712
+		],
+		[
+			-959,
+			-2712
+		],
+		[
+			-3343,
+			249
+		]
+	],
+	[
+		[
+			7146402,
+			7454001
+		],
+		[
+			-2041,
+			-1854
+		],
+		[
+			-1685,
+			-3666
+		],
+		[
+			-4019,
+			-1275
+		],
+		[
+			-1887,
+			382
+		],
+		[
+			-1579,
+			320
+		],
+		[
+			-294,
+			2010
+		],
+		[
+			-6912,
+			-438
+		]
+	],
+	[
+		[
+			7127985,
+			7449480
+		],
+		[
+			3664,
+			6938
+		],
+		[
+			3689,
+			2465
+		],
+		[
+			1432,
+			-179
+		],
+		[
+			8797,
+			-1100
+		]
+	],
+	[
+		[
+			7145567,
+			7457604
+		],
+		[
+			-839,
+			-1490
+		],
+		[
+			1674,
+			-2113
+		]
+	],
+	[
+		[
+			7111639,
+			7371182
+		],
+		[
+			4261,
+			1146
+		],
+		[
+			2429,
+			-1760
+		],
+		[
+			6297,
+			-11
+		],
+		[
+			706,
+			-1330
+		],
+		[
+			1796,
+			-1218
+		],
+		[
+			4337,
+			195
+		],
+		[
+			941,
+			-1161
+		],
+		[
+			-1556,
+			-1590
+		],
+		[
+			-3019,
+			-772
+		],
+		[
+			237,
+			-2596
+		],
+		[
+			-2736,
+			-793
+		],
+		[
+			-1714,
+			1261
+		],
+		[
+			-5369,
+			-1176
+		],
+		[
+			-4387,
+			1193
+		],
+		[
+			-2345,
+			1074
+		],
+		[
+			168,
+			1819
+		],
+		[
+			-862,
+			482
+		]
+	],
+	[
+		[
+			7149479,
+			7132747
+		],
+		[
+			-5503,
+			220
+		],
+		[
+			-3820,
+			-4391
+		],
+		[
+			-1833,
+			136
+		],
+		[
+			966,
+			4466
+		],
+		[
+			-9490,
+			2705
+		],
+		[
+			1234,
+			2919
+		],
+		[
+			3986,
+			2041
+		],
+		[
+			-839,
+			1383
+		]
+	],
+	[
+		[
+			7146917,
+			7069508
+		],
+		[
+			-11150,
+			-1153
+		],
+		[
+			-1537,
+			1476
+		],
+		[
+			-8898,
+			542
+		],
+		[
+			-8263,
+			457
+		],
+		[
+			-148,
+			1261
+		],
+		[
+			-1789,
+			984
+		]
+	],
+	[
+		[
+			7115132,
+			7073075
+		],
+		[
+			9509,
+			1909
+		],
+		[
+			763,
+			2559
+		],
+		[
+			2166,
+			-229
+		],
+		[
+			1866,
+			1005
+		],
+		[
+			7381,
+			-1828
+		],
+		[
+			544,
+			-2915
+		],
+		[
+			1407,
+			-1712
+		],
+		[
+			7851,
+			-2023
+		]
+	],
+	[
+		[
+			7146619,
+			7069841
+		],
+		[
+			298,
+			-333
+		]
+	],
+	[
+		[
+			7161875,
+			7066994
+		],
+		[
+			-5960,
+			2175
+		],
+		[
+			-446,
+			2388
+		],
+		[
+			-2300,
+			1455
+		],
+		[
+			3912,
+			3065
+		],
+		[
+			1881,
+			-1852
+		],
+		[
+			1189,
+			860
+		],
+		[
+			1405,
+			-275
+		],
+		[
+			712,
+			-2043
+		]
+	],
+	[
+		[
+			7156653,
+			7098201
+		],
+		[
+			-5870,
+			986
+		],
+		[
+			-7506,
+			-1815
+		]
+	],
+	[
+		[
+			7143277,
+			7097372
+		],
+		[
+			-2481,
+			450
+		]
+	],
+	[
+		[
+			7140796,
+			7097822
+		],
+		[
+			-1659,
+			4126
+		],
+		[
+			541,
+			1545
+		],
+		[
+			3019,
+			986
+		],
+		[
+			-1716,
+			1886
+		],
+		[
+			210,
+			1073
+		],
+		[
+			7545,
+			-347
+		],
+		[
+			1318,
+			1606
+		],
+		[
+			724,
+			2924
+		],
+		[
+			9036,
+			155
+		]
+	],
+	[
+		[
+			7140796,
+			7097822
+		],
+		[
+			-2420,
+			-45
+		],
+		[
+			-3575,
+			3371
+		],
+		[
+			-4387,
+			235
+		]
+	],
+	[
+		[
+			7130414,
+			7101383
+		],
+		[
+			114,
+			2855
+		],
+		[
+			-4236,
+			2666
+		],
+		[
+			-960,
+			1601
+		],
+		[
+			-3971,
+			-107
+		],
+		[
+			-4330,
+			1189
+		],
+		[
+			-5002,
+			-828
+		],
+		[
+			-162,
+			2245
+		],
+		[
+			-2405,
+			1124
+		],
+		[
+			367,
+			1901
+		],
+		[
+			-2531,
+			-778
+		],
+		[
+			-1578,
+			671
+		]
+	],
+	[
+		[
+			7111532,
+			7122006
+		],
+		[
+			2394,
+			68
+		],
+		[
+			7075,
+			3511
+		],
+		[
+			-450,
+			1524
+		],
+		[
+			4781,
+			858
+		],
+		[
+			8072,
+			278
+		],
+		[
+			2708,
+			-4200
+		],
+		[
+			-1638,
+			-1200
+		],
+		[
+			267,
+			-1501
+		],
+		[
+			3616,
+			-592
+		],
+		[
+			310,
+			-4900
+		],
+		[
+			4607,
+			-1950
+		],
+		[
+			3495,
+			3047
+		],
+		[
+			4004,
+			106
+		],
+		[
+			4409,
+			2008
+		]
+	],
+	[
+		[
+			7098372,
+			7071071
+		],
+		[
+			-547,
+			532
+		],
+		[
+			-134,
+			694
+		],
+		[
+			891,
+			1907
+		],
+		[
+			645,
+			382
+		]
+	],
+	[
+		[
+			7100051,
+			7074916
+		],
+		[
+			1432,
+			1161
+		],
+		[
+			9526,
+			2373
+		],
+		[
+			-324,
+			1934
+		],
+		[
+			2615,
+			1160
+		],
+		[
+			656,
+			1259
+		],
+		[
+			-2029,
+			319
+		],
+		[
+			-1262,
+			1352
+		],
+		[
+			-176,
+			2450
+		],
+		[
+			1098,
+			736
+		]
+	],
+	[
+		[
+			7111587,
+			7087660
+		],
+		[
+			4025,
+			798
+		],
+		[
+			5662,
+			4212
+		],
+		[
+			3461,
+			1197
+		],
+		[
+			-568,
+			1538
+		],
+		[
+			1165,
+			1143
+		],
+		[
+			1956,
+			2961
+		],
+		[
+			3126,
+			1874
+		]
+	],
+	[
+		[
+			7143277,
+			7097372
+		],
+		[
+			-1,
+			-3802
+		],
+		[
+			-2113,
+			-1363
+		],
+		[
+			1211,
+			-3163
+		],
+		[
+			-2065,
+			-1842
+		],
+		[
+			2006,
+			-979
+		],
+		[
+			967,
+			-2604
+		],
+		[
+			-4164,
+			-999
+		],
+		[
+			-464,
+			-1059
+		],
+		[
+			2355,
+			-1146
+		],
+		[
+			3541,
+			-4528
+		],
+		[
+			2069,
+			-6046
+		]
+	],
+	[
+		[
+			7115132,
+			7073075
+		],
+		[
+			-5536,
+			-2348
+		],
+		[
+			-748,
+			-1133
+		]
+	],
+	[
+		[
+			7111587,
+			7087660
+		],
+		[
+			-1470,
+			3758
+		],
+		[
+			-3434,
+			687
+		],
+		[
+			-7778,
+			-1861
+		],
+		[
+			-750,
+			1590
+		],
+		[
+			-5811,
+			425
+		],
+		[
+			-459,
+			851
+		],
+		[
+			1068,
+			1801
+		],
+		[
+			-4255,
+			2486
+		],
+		[
+			-3895,
+			165
+		]
+	],
+	[
+		[
+			7084803,
+			7097562
+		],
+		[
+			889,
+			923
+		],
+		[
+			-282,
+			727
+		],
+		[
+			239,
+			634
+		],
+		[
+			-779,
+			849
+		],
+		[
+			539,
+			299
+		],
+		[
+			1573,
+			537
+		],
+		[
+			798,
+			1607
+		],
+		[
+			-2271,
+			809
+		]
+	],
+	[
+		[
+			7122017,
+			7038628
+		],
+		[
+			507,
+			3765
+		],
+		[
+			-1315,
+			3224
+		],
+		[
+			3815,
+			1669
+		],
+		[
+			2536,
+			4204
+		],
+		[
+			3767,
+			339
+		],
+		[
+			4572,
+			-1781
+		],
+		[
+			5079,
+			1655
+		],
+		[
+			-380,
+			3632
+		],
+		[
+			-3644,
+			1537
+		],
+		[
+			158,
+			2214
+		],
+		[
+			1615,
+			1820
+		],
+		[
+			2,
+			3483
+		],
+		[
+			1981,
+			1923
+		],
+		[
+			6499,
+			2055
+		]
+	],
+	[
+		[
+			7147209,
+			7068367
+		],
+		[
+			4213,
+			-1456
+		],
+		[
+			2861,
+			-2809
+		],
+		[
+			2200,
+			-424
+		]
+	],
+	[
+		[
+			7054766,
+			7075901
+		],
+		[
+			1772,
+			4240
+		],
+		[
+			4352,
+			2196
+		],
+		[
+			-632,
+			1961
+		],
+		[
+			3169,
+			3931
+		],
+		[
+			4826,
+			2862
+		],
+		[
+			2339,
+			-531
+		],
+		[
+			2974,
+			953
+		],
+		[
+			2185,
+			-336
+		],
+		[
+			5172,
+			3430
+		],
+		[
+			91,
+			929
+		],
+		[
+			-1475,
+			834
+		],
+		[
+			573,
+			786
+		],
+		[
+			4691,
+			406
+		]
+	],
+	[
+		[
+			7146917,
+			7069508
+		],
+		[
+			292,
+			-1141
+		]
+	],
+	[
+		[
+			7124305,
+			7502507
+		],
+		[
+			3293,
+			-3686
+		],
+		[
+			2582,
+			-878
+		],
+		[
+			-354,
+			-1754
+		],
+		[
+			1939,
+			-3159
+		],
+		[
+			-725,
+			-2418
+		],
+		[
+			-2824,
+			-916
+		],
+		[
+			-1535,
+			-340
+		],
+		[
+			-2932,
+			-473
+		],
+		[
+			-1066,
+			60
+		],
+		[
+			-1374,
+			349
+		]
+	],
+	[
+		[
+			7121309,
+			7489292
+		],
+		[
+			-2570,
+			3090
+		],
+		[
+			111,
+			1384
+		],
+		[
+			-961,
+			894
+		],
+		[
+			912,
+			1153
+		],
+		[
+			-2131,
+			2130
+		],
+		[
+			-1313,
+			1313
+		],
+		[
+			3455,
+			2024
+		],
+		[
+			5493,
+			1227
+		]
+	],
+	[
+		[
+			7103737,
+			7473893
+		],
+		[
+			7336,
+			-2541
+		],
+		[
+			1609,
+			-2048
+		],
+		[
+			5097,
+			472
+		],
+		[
+			3971,
+			3008
+		],
+		[
+			3582,
+			-822
+		],
+		[
+			1346,
+			16
+		],
+		[
+			1089,
+			-274
+		],
+		[
+			2373,
+			755
+		],
+		[
+			861,
+			1072
+		],
+		[
+			1567,
+			569
+		]
+	],
+	[
+		[
+			7132568,
+			7474100
+		],
+		[
+			-589,
+			-1470
+		],
+		[
+			633,
+			-1672
+		],
+		[
+			3578,
+			-1754
+		],
+		[
+			580,
+			9
+		],
+		[
+			3238,
+			56
+		],
+		[
+			1993,
+			-2076
+		],
+		[
+			742,
+			-2489
+		],
+		[
+			1995,
+			-2949
+		],
+		[
+			1248,
+			-1845
+		],
+		[
+			321,
+			-1448
+		],
+		[
+			-740,
+			-858
+		]
+	],
+	[
+		[
+			7127985,
+			7449480
+		],
+		[
+			-1307,
+			-226
+		],
+		[
+			-1346,
+			-480
+		],
+		[
+			-2753,
+			-1084
+		],
+		[
+			-2320,
+			-3032
+		]
+	],
+	[
+		[
+			7120259,
+			7444658
+		],
+		[
+			-8011,
+			1701
+		],
+		[
+			-6268,
+			3867
+		],
+		[
+			-2610,
+			-219
+		],
+		[
+			-3736,
+			2703
+		],
+		[
+			260,
+			2389
+		],
+		[
+			-5231,
+			1263
+		],
+		[
+			-7585,
+			223
+		]
+	],
+	[
+		[
+			7087078,
+			7456585
+		],
+		[
+			-1688,
+			2709
+		],
+		[
+			274,
+			1574
+		],
+		[
+			2387,
+			887
+		],
+		[
+			3403,
+			1264
+		],
+		[
+			8349,
+			4921
+		],
+		[
+			3934,
+			5953
+		]
+	],
+	[
+		[
+			7015121,
+			7474685
+		],
+		[
+			-85,
+			1160
+		],
+		[
+			846,
+			598
+		],
+		[
+			358,
+			789
+		],
+		[
+			-288,
+			819
+		],
+		[
+			491,
+			1403
+		],
+		[
+			-197,
+			1865
+		],
+		[
+			1344,
+			4598
+		],
+		[
+			2117,
+			3515
+		],
+		[
+			-778,
+			2478
+		],
+		[
+			3897,
+			-301
+		],
+		[
+			2270,
+			-1520
+		],
+		[
+			601,
+			982
+		],
+		[
+			2432,
+			672
+		],
+		[
+			386,
+			834
+		],
+		[
+			-4086,
+			3002
+		],
+		[
+			8,
+			1080
+		],
+		[
+			1806,
+			1284
+		],
+		[
+			4769,
+			3389
+		],
+		[
+			8066,
+			3923
+		],
+		[
+			11227,
+			2036
+		],
+		[
+			19888,
+			-1091
+		]
+	],
+	[
+		[
+			7096724,
+			7476242
+		],
+		[
+			-20574,
+			-4178
+		],
+		[
+			-12712,
+			3600
+		],
+		[
+			-7710,
+			-1889
+		],
+		[
+			-7357,
+			1212
+		],
+		[
+			-2463,
+			-1275
+		]
+	],
+	[
+		[
+			7047282,
+			7509868
+		],
+		[
+			-5083,
+			-802
+		],
+		[
+			-5475,
+			-10
+		],
+		[
+			-670,
+			300
+		],
+		[
+			-969,
+			-633
+		],
+		[
+			-2125,
+			107
+		],
+		[
+			-666,
+			567
+		],
+		[
+			-826,
+			-933
+		],
+		[
+			-1012,
+			-79
+		],
+		[
+			-1545,
+			1009
+		],
+		[
+			613,
+			419
+		],
+		[
+			4286,
+			1153
+		],
+		[
+			8548,
+			107
+		],
+		[
+			6010,
+			329
+		],
+		[
+			1224,
+			-157
+		],
+		[
+			276,
+			-683
+		],
+		[
+			-2586,
+			-694
+		]
+	],
+	[
+		[
+			7006996,
+			7505301
+		],
+		[
+			-3135,
+			-198
+		],
+		[
+			-2126,
+			75
+		],
+		[
+			-260,
+			301
+		],
+		[
+			367,
+			324
+		],
+		[
+			2788,
+			85
+		],
+		[
+			8322,
+			957
+		],
+		[
+			7386,
+			481
+		],
+		[
+			3905,
+			-25
+		],
+		[
+			89,
+			-711
+		],
+		[
+			-3994,
+			-9
+		],
+		[
+			-3577,
+			-480
+		],
+		[
+			-5088,
+			-242
+		],
+		[
+			-4677,
+			-558
+		]
+	],
+	[
+		[
+			7057948,
+			7510752
+		],
+		[
+			-4043,
+			-68
+		],
+		[
+			-1868,
+			254
+		],
+		[
+			-621,
+			468
+		],
+		[
+			2333,
+			839
+		],
+		[
+			4160,
+			-214
+		],
+		[
+			836,
+			-349
+		],
+		[
+			-797,
+			-930
+		]
+	],
+	[
+		[
+			7004447,
+			7501850
+		],
+		[
+			-142,
+			-602
+		],
+		[
+			-1438,
+			306
+		],
+		[
+			-1190,
+			1158
+		],
+		[
+			145,
+			488
+		],
+		[
+			3434,
+			882
+		],
+		[
+			514,
+			-970
+		],
+		[
+			-1323,
+			-1262
+		]
+	],
+	[
+		[
+			7116991,
+			7407087
+		],
+		[
+			-4482,
+			1118
+		],
+		[
+			-5487,
+			-1336
+		],
+		[
+			-6494,
+			2663
+		],
+		[
+			-4569,
+			-805
+		],
+		[
+			-4472,
+			-2149
+		],
+		[
+			-7349,
+			10
+		]
+	],
+	[
+		[
+			7084138,
+			7406588
+		],
+		[
+			-5030,
+			4984
+		],
+		[
+			7084,
+			3627
+		],
+		[
+			-2424,
+			3181
+		],
+		[
+			1658,
+			3026
+		],
+		[
+			1197,
+			2184
+		],
+		[
+			6998,
+			2526
+		],
+		[
+			4358,
+			4523
+		],
+		[
+			-8273,
+			2776
+		],
+		[
+			-2429,
+			1925
+		],
+		[
+			-344,
+			1393
+		],
+		[
+			-887,
+			3582
+		],
+		[
+			-9682,
+			4152
+		]
+	],
+	[
+		[
+			7076364,
+			7444467
+		],
+		[
+			3794,
+			12314
+		],
+		[
+			6920,
+			-196
+		]
+	],
+	[
+		[
+			7120259,
+			7444658
+		],
+		[
+			245,
+			-481
+		],
+		[
+			1015,
+			-273
+		],
+		[
+			609,
+			-515
+		],
+		[
+			319,
+			-582
+		],
+		[
+			333,
+			-608
+		],
+		[
+			715,
+			63
+		],
+		[
+			1837,
+			-1726
+		],
+		[
+			1988,
+			-1929
+		],
+		[
+			-337,
+			-1874
+		],
+		[
+			-170,
+			-940
+		],
+		[
+			783,
+			-4062
+		],
+		[
+			2857,
+			-678
+		],
+		[
+			770,
+			-1959
+		],
+		[
+			4996,
+			-2621
+		],
+		[
+			551,
+			-166
+		],
+		[
+			1825,
+			-551
+		],
+		[
+			2466,
+			359
+		]
+	],
+	[
+		[
+			7141061,
+			7426115
+		],
+		[
+			-1956,
+			-3671
+		],
+		[
+			-31,
+			-1038
+		],
+		[
+			-67,
+			-2218
+		],
+		[
+			-2237,
+			-1343
+		],
+		[
+			-698,
+			-419
+		],
+		[
+			-1282,
+			-2159
+		],
+		[
+			-7530,
+			353
+		],
+		[
+			-2140,
+			-1512
+		],
+		[
+			-3455,
+			-167
+		],
+		[
+			-1351,
+			-3043
+		],
+		[
+			1043,
+			-1667
+		],
+		[
+			-3038,
+			-541
+		],
+		[
+			-1328,
+			-1603
+		]
+	],
+	[
+		[
+			7084138,
+			7406588
+		],
+		[
+			94,
+			-1646
+		],
+		[
+			-7983,
+			-4612
+		],
+		[
+			866,
+			-2990
+		],
+		[
+			-1135,
+			-11242
+		]
+	],
+	[
+		[
+			7046924,
+			7366723
+		],
+		[
+			-5994,
+			6086
+		],
+		[
+			-4206,
+			10144
+		],
+		[
+			5564,
+			2634
+		],
+		[
+			375,
+			2596
+		],
+		[
+			-1514,
+			904
+		],
+		[
+			2026,
+			1414
+		],
+		[
+			-2442,
+			2248
+		],
+		[
+			-5399,
+			-43
+		],
+		[
+			-8736,
+			5742
+		],
+		[
+			-1590,
+			-654
+		],
+		[
+			-6637,
+			2563
+		],
+		[
+			-3371,
+			-785
+		],
+		[
+			799,
+			3000
+		]
+	],
+	[
+		[
+			7015799,
+			7402572
+		],
+		[
+			3425,
+			-584
+		],
+		[
+			976,
+			629
+		],
+		[
+			468,
+			440
+		],
+		[
+			1191,
+			11101
+		],
+		[
+			111,
+			1352
+		],
+		[
+			165,
+			1949
+		],
+		[
+			246,
+			2324
+		],
+		[
+			1225,
+			1623
+		],
+		[
+			839,
+			1110
+		]
+	],
+	[
+		[
+			7024445,
+			7422516
+		],
+		[
+			-86,
+			1481
+		],
+		[
+			8881,
+			8831
+		],
+		[
+			1992,
+			3905
+		],
+		[
+			1298,
+			2543
+		],
+		[
+			-1338,
+			7181
+		],
+		[
+			263,
+			3567
+		]
+	],
+	[
+		[
+			7035455,
+			7450024
+		],
+		[
+			8741,
+			105
+		],
+		[
+			18726,
+			-2847
+		],
+		[
+			6717,
+			-5059
+		],
+		[
+			6725,
+			2244
+		]
+	],
+	[
+		[
+			7103737,
+			7473893
+		],
+		[
+			-1409,
+			2390
+		]
+	],
+	[
+		[
+			7096166,
+			7509462
+		],
+		[
+			10440,
+			984
+		],
+		[
+			10374,
+			-759
+		],
+		[
+			1043,
+			-673
+		],
+		[
+			-246,
+			-1960
+		],
+		[
+			1428,
+			-3764
+		],
+		[
+			5100,
+			-783
+		]
+	],
+	[
+		[
+			7121309,
+			7489292
+		],
+		[
+			498,
+			-3375
+		],
+		[
+			1394,
+			-1486
+		],
+		[
+			2131,
+			-1128
+		],
+		[
+			3319,
+			602
+		],
+		[
+			1575,
+			-427
+		],
+		[
+			4506,
+			-3865
+		]
+	],
+	[
+		[
+			7134732,
+			7479613
+		],
+		[
+			842,
+			-1462
+		],
+		[
+			-370,
+			-2652
+		],
+		[
+			-2636,
+			-1399
+		]
+	],
+	[
+		[
+			7105108,
+			7518135
+		],
+		[
+			5755,
+			-780
+		],
+		[
+			1480,
+			-399
+		],
+		[
+			-92,
+			-672
+		],
+		[
+			-2054,
+			574
+		],
+		[
+			-1502,
+			-180
+		],
+		[
+			-2604,
+			131
+		],
+		[
+			-3488,
+			743
+		],
+		[
+			-763,
+			-1483
+		],
+		[
+			-1959,
+			1369
+		],
+		[
+			1727,
+			652
+		],
+		[
+			3500,
+			45
+		]
+	],
+	[
+		[
+			7021745,
+			7362833
+		],
+		[
+			-2660,
+			1982
+		],
+		[
+			-1145,
+			2481
+		],
+		[
+			4270,
+			6708
+		],
+		[
+			27,
+			2223
+		],
+		[
+			-1218,
+			2127
+		],
+		[
+			-2222,
+			828
+		],
+		[
+			-2415,
+			2519
+		],
+		[
+			-1922,
+			3315
+		],
+		[
+			-1391,
+			75
+		],
+		[
+			-2024,
+			-2110
+		],
+		[
+			-2166,
+			-605
+		],
+		[
+			-8973,
+			2253
+		],
+		[
+			-8569,
+			298
+		],
+		[
+			-6374,
+			2398
+		]
+	],
+	[
+		[
+			6984963,
+			7387325
+		],
+		[
+			427,
+			3166
+		],
+		[
+			-986,
+			3067
+		],
+		[
+			5845,
+			1834
+		],
+		[
+			-2567,
+			2179
+		],
+		[
+			-246,
+			2494
+		],
+		[
+			-1287,
+			1413
+		]
+	],
+	[
+		[
+			6986149,
+			7401478
+		],
+		[
+			3678,
+			1732
+		],
+		[
+			4028,
+			666
+		],
+		[
+			9386,
+			35
+		],
+		[
+			4847,
+			-1308
+		],
+		[
+			4925,
+			552
+		],
+		[
+			2786,
+			-583
+		]
+	],
+	[
+		[
+			7035455,
+			7450024
+		],
+		[
+			-1646,
+			855
+		],
+		[
+			-513,
+			1370
+		],
+		[
+			1377,
+			3064
+		],
+		[
+			2121,
+			1642
+		],
+		[
+			-575,
+			4800
+		],
+		[
+			-149,
+			1247
+		]
+	],
+	[
+		[
+			7036070,
+			7463002
+		],
+		[
+			1048,
+			585
+		],
+		[
+			667,
+			717
+		],
+		[
+			991,
+			1876
+		],
+		[
+			58,
+			1314
+		],
+		[
+			-636,
+			595
+		],
+		[
+			1214,
+			923
+		],
+		[
+			719,
+			2077
+		],
+		[
+			1475,
+			160
+		]
+	],
+	[
+		[
+			6988773,
+			7495724
+		],
+		[
+			-3812,
+			-419
+		],
+		[
+			-3295,
+			1229
+		],
+		[
+			-989,
+			1409
+		],
+		[
+			1286,
+			998
+		],
+		[
+			8916,
+			1475
+		],
+		[
+			4703,
+			-1281
+		],
+		[
+			-731,
+			-622
+		],
+		[
+			-5147,
+			-570
+		],
+		[
+			-1621,
+			-808
+		],
+		[
+			690,
+			-1411
+		]
+	],
+	[
+		[
+			6991239,
+			7494963
+		],
+		[
+			-1844,
+			-687
+		],
+		[
+			-270,
+			1196
+		],
+		[
+			1897,
+			130
+		],
+		[
+			217,
+			-639
+		]
+	],
+	[
+		[
+			7161104,
+			7418802
+		],
+		[
+			923,
+			977
+		],
+		[
+			-289,
+			983
+		],
+		[
+			-6583,
+			644
+		],
+		[
+			247,
+			2042
+		],
+		[
+			-4671,
+			732
+		],
+		[
+			-2365,
+			2649
+		],
+		[
+			-7305,
+			-714
+		]
+	],
+	[
+		[
+			7146402,
+			7454001
+		],
+		[
+			6804,
+			1576
+		],
+		[
+			2547,
+			-4486
+		],
+		[
+			6085,
+			1447
+		],
+		[
+			2863,
+			-1251
+		],
+		[
+			8692,
+			-607
+		],
+		[
+			5350,
+			-2056
+		]
+	],
+	[
+		[
+			7116991,
+			7407087
+		],
+		[
+			5234,
+			-4030
+		],
+		[
+			1331,
+			-2206
+		],
+		[
+			-1191,
+			-2188
+		],
+		[
+			-3089,
+			-1369
+		],
+		[
+			153,
+			-3196
+		],
+		[
+			-899,
+			-1919
+		],
+		[
+			-1549,
+			-583
+		],
+		[
+			4032,
+			-2511
+		],
+		[
+			231,
+			-5581
+		],
+		[
+			4088,
+			-288
+		],
+		[
+			5825,
+			-971
+		],
+		[
+			4230,
+			4167
+		],
+		[
+			1383,
+			286
+		],
+		[
+			9238,
+			1909
+		]
+	],
+	[
+		[
+			7134732,
+			7479613
+		],
+		[
+			676,
+			-545
+		],
+		[
+			1362,
+			-257
+		],
+		[
+			1149,
+			-218
+		],
+		[
+			1896,
+			-116
+		],
+		[
+			1241,
+			335
+		],
+		[
+			1930,
+			1153
+		],
+		[
+			1394,
+			1204
+		],
+		[
+			518,
+			595
+		],
+		[
+			-214,
+			507
+		],
+		[
+			163,
+			589
+		],
+		[
+			1138,
+			658
+		],
+		[
+			376,
+			595
+		],
+		[
+			332,
+			822
+		],
+		[
+			29,
+			982
+		],
+		[
+			-95,
+			3918
+		],
+		[
+			-745,
+			1038
+		],
+		[
+			-7403,
+			376
+		],
+		[
+			1358,
+			5965
+		],
+		[
+			952,
+			729
+		],
+		[
+			1576,
+			1206
+		],
+		[
+			3056,
+			992
+		],
+		[
+			4000,
+			-576
+		],
+		[
+			2300,
+			-1622
+		],
+		[
+			3203,
+			-2258
+		],
+		[
+			6425,
+			-1606
+		],
+		[
+			5323,
+			-85
+		],
+		[
+			3318,
+			-1639
+		],
+		[
+			676,
+			-1146
+		]
+	]
+];
+var NUTS_RG_03M_2016_4326_LEVL_3_DE = {
+	type: type$6,
+	transform: transform$5,
+	objects: objects$5,
+	arcs: arcs$5
+};
+
+var choropleth = formatExamples([
+	{
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
+			props: {
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_DE',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_DE,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_DE}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "In the most basic setup, you need to provide:"},
+			{tag: 'p', content: "• `height`, `width`;"},
+			{tag: 'p', content: "• `topojson`, the Topojson of regions to be represented, with `properties` having the a field corresponding to the prop `key`."},
+			{tag: 'p', content: "• `topojsonId`, the key to us to select items in the `objects` field inthe topojson; e.g. `NUTS` or `countries`."},
+			{tag: 'p', content: "The default projection (`geoEquirectangular`) will be applied."},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG',
+		title: 'Basic props',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				theme: {
+					backgroundColor: '#f1feff',
+					defaultFill: 'black',
+					defaultStroke: 'magenta',
+					defaultStrokeWidth: 1,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					theme={{
+						backgroundColor: '#f1feff',
+						defaultFill: 'black',
+						defaultStroke: 'magenta',
+						defaultStrokeWidth: 1,
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "You can customise the map colors and stroke size."},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-styles',
+		title: 'Styles',
+	},
+	{
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
+				key: 'iso_a2',
+				keyToColor: keyToColorWorld,
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					keyToColor={keyToColorWorld}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "You can color features by passing:"},
+			{tag: 'p', content: "• `keyToColor`, a object mapping region `key|key_alt` to color (see below);"},
+			{tag: 'p', content: "• `key`, the key to be used in the features `properties` field as the region identifier, e.g. `iso_a2`;"},
+			{tag: 'p', content: "• Note that you might provide a topojson where not all the objects have the provided `key`."},
+			{tag: 'p', content: "  For example if you provide `key: 'iso_a2'` (ISO Alpha 2 codes), disputed or partially recognised countries might not have that code (e.g. `Kosovo`)."},
+			{tag: 'p', content: "  For these cases you can provide a `key_alt`, equal to `name` by default."},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColor` is falsy the fallback is `defaultFill` (which defaults to `white`)."},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-keyToColor',
+		title: 'Colors via map',
+	},
+	{
+		doc: [
+			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
+			{tag: 'p', content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `defaultFill` (which defaults to `white`)."},
+		],
+		data: [{
+			key: null,
+			props: {
+				key: 'iso_a2',
+				keyToColorFn: keyToColorWorldFn,
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{keyToColorFn}
+					{width}
+					key='iso_a2'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-keyToColorFn',
+		title: 'Colors via function',
+	},
+	{
+		doc: [
+			{tag: 'p', content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."},
+			{tag: 'p', content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"},
+		],
+		data: [{
+			key: 'none selected',
+			props: {
+				key: 'iso_a2',
+				theme: {
+					defaultFill: 'palegreen',
+					defaultStroke: 'red',
+					deselectedOpacity: 0.5,
+					selectedStroke: 'palegoldenrod',
+					selectedStrokeWidth: 4,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					theme={{
+						defaultFill: 'palegreen',
+						defaultStroke: 'red',
+						deselectedOpacity: 0.5,
+						selectedStroke: 'palegoldenrod',
+						selectedStrokeWidth: 4
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'some countries selected',
+			props: {
+				key: 'iso_a2',
+				selectedKeys: ['TD', 'US', 'AU', 'CN'],
+				theme: {
+					defaultFill: 'palegreen',
+					defaultStroke: 'red',
+					deselectedOpacity: 0.25,
+					selectedStroke: '#00c5fa',
+					selectedStrokeWidth: 4,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					selectedKeys=['TD', 'US', 'AU', 'CN']
+					theme={{
+						defaultFill: 'palegreen',
+						defaultStroke: 'red',
+						deselectedOpacity: 0.25,
+						selectedStroke: '#00c5fa',
+						selectedStrokeWidth: 4,
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-selectedKeys',
+		title: 'Selected regions',
+	},
+	{
+		data: [{
+			key: 'default hover style',
+			props: {
+				isInteractive: true,
+				key: 'iso_a2',
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					isInteractive={true}
+					key='iso_a2'
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'custom hover style',
+			props: {
+				isInteractive: true,
+				key: 'iso_a2',
+				theme: {
+					hoverFill: 'yellow',
+					hoverStroke: 'orange',
+					hoverStrokeWidth: 2,
+					hoverStrokedasharray: '2 2',
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					isInteractive={true}
+					key='iso_a2'
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+					theme={{
+						hoverFill: 'yellow',
+						hoverStroke: 'orange',
+						hoverStrokeWidth: 3,
+						hoverStrokedasharray: '4 4',
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "To use interactivity, you need to provide:"},
+			{tag: 'p', content: "• `isInteractive` set to true;"},
+			{tag: 'p', content: "• `key` or `key_alt` (see basic props for an examplation of these)"},
+			{tag: 'p', content: "The component then emits events when interacting with the regions."},
+			{tag: 'p', content: "The payload is the `key` or `key_alt` of the region being interacted with:"},
+			{tag: 'p', content: "• Clicking a region dispatches a `clicked` event;"},
+			{tag: 'p', content: "• Mouse-entering a region dispatches a `entered` event;"},
+			{tag: 'p', content: "• Mouse-exiting a region dispatches a `exited` event."},
+			{tag: 'p', content: "You can style the hovered region by passing:"},
+			{tag: 'p', content: "• `hoverFill` (default: `#f6f6f6`),"},
+			{tag: 'p', content: "• `hoverStroke` (default: `black`),"},
+			{tag: 'p', content: "• `hoverStrokeWidth` (default: 1.5),"},
+			{tag: 'p', content: "• `hoverStrokedasharray` (default: '')."},
+			{tag: 'p', content: "Please hover and click regions of this chart to read the correspondent event payload below."},
+		],
+		events: [
+			'clicked',
+			'entered',
+			'exited',
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-interactivity',
+		title: 'Interactivity',
+	},
+	{
+		doc: [
+			{tag: 'p', content: "The default projection is `geoEquirectangular`."},
+			{tag: 'p', content: "You can use most of the projections provided by `d3-geo`:"},
+			{tag: 'p', content: "Azimuthal Projections:"},
+			{tag: 'p', content: "• `geoAzimuthalEqualArea`"},
+			{tag: 'p', content: "• `geoAzimuthalEquidistant`"},
+			{tag: 'p', content: "• `geoGnomonic`"},
+			{tag: 'p', content: "• `geoOrthographic`"},
+			{tag: 'p', content: "• `geoStereographic`"},
+			{tag: 'p', content: "Equal-Earth Projections: `geoEqualEarth`"},
+			{tag: 'p', content: "Conic Projections:"},
+			{tag: 'p', content: "• `geoConicConformal`"},
+			{tag: 'p', content: "• `geoConicEqualArea`"},
+			{tag: 'p', content: "• `geoConicEquidistant`"},
+			{tag: 'p', content: "Cylindrical Projections"},
+			{tag: 'p', content: "• `geoEquirectangular`"},
+			{tag: 'p', content: "• `geoMercator`"},
+			{tag: 'p', content: "• `geoTransverseMercator`"},
+			{tag: 'p', content: "• `geoNaturalEarth1`"},
+		],
+		data: [{
+			key: 'geoAzimuthalEqualArea',
+			props: {
+				key: 'iso_a2',
+				projection: 'geoAzimuthalEqualArea',
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoAzimuthalEqualArea'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoAzimuthalEquidistant',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoAzimuthalEquidistant',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoAzimuthalEquidistant'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoGnomonic',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoGnomonic',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoGnomonic'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoOrthographic',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoOrthographic',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoOrthographic'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoStereographic',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoStereographic',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoStereographic'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoEqualEarth',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoEqualEarth',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoEqualEarth'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoConicConformal',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoConicConformal',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoConicConformal'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoConicEqualArea',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoConicEqualArea',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoConicEqualArea'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoConicEquidistant',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoConicEquidistant',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoConicEquidistant'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoEquirectangular',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoEquirectangular',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoEquirectangular'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoMercator',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoMercator',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoMercator'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoTransverseMercator',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoTransverseMercator',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoTransverseMercator'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'geoNaturalEarth1',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projection: 'geoNaturalEarth1',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projection='geoNaturalEarth1'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-projection',
+		title: 'Projection',
+	},
+
+	{
+		data: [{
+			key: 'default geometry',
+			props: {
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'no safety',
+			props: {
+				geometry: {
+					bottom: 0,
+					left: 0,
+					right: 0,
+					top: 0,
+				},
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					geometry={{
+						bottom: 0,
+						left: 0,
+						right: 0,
+						top: 0,
+					}}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'custom geometry',
+			props: {
+				geometry: {
+					bottom: 10,
+					left: 90,
+					right: 30,
+					top: 20,
+				},
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					geometry={{
+						bottom: 10,
+						left: 90,
+						right: 30,
+						top: 20,
+					}}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can adjust the safety area using `geometry`.'},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-geometry',
+		title: 'Geometry',
+	},
+
+	{
+		doc: [
+			{tag: 'p', content: "If you need to render the choropleth as an html element, you can use `ChoroplethDiv` providing the same props but `width` and `height`."},
+			{tag: 'p', content: "This will render the choropleth in a `div`."},
+			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"},
+		],
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
+				key: 'iso_a2',
+				keyToColor: keyToColorWorld,
+				padding: '3em',
+				theme: {backgroundColor: '#eee'},
+				title: 'Some world countries',
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethDiv
+					key='iso_a2'
+					keyToColor={keyToColorWorld}
+					padding='3em'
+					theme={{backgroundColor: '#eee'}}
+					title='Some world countries
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				backgroundColor: '#eee',
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				padding: '0.5em',
+				theme: {backgroundColor: '#f1feff'},
+				title: 'UK NUTS3 (2016)',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethDiv
+					backgroundColor='#eee'
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					padding='0.5em'
+					theme={{backgroundColor: '#f1feff'}}
+					title='UK NUTS3 (2016)'
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
+		name: 'ChoroplethDiv',
+		packageName: 'choropleth',
+		slug: 'ChoroplethDiv',
+		title: 'ChoroplethDiv',
+	}
+]);
 
 var bins = [
 	{
@@ -167120,587 +230211,1014 @@ var bins_value_non_uniform = [
 	}
 ];
 
-var bins_2_value = map(bins_2, function (_ref) {
-  var range = _ref.range,
-      values = _ref.values;
-  return {
-    range: range,
-    value: values ? values.length : 0
-  };
-});
+const bins_2_value = bins_2.map(
+	({range, values}) => ({range, value: values ? values.length : 0})
+);
+const bins_value_non_uniform_non_contiguous =
+	bins_value_non_uniform.filter((v, i) => i % 2 === 0);
 
-var bins_value_non_uniform_non_contiguous = filter(bins_value_non_uniform, function (v, i) {
-  return i % 2 === 0;
-});
+const backgroundColor$1 = '#feffd4';
+const binFill = 'orange';
+const selectedBins = [1, 5, 6];
 
-var backgroundColor$1 = 'palegreen';
-var binFill = 'orange';
-var selectedBins = [1, 5, 6];
-var examples$2 = [{
-  data: [{
-    key: 'some bins {range, values}',
-    props: {
-      bins: bins
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some other bins {range, values}',
-    props: {
-      bins: bins_2
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some bins {range, value}',
-    props: {
-      bins: bins_2_value
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non uniform bins',
-    props: {
-      bins: bins_value_non_uniform
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non-uniform non-contiguous bins',
-    props: {
-      bins: bins_value_non_uniform_non_contiguous
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'no bins',
-    props: {
-      bins: []
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'In the most basic setup, you need to provide:'
-  }, {
-    tag: 'p',
-    content: '• `width` and `height` (numbers).'
-  }, {
-    tag: 'p',
-    content: '• `bins`, an array of objects of two possible shapes:'
-  }, {
-    tag: 'p',
-    content: '•• `{range: [number, number], value: number}`: this will use `value` as the length of the bin'
-  }, {
-    tag: 'p',
-    content: '•• `{range: [number, number], values: any[]}`: this will use the length of `values` as the length of the bin'
-  }, {
-    tag: 'p',
-    content: 'Ranges are assumed to be sorted and bins are assumed to be sorted by `range`, that is the first value of a bin `range` is greater than the second value of the previos bin `range`.'
-  }, {
-    tag: 'p',
-    content: 'You can draw non-uniform non-contiguous bins, that is ranges don\'t have be to contiguous or be all of the same size.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG',
-  title: 'Basic props'
-}, {
-  data: [{
-    key: 'extent across various order of magnitude – no log scale',
-    props: {
-      bins: bins_3
-    },
-    usage: "<HistogramG {bins} />"
-  }, {
-    key: 'extent across various order of magnitude – log scale',
-    props: {
-      bins: bins_3,
-      flags: {
-        useLogScale: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{useLogScale: true}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'If the bins length varies across various order of magnitude, you can set `useLogScale` to `true`.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-logScale',
-  title: 'Log scale'
-}, {
-  data: [{
-    key: 'some bins',
-    props: {
-      bins: bins,
-      binsFill: binsFill,
-      theme: {
-        binStroke: 'red',
-        binStrokeWidth: 3
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{binsFill}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbinStroke: 'red',\n\t\t\t\t\t\tbinStrokeWidth: 3,\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some other bins',
-    props: {
-      bins: bins_2,
-      binsFill: binsFill_2,
-      theme: {
-        binStroke: 'palegreen',
-        binStrokeWidth: 5,
-        textColor: 'red'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{binsFill}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbinStroke: 'palegreen',\n\t\t\t\t\t\tbinStrokeWidth: 5,\n\t\t\t\t\t\ttextColor: 'red',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can customise colors by providing a `binsFill` array'
-  }, {
-    tag: 'p',
-    content: 'You can customise the bins border color and width by providing `binStroke` (a color) and `binStrokeWidth` (a number) and `textColor`.'
-  }, {
-    tag: 'p',
-    content: 'Also see the interactivity section for selected bins style props.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-style',
-  title: 'Bins style'
-}, {
-  data: [{
-    key: null,
-    props: {
-      theme: {
-        backgroundColor: backgroundColor$1
-      },
-      bins: bins,
-      flags: {
-        withBackground: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{withBackground: true}}\n\t\t\t\t\ttheme={{backgroundColor: '".concat(backgroundColor$1, "'}}\n\t\t\t\t/>\n\t\t\t")
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can add a background prividing `withBackground` with a custom color using `backgroundColor`, which defaults to `white`.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-background',
-  title: 'Background'
-}, {
-  data: [{
-    key: 'bins with integer ranges',
-    props: {
-      bins: bins
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'bins with decimal ranges (no ticksFormatFn)',
-    props: {
-      bins: bins_2
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'bins with decimal ranges (w/ ticksFormatFn)',
-    props: {
-      bins: bins_2,
-      ticksFormatFn: roundTo(2)
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tticksFormatFn={roundTo(2)}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'no ticks',
-    props: {
-      bins: bins_2,
-      flags: {
-        hideTicks: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\thideTicks={{hideTicks: true}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can customize the ticks format by providing a `ticksFormatFn`.'
-  }, {
-    tag: 'p',
-    content: 'You can hide the ticks by setting `hideTicks` to true.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-ticks',
-  title: 'Ticks'
-}, {
-  data: [{
-    key: 'no safety',
-    props: {
-      bins: bins_2
-    },
-    usage: "<HistogramG {bins} />"
-  }, {
-    key: 'safety',
-    props: {
-      bins: bins_2,
-      geometry: {
-        safetyXTicks: 160
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tsafetyXTicks: 160,\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'no ticks, safety',
-    props: {
-      bins: bins_2,
-      flags: {
-        hideTicks: true
-      },
-      geometry: {
-        safetyXNoTicks: 50,
-        safetyXValues: 50
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{hideTicks: true}}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tsafetyXNoTicks: 50,\n\t\t\t\t\t\tsafetyXValues: 50\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can adjust the safety distances to control overflow using:'
-  }, {
-    tag: 'p',
-    content: '- `safetyXNoTicks`: the amount of pixels from the axis to the border when you use `hideTicks`.'
-  }, {
-    tag: 'p',
-    content: '- `safetyXTicks`: the amount of pixels from the axis to the border when you show ticks.'
-  }, {
-    tag: 'p',
-    content: '- `safetyXValues`: the amounf of pixels from top of the taller bin to the opposite border.'
-  }, {
-    tag: 'p',
-    content: '- `safetyY`: the number of pixels on top and bottom limits.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-safety',
-  title: 'Safety'
-}, {
-  data: [{
-    key: 'some bins',
-    props: {
-      bins: bins,
-      flags: {
-        isInteractive: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some other bins, pre-selected',
-    props: {
-      bins: bins_2,
-      flags: {
-        isInteractive: true
-      },
-      selectedBins: selectedBins
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t\tselectedBins=".concat(JSON.stringify(selectedBins), "\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        isInteractive: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non-uniform non-contiguous bins',
-    props: {
-      bins: bins_value_non_uniform_non_contiguous,
-      flags: {
-        isInteractive: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non-uniform styled bins',
-    props: {
-      bins: bins_value_non_uniform,
-      binsFill: binsFill_2,
-      flags: {
-        isInteractive: true
-      },
-      theme: {
-        binStroke: 'green',
-        binStrokeWidth: 2
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{binsFill}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbinStroke: 'green',\n\t\t\t\t\t\tbinStrokeWidth: 2,\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'custom selected bin style',
-    props: {
-      bins: bins_value_non_uniform,
-      binsFill: binsFill_2,
-      flags: {
-        isInteractive: true
-      },
-      theme: {
-        binStroke: 'green',
-        binStrokeWidth: 2,
-        selectedBinFill: 'yellow',
-        selectedBinStroke: 'red',
-        selectedBinStrokeWidth: '5'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{binsFill}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbinStroke: 'green',\n\t\t\t\t\t\tbinStrokeWidth: 2,\n\t\t\t\t\t\tselectedBinFill: 'yellow',\n\t\t\t\t\t\tselectedBinStroke: 'red',\n\t\t\t\t\t\tselectedBinStrokeWidth: '5',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "If `isInteractive` is `true`, the component emits events when interacting with the bins."
-  }, {
-    tag: 'p',
-    content: "Clicking a bin can select or deselect a bin depending on if it was already selected and depending on the pressed modifier key (see below)."
-  }, {
-    tag: 'p',
-    content: "Events:"
-  }, {
-    tag: 'p',
-    content: "• Clicking a bin dispatches a `clicked` event, with payload `{index, selectedBins}`"
-  }, {
-    tag: 'p',
-    content: "• Mouse-entering a bin dispatches a `entered` event, with the payload being the entered bin index"
-  }, {
-    tag: 'p',
-    content: "• Mouse-exiting a bin dispatches a `exited` event, with the payload being the exited bin index"
-  }, {
-    tag: 'p',
-    content: "Brushing:"
-  }, {
-    tag: 'p',
-    content: "• Clicking a bin and dragging the pointer over other bins ('brushing') selects them and dispatches brush events:"
-  }, {
-    tag: 'p',
-    content: "•• as soon as we start brushing, a `brushstart` event gets dispatched, the payload being the index of the bin where we started brushing;"
-  }, {
-    tag: 'p',
-    content: "•• continuing dragging, when the pointer crosses bins a `brushed` event gets dispatched with the payload being `{selectedBins, end, start}`, the currently selected bins and the brushing start and end indices;"
-  }, {
-    tag: 'p',
-    content: "•• when we stop dragging by releasing the pointer, a `brushend` event gets dispatched, the payload being the index of the bin where we stopped brushing."
-  }, {
-    tag: 'p',
-    content: "You can use modifiers to add or remove to the selection:"
-  }, {
-    tag: 'p',
-    content: "• Holding the `shift` key when brushing or clicking adds the brushed bins to the selection, the payload being the start bin index;"
-  }, {
-    tag: 'p',
-    content: "• Holding the `alt` key when brushing or clicking removes the brushed bins to the selection."
-  }, {
-    tag: 'p',
-    content: "A green/red (respectively) line is displayed to help you understand what's going on. You can customise these with props `brushAddStroke`, `brushRemoveStroke`, `brushStrokeOpacity`, `brushStrokeWidth`"
-  }, {
-    tag: 'p',
-    content: "You can customize the style of selected bins using: `selectedBinFill`, `selectedBinStroke`, `selectedBinStrokeWidth`."
-  }, {
-    tag: 'p',
-    content: "Please interact with the chart to read the correspondent event payload below."
-  }],
-  events: ['brushed', 'brushend', 'brushstart', 'clicked', 'entered', 'exited'],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-interactivity',
-  title: 'Interactivity'
-}, {
-  data: [{
-    key: 'Left-right, bottom-up (default)',
-    props: {
-      bins: bins
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Right-left, bottom-up',
-    props: {
-      bins: bins,
-      flags: {
-        isRightToLeft: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isRightToLeft: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Left-right, top-down',
-    props: {
-      bins: bins,
-      flags: {
-        isTopDown: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tisTopDown={true}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Right-left, top-down',
-    props: {
-      bins: bins,
-      flags: {
-        isRightToLeft: true,
-        isTopDown: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{\n\t\t\t\t\t\tisRightToLeft: true,\n\t\t\t\t\t\tisTopDown: true\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No origin dot',
-    props: {
-      bins: bins,
-      flags: {
-        hideOrigin: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{hideOrigin: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Custom origin dot',
-    props: {
-      bins: bins,
-      geometry: {
-        originRadius: 5
-      },
-      theme: {
-        originColor: 'red'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{originRadius: 5}}\n\t\t\t\t\ttheme={{originColor: 'red'}}\n\t\t\t\t/>\n\t\t\t"
-  }, // non-uniform
-  {
-    key: 'Left-right, bottom-up (default) – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Right-left, bottom-up – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        isRightToLeft: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isRightToLeft: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Left-right, top-down – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        isTopDown: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isTopDown: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Right-left, top-down – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        isRightToLeft: true,
-        isTopDown: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{\n\t\t\t\t\t\tisRightToLeft: true,\n\t\t\t\t\t\tisTopDown: true\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No origin dot – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        hideOrigin: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags: {hideOrigin: true}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Custom origin dot – on-uniform non-contiguous bins',
-    props: {
-      bins: bins_value_non_uniform_non_contiguous,
-      geometry: {
-        originRadius: 5
-      },
-      theme: {
-        originColor: 'red'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{originRadius: 5}}\n\t\t\t\t\ttheme={{originColor: 'red'}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can customise the chart horizontal and vertical direction by providing the two booleans `isRightToLeft` and `isTopDown`'
-  }, {
-    tag: 'p',
-    content: 'By default it shows a dot to quickly identify the origin, but you can hide it by setting `hideOrigin` to `true`.'
-  }, {
-    tag: 'p',
-    content: 'The dot color can be chosen using `originColor`.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-direction',
-  title: 'Direction'
-}, {
-  data: [{
-    key: 'some bins',
-    props: {
-      bins: bins,
-      flags: {
-        withBackground: true
-      },
-      padding: '3em',
-      theme: {
-        backgroundColor: backgroundColor$1,
-        binFill: binFill
-      },
-      title: 'Some bins'
-    },
-    usage: "\n\t\t\t\t<HistogramDiv\n\t\t\t\t\t{bins}\n\t\t\t\t\tflags={{withBackground: true}}\n\t\t\t\t\tpadding='3em'\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbackgroundColor: '".concat(backgroundColor$1, "',\n\t\t\t\t\t\tbinFill: '").concat(binFill, "',\n\t\t\t\t\t}}\n\t\t\t\t\ttitle='Some bins'\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'some other bins',
-    props: {
-      bins: bins_2,
-      ticksFormatFn: roundTo(2),
-      title: 'Some other bins'
-    },
-    usage: "\n\t\t\t\t<HistogramDiv\n\t\t\t\t\t{bins}\n\t\t\t\t\tticksFormatFn={roundTo(2)}\n\t\t\t\t\ttitle='Some other bins'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "If you need to render the histogram as an html element, you can use `HistogramDiv` providing the same props but `width` and `height`."
-  }, {
-    tag: 'p',
-    content: "This will render the histogram in a `div`."
-  }, {
-    tag: 'p',
-    content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"
-  }],
-  name: 'HistogramDiv',
-  packageName: 'histogram',
-  slug: 'HistogramDiv',
-  title: 'HistogramDiv'
-}].map(transformValues({
-  doc: mapWith(transformValues({
-    content: function content(s) {
-      return s.trim();
-    }
-  })),
-  data: mapWith(transformValues({
-    usage: formatSvelteMarkup
-  }))
-}));
+var histogram = formatExamples([
+	{
+		data: [{
+			key: 'some bins {range, values}',
+			props: {bins},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'some other bins {range, values}',
+			props: {bins: bins_2},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'some bins {range, value}',
+			props: {bins: bins_2_value},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'non uniform bins',
+			props: {bins: bins_value_non_uniform},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'non-uniform non-contiguous bins',
+			props: {bins: bins_value_non_uniform_non_contiguous},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'no bins',
+			props: {bins: []},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'In the most basic setup, you need to provide:'},
+			{tag: 'p', content: '• `width` and `height` (numbers).'},
+			{tag: 'p', content: '• `bins`, an array of objects of two possible shapes:'},
+			{tag: 'p', content: '•• `{range: [number, number], value: number}`: this will use `value` as the length of the bin'},
+			{tag: 'p', content: '•• `{range: [number, number], values: any[]}`: this will use the length of `values` as the length of the bin'},
+			{tag: 'p', content: 'Ranges are assumed to be sorted and bins are assumed to be sorted by `range`, that is the first value of a bin `range` is greater than the second value of the previos bin `range`.'},
+			{tag: 'p', content: 'You can draw non-uniform non-contiguous bins, that is ranges don\'t have be to contiguous or be all of the same size.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG',
+		title: 'Basic props',
+	},
+	{
+		data: [{
+			key: 'extent across various order of magnitude – no log scale',
+			props: {bins: bins_3},
+			usage: `<HistogramG {bins} />`,
+		}, {
+			key: 'extent across various order of magnitude – log scale',
+			props: {
+				bins: bins_3,
+				flags: {useLogScale: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{useLogScale: true}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'If the bins length varies across various order of magnitude, you can set `useLogScale` to `true`.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-logScale',
+		title: 'Log scale',
+	},
+	{
+		data: [{
+			key: 'some bins',
+			props: {
+				bins,
+				binsFill,
+				theme: {
+					binStroke: 'red',
+					binStrokeWidth: 3,
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{binsFill}
+					{height}
+					{width}
+					theme={{
+						binStroke: 'red',
+						binStrokeWidth: 3,
+					}}
+				/>
+			`,
+		}, {
+			key: 'some other bins',
+			props: {
+				bins: bins_2,
+				binsFill: binsFill_2,
+				theme: {
+					binStroke: 'palegreen',
+					binStrokeWidth: 5,
+					textColor: 'red',
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{binsFill}
+					{height}
+					{width}
+					theme={{
+						binStroke: 'palegreen',
+						binStrokeWidth: 5,
+						textColor: 'red',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can customise colors by providing a `binsFill` array'},
+			{tag: 'p', content: 'You can customise the bins border color and width by providing `binStroke` (a color) and `binStrokeWidth` (a number) and `textColor`.'},
+			{tag: 'p', content: 'Also see the interactivity section for selected bins style props.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-style',
+		title: 'Bins style',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				theme: {
+					backgroundColor: backgroundColor$1,
+				},
+				bins,
+				flags: {withBackground: true},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{withBackground: true}}
+					theme={{backgroundColor: '${backgroundColor$1}'}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can add a background prividing `withBackground` with a custom color using `backgroundColor`, which defaults to `white`.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-background',
+		title: 'Background',
+	},
+	{
+		data: [{
+			key: 'bins with integer ranges',
+			props: {bins},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'bins with decimal ranges (no ticksFormatFn)',
+			props: {bins: bins_2},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'bins with decimal ranges (w/ ticksFormatFn)',
+			props: {
+				bins: bins_2,
+				ticksFormatFn: roundTo(2)
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					ticksFormatFn={roundTo(2)}
+				/>
+			`,
+		}, {
+			key: 'no ticks',
+			props: {
+				bins: bins_2,
+				flags: {hideTicks: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					hideTicks={{hideTicks: true}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can customize the ticks format by providing a `ticksFormatFn`.'},
+			{tag: 'p', content: 'You can hide the ticks by setting `hideTicks` to true.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-ticks',
+		title: 'Ticks',
+	},
+	{
+		data: [{
+			key: 'no safety',
+			props: {bins: bins_2},
+			usage: `<HistogramG {bins} />`,
+		}, {
+			key: 'safety',
+			props: {
+				bins: bins_2,
+				geometry: {
+					safetyXTicks: 160,
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					geometry={{
+						safetyXTicks: 160,
+					}}
+				/>
+			`,
+		}, {
+			key: 'no ticks, safety',
+			props: {
+				bins: bins_2,
+				flags: {hideTicks: true},
+				geometry: {
+					safetyXNoTicks: 50,
+					safetyXValues: 50
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{hideTicks: true}}
+					geometry={{
+						safetyXNoTicks: 50,
+						safetyXValues: 50
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can adjust the safety distances to control overflow using:'},
+			{tag: 'p', content: '- `safetyXNoTicks`: the amount of pixels from the axis to the border when you use `hideTicks`.'},
+			{tag: 'p', content: '- `safetyXTicks`: the amount of pixels from the axis to the border when you show ticks.'},
+			{tag: 'p', content: '- `safetyXValues`: the amounf of pixels from top of the taller bin to the opposite border.'},
+			{tag: 'p', content: '- `safetyY`: the number of pixels on top and bottom limits.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-safety',
+		title: 'Safety',
+	},
+	{
+		data: [{
+			key: 'some bins',
+			props: {
+				bins,
+				flags: {isInteractive: true},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+				/>
+			`,
+		}, {
+			key: 'some other bins, pre-selected',
+			props: {
+				bins: bins_2,
+				flags: {isInteractive: true},
+				selectedBins
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+					selectedBins=${JSON.stringify(selectedBins)}
+				/>
+			`,
+		}, {
+			key: 'non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {isInteractive: true},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+				/>
+			`,
+		}, {
+			key: 'non-uniform non-contiguous bins',
+			props: {
+				bins: bins_value_non_uniform_non_contiguous,
+				flags: {isInteractive: true},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+				/>
+			`,
+		}, {
+			key: 'non-uniform styled bins',
+			props: {
+				bins: bins_value_non_uniform,
+				binsFill: binsFill_2,
+				flags: {isInteractive: true},
+				theme: {
+					binStroke: 'green',
+					binStrokeWidth: 2,
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{binsFill}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+					theme={{
+						binStroke: 'green',
+						binStrokeWidth: 2,
+					}}
+				/>
+			`,
+		}, {
+			key: 'custom selected bin style',
+			props: {
+				bins: bins_value_non_uniform,
+				binsFill: binsFill_2,
+				flags: {isInteractive: true},
+				theme: {
+					binStroke: 'green',
+					binStrokeWidth: 2,
+					selectedBinFill: 'yellow',
+					selectedBinStroke: 'red',
+					selectedBinStrokeWidth: '5',
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{binsFill}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+					theme={{
+						binStroke: 'green',
+						binStrokeWidth: 2,
+						selectedBinFill: 'yellow',
+						selectedBinStroke: 'red',
+						selectedBinStrokeWidth: '5',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "If `isInteractive` is `true`, the component emits events when interacting with the bins."},
+			{tag: 'p', content: "Events:"},
+			{tag: 'p', content: "• Clicking a bin selects or deselects it depending on if it was already selected and depending on the pressed modifier key (see below) and dispatches a `clicked` event with payload `{index, selectedBins}`"},
+			{tag: 'p', content: "• Clicking the background resets the selection and dispatches a `clicked` event, with payload `{selectedBins: []}`"},
+			{tag: 'p', content: "• Mouse-exiting a bin dispatches a `exited` event, with the payload being the exited bin index"},
+			{tag: 'p', content: "• Brushing – clicking a bin and dragging the pointer over other bins selects them and dispatches brush events:"},
+			{tag: 'p', content: "•• as soon as we start brushing, a `brushstart` event gets dispatched, the payload being the index of the bin where we started brushing;"},
+			{tag: 'p', content: "•• continuing dragging, when the pointer crosses bins a `brushed` event gets dispatched with the payload being `{selectedBins, end, start}`, the currently selected bins and the brushing start and end indices;"},
+			{tag: 'p', content: "•• when we stop dragging by releasing the pointer, a `brushend` event gets dispatched, the payload being the index of the bin where we stopped brushing."},
+			{tag: 'p', content: "You can use modifiers to add or remove to the selection:"},
+			{tag: 'p', content: "• Holding the `shift` key when brushing or clicking adds the brushed bins to the selection, the payload being the start bin index;"},
+			{tag: 'p', content: "• Holding the `alt` key when brushing or clicking removes the brushed bins to the selection."},
+			{tag: 'p', content: "A green/red (respectively) line is displayed to help you understand what's going on. You can customise these with props `brushAddStroke`, `brushRemoveStroke`, `brushStrokeOpacity`, `brushStrokeWidth`"},
+			{tag: 'p', content: "You can customize the style of selected bins using: `selectedBinFill`, `selectedBinStroke`, `selectedBinStrokeWidth`."},
+			{tag: 'p', content: "Please interact with the chart to read the correspondent event payload below."},
+		],
+		events: [
+			'brushed',
+			'brushend',
+			'brushstart',
+			'clicked',
+			'entered',
+			'exited',
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-interactivity',
+		title: 'Interactivity',
+	},
+	{
+		data: [{
+			key: 'Left-right, bottom-up (default)',
+			props: {
+				bins
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Right-left, bottom-up',
+			props: {
+				bins,
+				flags: {isRightToLeft: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isRightToLeft: true}}
+				/>
+			`,
+		}, {
+			key: 'Left-right, top-down',
+			props: {
+				bins,
+				flags: {isTopDown: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					isTopDown={true}
+				/>
+			`,
+		}, {
+			key: 'Right-left, top-down',
+			props: {
+				bins,
+				flags: {
+					isRightToLeft: true,
+					isTopDown: true
+				},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						isRightToLeft: true,
+						isTopDown: true
+					}}
+				/>
+			`,
+		}, {
+			key: 'No origin dot',
+			props: {
+				bins,
+				flags: {hideOrigin: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{hideOrigin: true}}
+				/>
+			`,
+		}, {
+			key: 'Custom origin dot',
+			props: {
+				bins,
+				geometry: {originRadius: 5},
+				theme: {originColor: 'red'}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					geometry={{originRadius: 5}}
+					theme={{originColor: 'red'}}
+				/>
+			`,
+		},
 
-var examples$3 = /*#__PURE__*/Object.freeze({
+		// non-uniform
+		{
+			key: 'Left-right, bottom-up (default) – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Right-left, bottom-up – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {isRightToLeft: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isRightToLeft: true}}
+				/>
+			`,
+		}, {
+			key: 'Left-right, top-down – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {isTopDown: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isTopDown: true}}
+				/>
+			`,
+		}, {
+			key: 'Right-left, top-down – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {
+					isRightToLeft: true,
+					isTopDown: true
+				},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						isRightToLeft: true,
+						isTopDown: true
+					}}
+				/>
+			`,
+		}, {
+			key: 'No origin dot – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {hideOrigin: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags: {hideOrigin: true}
+				/>
+			`,
+		}, {
+			key: 'Custom origin dot – on-uniform non-contiguous bins',
+			props: {
+				bins: bins_value_non_uniform_non_contiguous,
+				geometry: {originRadius: 5},
+				theme: {originColor: 'red'}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					geometry={{originRadius: 5}}
+					theme={{originColor: 'red'}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can customise the chart horizontal and vertical direction by providing the two booleans `isRightToLeft` and `isTopDown`'},
+			{tag: 'p', content: 'By default it shows a dot to quickly identify the origin, but you can hide it by setting `hideOrigin` to `true`.'},
+			{tag: 'p', content: 'The dot color can be chosen using `originColor`.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-orientation',
+		title: 'Orientation',
+	},
+	{
+		data: [{
+			key: 'some bins',
+			props: {
+				bins,
+				flags: {withBackground: true},
+				padding: '3em',
+				theme: {
+					backgroundColor: backgroundColor$1,
+					binFill,
+				},
+				title: 'Some bins',
+			},
+			usage: `
+				<HistogramDiv
+					{bins}
+					flags={{withBackground: true}}
+					padding='3em'
+					theme={{
+						backgroundColor: '${backgroundColor$1}',
+						binFill: '${binFill}',
+					}}
+					title='Some bins'
+				/>
+			`,
+		},
+		{
+			key: 'some other bins',
+			props: {
+				bins: bins_2,
+				ticksFormatFn: roundTo(2),
+				title: 'Some other bins',
+			},
+			usage: `
+				<HistogramDiv
+					{bins}
+					ticksFormatFn={roundTo(2)}
+					title='Some other bins'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "If you need to render the histogram as an html element, you can use `HistogramDiv` providing the same props but `width` and `height`."},
+			{tag: 'p', content: "This will render the histogram in a `div`."},
+			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"},
+		],
+		name: 'HistogramDiv',
+		packageName: 'histogram',
+		slug: 'HistogramDiv',
+		title: 'HistogramDiv',
+	},
+]);
+
+const bins$1 = [
+	{range: [0, 5], color: 'red'},
+	{range: [5, 10], color: 'yellow'},
+	{range: [10, 15], color: 'palegreen'},
+	{range: [15, 20], color: 'cyan'},
+	{range: [20, 25], color: 'khaki'},
+	{range: [25, 30], color: 'lightskyblue'},
+	{range: [30, 35], color: 'blue'},
+	{range: [35, 40], color: 'magenta'},
+	{range: [40, 45], color: 'orange'},
+	{range: [45, 50], color: 'violet'},
+	{range: [50, 55], color: 'brown'},
+];
+const bins_nonUniform = [
+	{range: [0.1, 0.3], color: 'lightskyblue'},
+	{range: [0.3, 0.5], color: 'khaki'},
+	{range: [0.5, 0.7], color: 'yellow'},
+	{range: [0.7, 1], color: 'brown'},
+	{range: [1, 2], color: 'blue'},
+	{range: [2, 2.2], color: 'palegreen'},
+	{range: [2.2, 2.5], color: 'orange'},
+	{range: [2.5, 2.7], color: 'magenta'},
+	{range: [2.7, 3], color: 'red'},
+	{range: [3, 4], color: 'violet'},
+	{range: [4, 5], color: 'cyan'},
+];
+const backgroundColor$2 = '#feffd4';
+
+var legend = formatExamples([
+	{
+		data: [{
+			key: 'uniform bins',
+			props: {bins: bins$1},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'non-uniform bins',
+			props: {bins: bins_nonUniform},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'In the most basic setup, you need to provide `bins`, `height` and `width`.'},
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG',
+		title: 'ColorBinsG: Basic props',
+	}, {
+		data: [{
+			key: 'horizontal',
+			props: {
+				bins: bins$1,
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'vertical',
+			props: {
+				bins: bins$1,
+				flags: {
+					isVertical: true
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						isVertical: true
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'The legend can be horizontal (default) or vertical.'},
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG-orientation',
+		title: 'ColorBinsG: orientation',
+	}, {
+		data: [{
+			key: null,
+			props: {
+				bins: bins$1,
+				flags: {
+					withBackground: true,
+				},
+				geometry: {
+					left: 40,
+					right: 40,
+				},
+				selectedBins: [2, 4, 5, 6],
+				theme: {
+					backgroundColor: 'palegreen',
+					backgroundOpacity: 0.1,
+					binStroke: 'black',
+					binStrokeWidth: 0.5,
+					fontSize: 30,
+					selectedBinStroke: 'red',
+					selectedBinStrokeWidth: 3,
+					textColor: 'blue',
+				},
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						withBackground: true
+					}}
+					geometry={{
+						left: 40,
+						right: 40,
+					}}
+					selectedBins={[2, 4, 5, 6]}
+					theme={{
+						backgroundColor: 'palegreen',
+						backgroundOpacity: 0.1,
+						binStroke: 'black',
+						binStrokeWidth: 0.5,
+						fontSize: 30,
+						selectedBinStroke: 'red',
+						selectedBinStrokeWidth: 3,
+						textColor: 'blue',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "You can customise colors and strokes."},
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG-styles',
+		title: 'ColorBinsG: styles',
+	}, {
+		data: [{
+			key: 'horizontal',
+			props: {
+				bins: bins$1,
+				flags: {isInteractive: true}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+				/>
+			`,
+		}, {
+			key: 'vertical',
+			props: {
+				bins: bins$1,
+				flags: {
+					isInteractive: true,
+					isVertical: true
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						isInteractive: true,
+						isVertical: true
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "If `isInteractive` is `true`, the component emits events when interacting with the bins."},
+			{tag: 'p', content: "Events:"},
+			{tag: 'p', content: "• Clicking a bin selects or deselects it depending on if it was already selected and depending on the pressed modifier key (see below) and dispatches a `clicked` event with payload `{index, selectedBins}`"},
+			{tag: 'p', content: "• Clicking the background resets the selection and dispatches a `clicked` event, with payload `{selectedBins: []}`"},
+			{tag: 'p', content: "• Mouse-entering a bin dispatches a `entered` event, with the payload being the entered bin index"},
+			{tag: 'p', content: "• Mouse-exiting a bin dispatches a `exited` event, with the payload being the exited bin index"},
+			{tag: 'p', content: "• Brushing – clicking a bin and dragging the pointer over other bins selects them and dispatches brush events:"},
+			{tag: 'p', content: "•• as soon as we start brushing, a `brushstart` event gets dispatched, the payload being the index of the bin where we started brushing;"},
+			{tag: 'p', content: "•• continuing dragging, when the pointer crosses bins a `brushed` event gets dispatched with the payload being `{selectedBins, end, start}`, the currently selected bins and the brushing start and end indices;"},
+			{tag: 'p', content: "•• when we stop dragging by releasing the pointer, a `brushend` event gets dispatched, the payload being the index of the bin where we stopped brushing."},
+			{tag: 'p', content: "You can use modifiers to add or remove to the selection:"},
+			{tag: 'p', content: "• Holding the `shift` key when brushing or clicking adds the brushed bins to the selection, the payload being the start bin index;"},
+			{tag: 'p', content: "• Holding the `alt` key when brushing or clicking removes the brushed bins to the selection."},
+			{tag: 'p', content: "A green/red line is displayed to help you understand what's going on (respectively). You can customise these with props `brushAddStroke`, `brushRemoveStroke`, `brushStrokeOpacity`, `brushStrokeWidth`"},
+			{tag: 'p', content: "You can customize the style of selected bins using: `selectedBinStroke`, `selectedBinStrokeWidth`."},
+			{tag: 'p', content: "Please interact with the chart to read the correspondent event payload below."},
+		],
+		events: [
+			'brushed',
+			'brushend',
+			'brushstart',
+			'clicked',
+			'entered',
+			'exited',
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG-interactivity',
+		title: 'ColorBinsG: interactivity',
+	}, {
+		data: [{
+			key: 'A legend',
+			props: {
+				bins: bins$1,
+				flags: {withBackground: true},
+				padding: '3em',
+				theme: {
+					backgroundColor: backgroundColor$2,
+				},
+				title: 'A legend',
+			},
+			usage: `
+				<ColorBinsDiv
+					{bins}
+					flags={{withBackground: true}}
+					padding='3em'
+					theme={{
+						backgroundColor: '${backgroundColor$2}',
+					}}
+					title='A legend'
+				/>
+			`,
+		},
+		{
+			key: 'Another legend',
+			props: {
+				bins: bins_nonUniform,
+				title: 'Another legend',
+				flags: {isVertical: true}
+			},
+			usage: `
+				<ColorBinsDiv
+					{bins}
+					title='Another legend'
+					flags={{isVertical: true}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "If you need to render the colorbins legend as an html element, you can use `ColorBinsDiv` providing the same props but `width` and `height`."},
+			{tag: 'p', content: "This will render the legend in a `div`."},
+			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (default: '10px') and `headerHeight` (default: '2rem')"},
+		],
+		name: 'ColorBinsDiv',
+		packageName: 'legend',
+		slug: 'ColorBinsDiv',
+		title: 'ColorBinsDiv',
+	},
+]);
+
+var examples = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    barchart: examples,
-    choropleth: examples$1,
-    histogram: examples$2
+    barchart: barchart,
+    choropleth: choropleth,
+    histogram: histogram,
+    legend: legend
 });
 
-var makeLookup = indexValuesWith(getKey('slug'));
-var lookup = makeLookup(examples$3);
+const makeLookup = indexValuesWith(getKey('slug'));
+const lookup = makeLookup(examples);
 
-var makeSidebar = pipe([mapValuesWith(pluckKeys(['slug', 'title'])), objectToKeyValueArray]);
+const makeSidebar = pipe([
+	mapValuesWith(pluckKeys(['slug', 'title'])),
+	objectToKeyValueArray,
+]);
+const sidebar = makeSidebar(examples);
 
-var sidebar = makeSidebar(examples$3);
-
-export { linear$1 as $, ticks as A, format as B, _defineProperty as C, skipIf as D, isNil as E, pairs as F, index as G, updateKey as H, has as I, getPath as J, sort as K, adapter as L, map as M, reduce as N, isNotNil as O, isIterableNotEmpty as P, every as Q, hasKey as R, flatten as S, findIndexWhere as T, findLastIndexWhere as U, slice as V, uniques as W, filterWith as X, concat as Y, mergeObj as Z, __ as _, isUndefined as a, pullFrom as a0, lookup as a1, _ as a2, setIn as a3, range as b, collect as c, appendTo as d, sortWith as e, sorterDesc as f, getKey as g, head as h, isNotNull as i, apply as j, identity as k, last as l, make as m, mapWith as n, always as o, pipe as p, generic as q, reduceWith as r, sidebar as s, allOf as t, isGTE as u, isLTE as v, partial as w, transformer as x, copy as y, initRange as z };
+export { pullFrom as $, ticks as A, format as B, skipIf as C, isNil as D, pairs as E, index as F, updateKey as G, has as H, getPath as I, sort as J, adapter as K, map as L, reduce as M, isNotNil as N, isIterableNotEmpty as O, every as P, hasKey as Q, flatten as R, findIndexWhere as S, findLastIndexWhere as T, slice as U, uniques as V, filterWith as W, concat as X, mergeObj as Y, linear$1 as Z, __ as _, isUndefined as a, lookup as a0, _ as a1, setIn as a2, range as b, collect as c, appendTo as d, sortWith as e, sorterDesc as f, getKey as g, head as h, isNotNull as i, apply as j, identity as k, last as l, make as m, mapWith as n, always as o, pipe as p, generic as q, reduceWith as r, sidebar as s, allOf as t, isGTE as u, isLTE as v, partial as w, transformer as x, copy as y, initRange as z };

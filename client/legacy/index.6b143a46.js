@@ -1,4 +1,4 @@
-import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, x as validate_each_argument, v as validate_slots, g as element, t as text, f as space, k as claim_element, l as children, m as claim_text, h as detach_dev, j as claim_space, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, G as set_data_dev, q as query_selector_all, A as _slicedToArray, u as noop, z as destroy_each } from './client.736f8e76.js';
+import { _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, x as validate_each_argument, v as validate_slots, g as element, t as text, f as space, k as claim_element, l as children, m as claim_text, h as detach_dev, j as claim_space, n as attr_dev, o as add_location, p as insert_dev, r as append_dev, G as set_data_dev, q as query_selector_all, A as _slicedToArray, u as noop, z as destroy_each } from './client.b033306f.js';
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -9,7 +9,7 @@ function get_each_context(ctx, list, i) {
   var child_ctx = ctx.slice();
   child_ctx[1] = list[i];
   return child_ctx;
-} // (22:1) {#each components as component}
+} // (23:1) {#each components as component}
 
 
 function create_each_block(ctx) {
@@ -48,8 +48,8 @@ function create_each_block(ctx) {
       attr_dev(a, "href", a_href_value = "components/" +
       /*component*/
       ctx[1].slug);
-      add_location(a, file, 23, 3, 386);
-      add_location(li, file, 22, 2, 378);
+      add_location(a, file, 24, 3, 426);
+      add_location(li, file, 23, 2, 418);
     },
     m: function mount(target, anchor) {
       insert_dev(target, li, anchor);
@@ -80,7 +80,7 @@ function create_each_block(ctx) {
     block: block,
     id: create_each_block.name,
     type: "each",
-    source: "(22:1) {#each components as component}",
+    source: "(23:1) {#each components as component}",
     ctx: ctx
   });
   return block;
@@ -139,9 +139,9 @@ function create_fragment(ctx) {
     },
     h: function hydrate() {
       document.title = "Svizzle Components";
-      add_location(h1, file, 18, 0, 317);
+      add_location(h1, file, 19, 0, 357);
       attr_dev(ul, "class", "svelte-5hq138");
-      add_location(ul, file, 20, 0, 338);
+      add_location(ul, file, 21, 0, 378);
     },
     m: function mount(target, anchor) {
       insert_dev(target, t0, anchor);
