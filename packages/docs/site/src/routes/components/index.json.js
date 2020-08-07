@@ -6,7 +6,7 @@ export function get(req, res) {
 	res.end(JSON.stringify([
 		{name: 'BarchartVDiv', slug: 'BarchartVDiv'},
 		{name: 'ChoroplethG', slug: 'ChoroplethG'},
-		{name: 'ColorScaleG', slug: 'ColorScaleG'},
+		{name: 'ColorBinsG', slug: 'ColorBinsG'},
 		{name: 'HistogramG', slug: 'HistogramG'},
 	]));
 }

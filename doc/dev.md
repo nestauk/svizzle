@@ -106,6 +106,7 @@ In the `dev` branch:
     - re-install dependencies,
     - run tests,
     - make builds.
+- `npm run deployDoc` to build and publish the documentation website
 
 ### Tagging / releasing
 
