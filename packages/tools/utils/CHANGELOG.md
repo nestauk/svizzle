@@ -1,3 +1,17 @@
+## `@svizzle/utils` v0.9.0 (next)
+
+### (String -> String) -> (Object -> Object)
+
+- add `renameKeysWith` (was added in the `0.8.0` release but without exporting its module)
+
+### Any -> (Object -> Boolean)
+
+- add `hasValue` (was added in the `0.8.0` release but without exporting its module)
+
+### String -> Number
+
+- add `getEndOfLineLength` (was added in the `0.8.0` release but without exporting its module)
+
 ## `@svizzle/utils` v0.8.1
 
 - build: remove comments from `.mjs` files
@@ -13,17 +27,9 @@
 
 - add tests to make sure `reduceFromArr` and `reduceFromObj` return a new instance of the initial value every time they get called
 
-### (String -> String) -> (Object -> Object)
-
-- add `renameKeysWith`
-
 ### Any -> (Any -> Boolean)
 
 - add `isEqualTo`
-
-### Any -> (Object -> Boolean)
-
-- add `hasValue`
 
 ### Array -> (Array -> Array)
 
@@ -41,10 +47,6 @@
 
 - add `hasSomeNullValues`
 - add tests to `endsWithNewLine` to check Windows line ending
-
-### String -> Number
-
-- add `getEndOfLineLength`
 
 ### String -> String
 

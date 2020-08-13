@@ -25,7 +25,7 @@ true
 > hasEmptyList({a: 1, b: 3})
 false
  *
- * @version v0.8.0
+ * @version v0.9.0
  */
 export const hasValue = value => _.pipe([
 	_.pairs,

@@ -17,7 +17,7 @@
 > getEndOfLineLength('hello\r\n')
 2
  *
- * @version 0.8.0
+ * @version 0.9.0
  */
 export const getEndOfLineLength = s =>
 	(/\r\n$/u).test(s) ? 2 : (/\n$/u).test(s) ? 1 : 0;
