@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-
+import {filterWith, fromPairs} from 'lamb';
 import {
 	dsvFormat,
 	csvParse,
@@ -28,13 +28,13 @@ import {filterJsonExtensions} from './path';
  * @example
 > readFile('source/path.txt')
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 <Buffer 49 27 6d ...0a>
 
 > readFile('source/path.txt', 'utf-8')
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 'the file content'
  * @version 0.4.0
@@ -52,12 +52,108 @@ export const readFile = util.promisify(fs.readFile);
  * @example
 > readDir('source/dir/')
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 ['dir1', 'dir2', 'file1.txt', 'file2.txt', 'folder1', 'folder2']
  * @version 0.4.0
  */
 export const readDir = util.promisify(fs.readdir);
+
+/**
+ * [node environment]
+ * Return a promise that reads files in the given directory with a file path satisfying the provided criteria, returning the array with their content parsed with the provided parser.
+ *
+ * @function
+ * @arg {string} dirPath - the directory path
+ * @arg {function} filterPathFn - (String -> Boolean) predicate to filter the filepaths (e.g. ()
+ * @arg {function} parse - (String -> Any) target file parser
+ * @return {promise} - @sideEffects: fs.readdir, fs.readFile
+ *
+ * @example
+$ ls -a source/dir
+.   .foo  01.csv  foo.txt
+..  .bar  02.csv  bar.json
+$ cat source/dir/01.csv
+a,b
+foo,1
+bar,2
+$ cat source/dir/02.csv
+foo,1
+bar,2
+
+> readDirFiles('source/dir/', isPathCSV, d3.csvParseRows)
+.then(x => console.log(x))
+.catch(err => console.error(err))
+
+[
+	[['a', 'b'], ['foo', '1'], ['bar', '2']],
+	[['foo', '1'], ['bar', '2']]
+]
+ * @version 0.9.0
+ */
+export const readDirFiles = (
+	dirPath,
+	filterPathFn,
+	parse
+) =>
+	readDir(dirPath, 'utf8')
+	.then(filterWith(filterPathFn))
+	.then(filenames => Promise.all(
+		filenames.map(filename => {
+			const filepath = path.join(dirPath, filename);
+
+			return readFile(filepath, 'utf-8').then(parse)
+		})
+	));
+
+/**
+ * [node environment]
+ * Return a promise that reads files in the given directory with a file path satisfying the provided criteria, returning their content parsed with the provided parser indexed by file name.
+ *
+ * @function
+ * @arg {string} dirPath - the directory path
+ * @arg {function} filterPathFn - (String -> Boolean) predicate to filter the filepaths (e.g. ()
+ * @arg {function} parse - (String -> Any) target file parser
+ * @return {promise} - @sideEffects: fs.readdir, fs.readFile
+ *
+ * @example
+$ ls -a source/dir
+.   .foo  01.csv  foo.txt
+..  .bar  02.csv  bar.json
+$ cat source/dir/01.csv
+a,b
+foo,1
+bar,2
+$ cat source/dir/02.csv
+foo,1
+bar,2
+
+> readDirFilesIndexed('source/dir/', isPathCSV, d3.csvParseRows)
+.then(x => console.log(x))
+.catch(err => console.error(err))
+
+{
+	'ab.csv': [['a', 1], ['foo', '1'], ['bar', '2']],
+	'rows.csv': [['foo', '1'], ['bar', '2']]
+}
+ * @version 0.9.0
+ */
+export const readDirFilesIndexed = (
+	dirPath,
+	filterPathFn,
+	parse
+) =>
+	readDir(dirPath, 'utf8')
+	.then(filterWith(filterPathFn))
+	.then(filenames => Promise.all(
+		filenames.map(filename => {
+			const filepath = path.join(dirPath, filename);
+
+			return readFile(filepath, 'utf-8')
+			.then(content => [filename, parse(content)]);
+		})
+	))
+	.then(fromPairs)
 
 /**
  * [node environment]
@@ -82,7 +178,7 @@ joe,100
 	amount: Number(row.amount)
 }))
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
 
@@ -95,7 +191,7 @@ joe,100
 	amount: Number(row.amount)
 }), false)
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  * @version 0.1.0
@@ -135,7 +231,7 @@ joe;100
 	amount: Number(amount)
 }), ';')
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
 
@@ -148,7 +244,7 @@ joe|100
 	amount: Number(amount)
 }), '|', false)
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
@@ -192,7 +288,7 @@ joe\t100
 	amount: Number(amount)
 }))
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
 
@@ -205,7 +301,7 @@ joe\t100
 	amount: Number(amount)
 }), false)
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
@@ -233,7 +329,7 @@ export const readTsv = (
  * @example
 > readJson('source/path')
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
@@ -254,7 +350,7 @@ export const readJson = jsonPath =>
  * @example
 > readJsonDir('source/path/')
 .then(x => console.log(x))
-.catch(err => console.error(err));
+.catch(err => console.error(err))
 
 [{'a': 1}, '{'a': 2}', '{'a': 2}']
  *

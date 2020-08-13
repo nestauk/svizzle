@@ -1,15 +1,19 @@
 import {strict as assert} from 'assert';
 import path from 'path';
+import {csvParseRows} from 'd3-dsv';
 
 import {
 	readCsv,
 	readDir,
+	readDirFiles,
+	readDirFilesIndexed,
 	readDsv,
 	readFile,
-	readTsv,
 	readJson,
-	readJsonDir
+	readJsonDir,
+	readTsv,
 } from './read';
+import { hasAnyExtensionOf } from './path';
 
 describe('read', function() {
 	describe('readFile', function() {
@@ -49,6 +53,34 @@ describe('read', function() {
 				const dirPath = path.resolve(__dirname, '../test_assets');
 				const items = await readDir(dirPath, 'utf-8');
 				assert.deepStrictEqual(items, dirItems);
+			}
+		);
+	});
+	describe('readDirFiles', function() {
+		it('should return a promise that reads and parses files in the given directory and with a file path satisfying a provided criteria',
+			async function() {
+				const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
+				const isCSV = hasAnyExtensionOf(['.csv']);
+				const actual = await readDirFiles(dirPath, isCSV, csvParseRows);
+				const expected = [
+					[['a', 'b'], ['foo', '1'], ['bar', '2']],
+					[['foo', '1'], ['bar', '2']]
+				];
+				assert.deepStrictEqual(actual, expected);
+			}
+		);
+	});
+	describe('readDirFilesIndexed', function() {
+		it('should return a promise that reads and parses files in the given directory and with a file path satisfying a provided criteria',
+			async function() {
+				const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
+				const isCSV = hasAnyExtensionOf(['.csv']);
+				const actual = await readDirFilesIndexed(dirPath, isCSV, csvParseRows);
+				const expected = {
+					'ab.csv': [['a', 'b'], ['foo', '1'], ['bar', '2']],
+					'rows.csv': [['foo', '1'], ['bar', '2']]
+				};
+				assert.deepStrictEqual(actual, expected);
 			}
 		);
 	});

@@ -1,3 +1,8 @@
+## `@svizzle/file` v0.9.0 (next)
+
+- add `readDirFiles`
+- add `readDirFilesIndexed`
+
 ## `@svizzle/file` v0.8.1
 
 - build: remove comments from `.mjs` files

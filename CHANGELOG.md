@@ -2,6 +2,11 @@
 
 ## next
 
+## `@svizzle/file` v0.9.0 (next)
+
+- add `readDirFiles`
+- add `readDirFilesIndexed`
+
 ## `@svizzle/utils` v0.9.0 (next)
 
 ### (String -> String) -> (Object -> Object)
