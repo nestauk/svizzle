@@ -8,33 +8,79 @@ import * as _ from 'lamb';
  * Return a function expecting an object to be used as the argument of the provided functions
  *
  * @function
- * @arg {object} object
+ * @arg {object} fnMap - a map of keys and functions Any -> Any
  * @return {function} - Object -> Object
  *
  * @example
-> format = applyFnMap({
-	fullname: _.pipe([
-		_.collect([_.getKey('fname'), _.getKey('lname')]),
-		join(' ')
-	]),
-	coords: _.collect([_.getKey('lng'), _.getKey('lat')])
-});
-> raw = [
+> array = [
 	{fname: 'John', lname: 'Woo', lng: 1, lat: 2},
 	{fname: 'John', lname: 'Foo', lng: 7, lat: 8}
 ];
+> format = applyFnMap({
+	coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
+	fullname: _.pipe([
+		_.collect([_.getKey('fname'), _.getKey('lname')]),
+		joinWith(' ')
+	]),
+});
 > formatted = _.map(raw, format)
 [
-	{fullname: 'John Woo', coords: [1, 2]},
-	{fullname: 'John Foo', coords: [7, 8]}
+	{coords: [1, 2], fullname: 'John Woo'},
+	{coords: [7, 8], fullname: 'John Foo'}
 ]
  *
  * @version 0.1.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
+ * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
  */
 export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
+
+/**
+ * Return a function that applies the provided map to the expected object and merges te result to the object.
+ * This is useful to add new properties to an object, eventually modifying existing ones by using keys expected to be in the input objects.
+ *
+ * @function
+ * @arg {object} fnMap - a map of keys and functions Any -> Any
+ * @return {function} - Object -> Object
+ *
+ * @example
+> enhancer = makeMergeAppliedFnMap({
+	coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
+	fullname: _.pipe([
+		_.collect([_.getKey('fname'), _.getKey('lname')]),
+		joinWith(' ')
+	]),
+	lat: obj => roundTo2(obj.lat),
+	lng: obj => roundTo2(obj.lng),
+})
+> enhancer({
+	fname: 'John',
+	lat: 2.345434,
+	lname: 'Woo',
+	lng: 10.3425,
+})
+{
+	coords: [10.3425, 2.345434],
+	fname: 'John',
+	fullname: 'John Woo',
+	lat: 2.35,
+	lname: 'Woo',
+	lng: 10.34,
+}
+ *
+ * @version 0.9.0
+ * @see {@link module:@svizzle/utils/array-[object-object].applyFnMap|applyFnMap}
+ * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
+ * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
+ * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
+ */
+export const makeMergeAppliedFnMap = fnMap => {
+	const makeProps = applyFnMap(fnMap);
+
+	return obj => _.merge(obj, makeProps(obj));
+}
 
 /**
  * Return a function that expects an object and applies the functions in the values of the input object to the values of the provided object found in the paths in the correspondent keys.
@@ -90,6 +136,7 @@ export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
  * @version 0.6.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
+ * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
  */
 export const transformPaths = pathToFn => obj =>
@@ -135,6 +182,7 @@ bar,4,4,25px
  * @version 0.1.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
+ * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  */
 export const transformValues = fnMap => _.mapValuesWith(

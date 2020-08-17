@@ -12,6 +12,11 @@
 
 - add `getEndOfLineLength` (was added in the `0.8.0` release but without exporting its module)
 
+### Object -> (Object -> Object)
+
+- add `makeMergeAppliedFnMap`
+
+
 ## `@svizzle/utils` v0.8.1
 
 - build: remove comments from `.mjs` files

@@ -21,6 +21,11 @@
 
 - add `getEndOfLineLength` (was added in the `0.8.0` release but without exporting its module)
 
+### Object -> (Object -> Object)
+
+- add `makeMergeAppliedFnMap`
+
+
 ## 20200807
 
 - build: remove comments from `.mjs` files for packages under `/tools`

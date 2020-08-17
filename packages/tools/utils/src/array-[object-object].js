@@ -124,6 +124,7 @@ import * as _ from 'lamb';
 }
  * @version 0.6.0
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
+ * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  */
