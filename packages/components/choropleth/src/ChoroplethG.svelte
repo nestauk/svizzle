@@ -52,7 +52,8 @@
 	export let key;
 	export let keyToColor;
 	export let keyToColorFn;
-	export let projection;
+	export let projectionFn;
+	export let projectionId;
 	export let selectedKeys;
 	export let theme;
 
@@ -61,7 +62,10 @@
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: isInteractive = isInteractive || false;
 	$: key_alt = key_alt || 'name';
-	$: projection = projection && projections[projection] || projections.geoEquirectangular;
+	$: projection =
+		projectionFn ||
+		projectionId && projections[projectionId] ||
+		projections.geoEquirectangular;
 	$: selectedKeys = selectedKeys || [];
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: style = makeStyleVars(theme);

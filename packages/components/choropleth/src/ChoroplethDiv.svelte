@@ -19,7 +19,8 @@
 	export let key;
 	export let keyToColor;
 	export let keyToColorFn;
-	export let projection;
+	export let projectionFn;
+	export let projectionId;
 	export let selectedKeys;
 	export let theme;
 
@@ -58,7 +59,8 @@
 				{key_alt}
 				{keyToColor}
 				{keyToColorFn}
-				{projection}
+				{projectionFn}
+				{projectionId}
 				{selectedKeys}
 				{theme}
 				{topojson}

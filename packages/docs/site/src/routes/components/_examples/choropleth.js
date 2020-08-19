@@ -4,6 +4,7 @@ import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2
 import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_3_DE from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_DE.json';
+import {geoConicEqualArea, geoTransverseMercator} from 'd3-geo';
 
 import {
 	keyToColorUK2016,
@@ -449,30 +450,23 @@ export default formatExamples([
 	},
 	{
 		doc: [
-			{tag: 'p', content: "The default projection is `geoEquirectangular`."},
-			{tag: 'p', content: "You can use most of the projections provided by `d3-geo`:"},
+			{tag: 'p', content: "You can either pass `projectionFn` or use some of the projections provided by `d3-geo` by passing a `projectionId` choosing among the projection ids below."},
 			{tag: 'p', content: "Azimuthal Projections:"},
 			{tag: 'p', content: "• `geoAzimuthalEqualArea`"},
 			{tag: 'p', content: "• `geoAzimuthalEquidistant`"},
-			{tag: 'p', content: "• `geoGnomonic`"},
-			{tag: 'p', content: "• `geoOrthographic`"},
-			{tag: 'p', content: "• `geoStereographic`"},
 			{tag: 'p', content: "Equal-Earth Projections: `geoEqualEarth`"},
-			{tag: 'p', content: "Conic Projections:"},
-			{tag: 'p', content: "• `geoConicConformal`"},
-			{tag: 'p', content: "• `geoConicEqualArea`"},
-			{tag: 'p', content: "• `geoConicEquidistant`"},
 			{tag: 'p', content: "Cylindrical Projections"},
 			{tag: 'p', content: "• `geoEquirectangular`"},
 			{tag: 'p', content: "• `geoMercator`"},
-			{tag: 'p', content: "• `geoTransverseMercator`"},
 			{tag: 'p', content: "• `geoNaturalEarth1`"},
+			{tag: 'p', content: "Note that `projectionFn` takes precedence over `projectionId`."},
+			{tag: 'p', content: "If you don't pass neither `projectionFn` nor `projectionId`, the default projection is `geoEquirectangular`."},
 		],
 		data: [{
-			key: 'geoAzimuthalEqualArea',
+			key: 'projectionId: geoAzimuthalEqualArea',
 			props: {
 				key: 'iso_a2',
-				projection: 'geoAzimuthalEqualArea',
+				projectionId: 'geoAzimuthalEqualArea',
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 			},
@@ -481,223 +475,133 @@ export default formatExamples([
 					{height}
 					{width}
 					key='iso_a2'
-					projection='geoAzimuthalEqualArea'
+					projectionId='geoAzimuthalEqualArea'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
-			key: 'geoAzimuthalEquidistant',
+			key: 'projectionId: geoAzimuthalEquidistant',
 			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				key: 'iso_a2',
-				projection: 'geoAzimuthalEquidistant',
+				projectionId: 'geoAzimuthalEquidistant',
 			},
 			usage: `
 				<ChoroplethG
 					{height}
 					{width}
 					key='iso_a2'
-					projection='geoAzimuthalEquidistant'
+					projectionId='geoAzimuthalEquidistant'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
-			key: 'geoGnomonic',
+			key: 'projectionId: geoEqualEarth',
 			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				key: 'iso_a2',
-				projection: 'geoGnomonic',
+				projectionId: 'geoEqualEarth',
 			},
 			usage: `
 				<ChoroplethG
 					{height}
 					{width}
 					key='iso_a2'
-					projection='geoGnomonic'
+					projectionId='geoEqualEarth'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
-			key: 'geoOrthographic',
+			key: 'projectionId: geoEquirectangular',
 			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				key: 'iso_a2',
-				projection: 'geoOrthographic',
+				projectionId: 'geoEquirectangular',
 			},
 			usage: `
 				<ChoroplethG
 					{height}
 					{width}
 					key='iso_a2'
-					projection='geoOrthographic'
+					projectionId='geoEquirectangular'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
-			key: 'geoStereographic',
+			key: 'projectionId: geoMercator',
 			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				key: 'iso_a2',
-				projection: 'geoStereographic',
+				projectionId: 'geoMercator',
 			},
 			usage: `
 				<ChoroplethG
 					{height}
 					{width}
 					key='iso_a2'
-					projection='geoStereographic'
+					projectionId='geoMercator'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
-			key: 'geoEqualEarth',
+			key: 'projectionId: geoNaturalEarth1',
 			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				key: 'iso_a2',
-				projection: 'geoEqualEarth',
+				projectionId: 'geoNaturalEarth1',
 			},
 			usage: `
 				<ChoroplethG
 					{height}
 					{width}
 					key='iso_a2'
-					projection='geoEqualEarth'
+					projectionId='geoNaturalEarth1'
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
-			key: 'geoConicConformal',
+			key: 'projectionFn: geoConicEqualArea',
 			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				key: 'iso_a2',
-				projection: 'geoConicConformal',
+				projectionFn: geoConicEqualArea,
 			},
 			usage: `
 				<ChoroplethG
 					{height}
 					{width}
 					key='iso_a2'
-					projection='geoConicConformal'
+					projectionFn=d3.geoConicEqualArea()
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
-			key: 'geoConicEqualArea',
+			key: 'projectionFn: geoTransverseMercator',
 			props: {
 				topojson: World_110m_iso_a2_topo,
 				topojsonId: 'countries',
 				key: 'iso_a2',
-				projection: 'geoConicEqualArea',
+				projectionFn: geoTransverseMercator,
 			},
 			usage: `
 				<ChoroplethG
 					{height}
 					{width}
 					key='iso_a2'
-					projection='geoConicEqualArea'
-					topojson={World_110m_iso_a2_topo}
-					topojsonId='countries'
-				/>
-			`,
-		}, {
-			key: 'geoConicEquidistant',
-			props: {
-				topojson: World_110m_iso_a2_topo,
-				topojsonId: 'countries',
-				key: 'iso_a2',
-				projection: 'geoConicEquidistant',
-			},
-			usage: `
-				<ChoroplethG
-					{height}
-					{width}
-					key='iso_a2'
-					projection='geoConicEquidistant'
-					topojson={World_110m_iso_a2_topo}
-					topojsonId='countries'
-				/>
-			`,
-		}, {
-			key: 'geoEquirectangular',
-			props: {
-				topojson: World_110m_iso_a2_topo,
-				topojsonId: 'countries',
-				key: 'iso_a2',
-				projection: 'geoEquirectangular',
-			},
-			usage: `
-				<ChoroplethG
-					{height}
-					{width}
-					key='iso_a2'
-					projection='geoEquirectangular'
-					topojson={World_110m_iso_a2_topo}
-					topojsonId='countries'
-				/>
-			`,
-		}, {
-			key: 'geoMercator',
-			props: {
-				topojson: World_110m_iso_a2_topo,
-				topojsonId: 'countries',
-				key: 'iso_a2',
-				projection: 'geoMercator',
-			},
-			usage: `
-				<ChoroplethG
-					{height}
-					{width}
-					key='iso_a2'
-					projection='geoMercator'
-					topojson={World_110m_iso_a2_topo}
-					topojsonId='countries'
-				/>
-			`,
-		}, {
-			key: 'geoTransverseMercator',
-			props: {
-				topojson: World_110m_iso_a2_topo,
-				topojsonId: 'countries',
-				key: 'iso_a2',
-				projection: 'geoTransverseMercator',
-			},
-			usage: `
-				<ChoroplethG
-					{height}
-					{width}
-					key='iso_a2'
-					projection='geoTransverseMercator'
-					topojson={World_110m_iso_a2_topo}
-					topojsonId='countries'
-				/>
-			`,
-		}, {
-			key: 'geoNaturalEarth1',
-			props: {
-				topojson: World_110m_iso_a2_topo,
-				topojsonId: 'countries',
-				key: 'iso_a2',
-				projection: 'geoNaturalEarth1',
-			},
-			usage: `
-				<ChoroplethG
-					{height}
-					{width}
-					key='iso_a2'
-					projection='geoNaturalEarth1'
+					projectionFn=d3.geoTransverseMercator()
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
