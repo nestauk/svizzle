@@ -4,6 +4,7 @@ import {
 	getFirstAndLast,
 	inclusiveRange,
 	makeBiPermutations,
+	setIndexAsKey,
 	sortValueAscKeyAsc,
 	sortValueAscKeyDesc,
 	sortValueDescKeyAsc,
@@ -65,6 +66,20 @@ describe('Array -> Array', function() {
 		it('should return an empty array if provided an empty array', function() {
 			const actual = makeBiPermutations([]);
 			assert.deepStrictEqual(actual, []);
+		});
+	});
+	describe('setIndexAsKey', function() {
+		it('should use `index` by default', function() {
+			const setIndex = setIndexAsKey();
+			const actual = setIndex([{a: 2}, {c: 5}]);
+			const expected = [{a: 2, index: 0}, {c: 5, index: 1}];
+			assert.deepStrictEqual(actual, expected);
+		});
+		it('should us the provided key', function() {
+			const setIndexAsIdx = setIndexAsKey('idx');
+			const actual = setIndexAsIdx([{a: 2}, {c: 5}])
+			const expected = [{a: 2, idx: 0}, {c: 5, idx: 1}];
+			assert.deepStrictEqual(actual, expected);
 		});
 	});
 	describe('sorting', function() {

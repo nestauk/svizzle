@@ -17,6 +17,10 @@
 
 - add `hasValue` (was added in the `0.8.0` release but without exporting its module)
 
+### Array -> Array
+
+- add `setIndexAsKey`
+
 ### String -> Number
 
 - add `getEndOfLineLength` (was added in the `0.8.0` release but without exporting its module)
@@ -29,6 +33,12 @@
 ## 20200807
 
 - build: remove comments from `.mjs` files for packages under `/tools`
+
+## /site v0.3.1
+
+- add linting
+- extract a formatting utility from examples
+- add Germany NUTS2 2016 as it seems to be the heavier example
 
 ## `@svizzle/dev` v0.4.1
 
@@ -69,12 +79,6 @@
 
 - build: remove comments from `.mjs` files
 
-## `@svizzle/site` v0.3.1
-
-- add linting
-- extract a formatting utility from examples
-- add Germany NUTS2 2016 as it seems to be the heavier example
-
 ## `@svizzle/utils` v0.8.1
 
 - build: remove comments from `.mjs` files
@@ -92,6 +96,18 @@
 		- `pluckKey` -> `pluck`
 		- `renameKeys` -> `rename`
 		- `skipKeys` -> `skip`
+
+## /site v0.3.0
+
+- add histogram examples
+- updated dependencies
+- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
+- add colors to the UK examples
+- use a menu to select examples rather then buttons
+- create a list of entries from the examples instead of relying on Sapper scraping them
+- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
+- optimised exported routes weight
+- Update to Lamb 0.59.2 (some renames needed)
 
 ## `@svizzle/atlas` v0.3.0
 
@@ -204,18 +220,6 @@
 - Update to Lamb 0.59.2 (no renames needed)
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
 
-## `@svizzle/site` v0.3.0
-
-- add histogram examples
-- updated dependencies
-- rename example objects keys and move `usage` to specific examples so that the reader will actually see usage changing eventually
-- add colors to the UK examples
-- use a menu to select examples rather then buttons
-- create a list of entries from the examples instead of relying on Sapper scraping them
-- during the doc build we're now adding a `.nojekyll` file because of _layout.* files created by sapper that would otherwise be [ignored by Jekyll](https://help.github.com/en/enterprise/2.14/user/articles/files-that-start-with-an-underscore-are-missing)
-- optimised exported routes weight
-- Update to Lamb 0.59.2 (some renames needed)
-
 ## `@svizzle/utils` v0.8.0
 
 - docs: converted all examples to a REPL-like format
@@ -274,7 +278,7 @@
 ## `@svizzle/choropleth` v0.2.0
 
 - show features with full opacity if `selectedKeys` is not provided
-- added prop  `keyToColorFn`
+- added prop `keyToColorFn`
 - removed `ChoroplethWorldDiv`
 
 ## `@svizzle/atlas` v0.2.0

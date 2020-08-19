@@ -8,6 +8,10 @@
 
 - add `hasValue` (was added in the `0.8.0` release but without exporting its module)
 
+### Array -> Array
+
+- add `setIndexAsKey`
+
 ### String -> Number
 
 - add `getEndOfLineLength` (was added in the `0.8.0` release but without exporting its module)

@@ -90,6 +90,31 @@ export const makeBiPermutations = items =>
 	}, []);
 
 /**
+ * Return a copy of the provided array of objects
+ * assigning each object index to a property with the provided key
+ * (defaulting to `index`)
+ *
+ * @function
+ * @arg {object[]} - Array of objects
+ * @return {object[]} - Array of objects
+ *
+ * @example
+> setIndex = setIndexAsKey()
+> setIndex([{a: 2}, {c: 5}])
+[{a: 2, index: 0}, {c: 5, index: 1}]
+
+> setIndexAsIdx = setIndexAsKey('idx')
+> setIndexAsIdx([{a: 2}, {c: 5}])
+[{a: 2, idx: 0}, {c: 5, idx: 1}]
+ *
+ * @version 0.9.0
+ */
+export const setIndexAsKey = (key = 'index') => _.pipe([
+	_.zipWithIndex,
+	_.mapWith(([obj, index]) => _.setIn(obj, key, index))
+]);
+
+/**
  * Return a copy of the provided array with items
  * sorted by `value` (ascending) then by `key` (ascending)
  *
