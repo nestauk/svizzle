@@ -583,7 +583,7 @@ export default formatExamples([
 					{height}
 					{width}
 					key='iso_a2'
-					projectionFn=d3.geoConicEqualArea()
+					projectionFn=d3.geoConicEqualArea
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
@@ -601,7 +601,7 @@ export default formatExamples([
 					{height}
 					{width}
 					key='iso_a2'
-					projectionFn=d3.geoTransverseMercator()
+					projectionFn=d3.geoTransverseMercator
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
 				/>
