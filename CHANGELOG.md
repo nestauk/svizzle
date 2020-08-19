@@ -5,7 +5,7 @@
 ## `@svizzle/choropleth` v0.4.0 (next)
 
 - add `projectionId` so that we can pass either a `projection` prop (a projection function) or an id to select a projection from the available ones
-- expose `topoToGeo` in `src/utils`
+- expose `topoToGeo` and `defaultGeometry` in `src/utils`
 - remove more exotic projections that would better be used with spherical coordinates [lambda, phi]
 
 ## `@svizzle/file` v0.9.0 (next)

@@ -7,17 +7,10 @@
 	import {isNotNullWith} from '@svizzle/utils';
 
 	import * as projections from './projections';
-	import {topoToGeo} from './utils';
+	import {topoToGeo, defaultGeometry} from './utils';
 
 	const dispatch = createEventDispatcher();
 	const hasColor = isNotNullWith(getPath('properties.color'));
-
-	const defaultGeometry = {
-		bottom: 10,
-		left: 10,
-		right: 10,
-		top: 10,
-	}
 
 	const defaultTheme = {
 		backgroundColor: 'white',
