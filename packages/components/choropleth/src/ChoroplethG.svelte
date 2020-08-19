@@ -1,22 +1,16 @@
 <script>
 	import {createEventDispatcher} from 'svelte';
-	import {feature as geoObject} from 'topojson-client';
 	import {geoPath} from 'd3-geo';
 	import {getPath} from 'lamb';
 	import {makeStyleVars} from '@svizzle/dom';
-	import {
-		makeUpdateFeaturesProperty,
-		setGeometryPrecision
-	} from '@svizzle/geo';
+	import {makeUpdateFeaturesProperty} from '@svizzle/geo';
 	import {isNotNullWith} from '@svizzle/utils';
 
 	import * as projections from './projections';
+	import {topoToGeo} from './utils';
 
 	const dispatch = createEventDispatcher();
 	const hasColor = isNotNullWith(getPath('properties.color'));
-	const truncateGeojson = setGeometryPrecision(4);
-	const topoToGeo = (topojson, id) =>
-		truncateGeojson(geoObject(topojson, topojson.objects[id]));
 
 	const defaultGeometry = {
 		bottom: 10,
