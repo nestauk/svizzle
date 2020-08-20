@@ -1,3 +1,7 @@
+## `@svizzle/barchart` v0.5.0 (next)
+
+- add prop `titleFontSize`
+
 ## `@svizzle/barchart` v0.4.0
 
 - dist: rename `BarchartV.*.js` to `BarchartVDiv.*.js`

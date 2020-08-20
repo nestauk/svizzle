@@ -28,10 +28,11 @@
 		barDefaultColor: 'black',
 		focusedKeyColor: 'rgba(0, 0, 0, 0.1)',
 		fontSize: 14,
-		headerHeight: '2rem',
+		headerHeight: '2em',
 		hoverColor: 'rgba(0, 0, 0, 0.05)',
 		padding: '10px',
 		textColor: 'grey',
+		titleFontSize: '1.5em',
 	};
 
 	export let barHeight;
@@ -262,6 +263,7 @@
 
 	h2 {
 		margin: 0;
+		font-size: var(--titleFontSize);
 	}
 
 	main {
