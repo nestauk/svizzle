@@ -72,7 +72,7 @@
 	$: getMax = arrayMaxWith(valueAccessor);
 	$: min = getMin(items);
 	$: max = getMax(items);
-	$: crossesZero = Math.sign(min) !== Math.sign(max);
+	$: crossesZero = Math.sign(min) === -Math.sign(max);
 	$: domain = crossesZero
 		? [min, max]
 		: max > 0 ? [0, max] : [min, 0];

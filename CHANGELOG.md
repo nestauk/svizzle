@@ -5,6 +5,7 @@
 ## `@svizzle/barchart` v0.5.0 (next)
 
 - add prop `titleFontSize`
+- don't show the axis with positive and zeroes or negative and zeroes
 
 ## `@svizzle/choropleth` v0.4.0 (next)
 

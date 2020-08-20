@@ -1,6 +1,7 @@
 import {
 	countryKeyRawValue,
 	countryKeyValuePositive,
+	countryKeyValuePositiveWithZeroes,
 	countryKeyValueNegatives,
 	countryKeyValueMixed,
 	countryKeyValueAlt,
@@ -33,6 +34,14 @@ export default formatExamples([
 			key: 'All negative values',
 			props: {
 				items: countryKeyValueNegatives,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'Positive and zero values',
+			props: {
+				items: countryKeyValuePositiveWithZeroes,
 			},
 			usage: `
 				<BarchartV {items} />
