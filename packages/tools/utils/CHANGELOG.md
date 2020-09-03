@@ -12,6 +12,11 @@
 
 - add `setIndexAsKey`
 
+### Array -> Object
+
+- add `makeKeyedFalse`
+- add `makeKeyedTrue`
+
 ### String -> Number
 
 - add `getEndOfLineLength` (was added in the `0.8.0` release but without exporting its module)

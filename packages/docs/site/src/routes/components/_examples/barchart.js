@@ -397,6 +397,59 @@ export default formatExamples([
 	},
 	{
 		data: [{
+			key: 'Some selected keys',
+			props: {
+				selectedKeys: ['AD', 'AM', 'HR', 'CY', 'DE'],
+				items: countryKeyValuePositive,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					selectedKeys={['HR', 'AM', 'HR', 'CY', 'DE']},
+				/>
+			`,
+		}, {
+			key: 'Some other selected keys (with colors, default opacity)',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorWorld,
+				selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI'],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					selectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},
+				/>
+			`,
+		}, {
+			key: 'Some other selected keys (with colors and custom opacity)',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorWorld,
+				selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI'],
+				theme: {deselectedOpacity: 0.1}
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					selectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},
+					theme={{deselectedOpacity: 0.1}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can select a set of bars by passing `selectedKeys`, an array of keys. The correspondent bars will get a lower opacity.'},
+			{tag: 'p', content: 'If needed you can setup a custom opacity for the deselected bars by passing `deselectedOpacity` in the `theme` object.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-selectedKeys',
+		title: 'Selected keys',
+	},
+	{
+		data: [{
 			key: 'All positive values',
 			props: {
 				keyToLabel,

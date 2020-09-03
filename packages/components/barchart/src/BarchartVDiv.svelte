@@ -1,6 +1,6 @@
 <script>
 	import isEqual from 'just-compare';
-	import {index} from 'lamb';
+	import {index, isIn} from 'lamb';
 	import {
 		afterUpdate,
 		beforeUpdate,
@@ -26,6 +26,7 @@
 		axisColor: 'grey',
 		backgroundColor: transparentColor,
 		barDefaultColor: 'black',
+		deselectedOpacity: 0.25,
 		focusedKeyColor: 'rgba(0, 0, 0, 0.1)',
 		fontSize: 14,
 		headerHeight: '2em',
@@ -45,6 +46,7 @@
 	export let keyToLabel;
 	export let keyToLabelFn;
 	export let shouldResetScroll;
+	export let selectedKeys;
 	export let shouldScrollToFocusedKey;
 	export let theme;
 	export let title;
@@ -53,6 +55,7 @@
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: barHeight = barHeight || 4;
 	$: isInteractive = isInteractive || false;
+	$: selectedKeys = selectedKeys || [];
 	$: shouldResetScroll = shouldResetScroll || false;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: valueAccessor = valueAccessor || getValue;
@@ -103,6 +106,7 @@
 				: keyToLabelFn
 					? keyToLabelFn(item.key)
 					: item.key,
+			deselected: selectedKeys.length && !isIn(selectedKeys, item.key),
 			x: getX(value),
 			xValue: value > 0 ? width: 0,
 			y: (idx + 1) * itemHeight // bottom of the item rect
@@ -157,14 +161,14 @@
 	/* events */
 
 	const onClick = key => () => {
-		isInteractive && dispatch('clicked', {id: key})
+		dispatch('clicked', {id: key})
 	}
 	const onMouseenter = key => () => {
-		isInteractive && dispatch('entered', {id: key})
 		hoveredKey = key;
+		isInteractive && dispatch('entered', {id: key})
 	}
 	const onMouseleave = key => () => {
-		isInteractive && dispatch('exited', {id: key})
+		dispatch('exited', {id: key})
 	}
 </script>
 
@@ -190,6 +194,7 @@
 				{#each bars as {
 					barColor,
 					bkgColor,
+					deselected,
 					displayValue,
 					dxKey,
 					isNeg,
@@ -200,10 +205,11 @@
 				}, index (key)}
 				<g
 					class:clickable={isInteractive}
+					class:deselected
 					class='item'
-					on:click={onClick(key)}
+					on:click={isInteractive && onClick(key)}
 					on:mouseenter={onMouseenter(key)}
-					on:mouseleave={onMouseleave(key)}
+					on:mouseleave={isInteractive && onMouseleave(key)}
 					transform='translate(0, {itemHeight * index})'
 				>
 					<rect
@@ -284,7 +290,9 @@
 	.item.clickable {
 		cursor: pointer;
 	}
-
+	.item.deselected line {
+		stroke-opacity: var(--deselectedOpacity);
+	}
 	.item text {
 		fill: var(--textColor);
 		font-size: var(--fontSize);
