@@ -41,11 +41,41 @@ export const keyValueArrayToObject = objects => _.reduce(objects,
 );
 
 /**
+ * Return an object with the provided array elements as keys and all values equal to `true`
+ *
+ * @function
+ * @arg {array} array
+ * @return {object}
+ *
+ * @example
+> makeKeyedFalse(['a', 'b'])
+{a: false, b: false}
+ *
+ * @version 0.9.0
+ */
+export const makeKeyedFalse = makeKeyed(false);
+
+/**
+ * Return an object with the provided array elements as keys and all values equal to `false`
+ *
+ * @function
+ * @arg {array} array
+ * @return {object} - keyed trues
+ *
+ * @example
+> makeKeyedTrue(['a', 'b'])
+{a: true, b: true}
+ *
+ * @version 0.9.0
+ */
+export const makeKeyedTrue = makeKeyed(true);
+
+/**
  * Return an object with the provided array elements as keys and all values equal to zero
  *
  * @function
  * @arg {array} array
- * @return {object} keyedZeroes
+ * @return {object} - keyed zeroes
  *
  * @example
 > makeKeyedZeroes([1, 2])

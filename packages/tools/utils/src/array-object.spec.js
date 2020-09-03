@@ -2,10 +2,12 @@ import {strict as assert} from 'assert';
 
 import {
 	keyValueArrayToObject,
+	makeAllOccurrences,
+	makeKeyedFalse,
+	makeKeyedTrue,
 	makeKeyedZeroes,
 	makeOccurrences,
-	makeAllOccurrences,
-	mergeObjects
+	mergeObjects,
 } from './array-object';
 
 describe('Array -> Object', function() {
@@ -38,6 +40,22 @@ describe('Array -> Object', function() {
 			assert.deepStrictEqual(
 				makeKeyedZeroes([1, 2]),
 				{'1': 0, '2': 0}
+			);
+		});
+	});
+	describe('makeKeyedFalse', function() {
+		it('should return an object with the provided array elements as keys and all values equal to false', function() {
+			assert.deepStrictEqual(
+				makeKeyedFalse(['a', 'b']),
+				{a: false, b: false}
+			);
+		});
+	});
+	describe('makeKeyedTrue', function() {
+		it('should return an object with the provided array elements as keys and all values equal to true', function() {
+			assert.deepStrictEqual(
+				makeKeyedTrue(['a', 'b']),
+				{a: true, b: true}
 			);
 		});
 	});
