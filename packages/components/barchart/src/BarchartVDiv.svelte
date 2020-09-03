@@ -1,22 +1,34 @@
 <script>
 	import isEqual from 'just-compare';
-	import {index, isIn} from 'lamb';
+	import {
+		index,
+		isIn,
+		mapWith,
+		pipe,
+		sortWith,
+	} from 'lamb';
 	import {
 		afterUpdate,
 		beforeUpdate,
 		createEventDispatcher
 	} from 'svelte';
 	import {linearScale} from 'yootils';
-	import {makeStyleVars} from '@svizzle/dom';
+	import {makeStyleVars, toPx} from '@svizzle/dom';
 	import {
 		arrayMaxWith,
 		arrayMinWith,
 		getKey,
-		getValue
+		getValue,
+		makeMergeAppliedFnMap,
 	} from '@svizzle/utils';
 
 	const dispatch = createEventDispatcher();
+	const sortByValue = sortWith([getValue]);
 	const transparentColor = 'rgba(0,0,0,0)';
+
+	const augmentTheme = makeMergeAppliedFnMap({
+		paddingPx: pipe([x => x.padding, toPx])
+	});
 
 	const defaultTheme = {
 		// exposed but undocumented
@@ -31,7 +43,10 @@
 		fontSize: 14,
 		headerHeight: '2em',
 		hoverColor: 'rgba(0, 0, 0, 0.05)',
-		padding: '10px',
+		padding: 10,
+		refColor: 'grey',
+		refDasharray: '4 4',
+		refWidth: 0.5,
 		textColor: 'grey',
 		titleFontSize: '1.5em',
 	};
@@ -45,6 +60,7 @@
 	export let keyToColorFn;
 	export let keyToLabel;
 	export let keyToLabelFn;
+	export let refs;
 	export let shouldResetScroll;
 	export let selectedKeys;
 	export let shouldScrollToFocusedKey;
@@ -58,13 +74,17 @@
 	$: selectedKeys = selectedKeys || [];
 	$: shouldResetScroll = shouldResetScroll || false;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	$: valueAccessor = valueAccessor || getValue;
-
-	$: style = makeStyleVars(theme);
 
 	let height;
 	let hoveredKey;
 	let width;
+
+	$: style = makeStyleVars({
+		...augmentTheme(theme),
+		refsHeightPx: toPx(refsHeight)
+	});
+
+	$: valueAccessor = valueAccessor || getValue;
 
 	$: barPadding = theme.fontSize / 2;
 	$: itemHeight = theme.fontSize + barHeight + 3 * barPadding;
@@ -113,6 +133,35 @@
 		}}
 	});
 	$: barsByKey = index(bars, getKey);
+
+	$: makeRefsLayout = pipe([
+		sortByValue,
+		mapWith((obj, idx) => {
+			const label = `${obj.key} (${obj.value})`;
+			const textLength = obj.key.length * theme.fontSize * 0.6;
+			const rectWidth = textLength + 2 * theme.padding;
+			const valueX = getX(obj.value);
+			const isRight = valueX + rectWidth > width;
+
+			return {
+				...obj,
+				isRight,
+				label,
+				rectWidth,
+				textLength,
+				textX: isRight ? -theme.padding : theme.padding,
+				valueX,
+				x: isRight ? -rectWidth : 0,
+				y: theme.padding + idx * (theme.padding + refHeight)
+			}
+		})
+	]);
+	$: refsLayout = refs && refs.length && makeRefsLayout(refs);
+
+	$: refHeight = theme.padding + theme.fontSize;
+	$: refsHeight =
+		refs && refs.length * (theme.padding + refHeight) + theme.padding
+		|| 0;
 
 	/* scroll */
 
@@ -181,75 +230,149 @@
 		<h2>{title}</h2>
 	</header>
 	{/if}
-	<main
-		bind:clientWidth={width}
-		bind:clientHeight={height}
-		bind:this={scrollable}
-		class:titled={title}
-		on:mouseleave={() => {hoveredKey = null}}
-	>
-		<svg {width} height={svgHeight}>
-			<rect class='bkg' {width} height={svgHeight} />
-			<g>
-				{#each bars as {
-					barColor,
-					bkgColor,
-					deselected,
-					displayValue,
-					dxKey,
-					isNeg,
-					key,
+	<main class:titled={title} >
+		<!-- ref labels -->
+		{#if refs}
+		<div class='refs'>
+			<svg {width} height={refsHeight}>
+				{#each refsLayout as {
+					color,
+					dasharray,
+					isRight,
 					label,
+					linewidth,
+					rectWidth,
+					textLength,
+					textX,
+					valueX,
 					x,
-					xValue,
-				}, index (key)}
+					y,
+				}}
 				<g
-					class:clickable={isInteractive}
-					class:deselected
-					class='item'
-					on:click={isInteractive && onClick(key)}
-					on:mouseenter={onMouseenter(key)}
-					on:mouseleave={isInteractive && onMouseleave(key)}
-					transform='translate(0, {itemHeight * index})'
+					class='ref'
+					transform='translate({valueX}, {y})'
 				>
 					<rect
-						{width}
-						fill={bkgColor}
-						height={itemHeight}
-					/>
-					<line
-						stroke={barColor}
-						stroke-width={barHeight}
-						x1={x0}
-						x2={x}
-						y1={barY}
-						y2={barY}
+						{x}
+						width={rectWidth}
+						height={refHeight}
 					/>
 					<text
-						class:neg={isNeg}
-						class='key'
-						dx={dxKey}
-						x={x0}
-						y={textY}
+						class:right={isRight}
+						x={textX}
+						y={refHeight / 2}
+						{textLength}
 					>{label}</text>
-					<text
-						class:neg={isNeg}
-						class='value'
-						x={xValue}
-						y={textY}
-					>{displayValue}</text>
+					<line
+						class='ref'
+						stroke={color || theme.refColor}
+						stroke-dasharray={dasharray || theme.refDasharray}
+						stroke-width={linewidth || theme.refWidth}
+						y1={refHeight}
+						y2={refsHeight - y}
+					/>
 				</g>
 				{/each}
-			</g>
-			{#if crossesZero}
-			<line
-				stroke={theme.axisColor}
-				x1={x0}
-				x2={x0}
-				y2={svgHeight}
-			/>
-			{/if}
-		</svg>
+			</svg>
+		</div>
+		{/if}
+
+		<div
+			bind:clientHeight={height}
+			bind:clientWidth={width}
+			bind:this={scrollable}
+			class:withrefs={refs && refs.length}
+			class='scrollable'
+			on:mouseleave={() => {hoveredKey = null}}
+		>
+			<svg {width} height={svgHeight}>
+				<rect class='bkg' {width} height={svgHeight} />
+
+				<!-- bars -->
+				<g>
+					{#each bars as {
+						barColor,
+						bkgColor,
+						deselected,
+						displayValue,
+						dxKey,
+						isNeg,
+						key,
+						label,
+						x,
+						xValue,
+					}, index (key)}
+					<g
+						class:clickable={isInteractive}
+						class:deselected
+						class='item'
+						on:click={isInteractive && onClick(key)}
+						on:mouseenter={onMouseenter(key)}
+						on:mouseleave={isInteractive && onMouseleave(key)}
+						transform='translate(0, {itemHeight * index})'
+					>
+						<rect
+							{width}
+							fill={bkgColor}
+							height={itemHeight}
+						/>
+						<line
+							stroke={barColor}
+							stroke-width={barHeight}
+							x1={x0}
+							x2={x}
+							y1={barY}
+							y2={barY}
+						/>
+						<text
+							class:neg={isNeg}
+							class='key'
+							dx={dxKey}
+							x={x0}
+							y={textY}
+						>{label}</text>
+						<text
+							class:neg={isNeg}
+							class='value'
+							x={xValue}
+							y={textY}
+						>{displayValue}</text>
+					</g>
+					{/each}
+				</g>
+
+				<!-- axis -->
+				{#if crossesZero}
+				<line
+					stroke={theme.axisColor}
+					x1={x0}
+					x2={x0}
+					y2={svgHeight}
+				/>
+				{/if}
+
+				<!-- refs lines -->
+				{#if refsLayout}
+				{#each refsLayout as {
+					color,
+					dasharray,
+					linewidth,
+					valueX: x,
+				}}
+				<line
+					class='ref'
+					stroke={color || theme.refColor}
+					stroke-dasharray={dasharray || theme.refDasharray}
+					stroke-width={linewidth || theme.refWidth}
+					x1={x}
+					x2={x}
+					y2={svgHeight}
+				/>
+				{/each}
+				{/if}
+
+			</svg>
+		</div>
 	</main>
 </div>
 
@@ -257,7 +380,7 @@
 	.BarchartVDiv {
 		width: 100%;
 		height: 100%;
-		padding: var(--padding);
+		padding: var(--paddingPx);
 	}
 
 	header {
@@ -276,17 +399,42 @@
 		width: 100%;
 		height: 100%;
 		max-height: 100%;
-		overflow-y: auto;
 	}
 	main.titled {
 		height: calc(100% - var(--headerHeight));
 		max-height: calc(100% - var(--headerHeight));
+	}
+	.refs {
+		width: 100%;
+		height: var(--refsHeightPx);
+	}
+
+	.scrollable {
+		width: 100%;
+		height: calc(100% - var(--refsHeightPx));
+		max-height: calc(100% - var(--refsHeightPx));
+		overflow-y: auto;
+	}
+
+	.ref rect {
+		stroke-width: 0.5;
+		stroke: black;
+		fill: white;
+	}
+	.ref text {
+		dominant-baseline: middle;
+		fill: black;
+		stroke: none;
+	}
+	.ref text.right {
+		text-anchor: end;
 	}
 
 	rect.bkg {
 		fill-opacity: var(--backgroundOpacity);
 		fill: var(--backgroundColor);
 	}
+
 	.item.clickable {
 		cursor: pointer;
 	}

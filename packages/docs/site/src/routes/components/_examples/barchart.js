@@ -518,6 +518,173 @@ export default formatExamples([
 	},
 	{
 		data: [{
+			key: 'With no title',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200}
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200}
+					]}
+				/>
+			`,
+		}, {
+			key: 'With a title',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200}
+				],
+				title: 'With a title'
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200}
+					]}
+					title='Compare it with national average'
+				/>
+			`,
+		}, {
+			key: 'Multiple refs, with a title',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200},
+					{key: 'Another value', value: 53},
+					{key: 'Yet another value', value: 700},
+				],
+				title: 'Multiple refs'
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200},
+						{key: 'Another value', value: 53},
+						{key: 'Yet another value', value: 400},
+					]}
+					title='Multiple refs'
+				/>
+			`,
+		}, {
+			key: 'Multiple refs, with axis',
+			props: {
+				items: countryKeyValueMixed,
+				refs: [
+					{key: 'Another value', value: -153},
+					{key: 'National average', value: 200},
+					{key: 'Yet another value', value: 700},
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'Another value', value: -153},
+						{key: 'National average', value: 200},
+						{key: 'Yet another value', value: 400},
+					]}
+				/>
+			`,
+		}, {
+			key: 'Common line style',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200},
+					{key: 'Another value', value: 53}
+				],
+				theme: {
+					refDasharray: '2 10',
+					refWidth: 2,
+					refColor: 'red',
+				},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200},
+						{key: 'Another value', value: 53}
+					]}
+					theme={{
+						refDasharray: '2 10',
+						refWidth: 2,
+						refColor: 'red',
+					}}
+				/>
+			`,
+		}, {
+			key: 'Specific line style',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200},
+					{
+						key: 'Another value',
+						value: 53,
+						dasharray: '4 10',
+						linewidth: 2,
+						color: 'blue',
+					},
+					{
+						key: 'Yet another value',
+						value: 400,
+						dasharray: '2 2',
+						color: 'orange',
+					},
+				],
+				theme: {
+					refDasharray: '2 10',
+					refWidth: 2,
+					refColor: 'red',
+				},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200},
+						{
+							key: 'Another value',
+							value: 53,
+							dasharray: '4 10',
+							linewidth: 2,
+							color: 'blue',
+						},
+						{
+							key: 'Yet another value',
+							value: 400,
+							dasharray: '2 2',
+							color: 'orange',
+						}
+					]}
+					theme={{
+						refDasharray: '2 10',
+						refWidth: 2,
+						refColor: 'red',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can show reference lines by providing an array `refs` with shape `{key, value}[]`.'},
+			{tag: 'p', content: 'You can style reference lines usind the `theme` props `refColor`, `refDasharray` and `refWidth`.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-refs',
+		title: 'Reference lines',
+	},
+	{
+		data: [{
 			key: 'All positive values',
 			props: {
 				isInteractive: true,

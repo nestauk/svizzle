@@ -38,11 +38,11 @@ import * as _ from 'lamb';
 export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
 
 /**
- * Return a function that applies the provided map to the expected object and merges te result to the object.
+ * Return a function that applies the provided map to the expected object and merges the result to the object.
  * This is useful to add new properties to an object, eventually modifying existing ones by using keys expected to be in the input objects.
  *
  * @function
- * @arg {object} fnMap - a map of keys and functions Any -> Any
+ * @arg {object} fnMap - a map key/function Any -> Any (applied to the object)
  * @return {function} - Object -> Object
  *
  * @example

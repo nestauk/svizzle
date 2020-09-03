@@ -1,7 +1,8 @@
 ## `@svizzle/barchart` v0.5.0 (next)
 
-- add prop `titleFontSize`
+- add prop `refs`
 - add prop `selectedKeys`
+- add prop `titleFontSize`
 - don't show the axis with positive and zeroes or negative and zeroes
 
 ## `@svizzle/barchart` v0.4.0
