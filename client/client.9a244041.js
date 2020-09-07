@@ -2018,19 +2018,19 @@ const ignore = [/^\/components\.json$/];
 
 const components = [
 	{
-		js: () => import('./index.fe904af8.js'),
+		js: () => import('./index.2fae96bd.js'),
 		css: []
 	},
 	{
-		js: () => import('./_layout.34144583.js'),
+		js: () => import('./_layout.ec32bae7.js'),
 		css: []
 	},
 	{
-		js: () => import('./index.d0702973.js'),
+		js: () => import('./index.dcddcc84.js'),
 		css: []
 	},
 	{
-		js: () => import('./[slug].4fbf6a98.js'),
+		js: () => import('./[slug].066e0833.js'),
 		css: []
 	}
 ];

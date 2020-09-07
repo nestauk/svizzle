@@ -1,5 +1,5 @@
-import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as validate_each_keys, W as createEventDispatcher, X as beforeUpdate, Y as afterUpdate, Z as svg_element, $ as is_function, a0 as run_all, a1 as add_render_callback, a2 as add_resize_listener, a3 as update_keyed_each, a4 as binding_callbacks, a5 as destroy_block, a6 as set_style, a7 as validate_store, a8 as component_subscribe, a9 as writable, aa as prop_dev, q as query_selector_all, ab as assign, ac as get_spread_update, ad as get_spread_object } from './client.b033306f.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity$2, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer$1, y as copy, z as initRange, A as ticks, B as format, C as _defineProperty, D as skipIf, E as isNil, F as pairs$1, G as index, H as updateKey, I as has, J as getPath, K as sort, L as adapter, M as map, N as reduce, O as isNotNil, P as isIterableNotEmpty, Q as every, R as hasKey, S as flatten, T as findIndexWhere, U as findLastIndexWhere, V as slice, W as uniques, X as filterWith, Y as concat, Z as mergeObj, $ as linear$1, a0 as pullFrom, a1 as lookup, a2 as _, a3 as setIn } from './_utils.e3bc92e8.js';
+import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as validate_each_keys, W as createEventDispatcher, X as beforeUpdate, Y as afterUpdate, Z as svg_element, $ as is_function, a0 as run_all, a1 as add_render_callback, a2 as add_resize_listener, a3 as update_keyed_each, a4 as binding_callbacks, a5 as destroy_block, a6 as set_style, a7 as validate_store, a8 as component_subscribe, a9 as writable, aa as prop_dev, q as query_selector_all, ab as assign, ac as get_spread_update, ad as get_spread_object } from './client.c488d31b.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity$1, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$2, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon2, R as epsilon, S as _defineProperty, T as skipIf, U as isNil, V as pairs$1, W as makeMergeAppliedFnMap, X as index, Y as isIn, Z as updateKey, $ as has, a0 as mercator, a1 as getPath, a2 as sort, a3 as adapter, a4 as map, a5 as reduce, a6 as isNotNil, a7 as isIterableNotEmpty, a8 as every, a9 as hasKey, aa as flatten, ab as findIndexWhere, ac as findLastIndexWhere, ad as slice, ae as uniques, af as filterWith, ag as concat, ah as mergeObj, ai as linear$1, aj as pullFrom, ak as lookup, al as _, am as setIn } from './_utils.1c4111cb.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -382,7 +382,7 @@ var sortValueDescKeyDesc = sortWith([sorterDesc(getValue), sorterDesc(getKey)]);
  */
 
 var makeKeyed = function makeKeyed(value) {
-  return pipe([collect([identity$2, mapWith(always(value))]), apply(make)]);
+  return pipe([collect([identity$1, mapWith(always(value))]), apply(make)]);
 };
 
 /**
@@ -770,7 +770,7 @@ function loggish(transform) {
   return scale;
 }
 function log() {
-  var scale = loggish(transformer$1()).domain([1, 10]);
+  var scale = loggish(transformer()).domain([1, 10]);
 
   scale.copy = function () {
     return copy(scale, log()).base(scale.base());
@@ -778,6 +778,451 @@ function log() {
 
   initRange.apply(scale, arguments);
   return scale;
+}
+
+var areaSum = adder(),
+    areaRingSum = adder(),
+    x00,
+    y00,
+    x0,
+    y0;
+var areaStream = {
+  point: noop,
+  lineStart: noop,
+  lineEnd: noop,
+  polygonStart: function polygonStart() {
+    areaStream.lineStart = areaRingStart;
+    areaStream.lineEnd = areaRingEnd;
+  },
+  polygonEnd: function polygonEnd() {
+    areaStream.lineStart = areaStream.lineEnd = areaStream.point = noop;
+    areaSum.add(abs(areaRingSum));
+    areaRingSum.reset();
+  },
+  result: function result() {
+    var area = areaSum / 2;
+    areaSum.reset();
+    return area;
+  }
+};
+
+function areaRingStart() {
+  areaStream.point = areaPointFirst;
+}
+
+function areaPointFirst(x, y) {
+  areaStream.point = areaPoint;
+  x00 = x0 = x, y00 = y0 = y;
+}
+
+function areaPoint(x, y) {
+  areaRingSum.add(y0 * x - x0 * y);
+  x0 = x, y0 = y;
+}
+
+function areaRingEnd() {
+  areaPoint(x00, y00);
+}
+
+var X0 = 0,
+    Y0 = 0,
+    Z0 = 0,
+    X1 = 0,
+    Y1 = 0,
+    Z1 = 0,
+    X2 = 0,
+    Y2 = 0,
+    Z2 = 0,
+    x00$1,
+    y00$1,
+    x0$1,
+    y0$1;
+var centroidStream = {
+  point: centroidPoint,
+  lineStart: centroidLineStart,
+  lineEnd: centroidLineEnd,
+  polygonStart: function polygonStart() {
+    centroidStream.lineStart = centroidRingStart;
+    centroidStream.lineEnd = centroidRingEnd;
+  },
+  polygonEnd: function polygonEnd() {
+    centroidStream.point = centroidPoint;
+    centroidStream.lineStart = centroidLineStart;
+    centroidStream.lineEnd = centroidLineEnd;
+  },
+  result: function result() {
+    var centroid = Z2 ? [X2 / Z2, Y2 / Z2] : Z1 ? [X1 / Z1, Y1 / Z1] : Z0 ? [X0 / Z0, Y0 / Z0] : [NaN, NaN];
+    X0 = Y0 = Z0 = X1 = Y1 = Z1 = X2 = Y2 = Z2 = 0;
+    return centroid;
+  }
+};
+
+function centroidPoint(x, y) {
+  X0 += x;
+  Y0 += y;
+  ++Z0;
+}
+
+function centroidLineStart() {
+  centroidStream.point = centroidPointFirstLine;
+}
+
+function centroidPointFirstLine(x, y) {
+  centroidStream.point = centroidPointLine;
+  centroidPoint(x0$1 = x, y0$1 = y);
+}
+
+function centroidPointLine(x, y) {
+  var dx = x - x0$1,
+      dy = y - y0$1,
+      z = sqrt(dx * dx + dy * dy);
+  X1 += z * (x0$1 + x) / 2;
+  Y1 += z * (y0$1 + y) / 2;
+  Z1 += z;
+  centroidPoint(x0$1 = x, y0$1 = y);
+}
+
+function centroidLineEnd() {
+  centroidStream.point = centroidPoint;
+}
+
+function centroidRingStart() {
+  centroidStream.point = centroidPointFirstRing;
+}
+
+function centroidRingEnd() {
+  centroidPointRing(x00$1, y00$1);
+}
+
+function centroidPointFirstRing(x, y) {
+  centroidStream.point = centroidPointRing;
+  centroidPoint(x00$1 = x0$1 = x, y00$1 = y0$1 = y);
+}
+
+function centroidPointRing(x, y) {
+  var dx = x - x0$1,
+      dy = y - y0$1,
+      z = sqrt(dx * dx + dy * dy);
+  X1 += z * (x0$1 + x) / 2;
+  Y1 += z * (y0$1 + y) / 2;
+  Z1 += z;
+  z = y0$1 * x - x0$1 * y;
+  X2 += z * (x0$1 + x);
+  Y2 += z * (y0$1 + y);
+  Z2 += z * 3;
+  centroidPoint(x0$1 = x, y0$1 = y);
+}
+
+function PathContext(context) {
+  this._context = context;
+}
+PathContext.prototype = {
+  _radius: 4.5,
+  pointRadius: function pointRadius(_) {
+    return this._radius = _, this;
+  },
+  polygonStart: function polygonStart() {
+    this._line = 0;
+  },
+  polygonEnd: function polygonEnd() {
+    this._line = NaN;
+  },
+  lineStart: function lineStart() {
+    this._point = 0;
+  },
+  lineEnd: function lineEnd() {
+    if (this._line === 0) this._context.closePath();
+    this._point = NaN;
+  },
+  point: function point(x, y) {
+    switch (this._point) {
+      case 0:
+        {
+          this._context.moveTo(x, y);
+
+          this._point = 1;
+          break;
+        }
+
+      case 1:
+        {
+          this._context.lineTo(x, y);
+
+          break;
+        }
+
+      default:
+        {
+          this._context.moveTo(x + this._radius, y);
+
+          this._context.arc(x, y, this._radius, 0, tau);
+
+          break;
+        }
+    }
+  },
+  result: noop
+};
+
+var lengthSum = adder(),
+    lengthRing,
+    x00$2,
+    y00$2,
+    x0$2,
+    y0$2;
+var lengthStream = {
+  point: noop,
+  lineStart: function lineStart() {
+    lengthStream.point = lengthPointFirst;
+  },
+  lineEnd: function lineEnd() {
+    if (lengthRing) lengthPoint(x00$2, y00$2);
+    lengthStream.point = noop;
+  },
+  polygonStart: function polygonStart() {
+    lengthRing = true;
+  },
+  polygonEnd: function polygonEnd() {
+    lengthRing = null;
+  },
+  result: function result() {
+    var length = +lengthSum;
+    lengthSum.reset();
+    return length;
+  }
+};
+
+function lengthPointFirst(x, y) {
+  lengthStream.point = lengthPoint;
+  x00$2 = x0$2 = x, y00$2 = y0$2 = y;
+}
+
+function lengthPoint(x, y) {
+  x0$2 -= x, y0$2 -= y;
+  lengthSum.add(sqrt(x0$2 * x0$2 + y0$2 * y0$2));
+  x0$2 = x, y0$2 = y;
+}
+
+function PathString() {
+  this._string = [];
+}
+PathString.prototype = {
+  _radius: 4.5,
+  _circle: circle(4.5),
+  pointRadius: function pointRadius(_) {
+    if ((_ = +_) !== this._radius) this._radius = _, this._circle = null;
+    return this;
+  },
+  polygonStart: function polygonStart() {
+    this._line = 0;
+  },
+  polygonEnd: function polygonEnd() {
+    this._line = NaN;
+  },
+  lineStart: function lineStart() {
+    this._point = 0;
+  },
+  lineEnd: function lineEnd() {
+    if (this._line === 0) this._string.push("Z");
+    this._point = NaN;
+  },
+  point: function point(x, y) {
+    switch (this._point) {
+      case 0:
+        {
+          this._string.push("M", x, ",", y);
+
+          this._point = 1;
+          break;
+        }
+
+      case 1:
+        {
+          this._string.push("L", x, ",", y);
+
+          break;
+        }
+
+      default:
+        {
+          if (this._circle == null) this._circle = circle(this._radius);
+
+          this._string.push("M", x, ",", y, this._circle);
+
+          break;
+        }
+    }
+  },
+  result: function result() {
+    if (this._string.length) {
+      var result = this._string.join("");
+
+      this._string = [];
+      return result;
+    } else {
+      return null;
+    }
+  }
+};
+
+function circle(radius) {
+  return "m0," + radius + "a" + radius + "," + radius + " 0 1,1 0," + -2 * radius + "a" + radius + "," + radius + " 0 1,1 0," + 2 * radius + "z";
+}
+
+function geoPath (projection, context) {
+  var pointRadius = 4.5,
+      projectionStream,
+      contextStream;
+
+  function path(object) {
+    if (object) {
+      if (typeof pointRadius === "function") contextStream.pointRadius(+pointRadius.apply(this, arguments));
+      geoStream(object, projectionStream(contextStream));
+    }
+
+    return contextStream.result();
+  }
+
+  path.area = function (object) {
+    geoStream(object, projectionStream(areaStream));
+    return areaStream.result();
+  };
+
+  path.measure = function (object) {
+    geoStream(object, projectionStream(lengthStream));
+    return lengthStream.result();
+  };
+
+  path.bounds = function (object) {
+    geoStream(object, projectionStream(boundsStream));
+    return boundsStream.result();
+  };
+
+  path.centroid = function (object) {
+    geoStream(object, projectionStream(centroidStream));
+    return centroidStream.result();
+  };
+
+  path.projection = function (_) {
+    return arguments.length ? (projectionStream = _ == null ? (projection = null, identity$2) : (projection = _).stream, path) : projection;
+  };
+
+  path.context = function (_) {
+    if (!arguments.length) return context;
+    contextStream = _ == null ? (context = null, new PathString()) : new PathContext(context = _);
+    if (typeof pointRadius !== "function") contextStream.pointRadius(pointRadius);
+    return path;
+  };
+
+  path.pointRadius = function (_) {
+    if (!arguments.length) return pointRadius;
+    pointRadius = typeof _ === "function" ? _ : (contextStream.pointRadius(+_), +_);
+    return path;
+  };
+
+  return path.projection(projection).context(context);
+}
+
+function azimuthalRaw(scale) {
+  return function (x, y) {
+    var cx = cos(x),
+        cy = cos(y),
+        k = scale(cx * cy);
+    return [k * cy * sin(x), k * sin(y)];
+  };
+}
+function azimuthalInvert(angle) {
+  return function (x, y) {
+    var z = sqrt(x * x + y * y),
+        c = angle(z),
+        sc = sin(c),
+        cc = cos(c);
+    return [atan2(x * sc, z * cc), asin(z && y * sc / z)];
+  };
+}
+
+var azimuthalEqualAreaRaw = azimuthalRaw(function (cxcy) {
+  return sqrt(2 / (1 + cxcy));
+});
+azimuthalEqualAreaRaw.invert = azimuthalInvert(function (z) {
+  return 2 * asin(z / 2);
+});
+function azimuthalEqualArea () {
+  return projection(azimuthalEqualAreaRaw).scale(124.75).clipAngle(180 - 1e-3);
+}
+
+var azimuthalEquidistantRaw = azimuthalRaw(function (c) {
+  return (c = acos(c)) && c / sin(c);
+});
+azimuthalEquidistantRaw.invert = azimuthalInvert(function (z) {
+  return z;
+});
+function azimuthalEquidistant () {
+  return projection(azimuthalEquidistantRaw).scale(79.4188).clipAngle(180 - 1e-3);
+}
+
+function equirectangularRaw(lambda, phi) {
+  return [lambda, phi];
+}
+equirectangularRaw.invert = equirectangularRaw;
+function equirectangular () {
+  return projection(equirectangularRaw).scale(152.63);
+}
+
+var A1 = 1.340264,
+    A2 = -0.081106,
+    A3 = 0.000893,
+    A4 = 0.003796,
+    M = sqrt(3) / 2,
+    iterations = 12;
+function equalEarthRaw(lambda, phi) {
+  var l = asin(M * sin(phi)),
+      l2 = l * l,
+      l6 = l2 * l2 * l2;
+  return [lambda * cos(l) / (M * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2))), l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2))];
+}
+
+equalEarthRaw.invert = function (x, y) {
+  var l = y,
+      l2 = l * l,
+      l6 = l2 * l2 * l2;
+
+  for (var i = 0, delta, fy, fpy; i < iterations; ++i) {
+    fy = l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2)) - y;
+    fpy = A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2);
+    l -= delta = fy / fpy, l2 = l * l, l6 = l2 * l2 * l2;
+    if (abs(delta) < epsilon2) break;
+  }
+
+  return [M * x * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2)) / cos(l), asin(sin(l) / M)];
+};
+
+function equalEarth () {
+  return projection(equalEarthRaw).scale(177.158);
+}
+
+function naturalEarth1Raw(lambda, phi) {
+  var phi2 = phi * phi,
+      phi4 = phi2 * phi2;
+  return [lambda * (0.8707 - 0.131979 * phi2 + phi4 * (-0.013791 + phi4 * (0.003971 * phi2 - 0.001529 * phi4))), phi * (1.007226 + phi2 * (0.015085 + phi4 * (-0.044475 + 0.028874 * phi2 - 0.005916 * phi4)))];
+}
+
+naturalEarth1Raw.invert = function (x, y) {
+  var phi = y,
+      i = 25,
+      delta;
+
+  do {
+    var phi2 = phi * phi,
+        phi4 = phi2 * phi2;
+    phi -= delta = (phi * (1.007226 + phi2 * (0.015085 + phi4 * (-0.044475 + 0.028874 * phi2 - 0.005916 * phi4))) - y) / (1.007226 + phi2 * (0.015085 * 3 + phi4 * (-0.044475 * 7 + 0.028874 * 9 * phi2 - 0.005916 * 11 * phi4)));
+  } while (abs(delta) > epsilon && --i > 0);
+
+  return [x / (0.8707 + (phi2 = phi * phi) * (-0.131979 + phi2 * (-0.013791 + phi2 * phi2 * phi2 * (0.003971 - 0.001529 * phi2)))), phi];
+};
+
+function naturalEarth1 () {
+  return projection(naturalEarth1Raw).scale(175.295);
 }
 
 var contextKey = {};
@@ -5946,6 +6391,24 @@ var makeStyle = pipe([skipIf(isNil), pairs$1, mapWith(joinWithColon), joinWithSe
  */
 
 var makeStyleVars = pipe([skipIf(isNil), pairs$1, mapWith(pipe([joinWithColon, prepend('--')])), joinWithSemicolon]);
+/**
+ * Return a px representation of the received number.
+ * Throws an error if the input is not a number.
+ *
+ * @function
+ * @arg {number} number
+ * @return {string}
+ *
+ * @example
+> toPx(10)
+'10px'
+ *
+ * @version 0.1.0
+ */
+
+var toPx = function toPx(number) {
+  return "".concat(number, "px");
+};
 
 function _createSuper$d(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$d(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -5958,21 +6421,47 @@ var file$7 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/bar
 
 function get_each_context$3(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[45] = list[i].barColor;
-  child_ctx[46] = list[i].bkgColor;
-  child_ctx[47] = list[i].displayValue;
-  child_ctx[48] = list[i].dxKey;
-  child_ctx[49] = list[i].isNeg;
-  child_ctx[50] = list[i].key;
-  child_ctx[51] = list[i].label;
-  child_ctx[52] = list[i].x;
-  child_ctx[53] = list[i].xValue;
-  child_ctx[55] = i;
+  child_ctx[53] = list[i].color;
+  child_ctx[54] = list[i].dasharray;
+  child_ctx[55] = list[i].linewidth;
+  child_ctx[56] = list[i].valueX;
   return child_ctx;
-} // (174:1) {#if title}
+}
+
+function get_each_context_1(ctx, list, i) {
+  var child_ctx = ctx.slice();
+  child_ctx[59] = list[i].barColor;
+  child_ctx[60] = list[i].bkgColor;
+  child_ctx[61] = list[i].deselected;
+  child_ctx[62] = list[i].displayValue;
+  child_ctx[63] = list[i].dxKey;
+  child_ctx[64] = list[i].isNeg;
+  child_ctx[65] = list[i].key;
+  child_ctx[66] = list[i].label;
+  child_ctx[56] = list[i].x;
+  child_ctx[67] = list[i].xValue;
+  child_ctx[69] = i;
+  return child_ctx;
+}
+
+function get_each_context_2(ctx, list, i) {
+  var child_ctx = ctx.slice();
+  child_ctx[53] = list[i].color;
+  child_ctx[54] = list[i].dasharray;
+  child_ctx[70] = list[i].isRight;
+  child_ctx[66] = list[i].label;
+  child_ctx[55] = list[i].linewidth;
+  child_ctx[71] = list[i].rectWidth;
+  child_ctx[72] = list[i].textLength;
+  child_ctx[73] = list[i].textX;
+  child_ctx[74] = list[i].valueX;
+  child_ctx[56] = list[i].x;
+  child_ctx[75] = list[i].y;
+  return child_ctx;
+} // (228:1) {#if title}
 
 
-function create_if_block_1$3(ctx) {
+function create_if_block_3$1(ctx) {
   var header;
   var h2;
   var t;
@@ -5982,7 +6471,7 @@ function create_if_block_1$3(ctx) {
       h2 = element("h2");
       t = text(
       /*title*/
-      ctx[3]);
+      ctx[4]);
       this.h();
     },
     l: function claim(nodes) {
@@ -5996,16 +6485,16 @@ function create_if_block_1$3(ctx) {
       var h2_nodes = children(h2);
       t = claim_text(h2_nodes,
       /*title*/
-      ctx[3]);
+      ctx[4]);
       h2_nodes.forEach(detach_dev);
       header_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
-      attr_dev(h2, "class", "svelte-79144u");
-      add_location(h2, file$7, 175, 2, 4165);
-      attr_dev(header, "class", "svelte-79144u");
-      add_location(header, file$7, 174, 1, 4154);
+      attr_dev(h2, "class", "svelte-18pi9lw");
+      add_location(h2, file$7, 229, 2, 5431);
+      attr_dev(header, "class", "svelte-18pi9lw");
+      add_location(header, file$7, 228, 1, 5420);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -6015,9 +6504,9 @@ function create_if_block_1$3(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*title*/
-      8) set_data_dev(t,
+      16) set_data_dev(t,
       /*title*/
-      ctx[3]);
+      ctx[4]);
     },
     d: function destroy(detaching) {
       if (detaching) detach_dev(header);
@@ -6025,16 +6514,406 @@ function create_if_block_1$3(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_1$3.name,
+    id: create_if_block_3$1.name,
     type: "if",
-    source: "(174:1) {#if title}",
+    source: "(228:1) {#if title}",
     ctx: ctx
   });
   return block;
-} // (189:4) {#each bars as {      barColor,      bkgColor,      displayValue,      dxKey,      isNeg,      key,      label,      x,      xValue,     }
+} // (235:2) {#if refs}
 
 
-function create_each_block$3(key_1, ctx) {
+function create_if_block_2$2(ctx) {
+  var div;
+  var svg;
+  var each_value_2 =
+  /*refsLayout*/
+  ctx[19];
+  validate_each_argument(each_value_2);
+  var each_blocks = [];
+
+  for (var i = 0; i < each_value_2.length; i += 1) {
+    each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+  }
+
+  var block = {
+    c: function create() {
+      div = element("div");
+      svg = svg_element("svg");
+
+      for (var _i = 0; _i < each_blocks.length; _i += 1) {
+        each_blocks[_i].c();
+      }
+
+      this.h();
+    },
+    l: function claim(nodes) {
+      div = claim_element(nodes, "DIV", {
+        class: true
+      });
+      var div_nodes = children(div);
+      svg = claim_element(div_nodes, "svg", {
+        width: true,
+        height: true
+      }, 1);
+      var svg_nodes = children(svg);
+
+      for (var _i2 = 0; _i2 < each_blocks.length; _i2 += 1) {
+        each_blocks[_i2].l(svg_nodes);
+      }
+
+      svg_nodes.forEach(detach_dev);
+      div_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(svg, "width",
+      /*width*/
+      ctx[7]);
+      attr_dev(svg, "height",
+      /*refsHeight*/
+      ctx[10]);
+      add_location(svg, file$7, 236, 3, 5555);
+      attr_dev(div, "class", "refs svelte-18pi9lw");
+      add_location(div, file$7, 235, 2, 5533);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, div, anchor);
+      append_dev(div, svg);
+
+      for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
+        each_blocks[_i3].m(svg, null);
+      }
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*refsLayout, theme, refHeight, refsHeight*/
+      787460) {
+        each_value_2 =
+        /*refsLayout*/
+        ctx[19];
+        validate_each_argument(each_value_2);
+
+        var _i4;
+
+        for (_i4 = 0; _i4 < each_value_2.length; _i4 += 1) {
+          var child_ctx = get_each_context_2(ctx, each_value_2, _i4);
+
+          if (each_blocks[_i4]) {
+            each_blocks[_i4].p(child_ctx, dirty);
+          } else {
+            each_blocks[_i4] = create_each_block_2(child_ctx);
+
+            each_blocks[_i4].c();
+
+            each_blocks[_i4].m(svg, null);
+          }
+        }
+
+        for (; _i4 < each_blocks.length; _i4 += 1) {
+          each_blocks[_i4].d(1);
+        }
+
+        each_blocks.length = each_value_2.length;
+      }
+
+      if (dirty[0] &
+      /*width*/
+      128) {
+        attr_dev(svg, "width",
+        /*width*/
+        ctx[7]);
+      }
+
+      if (dirty[0] &
+      /*refsHeight*/
+      1024) {
+        attr_dev(svg, "height",
+        /*refsHeight*/
+        ctx[10]);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(div);
+      destroy_each(each_blocks, detaching);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_2$2.name,
+    type: "if",
+    source: "(235:2) {#if refs}",
+    ctx: ctx
+  });
+  return block;
+} // (238:4) {#each refsLayout as {      color,      dasharray,      isRight,      label,      linewidth,      rectWidth,      textLength,      textX,      valueX,      x,      y,     }}
+
+
+function create_each_block_2(ctx) {
+  var g;
+  var rect;
+  var rect_x_value;
+  var rect_width_value;
+  var text_1;
+  var t_value =
+  /*label*/
+  ctx[66] + "";
+  var t;
+  var text_1_x_value;
+  var text_1_y_value;
+  var text_1_textLength_value;
+  var line;
+  var line_stroke_value;
+  var line_stroke_dasharray_value;
+  var line_stroke_width_value;
+  var line_y__value;
+  var g_transform_value;
+  var block = {
+    c: function create() {
+      g = svg_element("g");
+      rect = svg_element("rect");
+      text_1 = svg_element("text");
+      t = text(t_value);
+      line = svg_element("line");
+      this.h();
+    },
+    l: function claim(nodes) {
+      g = claim_element(nodes, "g", {
+        class: true,
+        transform: true
+      }, 1);
+      var g_nodes = children(g);
+      rect = claim_element(g_nodes, "rect", {
+        x: true,
+        width: true,
+        height: true,
+        class: true
+      }, 1);
+      children(rect).forEach(detach_dev);
+      text_1 = claim_element(g_nodes, "text", {
+        x: true,
+        y: true,
+        textLength: true,
+        class: true
+      }, 1);
+      var text_1_nodes = children(text_1);
+      t = claim_text(text_1_nodes, t_value);
+      text_1_nodes.forEach(detach_dev);
+      line = claim_element(g_nodes, "line", {
+        class: true,
+        stroke: true,
+        "stroke-dasharray": true,
+        "stroke-width": true,
+        y1: true,
+        y2: true
+      }, 1);
+      children(line).forEach(detach_dev);
+      g_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(rect, "x", rect_x_value =
+      /*x*/
+      ctx[56]);
+      attr_dev(rect, "width", rect_width_value =
+      /*rectWidth*/
+      ctx[71]);
+      attr_dev(rect, "height",
+      /*refHeight*/
+      ctx[18]);
+      attr_dev(rect, "class", "svelte-18pi9lw");
+      add_location(rect, file$7, 254, 5, 5844);
+      attr_dev(text_1, "x", text_1_x_value =
+      /*textX*/
+      ctx[73]);
+      attr_dev(text_1, "y", text_1_y_value =
+      /*refHeight*/
+      ctx[18] / 2);
+      attr_dev(text_1, "textLength", text_1_textLength_value =
+      /*textLength*/
+      ctx[72]);
+      attr_dev(text_1, "class", "svelte-18pi9lw");
+      toggle_class(text_1, "right",
+      /*isRight*/
+      ctx[70]);
+      add_location(text_1, file$7, 259, 5, 5922);
+      attr_dev(line, "class", "ref");
+      attr_dev(line, "stroke", line_stroke_value =
+      /*color*/
+      ctx[53] ||
+      /*theme*/
+      ctx[2].refColor);
+      attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
+      /*dasharray*/
+      ctx[54] ||
+      /*theme*/
+      ctx[2].refDasharray);
+      attr_dev(line, "stroke-width", line_stroke_width_value =
+      /*linewidth*/
+      ctx[55] ||
+      /*theme*/
+      ctx[2].refWidth);
+      attr_dev(line, "y1",
+      /*refHeight*/
+      ctx[18]);
+      attr_dev(line, "y2", line_y__value =
+      /*refsHeight*/
+      ctx[10] -
+      /*y*/
+      ctx[75]);
+      add_location(line, file$7, 265, 5, 6041);
+      attr_dev(g, "class", "ref svelte-18pi9lw");
+      attr_dev(g, "transform", g_transform_value = "translate(" +
+      /*valueX*/
+      ctx[74] + ", " +
+      /*y*/
+      ctx[75] + ")");
+      add_location(g, file$7, 250, 4, 5771);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, g, anchor);
+      append_dev(g, rect);
+      append_dev(g, text_1);
+      append_dev(text_1, t);
+      append_dev(g, line);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*refsLayout*/
+      524288 && rect_x_value !== (rect_x_value =
+      /*x*/
+      ctx[56])) {
+        attr_dev(rect, "x", rect_x_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      524288 && rect_width_value !== (rect_width_value =
+      /*rectWidth*/
+      ctx[71])) {
+        attr_dev(rect, "width", rect_width_value);
+      }
+
+      if (dirty[0] &
+      /*refHeight*/
+      262144) {
+        attr_dev(rect, "height",
+        /*refHeight*/
+        ctx[18]);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      524288 && t_value !== (t_value =
+      /*label*/
+      ctx[66] + "")) set_data_dev(t, t_value);
+
+      if (dirty[0] &
+      /*refsLayout*/
+      524288 && text_1_x_value !== (text_1_x_value =
+      /*textX*/
+      ctx[73])) {
+        attr_dev(text_1, "x", text_1_x_value);
+      }
+
+      if (dirty[0] &
+      /*refHeight*/
+      262144 && text_1_y_value !== (text_1_y_value =
+      /*refHeight*/
+      ctx[18] / 2)) {
+        attr_dev(text_1, "y", text_1_y_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      524288 && text_1_textLength_value !== (text_1_textLength_value =
+      /*textLength*/
+      ctx[72])) {
+        attr_dev(text_1, "textLength", text_1_textLength_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      524288) {
+        toggle_class(text_1, "right",
+        /*isRight*/
+        ctx[70]);
+      }
+
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      524292 && line_stroke_value !== (line_stroke_value =
+      /*color*/
+      ctx[53] ||
+      /*theme*/
+      ctx[2].refColor)) {
+        attr_dev(line, "stroke", line_stroke_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      524292 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
+      /*dasharray*/
+      ctx[54] ||
+      /*theme*/
+      ctx[2].refDasharray)) {
+        attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      524292 && line_stroke_width_value !== (line_stroke_width_value =
+      /*linewidth*/
+      ctx[55] ||
+      /*theme*/
+      ctx[2].refWidth)) {
+        attr_dev(line, "stroke-width", line_stroke_width_value);
+      }
+
+      if (dirty[0] &
+      /*refHeight*/
+      262144) {
+        attr_dev(line, "y1",
+        /*refHeight*/
+        ctx[18]);
+      }
+
+      if (dirty[0] &
+      /*refsHeight, refsLayout*/
+      525312 && line_y__value !== (line_y__value =
+      /*refsHeight*/
+      ctx[10] -
+      /*y*/
+      ctx[75])) {
+        attr_dev(line, "y2", line_y__value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      524288 && g_transform_value !== (g_transform_value = "translate(" +
+      /*valueX*/
+      ctx[74] + ", " +
+      /*y*/
+      ctx[75] + ")")) {
+        attr_dev(g, "transform", g_transform_value);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(g);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_each_block_2.name,
+    type: "each",
+    source: "(238:4) {#each refsLayout as {      color,      dasharray,      isRight,      label,      linewidth,      rectWidth,      textLength,      textX,      valueX,      x,      y,     }}",
+    ctx: ctx
+  });
+  return block;
+} // (293:5) {#each bars as {       barColor,       bkgColor,       deselected,       displayValue,       dxKey,       isNeg,       key,       label,       x,       xValue,      }
+
+
+function create_each_block_1(key_1, ctx) {
   var g;
   var rect;
   var rect_fill_value;
@@ -6044,13 +6923,13 @@ function create_each_block$3(key_1, ctx) {
   var text0;
   var t0_value =
   /*label*/
-  ctx[51] + "";
+  ctx[66] + "";
   var t0;
   var text0_dx_value;
   var text1;
   var t1_value =
   /*displayValue*/
-  ctx[47] + "";
+  ctx[62] + "";
   var t1;
   var text1_x_value;
   var g_transform_value;
@@ -6087,7 +6966,8 @@ function create_each_block$3(key_1, ctx) {
         x1: true,
         x2: true,
         y1: true,
-        y2: true
+        y2: true,
+        class: true
       }, 1);
       children(line).forEach(detach_dev);
       text0 = claim_element(g_nodes, "text", {
@@ -6113,68 +6993,72 @@ function create_each_block$3(key_1, ctx) {
     h: function hydrate() {
       attr_dev(rect, "width",
       /*width*/
-      ctx[6]);
+      ctx[7]);
       attr_dev(rect, "fill", rect_fill_value =
       /*bkgColor*/
-      ctx[46]);
+      ctx[60]);
       attr_dev(rect, "height",
       /*itemHeight*/
-      ctx[9]);
-      add_location(rect, file$7, 207, 5, 4840);
+      ctx[11]);
+      add_location(rect, file$7, 313, 6, 7115);
       attr_dev(line, "stroke", line_stroke_value =
       /*barColor*/
-      ctx[45]);
+      ctx[59]);
       attr_dev(line, "stroke-width",
       /*barHeight*/
       ctx[0]);
       attr_dev(line, "x1",
       /*x0*/
-      ctx[14]);
+      ctx[16]);
       attr_dev(line, "x2", line_x__value =
       /*x*/
-      ctx[52]);
+      ctx[56]);
       attr_dev(line, "y1",
       /*barY*/
-      ctx[10]);
+      ctx[12]);
       attr_dev(line, "y2",
       /*barY*/
-      ctx[10]);
-      add_location(line, file$7, 212, 5, 4921);
-      attr_dev(text0, "class", "key svelte-79144u");
+      ctx[12]);
+      attr_dev(line, "class", "svelte-18pi9lw");
+      add_location(line, file$7, 318, 6, 7201);
+      attr_dev(text0, "class", "key svelte-18pi9lw");
       attr_dev(text0, "dx", text0_dx_value =
       /*dxKey*/
-      ctx[48]);
+      ctx[63]);
       attr_dev(text0, "x",
       /*x0*/
-      ctx[14]);
+      ctx[16]);
       attr_dev(text0, "y",
       /*textY*/
-      ctx[11]);
+      ctx[13]);
       toggle_class(text0, "neg",
       /*isNeg*/
-      ctx[49]);
-      add_location(text0, file$7, 220, 5, 5054);
-      attr_dev(text1, "class", "value svelte-79144u");
+      ctx[64]);
+      add_location(text0, file$7, 326, 6, 7342);
+      attr_dev(text1, "class", "value svelte-18pi9lw");
       attr_dev(text1, "x", text1_x_value =
       /*xValue*/
-      ctx[53]);
+      ctx[67]);
       attr_dev(text1, "y",
       /*textY*/
-      ctx[11]);
+      ctx[13]);
       toggle_class(text1, "neg",
       /*isNeg*/
-      ctx[49]);
-      add_location(text1, file$7, 227, 5, 5174);
-      attr_dev(g, "class", "item svelte-79144u");
+      ctx[64]);
+      add_location(text1, file$7, 333, 6, 7469);
+      attr_dev(g, "class", "item svelte-18pi9lw");
       attr_dev(g, "transform", g_transform_value = "translate(0, " +
       /*itemHeight*/
-      ctx[9] *
+      ctx[11] *
       /*index*/
-      ctx[55] + ")");
+      ctx[69] + ")");
       toggle_class(g, "clickable",
       /*isInteractive*/
       ctx[1]);
-      add_location(g, file$7, 199, 4, 4612);
+      toggle_class(g, "deselected",
+      /*deselected*/
+      ctx[61]);
+      add_location(g, file$7, 304, 5, 6822);
       this.first = g;
     },
     m: function mount(target, anchor) {
@@ -6189,34 +7073,42 @@ function create_each_block$3(key_1, ctx) {
       if (!mounted) {
         dispose = [listen_dev(g, "click", function () {
           if (is_function(
+          /*isInteractive*/
+          ctx[1] &&
           /*onClick*/
-          ctx[16](
+          ctx[20](
           /*key*/
-          ctx[50])))
-            /*onClick*/
-            ctx[16](
-            /*key*/
-            ctx[50]).apply(this, arguments);
+          ctx[65]))) (
+          /*isInteractive*/
+          ctx[1] &&
+          /*onClick*/
+          ctx[20](
+          /*key*/
+          ctx[65])).apply(this, arguments);
         }, false, false, false), listen_dev(g, "mouseenter", function () {
           if (is_function(
           /*onMouseenter*/
-          ctx[17](
+          ctx[21](
           /*key*/
-          ctx[50])))
+          ctx[65])))
             /*onMouseenter*/
-            ctx[17](
+            ctx[21](
             /*key*/
-            ctx[50]).apply(this, arguments);
+            ctx[65]).apply(this, arguments);
         }, false, false, false), listen_dev(g, "mouseleave", function () {
           if (is_function(
+          /*isInteractive*/
+          ctx[1] &&
           /*onMouseleave*/
-          ctx[18](
+          ctx[22](
           /*key*/
-          ctx[50])))
-            /*onMouseleave*/
-            ctx[18](
-            /*key*/
-            ctx[50]).apply(this, arguments);
+          ctx[65]))) (
+          /*isInteractive*/
+          ctx[1] &&
+          /*onMouseleave*/
+          ctx[22](
+          /*key*/
+          ctx[65])).apply(this, arguments);
         }, false, false, false)];
         mounted = true;
       }
@@ -6226,33 +7118,33 @@ function create_each_block$3(key_1, ctx) {
 
       if (dirty[0] &
       /*width*/
-      64) {
+      128) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[6]);
+        ctx[7]);
       }
 
       if (dirty[0] &
       /*bars*/
-      32768 && rect_fill_value !== (rect_fill_value =
+      131072 && rect_fill_value !== (rect_fill_value =
       /*bkgColor*/
-      ctx[46])) {
+      ctx[60])) {
         attr_dev(rect, "fill", rect_fill_value);
       }
 
       if (dirty[0] &
       /*itemHeight*/
-      512) {
+      2048) {
         attr_dev(rect, "height",
         /*itemHeight*/
-        ctx[9]);
+        ctx[11]);
       }
 
       if (dirty[0] &
       /*bars*/
-      32768 && line_stroke_value !== (line_stroke_value =
+      131072 && line_stroke_value !== (line_stroke_value =
       /*barColor*/
-      ctx[45])) {
+      ctx[59])) {
         attr_dev(line, "stroke", line_stroke_value);
       }
 
@@ -6266,111 +7158,111 @@ function create_each_block$3(key_1, ctx) {
 
       if (dirty[0] &
       /*x0*/
-      16384) {
+      65536) {
         attr_dev(line, "x1",
         /*x0*/
-        ctx[14]);
+        ctx[16]);
       }
 
       if (dirty[0] &
       /*bars*/
-      32768 && line_x__value !== (line_x__value =
+      131072 && line_x__value !== (line_x__value =
       /*x*/
-      ctx[52])) {
+      ctx[56])) {
         attr_dev(line, "x2", line_x__value);
       }
 
       if (dirty[0] &
       /*barY*/
-      1024) {
+      4096) {
         attr_dev(line, "y1",
         /*barY*/
-        ctx[10]);
+        ctx[12]);
       }
 
       if (dirty[0] &
       /*barY*/
-      1024) {
+      4096) {
         attr_dev(line, "y2",
         /*barY*/
-        ctx[10]);
+        ctx[12]);
       }
 
       if (dirty[0] &
       /*bars*/
-      32768 && t0_value !== (t0_value =
+      131072 && t0_value !== (t0_value =
       /*label*/
-      ctx[51] + "")) set_data_dev(t0, t0_value);
+      ctx[66] + "")) set_data_dev(t0, t0_value);
 
       if (dirty[0] &
       /*bars*/
-      32768 && text0_dx_value !== (text0_dx_value =
+      131072 && text0_dx_value !== (text0_dx_value =
       /*dxKey*/
-      ctx[48])) {
+      ctx[63])) {
         attr_dev(text0, "dx", text0_dx_value);
       }
 
       if (dirty[0] &
       /*x0*/
-      16384) {
+      65536) {
         attr_dev(text0, "x",
         /*x0*/
-        ctx[14]);
+        ctx[16]);
       }
 
       if (dirty[0] &
       /*textY*/
-      2048) {
+      8192) {
         attr_dev(text0, "y",
         /*textY*/
-        ctx[11]);
+        ctx[13]);
       }
 
       if (dirty[0] &
       /*bars*/
-      32768) {
+      131072) {
         toggle_class(text0, "neg",
         /*isNeg*/
-        ctx[49]);
+        ctx[64]);
       }
 
       if (dirty[0] &
       /*bars*/
-      32768 && t1_value !== (t1_value =
+      131072 && t1_value !== (t1_value =
       /*displayValue*/
-      ctx[47] + "")) set_data_dev(t1, t1_value);
+      ctx[62] + "")) set_data_dev(t1, t1_value);
 
       if (dirty[0] &
       /*bars*/
-      32768 && text1_x_value !== (text1_x_value =
+      131072 && text1_x_value !== (text1_x_value =
       /*xValue*/
-      ctx[53])) {
+      ctx[67])) {
         attr_dev(text1, "x", text1_x_value);
       }
 
       if (dirty[0] &
       /*textY*/
-      2048) {
+      8192) {
         attr_dev(text1, "y",
         /*textY*/
-        ctx[11]);
+        ctx[13]);
       }
 
       if (dirty[0] &
       /*bars*/
-      32768) {
+      131072) {
         toggle_class(text1, "neg",
         /*isNeg*/
-        ctx[49]);
+        ctx[64]);
       }
 
       if (dirty[0] &
       /*itemHeight, bars*/
-      33280 && g_transform_value !== (g_transform_value = "translate(0, " +
+      133120 && g_transform_value !== (g_transform_value = "translate(0, " +
       /*itemHeight*/
-      ctx[9] *
+      ctx[11] *
       /*index*/
-      ctx[55] + ")")) {
+      ctx[69] + ")")) {
         attr_dev(g, "transform", g_transform_value);
       }
 
@@ -6381,6 +7273,14 @@ function create_each_block$3(key_1, ctx) {
         /*isInteractive*/
         ctx[1]);
       }
+
+      if (dirty[0] &
+      /*bars*/
+      131072) {
+        toggle_class(g, "deselected",
+        /*deselected*/
+        ctx[61]);
+      }
     },
     d: function destroy(detaching) {
       if (detaching) detach_dev(g);
@@ -6390,16 +7290,16 @@ function create_each_block$3(key_1, ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_each_block$3.name,
+    id: create_each_block_1.name,
     type: "each",
-    source: "(189:4) {#each bars as {      barColor,      bkgColor,      displayValue,      dxKey,      isNeg,      key,      label,      x,      xValue,     }",
+    source: "(293:5) {#each bars as {       barColor,       bkgColor,       deselected,       displayValue,       dxKey,       isNeg,       key,       label,       x,       xValue,      }",
     ctx: ctx
   });
   return block;
-} // (237:3) {#if crossesZero}
+} // (345:4) {#if crossesZero}
 
 
-function create_if_block$4(ctx) {
+function create_if_block_1$3(ctx) {
   var line;
   var line_stroke_value;
   var block = {
@@ -6423,14 +7323,14 @@ function create_if_block$4(ctx) {
       ctx[2].axisColor);
       attr_dev(line, "x1",
       /*x0*/
-      ctx[14]);
+      ctx[16]);
       attr_dev(line, "x2",
       /*x0*/
-      ctx[14]);
+      ctx[16]);
       attr_dev(line, "y2",
       /*svgHeight*/
-      ctx[12]);
-      add_location(line, file$7, 237, 3, 5338);
+      ctx[14]);
+      add_location(line, file$7, 345, 4, 7662);
     },
     m: function mount(target, anchor) {
       insert_dev(target, line, anchor);
@@ -6446,26 +7346,26 @@ function create_if_block$4(ctx) {
 
       if (dirty[0] &
       /*x0*/
-      16384) {
+      65536) {
         attr_dev(line, "x1",
         /*x0*/
-        ctx[14]);
+        ctx[16]);
       }
 
       if (dirty[0] &
       /*x0*/
-      16384) {
+      65536) {
         attr_dev(line, "x2",
         /*x0*/
-        ctx[14]);
+        ctx[16]);
       }
 
       if (dirty[0] &
       /*svgHeight*/
-      4096) {
+      16384) {
         attr_dev(line, "y2",
         /*svgHeight*/
-        ctx[12]);
+        ctx[14]);
       }
     },
     d: function destroy(detaching) {
@@ -6474,82 +7374,310 @@ function create_if_block$4(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
+    id: create_if_block_1$3.name,
+    type: "if",
+    source: "(345:4) {#if crossesZero}",
+    ctx: ctx
+  });
+  return block;
+} // (355:4) {#if refsLayout}
+
+
+function create_if_block$4(ctx) {
+  var each_1_anchor;
+  var each_value =
+  /*refsLayout*/
+  ctx[19];
+  validate_each_argument(each_value);
+  var each_blocks = [];
+
+  for (var i = 0; i < each_value.length; i += 1) {
+    each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
+  }
+
+  var block = {
+    c: function create() {
+      for (var _i5 = 0; _i5 < each_blocks.length; _i5 += 1) {
+        each_blocks[_i5].c();
+      }
+
+      each_1_anchor = empty();
+    },
+    l: function claim(nodes) {
+      for (var _i6 = 0; _i6 < each_blocks.length; _i6 += 1) {
+        each_blocks[_i6].l(nodes);
+      }
+
+      each_1_anchor = empty();
+    },
+    m: function mount(target, anchor) {
+      for (var _i7 = 0; _i7 < each_blocks.length; _i7 += 1) {
+        each_blocks[_i7].m(target, anchor);
+      }
+
+      insert_dev(target, each_1_anchor, anchor);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*refsLayout, theme, svgHeight*/
+      540676) {
+        each_value =
+        /*refsLayout*/
+        ctx[19];
+        validate_each_argument(each_value);
+
+        var _i8;
+
+        for (_i8 = 0; _i8 < each_value.length; _i8 += 1) {
+          var child_ctx = get_each_context$3(ctx, each_value, _i8);
+
+          if (each_blocks[_i8]) {
+            each_blocks[_i8].p(child_ctx, dirty);
+          } else {
+            each_blocks[_i8] = create_each_block$3(child_ctx);
+
+            each_blocks[_i8].c();
+
+            each_blocks[_i8].m(each_1_anchor.parentNode, each_1_anchor);
+          }
+        }
+
+        for (; _i8 < each_blocks.length; _i8 += 1) {
+          each_blocks[_i8].d(1);
+        }
+
+        each_blocks.length = each_value.length;
+      }
+    },
+    d: function destroy(detaching) {
+      destroy_each(each_blocks, detaching);
+      if (detaching) detach_dev(each_1_anchor);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
     id: create_if_block$4.name,
     type: "if",
-    source: "(237:3) {#if crossesZero}",
+    source: "(355:4) {#if refsLayout}",
+    ctx: ctx
+  });
+  return block;
+} // (356:4) {#each refsLayout as {      color,      dasharray,      linewidth,      valueX: x,     }}
+
+
+function create_each_block$3(ctx) {
+  var line;
+  var line_stroke_value;
+  var line_stroke_dasharray_value;
+  var line_stroke_width_value;
+  var line_x__value;
+  var line_x__value_1;
+  var block = {
+    c: function create() {
+      line = svg_element("line");
+      this.h();
+    },
+    l: function claim(nodes) {
+      line = claim_element(nodes, "line", {
+        class: true,
+        stroke: true,
+        "stroke-dasharray": true,
+        "stroke-width": true,
+        x1: true,
+        x2: true,
+        y2: true
+      }, 1);
+      children(line).forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(line, "class", "ref");
+      attr_dev(line, "stroke", line_stroke_value =
+      /*color*/
+      ctx[53] ||
+      /*theme*/
+      ctx[2].refColor);
+      attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
+      /*dasharray*/
+      ctx[54] ||
+      /*theme*/
+      ctx[2].refDasharray);
+      attr_dev(line, "stroke-width", line_stroke_width_value =
+      /*linewidth*/
+      ctx[55] ||
+      /*theme*/
+      ctx[2].refWidth);
+      attr_dev(line, "x1", line_x__value =
+      /*x*/
+      ctx[56]);
+      attr_dev(line, "x2", line_x__value_1 =
+      /*x*/
+      ctx[56]);
+      attr_dev(line, "y2",
+      /*svgHeight*/
+      ctx[14]);
+      add_location(line, file$7, 361, 4, 7905);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, line, anchor);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      524292 && line_stroke_value !== (line_stroke_value =
+      /*color*/
+      ctx[53] ||
+      /*theme*/
+      ctx[2].refColor)) {
+        attr_dev(line, "stroke", line_stroke_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      524292 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
+      /*dasharray*/
+      ctx[54] ||
+      /*theme*/
+      ctx[2].refDasharray)) {
+        attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      524292 && line_stroke_width_value !== (line_stroke_width_value =
+      /*linewidth*/
+      ctx[55] ||
+      /*theme*/
+      ctx[2].refWidth)) {
+        attr_dev(line, "stroke-width", line_stroke_width_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      524288 && line_x__value !== (line_x__value =
+      /*x*/
+      ctx[56])) {
+        attr_dev(line, "x1", line_x__value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      524288 && line_x__value_1 !== (line_x__value_1 =
+      /*x*/
+      ctx[56])) {
+        attr_dev(line, "x2", line_x__value_1);
+      }
+
+      if (dirty[0] &
+      /*svgHeight*/
+      16384) {
+        attr_dev(line, "y2",
+        /*svgHeight*/
+        ctx[14]);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(line);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_each_block$3.name,
+    type: "each",
+    source: "(356:4) {#each refsLayout as {      color,      dasharray,      linewidth,      valueX: x,     }}",
     ctx: ctx
   });
   return block;
 }
 
 function create_fragment$d(ctx) {
-  var div;
-  var t;
+  var div1;
+  var t0;
   var main;
+  var t1;
+  var div0;
   var svg;
   var rect;
   var g;
   var each_blocks = [];
   var each_1_lookup = new Map();
-  var main_resize_listener;
+  var if_block2_anchor;
+  var div0_resize_listener;
   var mounted;
   var dispose;
   var if_block0 =
   /*title*/
-  ctx[3] && create_if_block_1$3(ctx);
-  var each_value =
+  ctx[4] && create_if_block_3$1(ctx);
+  var if_block1 =
+  /*refs*/
+  ctx[3] && create_if_block_2$2(ctx);
+  var each_value_1 =
   /*bars*/
-  ctx[15];
-  validate_each_argument(each_value);
+  ctx[17];
+  validate_each_argument(each_value_1);
 
   var get_key = function get_key(ctx) {
     return (
       /*key*/
-      ctx[50]
+      ctx[65]
     );
   };
 
-  validate_each_keys(ctx, each_value, get_each_context$3, get_key);
+  validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
 
-  for (var i = 0; i < each_value.length; i += 1) {
-    var child_ctx = get_each_context$3(ctx, each_value, i);
+  for (var i = 0; i < each_value_1.length; i += 1) {
+    var child_ctx = get_each_context_1(ctx, each_value_1, i);
     var key = get_key(child_ctx);
-    each_1_lookup.set(key, each_blocks[i] = create_each_block$3(key, child_ctx));
+    each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
   }
 
-  var if_block1 =
+  var if_block2 =
   /*crossesZero*/
-  ctx[13] && create_if_block$4(ctx);
+  ctx[15] && create_if_block_1$3(ctx);
+  var if_block3 =
+  /*refsLayout*/
+  ctx[19] && create_if_block$4(ctx);
   var block = {
     c: function create() {
-      div = element("div");
+      div1 = element("div");
       if (if_block0) if_block0.c();
-      t = space();
+      t0 = space();
       main = element("main");
+      if (if_block1) if_block1.c();
+      t1 = space();
+      div0 = element("div");
       svg = svg_element("svg");
       rect = svg_element("rect");
       g = svg_element("g");
 
-      for (var _i = 0; _i < each_blocks.length; _i += 1) {
-        each_blocks[_i].c();
+      for (var _i9 = 0; _i9 < each_blocks.length; _i9 += 1) {
+        each_blocks[_i9].c();
       }
 
-      if (if_block1) if_block1.c();
+      if (if_block2) if_block2.c();
+      if_block2_anchor = empty();
+      if (if_block3) if_block3.c();
       this.h();
     },
     l: function claim(nodes) {
-      div = claim_element(nodes, "DIV", {
+      div1 = claim_element(nodes, "DIV", {
         style: true,
         class: true
       });
-      var div_nodes = children(div);
-      if (if_block0) if_block0.l(div_nodes);
-      t = claim_space(div_nodes);
-      main = claim_element(div_nodes, "MAIN", {
+      var div1_nodes = children(div1);
+      if (if_block0) if_block0.l(div1_nodes);
+      t0 = claim_space(div1_nodes);
+      main = claim_element(div1_nodes, "MAIN", {
         class: true
       });
       var main_nodes = children(main);
-      svg = claim_element(main_nodes, "svg", {
+      if (if_block1) if_block1.l(main_nodes);
+      t1 = claim_space(main_nodes);
+      div0 = claim_element(main_nodes, "DIV", {
+        class: true
+      });
+      var div0_nodes = children(div0);
+      svg = claim_element(div0_nodes, "svg", {
         width: true,
         height: true
       }, 1);
@@ -6563,131 +7691,119 @@ function create_fragment$d(ctx) {
       g = claim_element(svg_nodes, "g", {}, 1);
       var g_nodes = children(g);
 
-      for (var _i2 = 0; _i2 < each_blocks.length; _i2 += 1) {
-        each_blocks[_i2].l(g_nodes);
+      for (var _i10 = 0; _i10 < each_blocks.length; _i10 += 1) {
+        each_blocks[_i10].l(g_nodes);
       }
 
       g_nodes.forEach(detach_dev);
-      if (if_block1) if_block1.l(svg_nodes);
+      if (if_block2) if_block2.l(svg_nodes);
+      if_block2_anchor = empty();
+      if (if_block3) if_block3.l(svg_nodes);
       svg_nodes.forEach(detach_dev);
+      div0_nodes.forEach(detach_dev);
       main_nodes.forEach(detach_dev);
-      div_nodes.forEach(detach_dev);
+      div1_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
-      attr_dev(rect, "class", "bkg svelte-79144u");
+      attr_dev(rect, "class", "bkg svelte-18pi9lw");
       attr_dev(rect, "width",
       /*width*/
-      ctx[6]);
+      ctx[7]);
       attr_dev(rect, "height",
       /*svgHeight*/
-      ctx[12]);
-      add_location(rect, file$7, 186, 3, 4396);
-      add_location(g, file$7, 187, 3, 4447);
+      ctx[14]);
+      add_location(rect, file$7, 288, 4, 6556);
+      add_location(g, file$7, 291, 4, 6627);
       attr_dev(svg, "width",
       /*width*/
-      ctx[6]);
+      ctx[7]);
       attr_dev(svg, "height",
       /*svgHeight*/
-      ctx[12]);
-      add_location(svg, file$7, 185, 2, 4360);
-      attr_dev(main, "class", "svelte-79144u");
+      ctx[14]);
+      add_location(svg, file$7, 287, 3, 6519);
+      attr_dev(div0, "class", "scrollable svelte-18pi9lw");
       add_render_callback(function () {
         return (
-          /*main_elementresize_handler*/
-          ctx[29].call(main)
+          /*div0_elementresize_handler*/
+          ctx[34].call(div0)
         );
       });
+      toggle_class(div0, "withrefs",
+      /*refs*/
+      ctx[3] &&
+      /*refs*/
+      ctx[3].length);
+      add_location(div0, file$7, 279, 2, 6316);
+      attr_dev(main, "class", "svelte-18pi9lw");
       toggle_class(main, "titled",
       /*title*/
-      ctx[3]);
-      add_location(main, file$7, 178, 1, 4201);
-      attr_dev(div, "style",
+      ctx[4]);
+      add_location(main, file$7, 232, 1, 5467);
+      attr_dev(div1, "style",
       /*style*/
-      ctx[8]);
-      attr_dev(div, "class", "BarchartVDiv svelte-79144u");
-      add_location(div, file$7, 169, 0, 4102);
+      ctx[9]);
+      attr_dev(div1, "class", "BarchartVDiv svelte-18pi9lw");
+      add_location(div1, file$7, 223, 0, 5368);
     },
     m: function mount(target, anchor) {
-      insert_dev(target, div, anchor);
-      if (if_block0) if_block0.m(div, null);
-      append_dev(div, t);
-      append_dev(div, main);
-      append_dev(main, svg);
+      insert_dev(target, div1, anchor);
+      if (if_block0) if_block0.m(div1, null);
+      append_dev(div1, t0);
+      append_dev(div1, main);
+      if (if_block1) if_block1.m(main, null);
+      append_dev(main, t1);
+      append_dev(main, div0);
+      append_dev(div0, svg);
       append_dev(svg, rect);
       append_dev(svg, g);
 
-      for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
-        each_blocks[_i3].m(g, null);
+      for (var _i11 = 0; _i11 < each_blocks.length; _i11 += 1) {
+        each_blocks[_i11].m(g, null);
       }
 
-      if (if_block1) if_block1.m(svg, null);
-      main_resize_listener = add_resize_listener(main,
-      /*main_elementresize_handler*/
-      ctx[29].bind(main));
-      /*main_binding*/
+      if (if_block2) if_block2.m(svg, null);
+      append_dev(svg, if_block2_anchor);
+      if (if_block3) if_block3.m(svg, null);
+      div0_resize_listener = add_resize_listener(div0,
+      /*div0_elementresize_handler*/
+      ctx[34].bind(div0));
+      /*div0_binding*/
 
-      ctx[30](main);
+      ctx[35](div0);
 
       if (!mounted) {
-        dispose = listen_dev(main, "mouseleave",
+        dispose = listen_dev(div0, "mouseleave",
         /*mouseleave_handler*/
-        ctx[31], false, false, false);
+        ctx[36], false, false, false);
         mounted = true;
       }
     },
     p: function update(ctx, dirty) {
       if (
       /*title*/
-      ctx[3]) {
+      ctx[4]) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_1$3(ctx);
+          if_block0 = create_if_block_3$1(ctx);
           if_block0.c();
-          if_block0.m(div, t);
+          if_block0.m(div1, t0);
         }
       } else if (if_block0) {
         if_block0.d(1);
         if_block0 = null;
       }
 
-      if (dirty[0] &
-      /*width*/
-      64) {
-        attr_dev(rect, "width",
-        /*width*/
-        ctx[6]);
-      }
-
-      if (dirty[0] &
-      /*svgHeight*/
-      4096) {
-        attr_dev(rect, "height",
-        /*svgHeight*/
-        ctx[12]);
-      }
-
-      if (dirty[0] &
-      /*itemHeight, bars, isInteractive, onClick, onMouseenter, onMouseleave, textY, x0, barHeight, barY, width*/
-      511555) {
-        var _each_value =
-        /*bars*/
-        ctx[15];
-        validate_each_argument(_each_value);
-        validate_each_keys(ctx, _each_value, get_each_context$3, get_key);
-        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, _each_value, each_1_lookup, g, destroy_block, create_each_block$3, null, get_each_context$3);
-      }
-
       if (
-      /*crossesZero*/
-      ctx[13]) {
+      /*refs*/
+      ctx[3]) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
         } else {
-          if_block1 = create_if_block$4(ctx);
+          if_block1 = create_if_block_2$2(ctx);
           if_block1.c();
-          if_block1.m(svg, null);
+          if_block1.m(main, t1);
         }
       } else if (if_block1) {
         if_block1.d(1);
@@ -6696,51 +7812,120 @@ function create_fragment$d(ctx) {
 
       if (dirty[0] &
       /*width*/
-      64) {
-        attr_dev(svg, "width",
+      128) {
+        attr_dev(rect, "width",
         /*width*/
-        ctx[6]);
+        ctx[7]);
       }
 
       if (dirty[0] &
       /*svgHeight*/
-      4096) {
+      16384) {
+        attr_dev(rect, "height",
+        /*svgHeight*/
+        ctx[14]);
+      }
+
+      if (dirty[0] &
+      /*itemHeight, bars, isInteractive, onClick, onMouseenter, onMouseleave, textY, x0, barHeight, barY, width*/
+      7551107) {
+        var _each_value_ =
+        /*bars*/
+        ctx[17];
+        validate_each_argument(_each_value_);
+        validate_each_keys(ctx, _each_value_, get_each_context_1, get_key);
+        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, _each_value_, each_1_lookup, g, destroy_block, create_each_block_1, null, get_each_context_1);
+      }
+
+      if (
+      /*crossesZero*/
+      ctx[15]) {
+        if (if_block2) {
+          if_block2.p(ctx, dirty);
+        } else {
+          if_block2 = create_if_block_1$3(ctx);
+          if_block2.c();
+          if_block2.m(svg, if_block2_anchor);
+        }
+      } else if (if_block2) {
+        if_block2.d(1);
+        if_block2 = null;
+      }
+
+      if (
+      /*refsLayout*/
+      ctx[19]) {
+        if (if_block3) {
+          if_block3.p(ctx, dirty);
+        } else {
+          if_block3 = create_if_block$4(ctx);
+          if_block3.c();
+          if_block3.m(svg, null);
+        }
+      } else if (if_block3) {
+        if_block3.d(1);
+        if_block3 = null;
+      }
+
+      if (dirty[0] &
+      /*width*/
+      128) {
+        attr_dev(svg, "width",
+        /*width*/
+        ctx[7]);
+      }
+
+      if (dirty[0] &
+      /*svgHeight*/
+      16384) {
         attr_dev(svg, "height",
         /*svgHeight*/
-        ctx[12]);
+        ctx[14]);
+      }
+
+      if (dirty[0] &
+      /*refs*/
+      8) {
+        toggle_class(div0, "withrefs",
+        /*refs*/
+        ctx[3] &&
+        /*refs*/
+        ctx[3].length);
       }
 
       if (dirty[0] &
       /*title*/
-      8) {
+      16) {
         toggle_class(main, "titled",
         /*title*/
-        ctx[3]);
+        ctx[4]);
       }
 
       if (dirty[0] &
       /*style*/
-      256) {
-        attr_dev(div, "style",
+      512) {
+        attr_dev(div1, "style",
         /*style*/
-        ctx[8]);
+        ctx[9]);
       }
     },
     i: noop$1,
     o: noop$1,
     d: function destroy(detaching) {
-      if (detaching) detach_dev(div);
+      if (detaching) detach_dev(div1);
       if (if_block0) if_block0.d();
+      if (if_block1) if_block1.d();
 
-      for (var _i4 = 0; _i4 < each_blocks.length; _i4 += 1) {
-        each_blocks[_i4].d();
+      for (var _i12 = 0; _i12 < each_blocks.length; _i12 += 1) {
+        each_blocks[_i12].d();
       }
 
-      if (if_block1) if_block1.d();
-      main_resize_listener();
-      /*main_binding*/
+      if (if_block2) if_block2.d();
+      if (if_block3) if_block3.d();
+      div0_resize_listener();
+      /*div0_binding*/
 
-      ctx[30](null);
+      ctx[35](null);
       mounted = false;
       dispose();
     }
@@ -6759,6 +7944,12 @@ var transparentColor = "rgba(0,0,0,0)";
 
 function instance$d($$self, $$props, $$invalidate) {
   var dispatch = createEventDispatcher();
+  var sortByValue = sortWith([getValue]);
+  var augmentTheme = makeMergeAppliedFnMap({
+    paddingPx: pipe([function (x) {
+      return x.padding;
+    }, toPx])
+  });
   var defaultTheme = {
     // exposed but undocumented
     backgroundOpacity: 1,
@@ -6766,12 +7957,17 @@ function instance$d($$self, $$props, $$invalidate) {
     axisColor: "grey",
     backgroundColor: transparentColor,
     barDefaultColor: "black",
+    deselectedOpacity: 0.25,
     focusedKeyColor: "rgba(0, 0, 0, 0.1)",
     fontSize: 14,
-    headerHeight: "2rem",
+    headerHeight: "2em",
     hoverColor: "rgba(0, 0, 0, 0.05)",
-    padding: "10px",
-    textColor: "grey"
+    padding: 10,
+    refColor: "grey",
+    refDasharray: "4 4",
+    refWidth: 0.5,
+    textColor: "grey",
+    titleFontSize: "1.5em"
   };
   var barHeight = $$props.barHeight;
   var focusedKey = $$props.focusedKey;
@@ -6782,7 +7978,9 @@ function instance$d($$self, $$props, $$invalidate) {
   var keyToColorFn = $$props.keyToColorFn;
   var keyToLabel = $$props.keyToLabel;
   var keyToLabelFn = $$props.keyToLabelFn;
+  var refs = $$props.refs;
   var shouldResetScroll = $$props.shouldResetScroll;
+  var selectedKeys = $$props.selectedKeys;
   var shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey;
   var theme = $$props.theme;
   var title = $$props.title;
@@ -6796,13 +7994,13 @@ function instance$d($$self, $$props, $$invalidate) {
   var scrollable;
   var wasNotResettingScroll;
   beforeUpdate(function () {
-    $$invalidate(33, wasNotResettingScroll = !shouldResetScroll);
+    $$invalidate(38, wasNotResettingScroll = !shouldResetScroll);
   });
   /* events */
 
   var onClick = function onClick(key) {
     return function () {
-      isInteractive && dispatch("clicked", {
+      dispatch("clicked", {
         id: key
       });
     };
@@ -6810,22 +8008,22 @@ function instance$d($$self, $$props, $$invalidate) {
 
   var onMouseenter = function onMouseenter(key) {
     return function () {
+      $$invalidate(6, hoveredKey = key);
       isInteractive && dispatch("entered", {
         id: key
       });
-      $$invalidate(5, hoveredKey = key);
     };
   };
 
   var onMouseleave = function onMouseleave(key) {
     return function () {
-      isInteractive && dispatch("exited", {
+      dispatch("exited", {
         id: key
       });
     };
   };
 
-  var writable_props = ["barHeight", "focusedKey", "formatFn", "isInteractive", "items", "keyToColor", "keyToColorFn", "keyToLabel", "keyToLabelFn", "shouldResetScroll", "shouldScrollToFocusedKey", "theme", "title", "valueAccessor"];
+  var writable_props = ["barHeight", "focusedKey", "formatFn", "isInteractive", "items", "keyToColor", "keyToColorFn", "keyToLabel", "keyToLabelFn", "refs", "shouldResetScroll", "selectedKeys", "shouldScrollToFocusedKey", "theme", "title", "valueAccessor"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<BarchartVDiv> was created with unknown prop '".concat(key, "'"));
   });
@@ -6834,56 +8032,66 @@ function instance$d($$self, $$props, $$invalidate) {
       $$scope = $$props.$$scope;
   validate_slots("BarchartVDiv", $$slots, []);
 
-  function main_elementresize_handler() {
-    width = this.clientWidth;
+  function div0_elementresize_handler() {
     height = this.clientHeight;
-    $$invalidate(6, width);
-    $$invalidate(4, height);
+    width = this.clientWidth;
+    $$invalidate(5, height);
+    $$invalidate(7, width);
   }
 
-  function main_binding($$value) {
+  function div0_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](function () {
       scrollable = $$value;
-      ((($$invalidate(7, scrollable), $$invalidate(23, items)), $$invalidate(19, shouldResetScroll)), $$invalidate(32, previousItems)), $$invalidate(33, wasNotResettingScroll);
+      ((($$invalidate(8, scrollable), $$invalidate(28, items)), $$invalidate(23, shouldResetScroll)), $$invalidate(37, previousItems)), $$invalidate(38, wasNotResettingScroll);
     });
   }
 
   var mouseleave_handler = function mouseleave_handler() {
-    $$invalidate(5, hoveredKey = null);
+    $$invalidate(6, hoveredKey = null);
   };
 
   $$self.$set = function ($$props) {
     if ("barHeight" in $$props) $$invalidate(0, barHeight = $$props.barHeight);
-    if ("focusedKey" in $$props) $$invalidate(21, focusedKey = $$props.focusedKey);
-    if ("formatFn" in $$props) $$invalidate(22, formatFn = $$props.formatFn);
+    if ("focusedKey" in $$props) $$invalidate(26, focusedKey = $$props.focusedKey);
+    if ("formatFn" in $$props) $$invalidate(27, formatFn = $$props.formatFn);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
-    if ("items" in $$props) $$invalidate(23, items = $$props.items);
-    if ("keyToColor" in $$props) $$invalidate(24, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(25, keyToColorFn = $$props.keyToColorFn);
-    if ("keyToLabel" in $$props) $$invalidate(26, keyToLabel = $$props.keyToLabel);
-    if ("keyToLabelFn" in $$props) $$invalidate(27, keyToLabelFn = $$props.keyToLabelFn);
-    if ("shouldResetScroll" in $$props) $$invalidate(19, shouldResetScroll = $$props.shouldResetScroll);
-    if ("shouldScrollToFocusedKey" in $$props) $$invalidate(28, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
+    if ("items" in $$props) $$invalidate(28, items = $$props.items);
+    if ("keyToColor" in $$props) $$invalidate(29, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(30, keyToColorFn = $$props.keyToColorFn);
+    if ("keyToLabel" in $$props) $$invalidate(31, keyToLabel = $$props.keyToLabel);
+    if ("keyToLabelFn" in $$props) $$invalidate(32, keyToLabelFn = $$props.keyToLabelFn);
+    if ("refs" in $$props) $$invalidate(3, refs = $$props.refs);
+    if ("shouldResetScroll" in $$props) $$invalidate(23, shouldResetScroll = $$props.shouldResetScroll);
+    if ("selectedKeys" in $$props) $$invalidate(24, selectedKeys = $$props.selectedKeys);
+    if ("shouldScrollToFocusedKey" in $$props) $$invalidate(33, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
     if ("theme" in $$props) $$invalidate(2, theme = $$props.theme);
-    if ("title" in $$props) $$invalidate(3, title = $$props.title);
-    if ("valueAccessor" in $$props) $$invalidate(20, valueAccessor = $$props.valueAccessor);
+    if ("title" in $$props) $$invalidate(4, title = $$props.title);
+    if ("valueAccessor" in $$props) $$invalidate(25, valueAccessor = $$props.valueAccessor);
   };
 
   $$self.$capture_state = function () {
     return {
       isEqual: justCompare,
       index: index,
+      isIn: isIn,
+      mapWith: mapWith,
+      pipe: pipe,
+      sortWith: sortWith,
       afterUpdate: afterUpdate,
       beforeUpdate: beforeUpdate,
       createEventDispatcher: createEventDispatcher,
       linearScale: linear,
       makeStyleVars: makeStyleVars,
+      toPx: toPx,
       arrayMaxWith: arrayMaxWith,
       arrayMinWith: arrayMinWith,
       getKey: getKey,
       getValue: getValue,
+      makeMergeAppliedFnMap: makeMergeAppliedFnMap,
       dispatch: dispatch,
+      sortByValue: sortByValue,
       transparentColor: transparentColor,
+      augmentTheme: augmentTheme,
       defaultTheme: defaultTheme,
       barHeight: barHeight,
       focusedKey: focusedKey,
@@ -6894,7 +8102,9 @@ function instance$d($$self, $$props, $$invalidate) {
       keyToColorFn: keyToColorFn,
       keyToLabel: keyToLabel,
       keyToLabelFn: keyToLabelFn,
+      refs: refs,
       shouldResetScroll: shouldResetScroll,
+      selectedKeys: selectedKeys,
       shouldScrollToFocusedKey: shouldScrollToFocusedKey,
       theme: theme,
       title: title,
@@ -6909,6 +8119,7 @@ function instance$d($$self, $$props, $$invalidate) {
       onMouseenter: onMouseenter,
       onMouseleave: onMouseleave,
       style: style,
+      refsHeight: refsHeight,
       barPadding: barPadding,
       itemHeight: itemHeight,
       barY: barY,
@@ -6924,48 +8135,57 @@ function instance$d($$self, $$props, $$invalidate) {
       x0: x0,
       bars: bars,
       barsByKey: barsByKey,
+      makeRefsLayout: makeRefsLayout,
+      refHeight: refHeight,
+      refsLayout: refsLayout,
       focusedY: focusedY
     };
   };
 
   $$self.$inject_state = function ($$props) {
     if ("barHeight" in $$props) $$invalidate(0, barHeight = $$props.barHeight);
-    if ("focusedKey" in $$props) $$invalidate(21, focusedKey = $$props.focusedKey);
-    if ("formatFn" in $$props) $$invalidate(22, formatFn = $$props.formatFn);
+    if ("focusedKey" in $$props) $$invalidate(26, focusedKey = $$props.focusedKey);
+    if ("formatFn" in $$props) $$invalidate(27, formatFn = $$props.formatFn);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
-    if ("items" in $$props) $$invalidate(23, items = $$props.items);
-    if ("keyToColor" in $$props) $$invalidate(24, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(25, keyToColorFn = $$props.keyToColorFn);
-    if ("keyToLabel" in $$props) $$invalidate(26, keyToLabel = $$props.keyToLabel);
-    if ("keyToLabelFn" in $$props) $$invalidate(27, keyToLabelFn = $$props.keyToLabelFn);
-    if ("shouldResetScroll" in $$props) $$invalidate(19, shouldResetScroll = $$props.shouldResetScroll);
-    if ("shouldScrollToFocusedKey" in $$props) $$invalidate(28, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
+    if ("items" in $$props) $$invalidate(28, items = $$props.items);
+    if ("keyToColor" in $$props) $$invalidate(29, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(30, keyToColorFn = $$props.keyToColorFn);
+    if ("keyToLabel" in $$props) $$invalidate(31, keyToLabel = $$props.keyToLabel);
+    if ("keyToLabelFn" in $$props) $$invalidate(32, keyToLabelFn = $$props.keyToLabelFn);
+    if ("refs" in $$props) $$invalidate(3, refs = $$props.refs);
+    if ("shouldResetScroll" in $$props) $$invalidate(23, shouldResetScroll = $$props.shouldResetScroll);
+    if ("selectedKeys" in $$props) $$invalidate(24, selectedKeys = $$props.selectedKeys);
+    if ("shouldScrollToFocusedKey" in $$props) $$invalidate(33, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
     if ("theme" in $$props) $$invalidate(2, theme = $$props.theme);
-    if ("title" in $$props) $$invalidate(3, title = $$props.title);
-    if ("valueAccessor" in $$props) $$invalidate(20, valueAccessor = $$props.valueAccessor);
-    if ("height" in $$props) $$invalidate(4, height = $$props.height);
-    if ("hoveredKey" in $$props) $$invalidate(5, hoveredKey = $$props.hoveredKey);
-    if ("width" in $$props) $$invalidate(6, width = $$props.width);
-    if ("previousItems" in $$props) $$invalidate(32, previousItems = $$props.previousItems);
-    if ("scrollable" in $$props) $$invalidate(7, scrollable = $$props.scrollable);
-    if ("wasNotResettingScroll" in $$props) $$invalidate(33, wasNotResettingScroll = $$props.wasNotResettingScroll);
-    if ("style" in $$props) $$invalidate(8, style = $$props.style);
-    if ("barPadding" in $$props) $$invalidate(34, barPadding = $$props.barPadding);
-    if ("itemHeight" in $$props) $$invalidate(9, itemHeight = $$props.itemHeight);
-    if ("barY" in $$props) $$invalidate(10, barY = $$props.barY);
-    if ("textY" in $$props) $$invalidate(11, textY = $$props.textY);
-    if ("svgHeight" in $$props) $$invalidate(12, svgHeight = $$props.svgHeight);
-    if ("getMin" in $$props) $$invalidate(35, getMin = $$props.getMin);
-    if ("getMax" in $$props) $$invalidate(36, getMax = $$props.getMax);
-    if ("min" in $$props) $$invalidate(37, min = $$props.min);
-    if ("max" in $$props) $$invalidate(38, max = $$props.max);
-    if ("crossesZero" in $$props) $$invalidate(13, crossesZero = $$props.crossesZero);
-    if ("domain" in $$props) $$invalidate(39, domain = $$props.domain);
-    if ("getX" in $$props) $$invalidate(40, getX = $$props.getX);
-    if ("x0" in $$props) $$invalidate(14, x0 = $$props.x0);
-    if ("bars" in $$props) $$invalidate(15, bars = $$props.bars);
-    if ("barsByKey" in $$props) $$invalidate(41, barsByKey = $$props.barsByKey);
-    if ("focusedY" in $$props) $$invalidate(42, focusedY = $$props.focusedY);
+    if ("title" in $$props) $$invalidate(4, title = $$props.title);
+    if ("valueAccessor" in $$props) $$invalidate(25, valueAccessor = $$props.valueAccessor);
+    if ("height" in $$props) $$invalidate(5, height = $$props.height);
+    if ("hoveredKey" in $$props) $$invalidate(6, hoveredKey = $$props.hoveredKey);
+    if ("width" in $$props) $$invalidate(7, width = $$props.width);
+    if ("previousItems" in $$props) $$invalidate(37, previousItems = $$props.previousItems);
+    if ("scrollable" in $$props) $$invalidate(8, scrollable = $$props.scrollable);
+    if ("wasNotResettingScroll" in $$props) $$invalidate(38, wasNotResettingScroll = $$props.wasNotResettingScroll);
+    if ("style" in $$props) $$invalidate(9, style = $$props.style);
+    if ("refsHeight" in $$props) $$invalidate(10, refsHeight = $$props.refsHeight);
+    if ("barPadding" in $$props) $$invalidate(39, barPadding = $$props.barPadding);
+    if ("itemHeight" in $$props) $$invalidate(11, itemHeight = $$props.itemHeight);
+    if ("barY" in $$props) $$invalidate(12, barY = $$props.barY);
+    if ("textY" in $$props) $$invalidate(13, textY = $$props.textY);
+    if ("svgHeight" in $$props) $$invalidate(14, svgHeight = $$props.svgHeight);
+    if ("getMin" in $$props) $$invalidate(40, getMin = $$props.getMin);
+    if ("getMax" in $$props) $$invalidate(41, getMax = $$props.getMax);
+    if ("min" in $$props) $$invalidate(42, min = $$props.min);
+    if ("max" in $$props) $$invalidate(43, max = $$props.max);
+    if ("crossesZero" in $$props) $$invalidate(15, crossesZero = $$props.crossesZero);
+    if ("domain" in $$props) $$invalidate(44, domain = $$props.domain);
+    if ("getX" in $$props) $$invalidate(45, getX = $$props.getX);
+    if ("x0" in $$props) $$invalidate(16, x0 = $$props.x0);
+    if ("bars" in $$props) $$invalidate(17, bars = $$props.bars);
+    if ("barsByKey" in $$props) $$invalidate(46, barsByKey = $$props.barsByKey);
+    if ("makeRefsLayout" in $$props) $$invalidate(47, makeRefsLayout = $$props.makeRefsLayout);
+    if ("refHeight" in $$props) $$invalidate(18, refHeight = $$props.refHeight);
+    if ("refsLayout" in $$props) $$invalidate(19, refsLayout = $$props.refsLayout);
+    if ("focusedY" in $$props) $$invalidate(48, focusedY = $$props.focusedY);
   };
 
   var style;
@@ -6984,6 +8204,10 @@ function instance$d($$self, $$props, $$invalidate) {
   var x0;
   var bars;
   var barsByKey;
+  var makeRefsLayout;
+  var refsLayout;
+  var refHeight;
+  var refsHeight;
   var focusedY;
 
   if ($$props && "$$inject" in $$props) {
@@ -7005,9 +8229,15 @@ function instance$d($$self, $$props, $$invalidate) {
     }
 
     if ($$self.$$.dirty[0] &
+    /*selectedKeys*/
+    16777216) {
+       $$invalidate(24, selectedKeys = selectedKeys || []);
+    }
+
+    if ($$self.$$.dirty[0] &
     /*shouldResetScroll*/
-    524288) {
-       $$invalidate(19, shouldResetScroll = shouldResetScroll || false);
+    8388608) {
+       $$invalidate(23, shouldResetScroll = shouldResetScroll || false);
     }
 
     if ($$self.$$.dirty[0] &
@@ -7017,115 +8247,129 @@ function instance$d($$self, $$props, $$invalidate) {
     }
 
     if ($$self.$$.dirty[0] &
+    /*theme*/
+    4) {
+       $$invalidate(18, refHeight = theme.padding + theme.fontSize);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*refs, theme, refHeight*/
+    262156) {
+       $$invalidate(10, refsHeight = refs && refs.length * (theme.padding + refHeight) + theme.padding || 0);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*theme, refsHeight*/
+    1028) {
+       $$invalidate(9, style = makeStyleVars(_objectSpread$2(_objectSpread$2({}, augmentTheme(theme)), {}, {
+        refsHeightPx: toPx(refsHeight)
+      })));
+    }
+
+    if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    1048576) {
-       $$invalidate(20, valueAccessor = valueAccessor || getValue);
+    33554432) {
+       $$invalidate(25, valueAccessor = valueAccessor || getValue);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
     4) {
-       $$invalidate(8, style = makeStyleVars(theme));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*theme*/
-    4) {
-       $$invalidate(34, barPadding = theme.fontSize / 2);
+       $$invalidate(39, barPadding = theme.fontSize / 2);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme, barHeight*/
     5 | $$self.$$.dirty[1] &
     /*barPadding*/
-    8) {
-       $$invalidate(9, itemHeight = theme.fontSize + barHeight + 3 * barPadding);
+    256) {
+       $$invalidate(11, itemHeight = theme.fontSize + barHeight + 3 * barPadding);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, barHeight*/
-    513 | $$self.$$.dirty[1] &
+    2049 | $$self.$$.dirty[1] &
     /*barPadding*/
-    8) {
-       $$invalidate(10, barY = itemHeight - barPadding - barHeight / 2);
+    256) {
+       $$invalidate(12, barY = itemHeight - barPadding - barHeight / 2);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, barHeight*/
-    513 | $$self.$$.dirty[1] &
+    2049 | $$self.$$.dirty[1] &
     /*barPadding*/
-    8) {
-       $$invalidate(11, textY = itemHeight - barHeight - 2 * barPadding);
+    256) {
+       $$invalidate(13, textY = itemHeight - barHeight - 2 * barPadding);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, items*/
-    8389120) {
-       $$invalidate(12, svgHeight = itemHeight * items.length);
+    268437504) {
+       $$invalidate(14, svgHeight = itemHeight * items.length);
     }
 
     if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    1048576) {
-       $$invalidate(35, getMin = arrayMinWith(valueAccessor));
+    33554432) {
+       $$invalidate(40, getMin = arrayMinWith(valueAccessor));
     }
 
     if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    1048576) {
-       $$invalidate(36, getMax = arrayMaxWith(valueAccessor));
+    33554432) {
+       $$invalidate(41, getMax = arrayMaxWith(valueAccessor));
     }
 
     if ($$self.$$.dirty[0] &
     /*items*/
-    8388608 | $$self.$$.dirty[1] &
+    268435456 | $$self.$$.dirty[1] &
     /*getMin*/
-    16) {
-       $$invalidate(37, min = getMin(items));
+    512) {
+       $$invalidate(42, min = getMin(items));
     }
 
     if ($$self.$$.dirty[0] &
     /*items*/
-    8388608 | $$self.$$.dirty[1] &
+    268435456 | $$self.$$.dirty[1] &
     /*getMax*/
-    32) {
-       $$invalidate(38, max = getMax(items));
+    1024) {
+       $$invalidate(43, max = getMax(items));
     }
 
     if ($$self.$$.dirty[1] &
     /*min, max*/
-    192) {
-       $$invalidate(13, crossesZero = Math.sign(min) !== Math.sign(max));
+    6144) {
+       $$invalidate(15, crossesZero = Math.sign(min) === -Math.sign(max));
     }
 
     if ($$self.$$.dirty[0] &
     /*crossesZero*/
-    8192 | $$self.$$.dirty[1] &
+    32768 | $$self.$$.dirty[1] &
     /*min, max*/
-    192) {
-       $$invalidate(39, domain = crossesZero ? [min, max] : max > 0 ? [0, max] : [min, 0]);
+    6144) {
+       $$invalidate(44, domain = crossesZero ? [min, max] : max > 0 ? [0, max] : [min, 0]);
     }
 
     if ($$self.$$.dirty[0] &
     /*width*/
-    64 | $$self.$$.dirty[1] &
+    128 | $$self.$$.dirty[1] &
     /*domain*/
-    256) {
-       $$invalidate(40, getX = linear(domain, [0, width]));
+    8192) {
+       $$invalidate(45, getX = linear(domain, [0, width]));
     }
 
     if ($$self.$$.dirty[1] &
     /*getX*/
-    512) {
-       $$invalidate(14, x0 = getX(0));
+    16384) {
+       $$invalidate(16, x0 = getX(0));
     }
 
     if ($$self.$$.dirty[0] &
-    /*items, valueAccessor, keyToColor, theme, keyToColorFn, focusedKey, hoveredKey, formatFn, crossesZero, keyToLabel, keyToLabelFn, width, itemHeight*/
-    267395684 | $$self.$$.dirty[1] &
-    /*barPadding, getX*/
-    520) {
-       $$invalidate(15, bars = items.map(function (item, idx) {
+    /*items, valueAccessor, keyToColor, theme, keyToColorFn, focusedKey, hoveredKey, formatFn, crossesZero, selectedKeys, width, itemHeight*/
+    2130741444 | $$self.$$.dirty[1] &
+    /*barPadding, keyToLabel, keyToLabelFn, getX*/
+    16643) {
+       $$invalidate(17, bars = items.map(function (item, idx) {
         var value = valueAccessor(item);
         var isNeg = value < 0;
         return _objectSpread$2(_objectSpread$2({}, item), {
@@ -7135,6 +8379,7 @@ function instance$d($$self, $$props, $$invalidate) {
           dxKey: crossesZero ? isNeg ? -barPadding : barPadding : 0,
           isNeg: isNeg,
           label: keyToLabel && keyToLabel[item.key] ? keyToLabel[item.key] : keyToLabelFn ? keyToLabelFn(item.key) : item.key,
+          deselected: selectedKeys.length && !isIn(selectedKeys, item.key),
           x: getX(value),
           xValue: value > 0 ? width : 0,
           y: (idx + 1) * itemHeight // bottom of the item rect
@@ -7145,46 +8390,78 @@ function instance$d($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*bars*/
-    32768) {
-       $$invalidate(41, barsByKey = index(bars, getKey));
+    131072) {
+       $$invalidate(46, barsByKey = index(bars, getKey));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*theme, width, refHeight*/
+    262276 | $$self.$$.dirty[1] &
+    /*getX*/
+    16384) {
+       $$invalidate(47, makeRefsLayout = pipe([sortByValue, mapWith(function (obj, idx) {
+        var label = "".concat(obj.key, " (").concat(obj.value, ")");
+        var textLength = obj.key.length * theme.fontSize * 0.6;
+        var rectWidth = textLength + 2 * theme.padding;
+        var valueX = getX(obj.value);
+        var isRight = valueX + rectWidth > width;
+        return _objectSpread$2(_objectSpread$2({}, obj), {}, {
+          isRight: isRight,
+          label: label,
+          rectWidth: rectWidth,
+          textLength: textLength,
+          textX: isRight ? -theme.padding : theme.padding,
+          valueX: valueX,
+          x: isRight ? -rectWidth : 0,
+          y: theme.padding + idx * (theme.padding + refHeight)
+        });
+      })]));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*refs*/
+    8 | $$self.$$.dirty[1] &
+    /*makeRefsLayout*/
+    65536) {
+       $$invalidate(19, refsLayout = refs && refs.length && makeRefsLayout(refs));
     }
 
     if ($$self.$$.dirty[0] &
     /*items, shouldResetScroll*/
-    8912896 | $$self.$$.dirty[1] &
+    276824064 | $$self.$$.dirty[1] &
     /*previousItems*/
-    2) {
+    64) {
        afterUpdate(function () {
         if (items && shouldResetScroll && !justCompare(previousItems, items)) {
-          $$invalidate(7, scrollable.scrollTop = 0, scrollable);
-          $$invalidate(32, previousItems = items);
+          $$invalidate(8, scrollable.scrollTop = 0, scrollable);
+          $$invalidate(37, previousItems = items);
         }
       });
     }
 
     if ($$self.$$.dirty[0] &
     /*shouldResetScroll, scrollable*/
-    524416 | $$self.$$.dirty[1] &
+    8388864 | $$self.$$.dirty[1] &
     /*wasNotResettingScroll*/
-    4) {
+    128) {
        if (wasNotResettingScroll && shouldResetScroll && scrollable) {
-        $$invalidate(7, scrollable.scrollTop = 0, scrollable);
+        $$invalidate(8, scrollable.scrollTop = 0, scrollable);
       }
     }
 
     if ($$self.$$.dirty[0] &
-    /*shouldScrollToFocusedKey, focusedKey*/
-    270532608 | $$self.$$.dirty[1] &
-    /*barsByKey*/
-    1024) {
-       $$invalidate(42, focusedY = shouldScrollToFocusedKey && focusedKey && barsByKey[focusedKey] && barsByKey[focusedKey].y);
+    /*focusedKey*/
+    67108864 | $$self.$$.dirty[1] &
+    /*shouldScrollToFocusedKey, barsByKey*/
+    32772) {
+       $$invalidate(48, focusedY = shouldScrollToFocusedKey && focusedKey && barsByKey[focusedKey] && barsByKey[focusedKey].y);
     }
 
     if ($$self.$$.dirty[0] &
-    /*shouldScrollToFocusedKey, focusedKey, scrollable, itemHeight, height*/
-    270533264 | $$self.$$.dirty[1] &
-    /*focusedY*/
-    2048) {
+    /*focusedKey, scrollable, itemHeight, height*/
+    67111200 | $$self.$$.dirty[1] &
+    /*shouldScrollToFocusedKey, focusedY*/
+    131076) {
        if (shouldScrollToFocusedKey && focusedKey && scrollable) {
         var yAbs = -scrollable.scrollTop + focusedY;
 
@@ -7203,7 +8480,7 @@ function instance$d($$self, $$props, $$invalidate) {
     }
   };
 
-  return [barHeight, isInteractive, theme, title, height, hoveredKey, width, scrollable, style, itemHeight, barY, textY, svgHeight, crossesZero, x0, bars, onClick, onMouseenter, onMouseleave, shouldResetScroll, valueAccessor, focusedKey, formatFn, items, keyToColor, keyToColorFn, keyToLabel, keyToLabelFn, shouldScrollToFocusedKey, main_elementresize_handler, main_binding, mouseleave_handler];
+  return [barHeight, isInteractive, theme, refs, title, height, hoveredKey, width, scrollable, style, refsHeight, itemHeight, barY, textY, svgHeight, crossesZero, x0, bars, refHeight, refsLayout, onClick, onMouseenter, onMouseleave, shouldResetScroll, selectedKeys, valueAccessor, focusedKey, formatFn, items, keyToColor, keyToColorFn, keyToLabel, keyToLabelFn, shouldScrollToFocusedKey, div0_elementresize_handler, div0_binding, mouseleave_handler];
 }
 
 var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -7219,20 +8496,22 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$d, create_fragment$d, safe_not_equal, {
       barHeight: 0,
-      focusedKey: 21,
-      formatFn: 22,
+      focusedKey: 26,
+      formatFn: 27,
       isInteractive: 1,
-      items: 23,
-      keyToColor: 24,
-      keyToColorFn: 25,
-      keyToLabel: 26,
-      keyToLabelFn: 27,
-      shouldResetScroll: 19,
-      shouldScrollToFocusedKey: 28,
+      items: 28,
+      keyToColor: 29,
+      keyToColorFn: 30,
+      keyToLabel: 31,
+      keyToLabelFn: 32,
+      refs: 3,
+      shouldResetScroll: 23,
+      selectedKeys: 24,
+      shouldScrollToFocusedKey: 33,
       theme: 2,
-      title: 3,
-      valueAccessor: 20
-    }, [-1, -1]);
+      title: 4,
+      valueAccessor: 25
+    }, [-1, -1, -1]);
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
       tagName: "BarchartVDiv",
@@ -7250,13 +8529,13 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*focusedKey*/
-    ctx[21] === undefined && !("focusedKey" in props)) {
+    ctx[26] === undefined && !("focusedKey" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'focusedKey'");
     }
 
     if (
     /*formatFn*/
-    ctx[22] === undefined && !("formatFn" in props)) {
+    ctx[27] === undefined && !("formatFn" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'formatFn'");
     }
 
@@ -7268,43 +8547,55 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*items*/
-    ctx[23] === undefined && !("items" in props)) {
+    ctx[28] === undefined && !("items" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'items'");
     }
 
     if (
     /*keyToColor*/
-    ctx[24] === undefined && !("keyToColor" in props)) {
+    ctx[29] === undefined && !("keyToColor" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'keyToColor'");
     }
 
     if (
     /*keyToColorFn*/
-    ctx[25] === undefined && !("keyToColorFn" in props)) {
+    ctx[30] === undefined && !("keyToColorFn" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'keyToColorFn'");
     }
 
     if (
     /*keyToLabel*/
-    ctx[26] === undefined && !("keyToLabel" in props)) {
+    ctx[31] === undefined && !("keyToLabel" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'keyToLabel'");
     }
 
     if (
     /*keyToLabelFn*/
-    ctx[27] === undefined && !("keyToLabelFn" in props)) {
+    ctx[32] === undefined && !("keyToLabelFn" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'keyToLabelFn'");
     }
 
     if (
+    /*refs*/
+    ctx[3] === undefined && !("refs" in props)) {
+      console.warn("<BarchartVDiv> was created without expected prop 'refs'");
+    }
+
+    if (
     /*shouldResetScroll*/
-    ctx[19] === undefined && !("shouldResetScroll" in props)) {
+    ctx[23] === undefined && !("shouldResetScroll" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'shouldResetScroll'");
     }
 
     if (
+    /*selectedKeys*/
+    ctx[24] === undefined && !("selectedKeys" in props)) {
+      console.warn("<BarchartVDiv> was created without expected prop 'selectedKeys'");
+    }
+
+    if (
     /*shouldScrollToFocusedKey*/
-    ctx[28] === undefined && !("shouldScrollToFocusedKey" in props)) {
+    ctx[33] === undefined && !("shouldScrollToFocusedKey" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'shouldScrollToFocusedKey'");
     }
 
@@ -7316,13 +8607,13 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*title*/
-    ctx[3] === undefined && !("title" in props)) {
+    ctx[4] === undefined && !("title" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'title'");
     }
 
     if (
     /*valueAccessor*/
-    ctx[20] === undefined && !("valueAccessor" in props)) {
+    ctx[25] === undefined && !("valueAccessor" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'valueAccessor'");
     }
 
@@ -7402,7 +8693,23 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<BarchartVDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
+    key: "refs",
+    get: function get() {
+      throw new Error("<BarchartVDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<BarchartVDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
     key: "shouldResetScroll",
+    get: function get() {
+      throw new Error("<BarchartVDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<BarchartVDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "selectedKeys",
     get: function get() {
       throw new Error("<BarchartVDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     },
@@ -7450,2454 +8757,6 @@ var barchart = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	BarchartVDiv: BarchartVDiv
 });
-
-function identity (x) {
-  return x;
-}
-
-function transform (transform) {
-  if (transform == null) return identity;
-  var x0,
-      y0,
-      kx = transform.scale[0],
-      ky = transform.scale[1],
-      dx = transform.translate[0],
-      dy = transform.translate[1];
-  return function (input, i) {
-    if (!i) x0 = y0 = 0;
-    var j = 2,
-        n = input.length,
-        output = new Array(n);
-    output[0] = (x0 += input[0]) * kx + dx;
-    output[1] = (y0 += input[1]) * ky + dy;
-
-    while (j < n) {
-      output[j] = input[j], ++j;
-    }
-
-    return output;
-  };
-}
-
-function reverse (array, n) {
-  var t,
-      j = array.length,
-      i = j - n;
-
-  while (i < --j) {
-    t = array[i], array[i++] = array[j], array[j] = t;
-  }
-}
-
-function geoObject (topology, o) {
-  if (typeof o === "string") o = topology.objects[o];
-  return o.type === "GeometryCollection" ? {
-    type: "FeatureCollection",
-    features: o.geometries.map(function (o) {
-      return feature(topology, o);
-    })
-  } : feature(topology, o);
-}
-
-function feature(topology, o) {
-  var id = o.id,
-      bbox = o.bbox,
-      properties = o.properties == null ? {} : o.properties,
-      geometry = object(topology, o);
-  return id == null && bbox == null ? {
-    type: "Feature",
-    properties: properties,
-    geometry: geometry
-  } : bbox == null ? {
-    type: "Feature",
-    id: id,
-    properties: properties,
-    geometry: geometry
-  } : {
-    type: "Feature",
-    id: id,
-    bbox: bbox,
-    properties: properties,
-    geometry: geometry
-  };
-}
-
-function object(topology, o) {
-  var transformPoint = transform(topology.transform),
-      arcs = topology.arcs;
-
-  function arc(i, points) {
-    if (points.length) points.pop();
-
-    for (var a = arcs[i < 0 ? ~i : i], k = 0, n = a.length; k < n; ++k) {
-      points.push(transformPoint(a[k], k));
-    }
-
-    if (i < 0) reverse(points, n);
-  }
-
-  function point(p) {
-    return transformPoint(p);
-  }
-
-  function line(arcs) {
-    var points = [];
-
-    for (var i = 0, n = arcs.length; i < n; ++i) {
-      arc(arcs[i], points);
-    }
-
-    if (points.length < 2) points.push(points[0]); // This should never happen per the specification.
-
-    return points;
-  }
-
-  function ring(arcs) {
-    var points = line(arcs);
-
-    while (points.length < 4) {
-      points.push(points[0]);
-    } // This may happen if an arc has only two points.
-
-
-    return points;
-  }
-
-  function polygon(arcs) {
-    return arcs.map(ring);
-  }
-
-  function geometry(o) {
-    var type = o.type,
-        coordinates;
-
-    switch (type) {
-      case "GeometryCollection":
-        return {
-          type: type,
-          geometries: o.geometries.map(geometry)
-        };
-
-      case "Point":
-        coordinates = point(o.coordinates);
-        break;
-
-      case "MultiPoint":
-        coordinates = o.coordinates.map(point);
-        break;
-
-      case "LineString":
-        coordinates = line(o.arcs);
-        break;
-
-      case "MultiLineString":
-        coordinates = o.arcs.map(line);
-        break;
-
-      case "Polygon":
-        coordinates = polygon(o.arcs);
-        break;
-
-      case "MultiPolygon":
-        coordinates = o.arcs.map(polygon);
-        break;
-
-      default:
-        return null;
-    }
-
-    return {
-      type: type,
-      coordinates: coordinates
-    };
-  }
-
-  return geometry(o);
-}
-
-// Adds floating point numbers with twice the normal precision.
-// Reference: J. R. Shewchuk, Adaptive Precision Floating-Point Arithmetic and
-// Fast Robust Geometric Predicates, Discrete & Computational Geometry 18(3)
-// 305–363 (1997).
-// Code adapted from GeographicLib by Charles F. F. Karney,
-// http://geographiclib.sourceforge.net/
-function adder () {
-  return new Adder();
-}
-
-function Adder() {
-  this.reset();
-}
-
-Adder.prototype = {
-  constructor: Adder,
-  reset: function reset() {
-    this.s = // rounded value
-    this.t = 0; // exact error
-  },
-  add: function add(y) {
-    _add(temp, y, this.t);
-
-    _add(this, temp.s, this.s);
-
-    if (this.s) this.t += temp.t;else this.s = temp.t;
-  },
-  valueOf: function valueOf() {
-    return this.s;
-  }
-};
-var temp = new Adder();
-
-function _add(adder, a, b) {
-  var x = adder.s = a + b,
-      bv = x - a,
-      av = x - bv;
-  adder.t = a - av + (b - bv);
-}
-
-var epsilon = 1e-6;
-var epsilon2 = 1e-12;
-var pi = Math.PI;
-var halfPi = pi / 2;
-var quarterPi = pi / 4;
-var tau = pi * 2;
-var degrees = 180 / pi;
-var radians = pi / 180;
-var abs = Math.abs;
-var atan = Math.atan;
-var atan2 = Math.atan2;
-var cos = Math.cos;
-var exp = Math.exp;
-var log$1 = Math.log;
-var pow = Math.pow;
-var sin = Math.sin;
-var sign = Math.sign || function (x) {
-  return x > 0 ? 1 : x < 0 ? -1 : 0;
-};
-var sqrt = Math.sqrt;
-var tan = Math.tan;
-function acos(x) {
-  return x > 1 ? 0 : x < -1 ? pi : Math.acos(x);
-}
-function asin(x) {
-  return x > 1 ? halfPi : x < -1 ? -halfPi : Math.asin(x);
-}
-
-function noop() {}
-
-function streamGeometry(geometry, stream) {
-  if (geometry && streamGeometryType.hasOwnProperty(geometry.type)) {
-    streamGeometryType[geometry.type](geometry, stream);
-  }
-}
-
-var streamObjectType = {
-  Feature: function Feature(object, stream) {
-    streamGeometry(object.geometry, stream);
-  },
-  FeatureCollection: function FeatureCollection(object, stream) {
-    var features = object.features,
-        i = -1,
-        n = features.length;
-
-    while (++i < n) {
-      streamGeometry(features[i].geometry, stream);
-    }
-  }
-};
-var streamGeometryType = {
-  Sphere: function Sphere(object, stream) {
-    stream.sphere();
-  },
-  Point: function Point(object, stream) {
-    object = object.coordinates;
-    stream.point(object[0], object[1], object[2]);
-  },
-  MultiPoint: function MultiPoint(object, stream) {
-    var coordinates = object.coordinates,
-        i = -1,
-        n = coordinates.length;
-
-    while (++i < n) {
-      object = coordinates[i], stream.point(object[0], object[1], object[2]);
-    }
-  },
-  LineString: function LineString(object, stream) {
-    streamLine(object.coordinates, stream, 0);
-  },
-  MultiLineString: function MultiLineString(object, stream) {
-    var coordinates = object.coordinates,
-        i = -1,
-        n = coordinates.length;
-
-    while (++i < n) {
-      streamLine(coordinates[i], stream, 0);
-    }
-  },
-  Polygon: function Polygon(object, stream) {
-    streamPolygon(object.coordinates, stream);
-  },
-  MultiPolygon: function MultiPolygon(object, stream) {
-    var coordinates = object.coordinates,
-        i = -1,
-        n = coordinates.length;
-
-    while (++i < n) {
-      streamPolygon(coordinates[i], stream);
-    }
-  },
-  GeometryCollection: function GeometryCollection(object, stream) {
-    var geometries = object.geometries,
-        i = -1,
-        n = geometries.length;
-
-    while (++i < n) {
-      streamGeometry(geometries[i], stream);
-    }
-  }
-};
-
-function streamLine(coordinates, stream, closed) {
-  var i = -1,
-      n = coordinates.length - closed,
-      coordinate;
-  stream.lineStart();
-
-  while (++i < n) {
-    coordinate = coordinates[i], stream.point(coordinate[0], coordinate[1], coordinate[2]);
-  }
-
-  stream.lineEnd();
-}
-
-function streamPolygon(coordinates, stream) {
-  var i = -1,
-      n = coordinates.length;
-  stream.polygonStart();
-
-  while (++i < n) {
-    streamLine(coordinates[i], stream, 1);
-  }
-
-  stream.polygonEnd();
-}
-
-function geoStream (object, stream) {
-  if (object && streamObjectType.hasOwnProperty(object.type)) {
-    streamObjectType[object.type](object, stream);
-  } else {
-    streamGeometry(object, stream);
-  }
-}
-
-function spherical(cartesian) {
-  return [atan2(cartesian[1], cartesian[0]), asin(cartesian[2])];
-}
-function cartesian(spherical) {
-  var lambda = spherical[0],
-      phi = spherical[1],
-      cosPhi = cos(phi);
-  return [cosPhi * cos(lambda), cosPhi * sin(lambda), sin(phi)];
-}
-function cartesianDot(a, b) {
-  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
-}
-function cartesianCross(a, b) {
-  return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
-} // TODO return a
-
-function cartesianAddInPlace(a, b) {
-  a[0] += b[0], a[1] += b[1], a[2] += b[2];
-}
-function cartesianScale(vector, k) {
-  return [vector[0] * k, vector[1] * k, vector[2] * k];
-} // TODO return d
-
-function cartesianNormalizeInPlace(d) {
-  var l = sqrt(d[0] * d[0] + d[1] * d[1] + d[2] * d[2]);
-  d[0] /= l, d[1] /= l, d[2] /= l;
-}
-
-function compose (a, b) {
-  function compose(x, y) {
-    return x = a(x, y), b(x[0], x[1]);
-  }
-
-  if (a.invert && b.invert) compose.invert = function (x, y) {
-    return x = b.invert(x, y), x && a.invert(x[0], x[1]);
-  };
-  return compose;
-}
-
-function rotationIdentity(lambda, phi) {
-  return [abs(lambda) > pi ? lambda + Math.round(-lambda / tau) * tau : lambda, phi];
-}
-
-rotationIdentity.invert = rotationIdentity;
-function rotateRadians(deltaLambda, deltaPhi, deltaGamma) {
-  return (deltaLambda %= tau) ? deltaPhi || deltaGamma ? compose(rotationLambda(deltaLambda), rotationPhiGamma(deltaPhi, deltaGamma)) : rotationLambda(deltaLambda) : deltaPhi || deltaGamma ? rotationPhiGamma(deltaPhi, deltaGamma) : rotationIdentity;
-}
-
-function forwardRotationLambda(deltaLambda) {
-  return function (lambda, phi) {
-    return lambda += deltaLambda, [lambda > pi ? lambda - tau : lambda < -pi ? lambda + tau : lambda, phi];
-  };
-}
-
-function rotationLambda(deltaLambda) {
-  var rotation = forwardRotationLambda(deltaLambda);
-  rotation.invert = forwardRotationLambda(-deltaLambda);
-  return rotation;
-}
-
-function rotationPhiGamma(deltaPhi, deltaGamma) {
-  var cosDeltaPhi = cos(deltaPhi),
-      sinDeltaPhi = sin(deltaPhi),
-      cosDeltaGamma = cos(deltaGamma),
-      sinDeltaGamma = sin(deltaGamma);
-
-  function rotation(lambda, phi) {
-    var cosPhi = cos(phi),
-        x = cos(lambda) * cosPhi,
-        y = sin(lambda) * cosPhi,
-        z = sin(phi),
-        k = z * cosDeltaPhi + x * sinDeltaPhi;
-    return [atan2(y * cosDeltaGamma - k * sinDeltaGamma, x * cosDeltaPhi - z * sinDeltaPhi), asin(k * cosDeltaGamma + y * sinDeltaGamma)];
-  }
-
-  rotation.invert = function (lambda, phi) {
-    var cosPhi = cos(phi),
-        x = cos(lambda) * cosPhi,
-        y = sin(lambda) * cosPhi,
-        z = sin(phi),
-        k = z * cosDeltaGamma - y * sinDeltaGamma;
-    return [atan2(y * cosDeltaGamma + z * sinDeltaGamma, x * cosDeltaPhi + k * sinDeltaPhi), asin(k * cosDeltaPhi - x * sinDeltaPhi)];
-  };
-
-  return rotation;
-}
-
-function rotation (rotate) {
-  rotate = rotateRadians(rotate[0] * radians, rotate[1] * radians, rotate.length > 2 ? rotate[2] * radians : 0);
-
-  function forward(coordinates) {
-    coordinates = rotate(coordinates[0] * radians, coordinates[1] * radians);
-    return coordinates[0] *= degrees, coordinates[1] *= degrees, coordinates;
-  }
-
-  forward.invert = function (coordinates) {
-    coordinates = rotate.invert(coordinates[0] * radians, coordinates[1] * radians);
-    return coordinates[0] *= degrees, coordinates[1] *= degrees, coordinates;
-  };
-
-  return forward;
-}
-
-function circleStream(stream, radius, delta, direction, t0, t1) {
-  if (!delta) return;
-  var cosRadius = cos(radius),
-      sinRadius = sin(radius),
-      step = direction * delta;
-
-  if (t0 == null) {
-    t0 = radius + direction * tau;
-    t1 = radius - step / 2;
-  } else {
-    t0 = circleRadius(cosRadius, t0);
-    t1 = circleRadius(cosRadius, t1);
-    if (direction > 0 ? t0 < t1 : t0 > t1) t0 += direction * tau;
-  }
-
-  for (var point, t = t0; direction > 0 ? t > t1 : t < t1; t -= step) {
-    point = spherical([cosRadius, -sinRadius * cos(t), -sinRadius * sin(t)]);
-    stream.point(point[0], point[1]);
-  }
-} // Returns the signed angle of a cartesian point relative to [cosRadius, 0, 0].
-
-function circleRadius(cosRadius, point) {
-  point = cartesian(point), point[0] -= cosRadius;
-  cartesianNormalizeInPlace(point);
-  var radius = acos(-point[1]);
-  return ((-point[2] < 0 ? -radius : radius) + tau - epsilon) % tau;
-}
-
-function clipBuffer () {
-  var lines = [],
-      line;
-  return {
-    point: function point(x, y, m) {
-      line.push([x, y, m]);
-    },
-    lineStart: function lineStart() {
-      lines.push(line = []);
-    },
-    lineEnd: noop,
-    rejoin: function rejoin() {
-      if (lines.length > 1) lines.push(lines.pop().concat(lines.shift()));
-    },
-    result: function result() {
-      var result = lines;
-      lines = [];
-      line = null;
-      return result;
-    }
-  };
-}
-
-function pointEqual (a, b) {
-  return abs(a[0] - b[0]) < epsilon && abs(a[1] - b[1]) < epsilon;
-}
-
-function Intersection(point, points, other, entry) {
-  this.x = point;
-  this.z = points;
-  this.o = other; // another intersection
-
-  this.e = entry; // is an entry?
-
-  this.v = false; // visited
-
-  this.n = this.p = null; // next & previous
-} // A generalized polygon clipping algorithm: given a polygon that has been cut
-// into its visible line segments, and rejoins the segments by interpolating
-// along the clip edge.
-
-
-function clipRejoin (segments, compareIntersection, startInside, interpolate, stream) {
-  var subject = [],
-      clip = [],
-      i,
-      n;
-  segments.forEach(function (segment) {
-    if ((n = segment.length - 1) <= 0) return;
-    var n,
-        p0 = segment[0],
-        p1 = segment[n],
-        x;
-
-    if (pointEqual(p0, p1)) {
-      if (!p0[2] && !p1[2]) {
-        stream.lineStart();
-
-        for (i = 0; i < n; ++i) {
-          stream.point((p0 = segment[i])[0], p0[1]);
-        }
-
-        stream.lineEnd();
-        return;
-      } // handle degenerate cases by moving the point
-
-
-      p1[0] += 2 * epsilon;
-    }
-
-    subject.push(x = new Intersection(p0, segment, null, true));
-    clip.push(x.o = new Intersection(p0, null, x, false));
-    subject.push(x = new Intersection(p1, segment, null, false));
-    clip.push(x.o = new Intersection(p1, null, x, true));
-  });
-  if (!subject.length) return;
-  clip.sort(compareIntersection);
-  link(subject);
-  link(clip);
-
-  for (i = 0, n = clip.length; i < n; ++i) {
-    clip[i].e = startInside = !startInside;
-  }
-
-  var start = subject[0],
-      points,
-      point;
-
-  while (1) {
-    // Find first unvisited intersection.
-    var current = start,
-        isSubject = true;
-
-    while (current.v) {
-      if ((current = current.n) === start) return;
-    }
-
-    points = current.z;
-    stream.lineStart();
-
-    do {
-      current.v = current.o.v = true;
-
-      if (current.e) {
-        if (isSubject) {
-          for (i = 0, n = points.length; i < n; ++i) {
-            stream.point((point = points[i])[0], point[1]);
-          }
-        } else {
-          interpolate(current.x, current.n.x, 1, stream);
-        }
-
-        current = current.n;
-      } else {
-        if (isSubject) {
-          points = current.p.z;
-
-          for (i = points.length - 1; i >= 0; --i) {
-            stream.point((point = points[i])[0], point[1]);
-          }
-        } else {
-          interpolate(current.x, current.p.x, -1, stream);
-        }
-
-        current = current.p;
-      }
-
-      current = current.o;
-      points = current.z;
-      isSubject = !isSubject;
-    } while (!current.v);
-
-    stream.lineEnd();
-  }
-}
-
-function link(array) {
-  if (!(n = array.length)) return;
-  var n,
-      i = 0,
-      a = array[0],
-      b;
-
-  while (++i < n) {
-    a.n = b = array[i];
-    b.p = a;
-    a = b;
-  }
-
-  a.n = b = array[0];
-  b.p = a;
-}
-
-var sum = adder();
-
-function longitude(point) {
-  if (abs(point[0]) <= pi) return point[0];else return sign(point[0]) * ((abs(point[0]) + pi) % tau - pi);
-}
-
-function polygonContains (polygon, point) {
-  var lambda = longitude(point),
-      phi = point[1],
-      sinPhi = sin(phi),
-      normal = [sin(lambda), -cos(lambda), 0],
-      angle = 0,
-      winding = 0;
-  sum.reset();
-  if (sinPhi === 1) phi = halfPi + epsilon;else if (sinPhi === -1) phi = -halfPi - epsilon;
-
-  for (var i = 0, n = polygon.length; i < n; ++i) {
-    if (!(m = (ring = polygon[i]).length)) continue;
-    var ring,
-        m,
-        point0 = ring[m - 1],
-        lambda0 = longitude(point0),
-        phi0 = point0[1] / 2 + quarterPi,
-        sinPhi0 = sin(phi0),
-        cosPhi0 = cos(phi0);
-
-    for (var j = 0; j < m; ++j, lambda0 = lambda1, sinPhi0 = sinPhi1, cosPhi0 = cosPhi1, point0 = point1) {
-      var point1 = ring[j],
-          lambda1 = longitude(point1),
-          phi1 = point1[1] / 2 + quarterPi,
-          sinPhi1 = sin(phi1),
-          cosPhi1 = cos(phi1),
-          delta = lambda1 - lambda0,
-          sign = delta >= 0 ? 1 : -1,
-          absDelta = sign * delta,
-          antimeridian = absDelta > pi,
-          k = sinPhi0 * sinPhi1;
-      sum.add(atan2(k * sign * sin(absDelta), cosPhi0 * cosPhi1 + k * cos(absDelta)));
-      angle += antimeridian ? delta + sign * tau : delta; // Are the longitudes either side of the point’s meridian (lambda),
-      // and are the latitudes smaller than the parallel (phi)?
-
-      if (antimeridian ^ lambda0 >= lambda ^ lambda1 >= lambda) {
-        var arc = cartesianCross(cartesian(point0), cartesian(point1));
-        cartesianNormalizeInPlace(arc);
-        var intersection = cartesianCross(normal, arc);
-        cartesianNormalizeInPlace(intersection);
-        var phiArc = (antimeridian ^ delta >= 0 ? -1 : 1) * asin(intersection[2]);
-
-        if (phi > phiArc || phi === phiArc && (arc[0] || arc[1])) {
-          winding += antimeridian ^ delta >= 0 ? 1 : -1;
-        }
-      }
-    }
-  } // First, determine whether the South pole is inside or outside:
-  //
-  // It is inside if:
-  // * the polygon winds around it in a clockwise direction.
-  // * the polygon does not (cumulatively) wind around it, but has a negative
-  //   (counter-clockwise) area.
-  //
-  // Second, count the (signed) number of times a segment crosses a lambda
-  // from the point to the South pole.  If it is zero, then the point is the
-  // same side as the South pole.
-
-
-  return (angle < -epsilon || angle < epsilon && sum < -epsilon) ^ winding & 1;
-}
-
-function ascending (a, b) {
-  return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
-}
-
-function bisector (compare) {
-  if (compare.length === 1) compare = ascendingComparator(compare);
-  return {
-    left: function left(a, x, lo, hi) {
-      if (lo == null) lo = 0;
-      if (hi == null) hi = a.length;
-
-      while (lo < hi) {
-        var mid = lo + hi >>> 1;
-        if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
-      }
-
-      return lo;
-    },
-    right: function right(a, x, lo, hi) {
-      if (lo == null) lo = 0;
-      if (hi == null) hi = a.length;
-
-      while (lo < hi) {
-        var mid = lo + hi >>> 1;
-        if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
-      }
-
-      return lo;
-    }
-  };
-}
-
-function ascendingComparator(f) {
-  return function (d, x) {
-    return ascending(f(d), x);
-  };
-}
-
-var ascendingBisect = bisector(ascending);
-
-function merge (arrays) {
-  var n = arrays.length,
-      m,
-      i = -1,
-      j = 0,
-      merged,
-      array;
-
-  while (++i < n) {
-    j += arrays[i].length;
-  }
-
-  merged = new Array(j);
-
-  while (--n >= 0) {
-    array = arrays[n];
-    m = array.length;
-
-    while (--m >= 0) {
-      merged[--j] = array[m];
-    }
-  }
-
-  return merged;
-}
-
-function clip (pointVisible, clipLine, interpolate, start) {
-  return function (sink) {
-    var line = clipLine(sink),
-        ringBuffer = clipBuffer(),
-        ringSink = clipLine(ringBuffer),
-        polygonStarted = false,
-        polygon,
-        segments,
-        ring;
-    var clip = {
-      point: point,
-      lineStart: lineStart,
-      lineEnd: lineEnd,
-      polygonStart: function polygonStart() {
-        clip.point = pointRing;
-        clip.lineStart = ringStart;
-        clip.lineEnd = ringEnd;
-        segments = [];
-        polygon = [];
-      },
-      polygonEnd: function polygonEnd() {
-        clip.point = point;
-        clip.lineStart = lineStart;
-        clip.lineEnd = lineEnd;
-        segments = merge(segments);
-        var startInside = polygonContains(polygon, start);
-
-        if (segments.length) {
-          if (!polygonStarted) sink.polygonStart(), polygonStarted = true;
-          clipRejoin(segments, compareIntersection, startInside, interpolate, sink);
-        } else if (startInside) {
-          if (!polygonStarted) sink.polygonStart(), polygonStarted = true;
-          sink.lineStart();
-          interpolate(null, null, 1, sink);
-          sink.lineEnd();
-        }
-
-        if (polygonStarted) sink.polygonEnd(), polygonStarted = false;
-        segments = polygon = null;
-      },
-      sphere: function sphere() {
-        sink.polygonStart();
-        sink.lineStart();
-        interpolate(null, null, 1, sink);
-        sink.lineEnd();
-        sink.polygonEnd();
-      }
-    };
-
-    function point(lambda, phi) {
-      if (pointVisible(lambda, phi)) sink.point(lambda, phi);
-    }
-
-    function pointLine(lambda, phi) {
-      line.point(lambda, phi);
-    }
-
-    function lineStart() {
-      clip.point = pointLine;
-      line.lineStart();
-    }
-
-    function lineEnd() {
-      clip.point = point;
-      line.lineEnd();
-    }
-
-    function pointRing(lambda, phi) {
-      ring.push([lambda, phi]);
-      ringSink.point(lambda, phi);
-    }
-
-    function ringStart() {
-      ringSink.lineStart();
-      ring = [];
-    }
-
-    function ringEnd() {
-      pointRing(ring[0][0], ring[0][1]);
-      ringSink.lineEnd();
-      var clean = ringSink.clean(),
-          ringSegments = ringBuffer.result(),
-          i,
-          n = ringSegments.length,
-          m,
-          segment,
-          point;
-      ring.pop();
-      polygon.push(ring);
-      ring = null;
-      if (!n) return; // No intersections.
-
-      if (clean & 1) {
-        segment = ringSegments[0];
-
-        if ((m = segment.length - 1) > 0) {
-          if (!polygonStarted) sink.polygonStart(), polygonStarted = true;
-          sink.lineStart();
-
-          for (i = 0; i < m; ++i) {
-            sink.point((point = segment[i])[0], point[1]);
-          }
-
-          sink.lineEnd();
-        }
-
-        return;
-      } // Rejoin connected segments.
-      // TODO reuse ringBuffer.rejoin()?
-
-
-      if (n > 1 && clean & 2) ringSegments.push(ringSegments.pop().concat(ringSegments.shift()));
-      segments.push(ringSegments.filter(validSegment));
-    }
-
-    return clip;
-  };
-}
-
-function validSegment(segment) {
-  return segment.length > 1;
-} // Intersections are sorted along the clip edge. For both antimeridian cutting
-// and circle clipping, the same comparison is used.
-
-
-function compareIntersection(a, b) {
-  return ((a = a.x)[0] < 0 ? a[1] - halfPi - epsilon : halfPi - a[1]) - ((b = b.x)[0] < 0 ? b[1] - halfPi - epsilon : halfPi - b[1]);
-}
-
-var clipAntimeridian = clip(function () {
-  return true;
-}, clipAntimeridianLine, clipAntimeridianInterpolate, [-pi, -halfPi]); // Takes a line and cuts into visible segments. Return values: 0 - there were
-// intersections or the line was empty; 1 - no intersections; 2 - there were
-// intersections, and the first and last segments should be rejoined.
-
-function clipAntimeridianLine(stream) {
-  var lambda0 = NaN,
-      phi0 = NaN,
-      sign0 = NaN,
-      _clean; // no intersections
-
-
-  return {
-    lineStart: function lineStart() {
-      stream.lineStart();
-      _clean = 1;
-    },
-    point: function point(lambda1, phi1) {
-      var sign1 = lambda1 > 0 ? pi : -pi,
-          delta = abs(lambda1 - lambda0);
-
-      if (abs(delta - pi) < epsilon) {
-        // line crosses a pole
-        stream.point(lambda0, phi0 = (phi0 + phi1) / 2 > 0 ? halfPi : -halfPi);
-        stream.point(sign0, phi0);
-        stream.lineEnd();
-        stream.lineStart();
-        stream.point(sign1, phi0);
-        stream.point(lambda1, phi0);
-        _clean = 0;
-      } else if (sign0 !== sign1 && delta >= pi) {
-        // line crosses antimeridian
-        if (abs(lambda0 - sign0) < epsilon) lambda0 -= sign0 * epsilon; // handle degeneracies
-
-        if (abs(lambda1 - sign1) < epsilon) lambda1 -= sign1 * epsilon;
-        phi0 = clipAntimeridianIntersect(lambda0, phi0, lambda1, phi1);
-        stream.point(sign0, phi0);
-        stream.lineEnd();
-        stream.lineStart();
-        stream.point(sign1, phi0);
-        _clean = 0;
-      }
-
-      stream.point(lambda0 = lambda1, phi0 = phi1);
-      sign0 = sign1;
-    },
-    lineEnd: function lineEnd() {
-      stream.lineEnd();
-      lambda0 = phi0 = NaN;
-    },
-    clean: function clean() {
-      return 2 - _clean; // if intersections, rejoin first and last segments
-    }
-  };
-}
-
-function clipAntimeridianIntersect(lambda0, phi0, lambda1, phi1) {
-  var cosPhi0,
-      cosPhi1,
-      sinLambda0Lambda1 = sin(lambda0 - lambda1);
-  return abs(sinLambda0Lambda1) > epsilon ? atan((sin(phi0) * (cosPhi1 = cos(phi1)) * sin(lambda1) - sin(phi1) * (cosPhi0 = cos(phi0)) * sin(lambda0)) / (cosPhi0 * cosPhi1 * sinLambda0Lambda1)) : (phi0 + phi1) / 2;
-}
-
-function clipAntimeridianInterpolate(from, to, direction, stream) {
-  var phi;
-
-  if (from == null) {
-    phi = direction * halfPi;
-    stream.point(-pi, phi);
-    stream.point(0, phi);
-    stream.point(pi, phi);
-    stream.point(pi, 0);
-    stream.point(pi, -phi);
-    stream.point(0, -phi);
-    stream.point(-pi, -phi);
-    stream.point(-pi, 0);
-    stream.point(-pi, phi);
-  } else if (abs(from[0] - to[0]) > epsilon) {
-    var lambda = from[0] < to[0] ? pi : -pi;
-    phi = direction * lambda / 2;
-    stream.point(-lambda, phi);
-    stream.point(0, phi);
-    stream.point(lambda, phi);
-  } else {
-    stream.point(to[0], to[1]);
-  }
-}
-
-function clipCircle (radius) {
-  var cr = cos(radius),
-      delta = 6 * radians,
-      smallRadius = cr > 0,
-      notHemisphere = abs(cr) > epsilon; // TODO optimise for this common case
-
-  function interpolate(from, to, direction, stream) {
-    circleStream(stream, radius, delta, direction, from, to);
-  }
-
-  function visible(lambda, phi) {
-    return cos(lambda) * cos(phi) > cr;
-  } // Takes a line and cuts into visible segments. Return values used for polygon
-  // clipping: 0 - there were intersections or the line was empty; 1 - no
-  // intersections 2 - there were intersections, and the first and last segments
-  // should be rejoined.
-
-
-  function clipLine(stream) {
-    var point0, // previous point
-    c0, // code for previous point
-    v0, // visibility of previous point
-    v00, // visibility of first point
-    _clean; // no intersections
-
-
-    return {
-      lineStart: function lineStart() {
-        v00 = v0 = false;
-        _clean = 1;
-      },
-      point: function point(lambda, phi) {
-        var point1 = [lambda, phi],
-            point2,
-            v = visible(lambda, phi),
-            c = smallRadius ? v ? 0 : code(lambda, phi) : v ? code(lambda + (lambda < 0 ? pi : -pi), phi) : 0;
-        if (!point0 && (v00 = v0 = v)) stream.lineStart();
-
-        if (v !== v0) {
-          point2 = intersect(point0, point1);
-          if (!point2 || pointEqual(point0, point2) || pointEqual(point1, point2)) point1[2] = 1;
-        }
-
-        if (v !== v0) {
-          _clean = 0;
-
-          if (v) {
-            // outside going in
-            stream.lineStart();
-            point2 = intersect(point1, point0);
-            stream.point(point2[0], point2[1]);
-          } else {
-            // inside going out
-            point2 = intersect(point0, point1);
-            stream.point(point2[0], point2[1], 2);
-            stream.lineEnd();
-          }
-
-          point0 = point2;
-        } else if (notHemisphere && point0 && smallRadius ^ v) {
-          var t; // If the codes for two points are different, or are both zero,
-          // and there this segment intersects with the small circle.
-
-          if (!(c & c0) && (t = intersect(point1, point0, true))) {
-            _clean = 0;
-
-            if (smallRadius) {
-              stream.lineStart();
-              stream.point(t[0][0], t[0][1]);
-              stream.point(t[1][0], t[1][1]);
-              stream.lineEnd();
-            } else {
-              stream.point(t[1][0], t[1][1]);
-              stream.lineEnd();
-              stream.lineStart();
-              stream.point(t[0][0], t[0][1], 3);
-            }
-          }
-        }
-
-        if (v && (!point0 || !pointEqual(point0, point1))) {
-          stream.point(point1[0], point1[1]);
-        }
-
-        point0 = point1, v0 = v, c0 = c;
-      },
-      lineEnd: function lineEnd() {
-        if (v0) stream.lineEnd();
-        point0 = null;
-      },
-      // Rejoin first and last segments if there were intersections and the first
-      // and last points were visible.
-      clean: function clean() {
-        return _clean | (v00 && v0) << 1;
-      }
-    };
-  } // Intersects the great circle between a and b with the clip circle.
-
-
-  function intersect(a, b, two) {
-    var pa = cartesian(a),
-        pb = cartesian(b); // We have two planes, n1.p = d1 and n2.p = d2.
-    // Find intersection line p(t) = c1 n1 + c2 n2 + t (n1 ⨯ n2).
-
-    var n1 = [1, 0, 0],
-        // normal
-    n2 = cartesianCross(pa, pb),
-        n2n2 = cartesianDot(n2, n2),
-        n1n2 = n2[0],
-        // cartesianDot(n1, n2),
-    determinant = n2n2 - n1n2 * n1n2; // Two polar points.
-
-    if (!determinant) return !two && a;
-    var c1 = cr * n2n2 / determinant,
-        c2 = -cr * n1n2 / determinant,
-        n1xn2 = cartesianCross(n1, n2),
-        A = cartesianScale(n1, c1),
-        B = cartesianScale(n2, c2);
-    cartesianAddInPlace(A, B); // Solve |p(t)|^2 = 1.
-
-    var u = n1xn2,
-        w = cartesianDot(A, u),
-        uu = cartesianDot(u, u),
-        t2 = w * w - uu * (cartesianDot(A, A) - 1);
-    if (t2 < 0) return;
-    var t = sqrt(t2),
-        q = cartesianScale(u, (-w - t) / uu);
-    cartesianAddInPlace(q, A);
-    q = spherical(q);
-    if (!two) return q; // Two intersection points.
-
-    var lambda0 = a[0],
-        lambda1 = b[0],
-        phi0 = a[1],
-        phi1 = b[1],
-        z;
-    if (lambda1 < lambda0) z = lambda0, lambda0 = lambda1, lambda1 = z;
-    var delta = lambda1 - lambda0,
-        polar = abs(delta - pi) < epsilon,
-        meridian = polar || delta < epsilon;
-    if (!polar && phi1 < phi0) z = phi0, phi0 = phi1, phi1 = z; // Check that the first point is between a and b.
-
-    if (meridian ? polar ? phi0 + phi1 > 0 ^ q[1] < (abs(q[0] - lambda0) < epsilon ? phi0 : phi1) : phi0 <= q[1] && q[1] <= phi1 : delta > pi ^ (lambda0 <= q[0] && q[0] <= lambda1)) {
-      var q1 = cartesianScale(u, (-w + t) / uu);
-      cartesianAddInPlace(q1, A);
-      return [q, spherical(q1)];
-    }
-  } // Generates a 4-bit vector representing the location of a point relative to
-  // the small circle's bounding box.
-
-
-  function code(lambda, phi) {
-    var r = smallRadius ? radius : pi - radius,
-        code = 0;
-    if (lambda < -r) code |= 1; // left
-    else if (lambda > r) code |= 2; // right
-
-    if (phi < -r) code |= 4; // below
-    else if (phi > r) code |= 8; // above
-
-    return code;
-  }
-
-  return clip(visible, clipLine, interpolate, smallRadius ? [0, -radius] : [-pi, radius - pi]);
-}
-
-function clipLine (a, b, x0, y0, x1, y1) {
-  var ax = a[0],
-      ay = a[1],
-      bx = b[0],
-      by = b[1],
-      t0 = 0,
-      t1 = 1,
-      dx = bx - ax,
-      dy = by - ay,
-      r;
-  r = x0 - ax;
-  if (!dx && r > 0) return;
-  r /= dx;
-
-  if (dx < 0) {
-    if (r < t0) return;
-    if (r < t1) t1 = r;
-  } else if (dx > 0) {
-    if (r > t1) return;
-    if (r > t0) t0 = r;
-  }
-
-  r = x1 - ax;
-  if (!dx && r < 0) return;
-  r /= dx;
-
-  if (dx < 0) {
-    if (r > t1) return;
-    if (r > t0) t0 = r;
-  } else if (dx > 0) {
-    if (r < t0) return;
-    if (r < t1) t1 = r;
-  }
-
-  r = y0 - ay;
-  if (!dy && r > 0) return;
-  r /= dy;
-
-  if (dy < 0) {
-    if (r < t0) return;
-    if (r < t1) t1 = r;
-  } else if (dy > 0) {
-    if (r > t1) return;
-    if (r > t0) t0 = r;
-  }
-
-  r = y1 - ay;
-  if (!dy && r < 0) return;
-  r /= dy;
-
-  if (dy < 0) {
-    if (r > t1) return;
-    if (r > t0) t0 = r;
-  } else if (dy > 0) {
-    if (r < t0) return;
-    if (r < t1) t1 = r;
-  }
-
-  if (t0 > 0) a[0] = ax + t0 * dx, a[1] = ay + t0 * dy;
-  if (t1 < 1) b[0] = ax + t1 * dx, b[1] = ay + t1 * dy;
-  return true;
-}
-
-var clipMax = 1e9,
-    clipMin = -clipMax; // TODO Use d3-polygon’s polygonContains here for the ring check?
-// TODO Eliminate duplicate buffering in clipBuffer and polygon.push?
-
-function clipRectangle(x0, y0, x1, y1) {
-  function visible(x, y) {
-    return x0 <= x && x <= x1 && y0 <= y && y <= y1;
-  }
-
-  function interpolate(from, to, direction, stream) {
-    var a = 0,
-        a1 = 0;
-
-    if (from == null || (a = corner(from, direction)) !== (a1 = corner(to, direction)) || comparePoint(from, to) < 0 ^ direction > 0) {
-      do {
-        stream.point(a === 0 || a === 3 ? x0 : x1, a > 1 ? y1 : y0);
-      } while ((a = (a + direction + 4) % 4) !== a1);
-    } else {
-      stream.point(to[0], to[1]);
-    }
-  }
-
-  function corner(p, direction) {
-    return abs(p[0] - x0) < epsilon ? direction > 0 ? 0 : 3 : abs(p[0] - x1) < epsilon ? direction > 0 ? 2 : 1 : abs(p[1] - y0) < epsilon ? direction > 0 ? 1 : 0 : direction > 0 ? 3 : 2; // abs(p[1] - y1) < epsilon
-  }
-
-  function compareIntersection(a, b) {
-    return comparePoint(a.x, b.x);
-  }
-
-  function comparePoint(a, b) {
-    var ca = corner(a, 1),
-        cb = corner(b, 1);
-    return ca !== cb ? ca - cb : ca === 0 ? b[1] - a[1] : ca === 1 ? a[0] - b[0] : ca === 2 ? a[1] - b[1] : b[0] - a[0];
-  }
-
-  return function (stream) {
-    var activeStream = stream,
-        bufferStream = clipBuffer(),
-        segments,
-        polygon,
-        ring,
-        x__,
-        y__,
-        v__,
-        // first point
-    x_,
-        y_,
-        v_,
-        // previous point
-    first,
-        clean;
-    var clipStream = {
-      point: point,
-      lineStart: lineStart,
-      lineEnd: lineEnd,
-      polygonStart: polygonStart,
-      polygonEnd: polygonEnd
-    };
-
-    function point(x, y) {
-      if (visible(x, y)) activeStream.point(x, y);
-    }
-
-    function polygonInside() {
-      var winding = 0;
-
-      for (var i = 0, n = polygon.length; i < n; ++i) {
-        for (var ring = polygon[i], j = 1, m = ring.length, point = ring[0], a0, a1, b0 = point[0], b1 = point[1]; j < m; ++j) {
-          a0 = b0, a1 = b1, point = ring[j], b0 = point[0], b1 = point[1];
-
-          if (a1 <= y1) {
-            if (b1 > y1 && (b0 - a0) * (y1 - a1) > (b1 - a1) * (x0 - a0)) ++winding;
-          } else {
-            if (b1 <= y1 && (b0 - a0) * (y1 - a1) < (b1 - a1) * (x0 - a0)) --winding;
-          }
-        }
-      }
-
-      return winding;
-    } // Buffer geometry within a polygon and then clip it en masse.
-
-
-    function polygonStart() {
-      activeStream = bufferStream, segments = [], polygon = [], clean = true;
-    }
-
-    function polygonEnd() {
-      var startInside = polygonInside(),
-          cleanInside = clean && startInside,
-          visible = (segments = merge(segments)).length;
-
-      if (cleanInside || visible) {
-        stream.polygonStart();
-
-        if (cleanInside) {
-          stream.lineStart();
-          interpolate(null, null, 1, stream);
-          stream.lineEnd();
-        }
-
-        if (visible) {
-          clipRejoin(segments, compareIntersection, startInside, interpolate, stream);
-        }
-
-        stream.polygonEnd();
-      }
-
-      activeStream = stream, segments = polygon = ring = null;
-    }
-
-    function lineStart() {
-      clipStream.point = linePoint;
-      if (polygon) polygon.push(ring = []);
-      first = true;
-      v_ = false;
-      x_ = y_ = NaN;
-    } // TODO rather than special-case polygons, simply handle them separately.
-    // Ideally, coincident intersection points should be jittered to avoid
-    // clipping issues.
-
-
-    function lineEnd() {
-      if (segments) {
-        linePoint(x__, y__);
-        if (v__ && v_) bufferStream.rejoin();
-        segments.push(bufferStream.result());
-      }
-
-      clipStream.point = point;
-      if (v_) activeStream.lineEnd();
-    }
-
-    function linePoint(x, y) {
-      var v = visible(x, y);
-      if (polygon) ring.push([x, y]);
-
-      if (first) {
-        x__ = x, y__ = y, v__ = v;
-        first = false;
-
-        if (v) {
-          activeStream.lineStart();
-          activeStream.point(x, y);
-        }
-      } else {
-        if (v && v_) activeStream.point(x, y);else {
-          var a = [x_ = Math.max(clipMin, Math.min(clipMax, x_)), y_ = Math.max(clipMin, Math.min(clipMax, y_))],
-              b = [x = Math.max(clipMin, Math.min(clipMax, x)), y = Math.max(clipMin, Math.min(clipMax, y))];
-
-          if (clipLine(a, b, x0, y0, x1, y1)) {
-            if (!v_) {
-              activeStream.lineStart();
-              activeStream.point(a[0], a[1]);
-            }
-
-            activeStream.point(b[0], b[1]);
-            if (!v) activeStream.lineEnd();
-            clean = false;
-          } else if (v) {
-            activeStream.lineStart();
-            activeStream.point(x, y);
-            clean = false;
-          }
-        }
-      }
-
-      x_ = x, y_ = y, v_ = v;
-    }
-
-    return clipStream;
-  };
-}
-
-function identity$1 (x) {
-  return x;
-}
-
-var areaSum = adder(),
-    areaRingSum = adder(),
-    x00,
-    y00,
-    x0,
-    y0;
-var areaStream = {
-  point: noop,
-  lineStart: noop,
-  lineEnd: noop,
-  polygonStart: function polygonStart() {
-    areaStream.lineStart = areaRingStart;
-    areaStream.lineEnd = areaRingEnd;
-  },
-  polygonEnd: function polygonEnd() {
-    areaStream.lineStart = areaStream.lineEnd = areaStream.point = noop;
-    areaSum.add(abs(areaRingSum));
-    areaRingSum.reset();
-  },
-  result: function result() {
-    var area = areaSum / 2;
-    areaSum.reset();
-    return area;
-  }
-};
-
-function areaRingStart() {
-  areaStream.point = areaPointFirst;
-}
-
-function areaPointFirst(x, y) {
-  areaStream.point = areaPoint;
-  x00 = x0 = x, y00 = y0 = y;
-}
-
-function areaPoint(x, y) {
-  areaRingSum.add(y0 * x - x0 * y);
-  x0 = x, y0 = y;
-}
-
-function areaRingEnd() {
-  areaPoint(x00, y00);
-}
-
-var x0$1 = Infinity,
-    y0$1 = x0$1,
-    x1 = -x0$1,
-    y1 = x1;
-var boundsStream = {
-  point: boundsPoint,
-  lineStart: noop,
-  lineEnd: noop,
-  polygonStart: noop,
-  polygonEnd: noop,
-  result: function result() {
-    var bounds = [[x0$1, y0$1], [x1, y1]];
-    x1 = y1 = -(y0$1 = x0$1 = Infinity);
-    return bounds;
-  }
-};
-
-function boundsPoint(x, y) {
-  if (x < x0$1) x0$1 = x;
-  if (x > x1) x1 = x;
-  if (y < y0$1) y0$1 = y;
-  if (y > y1) y1 = y;
-}
-
-var X0 = 0,
-    Y0 = 0,
-    Z0 = 0,
-    X1 = 0,
-    Y1 = 0,
-    Z1 = 0,
-    X2 = 0,
-    Y2 = 0,
-    Z2 = 0,
-    x00$1,
-    y00$1,
-    x0$2,
-    y0$2;
-var centroidStream = {
-  point: centroidPoint,
-  lineStart: centroidLineStart,
-  lineEnd: centroidLineEnd,
-  polygonStart: function polygonStart() {
-    centroidStream.lineStart = centroidRingStart;
-    centroidStream.lineEnd = centroidRingEnd;
-  },
-  polygonEnd: function polygonEnd() {
-    centroidStream.point = centroidPoint;
-    centroidStream.lineStart = centroidLineStart;
-    centroidStream.lineEnd = centroidLineEnd;
-  },
-  result: function result() {
-    var centroid = Z2 ? [X2 / Z2, Y2 / Z2] : Z1 ? [X1 / Z1, Y1 / Z1] : Z0 ? [X0 / Z0, Y0 / Z0] : [NaN, NaN];
-    X0 = Y0 = Z0 = X1 = Y1 = Z1 = X2 = Y2 = Z2 = 0;
-    return centroid;
-  }
-};
-
-function centroidPoint(x, y) {
-  X0 += x;
-  Y0 += y;
-  ++Z0;
-}
-
-function centroidLineStart() {
-  centroidStream.point = centroidPointFirstLine;
-}
-
-function centroidPointFirstLine(x, y) {
-  centroidStream.point = centroidPointLine;
-  centroidPoint(x0$2 = x, y0$2 = y);
-}
-
-function centroidPointLine(x, y) {
-  var dx = x - x0$2,
-      dy = y - y0$2,
-      z = sqrt(dx * dx + dy * dy);
-  X1 += z * (x0$2 + x) / 2;
-  Y1 += z * (y0$2 + y) / 2;
-  Z1 += z;
-  centroidPoint(x0$2 = x, y0$2 = y);
-}
-
-function centroidLineEnd() {
-  centroidStream.point = centroidPoint;
-}
-
-function centroidRingStart() {
-  centroidStream.point = centroidPointFirstRing;
-}
-
-function centroidRingEnd() {
-  centroidPointRing(x00$1, y00$1);
-}
-
-function centroidPointFirstRing(x, y) {
-  centroidStream.point = centroidPointRing;
-  centroidPoint(x00$1 = x0$2 = x, y00$1 = y0$2 = y);
-}
-
-function centroidPointRing(x, y) {
-  var dx = x - x0$2,
-      dy = y - y0$2,
-      z = sqrt(dx * dx + dy * dy);
-  X1 += z * (x0$2 + x) / 2;
-  Y1 += z * (y0$2 + y) / 2;
-  Z1 += z;
-  z = y0$2 * x - x0$2 * y;
-  X2 += z * (x0$2 + x);
-  Y2 += z * (y0$2 + y);
-  Z2 += z * 3;
-  centroidPoint(x0$2 = x, y0$2 = y);
-}
-
-function PathContext(context) {
-  this._context = context;
-}
-PathContext.prototype = {
-  _radius: 4.5,
-  pointRadius: function pointRadius(_) {
-    return this._radius = _, this;
-  },
-  polygonStart: function polygonStart() {
-    this._line = 0;
-  },
-  polygonEnd: function polygonEnd() {
-    this._line = NaN;
-  },
-  lineStart: function lineStart() {
-    this._point = 0;
-  },
-  lineEnd: function lineEnd() {
-    if (this._line === 0) this._context.closePath();
-    this._point = NaN;
-  },
-  point: function point(x, y) {
-    switch (this._point) {
-      case 0:
-        {
-          this._context.moveTo(x, y);
-
-          this._point = 1;
-          break;
-        }
-
-      case 1:
-        {
-          this._context.lineTo(x, y);
-
-          break;
-        }
-
-      default:
-        {
-          this._context.moveTo(x + this._radius, y);
-
-          this._context.arc(x, y, this._radius, 0, tau);
-
-          break;
-        }
-    }
-  },
-  result: noop
-};
-
-var lengthSum = adder(),
-    lengthRing,
-    x00$2,
-    y00$2,
-    x0$3,
-    y0$3;
-var lengthStream = {
-  point: noop,
-  lineStart: function lineStart() {
-    lengthStream.point = lengthPointFirst;
-  },
-  lineEnd: function lineEnd() {
-    if (lengthRing) lengthPoint(x00$2, y00$2);
-    lengthStream.point = noop;
-  },
-  polygonStart: function polygonStart() {
-    lengthRing = true;
-  },
-  polygonEnd: function polygonEnd() {
-    lengthRing = null;
-  },
-  result: function result() {
-    var length = +lengthSum;
-    lengthSum.reset();
-    return length;
-  }
-};
-
-function lengthPointFirst(x, y) {
-  lengthStream.point = lengthPoint;
-  x00$2 = x0$3 = x, y00$2 = y0$3 = y;
-}
-
-function lengthPoint(x, y) {
-  x0$3 -= x, y0$3 -= y;
-  lengthSum.add(sqrt(x0$3 * x0$3 + y0$3 * y0$3));
-  x0$3 = x, y0$3 = y;
-}
-
-function PathString() {
-  this._string = [];
-}
-PathString.prototype = {
-  _radius: 4.5,
-  _circle: circle(4.5),
-  pointRadius: function pointRadius(_) {
-    if ((_ = +_) !== this._radius) this._radius = _, this._circle = null;
-    return this;
-  },
-  polygonStart: function polygonStart() {
-    this._line = 0;
-  },
-  polygonEnd: function polygonEnd() {
-    this._line = NaN;
-  },
-  lineStart: function lineStart() {
-    this._point = 0;
-  },
-  lineEnd: function lineEnd() {
-    if (this._line === 0) this._string.push("Z");
-    this._point = NaN;
-  },
-  point: function point(x, y) {
-    switch (this._point) {
-      case 0:
-        {
-          this._string.push("M", x, ",", y);
-
-          this._point = 1;
-          break;
-        }
-
-      case 1:
-        {
-          this._string.push("L", x, ",", y);
-
-          break;
-        }
-
-      default:
-        {
-          if (this._circle == null) this._circle = circle(this._radius);
-
-          this._string.push("M", x, ",", y, this._circle);
-
-          break;
-        }
-    }
-  },
-  result: function result() {
-    if (this._string.length) {
-      var result = this._string.join("");
-
-      this._string = [];
-      return result;
-    } else {
-      return null;
-    }
-  }
-};
-
-function circle(radius) {
-  return "m0," + radius + "a" + radius + "," + radius + " 0 1,1 0," + -2 * radius + "a" + radius + "," + radius + " 0 1,1 0," + 2 * radius + "z";
-}
-
-function geoPath (projection, context) {
-  var pointRadius = 4.5,
-      projectionStream,
-      contextStream;
-
-  function path(object) {
-    if (object) {
-      if (typeof pointRadius === "function") contextStream.pointRadius(+pointRadius.apply(this, arguments));
-      geoStream(object, projectionStream(contextStream));
-    }
-
-    return contextStream.result();
-  }
-
-  path.area = function (object) {
-    geoStream(object, projectionStream(areaStream));
-    return areaStream.result();
-  };
-
-  path.measure = function (object) {
-    geoStream(object, projectionStream(lengthStream));
-    return lengthStream.result();
-  };
-
-  path.bounds = function (object) {
-    geoStream(object, projectionStream(boundsStream));
-    return boundsStream.result();
-  };
-
-  path.centroid = function (object) {
-    geoStream(object, projectionStream(centroidStream));
-    return centroidStream.result();
-  };
-
-  path.projection = function (_) {
-    return arguments.length ? (projectionStream = _ == null ? (projection = null, identity$1) : (projection = _).stream, path) : projection;
-  };
-
-  path.context = function (_) {
-    if (!arguments.length) return context;
-    contextStream = _ == null ? (context = null, new PathString()) : new PathContext(context = _);
-    if (typeof pointRadius !== "function") contextStream.pointRadius(pointRadius);
-    return path;
-  };
-
-  path.pointRadius = function (_) {
-    if (!arguments.length) return pointRadius;
-    pointRadius = typeof _ === "function" ? _ : (contextStream.pointRadius(+_), +_);
-    return path;
-  };
-
-  return path.projection(projection).context(context);
-}
-
-function transformer(methods) {
-  return function (stream) {
-    var s = new TransformStream();
-
-    for (var key in methods) {
-      s[key] = methods[key];
-    }
-
-    s.stream = stream;
-    return s;
-  };
-}
-
-function TransformStream() {}
-
-TransformStream.prototype = {
-  constructor: TransformStream,
-  point: function point(x, y) {
-    this.stream.point(x, y);
-  },
-  sphere: function sphere() {
-    this.stream.sphere();
-  },
-  lineStart: function lineStart() {
-    this.stream.lineStart();
-  },
-  lineEnd: function lineEnd() {
-    this.stream.lineEnd();
-  },
-  polygonStart: function polygonStart() {
-    this.stream.polygonStart();
-  },
-  polygonEnd: function polygonEnd() {
-    this.stream.polygonEnd();
-  }
-};
-
-function fit(projection, fitBounds, object) {
-  var clip = projection.clipExtent && projection.clipExtent();
-  projection.scale(150).translate([0, 0]);
-  if (clip != null) projection.clipExtent(null);
-  geoStream(object, projection.stream(boundsStream));
-  fitBounds(boundsStream.result());
-  if (clip != null) projection.clipExtent(clip);
-  return projection;
-}
-
-function fitExtent(projection, extent, object) {
-  return fit(projection, function (b) {
-    var w = extent[1][0] - extent[0][0],
-        h = extent[1][1] - extent[0][1],
-        k = Math.min(w / (b[1][0] - b[0][0]), h / (b[1][1] - b[0][1])),
-        x = +extent[0][0] + (w - k * (b[1][0] + b[0][0])) / 2,
-        y = +extent[0][1] + (h - k * (b[1][1] + b[0][1])) / 2;
-    projection.scale(150 * k).translate([x, y]);
-  }, object);
-}
-function fitSize(projection, size, object) {
-  return fitExtent(projection, [[0, 0], size], object);
-}
-function fitWidth(projection, width, object) {
-  return fit(projection, function (b) {
-    var w = +width,
-        k = w / (b[1][0] - b[0][0]),
-        x = (w - k * (b[1][0] + b[0][0])) / 2,
-        y = -k * b[0][1];
-    projection.scale(150 * k).translate([x, y]);
-  }, object);
-}
-function fitHeight(projection, height, object) {
-  return fit(projection, function (b) {
-    var h = +height,
-        k = h / (b[1][1] - b[0][1]),
-        x = -k * b[0][0],
-        y = (h - k * (b[1][1] + b[0][1])) / 2;
-    projection.scale(150 * k).translate([x, y]);
-  }, object);
-}
-
-var maxDepth = 16,
-    // maximum depth of subdivision
-cosMinDistance = cos(30 * radians); // cos(minimum angular distance)
-
-function resample (project, delta2) {
-  return +delta2 ? resample$1(project, delta2) : resampleNone(project);
-}
-
-function resampleNone(project) {
-  return transformer({
-    point: function point(x, y) {
-      x = project(x, y);
-      this.stream.point(x[0], x[1]);
-    }
-  });
-}
-
-function resample$1(project, delta2) {
-  function resampleLineTo(x0, y0, lambda0, a0, b0, c0, x1, y1, lambda1, a1, b1, c1, depth, stream) {
-    var dx = x1 - x0,
-        dy = y1 - y0,
-        d2 = dx * dx + dy * dy;
-
-    if (d2 > 4 * delta2 && depth--) {
-      var a = a0 + a1,
-          b = b0 + b1,
-          c = c0 + c1,
-          m = sqrt(a * a + b * b + c * c),
-          phi2 = asin(c /= m),
-          lambda2 = abs(abs(c) - 1) < epsilon || abs(lambda0 - lambda1) < epsilon ? (lambda0 + lambda1) / 2 : atan2(b, a),
-          p = project(lambda2, phi2),
-          x2 = p[0],
-          y2 = p[1],
-          dx2 = x2 - x0,
-          dy2 = y2 - y0,
-          dz = dy * dx2 - dx * dy2;
-
-      if (dz * dz / d2 > delta2 // perpendicular projected distance
-      || abs((dx * dx2 + dy * dy2) / d2 - 0.5) > 0.3 // midpoint close to an end
-      || a0 * a1 + b0 * b1 + c0 * c1 < cosMinDistance) {
-        // angular distance
-        resampleLineTo(x0, y0, lambda0, a0, b0, c0, x2, y2, lambda2, a /= m, b /= m, c, depth, stream);
-        stream.point(x2, y2);
-        resampleLineTo(x2, y2, lambda2, a, b, c, x1, y1, lambda1, a1, b1, c1, depth, stream);
-      }
-    }
-  }
-
-  return function (stream) {
-    var lambda00, x00, y00, a00, b00, c00, // first point
-    lambda0, x0, y0, a0, b0, c0; // previous point
-
-    var resampleStream = {
-      point: point,
-      lineStart: lineStart,
-      lineEnd: lineEnd,
-      polygonStart: function polygonStart() {
-        stream.polygonStart();
-        resampleStream.lineStart = ringStart;
-      },
-      polygonEnd: function polygonEnd() {
-        stream.polygonEnd();
-        resampleStream.lineStart = lineStart;
-      }
-    };
-
-    function point(x, y) {
-      x = project(x, y);
-      stream.point(x[0], x[1]);
-    }
-
-    function lineStart() {
-      x0 = NaN;
-      resampleStream.point = linePoint;
-      stream.lineStart();
-    }
-
-    function linePoint(lambda, phi) {
-      var c = cartesian([lambda, phi]),
-          p = project(lambda, phi);
-      resampleLineTo(x0, y0, lambda0, a0, b0, c0, x0 = p[0], y0 = p[1], lambda0 = lambda, a0 = c[0], b0 = c[1], c0 = c[2], maxDepth, stream);
-      stream.point(x0, y0);
-    }
-
-    function lineEnd() {
-      resampleStream.point = point;
-      stream.lineEnd();
-    }
-
-    function ringStart() {
-      lineStart();
-      resampleStream.point = ringPoint;
-      resampleStream.lineEnd = ringEnd;
-    }
-
-    function ringPoint(lambda, phi) {
-      linePoint(lambda00 = lambda, phi), x00 = x0, y00 = y0, a00 = a0, b00 = b0, c00 = c0;
-      resampleStream.point = linePoint;
-    }
-
-    function ringEnd() {
-      resampleLineTo(x0, y0, lambda0, a0, b0, c0, x00, y00, lambda00, a00, b00, c00, maxDepth, stream);
-      resampleStream.lineEnd = lineEnd;
-      lineEnd();
-    }
-
-    return resampleStream;
-  };
-}
-
-var transformRadians = transformer({
-  point: function point(x, y) {
-    this.stream.point(x * radians, y * radians);
-  }
-});
-
-function transformRotate(rotate) {
-  return transformer({
-    point: function point(x, y) {
-      var r = rotate(x, y);
-      return this.stream.point(r[0], r[1]);
-    }
-  });
-}
-
-function scaleTranslate(k, dx, dy, sx, sy) {
-  function transform(x, y) {
-    x *= sx;
-    y *= sy;
-    return [dx + k * x, dy - k * y];
-  }
-
-  transform.invert = function (x, y) {
-    return [(x - dx) / k * sx, (dy - y) / k * sy];
-  };
-
-  return transform;
-}
-
-function scaleTranslateRotate(k, dx, dy, sx, sy, alpha) {
-  var cosAlpha = cos(alpha),
-      sinAlpha = sin(alpha),
-      a = cosAlpha * k,
-      b = sinAlpha * k,
-      ai = cosAlpha / k,
-      bi = sinAlpha / k,
-      ci = (sinAlpha * dy - cosAlpha * dx) / k,
-      fi = (sinAlpha * dx + cosAlpha * dy) / k;
-
-  function transform(x, y) {
-    x *= sx;
-    y *= sy;
-    return [a * x - b * y + dx, dy - b * x - a * y];
-  }
-
-  transform.invert = function (x, y) {
-    return [sx * (ai * x - bi * y + ci), sy * (fi - bi * x - ai * y)];
-  };
-
-  return transform;
-}
-
-function projection(project) {
-  return projectionMutator(function () {
-    return project;
-  })();
-}
-function projectionMutator(projectAt) {
-  var project,
-      k = 150,
-      // scale
-  x = 480,
-      y = 250,
-      // translate
-  lambda = 0,
-      phi = 0,
-      // center
-  deltaLambda = 0,
-      deltaPhi = 0,
-      deltaGamma = 0,
-      rotate,
-      // pre-rotate
-  alpha = 0,
-      // post-rotate angle
-  sx = 1,
-      // reflectX
-  sy = 1,
-      // reflectX
-  theta = null,
-      preclip = clipAntimeridian,
-      // pre-clip angle
-  x0 = null,
-      y0,
-      x1,
-      y1,
-      postclip = identity$1,
-      // post-clip extent
-  delta2 = 0.5,
-      // precision
-  projectResample,
-      projectTransform,
-      projectRotateTransform,
-      cache,
-      cacheStream;
-
-  function projection(point) {
-    return projectRotateTransform(point[0] * radians, point[1] * radians);
-  }
-
-  function invert(point) {
-    point = projectRotateTransform.invert(point[0], point[1]);
-    return point && [point[0] * degrees, point[1] * degrees];
-  }
-
-  projection.stream = function (stream) {
-    return cache && cacheStream === stream ? cache : cache = transformRadians(transformRotate(rotate)(preclip(projectResample(postclip(cacheStream = stream)))));
-  };
-
-  projection.preclip = function (_) {
-    return arguments.length ? (preclip = _, theta = undefined, reset()) : preclip;
-  };
-
-  projection.postclip = function (_) {
-    return arguments.length ? (postclip = _, x0 = y0 = x1 = y1 = null, reset()) : postclip;
-  };
-
-  projection.clipAngle = function (_) {
-    return arguments.length ? (preclip = +_ ? clipCircle(theta = _ * radians) : (theta = null, clipAntimeridian), reset()) : theta * degrees;
-  };
-
-  projection.clipExtent = function (_) {
-    return arguments.length ? (postclip = _ == null ? (x0 = y0 = x1 = y1 = null, identity$1) : clipRectangle(x0 = +_[0][0], y0 = +_[0][1], x1 = +_[1][0], y1 = +_[1][1]), reset()) : x0 == null ? null : [[x0, y0], [x1, y1]];
-  };
-
-  projection.scale = function (_) {
-    return arguments.length ? (k = +_, recenter()) : k;
-  };
-
-  projection.translate = function (_) {
-    return arguments.length ? (x = +_[0], y = +_[1], recenter()) : [x, y];
-  };
-
-  projection.center = function (_) {
-    return arguments.length ? (lambda = _[0] % 360 * radians, phi = _[1] % 360 * radians, recenter()) : [lambda * degrees, phi * degrees];
-  };
-
-  projection.rotate = function (_) {
-    return arguments.length ? (deltaLambda = _[0] % 360 * radians, deltaPhi = _[1] % 360 * radians, deltaGamma = _.length > 2 ? _[2] % 360 * radians : 0, recenter()) : [deltaLambda * degrees, deltaPhi * degrees, deltaGamma * degrees];
-  };
-
-  projection.angle = function (_) {
-    return arguments.length ? (alpha = _ % 360 * radians, recenter()) : alpha * degrees;
-  };
-
-  projection.reflectX = function (_) {
-    return arguments.length ? (sx = _ ? -1 : 1, recenter()) : sx < 0;
-  };
-
-  projection.reflectY = function (_) {
-    return arguments.length ? (sy = _ ? -1 : 1, recenter()) : sy < 0;
-  };
-
-  projection.precision = function (_) {
-    return arguments.length ? (projectResample = resample(projectTransform, delta2 = _ * _), reset()) : sqrt(delta2);
-  };
-
-  projection.fitExtent = function (extent, object) {
-    return fitExtent(projection, extent, object);
-  };
-
-  projection.fitSize = function (size, object) {
-    return fitSize(projection, size, object);
-  };
-
-  projection.fitWidth = function (width, object) {
-    return fitWidth(projection, width, object);
-  };
-
-  projection.fitHeight = function (height, object) {
-    return fitHeight(projection, height, object);
-  };
-
-  function recenter() {
-    var center = scaleTranslateRotate(k, 0, 0, sx, sy, alpha).apply(null, project(lambda, phi)),
-        transform = (alpha ? scaleTranslateRotate : scaleTranslate)(k, x - center[0], y - center[1], sx, sy, alpha);
-    rotate = rotateRadians(deltaLambda, deltaPhi, deltaGamma);
-    projectTransform = compose(project, transform);
-    projectRotateTransform = compose(rotate, projectTransform);
-    projectResample = resample(projectTransform, delta2);
-    return reset();
-  }
-
-  function reset() {
-    cache = cacheStream = null;
-    return projection;
-  }
-
-  return function () {
-    project = projectAt.apply(this, arguments);
-    projection.invert = project.invert && invert;
-    return recenter();
-  };
-}
-
-function conicProjection(projectAt) {
-  var phi0 = 0,
-      phi1 = pi / 3,
-      m = projectionMutator(projectAt),
-      p = m(phi0, phi1);
-
-  p.parallels = function (_) {
-    return arguments.length ? m(phi0 = _[0] * radians, phi1 = _[1] * radians) : [phi0 * degrees, phi1 * degrees];
-  };
-
-  return p;
-}
-
-function cylindricalEqualAreaRaw(phi0) {
-  var cosPhi0 = cos(phi0);
-
-  function forward(lambda, phi) {
-    return [lambda * cosPhi0, sin(phi) / cosPhi0];
-  }
-
-  forward.invert = function (x, y) {
-    return [x / cosPhi0, asin(y * cosPhi0)];
-  };
-
-  return forward;
-}
-
-function conicEqualAreaRaw(y0, y1) {
-  var sy0 = sin(y0),
-      n = (sy0 + sin(y1)) / 2; // Are the parallels symmetrical around the Equator?
-
-  if (abs(n) < epsilon) return cylindricalEqualAreaRaw(y0);
-  var c = 1 + sy0 * (2 * n - sy0),
-      r0 = sqrt(c) / n;
-
-  function project(x, y) {
-    var r = sqrt(c - 2 * n * sin(y)) / n;
-    return [r * sin(x *= n), r0 - r * cos(x)];
-  }
-
-  project.invert = function (x, y) {
-    var r0y = r0 - y,
-        l = atan2(x, abs(r0y)) * sign(r0y);
-    if (r0y * n < 0) l -= pi * sign(x) * sign(r0y);
-    return [l / n, asin((c - (x * x + r0y * r0y) * n * n) / (2 * n))];
-  };
-
-  return project;
-}
-function conicEqualArea () {
-  return conicProjection(conicEqualAreaRaw).scale(155.424).center([0, 33.6442]);
-}
-
-function azimuthalRaw(scale) {
-  return function (x, y) {
-    var cx = cos(x),
-        cy = cos(y),
-        k = scale(cx * cy);
-    return [k * cy * sin(x), k * sin(y)];
-  };
-}
-function azimuthalInvert(angle) {
-  return function (x, y) {
-    var z = sqrt(x * x + y * y),
-        c = angle(z),
-        sc = sin(c),
-        cc = cos(c);
-    return [atan2(x * sc, z * cc), asin(z && y * sc / z)];
-  };
-}
-
-var azimuthalEqualAreaRaw = azimuthalRaw(function (cxcy) {
-  return sqrt(2 / (1 + cxcy));
-});
-azimuthalEqualAreaRaw.invert = azimuthalInvert(function (z) {
-  return 2 * asin(z / 2);
-});
-function azimuthalEqualArea () {
-  return projection(azimuthalEqualAreaRaw).scale(124.75).clipAngle(180 - 1e-3);
-}
-
-var azimuthalEquidistantRaw = azimuthalRaw(function (c) {
-  return (c = acos(c)) && c / sin(c);
-});
-azimuthalEquidistantRaw.invert = azimuthalInvert(function (z) {
-  return z;
-});
-function azimuthalEquidistant () {
-  return projection(azimuthalEquidistantRaw).scale(79.4188).clipAngle(180 - 1e-3);
-}
-
-function mercatorRaw(lambda, phi) {
-  return [lambda, log$1(tan((halfPi + phi) / 2))];
-}
-
-mercatorRaw.invert = function (x, y) {
-  return [x, 2 * atan(exp(y)) - halfPi];
-};
-
-function mercator () {
-  return mercatorProjection(mercatorRaw).scale(961 / tau);
-}
-function mercatorProjection(project) {
-  var m = projection(project),
-      center = m.center,
-      scale = m.scale,
-      translate = m.translate,
-      clipExtent = m.clipExtent,
-      x0 = null,
-      y0,
-      x1,
-      y1; // clip extent
-
-  m.scale = function (_) {
-    return arguments.length ? (scale(_), reclip()) : scale();
-  };
-
-  m.translate = function (_) {
-    return arguments.length ? (translate(_), reclip()) : translate();
-  };
-
-  m.center = function (_) {
-    return arguments.length ? (center(_), reclip()) : center();
-  };
-
-  m.clipExtent = function (_) {
-    return arguments.length ? (_ == null ? x0 = y0 = x1 = y1 = null : (x0 = +_[0][0], y0 = +_[0][1], x1 = +_[1][0], y1 = +_[1][1]), reclip()) : x0 == null ? null : [[x0, y0], [x1, y1]];
-  };
-
-  function reclip() {
-    var k = pi * scale(),
-        t = m(rotation(m.rotate()).invert([0, 0]));
-    return clipExtent(x0 == null ? [[t[0] - k, t[1] - k], [t[0] + k, t[1] + k]] : project === mercatorRaw ? [[Math.max(t[0] - k, x0), y0], [Math.min(t[0] + k, x1), y1]] : [[x0, Math.max(t[1] - k, y0)], [x1, Math.min(t[1] + k, y1)]]);
-  }
-
-  return reclip();
-}
-
-function tany(y) {
-  return tan((halfPi + y) / 2);
-}
-
-function conicConformalRaw(y0, y1) {
-  var cy0 = cos(y0),
-      n = y0 === y1 ? sin(y0) : log$1(cy0 / cos(y1)) / log$1(tany(y1) / tany(y0)),
-      f = cy0 * pow(tany(y0), n) / n;
-  if (!n) return mercatorRaw;
-
-  function project(x, y) {
-    if (f > 0) {
-      if (y < -halfPi + epsilon) y = -halfPi + epsilon;
-    } else {
-      if (y > halfPi - epsilon) y = halfPi - epsilon;
-    }
-
-    var r = f / pow(tany(y), n);
-    return [r * sin(n * x), f - r * cos(n * x)];
-  }
-
-  project.invert = function (x, y) {
-    var fy = f - y,
-        r = sign(n) * sqrt(x * x + fy * fy),
-        l = atan2(x, abs(fy)) * sign(fy);
-    if (fy * n < 0) l -= pi * sign(x) * sign(fy);
-    return [l / n, 2 * atan(pow(f / r, 1 / n)) - halfPi];
-  };
-
-  return project;
-}
-function conicConformal () {
-  return conicProjection(conicConformalRaw).scale(109.5).parallels([30, 30]);
-}
-
-function equirectangularRaw(lambda, phi) {
-  return [lambda, phi];
-}
-equirectangularRaw.invert = equirectangularRaw;
-function equirectangular () {
-  return projection(equirectangularRaw).scale(152.63);
-}
-
-function conicEquidistantRaw(y0, y1) {
-  var cy0 = cos(y0),
-      n = y0 === y1 ? sin(y0) : (cy0 - cos(y1)) / (y1 - y0),
-      g = cy0 / n + y0;
-  if (abs(n) < epsilon) return equirectangularRaw;
-
-  function project(x, y) {
-    var gy = g - y,
-        nx = n * x;
-    return [gy * sin(nx), g - gy * cos(nx)];
-  }
-
-  project.invert = function (x, y) {
-    var gy = g - y,
-        l = atan2(x, abs(gy)) * sign(gy);
-    if (gy * n < 0) l -= pi * sign(x) * sign(gy);
-    return [l / n, g - sign(n) * sqrt(x * x + gy * gy)];
-  };
-
-  return project;
-}
-function conicEquidistant () {
-  return conicProjection(conicEquidistantRaw).scale(131.154).center([0, 13.9389]);
-}
-
-var A1 = 1.340264,
-    A2 = -0.081106,
-    A3 = 0.000893,
-    A4 = 0.003796,
-    M = sqrt(3) / 2,
-    iterations = 12;
-function equalEarthRaw(lambda, phi) {
-  var l = asin(M * sin(phi)),
-      l2 = l * l,
-      l6 = l2 * l2 * l2;
-  return [lambda * cos(l) / (M * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2))), l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2))];
-}
-
-equalEarthRaw.invert = function (x, y) {
-  var l = y,
-      l2 = l * l,
-      l6 = l2 * l2 * l2;
-
-  for (var i = 0, delta, fy, fpy; i < iterations; ++i) {
-    fy = l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2)) - y;
-    fpy = A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2);
-    l -= delta = fy / fpy, l2 = l * l, l6 = l2 * l2 * l2;
-    if (abs(delta) < epsilon2) break;
-  }
-
-  return [M * x * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2)) / cos(l), asin(sin(l) / M)];
-};
-
-function equalEarth () {
-  return projection(equalEarthRaw).scale(177.158);
-}
-
-function gnomonicRaw(x, y) {
-  var cy = cos(y),
-      k = cos(x) * cy;
-  return [cy * sin(x) / k, sin(y) / k];
-}
-gnomonicRaw.invert = azimuthalInvert(atan);
-function gnomonic () {
-  return projection(gnomonicRaw).scale(144.049).clipAngle(60);
-}
-
-function naturalEarth1Raw(lambda, phi) {
-  var phi2 = phi * phi,
-      phi4 = phi2 * phi2;
-  return [lambda * (0.8707 - 0.131979 * phi2 + phi4 * (-0.013791 + phi4 * (0.003971 * phi2 - 0.001529 * phi4))), phi * (1.007226 + phi2 * (0.015085 + phi4 * (-0.044475 + 0.028874 * phi2 - 0.005916 * phi4)))];
-}
-
-naturalEarth1Raw.invert = function (x, y) {
-  var phi = y,
-      i = 25,
-      delta;
-
-  do {
-    var phi2 = phi * phi,
-        phi4 = phi2 * phi2;
-    phi -= delta = (phi * (1.007226 + phi2 * (0.015085 + phi4 * (-0.044475 + 0.028874 * phi2 - 0.005916 * phi4))) - y) / (1.007226 + phi2 * (0.015085 * 3 + phi4 * (-0.044475 * 7 + 0.028874 * 9 * phi2 - 0.005916 * 11 * phi4)));
-  } while (abs(delta) > epsilon && --i > 0);
-
-  return [x / (0.8707 + (phi2 = phi * phi) * (-0.131979 + phi2 * (-0.013791 + phi2 * phi2 * phi2 * (0.003971 - 0.001529 * phi2)))), phi];
-};
-
-function naturalEarth1 () {
-  return projection(naturalEarth1Raw).scale(175.295);
-}
-
-function orthographicRaw(x, y) {
-  return [cos(y) * sin(x), sin(y)];
-}
-orthographicRaw.invert = azimuthalInvert(asin);
-function orthographic () {
-  return projection(orthographicRaw).scale(249.5).clipAngle(90 + epsilon);
-}
-
-function stereographicRaw(x, y) {
-  var cy = cos(y),
-      k = 1 + cos(x) * cy;
-  return [cy * sin(x) / k, sin(y) / k];
-}
-stereographicRaw.invert = azimuthalInvert(function (z) {
-  return 2 * atan(z);
-});
-function stereographic () {
-  return projection(stereographicRaw).scale(250).clipAngle(142);
-}
-
-function transverseMercatorRaw(lambda, phi) {
-  return [log$1(tan((halfPi + phi) / 2)), -lambda];
-}
-
-transverseMercatorRaw.invert = function (x, y) {
-  return [-y, 2 * atan(exp(x)) - halfPi];
-};
-
-function transverseMercator () {
-  var m = mercatorProjection(transverseMercatorRaw),
-      center = m.center,
-      rotate = m.rotate;
-
-  m.center = function (_) {
-    return arguments.length ? center([-_[1], _[0]]) : (_ = center(), [_[1], -_[0]]);
-  };
-
-  m.rotate = function (_) {
-    return arguments.length ? rotate([_[0], _[1], _.length > 2 ? _[2] + 90 : 90]) : (_ = rotate(), [_[0], _[1], _[2] - 90]);
-  };
-
-  return rotate([0, 0, 90]).scale(159.155);
-}
 
 /**
  * Callback for coordEach
@@ -10066,7 +8925,7 @@ function coordEach(geojson, callback, excludeWrapCoord) {
  * //=feature
  */
 
-function feature$1(geom, properties, options) {
+function feature(geom, properties, options) {
   if (options === void 0) {
     options = {};
   }
@@ -10112,7 +8971,7 @@ function point(coordinates, properties, options) {
     type: "Point",
     coordinates: coordinates
   };
-  return feature$1(geom, properties, options);
+  return feature(geom, properties, options);
 }
 /**
  * Takes one or more {@link Feature|Features} and creates a {@link FeatureCollection}.
@@ -10452,18 +9311,186 @@ var projections = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	geoAzimuthalEqualArea: azimuthalEqualArea,
 	geoAzimuthalEquidistant: azimuthalEquidistant,
-	geoGnomonic: gnomonic,
-	geoOrthographic: orthographic,
-	geoStereographic: stereographic,
 	geoEqualEarth: equalEarth,
-	geoConicConformal: conicConformal,
-	geoConicEqualArea: conicEqualArea,
-	geoConicEquidistant: conicEquidistant,
 	geoEquirectangular: equirectangular,
 	geoMercator: mercator,
-	geoTransverseMercator: transverseMercator,
 	geoNaturalEarth1: naturalEarth1
 });
+
+function identity (x) {
+  return x;
+}
+
+function transform (transform) {
+  if (transform == null) return identity;
+  var x0,
+      y0,
+      kx = transform.scale[0],
+      ky = transform.scale[1],
+      dx = transform.translate[0],
+      dy = transform.translate[1];
+  return function (input, i) {
+    if (!i) x0 = y0 = 0;
+    var j = 2,
+        n = input.length,
+        output = new Array(n);
+    output[0] = (x0 += input[0]) * kx + dx;
+    output[1] = (y0 += input[1]) * ky + dy;
+
+    while (j < n) {
+      output[j] = input[j], ++j;
+    }
+
+    return output;
+  };
+}
+
+function reverse (array, n) {
+  var t,
+      j = array.length,
+      i = j - n;
+
+  while (i < --j) {
+    t = array[i], array[i++] = array[j], array[j] = t;
+  }
+}
+
+function feature$1 (topology, o) {
+  if (typeof o === "string") o = topology.objects[o];
+  return o.type === "GeometryCollection" ? {
+    type: "FeatureCollection",
+    features: o.geometries.map(function (o) {
+      return feature$2(topology, o);
+    })
+  } : feature$2(topology, o);
+}
+
+function feature$2(topology, o) {
+  var id = o.id,
+      bbox = o.bbox,
+      properties = o.properties == null ? {} : o.properties,
+      geometry = object(topology, o);
+  return id == null && bbox == null ? {
+    type: "Feature",
+    properties: properties,
+    geometry: geometry
+  } : bbox == null ? {
+    type: "Feature",
+    id: id,
+    properties: properties,
+    geometry: geometry
+  } : {
+    type: "Feature",
+    id: id,
+    bbox: bbox,
+    properties: properties,
+    geometry: geometry
+  };
+}
+
+function object(topology, o) {
+  var transformPoint = transform(topology.transform),
+      arcs = topology.arcs;
+
+  function arc(i, points) {
+    if (points.length) points.pop();
+
+    for (var a = arcs[i < 0 ? ~i : i], k = 0, n = a.length; k < n; ++k) {
+      points.push(transformPoint(a[k], k));
+    }
+
+    if (i < 0) reverse(points, n);
+  }
+
+  function point(p) {
+    return transformPoint(p);
+  }
+
+  function line(arcs) {
+    var points = [];
+
+    for (var i = 0, n = arcs.length; i < n; ++i) {
+      arc(arcs[i], points);
+    }
+
+    if (points.length < 2) points.push(points[0]); // This should never happen per the specification.
+
+    return points;
+  }
+
+  function ring(arcs) {
+    var points = line(arcs);
+
+    while (points.length < 4) {
+      points.push(points[0]);
+    } // This may happen if an arc has only two points.
+
+
+    return points;
+  }
+
+  function polygon(arcs) {
+    return arcs.map(ring);
+  }
+
+  function geometry(o) {
+    var type = o.type,
+        coordinates;
+
+    switch (type) {
+      case "GeometryCollection":
+        return {
+          type: type,
+          geometries: o.geometries.map(geometry)
+        };
+
+      case "Point":
+        coordinates = point(o.coordinates);
+        break;
+
+      case "MultiPoint":
+        coordinates = o.coordinates.map(point);
+        break;
+
+      case "LineString":
+        coordinates = line(o.arcs);
+        break;
+
+      case "MultiLineString":
+        coordinates = o.arcs.map(line);
+        break;
+
+      case "Polygon":
+        coordinates = polygon(o.arcs);
+        break;
+
+      case "MultiPolygon":
+        coordinates = o.arcs.map(polygon);
+        break;
+
+      default:
+        return null;
+    }
+
+    return {
+      type: type,
+      coordinates: coordinates
+    };
+  }
+
+  return geometry(o);
+}
+
+var truncateGeojson = setGeometryPrecision(4);
+var topoToGeo = function topoToGeo(topojson, id) {
+  return truncateGeojson(feature$1(topojson, topojson.objects[id]));
+};
+var defaultGeometry = {
+  bottom: 10,
+  left: 10,
+  right: 10,
+  top: 10
+};
 
 function _createSuper$e(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$e(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
@@ -10476,9 +9503,9 @@ var file$8 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/cho
 
 function get_each_context$4(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[34] = list[i];
+  child_ctx[33] = list[i];
   return child_ctx;
-} // (94:0) {#if height && width}
+} // (85:0) {#if height && width}
 
 
 function create_if_block$5(ctx) {
@@ -10526,13 +9553,13 @@ function create_if_block$5(ctx) {
       /*width*/
       ctx[4]);
       attr_dev(rect, "class", "bkg svelte-12ajc17");
-      add_location(rect, file$8, 99, 1, 2844);
+      add_location(rect, file$8, 90, 1, 2637);
       attr_dev(g0, "transform", g0_transform_value = "translate(" +
       /*geometry*/
       ctx[0].left + "," +
       /*geometry*/
       ctx[0].top + ")");
-      add_location(g0, file$8, 104, 1, 2890);
+      add_location(g0, file$8, 95, 1, 2683);
       attr_dev(g1, "style",
       /*style*/
       ctx[6]);
@@ -10540,7 +9567,7 @@ function create_if_block$5(ctx) {
       toggle_class(g1, "interactive",
       /*isInteractive*/
       ctx[1]);
-      add_location(g1, file$8, 94, 0, 2772);
+      add_location(g1, file$8, 85, 0, 2565);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g1, anchor);
@@ -10615,11 +9642,11 @@ function create_if_block$5(ctx) {
     block: block,
     id: create_if_block$5.name,
     type: "if",
-    source: "(94:0) {#if height && width}",
+    source: "(85:0) {#if height && width}",
     ctx: ctx
   });
   return block;
-} // (106:2) {#if coloredGeojson}
+} // (97:2) {#if coloredGeojson}
 
 
 function create_if_block_1$4(ctx) {
@@ -10697,11 +9724,11 @@ function create_if_block_1$4(ctx) {
     block: block,
     id: create_if_block_1$4.name,
     type: "if",
-    source: "(106:2) {#if coloredGeojson}",
+    source: "(97:2) {#if coloredGeojson}",
     ctx: ctx
   });
   return block;
-} // (107:2) {#each coloredGeojson.features as feature}
+} // (98:2) {#each coloredGeojson.features as feature}
 
 
 function create_each_block$4(ctx) {
@@ -10721,9 +9748,9 @@ function create_each_block$4(ctx) {
 
     return (
       /*click_handler*/
-      (_ctx = ctx)[21].apply(_ctx, [
+      (_ctx = ctx)[22].apply(_ctx, [
       /*feature*/
-      ctx[34]].concat(args))
+      ctx[33]].concat(args))
     );
   }
 
@@ -10736,9 +9763,9 @@ function create_each_block$4(ctx) {
 
     return (
       /*mouseenter_handler*/
-      (_ctx2 = ctx)[22].apply(_ctx2, [
+      (_ctx2 = ctx)[23].apply(_ctx2, [
       /*feature*/
-      ctx[34]].concat(args))
+      ctx[33]].concat(args))
     );
   }
 
@@ -10751,9 +9778,9 @@ function create_each_block$4(ctx) {
 
     return (
       /*mouseleave_handler*/
-      (_ctx3 = ctx)[23].apply(_ctx3, [
+      (_ctx3 = ctx)[24].apply(_ctx3, [
       /*feature*/
-      ctx[34]].concat(args))
+      ctx[33]].concat(args))
     );
   }
 
@@ -10783,38 +9810,38 @@ function create_each_block$4(ctx) {
       /*geopath*/
       ctx[8](
       /*feature*/
-      ctx[34]));
+      ctx[33]));
       set_style(path, "fill",
       /*feature*/
-      ctx[34].properties.color || null);
+      ctx[33].properties.color || null);
       attr_dev(path, "class", "svelte-12ajc17");
       toggle_class(path, "clickable",
       /*isClickable*/
       ctx[12](
       /*feature*/
-      ctx[34]));
-      add_location(path, file$8, 113, 3, 3194);
+      ctx[33]));
+      add_location(path, file$8, 104, 3, 2987);
       attr_dev(g, "class", "feature svelte-12ajc17");
       attr_dev(g, "id", g_id_value =
       /*feature*/
-      ctx[34].properties[
+      ctx[33].properties[
       /*key*/
       ctx[5]] ||
       /*feature*/
-      ctx[34].properties[
+      ctx[33].properties[
       /*key_alt*/
       ctx[2]]);
       toggle_class(g, "deselected",
       /*isDeselected*/
       ctx[11](
       /*feature*/
-      ctx[34]));
+      ctx[33]));
       toggle_class(g, "selected",
       /*isSelected*/
       ctx[10](
       /*feature*/
-      ctx[34]));
-      add_location(g, file$8, 107, 2, 3018);
+      ctx[33]));
+      add_location(g, file$8, 98, 2, 2811);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -10834,7 +9861,7 @@ function create_each_block$4(ctx) {
       /*geopath*/
       ctx[8](
       /*feature*/
-      ctx[34]))) {
+      ctx[33]))) {
         attr_dev(path, "d", path_d_value);
       }
 
@@ -10843,7 +9870,7 @@ function create_each_block$4(ctx) {
       128) {
         set_style(path, "fill",
         /*feature*/
-        ctx[34].properties.color || null);
+        ctx[33].properties.color || null);
       }
 
       if (dirty[0] &
@@ -10853,18 +9880,18 @@ function create_each_block$4(ctx) {
         /*isClickable*/
         ctx[12](
         /*feature*/
-        ctx[34]));
+        ctx[33]));
       }
 
       if (dirty[0] &
       /*coloredGeojson, key, key_alt*/
       164 && g_id_value !== (g_id_value =
       /*feature*/
-      ctx[34].properties[
+      ctx[33].properties[
       /*key*/
       ctx[5]] ||
       /*feature*/
-      ctx[34].properties[
+      ctx[33].properties[
       /*key_alt*/
       ctx[2]])) {
         attr_dev(g, "id", g_id_value);
@@ -10877,7 +9904,7 @@ function create_each_block$4(ctx) {
         /*isDeselected*/
         ctx[11](
         /*feature*/
-        ctx[34]));
+        ctx[33]));
       }
 
       if (dirty[0] &
@@ -10887,7 +9914,7 @@ function create_each_block$4(ctx) {
         /*isSelected*/
         ctx[10](
         /*feature*/
-        ctx[34]));
+        ctx[33]));
       }
     },
     d: function destroy(detaching) {
@@ -10900,7 +9927,7 @@ function create_each_block$4(ctx) {
     block: block,
     id: create_each_block$4.name,
     type: "each",
-    source: "(107:2) {#each coloredGeojson.features as feature}",
+    source: "(98:2) {#each coloredGeojson.features as feature}",
     ctx: ctx
   });
   return block;
@@ -10964,18 +9991,6 @@ function create_fragment$e(ctx) {
 function instance$e($$self, $$props, $$invalidate) {
   var dispatch = createEventDispatcher();
   var hasColor = isNotNullWith(getPath("properties.color"));
-  var truncateGeojson = setGeometryPrecision(4);
-
-  var topoToGeo = function topoToGeo(topojson, id) {
-    return truncateGeojson(geoObject(topojson, topojson.objects[id]));
-  };
-
-  var defaultGeometry = {
-    bottom: 10,
-    left: 10,
-    right: 10,
-    top: 10
-  };
   var defaultTheme = {
     backgroundColor: "white",
     defaultFill: "white",
@@ -10999,10 +10014,11 @@ function instance$e($$self, $$props, $$invalidate) {
   var key = $$props.key;
   var keyToColor = $$props.keyToColor;
   var keyToColorFn = $$props.keyToColorFn;
-  var projection = $$props.projection;
+  var projectionFn = $$props.projectionFn;
+  var projectionId = $$props.projectionId;
   var selectedKeys = $$props.selectedKeys;
   var theme = $$props.theme;
-  var writable_props = ["height", "topojson", "topojsonId", "width", "geometry", "isInteractive", "key_alt", "key", "keyToColor", "keyToColorFn", "projection", "selectedKeys", "theme"];
+  var writable_props = ["height", "topojson", "topojsonId", "width", "geometry", "isInteractive", "key_alt", "key", "keyToColor", "keyToColorFn", "projectionFn", "projectionId", "selectedKeys", "theme"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<ChoroplethG> was created with unknown prop '".concat(key, "'"));
   });
@@ -11025,36 +10041,34 @@ function instance$e($$self, $$props, $$invalidate) {
 
   $$self.$set = function ($$props) {
     if ("height" in $$props) $$invalidate(3, height = $$props.height);
-    if ("topojson" in $$props) $$invalidate(17, topojson = $$props.topojson);
-    if ("topojsonId" in $$props) $$invalidate(18, topojsonId = $$props.topojsonId);
+    if ("topojson" in $$props) $$invalidate(16, topojson = $$props.topojson);
+    if ("topojsonId" in $$props) $$invalidate(17, topojsonId = $$props.topojsonId);
     if ("width" in $$props) $$invalidate(4, width = $$props.width);
     if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
     if ("key" in $$props) $$invalidate(5, key = $$props.key);
-    if ("keyToColor" in $$props) $$invalidate(19, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(20, keyToColorFn = $$props.keyToColorFn);
-    if ("projection" in $$props) $$invalidate(14, projection = $$props.projection);
-    if ("selectedKeys" in $$props) $$invalidate(15, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(16, theme = $$props.theme);
+    if ("keyToColor" in $$props) $$invalidate(18, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(19, keyToColorFn = $$props.keyToColorFn);
+    if ("projectionFn" in $$props) $$invalidate(20, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(21, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(14, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(15, theme = $$props.theme);
   };
 
   $$self.$capture_state = function () {
     return {
       createEventDispatcher: createEventDispatcher,
-      geoObject: geoObject,
       geoPath: geoPath,
       getPath: getPath,
       makeStyleVars: makeStyleVars,
       makeUpdateFeaturesProperty: makeUpdateFeaturesProperty,
-      setGeometryPrecision: setGeometryPrecision,
       isNotNullWith: isNotNullWith,
       projections: projections,
-      dispatch: dispatch,
-      hasColor: hasColor,
-      truncateGeojson: truncateGeojson,
       topoToGeo: topoToGeo,
       defaultGeometry: defaultGeometry,
+      dispatch: dispatch,
+      hasColor: hasColor,
       defaultTheme: defaultTheme,
       height: height,
       topojson: topojson,
@@ -11066,10 +10080,12 @@ function instance$e($$self, $$props, $$invalidate) {
       key: key,
       keyToColor: keyToColor,
       keyToColorFn: keyToColorFn,
-      projection: projection,
+      projectionFn: projectionFn,
+      projectionId: projectionId,
       selectedKeys: selectedKeys,
       theme: theme,
       geojson: geojson,
+      projection: projection,
       style: style,
       innerHeight: innerHeight,
       innerWidth: innerWidth,
@@ -11086,25 +10102,27 @@ function instance$e($$self, $$props, $$invalidate) {
 
   $$self.$inject_state = function ($$props) {
     if ("height" in $$props) $$invalidate(3, height = $$props.height);
-    if ("topojson" in $$props) $$invalidate(17, topojson = $$props.topojson);
-    if ("topojsonId" in $$props) $$invalidate(18, topojsonId = $$props.topojsonId);
+    if ("topojson" in $$props) $$invalidate(16, topojson = $$props.topojson);
+    if ("topojsonId" in $$props) $$invalidate(17, topojsonId = $$props.topojsonId);
     if ("width" in $$props) $$invalidate(4, width = $$props.width);
     if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
     if ("key" in $$props) $$invalidate(5, key = $$props.key);
-    if ("keyToColor" in $$props) $$invalidate(19, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(20, keyToColorFn = $$props.keyToColorFn);
-    if ("projection" in $$props) $$invalidate(14, projection = $$props.projection);
-    if ("selectedKeys" in $$props) $$invalidate(15, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(16, theme = $$props.theme);
-    if ("geojson" in $$props) $$invalidate(24, geojson = $$props.geojson);
+    if ("keyToColor" in $$props) $$invalidate(18, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(19, keyToColorFn = $$props.keyToColorFn);
+    if ("projectionFn" in $$props) $$invalidate(20, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(21, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(14, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(15, theme = $$props.theme);
+    if ("geojson" in $$props) $$invalidate(25, geojson = $$props.geojson);
+    if ("projection" in $$props) $$invalidate(26, projection = $$props.projection);
     if ("style" in $$props) $$invalidate(6, style = $$props.style);
-    if ("innerHeight" in $$props) $$invalidate(25, innerHeight = $$props.innerHeight);
-    if ("innerWidth" in $$props) $$invalidate(26, innerWidth = $$props.innerWidth);
-    if ("createColoredGeojson" in $$props) $$invalidate(27, createColoredGeojson = $$props.createColoredGeojson);
+    if ("innerHeight" in $$props) $$invalidate(27, innerHeight = $$props.innerHeight);
+    if ("innerWidth" in $$props) $$invalidate(28, innerWidth = $$props.innerWidth);
+    if ("createColoredGeojson" in $$props) $$invalidate(29, createColoredGeojson = $$props.createColoredGeojson);
     if ("coloredGeojson" in $$props) $$invalidate(7, coloredGeojson = $$props.coloredGeojson);
-    if ("fitProjection" in $$props) $$invalidate(28, fitProjection = $$props.fitProjection);
+    if ("fitProjection" in $$props) $$invalidate(30, fitProjection = $$props.fitProjection);
     if ("geopath" in $$props) $$invalidate(8, geopath = $$props.geopath);
     if ("getPayload" in $$props) $$invalidate(9, getPayload = $$props.getPayload);
     if ("isSelected" in $$props) $$invalidate(10, isSelected = $$props.isSelected);
@@ -11113,6 +10131,7 @@ function instance$e($$self, $$props, $$invalidate) {
   };
 
   var geojson;
+  var projection;
   var style;
   var innerHeight;
   var innerWidth;
@@ -11132,9 +10151,9 @@ function instance$e($$self, $$props, $$invalidate) {
   $$self.$$.update = function () {
     if ($$self.$$.dirty[0] &
     /*topojson, topojsonId*/
-    393216) {
+    196608) {
       // FIXME https://github.com/sveltejs/svelte/issues/4442
-       $$invalidate(24, geojson = topoToGeo(topojson, topojsonId));
+       $$invalidate(25, geojson = topoToGeo(topojson, topojsonId));
     }
 
     if ($$self.$$.dirty[0] &
@@ -11156,45 +10175,45 @@ function instance$e($$self, $$props, $$invalidate) {
     }
 
     if ($$self.$$.dirty[0] &
-    /*projection*/
-    16384) {
-       $$invalidate(14, projection = projection && projections[projection] || equirectangular);
+    /*projectionFn, projectionId*/
+    3145728) {
+       $$invalidate(26, projection = projectionFn || projectionId && projections[projectionId] || equirectangular);
     }
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys*/
+    16384) {
+       $$invalidate(14, selectedKeys = selectedKeys || []);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*theme*/
     32768) {
-       $$invalidate(15, selectedKeys = selectedKeys || []);
+       $$invalidate(15, theme = theme ? _objectSpread$4(_objectSpread$4({}, defaultTheme), theme) : defaultTheme);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    65536) {
-       $$invalidate(16, theme = theme ? _objectSpread$4(_objectSpread$4({}, defaultTheme), theme) : defaultTheme);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*theme*/
-    65536) {
+    32768) {
        $$invalidate(6, style = makeStyleVars(theme));
     }
 
     if ($$self.$$.dirty[0] &
     /*height, geometry*/
     9) {
-       $$invalidate(25, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
+       $$invalidate(27, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
     }
 
     if ($$self.$$.dirty[0] &
     /*width, geometry*/
     17) {
-       $$invalidate(26, innerWidth = Math.max(0, width - geometry.left - geometry.right));
+       $$invalidate(28, innerWidth = Math.max(0, width - geometry.left - geometry.right));
     }
 
     if ($$self.$$.dirty[0] &
     /*key_alt, key, keyToColor, keyToColorFn*/
-    1572900) {
-       $$invalidate(27, createColoredGeojson = makeUpdateFeaturesProperty({
+    786468) {
+       $$invalidate(29, createColoredGeojson = makeUpdateFeaturesProperty({
         key_alt: key_alt,
         key: key,
         map: keyToColor,
@@ -11205,19 +10224,19 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*geojson, createColoredGeojson*/
-    150994944) {
+    570425344) {
        $$invalidate(7, coloredGeojson = geojson && createColoredGeojson(geojson));
     }
 
     if ($$self.$$.dirty[0] &
     /*geojson, projection, innerWidth, innerHeight*/
-    117456896) {
-       $$invalidate(28, fitProjection = geojson && projection().fitSize([innerWidth, innerHeight], geojson));
+    503316480) {
+       $$invalidate(30, fitProjection = geojson && projection().fitSize([innerWidth, innerHeight], geojson));
     }
 
     if ($$self.$$.dirty[0] &
     /*fitProjection*/
-    268435456) {
+    1073741824) {
        $$invalidate(8, geopath = fitProjection && geoPath(fitProjection));
     }
 
@@ -11231,7 +10250,7 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys, getPayload*/
-    33280) {
+    16896) {
        $$invalidate(10, isSelected = function isSelected(feature) {
         return selectedKeys.length && selectedKeys.includes(getPayload(feature));
       });
@@ -11239,7 +10258,7 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys, getPayload*/
-    33280) {
+    16896) {
        $$invalidate(11, isDeselected = function isDeselected(feature) {
         return selectedKeys.length && !selectedKeys.includes(getPayload(feature));
       });
@@ -11254,7 +10273,7 @@ function instance$e($$self, $$props, $$invalidate) {
     }
   };
 
-  return [geometry, isInteractive, key_alt, height, width, key, style, coloredGeojson, geopath, getPayload, isSelected, isDeselected, isClickable, dispatch, projection, selectedKeys, theme, topojson, topojsonId, keyToColor, keyToColorFn, click_handler, mouseenter_handler, mouseleave_handler];
+  return [geometry, isInteractive, key_alt, height, width, key, style, coloredGeojson, geopath, getPayload, isSelected, isDeselected, isClickable, dispatch, selectedKeys, theme, topojson, topojsonId, keyToColor, keyToColorFn, projectionFn, projectionId, click_handler, mouseenter_handler, mouseleave_handler];
 }
 
 var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -11270,18 +10289,19 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$e, create_fragment$e, safe_not_equal, {
       height: 3,
-      topojson: 17,
-      topojsonId: 18,
+      topojson: 16,
+      topojsonId: 17,
       width: 4,
       geometry: 0,
       isInteractive: 1,
       key_alt: 2,
       key: 5,
-      keyToColor: 19,
-      keyToColorFn: 20,
-      projection: 14,
-      selectedKeys: 15,
-      theme: 16
+      keyToColor: 18,
+      keyToColorFn: 19,
+      projectionFn: 20,
+      projectionId: 21,
+      selectedKeys: 14,
+      theme: 15
     }, [-1, -1]);
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -11300,13 +10320,13 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*topojson*/
-    ctx[17] === undefined && !("topojson" in props)) {
+    ctx[16] === undefined && !("topojson" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'topojson'");
     }
 
     if (
     /*topojsonId*/
-    ctx[18] === undefined && !("topojsonId" in props)) {
+    ctx[17] === undefined && !("topojsonId" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'topojsonId'");
     }
 
@@ -11342,31 +10362,37 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*keyToColor*/
-    ctx[19] === undefined && !("keyToColor" in props)) {
+    ctx[18] === undefined && !("keyToColor" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'keyToColor'");
     }
 
     if (
     /*keyToColorFn*/
-    ctx[20] === undefined && !("keyToColorFn" in props)) {
+    ctx[19] === undefined && !("keyToColorFn" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'keyToColorFn'");
     }
 
     if (
-    /*projection*/
-    ctx[14] === undefined && !("projection" in props)) {
-      console.warn("<ChoroplethG> was created without expected prop 'projection'");
+    /*projectionFn*/
+    ctx[20] === undefined && !("projectionFn" in props)) {
+      console.warn("<ChoroplethG> was created without expected prop 'projectionFn'");
+    }
+
+    if (
+    /*projectionId*/
+    ctx[21] === undefined && !("projectionId" in props)) {
+      console.warn("<ChoroplethG> was created without expected prop 'projectionId'");
     }
 
     if (
     /*selectedKeys*/
-    ctx[15] === undefined && !("selectedKeys" in props)) {
+    ctx[14] === undefined && !("selectedKeys" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'selectedKeys'");
     }
 
     if (
     /*theme*/
-    ctx[16] === undefined && !("theme" in props)) {
+    ctx[15] === undefined && !("theme" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'theme'");
     }
 
@@ -11454,7 +10480,15 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<ChoroplethG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
-    key: "projection",
+    key: "projectionFn",
+    get: function get() {
+      throw new Error("<ChoroplethG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ChoroplethG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "projectionId",
     get: function get() {
       throw new Error("<ChoroplethG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     },
@@ -11485,7 +10519,7 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 function _createSuper$f(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$f(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct$f() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-var file$9 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethDiv.svelte"; // (39:1) {#if title}
+var file$9 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethDiv.svelte"; // (40:1) {#if title}
 
 function create_if_block$6(ctx) {
   var header;
@@ -11518,9 +10552,9 @@ function create_if_block$6(ctx) {
     },
     h: function hydrate() {
       attr_dev(h2, "class", "svelte-77ac80");
-      add_location(h2, file$9, 40, 2, 759);
+      add_location(h2, file$9, 41, 2, 787);
       attr_dev(header, "class", "svelte-77ac80");
-      add_location(header, file$9, 39, 1, 748);
+      add_location(header, file$9, 40, 1, 776);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -11542,7 +10576,7 @@ function create_if_block$6(ctx) {
     block: block,
     id: create_if_block$6.name,
     type: "if",
-    source: "(39:1) {#if title}",
+    source: "(40:1) {#if title}",
     ctx: ctx
   });
   return block;
@@ -11563,7 +10597,7 @@ function create_fragment$f(ctx) {
     props: {
       height:
       /*height*/
-      ctx[12],
+      ctx[13],
       geometry:
       /*geometry*/
       ctx[3],
@@ -11582,15 +10616,18 @@ function create_fragment$f(ctx) {
       keyToColorFn:
       /*keyToColorFn*/
       ctx[8],
-      projection:
-      /*projection*/
+      projectionFn:
+      /*projectionFn*/
       ctx[9],
+      projectionId:
+      /*projectionId*/
+      ctx[10],
       selectedKeys:
       /*selectedKeys*/
-      ctx[10],
+      ctx[11],
       theme:
       /*theme*/
-      ctx[11],
+      ctx[12],
       topojson:
       /*topojson*/
       ctx[1],
@@ -11599,19 +10636,19 @@ function create_fragment$f(ctx) {
       ctx[2],
       width:
       /*width*/
-      ctx[13]
+      ctx[14]
     },
     $$inline: true
   });
   choroplethg.$on("clicked",
   /*clicked_handler*/
-  ctx[17]);
+  ctx[18]);
   choroplethg.$on("entered",
   /*entered_handler*/
-  ctx[18]);
+  ctx[19]);
   choroplethg.$on("exited",
   /*exited_handler*/
-  ctx[19]);
+  ctx[20]);
   var block = {
     c: function create() {
       div = element("div");
@@ -11649,17 +10686,17 @@ function create_fragment$f(ctx) {
     h: function hydrate() {
       attr_dev(svg, "width",
       /*width*/
-      ctx[13]);
+      ctx[14]);
       attr_dev(svg, "height",
       /*height*/
-      ctx[12]);
+      ctx[13]);
       attr_dev(svg, "class", "svelte-77ac80");
-      add_location(svg, file$9, 48, 2, 901);
+      add_location(svg, file$9, 49, 2, 929);
       attr_dev(main, "class", "svelte-77ac80");
       add_render_callback(function () {
         return (
           /*main_elementresize_handler*/
-          ctx[20].call(main)
+          ctx[21].call(main)
         );
       });
       toggle_class(main, "titled",
@@ -11667,15 +10704,15 @@ function create_fragment$f(ctx) {
       ctx[0] &&
       /*title*/
       ctx[0].length);
-      add_location(main, file$9, 43, 1, 795);
+      add_location(main, file$9, 44, 1, 823);
       attr_dev(div, "class", "ChoroplethDiv svelte-77ac80");
       attr_dev(div, "style",
       /*style*/
-      ctx[14]);
+      ctx[15]);
       toggle_class(div, "interactive",
       /*isInteractive*/
       ctx[4]);
-      add_location(div, file$9, 33, 0, 660);
+      add_location(div, file$9, 34, 0, 688);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -11686,7 +10723,7 @@ function create_fragment$f(ctx) {
       mount_component(choroplethg, svg, null);
       main_resize_listener = add_resize_listener(main,
       /*main_elementresize_handler*/
-      ctx[20].bind(main));
+      ctx[21].bind(main));
       current = true;
     },
     p: function update(ctx, _ref) {
@@ -11711,9 +10748,9 @@ function create_fragment$f(ctx) {
       var choroplethg_changes = {};
       if (dirty &
       /*height*/
-      4096) choroplethg_changes.height =
+      8192) choroplethg_changes.height =
       /*height*/
-      ctx[12];
+      ctx[13];
       if (dirty &
       /*geometry*/
       8) choroplethg_changes.geometry =
@@ -11745,20 +10782,25 @@ function create_fragment$f(ctx) {
       /*keyToColorFn*/
       ctx[8];
       if (dirty &
-      /*projection*/
-      512) choroplethg_changes.projection =
-      /*projection*/
+      /*projectionFn*/
+      512) choroplethg_changes.projectionFn =
+      /*projectionFn*/
       ctx[9];
       if (dirty &
-      /*selectedKeys*/
-      1024) choroplethg_changes.selectedKeys =
-      /*selectedKeys*/
+      /*projectionId*/
+      1024) choroplethg_changes.projectionId =
+      /*projectionId*/
       ctx[10];
       if (dirty &
-      /*theme*/
-      2048) choroplethg_changes.theme =
-      /*theme*/
+      /*selectedKeys*/
+      2048) choroplethg_changes.selectedKeys =
+      /*selectedKeys*/
       ctx[11];
+      if (dirty &
+      /*theme*/
+      4096) choroplethg_changes.theme =
+      /*theme*/
+      ctx[12];
       if (dirty &
       /*topojson*/
       2) choroplethg_changes.topojson =
@@ -11771,25 +10813,25 @@ function create_fragment$f(ctx) {
       ctx[2];
       if (dirty &
       /*width*/
-      8192) choroplethg_changes.width =
+      16384) choroplethg_changes.width =
       /*width*/
-      ctx[13];
+      ctx[14];
       choroplethg.$set(choroplethg_changes);
 
       if (!current || dirty &
       /*width*/
-      8192) {
+      16384) {
         attr_dev(svg, "width",
         /*width*/
-        ctx[13]);
+        ctx[14]);
       }
 
       if (!current || dirty &
       /*height*/
-      4096) {
+      8192) {
         attr_dev(svg, "height",
         /*height*/
-        ctx[12]);
+        ctx[13]);
       }
 
       if (dirty &
@@ -11804,10 +10846,10 @@ function create_fragment$f(ctx) {
 
       if (!current || dirty &
       /*style*/
-      16384) {
+      32768) {
         attr_dev(div, "style",
         /*style*/
-        ctx[14]);
+        ctx[15]);
       }
 
       if (dirty &
@@ -11856,12 +10898,13 @@ function instance$f($$self, $$props, $$invalidate) {
   var key = $$props.key;
   var keyToColor = $$props.keyToColor;
   var keyToColorFn = $$props.keyToColorFn;
-  var projection = $$props.projection;
+  var projectionFn = $$props.projectionFn;
+  var projectionId = $$props.projectionId;
   var selectedKeys = $$props.selectedKeys;
   var theme = $$props.theme;
   var height = 0;
   var width = 0;
-  var writable_props = ["headerHeight", "padding", "title", "topojson", "topojsonId", "geometry", "isInteractive", "key_alt", "key", "keyToColor", "keyToColorFn", "projection", "selectedKeys", "theme"];
+  var writable_props = ["headerHeight", "padding", "title", "topojson", "topojsonId", "geometry", "isInteractive", "key_alt", "key", "keyToColor", "keyToColorFn", "projectionFn", "projectionId", "selectedKeys", "theme"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<ChoroplethDiv> was created with unknown prop '".concat(key, "'"));
   });
@@ -11885,13 +10928,13 @@ function instance$f($$self, $$props, $$invalidate) {
   function main_elementresize_handler() {
     width = this.clientWidth;
     height = this.clientHeight;
-    $$invalidate(13, width);
-    $$invalidate(12, height);
+    $$invalidate(14, width);
+    $$invalidate(13, height);
   }
 
   $$self.$set = function ($$props) {
-    if ("headerHeight" in $$props) $$invalidate(15, headerHeight = $$props.headerHeight);
-    if ("padding" in $$props) $$invalidate(16, padding = $$props.padding);
+    if ("headerHeight" in $$props) $$invalidate(16, headerHeight = $$props.headerHeight);
+    if ("padding" in $$props) $$invalidate(17, padding = $$props.padding);
     if ("title" in $$props) $$invalidate(0, title = $$props.title);
     if ("topojson" in $$props) $$invalidate(1, topojson = $$props.topojson);
     if ("topojsonId" in $$props) $$invalidate(2, topojsonId = $$props.topojsonId);
@@ -11901,9 +10944,10 @@ function instance$f($$self, $$props, $$invalidate) {
     if ("key" in $$props) $$invalidate(6, key = $$props.key);
     if ("keyToColor" in $$props) $$invalidate(7, keyToColor = $$props.keyToColor);
     if ("keyToColorFn" in $$props) $$invalidate(8, keyToColorFn = $$props.keyToColorFn);
-    if ("projection" in $$props) $$invalidate(9, projection = $$props.projection);
-    if ("selectedKeys" in $$props) $$invalidate(10, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(11, theme = $$props.theme);
+    if ("projectionFn" in $$props) $$invalidate(9, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(10, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(11, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(12, theme = $$props.theme);
   };
 
   $$self.$capture_state = function () {
@@ -11921,7 +10965,8 @@ function instance$f($$self, $$props, $$invalidate) {
       key: key,
       keyToColor: keyToColor,
       keyToColorFn: keyToColorFn,
-      projection: projection,
+      projectionFn: projectionFn,
+      projectionId: projectionId,
       selectedKeys: selectedKeys,
       theme: theme,
       height: height,
@@ -11931,8 +10976,8 @@ function instance$f($$self, $$props, $$invalidate) {
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("headerHeight" in $$props) $$invalidate(15, headerHeight = $$props.headerHeight);
-    if ("padding" in $$props) $$invalidate(16, padding = $$props.padding);
+    if ("headerHeight" in $$props) $$invalidate(16, headerHeight = $$props.headerHeight);
+    if ("padding" in $$props) $$invalidate(17, padding = $$props.padding);
     if ("title" in $$props) $$invalidate(0, title = $$props.title);
     if ("topojson" in $$props) $$invalidate(1, topojson = $$props.topojson);
     if ("topojsonId" in $$props) $$invalidate(2, topojsonId = $$props.topojsonId);
@@ -11942,12 +10987,13 @@ function instance$f($$self, $$props, $$invalidate) {
     if ("key" in $$props) $$invalidate(6, key = $$props.key);
     if ("keyToColor" in $$props) $$invalidate(7, keyToColor = $$props.keyToColor);
     if ("keyToColorFn" in $$props) $$invalidate(8, keyToColorFn = $$props.keyToColorFn);
-    if ("projection" in $$props) $$invalidate(9, projection = $$props.projection);
-    if ("selectedKeys" in $$props) $$invalidate(10, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(11, theme = $$props.theme);
-    if ("height" in $$props) $$invalidate(12, height = $$props.height);
-    if ("width" in $$props) $$invalidate(13, width = $$props.width);
-    if ("style" in $$props) $$invalidate(14, style = $$props.style);
+    if ("projectionFn" in $$props) $$invalidate(9, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(10, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(11, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(12, theme = $$props.theme);
+    if ("height" in $$props) $$invalidate(13, height = $$props.height);
+    if ("width" in $$props) $$invalidate(14, width = $$props.width);
+    if ("style" in $$props) $$invalidate(15, style = $$props.style);
   };
 
   var style;
@@ -11959,27 +11005,27 @@ function instance$f($$self, $$props, $$invalidate) {
   $$self.$$.update = function () {
     if ($$self.$$.dirty &
     /*padding*/
-    65536) {
-       $$invalidate(16, padding = padding || "10px");
+    131072) {
+       $$invalidate(17, padding = padding || "10px");
     }
 
     if ($$self.$$.dirty &
     /*headerHeight*/
-    32768) {
-       $$invalidate(15, headerHeight = headerHeight || "2rem");
+    65536) {
+       $$invalidate(16, headerHeight = headerHeight || "2rem");
     }
 
     if ($$self.$$.dirty &
     /*headerHeight, padding*/
-    98304) {
-       $$invalidate(14, style = makeStyleVars({
+    196608) {
+       $$invalidate(15, style = makeStyleVars({
         headerHeight: headerHeight,
         padding: padding
       }));
     }
   };
 
-  return [title, topojson, topojsonId, geometry, isInteractive, key_alt, key, keyToColor, keyToColorFn, projection, selectedKeys, theme, height, width, style, headerHeight, padding, clicked_handler, entered_handler, exited_handler, main_elementresize_handler];
+  return [title, topojson, topojsonId, geometry, isInteractive, key_alt, key, keyToColor, keyToColorFn, projectionFn, projectionId, selectedKeys, theme, height, width, style, headerHeight, padding, clicked_handler, entered_handler, exited_handler, main_elementresize_handler];
 }
 
 var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -11994,8 +11040,8 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$f, create_fragment$f, safe_not_equal, {
-      headerHeight: 15,
-      padding: 16,
+      headerHeight: 16,
+      padding: 17,
       title: 0,
       topojson: 1,
       topojsonId: 2,
@@ -12005,9 +11051,10 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       key: 6,
       keyToColor: 7,
       keyToColorFn: 8,
-      projection: 9,
-      selectedKeys: 10,
-      theme: 11
+      projectionFn: 9,
+      projectionId: 10,
+      selectedKeys: 11,
+      theme: 12
     });
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -12020,13 +11067,13 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*headerHeight*/
-    ctx[15] === undefined && !("headerHeight" in props)) {
+    ctx[16] === undefined && !("headerHeight" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'headerHeight'");
     }
 
     if (
     /*padding*/
-    ctx[16] === undefined && !("padding" in props)) {
+    ctx[17] === undefined && !("padding" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'padding'");
     }
 
@@ -12085,20 +11132,26 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
     }
 
     if (
-    /*projection*/
-    ctx[9] === undefined && !("projection" in props)) {
-      console.warn("<ChoroplethDiv> was created without expected prop 'projection'");
+    /*projectionFn*/
+    ctx[9] === undefined && !("projectionFn" in props)) {
+      console.warn("<ChoroplethDiv> was created without expected prop 'projectionFn'");
+    }
+
+    if (
+    /*projectionId*/
+    ctx[10] === undefined && !("projectionId" in props)) {
+      console.warn("<ChoroplethDiv> was created without expected prop 'projectionId'");
     }
 
     if (
     /*selectedKeys*/
-    ctx[10] === undefined && !("selectedKeys" in props)) {
+    ctx[11] === undefined && !("selectedKeys" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'selectedKeys'");
     }
 
     if (
     /*theme*/
-    ctx[11] === undefined && !("theme" in props)) {
+    ctx[12] === undefined && !("theme" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'theme'");
     }
 
@@ -12194,7 +11247,15 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<ChoroplethDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
-    key: "projection",
+    key: "projectionFn",
+    get: function get() {
+      throw new Error("<ChoroplethDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ChoroplethDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "projectionId",
     get: function get() {
       throw new Error("<ChoroplethDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     },
@@ -12301,7 +11362,7 @@ var exactAmountBins = function exactAmountBins(_ref) {
   var array = _ref.array,
       amount = _ref.amount,
       _ref$accessor = _ref.accessor,
-      accessor = _ref$accessor === void 0 ? identity$2 : _ref$accessor,
+      accessor = _ref$accessor === void 0 ? identity$1 : _ref$accessor,
       _ref$maxExtent = _ref.maxExtent,
       maxExtent = _ref$maxExtent === void 0 ? null : _ref$maxExtent;
   var activeRange = maxExtent ? sort(maxExtent) : extent(array, accessor);
@@ -12639,7 +11700,7 @@ function get_each_context$5(ctx, list, i) {
   return child_ctx;
 }
 
-function get_each_context_1(ctx, list, i) {
+function get_each_context_1$1(ctx, list, i) {
   var child_ctx = ctx.slice();
   child_ctx[53] = list[i].barWidth;
   child_ctx[54] = list[i].barHeight;
@@ -12677,12 +11738,12 @@ function create_if_block$7(ctx) {
   var each_blocks = [];
 
   for (var i = 0; i < each_value_1.length; i += 1) {
-    each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    each_blocks[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
   }
 
   var if_block2 =
   /*flags*/
-  ctx[0].showTicks && create_if_block_3$1(ctx);
+  ctx[0].showTicks && create_if_block_3$2(ctx);
   var if_block3 =
   /*isBrushing*/
   ctx[12] && create_if_block_1$5(ctx);
@@ -12849,12 +11910,12 @@ function create_if_block$7(ctx) {
         var _i4;
 
         for (_i4 = 0; _i4 < each_value_1.length; _i4 += 1) {
-          var child_ctx = get_each_context_1(ctx, each_value_1, _i4);
+          var child_ctx = get_each_context_1$1(ctx, each_value_1, _i4);
 
           if (each_blocks[_i4]) {
             each_blocks[_i4].p(child_ctx, dirty);
           } else {
-            each_blocks[_i4] = create_each_block_1(child_ctx);
+            each_blocks[_i4] = create_each_block_1$1(child_ctx);
 
             each_blocks[_i4].c();
 
@@ -12875,7 +11936,7 @@ function create_if_block$7(ctx) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
         } else {
-          if_block2 = create_if_block_3$1(ctx);
+          if_block2 = create_if_block_3$2(ctx);
           if_block2.c();
           if_block2.m(g1, if_block2_anchor);
         }
@@ -13193,7 +12254,7 @@ function create_if_block_4(ctx) {
 } // (329:3) {#each bars as {     barWidth,     barHeight,     fill,     selected,     x,     y    }
 
 
-function create_each_block_1(ctx) {
+function create_each_block_1$1(ctx) {
   var g;
   var rect;
   var rect_fill_value;
@@ -13320,7 +12381,7 @@ function create_each_block_1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_each_block_1.name,
+    id: create_each_block_1$1.name,
     type: "each",
     source: "(329:3) {#each bars as {     barWidth,     barHeight,     fill,     selected,     x,     y    }",
     ctx: ctx
@@ -13329,7 +12390,7 @@ function create_each_block_1(ctx) {
 } // (364:2) {#if flags.showTicks}
 
 
-function create_if_block_3$1(ctx) {
+function create_if_block_3$2(ctx) {
   var g;
   var g_font_size_value;
   var each_value =
@@ -13438,7 +12499,7 @@ function create_if_block_3$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_3$1.name,
+    id: create_if_block_3$2.name,
     type: "if",
     source: "(364:2) {#if flags.showTicks}",
     ctx: ctx
@@ -13530,7 +12591,7 @@ function create_if_block_1$5(ctx) {
   function select_block_type(ctx, dirty) {
     if (
     /*flags*/
-    ctx[0].isVertical) return create_if_block_2$2;
+    ctx[0].isVertical) return create_if_block_2$3;
     return create_else_block$1;
   }
 
@@ -13677,7 +12738,7 @@ function create_else_block$1(ctx) {
 } // (381:3) {#if flags.isVertical}
 
 
-function create_if_block_2$2(ctx) {
+function create_if_block_2$3(ctx) {
   var line;
   var line_y__value;
   var line_y__value_1;
@@ -13731,7 +12792,7 @@ function create_if_block_2$2(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_2$2.name,
+    id: create_if_block_2$3.name,
     type: "if",
     source: "(381:3) {#if flags.isVertical}",
     ctx: ctx
@@ -15265,7 +14326,7 @@ function get_each_context$6(ctx, list, i) {
   return child_ctx;
 }
 
-function get_each_context_1$1(ctx, list, i) {
+function get_each_context_1$2(ctx, list, i) {
   var child_ctx = ctx.slice();
   child_ctx[55] = list[i].barLength;
   child_ctx[56] = list[i].barThickness;
@@ -15304,15 +14365,15 @@ function create_if_block$9(ctx) {
   var each_blocks = [];
 
   for (var i = 0; i < each_value_1.length; i += 1) {
-    each_blocks[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
+    each_blocks[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
   }
 
   var if_block2 = !
   /*flags*/
-  ctx[0].hideOrigin && create_if_block_3$2(ctx);
+  ctx[0].hideOrigin && create_if_block_3$3(ctx);
   var if_block3 = !
   /*flags*/
-  ctx[0].hideTicks && create_if_block_2$3(ctx);
+  ctx[0].hideTicks && create_if_block_2$4(ctx);
   var if_block4 =
   /*isBrushing*/
   ctx[16] && create_if_block_1$7(ctx);
@@ -15465,12 +14526,12 @@ function create_if_block$9(ctx) {
         var _i4;
 
         for (_i4 = 0; _i4 < each_value_1.length; _i4 += 1) {
-          var child_ctx = get_each_context_1$1(ctx, each_value_1, _i4);
+          var child_ctx = get_each_context_1$2(ctx, each_value_1, _i4);
 
           if (each_blocks[_i4]) {
             each_blocks[_i4].p(child_ctx, dirty);
           } else {
-            each_blocks[_i4] = create_each_block_1$1(child_ctx);
+            each_blocks[_i4] = create_each_block_1$2(child_ctx);
 
             each_blocks[_i4].c();
 
@@ -15503,7 +14564,7 @@ function create_if_block$9(ctx) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
         } else {
-          if_block2 = create_if_block_3$2(ctx);
+          if_block2 = create_if_block_3$3(ctx);
           if_block2.c();
           if_block2.m(g0, if_block2_anchor);
         }
@@ -15518,7 +14579,7 @@ function create_if_block$9(ctx) {
         if (if_block3) {
           if_block3.p(ctx, dirty);
         } else {
-          if_block3 = create_if_block_2$3(ctx);
+          if_block3 = create_if_block_2$4(ctx);
           if_block3.c();
           if_block3.m(g0, null);
         }
@@ -15944,7 +15005,7 @@ function create_if_block_4$1(ctx) {
 } // (343:2) {#each bars as {    barLength,    barThickness,    displayValue,    fill,    labelAnchor,    labelX,    selected,    x,    y1,   }
 
 
-function create_each_block_1$1(ctx) {
+function create_each_block_1$2(ctx) {
   var g;
   var text_1;
   var t_value =
@@ -16104,7 +15165,7 @@ function create_each_block_1$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_each_block_1$1.name,
+    id: create_each_block_1$2.name,
     type: "each",
     source: "(343:2) {#each bars as {    barLength,    barThickness,    displayValue,    fill,    labelAnchor,    labelX,    selected,    x,    y1,   }",
     ctx: ctx
@@ -16113,7 +15174,7 @@ function create_each_block_1$1(ctx) {
 } // (396:3) {#if !flags.hideOrigin}
 
 
-function create_if_block_3$2(ctx) {
+function create_if_block_3$3(ctx) {
   var circle;
   var circle_r_value;
   var block = {
@@ -16154,7 +15215,7 @@ function create_if_block_3$2(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_3$2.name,
+    id: create_if_block_3$3.name,
     type: "if",
     source: "(396:3) {#if !flags.hideOrigin}",
     ctx: ctx
@@ -16163,7 +15224,7 @@ function create_if_block_3$2(ctx) {
 } // (399:3) {#if !flags.hideTicks}
 
 
-function create_if_block_2$3(ctx) {
+function create_if_block_2$4(ctx) {
   var each_1_anchor;
   var each_value =
   /*ticks*/
@@ -16236,7 +15297,7 @@ function create_if_block_2$3(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_2$3.name,
+    id: create_if_block_2$4.name,
     type: "if",
     source: "(399:3) {#if !flags.hideTicks}",
     ctx: ctx
@@ -18054,14 +17115,14 @@ function get_each_context$7(ctx, list, i) {
   return child_ctx;
 }
 
-function get_each_context_1$2(ctx, list, i) {
+function get_each_context_1$3(ctx, list, i) {
   var child_ctx = ctx.slice();
   child_ctx[26] = list[i][0];
   child_ctx[27] = list[i][1];
   return child_ctx;
 }
 
-function get_each_context_2(ctx, list, i) {
+function get_each_context_2$1(ctx, list, i) {
   var child_ctx = ctx.slice();
   child_ctx[26] = list[i].key;
   child_ctx[31] = i;
@@ -18069,7 +17130,7 @@ function get_each_context_2(ctx, list, i) {
 } // (73:2) {#if data.length > 1}
 
 
-function create_if_block_2$4(ctx) {
+function create_if_block_2$5(ctx) {
   var div1;
   var h2;
   var t0;
@@ -18086,7 +17147,7 @@ function create_if_block_2$4(ctx) {
   var each_blocks = [];
 
   for (var i = 0; i < each_value_2.length; i += 1) {
-    each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    each_blocks[i] = create_each_block_2$1(get_each_context_2$1(ctx, each_value_2, i));
   }
 
   var block = {
@@ -18176,12 +17237,12 @@ function create_if_block_2$4(ctx) {
         var _i4;
 
         for (_i4 = 0; _i4 < each_value_2.length; _i4 += 1) {
-          var child_ctx = get_each_context_2(ctx, each_value_2, _i4);
+          var child_ctx = get_each_context_2$1(ctx, each_value_2, _i4);
 
           if (each_blocks[_i4]) {
             each_blocks[_i4].p(child_ctx, dirty);
           } else {
-            each_blocks[_i4] = create_each_block_2(child_ctx);
+            each_blocks[_i4] = create_each_block_2$1(child_ctx);
 
             each_blocks[_i4].c();
 
@@ -18213,7 +17274,7 @@ function create_if_block_2$4(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_2$4.name,
+    id: create_if_block_2$5.name,
     type: "if",
     source: "(73:2) {#if data.length > 1}",
     ctx: ctx
@@ -18222,7 +17283,7 @@ function create_if_block_2$4(ctx) {
 } // (82:5) {#each data as {key}
 
 
-function create_each_block_2(ctx) {
+function create_each_block_2$1(ctx) {
   var option;
   var t_value =
   /*key*/
@@ -18287,7 +17348,7 @@ function create_each_block_2(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_each_block_2.name,
+    id: create_each_block_2$1.name,
     type: "each",
     source: "(82:5) {#each data as {key}",
     ctx: ctx
@@ -18310,7 +17371,7 @@ function create_if_block_1$9(ctx) {
   var each_blocks = [];
 
   for (var i = 0; i < each_value_1.length; i += 1) {
-    each_blocks[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
+    each_blocks[i] = create_each_block_1$3(get_each_context_1$3(ctx, each_value_1, i));
   }
 
   var block = {
@@ -18371,12 +17432,12 @@ function create_if_block_1$9(ctx) {
         var _i8;
 
         for (_i8 = 0; _i8 < each_value_1.length; _i8 += 1) {
-          var child_ctx = get_each_context_1$2(ctx, each_value_1, _i8);
+          var child_ctx = get_each_context_1$3(ctx, each_value_1, _i8);
 
           if (each_blocks[_i8]) {
             each_blocks[_i8].p(child_ctx, dirty);
           } else {
-            each_blocks[_i8] = create_each_block_1$2(child_ctx);
+            each_blocks[_i8] = create_each_block_1$3(child_ctx);
 
             each_blocks[_i8].c();
 
@@ -18409,7 +17470,7 @@ function create_if_block_1$9(ctx) {
 } // (97:3) {#each _.pairs(payloads) as [key, value]}
 
 
-function create_each_block_1$2(ctx) {
+function create_each_block_1$3(ctx) {
   var div;
   var span;
   var t0_value =
@@ -18491,7 +17552,7 @@ function create_each_block_1$2(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_each_block_1$2.name,
+    id: create_each_block_1$3.name,
     type: "each",
     source: "(97:3) {#each _.pairs(payloads) as [key, value]}",
     ctx: ctx
@@ -18939,7 +18000,7 @@ function create_fragment$k(ctx) {
   });
   var if_block0 =
   /*data*/
-  ctx[0].length > 1 && create_if_block_2$4(ctx);
+  ctx[0].length > 1 && create_if_block_2$5(ctx);
   var if_block1 =
   /*payloads*/
   ctx[8] && create_if_block_1$9(ctx);
@@ -19169,7 +18230,7 @@ function create_fragment$k(ctx) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_2$4(ctx);
+          if_block0 = create_if_block_2$5(ctx);
           if_block0.c();
           if_block0.m(div3, t4);
         }
