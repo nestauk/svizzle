@@ -7,7 +7,7 @@
 		"@svizzle/atlas": "^0.3.0",
 		"@svizzle/dom": "^0.4.1",
 		"@svizzle/geo": "^0.6.1",
-		"@svizzle/utils": "^0.8.1",
+		"@svizzle/utils": "^0.9.0",
 		"d3-geo": "^1.11.9",
 		"lamb": "^0.59.2",
 		"topojson-client": "^3.1.0"
@@ -72,5 +72,5 @@
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=dev"
 	},
 	"sideEffects": false,
-	"version": "0.3.0"
+	"version": "0.4.0"
 }

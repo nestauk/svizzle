@@ -7,7 +7,7 @@
 	"dependencies": {
 		"@svizzle/dom": "^0.4.1",
 		"@svizzle/geometry": "^0.3.1",
-		"@svizzle/utils": "^0.8.1",
+		"@svizzle/utils": "^0.9.0",
 		"d3-scale": "^3.2.1",
 		"lamb": "^0.59.2"
 	},
