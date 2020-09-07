@@ -69,7 +69,8 @@
 		"lint": "eslint rollup.config.js 'src/*.{js,svelte}'",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=dev",
-		"setprerelease": "npm --no-git-tag-version version prerelease --preid=dev"
+		"setprerelease": "npm --no-git-tag-version version prerelease --preid=dev",
+		"test": "mocha -r esm --recursive src/*.spec.js"
 	},
 	"sideEffects": false,
 	"version": "0.4.0"

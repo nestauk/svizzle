@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/choropleth` (next)
+
+- document `topoToGeo`
+
+
 ## 20200907
 
 ## `@svizzle/barchart` v0.5.0
