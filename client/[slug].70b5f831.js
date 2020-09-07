@@ -1,4 +1,4 @@
-import { S as SvelteComponentDev, i as init, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, y as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, z as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, w as transition_in, x as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, r as destroy_each, L as globals, M as null_to_empty, N as validate_each_keys, O as createEventDispatcher, P as beforeUpdate, Q as afterUpdate, R as svg_element, T as is_function, U as run_all, V as add_render_callback, W as add_resize_listener, X as update_keyed_each, Y as binding_callbacks, Z as destroy_block, _ as set_style, $ as validate_store, a0 as component_subscribe, a1 as writable, a2 as prop_dev, q as query_selector_all, a3 as assign, a4 as get_spread_update, a5 as get_spread_object } from './client.9a244041.js';
+import { S as SvelteComponentDev, i as init, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, y as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, z as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, w as transition_in, x as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, r as destroy_each, L as globals, M as null_to_empty, N as validate_each_keys, O as createEventDispatcher, P as beforeUpdate, Q as afterUpdate, R as svg_element, T as is_function, U as run_all, V as add_render_callback, W as add_resize_listener, X as update_keyed_each, Y as binding_callbacks, Z as destroy_block, _ as set_style, $ as validate_store, a0 as component_subscribe, a1 as writable, a2 as prop_dev, q as query_selector_all, a3 as assign, a4 as get_spread_update, a5 as get_spread_object } from './client.6ab741b1.js';
 import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity$1, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$2, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon2, R as epsilon, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as updateKey, Z as has, $ as mercator, a0 as getPath, a1 as sort, a2 as adapter, a3 as map, a4 as reduce, a5 as isNotNil, a6 as isIterableNotEmpty, a7 as every, a8 as hasKey, a9 as flatten, aa as findIndexWhere, ab as findLastIndexWhere, ac as slice, ad as uniques, ae as filterWith, af as concat, ag as mergeObj, ah as linear$1, ai as pullFrom, aj as lookup, ak as _, al as setIn } from './_utils.fad0cd8e.js';
 
 /**
@@ -7949,10 +7949,9 @@ function object(topology, o) {
   return geometry(o);
 }
 
-const truncateGeojson = setGeometryPrecision(4);
-
-const topoToGeo = (topojson, id) =>
-	truncateGeojson(feature$1(topojson, topojson.objects[id]));
+/**
+* @module @svizzle/choropleth/utils
+*/
 
 const defaultGeometry = {
 	bottom: 10,
@@ -7960,6 +7959,67 @@ const defaultGeometry = {
 	right: 10,
 	top: 10,
 };
+
+const truncateGeojson = setGeometryPrecision(4);
+
+/**
+ * Convert a topojson to a geojson truncating coordinates to precision 4.
+ * This is quite specific to `@svizzle/choropleth` to limit the geojson weight down for performance reasons.
+ * For a full conversion use:
+ * ```
+ * import {feature} from 'topojson-client';
+ * feature(topojson, topojson.objects[id])
+ * ```
+ *
+ * @function
+ * @arg {object} topojson - the topojson to be converted to geojson
+ * @arg {id} string - the id of the object to convert
+ * @return {object} geojson
+ *
+ * @example
+> const topojson = {
+	'type': 'Topology',
+	'transform': {
+		'scale': [0.00001,0.00001],
+		'translate': [-63.15364,-21.38731]
+	},
+	'objects': {
+		'NUTS': {
+			'type': 'GeometryCollection',
+			'geometries': [
+				{
+					'type': 'Polygon',
+					'arcs': [...],
+					'id': 'BE',
+					'properties': {...}
+				}
+			]
+		}
+	},
+	'arcs': [[[6569909,7247636], [1369,-1901], ...]
+}
+> topoToGeo(topojson, 'NUTS')
+{
+	'type': 'FeatureCollection',
+	'features': [
+		{
+			'type': 'Feature',
+			'id': 'BE',
+			'properties': {...},
+			'geometry': {
+				'type': 'Polygon',
+				'coordinates': [
+					[[6.3163,50.4967], ...
+				]
+			}
+		}
+	]
+}
+ *
+ * @version 0.4.0
+ */
+const topoToGeo = (topojson, id) =>
+	truncateGeojson(feature$1(topojson, topojson.objects[id]));
 
 /* Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethG.svelte generated by Svelte v3.24.0 */
 const file$8 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethG.svelte";

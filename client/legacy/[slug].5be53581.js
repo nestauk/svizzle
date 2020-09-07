@@ -1,5 +1,5 @@
-import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as validate_each_keys, W as createEventDispatcher, X as beforeUpdate, Y as afterUpdate, Z as svg_element, $ as is_function, a0 as run_all, a1 as add_render_callback, a2 as add_resize_listener, a3 as update_keyed_each, a4 as binding_callbacks, a5 as destroy_block, a6 as set_style, a7 as validate_store, a8 as component_subscribe, a9 as writable, aa as prop_dev, q as query_selector_all, ab as assign, ac as get_spread_update, ad as get_spread_object } from './client.c488d31b.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity$1, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$2, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon2, R as epsilon, S as _defineProperty, T as skipIf, U as isNil, V as pairs$1, W as makeMergeAppliedFnMap, X as index, Y as isIn, Z as updateKey, $ as has, a0 as mercator, a1 as getPath, a2 as sort, a3 as adapter, a4 as map, a5 as reduce, a6 as isNotNil, a7 as isIterableNotEmpty, a8 as every, a9 as hasKey, aa as flatten, ab as findIndexWhere, ac as findLastIndexWhere, ad as slice, ae as uniques, af as filterWith, ag as concat, ah as mergeObj, ai as linear$1, aj as pullFrom, ak as lookup, al as _, am as setIn } from './_utils.1c4111cb.js';
+import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as validate_each_keys, W as createEventDispatcher, X as beforeUpdate, Y as afterUpdate, Z as svg_element, $ as is_function, a0 as run_all, a1 as add_render_callback, a2 as add_resize_listener, a3 as update_keyed_each, a4 as binding_callbacks, a5 as destroy_block, a6 as set_style, a7 as validate_store, a8 as component_subscribe, a9 as writable, aa as prop_dev, q as query_selector_all, ab as assign, ac as get_spread_update, ad as get_spread_object } from './client.d84b32fa.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity$1, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$2, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon2, R as epsilon, S as _defineProperty, T as skipIf, U as isNil, V as pairs$1, W as makeMergeAppliedFnMap, X as index, Y as isIn, Z as updateKey, $ as has, a0 as mercator, a1 as getPath, a2 as sort, a3 as adapter, a4 as map, a5 as reduce, a6 as isNotNil, a7 as isIterableNotEmpty, a8 as every, a9 as hasKey, aa as flatten, ab as findIndexWhere, ac as findLastIndexWhere, ad as slice, ae as uniques, af as filterWith, ag as concat, ah as mergeObj, ai as linear$1, aj as pullFrom, ak as lookup, al as _, am as setIn } from './_utils.c9ec266f.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -9481,15 +9481,75 @@ function object(topology, o) {
   return geometry(o);
 }
 
-var truncateGeojson = setGeometryPrecision(4);
-var topoToGeo = function topoToGeo(topojson, id) {
-  return truncateGeojson(feature$1(topojson, topojson.objects[id]));
-};
+/**
+* @module @svizzle/choropleth/utils
+*/
 var defaultGeometry = {
   bottom: 10,
   left: 10,
   right: 10,
   top: 10
+};
+var truncateGeojson = setGeometryPrecision(4);
+/**
+ * Convert a topojson to a geojson truncating coordinates to precision 4.
+ * This is quite specific to `@svizzle/choropleth` to limit the geojson weight down for performance reasons.
+ * For a full conversion use:
+ * ```
+ * import {feature} from 'topojson-client';
+ * feature(topojson, topojson.objects[id])
+ * ```
+ *
+ * @function
+ * @arg {object} topojson - the topojson to be converted to geojson
+ * @arg {id} string - the id of the object to convert
+ * @return {object} geojson
+ *
+ * @example
+> const topojson = {
+	'type': 'Topology',
+	'transform': {
+		'scale': [0.00001,0.00001],
+		'translate': [-63.15364,-21.38731]
+	},
+	'objects': {
+		'NUTS': {
+			'type': 'GeometryCollection',
+			'geometries': [
+				{
+					'type': 'Polygon',
+					'arcs': [...],
+					'id': 'BE',
+					'properties': {...}
+				}
+			]
+		}
+	},
+	'arcs': [[[6569909,7247636], [1369,-1901], ...]
+}
+> topoToGeo(topojson, 'NUTS')
+{
+	'type': 'FeatureCollection',
+	'features': [
+		{
+			'type': 'Feature',
+			'id': 'BE',
+			'properties': {...},
+			'geometry': {
+				'type': 'Polygon',
+				'coordinates': [
+					[[6.3163,50.4967], ...
+				]
+			}
+		}
+	]
+}
+ *
+ * @version 0.4.0
+ */
+
+var topoToGeo = function topoToGeo(topojson, id) {
+  return truncateGeojson(feature$1(topojson, topojson.objects[id]));
 };
 
 function _createSuper$e(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$e(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
