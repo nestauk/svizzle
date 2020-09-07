@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.5.0 (next)
+## `@svizzle/barchart` v0.5.0
 
 - add prop `refs`
 - add prop `selectedKeys`

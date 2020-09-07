@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.4.0 (next)
+## `@svizzle/choropleth` v0.4.0
 
 - add `projectionId` so that we can pass either a `projection` prop (a projection function) or an id to select a projection from the available ones
 - expose `topoToGeo` and `defaultGeometry` in `src/utils`

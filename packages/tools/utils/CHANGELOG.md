@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.9.0 (next)
+## `@svizzle/utils` v0.9.0
 
 ### (String -> String) -> (Object -> Object)
 

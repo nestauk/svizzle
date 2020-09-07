@@ -1,4 +1,4 @@
-## `@svizzle/file` v0.9.0 (next)
+## `@svizzle/file` v0.9.0
 
 - add `readDirFiles`
 - add `readDirFilesIndexed`

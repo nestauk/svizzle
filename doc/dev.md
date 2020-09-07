@@ -64,9 +64,10 @@ Since packages are linked in Lerna, the components website should now reload eve
    - check `sideEffects` for all of the updating packages: if even just one of a package dependencies have `sideEffects: true` or it is unknown, then the package `sideEffects` should be set to `true`;
    - to help this process, check the analyzer output when running `lernabuild`;
    - check and keep `doc/tree-shaking.md` up-to-date;
-- compile the changelog for all changed/new packages using the correct version;
-- copy the changelog from all the changed/new packages onto the global changelog;
-- make sure to title the changelog with the current date (for example 20190220);
+- changelog:
+	- compile the changelog for all changed/new packages using the correct version;
+	- copy the changelog from all the changed/new packages onto the global changelog;
+	- make sure to title the changelog with the current date (for example 20190220);
 - based on this, for every changed packages:
    - choose the next version depending on if it's going to be a `patch`, `minor` or `major`;
    - check that `@version <version>` in jsdoc blocks for new functions is correct

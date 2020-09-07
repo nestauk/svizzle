@@ -1,26 +1,26 @@
 # Svizzle changelog
 
-## next
+## 20200907
 
-## `@svizzle/barchart` v0.5.0 (next)
+## `@svizzle/barchart` v0.5.0
 
 - add prop `refs`
 - add prop `selectedKeys`
 - add prop `titleFontSize`
 - don't show the axis with positive and zeroes or negative and zeroes
 
-## `@svizzle/choropleth` v0.4.0 (next)
+## `@svizzle/choropleth` v0.4.0
 
 - add `projectionId` so that we can pass either a `projection` prop (a projection function) or an id to select a projection from the available ones
 - expose `topoToGeo` and `defaultGeometry` in `src/utils`
 - remove more exotic projections that would better be used with spherical coordinates [lambda, phi]
 
-## `@svizzle/file` v0.9.0 (next)
+## `@svizzle/file` v0.9.0
 
 - add `readDirFiles`
 - add `readDirFilesIndexed`
 
-## `@svizzle/utils` v0.9.0 (next)
+## `@svizzle/utils` v0.9.0
 
 ### (String -> String) -> (Object -> Object)
 
@@ -57,6 +57,7 @@
 - add linting
 - extract a formatting utility from examples
 - add Germany NUTS2 2016 as it seems to be the heavier example
+- add `@svizzle/legend` docs
 
 ## `@svizzle/dev` v0.4.1
 
