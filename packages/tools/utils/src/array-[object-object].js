@@ -6,7 +6,7 @@ import * as _ from 'lamb';
 
 /**
  * Return a function that expects an object and applies the provided sequence of transforms to the values of the correspondent paths to the input object.
- * Not that transforms to the same path can be repeated.
+ * Note that transforms to the same path can be repeated.
  *
  * @function
  * @arg {array} pathFnPairs - pairs [path, function]

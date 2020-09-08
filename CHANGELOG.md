@@ -18,7 +18,7 @@
 
 ## `@svizzle/choropleth` v0.4.0
 
-- add `projectionId` so that we can pass either a `projection` prop (a projection function) or an id to select a projection from the available ones
+- add `projectionId` and rename `projection` to `projectionFn` so that we can pass either a projection function or an id to select a projection from the available ones
 - expose `topoToGeo` and `defaultGeometry` in `src/utils`
 - remove more exotic projections that would better be used with spherical coordinates [lambda, phi]
 
