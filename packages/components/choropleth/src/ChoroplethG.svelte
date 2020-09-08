@@ -17,13 +17,16 @@
 		defaultFill: 'white',
 		defaultStroke: 'grey',
 		defaultStrokeWidth: 0.5,
+		deselectedOpacity: 0.25,
+		focusedStroke: 'red',
+		focusedStrokeWidth: 2,
+		focusedDasharray: '',
 		hoverFill: '#f6f6f6',
 		hoverStroke: 'black',
-		hoverStrokeWidth: 1.5,
 		hoverStrokedasharray: '',
+		hoverStrokeWidth: 1.5,
 		selectedStroke: 'black',
 		selectedStrokeWidth: 1,
-		deselectedOpacity: 0.25,
 	}
 
 	// required
@@ -33,6 +36,7 @@
 	export let width;
 
 	// optional
+	export let focusedKey;
 	export let geometry;
 	export let isInteractive;
 	export let key_alt;
@@ -71,6 +75,7 @@
 	$: geopath = fitProjection && geoPath(fitProjection);
 	$: getPayload =
 		feature => feature.properties[key] || feature.properties[key_alt];
+	$: isFocused = feature => focusedKey === getPayload(feature);
 	$: isSelected = feature =>
 		selectedKeys.length &&
 		selectedKeys.includes(getPayload(feature));
@@ -99,6 +104,7 @@
 		<g
 			class:deselected={isDeselected(feature)}
 			class:selected={isSelected(feature)}
+			class:focused={focusedKey && isFocused(feature)}
 			class='feature'
 			id={feature.properties[key] || feature.properties[key_alt]}
 		>
@@ -150,5 +156,10 @@
 	}
 	.feature.deselected path {
 		fill-opacity: var(--deselectedOpacity);
+	}
+	.feature.focused path {
+		stroke: var(--focusedStroke) !important;
+		stroke-width: var(--focusedStrokeWidth) !important;
+		stroke-dasharray: var(--focusedDasharray) !important;
 	}
 </style>

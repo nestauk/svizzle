@@ -13,6 +13,7 @@
 	export let topojsonId;
 
 	// ChoroplethG: optional
+	export let focusedKey;
 	export let geometry;
 	export let isInteractive;
 	export let key_alt;
@@ -52,11 +53,12 @@
 			{height}
 		>
 			<ChoroplethG
-				{height}
+				{focusedKey}
 				{geometry}
+				{height}
 				{isInteractive}
-				{key}
 				{key_alt}
+				{key}
 				{keyToColor}
 				{keyToColorFn}
 				{projectionFn}

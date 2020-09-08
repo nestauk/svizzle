@@ -5,6 +5,7 @@
 ## `@svizzle/choropleth` (next)
 
 - document `topoToGeo`
+- add prop `focusedKey`
 
 
 ## 20200907

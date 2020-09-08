@@ -1,6 +1,7 @@
 ## `@svizzle/choropleth` (next)
 
 - document `topoToGeo`
+- add prop `focusedKey`
 
 ## `@svizzle/choropleth` v0.4.0
 

@@ -366,6 +366,81 @@ export default formatExamples([
 		title: 'Selected regions',
 	},
 	{
+		doc: [
+			{tag: 'p', content: "You can highlight one specific region using `focusedKey` and specify a style for it."},
+			{tag: 'p', content: "If the focused region is also one of the selected regions, the focused style takes precedence."},
+			{tag: 'p', content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"},
+		],
+		data: [{
+			key: 'some countries selected, default style',
+			props: {
+				focusedKey: 'BR',
+				key: 'iso_a2',
+				keyToColorFn: keyToColorWorldFn,
+				selectedKeys: ['TD', 'US', 'RU', 'CN', 'BR'],
+				theme: {
+					selectedStrokeWidth: 2,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{keyToColorFn},
+					{width}
+					focusedKey='BR',
+					key='iso_a2'
+					selectedKeys=['TD', 'US', 'RU', 'CN', 'BR']
+					theme={{
+						selectedStrokeWidth: 2
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'some countries selected, custom style',
+			props: {
+				focusedKey: 'BR',
+				key: 'iso_a2',
+				keyToColorFn: keyToColorWorldFn,
+				selectedKeys: ['TD', 'US', 'RU', 'CN', 'BR'],
+				theme: {
+					focusedDasharray: '4 4',
+					focusedStroke: 'magenta',
+					focusedStrokeWidth: 4,
+					selectedStrokeWidth: 2,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{keyToColorFn}
+					{width}
+					focusedKey='BR',
+					key='iso_a2'
+					selectedKeys=['TD', 'US', 'RU', 'CN', 'BR']
+					theme={{
+						focusedDasharray: '4 4',
+						focusedStroke: 'magenta',
+						focusedStrokeWidth: 4,
+						selectedStrokeWidth: 2,
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-focusedKey',
+		title: 'Focused region',
+	},
+	{
 		data: [{
 			key: 'default hover style',
 			props: {
