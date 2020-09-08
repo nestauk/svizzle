@@ -1,5 +1,5 @@
-import { S as SvelteComponentDev, i as init, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, y as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, z as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, w as transition_in, x as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, r as destroy_each, L as globals, M as null_to_empty, N as validate_each_keys, O as createEventDispatcher, P as beforeUpdate, Q as afterUpdate, R as svg_element, T as is_function, U as run_all, V as add_render_callback, W as add_resize_listener, X as update_keyed_each, Y as binding_callbacks, Z as destroy_block, _ as set_style, $ as validate_store, a0 as component_subscribe, a1 as writable, a2 as prop_dev, q as query_selector_all, a3 as assign, a4 as get_spread_update, a5 as get_spread_object } from './client.6ab741b1.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity$1, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$2, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon2, R as epsilon, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as updateKey, Z as has, $ as mercator, a0 as getPath, a1 as sort, a2 as adapter, a3 as map, a4 as reduce, a5 as isNotNil, a6 as isIterableNotEmpty, a7 as every, a8 as hasKey, a9 as flatten, aa as findIndexWhere, ab as findLastIndexWhere, ac as slice, ad as uniques, ae as filterWith, af as concat, ag as mergeObj, ah as linear$1, ai as pullFrom, aj as lookup, ak as _, al as setIn } from './_utils.fad0cd8e.js';
+import { S as SvelteComponentDev, i as init, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, y as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, z as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, w as transition_in, x as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, r as destroy_each, L as globals, M as null_to_empty, N as validate_each_keys, O as createEventDispatcher, P as beforeUpdate, Q as afterUpdate, R as svg_element, T as is_function, U as run_all, V as add_render_callback, W as add_resize_listener, X as update_keyed_each, Y as binding_callbacks, Z as destroy_block, _ as set_style, $ as validate_store, a0 as component_subscribe, a1 as writable, a2 as prop_dev, q as query_selector_all, a3 as assign, a4 as get_spread_update, a5 as get_spread_object } from './client.0807cbb2.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity$1, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$2, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon2, R as epsilon, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as updateKey, Z as has, $ as mercator, a0 as getPath, a1 as sort, a2 as adapter, a3 as map, a4 as reduce, a5 as isNotNil, a6 as isIterableNotEmpty, a7 as every, a8 as hasKey, a9 as flatten, aa as findIndexWhere, ab as findLastIndexWhere, ac as slice, ad as uniques, ae as filterWith, af as concat, ag as mergeObj, ah as linear$1, ai as pullFrom, aj as lookup, ak as _, al as setIn } from './_utils.08a69f72.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -8026,17 +8026,17 @@ const file$8 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/c
 
 function get_each_context$4(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[33] = list[i];
+	child_ctx[35] = list[i];
 	return child_ctx;
 }
 
-// (85:0) {#if height && width}
+// (90:0) {#if height && width}
 function create_if_block$5(ctx) {
 	let g1;
 	let rect;
 	let g0;
 	let g0_transform_value;
-	let if_block = /*coloredGeojson*/ ctx[7] && create_if_block_1$4(ctx);
+	let if_block = /*coloredGeojson*/ ctx[8] && create_if_block_1$4(ctx);
 
 	const block = {
 		c: function create() {
@@ -8061,14 +8061,14 @@ function create_if_block$5(ctx) {
 		h: function hydrate() {
 			attr_dev(rect, "height", /*height*/ ctx[3]);
 			attr_dev(rect, "width", /*width*/ ctx[4]);
-			attr_dev(rect, "class", "bkg svelte-12ajc17");
-			add_location(rect, file$8, 90, 1, 2637);
+			attr_dev(rect, "class", "bkg svelte-pao8j0");
+			add_location(rect, file$8, 95, 1, 2797);
 			attr_dev(g0, "transform", g0_transform_value = "translate(" + /*geometry*/ ctx[0].left + "," + /*geometry*/ ctx[0].top + ")");
-			add_location(g0, file$8, 95, 1, 2683);
-			attr_dev(g1, "style", /*style*/ ctx[6]);
-			attr_dev(g1, "class", "ChoroplethG svelte-12ajc17");
+			add_location(g0, file$8, 100, 1, 2843);
+			attr_dev(g1, "style", /*style*/ ctx[7]);
+			attr_dev(g1, "class", "ChoroplethG svelte-pao8j0");
 			toggle_class(g1, "interactive", /*isInteractive*/ ctx[1]);
-			add_location(g1, file$8, 85, 0, 2565);
+			add_location(g1, file$8, 90, 0, 2725);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, g1, anchor);
@@ -8085,7 +8085,7 @@ function create_if_block$5(ctx) {
 				attr_dev(rect, "width", /*width*/ ctx[4]);
 			}
 
-			if (/*coloredGeojson*/ ctx[7]) {
+			if (/*coloredGeojson*/ ctx[8]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -8102,8 +8102,8 @@ function create_if_block$5(ctx) {
 				attr_dev(g0, "transform", g0_transform_value);
 			}
 
-			if (dirty[0] & /*style*/ 64) {
-				attr_dev(g1, "style", /*style*/ ctx[6]);
+			if (dirty[0] & /*style*/ 128) {
+				attr_dev(g1, "style", /*style*/ ctx[7]);
 			}
 
 			if (dirty[0] & /*isInteractive*/ 2) {
@@ -8120,17 +8120,17 @@ function create_if_block$5(ctx) {
 		block,
 		id: create_if_block$5.name,
 		type: "if",
-		source: "(85:0) {#if height && width}",
+		source: "(90:0) {#if height && width}",
 		ctx
 	});
 
 	return block;
 }
 
-// (97:2) {#if coloredGeojson}
+// (102:2) {#if coloredGeojson}
 function create_if_block_1$4(ctx) {
 	let each_1_anchor;
-	let each_value = /*coloredGeojson*/ ctx[7].features;
+	let each_value = /*coloredGeojson*/ ctx[8].features;
 	validate_each_argument(each_value);
 	let each_blocks = [];
 
@@ -8161,8 +8161,8 @@ function create_if_block_1$4(ctx) {
 			insert_dev(target, each_1_anchor, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*coloredGeojson, key, key_alt, isDeselected, isSelected, geopath, isClickable, dispatch, getPayload, isInteractive*/ 16294) {
-				each_value = /*coloredGeojson*/ ctx[7].features;
+			if (dirty[0] & /*coloredGeojson, key, key_alt, isDeselected, isSelected, focusedKey, isFocused, geopath, isClickable, dispatch, getPayload, isInteractive*/ 65382) {
+				each_value = /*coloredGeojson*/ ctx[8].features;
 				validate_each_argument(each_value);
 				let i;
 
@@ -8195,14 +8195,14 @@ function create_if_block_1$4(ctx) {
 		block,
 		id: create_if_block_1$4.name,
 		type: "if",
-		source: "(97:2) {#if coloredGeojson}",
+		source: "(102:2) {#if coloredGeojson}",
 		ctx
 	});
 
 	return block;
 }
 
-// (98:2) {#each coloredGeojson.features as feature}
+// (103:2) {#each coloredGeojson.features as feature}
 function create_each_block$4(ctx) {
 	let g;
 	let path;
@@ -8212,15 +8212,15 @@ function create_each_block$4(ctx) {
 	let dispose;
 
 	function click_handler(...args) {
-		return /*click_handler*/ ctx[22](/*feature*/ ctx[33], ...args);
+		return /*click_handler*/ ctx[24](/*feature*/ ctx[35], ...args);
 	}
 
 	function mouseenter_handler(...args) {
-		return /*mouseenter_handler*/ ctx[23](/*feature*/ ctx[33], ...args);
+		return /*mouseenter_handler*/ ctx[25](/*feature*/ ctx[35], ...args);
 	}
 
 	function mouseleave_handler(...args) {
-		return /*mouseleave_handler*/ ctx[24](/*feature*/ ctx[33], ...args);
+		return /*mouseleave_handler*/ ctx[26](/*feature*/ ctx[35], ...args);
 	}
 
 	const block = {
@@ -8238,16 +8238,17 @@ function create_each_block$4(ctx) {
 			this.h();
 		},
 		h: function hydrate() {
-			attr_dev(path, "d", path_d_value = /*geopath*/ ctx[8](/*feature*/ ctx[33]));
-			set_style(path, "fill", /*feature*/ ctx[33].properties.color || null);
-			attr_dev(path, "class", "svelte-12ajc17");
-			toggle_class(path, "clickable", /*isClickable*/ ctx[12](/*feature*/ ctx[33]));
-			add_location(path, file$8, 104, 3, 2987);
-			attr_dev(g, "class", "feature svelte-12ajc17");
-			attr_dev(g, "id", g_id_value = /*feature*/ ctx[33].properties[/*key*/ ctx[5]] || /*feature*/ ctx[33].properties[/*key_alt*/ ctx[2]]);
-			toggle_class(g, "deselected", /*isDeselected*/ ctx[11](/*feature*/ ctx[33]));
-			toggle_class(g, "selected", /*isSelected*/ ctx[10](/*feature*/ ctx[33]));
-			add_location(g, file$8, 98, 2, 2811);
+			attr_dev(path, "d", path_d_value = /*geopath*/ ctx[9](/*feature*/ ctx[35]));
+			set_style(path, "fill", /*feature*/ ctx[35].properties.color || null);
+			attr_dev(path, "class", "svelte-pao8j0");
+			toggle_class(path, "clickable", /*isClickable*/ ctx[14](/*feature*/ ctx[35]));
+			add_location(path, file$8, 110, 3, 3199);
+			attr_dev(g, "class", "feature svelte-pao8j0");
+			attr_dev(g, "id", g_id_value = /*feature*/ ctx[35].properties[/*key*/ ctx[6]] || /*feature*/ ctx[35].properties[/*key_alt*/ ctx[2]]);
+			toggle_class(g, "deselected", /*isDeselected*/ ctx[13](/*feature*/ ctx[35]));
+			toggle_class(g, "selected", /*isSelected*/ ctx[12](/*feature*/ ctx[35]));
+			toggle_class(g, "focused", /*focusedKey*/ ctx[5] && /*isFocused*/ ctx[11](/*feature*/ ctx[35]));
+			add_location(g, file$8, 103, 2, 2971);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, g, anchor);
@@ -8266,28 +8267,32 @@ function create_each_block$4(ctx) {
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
 
-			if (dirty[0] & /*geopath, coloredGeojson*/ 384 && path_d_value !== (path_d_value = /*geopath*/ ctx[8](/*feature*/ ctx[33]))) {
+			if (dirty[0] & /*geopath, coloredGeojson*/ 768 && path_d_value !== (path_d_value = /*geopath*/ ctx[9](/*feature*/ ctx[35]))) {
 				attr_dev(path, "d", path_d_value);
 			}
 
-			if (dirty[0] & /*coloredGeojson*/ 128) {
-				set_style(path, "fill", /*feature*/ ctx[33].properties.color || null);
+			if (dirty[0] & /*coloredGeojson*/ 256) {
+				set_style(path, "fill", /*feature*/ ctx[35].properties.color || null);
 			}
 
-			if (dirty[0] & /*isClickable, coloredGeojson*/ 4224) {
-				toggle_class(path, "clickable", /*isClickable*/ ctx[12](/*feature*/ ctx[33]));
+			if (dirty[0] & /*isClickable, coloredGeojson*/ 16640) {
+				toggle_class(path, "clickable", /*isClickable*/ ctx[14](/*feature*/ ctx[35]));
 			}
 
-			if (dirty[0] & /*coloredGeojson, key, key_alt*/ 164 && g_id_value !== (g_id_value = /*feature*/ ctx[33].properties[/*key*/ ctx[5]] || /*feature*/ ctx[33].properties[/*key_alt*/ ctx[2]])) {
+			if (dirty[0] & /*coloredGeojson, key, key_alt*/ 324 && g_id_value !== (g_id_value = /*feature*/ ctx[35].properties[/*key*/ ctx[6]] || /*feature*/ ctx[35].properties[/*key_alt*/ ctx[2]])) {
 				attr_dev(g, "id", g_id_value);
 			}
 
-			if (dirty[0] & /*isDeselected, coloredGeojson*/ 2176) {
-				toggle_class(g, "deselected", /*isDeselected*/ ctx[11](/*feature*/ ctx[33]));
+			if (dirty[0] & /*isDeselected, coloredGeojson*/ 8448) {
+				toggle_class(g, "deselected", /*isDeselected*/ ctx[13](/*feature*/ ctx[35]));
 			}
 
-			if (dirty[0] & /*isSelected, coloredGeojson*/ 1152) {
-				toggle_class(g, "selected", /*isSelected*/ ctx[10](/*feature*/ ctx[33]));
+			if (dirty[0] & /*isSelected, coloredGeojson*/ 4352) {
+				toggle_class(g, "selected", /*isSelected*/ ctx[12](/*feature*/ ctx[35]));
+			}
+
+			if (dirty[0] & /*focusedKey, isFocused, coloredGeojson*/ 2336) {
+				toggle_class(g, "focused", /*focusedKey*/ ctx[5] && /*isFocused*/ ctx[11](/*feature*/ ctx[35]));
 			}
 		},
 		d: function destroy(detaching) {
@@ -8301,7 +8306,7 @@ function create_each_block$4(ctx) {
 		block,
 		id: create_each_block$4.name,
 		type: "each",
-		source: "(98:2) {#each coloredGeojson.features as feature}",
+		source: "(103:2) {#each coloredGeojson.features as feature}",
 		ctx
 	});
 
@@ -8367,19 +8372,23 @@ function instance$e($$self, $$props, $$invalidate) {
 		defaultFill: "white",
 		defaultStroke: "grey",
 		defaultStrokeWidth: 0.5,
+		deselectedOpacity: 0.25,
+		focusedStroke: "red",
+		focusedStrokeWidth: 2,
+		focusedDasharray: "",
 		hoverFill: "#f6f6f6",
 		hoverStroke: "black",
-		hoverStrokeWidth: 1.5,
 		hoverStrokedasharray: "",
+		hoverStrokeWidth: 1.5,
 		selectedStroke: "black",
-		selectedStrokeWidth: 1,
-		deselectedOpacity: 0.25
+		selectedStrokeWidth: 1
 	};
 
 	let { height } = $$props;
 	let { topojson } = $$props;
 	let { topojsonId } = $$props;
 	let { width } = $$props;
+	let { focusedKey } = $$props;
 	let { geometry } = $$props;
 	let { isInteractive } = $$props;
 	let { key_alt } = $$props;
@@ -8396,6 +8405,7 @@ function instance$e($$self, $$props, $$invalidate) {
 		"topojson",
 		"topojsonId",
 		"width",
+		"focusedKey",
 		"geometry",
 		"isInteractive",
 		"key_alt",
@@ -8420,19 +8430,20 @@ function instance$e($$self, $$props, $$invalidate) {
 
 	$$self.$set = $$props => {
 		if ("height" in $$props) $$invalidate(3, height = $$props.height);
-		if ("topojson" in $$props) $$invalidate(16, topojson = $$props.topojson);
-		if ("topojsonId" in $$props) $$invalidate(17, topojsonId = $$props.topojsonId);
+		if ("topojson" in $$props) $$invalidate(18, topojson = $$props.topojson);
+		if ("topojsonId" in $$props) $$invalidate(19, topojsonId = $$props.topojsonId);
 		if ("width" in $$props) $$invalidate(4, width = $$props.width);
+		if ("focusedKey" in $$props) $$invalidate(5, focusedKey = $$props.focusedKey);
 		if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
 		if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
 		if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
-		if ("key" in $$props) $$invalidate(5, key = $$props.key);
-		if ("keyToColor" in $$props) $$invalidate(18, keyToColor = $$props.keyToColor);
-		if ("keyToColorFn" in $$props) $$invalidate(19, keyToColorFn = $$props.keyToColorFn);
-		if ("projectionFn" in $$props) $$invalidate(20, projectionFn = $$props.projectionFn);
-		if ("projectionId" in $$props) $$invalidate(21, projectionId = $$props.projectionId);
-		if ("selectedKeys" in $$props) $$invalidate(14, selectedKeys = $$props.selectedKeys);
-		if ("theme" in $$props) $$invalidate(15, theme = $$props.theme);
+		if ("key" in $$props) $$invalidate(6, key = $$props.key);
+		if ("keyToColor" in $$props) $$invalidate(20, keyToColor = $$props.keyToColor);
+		if ("keyToColorFn" in $$props) $$invalidate(21, keyToColorFn = $$props.keyToColorFn);
+		if ("projectionFn" in $$props) $$invalidate(22, projectionFn = $$props.projectionFn);
+		if ("projectionId" in $$props) $$invalidate(23, projectionId = $$props.projectionId);
+		if ("selectedKeys" in $$props) $$invalidate(16, selectedKeys = $$props.selectedKeys);
+		if ("theme" in $$props) $$invalidate(17, theme = $$props.theme);
 	};
 
 	$$self.$capture_state = () => ({
@@ -8452,6 +8463,7 @@ function instance$e($$self, $$props, $$invalidate) {
 		topojson,
 		topojsonId,
 		width,
+		focusedKey,
 		geometry,
 		isInteractive,
 		key_alt,
@@ -8472,6 +8484,7 @@ function instance$e($$self, $$props, $$invalidate) {
 		fitProjection,
 		geopath,
 		getPayload,
+		isFocused,
 		isSelected,
 		isDeselected,
 		isClickable
@@ -8479,32 +8492,34 @@ function instance$e($$self, $$props, $$invalidate) {
 
 	$$self.$inject_state = $$props => {
 		if ("height" in $$props) $$invalidate(3, height = $$props.height);
-		if ("topojson" in $$props) $$invalidate(16, topojson = $$props.topojson);
-		if ("topojsonId" in $$props) $$invalidate(17, topojsonId = $$props.topojsonId);
+		if ("topojson" in $$props) $$invalidate(18, topojson = $$props.topojson);
+		if ("topojsonId" in $$props) $$invalidate(19, topojsonId = $$props.topojsonId);
 		if ("width" in $$props) $$invalidate(4, width = $$props.width);
+		if ("focusedKey" in $$props) $$invalidate(5, focusedKey = $$props.focusedKey);
 		if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
 		if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
 		if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
-		if ("key" in $$props) $$invalidate(5, key = $$props.key);
-		if ("keyToColor" in $$props) $$invalidate(18, keyToColor = $$props.keyToColor);
-		if ("keyToColorFn" in $$props) $$invalidate(19, keyToColorFn = $$props.keyToColorFn);
-		if ("projectionFn" in $$props) $$invalidate(20, projectionFn = $$props.projectionFn);
-		if ("projectionId" in $$props) $$invalidate(21, projectionId = $$props.projectionId);
-		if ("selectedKeys" in $$props) $$invalidate(14, selectedKeys = $$props.selectedKeys);
-		if ("theme" in $$props) $$invalidate(15, theme = $$props.theme);
-		if ("geojson" in $$props) $$invalidate(25, geojson = $$props.geojson);
-		if ("projection" in $$props) $$invalidate(26, projection = $$props.projection);
-		if ("style" in $$props) $$invalidate(6, style = $$props.style);
-		if ("innerHeight" in $$props) $$invalidate(27, innerHeight = $$props.innerHeight);
-		if ("innerWidth" in $$props) $$invalidate(28, innerWidth = $$props.innerWidth);
-		if ("createColoredGeojson" in $$props) $$invalidate(29, createColoredGeojson = $$props.createColoredGeojson);
-		if ("coloredGeojson" in $$props) $$invalidate(7, coloredGeojson = $$props.coloredGeojson);
-		if ("fitProjection" in $$props) $$invalidate(30, fitProjection = $$props.fitProjection);
-		if ("geopath" in $$props) $$invalidate(8, geopath = $$props.geopath);
-		if ("getPayload" in $$props) $$invalidate(9, getPayload = $$props.getPayload);
-		if ("isSelected" in $$props) $$invalidate(10, isSelected = $$props.isSelected);
-		if ("isDeselected" in $$props) $$invalidate(11, isDeselected = $$props.isDeselected);
-		if ("isClickable" in $$props) $$invalidate(12, isClickable = $$props.isClickable);
+		if ("key" in $$props) $$invalidate(6, key = $$props.key);
+		if ("keyToColor" in $$props) $$invalidate(20, keyToColor = $$props.keyToColor);
+		if ("keyToColorFn" in $$props) $$invalidate(21, keyToColorFn = $$props.keyToColorFn);
+		if ("projectionFn" in $$props) $$invalidate(22, projectionFn = $$props.projectionFn);
+		if ("projectionId" in $$props) $$invalidate(23, projectionId = $$props.projectionId);
+		if ("selectedKeys" in $$props) $$invalidate(16, selectedKeys = $$props.selectedKeys);
+		if ("theme" in $$props) $$invalidate(17, theme = $$props.theme);
+		if ("geojson" in $$props) $$invalidate(27, geojson = $$props.geojson);
+		if ("projection" in $$props) $$invalidate(28, projection = $$props.projection);
+		if ("style" in $$props) $$invalidate(7, style = $$props.style);
+		if ("innerHeight" in $$props) $$invalidate(29, innerHeight = $$props.innerHeight);
+		if ("innerWidth" in $$props) $$invalidate(30, innerWidth = $$props.innerWidth);
+		if ("createColoredGeojson" in $$props) $$invalidate(31, createColoredGeojson = $$props.createColoredGeojson);
+		if ("coloredGeojson" in $$props) $$invalidate(8, coloredGeojson = $$props.coloredGeojson);
+		if ("fitProjection" in $$props) $$invalidate(32, fitProjection = $$props.fitProjection);
+		if ("geopath" in $$props) $$invalidate(9, geopath = $$props.geopath);
+		if ("getPayload" in $$props) $$invalidate(10, getPayload = $$props.getPayload);
+		if ("isFocused" in $$props) $$invalidate(11, isFocused = $$props.isFocused);
+		if ("isSelected" in $$props) $$invalidate(12, isSelected = $$props.isSelected);
+		if ("isDeselected" in $$props) $$invalidate(13, isDeselected = $$props.isDeselected);
+		if ("isClickable" in $$props) $$invalidate(14, isClickable = $$props.isClickable);
 	};
 
 	let geojson;
@@ -8517,6 +8532,7 @@ function instance$e($$self, $$props, $$invalidate) {
 	let fitProjection;
 	let geopath;
 	let getPayload;
+	let isFocused;
 	let isSelected;
 	let isDeselected;
 	let isClickable;
@@ -8526,9 +8542,9 @@ function instance$e($$self, $$props, $$invalidate) {
 	}
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty[0] & /*topojson, topojsonId*/ 196608) {
+		if ($$self.$$.dirty[0] & /*topojson, topojsonId*/ 786432) {
 			// FIXME https://github.com/sveltejs/svelte/issues/4442
-			 $$invalidate(25, geojson = topoToGeo(topojson, topojsonId));
+			 $$invalidate(27, geojson = topoToGeo(topojson, topojsonId));
 		}
 
 		if ($$self.$$.dirty[0] & /*geometry*/ 1) {
@@ -8545,32 +8561,32 @@ function instance$e($$self, $$props, $$invalidate) {
 			 $$invalidate(2, key_alt = key_alt || "name");
 		}
 
-		if ($$self.$$.dirty[0] & /*projectionFn, projectionId*/ 3145728) {
-			 $$invalidate(26, projection = projectionFn || projectionId && projections[projectionId] || equirectangular);
+		if ($$self.$$.dirty[0] & /*projectionFn, projectionId*/ 12582912) {
+			 $$invalidate(28, projection = projectionFn || projectionId && projections[projectionId] || equirectangular);
 		}
 
-		if ($$self.$$.dirty[0] & /*selectedKeys*/ 16384) {
-			 $$invalidate(14, selectedKeys = selectedKeys || []);
+		if ($$self.$$.dirty[0] & /*selectedKeys*/ 65536) {
+			 $$invalidate(16, selectedKeys = selectedKeys || []);
 		}
 
-		if ($$self.$$.dirty[0] & /*theme*/ 32768) {
-			 $$invalidate(15, theme = theme ? { ...defaultTheme, ...theme } : defaultTheme);
+		if ($$self.$$.dirty[0] & /*theme*/ 131072) {
+			 $$invalidate(17, theme = theme ? { ...defaultTheme, ...theme } : defaultTheme);
 		}
 
-		if ($$self.$$.dirty[0] & /*theme*/ 32768) {
-			 $$invalidate(6, style = makeStyleVars(theme));
+		if ($$self.$$.dirty[0] & /*theme*/ 131072) {
+			 $$invalidate(7, style = makeStyleVars(theme));
 		}
 
 		if ($$self.$$.dirty[0] & /*height, geometry*/ 9) {
-			 $$invalidate(27, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
+			 $$invalidate(29, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
 		}
 
 		if ($$self.$$.dirty[0] & /*width, geometry*/ 17) {
-			 $$invalidate(28, innerWidth = Math.max(0, width - geometry.left - geometry.right));
+			 $$invalidate(30, innerWidth = Math.max(0, width - geometry.left - geometry.right));
 		}
 
-		if ($$self.$$.dirty[0] & /*key_alt, key, keyToColor, keyToColorFn*/ 786468) {
-			 $$invalidate(29, createColoredGeojson = makeUpdateFeaturesProperty({
+		if ($$self.$$.dirty[0] & /*key_alt, key, keyToColor, keyToColorFn*/ 3145796) {
+			 $$invalidate(31, createColoredGeojson = makeUpdateFeaturesProperty({
 				key_alt,
 				key,
 				map: keyToColor,
@@ -8579,32 +8595,36 @@ function instance$e($$self, $$props, $$invalidate) {
 			}));
 		}
 
-		if ($$self.$$.dirty[0] & /*geojson, createColoredGeojson*/ 570425344) {
-			 $$invalidate(7, coloredGeojson = geojson && createColoredGeojson(geojson));
+		if ($$self.$$.dirty[0] & /*geojson*/ 134217728 | $$self.$$.dirty[1] & /*createColoredGeojson*/ 1) {
+			 $$invalidate(8, coloredGeojson = geojson && createColoredGeojson(geojson));
 		}
 
-		if ($$self.$$.dirty[0] & /*geojson, projection, innerWidth, innerHeight*/ 503316480) {
-			 $$invalidate(30, fitProjection = geojson && projection().fitSize([innerWidth, innerHeight], geojson));
+		if ($$self.$$.dirty[0] & /*geojson, projection, innerWidth, innerHeight*/ 2013265920) {
+			 $$invalidate(32, fitProjection = geojson && projection().fitSize([innerWidth, innerHeight], geojson));
 		}
 
-		if ($$self.$$.dirty[0] & /*fitProjection*/ 1073741824) {
-			 $$invalidate(8, geopath = fitProjection && geoPath(fitProjection));
+		if ($$self.$$.dirty[1] & /*fitProjection*/ 2) {
+			 $$invalidate(9, geopath = fitProjection && geoPath(fitProjection));
 		}
 
-		if ($$self.$$.dirty[0] & /*key, key_alt*/ 36) {
-			 $$invalidate(9, getPayload = feature => feature.properties[key] || feature.properties[key_alt]);
+		if ($$self.$$.dirty[0] & /*key, key_alt*/ 68) {
+			 $$invalidate(10, getPayload = feature => feature.properties[key] || feature.properties[key_alt]);
 		}
 
-		if ($$self.$$.dirty[0] & /*selectedKeys, getPayload*/ 16896) {
-			 $$invalidate(10, isSelected = feature => selectedKeys.length && selectedKeys.includes(getPayload(feature)));
+		if ($$self.$$.dirty[0] & /*focusedKey, getPayload*/ 1056) {
+			 $$invalidate(11, isFocused = feature => focusedKey === getPayload(feature));
 		}
 
-		if ($$self.$$.dirty[0] & /*selectedKeys, getPayload*/ 16896) {
-			 $$invalidate(11, isDeselected = feature => selectedKeys.length && !selectedKeys.includes(getPayload(feature)));
+		if ($$self.$$.dirty[0] & /*selectedKeys, getPayload*/ 66560) {
+			 $$invalidate(12, isSelected = feature => selectedKeys.length && selectedKeys.includes(getPayload(feature)));
+		}
+
+		if ($$self.$$.dirty[0] & /*selectedKeys, getPayload*/ 66560) {
+			 $$invalidate(13, isDeselected = feature => selectedKeys.length && !selectedKeys.includes(getPayload(feature)));
 		}
 
 		if ($$self.$$.dirty[0] & /*isInteractive*/ 2) {
-			 $$invalidate(12, isClickable = feature => isInteractive && hasColor(feature));
+			 $$invalidate(14, isClickable = feature => isInteractive && hasColor(feature));
 		}
 	};
 
@@ -8614,11 +8634,13 @@ function instance$e($$self, $$props, $$invalidate) {
 		key_alt,
 		height,
 		width,
+		focusedKey,
 		key,
 		style,
 		coloredGeojson,
 		geopath,
 		getPayload,
+		isFocused,
 		isSelected,
 		isDeselected,
 		isClickable,
@@ -8649,19 +8671,20 @@ class ChoroplethG extends SvelteComponentDev {
 			safe_not_equal,
 			{
 				height: 3,
-				topojson: 16,
-				topojsonId: 17,
+				topojson: 18,
+				topojsonId: 19,
 				width: 4,
+				focusedKey: 5,
 				geometry: 0,
 				isInteractive: 1,
 				key_alt: 2,
-				key: 5,
-				keyToColor: 18,
-				keyToColorFn: 19,
-				projectionFn: 20,
-				projectionId: 21,
-				selectedKeys: 14,
-				theme: 15
+				key: 6,
+				keyToColor: 20,
+				keyToColorFn: 21,
+				projectionFn: 22,
+				projectionId: 23,
+				selectedKeys: 16,
+				theme: 17
 			},
 			[-1, -1]
 		);
@@ -8680,16 +8703,20 @@ class ChoroplethG extends SvelteComponentDev {
 			console.warn("<ChoroplethG> was created without expected prop 'height'");
 		}
 
-		if (/*topojson*/ ctx[16] === undefined && !("topojson" in props)) {
+		if (/*topojson*/ ctx[18] === undefined && !("topojson" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'topojson'");
 		}
 
-		if (/*topojsonId*/ ctx[17] === undefined && !("topojsonId" in props)) {
+		if (/*topojsonId*/ ctx[19] === undefined && !("topojsonId" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'topojsonId'");
 		}
 
 		if (/*width*/ ctx[4] === undefined && !("width" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'width'");
+		}
+
+		if (/*focusedKey*/ ctx[5] === undefined && !("focusedKey" in props)) {
+			console.warn("<ChoroplethG> was created without expected prop 'focusedKey'");
 		}
 
 		if (/*geometry*/ ctx[0] === undefined && !("geometry" in props)) {
@@ -8704,31 +8731,31 @@ class ChoroplethG extends SvelteComponentDev {
 			console.warn("<ChoroplethG> was created without expected prop 'key_alt'");
 		}
 
-		if (/*key*/ ctx[5] === undefined && !("key" in props)) {
+		if (/*key*/ ctx[6] === undefined && !("key" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'key'");
 		}
 
-		if (/*keyToColor*/ ctx[18] === undefined && !("keyToColor" in props)) {
+		if (/*keyToColor*/ ctx[20] === undefined && !("keyToColor" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'keyToColor'");
 		}
 
-		if (/*keyToColorFn*/ ctx[19] === undefined && !("keyToColorFn" in props)) {
+		if (/*keyToColorFn*/ ctx[21] === undefined && !("keyToColorFn" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'keyToColorFn'");
 		}
 
-		if (/*projectionFn*/ ctx[20] === undefined && !("projectionFn" in props)) {
+		if (/*projectionFn*/ ctx[22] === undefined && !("projectionFn" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'projectionFn'");
 		}
 
-		if (/*projectionId*/ ctx[21] === undefined && !("projectionId" in props)) {
+		if (/*projectionId*/ ctx[23] === undefined && !("projectionId" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'projectionId'");
 		}
 
-		if (/*selectedKeys*/ ctx[14] === undefined && !("selectedKeys" in props)) {
+		if (/*selectedKeys*/ ctx[16] === undefined && !("selectedKeys" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'selectedKeys'");
 		}
 
-		if (/*theme*/ ctx[15] === undefined && !("theme" in props)) {
+		if (/*theme*/ ctx[17] === undefined && !("theme" in props)) {
 			console.warn("<ChoroplethG> was created without expected prop 'theme'");
 		}
 	}
@@ -8762,6 +8789,14 @@ class ChoroplethG extends SvelteComponentDev {
 	}
 
 	set width(value) {
+		throw new Error("<ChoroplethG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	get focusedKey() {
+		throw new Error("<ChoroplethG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	set focusedKey(value) {
 		throw new Error("<ChoroplethG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 	}
 
@@ -8849,7 +8884,7 @@ class ChoroplethG extends SvelteComponentDev {
 /* Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethDiv.svelte generated by Svelte v3.24.0 */
 const file$9 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethDiv.svelte";
 
-// (40:1) {#if title}
+// (41:1) {#if title}
 function create_if_block$6(ctx) {
 	let header;
 	let h2;
@@ -8874,9 +8909,9 @@ function create_if_block$6(ctx) {
 		},
 		h: function hydrate() {
 			attr_dev(h2, "class", "svelte-77ac80");
-			add_location(h2, file$9, 41, 2, 787);
+			add_location(h2, file$9, 42, 2, 811);
 			attr_dev(header, "class", "svelte-77ac80");
-			add_location(header, file$9, 40, 1, 776);
+			add_location(header, file$9, 41, 1, 800);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, header, anchor);
@@ -8895,7 +8930,7 @@ function create_if_block$6(ctx) {
 		block,
 		id: create_if_block$6.name,
 		type: "if",
-		source: "(40:1) {#if title}",
+		source: "(41:1) {#if title}",
 		ctx
 	});
 
@@ -8914,27 +8949,28 @@ function create_fragment$f(ctx) {
 
 	choroplethg = new ChoroplethG({
 			props: {
-				height: /*height*/ ctx[13],
-				geometry: /*geometry*/ ctx[3],
-				isInteractive: /*isInteractive*/ ctx[4],
-				key: /*key*/ ctx[6],
-				key_alt: /*key_alt*/ ctx[5],
-				keyToColor: /*keyToColor*/ ctx[7],
-				keyToColorFn: /*keyToColorFn*/ ctx[8],
-				projectionFn: /*projectionFn*/ ctx[9],
-				projectionId: /*projectionId*/ ctx[10],
-				selectedKeys: /*selectedKeys*/ ctx[11],
-				theme: /*theme*/ ctx[12],
+				focusedKey: /*focusedKey*/ ctx[3],
+				geometry: /*geometry*/ ctx[4],
+				height: /*height*/ ctx[14],
+				isInteractive: /*isInteractive*/ ctx[5],
+				key_alt: /*key_alt*/ ctx[6],
+				key: /*key*/ ctx[7],
+				keyToColor: /*keyToColor*/ ctx[8],
+				keyToColorFn: /*keyToColorFn*/ ctx[9],
+				projectionFn: /*projectionFn*/ ctx[10],
+				projectionId: /*projectionId*/ ctx[11],
+				selectedKeys: /*selectedKeys*/ ctx[12],
+				theme: /*theme*/ ctx[13],
 				topojson: /*topojson*/ ctx[1],
 				topojsonId: /*topojsonId*/ ctx[2],
-				width: /*width*/ ctx[14]
+				width: /*width*/ ctx[15]
 			},
 			$$inline: true
 		});
 
-	choroplethg.$on("clicked", /*clicked_handler*/ ctx[18]);
-	choroplethg.$on("entered", /*entered_handler*/ ctx[19]);
-	choroplethg.$on("exited", /*exited_handler*/ ctx[20]);
+	choroplethg.$on("clicked", /*clicked_handler*/ ctx[19]);
+	choroplethg.$on("entered", /*entered_handler*/ ctx[20]);
+	choroplethg.$on("exited", /*exited_handler*/ ctx[21]);
 
 	const block = {
 		c: function create() {
@@ -8962,18 +8998,18 @@ function create_fragment$f(ctx) {
 			this.h();
 		},
 		h: function hydrate() {
-			attr_dev(svg, "width", /*width*/ ctx[14]);
-			attr_dev(svg, "height", /*height*/ ctx[13]);
+			attr_dev(svg, "width", /*width*/ ctx[15]);
+			attr_dev(svg, "height", /*height*/ ctx[14]);
 			attr_dev(svg, "class", "svelte-77ac80");
-			add_location(svg, file$9, 49, 2, 929);
+			add_location(svg, file$9, 50, 2, 953);
 			attr_dev(main, "class", "svelte-77ac80");
-			add_render_callback(() => /*main_elementresize_handler*/ ctx[21].call(main));
+			add_render_callback(() => /*main_elementresize_handler*/ ctx[22].call(main));
 			toggle_class(main, "titled", /*title*/ ctx[0] && /*title*/ ctx[0].length);
-			add_location(main, file$9, 44, 1, 823);
+			add_location(main, file$9, 45, 1, 847);
 			attr_dev(div, "class", "ChoroplethDiv svelte-77ac80");
-			attr_dev(div, "style", /*style*/ ctx[15]);
-			toggle_class(div, "interactive", /*isInteractive*/ ctx[4]);
-			add_location(div, file$9, 34, 0, 688);
+			attr_dev(div, "style", /*style*/ ctx[16]);
+			toggle_class(div, "interactive", /*isInteractive*/ ctx[5]);
+			add_location(div, file$9, 35, 0, 712);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -8982,7 +9018,7 @@ function create_fragment$f(ctx) {
 			append_dev(div, main);
 			append_dev(main, svg);
 			mount_component(choroplethg, svg, null);
-			main_resize_listener = add_resize_listener(main, /*main_elementresize_handler*/ ctx[21].bind(main));
+			main_resize_listener = add_resize_listener(main, /*main_elementresize_handler*/ ctx[22].bind(main));
 			current = true;
 		},
 		p: function update(ctx, [dirty]) {
@@ -9000,40 +9036,41 @@ function create_fragment$f(ctx) {
 			}
 
 			const choroplethg_changes = {};
-			if (dirty & /*height*/ 8192) choroplethg_changes.height = /*height*/ ctx[13];
-			if (dirty & /*geometry*/ 8) choroplethg_changes.geometry = /*geometry*/ ctx[3];
-			if (dirty & /*isInteractive*/ 16) choroplethg_changes.isInteractive = /*isInteractive*/ ctx[4];
-			if (dirty & /*key*/ 64) choroplethg_changes.key = /*key*/ ctx[6];
-			if (dirty & /*key_alt*/ 32) choroplethg_changes.key_alt = /*key_alt*/ ctx[5];
-			if (dirty & /*keyToColor*/ 128) choroplethg_changes.keyToColor = /*keyToColor*/ ctx[7];
-			if (dirty & /*keyToColorFn*/ 256) choroplethg_changes.keyToColorFn = /*keyToColorFn*/ ctx[8];
-			if (dirty & /*projectionFn*/ 512) choroplethg_changes.projectionFn = /*projectionFn*/ ctx[9];
-			if (dirty & /*projectionId*/ 1024) choroplethg_changes.projectionId = /*projectionId*/ ctx[10];
-			if (dirty & /*selectedKeys*/ 2048) choroplethg_changes.selectedKeys = /*selectedKeys*/ ctx[11];
-			if (dirty & /*theme*/ 4096) choroplethg_changes.theme = /*theme*/ ctx[12];
+			if (dirty & /*focusedKey*/ 8) choroplethg_changes.focusedKey = /*focusedKey*/ ctx[3];
+			if (dirty & /*geometry*/ 16) choroplethg_changes.geometry = /*geometry*/ ctx[4];
+			if (dirty & /*height*/ 16384) choroplethg_changes.height = /*height*/ ctx[14];
+			if (dirty & /*isInteractive*/ 32) choroplethg_changes.isInteractive = /*isInteractive*/ ctx[5];
+			if (dirty & /*key_alt*/ 64) choroplethg_changes.key_alt = /*key_alt*/ ctx[6];
+			if (dirty & /*key*/ 128) choroplethg_changes.key = /*key*/ ctx[7];
+			if (dirty & /*keyToColor*/ 256) choroplethg_changes.keyToColor = /*keyToColor*/ ctx[8];
+			if (dirty & /*keyToColorFn*/ 512) choroplethg_changes.keyToColorFn = /*keyToColorFn*/ ctx[9];
+			if (dirty & /*projectionFn*/ 1024) choroplethg_changes.projectionFn = /*projectionFn*/ ctx[10];
+			if (dirty & /*projectionId*/ 2048) choroplethg_changes.projectionId = /*projectionId*/ ctx[11];
+			if (dirty & /*selectedKeys*/ 4096) choroplethg_changes.selectedKeys = /*selectedKeys*/ ctx[12];
+			if (dirty & /*theme*/ 8192) choroplethg_changes.theme = /*theme*/ ctx[13];
 			if (dirty & /*topojson*/ 2) choroplethg_changes.topojson = /*topojson*/ ctx[1];
 			if (dirty & /*topojsonId*/ 4) choroplethg_changes.topojsonId = /*topojsonId*/ ctx[2];
-			if (dirty & /*width*/ 16384) choroplethg_changes.width = /*width*/ ctx[14];
+			if (dirty & /*width*/ 32768) choroplethg_changes.width = /*width*/ ctx[15];
 			choroplethg.$set(choroplethg_changes);
 
-			if (!current || dirty & /*width*/ 16384) {
-				attr_dev(svg, "width", /*width*/ ctx[14]);
+			if (!current || dirty & /*width*/ 32768) {
+				attr_dev(svg, "width", /*width*/ ctx[15]);
 			}
 
-			if (!current || dirty & /*height*/ 8192) {
-				attr_dev(svg, "height", /*height*/ ctx[13]);
+			if (!current || dirty & /*height*/ 16384) {
+				attr_dev(svg, "height", /*height*/ ctx[14]);
 			}
 
 			if (dirty & /*title*/ 1) {
 				toggle_class(main, "titled", /*title*/ ctx[0] && /*title*/ ctx[0].length);
 			}
 
-			if (!current || dirty & /*style*/ 32768) {
-				attr_dev(div, "style", /*style*/ ctx[15]);
+			if (!current || dirty & /*style*/ 65536) {
+				attr_dev(div, "style", /*style*/ ctx[16]);
 			}
 
-			if (dirty & /*isInteractive*/ 16) {
-				toggle_class(div, "interactive", /*isInteractive*/ ctx[4]);
+			if (dirty & /*isInteractive*/ 32) {
+				toggle_class(div, "interactive", /*isInteractive*/ ctx[5]);
 			}
 		},
 		i: function intro(local) {
@@ -9070,6 +9107,7 @@ function instance$f($$self, $$props, $$invalidate) {
 	let { title } = $$props;
 	let { topojson } = $$props;
 	let { topojsonId } = $$props;
+	let { focusedKey } = $$props;
 	let { geometry } = $$props;
 	let { isInteractive } = $$props;
 	let { key_alt } = $$props;
@@ -9089,6 +9127,7 @@ function instance$f($$self, $$props, $$invalidate) {
 		"title",
 		"topojson",
 		"topojsonId",
+		"focusedKey",
 		"geometry",
 		"isInteractive",
 		"key_alt",
@@ -9123,26 +9162,27 @@ function instance$f($$self, $$props, $$invalidate) {
 	function main_elementresize_handler() {
 		width = this.clientWidth;
 		height = this.clientHeight;
-		$$invalidate(14, width);
-		$$invalidate(13, height);
+		$$invalidate(15, width);
+		$$invalidate(14, height);
 	}
 
 	$$self.$set = $$props => {
-		if ("headerHeight" in $$props) $$invalidate(16, headerHeight = $$props.headerHeight);
-		if ("padding" in $$props) $$invalidate(17, padding = $$props.padding);
+		if ("headerHeight" in $$props) $$invalidate(17, headerHeight = $$props.headerHeight);
+		if ("padding" in $$props) $$invalidate(18, padding = $$props.padding);
 		if ("title" in $$props) $$invalidate(0, title = $$props.title);
 		if ("topojson" in $$props) $$invalidate(1, topojson = $$props.topojson);
 		if ("topojsonId" in $$props) $$invalidate(2, topojsonId = $$props.topojsonId);
-		if ("geometry" in $$props) $$invalidate(3, geometry = $$props.geometry);
-		if ("isInteractive" in $$props) $$invalidate(4, isInteractive = $$props.isInteractive);
-		if ("key_alt" in $$props) $$invalidate(5, key_alt = $$props.key_alt);
-		if ("key" in $$props) $$invalidate(6, key = $$props.key);
-		if ("keyToColor" in $$props) $$invalidate(7, keyToColor = $$props.keyToColor);
-		if ("keyToColorFn" in $$props) $$invalidate(8, keyToColorFn = $$props.keyToColorFn);
-		if ("projectionFn" in $$props) $$invalidate(9, projectionFn = $$props.projectionFn);
-		if ("projectionId" in $$props) $$invalidate(10, projectionId = $$props.projectionId);
-		if ("selectedKeys" in $$props) $$invalidate(11, selectedKeys = $$props.selectedKeys);
-		if ("theme" in $$props) $$invalidate(12, theme = $$props.theme);
+		if ("focusedKey" in $$props) $$invalidate(3, focusedKey = $$props.focusedKey);
+		if ("geometry" in $$props) $$invalidate(4, geometry = $$props.geometry);
+		if ("isInteractive" in $$props) $$invalidate(5, isInteractive = $$props.isInteractive);
+		if ("key_alt" in $$props) $$invalidate(6, key_alt = $$props.key_alt);
+		if ("key" in $$props) $$invalidate(7, key = $$props.key);
+		if ("keyToColor" in $$props) $$invalidate(8, keyToColor = $$props.keyToColor);
+		if ("keyToColorFn" in $$props) $$invalidate(9, keyToColorFn = $$props.keyToColorFn);
+		if ("projectionFn" in $$props) $$invalidate(10, projectionFn = $$props.projectionFn);
+		if ("projectionId" in $$props) $$invalidate(11, projectionId = $$props.projectionId);
+		if ("selectedKeys" in $$props) $$invalidate(12, selectedKeys = $$props.selectedKeys);
+		if ("theme" in $$props) $$invalidate(13, theme = $$props.theme);
 	};
 
 	$$self.$capture_state = () => ({
@@ -9153,6 +9193,7 @@ function instance$f($$self, $$props, $$invalidate) {
 		title,
 		topojson,
 		topojsonId,
+		focusedKey,
 		geometry,
 		isInteractive,
 		key_alt,
@@ -9169,24 +9210,25 @@ function instance$f($$self, $$props, $$invalidate) {
 	});
 
 	$$self.$inject_state = $$props => {
-		if ("headerHeight" in $$props) $$invalidate(16, headerHeight = $$props.headerHeight);
-		if ("padding" in $$props) $$invalidate(17, padding = $$props.padding);
+		if ("headerHeight" in $$props) $$invalidate(17, headerHeight = $$props.headerHeight);
+		if ("padding" in $$props) $$invalidate(18, padding = $$props.padding);
 		if ("title" in $$props) $$invalidate(0, title = $$props.title);
 		if ("topojson" in $$props) $$invalidate(1, topojson = $$props.topojson);
 		if ("topojsonId" in $$props) $$invalidate(2, topojsonId = $$props.topojsonId);
-		if ("geometry" in $$props) $$invalidate(3, geometry = $$props.geometry);
-		if ("isInteractive" in $$props) $$invalidate(4, isInteractive = $$props.isInteractive);
-		if ("key_alt" in $$props) $$invalidate(5, key_alt = $$props.key_alt);
-		if ("key" in $$props) $$invalidate(6, key = $$props.key);
-		if ("keyToColor" in $$props) $$invalidate(7, keyToColor = $$props.keyToColor);
-		if ("keyToColorFn" in $$props) $$invalidate(8, keyToColorFn = $$props.keyToColorFn);
-		if ("projectionFn" in $$props) $$invalidate(9, projectionFn = $$props.projectionFn);
-		if ("projectionId" in $$props) $$invalidate(10, projectionId = $$props.projectionId);
-		if ("selectedKeys" in $$props) $$invalidate(11, selectedKeys = $$props.selectedKeys);
-		if ("theme" in $$props) $$invalidate(12, theme = $$props.theme);
-		if ("height" in $$props) $$invalidate(13, height = $$props.height);
-		if ("width" in $$props) $$invalidate(14, width = $$props.width);
-		if ("style" in $$props) $$invalidate(15, style = $$props.style);
+		if ("focusedKey" in $$props) $$invalidate(3, focusedKey = $$props.focusedKey);
+		if ("geometry" in $$props) $$invalidate(4, geometry = $$props.geometry);
+		if ("isInteractive" in $$props) $$invalidate(5, isInteractive = $$props.isInteractive);
+		if ("key_alt" in $$props) $$invalidate(6, key_alt = $$props.key_alt);
+		if ("key" in $$props) $$invalidate(7, key = $$props.key);
+		if ("keyToColor" in $$props) $$invalidate(8, keyToColor = $$props.keyToColor);
+		if ("keyToColorFn" in $$props) $$invalidate(9, keyToColorFn = $$props.keyToColorFn);
+		if ("projectionFn" in $$props) $$invalidate(10, projectionFn = $$props.projectionFn);
+		if ("projectionId" in $$props) $$invalidate(11, projectionId = $$props.projectionId);
+		if ("selectedKeys" in $$props) $$invalidate(12, selectedKeys = $$props.selectedKeys);
+		if ("theme" in $$props) $$invalidate(13, theme = $$props.theme);
+		if ("height" in $$props) $$invalidate(14, height = $$props.height);
+		if ("width" in $$props) $$invalidate(15, width = $$props.width);
+		if ("style" in $$props) $$invalidate(16, style = $$props.style);
 	};
 
 	let style;
@@ -9196,16 +9238,16 @@ function instance$f($$self, $$props, $$invalidate) {
 	}
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*padding*/ 131072) {
-			 $$invalidate(17, padding = padding || "10px");
+		if ($$self.$$.dirty & /*padding*/ 262144) {
+			 $$invalidate(18, padding = padding || "10px");
 		}
 
-		if ($$self.$$.dirty & /*headerHeight*/ 65536) {
-			 $$invalidate(16, headerHeight = headerHeight || "2rem");
+		if ($$self.$$.dirty & /*headerHeight*/ 131072) {
+			 $$invalidate(17, headerHeight = headerHeight || "2rem");
 		}
 
-		if ($$self.$$.dirty & /*headerHeight, padding*/ 196608) {
-			 $$invalidate(15, style = makeStyleVars({ headerHeight, padding }));
+		if ($$self.$$.dirty & /*headerHeight, padding*/ 393216) {
+			 $$invalidate(16, style = makeStyleVars({ headerHeight, padding }));
 		}
 	};
 
@@ -9213,6 +9255,7 @@ function instance$f($$self, $$props, $$invalidate) {
 		title,
 		topojson,
 		topojsonId,
+		focusedKey,
 		geometry,
 		isInteractive,
 		key_alt,
@@ -9240,21 +9283,22 @@ class ChoroplethDiv extends SvelteComponentDev {
 		super(options);
 
 		init(this, options, instance$f, create_fragment$f, safe_not_equal, {
-			headerHeight: 16,
-			padding: 17,
+			headerHeight: 17,
+			padding: 18,
 			title: 0,
 			topojson: 1,
 			topojsonId: 2,
-			geometry: 3,
-			isInteractive: 4,
-			key_alt: 5,
-			key: 6,
-			keyToColor: 7,
-			keyToColorFn: 8,
-			projectionFn: 9,
-			projectionId: 10,
-			selectedKeys: 11,
-			theme: 12
+			focusedKey: 3,
+			geometry: 4,
+			isInteractive: 5,
+			key_alt: 6,
+			key: 7,
+			keyToColor: 8,
+			keyToColorFn: 9,
+			projectionFn: 10,
+			projectionId: 11,
+			selectedKeys: 12,
+			theme: 13
 		});
 
 		dispatch_dev("SvelteRegisterComponent", {
@@ -9267,11 +9311,11 @@ class ChoroplethDiv extends SvelteComponentDev {
 		const { ctx } = this.$$;
 		const props = options.props || {};
 
-		if (/*headerHeight*/ ctx[16] === undefined && !("headerHeight" in props)) {
+		if (/*headerHeight*/ ctx[17] === undefined && !("headerHeight" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'headerHeight'");
 		}
 
-		if (/*padding*/ ctx[17] === undefined && !("padding" in props)) {
+		if (/*padding*/ ctx[18] === undefined && !("padding" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'padding'");
 		}
 
@@ -9287,43 +9331,47 @@ class ChoroplethDiv extends SvelteComponentDev {
 			console.warn("<ChoroplethDiv> was created without expected prop 'topojsonId'");
 		}
 
-		if (/*geometry*/ ctx[3] === undefined && !("geometry" in props)) {
+		if (/*focusedKey*/ ctx[3] === undefined && !("focusedKey" in props)) {
+			console.warn("<ChoroplethDiv> was created without expected prop 'focusedKey'");
+		}
+
+		if (/*geometry*/ ctx[4] === undefined && !("geometry" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'geometry'");
 		}
 
-		if (/*isInteractive*/ ctx[4] === undefined && !("isInteractive" in props)) {
+		if (/*isInteractive*/ ctx[5] === undefined && !("isInteractive" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'isInteractive'");
 		}
 
-		if (/*key_alt*/ ctx[5] === undefined && !("key_alt" in props)) {
+		if (/*key_alt*/ ctx[6] === undefined && !("key_alt" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'key_alt'");
 		}
 
-		if (/*key*/ ctx[6] === undefined && !("key" in props)) {
+		if (/*key*/ ctx[7] === undefined && !("key" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'key'");
 		}
 
-		if (/*keyToColor*/ ctx[7] === undefined && !("keyToColor" in props)) {
+		if (/*keyToColor*/ ctx[8] === undefined && !("keyToColor" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'keyToColor'");
 		}
 
-		if (/*keyToColorFn*/ ctx[8] === undefined && !("keyToColorFn" in props)) {
+		if (/*keyToColorFn*/ ctx[9] === undefined && !("keyToColorFn" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'keyToColorFn'");
 		}
 
-		if (/*projectionFn*/ ctx[9] === undefined && !("projectionFn" in props)) {
+		if (/*projectionFn*/ ctx[10] === undefined && !("projectionFn" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'projectionFn'");
 		}
 
-		if (/*projectionId*/ ctx[10] === undefined && !("projectionId" in props)) {
+		if (/*projectionId*/ ctx[11] === undefined && !("projectionId" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'projectionId'");
 		}
 
-		if (/*selectedKeys*/ ctx[11] === undefined && !("selectedKeys" in props)) {
+		if (/*selectedKeys*/ ctx[12] === undefined && !("selectedKeys" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'selectedKeys'");
 		}
 
-		if (/*theme*/ ctx[12] === undefined && !("theme" in props)) {
+		if (/*theme*/ ctx[13] === undefined && !("theme" in props)) {
 			console.warn("<ChoroplethDiv> was created without expected prop 'theme'");
 		}
 	}
@@ -9365,6 +9413,14 @@ class ChoroplethDiv extends SvelteComponentDev {
 	}
 
 	set topojsonId(value) {
+		throw new Error("<ChoroplethDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	get focusedKey() {
+		throw new Error("<ChoroplethDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	set focusedKey(value) {
 		throw new Error("<ChoroplethDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 	}
 
