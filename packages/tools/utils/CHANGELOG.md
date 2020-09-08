@@ -1,3 +1,10 @@
+## `@svizzle/utils` v0.10.0 (next)
+
+### (Any -> Boolean) -> (Array -> Array)
+
+- add `raiseWith`
+
+
 ## `@svizzle/utils` v0.9.0
 
 ### (String -> String) -> (Object -> Object)

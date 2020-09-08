@@ -1,5 +1,14 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/utils` v0.10.0 (next)
+
+### (Any -> Boolean) -> (Array -> Array)
+
+- add `raiseWith`
+
+
 ## 20200908
 
 ## `@svizzle/choropleth` v0.5.0
