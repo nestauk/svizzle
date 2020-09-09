@@ -20,6 +20,7 @@
 	export let key;
 	export let keyToColor;
 	export let keyToColorFn;
+	export let projection;
 	export let projectionFn;
 	export let projectionId;
 	export let selectedKeys;
@@ -61,6 +62,7 @@
 				{key}
 				{keyToColor}
 				{keyToColorFn}
+				{projection}
 				{projectionFn}
 				{projectionId}
 				{selectedKeys}

@@ -1,7 +1,11 @@
+## `@svizzle/choropleth` v0.6.0 (next)
+
+- add prop `projection`
+
 ## `@svizzle/choropleth` v0.5.0
 
-- document `topoToGeo`
 - add prop `focusedKey`
+- document `topoToGeo`
 
 ## `@svizzle/choropleth` v0.4.0
 

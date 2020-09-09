@@ -43,6 +43,7 @@
 	export let key;
 	export let keyToColor;
 	export let keyToColorFn;
+	export let projection;
 	export let projectionFn;
 	export let projectionId;
 	export let selectedKeys;
@@ -52,8 +53,11 @@
 	$: geojson = topoToGeo(topojson, topojsonId);
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: isInteractive = isInteractive || false;
+	$: projection = projection || null;
+	$: projectionFn = projectionFn || null;
+	$: projectionId = projectionId || null;
 	$: key_alt = key_alt || 'name';
-	$: projection =
+	$: projectionFunc =
 		projectionFn ||
 		projectionId && projections[projectionId] ||
 		projections.geoEquirectangular;
@@ -70,9 +74,10 @@
 		propName: 'color',
 	});
 	$: coloredGeojson = geojson && createColoredGeojson(geojson);
-	$: fitProjection = geojson
-		&& projection().fitSize([innerWidth, innerHeight], geojson);
-	$: geopath = fitProjection && geoPath(fitProjection);
+	$: currentProjection =
+		projection ||
+		geojson && projectionFunc().fitSize([innerWidth, innerHeight], geojson);
+	$: geopath = currentProjection && geoPath(currentProjection);
 	$: getPayload =
 		feature => feature.properties[key] || feature.properties[key_alt];
 	$: isFocused = feature => focusedKey === getPayload(feature);
