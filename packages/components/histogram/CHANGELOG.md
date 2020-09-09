@@ -1,3 +1,7 @@
+## `@svizzle/histogram` v0.3.0 (next)
+
+- show a customisable message if `items` is not provided or is empty
+
 ## `@svizzle/histogram` v0.2.0
 
 - props: rename `maxfontSize` to `maxFontSize`

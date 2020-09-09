@@ -25,6 +25,8 @@
 		hoverStroke: 'black',
 		hoverStrokedasharray: '',
 		hoverStrokeWidth: 1.5,
+		messageColor: 'black',
+		messageFontSize: '1rem',
 		selectedStroke: 'black',
 		selectedStrokeWidth: 1,
 	}
@@ -43,6 +45,7 @@
 	export let key;
 	export let keyToColor;
 	export let keyToColorFn;
+	export let message;
 	export let projection;
 	export let projectionFn;
 	export let projectionId;
@@ -50,9 +53,9 @@
 	export let theme;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: geojson = topoToGeo(topojson, topojsonId);
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: isInteractive = isInteractive || false;
+	$: message = message || 'No data';
 	$: projection = projection || null;
 	$: projectionFn = projectionFn || null;
 	$: projectionId = projectionId || null;
@@ -73,6 +76,7 @@
 		mapFn: keyToColorFn,
 		propName: 'color',
 	});
+	$: geojson = topojson && topoToGeo(topojson, topojsonId);
 	$: coloredGeojson = geojson && createColoredGeojson(geojson);
 	$: currentProjection =
 		projection ||
@@ -97,7 +101,17 @@
 	{style}
 	class:interactive={isInteractive}
 	class='ChoroplethG'
-	>
+>
+	{#if !topojson}
+
+	<text
+		class='message'
+		x={width/2}
+		y={height/2}
+	>{message}</text>
+
+	{:else}
+
 	<rect
 		{height}
 		{width}
@@ -125,6 +139,8 @@
 		{/each}
 		{/if}
 	</g>
+
+	{/if} <!-- if no topojson -->
 </g>
 {/if}
 
@@ -134,6 +150,14 @@
 	}
 	.ChoroplethG.interactive {
 		pointer-events: auto;
+	}
+
+	text.message {
+		dominant-baseline: middle;
+		fill: var(--messageColor);
+		font-size: var(--messageFontSize);
+		stroke: none;
+		text-anchor: middle;
 	}
 
 	rect.bkg {

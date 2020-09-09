@@ -71,13 +71,44 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'no bins',
+			key: 'No bins',
+			props: {},
+			usage: `
+				<HistogramG
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Empty bins',
 			props: {bins: []},
 			usage: `
 				<HistogramG
 					{bins}
 					{height}
 					{width}
+				/>
+			`,
+		}, {
+			key: 'Empty bins with custom message',
+			props: {
+				bins: [],
+				message: 'Please provide data!',
+				theme: {
+					messageColor: 'red',
+					messageFontSize: '2rem',
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					message='Please provide data!',
+					theme={{
+						messageColor: 'red',
+						messageFontSize: '2rem',
+					}}
 				/>
 			`,
 		}],
@@ -89,6 +120,7 @@ export default formatExamples([
 			{tag: 'p', content: '•• `{range: [number, number], values: any[]}`: this will use the length of `values` as the length of the bin'},
 			{tag: 'p', content: 'Ranges are assumed to be sorted and bins are assumed to be sorted by `range`, that is the first value of a bin `range` is greater than the second value of the previos bin `range`.'},
 			{tag: 'p', content: 'You can draw non-uniform non-contiguous bins, that is ranges don\'t have be to contiguous or be all of the same size.'},
+			{tag: 'p', content: 'If `bins` is undefined or empty the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'},
 		],
 		name: 'HistogramG',
 		namespace: 'svg',

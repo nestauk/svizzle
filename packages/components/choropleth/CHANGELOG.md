@@ -1,6 +1,7 @@
 ## `@svizzle/choropleth` v0.6.0 (next)
 
 - add prop `projection`
+- show a customisable message if `items` is not provided or is empty
 
 ## `@svizzle/choropleth` v0.5.0
 

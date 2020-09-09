@@ -111,6 +111,35 @@ export default formatExamples([
 					topojsonId='NUTS'
 				/>
 			`,
+		}, {
+			key: 'No topojson',
+			props: {},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'No topojson with custom message',
+			props: {
+				message: 'Please provide data!',
+				theme: {
+					messageColor: 'red',
+					messageFontSize: '2rem',
+				}
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					message='Please provide data!',
+					theme={{
+						messageColor: 'red',
+						messageFontSize: '2rem',
+					}}
+				/>
+			`,
 		}],
 		doc: [
 			{tag: 'p', content: "In the most basic setup, you need to provide:"},
@@ -118,6 +147,7 @@ export default formatExamples([
 			{tag: 'p', content: "• `topojson`, the Topojson of regions to be represented, with `properties` having the a field corresponding to the prop `key`."},
 			{tag: 'p', content: "• `topojsonId`, the key to us to select items in the `objects` field inthe topojson; e.g. `NUTS` or `countries`."},
 			{tag: 'p', content: "The default projection (`geoEquirectangular`) will be applied."},
+			{tag: 'p', content: 'If `topojson` is undefined the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'},
 		],
 		name: 'ChoroplethG',
 		namespace: 'svg',

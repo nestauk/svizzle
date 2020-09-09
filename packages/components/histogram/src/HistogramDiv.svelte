@@ -13,6 +13,7 @@
 	export let binsFill;
 	export let flags;
 	export let geometry;
+	export let message;
 	export let selectedBins;
 	export let theme;
 	export let ticksFormatFn;
@@ -51,6 +52,7 @@
 				{flags}
 				{geometry}
 				{height}
+				{message}
 				{selectedBins}
 				{theme}
 				{ticksFormatFn}

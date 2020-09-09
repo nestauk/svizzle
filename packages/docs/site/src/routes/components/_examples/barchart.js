@@ -54,10 +54,46 @@ export default formatExamples([
 			usage: `
 				<BarchartV {items} />
 			`,
+		}, {
+			key: 'No data',
+			props: {
+			},
+			usage: `
+				<BarchartV />
+			`,
+		}, {
+			key: 'Empty data',
+			props: {
+				items: [],
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'Empty data with custom message',
+			props: {
+				items: [],
+				message: 'Please provide data!',
+				theme: {
+					messageColor: 'red',
+					messageFontSize: '2rem',
+				}
+			},
+			usage: `
+				<BarchartV
+					{items}
+					message='Please provide data!',
+					theme={{
+						messageColor: 'red',
+						messageFontSize: '2rem',
+					}}
+				/>
+			`,
 		}],
 		doc: [
 			{tag: 'p', content: 'In the most basic setup, you need to provide a `{items}` array of objects with the shape `{key: string, props: number}`.'},
 			{tag: 'p', content: 'Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default.'},
+			{tag: 'p', content: 'If `items` is undefined or empty the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'},
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',

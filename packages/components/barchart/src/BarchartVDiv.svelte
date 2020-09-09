@@ -43,6 +43,8 @@
 		fontSize: 14,
 		headerHeight: '2em',
 		hoverColor: 'rgba(0, 0, 0, 0.05)',
+		messageColor: 'black',
+		messageFontSize: '1rem',
 		padding: 10,
 		refColor: 'grey',
 		refDasharray: '4 4',
@@ -60,6 +62,7 @@
 	export let keyToColorFn;
 	export let keyToLabel;
 	export let keyToLabelFn;
+	export let message;
 	export let refs;
 	export let selectedKeys;
 	export let shouldResetScroll;
@@ -71,6 +74,8 @@
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: barHeight = barHeight || 4;
 	$: isInteractive = isInteractive || false;
+	$: items = items || [];
+	$: message = message || 'No data';
 	$: refs = refs || [];
 	$: selectedKeys = selectedKeys || [];
 	$: shouldResetScroll = shouldResetScroll || false;
@@ -175,7 +180,7 @@
 		wasNotResettingScroll = !shouldResetScroll
 	});
 	$: afterUpdate(() => {
-		if (items && shouldResetScroll && !isEqual(previousItems, items)) {
+		if (shouldResetScroll && !isEqual(previousItems, items)) {
 			scrollable.scrollTop = 0;
 			previousItems = items;
 		}
@@ -233,6 +238,14 @@
 	</header>
 	{/if}
 	<main class:titled={title} >
+		{#if items.length === 0}
+
+		<div class='message'>
+			<span>{message}</span>
+		</div>
+
+		{:else}
+
 		<!-- ref labels -->
 		{#if refs.length}
 		<div class='refs'>
@@ -375,6 +388,9 @@
 
 			</svg>
 		</div>
+
+		{/if} <!-- if no items -->
+
 	</main>
 </div>
 
@@ -406,6 +422,19 @@
 		height: calc(100% - var(--headerHeight));
 		max-height: calc(100% - var(--headerHeight));
 	}
+
+	.message {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		width: 100%;
+	}
+	.message span {
+		font-size: var(--messageFontSize);
+		color: var(--messageColor);
+	}
+
 	.refs {
 		width: 100%;
 		height: var(--refsHeightPx);

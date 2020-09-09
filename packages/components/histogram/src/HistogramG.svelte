@@ -71,26 +71,33 @@
 		binStroke: 'black',
 		binStrokeWidth: 1,
 		originColor: 'black',
+		messageColor: 'black',
+		messageFontSize: '1rem',
 		selectedBinFill: 'rgb(255, 174, 0)',
 		selectedBinStroke: 'black',
 		selectedBinStrokeWidth: 2,
 		textColor: 'black',
 	}
 
+	// required
+	export let height;
+	export let width;
+
+	// optional
 	export let bins;
 	export let binsFill;
 	export let flags;
 	export let geometry;
-	export let height; // required
+	export let message;
 	export let selectedBins;
 	export let theme;
 	export let ticksFormatFn;
-	export let width; // required
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: bins = bins || [];
 	$: flags = flags ? {...defaultFlags, ...flags} : defaultFlags;
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
+	$: message = message || 'No data';
 	$: selectedBins = selectedBins || [];
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: ticksFormatFn = ticksFormatFn || (x => x);
@@ -317,12 +324,22 @@
 
 <svelte:options namespace='svg' />
 
-{#if height && width && scales}
+{#if height && width}
 <g
-	class='HistogramG'
-	class:interactive={flags.isInteractive}
 	{style}
+	class:interactive={flags.isInteractive}
+	class='HistogramG'
 >
+	{#if bins.length === 0}
+
+	<text
+		class='message'
+		x={width/2}
+		y={height/2}
+	>{message}</text>
+
+	{:else}
+
 	<!-- background -->
 	{#if flags.withBackground}
 	<rect class='bkg' {width} {height} />
@@ -420,6 +437,9 @@
 		</g>
 		{/if}
 	</g>
+
+	{/if} <!-- if no bins -->
+
 </g>
 {/if}
 
@@ -429,6 +449,14 @@
 	}
 	.HistogramG.interactive {
 		pointer-events: auto;
+	}
+
+	text.message {
+		dominant-baseline: middle;
+		fill: var(--messageColor);
+		font-size: var(--messageFontSize);
+		stroke: none;
+		text-anchor: middle;
 	}
 
 	rect, line {
