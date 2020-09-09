@@ -2,6 +2,10 @@
 
 ## next
 
+## `@svizzle/choropleth` v0.6.0 (next)
+
+- add prop `projection`
+
 ## `@svizzle/utils` v0.10.0 (next)
 
 ### (Any -> Boolean) -> (Array -> Array)

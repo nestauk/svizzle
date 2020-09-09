@@ -4,7 +4,12 @@ import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2
 import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_3_DE from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_DE.json';
-import {geoConicEqualArea, geoTransverseMercator} from 'd3-geo';
+import {topoToGeo} from '@svizzle/choropleth/src/utils';
+import {
+	geoConicEqualArea,
+	geoEqualEarth as projectionFn,
+	geoTransverseMercator,
+} from 'd3-geo';
 
 import {
 	keyToColorUK2016,
@@ -12,6 +17,12 @@ import {
 	keyToColorWorldFn,
 } from './props';
 import {formatExamples} from './utils';
+
+const geojson_UK3 = topoToGeo(NUTS_RG_03M_2016_4326_LEVL_3_UK, 'NUTS');
+const projection_UK3_reflected_300x300 =
+	projectionFn()
+	.reflectX(true)
+	.fitSize([300, 300], geojson_UK3);
 
 export default formatExamples([
 	{
@@ -525,17 +536,18 @@ export default formatExamples([
 	},
 	{
 		doc: [
-			{tag: 'p', content: "You can either pass `projectionFn` or use some of the projections provided by `d3-geo` by passing a `projectionId` choosing among the projection ids below."},
-			{tag: 'p', content: "Azimuthal Projections:"},
+			{tag: 'p', content: "You can provide a projection function either by passing `projectionFn` or by choosing among some of the projections provided by `d3-geo` by passing a `projectionId` choosing among the ids below."},
+			{tag: 'p', content: "Azimuthal projections:"},
 			{tag: 'p', content: "• `geoAzimuthalEqualArea`"},
 			{tag: 'p', content: "• `geoAzimuthalEquidistant`"},
-			{tag: 'p', content: "Equal-Earth Projections: `geoEqualEarth`"},
-			{tag: 'p', content: "Cylindrical Projections"},
+			{tag: 'p', content: "Equal-Earth projections: `geoEqualEarth`"},
+			{tag: 'p', content: "Cylindrical projections"},
 			{tag: 'p', content: "• `geoEquirectangular`"},
 			{tag: 'p', content: "• `geoMercator`"},
 			{tag: 'p', content: "• `geoNaturalEarth1`"},
-			{tag: 'p', content: "Note that `projectionFn` takes precedence over `projectionId`."},
-			{tag: 'p', content: "If you don't pass neither `projectionFn` nor `projectionId`, the default projection is `geoEquirectangular`."},
+			{tag: 'p', content: "You can also pass a precomputed `projection`, useful when you need to share a projection with other components: this won't be affected internally and will be used as given."},
+			{tag: 'p', content: "If you don't pass `projection`, `projectionFn` or `projectionId`, the default projection is `geoEquirectangular`."},
+			{tag: 'p', content: "In other words, the order of precedence here is: `projection`, `projectionFn`, `projectionId`, default."},
 		],
 		data: [{
 			key: 'projectionId: geoAzimuthalEqualArea',
@@ -679,6 +691,24 @@ export default formatExamples([
 					projectionFn=d3.geoTransverseMercator
 					topojson={World_110m_iso_a2_topo}
 					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'custom projection (UK NUTS3 ReflectX 300x300)',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+				key: 'NUTS_ID',
+				projection: projection_UK3_reflected_300x300,
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{projection}
+					{width}
+					key='NUTS_ID'
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
 				/>
 			`,
 		}],
