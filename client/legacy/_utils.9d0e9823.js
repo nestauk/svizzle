@@ -1,4 +1,4 @@
-import { F as _typeof, A as _slicedToArray } from './client.4e4a3fb0.js';
+import { F as _typeof, A as _slicedToArray } from './client.1c097984.js';
 
 /**
 * @overview lamb - A lightweight, and docile, JavaScript library to help embracing functional programming.
@@ -7460,35 +7460,6 @@ false
 
 var isArray = isType('Array');
 /**
- * Return true is the input is a number
- *
- * @function
- * @arg {*} any
- * @return {boolean}
- *
- * @example
-> isNumber(1)
-true
-> isNumber(NaN)
-true
-> isNumber(Infinity)
-true
-> isNumber({a: 1})
-false
-> isNumber('foo')
-false
-
-> function returnArgs () {
-	return arguments;
-}
-> isNumber(returnArgs())
-false
- *
- * @version 0.1.0
- */
-
-var isNumber = isType('Number');
-/**
  * Return true is the input is not a NaN.
  * Remember that {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#Confusing_special-case_behavior|isNaN coerces the input with Number()} to the output can be a bit surprising.
  *
@@ -7534,6 +7505,119 @@ false
  */
 
 var isNotNaN = not(isNaN);
+/**
+ * Return true is the input is not undefined or null.
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> isNotNil(1)
+true
+> isNotNil(Infinity)
+true
+> isNotNil('123')
+true
+> isNotNil('123px')
+true
+> isNotNil([1, 2])
+true
+> isNotNil({a: 1})
+true
+> isNotNil(true)
+true
+> isNotNil(false)
+true
+> isNotNil(NaN)
+true
+
+> isNotNil(undefined)
+false
+> isNotNil(null)
+false
+
+> function returnArgs () {
+	return arguments;
+}
+> isNotNil(returnArgs())
+false
+ *
+ * @version 0.2.0
+ */
+
+var isNotNil = not(isNil);
+/**
+ * Return true is the input is not null.
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> isNotNull(1)
+true
+> isNotNull(Infinity)
+true
+> isNotNull('123')
+true
+> isNotNull('123px')
+true
+> isNotNull([1, 2])
+true
+> isNotNull({a: 1})
+true
+> isNotNull(true)
+true
+> isNotNull(false)
+true
+> isNotNull(NaN)
+true
+> isNotNull(undefined)
+true
+
+> isNotNull(null)
+false
+
+> function returnArgs () {
+	return arguments;
+}
+> isNotNull(returnArgs())
+true
+ *
+ * @version 0.4.0
+ */
+
+var isNotNull = not(isNull);
+/**
+ * Return true is the input is a number
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> isNumber(1)
+true
+> isNumber(NaN)
+true
+> isNumber(Infinity)
+true
+> isNumber({a: 1})
+false
+> isNumber('foo')
+false
+
+> function returnArgs () {
+	return arguments;
+}
+> isNumber(returnArgs())
+false
+ *
+ * @version 0.1.0
+ */
+
+var isNumber = isType('Number');
 /**
  * Return true is the input is a valid number (including not being NaN)
  *
@@ -7652,90 +7736,6 @@ var toNumberisValidNumber = pipe([Number, isValidNumber]);
  */
 
 var toFloatIsValidNumber = pipe([parseFloat, isValidNumber]);
-/**
- * Return true is the input is not undefined or null.
- *
- * @function
- * @arg {*} any
- * @return {boolean}
- *
- * @example
-> isNotNil(1)
-true
-> isNotNil(Infinity)
-true
-> isNotNil('123')
-true
-> isNotNil('123px')
-true
-> isNotNil([1, 2])
-true
-> isNotNil({a: 1})
-true
-> isNotNil(true)
-true
-> isNotNil(false)
-true
-> isNotNil(NaN)
-true
-
-> isNotNil(undefined)
-false
-> isNotNil(null)
-false
-
-> function returnArgs () {
-	return arguments;
-}
-> isNotNil(returnArgs())
-false
- *
- * @version 0.2.0
- */
-
-var isNotNil = not(isNil);
-/**
- * Return true is the input is not null.
- *
- * @function
- * @arg {*} any
- * @return {boolean}
- *
- * @example
-> isNotNull(1)
-true
-> isNotNull(Infinity)
-true
-> isNotNull('123')
-true
-> isNotNull('123px')
-true
-> isNotNull([1, 2])
-true
-> isNotNull({a: 1})
-true
-> isNotNull(true)
-true
-> isNotNull(false)
-true
-> isNotNull(NaN)
-true
-> isNotNull(undefined)
-true
-
-> isNotNull(null)
-false
-
-> function returnArgs () {
-	return arguments;
-}
-> isNotNull(returnArgs())
-true
- *
- * @version 0.4.0
- */
-
-var isNotNull = not(isNull);
 
 /**
 * @module @svizzle/utils/array_proto-array
@@ -11085,6 +11085,27 @@ var barchart = formatExamples([{
       items: countryKeyValueMixed
     },
     usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
+  }, {
+    key: 'No data',
+    props: {},
+    usage: "\n\t\t\t\t<BarchartV />\n\t\t\t"
+  }, {
+    key: 'Empty data',
+    props: {
+      items: []
+    },
+    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
+  }, {
+    key: 'Empty data with custom message',
+    props: {
+      items: [],
+      message: 'Please provide data!',
+      theme: {
+        messageColor: 'red',
+        messageFontSize: '2rem'
+      }
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tmessage='Please provide data!',\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tmessageColor: 'red',\n\t\t\t\t\t\tmessageFontSize: '2rem',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
   }],
   doc: [{
     tag: 'p',
@@ -11092,6 +11113,9 @@ var barchart = formatExamples([{
   }, {
     tag: 'p',
     content: 'Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default.'
+  }, {
+    tag: 'p',
+    content: 'If `items` is undefined or empty the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'
   }],
   name: 'BarchartVDiv',
   packageName: 'barchart',
@@ -11537,6 +11561,48 @@ var barchart = formatExamples([{
       }
     },
     usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'National average', value: 200},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tkey: 'Another value',\n\t\t\t\t\t\t\tvalue: 53,\n\t\t\t\t\t\t\tdasharray: '4 10',\n\t\t\t\t\t\t\tlinewidth: 2,\n\t\t\t\t\t\t\tcolor: 'blue',\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tkey: 'Yet another value',\n\t\t\t\t\t\t\tvalue: 400,\n\t\t\t\t\t\t\tdasharray: '2 2',\n\t\t\t\t\t\t\tcolor: 'orange',\n\t\t\t\t\t\t}\n\t\t\t\t\t]}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\trefDasharray: '2 10',\n\t\t\t\t\t\trefWidth: 2,\n\t\t\t\t\t\trefColor: 'red',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
+  }, {
+    key: 'Ref lines exceeding data extent',
+    props: {
+      items: countryKeyValuePositive,
+      refs: [{
+        key: 'National average',
+        value: 1200
+      }]
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'National average', value: 1200}\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t"
+  }, {
+    key: 'Multiple refs exceeding data extent (positive extent)',
+    props: {
+      items: countryKeyValuePositive,
+      refs: [{
+        key: 'Another value',
+        value: -200
+      }, {
+        key: 'National average',
+        value: 500
+      }, {
+        key: 'Yet another value',
+        value: 1300
+      }]
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'Another value', value: -200},\n\t\t\t\t\t\t{key: 'National average', value: 500},\n\t\t\t\t\t\t{key: 'Yet another value', value: 1300},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t"
+  }, {
+    key: 'Multiple refs exceeding data extent (pos & neg extent)',
+    props: {
+      items: countryKeyValueMixed,
+      refs: [{
+        key: 'Another value',
+        value: -200
+      }, {
+        key: 'National average',
+        value: 500
+      }, {
+        key: 'Yet another value',
+        value: 1300
+      }]
+    },
+    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'Another value', value: -200},\n\t\t\t\t\t\t{key: 'National average', value: 500},\n\t\t\t\t\t\t{key: 'Yet another value', value: 1300},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t"
   }],
   doc: [{
     tag: 'p',
@@ -220928,6 +220994,790 @@ var NUTS_RG_03M_2016_4326_LEVL_3_DE = {
 	arcs: arcs$5
 };
 
+function identity$3 (x) {
+  return x;
+}
+
+function transform$6 (transform) {
+  if (transform == null) return identity$3;
+  var x0,
+      y0,
+      kx = transform.scale[0],
+      ky = transform.scale[1],
+      dx = transform.translate[0],
+      dy = transform.translate[1];
+  return function (input, i) {
+    if (!i) x0 = y0 = 0;
+    var j = 2,
+        n = input.length,
+        output = new Array(n);
+    output[0] = (x0 += input[0]) * kx + dx;
+    output[1] = (y0 += input[1]) * ky + dy;
+
+    while (j < n) {
+      output[j] = input[j], ++j;
+    }
+
+    return output;
+  };
+}
+
+function reverse$1 (array, n) {
+  var t,
+      j = array.length,
+      i = j - n;
+
+  while (i < --j) {
+    t = array[i], array[i++] = array[j], array[j] = t;
+  }
+}
+
+function feature (topology, o) {
+  if (typeof o === "string") o = topology.objects[o];
+  return o.type === "GeometryCollection" ? {
+    type: "FeatureCollection",
+    features: o.geometries.map(function (o) {
+      return feature$1(topology, o);
+    })
+  } : feature$1(topology, o);
+}
+
+function feature$1(topology, o) {
+  var id = o.id,
+      bbox = o.bbox,
+      properties = o.properties == null ? {} : o.properties,
+      geometry = object$1(topology, o);
+  return id == null && bbox == null ? {
+    type: "Feature",
+    properties: properties,
+    geometry: geometry
+  } : bbox == null ? {
+    type: "Feature",
+    id: id,
+    properties: properties,
+    geometry: geometry
+  } : {
+    type: "Feature",
+    id: id,
+    bbox: bbox,
+    properties: properties,
+    geometry: geometry
+  };
+}
+
+function object$1(topology, o) {
+  var transformPoint = transform$6(topology.transform),
+      arcs = topology.arcs;
+
+  function arc(i, points) {
+    if (points.length) points.pop();
+
+    for (var a = arcs[i < 0 ? ~i : i], k = 0, n = a.length; k < n; ++k) {
+      points.push(transformPoint(a[k], k));
+    }
+
+    if (i < 0) reverse$1(points, n);
+  }
+
+  function point(p) {
+    return transformPoint(p);
+  }
+
+  function line(arcs) {
+    var points = [];
+
+    for (var i = 0, n = arcs.length; i < n; ++i) {
+      arc(arcs[i], points);
+    }
+
+    if (points.length < 2) points.push(points[0]); // This should never happen per the specification.
+
+    return points;
+  }
+
+  function ring(arcs) {
+    var points = line(arcs);
+
+    while (points.length < 4) {
+      points.push(points[0]);
+    } // This may happen if an arc has only two points.
+
+
+    return points;
+  }
+
+  function polygon(arcs) {
+    return arcs.map(ring);
+  }
+
+  function geometry(o) {
+    var type = o.type,
+        coordinates;
+
+    switch (type) {
+      case "GeometryCollection":
+        return {
+          type: type,
+          geometries: o.geometries.map(geometry)
+        };
+
+      case "Point":
+        coordinates = point(o.coordinates);
+        break;
+
+      case "MultiPoint":
+        coordinates = o.coordinates.map(point);
+        break;
+
+      case "LineString":
+        coordinates = line(o.arcs);
+        break;
+
+      case "MultiLineString":
+        coordinates = o.arcs.map(line);
+        break;
+
+      case "Polygon":
+        coordinates = polygon(o.arcs);
+        break;
+
+      case "MultiPolygon":
+        coordinates = o.arcs.map(polygon);
+        break;
+
+      default:
+        return null;
+    }
+
+    return {
+      type: type,
+      coordinates: coordinates
+    };
+  }
+
+  return geometry(o);
+}
+
+/**
+ * Callback for coordEach
+ *
+ * @callback coordEachCallback
+ * @param {Array<number>} currentCoord The current coordinate being processed.
+ * @param {number} coordIndex The current index of the coordinate being processed.
+ * @param {number} featureIndex The current index of the Feature being processed.
+ * @param {number} multiFeatureIndex The current index of the Multi-Feature being processed.
+ * @param {number} geometryIndex The current index of the Geometry being processed.
+ */
+
+/**
+ * Iterate over coordinates in any GeoJSON object, similar to Array.forEach()
+ *
+ * @name coordEach
+ * @param {FeatureCollection|Feature|Geometry} geojson any GeoJSON object
+ * @param {Function} callback a method that takes (currentCoord, coordIndex, featureIndex, multiFeatureIndex)
+ * @param {boolean} [excludeWrapCoord=false] whether or not to include the final coordinate of LinearRings that wraps the ring in its iteration.
+ * @returns {void}
+ * @example
+ * var features = turf.featureCollection([
+ *   turf.point([26, 37], {"foo": "bar"}),
+ *   turf.point([36, 53], {"hello": "world"})
+ * ]);
+ *
+ * turf.coordEach(features, function (currentCoord, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) {
+ *   //=currentCoord
+ *   //=coordIndex
+ *   //=featureIndex
+ *   //=multiFeatureIndex
+ *   //=geometryIndex
+ * });
+ */
+
+function coordEach(geojson, callback, excludeWrapCoord) {
+  // Handles null Geometry -- Skips this GeoJSON
+  if (geojson === null) return;
+  var j,
+      k,
+      l,
+      geometry,
+      stopG,
+      coords,
+      geometryMaybeCollection,
+      wrapShrink = 0,
+      coordIndex = 0,
+      isGeometryCollection,
+      type = geojson.type,
+      isFeatureCollection = type === 'FeatureCollection',
+      isFeature = type === 'Feature',
+      stop = isFeatureCollection ? geojson.features.length : 1; // This logic may look a little weird. The reason why it is that way
+  // is because it's trying to be fast. GeoJSON supports multiple kinds
+  // of objects at its root: FeatureCollection, Features, Geometries.
+  // This function has the responsibility of handling all of them, and that
+  // means that some of the `for` loops you see below actually just don't apply
+  // to certain inputs. For instance, if you give this just a
+  // Point geometry, then both loops are short-circuited and all we do
+  // is gradually rename the input until it's called 'geometry'.
+  //
+  // This also aims to allocate as few resources as possible: just a
+  // few numbers and booleans, rather than any temporary arrays as would
+  // be required with the normalization approach.
+
+  for (var featureIndex = 0; featureIndex < stop; featureIndex++) {
+    geometryMaybeCollection = isFeatureCollection ? geojson.features[featureIndex].geometry : isFeature ? geojson.geometry : geojson;
+    isGeometryCollection = geometryMaybeCollection ? geometryMaybeCollection.type === 'GeometryCollection' : false;
+    stopG = isGeometryCollection ? geometryMaybeCollection.geometries.length : 1;
+
+    for (var geomIndex = 0; geomIndex < stopG; geomIndex++) {
+      var multiFeatureIndex = 0;
+      var geometryIndex = 0;
+      geometry = isGeometryCollection ? geometryMaybeCollection.geometries[geomIndex] : geometryMaybeCollection; // Handles null Geometry -- Skips this geometry
+
+      if (geometry === null) continue;
+      coords = geometry.coordinates;
+      var geomType = geometry.type;
+      wrapShrink = excludeWrapCoord && (geomType === 'Polygon' || geomType === 'MultiPolygon') ? 1 : 0;
+
+      switch (geomType) {
+        case null:
+          break;
+
+        case 'Point':
+          if (callback(coords, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
+          coordIndex++;
+          multiFeatureIndex++;
+          break;
+
+        case 'LineString':
+        case 'MultiPoint':
+          for (j = 0; j < coords.length; j++) {
+            if (callback(coords[j], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
+            coordIndex++;
+            if (geomType === 'MultiPoint') multiFeatureIndex++;
+          }
+
+          if (geomType === 'LineString') multiFeatureIndex++;
+          break;
+
+        case 'Polygon':
+        case 'MultiLineString':
+          for (j = 0; j < coords.length; j++) {
+            for (k = 0; k < coords[j].length - wrapShrink; k++) {
+              if (callback(coords[j][k], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
+              coordIndex++;
+            }
+
+            if (geomType === 'MultiLineString') multiFeatureIndex++;
+            if (geomType === 'Polygon') geometryIndex++;
+          }
+
+          if (geomType === 'Polygon') multiFeatureIndex++;
+          break;
+
+        case 'MultiPolygon':
+          for (j = 0; j < coords.length; j++) {
+            geometryIndex = 0;
+
+            for (k = 0; k < coords[j].length; k++) {
+              for (l = 0; l < coords[j][k].length - wrapShrink; l++) {
+                if (callback(coords[j][k][l], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
+                coordIndex++;
+              }
+
+              geometryIndex++;
+            }
+
+            multiFeatureIndex++;
+          }
+
+          break;
+
+        case 'GeometryCollection':
+          for (j = 0; j < geometry.geometries.length; j++) {
+            if (coordEach(geometry.geometries[j], callback, excludeWrapCoord) === false) return false;
+          }
+
+          break;
+
+        default:
+          throw new Error('Unknown Geometry Type');
+      }
+    }
+  }
+}
+
+/**
+ * Wraps a GeoJSON {@link Geometry} in a GeoJSON {@link Feature}.
+ *
+ * @name feature
+ * @param {Geometry} geometry input geometry
+ * @param {Object} [properties={}] an Object of key-value pairs to add as properties
+ * @param {Object} [options={}] Optional Parameters
+ * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
+ * @param {string|number} [options.id] Identifier associated with the Feature
+ * @returns {Feature} a GeoJSON Feature
+ * @example
+ * var geometry = {
+ *   "type": "Point",
+ *   "coordinates": [110, 50]
+ * };
+ *
+ * var feature = turf.feature(geometry);
+ *
+ * //=feature
+ */
+
+function feature$2(geom, properties, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var feat = {
+    type: "Feature"
+  };
+
+  if (options.id === 0 || options.id) {
+    feat.id = options.id;
+  }
+
+  if (options.bbox) {
+    feat.bbox = options.bbox;
+  }
+
+  feat.properties = properties || {};
+  feat.geometry = geom;
+  return feat;
+}
+/**
+ * Creates a {@link Point} {@link Feature} from a Position.
+ *
+ * @name point
+ * @param {Array<number>} coordinates longitude, latitude position (each in decimal degrees)
+ * @param {Object} [properties={}] an Object of key-value pairs to add as properties
+ * @param {Object} [options={}] Optional Parameters
+ * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
+ * @param {string|number} [options.id] Identifier associated with the Feature
+ * @returns {Feature<Point>} a Point feature
+ * @example
+ * var point = turf.point([-75.343, 39.984]);
+ *
+ * //=point
+ */
+
+function point(coordinates, properties, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var geom = {
+    type: "Point",
+    coordinates: coordinates
+  };
+  return feature$2(geom, properties, options);
+}
+/**
+ * Takes one or more {@link Feature|Features} and creates a {@link FeatureCollection}.
+ *
+ * @name featureCollection
+ * @param {Feature[]} features input features
+ * @param {Object} [options={}] Optional Parameters
+ * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
+ * @param {string|number} [options.id] Identifier associated with the Feature
+ * @returns {FeatureCollection} FeatureCollection of Features
+ * @example
+ * var locationA = turf.point([-75.343, 39.984], {name: 'Location A'});
+ * var locationB = turf.point([-75.833, 39.284], {name: 'Location B'});
+ * var locationC = turf.point([-75.534, 39.123], {name: 'Location C'});
+ *
+ * var collection = turf.featureCollection([
+ *   locationA,
+ *   locationB,
+ *   locationC
+ * ]);
+ *
+ * //=collection
+ */
+
+function featureCollection(features, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var fc = {
+    type: "FeatureCollection"
+  };
+
+  if (options.id) {
+    fc.id = options.id;
+  }
+
+  if (options.bbox) {
+    fc.bbox = options.bbox;
+  }
+
+  fc.features = features;
+  return fc;
+}
+
+/**
+ * Takes one or more features and calculates the centroid using the mean of all vertices.
+ * This lessens the effect of small islands and artifacts when calculating the centroid of a set of polygons.
+ *
+ * @name centroid
+ * @param {GeoJSON} geojson GeoJSON to be centered
+ * @param {Object} [options={}] Optional Parameters
+ * @param {Object} [options.properties={}] an Object that is used as the {@link Feature}'s properties
+ * @returns {Feature<Point>} the centroid of the input features
+ * @example
+ * var polygon = turf.polygon([[[-81, 41], [-88, 36], [-84, 31], [-80, 33], [-77, 39], [-81, 41]]]);
+ *
+ * var centroid = turf.centroid(polygon);
+ *
+ * //addToMap
+ * var addToMap = [polygon, centroid]
+ */
+
+function centroid(geojson, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var xSum = 0;
+  var ySum = 0;
+  var len = 0;
+  coordEach(geojson, function (coord) {
+    xSum += coord[0];
+    ySum += coord[1];
+    len++;
+  });
+  return point([xSum / len, ySum / len], options.properties);
+}
+
+/**
+ * Takes a GeoJSON Feature or FeatureCollection and truncates the precision of the geometry.
+ *
+ * @name truncate
+ * @param {GeoJSON} geojson any GeoJSON Feature, FeatureCollection, Geometry or GeometryCollection.
+ * @param {Object} [options={}] Optional parameters
+ * @param {number} [options.precision=6] coordinate decimal precision
+ * @param {number} [options.coordinates=3] maximum number of coordinates (primarly used to remove z coordinates)
+ * @param {boolean} [options.mutate=false] allows GeoJSON input to be mutated (significant performance increase if true)
+ * @returns {GeoJSON} layer with truncated geometry
+ * @example
+ * var point = turf.point([
+ *     70.46923055566859,
+ *     58.11088890802906,
+ *     1508
+ * ]);
+ * var options = {precision: 3, coordinates: 2};
+ * var truncated = turf.truncate(point, options);
+ * //=truncated.geometry.coordinates => [70.469, 58.111]
+ *
+ * //addToMap
+ * var addToMap = [truncated];
+ */
+
+function truncate(geojson, options) {
+  if (options === void 0) {
+    options = {};
+  } // Optional parameters
+
+
+  var precision = options.precision;
+  var coordinates = options.coordinates;
+  var mutate = options.mutate; // default params
+
+  precision = precision === undefined || precision === null || isNaN(precision) ? 6 : precision;
+  coordinates = coordinates === undefined || coordinates === null || isNaN(coordinates) ? 3 : coordinates; // validation
+
+  if (!geojson) throw new Error('<geojson> is required');
+  if (typeof precision !== 'number') throw new Error('<precision> must be a number');
+  if (typeof coordinates !== 'number') throw new Error('<coordinates> must be a number'); // prevent input mutation
+
+  if (mutate === false || mutate === undefined) geojson = JSON.parse(JSON.stringify(geojson));
+  var factor = Math.pow(10, precision); // Truncate Coordinates
+
+  coordEach(geojson, function (coords) {
+    truncateCoords(coords, factor, coordinates);
+  });
+  return geojson;
+}
+/**
+ * Truncate Coordinates - Mutates coordinates in place
+ *
+ * @private
+ * @param {Array<any>} coords Geometry Coordinates
+ * @param {number} factor rounding factor for coordinate decimal precision
+ * @param {number} coordinates maximum number of coordinates (primarly used to remove z coordinates)
+ * @returns {Array<any>} mutated coordinates
+ */
+
+
+function truncateCoords(coords, factor, coordinates) {
+  // Remove extra coordinates (usually elevation coordinates and more)
+  if (coords.length > coordinates) coords.splice(coordinates, coords.length); // Truncate coordinate decimals
+
+  for (var i = 0; i < coords.length; i++) {
+    coords[i] = Math.round(coords[i] * factor) / factor;
+  }
+
+  return coords;
+}
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+/**
+ * Return a function expecting a geojson and creating or updating the provided property of all features using the provided map.
+ * Note that you can pass a `key or an alternative key `key_alt` e.g. when you use ISO Alpha 2 codes and you need to identify unrecognized territories with another key.
+ *
+ * @function
+ * @arg {object} args - Geojson object
+ * @arg {string} args.key_alt - Alternative key to be found in properties in `key` is not found.
+ * @arg {string} args.key - Key to be found in properties
+ * @arg {object} args.map - Mapping key (string) -> string
+ * @arg {function} args.mapFn - Function key (string) -> string
+ * @arg {string} args.propName - Name of the property to be added to `properties`
+ * @return {function} - Object -> Object
+ *
+ * @example
+> geojson = {
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+			]
+		},
+		properties: {iso_a2: 'BF'}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+			]
+		},
+		properties: {name: 'Kosovo'}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
+			]
+		},
+		properties: {iso_a2: 'FR'}
+	}]
+}
+> keyToColor = {BF: 'red', Kosovo: 'yellow'}
+> addColor = makeAddFeaturesProperty({
+	propName: 'color',
+	map: keyToColor,
+	key: 'iso_a2',
+	key_alt: 'name'
+})
+> coloredFeatures = addColor(geojson)
+{
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+			]
+		},
+		properties: {iso_a2: 'BF', color: 'red'}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+			]
+		},
+		properties: {name: 'Kosovo', color: 'yellow'}
+	}, {
+		type: 'Feature',
+		geometry: {
+			type: 'Polygon',
+			coordinates: [
+				[[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
+			]
+		},
+		properties: {iso_a2: 'FR', color: undefined}
+	}]
+}
+ * @version 0.5.0
+ */
+
+var makeUpdateFeaturesProperty = function makeUpdateFeaturesProperty(_ref) {
+  var key_alt = _ref.key_alt,
+      key = _ref.key,
+      map = _ref.map,
+      mapFn = _ref.mapFn,
+      propName = _ref.propName;
+  return updateKey('features', mapWith(updateKey('properties', function (properties) {
+    var propValue;
+
+    if (map) {
+      propValue = has(map, properties[key]) ? map[properties[key]] : has(map, properties[key_alt]) ? map[properties[key_alt]] : undefined;
+    } else if (mapFn) {
+      propValue = properties[key] ? mapFn(properties[key]) : properties[key_alt] ? mapFn(properties[key_alt]) : undefined;
+    }
+
+    return _objectSpread(_objectSpread({}, properties), {}, _defineProperty({}, propName, propValue));
+  })));
+};
+/**
+ * Return the a collection of centroids of the provided features, each having the correspondent feature properties.
+ *
+ * @function
+ * @arg {array} features - Array of features
+ * @return {object} collection - FeatureCollection of Point features
+ *
+ * @example
+> makeCentroids([
+	{
+		type: 'Feature',
+		properties: {foo: 'a'},
+		geometry: {type: 'LineString', coordinates: [
+			[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
+		]}
+	},
+	{
+		type: 'Feature',
+		properties: {foo: 'b'},
+		geometry: {type: 'LineString', coordinates: [
+			[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
+		]}
+	}
+])
+{
+	type: 'FeatureCollection',
+	features: [{
+		type: 'Feature',
+		geometry: {type: 'Point', coordinates: [0.2, -0.2]},
+		properties: {foo: 'a'}
+	}, {
+		type: 'Feature',
+		geometry: {type: 'Point', coordinates: [1.2, -0.2]},
+		properties: {foo: 'b'}
+	}]
+}
+ * @version 0.1.0
+ */
+
+var makeCentroids = pipe([mapWith(function (feature) {
+  return centroid(feature, {
+    properties: feature.properties
+  });
+}), featureCollection]);
+
+/**
+ * Return a function returning a copy of the provided geojson having the geometry coordinates rounded to the given precision.
+ *
+ * @function
+ * @arg {number} precision - coordinate decimal precision
+ * @return {function} - Geojson -> Geojson
+ *
+ * @example
+> truncateGeometry = setGeometryPrecision(4)
+> point = {
+	type: 'Feature',
+	geometry: {type: 'Point', coordinates: [0.1234567, 0.12341]},
+	properties: {name: 'a'}
+}
+> truncateGeometry(point)
+{
+	type: 'Feature',
+	geometry: {type: 'Point', coordinates: [0.1234, 0.1234]},
+	properties: {name: 'a'}
+}
+ * @version 0.1.0
+ */
+
+var setGeometryPrecision = function setGeometryPrecision(precision) {
+  return function (geojson) {
+    return truncate(geojson, {
+      precision: precision,
+      mutate: false
+    });
+  };
+}; // TODO DOC: define FeatureCollection type
+
+/**
+* @module @svizzle/choropleth/utils
+*/
+var defaultGeometry = {
+  bottom: 10,
+  left: 10,
+  right: 10,
+  top: 10
+};
+var truncateGeojson = setGeometryPrecision(4);
+/**
+ * Convert a topojson to a geojson truncating coordinates to precision 4.
+ * This is quite specific to `@svizzle/choropleth` to limit the geojson weight down for performance reasons.
+ * For a full conversion use:
+ * ```
+ * import {feature} from 'topojson-client';
+ * feature(topojson, topojson.objects[id])
+ * ```
+ *
+ * @function
+ * @arg {object} topojson - the topojson to be converted to geojson
+ * @arg {id} string - the id of the object to convert
+ * @return {object} geojson
+ *
+ * @example
+> const topojson = {
+	'type': 'Topology',
+	'transform': {
+		'scale': [0.00001,0.00001],
+		'translate': [-63.15364,-21.38731]
+	},
+	'objects': {
+		'NUTS': {
+			'type': 'GeometryCollection',
+			'geometries': [
+				{
+					'type': 'Polygon',
+					'arcs': [...],
+					'id': 'BE',
+					'properties': {...}
+				}
+			]
+		}
+	},
+	'arcs': [[[6569909,7247636], [1369,-1901], ...]
+}
+> topoToGeo(topojson, 'NUTS')
+{
+	'type': 'FeatureCollection',
+	'features': [
+		{
+			'type': 'Feature',
+			'id': 'BE',
+			'properties': {...},
+			'geometry': {
+				'type': 'Polygon',
+				'coordinates': [
+					[[6.3163,50.4967], ...
+				]
+			}
+		}
+	]
+}
+ *
+ * @version 0.4.0
+ */
+
+var topoToGeo = function topoToGeo(topojson, id) {
+  return truncateGeojson(feature(topojson, topojson.objects[id]));
+};
+
 // Adds floating point numbers with twice the normal precision.
 // Reference: J. R. Shewchuk, Adaptive Precision Floating-Point Arithmetic and
 // Fast Robust Geometric Predicates, Discrete & Computational Geometry 18(3)
@@ -222141,7 +222991,7 @@ function clipRectangle(x0, y0, x1, y1) {
   };
 }
 
-function identity$3 (x) {
+function identity$4 (x) {
   return x;
 }
 
@@ -222443,7 +223293,7 @@ function projectionMutator(projectAt) {
       y0,
       x1,
       y1,
-      postclip = identity$3,
+      postclip = identity$4,
       // post-clip extent
   delta2 = 0.5,
       // precision
@@ -222479,7 +223329,7 @@ function projectionMutator(projectAt) {
   };
 
   projection.clipExtent = function (_) {
-    return arguments.length ? (postclip = _ == null ? (x0 = y0 = x1 = y1 = null, identity$3) : clipRectangle(x0 = +_[0][0], y0 = +_[0][1], x1 = +_[1][0], y1 = +_[1][1]), reset()) : x0 == null ? null : [[x0, y0], [x1, y1]];
+    return arguments.length ? (postclip = _ == null ? (x0 = y0 = x1 = y1 = null, identity$4) : clipRectangle(x0 = +_[0][0], y0 = +_[0][1], x1 = +_[1][0], y1 = +_[1][1]), reset()) : x0 == null ? null : [[x0, y0], [x1, y1]];
   };
 
   projection.scale = function (_) {
@@ -222652,6 +223502,38 @@ function mercatorProjection(project) {
   return reclip();
 }
 
+var A1 = 1.340264,
+    A2 = -0.081106,
+    A3 = 0.000893,
+    A4 = 0.003796,
+    M = sqrt(3) / 2,
+    iterations = 12;
+function equalEarthRaw(lambda, phi) {
+  var l = asin(M * sin(phi)),
+      l2 = l * l,
+      l6 = l2 * l2 * l2;
+  return [lambda * cos(l) / (M * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2))), l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2))];
+}
+
+equalEarthRaw.invert = function (x, y) {
+  var l = y,
+      l2 = l * l,
+      l6 = l2 * l2 * l2;
+
+  for (var i = 0, delta, fy, fpy; i < iterations; ++i) {
+    fy = l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2)) - y;
+    fpy = A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2);
+    l -= delta = fy / fpy, l2 = l * l, l6 = l2 * l2 * l2;
+    if (abs(delta) < epsilon2) break;
+  }
+
+  return [M * x * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2)) / cos(l), asin(sin(l) / M)];
+};
+
+function projectionFn () {
+  return projection(equalEarthRaw).scale(177.158);
+}
+
 function transverseMercatorRaw(lambda, phi) {
   return [log(tan((halfPi + phi) / 2)), -lambda];
 }
@@ -222676,6 +223558,8 @@ function geoTransverseMercator () {
   return rotate([0, 0, 90]).scale(159.155);
 }
 
+var geojson_UK3 = topoToGeo(NUTS_RG_03M_2016_4326_LEVL_3_UK, 'NUTS');
+var projection_UK3_reflected_300x300 = projectionFn().reflectX(true).fitSize([300, 300], geojson_UK3);
 var choropleth = formatExamples([{
   data: [{
     key: 'World_110m_iso_a2_topo',
@@ -222720,6 +223604,20 @@ var choropleth = formatExamples([{
       topojsonId: 'NUTS'
     },
     usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_DE}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
+  }, {
+    key: 'No topojson',
+    props: {},
+    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
+  }, {
+    key: 'No topojson with custom message',
+    props: {
+      message: 'Please provide data!',
+      theme: {
+        messageColor: 'red',
+        messageFontSize: '2rem'
+      }
+    },
+    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tmessage='Please provide data!',\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tmessageColor: 'red',\n\t\t\t\t\t\tmessageFontSize: '2rem',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
   }],
   doc: [{
     tag: 'p',
@@ -222736,6 +223634,9 @@ var choropleth = formatExamples([{
   }, {
     tag: 'p',
     content: "The default projection (`geoEquirectangular`) will be applied."
+  }, {
+    tag: 'p',
+    content: 'If `topojson` is undefined the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'
   }],
   name: 'ChoroplethG',
   namespace: 'svg',
@@ -223043,10 +223944,10 @@ var choropleth = formatExamples([{
 }, {
   doc: [{
     tag: 'p',
-    content: "You can either pass `projectionFn` or use some of the projections provided by `d3-geo` by passing a `projectionId` choosing among the projection ids below."
+    content: "You can provide a projection function either by passing `projectionFn` or by choosing among some of the projections provided by `d3-geo` by passing a `projectionId` choosing among the ids below."
   }, {
     tag: 'p',
-    content: "Azimuthal Projections:"
+    content: "Azimuthal projections:"
   }, {
     tag: 'p',
     content: "• `geoAzimuthalEqualArea`"
@@ -223055,10 +223956,10 @@ var choropleth = formatExamples([{
     content: "• `geoAzimuthalEquidistant`"
   }, {
     tag: 'p',
-    content: "Equal-Earth Projections: `geoEqualEarth`"
+    content: "Equal-Earth projections: `geoEqualEarth`"
   }, {
     tag: 'p',
-    content: "Cylindrical Projections"
+    content: "Cylindrical projections"
   }, {
     tag: 'p',
     content: "• `geoEquirectangular`"
@@ -223070,10 +223971,13 @@ var choropleth = formatExamples([{
     content: "• `geoNaturalEarth1`"
   }, {
     tag: 'p',
-    content: "Note that `projectionFn` takes precedence over `projectionId`."
+    content: "You can also pass a precomputed `projection`, useful when you need to share a projection with other components: this won't be affected internally and will be used as given."
   }, {
     tag: 'p',
-    content: "If you don't pass neither `projectionFn` nor `projectionId`, the default projection is `geoEquirectangular`."
+    content: "If you don't pass `projection`, `projectionFn` or `projectionId`, the default projection is `geoEquirectangular`."
+  }, {
+    tag: 'p',
+    content: "In other words, the order of precedence here is: `projection`, `projectionFn`, `projectionId`, default."
   }],
   data: [{
     key: 'projectionId: geoAzimuthalEqualArea',
@@ -223147,6 +224051,15 @@ var choropleth = formatExamples([{
       projectionFn: geoTransverseMercator
     },
     usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionFn=d3.geoTransverseMercator\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
+  }, {
+    key: 'custom projection (UK NUTS3 ReflectX 300x300)',
+    props: {
+      topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+      topojsonId: 'NUTS',
+      key: 'NUTS_ID',
+      projection: projection_UK3_reflected_300x300
+    },
+    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{projection}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
   }],
   name: 'ChoroplethG',
   namespace: 'svg',
@@ -232729,11 +233642,26 @@ var histogram = formatExamples([{
     },
     usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
   }, {
-    key: 'no bins',
+    key: 'No bins',
+    props: {},
+    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
+  }, {
+    key: 'Empty bins',
     props: {
       bins: []
     },
     usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
+  }, {
+    key: 'Empty bins with custom message',
+    props: {
+      bins: [],
+      message: 'Please provide data!',
+      theme: {
+        messageColor: 'red',
+        messageFontSize: '2rem'
+      }
+    },
+    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tmessage='Please provide data!',\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tmessageColor: 'red',\n\t\t\t\t\t\tmessageFontSize: '2rem',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
   }],
   doc: [{
     tag: 'p',
@@ -232756,6 +233684,9 @@ var histogram = formatExamples([{
   }, {
     tag: 'p',
     content: 'You can draw non-uniform non-contiguous bins, that is ranges don\'t have be to contiguous or be all of the same size.'
+  }, {
+    tag: 'p',
+    content: 'If `bins` is undefined or empty the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'
   }],
   name: 'HistogramG',
   namespace: 'svg',
@@ -233521,4 +234452,4 @@ var makeSidebar = pipe([mapValuesWith(pluckKeys(['slug', 'title'])), objectToKey
 
 var sidebar = makeSidebar(examples);
 
-export { has as $, ticks as A, format as B, adder as C, noop as D, abs as E, sqrt as F, tau as G, geoStream as H, boundsStream as I, identity$3 as J, sin as K, atan2 as L, asin as M, cos as N, projection as O, acos as P, epsilon2 as Q, epsilon as R, _defineProperty as S, skipIf as T, isNil as U, pairs as V, makeMergeAppliedFnMap as W, index as X, isIn as Y, updateKey as Z, __ as _, isUndefined as a, mercator as a0, getPath as a1, sort as a2, adapter as a3, map as a4, reduce as a5, isNotNil as a6, isIterableNotEmpty as a7, every as a8, hasKey as a9, flatten as aa, findIndexWhere as ab, findLastIndexWhere as ac, slice as ad, uniques as ae, filterWith as af, concat as ag, mergeObj as ah, linear$1 as ai, pullFrom as aj, lookup as ak, _ as al, setIn as am, range as b, collect as c, appendTo as d, sortWith as e, sorterDesc as f, getKey as g, head as h, isNotNull as i, apply as j, identity as k, last as l, make as m, mapWith as n, always as o, pipe as p, generic as q, reduceWith as r, sidebar as s, allOf as t, isGTE as u, isLTE as v, partial as w, transformer as x, copy as y, initRange as z };
+export { getPath as $, ticks as A, format as B, adder as C, noop as D, abs as E, sqrt as F, tau as G, geoStream as H, boundsStream as I, identity$4 as J, sin as K, atan2 as L, asin as M, cos as N, projection as O, acos as P, epsilon as Q, _defineProperty as R, skipIf as S, isNil as T, pairs as U, makeMergeAppliedFnMap as V, index as W, isIn as X, projectionFn as Y, mercator as Z, __ as _, isUndefined as a, makeUpdateFeaturesProperty as a0, topoToGeo as a1, defaultGeometry as a2, sort as a3, adapter as a4, map as a5, reduce as a6, isNotNil as a7, isIterableNotEmpty as a8, every as a9, hasKey as aa, flatten as ab, findIndexWhere as ac, findLastIndexWhere as ad, slice as ae, uniques as af, filterWith as ag, concat as ah, mergeObj as ai, linear$1 as aj, pullFrom as ak, has as al, lookup as am, _ as an, setIn as ao, range as b, collect as c, appendTo as d, sortWith as e, sorterDesc as f, getKey as g, head as h, isNotNull as i, apply as j, identity as k, last as l, make as m, mapWith as n, always as o, pipe as p, generic as q, reduceWith as r, sidebar as s, allOf as t, isGTE as u, isLTE as v, partial as w, transformer as x, copy as y, initRange as z };

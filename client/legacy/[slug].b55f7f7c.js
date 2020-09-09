@@ -1,5 +1,5 @@
-import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as validate_each_keys, W as createEventDispatcher, X as beforeUpdate, Y as afterUpdate, Z as svg_element, $ as is_function, a0 as run_all, a1 as add_render_callback, a2 as add_resize_listener, a3 as update_keyed_each, a4 as binding_callbacks, a5 as destroy_block, a6 as set_style, a7 as validate_store, a8 as component_subscribe, a9 as writable, aa as prop_dev, q as query_selector_all, ab as assign, ac as get_spread_update, ad as get_spread_object } from './client.4e4a3fb0.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity$1, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$2, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon2, R as epsilon, S as _defineProperty, T as skipIf, U as isNil, V as pairs$1, W as makeMergeAppliedFnMap, X as index, Y as isIn, Z as updateKey, $ as has, a0 as mercator, a1 as getPath, a2 as sort, a3 as adapter, a4 as map, a5 as reduce, a6 as isNotNil, a7 as isIterableNotEmpty, a8 as every, a9 as hasKey, aa as flatten, ab as findIndexWhere, ac as findLastIndexWhere, ad as slice, ae as uniques, af as filterWith, ag as concat, ah as mergeObj, ai as linear$1, aj as pullFrom, ak as lookup, al as _, am as setIn } from './_utils.2e340a5a.js';
+import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.1c097984.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as pullFrom, al as has, am as lookup, an as _, ao as setIn } from './_utils.9d0e9823.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -382,7 +382,7 @@ var sortValueDescKeyDesc = sortWith([sorterDesc(getValue), sorterDesc(getKey)]);
  */
 
 var makeKeyed = function makeKeyed(value) {
-  return pipe([collect([identity$1, mapWith(always(value))]), apply(make)]);
+  return pipe([collect([identity, mapWith(always(value))]), apply(make)]);
 };
 
 /**
@@ -1104,7 +1104,7 @@ function geoPath (projection, context) {
   };
 
   path.projection = function (_) {
-    return arguments.length ? (projectionStream = _ == null ? (projection = null, identity$2) : (projection = _).stream, path) : projection;
+    return arguments.length ? (projectionStream = _ == null ? (projection = null, identity$1) : (projection = _).stream, path) : projection;
   };
 
   path.context = function (_) {
@@ -1167,38 +1167,6 @@ function equirectangularRaw(lambda, phi) {
 equirectangularRaw.invert = equirectangularRaw;
 function equirectangular () {
   return projection(equirectangularRaw).scale(152.63);
-}
-
-var A1 = 1.340264,
-    A2 = -0.081106,
-    A3 = 0.000893,
-    A4 = 0.003796,
-    M = sqrt(3) / 2,
-    iterations = 12;
-function equalEarthRaw(lambda, phi) {
-  var l = asin(M * sin(phi)),
-      l2 = l * l,
-      l6 = l2 * l2 * l2;
-  return [lambda * cos(l) / (M * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2))), l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2))];
-}
-
-equalEarthRaw.invert = function (x, y) {
-  var l = y,
-      l2 = l * l,
-      l6 = l2 * l2 * l2;
-
-  for (var i = 0, delta, fy, fpy; i < iterations; ++i) {
-    fy = l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2)) - y;
-    fpy = A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2);
-    l -= delta = fy / fpy, l2 = l * l, l6 = l2 * l2 * l2;
-    if (abs(delta) < epsilon2) break;
-  }
-
-  return [M * x * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2)) / cos(l), asin(sin(l) / M)];
-};
-
-function equalEarth () {
-  return projection(equalEarthRaw).scale(177.158);
 }
 
 function naturalEarth1Raw(lambda, phi) {
@@ -6421,47 +6389,47 @@ var file$7 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/bar
 
 function get_each_context$3(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[53] = list[i].color;
-  child_ctx[54] = list[i].dasharray;
-  child_ctx[55] = list[i].linewidth;
-  child_ctx[56] = list[i].valueX;
+  child_ctx[55] = list[i].color;
+  child_ctx[56] = list[i].dasharray;
+  child_ctx[57] = list[i].linewidth;
+  child_ctx[58] = list[i].valueX;
   return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[59] = list[i].barColor;
-  child_ctx[60] = list[i].bkgColor;
-  child_ctx[61] = list[i].deselected;
-  child_ctx[62] = list[i].displayValue;
-  child_ctx[63] = list[i].dxKey;
-  child_ctx[64] = list[i].isNeg;
-  child_ctx[65] = list[i].key;
-  child_ctx[66] = list[i].label;
-  child_ctx[56] = list[i].x;
-  child_ctx[67] = list[i].xValue;
-  child_ctx[69] = i;
+  child_ctx[61] = list[i].barColor;
+  child_ctx[62] = list[i].bkgColor;
+  child_ctx[63] = list[i].deselected;
+  child_ctx[64] = list[i].displayValue;
+  child_ctx[65] = list[i].dxKey;
+  child_ctx[66] = list[i].isNeg;
+  child_ctx[67] = list[i].key;
+  child_ctx[68] = list[i].label;
+  child_ctx[58] = list[i].x;
+  child_ctx[69] = list[i].xValue;
+  child_ctx[71] = i;
   return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[53] = list[i].color;
-  child_ctx[54] = list[i].dasharray;
-  child_ctx[70] = list[i].isRight;
-  child_ctx[66] = list[i].label;
-  child_ctx[55] = list[i].linewidth;
-  child_ctx[71] = list[i].rectWidth;
-  child_ctx[72] = list[i].textLength;
-  child_ctx[73] = list[i].textX;
-  child_ctx[74] = list[i].valueX;
-  child_ctx[56] = list[i].x;
-  child_ctx[75] = list[i].y;
+  child_ctx[55] = list[i].color;
+  child_ctx[56] = list[i].dasharray;
+  child_ctx[72] = list[i].isRight;
+  child_ctx[68] = list[i].label;
+  child_ctx[57] = list[i].linewidth;
+  child_ctx[73] = list[i].rectWidth;
+  child_ctx[74] = list[i].textLength;
+  child_ctx[75] = list[i].textX;
+  child_ctx[76] = list[i].valueX;
+  child_ctx[58] = list[i].x;
+  child_ctx[77] = list[i].y;
   return child_ctx;
-} // (228:1) {#if title}
+} // (235:1) {#if title}
 
 
-function create_if_block_3$1(ctx) {
+function create_if_block_4(ctx) {
   var header;
   var h2;
   var t;
@@ -6471,7 +6439,7 @@ function create_if_block_3$1(ctx) {
       h2 = element("h2");
       t = text(
       /*title*/
-      ctx[4]);
+      ctx[6]);
       this.h();
     },
     l: function claim(nodes) {
@@ -6485,16 +6453,16 @@ function create_if_block_3$1(ctx) {
       var h2_nodes = children(h2);
       t = claim_text(h2_nodes,
       /*title*/
-      ctx[4]);
+      ctx[6]);
       h2_nodes.forEach(detach_dev);
       header_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
-      attr_dev(h2, "class", "svelte-18pi9lw");
-      add_location(h2, file$7, 229, 2, 5431);
-      attr_dev(header, "class", "svelte-18pi9lw");
-      add_location(header, file$7, 228, 1, 5420);
+      attr_dev(h2, "class", "svelte-1octkco");
+      add_location(h2, file$7, 236, 2, 5666);
+      attr_dev(header, "class", "svelte-1octkco");
+      add_location(header, file$7, 235, 1, 5655);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -6504,9 +6472,9 @@ function create_if_block_3$1(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*title*/
-      16) set_data_dev(t,
+      64) set_data_dev(t,
       /*title*/
-      ctx[4]);
+      ctx[6]);
     },
     d: function destroy(detaching) {
       if (detaching) detach_dev(header);
@@ -6514,21 +6482,364 @@ function create_if_block_3$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_3$1.name,
+    id: create_if_block_4.name,
     type: "if",
-    source: "(228:1) {#if title}",
+    source: "(235:1) {#if title}",
     ctx: ctx
   });
   return block;
-} // (235:2) {#if refs}
+} // (247:2) {:else}
 
 
-function create_if_block_2$2(ctx) {
+function create_else_block$1(ctx) {
+  var t;
+  var div;
+  var svg;
+  var rect;
+  var g;
+  var each_blocks = [];
+  var each_1_lookup = new Map();
+  var if_block1_anchor;
+  var div_resize_listener;
+  var mounted;
+  var dispose;
+  var if_block0 =
+  /*refs*/
+  ctx[4].length && create_if_block_3$1(ctx);
+  var each_value_1 =
+  /*bars*/
+  ctx[19];
+  validate_each_argument(each_value_1);
+
+  var get_key = function get_key(ctx) {
+    return (
+      /*key*/
+      ctx[67]
+    );
+  };
+
+  validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
+
+  for (var i = 0; i < each_value_1.length; i += 1) {
+    var child_ctx = get_each_context_1(ctx, each_value_1, i);
+    var key = get_key(child_ctx);
+    each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
+  }
+
+  var if_block1 =
+  /*crossesZero*/
+  ctx[17] && create_if_block_2$2(ctx);
+  var if_block2 =
+  /*refsLayout*/
+  ctx[21] && create_if_block_1$3(ctx);
+  var block = {
+    c: function create() {
+      if (if_block0) if_block0.c();
+      t = space();
+      div = element("div");
+      svg = svg_element("svg");
+      rect = svg_element("rect");
+      g = svg_element("g");
+
+      for (var _i = 0; _i < each_blocks.length; _i += 1) {
+        each_blocks[_i].c();
+      }
+
+      if (if_block1) if_block1.c();
+      if_block1_anchor = empty();
+      if (if_block2) if_block2.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      if (if_block0) if_block0.l(nodes);
+      t = claim_space(nodes);
+      div = claim_element(nodes, "DIV", {
+        class: true
+      });
+      var div_nodes = children(div);
+      svg = claim_element(div_nodes, "svg", {
+        width: true,
+        height: true
+      }, 1);
+      var svg_nodes = children(svg);
+      rect = claim_element(svg_nodes, "rect", {
+        class: true,
+        width: true,
+        height: true
+      }, 1);
+      children(rect).forEach(detach_dev);
+      g = claim_element(svg_nodes, "g", {}, 1);
+      var g_nodes = children(g);
+
+      for (var _i2 = 0; _i2 < each_blocks.length; _i2 += 1) {
+        each_blocks[_i2].l(g_nodes);
+      }
+
+      g_nodes.forEach(detach_dev);
+      if (if_block1) if_block1.l(svg_nodes);
+      if_block1_anchor = empty();
+      if (if_block2) if_block2.l(svg_nodes);
+      svg_nodes.forEach(detach_dev);
+      div_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(rect, "class", "bkg svelte-1octkco");
+      attr_dev(rect, "width",
+      /*width*/
+      ctx[9]);
+      attr_dev(rect, "height",
+      /*svgHeight*/
+      ctx[16]);
+      add_location(rect, file$7, 303, 4, 6897);
+      add_location(g, file$7, 306, 4, 6968);
+      attr_dev(svg, "width",
+      /*width*/
+      ctx[9]);
+      attr_dev(svg, "height",
+      /*svgHeight*/
+      ctx[16]);
+      add_location(svg, file$7, 302, 3, 6860);
+      attr_dev(div, "class", "scrollable svelte-1octkco");
+      add_render_callback(function () {
+        return (
+          /*div_elementresize_handler*/
+          ctx[35].call(div)
+        );
+      });
+      toggle_class(div, "withrefs",
+      /*refs*/
+      ctx[4] &&
+      /*refs*/
+      ctx[4].length);
+      add_location(div, file$7, 294, 2, 6657);
+    },
+    m: function mount(target, anchor) {
+      if (if_block0) if_block0.m(target, anchor);
+      insert_dev(target, t, anchor);
+      insert_dev(target, div, anchor);
+      append_dev(div, svg);
+      append_dev(svg, rect);
+      append_dev(svg, g);
+
+      for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
+        each_blocks[_i3].m(g, null);
+      }
+
+      if (if_block1) if_block1.m(svg, null);
+      append_dev(svg, if_block1_anchor);
+      if (if_block2) if_block2.m(svg, null);
+      div_resize_listener = add_resize_listener(div,
+      /*div_elementresize_handler*/
+      ctx[35].bind(div));
+      /*div_binding*/
+
+      ctx[36](div);
+
+      if (!mounted) {
+        dispose = listen_dev(div, "mouseleave",
+        /*mouseleave_handler*/
+        ctx[37], false, false, false);
+        mounted = true;
+      }
+    },
+    p: function update(ctx, dirty) {
+      if (
+      /*refs*/
+      ctx[4].length) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+        } else {
+          if_block0 = create_if_block_3$1(ctx);
+          if_block0.c();
+          if_block0.m(t.parentNode, t);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+
+      if (dirty[0] &
+      /*width*/
+      512) {
+        attr_dev(rect, "width",
+        /*width*/
+        ctx[9]);
+      }
+
+      if (dirty[0] &
+      /*svgHeight*/
+      65536) {
+        attr_dev(rect, "height",
+        /*svgHeight*/
+        ctx[16]);
+      }
+
+      if (dirty[0] &
+      /*itemHeight, bars, isInteractive, onClick, onMouseenter, onMouseleave, textY, x0, barHeight, barY, width*/
+      30204419) {
+        var _each_value_ =
+        /*bars*/
+        ctx[19];
+        validate_each_argument(_each_value_);
+        validate_each_keys(ctx, _each_value_, get_each_context_1, get_key);
+        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, _each_value_, each_1_lookup, g, destroy_block, create_each_block_1, null, get_each_context_1);
+      }
+
+      if (
+      /*crossesZero*/
+      ctx[17]) {
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
+        } else {
+          if_block1 = create_if_block_2$2(ctx);
+          if_block1.c();
+          if_block1.m(svg, if_block1_anchor);
+        }
+      } else if (if_block1) {
+        if_block1.d(1);
+        if_block1 = null;
+      }
+
+      if (
+      /*refsLayout*/
+      ctx[21]) {
+        if (if_block2) {
+          if_block2.p(ctx, dirty);
+        } else {
+          if_block2 = create_if_block_1$3(ctx);
+          if_block2.c();
+          if_block2.m(svg, null);
+        }
+      } else if (if_block2) {
+        if_block2.d(1);
+        if_block2 = null;
+      }
+
+      if (dirty[0] &
+      /*width*/
+      512) {
+        attr_dev(svg, "width",
+        /*width*/
+        ctx[9]);
+      }
+
+      if (dirty[0] &
+      /*svgHeight*/
+      65536) {
+        attr_dev(svg, "height",
+        /*svgHeight*/
+        ctx[16]);
+      }
+
+      if (dirty[0] &
+      /*refs*/
+      16) {
+        toggle_class(div, "withrefs",
+        /*refs*/
+        ctx[4] &&
+        /*refs*/
+        ctx[4].length);
+      }
+    },
+    d: function destroy(detaching) {
+      if (if_block0) if_block0.d(detaching);
+      if (detaching) detach_dev(t);
+      if (detaching) detach_dev(div);
+
+      for (var _i4 = 0; _i4 < each_blocks.length; _i4 += 1) {
+        each_blocks[_i4].d();
+      }
+
+      if (if_block1) if_block1.d();
+      if (if_block2) if_block2.d();
+      div_resize_listener();
+      /*div_binding*/
+
+      ctx[36](null);
+      mounted = false;
+      dispose();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_else_block$1.name,
+    type: "else",
+    source: "(247:2) {:else}",
+    ctx: ctx
+  });
+  return block;
+} // (241:2) {#if items.length === 0}
+
+
+function create_if_block$4(ctx) {
+  var div;
+  var span;
+  var t;
+  var block = {
+    c: function create() {
+      div = element("div");
+      span = element("span");
+      t = text(
+      /*message*/
+      ctx[3]);
+      this.h();
+    },
+    l: function claim(nodes) {
+      div = claim_element(nodes, "DIV", {
+        class: true
+      });
+      var div_nodes = children(div);
+      span = claim_element(div_nodes, "SPAN", {
+        class: true
+      });
+      var span_nodes = children(span);
+      t = claim_text(span_nodes,
+      /*message*/
+      ctx[3]);
+      span_nodes.forEach(detach_dev);
+      div_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(span, "class", "svelte-1octkco");
+      add_location(span, file$7, 243, 3, 5786);
+      attr_dev(div, "class", "message svelte-1octkco");
+      add_location(div, file$7, 242, 2, 5761);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, div, anchor);
+      append_dev(div, span);
+      append_dev(span, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*message*/
+      8) set_data_dev(t,
+      /*message*/
+      ctx[3]);
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(div);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block$4.name,
+    type: "if",
+    source: "(241:2) {#if items.length === 0}",
+    ctx: ctx
+  });
+  return block;
+} // (250:2) {#if refs.length}
+
+
+function create_if_block_3$1(ctx) {
   var div;
   var svg;
   var each_value_2 =
   /*refsLayout*/
-  ctx[19];
+  ctx[21];
   validate_each_argument(each_value_2);
   var each_blocks = [];
 
@@ -6541,8 +6852,8 @@ function create_if_block_2$2(ctx) {
       div = element("div");
       svg = svg_element("svg");
 
-      for (var _i = 0; _i < each_blocks.length; _i += 1) {
-        each_blocks[_i].c();
+      for (var _i5 = 0; _i5 < each_blocks.length; _i5 += 1) {
+        each_blocks[_i5].c();
       }
 
       this.h();
@@ -6558,8 +6869,8 @@ function create_if_block_2$2(ctx) {
       }, 1);
       var svg_nodes = children(svg);
 
-      for (var _i2 = 0; _i2 < each_blocks.length; _i2 += 1) {
-        each_blocks[_i2].l(svg_nodes);
+      for (var _i6 = 0; _i6 < each_blocks.length; _i6 += 1) {
+        each_blocks[_i6].l(svg_nodes);
       }
 
       svg_nodes.forEach(detach_dev);
@@ -6569,49 +6880,49 @@ function create_if_block_2$2(ctx) {
     h: function hydrate() {
       attr_dev(svg, "width",
       /*width*/
-      ctx[7]);
+      ctx[9]);
       attr_dev(svg, "height",
       /*refsHeight*/
-      ctx[10]);
-      add_location(svg, file$7, 236, 3, 5555);
-      attr_dev(div, "class", "refs svelte-18pi9lw");
-      add_location(div, file$7, 235, 2, 5533);
+      ctx[12]);
+      add_location(svg, file$7, 251, 3, 5896);
+      attr_dev(div, "class", "refs svelte-1octkco");
+      add_location(div, file$7, 250, 2, 5874);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
       append_dev(div, svg);
 
-      for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
-        each_blocks[_i3].m(svg, null);
+      for (var _i7 = 0; _i7 < each_blocks.length; _i7 += 1) {
+        each_blocks[_i7].m(svg, null);
       }
     },
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*refsLayout, theme, refHeight, refsHeight*/
-      787460) {
+      3149856) {
         each_value_2 =
         /*refsLayout*/
-        ctx[19];
+        ctx[21];
         validate_each_argument(each_value_2);
 
-        var _i4;
+        var _i8;
 
-        for (_i4 = 0; _i4 < each_value_2.length; _i4 += 1) {
-          var child_ctx = get_each_context_2(ctx, each_value_2, _i4);
+        for (_i8 = 0; _i8 < each_value_2.length; _i8 += 1) {
+          var child_ctx = get_each_context_2(ctx, each_value_2, _i8);
 
-          if (each_blocks[_i4]) {
-            each_blocks[_i4].p(child_ctx, dirty);
+          if (each_blocks[_i8]) {
+            each_blocks[_i8].p(child_ctx, dirty);
           } else {
-            each_blocks[_i4] = create_each_block_2(child_ctx);
+            each_blocks[_i8] = create_each_block_2(child_ctx);
 
-            each_blocks[_i4].c();
+            each_blocks[_i8].c();
 
-            each_blocks[_i4].m(svg, null);
+            each_blocks[_i8].m(svg, null);
           }
         }
 
-        for (; _i4 < each_blocks.length; _i4 += 1) {
-          each_blocks[_i4].d(1);
+        for (; _i8 < each_blocks.length; _i8 += 1) {
+          each_blocks[_i8].d(1);
         }
 
         each_blocks.length = each_value_2.length;
@@ -6619,18 +6930,18 @@ function create_if_block_2$2(ctx) {
 
       if (dirty[0] &
       /*width*/
-      128) {
+      512) {
         attr_dev(svg, "width",
         /*width*/
-        ctx[7]);
+        ctx[9]);
       }
 
       if (dirty[0] &
       /*refsHeight*/
-      1024) {
+      4096) {
         attr_dev(svg, "height",
         /*refsHeight*/
-        ctx[10]);
+        ctx[12]);
       }
     },
     d: function destroy(detaching) {
@@ -6640,13 +6951,13 @@ function create_if_block_2$2(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_2$2.name,
+    id: create_if_block_3$1.name,
     type: "if",
-    source: "(235:2) {#if refs}",
+    source: "(250:2) {#if refs.length}",
     ctx: ctx
   });
   return block;
-} // (238:4) {#each refsLayout as {      color,      dasharray,      isRight,      label,      linewidth,      rectWidth,      textLength,      textX,      valueX,      x,      y,     }}
+} // (253:4) {#each refsLayout as {      color,      dasharray,      isRight,      label,      linewidth,      rectWidth,      textLength,      textX,      valueX,      x,      y,     }}
 
 
 function create_each_block_2(ctx) {
@@ -6657,7 +6968,7 @@ function create_each_block_2(ctx) {
   var text_1;
   var t_value =
   /*label*/
-  ctx[66] + "";
+  ctx[68] + "";
   var t;
   var text_1_x_value;
   var text_1_y_value;
@@ -6714,61 +7025,61 @@ function create_each_block_2(ctx) {
     h: function hydrate() {
       attr_dev(rect, "x", rect_x_value =
       /*x*/
-      ctx[56]);
+      ctx[58]);
       attr_dev(rect, "width", rect_width_value =
       /*rectWidth*/
-      ctx[71]);
+      ctx[73]);
       attr_dev(rect, "height",
       /*refHeight*/
-      ctx[18]);
-      attr_dev(rect, "class", "svelte-18pi9lw");
-      add_location(rect, file$7, 254, 5, 5844);
+      ctx[20]);
+      attr_dev(rect, "class", "svelte-1octkco");
+      add_location(rect, file$7, 269, 5, 6185);
       attr_dev(text_1, "x", text_1_x_value =
       /*textX*/
-      ctx[73]);
+      ctx[75]);
       attr_dev(text_1, "y", text_1_y_value =
       /*refHeight*/
-      ctx[18] / 2);
+      ctx[20] / 2);
       attr_dev(text_1, "textLength", text_1_textLength_value =
       /*textLength*/
-      ctx[72]);
-      attr_dev(text_1, "class", "svelte-18pi9lw");
+      ctx[74]);
+      attr_dev(text_1, "class", "svelte-1octkco");
       toggle_class(text_1, "right",
       /*isRight*/
-      ctx[70]);
-      add_location(text_1, file$7, 259, 5, 5922);
+      ctx[72]);
+      add_location(text_1, file$7, 274, 5, 6263);
       attr_dev(line, "class", "ref");
       attr_dev(line, "stroke", line_stroke_value =
       /*color*/
-      ctx[53] ||
-      /*theme*/
-      ctx[2].refColor);
-      attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
-      /*dasharray*/
-      ctx[54] ||
-      /*theme*/
-      ctx[2].refDasharray);
-      attr_dev(line, "stroke-width", line_stroke_width_value =
-      /*linewidth*/
       ctx[55] ||
       /*theme*/
-      ctx[2].refWidth);
+      ctx[5].refColor);
+      attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
+      /*dasharray*/
+      ctx[56] ||
+      /*theme*/
+      ctx[5].refDasharray);
+      attr_dev(line, "stroke-width", line_stroke_width_value =
+      /*linewidth*/
+      ctx[57] ||
+      /*theme*/
+      ctx[5].refWidth);
       attr_dev(line, "y1",
       /*refHeight*/
-      ctx[18]);
+      ctx[20]);
       attr_dev(line, "y2", line_y__value =
       /*refsHeight*/
-      ctx[10] -
+      ctx[12] -
       /*y*/
-      ctx[75]);
-      add_location(line, file$7, 265, 5, 6041);
-      attr_dev(g, "class", "ref svelte-18pi9lw");
+      ctx[77]);
+      add_location(line, file$7, 280, 5, 6382);
+      attr_dev(g, "class", "ref svelte-1octkco");
       attr_dev(g, "transform", g_transform_value = "translate(" +
       /*valueX*/
-      ctx[74] + ", " +
+      ctx[76] + ", " +
       /*y*/
-      ctx[75] + ")");
-      add_location(g, file$7, 250, 4, 5771);
+      ctx[77] + ")");
+      add_location(g, file$7, 265, 4, 6112);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -6780,121 +7091,121 @@ function create_each_block_2(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*refsLayout*/
-      524288 && rect_x_value !== (rect_x_value =
+      2097152 && rect_x_value !== (rect_x_value =
       /*x*/
-      ctx[56])) {
+      ctx[58])) {
         attr_dev(rect, "x", rect_x_value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      524288 && rect_width_value !== (rect_width_value =
+      2097152 && rect_width_value !== (rect_width_value =
       /*rectWidth*/
-      ctx[71])) {
+      ctx[73])) {
         attr_dev(rect, "width", rect_width_value);
       }
 
       if (dirty[0] &
       /*refHeight*/
-      262144) {
+      1048576) {
         attr_dev(rect, "height",
         /*refHeight*/
-        ctx[18]);
+        ctx[20]);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      524288 && t_value !== (t_value =
+      2097152 && t_value !== (t_value =
       /*label*/
-      ctx[66] + "")) set_data_dev(t, t_value);
+      ctx[68] + "")) set_data_dev(t, t_value);
 
       if (dirty[0] &
       /*refsLayout*/
-      524288 && text_1_x_value !== (text_1_x_value =
+      2097152 && text_1_x_value !== (text_1_x_value =
       /*textX*/
-      ctx[73])) {
+      ctx[75])) {
         attr_dev(text_1, "x", text_1_x_value);
       }
 
       if (dirty[0] &
       /*refHeight*/
-      262144 && text_1_y_value !== (text_1_y_value =
+      1048576 && text_1_y_value !== (text_1_y_value =
       /*refHeight*/
-      ctx[18] / 2)) {
+      ctx[20] / 2)) {
         attr_dev(text_1, "y", text_1_y_value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      524288 && text_1_textLength_value !== (text_1_textLength_value =
+      2097152 && text_1_textLength_value !== (text_1_textLength_value =
       /*textLength*/
-      ctx[72])) {
+      ctx[74])) {
         attr_dev(text_1, "textLength", text_1_textLength_value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      524288) {
+      2097152) {
         toggle_class(text_1, "right",
         /*isRight*/
-        ctx[70]);
+        ctx[72]);
       }
 
       if (dirty[0] &
       /*refsLayout, theme*/
-      524292 && line_stroke_value !== (line_stroke_value =
+      2097184 && line_stroke_value !== (line_stroke_value =
       /*color*/
-      ctx[53] ||
+      ctx[55] ||
       /*theme*/
-      ctx[2].refColor)) {
+      ctx[5].refColor)) {
         attr_dev(line, "stroke", line_stroke_value);
       }
 
       if (dirty[0] &
       /*refsLayout, theme*/
-      524292 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
+      2097184 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
       /*dasharray*/
-      ctx[54] ||
+      ctx[56] ||
       /*theme*/
-      ctx[2].refDasharray)) {
+      ctx[5].refDasharray)) {
         attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value);
       }
 
       if (dirty[0] &
       /*refsLayout, theme*/
-      524292 && line_stroke_width_value !== (line_stroke_width_value =
+      2097184 && line_stroke_width_value !== (line_stroke_width_value =
       /*linewidth*/
-      ctx[55] ||
+      ctx[57] ||
       /*theme*/
-      ctx[2].refWidth)) {
+      ctx[5].refWidth)) {
         attr_dev(line, "stroke-width", line_stroke_width_value);
       }
 
       if (dirty[0] &
       /*refHeight*/
-      262144) {
+      1048576) {
         attr_dev(line, "y1",
         /*refHeight*/
-        ctx[18]);
+        ctx[20]);
       }
 
       if (dirty[0] &
       /*refsHeight, refsLayout*/
-      525312 && line_y__value !== (line_y__value =
+      2101248 && line_y__value !== (line_y__value =
       /*refsHeight*/
-      ctx[10] -
+      ctx[12] -
       /*y*/
-      ctx[75])) {
+      ctx[77])) {
         attr_dev(line, "y2", line_y__value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      524288 && g_transform_value !== (g_transform_value = "translate(" +
+      2097152 && g_transform_value !== (g_transform_value = "translate(" +
       /*valueX*/
-      ctx[74] + ", " +
+      ctx[76] + ", " +
       /*y*/
-      ctx[75] + ")")) {
+      ctx[77] + ")")) {
         attr_dev(g, "transform", g_transform_value);
       }
     },
@@ -6906,11 +7217,11 @@ function create_each_block_2(ctx) {
     block: block,
     id: create_each_block_2.name,
     type: "each",
-    source: "(238:4) {#each refsLayout as {      color,      dasharray,      isRight,      label,      linewidth,      rectWidth,      textLength,      textX,      valueX,      x,      y,     }}",
+    source: "(253:4) {#each refsLayout as {      color,      dasharray,      isRight,      label,      linewidth,      rectWidth,      textLength,      textX,      valueX,      x,      y,     }}",
     ctx: ctx
   });
   return block;
-} // (293:5) {#each bars as {       barColor,       bkgColor,       deselected,       displayValue,       dxKey,       isNeg,       key,       label,       x,       xValue,      }
+} // (308:5) {#each bars as {       barColor,       bkgColor,       deselected,       displayValue,       dxKey,       isNeg,       key,       label,       x,       xValue,      }
 
 
 function create_each_block_1(key_1, ctx) {
@@ -6923,13 +7234,13 @@ function create_each_block_1(key_1, ctx) {
   var text0;
   var t0_value =
   /*label*/
-  ctx[66] + "";
+  ctx[68] + "";
   var t0;
   var text0_dx_value;
   var text1;
   var t1_value =
   /*displayValue*/
-  ctx[62] + "";
+  ctx[64] + "";
   var t1;
   var text1_x_value;
   var g_transform_value;
@@ -6993,72 +7304,72 @@ function create_each_block_1(key_1, ctx) {
     h: function hydrate() {
       attr_dev(rect, "width",
       /*width*/
-      ctx[7]);
+      ctx[9]);
       attr_dev(rect, "fill", rect_fill_value =
       /*bkgColor*/
-      ctx[60]);
+      ctx[62]);
       attr_dev(rect, "height",
       /*itemHeight*/
-      ctx[11]);
-      add_location(rect, file$7, 313, 6, 7115);
+      ctx[13]);
+      add_location(rect, file$7, 328, 6, 7456);
       attr_dev(line, "stroke", line_stroke_value =
       /*barColor*/
-      ctx[59]);
+      ctx[61]);
       attr_dev(line, "stroke-width",
       /*barHeight*/
       ctx[0]);
       attr_dev(line, "x1",
       /*x0*/
-      ctx[16]);
+      ctx[18]);
       attr_dev(line, "x2", line_x__value =
       /*x*/
-      ctx[56]);
+      ctx[58]);
       attr_dev(line, "y1",
       /*barY*/
-      ctx[12]);
+      ctx[14]);
       attr_dev(line, "y2",
       /*barY*/
-      ctx[12]);
-      attr_dev(line, "class", "svelte-18pi9lw");
-      add_location(line, file$7, 318, 6, 7201);
-      attr_dev(text0, "class", "key svelte-18pi9lw");
+      ctx[14]);
+      attr_dev(line, "class", "svelte-1octkco");
+      add_location(line, file$7, 333, 6, 7542);
+      attr_dev(text0, "class", "key svelte-1octkco");
       attr_dev(text0, "dx", text0_dx_value =
       /*dxKey*/
-      ctx[63]);
+      ctx[65]);
       attr_dev(text0, "x",
       /*x0*/
-      ctx[16]);
+      ctx[18]);
       attr_dev(text0, "y",
       /*textY*/
-      ctx[13]);
+      ctx[15]);
       toggle_class(text0, "neg",
       /*isNeg*/
-      ctx[64]);
-      add_location(text0, file$7, 326, 6, 7342);
-      attr_dev(text1, "class", "value svelte-18pi9lw");
+      ctx[66]);
+      add_location(text0, file$7, 341, 6, 7683);
+      attr_dev(text1, "class", "value svelte-1octkco");
       attr_dev(text1, "x", text1_x_value =
       /*xValue*/
-      ctx[67]);
+      ctx[69]);
       attr_dev(text1, "y",
       /*textY*/
-      ctx[13]);
+      ctx[15]);
       toggle_class(text1, "neg",
       /*isNeg*/
-      ctx[64]);
-      add_location(text1, file$7, 333, 6, 7469);
-      attr_dev(g, "class", "item svelte-18pi9lw");
+      ctx[66]);
+      add_location(text1, file$7, 348, 6, 7810);
+      attr_dev(g, "class", "item svelte-1octkco");
       attr_dev(g, "transform", g_transform_value = "translate(0, " +
       /*itemHeight*/
-      ctx[11] *
+      ctx[13] *
       /*index*/
-      ctx[69] + ")");
+      ctx[71] + ")");
       toggle_class(g, "clickable",
       /*isInteractive*/
       ctx[1]);
       toggle_class(g, "deselected",
       /*deselected*/
-      ctx[61]);
-      add_location(g, file$7, 304, 5, 6822);
+      ctx[63]);
+      add_location(g, file$7, 319, 5, 7163);
       this.first = g;
     },
     m: function mount(target, anchor) {
@@ -7076,39 +7387,39 @@ function create_each_block_1(key_1, ctx) {
           /*isInteractive*/
           ctx[1] &&
           /*onClick*/
-          ctx[20](
+          ctx[22](
           /*key*/
-          ctx[65]))) (
+          ctx[67]))) (
           /*isInteractive*/
           ctx[1] &&
           /*onClick*/
-          ctx[20](
+          ctx[22](
           /*key*/
-          ctx[65])).apply(this, arguments);
+          ctx[67])).apply(this, arguments);
         }, false, false, false), listen_dev(g, "mouseenter", function () {
           if (is_function(
           /*onMouseenter*/
-          ctx[21](
+          ctx[23](
           /*key*/
-          ctx[65])))
+          ctx[67])))
             /*onMouseenter*/
-            ctx[21](
+            ctx[23](
             /*key*/
-            ctx[65]).apply(this, arguments);
+            ctx[67]).apply(this, arguments);
         }, false, false, false), listen_dev(g, "mouseleave", function () {
           if (is_function(
           /*isInteractive*/
           ctx[1] &&
           /*onMouseleave*/
-          ctx[22](
+          ctx[24](
           /*key*/
-          ctx[65]))) (
+          ctx[67]))) (
           /*isInteractive*/
           ctx[1] &&
           /*onMouseleave*/
-          ctx[22](
+          ctx[24](
           /*key*/
-          ctx[65])).apply(this, arguments);
+          ctx[67])).apply(this, arguments);
         }, false, false, false)];
         mounted = true;
       }
@@ -7118,33 +7429,33 @@ function create_each_block_1(key_1, ctx) {
 
       if (dirty[0] &
       /*width*/
-      128) {
+      512) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[7]);
+        ctx[9]);
       }
 
       if (dirty[0] &
       /*bars*/
-      131072 && rect_fill_value !== (rect_fill_value =
+      524288 && rect_fill_value !== (rect_fill_value =
       /*bkgColor*/
-      ctx[60])) {
+      ctx[62])) {
         attr_dev(rect, "fill", rect_fill_value);
       }
 
       if (dirty[0] &
       /*itemHeight*/
-      2048) {
+      8192) {
         attr_dev(rect, "height",
         /*itemHeight*/
-        ctx[11]);
+        ctx[13]);
       }
 
       if (dirty[0] &
       /*bars*/
-      131072 && line_stroke_value !== (line_stroke_value =
+      524288 && line_stroke_value !== (line_stroke_value =
       /*barColor*/
-      ctx[59])) {
+      ctx[61])) {
         attr_dev(line, "stroke", line_stroke_value);
       }
 
@@ -7158,111 +7469,111 @@ function create_each_block_1(key_1, ctx) {
 
       if (dirty[0] &
       /*x0*/
-      65536) {
+      262144) {
         attr_dev(line, "x1",
         /*x0*/
-        ctx[16]);
+        ctx[18]);
       }
 
       if (dirty[0] &
       /*bars*/
-      131072 && line_x__value !== (line_x__value =
+      524288 && line_x__value !== (line_x__value =
       /*x*/
-      ctx[56])) {
+      ctx[58])) {
         attr_dev(line, "x2", line_x__value);
       }
 
       if (dirty[0] &
       /*barY*/
-      4096) {
+      16384) {
         attr_dev(line, "y1",
         /*barY*/
-        ctx[12]);
+        ctx[14]);
       }
 
       if (dirty[0] &
       /*barY*/
-      4096) {
+      16384) {
         attr_dev(line, "y2",
         /*barY*/
-        ctx[12]);
+        ctx[14]);
       }
 
       if (dirty[0] &
       /*bars*/
-      131072 && t0_value !== (t0_value =
+      524288 && t0_value !== (t0_value =
       /*label*/
-      ctx[66] + "")) set_data_dev(t0, t0_value);
+      ctx[68] + "")) set_data_dev(t0, t0_value);
 
       if (dirty[0] &
       /*bars*/
-      131072 && text0_dx_value !== (text0_dx_value =
+      524288 && text0_dx_value !== (text0_dx_value =
       /*dxKey*/
-      ctx[63])) {
+      ctx[65])) {
         attr_dev(text0, "dx", text0_dx_value);
       }
 
       if (dirty[0] &
       /*x0*/
-      65536) {
+      262144) {
         attr_dev(text0, "x",
         /*x0*/
-        ctx[16]);
+        ctx[18]);
       }
 
       if (dirty[0] &
       /*textY*/
-      8192) {
+      32768) {
         attr_dev(text0, "y",
         /*textY*/
-        ctx[13]);
+        ctx[15]);
       }
 
       if (dirty[0] &
       /*bars*/
-      131072) {
+      524288) {
         toggle_class(text0, "neg",
         /*isNeg*/
-        ctx[64]);
+        ctx[66]);
       }
 
       if (dirty[0] &
       /*bars*/
-      131072 && t1_value !== (t1_value =
+      524288 && t1_value !== (t1_value =
       /*displayValue*/
-      ctx[62] + "")) set_data_dev(t1, t1_value);
+      ctx[64] + "")) set_data_dev(t1, t1_value);
 
       if (dirty[0] &
       /*bars*/
-      131072 && text1_x_value !== (text1_x_value =
+      524288 && text1_x_value !== (text1_x_value =
       /*xValue*/
-      ctx[67])) {
+      ctx[69])) {
         attr_dev(text1, "x", text1_x_value);
       }
 
       if (dirty[0] &
       /*textY*/
-      8192) {
+      32768) {
         attr_dev(text1, "y",
         /*textY*/
-        ctx[13]);
+        ctx[15]);
       }
 
       if (dirty[0] &
       /*bars*/
-      131072) {
+      524288) {
         toggle_class(text1, "neg",
         /*isNeg*/
-        ctx[64]);
+        ctx[66]);
       }
 
       if (dirty[0] &
       /*itemHeight, bars*/
-      133120 && g_transform_value !== (g_transform_value = "translate(0, " +
+      532480 && g_transform_value !== (g_transform_value = "translate(0, " +
       /*itemHeight*/
-      ctx[11] *
+      ctx[13] *
       /*index*/
-      ctx[69] + ")")) {
+      ctx[71] + ")")) {
         attr_dev(g, "transform", g_transform_value);
       }
 
@@ -7276,10 +7587,10 @@ function create_each_block_1(key_1, ctx) {
 
       if (dirty[0] &
       /*bars*/
-      131072) {
+      524288) {
         toggle_class(g, "deselected",
         /*deselected*/
-        ctx[61]);
+        ctx[63]);
       }
     },
     d: function destroy(detaching) {
@@ -7292,14 +7603,14 @@ function create_each_block_1(key_1, ctx) {
     block: block,
     id: create_each_block_1.name,
     type: "each",
-    source: "(293:5) {#each bars as {       barColor,       bkgColor,       deselected,       displayValue,       dxKey,       isNeg,       key,       label,       x,       xValue,      }",
+    source: "(308:5) {#each bars as {       barColor,       bkgColor,       deselected,       displayValue,       dxKey,       isNeg,       key,       label,       x,       xValue,      }",
     ctx: ctx
   });
   return block;
-} // (345:4) {#if crossesZero}
+} // (360:4) {#if crossesZero}
 
 
-function create_if_block_1$3(ctx) {
+function create_if_block_2$2(ctx) {
   var line;
   var line_stroke_value;
   var block = {
@@ -7320,17 +7631,17 @@ function create_if_block_1$3(ctx) {
     h: function hydrate() {
       attr_dev(line, "stroke", line_stroke_value =
       /*theme*/
-      ctx[2].axisColor);
+      ctx[5].axisColor);
       attr_dev(line, "x1",
       /*x0*/
-      ctx[16]);
+      ctx[18]);
       attr_dev(line, "x2",
       /*x0*/
-      ctx[16]);
+      ctx[18]);
       attr_dev(line, "y2",
       /*svgHeight*/
-      ctx[14]);
-      add_location(line, file$7, 345, 4, 7662);
+      ctx[16]);
+      add_location(line, file$7, 360, 4, 8003);
     },
     m: function mount(target, anchor) {
       insert_dev(target, line, anchor);
@@ -7338,34 +7649,34 @@ function create_if_block_1$3(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*theme*/
-      4 && line_stroke_value !== (line_stroke_value =
+      32 && line_stroke_value !== (line_stroke_value =
       /*theme*/
-      ctx[2].axisColor)) {
+      ctx[5].axisColor)) {
         attr_dev(line, "stroke", line_stroke_value);
       }
 
       if (dirty[0] &
       /*x0*/
-      65536) {
+      262144) {
         attr_dev(line, "x1",
         /*x0*/
-        ctx[16]);
+        ctx[18]);
       }
 
       if (dirty[0] &
       /*x0*/
-      65536) {
+      262144) {
         attr_dev(line, "x2",
         /*x0*/
-        ctx[16]);
+        ctx[18]);
       }
 
       if (dirty[0] &
       /*svgHeight*/
-      16384) {
+      65536) {
         attr_dev(line, "y2",
         /*svgHeight*/
-        ctx[14]);
+        ctx[16]);
       }
     },
     d: function destroy(detaching) {
@@ -7374,20 +7685,20 @@ function create_if_block_1$3(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_1$3.name,
+    id: create_if_block_2$2.name,
     type: "if",
-    source: "(345:4) {#if crossesZero}",
+    source: "(360:4) {#if crossesZero}",
     ctx: ctx
   });
   return block;
-} // (355:4) {#if refsLayout}
+} // (370:4) {#if refsLayout}
 
 
-function create_if_block$4(ctx) {
+function create_if_block_1$3(ctx) {
   var each_1_anchor;
   var each_value =
   /*refsLayout*/
-  ctx[19];
+  ctx[21];
   validate_each_argument(each_value);
   var each_blocks = [];
 
@@ -7397,22 +7708,22 @@ function create_if_block$4(ctx) {
 
   var block = {
     c: function create() {
-      for (var _i5 = 0; _i5 < each_blocks.length; _i5 += 1) {
-        each_blocks[_i5].c();
+      for (var _i9 = 0; _i9 < each_blocks.length; _i9 += 1) {
+        each_blocks[_i9].c();
       }
 
       each_1_anchor = empty();
     },
     l: function claim(nodes) {
-      for (var _i6 = 0; _i6 < each_blocks.length; _i6 += 1) {
-        each_blocks[_i6].l(nodes);
+      for (var _i10 = 0; _i10 < each_blocks.length; _i10 += 1) {
+        each_blocks[_i10].l(nodes);
       }
 
       each_1_anchor = empty();
     },
     m: function mount(target, anchor) {
-      for (var _i7 = 0; _i7 < each_blocks.length; _i7 += 1) {
-        each_blocks[_i7].m(target, anchor);
+      for (var _i11 = 0; _i11 < each_blocks.length; _i11 += 1) {
+        each_blocks[_i11].m(target, anchor);
       }
 
       insert_dev(target, each_1_anchor, anchor);
@@ -7420,30 +7731,30 @@ function create_if_block$4(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*refsLayout, theme, svgHeight*/
-      540676) {
+      2162720) {
         each_value =
         /*refsLayout*/
-        ctx[19];
+        ctx[21];
         validate_each_argument(each_value);
 
-        var _i8;
+        var _i12;
 
-        for (_i8 = 0; _i8 < each_value.length; _i8 += 1) {
-          var child_ctx = get_each_context$3(ctx, each_value, _i8);
+        for (_i12 = 0; _i12 < each_value.length; _i12 += 1) {
+          var child_ctx = get_each_context$3(ctx, each_value, _i12);
 
-          if (each_blocks[_i8]) {
-            each_blocks[_i8].p(child_ctx, dirty);
+          if (each_blocks[_i12]) {
+            each_blocks[_i12].p(child_ctx, dirty);
           } else {
-            each_blocks[_i8] = create_each_block$3(child_ctx);
+            each_blocks[_i12] = create_each_block$3(child_ctx);
 
-            each_blocks[_i8].c();
+            each_blocks[_i12].c();
 
-            each_blocks[_i8].m(each_1_anchor.parentNode, each_1_anchor);
+            each_blocks[_i12].m(each_1_anchor.parentNode, each_1_anchor);
           }
         }
 
-        for (; _i8 < each_blocks.length; _i8 += 1) {
-          each_blocks[_i8].d(1);
+        for (; _i12 < each_blocks.length; _i12 += 1) {
+          each_blocks[_i12].d(1);
         }
 
         each_blocks.length = each_value.length;
@@ -7456,13 +7767,13 @@ function create_if_block$4(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block$4.name,
+    id: create_if_block_1$3.name,
     type: "if",
-    source: "(355:4) {#if refsLayout}",
+    source: "(370:4) {#if refsLayout}",
     ctx: ctx
   });
   return block;
-} // (356:4) {#each refsLayout as {      color,      dasharray,      linewidth,      valueX: x,     }}
+} // (371:4) {#each refsLayout as {      color,      dasharray,      linewidth,      valueX: x,     }}
 
 
 function create_each_block$3(ctx) {
@@ -7494,29 +7805,29 @@ function create_each_block$3(ctx) {
       attr_dev(line, "class", "ref");
       attr_dev(line, "stroke", line_stroke_value =
       /*color*/
-      ctx[53] ||
-      /*theme*/
-      ctx[2].refColor);
-      attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
-      /*dasharray*/
-      ctx[54] ||
-      /*theme*/
-      ctx[2].refDasharray);
-      attr_dev(line, "stroke-width", line_stroke_width_value =
-      /*linewidth*/
       ctx[55] ||
       /*theme*/
-      ctx[2].refWidth);
+      ctx[5].refColor);
+      attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
+      /*dasharray*/
+      ctx[56] ||
+      /*theme*/
+      ctx[5].refDasharray);
+      attr_dev(line, "stroke-width", line_stroke_width_value =
+      /*linewidth*/
+      ctx[57] ||
+      /*theme*/
+      ctx[5].refWidth);
       attr_dev(line, "x1", line_x__value =
       /*x*/
-      ctx[56]);
+      ctx[58]);
       attr_dev(line, "x2", line_x__value_1 =
       /*x*/
-      ctx[56]);
+      ctx[58]);
       attr_dev(line, "y2",
       /*svgHeight*/
-      ctx[14]);
-      add_location(line, file$7, 361, 4, 7905);
+      ctx[16]);
+      add_location(line, file$7, 376, 4, 8246);
     },
     m: function mount(target, anchor) {
       insert_dev(target, line, anchor);
@@ -7524,56 +7835,56 @@ function create_each_block$3(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*refsLayout, theme*/
-      524292 && line_stroke_value !== (line_stroke_value =
+      2097184 && line_stroke_value !== (line_stroke_value =
       /*color*/
-      ctx[53] ||
+      ctx[55] ||
       /*theme*/
-      ctx[2].refColor)) {
+      ctx[5].refColor)) {
         attr_dev(line, "stroke", line_stroke_value);
       }
 
       if (dirty[0] &
       /*refsLayout, theme*/
-      524292 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
+      2097184 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
       /*dasharray*/
-      ctx[54] ||
+      ctx[56] ||
       /*theme*/
-      ctx[2].refDasharray)) {
+      ctx[5].refDasharray)) {
         attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value);
       }
 
       if (dirty[0] &
       /*refsLayout, theme*/
-      524292 && line_stroke_width_value !== (line_stroke_width_value =
+      2097184 && line_stroke_width_value !== (line_stroke_width_value =
       /*linewidth*/
-      ctx[55] ||
+      ctx[57] ||
       /*theme*/
-      ctx[2].refWidth)) {
+      ctx[5].refWidth)) {
         attr_dev(line, "stroke-width", line_stroke_width_value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      524288 && line_x__value !== (line_x__value =
+      2097152 && line_x__value !== (line_x__value =
       /*x*/
-      ctx[56])) {
+      ctx[58])) {
         attr_dev(line, "x1", line_x__value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      524288 && line_x__value_1 !== (line_x__value_1 =
+      2097152 && line_x__value_1 !== (line_x__value_1 =
       /*x*/
-      ctx[56])) {
+      ctx[58])) {
         attr_dev(line, "x2", line_x__value_1);
       }
 
       if (dirty[0] &
       /*svgHeight*/
-      16384) {
+      65536) {
         attr_dev(line, "y2",
         /*svgHeight*/
-        ctx[14]);
+        ctx[16]);
       }
     },
     d: function destroy(detaching) {
@@ -7584,350 +7895,124 @@ function create_each_block$3(ctx) {
     block: block,
     id: create_each_block$3.name,
     type: "each",
-    source: "(356:4) {#each refsLayout as {      color,      dasharray,      linewidth,      valueX: x,     }}",
+    source: "(371:4) {#each refsLayout as {      color,      dasharray,      linewidth,      valueX: x,     }}",
     ctx: ctx
   });
   return block;
 }
 
 function create_fragment$d(ctx) {
-  var div1;
-  var t0;
+  var div;
+  var t;
   var main;
-  var t1;
-  var div0;
-  var svg;
-  var rect;
-  var g;
-  var each_blocks = [];
-  var each_1_lookup = new Map();
-  var if_block2_anchor;
-  var div0_resize_listener;
-  var mounted;
-  var dispose;
   var if_block0 =
   /*title*/
-  ctx[4] && create_if_block_3$1(ctx);
-  var if_block1 =
-  /*refs*/
-  ctx[3] && create_if_block_2$2(ctx);
-  var each_value_1 =
-  /*bars*/
-  ctx[17];
-  validate_each_argument(each_value_1);
+  ctx[6] && create_if_block_4(ctx);
 
-  var get_key = function get_key(ctx) {
-    return (
-      /*key*/
-      ctx[65]
-    );
-  };
-
-  validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
-
-  for (var i = 0; i < each_value_1.length; i += 1) {
-    var child_ctx = get_each_context_1(ctx, each_value_1, i);
-    var key = get_key(child_ctx);
-    each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
+  function select_block_type(ctx, dirty) {
+    if (
+    /*items*/
+    ctx[2].length === 0) return create_if_block$4;
+    return create_else_block$1;
   }
 
-  var if_block2 =
-  /*crossesZero*/
-  ctx[15] && create_if_block_1$3(ctx);
-  var if_block3 =
-  /*refsLayout*/
-  ctx[19] && create_if_block$4(ctx);
+  var current_block_type = select_block_type(ctx);
+  var if_block1 = current_block_type(ctx);
   var block = {
     c: function create() {
-      div1 = element("div");
+      div = element("div");
       if (if_block0) if_block0.c();
-      t0 = space();
+      t = space();
       main = element("main");
-      if (if_block1) if_block1.c();
-      t1 = space();
-      div0 = element("div");
-      svg = svg_element("svg");
-      rect = svg_element("rect");
-      g = svg_element("g");
-
-      for (var _i9 = 0; _i9 < each_blocks.length; _i9 += 1) {
-        each_blocks[_i9].c();
-      }
-
-      if (if_block2) if_block2.c();
-      if_block2_anchor = empty();
-      if (if_block3) if_block3.c();
+      if_block1.c();
       this.h();
     },
     l: function claim(nodes) {
-      div1 = claim_element(nodes, "DIV", {
+      div = claim_element(nodes, "DIV", {
         style: true,
         class: true
       });
-      var div1_nodes = children(div1);
-      if (if_block0) if_block0.l(div1_nodes);
-      t0 = claim_space(div1_nodes);
-      main = claim_element(div1_nodes, "MAIN", {
+      var div_nodes = children(div);
+      if (if_block0) if_block0.l(div_nodes);
+      t = claim_space(div_nodes);
+      main = claim_element(div_nodes, "MAIN", {
         class: true
       });
       var main_nodes = children(main);
-      if (if_block1) if_block1.l(main_nodes);
-      t1 = claim_space(main_nodes);
-      div0 = claim_element(main_nodes, "DIV", {
-        class: true
-      });
-      var div0_nodes = children(div0);
-      svg = claim_element(div0_nodes, "svg", {
-        width: true,
-        height: true
-      }, 1);
-      var svg_nodes = children(svg);
-      rect = claim_element(svg_nodes, "rect", {
-        class: true,
-        width: true,
-        height: true
-      }, 1);
-      children(rect).forEach(detach_dev);
-      g = claim_element(svg_nodes, "g", {}, 1);
-      var g_nodes = children(g);
-
-      for (var _i10 = 0; _i10 < each_blocks.length; _i10 += 1) {
-        each_blocks[_i10].l(g_nodes);
-      }
-
-      g_nodes.forEach(detach_dev);
-      if (if_block2) if_block2.l(svg_nodes);
-      if_block2_anchor = empty();
-      if (if_block3) if_block3.l(svg_nodes);
-      svg_nodes.forEach(detach_dev);
-      div0_nodes.forEach(detach_dev);
+      if_block1.l(main_nodes);
       main_nodes.forEach(detach_dev);
-      div1_nodes.forEach(detach_dev);
+      div_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
-      attr_dev(rect, "class", "bkg svelte-18pi9lw");
-      attr_dev(rect, "width",
-      /*width*/
-      ctx[7]);
-      attr_dev(rect, "height",
-      /*svgHeight*/
-      ctx[14]);
-      add_location(rect, file$7, 288, 4, 6556);
-      add_location(g, file$7, 291, 4, 6627);
-      attr_dev(svg, "width",
-      /*width*/
-      ctx[7]);
-      attr_dev(svg, "height",
-      /*svgHeight*/
-      ctx[14]);
-      add_location(svg, file$7, 287, 3, 6519);
-      attr_dev(div0, "class", "scrollable svelte-18pi9lw");
-      add_render_callback(function () {
-        return (
-          /*div0_elementresize_handler*/
-          ctx[34].call(div0)
-        );
-      });
-      toggle_class(div0, "withrefs",
-      /*refs*/
-      ctx[3] &&
-      /*refs*/
-      ctx[3].length);
-      add_location(div0, file$7, 279, 2, 6316);
-      attr_dev(main, "class", "svelte-18pi9lw");
+      attr_dev(main, "class", "svelte-1octkco");
       toggle_class(main, "titled",
       /*title*/
-      ctx[4]);
-      add_location(main, file$7, 232, 1, 5467);
-      attr_dev(div1, "style",
+      ctx[6]);
+      add_location(main, file$7, 239, 1, 5702);
+      attr_dev(div, "style",
       /*style*/
-      ctx[9]);
-      attr_dev(div1, "class", "BarchartVDiv svelte-18pi9lw");
-      add_location(div1, file$7, 223, 0, 5368);
+      ctx[11]);
+      attr_dev(div, "class", "BarchartVDiv svelte-1octkco");
+      add_location(div, file$7, 230, 0, 5603);
     },
     m: function mount(target, anchor) {
-      insert_dev(target, div1, anchor);
-      if (if_block0) if_block0.m(div1, null);
-      append_dev(div1, t0);
-      append_dev(div1, main);
-      if (if_block1) if_block1.m(main, null);
-      append_dev(main, t1);
-      append_dev(main, div0);
-      append_dev(div0, svg);
-      append_dev(svg, rect);
-      append_dev(svg, g);
-
-      for (var _i11 = 0; _i11 < each_blocks.length; _i11 += 1) {
-        each_blocks[_i11].m(g, null);
-      }
-
-      if (if_block2) if_block2.m(svg, null);
-      append_dev(svg, if_block2_anchor);
-      if (if_block3) if_block3.m(svg, null);
-      div0_resize_listener = add_resize_listener(div0,
-      /*div0_elementresize_handler*/
-      ctx[34].bind(div0));
-      /*div0_binding*/
-
-      ctx[35](div0);
-
-      if (!mounted) {
-        dispose = listen_dev(div0, "mouseleave",
-        /*mouseleave_handler*/
-        ctx[36], false, false, false);
-        mounted = true;
-      }
+      insert_dev(target, div, anchor);
+      if (if_block0) if_block0.m(div, null);
+      append_dev(div, t);
+      append_dev(div, main);
+      if_block1.m(main, null);
     },
     p: function update(ctx, dirty) {
       if (
       /*title*/
-      ctx[4]) {
+      ctx[6]) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_3$1(ctx);
+          if_block0 = create_if_block_4(ctx);
           if_block0.c();
-          if_block0.m(div1, t0);
+          if_block0.m(div, t);
         }
       } else if (if_block0) {
         if_block0.d(1);
         if_block0 = null;
       }
 
-      if (
-      /*refs*/
-      ctx[3]) {
-        if (if_block1) {
-          if_block1.p(ctx, dirty);
-        } else {
-          if_block1 = create_if_block_2$2(ctx);
-          if_block1.c();
-          if_block1.m(main, t1);
-        }
-      } else if (if_block1) {
+      if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block1) {
+        if_block1.p(ctx, dirty);
+      } else {
         if_block1.d(1);
-        if_block1 = null;
-      }
+        if_block1 = current_block_type(ctx);
 
-      if (dirty[0] &
-      /*width*/
-      128) {
-        attr_dev(rect, "width",
-        /*width*/
-        ctx[7]);
-      }
-
-      if (dirty[0] &
-      /*svgHeight*/
-      16384) {
-        attr_dev(rect, "height",
-        /*svgHeight*/
-        ctx[14]);
-      }
-
-      if (dirty[0] &
-      /*itemHeight, bars, isInteractive, onClick, onMouseenter, onMouseleave, textY, x0, barHeight, barY, width*/
-      7551107) {
-        var _each_value_ =
-        /*bars*/
-        ctx[17];
-        validate_each_argument(_each_value_);
-        validate_each_keys(ctx, _each_value_, get_each_context_1, get_key);
-        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, _each_value_, each_1_lookup, g, destroy_block, create_each_block_1, null, get_each_context_1);
-      }
-
-      if (
-      /*crossesZero*/
-      ctx[15]) {
-        if (if_block2) {
-          if_block2.p(ctx, dirty);
-        } else {
-          if_block2 = create_if_block_1$3(ctx);
-          if_block2.c();
-          if_block2.m(svg, if_block2_anchor);
+        if (if_block1) {
+          if_block1.c();
+          if_block1.m(main, null);
         }
-      } else if (if_block2) {
-        if_block2.d(1);
-        if_block2 = null;
-      }
-
-      if (
-      /*refsLayout*/
-      ctx[19]) {
-        if (if_block3) {
-          if_block3.p(ctx, dirty);
-        } else {
-          if_block3 = create_if_block$4(ctx);
-          if_block3.c();
-          if_block3.m(svg, null);
-        }
-      } else if (if_block3) {
-        if_block3.d(1);
-        if_block3 = null;
-      }
-
-      if (dirty[0] &
-      /*width*/
-      128) {
-        attr_dev(svg, "width",
-        /*width*/
-        ctx[7]);
-      }
-
-      if (dirty[0] &
-      /*svgHeight*/
-      16384) {
-        attr_dev(svg, "height",
-        /*svgHeight*/
-        ctx[14]);
-      }
-
-      if (dirty[0] &
-      /*refs*/
-      8) {
-        toggle_class(div0, "withrefs",
-        /*refs*/
-        ctx[3] &&
-        /*refs*/
-        ctx[3].length);
       }
 
       if (dirty[0] &
       /*title*/
-      16) {
+      64) {
         toggle_class(main, "titled",
         /*title*/
-        ctx[4]);
+        ctx[6]);
       }
 
       if (dirty[0] &
       /*style*/
-      512) {
-        attr_dev(div1, "style",
+      2048) {
+        attr_dev(div, "style",
         /*style*/
-        ctx[9]);
+        ctx[11]);
       }
     },
     i: noop$1,
     o: noop$1,
     d: function destroy(detaching) {
-      if (detaching) detach_dev(div1);
+      if (detaching) detach_dev(div);
       if (if_block0) if_block0.d();
-      if (if_block1) if_block1.d();
-
-      for (var _i12 = 0; _i12 < each_blocks.length; _i12 += 1) {
-        each_blocks[_i12].d();
-      }
-
-      if (if_block2) if_block2.d();
-      if (if_block3) if_block3.d();
-      div0_resize_listener();
-      /*div0_binding*/
-
-      ctx[35](null);
-      mounted = false;
-      dispose();
+      if_block1.d();
     }
   };
   dispatch_dev("SvelteRegisterBlock", {
@@ -7962,6 +8047,8 @@ function instance$d($$self, $$props, $$invalidate) {
     fontSize: 14,
     headerHeight: "2em",
     hoverColor: "rgba(0, 0, 0, 0.05)",
+    messageColor: "black",
+    messageFontSize: "1rem",
     padding: 10,
     refColor: "grey",
     refDasharray: "4 4",
@@ -7978,9 +8065,10 @@ function instance$d($$self, $$props, $$invalidate) {
   var keyToColorFn = $$props.keyToColorFn;
   var keyToLabel = $$props.keyToLabel;
   var keyToLabelFn = $$props.keyToLabelFn;
+  var message = $$props.message;
   var refs = $$props.refs;
-  var shouldResetScroll = $$props.shouldResetScroll;
   var selectedKeys = $$props.selectedKeys;
+  var shouldResetScroll = $$props.shouldResetScroll;
   var shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey;
   var theme = $$props.theme;
   var title = $$props.title;
@@ -7994,7 +8082,7 @@ function instance$d($$self, $$props, $$invalidate) {
   var scrollable;
   var wasNotResettingScroll;
   beforeUpdate(function () {
-    $$invalidate(38, wasNotResettingScroll = !shouldResetScroll);
+    $$invalidate(39, wasNotResettingScroll = !shouldResetScroll);
   });
   /* events */
 
@@ -8008,7 +8096,7 @@ function instance$d($$self, $$props, $$invalidate) {
 
   var onMouseenter = function onMouseenter(key) {
     return function () {
-      $$invalidate(6, hoveredKey = key);
+      $$invalidate(8, hoveredKey = key);
       isInteractive && dispatch("entered", {
         id: key
       });
@@ -8023,7 +8111,7 @@ function instance$d($$self, $$props, $$invalidate) {
     };
   };
 
-  var writable_props = ["barHeight", "focusedKey", "formatFn", "isInteractive", "items", "keyToColor", "keyToColorFn", "keyToLabel", "keyToLabelFn", "refs", "shouldResetScroll", "selectedKeys", "shouldScrollToFocusedKey", "theme", "title", "valueAccessor"];
+  var writable_props = ["barHeight", "focusedKey", "formatFn", "isInteractive", "items", "keyToColor", "keyToColorFn", "keyToLabel", "keyToLabelFn", "message", "refs", "selectedKeys", "shouldResetScroll", "shouldScrollToFocusedKey", "theme", "title", "valueAccessor"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<BarchartVDiv> was created with unknown prop '".concat(key, "'"));
   });
@@ -8032,41 +8120,42 @@ function instance$d($$self, $$props, $$invalidate) {
       $$scope = $$props.$$scope;
   validate_slots("BarchartVDiv", $$slots, []);
 
-  function div0_elementresize_handler() {
+  function div_elementresize_handler() {
     height = this.clientHeight;
     width = this.clientWidth;
-    $$invalidate(5, height);
-    $$invalidate(7, width);
+    $$invalidate(7, height);
+    $$invalidate(9, width);
   }
 
-  function div0_binding($$value) {
+  function div_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](function () {
       scrollable = $$value;
-      ((($$invalidate(8, scrollable), $$invalidate(28, items)), $$invalidate(23, shouldResetScroll)), $$invalidate(37, previousItems)), $$invalidate(38, wasNotResettingScroll);
+      ((($$invalidate(10, scrollable), $$invalidate(26, shouldResetScroll)), $$invalidate(38, previousItems)), $$invalidate(2, items)), $$invalidate(39, wasNotResettingScroll);
     });
   }
 
   var mouseleave_handler = function mouseleave_handler() {
-    $$invalidate(6, hoveredKey = null);
+    $$invalidate(8, hoveredKey = null);
   };
 
   $$self.$set = function ($$props) {
     if ("barHeight" in $$props) $$invalidate(0, barHeight = $$props.barHeight);
-    if ("focusedKey" in $$props) $$invalidate(26, focusedKey = $$props.focusedKey);
-    if ("formatFn" in $$props) $$invalidate(27, formatFn = $$props.formatFn);
+    if ("focusedKey" in $$props) $$invalidate(28, focusedKey = $$props.focusedKey);
+    if ("formatFn" in $$props) $$invalidate(29, formatFn = $$props.formatFn);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
-    if ("items" in $$props) $$invalidate(28, items = $$props.items);
-    if ("keyToColor" in $$props) $$invalidate(29, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(30, keyToColorFn = $$props.keyToColorFn);
-    if ("keyToLabel" in $$props) $$invalidate(31, keyToLabel = $$props.keyToLabel);
-    if ("keyToLabelFn" in $$props) $$invalidate(32, keyToLabelFn = $$props.keyToLabelFn);
-    if ("refs" in $$props) $$invalidate(3, refs = $$props.refs);
-    if ("shouldResetScroll" in $$props) $$invalidate(23, shouldResetScroll = $$props.shouldResetScroll);
-    if ("selectedKeys" in $$props) $$invalidate(24, selectedKeys = $$props.selectedKeys);
-    if ("shouldScrollToFocusedKey" in $$props) $$invalidate(33, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
-    if ("theme" in $$props) $$invalidate(2, theme = $$props.theme);
-    if ("title" in $$props) $$invalidate(4, title = $$props.title);
-    if ("valueAccessor" in $$props) $$invalidate(25, valueAccessor = $$props.valueAccessor);
+    if ("items" in $$props) $$invalidate(2, items = $$props.items);
+    if ("keyToColor" in $$props) $$invalidate(30, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(31, keyToColorFn = $$props.keyToColorFn);
+    if ("keyToLabel" in $$props) $$invalidate(32, keyToLabel = $$props.keyToLabel);
+    if ("keyToLabelFn" in $$props) $$invalidate(33, keyToLabelFn = $$props.keyToLabelFn);
+    if ("message" in $$props) $$invalidate(3, message = $$props.message);
+    if ("refs" in $$props) $$invalidate(4, refs = $$props.refs);
+    if ("selectedKeys" in $$props) $$invalidate(25, selectedKeys = $$props.selectedKeys);
+    if ("shouldResetScroll" in $$props) $$invalidate(26, shouldResetScroll = $$props.shouldResetScroll);
+    if ("shouldScrollToFocusedKey" in $$props) $$invalidate(34, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
+    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
+    if ("title" in $$props) $$invalidate(6, title = $$props.title);
+    if ("valueAccessor" in $$props) $$invalidate(27, valueAccessor = $$props.valueAccessor);
   };
 
   $$self.$capture_state = function () {
@@ -8102,9 +8191,10 @@ function instance$d($$self, $$props, $$invalidate) {
       keyToColorFn: keyToColorFn,
       keyToLabel: keyToLabel,
       keyToLabelFn: keyToLabelFn,
+      message: message,
       refs: refs,
-      shouldResetScroll: shouldResetScroll,
       selectedKeys: selectedKeys,
+      shouldResetScroll: shouldResetScroll,
       shouldScrollToFocusedKey: shouldScrollToFocusedKey,
       theme: theme,
       title: title,
@@ -8127,6 +8217,7 @@ function instance$d($$self, $$props, $$invalidate) {
       svgHeight: svgHeight,
       getMin: getMin,
       getMax: getMax,
+      refsValues: refsValues,
       min: min,
       max: max,
       crossesZero: crossesZero,
@@ -8144,48 +8235,50 @@ function instance$d($$self, $$props, $$invalidate) {
 
   $$self.$inject_state = function ($$props) {
     if ("barHeight" in $$props) $$invalidate(0, barHeight = $$props.barHeight);
-    if ("focusedKey" in $$props) $$invalidate(26, focusedKey = $$props.focusedKey);
-    if ("formatFn" in $$props) $$invalidate(27, formatFn = $$props.formatFn);
+    if ("focusedKey" in $$props) $$invalidate(28, focusedKey = $$props.focusedKey);
+    if ("formatFn" in $$props) $$invalidate(29, formatFn = $$props.formatFn);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
-    if ("items" in $$props) $$invalidate(28, items = $$props.items);
-    if ("keyToColor" in $$props) $$invalidate(29, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(30, keyToColorFn = $$props.keyToColorFn);
-    if ("keyToLabel" in $$props) $$invalidate(31, keyToLabel = $$props.keyToLabel);
-    if ("keyToLabelFn" in $$props) $$invalidate(32, keyToLabelFn = $$props.keyToLabelFn);
-    if ("refs" in $$props) $$invalidate(3, refs = $$props.refs);
-    if ("shouldResetScroll" in $$props) $$invalidate(23, shouldResetScroll = $$props.shouldResetScroll);
-    if ("selectedKeys" in $$props) $$invalidate(24, selectedKeys = $$props.selectedKeys);
-    if ("shouldScrollToFocusedKey" in $$props) $$invalidate(33, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
-    if ("theme" in $$props) $$invalidate(2, theme = $$props.theme);
-    if ("title" in $$props) $$invalidate(4, title = $$props.title);
-    if ("valueAccessor" in $$props) $$invalidate(25, valueAccessor = $$props.valueAccessor);
-    if ("height" in $$props) $$invalidate(5, height = $$props.height);
-    if ("hoveredKey" in $$props) $$invalidate(6, hoveredKey = $$props.hoveredKey);
-    if ("width" in $$props) $$invalidate(7, width = $$props.width);
-    if ("previousItems" in $$props) $$invalidate(37, previousItems = $$props.previousItems);
-    if ("scrollable" in $$props) $$invalidate(8, scrollable = $$props.scrollable);
-    if ("wasNotResettingScroll" in $$props) $$invalidate(38, wasNotResettingScroll = $$props.wasNotResettingScroll);
-    if ("style" in $$props) $$invalidate(9, style = $$props.style);
-    if ("refsHeight" in $$props) $$invalidate(10, refsHeight = $$props.refsHeight);
-    if ("barPadding" in $$props) $$invalidate(39, barPadding = $$props.barPadding);
-    if ("itemHeight" in $$props) $$invalidate(11, itemHeight = $$props.itemHeight);
-    if ("barY" in $$props) $$invalidate(12, barY = $$props.barY);
-    if ("textY" in $$props) $$invalidate(13, textY = $$props.textY);
-    if ("svgHeight" in $$props) $$invalidate(14, svgHeight = $$props.svgHeight);
-    if ("getMin" in $$props) $$invalidate(40, getMin = $$props.getMin);
-    if ("getMax" in $$props) $$invalidate(41, getMax = $$props.getMax);
-    if ("min" in $$props) $$invalidate(42, min = $$props.min);
-    if ("max" in $$props) $$invalidate(43, max = $$props.max);
-    if ("crossesZero" in $$props) $$invalidate(15, crossesZero = $$props.crossesZero);
-    if ("domain" in $$props) $$invalidate(44, domain = $$props.domain);
-    if ("getX" in $$props) $$invalidate(45, getX = $$props.getX);
-    if ("x0" in $$props) $$invalidate(16, x0 = $$props.x0);
-    if ("bars" in $$props) $$invalidate(17, bars = $$props.bars);
-    if ("barsByKey" in $$props) $$invalidate(46, barsByKey = $$props.barsByKey);
-    if ("makeRefsLayout" in $$props) $$invalidate(47, makeRefsLayout = $$props.makeRefsLayout);
-    if ("refHeight" in $$props) $$invalidate(18, refHeight = $$props.refHeight);
-    if ("refsLayout" in $$props) $$invalidate(19, refsLayout = $$props.refsLayout);
-    if ("focusedY" in $$props) $$invalidate(48, focusedY = $$props.focusedY);
+    if ("items" in $$props) $$invalidate(2, items = $$props.items);
+    if ("keyToColor" in $$props) $$invalidate(30, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(31, keyToColorFn = $$props.keyToColorFn);
+    if ("keyToLabel" in $$props) $$invalidate(32, keyToLabel = $$props.keyToLabel);
+    if ("keyToLabelFn" in $$props) $$invalidate(33, keyToLabelFn = $$props.keyToLabelFn);
+    if ("message" in $$props) $$invalidate(3, message = $$props.message);
+    if ("refs" in $$props) $$invalidate(4, refs = $$props.refs);
+    if ("selectedKeys" in $$props) $$invalidate(25, selectedKeys = $$props.selectedKeys);
+    if ("shouldResetScroll" in $$props) $$invalidate(26, shouldResetScroll = $$props.shouldResetScroll);
+    if ("shouldScrollToFocusedKey" in $$props) $$invalidate(34, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
+    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
+    if ("title" in $$props) $$invalidate(6, title = $$props.title);
+    if ("valueAccessor" in $$props) $$invalidate(27, valueAccessor = $$props.valueAccessor);
+    if ("height" in $$props) $$invalidate(7, height = $$props.height);
+    if ("hoveredKey" in $$props) $$invalidate(8, hoveredKey = $$props.hoveredKey);
+    if ("width" in $$props) $$invalidate(9, width = $$props.width);
+    if ("previousItems" in $$props) $$invalidate(38, previousItems = $$props.previousItems);
+    if ("scrollable" in $$props) $$invalidate(10, scrollable = $$props.scrollable);
+    if ("wasNotResettingScroll" in $$props) $$invalidate(39, wasNotResettingScroll = $$props.wasNotResettingScroll);
+    if ("style" in $$props) $$invalidate(11, style = $$props.style);
+    if ("refsHeight" in $$props) $$invalidate(12, refsHeight = $$props.refsHeight);
+    if ("barPadding" in $$props) $$invalidate(40, barPadding = $$props.barPadding);
+    if ("itemHeight" in $$props) $$invalidate(13, itemHeight = $$props.itemHeight);
+    if ("barY" in $$props) $$invalidate(14, barY = $$props.barY);
+    if ("textY" in $$props) $$invalidate(15, textY = $$props.textY);
+    if ("svgHeight" in $$props) $$invalidate(16, svgHeight = $$props.svgHeight);
+    if ("getMin" in $$props) $$invalidate(41, getMin = $$props.getMin);
+    if ("getMax" in $$props) $$invalidate(42, getMax = $$props.getMax);
+    if ("refsValues" in $$props) $$invalidate(43, refsValues = $$props.refsValues);
+    if ("min" in $$props) $$invalidate(44, min = $$props.min);
+    if ("max" in $$props) $$invalidate(45, max = $$props.max);
+    if ("crossesZero" in $$props) $$invalidate(17, crossesZero = $$props.crossesZero);
+    if ("domain" in $$props) $$invalidate(46, domain = $$props.domain);
+    if ("getX" in $$props) $$invalidate(47, getX = $$props.getX);
+    if ("x0" in $$props) $$invalidate(18, x0 = $$props.x0);
+    if ("bars" in $$props) $$invalidate(19, bars = $$props.bars);
+    if ("barsByKey" in $$props) $$invalidate(48, barsByKey = $$props.barsByKey);
+    if ("makeRefsLayout" in $$props) $$invalidate(49, makeRefsLayout = $$props.makeRefsLayout);
+    if ("refHeight" in $$props) $$invalidate(20, refHeight = $$props.refHeight);
+    if ("refsLayout" in $$props) $$invalidate(21, refsLayout = $$props.refsLayout);
+    if ("focusedY" in $$props) $$invalidate(50, focusedY = $$props.focusedY);
   };
 
   var style;
@@ -8196,6 +8289,7 @@ function instance$d($$self, $$props, $$invalidate) {
   var svgHeight;
   var getMin;
   var getMax;
+  var refsValues;
   var min;
   var max;
   var crossesZero;
@@ -8229,147 +8323,171 @@ function instance$d($$self, $$props, $$invalidate) {
     }
 
     if ($$self.$$.dirty[0] &
+    /*items*/
+    4) {
+       $$invalidate(2, items = items || []);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*message*/
+    8) {
+       $$invalidate(3, message = message || "No data");
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*refs*/
+    16) {
+       $$invalidate(4, refs = refs || []);
+    }
+
+    if ($$self.$$.dirty[0] &
     /*selectedKeys*/
-    16777216) {
-       $$invalidate(24, selectedKeys = selectedKeys || []);
+    33554432) {
+       $$invalidate(25, selectedKeys = selectedKeys || []);
     }
 
     if ($$self.$$.dirty[0] &
     /*shouldResetScroll*/
-    8388608) {
-       $$invalidate(23, shouldResetScroll = shouldResetScroll || false);
+    67108864) {
+       $$invalidate(26, shouldResetScroll = shouldResetScroll || false);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    4) {
-       $$invalidate(2, theme = theme ? _objectSpread$2(_objectSpread$2({}, defaultTheme), theme) : defaultTheme);
+    32) {
+       $$invalidate(5, theme = theme ? _objectSpread$2(_objectSpread$2({}, defaultTheme), theme) : defaultTheme);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    4) {
-       $$invalidate(18, refHeight = theme.padding + theme.fontSize);
+    32) {
+       $$invalidate(20, refHeight = theme.padding + theme.fontSize);
     }
 
     if ($$self.$$.dirty[0] &
     /*refs, theme, refHeight*/
-    262156) {
-       $$invalidate(10, refsHeight = refs && refs.length * (theme.padding + refHeight) + theme.padding || 0);
+    1048624) {
+       $$invalidate(12, refsHeight = refs && refs.length * (theme.padding + refHeight) + theme.padding || 0);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme, refsHeight*/
-    1028) {
-       $$invalidate(9, style = makeStyleVars(_objectSpread$2(_objectSpread$2({}, augmentTheme(theme)), {}, {
+    4128) {
+       $$invalidate(11, style = makeStyleVars(_objectSpread$2(_objectSpread$2({}, augmentTheme(theme)), {}, {
         refsHeightPx: toPx(refsHeight)
       })));
     }
 
     if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    33554432) {
-       $$invalidate(25, valueAccessor = valueAccessor || getValue);
+    134217728) {
+       $$invalidate(27, valueAccessor = valueAccessor || getValue);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    4) {
-       $$invalidate(39, barPadding = theme.fontSize / 2);
+    32) {
+       $$invalidate(40, barPadding = theme.fontSize / 2);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme, barHeight*/
-    5 | $$self.$$.dirty[1] &
+    33 | $$self.$$.dirty[1] &
     /*barPadding*/
-    256) {
-       $$invalidate(11, itemHeight = theme.fontSize + barHeight + 3 * barPadding);
+    512) {
+       $$invalidate(13, itemHeight = theme.fontSize + barHeight + 3 * barPadding);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, barHeight*/
-    2049 | $$self.$$.dirty[1] &
+    8193 | $$self.$$.dirty[1] &
     /*barPadding*/
-    256) {
-       $$invalidate(12, barY = itemHeight - barPadding - barHeight / 2);
+    512) {
+       $$invalidate(14, barY = itemHeight - barPadding - barHeight / 2);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, barHeight*/
-    2049 | $$self.$$.dirty[1] &
+    8193 | $$self.$$.dirty[1] &
     /*barPadding*/
-    256) {
-       $$invalidate(13, textY = itemHeight - barHeight - 2 * barPadding);
+    512) {
+       $$invalidate(15, textY = itemHeight - barHeight - 2 * barPadding);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, items*/
-    268437504) {
-       $$invalidate(14, svgHeight = itemHeight * items.length);
+    8196) {
+       $$invalidate(16, svgHeight = itemHeight * items.length);
     }
 
     if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    33554432) {
-       $$invalidate(40, getMin = arrayMinWith(valueAccessor));
+    134217728) {
+       $$invalidate(41, getMin = arrayMinWith(valueAccessor));
     }
 
     if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    33554432) {
-       $$invalidate(41, getMax = arrayMaxWith(valueAccessor));
+    134217728) {
+       $$invalidate(42, getMax = arrayMaxWith(valueAccessor));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*refs*/
+    16) {
+       $$invalidate(43, refsValues = refs.map(getValue));
     }
 
     if ($$self.$$.dirty[0] &
     /*items*/
-    268435456 | $$self.$$.dirty[1] &
-    /*getMin*/
-    512) {
-       $$invalidate(42, min = getMin(items));
+    4 | $$self.$$.dirty[1] &
+    /*getMin, refsValues*/
+    5120) {
+       $$invalidate(44, min = Math.min.apply(Math, [getMin(items)].concat(_toConsumableArray(refsValues))));
     }
 
     if ($$self.$$.dirty[0] &
     /*items*/
-    268435456 | $$self.$$.dirty[1] &
-    /*getMax*/
-    1024) {
-       $$invalidate(43, max = getMax(items));
+    4 | $$self.$$.dirty[1] &
+    /*getMax, refsValues*/
+    6144) {
+       $$invalidate(45, max = Math.max.apply(Math, [getMax(items)].concat(_toConsumableArray(refsValues))));
     }
 
     if ($$self.$$.dirty[1] &
     /*min, max*/
-    6144) {
-       $$invalidate(15, crossesZero = Math.sign(min) === -Math.sign(max));
+    24576) {
+       $$invalidate(17, crossesZero = Math.sign(min) === -Math.sign(max));
     }
 
     if ($$self.$$.dirty[0] &
     /*crossesZero*/
-    32768 | $$self.$$.dirty[1] &
+    131072 | $$self.$$.dirty[1] &
     /*min, max*/
-    6144) {
-       $$invalidate(44, domain = crossesZero ? [min, max] : max > 0 ? [0, max] : [min, 0]);
+    24576) {
+       $$invalidate(46, domain = crossesZero ? [min, max] : max > 0 ? [0, max] : [min, 0]);
     }
 
     if ($$self.$$.dirty[0] &
     /*width*/
-    128 | $$self.$$.dirty[1] &
+    512 | $$self.$$.dirty[1] &
     /*domain*/
-    8192) {
-       $$invalidate(45, getX = linear(domain, [0, width]));
+    32768) {
+       $$invalidate(47, getX = linear(domain, [0, width]));
     }
 
     if ($$self.$$.dirty[1] &
     /*getX*/
-    16384) {
-       $$invalidate(16, x0 = getX(0));
+    65536) {
+       $$invalidate(18, x0 = getX(0));
     }
 
     if ($$self.$$.dirty[0] &
-    /*items, valueAccessor, keyToColor, theme, keyToColorFn, focusedKey, hoveredKey, formatFn, crossesZero, selectedKeys, width, itemHeight*/
-    2130741444 | $$self.$$.dirty[1] &
-    /*barPadding, keyToLabel, keyToLabelFn, getX*/
-    16643) {
-       $$invalidate(17, bars = items.map(function (item, idx) {
+    /*items, valueAccessor, keyToColor, theme, focusedKey, hoveredKey, formatFn, crossesZero, selectedKeys, width, itemHeight*/
+    2046960420 | $$self.$$.dirty[1] &
+    /*keyToColorFn, barPadding, keyToLabel, keyToLabelFn, getX*/
+    66055) {
+       $$invalidate(19, bars = items.map(function (item, idx) {
         var value = valueAccessor(item);
         var isNeg = value < 0;
         return _objectSpread$2(_objectSpread$2({}, item), {
@@ -8390,16 +8508,16 @@ function instance$d($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*bars*/
-    131072) {
-       $$invalidate(46, barsByKey = index(bars, getKey));
+    524288) {
+       $$invalidate(48, barsByKey = index(bars, getKey));
     }
 
     if ($$self.$$.dirty[0] &
     /*theme, width, refHeight*/
-    262276 | $$self.$$.dirty[1] &
+    1049120 | $$self.$$.dirty[1] &
     /*getX*/
-    16384) {
-       $$invalidate(47, makeRefsLayout = pipe([sortByValue, mapWith(function (obj, idx) {
+    65536) {
+       $$invalidate(49, makeRefsLayout = pipe([sortByValue, mapWith(function (obj, idx) {
         var label = "".concat(obj.key, " (").concat(obj.value, ")");
         var textLength = obj.key.length * theme.fontSize * 0.6;
         var rectWidth = textLength + 2 * theme.padding;
@@ -8420,48 +8538,48 @@ function instance$d($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*refs*/
-    8 | $$self.$$.dirty[1] &
+    16 | $$self.$$.dirty[1] &
     /*makeRefsLayout*/
-    65536) {
-       $$invalidate(19, refsLayout = refs && refs.length && makeRefsLayout(refs));
+    262144) {
+       $$invalidate(21, refsLayout = refs && refs.length && makeRefsLayout(refs));
     }
 
     if ($$self.$$.dirty[0] &
-    /*items, shouldResetScroll*/
-    276824064 | $$self.$$.dirty[1] &
+    /*shouldResetScroll, items*/
+    67108868 | $$self.$$.dirty[1] &
     /*previousItems*/
-    64) {
+    128) {
        afterUpdate(function () {
-        if (items && shouldResetScroll && !justCompare(previousItems, items)) {
-          $$invalidate(8, scrollable.scrollTop = 0, scrollable);
-          $$invalidate(37, previousItems = items);
+        if (shouldResetScroll && !justCompare(previousItems, items)) {
+          $$invalidate(10, scrollable.scrollTop = 0, scrollable);
+          $$invalidate(38, previousItems = items);
         }
       });
     }
 
     if ($$self.$$.dirty[0] &
     /*shouldResetScroll, scrollable*/
-    8388864 | $$self.$$.dirty[1] &
+    67109888 | $$self.$$.dirty[1] &
     /*wasNotResettingScroll*/
-    128) {
+    256) {
        if (wasNotResettingScroll && shouldResetScroll && scrollable) {
-        $$invalidate(8, scrollable.scrollTop = 0, scrollable);
+        $$invalidate(10, scrollable.scrollTop = 0, scrollable);
       }
     }
 
     if ($$self.$$.dirty[0] &
     /*focusedKey*/
-    67108864 | $$self.$$.dirty[1] &
+    268435456 | $$self.$$.dirty[1] &
     /*shouldScrollToFocusedKey, barsByKey*/
-    32772) {
-       $$invalidate(48, focusedY = shouldScrollToFocusedKey && focusedKey && barsByKey[focusedKey] && barsByKey[focusedKey].y);
+    131080) {
+       $$invalidate(50, focusedY = shouldScrollToFocusedKey && focusedKey && barsByKey[focusedKey] && barsByKey[focusedKey].y);
     }
 
     if ($$self.$$.dirty[0] &
     /*focusedKey, scrollable, itemHeight, height*/
-    67111200 | $$self.$$.dirty[1] &
+    268444800 | $$self.$$.dirty[1] &
     /*shouldScrollToFocusedKey, focusedY*/
-    131076) {
+    524296) {
        if (shouldScrollToFocusedKey && focusedKey && scrollable) {
         var yAbs = -scrollable.scrollTop + focusedY;
 
@@ -8480,7 +8598,7 @@ function instance$d($$self, $$props, $$invalidate) {
     }
   };
 
-  return [barHeight, isInteractive, theme, refs, title, height, hoveredKey, width, scrollable, style, refsHeight, itemHeight, barY, textY, svgHeight, crossesZero, x0, bars, refHeight, refsLayout, onClick, onMouseenter, onMouseleave, shouldResetScroll, selectedKeys, valueAccessor, focusedKey, formatFn, items, keyToColor, keyToColorFn, keyToLabel, keyToLabelFn, shouldScrollToFocusedKey, div0_elementresize_handler, div0_binding, mouseleave_handler];
+  return [barHeight, isInteractive, items, message, refs, theme, title, height, hoveredKey, width, scrollable, style, refsHeight, itemHeight, barY, textY, svgHeight, crossesZero, x0, bars, refHeight, refsLayout, onClick, onMouseenter, onMouseleave, selectedKeys, shouldResetScroll, valueAccessor, focusedKey, formatFn, keyToColor, keyToColorFn, keyToLabel, keyToLabelFn, shouldScrollToFocusedKey, div_elementresize_handler, div_binding, mouseleave_handler];
 }
 
 var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -8496,21 +8614,22 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$d, create_fragment$d, safe_not_equal, {
       barHeight: 0,
-      focusedKey: 26,
-      formatFn: 27,
+      focusedKey: 28,
+      formatFn: 29,
       isInteractive: 1,
-      items: 28,
-      keyToColor: 29,
-      keyToColorFn: 30,
-      keyToLabel: 31,
-      keyToLabelFn: 32,
-      refs: 3,
-      shouldResetScroll: 23,
-      selectedKeys: 24,
-      shouldScrollToFocusedKey: 33,
-      theme: 2,
-      title: 4,
-      valueAccessor: 25
+      items: 2,
+      keyToColor: 30,
+      keyToColorFn: 31,
+      keyToLabel: 32,
+      keyToLabelFn: 33,
+      message: 3,
+      refs: 4,
+      selectedKeys: 25,
+      shouldResetScroll: 26,
+      shouldScrollToFocusedKey: 34,
+      theme: 5,
+      title: 6,
+      valueAccessor: 27
     }, [-1, -1, -1]);
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -8529,13 +8648,13 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*focusedKey*/
-    ctx[26] === undefined && !("focusedKey" in props)) {
+    ctx[28] === undefined && !("focusedKey" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'focusedKey'");
     }
 
     if (
     /*formatFn*/
-    ctx[27] === undefined && !("formatFn" in props)) {
+    ctx[29] === undefined && !("formatFn" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'formatFn'");
     }
 
@@ -8547,73 +8666,79 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*items*/
-    ctx[28] === undefined && !("items" in props)) {
+    ctx[2] === undefined && !("items" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'items'");
     }
 
     if (
     /*keyToColor*/
-    ctx[29] === undefined && !("keyToColor" in props)) {
+    ctx[30] === undefined && !("keyToColor" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'keyToColor'");
     }
 
     if (
     /*keyToColorFn*/
-    ctx[30] === undefined && !("keyToColorFn" in props)) {
+    ctx[31] === undefined && !("keyToColorFn" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'keyToColorFn'");
     }
 
     if (
     /*keyToLabel*/
-    ctx[31] === undefined && !("keyToLabel" in props)) {
+    ctx[32] === undefined && !("keyToLabel" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'keyToLabel'");
     }
 
     if (
     /*keyToLabelFn*/
-    ctx[32] === undefined && !("keyToLabelFn" in props)) {
+    ctx[33] === undefined && !("keyToLabelFn" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'keyToLabelFn'");
     }
 
     if (
+    /*message*/
+    ctx[3] === undefined && !("message" in props)) {
+      console.warn("<BarchartVDiv> was created without expected prop 'message'");
+    }
+
+    if (
     /*refs*/
-    ctx[3] === undefined && !("refs" in props)) {
+    ctx[4] === undefined && !("refs" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'refs'");
     }
 
     if (
-    /*shouldResetScroll*/
-    ctx[23] === undefined && !("shouldResetScroll" in props)) {
-      console.warn("<BarchartVDiv> was created without expected prop 'shouldResetScroll'");
-    }
-
-    if (
     /*selectedKeys*/
-    ctx[24] === undefined && !("selectedKeys" in props)) {
+    ctx[25] === undefined && !("selectedKeys" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'selectedKeys'");
     }
 
     if (
+    /*shouldResetScroll*/
+    ctx[26] === undefined && !("shouldResetScroll" in props)) {
+      console.warn("<BarchartVDiv> was created without expected prop 'shouldResetScroll'");
+    }
+
+    if (
     /*shouldScrollToFocusedKey*/
-    ctx[33] === undefined && !("shouldScrollToFocusedKey" in props)) {
+    ctx[34] === undefined && !("shouldScrollToFocusedKey" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'shouldScrollToFocusedKey'");
     }
 
     if (
     /*theme*/
-    ctx[2] === undefined && !("theme" in props)) {
+    ctx[5] === undefined && !("theme" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'theme'");
     }
 
     if (
     /*title*/
-    ctx[4] === undefined && !("title" in props)) {
+    ctx[6] === undefined && !("title" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'title'");
     }
 
     if (
     /*valueAccessor*/
-    ctx[25] === undefined && !("valueAccessor" in props)) {
+    ctx[27] === undefined && !("valueAccessor" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'valueAccessor'");
     }
 
@@ -8693,6 +8818,14 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<BarchartVDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
+    key: "message",
+    get: function get() {
+      throw new Error("<BarchartVDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<BarchartVDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
     key: "refs",
     get: function get() {
       throw new Error("<BarchartVDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
@@ -8701,7 +8834,7 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<BarchartVDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
-    key: "shouldResetScroll",
+    key: "selectedKeys",
     get: function get() {
       throw new Error("<BarchartVDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     },
@@ -8709,7 +8842,7 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<BarchartVDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
-    key: "selectedKeys",
+    key: "shouldResetScroll",
     get: function get() {
       throw new Error("<BarchartVDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     },
@@ -8758,909 +8891,195 @@ var barchart = /*#__PURE__*/Object.freeze({
 	BarchartVDiv: BarchartVDiv
 });
 
-/**
- * Callback for coordEach
- *
- * @callback coordEachCallback
- * @param {Array<number>} currentCoord The current coordinate being processed.
- * @param {number} coordIndex The current index of the coordinate being processed.
- * @param {number} featureIndex The current index of the Feature being processed.
- * @param {number} multiFeatureIndex The current index of the Multi-Feature being processed.
- * @param {number} geometryIndex The current index of the Geometry being processed.
- */
-
-/**
- * Iterate over coordinates in any GeoJSON object, similar to Array.forEach()
- *
- * @name coordEach
- * @param {FeatureCollection|Feature|Geometry} geojson any GeoJSON object
- * @param {Function} callback a method that takes (currentCoord, coordIndex, featureIndex, multiFeatureIndex)
- * @param {boolean} [excludeWrapCoord=false] whether or not to include the final coordinate of LinearRings that wraps the ring in its iteration.
- * @returns {void}
- * @example
- * var features = turf.featureCollection([
- *   turf.point([26, 37], {"foo": "bar"}),
- *   turf.point([36, 53], {"hello": "world"})
- * ]);
- *
- * turf.coordEach(features, function (currentCoord, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) {
- *   //=currentCoord
- *   //=coordIndex
- *   //=featureIndex
- *   //=multiFeatureIndex
- *   //=geometryIndex
- * });
- */
-
-function coordEach(geojson, callback, excludeWrapCoord) {
-  // Handles null Geometry -- Skips this GeoJSON
-  if (geojson === null) return;
-  var j,
-      k,
-      l,
-      geometry,
-      stopG,
-      coords,
-      geometryMaybeCollection,
-      wrapShrink = 0,
-      coordIndex = 0,
-      isGeometryCollection,
-      type = geojson.type,
-      isFeatureCollection = type === 'FeatureCollection',
-      isFeature = type === 'Feature',
-      stop = isFeatureCollection ? geojson.features.length : 1; // This logic may look a little weird. The reason why it is that way
-  // is because it's trying to be fast. GeoJSON supports multiple kinds
-  // of objects at its root: FeatureCollection, Features, Geometries.
-  // This function has the responsibility of handling all of them, and that
-  // means that some of the `for` loops you see below actually just don't apply
-  // to certain inputs. For instance, if you give this just a
-  // Point geometry, then both loops are short-circuited and all we do
-  // is gradually rename the input until it's called 'geometry'.
-  //
-  // This also aims to allocate as few resources as possible: just a
-  // few numbers and booleans, rather than any temporary arrays as would
-  // be required with the normalization approach.
-
-  for (var featureIndex = 0; featureIndex < stop; featureIndex++) {
-    geometryMaybeCollection = isFeatureCollection ? geojson.features[featureIndex].geometry : isFeature ? geojson.geometry : geojson;
-    isGeometryCollection = geometryMaybeCollection ? geometryMaybeCollection.type === 'GeometryCollection' : false;
-    stopG = isGeometryCollection ? geometryMaybeCollection.geometries.length : 1;
-
-    for (var geomIndex = 0; geomIndex < stopG; geomIndex++) {
-      var multiFeatureIndex = 0;
-      var geometryIndex = 0;
-      geometry = isGeometryCollection ? geometryMaybeCollection.geometries[geomIndex] : geometryMaybeCollection; // Handles null Geometry -- Skips this geometry
-
-      if (geometry === null) continue;
-      coords = geometry.coordinates;
-      var geomType = geometry.type;
-      wrapShrink = excludeWrapCoord && (geomType === 'Polygon' || geomType === 'MultiPolygon') ? 1 : 0;
-
-      switch (geomType) {
-        case null:
-          break;
-
-        case 'Point':
-          if (callback(coords, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
-          coordIndex++;
-          multiFeatureIndex++;
-          break;
-
-        case 'LineString':
-        case 'MultiPoint':
-          for (j = 0; j < coords.length; j++) {
-            if (callback(coords[j], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
-            coordIndex++;
-            if (geomType === 'MultiPoint') multiFeatureIndex++;
-          }
-
-          if (geomType === 'LineString') multiFeatureIndex++;
-          break;
-
-        case 'Polygon':
-        case 'MultiLineString':
-          for (j = 0; j < coords.length; j++) {
-            for (k = 0; k < coords[j].length - wrapShrink; k++) {
-              if (callback(coords[j][k], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
-              coordIndex++;
-            }
-
-            if (geomType === 'MultiLineString') multiFeatureIndex++;
-            if (geomType === 'Polygon') geometryIndex++;
-          }
-
-          if (geomType === 'Polygon') multiFeatureIndex++;
-          break;
-
-        case 'MultiPolygon':
-          for (j = 0; j < coords.length; j++) {
-            geometryIndex = 0;
-
-            for (k = 0; k < coords[j].length; k++) {
-              for (l = 0; l < coords[j][k].length - wrapShrink; l++) {
-                if (callback(coords[j][k][l], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
-                coordIndex++;
-              }
-
-              geometryIndex++;
-            }
-
-            multiFeatureIndex++;
-          }
-
-          break;
-
-        case 'GeometryCollection':
-          for (j = 0; j < geometry.geometries.length; j++) {
-            if (coordEach(geometry.geometries[j], callback, excludeWrapCoord) === false) return false;
-          }
-
-          break;
-
-        default:
-          throw new Error('Unknown Geometry Type');
-      }
-    }
-  }
-}
-
-/**
- * Wraps a GeoJSON {@link Geometry} in a GeoJSON {@link Feature}.
- *
- * @name feature
- * @param {Geometry} geometry input geometry
- * @param {Object} [properties={}] an Object of key-value pairs to add as properties
- * @param {Object} [options={}] Optional Parameters
- * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
- * @param {string|number} [options.id] Identifier associated with the Feature
- * @returns {Feature} a GeoJSON Feature
- * @example
- * var geometry = {
- *   "type": "Point",
- *   "coordinates": [110, 50]
- * };
- *
- * var feature = turf.feature(geometry);
- *
- * //=feature
- */
-
-function feature(geom, properties, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var feat = {
-    type: "Feature"
-  };
-
-  if (options.id === 0 || options.id) {
-    feat.id = options.id;
-  }
-
-  if (options.bbox) {
-    feat.bbox = options.bbox;
-  }
-
-  feat.properties = properties || {};
-  feat.geometry = geom;
-  return feat;
-}
-/**
- * Creates a {@link Point} {@link Feature} from a Position.
- *
- * @name point
- * @param {Array<number>} coordinates longitude, latitude position (each in decimal degrees)
- * @param {Object} [properties={}] an Object of key-value pairs to add as properties
- * @param {Object} [options={}] Optional Parameters
- * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
- * @param {string|number} [options.id] Identifier associated with the Feature
- * @returns {Feature<Point>} a Point feature
- * @example
- * var point = turf.point([-75.343, 39.984]);
- *
- * //=point
- */
-
-function point(coordinates, properties, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var geom = {
-    type: "Point",
-    coordinates: coordinates
-  };
-  return feature(geom, properties, options);
-}
-/**
- * Takes one or more {@link Feature|Features} and creates a {@link FeatureCollection}.
- *
- * @name featureCollection
- * @param {Feature[]} features input features
- * @param {Object} [options={}] Optional Parameters
- * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
- * @param {string|number} [options.id] Identifier associated with the Feature
- * @returns {FeatureCollection} FeatureCollection of Features
- * @example
- * var locationA = turf.point([-75.343, 39.984], {name: 'Location A'});
- * var locationB = turf.point([-75.833, 39.284], {name: 'Location B'});
- * var locationC = turf.point([-75.534, 39.123], {name: 'Location C'});
- *
- * var collection = turf.featureCollection([
- *   locationA,
- *   locationB,
- *   locationC
- * ]);
- *
- * //=collection
- */
-
-function featureCollection(features, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var fc = {
-    type: "FeatureCollection"
-  };
-
-  if (options.id) {
-    fc.id = options.id;
-  }
-
-  if (options.bbox) {
-    fc.bbox = options.bbox;
-  }
-
-  fc.features = features;
-  return fc;
-}
-
-/**
- * Takes one or more features and calculates the centroid using the mean of all vertices.
- * This lessens the effect of small islands and artifacts when calculating the centroid of a set of polygons.
- *
- * @name centroid
- * @param {GeoJSON} geojson GeoJSON to be centered
- * @param {Object} [options={}] Optional Parameters
- * @param {Object} [options.properties={}] an Object that is used as the {@link Feature}'s properties
- * @returns {Feature<Point>} the centroid of the input features
- * @example
- * var polygon = turf.polygon([[[-81, 41], [-88, 36], [-84, 31], [-80, 33], [-77, 39], [-81, 41]]]);
- *
- * var centroid = turf.centroid(polygon);
- *
- * //addToMap
- * var addToMap = [polygon, centroid]
- */
-
-function centroid(geojson, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var xSum = 0;
-  var ySum = 0;
-  var len = 0;
-  coordEach(geojson, function (coord) {
-    xSum += coord[0];
-    ySum += coord[1];
-    len++;
-  });
-  return point([xSum / len, ySum / len], options.properties);
-}
-
-/**
- * Takes a GeoJSON Feature or FeatureCollection and truncates the precision of the geometry.
- *
- * @name truncate
- * @param {GeoJSON} geojson any GeoJSON Feature, FeatureCollection, Geometry or GeometryCollection.
- * @param {Object} [options={}] Optional parameters
- * @param {number} [options.precision=6] coordinate decimal precision
- * @param {number} [options.coordinates=3] maximum number of coordinates (primarly used to remove z coordinates)
- * @param {boolean} [options.mutate=false] allows GeoJSON input to be mutated (significant performance increase if true)
- * @returns {GeoJSON} layer with truncated geometry
- * @example
- * var point = turf.point([
- *     70.46923055566859,
- *     58.11088890802906,
- *     1508
- * ]);
- * var options = {precision: 3, coordinates: 2};
- * var truncated = turf.truncate(point, options);
- * //=truncated.geometry.coordinates => [70.469, 58.111]
- *
- * //addToMap
- * var addToMap = [truncated];
- */
-
-function truncate(geojson, options) {
-  if (options === void 0) {
-    options = {};
-  } // Optional parameters
-
-
-  var precision = options.precision;
-  var coordinates = options.coordinates;
-  var mutate = options.mutate; // default params
-
-  precision = precision === undefined || precision === null || isNaN(precision) ? 6 : precision;
-  coordinates = coordinates === undefined || coordinates === null || isNaN(coordinates) ? 3 : coordinates; // validation
-
-  if (!geojson) throw new Error('<geojson> is required');
-  if (typeof precision !== 'number') throw new Error('<precision> must be a number');
-  if (typeof coordinates !== 'number') throw new Error('<coordinates> must be a number'); // prevent input mutation
-
-  if (mutate === false || mutate === undefined) geojson = JSON.parse(JSON.stringify(geojson));
-  var factor = Math.pow(10, precision); // Truncate Coordinates
-
-  coordEach(geojson, function (coords) {
-    truncateCoords(coords, factor, coordinates);
-  });
-  return geojson;
-}
-/**
- * Truncate Coordinates - Mutates coordinates in place
- *
- * @private
- * @param {Array<any>} coords Geometry Coordinates
- * @param {number} factor rounding factor for coordinate decimal precision
- * @param {number} coordinates maximum number of coordinates (primarly used to remove z coordinates)
- * @returns {Array<any>} mutated coordinates
- */
-
-
-function truncateCoords(coords, factor, coordinates) {
-  // Remove extra coordinates (usually elevation coordinates and more)
-  if (coords.length > coordinates) coords.splice(coordinates, coords.length); // Truncate coordinate decimals
-
-  for (var i = 0; i < coords.length; i++) {
-    coords[i] = Math.round(coords[i] * factor) / factor;
-  }
-
-  return coords;
-}
-
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-/**
- * Return a function expecting a geojson and creating or updating the provided property of all features using the provided map.
- * Note that you can pass a `key or an alternative key `key_alt` e.g. when you use ISO Alpha 2 codes and you need to identify unrecognized territories with another key.
- *
- * @function
- * @arg {object} args - Geojson object
- * @arg {string} args.key_alt - Alternative key to be found in properties in `key` is not found.
- * @arg {string} args.key - Key to be found in properties
- * @arg {object} args.map - Mapping key (string) -> string
- * @arg {function} args.mapFn - Function key (string) -> string
- * @arg {string} args.propName - Name of the property to be added to `properties`
- * @return {function} - Object -> Object
- *
- * @example
-> geojson = {
-	type: 'FeatureCollection',
-	features: [{
-		type: 'Feature',
-		geometry: {
-			type: 'Polygon',
-			coordinates: [
-				[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
-			]
-		},
-		properties: {iso_a2: 'BF'}
-	}, {
-		type: 'Feature',
-		geometry: {
-			type: 'Polygon',
-			coordinates: [
-				[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
-			]
-		},
-		properties: {name: 'Kosovo'}
-	}, {
-		type: 'Feature',
-		geometry: {
-			type: 'Polygon',
-			coordinates: [
-				[[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
-			]
-		},
-		properties: {iso_a2: 'FR'}
-	}]
-}
-> keyToColor = {BF: 'red', Kosovo: 'yellow'}
-> addColor = makeAddFeaturesProperty({
-	propName: 'color',
-	map: keyToColor,
-	key: 'iso_a2',
-	key_alt: 'name'
-})
-> coloredFeatures = addColor(geojson)
-{
-	type: 'FeatureCollection',
-	features: [{
-		type: 'Feature',
-		geometry: {
-			type: 'Polygon',
-			coordinates: [
-				[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
-			]
-		},
-		properties: {iso_a2: 'BF', color: 'red'}
-	}, {
-		type: 'Feature',
-		geometry: {
-			type: 'Polygon',
-			coordinates: [
-				[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
-			]
-		},
-		properties: {name: 'Kosovo', color: 'yellow'}
-	}, {
-		type: 'Feature',
-		geometry: {
-			type: 'Polygon',
-			coordinates: [
-				[[4, -1], [2, 7], [0, 5], [0, -4], [4, -1]]
-			]
-		},
-		properties: {iso_a2: 'FR', color: undefined}
-	}]
-}
- * @version 0.5.0
- */
-
-var makeUpdateFeaturesProperty = function makeUpdateFeaturesProperty(_ref) {
-  var key_alt = _ref.key_alt,
-      key = _ref.key,
-      map = _ref.map,
-      mapFn = _ref.mapFn,
-      propName = _ref.propName;
-  return updateKey('features', mapWith(updateKey('properties', function (properties) {
-    var propValue;
-
-    if (map) {
-      propValue = has(map, properties[key]) ? map[properties[key]] : has(map, properties[key_alt]) ? map[properties[key_alt]] : undefined;
-    } else if (mapFn) {
-      propValue = properties[key] ? mapFn(properties[key]) : properties[key_alt] ? mapFn(properties[key_alt]) : undefined;
-    }
-
-    return _objectSpread$3(_objectSpread$3({}, properties), {}, _defineProperty({}, propName, propValue));
-  })));
-};
-/**
- * Return the a collection of centroids of the provided features, each having the correspondent feature properties.
- *
- * @function
- * @arg {array} features - Array of features
- * @return {object} collection - FeatureCollection of Point features
- *
- * @example
-> makeCentroids([
-	{
-		type: 'Feature',
-		properties: {foo: 'a'},
-		geometry: {type: 'LineString', coordinates: [
-			[[1, -1], [1, 1], [-1, 1], [-1, -1], [1, -1]]
-		]}
-	},
-	{
-		type: 'Feature',
-		properties: {foo: 'b'},
-		geometry: {type: 'LineString', coordinates: [
-			[[2, -1], [2, 1], [0, 1], [0, -1], [2, -1]]
-		]}
-	}
-])
-{
-	type: 'FeatureCollection',
-	features: [{
-		type: 'Feature',
-		geometry: {type: 'Point', coordinates: [0.2, -0.2]},
-		properties: {foo: 'a'}
-	}, {
-		type: 'Feature',
-		geometry: {type: 'Point', coordinates: [1.2, -0.2]},
-		properties: {foo: 'b'}
-	}]
-}
- * @version 0.1.0
- */
-
-var makeCentroids = pipe([mapWith(function (feature) {
-  return centroid(feature, {
-    properties: feature.properties
-  });
-}), featureCollection]);
-
-/**
- * Return a function returning a copy of the provided geojson having the geometry coordinates rounded to the given precision.
- *
- * @function
- * @arg {number} precision - coordinate decimal precision
- * @return {function} - Geojson -> Geojson
- *
- * @example
-> truncateGeometry = setGeometryPrecision(4)
-> point = {
-	type: 'Feature',
-	geometry: {type: 'Point', coordinates: [0.1234567, 0.12341]},
-	properties: {name: 'a'}
-}
-> truncateGeometry(point)
-{
-	type: 'Feature',
-	geometry: {type: 'Point', coordinates: [0.1234, 0.1234]},
-	properties: {name: 'a'}
-}
- * @version 0.1.0
- */
-
-var setGeometryPrecision = function setGeometryPrecision(precision) {
-  return function (geojson) {
-    return truncate(geojson, {
-      precision: precision,
-      mutate: false
-    });
-  };
-}; // TODO DOC: define FeatureCollection type
-
 var projections = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	geoAzimuthalEqualArea: azimuthalEqualArea,
 	geoAzimuthalEquidistant: azimuthalEquidistant,
-	geoEqualEarth: equalEarth,
+	geoEqualEarth: projectionFn,
 	geoEquirectangular: equirectangular,
 	geoMercator: mercator,
 	geoNaturalEarth1: naturalEarth1
 });
 
-function identity (x) {
-  return x;
-}
-
-function transform (transform) {
-  if (transform == null) return identity;
-  var x0,
-      y0,
-      kx = transform.scale[0],
-      ky = transform.scale[1],
-      dx = transform.translate[0],
-      dy = transform.translate[1];
-  return function (input, i) {
-    if (!i) x0 = y0 = 0;
-    var j = 2,
-        n = input.length,
-        output = new Array(n);
-    output[0] = (x0 += input[0]) * kx + dx;
-    output[1] = (y0 += input[1]) * ky + dy;
-
-    while (j < n) {
-      output[j] = input[j], ++j;
-    }
-
-    return output;
-  };
-}
-
-function reverse (array, n) {
-  var t,
-      j = array.length,
-      i = j - n;
-
-  while (i < --j) {
-    t = array[i], array[i++] = array[j], array[j] = t;
-  }
-}
-
-function feature$1 (topology, o) {
-  if (typeof o === "string") o = topology.objects[o];
-  return o.type === "GeometryCollection" ? {
-    type: "FeatureCollection",
-    features: o.geometries.map(function (o) {
-      return feature$2(topology, o);
-    })
-  } : feature$2(topology, o);
-}
-
-function feature$2(topology, o) {
-  var id = o.id,
-      bbox = o.bbox,
-      properties = o.properties == null ? {} : o.properties,
-      geometry = object(topology, o);
-  return id == null && bbox == null ? {
-    type: "Feature",
-    properties: properties,
-    geometry: geometry
-  } : bbox == null ? {
-    type: "Feature",
-    id: id,
-    properties: properties,
-    geometry: geometry
-  } : {
-    type: "Feature",
-    id: id,
-    bbox: bbox,
-    properties: properties,
-    geometry: geometry
-  };
-}
-
-function object(topology, o) {
-  var transformPoint = transform(topology.transform),
-      arcs = topology.arcs;
-
-  function arc(i, points) {
-    if (points.length) points.pop();
-
-    for (var a = arcs[i < 0 ? ~i : i], k = 0, n = a.length; k < n; ++k) {
-      points.push(transformPoint(a[k], k));
-    }
-
-    if (i < 0) reverse(points, n);
-  }
-
-  function point(p) {
-    return transformPoint(p);
-  }
-
-  function line(arcs) {
-    var points = [];
-
-    for (var i = 0, n = arcs.length; i < n; ++i) {
-      arc(arcs[i], points);
-    }
-
-    if (points.length < 2) points.push(points[0]); // This should never happen per the specification.
-
-    return points;
-  }
-
-  function ring(arcs) {
-    var points = line(arcs);
-
-    while (points.length < 4) {
-      points.push(points[0]);
-    } // This may happen if an arc has only two points.
-
-
-    return points;
-  }
-
-  function polygon(arcs) {
-    return arcs.map(ring);
-  }
-
-  function geometry(o) {
-    var type = o.type,
-        coordinates;
-
-    switch (type) {
-      case "GeometryCollection":
-        return {
-          type: type,
-          geometries: o.geometries.map(geometry)
-        };
-
-      case "Point":
-        coordinates = point(o.coordinates);
-        break;
-
-      case "MultiPoint":
-        coordinates = o.coordinates.map(point);
-        break;
-
-      case "LineString":
-        coordinates = line(o.arcs);
-        break;
-
-      case "MultiLineString":
-        coordinates = o.arcs.map(line);
-        break;
-
-      case "Polygon":
-        coordinates = polygon(o.arcs);
-        break;
-
-      case "MultiPolygon":
-        coordinates = o.arcs.map(polygon);
-        break;
-
-      default:
-        return null;
-    }
-
-    return {
-      type: type,
-      coordinates: coordinates
-    };
-  }
-
-  return geometry(o);
-}
-
-/**
-* @module @svizzle/choropleth/utils
-*/
-var defaultGeometry = {
-  bottom: 10,
-  left: 10,
-  right: 10,
-  top: 10
-};
-var truncateGeojson = setGeometryPrecision(4);
-/**
- * Convert a topojson to a geojson truncating coordinates to precision 4.
- * This is quite specific to `@svizzle/choropleth` to limit the geojson weight down for performance reasons.
- * For a full conversion use:
- * ```
- * import {feature} from 'topojson-client';
- * feature(topojson, topojson.objects[id])
- * ```
- *
- * @function
- * @arg {object} topojson - the topojson to be converted to geojson
- * @arg {id} string - the id of the object to convert
- * @return {object} geojson
- *
- * @example
-> const topojson = {
-	'type': 'Topology',
-	'transform': {
-		'scale': [0.00001,0.00001],
-		'translate': [-63.15364,-21.38731]
-	},
-	'objects': {
-		'NUTS': {
-			'type': 'GeometryCollection',
-			'geometries': [
-				{
-					'type': 'Polygon',
-					'arcs': [...],
-					'id': 'BE',
-					'properties': {...}
-				}
-			]
-		}
-	},
-	'arcs': [[[6569909,7247636], [1369,-1901], ...]
-}
-> topoToGeo(topojson, 'NUTS')
-{
-	'type': 'FeatureCollection',
-	'features': [
-		{
-			'type': 'Feature',
-			'id': 'BE',
-			'properties': {...},
-			'geometry': {
-				'type': 'Polygon',
-				'coordinates': [
-					[[6.3163,50.4967], ...
-				]
-			}
-		}
-	]
-}
- *
- * @version 0.4.0
- */
-
-var topoToGeo = function topoToGeo(topojson, id) {
-  return truncateGeojson(feature$1(topojson, topojson.objects[id]));
-};
-
 function _createSuper$e(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$e(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct$e() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var file$8 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethG.svelte";
 
 function get_each_context$4(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[35] = list[i];
+  child_ctx[37] = list[i];
   return child_ctx;
-} // (90:0) {#if height && width}
+} // (99:0) {#if height && width}
 
 
 function create_if_block$5(ctx) {
-  var g1;
-  var rect;
-  var g0;
-  var g0_transform_value;
-  var if_block =
-  /*coloredGeojson*/
-  ctx[8] && create_if_block_1$4(ctx);
+  var g;
+
+  function select_block_type(ctx, dirty) {
+    if (!
+    /*topojson*/
+    ctx[5]) return create_if_block_1$4;
+    return create_else_block$2;
+  }
+
+  var current_block_type = select_block_type(ctx);
+  var if_block = current_block_type(ctx);
   var block = {
     c: function create() {
-      g1 = svg_element("g");
+      g = svg_element("g");
+      if_block.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      g = claim_element(nodes, "g", {
+        style: true,
+        class: true
+      }, 1);
+      var g_nodes = children(g);
+      if_block.l(g_nodes);
+      g_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(g, "style",
+      /*style*/
+      ctx[9]);
+      attr_dev(g, "class", "ChoroplethG svelte-54gkh3");
+      toggle_class(g, "interactive",
+      /*isInteractive*/
+      ctx[1]);
+      add_location(g, file$8, 99, 0, 3025);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, g, anchor);
+      if_block.m(g, null);
+    },
+    p: function update(ctx, dirty) {
+      if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+        if_block.p(ctx, dirty);
+      } else {
+        if_block.d(1);
+        if_block = current_block_type(ctx);
+
+        if (if_block) {
+          if_block.c();
+          if_block.m(g, null);
+        }
+      }
+
+      if (dirty[0] &
+      /*style*/
+      512) {
+        attr_dev(g, "style",
+        /*style*/
+        ctx[9]);
+      }
+
+      if (dirty[0] &
+      /*isInteractive*/
+      2) {
+        toggle_class(g, "interactive",
+        /*isInteractive*/
+        ctx[1]);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(g);
+      if_block.d();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block$5.name,
+    type: "if",
+    source: "(99:0) {#if height && width}",
+    ctx: ctx
+  });
+  return block;
+} // (113:1) {:else}
+
+
+function create_else_block$2(ctx) {
+  var rect;
+  var g;
+  var g_transform_value;
+  var if_block =
+  /*coloredGeojson*/
+  ctx[10] && create_if_block_2$3(ctx);
+  var block = {
+    c: function create() {
       rect = svg_element("rect");
-      g0 = svg_element("g");
+      g = svg_element("g");
       if (if_block) if_block.c();
       this.h();
     },
     l: function claim(nodes) {
-      g1 = claim_element(nodes, "g", {
-        style: true,
-        class: true
-      }, 1);
-      var g1_nodes = children(g1);
-      rect = claim_element(g1_nodes, "rect", {
+      rect = claim_element(nodes, "rect", {
         height: true,
         width: true,
         class: true
       }, 1);
       children(rect).forEach(detach_dev);
-      g0 = claim_element(g1_nodes, "g", {
+      g = claim_element(nodes, "g", {
         transform: true
       }, 1);
-      var g0_nodes = children(g0);
-      if (if_block) if_block.l(g0_nodes);
-      g0_nodes.forEach(detach_dev);
-      g1_nodes.forEach(detach_dev);
+      var g_nodes = children(g);
+      if (if_block) if_block.l(g_nodes);
+      g_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
       attr_dev(rect, "height",
       /*height*/
-      ctx[3]);
+      ctx[4]);
       attr_dev(rect, "width",
       /*width*/
-      ctx[4]);
-      attr_dev(rect, "class", "bkg svelte-pao8j0");
-      add_location(rect, file$8, 95, 1, 2797);
-      attr_dev(g0, "transform", g0_transform_value = "translate(" +
+      ctx[6]);
+      attr_dev(rect, "class", "bkg svelte-54gkh3");
+      add_location(rect, file$8, 114, 1, 3198);
+      attr_dev(g, "transform", g_transform_value = "translate(" +
       /*geometry*/
       ctx[0].left + "," +
       /*geometry*/
       ctx[0].top + ")");
-      add_location(g0, file$8, 100, 1, 2843);
-      attr_dev(g1, "style",
-      /*style*/
-      ctx[7]);
-      attr_dev(g1, "class", "ChoroplethG svelte-pao8j0");
-      toggle_class(g1, "interactive",
-      /*isInteractive*/
-      ctx[1]);
-      add_location(g1, file$8, 90, 0, 2725);
+      add_location(g, file$8, 119, 1, 3244);
     },
     m: function mount(target, anchor) {
-      insert_dev(target, g1, anchor);
-      append_dev(g1, rect);
-      append_dev(g1, g0);
-      if (if_block) if_block.m(g0, null);
+      insert_dev(target, rect, anchor);
+      insert_dev(target, g, anchor);
+      if (if_block) if_block.m(g, null);
     },
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*height*/
-      8) {
+      16) {
         attr_dev(rect, "height",
         /*height*/
-        ctx[3]);
+        ctx[4]);
       }
 
       if (dirty[0] &
       /*width*/
-      16) {
+      64) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[4]);
+        ctx[6]);
       }
 
       if (
       /*coloredGeojson*/
-      ctx[8]) {
+      ctx[10]) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
-          if_block = create_if_block_1$4(ctx);
+          if_block = create_if_block_2$3(ctx);
           if_block.c();
-          if_block.m(g0, null);
+          if_block.m(g, null);
         }
       } else if (if_block) {
         if_block.d(1);
@@ -9669,51 +9088,114 @@ function create_if_block$5(ctx) {
 
       if (dirty[0] &
       /*geometry*/
-      1 && g0_transform_value !== (g0_transform_value = "translate(" +
+      1 && g_transform_value !== (g_transform_value = "translate(" +
       /*geometry*/
       ctx[0].left + "," +
       /*geometry*/
       ctx[0].top + ")")) {
-        attr_dev(g0, "transform", g0_transform_value);
-      }
-
-      if (dirty[0] &
-      /*style*/
-      128) {
-        attr_dev(g1, "style",
-        /*style*/
-        ctx[7]);
-      }
-
-      if (dirty[0] &
-      /*isInteractive*/
-      2) {
-        toggle_class(g1, "interactive",
-        /*isInteractive*/
-        ctx[1]);
+        attr_dev(g, "transform", g_transform_value);
       }
     },
     d: function destroy(detaching) {
-      if (detaching) detach_dev(g1);
+      if (detaching) detach_dev(rect);
+      if (detaching) detach_dev(g);
       if (if_block) if_block.d();
     }
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block$5.name,
-    type: "if",
-    source: "(90:0) {#if height && width}",
+    id: create_else_block$2.name,
+    type: "else",
+    source: "(113:1) {:else}",
     ctx: ctx
   });
   return block;
-} // (102:2) {#if coloredGeojson}
+} // (105:1) {#if !topojson}
 
 
 function create_if_block_1$4(ctx) {
+  var text_1;
+  var t;
+  var text_1_x_value;
+  var text_1_y_value;
+  var block = {
+    c: function create() {
+      text_1 = svg_element("text");
+      t = text(
+      /*message*/
+      ctx[3]);
+      this.h();
+    },
+    l: function claim(nodes) {
+      text_1 = claim_element(nodes, "text", {
+        class: true,
+        x: true,
+        y: true
+      }, 1);
+      var text_1_nodes = children(text_1);
+      t = claim_text(text_1_nodes,
+      /*message*/
+      ctx[3]);
+      text_1_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(text_1, "class", "message svelte-54gkh3");
+      attr_dev(text_1, "x", text_1_x_value =
+      /*width*/
+      ctx[6] / 2);
+      attr_dev(text_1, "y", text_1_y_value =
+      /*height*/
+      ctx[4] / 2);
+      add_location(text_1, file$8, 106, 1, 3114);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, text_1, anchor);
+      append_dev(text_1, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*message*/
+      8) set_data_dev(t,
+      /*message*/
+      ctx[3]);
+
+      if (dirty[0] &
+      /*width*/
+      64 && text_1_x_value !== (text_1_x_value =
+      /*width*/
+      ctx[6] / 2)) {
+        attr_dev(text_1, "x", text_1_x_value);
+      }
+
+      if (dirty[0] &
+      /*height*/
+      16 && text_1_y_value !== (text_1_y_value =
+      /*height*/
+      ctx[4] / 2)) {
+        attr_dev(text_1, "y", text_1_y_value);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(text_1);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_1$4.name,
+    type: "if",
+    source: "(105:1) {#if !topojson}",
+    ctx: ctx
+  });
+  return block;
+} // (121:2) {#if coloredGeojson}
+
+
+function create_if_block_2$3(ctx) {
   var each_1_anchor;
   var each_value =
   /*coloredGeojson*/
-  ctx[8].features;
+  ctx[10].features;
   validate_each_argument(each_value);
   var each_blocks = [];
 
@@ -9746,10 +9228,10 @@ function create_if_block_1$4(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*coloredGeojson, key, key_alt, isDeselected, isSelected, focusedKey, isFocused, geopath, isClickable, dispatch, getPayload, isInteractive*/
-      65382) {
+      261510) {
         each_value =
         /*coloredGeojson*/
-        ctx[8].features;
+        ctx[10].features;
         validate_each_argument(each_value);
 
         var _i4;
@@ -9782,13 +9264,13 @@ function create_if_block_1$4(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_1$4.name,
+    id: create_if_block_2$3.name,
     type: "if",
-    source: "(102:2) {#if coloredGeojson}",
+    source: "(121:2) {#if coloredGeojson}",
     ctx: ctx
   });
   return block;
-} // (103:2) {#each coloredGeojson.features as feature}
+} // (122:2) {#each coloredGeojson.features as feature}
 
 
 function create_each_block$4(ctx) {
@@ -9808,9 +9290,9 @@ function create_each_block$4(ctx) {
 
     return (
       /*click_handler*/
-      (_ctx = ctx)[24].apply(_ctx, [
+      (_ctx = ctx)[26].apply(_ctx, [
       /*feature*/
-      ctx[35]].concat(args))
+      ctx[37]].concat(args))
     );
   }
 
@@ -9823,9 +9305,9 @@ function create_each_block$4(ctx) {
 
     return (
       /*mouseenter_handler*/
-      (_ctx2 = ctx)[25].apply(_ctx2, [
+      (_ctx2 = ctx)[27].apply(_ctx2, [
       /*feature*/
-      ctx[35]].concat(args))
+      ctx[37]].concat(args))
     );
   }
 
@@ -9838,9 +9320,9 @@ function create_each_block$4(ctx) {
 
     return (
       /*mouseleave_handler*/
-      (_ctx3 = ctx)[26].apply(_ctx3, [
+      (_ctx3 = ctx)[28].apply(_ctx3, [
       /*feature*/
-      ctx[35]].concat(args))
+      ctx[37]].concat(args))
     );
   }
 
@@ -9868,47 +9350,47 @@ function create_each_block$4(ctx) {
     h: function hydrate() {
       attr_dev(path, "d", path_d_value =
       /*geopath*/
-      ctx[9](
+      ctx[11](
       /*feature*/
-      ctx[35]));
+      ctx[37]));
       set_style(path, "fill",
       /*feature*/
-      ctx[35].properties.color || null);
-      attr_dev(path, "class", "svelte-pao8j0");
+      ctx[37].properties.color || null);
+      attr_dev(path, "class", "svelte-54gkh3");
       toggle_class(path, "clickable",
       /*isClickable*/
-      ctx[14](
+      ctx[16](
       /*feature*/
-      ctx[35]));
-      add_location(path, file$8, 110, 3, 3199);
-      attr_dev(g, "class", "feature svelte-pao8j0");
+      ctx[37]));
+      add_location(path, file$8, 129, 3, 3600);
+      attr_dev(g, "class", "feature svelte-54gkh3");
       attr_dev(g, "id", g_id_value =
       /*feature*/
-      ctx[35].properties[
+      ctx[37].properties[
       /*key*/
-      ctx[6]] ||
+      ctx[8]] ||
       /*feature*/
-      ctx[35].properties[
+      ctx[37].properties[
       /*key_alt*/
       ctx[2]]);
       toggle_class(g, "deselected",
       /*isDeselected*/
-      ctx[13](
+      ctx[15](
       /*feature*/
-      ctx[35]));
+      ctx[37]));
       toggle_class(g, "selected",
       /*isSelected*/
-      ctx[12](
+      ctx[14](
       /*feature*/
-      ctx[35]));
+      ctx[37]));
       toggle_class(g, "focused",
       /*focusedKey*/
-      ctx[5] &&
+      ctx[7] &&
       /*isFocused*/
-      ctx[11](
+      ctx[13](
       /*feature*/
-      ctx[35]));
-      add_location(g, file$8, 103, 2, 2971);
+      ctx[37]));
+      add_location(g, file$8, 122, 2, 3372);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -9924,41 +9406,41 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*geopath, coloredGeojson*/
-      768 && path_d_value !== (path_d_value =
+      3072 && path_d_value !== (path_d_value =
       /*geopath*/
-      ctx[9](
+      ctx[11](
       /*feature*/
-      ctx[35]))) {
+      ctx[37]))) {
         attr_dev(path, "d", path_d_value);
       }
 
       if (dirty[0] &
       /*coloredGeojson*/
-      256) {
+      1024) {
         set_style(path, "fill",
         /*feature*/
-        ctx[35].properties.color || null);
+        ctx[37].properties.color || null);
       }
 
       if (dirty[0] &
       /*isClickable, coloredGeojson*/
-      16640) {
+      66560) {
         toggle_class(path, "clickable",
         /*isClickable*/
-        ctx[14](
+        ctx[16](
         /*feature*/
-        ctx[35]));
+        ctx[37]));
       }
 
       if (dirty[0] &
       /*coloredGeojson, key, key_alt*/
-      324 && g_id_value !== (g_id_value =
+      1284 && g_id_value !== (g_id_value =
       /*feature*/
-      ctx[35].properties[
+      ctx[37].properties[
       /*key*/
-      ctx[6]] ||
+      ctx[8]] ||
       /*feature*/
-      ctx[35].properties[
+      ctx[37].properties[
       /*key_alt*/
       ctx[2]])) {
         attr_dev(g, "id", g_id_value);
@@ -9966,34 +9448,34 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*isDeselected, coloredGeojson*/
-      8448) {
+      33792) {
         toggle_class(g, "deselected",
         /*isDeselected*/
-        ctx[13](
+        ctx[15](
         /*feature*/
-        ctx[35]));
+        ctx[37]));
       }
 
       if (dirty[0] &
       /*isSelected, coloredGeojson*/
-      4352) {
+      17408) {
         toggle_class(g, "selected",
         /*isSelected*/
-        ctx[12](
+        ctx[14](
         /*feature*/
-        ctx[35]));
+        ctx[37]));
       }
 
       if (dirty[0] &
       /*focusedKey, isFocused, coloredGeojson*/
-      2336) {
+      9344) {
         toggle_class(g, "focused",
         /*focusedKey*/
-        ctx[5] &&
+        ctx[7] &&
         /*isFocused*/
-        ctx[11](
+        ctx[13](
         /*feature*/
-        ctx[35]));
+        ctx[37]));
       }
     },
     d: function destroy(detaching) {
@@ -10006,7 +9488,7 @@ function create_each_block$4(ctx) {
     block: block,
     id: create_each_block$4.name,
     type: "each",
-    source: "(103:2) {#each coloredGeojson.features as feature}",
+    source: "(122:2) {#each coloredGeojson.features as feature}",
     ctx: ctx
   });
   return block;
@@ -10016,9 +9498,9 @@ function create_fragment$e(ctx) {
   var if_block_anchor;
   var if_block =
   /*height*/
-  ctx[3] &&
+  ctx[4] &&
   /*width*/
-  ctx[4] && create_if_block$5(ctx);
+  ctx[6] && create_if_block$5(ctx);
   var block = {
     c: function create() {
       if (if_block) if_block.c();
@@ -10035,9 +9517,9 @@ function create_fragment$e(ctx) {
     p: function update(ctx, dirty) {
       if (
       /*height*/
-      ctx[3] &&
+      ctx[4] &&
       /*width*/
-      ctx[4]) {
+      ctx[6]) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
@@ -10083,6 +9565,8 @@ function instance$e($$self, $$props, $$invalidate) {
     hoverStroke: "black",
     hoverStrokedasharray: "",
     hoverStrokeWidth: 1.5,
+    messageColor: "black",
+    messageFontSize: "1rem",
     selectedStroke: "black",
     selectedStrokeWidth: 1
   };
@@ -10097,11 +9581,13 @@ function instance$e($$self, $$props, $$invalidate) {
   var key = $$props.key;
   var keyToColor = $$props.keyToColor;
   var keyToColorFn = $$props.keyToColorFn;
+  var message = $$props.message;
+  var projection = $$props.projection;
   var projectionFn = $$props.projectionFn;
   var projectionId = $$props.projectionId;
   var selectedKeys = $$props.selectedKeys;
   var theme = $$props.theme;
-  var writable_props = ["height", "topojson", "topojsonId", "width", "focusedKey", "geometry", "isInteractive", "key_alt", "key", "keyToColor", "keyToColorFn", "projectionFn", "projectionId", "selectedKeys", "theme"];
+  var writable_props = ["height", "topojson", "topojsonId", "width", "focusedKey", "geometry", "isInteractive", "key_alt", "key", "keyToColor", "keyToColorFn", "message", "projection", "projectionFn", "projectionId", "selectedKeys", "theme"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<ChoroplethG> was created with unknown prop '".concat(key, "'"));
   });
@@ -10123,21 +9609,23 @@ function instance$e($$self, $$props, $$invalidate) {
   };
 
   $$self.$set = function ($$props) {
-    if ("height" in $$props) $$invalidate(3, height = $$props.height);
-    if ("topojson" in $$props) $$invalidate(18, topojson = $$props.topojson);
-    if ("topojsonId" in $$props) $$invalidate(19, topojsonId = $$props.topojsonId);
-    if ("width" in $$props) $$invalidate(4, width = $$props.width);
-    if ("focusedKey" in $$props) $$invalidate(5, focusedKey = $$props.focusedKey);
+    if ("height" in $$props) $$invalidate(4, height = $$props.height);
+    if ("topojson" in $$props) $$invalidate(5, topojson = $$props.topojson);
+    if ("topojsonId" in $$props) $$invalidate(23, topojsonId = $$props.topojsonId);
+    if ("width" in $$props) $$invalidate(6, width = $$props.width);
+    if ("focusedKey" in $$props) $$invalidate(7, focusedKey = $$props.focusedKey);
     if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
-    if ("key" in $$props) $$invalidate(6, key = $$props.key);
-    if ("keyToColor" in $$props) $$invalidate(20, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(21, keyToColorFn = $$props.keyToColorFn);
-    if ("projectionFn" in $$props) $$invalidate(22, projectionFn = $$props.projectionFn);
-    if ("projectionId" in $$props) $$invalidate(23, projectionId = $$props.projectionId);
-    if ("selectedKeys" in $$props) $$invalidate(16, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(17, theme = $$props.theme);
+    if ("key" in $$props) $$invalidate(8, key = $$props.key);
+    if ("keyToColor" in $$props) $$invalidate(24, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(25, keyToColorFn = $$props.keyToColorFn);
+    if ("message" in $$props) $$invalidate(3, message = $$props.message);
+    if ("projection" in $$props) $$invalidate(18, projection = $$props.projection);
+    if ("projectionFn" in $$props) $$invalidate(19, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(20, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(21, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(22, theme = $$props.theme);
   };
 
   $$self.$capture_state = function () {
@@ -10165,18 +9653,20 @@ function instance$e($$self, $$props, $$invalidate) {
       key: key,
       keyToColor: keyToColor,
       keyToColorFn: keyToColorFn,
+      message: message,
+      projection: projection,
       projectionFn: projectionFn,
       projectionId: projectionId,
       selectedKeys: selectedKeys,
       theme: theme,
-      geojson: geojson,
-      projection: projection,
+      projectionFunc: projectionFunc,
       style: style,
       innerHeight: innerHeight,
       innerWidth: innerWidth,
       createColoredGeojson: createColoredGeojson,
+      geojson: geojson,
       coloredGeojson: coloredGeojson,
-      fitProjection: fitProjection,
+      currentProjection: currentProjection,
       geopath: geopath,
       getPayload: getPayload,
       isFocused: isFocused,
@@ -10187,45 +9677,47 @@ function instance$e($$self, $$props, $$invalidate) {
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("height" in $$props) $$invalidate(3, height = $$props.height);
-    if ("topojson" in $$props) $$invalidate(18, topojson = $$props.topojson);
-    if ("topojsonId" in $$props) $$invalidate(19, topojsonId = $$props.topojsonId);
-    if ("width" in $$props) $$invalidate(4, width = $$props.width);
-    if ("focusedKey" in $$props) $$invalidate(5, focusedKey = $$props.focusedKey);
+    if ("height" in $$props) $$invalidate(4, height = $$props.height);
+    if ("topojson" in $$props) $$invalidate(5, topojson = $$props.topojson);
+    if ("topojsonId" in $$props) $$invalidate(23, topojsonId = $$props.topojsonId);
+    if ("width" in $$props) $$invalidate(6, width = $$props.width);
+    if ("focusedKey" in $$props) $$invalidate(7, focusedKey = $$props.focusedKey);
     if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
-    if ("key" in $$props) $$invalidate(6, key = $$props.key);
-    if ("keyToColor" in $$props) $$invalidate(20, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(21, keyToColorFn = $$props.keyToColorFn);
-    if ("projectionFn" in $$props) $$invalidate(22, projectionFn = $$props.projectionFn);
-    if ("projectionId" in $$props) $$invalidate(23, projectionId = $$props.projectionId);
-    if ("selectedKeys" in $$props) $$invalidate(16, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(17, theme = $$props.theme);
-    if ("geojson" in $$props) $$invalidate(27, geojson = $$props.geojson);
-    if ("projection" in $$props) $$invalidate(28, projection = $$props.projection);
-    if ("style" in $$props) $$invalidate(7, style = $$props.style);
-    if ("innerHeight" in $$props) $$invalidate(29, innerHeight = $$props.innerHeight);
-    if ("innerWidth" in $$props) $$invalidate(30, innerWidth = $$props.innerWidth);
-    if ("createColoredGeojson" in $$props) $$invalidate(31, createColoredGeojson = $$props.createColoredGeojson);
-    if ("coloredGeojson" in $$props) $$invalidate(8, coloredGeojson = $$props.coloredGeojson);
-    if ("fitProjection" in $$props) $$invalidate(32, fitProjection = $$props.fitProjection);
-    if ("geopath" in $$props) $$invalidate(9, geopath = $$props.geopath);
-    if ("getPayload" in $$props) $$invalidate(10, getPayload = $$props.getPayload);
-    if ("isFocused" in $$props) $$invalidate(11, isFocused = $$props.isFocused);
-    if ("isSelected" in $$props) $$invalidate(12, isSelected = $$props.isSelected);
-    if ("isDeselected" in $$props) $$invalidate(13, isDeselected = $$props.isDeselected);
-    if ("isClickable" in $$props) $$invalidate(14, isClickable = $$props.isClickable);
+    if ("key" in $$props) $$invalidate(8, key = $$props.key);
+    if ("keyToColor" in $$props) $$invalidate(24, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(25, keyToColorFn = $$props.keyToColorFn);
+    if ("message" in $$props) $$invalidate(3, message = $$props.message);
+    if ("projection" in $$props) $$invalidate(18, projection = $$props.projection);
+    if ("projectionFn" in $$props) $$invalidate(19, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(20, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(21, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(22, theme = $$props.theme);
+    if ("projectionFunc" in $$props) $$invalidate(29, projectionFunc = $$props.projectionFunc);
+    if ("style" in $$props) $$invalidate(9, style = $$props.style);
+    if ("innerHeight" in $$props) $$invalidate(30, innerHeight = $$props.innerHeight);
+    if ("innerWidth" in $$props) $$invalidate(31, innerWidth = $$props.innerWidth);
+    if ("createColoredGeojson" in $$props) $$invalidate(32, createColoredGeojson = $$props.createColoredGeojson);
+    if ("geojson" in $$props) $$invalidate(33, geojson = $$props.geojson);
+    if ("coloredGeojson" in $$props) $$invalidate(10, coloredGeojson = $$props.coloredGeojson);
+    if ("currentProjection" in $$props) $$invalidate(34, currentProjection = $$props.currentProjection);
+    if ("geopath" in $$props) $$invalidate(11, geopath = $$props.geopath);
+    if ("getPayload" in $$props) $$invalidate(12, getPayload = $$props.getPayload);
+    if ("isFocused" in $$props) $$invalidate(13, isFocused = $$props.isFocused);
+    if ("isSelected" in $$props) $$invalidate(14, isSelected = $$props.isSelected);
+    if ("isDeselected" in $$props) $$invalidate(15, isDeselected = $$props.isDeselected);
+    if ("isClickable" in $$props) $$invalidate(16, isClickable = $$props.isClickable);
   };
 
-  var geojson;
-  var projection;
+  var projectionFunc;
   var style;
   var innerHeight;
   var innerWidth;
   var createColoredGeojson;
+  var geojson;
   var coloredGeojson;
-  var fitProjection;
+  var currentProjection;
   var geopath;
   var getPayload;
   var isFocused;
@@ -10239,22 +9731,40 @@ function instance$e($$self, $$props, $$invalidate) {
 
   $$self.$$.update = function () {
     if ($$self.$$.dirty[0] &
-    /*topojson, topojsonId*/
-    786432) {
-      // FIXME https://github.com/sveltejs/svelte/issues/4442
-       $$invalidate(27, geojson = topoToGeo(topojson, topojsonId));
-    }
-
-    if ($$self.$$.dirty[0] &
     /*geometry*/
     1) {
-       $$invalidate(0, geometry = geometry ? _objectSpread$4(_objectSpread$4({}, defaultGeometry), geometry) : defaultGeometry);
+      // FIXME https://github.com/sveltejs/svelte/issues/4442
+       $$invalidate(0, geometry = geometry ? _objectSpread$3(_objectSpread$3({}, defaultGeometry), geometry) : defaultGeometry);
     }
 
     if ($$self.$$.dirty[0] &
     /*isInteractive*/
     2) {
        $$invalidate(1, isInteractive = isInteractive || false);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*message*/
+    8) {
+       $$invalidate(3, message = message || "No data");
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*projection*/
+    262144) {
+       $$invalidate(18, projection = projection || null);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*projectionFn*/
+    524288) {
+       $$invalidate(19, projectionFn = projectionFn || null);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*projectionId*/
+    1048576) {
+       $$invalidate(20, projectionId = projectionId || null);
     }
 
     if ($$self.$$.dirty[0] &
@@ -10265,44 +9775,44 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*projectionFn, projectionId*/
-    12582912) {
-       $$invalidate(28, projection = projectionFn || projectionId && projections[projectionId] || equirectangular);
+    1572864) {
+       $$invalidate(29, projectionFunc = projectionFn || projectionId && projections[projectionId] || equirectangular);
     }
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys*/
-    65536) {
-       $$invalidate(16, selectedKeys = selectedKeys || []);
+    2097152) {
+       $$invalidate(21, selectedKeys = selectedKeys || []);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    131072) {
-       $$invalidate(17, theme = theme ? _objectSpread$4(_objectSpread$4({}, defaultTheme), theme) : defaultTheme);
+    4194304) {
+       $$invalidate(22, theme = theme ? _objectSpread$3(_objectSpread$3({}, defaultTheme), theme) : defaultTheme);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    131072) {
-       $$invalidate(7, style = makeStyleVars(theme));
+    4194304) {
+       $$invalidate(9, style = makeStyleVars(theme));
     }
 
     if ($$self.$$.dirty[0] &
     /*height, geometry*/
-    9) {
-       $$invalidate(29, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
+    17) {
+       $$invalidate(30, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
     }
 
     if ($$self.$$.dirty[0] &
     /*width, geometry*/
-    17) {
-       $$invalidate(30, innerWidth = Math.max(0, width - geometry.left - geometry.right));
+    65) {
+       $$invalidate(31, innerWidth = Math.max(0, width - geometry.left - geometry.right));
     }
 
     if ($$self.$$.dirty[0] &
     /*key_alt, key, keyToColor, keyToColorFn*/
-    3145796) {
-       $$invalidate(31, createColoredGeojson = makeUpdateFeaturesProperty({
+    50331908) {
+       $$invalidate(32, createColoredGeojson = makeUpdateFeaturesProperty({
         key_alt: key_alt,
         key: key,
         map: keyToColor,
@@ -10312,53 +9822,59 @@ function instance$e($$self, $$props, $$invalidate) {
     }
 
     if ($$self.$$.dirty[0] &
-    /*geojson*/
-    134217728 | $$self.$$.dirty[1] &
-    /*createColoredGeojson*/
-    1) {
-       $$invalidate(8, coloredGeojson = geojson && createColoredGeojson(geojson));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*geojson, projection, innerWidth, innerHeight*/
-    2013265920) {
-       $$invalidate(32, fitProjection = geojson && projection().fitSize([innerWidth, innerHeight], geojson));
+    /*topojson, topojsonId*/
+    8388640) {
+       $$invalidate(33, geojson = topojson && topoToGeo(topojson, topojsonId));
     }
 
     if ($$self.$$.dirty[1] &
-    /*fitProjection*/
-    2) {
-       $$invalidate(9, geopath = fitProjection && geoPath(fitProjection));
+    /*geojson, createColoredGeojson*/
+    6) {
+       $$invalidate(10, coloredGeojson = geojson && createColoredGeojson(geojson));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*projection, projectionFunc, innerHeight*/
+    1610874880 | $$self.$$.dirty[1] &
+    /*geojson, innerWidth*/
+    5) {
+       $$invalidate(34, currentProjection = projection || geojson && projectionFunc().fitSize([innerWidth, innerHeight], geojson));
+    }
+
+    if ($$self.$$.dirty[1] &
+    /*currentProjection*/
+    8) {
+       $$invalidate(11, geopath = currentProjection && geoPath(currentProjection));
     }
 
     if ($$self.$$.dirty[0] &
     /*key, key_alt*/
-    68) {
-       $$invalidate(10, getPayload = function getPayload(feature) {
+    260) {
+       $$invalidate(12, getPayload = function getPayload(feature) {
         return feature.properties[key] || feature.properties[key_alt];
       });
     }
 
     if ($$self.$$.dirty[0] &
     /*focusedKey, getPayload*/
-    1056) {
-       $$invalidate(11, isFocused = function isFocused(feature) {
+    4224) {
+       $$invalidate(13, isFocused = function isFocused(feature) {
         return focusedKey === getPayload(feature);
       });
     }
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys, getPayload*/
-    66560) {
-       $$invalidate(12, isSelected = function isSelected(feature) {
+    2101248) {
+       $$invalidate(14, isSelected = function isSelected(feature) {
         return selectedKeys.length && selectedKeys.includes(getPayload(feature));
       });
     }
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys, getPayload*/
-    66560) {
-       $$invalidate(13, isDeselected = function isDeselected(feature) {
+    2101248) {
+       $$invalidate(15, isDeselected = function isDeselected(feature) {
         return selectedKeys.length && !selectedKeys.includes(getPayload(feature));
       });
     }
@@ -10366,13 +9882,13 @@ function instance$e($$self, $$props, $$invalidate) {
     if ($$self.$$.dirty[0] &
     /*isInteractive*/
     2) {
-       $$invalidate(14, isClickable = function isClickable(feature) {
+       $$invalidate(16, isClickable = function isClickable(feature) {
         return isInteractive && hasColor(feature);
       });
     }
   };
 
-  return [geometry, isInteractive, key_alt, height, width, focusedKey, key, style, coloredGeojson, geopath, getPayload, isFocused, isSelected, isDeselected, isClickable, dispatch, selectedKeys, theme, topojson, topojsonId, keyToColor, keyToColorFn, projectionFn, projectionId, click_handler, mouseenter_handler, mouseleave_handler];
+  return [geometry, isInteractive, key_alt, message, height, topojson, width, focusedKey, key, style, coloredGeojson, geopath, getPayload, isFocused, isSelected, isDeselected, isClickable, dispatch, projection, projectionFn, projectionId, selectedKeys, theme, topojsonId, keyToColor, keyToColorFn, click_handler, mouseenter_handler, mouseleave_handler];
 }
 
 var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -10387,21 +9903,23 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$e, create_fragment$e, safe_not_equal, {
-      height: 3,
-      topojson: 18,
-      topojsonId: 19,
-      width: 4,
-      focusedKey: 5,
+      height: 4,
+      topojson: 5,
+      topojsonId: 23,
+      width: 6,
+      focusedKey: 7,
       geometry: 0,
       isInteractive: 1,
       key_alt: 2,
-      key: 6,
-      keyToColor: 20,
-      keyToColorFn: 21,
-      projectionFn: 22,
-      projectionId: 23,
-      selectedKeys: 16,
-      theme: 17
+      key: 8,
+      keyToColor: 24,
+      keyToColorFn: 25,
+      message: 3,
+      projection: 18,
+      projectionFn: 19,
+      projectionId: 20,
+      selectedKeys: 21,
+      theme: 22
     }, [-1, -1]);
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -10414,31 +9932,31 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*height*/
-    ctx[3] === undefined && !("height" in props)) {
+    ctx[4] === undefined && !("height" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'height'");
     }
 
     if (
     /*topojson*/
-    ctx[18] === undefined && !("topojson" in props)) {
+    ctx[5] === undefined && !("topojson" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'topojson'");
     }
 
     if (
     /*topojsonId*/
-    ctx[19] === undefined && !("topojsonId" in props)) {
+    ctx[23] === undefined && !("topojsonId" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'topojsonId'");
     }
 
     if (
     /*width*/
-    ctx[4] === undefined && !("width" in props)) {
+    ctx[6] === undefined && !("width" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'width'");
     }
 
     if (
     /*focusedKey*/
-    ctx[5] === undefined && !("focusedKey" in props)) {
+    ctx[7] === undefined && !("focusedKey" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'focusedKey'");
     }
 
@@ -10462,43 +9980,55 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*key*/
-    ctx[6] === undefined && !("key" in props)) {
+    ctx[8] === undefined && !("key" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'key'");
     }
 
     if (
     /*keyToColor*/
-    ctx[20] === undefined && !("keyToColor" in props)) {
+    ctx[24] === undefined && !("keyToColor" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'keyToColor'");
     }
 
     if (
     /*keyToColorFn*/
-    ctx[21] === undefined && !("keyToColorFn" in props)) {
+    ctx[25] === undefined && !("keyToColorFn" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'keyToColorFn'");
     }
 
     if (
+    /*message*/
+    ctx[3] === undefined && !("message" in props)) {
+      console.warn("<ChoroplethG> was created without expected prop 'message'");
+    }
+
+    if (
+    /*projection*/
+    ctx[18] === undefined && !("projection" in props)) {
+      console.warn("<ChoroplethG> was created without expected prop 'projection'");
+    }
+
+    if (
     /*projectionFn*/
-    ctx[22] === undefined && !("projectionFn" in props)) {
+    ctx[19] === undefined && !("projectionFn" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'projectionFn'");
     }
 
     if (
     /*projectionId*/
-    ctx[23] === undefined && !("projectionId" in props)) {
+    ctx[20] === undefined && !("projectionId" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'projectionId'");
     }
 
     if (
     /*selectedKeys*/
-    ctx[16] === undefined && !("selectedKeys" in props)) {
+    ctx[21] === undefined && !("selectedKeys" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'selectedKeys'");
     }
 
     if (
     /*theme*/
-    ctx[17] === undefined && !("theme" in props)) {
+    ctx[22] === undefined && !("theme" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'theme'");
     }
 
@@ -10594,6 +10124,22 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<ChoroplethG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
+    key: "message",
+    get: function get() {
+      throw new Error("<ChoroplethG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ChoroplethG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "projection",
+    get: function get() {
+      throw new Error("<ChoroplethG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ChoroplethG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
     key: "projectionFn",
     get: function get() {
       throw new Error("<ChoroplethG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
@@ -10633,7 +10179,7 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 function _createSuper$f(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$f(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct$f() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-var file$9 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethDiv.svelte"; // (41:1) {#if title}
+var file$9 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/choropleth/src/ChoroplethDiv.svelte"; // (43:1) {#if title}
 
 function create_if_block$6(ctx) {
   var header;
@@ -10666,9 +10212,9 @@ function create_if_block$6(ctx) {
     },
     h: function hydrate() {
       attr_dev(h2, "class", "svelte-77ac80");
-      add_location(h2, file$9, 42, 2, 811);
+      add_location(h2, file$9, 44, 2, 856);
       attr_dev(header, "class", "svelte-77ac80");
-      add_location(header, file$9, 41, 1, 800);
+      add_location(header, file$9, 43, 1, 845);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -10690,7 +10236,7 @@ function create_if_block$6(ctx) {
     block: block,
     id: create_if_block$6.name,
     type: "if",
-    source: "(41:1) {#if title}",
+    source: "(43:1) {#if title}",
     ctx: ctx
   });
   return block;
@@ -10717,7 +10263,7 @@ function create_fragment$f(ctx) {
       ctx[4],
       height:
       /*height*/
-      ctx[14],
+      ctx[16],
       isInteractive:
       /*isInteractive*/
       ctx[5],
@@ -10733,18 +10279,24 @@ function create_fragment$f(ctx) {
       keyToColorFn:
       /*keyToColorFn*/
       ctx[9],
+      message:
+      /*message*/
+      ctx[10],
+      projection:
+      /*projection*/
+      ctx[11],
       projectionFn:
       /*projectionFn*/
-      ctx[10],
+      ctx[12],
       projectionId:
       /*projectionId*/
-      ctx[11],
+      ctx[13],
       selectedKeys:
       /*selectedKeys*/
-      ctx[12],
+      ctx[14],
       theme:
       /*theme*/
-      ctx[13],
+      ctx[15],
       topojson:
       /*topojson*/
       ctx[1],
@@ -10753,19 +10305,19 @@ function create_fragment$f(ctx) {
       ctx[2],
       width:
       /*width*/
-      ctx[15]
+      ctx[17]
     },
     $$inline: true
   });
   choroplethg.$on("clicked",
   /*clicked_handler*/
-  ctx[19]);
+  ctx[21]);
   choroplethg.$on("entered",
   /*entered_handler*/
-  ctx[20]);
+  ctx[22]);
   choroplethg.$on("exited",
   /*exited_handler*/
-  ctx[21]);
+  ctx[23]);
   var block = {
     c: function create() {
       div = element("div");
@@ -10803,17 +10355,17 @@ function create_fragment$f(ctx) {
     h: function hydrate() {
       attr_dev(svg, "width",
       /*width*/
-      ctx[15]);
+      ctx[17]);
       attr_dev(svg, "height",
       /*height*/
-      ctx[14]);
+      ctx[16]);
       attr_dev(svg, "class", "svelte-77ac80");
-      add_location(svg, file$9, 50, 2, 953);
+      add_location(svg, file$9, 52, 2, 998);
       attr_dev(main, "class", "svelte-77ac80");
       add_render_callback(function () {
         return (
           /*main_elementresize_handler*/
-          ctx[22].call(main)
+          ctx[24].call(main)
         );
       });
       toggle_class(main, "titled",
@@ -10821,15 +10373,15 @@ function create_fragment$f(ctx) {
       ctx[0] &&
       /*title*/
       ctx[0].length);
-      add_location(main, file$9, 45, 1, 847);
+      add_location(main, file$9, 47, 1, 892);
       attr_dev(div, "class", "ChoroplethDiv svelte-77ac80");
       attr_dev(div, "style",
       /*style*/
-      ctx[16]);
+      ctx[18]);
       toggle_class(div, "interactive",
       /*isInteractive*/
       ctx[5]);
-      add_location(div, file$9, 35, 0, 712);
+      add_location(div, file$9, 37, 0, 757);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -10840,7 +10392,7 @@ function create_fragment$f(ctx) {
       mount_component(choroplethg, svg, null);
       main_resize_listener = add_resize_listener(main,
       /*main_elementresize_handler*/
-      ctx[22].bind(main));
+      ctx[24].bind(main));
       current = true;
     },
     p: function update(ctx, _ref) {
@@ -10875,9 +10427,9 @@ function create_fragment$f(ctx) {
       ctx[4];
       if (dirty &
       /*height*/
-      16384) choroplethg_changes.height =
+      65536) choroplethg_changes.height =
       /*height*/
-      ctx[14];
+      ctx[16];
       if (dirty &
       /*isInteractive*/
       32) choroplethg_changes.isInteractive =
@@ -10904,25 +10456,35 @@ function create_fragment$f(ctx) {
       /*keyToColorFn*/
       ctx[9];
       if (dirty &
-      /*projectionFn*/
-      1024) choroplethg_changes.projectionFn =
-      /*projectionFn*/
+      /*message*/
+      1024) choroplethg_changes.message =
+      /*message*/
       ctx[10];
       if (dirty &
-      /*projectionId*/
-      2048) choroplethg_changes.projectionId =
-      /*projectionId*/
+      /*projection*/
+      2048) choroplethg_changes.projection =
+      /*projection*/
       ctx[11];
       if (dirty &
-      /*selectedKeys*/
-      4096) choroplethg_changes.selectedKeys =
-      /*selectedKeys*/
+      /*projectionFn*/
+      4096) choroplethg_changes.projectionFn =
+      /*projectionFn*/
       ctx[12];
       if (dirty &
-      /*theme*/
-      8192) choroplethg_changes.theme =
-      /*theme*/
+      /*projectionId*/
+      8192) choroplethg_changes.projectionId =
+      /*projectionId*/
       ctx[13];
+      if (dirty &
+      /*selectedKeys*/
+      16384) choroplethg_changes.selectedKeys =
+      /*selectedKeys*/
+      ctx[14];
+      if (dirty &
+      /*theme*/
+      32768) choroplethg_changes.theme =
+      /*theme*/
+      ctx[15];
       if (dirty &
       /*topojson*/
       2) choroplethg_changes.topojson =
@@ -10935,25 +10497,25 @@ function create_fragment$f(ctx) {
       ctx[2];
       if (dirty &
       /*width*/
-      32768) choroplethg_changes.width =
+      131072) choroplethg_changes.width =
       /*width*/
-      ctx[15];
+      ctx[17];
       choroplethg.$set(choroplethg_changes);
 
       if (!current || dirty &
       /*width*/
-      32768) {
+      131072) {
         attr_dev(svg, "width",
         /*width*/
-        ctx[15]);
+        ctx[17]);
       }
 
       if (!current || dirty &
       /*height*/
-      16384) {
+      65536) {
         attr_dev(svg, "height",
         /*height*/
-        ctx[14]);
+        ctx[16]);
       }
 
       if (dirty &
@@ -10968,10 +10530,10 @@ function create_fragment$f(ctx) {
 
       if (!current || dirty &
       /*style*/
-      65536) {
+      262144) {
         attr_dev(div, "style",
         /*style*/
-        ctx[16]);
+        ctx[18]);
       }
 
       if (dirty &
@@ -11021,13 +10583,15 @@ function instance$f($$self, $$props, $$invalidate) {
   var key = $$props.key;
   var keyToColor = $$props.keyToColor;
   var keyToColorFn = $$props.keyToColorFn;
+  var message = $$props.message;
+  var projection = $$props.projection;
   var projectionFn = $$props.projectionFn;
   var projectionId = $$props.projectionId;
   var selectedKeys = $$props.selectedKeys;
   var theme = $$props.theme;
   var height = 0;
   var width = 0;
-  var writable_props = ["headerHeight", "padding", "title", "topojson", "topojsonId", "focusedKey", "geometry", "isInteractive", "key_alt", "key", "keyToColor", "keyToColorFn", "projectionFn", "projectionId", "selectedKeys", "theme"];
+  var writable_props = ["headerHeight", "padding", "title", "topojson", "topojsonId", "focusedKey", "geometry", "isInteractive", "key_alt", "key", "keyToColor", "keyToColorFn", "message", "projection", "projectionFn", "projectionId", "selectedKeys", "theme"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<ChoroplethDiv> was created with unknown prop '".concat(key, "'"));
   });
@@ -11051,13 +10615,13 @@ function instance$f($$self, $$props, $$invalidate) {
   function main_elementresize_handler() {
     width = this.clientWidth;
     height = this.clientHeight;
-    $$invalidate(15, width);
-    $$invalidate(14, height);
+    $$invalidate(17, width);
+    $$invalidate(16, height);
   }
 
   $$self.$set = function ($$props) {
-    if ("headerHeight" in $$props) $$invalidate(17, headerHeight = $$props.headerHeight);
-    if ("padding" in $$props) $$invalidate(18, padding = $$props.padding);
+    if ("headerHeight" in $$props) $$invalidate(19, headerHeight = $$props.headerHeight);
+    if ("padding" in $$props) $$invalidate(20, padding = $$props.padding);
     if ("title" in $$props) $$invalidate(0, title = $$props.title);
     if ("topojson" in $$props) $$invalidate(1, topojson = $$props.topojson);
     if ("topojsonId" in $$props) $$invalidate(2, topojsonId = $$props.topojsonId);
@@ -11068,10 +10632,12 @@ function instance$f($$self, $$props, $$invalidate) {
     if ("key" in $$props) $$invalidate(7, key = $$props.key);
     if ("keyToColor" in $$props) $$invalidate(8, keyToColor = $$props.keyToColor);
     if ("keyToColorFn" in $$props) $$invalidate(9, keyToColorFn = $$props.keyToColorFn);
-    if ("projectionFn" in $$props) $$invalidate(10, projectionFn = $$props.projectionFn);
-    if ("projectionId" in $$props) $$invalidate(11, projectionId = $$props.projectionId);
-    if ("selectedKeys" in $$props) $$invalidate(12, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(13, theme = $$props.theme);
+    if ("message" in $$props) $$invalidate(10, message = $$props.message);
+    if ("projection" in $$props) $$invalidate(11, projection = $$props.projection);
+    if ("projectionFn" in $$props) $$invalidate(12, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(13, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(14, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(15, theme = $$props.theme);
   };
 
   $$self.$capture_state = function () {
@@ -11090,6 +10656,8 @@ function instance$f($$self, $$props, $$invalidate) {
       key: key,
       keyToColor: keyToColor,
       keyToColorFn: keyToColorFn,
+      message: message,
+      projection: projection,
       projectionFn: projectionFn,
       projectionId: projectionId,
       selectedKeys: selectedKeys,
@@ -11101,8 +10669,8 @@ function instance$f($$self, $$props, $$invalidate) {
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("headerHeight" in $$props) $$invalidate(17, headerHeight = $$props.headerHeight);
-    if ("padding" in $$props) $$invalidate(18, padding = $$props.padding);
+    if ("headerHeight" in $$props) $$invalidate(19, headerHeight = $$props.headerHeight);
+    if ("padding" in $$props) $$invalidate(20, padding = $$props.padding);
     if ("title" in $$props) $$invalidate(0, title = $$props.title);
     if ("topojson" in $$props) $$invalidate(1, topojson = $$props.topojson);
     if ("topojsonId" in $$props) $$invalidate(2, topojsonId = $$props.topojsonId);
@@ -11113,13 +10681,15 @@ function instance$f($$self, $$props, $$invalidate) {
     if ("key" in $$props) $$invalidate(7, key = $$props.key);
     if ("keyToColor" in $$props) $$invalidate(8, keyToColor = $$props.keyToColor);
     if ("keyToColorFn" in $$props) $$invalidate(9, keyToColorFn = $$props.keyToColorFn);
-    if ("projectionFn" in $$props) $$invalidate(10, projectionFn = $$props.projectionFn);
-    if ("projectionId" in $$props) $$invalidate(11, projectionId = $$props.projectionId);
-    if ("selectedKeys" in $$props) $$invalidate(12, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(13, theme = $$props.theme);
-    if ("height" in $$props) $$invalidate(14, height = $$props.height);
-    if ("width" in $$props) $$invalidate(15, width = $$props.width);
-    if ("style" in $$props) $$invalidate(16, style = $$props.style);
+    if ("message" in $$props) $$invalidate(10, message = $$props.message);
+    if ("projection" in $$props) $$invalidate(11, projection = $$props.projection);
+    if ("projectionFn" in $$props) $$invalidate(12, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(13, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(14, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(15, theme = $$props.theme);
+    if ("height" in $$props) $$invalidate(16, height = $$props.height);
+    if ("width" in $$props) $$invalidate(17, width = $$props.width);
+    if ("style" in $$props) $$invalidate(18, style = $$props.style);
   };
 
   var style;
@@ -11131,27 +10701,27 @@ function instance$f($$self, $$props, $$invalidate) {
   $$self.$$.update = function () {
     if ($$self.$$.dirty &
     /*padding*/
-    262144) {
-       $$invalidate(18, padding = padding || "10px");
+    1048576) {
+       $$invalidate(20, padding = padding || "10px");
     }
 
     if ($$self.$$.dirty &
     /*headerHeight*/
-    131072) {
-       $$invalidate(17, headerHeight = headerHeight || "2rem");
+    524288) {
+       $$invalidate(19, headerHeight = headerHeight || "2rem");
     }
 
     if ($$self.$$.dirty &
     /*headerHeight, padding*/
-    393216) {
-       $$invalidate(16, style = makeStyleVars({
+    1572864) {
+       $$invalidate(18, style = makeStyleVars({
         headerHeight: headerHeight,
         padding: padding
       }));
     }
   };
 
-  return [title, topojson, topojsonId, focusedKey, geometry, isInteractive, key_alt, key, keyToColor, keyToColorFn, projectionFn, projectionId, selectedKeys, theme, height, width, style, headerHeight, padding, clicked_handler, entered_handler, exited_handler, main_elementresize_handler];
+  return [title, topojson, topojsonId, focusedKey, geometry, isInteractive, key_alt, key, keyToColor, keyToColorFn, message, projection, projectionFn, projectionId, selectedKeys, theme, height, width, style, headerHeight, padding, clicked_handler, entered_handler, exited_handler, main_elementresize_handler];
 }
 
 var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -11166,8 +10736,8 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$f, create_fragment$f, safe_not_equal, {
-      headerHeight: 17,
-      padding: 18,
+      headerHeight: 19,
+      padding: 20,
       title: 0,
       topojson: 1,
       topojsonId: 2,
@@ -11178,10 +10748,12 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       key: 7,
       keyToColor: 8,
       keyToColorFn: 9,
-      projectionFn: 10,
-      projectionId: 11,
-      selectedKeys: 12,
-      theme: 13
+      message: 10,
+      projection: 11,
+      projectionFn: 12,
+      projectionId: 13,
+      selectedKeys: 14,
+      theme: 15
     });
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -11194,13 +10766,13 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*headerHeight*/
-    ctx[17] === undefined && !("headerHeight" in props)) {
+    ctx[19] === undefined && !("headerHeight" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'headerHeight'");
     }
 
     if (
     /*padding*/
-    ctx[18] === undefined && !("padding" in props)) {
+    ctx[20] === undefined && !("padding" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'padding'");
     }
 
@@ -11265,26 +10837,38 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
     }
 
     if (
+    /*message*/
+    ctx[10] === undefined && !("message" in props)) {
+      console.warn("<ChoroplethDiv> was created without expected prop 'message'");
+    }
+
+    if (
+    /*projection*/
+    ctx[11] === undefined && !("projection" in props)) {
+      console.warn("<ChoroplethDiv> was created without expected prop 'projection'");
+    }
+
+    if (
     /*projectionFn*/
-    ctx[10] === undefined && !("projectionFn" in props)) {
+    ctx[12] === undefined && !("projectionFn" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'projectionFn'");
     }
 
     if (
     /*projectionId*/
-    ctx[11] === undefined && !("projectionId" in props)) {
+    ctx[13] === undefined && !("projectionId" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'projectionId'");
     }
 
     if (
     /*selectedKeys*/
-    ctx[12] === undefined && !("selectedKeys" in props)) {
+    ctx[14] === undefined && !("selectedKeys" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'selectedKeys'");
     }
 
     if (
     /*theme*/
-    ctx[13] === undefined && !("theme" in props)) {
+    ctx[15] === undefined && !("theme" in props)) {
       console.warn("<ChoroplethDiv> was created without expected prop 'theme'");
     }
 
@@ -11381,6 +10965,22 @@ var ChoroplethDiv = /*#__PURE__*/function (_SvelteComponentDev) {
     }
   }, {
     key: "keyToColorFn",
+    get: function get() {
+      throw new Error("<ChoroplethDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ChoroplethDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "message",
+    get: function get() {
+      throw new Error("<ChoroplethDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ChoroplethDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "projection",
     get: function get() {
       throw new Error("<ChoroplethDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     },
@@ -11503,7 +11103,7 @@ var exactAmountBins = function exactAmountBins(_ref) {
   var array = _ref.array,
       amount = _ref.amount,
       _ref$accessor = _ref.accessor,
-      accessor = _ref$accessor === void 0 ? identity$1 : _ref$accessor,
+      accessor = _ref$accessor === void 0 ? identity : _ref$accessor,
       _ref$maxExtent = _ref.maxExtent,
       maxExtent = _ref$maxExtent === void 0 ? null : _ref$maxExtent;
   var activeRange = maxExtent ? sort(maxExtent) : extent(array, accessor);
@@ -11828,9 +11428,9 @@ function _createSuper$g(Derived) { var hasNativeReflectConstruct = _isNativeRefl
 
 function _isNativeReflectConstruct$g() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var file$a = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/legend/src/ColorBinsG.svelte";
 
 function get_each_context$5(ctx, list, i) {
@@ -12293,7 +11893,7 @@ function create_if_block_5(ctx) {
 } // (347:4) {#if flags.isInteractive}
 
 
-function create_if_block_4(ctx) {
+function create_if_block_4$1(ctx) {
   var rect;
   var rect_height_value;
   var rect_width_value;
@@ -12386,7 +11986,7 @@ function create_if_block_4(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_4.name,
+    id: create_if_block_4$1.name,
     type: "if",
     source: "(347:4) {#if flags.isInteractive}",
     ctx: ctx
@@ -12404,7 +12004,7 @@ function create_each_block_1$1(ctx) {
   var g_transform_value;
   var if_block =
   /*flags*/
-  ctx[0].isInteractive && create_if_block_4(ctx);
+  ctx[0].isInteractive && create_if_block_4$1(ctx);
   var block = {
     c: function create() {
       g = svg_element("g");
@@ -12496,7 +12096,7 @@ function create_each_block_1$1(ctx) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
-          if_block = create_if_block_4(ctx);
+          if_block = create_if_block_4$1(ctx);
           if_block.c();
           if_block.m(g, null);
         }
@@ -12732,8 +12332,8 @@ function create_if_block_1$5(ctx) {
   function select_block_type(ctx, dirty) {
     if (
     /*flags*/
-    ctx[0].isVertical) return create_if_block_2$3;
-    return create_else_block$1;
+    ctx[0].isVertical) return create_if_block_2$4;
+    return create_else_block$3;
   }
 
   var current_block_type = select_block_type(ctx);
@@ -12790,7 +12390,7 @@ function create_if_block_1$5(ctx) {
 } // (386:3) {:else}
 
 
-function create_else_block$1(ctx) {
+function create_else_block$3(ctx) {
   var line;
   var line_x__value;
   var line_x__value_1;
@@ -12870,7 +12470,7 @@ function create_else_block$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_else_block$1.name,
+    id: create_else_block$3.name,
     type: "else",
     source: "(386:3) {:else}",
     ctx: ctx
@@ -12879,7 +12479,7 @@ function create_else_block$1(ctx) {
 } // (381:3) {#if flags.isVertical}
 
 
-function create_if_block_2$3(ctx) {
+function create_if_block_2$4(ctx) {
   var line;
   var line_y__value;
   var line_y__value_1;
@@ -12933,7 +12533,7 @@ function create_if_block_2$3(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_2$3.name,
+    id: create_if_block_2$4.name,
     type: "if",
     source: "(381:3) {#if flags.isVertical}",
     ctx: ctx
@@ -13324,13 +12924,13 @@ function instance$g($$self, $$props, $$invalidate) {
     if ($$self.$$.dirty[0] &
     /*flags*/
     1) {
-       $$invalidate(0, flags = flags ? _objectSpread$5(_objectSpread$5({}, defaultFlags), flags) : defaultFlags);
+       $$invalidate(0, flags = flags ? _objectSpread$4(_objectSpread$4({}, defaultFlags), flags) : defaultFlags);
     }
 
     if ($$self.$$.dirty[0] &
     /*geometry*/
     2) {
-       $$invalidate(1, geometry = geometry ? _objectSpread$5(_objectSpread$5({}, defaultGeometry), geometry) : defaultGeometry);
+       $$invalidate(1, geometry = geometry ? _objectSpread$4(_objectSpread$4({}, defaultGeometry), geometry) : defaultGeometry);
     }
 
     if ($$self.$$.dirty[0] &
@@ -13342,7 +12942,7 @@ function instance$g($$self, $$props, $$invalidate) {
     if ($$self.$$.dirty[0] &
     /*theme*/
     8) {
-       $$invalidate(3, theme = theme ? _objectSpread$5(_objectSpread$5({}, defaultTheme), theme) : defaultTheme);
+       $$invalidate(3, theme = theme ? _objectSpread$4(_objectSpread$4({}, defaultTheme), theme) : defaultTheme);
     }
 
     if ($$self.$$.dirty[0] &
@@ -13512,7 +13112,7 @@ function instance$g($$self, $$props, $$invalidate) {
 
         var barLength = Math.abs(end - start);
         var sensorLength = Math.abs(p2 - p1);
-        return _objectSpread$5(_objectSpread$5({}, bin), {
+        return _objectSpread$4(_objectSpread$4({}, bin), {
           barHeight: flags.isVertical ? barLength : geometry.barThickness,
           barWidth: flags.isVertical ? geometry.barThickness : barLength,
           fill: color || theme.binFill,
@@ -13589,7 +13189,7 @@ function instance$g($$self, $$props, $$invalidate) {
     /*brushStroke*/
     128) {
       /* style */
-       $$invalidate(14, style = makeStyleVars(_objectSpread$5(_objectSpread$5({}, theme), {}, {
+       $$invalidate(14, style = makeStyleVars(_objectSpread$4(_objectSpread$4({}, theme), {}, {
         brushStroke: brushStroke
       })));
     }
@@ -14455,36 +14055,122 @@ function _createSuper$i(Derived) { var hasNativeReflectConstruct = _isNativeRefl
 
 function _isNativeReflectConstruct$i() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var file$c = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/histogram/src/HistogramG.svelte";
 
 function get_each_context$6(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[51] = list[i].tick;
-  child_ctx[52] = list[i].y;
+  child_ctx[52] = list[i].tick;
+  child_ctx[53] = list[i].y;
   return child_ctx;
 }
 
 function get_each_context_1$2(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[55] = list[i].barLength;
-  child_ctx[56] = list[i].barThickness;
-  child_ctx[57] = list[i].displayValue;
-  child_ctx[58] = list[i].fill;
-  child_ctx[59] = list[i].labelAnchor;
-  child_ctx[60] = list[i].labelX;
-  child_ctx[61] = list[i].selected;
-  child_ctx[62] = list[i].x;
-  child_ctx[63] = list[i].y1;
-  child_ctx[65] = i;
+  child_ctx[56] = list[i].barLength;
+  child_ctx[57] = list[i].barThickness;
+  child_ctx[58] = list[i].displayValue;
+  child_ctx[59] = list[i].fill;
+  child_ctx[60] = list[i].labelAnchor;
+  child_ctx[61] = list[i].labelX;
+  child_ctx[62] = list[i].selected;
+  child_ctx[63] = list[i].x;
+  child_ctx[64] = list[i].y1;
+  child_ctx[66] = i;
   return child_ctx;
-} // (320:0) {#if height && width && scales}
+} // (327:0) {#if height && width}
 
 
 function create_if_block$9(ctx) {
-  var g2;
+  var g;
+
+  function select_block_type(ctx, dirty) {
+    if (
+    /*bins*/
+    ctx[0].length === 0) return create_if_block_1$7;
+    return create_else_block$4;
+  }
+
+  var current_block_type = select_block_type(ctx);
+  var if_block = current_block_type(ctx);
+  var block = {
+    c: function create() {
+      g = svg_element("g");
+      if_block.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      g = claim_element(nodes, "g", {
+        style: true,
+        class: true
+      }, 1);
+      var g_nodes = children(g);
+      if_block.l(g_nodes);
+      g_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(g, "style",
+      /*style*/
+      ctx[19]);
+      attr_dev(g, "class", "HistogramG svelte-1egg7b");
+      toggle_class(g, "interactive",
+      /*flags*/
+      ctx[1].isInteractive);
+      add_location(g, file$c, 327, 0, 7903);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, g, anchor);
+      if_block.m(g, null);
+    },
+    p: function update(ctx, dirty) {
+      if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+        if_block.p(ctx, dirty);
+      } else {
+        if_block.d(1);
+        if_block = current_block_type(ctx);
+
+        if (if_block) {
+          if_block.c();
+          if_block.m(g, null);
+        }
+      }
+
+      if (dirty[0] &
+      /*style*/
+      524288) {
+        attr_dev(g, "style",
+        /*style*/
+        ctx[19]);
+      }
+
+      if (dirty[0] &
+      /*flags*/
+      2) {
+        toggle_class(g, "interactive",
+        /*flags*/
+        ctx[1].isInteractive);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(g);
+      if_block.d();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block$9.name,
+    type: "if",
+    source: "(327:0) {#if height && width}",
+    ctx: ctx
+  });
+  return block;
+} // (341:1) {:else}
+
+
+function create_else_block$4(ctx) {
   var if_block0_anchor;
   var g1;
   var g0;
@@ -14495,13 +14181,13 @@ function create_if_block$9(ctx) {
   var g1_transform_value;
   var if_block0 =
   /*flags*/
-  ctx[0].withBackground && create_if_block_7(ctx);
+  ctx[1].withBackground && create_if_block_8(ctx);
   var if_block1 =
   /*flags*/
-  ctx[0].isInteractive && create_if_block_6$1(ctx);
+  ctx[1].isInteractive && create_if_block_7(ctx);
   var each_value_1 =
   /*bars*/
-  ctx[14];
+  ctx[15];
   validate_each_argument(each_value_1);
   var each_blocks = [];
 
@@ -14511,16 +14197,15 @@ function create_if_block$9(ctx) {
 
   var if_block2 = !
   /*flags*/
-  ctx[0].hideOrigin && create_if_block_3$3(ctx);
+  ctx[1].hideOrigin && create_if_block_4$2(ctx);
   var if_block3 = !
   /*flags*/
-  ctx[0].hideTicks && create_if_block_2$4(ctx);
+  ctx[1].hideTicks && create_if_block_3$3(ctx);
   var if_block4 =
   /*isBrushing*/
-  ctx[16] && create_if_block_1$7(ctx);
+  ctx[17] && create_if_block_2$5(ctx);
   var block = {
     c: function create() {
-      g2 = svg_element("g");
       if (if_block0) if_block0.c();
       if_block0_anchor = empty();
       if (if_block1) if_block1.c();
@@ -14539,15 +14224,10 @@ function create_if_block$9(ctx) {
       this.h();
     },
     l: function claim(nodes) {
-      g2 = claim_element(nodes, "g", {
-        class: true,
-        style: true
-      }, 1);
-      var g2_nodes = children(g2);
-      if (if_block0) if_block0.l(g2_nodes);
+      if (if_block0) if_block0.l(nodes);
       if_block0_anchor = empty();
-      if (if_block1) if_block1.l(g2_nodes);
-      g1 = claim_element(g2_nodes, "g", {
+      if (if_block1) if_block1.l(nodes);
+      g1 = claim_element(nodes, "g", {
         transform: true
       }, 1);
       var g1_nodes = children(g1);
@@ -14572,47 +14252,37 @@ function create_if_block$9(ctx) {
       g0_nodes.forEach(detach_dev);
       if (if_block4) if_block4.l(g1_nodes);
       g1_nodes.forEach(detach_dev);
-      g2_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
       attr_dev(line, "y2", line_y__value =
       /*flags*/
-      ctx[0].isTopDown ?
+      ctx[1].isTopDown ?
       /*innerHeight*/
-      ctx[8] : -
+      ctx[10] : -
       /*innerHeight*/
-      ctx[8]);
-      attr_dev(line, "class", "svelte-xezn7c");
-      add_location(line, file$c, 392, 3, 9136);
-      attr_dev(g0, "class", "axis svelte-xezn7c");
+      ctx[10]);
+      attr_dev(line, "class", "svelte-1egg7b");
+      add_location(line, file$c, 409, 3, 9348);
+      attr_dev(g0, "class", "axis svelte-1egg7b");
       attr_dev(g0, "transform", g0_transform_value = "translate(" +
       /*origin*/
-      ctx[9].x + "," +
+      ctx[11].x + "," +
       /*origin*/
-      ctx[9].y + ")");
-      add_location(g0, file$c, 388, 2, 9064);
+      ctx[11].y + ")");
+      add_location(g0, file$c, 405, 2, 9276);
       attr_dev(g1, "transform", g1_transform_value = "translate(" +
       /*safety*/
-      ctx[6].left + "," +
+      ctx[8].left + "," +
       /*safety*/
-      ctx[6].top + ")");
-      add_location(g1, file$c, 341, 1, 8170);
-      attr_dev(g2, "class", "HistogramG svelte-xezn7c");
-      attr_dev(g2, "style",
-      /*style*/
-      ctx[18]);
-      toggle_class(g2, "interactive",
-      /*flags*/
-      ctx[0].isInteractive);
-      add_location(g2, file$c, 320, 0, 7801);
+      ctx[8].top + ")");
+      add_location(g1, file$c, 358, 1, 8382);
     },
     m: function mount(target, anchor) {
-      insert_dev(target, g2, anchor);
-      if (if_block0) if_block0.m(g2, null);
-      append_dev(g2, if_block0_anchor);
-      if (if_block1) if_block1.m(g2, null);
-      append_dev(g2, g1);
+      if (if_block0) if_block0.m(target, anchor);
+      insert_dev(target, if_block0_anchor, anchor);
+      if (if_block1) if_block1.m(target, anchor);
+      insert_dev(target, g1, anchor);
 
       for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
         each_blocks[_i3].m(g1, null);
@@ -14628,13 +14298,13 @@ function create_if_block$9(ctx) {
     p: function update(ctx, dirty) {
       if (
       /*flags*/
-      ctx[0].withBackground) {
+      ctx[1].withBackground) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_7(ctx);
+          if_block0 = create_if_block_8(ctx);
           if_block0.c();
-          if_block0.m(g2, if_block0_anchor);
+          if_block0.m(if_block0_anchor.parentNode, if_block0_anchor);
         }
       } else if (if_block0) {
         if_block0.d(1);
@@ -14643,13 +14313,13 @@ function create_if_block$9(ctx) {
 
       if (
       /*flags*/
-      ctx[0].isInteractive) {
+      ctx[1].isInteractive) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
         } else {
-          if_block1 = create_if_block_6$1(ctx);
+          if_block1 = create_if_block_7(ctx);
           if_block1.c();
-          if_block1.m(g2, g1);
+          if_block1.m(g1.parentNode, g1);
         }
       } else if (if_block1) {
         if_block1.d(1);
@@ -14658,10 +14328,10 @@ function create_if_block$9(ctx) {
 
       if (dirty[0] &
       /*bars, innerWidth, onMousedown, onMouseenter, onMouseleave, isMousedown, onMousemove, onMouseup, flags, fontSize*/
-      32555169) {
+      65110658) {
         each_value_1 =
         /*bars*/
-        ctx[14];
+        ctx[15];
         validate_each_argument(each_value_1);
 
         var _i4;
@@ -14689,23 +14359,23 @@ function create_if_block$9(ctx) {
 
       if (dirty[0] &
       /*flags, innerHeight*/
-      257 && line_y__value !== (line_y__value =
+      1026 && line_y__value !== (line_y__value =
       /*flags*/
-      ctx[0].isTopDown ?
+      ctx[1].isTopDown ?
       /*innerHeight*/
-      ctx[8] : -
+      ctx[10] : -
       /*innerHeight*/
-      ctx[8])) {
+      ctx[10])) {
         attr_dev(line, "y2", line_y__value);
       }
 
       if (!
       /*flags*/
-      ctx[0].hideOrigin) {
+      ctx[1].hideOrigin) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
         } else {
-          if_block2 = create_if_block_3$3(ctx);
+          if_block2 = create_if_block_4$2(ctx);
           if_block2.c();
           if_block2.m(g0, if_block2_anchor);
         }
@@ -14716,11 +14386,11 @@ function create_if_block$9(ctx) {
 
       if (!
       /*flags*/
-      ctx[0].hideTicks) {
+      ctx[1].hideTicks) {
         if (if_block3) {
           if_block3.p(ctx, dirty);
         } else {
-          if_block3 = create_if_block_2$4(ctx);
+          if_block3 = create_if_block_3$3(ctx);
           if_block3.c();
           if_block3.m(g0, null);
         }
@@ -14731,21 +14401,21 @@ function create_if_block$9(ctx) {
 
       if (dirty[0] &
       /*origin*/
-      512 && g0_transform_value !== (g0_transform_value = "translate(" +
+      2048 && g0_transform_value !== (g0_transform_value = "translate(" +
       /*origin*/
-      ctx[9].x + "," +
+      ctx[11].x + "," +
       /*origin*/
-      ctx[9].y + ")")) {
+      ctx[11].y + ")")) {
         attr_dev(g0, "transform", g0_transform_value);
       }
 
       if (
       /*isBrushing*/
-      ctx[16]) {
+      ctx[17]) {
         if (if_block4) {
           if_block4.p(ctx, dirty);
         } else {
-          if_block4 = create_if_block_1$7(ctx);
+          if_block4 = create_if_block_2$5(ctx);
           if_block4.c();
           if_block4.m(g1, null);
         }
@@ -14756,34 +14426,19 @@ function create_if_block$9(ctx) {
 
       if (dirty[0] &
       /*safety*/
-      64 && g1_transform_value !== (g1_transform_value = "translate(" +
+      256 && g1_transform_value !== (g1_transform_value = "translate(" +
       /*safety*/
-      ctx[6].left + "," +
+      ctx[8].left + "," +
       /*safety*/
-      ctx[6].top + ")")) {
+      ctx[8].top + ")")) {
         attr_dev(g1, "transform", g1_transform_value);
-      }
-
-      if (dirty[0] &
-      /*style*/
-      262144) {
-        attr_dev(g2, "style",
-        /*style*/
-        ctx[18]);
-      }
-
-      if (dirty[0] &
-      /*flags*/
-      1) {
-        toggle_class(g2, "interactive",
-        /*flags*/
-        ctx[0].isInteractive);
       }
     },
     d: function destroy(detaching) {
-      if (detaching) detach_dev(g2);
-      if (if_block0) if_block0.d();
-      if (if_block1) if_block1.d();
+      if (if_block0) if_block0.d(detaching);
+      if (detaching) detach_dev(if_block0_anchor);
+      if (if_block1) if_block1.d(detaching);
+      if (detaching) detach_dev(g1);
       destroy_each(each_blocks, detaching);
       if (if_block2) if_block2.d();
       if (if_block3) if_block3.d();
@@ -14792,16 +14447,94 @@ function create_if_block$9(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block$9.name,
-    type: "if",
-    source: "(320:0) {#if height && width && scales}",
+    id: create_else_block$4.name,
+    type: "else",
+    source: "(341:1) {:else}",
     ctx: ctx
   });
   return block;
-} // (327:1) {#if flags.withBackground}
+} // (333:1) {#if bins.length === 0}
 
 
-function create_if_block_7(ctx) {
+function create_if_block_1$7(ctx) {
+  var text_1;
+  var t;
+  var text_1_x_value;
+  var text_1_y_value;
+  var block = {
+    c: function create() {
+      text_1 = svg_element("text");
+      t = text(
+      /*message*/
+      ctx[3]);
+      this.h();
+    },
+    l: function claim(nodes) {
+      text_1 = claim_element(nodes, "text", {
+        class: true,
+        x: true,
+        y: true
+      }, 1);
+      var text_1_nodes = children(text_1);
+      t = claim_text(text_1_nodes,
+      /*message*/
+      ctx[3]);
+      text_1_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(text_1, "class", "message svelte-1egg7b");
+      attr_dev(text_1, "x", text_1_x_value =
+      /*width*/
+      ctx[6] / 2);
+      attr_dev(text_1, "y", text_1_y_value =
+      /*height*/
+      ctx[5] / 2);
+      add_location(text_1, file$c, 334, 1, 8005);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, text_1, anchor);
+      append_dev(text_1, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*message*/
+      8) set_data_dev(t,
+      /*message*/
+      ctx[3]);
+
+      if (dirty[0] &
+      /*width*/
+      64 && text_1_x_value !== (text_1_x_value =
+      /*width*/
+      ctx[6] / 2)) {
+        attr_dev(text_1, "x", text_1_x_value);
+      }
+
+      if (dirty[0] &
+      /*height*/
+      32 && text_1_y_value !== (text_1_y_value =
+      /*height*/
+      ctx[5] / 2)) {
+        attr_dev(text_1, "y", text_1_y_value);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(text_1);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_1$7.name,
+    type: "if",
+    source: "(333:1) {#if bins.length === 0}",
+    ctx: ctx
+  });
+  return block;
+} // (344:1) {#if flags.withBackground}
+
+
+function create_if_block_8(ctx) {
   var rect;
   var block = {
     c: function create() {
@@ -14818,14 +14551,14 @@ function create_if_block_7(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(rect, "class", "bkg svelte-xezn7c");
+      attr_dev(rect, "class", "bkg svelte-1egg7b");
       attr_dev(rect, "width",
       /*width*/
-      ctx[4]);
+      ctx[6]);
       attr_dev(rect, "height",
       /*height*/
-      ctx[3]);
-      add_location(rect, file$c, 327, 1, 7926);
+      ctx[5]);
+      add_location(rect, file$c, 344, 1, 8138);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -14833,18 +14566,18 @@ function create_if_block_7(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*width*/
-      16) {
+      64) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[4]);
+        ctx[6]);
       }
 
       if (dirty[0] &
       /*height*/
-      8) {
+      32) {
         attr_dev(rect, "height",
         /*height*/
-        ctx[3]);
+        ctx[5]);
       }
     },
     d: function destroy(detaching) {
@@ -14853,16 +14586,16 @@ function create_if_block_7(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_7.name,
+    id: create_if_block_8.name,
     type: "if",
-    source: "(327:1) {#if flags.withBackground}",
+    source: "(344:1) {#if flags.withBackground}",
     ctx: ctx
   });
   return block;
-} // (332:1) {#if flags.isInteractive}
+} // (349:1) {#if flags.isInteractive}
 
 
-function create_if_block_6$1(ctx) {
+function create_if_block_7(ctx) {
   var rect;
   var mounted;
   var dispose;
@@ -14883,15 +14616,15 @@ function create_if_block_6$1(ctx) {
     h: function hydrate() {
       attr_dev(rect, "height",
       /*height*/
-      ctx[3]);
+      ctx[5]);
       attr_dev(rect, "width",
       /*width*/
-      ctx[4]);
-      attr_dev(rect, "class", "bkgSensor svelte-xezn7c");
+      ctx[6]);
+      attr_dev(rect, "class", "bkgSensor svelte-1egg7b");
       toggle_class(rect, "reset",
       /*selectedBins*/
-      ctx[2].length > 0);
-      add_location(rect, file$c, 332, 1, 8042);
+      ctx[4].length > 0);
+      add_location(rect, file$c, 349, 1, 8254);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -14899,33 +14632,33 @@ function create_if_block_6$1(ctx) {
       if (!mounted) {
         dispose = listen_dev(rect, "click",
         /*resetSelection*/
-        ctx[25], false, false, false);
+        ctx[26], false, false, false);
         mounted = true;
       }
     },
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*height*/
-      8) {
+      32) {
         attr_dev(rect, "height",
         /*height*/
-        ctx[3]);
+        ctx[5]);
       }
 
       if (dirty[0] &
       /*width*/
-      16) {
+      64) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[4]);
+        ctx[6]);
       }
 
       if (dirty[0] &
       /*selectedBins*/
-      4) {
+      16) {
         toggle_class(rect, "reset",
         /*selectedBins*/
-        ctx[2].length > 0);
+        ctx[4].length > 0);
       }
     },
     d: function destroy(detaching) {
@@ -14936,16 +14669,16 @@ function create_if_block_6$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_6$1.name,
+    id: create_if_block_7.name,
     type: "if",
-    source: "(332:1) {#if flags.isInteractive}",
+    source: "(349:1) {#if flags.isInteractive}",
     ctx: ctx
   });
   return block;
-} // (358:3) {#if displayValue}
+} // (375:3) {#if displayValue}
 
 
-function create_if_block_5$1(ctx) {
+function create_if_block_6$1(ctx) {
   var rect;
   var rect_fill_value;
   var rect_x_value;
@@ -14970,21 +14703,21 @@ function create_if_block_5$1(ctx) {
     h: function hydrate() {
       attr_dev(rect, "fill", rect_fill_value =
       /*fill*/
-      ctx[58]);
+      ctx[59]);
       attr_dev(rect, "x", rect_x_value =
       /*x*/
-      ctx[62]);
-      attr_dev(rect, "class", "bar svelte-xezn7c");
+      ctx[63]);
+      attr_dev(rect, "class", "bar svelte-1egg7b");
       attr_dev(rect, "height", rect_height_value =
       /*barThickness*/
-      ctx[56]);
+      ctx[57]);
       attr_dev(rect, "width", rect_width_value =
       /*barLength*/
-      ctx[55]);
+      ctx[56]);
       toggle_class(rect, "selected",
       /*selected*/
-      ctx[61]);
-      add_location(rect, file$c, 358, 3, 8447);
+      ctx[62]);
+      add_location(rect, file$c, 375, 3, 8659);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -14992,42 +14725,42 @@ function create_if_block_5$1(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*bars*/
-      16384 && rect_fill_value !== (rect_fill_value =
+      32768 && rect_fill_value !== (rect_fill_value =
       /*fill*/
-      ctx[58])) {
+      ctx[59])) {
         attr_dev(rect, "fill", rect_fill_value);
       }
 
       if (dirty[0] &
       /*bars*/
-      16384 && rect_x_value !== (rect_x_value =
+      32768 && rect_x_value !== (rect_x_value =
       /*x*/
-      ctx[62])) {
+      ctx[63])) {
         attr_dev(rect, "x", rect_x_value);
       }
 
       if (dirty[0] &
       /*bars*/
-      16384 && rect_height_value !== (rect_height_value =
+      32768 && rect_height_value !== (rect_height_value =
       /*barThickness*/
-      ctx[56])) {
+      ctx[57])) {
         attr_dev(rect, "height", rect_height_value);
       }
 
       if (dirty[0] &
       /*bars*/
-      16384 && rect_width_value !== (rect_width_value =
+      32768 && rect_width_value !== (rect_width_value =
       /*barLength*/
-      ctx[55])) {
+      ctx[56])) {
         attr_dev(rect, "width", rect_width_value);
       }
 
       if (dirty[0] &
       /*bars*/
-      16384) {
+      32768) {
         toggle_class(rect, "selected",
         /*selected*/
-        ctx[61]);
+        ctx[62]);
       }
     },
     d: function destroy(detaching) {
@@ -15036,16 +14769,16 @@ function create_if_block_5$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_5$1.name,
+    id: create_if_block_6$1.name,
     type: "if",
-    source: "(358:3) {#if displayValue}",
+    source: "(375:3) {#if displayValue}",
     ctx: ctx
   });
   return block;
-} // (375:3) {#if flags.isInteractive}
+} // (392:3) {#if flags.isInteractive}
 
 
-function create_if_block_4$1(ctx) {
+function create_if_block_5$1(ctx) {
   var rect;
   var rect_height_value;
   var mounted;
@@ -15065,14 +14798,14 @@ function create_if_block_4$1(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(rect, "class", "sensor svelte-xezn7c");
+      attr_dev(rect, "class", "sensor svelte-1egg7b");
       attr_dev(rect, "height", rect_height_value =
       /*barThickness*/
-      ctx[56]);
+      ctx[57]);
       attr_dev(rect, "width",
       /*innerWidth*/
-      ctx[7]);
-      add_location(rect, file$c, 375, 3, 8752);
+      ctx[9]);
+      add_location(rect, file$c, 392, 3, 8964);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -15080,33 +14813,33 @@ function create_if_block_4$1(ctx) {
       if (!mounted) {
         dispose = [listen_dev(rect, "mousedown",
         /*onMousedown*/
-        ctx[21], false, false, false), listen_dev(rect, "mouseenter",
+        ctx[22], false, false, false), listen_dev(rect, "mouseenter",
         /*onMouseenter*/
-        ctx[20](
+        ctx[21](
         /*index*/
-        ctx[65]), false, false, false), listen_dev(rect, "mouseleave",
+        ctx[66]), false, false, false), listen_dev(rect, "mouseleave",
         /*onMouseleave*/
-        ctx[24](
+        ctx[25](
         /*index*/
-        ctx[65]), false, false, false), listen_dev(rect, "mousemove", function () {
+        ctx[66]), false, false, false), listen_dev(rect, "mousemove", function () {
           if (is_function(
           /*isMousedown*/
-          ctx[5] ?
+          ctx[7] ?
           /*onMousemove*/
-          ctx[22](
+          ctx[23](
           /*index*/
-          ctx[65]) : null)) (
+          ctx[66]) : null)) (
           /*isMousedown*/
-          ctx[5] ?
+          ctx[7] ?
           /*onMousemove*/
-          ctx[22](
+          ctx[23](
           /*index*/
-          ctx[65]) : null).apply(this, arguments);
+          ctx[66]) : null).apply(this, arguments);
         }, false, false, false), listen_dev(rect, "mouseup",
         /*onMouseup*/
-        ctx[23](
+        ctx[24](
         /*index*/
-        ctx[65]), false, false, false)];
+        ctx[66]), false, false, false)];
         mounted = true;
       }
     },
@@ -15115,18 +14848,18 @@ function create_if_block_4$1(ctx) {
 
       if (dirty[0] &
       /*bars*/
-      16384 && rect_height_value !== (rect_height_value =
+      32768 && rect_height_value !== (rect_height_value =
       /*barThickness*/
-      ctx[56])) {
+      ctx[57])) {
         attr_dev(rect, "height", rect_height_value);
       }
 
       if (dirty[0] &
       /*innerWidth*/
-      128) {
+      512) {
         attr_dev(rect, "width",
         /*innerWidth*/
-        ctx[7]);
+        ctx[9]);
       }
     },
     d: function destroy(detaching) {
@@ -15137,13 +14870,13 @@ function create_if_block_4$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_4$1.name,
+    id: create_if_block_5$1.name,
     type: "if",
-    source: "(375:3) {#if flags.isInteractive}",
+    source: "(392:3) {#if flags.isInteractive}",
     ctx: ctx
   });
   return block;
-} // (343:2) {#each bars as {    barLength,    barThickness,    displayValue,    fill,    labelAnchor,    labelX,    selected,    x,    y1,   }
+} // (360:2) {#each bars as {    barLength,    barThickness,    displayValue,    fill,    labelAnchor,    labelX,    selected,    x,    y1,   }
 
 
 function create_each_block_1$2(ctx) {
@@ -15151,7 +14884,7 @@ function create_each_block_1$2(ctx) {
   var text_1;
   var t_value =
   /*displayValue*/
-  ctx[57] + "";
+  ctx[58] + "";
   var t;
   var text_1_x_value;
   var text_1_y_value;
@@ -15159,10 +14892,10 @@ function create_each_block_1$2(ctx) {
   var g_transform_value;
   var if_block0 =
   /*displayValue*/
-  ctx[57] && create_if_block_5$1(ctx);
+  ctx[58] && create_if_block_6$1(ctx);
   var if_block1 =
   /*flags*/
-  ctx[0].isInteractive && create_if_block_4$1(ctx);
+  ctx[1].isInteractive && create_if_block_5$1(ctx);
   var block = {
     c: function create() {
       g = svg_element("g");
@@ -15194,25 +14927,25 @@ function create_each_block_1$2(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(text_1, "class", "binsize svelte-xezn7c");
+      attr_dev(text_1, "class", "binsize svelte-1egg7b");
       attr_dev(text_1, "x", text_1_x_value =
       /*labelX*/
-      ctx[60]);
+      ctx[61]);
       attr_dev(text_1, "y", text_1_y_value =
       /*barThickness*/
-      ctx[56] / 2);
+      ctx[57] / 2);
       attr_dev(text_1, "font-size",
       /*fontSize*/
-      ctx[15]);
+      ctx[16]);
       attr_dev(text_1, "text-anchor", text_1_text_anchor_value =
       /*labelAnchor*/
-      ctx[59]);
-      add_location(text_1, file$c, 367, 3, 8573);
-      attr_dev(g, "class", "bin svelte-xezn7c");
+      ctx[60]);
+      add_location(text_1, file$c, 384, 3, 8785);
+      attr_dev(g, "class", "bin svelte-1egg7b");
       attr_dev(g, "transform", g_transform_value = "translate(0," +
       /*y1*/
-      ctx[63] + ")");
-      add_location(g, file$c, 353, 2, 8367);
+      ctx[64] + ")");
+      add_location(g, file$c, 370, 2, 8579);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -15224,11 +14957,11 @@ function create_each_block_1$2(ctx) {
     p: function update(ctx, dirty) {
       if (
       /*displayValue*/
-      ctx[57]) {
+      ctx[58]) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_5$1(ctx);
+          if_block0 = create_if_block_6$1(ctx);
           if_block0.c();
           if_block0.m(g, text_1);
         }
@@ -15239,49 +14972,49 @@ function create_each_block_1$2(ctx) {
 
       if (dirty[0] &
       /*bars*/
-      16384 && t_value !== (t_value =
+      32768 && t_value !== (t_value =
       /*displayValue*/
-      ctx[57] + "")) set_data_dev(t, t_value);
+      ctx[58] + "")) set_data_dev(t, t_value);
 
       if (dirty[0] &
       /*bars*/
-      16384 && text_1_x_value !== (text_1_x_value =
+      32768 && text_1_x_value !== (text_1_x_value =
       /*labelX*/
-      ctx[60])) {
+      ctx[61])) {
         attr_dev(text_1, "x", text_1_x_value);
       }
 
       if (dirty[0] &
       /*bars*/
-      16384 && text_1_y_value !== (text_1_y_value =
+      32768 && text_1_y_value !== (text_1_y_value =
       /*barThickness*/
-      ctx[56] / 2)) {
+      ctx[57] / 2)) {
         attr_dev(text_1, "y", text_1_y_value);
       }
 
       if (dirty[0] &
       /*fontSize*/
-      32768) {
+      65536) {
         attr_dev(text_1, "font-size",
         /*fontSize*/
-        ctx[15]);
+        ctx[16]);
       }
 
       if (dirty[0] &
       /*bars*/
-      16384 && text_1_text_anchor_value !== (text_1_text_anchor_value =
+      32768 && text_1_text_anchor_value !== (text_1_text_anchor_value =
       /*labelAnchor*/
-      ctx[59])) {
+      ctx[60])) {
         attr_dev(text_1, "text-anchor", text_1_text_anchor_value);
       }
 
       if (
       /*flags*/
-      ctx[0].isInteractive) {
+      ctx[1].isInteractive) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
         } else {
-          if_block1 = create_if_block_4$1(ctx);
+          if_block1 = create_if_block_5$1(ctx);
           if_block1.c();
           if_block1.m(g, null);
         }
@@ -15292,9 +15025,9 @@ function create_each_block_1$2(ctx) {
 
       if (dirty[0] &
       /*bars*/
-      16384 && g_transform_value !== (g_transform_value = "translate(0," +
+      32768 && g_transform_value !== (g_transform_value = "translate(0," +
       /*y1*/
-      ctx[63] + ")")) {
+      ctx[64] + ")")) {
         attr_dev(g, "transform", g_transform_value);
       }
     },
@@ -15308,14 +15041,14 @@ function create_each_block_1$2(ctx) {
     block: block,
     id: create_each_block_1$2.name,
     type: "each",
-    source: "(343:2) {#each bars as {    barLength,    barThickness,    displayValue,    fill,    labelAnchor,    labelX,    selected,    x,    y1,   }",
+    source: "(360:2) {#each bars as {    barLength,    barThickness,    displayValue,    fill,    labelAnchor,    labelX,    selected,    x,    y1,   }",
     ctx: ctx
   });
   return block;
-} // (396:3) {#if !flags.hideOrigin}
+} // (413:3) {#if !flags.hideOrigin}
 
 
-function create_if_block_3$3(ctx) {
+function create_if_block_4$2(ctx) {
   var circle;
   var circle_r_value;
   var block = {
@@ -15334,9 +15067,9 @@ function create_if_block_3$3(ctx) {
     h: function hydrate() {
       attr_dev(circle, "r", circle_r_value =
       /*geometry*/
-      ctx[1].originRadius);
-      attr_dev(circle, "class", "svelte-xezn7c");
-      add_location(circle, file$c, 396, 3, 9232);
+      ctx[2].originRadius);
+      attr_dev(circle, "class", "svelte-1egg7b");
+      add_location(circle, file$c, 413, 3, 9444);
     },
     m: function mount(target, anchor) {
       insert_dev(target, circle, anchor);
@@ -15344,9 +15077,9 @@ function create_if_block_3$3(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*geometry*/
-      2 && circle_r_value !== (circle_r_value =
+      4 && circle_r_value !== (circle_r_value =
       /*geometry*/
-      ctx[1].originRadius)) {
+      ctx[2].originRadius)) {
         attr_dev(circle, "r", circle_r_value);
       }
     },
@@ -15356,20 +15089,20 @@ function create_if_block_3$3(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_3$3.name,
+    id: create_if_block_4$2.name,
     type: "if",
-    source: "(396:3) {#if !flags.hideOrigin}",
+    source: "(413:3) {#if !flags.hideOrigin}",
     ctx: ctx
   });
   return block;
-} // (399:3) {#if !flags.hideTicks}
+} // (416:3) {#if !flags.hideTicks}
 
 
-function create_if_block_2$4(ctx) {
+function create_if_block_3$3(ctx) {
   var each_1_anchor;
   var each_value =
   /*ticks*/
-  ctx[12];
+  ctx[14];
   validate_each_argument(each_value);
   var each_blocks = [];
 
@@ -15402,10 +15135,10 @@ function create_if_block_2$4(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*ticksX, ticks, fontSize, ticksAnchor*/
-      39936) {
+      94208) {
         each_value =
         /*ticks*/
-        ctx[12];
+        ctx[14];
         validate_each_argument(each_value);
 
         var _i8;
@@ -15438,20 +15171,20 @@ function create_if_block_2$4(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_2$4.name,
+    id: create_if_block_3$3.name,
     type: "if",
-    source: "(399:3) {#if !flags.hideTicks}",
+    source: "(416:3) {#if !flags.hideTicks}",
     ctx: ctx
   });
   return block;
-} // (400:3) {#each ticks as {tick, y}}
+} // (417:3) {#each ticks as {tick, y}}
 
 
 function create_each_block$6(ctx) {
   var text_1;
   var t_value =
   /*tick*/
-  ctx[51] + "";
+  ctx[52] + "";
   var t;
   var text_1_y_value;
   var block = {
@@ -15474,20 +15207,20 @@ function create_each_block$6(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(text_1, "class", "range svelte-xezn7c");
+      attr_dev(text_1, "class", "range svelte-1egg7b");
       attr_dev(text_1, "x",
       /*ticksX*/
-      ctx[10]);
+      ctx[12]);
       attr_dev(text_1, "y", text_1_y_value =
       /*y*/
-      ctx[52]);
+      ctx[53]);
       attr_dev(text_1, "font-size",
       /*fontSize*/
-      ctx[15]);
+      ctx[16]);
       attr_dev(text_1, "text-anchor",
       /*ticksAnchor*/
-      ctx[11]);
-      add_location(text_1, file$c, 400, 3, 9336);
+      ctx[13]);
+      add_location(text_1, file$c, 417, 3, 9548);
     },
     m: function mount(target, anchor) {
       insert_dev(target, text_1, anchor);
@@ -15496,40 +15229,40 @@ function create_each_block$6(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*ticks*/
-      4096 && t_value !== (t_value =
+      16384 && t_value !== (t_value =
       /*tick*/
-      ctx[51] + "")) set_data_dev(t, t_value);
+      ctx[52] + "")) set_data_dev(t, t_value);
 
       if (dirty[0] &
       /*ticksX*/
-      1024) {
+      4096) {
         attr_dev(text_1, "x",
         /*ticksX*/
-        ctx[10]);
+        ctx[12]);
       }
 
       if (dirty[0] &
       /*ticks*/
-      4096 && text_1_y_value !== (text_1_y_value =
+      16384 && text_1_y_value !== (text_1_y_value =
       /*y*/
-      ctx[52])) {
+      ctx[53])) {
         attr_dev(text_1, "y", text_1_y_value);
       }
 
       if (dirty[0] &
       /*fontSize*/
-      32768) {
+      65536) {
         attr_dev(text_1, "font-size",
         /*fontSize*/
-        ctx[15]);
+        ctx[16]);
       }
 
       if (dirty[0] &
       /*ticksAnchor*/
-      2048) {
+      8192) {
         attr_dev(text_1, "text-anchor",
         /*ticksAnchor*/
-        ctx[11]);
+        ctx[13]);
       }
     },
     d: function destroy(detaching) {
@@ -15540,14 +15273,14 @@ function create_each_block$6(ctx) {
     block: block,
     id: create_each_block$6.name,
     type: "each",
-    source: "(400:3) {#each ticks as {tick, y}}",
+    source: "(417:3) {#each ticks as {tick, y}}",
     ctx: ctx
   });
   return block;
-} // (411:2) {#if isBrushing}
+} // (428:2) {#if isBrushing}
 
 
-function create_if_block_1$7(ctx) {
+function create_if_block_2$5(ctx) {
   var g;
   var line;
   var line_y__value;
@@ -15577,17 +15310,17 @@ function create_if_block_1$7(ctx) {
     h: function hydrate() {
       attr_dev(line, "y1", line_y__value =
       /*brushLine*/
-      ctx[17].y1);
+      ctx[18].y1);
       attr_dev(line, "y2", line_y__value_1 =
       /*brushLine*/
-      ctx[17].y2);
-      attr_dev(line, "class", "svelte-xezn7c");
-      add_location(line, file$c, 415, 3, 9568);
-      attr_dev(g, "class", "brush svelte-xezn7c");
+      ctx[18].y2);
+      attr_dev(line, "class", "svelte-1egg7b");
+      add_location(line, file$c, 432, 3, 9780);
+      attr_dev(g, "class", "brush svelte-1egg7b");
       attr_dev(g, "transform", g_transform_value = "translate(" +
       /*origin*/
-      ctx[9].x + ",0)");
-      add_location(g, file$c, 411, 2, 9504);
+      ctx[11].x + ",0)");
+      add_location(g, file$c, 428, 2, 9716);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -15596,25 +15329,25 @@ function create_if_block_1$7(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*brushLine*/
-      131072 && line_y__value !== (line_y__value =
+      262144 && line_y__value !== (line_y__value =
       /*brushLine*/
-      ctx[17].y1)) {
+      ctx[18].y1)) {
         attr_dev(line, "y1", line_y__value);
       }
 
       if (dirty[0] &
       /*brushLine*/
-      131072 && line_y__value_1 !== (line_y__value_1 =
+      262144 && line_y__value_1 !== (line_y__value_1 =
       /*brushLine*/
-      ctx[17].y2)) {
+      ctx[18].y2)) {
         attr_dev(line, "y2", line_y__value_1);
       }
 
       if (dirty[0] &
       /*origin*/
-      512 && g_transform_value !== (g_transform_value = "translate(" +
+      2048 && g_transform_value !== (g_transform_value = "translate(" +
       /*origin*/
-      ctx[9].x + ",0)")) {
+      ctx[11].x + ",0)")) {
         attr_dev(g, "transform", g_transform_value);
       }
     },
@@ -15624,9 +15357,9 @@ function create_if_block_1$7(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_1$7.name,
+    id: create_if_block_2$5.name,
     type: "if",
-    source: "(411:2) {#if isBrushing}",
+    source: "(428:2) {#if isBrushing}",
     ctx: ctx
   });
   return block;
@@ -15636,11 +15369,9 @@ function create_fragment$i(ctx) {
   var if_block_anchor;
   var if_block =
   /*height*/
-  ctx[3] &&
+  ctx[5] &&
   /*width*/
-  ctx[4] &&
-  /*scales*/
-  ctx[13] && create_if_block$9(ctx);
+  ctx[6] && create_if_block$9(ctx);
   var block = {
     c: function create() {
       if (if_block) if_block.c();
@@ -15657,11 +15388,9 @@ function create_fragment$i(ctx) {
     p: function update(ctx, dirty) {
       if (
       /*height*/
-      ctx[3] &&
+      ctx[5] &&
       /*width*/
-      ctx[4] &&
-      /*scales*/
-      ctx[13]) {
+      ctx[6]) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
@@ -15733,22 +15462,23 @@ function instance$i($$self, $$props, $$invalidate) {
     binStroke: "black",
     binStrokeWidth: 1,
     originColor: "black",
+    messageColor: "black",
+    messageFontSize: "1rem",
     selectedBinFill: "rgb(255, 174, 0)",
     selectedBinStroke: "black",
     selectedBinStrokeWidth: 2,
     textColor: "black"
   };
+  var height = $$props.height;
+  var width = $$props.width;
   var bins = $$props.bins;
   var binsFill = $$props.binsFill;
   var flags = $$props.flags;
   var geometry = $$props.geometry;
-  var height = $$props.height; // required
-
+  var message = $$props.message;
   var selectedBins = $$props.selectedBins;
   var theme = $$props.theme;
   var ticksFormatFn = $$props.ticksFormatFn;
-  var width = $$props.width; // required
-
   var rangesExtent = [];
   /* brushing */
 
@@ -15767,7 +15497,7 @@ function instance$i($$self, $$props, $$invalidate) {
   var brush = writable(brushOff);
   validate_store(brush, "brush");
   component_subscribe($$self, brush, function (value) {
-    return $$invalidate(36, $brush = value);
+    return $$invalidate(37, $brush = value);
   });
   /* events */
 
@@ -15788,7 +15518,7 @@ function instance$i($$self, $$props, $$invalidate) {
   };
 
   var onMousedown = function onMousedown(event) {
-    $$invalidate(5, isMousedown = true);
+    $$invalidate(7, isMousedown = true);
     brush.set({
       delta: 0,
       modifier: getModifier(event),
@@ -15823,16 +15553,16 @@ function instance$i($$self, $$props, $$invalidate) {
 
   var onMouseup = function onMouseup(index) {
     return function () {
-      $$invalidate(5, isMousedown = false);
+      $$invalidate(7, isMousedown = false);
 
       if (isPressed) {
         if ($brush.delta < geometry.brushThreshold) {
           if (doesBrushAdd) {
-            $$invalidate(2, selectedBins = uniques(appendTo(selectedBins, index)));
+            $$invalidate(4, selectedBins = uniques(appendTo(selectedBins, index)));
           } else if (doesBrushRemove) {
-            $$invalidate(2, selectedBins = pullFrom(selectedBins, [index]));
+            $$invalidate(4, selectedBins = pullFrom(selectedBins, [index]));
           } else {
-            $$invalidate(2, selectedBins = [index]);
+            $$invalidate(4, selectedBins = [index]);
           }
 
           dispatch("clicked", {
@@ -15855,13 +15585,13 @@ function instance$i($$self, $$props, $$invalidate) {
   };
 
   var resetSelection = function resetSelection() {
-    $$invalidate(2, selectedBins = []);
+    $$invalidate(4, selectedBins = []);
     dispatch("clicked", {
       selectedBins: selectedBins
     });
   };
 
-  var writable_props = ["bins", "binsFill", "flags", "geometry", "height", "selectedBins", "theme", "ticksFormatFn", "width"];
+  var writable_props = ["height", "width", "bins", "binsFill", "flags", "geometry", "message", "selectedBins", "theme", "ticksFormatFn"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<HistogramG> was created with unknown prop '".concat(key, "'"));
   });
@@ -15871,15 +15601,16 @@ function instance$i($$self, $$props, $$invalidate) {
   validate_slots("HistogramG", $$slots, []);
 
   $$self.$set = function ($$props) {
-    if ("bins" in $$props) $$invalidate(26, bins = $$props.bins);
+    if ("height" in $$props) $$invalidate(5, height = $$props.height);
+    if ("width" in $$props) $$invalidate(6, width = $$props.width);
+    if ("bins" in $$props) $$invalidate(0, bins = $$props.bins);
     if ("binsFill" in $$props) $$invalidate(29, binsFill = $$props.binsFill);
-    if ("flags" in $$props) $$invalidate(0, flags = $$props.flags);
-    if ("geometry" in $$props) $$invalidate(1, geometry = $$props.geometry);
-    if ("height" in $$props) $$invalidate(3, height = $$props.height);
-    if ("selectedBins" in $$props) $$invalidate(2, selectedBins = $$props.selectedBins);
+    if ("flags" in $$props) $$invalidate(1, flags = $$props.flags);
+    if ("geometry" in $$props) $$invalidate(2, geometry = $$props.geometry);
+    if ("message" in $$props) $$invalidate(3, message = $$props.message);
+    if ("selectedBins" in $$props) $$invalidate(4, selectedBins = $$props.selectedBins);
     if ("theme" in $$props) $$invalidate(27, theme = $$props.theme);
     if ("ticksFormatFn" in $$props) $$invalidate(28, ticksFormatFn = $$props.ticksFormatFn);
-    if ("width" in $$props) $$invalidate(4, width = $$props.width);
   };
 
   $$self.$capture_state = function () {
@@ -15909,15 +15640,16 @@ function instance$i($$self, $$props, $$invalidate) {
       defaultFlags: defaultFlags,
       defaultGeometry: defaultGeometry,
       defaultTheme: defaultTheme,
+      height: height,
+      width: width,
       bins: bins,
       binsFill: binsFill,
       flags: flags,
       geometry: geometry,
-      height: height,
+      message: message,
       selectedBins: selectedBins,
       theme: theme,
       ticksFormatFn: ticksFormatFn,
-      width: width,
       rangesExtent: rangesExtent,
       isMousedown: isMousedown,
       brushOff: brushOff,
@@ -15959,42 +15691,43 @@ function instance$i($$self, $$props, $$invalidate) {
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("bins" in $$props) $$invalidate(26, bins = $$props.bins);
+    if ("height" in $$props) $$invalidate(5, height = $$props.height);
+    if ("width" in $$props) $$invalidate(6, width = $$props.width);
+    if ("bins" in $$props) $$invalidate(0, bins = $$props.bins);
     if ("binsFill" in $$props) $$invalidate(29, binsFill = $$props.binsFill);
-    if ("flags" in $$props) $$invalidate(0, flags = $$props.flags);
-    if ("geometry" in $$props) $$invalidate(1, geometry = $$props.geometry);
-    if ("height" in $$props) $$invalidate(3, height = $$props.height);
-    if ("selectedBins" in $$props) $$invalidate(2, selectedBins = $$props.selectedBins);
+    if ("flags" in $$props) $$invalidate(1, flags = $$props.flags);
+    if ("geometry" in $$props) $$invalidate(2, geometry = $$props.geometry);
+    if ("message" in $$props) $$invalidate(3, message = $$props.message);
+    if ("selectedBins" in $$props) $$invalidate(4, selectedBins = $$props.selectedBins);
     if ("theme" in $$props) $$invalidate(27, theme = $$props.theme);
     if ("ticksFormatFn" in $$props) $$invalidate(28, ticksFormatFn = $$props.ticksFormatFn);
-    if ("width" in $$props) $$invalidate(4, width = $$props.width);
     if ("rangesExtent" in $$props) $$invalidate(30, rangesExtent = $$props.rangesExtent);
-    if ("isMousedown" in $$props) $$invalidate(5, isMousedown = $$props.isMousedown);
-    if ("safety" in $$props) $$invalidate(6, safety = $$props.safety);
-    if ("innerWidth" in $$props) $$invalidate(7, innerWidth = $$props.innerWidth);
-    if ("innerHeight" in $$props) $$invalidate(8, innerHeight = $$props.innerHeight);
-    if ("origin" in $$props) $$invalidate(9, origin = $$props.origin);
+    if ("isMousedown" in $$props) $$invalidate(7, isMousedown = $$props.isMousedown);
+    if ("safety" in $$props) $$invalidate(8, safety = $$props.safety);
+    if ("innerWidth" in $$props) $$invalidate(9, innerWidth = $$props.innerWidth);
+    if ("innerHeight" in $$props) $$invalidate(10, innerHeight = $$props.innerHeight);
+    if ("origin" in $$props) $$invalidate(11, origin = $$props.origin);
     if ("direction" in $$props) direction = $$props.direction;
-    if ("ticksX" in $$props) $$invalidate(10, ticksX = $$props.ticksX);
-    if ("ticksAnchor" in $$props) $$invalidate(11, ticksAnchor = $$props.ticksAnchor);
-    if ("ticks" in $$props) $$invalidate(12, ticks = $$props.ticks);
-    if ("scales" in $$props) $$invalidate(13, scales = $$props.scales);
-    if ("useValue" in $$props) $$invalidate(32, useValue = $$props.useValue);
-    if ("getBinsMax" in $$props) $$invalidate(33, getBinsMax = $$props.getBinsMax);
-    if ("valuesMax" in $$props) $$invalidate(34, valuesMax = $$props.valuesMax);
-    if ("bars" in $$props) $$invalidate(14, bars = $$props.bars);
-    if ("maxBarThickness" in $$props) $$invalidate(35, maxBarThickness = $$props.maxBarThickness);
-    if ("fontSize" in $$props) $$invalidate(15, fontSize = $$props.fontSize);
-    if ("isBrushing" in $$props) $$invalidate(16, isBrushing = $$props.isBrushing);
+    if ("ticksX" in $$props) $$invalidate(12, ticksX = $$props.ticksX);
+    if ("ticksAnchor" in $$props) $$invalidate(13, ticksAnchor = $$props.ticksAnchor);
+    if ("ticks" in $$props) $$invalidate(14, ticks = $$props.ticks);
+    if ("scales" in $$props) $$invalidate(32, scales = $$props.scales);
+    if ("useValue" in $$props) $$invalidate(33, useValue = $$props.useValue);
+    if ("getBinsMax" in $$props) $$invalidate(34, getBinsMax = $$props.getBinsMax);
+    if ("valuesMax" in $$props) $$invalidate(35, valuesMax = $$props.valuesMax);
+    if ("bars" in $$props) $$invalidate(15, bars = $$props.bars);
+    if ("maxBarThickness" in $$props) $$invalidate(36, maxBarThickness = $$props.maxBarThickness);
+    if ("fontSize" in $$props) $$invalidate(16, fontSize = $$props.fontSize);
+    if ("isBrushing" in $$props) $$invalidate(17, isBrushing = $$props.isBrushing);
     if ("isPressed" in $$props) isPressed = $$props.isPressed;
-    if ("doesBrushAdd" in $$props) $$invalidate(38, doesBrushAdd = $$props.doesBrushAdd);
-    if ("doesBrushRemove" in $$props) $$invalidate(39, doesBrushRemove = $$props.doesBrushRemove);
-    if ("brushStroke" in $$props) $$invalidate(40, brushStroke = $$props.brushStroke);
-    if ("brushExtent" in $$props) $$invalidate(41, brushExtent = $$props.brushExtent);
-    if ("brushRange" in $$props) $$invalidate(42, brushRange = $$props.brushRange);
-    if ("brushExtentBarYs" in $$props) $$invalidate(43, brushExtentBarYs = $$props.brushExtentBarYs);
-    if ("brushLine" in $$props) $$invalidate(17, brushLine = $$props.brushLine);
-    if ("style" in $$props) $$invalidate(18, style = $$props.style);
+    if ("doesBrushAdd" in $$props) $$invalidate(39, doesBrushAdd = $$props.doesBrushAdd);
+    if ("doesBrushRemove" in $$props) $$invalidate(40, doesBrushRemove = $$props.doesBrushRemove);
+    if ("brushStroke" in $$props) $$invalidate(41, brushStroke = $$props.brushStroke);
+    if ("brushExtent" in $$props) $$invalidate(42, brushExtent = $$props.brushExtent);
+    if ("brushRange" in $$props) $$invalidate(43, brushRange = $$props.brushRange);
+    if ("brushExtentBarYs" in $$props) $$invalidate(44, brushExtentBarYs = $$props.brushExtentBarYs);
+    if ("brushLine" in $$props) $$invalidate(18, brushLine = $$props.brushLine);
+    if ("style" in $$props) $$invalidate(19, style = $$props.style);
   };
 
   var safety;
@@ -16030,33 +15763,39 @@ function instance$i($$self, $$props, $$invalidate) {
   $$self.$$.update = function () {
     if ($$self.$$.dirty[0] &
     /*bins*/
-    67108864) {
+    1) {
       // FIXME https://github.com/sveltejs/svelte/issues/4442
-       $$invalidate(26, bins = bins || []);
+       $$invalidate(0, bins = bins || []);
     }
 
     if ($$self.$$.dirty[0] &
     /*flags*/
-    1) {
-       $$invalidate(0, flags = flags ? _objectSpread$6(_objectSpread$6({}, defaultFlags), flags) : defaultFlags);
+    2) {
+       $$invalidate(1, flags = flags ? _objectSpread$5(_objectSpread$5({}, defaultFlags), flags) : defaultFlags);
     }
 
     if ($$self.$$.dirty[0] &
     /*geometry*/
-    2) {
-       $$invalidate(1, geometry = geometry ? _objectSpread$6(_objectSpread$6({}, defaultGeometry), geometry) : defaultGeometry);
+    4) {
+       $$invalidate(2, geometry = geometry ? _objectSpread$5(_objectSpread$5({}, defaultGeometry), geometry) : defaultGeometry);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*message*/
+    8) {
+       $$invalidate(3, message = message || "No data");
     }
 
     if ($$self.$$.dirty[0] &
     /*selectedBins*/
-    4) {
-       $$invalidate(2, selectedBins = selectedBins || []);
+    16) {
+       $$invalidate(4, selectedBins = selectedBins || []);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
     134217728) {
-       $$invalidate(27, theme = theme ? _objectSpread$6(_objectSpread$6({}, defaultTheme), theme) : defaultTheme);
+       $$invalidate(27, theme = theme ? _objectSpread$5(_objectSpread$5({}, defaultTheme), theme) : defaultTheme);
     }
 
     if ($$self.$$.dirty[0] &
@@ -16069,8 +15808,8 @@ function instance$i($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*geometry, flags*/
-    3) {
-       $$invalidate(6, safety = {
+    6) {
+       $$invalidate(8, safety = {
         top: geometry.safetyY,
         right: flags.isRightToLeft ? flags.hideTicks ? geometry.safetyXNoTicks : geometry.safetyXTicks : geometry.safetyXValues,
         bottom: geometry.safetyY,
@@ -16080,20 +15819,20 @@ function instance$i($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*width, safety*/
-    80) {
-       $$invalidate(7, innerWidth = Math.max(0, width - safety.left - safety.right));
+    320) {
+       $$invalidate(9, innerWidth = Math.max(0, width - safety.left - safety.right));
     }
 
     if ($$self.$$.dirty[0] &
     /*height, safety, geometry*/
-    74) {
-       $$invalidate(8, innerHeight = Math.max(0, height - safety.top - safety.bottom - geometry.maxFontSize));
+    292) {
+       $$invalidate(10, innerHeight = Math.max(0, height - safety.top - safety.bottom - geometry.maxFontSize));
     }
 
     if ($$self.$$.dirty[0] &
     /*flags, innerWidth, innerHeight*/
-    385) {
-       $$invalidate(9, origin = {
+    1538) {
+       $$invalidate(11, origin = {
         x: flags.isRightToLeft ? innerWidth : 0,
         y: flags.isTopDown ? 0 : innerHeight
       });
@@ -16101,7 +15840,7 @@ function instance$i($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*flags*/
-    1) {
+    2) {
        direction = {
         x: flags.isRightToLeft ? -1 : 1,
         y: flags.isTopDown ? 1 : -1
@@ -16110,58 +15849,60 @@ function instance$i($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*flags, geometry*/
-    3) {
-       $$invalidate(10, ticksX = flags.isRightToLeft ? geometry.originRadius + geometry.textPadding : -(geometry.originRadius + geometry.textPadding));
+    6) {
+       $$invalidate(12, ticksX = flags.isRightToLeft ? geometry.originRadius + geometry.textPadding : -(geometry.originRadius + geometry.textPadding));
     }
 
     if ($$self.$$.dirty[0] &
     /*flags*/
-    1) {
-       $$invalidate(11, ticksAnchor = flags.isRightToLeft ? "start" : "end");
+    2) {
+       $$invalidate(13, ticksAnchor = flags.isRightToLeft ? "start" : "end");
     }
 
     if ($$self.$$.dirty[0] &
     /*bins*/
-    67108864) {
-       $$invalidate(32, useValue = bins.length && has(bins[0], "value"));
+    1) {
+       $$invalidate(33, useValue = bins.length && has(bins[0], "value"));
     }
 
     if ($$self.$$.dirty[1] &
     /*useValue*/
-    2) {
-       $$invalidate(33, getBinsMax = useValue ? arrayMaxWith(getValue) : arrayMaxWith(getValuesLength));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*bins*/
-    67108864 | $$self.$$.dirty[1] &
-    /*getBinsMax*/
     4) {
-       $$invalidate(34, valuesMax = getBinsMax(bins));
+       $$invalidate(34, getBinsMax = useValue ? arrayMaxWith(getValue) : arrayMaxWith(getValuesLength));
     }
 
     if ($$self.$$.dirty[0] &
     /*bins*/
-    67108864) {
+    1 | $$self.$$.dirty[1] &
+    /*getBinsMax*/
+    8) {
+       $$invalidate(35, valuesMax = getBinsMax(bins));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*bins*/
+    1) {
        $$invalidate(30, rangesExtent = bins.length ? [bins[0].range[0], last(bins).range[1]] : []);
     }
 
     if ($$self.$$.dirty[0] &
     /*bins, flags, innerWidth, rangesExtent, innerHeight*/
-    1140851073 | $$self.$$.dirty[1] &
+    1073743363 | $$self.$$.dirty[1] &
     /*valuesMax*/
-    8) {
+    16) {
       /* eslint-disable indent */
-       $$invalidate(13, scales = bins.length && {
+       $$invalidate(32, scales = bins.length && {
         x: flags.useLogScale ? log().domain([1, valuesMax]).range([innerWidth / Math.log10(valuesMax), innerWidth]) : linear$1().domain([0, valuesMax]).range([0, innerWidth]),
         y: linear$1().domain(rangesExtent).range([0, innerHeight])
       });
     }
 
     if ($$self.$$.dirty[0] &
-    /*bins, ticksFormatFn, flags, scales*/
-    335552513) {
-       $$invalidate(12, ticks = getBinsTicks(bins).map(function (tick) {
+    /*bins, ticksFormatFn, flags*/
+    268435459 | $$self.$$.dirty[1] &
+    /*scales*/
+    2) {
+       $$invalidate(14, ticks = getBinsTicks(bins).map(function (tick) {
         return {
           tick: ticksFormatFn(tick),
           y: flags.isTopDown ? scales.y(tick) : -scales.y(tick)
@@ -16171,45 +15912,45 @@ function instance$i($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[1] &
     /*$brush*/
-    32) {
-       $$invalidate(16, isBrushing = $brush.state === "Brushing");
+    64) {
+       $$invalidate(17, isBrushing = $brush.state === "Brushing");
     }
 
     if ($$self.$$.dirty[1] &
     /*$brush*/
-    32) {
-       $$invalidate(38, doesBrushAdd = $brush.modifier === "shift");
+    64) {
+       $$invalidate(39, doesBrushAdd = $brush.modifier === "shift");
     }
 
     if ($$self.$$.dirty[0] &
     /*isBrushing*/
-    65536 | $$self.$$.dirty[1] &
+    131072 | $$self.$$.dirty[1] &
     /*$brush*/
-    32) {
-       $$invalidate(41, brushExtent = isBrushing && sort([$brush.start, $brush.end]));
+    64) {
+       $$invalidate(42, brushExtent = isBrushing && sort([$brush.start, $brush.end]));
     }
 
     if ($$self.$$.dirty[0] &
     /*isBrushing*/
-    65536 | $$self.$$.dirty[1] &
+    131072 | $$self.$$.dirty[1] &
     /*brushExtent*/
-    1024) {
-       $$invalidate(42, brushRange = isBrushing && inclusiveRange(brushExtent));
+    2048) {
+       $$invalidate(43, brushRange = isBrushing && inclusiveRange(brushExtent));
     }
 
     if ($$self.$$.dirty[1] &
     /*$brush*/
-    32) {
-       $$invalidate(39, doesBrushRemove = $brush.modifier === "alt");
+    64) {
+       $$invalidate(40, doesBrushRemove = $brush.modifier === "alt");
     }
 
     if ($$self.$$.dirty[0] &
     /*isBrushing, selectedBins*/
-    65540 | $$self.$$.dirty[1] &
+    131088 | $$self.$$.dirty[1] &
     /*doesBrushAdd, brushRange, doesBrushRemove, $brush*/
-    2464) {
+    4928) {
        if (isBrushing) {
-        $$invalidate(2, selectedBins = doesBrushAdd ? uniques(concat(selectedBins, brushRange)) : doesBrushRemove ? pullFrom(selectedBins, brushRange) : brushRange);
+        $$invalidate(4, selectedBins = doesBrushAdd ? uniques(concat(selectedBins, brushRange)) : doesBrushRemove ? pullFrom(selectedBins, brushRange) : brushRange);
         dispatch("brushed", {
           end: $brush.end,
           selectedBins: selectedBins,
@@ -16219,10 +15960,12 @@ function instance$i($$self, $$props, $$invalidate) {
     }
 
     if ($$self.$$.dirty[0] &
-    /*bins, selectedBins, scales, flags, innerWidth, innerHeight, geometry, binsFill, theme*/
-    738206087) {
+    /*bins, selectedBins, flags, innerWidth, innerHeight, geometry, binsFill, theme*/
+    671090199 | $$self.$$.dirty[1] &
+    /*scales*/
+    2) {
       /* eslint-enable indent */
-       $$invalidate(14, bars = bins.map(function (bin, index) {
+       $$invalidate(15, bars = bins.map(function (bin, index) {
         var range = bin.range,
             values = bin.values,
             value = bin.value;
@@ -16236,7 +15979,7 @@ function instance$i($$self, $$props, $$invalidate) {
         var labelX = flags.isRightToLeft ? x - geometry.textPadding : barLength + geometry.textPadding;
         var labelAnchor = flags.isRightToLeft ? "end" : "start";
         var fill = bin.color || (binsFill && binsFill[index] ? binsFill[index] : theme.binFill);
-        return _objectSpread$6(_objectSpread$6({}, bin), {
+        return _objectSpread$5(_objectSpread$5({}, bin), {
           barLength: barLength,
           barThickness: barThickness,
           displayValue: displayValue,
@@ -16253,21 +15996,21 @@ function instance$i($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*bars*/
-    16384) {
-       $$invalidate(35, maxBarThickness = makeMaxBarThickness(bars));
+    32768) {
+       $$invalidate(36, maxBarThickness = makeMaxBarThickness(bars));
     }
 
     if ($$self.$$.dirty[0] &
     /*geometry*/
-    2 | $$self.$$.dirty[1] &
+    4 | $$self.$$.dirty[1] &
     /*maxBarThickness*/
-    16) {
-       $$invalidate(15, fontSize = Math.min(geometry.maxFontSize, geometry.fontSizeFactor * maxBarThickness));
+    32) {
+       $$invalidate(16, fontSize = Math.min(geometry.maxFontSize, geometry.fontSizeFactor * maxBarThickness));
     }
 
     if ($$self.$$.dirty[1] &
     /*$brush*/
-    32) {
+    64) {
        isPressed = $brush.state === "Pressed";
     }
 
@@ -16275,24 +16018,24 @@ function instance$i($$self, $$props, $$invalidate) {
     /*theme*/
     134217728 | $$self.$$.dirty[1] &
     /*doesBrushAdd, doesBrushRemove*/
-    384) {
-       $$invalidate(40, brushStroke = doesBrushAdd ? theme.brushAddStroke : doesBrushRemove ? theme.brushRemoveStroke : null);
+    768) {
+       $$invalidate(41, brushStroke = doesBrushAdd ? theme.brushAddStroke : doesBrushRemove ? theme.brushRemoveStroke : null);
     }
 
     if ($$self.$$.dirty[0] &
     /*isBrushing, bars*/
-    81920 | $$self.$$.dirty[1] &
+    163840 | $$self.$$.dirty[1] &
     /*brushExtent*/
-    1024) {
-       $$invalidate(43, brushExtentBarYs = isBrushing && sort([bars[brushExtent[0]].y1, bars[brushExtent[0]].y2, bars[brushExtent[1]].y1, bars[brushExtent[1]].y2]));
+    2048) {
+       $$invalidate(44, brushExtentBarYs = isBrushing && sort([bars[brushExtent[0]].y1, bars[brushExtent[0]].y2, bars[brushExtent[1]].y1, bars[brushExtent[1]].y2]));
     }
 
     if ($$self.$$.dirty[0] &
     /*isBrushing*/
-    65536 | $$self.$$.dirty[1] &
+    131072 | $$self.$$.dirty[1] &
     /*brushExtentBarYs*/
-    4096) {
-       $$invalidate(17, brushLine = isBrushing && {
+    8192) {
+       $$invalidate(18, brushLine = isBrushing && {
         y1: brushExtentBarYs[0],
         y2: brushExtentBarYs[3]
       });
@@ -16302,15 +16045,15 @@ function instance$i($$self, $$props, $$invalidate) {
     /*theme*/
     134217728 | $$self.$$.dirty[1] &
     /*brushStroke*/
-    512) {
+    1024) {
       /* style */
-       $$invalidate(18, style = makeStyleVars(_objectSpread$6(_objectSpread$6({}, theme), {}, {
+       $$invalidate(19, style = makeStyleVars(_objectSpread$5(_objectSpread$5({}, theme), {}, {
         brushStroke: brushStroke
       })));
     }
   };
 
-  return [flags, geometry, selectedBins, height, width, isMousedown, safety, innerWidth, innerHeight, origin, ticksX, ticksAnchor, ticks, scales, bars, fontSize, isBrushing, brushLine, style, brush, onMouseenter, onMousedown, onMousemove, onMouseup, onMouseleave, resetSelection, bins, theme, ticksFormatFn, binsFill];
+  return [bins, flags, geometry, message, selectedBins, height, width, isMousedown, safety, innerWidth, innerHeight, origin, ticksX, ticksAnchor, ticks, bars, fontSize, isBrushing, brushLine, style, brush, onMouseenter, onMousedown, onMousemove, onMouseup, onMouseleave, resetSelection, theme, ticksFormatFn, binsFill];
 }
 
 var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -16325,15 +16068,16 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$i, create_fragment$i, safe_not_equal, {
-      bins: 26,
+      height: 5,
+      width: 6,
+      bins: 0,
       binsFill: 29,
-      flags: 0,
-      geometry: 1,
-      height: 3,
-      selectedBins: 2,
+      flags: 1,
+      geometry: 2,
+      message: 3,
+      selectedBins: 4,
       theme: 27,
-      ticksFormatFn: 28,
-      width: 4
+      ticksFormatFn: 28
     }, [-1, -1, -1]);
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -16345,8 +16089,20 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
     var props = options.props || {};
 
     if (
+    /*height*/
+    ctx[5] === undefined && !("height" in props)) {
+      console.warn("<HistogramG> was created without expected prop 'height'");
+    }
+
+    if (
+    /*width*/
+    ctx[6] === undefined && !("width" in props)) {
+      console.warn("<HistogramG> was created without expected prop 'width'");
+    }
+
+    if (
     /*bins*/
-    ctx[26] === undefined && !("bins" in props)) {
+    ctx[0] === undefined && !("bins" in props)) {
       console.warn("<HistogramG> was created without expected prop 'bins'");
     }
 
@@ -16358,25 +16114,25 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*flags*/
-    ctx[0] === undefined && !("flags" in props)) {
+    ctx[1] === undefined && !("flags" in props)) {
       console.warn("<HistogramG> was created without expected prop 'flags'");
     }
 
     if (
     /*geometry*/
-    ctx[1] === undefined && !("geometry" in props)) {
+    ctx[2] === undefined && !("geometry" in props)) {
       console.warn("<HistogramG> was created without expected prop 'geometry'");
     }
 
     if (
-    /*height*/
-    ctx[3] === undefined && !("height" in props)) {
-      console.warn("<HistogramG> was created without expected prop 'height'");
+    /*message*/
+    ctx[3] === undefined && !("message" in props)) {
+      console.warn("<HistogramG> was created without expected prop 'message'");
     }
 
     if (
     /*selectedBins*/
-    ctx[2] === undefined && !("selectedBins" in props)) {
+    ctx[4] === undefined && !("selectedBins" in props)) {
       console.warn("<HistogramG> was created without expected prop 'selectedBins'");
     }
 
@@ -16392,16 +16148,26 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
       console.warn("<HistogramG> was created without expected prop 'ticksFormatFn'");
     }
 
-    if (
-    /*width*/
-    ctx[4] === undefined && !("width" in props)) {
-      console.warn("<HistogramG> was created without expected prop 'width'");
-    }
-
     return _this;
   }
 
   _createClass(HistogramG, [{
+    key: "height",
+    get: function get() {
+      throw new Error("<HistogramG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<HistogramG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "width",
+    get: function get() {
+      throw new Error("<HistogramG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<HistogramG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
     key: "bins",
     get: function get() {
       throw new Error("<HistogramG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
@@ -16434,7 +16200,7 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<HistogramG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
-    key: "height",
+    key: "message",
     get: function get() {
       throw new Error("<HistogramG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     },
@@ -16465,14 +16231,6 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
     set: function set(value) {
       throw new Error("<HistogramG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
-  }, {
-    key: "width",
-    get: function get() {
-      throw new Error("<HistogramG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<HistogramG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
   }]);
 
   return HistogramG;
@@ -16481,7 +16239,7 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
 function _createSuper$j(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$j(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct$j() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-var file$d = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/histogram/src/HistogramDiv.svelte"; // (33:1) {#if title}
+var file$d = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/histogram/src/HistogramDiv.svelte"; // (34:1) {#if title}
 
 function create_if_block_1$8(ctx) {
   var header;
@@ -16514,14 +16272,14 @@ function create_if_block_1$8(ctx) {
     },
     h: function hydrate() {
       attr_dev(h2, "class", "svelte-4i00u3");
-      add_location(h2, file$d, 34, 2, 676);
+      add_location(h2, file$d, 35, 2, 697);
       attr_dev(header, "class", "svelte-4i00u3");
       toggle_class(header, "rightToLeft",
       /*flags*/
       ctx[3] &&
       /*flags*/
       ctx[3].isRightToLeft);
-      add_location(header, file$d, 33, 1, 616);
+      add_location(header, file$d, 34, 1, 637);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -16553,11 +16311,11 @@ function create_if_block_1$8(ctx) {
     block: block,
     id: create_if_block_1$8.name,
     type: "if",
-    source: "(33:1) {#if title}",
+    source: "(34:1) {#if title}",
     ctx: ctx
   });
   return block;
-} // (47:3) {#if bins}
+} // (48:3) {#if bins}
 
 
 function create_if_block$a(ctx) {
@@ -16579,40 +16337,43 @@ function create_if_block$a(ctx) {
       ctx[4],
       height:
       /*height*/
-      ctx[8],
+      ctx[9],
+      message:
+      /*message*/
+      ctx[5],
       selectedBins:
       /*selectedBins*/
-      ctx[5],
+      ctx[6],
       theme:
       /*theme*/
-      ctx[6],
+      ctx[7],
       ticksFormatFn:
       /*ticksFormatFn*/
-      ctx[7],
+      ctx[8],
       width:
       /*width*/
-      ctx[9]
+      ctx[10]
     },
     $$inline: true
   });
   histogramg.$on("brushed",
   /*brushed_handler*/
-  ctx[13]);
+  ctx[14]);
   histogramg.$on("brushend",
   /*brushend_handler*/
-  ctx[14]);
+  ctx[15]);
   histogramg.$on("brushstart",
   /*brushstart_handler*/
-  ctx[15]);
+  ctx[16]);
   histogramg.$on("clicked",
   /*clicked_handler*/
-  ctx[16]);
+  ctx[17]);
   histogramg.$on("entered",
   /*entered_handler*/
-  ctx[17]);
+  ctx[18]);
   histogramg.$on("exited",
   /*exited_handler*/
-  ctx[18]);
+  ctx[19]);
   var block = {
     c: function create() {
       create_component(histogramg.$$.fragment);
@@ -16648,29 +16409,34 @@ function create_if_block$a(ctx) {
       ctx[4];
       if (dirty &
       /*height*/
-      256) histogramg_changes.height =
+      512) histogramg_changes.height =
       /*height*/
-      ctx[8];
+      ctx[9];
       if (dirty &
-      /*selectedBins*/
-      32) histogramg_changes.selectedBins =
-      /*selectedBins*/
+      /*message*/
+      32) histogramg_changes.message =
+      /*message*/
       ctx[5];
       if (dirty &
-      /*theme*/
-      64) histogramg_changes.theme =
-      /*theme*/
+      /*selectedBins*/
+      64) histogramg_changes.selectedBins =
+      /*selectedBins*/
       ctx[6];
       if (dirty &
-      /*ticksFormatFn*/
-      128) histogramg_changes.ticksFormatFn =
-      /*ticksFormatFn*/
+      /*theme*/
+      128) histogramg_changes.theme =
+      /*theme*/
       ctx[7];
       if (dirty &
+      /*ticksFormatFn*/
+      256) histogramg_changes.ticksFormatFn =
+      /*ticksFormatFn*/
+      ctx[8];
+      if (dirty &
       /*width*/
-      512) histogramg_changes.width =
+      1024) histogramg_changes.width =
       /*width*/
-      ctx[9];
+      ctx[10];
       histogramg.$set(histogramg_changes);
     },
     i: function intro(local) {
@@ -16690,7 +16456,7 @@ function create_if_block$a(ctx) {
     block: block,
     id: create_if_block$a.name,
     type: "if",
-    source: "(47:3) {#if bins}",
+    source: "(48:3) {#if bins}",
     ctx: ctx
   });
   return block;
@@ -16746,17 +16512,17 @@ function create_fragment$j(ctx) {
     h: function hydrate() {
       attr_dev(svg, "width",
       /*width*/
-      ctx[9]);
+      ctx[10]);
       attr_dev(svg, "height",
       /*height*/
-      ctx[8]);
+      ctx[9]);
       attr_dev(svg, "class", "svelte-4i00u3");
-      add_location(svg, file$d, 42, 2, 818);
+      add_location(svg, file$d, 43, 2, 839);
       attr_dev(main, "class", "svelte-4i00u3");
       add_render_callback(function () {
         return (
           /*main_elementresize_handler*/
-          ctx[19].call(main)
+          ctx[20].call(main)
         );
       });
       toggle_class(main, "titled",
@@ -16764,17 +16530,17 @@ function create_fragment$j(ctx) {
       ctx[0] &&
       /*title*/
       ctx[0].length);
-      add_location(main, file$d, 37, 1, 712);
+      add_location(main, file$d, 38, 1, 733);
       attr_dev(div, "class", "HistogramDiv svelte-4i00u3");
       attr_dev(div, "style",
       /*style*/
-      ctx[10]);
+      ctx[11]);
       toggle_class(div, "interactive",
       /*flags*/
       ctx[3] &&
       /*flags*/
       ctx[3].isInteractive);
-      add_location(div, file$d, 27, 0, 514);
+      add_location(div, file$d, 28, 0, 535);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -16785,7 +16551,7 @@ function create_fragment$j(ctx) {
       if (if_block1) if_block1.m(svg, null);
       main_resize_listener = add_resize_listener(main,
       /*main_elementresize_handler*/
-      ctx[19].bind(main));
+      ctx[20].bind(main));
       current = true;
     },
     p: function update(ctx, _ref) {
@@ -16834,18 +16600,18 @@ function create_fragment$j(ctx) {
 
       if (!current || dirty &
       /*width*/
-      512) {
+      1024) {
         attr_dev(svg, "width",
         /*width*/
-        ctx[9]);
+        ctx[10]);
       }
 
       if (!current || dirty &
       /*height*/
-      256) {
+      512) {
         attr_dev(svg, "height",
         /*height*/
-        ctx[8]);
+        ctx[9]);
       }
 
       if (dirty &
@@ -16860,10 +16626,10 @@ function create_fragment$j(ctx) {
 
       if (!current || dirty &
       /*style*/
-      1024) {
+      2048) {
         attr_dev(div, "style",
         /*style*/
-        ctx[10]);
+        ctx[11]);
       }
 
       if (dirty &
@@ -16910,12 +16676,13 @@ function instance$j($$self, $$props, $$invalidate) {
   var binsFill = $$props.binsFill;
   var flags = $$props.flags;
   var geometry = $$props.geometry;
+  var message = $$props.message;
   var selectedBins = $$props.selectedBins;
   var theme = $$props.theme;
   var ticksFormatFn = $$props.ticksFormatFn;
   var height = 0;
   var width = 0;
-  var writable_props = ["headerHeight", "padding", "title", "bins", "binsFill", "flags", "geometry", "selectedBins", "theme", "ticksFormatFn"];
+  var writable_props = ["headerHeight", "padding", "title", "bins", "binsFill", "flags", "geometry", "message", "selectedBins", "theme", "ticksFormatFn"];
   Object.keys($$props).forEach(function (key) {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<HistogramDiv> was created with unknown prop '".concat(key, "'"));
   });
@@ -16951,21 +16718,22 @@ function instance$j($$self, $$props, $$invalidate) {
   function main_elementresize_handler() {
     height = this.clientHeight;
     width = this.clientWidth;
-    $$invalidate(8, height);
-    $$invalidate(9, width);
+    $$invalidate(9, height);
+    $$invalidate(10, width);
   }
 
   $$self.$set = function ($$props) {
-    if ("headerHeight" in $$props) $$invalidate(11, headerHeight = $$props.headerHeight);
-    if ("padding" in $$props) $$invalidate(12, padding = $$props.padding);
+    if ("headerHeight" in $$props) $$invalidate(12, headerHeight = $$props.headerHeight);
+    if ("padding" in $$props) $$invalidate(13, padding = $$props.padding);
     if ("title" in $$props) $$invalidate(0, title = $$props.title);
     if ("bins" in $$props) $$invalidate(1, bins = $$props.bins);
     if ("binsFill" in $$props) $$invalidate(2, binsFill = $$props.binsFill);
     if ("flags" in $$props) $$invalidate(3, flags = $$props.flags);
     if ("geometry" in $$props) $$invalidate(4, geometry = $$props.geometry);
-    if ("selectedBins" in $$props) $$invalidate(5, selectedBins = $$props.selectedBins);
-    if ("theme" in $$props) $$invalidate(6, theme = $$props.theme);
-    if ("ticksFormatFn" in $$props) $$invalidate(7, ticksFormatFn = $$props.ticksFormatFn);
+    if ("message" in $$props) $$invalidate(5, message = $$props.message);
+    if ("selectedBins" in $$props) $$invalidate(6, selectedBins = $$props.selectedBins);
+    if ("theme" in $$props) $$invalidate(7, theme = $$props.theme);
+    if ("ticksFormatFn" in $$props) $$invalidate(8, ticksFormatFn = $$props.ticksFormatFn);
   };
 
   $$self.$capture_state = function () {
@@ -16979,6 +16747,7 @@ function instance$j($$self, $$props, $$invalidate) {
       binsFill: binsFill,
       flags: flags,
       geometry: geometry,
+      message: message,
       selectedBins: selectedBins,
       theme: theme,
       ticksFormatFn: ticksFormatFn,
@@ -16989,19 +16758,20 @@ function instance$j($$self, $$props, $$invalidate) {
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("headerHeight" in $$props) $$invalidate(11, headerHeight = $$props.headerHeight);
-    if ("padding" in $$props) $$invalidate(12, padding = $$props.padding);
+    if ("headerHeight" in $$props) $$invalidate(12, headerHeight = $$props.headerHeight);
+    if ("padding" in $$props) $$invalidate(13, padding = $$props.padding);
     if ("title" in $$props) $$invalidate(0, title = $$props.title);
     if ("bins" in $$props) $$invalidate(1, bins = $$props.bins);
     if ("binsFill" in $$props) $$invalidate(2, binsFill = $$props.binsFill);
     if ("flags" in $$props) $$invalidate(3, flags = $$props.flags);
     if ("geometry" in $$props) $$invalidate(4, geometry = $$props.geometry);
-    if ("selectedBins" in $$props) $$invalidate(5, selectedBins = $$props.selectedBins);
-    if ("theme" in $$props) $$invalidate(6, theme = $$props.theme);
-    if ("ticksFormatFn" in $$props) $$invalidate(7, ticksFormatFn = $$props.ticksFormatFn);
-    if ("height" in $$props) $$invalidate(8, height = $$props.height);
-    if ("width" in $$props) $$invalidate(9, width = $$props.width);
-    if ("style" in $$props) $$invalidate(10, style = $$props.style);
+    if ("message" in $$props) $$invalidate(5, message = $$props.message);
+    if ("selectedBins" in $$props) $$invalidate(6, selectedBins = $$props.selectedBins);
+    if ("theme" in $$props) $$invalidate(7, theme = $$props.theme);
+    if ("ticksFormatFn" in $$props) $$invalidate(8, ticksFormatFn = $$props.ticksFormatFn);
+    if ("height" in $$props) $$invalidate(9, height = $$props.height);
+    if ("width" in $$props) $$invalidate(10, width = $$props.width);
+    if ("style" in $$props) $$invalidate(11, style = $$props.style);
   };
 
   var style;
@@ -17013,27 +16783,27 @@ function instance$j($$self, $$props, $$invalidate) {
   $$self.$$.update = function () {
     if ($$self.$$.dirty &
     /*padding*/
-    4096) {
-       $$invalidate(12, padding = padding || "10px");
+    8192) {
+       $$invalidate(13, padding = padding || "10px");
     }
 
     if ($$self.$$.dirty &
     /*headerHeight*/
-    2048) {
-       $$invalidate(11, headerHeight = headerHeight || "2rem");
+    4096) {
+       $$invalidate(12, headerHeight = headerHeight || "2rem");
     }
 
     if ($$self.$$.dirty &
     /*headerHeight, padding*/
-    6144) {
-       $$invalidate(10, style = makeStyleVars({
+    12288) {
+       $$invalidate(11, style = makeStyleVars({
         headerHeight: headerHeight,
         padding: padding
       }));
     }
   };
 
-  return [title, bins, binsFill, flags, geometry, selectedBins, theme, ticksFormatFn, height, width, style, headerHeight, padding, brushed_handler, brushend_handler, brushstart_handler, clicked_handler, entered_handler, exited_handler, main_elementresize_handler];
+  return [title, bins, binsFill, flags, geometry, message, selectedBins, theme, ticksFormatFn, height, width, style, headerHeight, padding, brushed_handler, brushend_handler, brushstart_handler, clicked_handler, entered_handler, exited_handler, main_elementresize_handler];
 }
 
 var HistogramDiv = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -17048,16 +16818,17 @@ var HistogramDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$j, create_fragment$j, safe_not_equal, {
-      headerHeight: 11,
-      padding: 12,
+      headerHeight: 12,
+      padding: 13,
       title: 0,
       bins: 1,
       binsFill: 2,
       flags: 3,
       geometry: 4,
-      selectedBins: 5,
-      theme: 6,
-      ticksFormatFn: 7
+      message: 5,
+      selectedBins: 6,
+      theme: 7,
+      ticksFormatFn: 8
     });
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -17070,13 +16841,13 @@ var HistogramDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*headerHeight*/
-    ctx[11] === undefined && !("headerHeight" in props)) {
+    ctx[12] === undefined && !("headerHeight" in props)) {
       console.warn("<HistogramDiv> was created without expected prop 'headerHeight'");
     }
 
     if (
     /*padding*/
-    ctx[12] === undefined && !("padding" in props)) {
+    ctx[13] === undefined && !("padding" in props)) {
       console.warn("<HistogramDiv> was created without expected prop 'padding'");
     }
 
@@ -17111,20 +16882,26 @@ var HistogramDiv = /*#__PURE__*/function (_SvelteComponentDev) {
     }
 
     if (
+    /*message*/
+    ctx[5] === undefined && !("message" in props)) {
+      console.warn("<HistogramDiv> was created without expected prop 'message'");
+    }
+
+    if (
     /*selectedBins*/
-    ctx[5] === undefined && !("selectedBins" in props)) {
+    ctx[6] === undefined && !("selectedBins" in props)) {
       console.warn("<HistogramDiv> was created without expected prop 'selectedBins'");
     }
 
     if (
     /*theme*/
-    ctx[6] === undefined && !("theme" in props)) {
+    ctx[7] === undefined && !("theme" in props)) {
       console.warn("<HistogramDiv> was created without expected prop 'theme'");
     }
 
     if (
     /*ticksFormatFn*/
-    ctx[7] === undefined && !("ticksFormatFn" in props)) {
+    ctx[8] === undefined && !("ticksFormatFn" in props)) {
       console.warn("<HistogramDiv> was created without expected prop 'ticksFormatFn'");
     }
 
@@ -17188,6 +16965,14 @@ var HistogramDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       throw new Error("<HistogramDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     }
   }, {
+    key: "message",
+    get: function get() {
+      throw new Error("<HistogramDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<HistogramDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
     key: "selectedBins",
     get: function get() {
       throw new Error("<HistogramDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
@@ -17235,18 +17020,18 @@ var histogram = /*#__PURE__*/Object.freeze({
 	getNonEmptyBinsTicks: getNonEmptyBinsTicks
 });
 
-function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var components = _objectSpread$7(_objectSpread$7(_objectSpread$7(_objectSpread$7({}, barchart), choropleth), histogram), legend);
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var components = _objectSpread$6(_objectSpread$6(_objectSpread$6(_objectSpread$6({}, barchart), choropleth), histogram), legend);
 
 function _createSuper$k(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$k(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct$k() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var file$e = "src/routes/components/[slug].svelte";
 
 function get_each_context$7(ctx, list, i) {
@@ -17271,7 +17056,7 @@ function get_each_context_2$1(ctx, list, i) {
 } // (73:2) {#if data.length > 1}
 
 
-function create_if_block_2$5(ctx) {
+function create_if_block_2$6(ctx) {
   var div1;
   var h2;
   var t0;
@@ -17415,7 +17200,7 @@ function create_if_block_2$5(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_2$5.name,
+    id: create_if_block_2$6.name,
     type: "if",
     source: "(73:2) {#if data.length > 1}",
     ctx: ctx
@@ -17808,7 +17593,7 @@ function create_each_block$7(ctx) {
 } // (138:2) {:else}
 
 
-function create_else_block$2(ctx) {
+function create_else_block$5(ctx) {
   var switch_instance;
   var switch_instance_anchor;
   var current;
@@ -17908,7 +17693,7 @@ function create_else_block$2(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_else_block$2.name,
+    id: create_else_block$5.name,
     type: "else",
     source: "(138:2) {:else}",
     ctx: ctx
@@ -17923,7 +17708,7 @@ function create_if_block$b(ctx) {
   var switch_instance;
   var div_resize_listener;
   var current;
-  var switch_instance_spread_levels = [_objectSpread$8(_objectSpread$8({},
+  var switch_instance_spread_levels = [_objectSpread$7(_objectSpread$7({},
   /*current_data*/
   ctx[11].props), {}, {
     width:
@@ -18012,7 +17797,7 @@ function create_if_block$b(ctx) {
     p: function update(ctx, dirty) {
       var switch_instance_changes = dirty[0] &
       /*current_data, width, height*/
-      2144 ? get_spread_update(switch_instance_spread_levels, [_objectSpread$8(_objectSpread$8({},
+      2144 ? get_spread_update(switch_instance_spread_levels, [_objectSpread$7(_objectSpread$7({},
       /*current_data*/
       ctx[11].props), {}, {
         width:
@@ -18141,7 +17926,7 @@ function create_fragment$k(ctx) {
   });
   var if_block0 =
   /*data*/
-  ctx[0].length > 1 && create_if_block_2$5(ctx);
+  ctx[0].length > 1 && create_if_block_2$6(ctx);
   var if_block1 =
   /*payloads*/
   ctx[8] && create_if_block_1$9(ctx);
@@ -18161,7 +17946,7 @@ function create_fragment$k(ctx) {
     });
   };
 
-  var if_block_creators = [create_if_block$b, create_else_block$2];
+  var if_block_creators = [create_if_block$b, create_else_block$5];
   var if_blocks = [];
 
   function select_block_type(ctx, dirty) {
@@ -18371,7 +18156,7 @@ function create_fragment$k(ctx) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_2$5(ctx);
+          if_block0 = create_if_block_2$6(ctx);
           if_block0.c();
           if_block0.m(div3, t4);
         }

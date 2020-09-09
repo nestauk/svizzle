@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/geometry/2DVector - Svizzle</title>
+    <title>@svizzle/utils/[any-boolean]-[array-array] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/geometry/2DVector</h1>
+    <h1 class="page-title">@svizzle/utils/[any-boolean]-[array-array]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".makeVectorFeatures"><span class="type-signature">(static) </span>makeVectorFeatures<span class="signature">(point)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".raiseWith"><span class="type-signature">(static) </span>raiseWith<span class="signature">()</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tools_geometry_src_2DVector.js.html">tools/geometry/src/2DVector.js</a>, <a href="tools_geometry_src_2DVector.js.html#line43">line 43</a>
+        <a href="tools_utils_src_[any-boolean]-[array-array].js.html">tools/utils/src/[any-boolean]-[array-array].js</a>, <a href="tools_utils_src_[any-boolean]-[array-array].js.html#line25">line 25</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.10.0</li></ul></dd>
     
 
     
@@ -144,7 +144,9 @@
 
 
 <div class="description usertext">
-    <p>Calculates length and versor of a vector</p>
+    <p>Return a function expecting an array and returning a new array with all items
+satisfying the provided predicate in the tail, in the same relative order
+they were in the input array.</p>
 </div>
 
 
@@ -157,16 +159,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>> makeVectorFeatures({x: 1, y: 1})
-{
-	length: 1.4142135623730951,
-	versor: {x: 0.7071067811865475, y: 0.7071067811865475}
-}
-> makeVectorFeatures({x: 0, y: 0})
-{
-	length: 0,
-	versor: {x: 0, y: 0}
-}</code></pre>
+    <pre class="prettyprint"><code>> raiseOdds = raiseWith(x => x % 2 === 1);
+> raiseOdds([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+[0, 2, 4, 6, 8, 1, 3, 5, 7, 9]</code></pre>
 
 
 
@@ -177,8 +172,6 @@
 <table class="params">
     <thead>
     <tr>
-        
-        <th>Name</th>
         
 
         <th>Type</th>
@@ -196,13 +189,11 @@
 
         <tr>
             
-                <td class="name"><code>point</code></td>
-            
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">predicate</span>
 
 
             
@@ -212,7 +203,7 @@
 
             
 
-            <td class="description last"><p>A point representing a vector starting in the origin</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -239,7 +230,7 @@
         
 <div class="param-desc">
     <ul>
-<li>The vector features: {length, versor}</li>
+<li>Array -&gt; Array</li>
 </ul>
 </div>
 
@@ -251,178 +242,7 @@
     </dt>
     <dd>
         
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".vectorLength2D"><span class="type-signature">(static) </span>vectorLength2D<span class="signature">(point)</span><span class="type-signature"> &rarr; {number}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tools_geometry_src_2DVector.js.html">tools/geometry/src/2DVector.js</a>, <a href="tools_geometry_src_2DVector.js.html#line20">line 20</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Calculates the length of a vector</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>> vectorLength2D(1, 1)
-1.4142135623730951
-> vectorLength2D(0, 0)
-0</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>point</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>A point representing a vector starting in the origin</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>The vector length</li>
-</ul>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
+<span class="param-type">function</span>
 
 
     </dd>
