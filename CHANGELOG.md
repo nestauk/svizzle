@@ -1,22 +1,22 @@
 # Svizzle changelog
 
-## next
+## 20200909
 
-## `@svizzle/barchart` v0.6.0 (next)
+## `@svizzle/barchart` v0.6.0
 
 - use reference values to build the x scale in order to draw ref lines exceeding the data extent correctly
 - show a message if `items` is not provided or is empty
 
-## `@svizzle/choropleth` v0.6.0 (next)
+## `@svizzle/choropleth` v0.6.0
 
 - add prop `projection`
 - show a customisable message if `items` is not provided or is empty
 
-## `@svizzle/histogram` v0.3.0 (next)
+## `@svizzle/histogram` v0.3.0
 
 - show a customisable message if `items` is not provided or is empty
 
-## `@svizzle/utils` v0.10.0 (next)
+## `@svizzle/utils` v0.10.0
 
 ### (Any -> Boolean) -> (Array -> Array)
 

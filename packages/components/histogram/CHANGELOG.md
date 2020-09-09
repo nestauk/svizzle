@@ -1,4 +1,4 @@
-## `@svizzle/histogram` v0.3.0 (next)
+## `@svizzle/histogram` v0.3.0
 
 - show a customisable message if `items` is not provided or is empty
 
