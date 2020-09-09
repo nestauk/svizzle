@@ -234,7 +234,7 @@
 	{/if}
 	<main class:titled={title} >
 		<!-- ref labels -->
-		{#if refs}
+		{#if refs.length}
 		<div class='refs'>
 			<svg {width} height={refsHeight}>
 				{#each refsLayout as {
