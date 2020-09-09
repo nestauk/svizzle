@@ -1,3 +1,7 @@
+## `@svizzle/barchart` v0.5.1 (next)
+
+- use reference values to build the x scale in order to draw ref lines exceeding the data extent correctly
+
 ## `@svizzle/barchart` v0.5.0
 
 - add prop `refs`

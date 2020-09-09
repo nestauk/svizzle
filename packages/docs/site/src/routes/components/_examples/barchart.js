@@ -673,6 +673,62 @@ export default formatExamples([
 					}}
 				/>
 			`,
+		}, {
+			key: 'Ref lines exceeding data extent',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 1200}
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 1200}
+					]}
+				/>
+			`,
+		}, {
+			key: 'Multiple refs exceeding data extent (positive extent)',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'Another value', value: -200},
+					{key: 'National average', value: 500},
+					{key: 'Yet another value', value: 1300},
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'Another value', value: -200},
+						{key: 'National average', value: 500},
+						{key: 'Yet another value', value: 1300},
+					]}
+				/>
+			`,
+		}, {
+			key: 'Multiple refs exceeding data extent (pos & neg extent)',
+			props: {
+				items: countryKeyValueMixed,
+				refs: [
+					{key: 'Another value', value: -200},
+					{key: 'National average', value: 500},
+					{key: 'Yet another value', value: 1300},
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'Another value', value: -200},
+						{key: 'National average', value: 500},
+						{key: 'Yet another value', value: 1300},
+					]}
+				/>
+			`,
 		}],
 		doc: [
 			{tag: 'p', content: 'You can show reference lines by providing an array `refs` with shape `{key, value}[]`.'},

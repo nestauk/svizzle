@@ -61,8 +61,8 @@
 	export let keyToLabel;
 	export let keyToLabelFn;
 	export let refs;
-	export let shouldResetScroll;
 	export let selectedKeys;
+	export let shouldResetScroll;
 	export let shouldScrollToFocusedKey;
 	export let theme;
 	export let title;
@@ -71,6 +71,7 @@
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: barHeight = barHeight || 4;
 	$: isInteractive = isInteractive || false;
+	$: refs = refs || [];
 	$: selectedKeys = selectedKeys || [];
 	$: shouldResetScroll = shouldResetScroll || false;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
@@ -93,8 +94,9 @@
 	$: svgHeight = itemHeight * items.length;
 	$: getMin = arrayMinWith(valueAccessor);
 	$: getMax = arrayMaxWith(valueAccessor);
-	$: min = getMin(items);
-	$: max = getMax(items);
+	$: refsValues = refs.map(getValue);
+	$: min = Math.min(getMin(items), ...refsValues);
+	$: max = Math.max(getMax(items), ...refsValues);
 	$: crossesZero = Math.sign(min) === -Math.sign(max);
 	$: domain = crossesZero
 		? [min, max]
