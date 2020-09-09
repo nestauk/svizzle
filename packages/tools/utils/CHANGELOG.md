@@ -4,6 +4,9 @@
 
 - add `raiseWith`
 
+### Any -> Boolean
+
+- add `negate`
 
 ## `@svizzle/utils` v0.9.0
 

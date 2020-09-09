@@ -22,6 +22,10 @@
 
 - add `raiseWith`
 
+### Any -> Boolean
+
+- add `negate`
+
 
 ## 20200908
 

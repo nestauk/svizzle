@@ -59,6 +59,136 @@ false
 export const isArray = _.isType('Array');
 
 /**
+ * Return true is the input is not a NaN.
+ * Remember that {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#Confusing_special-case_behavior|isNaN coerces the input with Number()} to the output can be a bit surprising.
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> isNotNaN(1)
+true
+> isNotNaN(Infinity)
+true
+> isNotNaN([123])
+true
+> isNotNaN('123')
+true
+> isNotNaN(true)
+true
+> isNotNaN(false)
+true
+> isNotNaN(null)
+true
+> isNotNaN([1, 2])
+false
+> isNotNaN({a: 1})
+false
+> isNotNaN('123px')
+false
+> isNotNaN('foo')
+false
+> isNotNaN(undefined)
+false
+> isNotNaN(NaN)
+false
+
+> function returnArgs () {
+	return arguments;
+}
+> isNotNaN(returnArgs())
+false
+ *
+ * @version 0.1.0
+ */
+export const isNotNaN = _.not(isNaN);
+
+/**
+ * Return true is the input is not undefined or null.
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> isNotNil(1)
+true
+> isNotNil(Infinity)
+true
+> isNotNil('123')
+true
+> isNotNil('123px')
+true
+> isNotNil([1, 2])
+true
+> isNotNil({a: 1})
+true
+> isNotNil(true)
+true
+> isNotNil(false)
+true
+> isNotNil(NaN)
+true
+
+> isNotNil(undefined)
+false
+> isNotNil(null)
+false
+
+> function returnArgs () {
+	return arguments;
+}
+> isNotNil(returnArgs())
+false
+ *
+ * @version 0.2.0
+ */
+export const isNotNil = _.not(_.isNil);
+
+/**
+ * Return true is the input is not null.
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> isNotNull(1)
+true
+> isNotNull(Infinity)
+true
+> isNotNull('123')
+true
+> isNotNull('123px')
+true
+> isNotNull([1, 2])
+true
+> isNotNull({a: 1})
+true
+> isNotNull(true)
+true
+> isNotNull(false)
+true
+> isNotNull(NaN)
+true
+> isNotNull(undefined)
+true
+
+> isNotNull(null)
+false
+
+> function returnArgs () {
+	return arguments;
+}
+> isNotNull(returnArgs())
+true
+ *
+ * @version 0.4.0
+ */
+export const isNotNull = _.not(_.isNull);
+
+/**
  * Return true is the input is a number
  *
  * @function
@@ -153,52 +283,6 @@ false
 export const isString = _.isType('String');
 
 /**
- * Return true is the input is not a NaN.
- * Remember that {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#Confusing_special-case_behavior|isNaN coerces the input with Number()} to the output can be a bit surprising.
- *
- * @function
- * @arg {*} any
- * @return {boolean}
- *
- * @example
-> isNotNaN(1)
-true
-> isNotNaN(Infinity)
-true
-> isNotNaN([123])
-true
-> isNotNaN('123')
-true
-> isNotNaN(true)
-true
-> isNotNaN(false)
-true
-> isNotNaN(null)
-true
-> isNotNaN([1, 2])
-false
-> isNotNaN({a: 1})
-false
-> isNotNaN('123px')
-false
-> isNotNaN('foo')
-false
-> isNotNaN(undefined)
-false
-> isNotNaN(NaN)
-false
-
-> function returnArgs () {
-	return arguments;
-}
-> isNotNaN(returnArgs())
-false
- *
- * @version 0.1.0
- */
-export const isNotNaN = _.not(isNaN);
-
-/**
  * Return true is the input is a valid number (including not being NaN)
  *
  * @function
@@ -238,6 +322,40 @@ export const isNotNaN = _.not(isNaN);
  * @see {@link module:@svizzle/utils/[any-any]-[any-boolean].isValidNumberWith|isValidNumberWith}
  */
 export const isValidNumber = _.allOf([isNumber, isNotNaN]);
+
+/**
+ * Return the negated input.
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> negate(true)
+false
+> negate(false)
+true
+> negate(1)
+false
+> negate(0)
+true
+> negate('a')
+false
+> negate('')
+true
+> negate(null)
+true
+> negate(NaN)
+true
+> negate(undefined)
+true
+> negate([])
+false
+> negate({})
+false
+ * @version 0.10.0
+ */
+export const negate = x => !x;
 
 /**
  * Return true if the input, converted to Number, is indeed a number
@@ -315,87 +433,3 @@ export const toNumberisValidNumber = _.pipe([Number, isValidNumber]);
  * @version 0.1.0
  */
 export const toFloatIsValidNumber = _.pipe([parseFloat, isValidNumber]);
-
-/**
- * Return true is the input is not undefined or null.
- *
- * @function
- * @arg {*} any
- * @return {boolean}
- *
- * @example
-> isNotNil(1)
-true
-> isNotNil(Infinity)
-true
-> isNotNil('123')
-true
-> isNotNil('123px')
-true
-> isNotNil([1, 2])
-true
-> isNotNil({a: 1})
-true
-> isNotNil(true)
-true
-> isNotNil(false)
-true
-> isNotNil(NaN)
-true
-
-> isNotNil(undefined)
-false
-> isNotNil(null)
-false
-
-> function returnArgs () {
-	return arguments;
-}
-> isNotNil(returnArgs())
-false
- *
- * @version 0.2.0
- */
-export const isNotNil = _.not(_.isNil);
-
-/**
- * Return true is the input is not null.
- *
- * @function
- * @arg {*} any
- * @return {boolean}
- *
- * @example
-> isNotNull(1)
-true
-> isNotNull(Infinity)
-true
-> isNotNull('123')
-true
-> isNotNull('123px')
-true
-> isNotNull([1, 2])
-true
-> isNotNull({a: 1})
-true
-> isNotNull(true)
-true
-> isNotNull(false)
-true
-> isNotNull(NaN)
-true
-> isNotNull(undefined)
-true
-
-> isNotNull(null)
-false
-
-> function returnArgs () {
-	return arguments;
-}
-> isNotNull(returnArgs())
-true
- *
- * @version 0.4.0
- */
-export const isNotNull = _.not(_.isNull);
