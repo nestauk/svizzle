@@ -1,5 +1,5 @@
-import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.1c097984.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as pullFrom, al as has, am as lookup, an as _, ao as setIn } from './_utils.9d0e9823.js';
+import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.03728b2e.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as pullFrom, al as has, am as lookup, an as _, ao as setIn } from './_utils.96695861.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -6460,9 +6460,9 @@ function create_if_block_4(ctx) {
     },
     h: function hydrate() {
       attr_dev(h2, "class", "svelte-1octkco");
-      add_location(h2, file$7, 236, 2, 5666);
+      add_location(h2, file$7, 236, 2, 5705);
       attr_dev(header, "class", "svelte-1octkco");
-      add_location(header, file$7, 235, 1, 5655);
+      add_location(header, file$7, 235, 1, 5694);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -6591,15 +6591,15 @@ function create_else_block$1(ctx) {
       attr_dev(rect, "height",
       /*svgHeight*/
       ctx[16]);
-      add_location(rect, file$7, 303, 4, 6897);
-      add_location(g, file$7, 306, 4, 6968);
+      add_location(rect, file$7, 303, 4, 6946);
+      add_location(g, file$7, 306, 4, 7017);
       attr_dev(svg, "width",
       /*width*/
       ctx[9]);
       attr_dev(svg, "height",
       /*svgHeight*/
       ctx[16]);
-      add_location(svg, file$7, 302, 3, 6860);
+      add_location(svg, file$7, 302, 3, 6909);
       attr_dev(div, "class", "scrollable svelte-1octkco");
       add_render_callback(function () {
         return (
@@ -6612,7 +6612,7 @@ function create_else_block$1(ctx) {
       ctx[4] &&
       /*refs*/
       ctx[4].length);
-      add_location(div, file$7, 294, 2, 6657);
+      add_location(div, file$7, 294, 2, 6706);
     },
     m: function mount(target, anchor) {
       if (if_block0) if_block0.m(target, anchor);
@@ -6769,7 +6769,7 @@ function create_else_block$1(ctx) {
     ctx: ctx
   });
   return block;
-} // (241:2) {#if items.length === 0}
+} // (241:2) {#if !items || items.length === 0}
 
 
 function create_if_block$4(ctx) {
@@ -6803,9 +6803,9 @@ function create_if_block$4(ctx) {
     },
     h: function hydrate() {
       attr_dev(span, "class", "svelte-1octkco");
-      add_location(span, file$7, 243, 3, 5786);
+      add_location(span, file$7, 243, 3, 5835);
       attr_dev(div, "class", "message svelte-1octkco");
-      add_location(div, file$7, 242, 2, 5761);
+      add_location(div, file$7, 242, 2, 5810);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -6827,7 +6827,7 @@ function create_if_block$4(ctx) {
     block: block,
     id: create_if_block$4.name,
     type: "if",
-    source: "(241:2) {#if items.length === 0}",
+    source: "(241:2) {#if !items || items.length === 0}",
     ctx: ctx
   });
   return block;
@@ -6884,9 +6884,9 @@ function create_if_block_3$1(ctx) {
       attr_dev(svg, "height",
       /*refsHeight*/
       ctx[12]);
-      add_location(svg, file$7, 251, 3, 5896);
+      add_location(svg, file$7, 251, 3, 5945);
       attr_dev(div, "class", "refs svelte-1octkco");
-      add_location(div, file$7, 250, 2, 5874);
+      add_location(div, file$7, 250, 2, 5923);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -7033,7 +7033,7 @@ function create_each_block_2(ctx) {
       /*refHeight*/
       ctx[20]);
       attr_dev(rect, "class", "svelte-1octkco");
-      add_location(rect, file$7, 269, 5, 6185);
+      add_location(rect, file$7, 269, 5, 6234);
       attr_dev(text_1, "x", text_1_x_value =
       /*textX*/
       ctx[75]);
@@ -7047,7 +7047,7 @@ function create_each_block_2(ctx) {
       toggle_class(text_1, "right",
       /*isRight*/
       ctx[72]);
-      add_location(text_1, file$7, 274, 5, 6263);
+      add_location(text_1, file$7, 274, 5, 6312);
       attr_dev(line, "class", "ref");
       attr_dev(line, "stroke", line_stroke_value =
       /*color*/
@@ -7072,14 +7072,14 @@ function create_each_block_2(ctx) {
       ctx[12] -
       /*y*/
       ctx[77]);
-      add_location(line, file$7, 280, 5, 6382);
+      add_location(line, file$7, 280, 5, 6431);
       attr_dev(g, "class", "ref svelte-1octkco");
       attr_dev(g, "transform", g_transform_value = "translate(" +
       /*valueX*/
       ctx[76] + ", " +
       /*y*/
       ctx[77] + ")");
-      add_location(g, file$7, 265, 4, 6112);
+      add_location(g, file$7, 265, 4, 6161);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -7311,7 +7311,7 @@ function create_each_block_1(key_1, ctx) {
       attr_dev(rect, "height",
       /*itemHeight*/
       ctx[13]);
-      add_location(rect, file$7, 328, 6, 7456);
+      add_location(rect, file$7, 328, 6, 7505);
       attr_dev(line, "stroke", line_stroke_value =
       /*barColor*/
       ctx[61]);
@@ -7331,7 +7331,7 @@ function create_each_block_1(key_1, ctx) {
       /*barY*/
       ctx[14]);
       attr_dev(line, "class", "svelte-1octkco");
-      add_location(line, file$7, 333, 6, 7542);
+      add_location(line, file$7, 333, 6, 7591);
       attr_dev(text0, "class", "key svelte-1octkco");
       attr_dev(text0, "dx", text0_dx_value =
       /*dxKey*/
@@ -7345,7 +7345,7 @@ function create_each_block_1(key_1, ctx) {
       toggle_class(text0, "neg",
       /*isNeg*/
       ctx[66]);
-      add_location(text0, file$7, 341, 6, 7683);
+      add_location(text0, file$7, 341, 6, 7732);
       attr_dev(text1, "class", "value svelte-1octkco");
       attr_dev(text1, "x", text1_x_value =
       /*xValue*/
@@ -7356,7 +7356,7 @@ function create_each_block_1(key_1, ctx) {
       toggle_class(text1, "neg",
       /*isNeg*/
       ctx[66]);
-      add_location(text1, file$7, 348, 6, 7810);
+      add_location(text1, file$7, 348, 6, 7859);
       attr_dev(g, "class", "item svelte-1octkco");
       attr_dev(g, "transform", g_transform_value = "translate(0, " +
       /*itemHeight*/
@@ -7369,7 +7369,7 @@ function create_each_block_1(key_1, ctx) {
       toggle_class(g, "deselected",
       /*deselected*/
       ctx[63]);
-      add_location(g, file$7, 319, 5, 7163);
+      add_location(g, file$7, 319, 5, 7212);
       this.first = g;
     },
     m: function mount(target, anchor) {
@@ -7641,7 +7641,7 @@ function create_if_block_2$2(ctx) {
       attr_dev(line, "y2",
       /*svgHeight*/
       ctx[16]);
-      add_location(line, file$7, 360, 4, 8003);
+      add_location(line, file$7, 360, 4, 8052);
     },
     m: function mount(target, anchor) {
       insert_dev(target, line, anchor);
@@ -7827,7 +7827,7 @@ function create_each_block$3(ctx) {
       attr_dev(line, "y2",
       /*svgHeight*/
       ctx[16]);
-      add_location(line, file$7, 376, 4, 8246);
+      add_location(line, file$7, 376, 4, 8295);
     },
     m: function mount(target, anchor) {
       insert_dev(target, line, anchor);
@@ -7910,7 +7910,9 @@ function create_fragment$d(ctx) {
   ctx[6] && create_if_block_4(ctx);
 
   function select_block_type(ctx, dirty) {
-    if (
+    if (!
+    /*items*/
+    ctx[2] ||
     /*items*/
     ctx[2].length === 0) return create_if_block$4;
     return create_else_block$1;
@@ -7949,12 +7951,12 @@ function create_fragment$d(ctx) {
       toggle_class(main, "titled",
       /*title*/
       ctx[6]);
-      add_location(main, file$7, 239, 1, 5702);
+      add_location(main, file$7, 239, 1, 5741);
       attr_dev(div, "style",
       /*style*/
       ctx[11]);
       attr_dev(div, "class", "BarchartVDiv svelte-1octkco");
-      add_location(div, file$7, 230, 0, 5603);
+      add_location(div, file$7, 230, 0, 5642);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -8130,7 +8132,7 @@ function instance$d($$self, $$props, $$invalidate) {
   function div_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](function () {
       scrollable = $$value;
-      ((($$invalidate(10, scrollable), $$invalidate(26, shouldResetScroll)), $$invalidate(38, previousItems)), $$invalidate(2, items)), $$invalidate(39, wasNotResettingScroll);
+      ((($$invalidate(10, scrollable), $$invalidate(26, shouldResetScroll)), $$invalidate(2, items)), $$invalidate(38, previousItems)), $$invalidate(39, wasNotResettingScroll);
     });
   }
 
@@ -8545,12 +8547,12 @@ function instance$d($$self, $$props, $$invalidate) {
     }
 
     if ($$self.$$.dirty[0] &
-    /*shouldResetScroll, items*/
-    67108868 | $$self.$$.dirty[1] &
+    /*shouldResetScroll, items, scrollable*/
+    67109892 | $$self.$$.dirty[1] &
     /*previousItems*/
     128) {
        afterUpdate(function () {
-        if (shouldResetScroll && !justCompare(previousItems, items)) {
+        if (shouldResetScroll && items && items.length && !justCompare(previousItems, items) && scrollable) {
           $$invalidate(10, scrollable.scrollTop = 0, scrollable);
           $$invalidate(38, previousItems = items);
         }
@@ -8914,7 +8916,7 @@ function get_each_context$4(ctx, list, i) {
   var child_ctx = ctx.slice();
   child_ctx[37] = list[i];
   return child_ctx;
-} // (99:0) {#if height && width}
+} // (101:0) {#if height && width}
 
 
 function create_if_block$5(ctx) {
@@ -8923,7 +8925,9 @@ function create_if_block$5(ctx) {
   function select_block_type(ctx, dirty) {
     if (!
     /*topojson*/
-    ctx[5]) return create_if_block_1$4;
+    ctx[6] || !
+    /*projection*/
+    ctx[4]) return create_if_block_1$4;
     return create_else_block$2;
   }
 
@@ -8948,12 +8952,12 @@ function create_if_block$5(ctx) {
     h: function hydrate() {
       attr_dev(g, "style",
       /*style*/
-      ctx[9]);
+      ctx[10]);
       attr_dev(g, "class", "ChoroplethG svelte-54gkh3");
       toggle_class(g, "interactive",
       /*isInteractive*/
       ctx[1]);
-      add_location(g, file$8, 99, 0, 3025);
+      add_location(g, file$8, 101, 0, 3056);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -8974,10 +8978,10 @@ function create_if_block$5(ctx) {
 
       if (dirty[0] &
       /*style*/
-      512) {
+      1024) {
         attr_dev(g, "style",
         /*style*/
-        ctx[9]);
+        ctx[10]);
       }
 
       if (dirty[0] &
@@ -8997,11 +9001,11 @@ function create_if_block$5(ctx) {
     block: block,
     id: create_if_block$5.name,
     type: "if",
-    source: "(99:0) {#if height && width}",
+    source: "(101:0) {#if height && width}",
     ctx: ctx
   });
   return block;
-} // (113:1) {:else}
+} // (115:1) {:else}
 
 
 function create_else_block$2(ctx) {
@@ -9010,7 +9014,7 @@ function create_else_block$2(ctx) {
   var g_transform_value;
   var if_block =
   /*coloredGeojson*/
-  ctx[10] && create_if_block_2$3(ctx);
+  ctx[11] && create_if_block_2$3(ctx);
   var block = {
     c: function create() {
       rect = svg_element("rect");
@@ -9036,18 +9040,18 @@ function create_else_block$2(ctx) {
     h: function hydrate() {
       attr_dev(rect, "height",
       /*height*/
-      ctx[4]);
+      ctx[5]);
       attr_dev(rect, "width",
       /*width*/
-      ctx[6]);
+      ctx[7]);
       attr_dev(rect, "class", "bkg svelte-54gkh3");
-      add_location(rect, file$8, 114, 1, 3198);
+      add_location(rect, file$8, 116, 1, 3244);
       attr_dev(g, "transform", g_transform_value = "translate(" +
       /*geometry*/
       ctx[0].left + "," +
       /*geometry*/
       ctx[0].top + ")");
-      add_location(g, file$8, 119, 1, 3244);
+      add_location(g, file$8, 121, 1, 3290);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -9057,23 +9061,23 @@ function create_else_block$2(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*height*/
-      16) {
+      32) {
         attr_dev(rect, "height",
         /*height*/
-        ctx[4]);
+        ctx[5]);
       }
 
       if (dirty[0] &
       /*width*/
-      64) {
+      128) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[6]);
+        ctx[7]);
       }
 
       if (
       /*coloredGeojson*/
-      ctx[10]) {
+      ctx[11]) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
@@ -9106,11 +9110,11 @@ function create_else_block$2(ctx) {
     block: block,
     id: create_else_block$2.name,
     type: "else",
-    source: "(113:1) {:else}",
+    source: "(115:1) {:else}",
     ctx: ctx
   });
   return block;
-} // (105:1) {#if !topojson}
+} // (107:1) {#if !topojson || !projection}
 
 
 function create_if_block_1$4(ctx) {
@@ -9143,11 +9147,11 @@ function create_if_block_1$4(ctx) {
       attr_dev(text_1, "class", "message svelte-54gkh3");
       attr_dev(text_1, "x", text_1_x_value =
       /*width*/
-      ctx[6] / 2);
+      ctx[7] / 2);
       attr_dev(text_1, "y", text_1_y_value =
       /*height*/
-      ctx[4] / 2);
-      add_location(text_1, file$8, 106, 1, 3114);
+      ctx[5] / 2);
+      add_location(text_1, file$8, 108, 1, 3160);
     },
     m: function mount(target, anchor) {
       insert_dev(target, text_1, anchor);
@@ -9162,17 +9166,17 @@ function create_if_block_1$4(ctx) {
 
       if (dirty[0] &
       /*width*/
-      64 && text_1_x_value !== (text_1_x_value =
+      128 && text_1_x_value !== (text_1_x_value =
       /*width*/
-      ctx[6] / 2)) {
+      ctx[7] / 2)) {
         attr_dev(text_1, "x", text_1_x_value);
       }
 
       if (dirty[0] &
       /*height*/
-      16 && text_1_y_value !== (text_1_y_value =
+      32 && text_1_y_value !== (text_1_y_value =
       /*height*/
-      ctx[4] / 2)) {
+      ctx[5] / 2)) {
         attr_dev(text_1, "y", text_1_y_value);
       }
     },
@@ -9184,18 +9188,18 @@ function create_if_block_1$4(ctx) {
     block: block,
     id: create_if_block_1$4.name,
     type: "if",
-    source: "(105:1) {#if !topojson}",
+    source: "(107:1) {#if !topojson || !projection}",
     ctx: ctx
   });
   return block;
-} // (121:2) {#if coloredGeojson}
+} // (123:2) {#if coloredGeojson}
 
 
 function create_if_block_2$3(ctx) {
   var each_1_anchor;
   var each_value =
   /*coloredGeojson*/
-  ctx[10].features;
+  ctx[11].features;
   validate_each_argument(each_value);
   var each_blocks = [];
 
@@ -9228,10 +9232,10 @@ function create_if_block_2$3(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*coloredGeojson, key, key_alt, isDeselected, isSelected, focusedKey, isFocused, geopath, isClickable, dispatch, getPayload, isInteractive*/
-      261510) {
+      523014) {
         each_value =
         /*coloredGeojson*/
-        ctx[10].features;
+        ctx[11].features;
         validate_each_argument(each_value);
 
         var _i4;
@@ -9266,11 +9270,11 @@ function create_if_block_2$3(ctx) {
     block: block,
     id: create_if_block_2$3.name,
     type: "if",
-    source: "(121:2) {#if coloredGeojson}",
+    source: "(123:2) {#if coloredGeojson}",
     ctx: ctx
   });
   return block;
-} // (122:2) {#each coloredGeojson.features as feature}
+} // (124:2) {#each coloredGeojson.features as feature}
 
 
 function create_each_block$4(ctx) {
@@ -9350,7 +9354,7 @@ function create_each_block$4(ctx) {
     h: function hydrate() {
       attr_dev(path, "d", path_d_value =
       /*geopath*/
-      ctx[11](
+      ctx[12](
       /*feature*/
       ctx[37]));
       set_style(path, "fill",
@@ -9359,38 +9363,38 @@ function create_each_block$4(ctx) {
       attr_dev(path, "class", "svelte-54gkh3");
       toggle_class(path, "clickable",
       /*isClickable*/
-      ctx[16](
+      ctx[17](
       /*feature*/
       ctx[37]));
-      add_location(path, file$8, 129, 3, 3600);
+      add_location(path, file$8, 131, 3, 3646);
       attr_dev(g, "class", "feature svelte-54gkh3");
       attr_dev(g, "id", g_id_value =
       /*feature*/
       ctx[37].properties[
       /*key*/
-      ctx[8]] ||
+      ctx[9]] ||
       /*feature*/
       ctx[37].properties[
       /*key_alt*/
       ctx[2]]);
       toggle_class(g, "deselected",
       /*isDeselected*/
-      ctx[15](
+      ctx[16](
       /*feature*/
       ctx[37]));
       toggle_class(g, "selected",
       /*isSelected*/
-      ctx[14](
+      ctx[15](
       /*feature*/
       ctx[37]));
       toggle_class(g, "focused",
       /*focusedKey*/
-      ctx[7] &&
+      ctx[8] &&
       /*isFocused*/
-      ctx[13](
+      ctx[14](
       /*feature*/
       ctx[37]));
-      add_location(g, file$8, 122, 2, 3372);
+      add_location(g, file$8, 124, 2, 3418);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -9406,9 +9410,9 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*geopath, coloredGeojson*/
-      3072 && path_d_value !== (path_d_value =
+      6144 && path_d_value !== (path_d_value =
       /*geopath*/
-      ctx[11](
+      ctx[12](
       /*feature*/
       ctx[37]))) {
         attr_dev(path, "d", path_d_value);
@@ -9416,7 +9420,7 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*coloredGeojson*/
-      1024) {
+      2048) {
         set_style(path, "fill",
         /*feature*/
         ctx[37].properties.color || null);
@@ -9424,21 +9428,21 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*isClickable, coloredGeojson*/
-      66560) {
+      133120) {
         toggle_class(path, "clickable",
         /*isClickable*/
-        ctx[16](
+        ctx[17](
         /*feature*/
         ctx[37]));
       }
 
       if (dirty[0] &
       /*coloredGeojson, key, key_alt*/
-      1284 && g_id_value !== (g_id_value =
+      2564 && g_id_value !== (g_id_value =
       /*feature*/
       ctx[37].properties[
       /*key*/
-      ctx[8]] ||
+      ctx[9]] ||
       /*feature*/
       ctx[37].properties[
       /*key_alt*/
@@ -9448,32 +9452,32 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*isDeselected, coloredGeojson*/
-      33792) {
+      67584) {
         toggle_class(g, "deselected",
         /*isDeselected*/
-        ctx[15](
+        ctx[16](
         /*feature*/
         ctx[37]));
       }
 
       if (dirty[0] &
       /*isSelected, coloredGeojson*/
-      17408) {
+      34816) {
         toggle_class(g, "selected",
         /*isSelected*/
-        ctx[14](
+        ctx[15](
         /*feature*/
         ctx[37]));
       }
 
       if (dirty[0] &
       /*focusedKey, isFocused, coloredGeojson*/
-      9344) {
+      18688) {
         toggle_class(g, "focused",
         /*focusedKey*/
-        ctx[7] &&
+        ctx[8] &&
         /*isFocused*/
-        ctx[13](
+        ctx[14](
         /*feature*/
         ctx[37]));
       }
@@ -9488,7 +9492,7 @@ function create_each_block$4(ctx) {
     block: block,
     id: create_each_block$4.name,
     type: "each",
-    source: "(122:2) {#each coloredGeojson.features as feature}",
+    source: "(124:2) {#each coloredGeojson.features as feature}",
     ctx: ctx
   });
   return block;
@@ -9498,9 +9502,9 @@ function create_fragment$e(ctx) {
   var if_block_anchor;
   var if_block =
   /*height*/
-  ctx[4] &&
+  ctx[5] &&
   /*width*/
-  ctx[6] && create_if_block$5(ctx);
+  ctx[7] && create_if_block$5(ctx);
   var block = {
     c: function create() {
       if (if_block) if_block.c();
@@ -9517,9 +9521,9 @@ function create_fragment$e(ctx) {
     p: function update(ctx, dirty) {
       if (
       /*height*/
-      ctx[4] &&
+      ctx[5] &&
       /*width*/
-      ctx[6]) {
+      ctx[7]) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
@@ -9609,19 +9613,19 @@ function instance$e($$self, $$props, $$invalidate) {
   };
 
   $$self.$set = function ($$props) {
-    if ("height" in $$props) $$invalidate(4, height = $$props.height);
-    if ("topojson" in $$props) $$invalidate(5, topojson = $$props.topojson);
+    if ("height" in $$props) $$invalidate(5, height = $$props.height);
+    if ("topojson" in $$props) $$invalidate(6, topojson = $$props.topojson);
     if ("topojsonId" in $$props) $$invalidate(23, topojsonId = $$props.topojsonId);
-    if ("width" in $$props) $$invalidate(6, width = $$props.width);
-    if ("focusedKey" in $$props) $$invalidate(7, focusedKey = $$props.focusedKey);
+    if ("width" in $$props) $$invalidate(7, width = $$props.width);
+    if ("focusedKey" in $$props) $$invalidate(8, focusedKey = $$props.focusedKey);
     if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
-    if ("key" in $$props) $$invalidate(8, key = $$props.key);
+    if ("key" in $$props) $$invalidate(9, key = $$props.key);
     if ("keyToColor" in $$props) $$invalidate(24, keyToColor = $$props.keyToColor);
     if ("keyToColorFn" in $$props) $$invalidate(25, keyToColorFn = $$props.keyToColorFn);
     if ("message" in $$props) $$invalidate(3, message = $$props.message);
-    if ("projection" in $$props) $$invalidate(18, projection = $$props.projection);
+    if ("projection" in $$props) $$invalidate(4, projection = $$props.projection);
     if ("projectionFn" in $$props) $$invalidate(19, projectionFn = $$props.projectionFn);
     if ("projectionId" in $$props) $$invalidate(20, projectionId = $$props.projectionId);
     if ("selectedKeys" in $$props) $$invalidate(21, selectedKeys = $$props.selectedKeys);
@@ -9677,37 +9681,37 @@ function instance$e($$self, $$props, $$invalidate) {
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("height" in $$props) $$invalidate(4, height = $$props.height);
-    if ("topojson" in $$props) $$invalidate(5, topojson = $$props.topojson);
+    if ("height" in $$props) $$invalidate(5, height = $$props.height);
+    if ("topojson" in $$props) $$invalidate(6, topojson = $$props.topojson);
     if ("topojsonId" in $$props) $$invalidate(23, topojsonId = $$props.topojsonId);
-    if ("width" in $$props) $$invalidate(6, width = $$props.width);
-    if ("focusedKey" in $$props) $$invalidate(7, focusedKey = $$props.focusedKey);
+    if ("width" in $$props) $$invalidate(7, width = $$props.width);
+    if ("focusedKey" in $$props) $$invalidate(8, focusedKey = $$props.focusedKey);
     if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
-    if ("key" in $$props) $$invalidate(8, key = $$props.key);
+    if ("key" in $$props) $$invalidate(9, key = $$props.key);
     if ("keyToColor" in $$props) $$invalidate(24, keyToColor = $$props.keyToColor);
     if ("keyToColorFn" in $$props) $$invalidate(25, keyToColorFn = $$props.keyToColorFn);
     if ("message" in $$props) $$invalidate(3, message = $$props.message);
-    if ("projection" in $$props) $$invalidate(18, projection = $$props.projection);
+    if ("projection" in $$props) $$invalidate(4, projection = $$props.projection);
     if ("projectionFn" in $$props) $$invalidate(19, projectionFn = $$props.projectionFn);
     if ("projectionId" in $$props) $$invalidate(20, projectionId = $$props.projectionId);
     if ("selectedKeys" in $$props) $$invalidate(21, selectedKeys = $$props.selectedKeys);
     if ("theme" in $$props) $$invalidate(22, theme = $$props.theme);
     if ("projectionFunc" in $$props) $$invalidate(29, projectionFunc = $$props.projectionFunc);
-    if ("style" in $$props) $$invalidate(9, style = $$props.style);
+    if ("style" in $$props) $$invalidate(10, style = $$props.style);
     if ("innerHeight" in $$props) $$invalidate(30, innerHeight = $$props.innerHeight);
     if ("innerWidth" in $$props) $$invalidate(31, innerWidth = $$props.innerWidth);
     if ("createColoredGeojson" in $$props) $$invalidate(32, createColoredGeojson = $$props.createColoredGeojson);
     if ("geojson" in $$props) $$invalidate(33, geojson = $$props.geojson);
-    if ("coloredGeojson" in $$props) $$invalidate(10, coloredGeojson = $$props.coloredGeojson);
+    if ("coloredGeojson" in $$props) $$invalidate(11, coloredGeojson = $$props.coloredGeojson);
     if ("currentProjection" in $$props) $$invalidate(34, currentProjection = $$props.currentProjection);
-    if ("geopath" in $$props) $$invalidate(11, geopath = $$props.geopath);
-    if ("getPayload" in $$props) $$invalidate(12, getPayload = $$props.getPayload);
-    if ("isFocused" in $$props) $$invalidate(13, isFocused = $$props.isFocused);
-    if ("isSelected" in $$props) $$invalidate(14, isSelected = $$props.isSelected);
-    if ("isDeselected" in $$props) $$invalidate(15, isDeselected = $$props.isDeselected);
-    if ("isClickable" in $$props) $$invalidate(16, isClickable = $$props.isClickable);
+    if ("geopath" in $$props) $$invalidate(12, geopath = $$props.geopath);
+    if ("getPayload" in $$props) $$invalidate(13, getPayload = $$props.getPayload);
+    if ("isFocused" in $$props) $$invalidate(14, isFocused = $$props.isFocused);
+    if ("isSelected" in $$props) $$invalidate(15, isSelected = $$props.isSelected);
+    if ("isDeselected" in $$props) $$invalidate(16, isDeselected = $$props.isDeselected);
+    if ("isClickable" in $$props) $$invalidate(17, isClickable = $$props.isClickable);
   };
 
   var projectionFunc;
@@ -9751,8 +9755,8 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*projection*/
-    262144) {
-       $$invalidate(18, projection = projection || null);
+    16) {
+       $$invalidate(4, projection = projection || null);
     }
 
     if ($$self.$$.dirty[0] &
@@ -9794,24 +9798,24 @@ function instance$e($$self, $$props, $$invalidate) {
     if ($$self.$$.dirty[0] &
     /*theme*/
     4194304) {
-       $$invalidate(9, style = makeStyleVars(theme));
+       $$invalidate(10, style = makeStyleVars(theme));
     }
 
     if ($$self.$$.dirty[0] &
     /*height, geometry*/
-    17) {
+    33) {
        $$invalidate(30, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
     }
 
     if ($$self.$$.dirty[0] &
     /*width, geometry*/
-    65) {
+    129) {
        $$invalidate(31, innerWidth = Math.max(0, width - geometry.left - geometry.right));
     }
 
     if ($$self.$$.dirty[0] &
     /*key_alt, key, keyToColor, keyToColorFn*/
-    50331908) {
+    50332164) {
        $$invalidate(32, createColoredGeojson = makeUpdateFeaturesProperty({
         key_alt: key_alt,
         key: key,
@@ -9823,58 +9827,58 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*topojson, topojsonId*/
-    8388640) {
+    8388672) {
        $$invalidate(33, geojson = topojson && topoToGeo(topojson, topojsonId));
     }
 
     if ($$self.$$.dirty[1] &
     /*geojson, createColoredGeojson*/
     6) {
-       $$invalidate(10, coloredGeojson = geojson && createColoredGeojson(geojson));
+       $$invalidate(11, coloredGeojson = geojson && createColoredGeojson(geojson));
     }
 
     if ($$self.$$.dirty[0] &
     /*projection, projectionFunc, innerHeight*/
-    1610874880 | $$self.$$.dirty[1] &
+    1610612752 | $$self.$$.dirty[1] &
     /*geojson, innerWidth*/
     5) {
-       $$invalidate(34, currentProjection = projection || geojson && projectionFunc().fitSize([innerWidth, innerHeight], geojson));
+       $$invalidate(34, currentProjection = projection || geojson && geojson.features.length && projectionFunc().fitSize([innerWidth, innerHeight], geojson));
     }
 
     if ($$self.$$.dirty[1] &
     /*currentProjection*/
     8) {
-       $$invalidate(11, geopath = currentProjection && geoPath(currentProjection));
+       $$invalidate(12, geopath = currentProjection && geoPath(currentProjection));
     }
 
     if ($$self.$$.dirty[0] &
     /*key, key_alt*/
-    260) {
-       $$invalidate(12, getPayload = function getPayload(feature) {
+    516) {
+       $$invalidate(13, getPayload = function getPayload(feature) {
         return feature.properties[key] || feature.properties[key_alt];
       });
     }
 
     if ($$self.$$.dirty[0] &
     /*focusedKey, getPayload*/
-    4224) {
-       $$invalidate(13, isFocused = function isFocused(feature) {
+    8448) {
+       $$invalidate(14, isFocused = function isFocused(feature) {
         return focusedKey === getPayload(feature);
       });
     }
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys, getPayload*/
-    2101248) {
-       $$invalidate(14, isSelected = function isSelected(feature) {
+    2105344) {
+       $$invalidate(15, isSelected = function isSelected(feature) {
         return selectedKeys.length && selectedKeys.includes(getPayload(feature));
       });
     }
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys, getPayload*/
-    2101248) {
-       $$invalidate(15, isDeselected = function isDeselected(feature) {
+    2105344) {
+       $$invalidate(16, isDeselected = function isDeselected(feature) {
         return selectedKeys.length && !selectedKeys.includes(getPayload(feature));
       });
     }
@@ -9882,13 +9886,13 @@ function instance$e($$self, $$props, $$invalidate) {
     if ($$self.$$.dirty[0] &
     /*isInteractive*/
     2) {
-       $$invalidate(16, isClickable = function isClickable(feature) {
+       $$invalidate(17, isClickable = function isClickable(feature) {
         return isInteractive && hasColor(feature);
       });
     }
   };
 
-  return [geometry, isInteractive, key_alt, message, height, topojson, width, focusedKey, key, style, coloredGeojson, geopath, getPayload, isFocused, isSelected, isDeselected, isClickable, dispatch, projection, projectionFn, projectionId, selectedKeys, theme, topojsonId, keyToColor, keyToColorFn, click_handler, mouseenter_handler, mouseleave_handler];
+  return [geometry, isInteractive, key_alt, message, projection, height, topojson, width, focusedKey, key, style, coloredGeojson, geopath, getPayload, isFocused, isSelected, isDeselected, isClickable, dispatch, projectionFn, projectionId, selectedKeys, theme, topojsonId, keyToColor, keyToColorFn, click_handler, mouseenter_handler, mouseleave_handler];
 }
 
 var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -9903,19 +9907,19 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$e, create_fragment$e, safe_not_equal, {
-      height: 4,
-      topojson: 5,
+      height: 5,
+      topojson: 6,
       topojsonId: 23,
-      width: 6,
-      focusedKey: 7,
+      width: 7,
+      focusedKey: 8,
       geometry: 0,
       isInteractive: 1,
       key_alt: 2,
-      key: 8,
+      key: 9,
       keyToColor: 24,
       keyToColorFn: 25,
       message: 3,
-      projection: 18,
+      projection: 4,
       projectionFn: 19,
       projectionId: 20,
       selectedKeys: 21,
@@ -9932,13 +9936,13 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*height*/
-    ctx[4] === undefined && !("height" in props)) {
+    ctx[5] === undefined && !("height" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'height'");
     }
 
     if (
     /*topojson*/
-    ctx[5] === undefined && !("topojson" in props)) {
+    ctx[6] === undefined && !("topojson" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'topojson'");
     }
 
@@ -9950,13 +9954,13 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*width*/
-    ctx[6] === undefined && !("width" in props)) {
+    ctx[7] === undefined && !("width" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'width'");
     }
 
     if (
     /*focusedKey*/
-    ctx[7] === undefined && !("focusedKey" in props)) {
+    ctx[8] === undefined && !("focusedKey" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'focusedKey'");
     }
 
@@ -9980,7 +9984,7 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*key*/
-    ctx[8] === undefined && !("key" in props)) {
+    ctx[9] === undefined && !("key" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'key'");
     }
 
@@ -10004,7 +10008,7 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*projection*/
-    ctx[18] === undefined && !("projection" in props)) {
+    ctx[4] === undefined && !("projection" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'projection'");
     }
 

@@ -1,4 +1,4 @@
-import { F as _typeof, A as _slicedToArray } from './client.1c097984.js';
+import { F as _typeof, A as _slicedToArray } from './client.03728b2e.js';
 
 /**
 * @overview lamb - A lightweight, and docile, JavaScript library to help embracing functional programming.
@@ -223636,7 +223636,13 @@ var choropleth = formatExamples([{
     content: "The default projection (`geoEquirectangular`) will be applied."
   }, {
     tag: 'p',
-    content: 'If `topojson` is undefined the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'
+    content: 'Under certain conditions the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem):'
+  }, {
+    tag: 'p',
+    content: '• if `topojson` is undefined or it has no objects;'
+  }, {
+    tag: 'p',
+    content: '• if you pass `projection` and it is `undefined`: this is an useful way to control the message if you know that the projection has been generated with a geojson with an empty `features` property.'
   }],
   name: 'ChoroplethG',
   namespace: 'svg',
