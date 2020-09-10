@@ -1,5 +1,15 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/barchart` v0.6.1
+
+- fix: don't attempt to scroll if `items` is not provided or is empty
+
+## `@svizzle/choropleth` v0.6.1
+
+- fix the message in case `topojson` has no objects or `projection` is `undefined` (useful if you know it has been generated with a geojson with an empty `features` property)
+
 ## 20200909
 
 ## `@svizzle/barchart` v0.6.0

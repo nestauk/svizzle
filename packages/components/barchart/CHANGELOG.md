@@ -1,3 +1,7 @@
+## `@svizzle/barchart` v0.6.1
+
+- fix: don't attempt to scroll if `items` is not provided or is empty
+
 ## `@svizzle/barchart` v0.6.0
 
 - use reference values to build the x scale in order to draw ref lines exceeding the data extent correctly

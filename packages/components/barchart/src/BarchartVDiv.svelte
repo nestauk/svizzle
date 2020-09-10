@@ -180,7 +180,7 @@
 		wasNotResettingScroll = !shouldResetScroll
 	});
 	$: afterUpdate(() => {
-		if (shouldResetScroll && !isEqual(previousItems, items)) {
+		if (shouldResetScroll && items && items.length && !isEqual(previousItems, items) && scrollable) {
 			scrollable.scrollTop = 0;
 			previousItems = items;
 		}
@@ -238,7 +238,7 @@
 	</header>
 	{/if}
 	<main class:titled={title} >
-		{#if items.length === 0}
+		{#if !items || items.length === 0}
 
 		<div class='message'>
 			<span>{message}</span>

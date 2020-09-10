@@ -80,7 +80,9 @@
 	$: coloredGeojson = geojson && createColoredGeojson(geojson);
 	$: currentProjection =
 		projection ||
-		geojson && projectionFunc().fitSize([innerWidth, innerHeight], geojson);
+		geojson &&
+		geojson.features.length &&
+		projectionFunc().fitSize([innerWidth, innerHeight], geojson);
 	$: geopath = currentProjection && geoPath(currentProjection);
 	$: getPayload =
 		feature => feature.properties[key] || feature.properties[key_alt];
@@ -102,7 +104,7 @@
 	class:interactive={isInteractive}
 	class='ChoroplethG'
 >
-	{#if !topojson}
+	{#if !topojson || !projection}
 
 	<text
 		class='message'
