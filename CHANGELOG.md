@@ -1,6 +1,6 @@
 # Svizzle changelog
 
-## next
+## 20200910
 
 ## `@svizzle/barchart` v0.6.1
 

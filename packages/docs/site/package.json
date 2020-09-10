@@ -1,8 +1,8 @@
 {
 	"dependencies": {
 		"@svizzle/atlas": "^0.3.0",
-		"@svizzle/barchart": "^0.6.0",
-		"@svizzle/choropleth": "^0.6.0",
+		"@svizzle/barchart": "^0.6.1",
+		"@svizzle/choropleth": "^0.6.1",
 		"@svizzle/histogram": "^0.3.0",
 		"@svizzle/legend": "^0.1.0",
 		"@svizzle/utils": "^0.10.0",
