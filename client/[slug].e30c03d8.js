@@ -1,5 +1,5 @@
-import { S as SvelteComponentDev, i as init, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, y as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, z as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, w as transition_in, x as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, r as destroy_each, L as globals, M as null_to_empty, N as createEventDispatcher, O as beforeUpdate, P as afterUpdate, Q as binding_callbacks, R as validate_each_keys, T as svg_element, U as is_function, V as run_all, W as add_render_callback, X as add_resize_listener, Y as update_keyed_each, Z as destroy_block, _ as set_style, $ as validate_store, a0 as component_subscribe, a1 as writable, a2 as prop_dev, q as query_selector_all, a3 as assign, a4 as get_spread_update, a5 as get_spread_object } from './client.afd1233e.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as skipIf, S as isNil, T as pairs$1, U as makeMergeAppliedFnMap, V as index, W as isIn, X as projectionFn, Y as mercator, Z as getPath, $ as makeUpdateFeaturesProperty, a0 as topoToGeo, a1 as defaultGeometry, a2 as sort, a3 as adapter, a4 as map, a5 as reduce, a6 as isNotNil, a7 as isIterableNotEmpty, a8 as every, a9 as hasKey, aa as flatten, ab as findIndexWhere, ac as findLastIndexWhere, ad as slice, ae as uniques, af as filterWith, ag as concat, ah as mergeObj, ai as linear$1, aj as pullFrom, ak as has, al as lookup, am as _, an as setIn } from './_utils.69eaeb2e.js';
+import { S as SvelteComponentDev, i as init, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, y as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, z as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, w as transition_in, x as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, r as destroy_each, L as globals, M as null_to_empty, N as createEventDispatcher, O as beforeUpdate, P as afterUpdate, Q as binding_callbacks, R as validate_each_keys, T as svg_element, U as is_function, V as run_all, W as add_render_callback, X as add_resize_listener, Y as update_keyed_each, Z as destroy_block, _ as set_style, $ as validate_store, a0 as component_subscribe, a1 as writable, a2 as prop_dev, q as query_selector_all, a3 as assign, a4 as get_spread_update, a5 as get_spread_object } from './client.194f1abd.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as skipIf, S as isNil, T as pairs$1, U as makeMergeAppliedFnMap, V as index, W as isIn, X as projectionFn, Y as mercator, Z as getPath, $ as makeUpdateFeaturesProperty, a0 as topoToGeo, a1 as defaultGeometry, a2 as sort, a3 as adapter, a4 as map, a5 as reduce, a6 as isNotNil, a7 as isIterableNotEmpty, a8 as every, a9 as hasKey, aa as flatten, ab as findIndexWhere, ac as findLastIndexWhere, ad as slice, ae as uniques, af as filterWith, ag as concat, ah as mergeObj, ai as linear$1, aj as pullFrom, ak as has, al as lookup, am as _, an as setIn } from './_utils.af279b6b.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -5500,9 +5500,9 @@ function create_if_block_4(ctx) {
 		},
 		h: function hydrate() {
 			attr_dev(h2, "class", "svelte-1octkco");
-			add_location(h2, file$7, 236, 2, 5705);
+			add_location(h2, file$7, 236, 2, 5703);
 			attr_dev(header, "class", "svelte-1octkco");
-			add_location(header, file$7, 235, 1, 5694);
+			add_location(header, file$7, 235, 1, 5692);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, header, anchor);
@@ -5602,15 +5602,15 @@ function create_else_block$1(ctx) {
 			attr_dev(rect, "class", "bkg svelte-1octkco");
 			attr_dev(rect, "width", /*width*/ ctx[9]);
 			attr_dev(rect, "height", /*svgHeight*/ ctx[16]);
-			add_location(rect, file$7, 303, 4, 6946);
-			add_location(g, file$7, 306, 4, 7017);
+			add_location(rect, file$7, 303, 4, 6944);
+			add_location(g, file$7, 306, 4, 7015);
 			attr_dev(svg, "width", /*width*/ ctx[9]);
 			attr_dev(svg, "height", /*svgHeight*/ ctx[16]);
-			add_location(svg, file$7, 302, 3, 6909);
+			add_location(svg, file$7, 302, 3, 6907);
 			attr_dev(div, "class", "scrollable svelte-1octkco");
 			add_render_callback(() => /*div_elementresize_handler*/ ctx[35].call(div));
 			toggle_class(div, "withrefs", /*refs*/ ctx[4] && /*refs*/ ctx[4].length);
-			add_location(div, file$7, 294, 2, 6706);
+			add_location(div, file$7, 294, 2, 6704);
 		},
 		m: function mount(target, anchor) {
 			if (if_block0) if_block0.m(target, anchor);
@@ -5756,9 +5756,9 @@ function create_if_block$4(ctx) {
 		},
 		h: function hydrate() {
 			attr_dev(span, "class", "svelte-1octkco");
-			add_location(span, file$7, 243, 3, 5835);
+			add_location(span, file$7, 243, 3, 5833);
 			attr_dev(div, "class", "message svelte-1octkco");
-			add_location(div, file$7, 242, 2, 5810);
+			add_location(div, file$7, 242, 2, 5808);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -5824,9 +5824,9 @@ function create_if_block_3$1(ctx) {
 		h: function hydrate() {
 			attr_dev(svg, "width", /*width*/ ctx[9]);
 			attr_dev(svg, "height", /*refsHeight*/ ctx[12]);
-			add_location(svg, file$7, 251, 3, 5945);
+			add_location(svg, file$7, 251, 3, 5943);
 			attr_dev(div, "class", "refs svelte-1octkco");
-			add_location(div, file$7, 250, 2, 5923);
+			add_location(div, file$7, 250, 2, 5921);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -5971,23 +5971,23 @@ function create_each_block_2(ctx) {
 			attr_dev(rect, "width", rect_width_value = /*rectWidth*/ ctx[73]);
 			attr_dev(rect, "height", /*refHeight*/ ctx[20]);
 			attr_dev(rect, "class", "svelte-1octkco");
-			add_location(rect, file$7, 269, 5, 6234);
+			add_location(rect, file$7, 269, 5, 6232);
 			attr_dev(text_1, "x", text_1_x_value = /*textX*/ ctx[75]);
 			attr_dev(text_1, "y", text_1_y_value = /*refHeight*/ ctx[20] / 2);
 			attr_dev(text_1, "textLength", text_1_textLength_value = /*textLength*/ ctx[74]);
 			attr_dev(text_1, "class", "svelte-1octkco");
 			toggle_class(text_1, "right", /*isRight*/ ctx[72]);
-			add_location(text_1, file$7, 274, 5, 6312);
+			add_location(text_1, file$7, 274, 5, 6310);
 			attr_dev(line, "class", "ref");
 			attr_dev(line, "stroke", line_stroke_value = /*color*/ ctx[55] || /*theme*/ ctx[5].refColor);
 			attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value = /*dasharray*/ ctx[56] || /*theme*/ ctx[5].refDasharray);
 			attr_dev(line, "stroke-width", line_stroke_width_value = /*linewidth*/ ctx[57] || /*theme*/ ctx[5].refWidth);
 			attr_dev(line, "y1", /*refHeight*/ ctx[20]);
 			attr_dev(line, "y2", line_y__value = /*refsHeight*/ ctx[12] - /*y*/ ctx[77]);
-			add_location(line, file$7, 280, 5, 6431);
+			add_location(line, file$7, 280, 5, 6429);
 			attr_dev(g, "class", "ref svelte-1octkco");
 			attr_dev(g, "transform", g_transform_value = "translate(" + /*valueX*/ ctx[76] + ", " + /*y*/ ctx[77] + ")");
-			add_location(g, file$7, 265, 4, 6161);
+			add_location(g, file$7, 265, 4, 6159);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, g, anchor);
@@ -6137,7 +6137,7 @@ function create_each_block_1(key_1, ctx) {
 			attr_dev(rect, "width", /*width*/ ctx[9]);
 			attr_dev(rect, "fill", rect_fill_value = /*bkgColor*/ ctx[62]);
 			attr_dev(rect, "height", /*itemHeight*/ ctx[13]);
-			add_location(rect, file$7, 328, 6, 7505);
+			add_location(rect, file$7, 328, 6, 7503);
 			attr_dev(line, "stroke", line_stroke_value = /*barColor*/ ctx[61]);
 			attr_dev(line, "stroke-width", /*barHeight*/ ctx[0]);
 			attr_dev(line, "x1", /*x0*/ ctx[18]);
@@ -6145,23 +6145,23 @@ function create_each_block_1(key_1, ctx) {
 			attr_dev(line, "y1", /*barY*/ ctx[14]);
 			attr_dev(line, "y2", /*barY*/ ctx[14]);
 			attr_dev(line, "class", "svelte-1octkco");
-			add_location(line, file$7, 333, 6, 7591);
+			add_location(line, file$7, 333, 6, 7589);
 			attr_dev(text0, "class", "key svelte-1octkco");
 			attr_dev(text0, "dx", text0_dx_value = /*dxKey*/ ctx[65]);
 			attr_dev(text0, "x", /*x0*/ ctx[18]);
 			attr_dev(text0, "y", /*textY*/ ctx[15]);
 			toggle_class(text0, "neg", /*isNeg*/ ctx[66]);
-			add_location(text0, file$7, 341, 6, 7732);
+			add_location(text0, file$7, 341, 6, 7730);
 			attr_dev(text1, "class", "value svelte-1octkco");
 			attr_dev(text1, "x", text1_x_value = /*xValue*/ ctx[69]);
 			attr_dev(text1, "y", /*textY*/ ctx[15]);
 			toggle_class(text1, "neg", /*isNeg*/ ctx[66]);
-			add_location(text1, file$7, 348, 6, 7859);
+			add_location(text1, file$7, 348, 6, 7857);
 			attr_dev(g, "class", "item svelte-1octkco");
 			attr_dev(g, "transform", g_transform_value = "translate(0, " + /*itemHeight*/ ctx[13] * /*index*/ ctx[71] + ")");
 			toggle_class(g, "clickable", /*isInteractive*/ ctx[1]);
 			toggle_class(g, "deselected", /*deselected*/ ctx[63]);
-			add_location(g, file$7, 319, 5, 7212);
+			add_location(g, file$7, 319, 5, 7210);
 			this.first = g;
 		},
 		m: function mount(target, anchor) {
@@ -6342,7 +6342,7 @@ function create_if_block_2$2(ctx) {
 			attr_dev(line, "x1", /*x0*/ ctx[18]);
 			attr_dev(line, "x2", /*x0*/ ctx[18]);
 			attr_dev(line, "y2", /*svgHeight*/ ctx[16]);
-			add_location(line, file$7, 360, 4, 8052);
+			add_location(line, file$7, 360, 4, 8050);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, line, anchor);
@@ -6496,7 +6496,7 @@ function create_each_block$3(ctx) {
 			attr_dev(line, "x1", line_x__value = /*x*/ ctx[58]);
 			attr_dev(line, "x2", line_x__value_1 = /*x*/ ctx[58]);
 			attr_dev(line, "y2", /*svgHeight*/ ctx[16]);
-			add_location(line, file$7, 376, 4, 8295);
+			add_location(line, file$7, 376, 4, 8293);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, line, anchor);
@@ -6580,10 +6580,10 @@ function create_fragment$d(ctx) {
 		h: function hydrate() {
 			attr_dev(main, "class", "svelte-1octkco");
 			toggle_class(main, "titled", /*title*/ ctx[6]);
-			add_location(main, file$7, 239, 1, 5741);
+			add_location(main, file$7, 239, 1, 5739);
 			attr_dev(div, "style", /*style*/ ctx[11]);
 			attr_dev(div, "class", "BarchartVDiv svelte-1octkco");
-			add_location(div, file$7, 230, 0, 5642);
+			add_location(div, file$7, 230, 0, 5640);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -7085,7 +7085,7 @@ function instance$d($$self, $$props, $$invalidate) {
 				sortByValue,
 				mapWith((obj, idx) => {
 					const label = `${obj.key} (${obj.value})`;
-					const textLength = obj.key.length * theme.fontSize * 0.6;
+					const textLength = label.length * theme.fontSize * 0.6;
 					const rectWidth = textLength + 2 * theme.padding;
 					const valueX = getX(obj.value);
 					const isRight = valueX + rectWidth > width;

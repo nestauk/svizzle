@@ -7633,6 +7633,40 @@ const reduceTo = ctor => fn => reduceWith(fn, new ctor());
 const reduceFromEmptyArray = reduceTo(Array);
 
 /**
+* @module @svizzle/utils/iterable-number
+*/
+
+/**
+ * Get the length of the iterable
+ *
+ * @function
+ * @arg {iterable} iterable
+ * @return {number}
+ *
+ * @example
+> getLength('a')
+1
+> getLength('two')
+3
+> getLength([10])
+1
+> getLength([3, 7])
+2
+> function func () {
+	return getLength(arguments);
+}
+> func()
+0
+> func()
+0
+> func('a', 'b')
+2
+ *
+ * @version 0.1.0
+ */
+const getLength = getKey('length');
+
+/**
 * @module @svizzle/utils/array-[array-array]
 */
 
@@ -7727,40 +7761,6 @@ true
  * @version 0.1.0
  */
 const isGT1 = isGT(1);
-
-/**
-* @module @svizzle/utils/iterable-number
-*/
-
-/**
- * Get the length of the iterable
- *
- * @function
- * @arg {iterable} iterable
- * @return {number}
- *
- * @example
-> getLength('a')
-1
-> getLength('two')
-3
-> getLength([10])
-1
-> getLength([3, 7])
-2
-> function func () {
-	return getLength(arguments);
-}
-> func()
-0
-> func()
-0
-> func('a', 'b')
-2
- *
- * @version 0.1.0
- */
-const getLength = getKey('length');
 
 /**
 * @module @svizzle/utils/iterable-boolean

@@ -1,4 +1,4 @@
-import { F as _typeof, A as _slicedToArray } from './client.03728b2e.js';
+import { F as _typeof, A as _slicedToArray } from './client.4c579b7d.js';
 
 /**
 * @overview lamb - A lightweight, and docile, JavaScript library to help embracing functional programming.
@@ -7869,6 +7869,40 @@ var reduceTo = function reduceTo(ctor) {
 var reduceFromEmptyArray = reduceTo(Array);
 
 /**
+* @module @svizzle/utils/iterable-number
+*/
+/**
+ * Get the length of the iterable
+ *
+ * @function
+ * @arg {iterable} iterable
+ * @return {number}
+ *
+ * @example
+> getLength('a')
+1
+> getLength('two')
+3
+> getLength([10])
+1
+> getLength([3, 7])
+2
+> function func () {
+	return getLength(arguments);
+}
+> func()
+0
+> func()
+0
+> func('a', 'b')
+2
+ *
+ * @version 0.1.0
+ */
+
+var getLength = getKey('length');
+
+/**
  * Return a function plucking the provided keys from the expected array
  *
  * @function
@@ -7962,40 +7996,6 @@ true
  */
 
 var isGT1 = isGT(1);
-
-/**
-* @module @svizzle/utils/iterable-number
-*/
-/**
- * Get the length of the iterable
- *
- * @function
- * @arg {iterable} iterable
- * @return {number}
- *
- * @example
-> getLength('a')
-1
-> getLength('two')
-3
-> getLength([10])
-1
-> getLength([3, 7])
-2
-> function func () {
-	return getLength(arguments);
-}
-> func()
-0
-> func()
-0
-> func('a', 'b')
-2
- *
- * @version 0.1.0
- */
-
-var getLength = getKey('length');
 
 /**
 * @module @svizzle/utils/iterable-boolean

@@ -1,5 +1,5 @@
-import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.03728b2e.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as pullFrom, al as has, am as lookup, an as _, ao as setIn } from './_utils.96695861.js';
+import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.4c579b7d.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as pullFrom, al as has, am as lookup, an as _, ao as setIn } from './_utils.26830af8.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -6460,9 +6460,9 @@ function create_if_block_4(ctx) {
     },
     h: function hydrate() {
       attr_dev(h2, "class", "svelte-1octkco");
-      add_location(h2, file$7, 236, 2, 5705);
+      add_location(h2, file$7, 236, 2, 5703);
       attr_dev(header, "class", "svelte-1octkco");
-      add_location(header, file$7, 235, 1, 5694);
+      add_location(header, file$7, 235, 1, 5692);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -6591,15 +6591,15 @@ function create_else_block$1(ctx) {
       attr_dev(rect, "height",
       /*svgHeight*/
       ctx[16]);
-      add_location(rect, file$7, 303, 4, 6946);
-      add_location(g, file$7, 306, 4, 7017);
+      add_location(rect, file$7, 303, 4, 6944);
+      add_location(g, file$7, 306, 4, 7015);
       attr_dev(svg, "width",
       /*width*/
       ctx[9]);
       attr_dev(svg, "height",
       /*svgHeight*/
       ctx[16]);
-      add_location(svg, file$7, 302, 3, 6909);
+      add_location(svg, file$7, 302, 3, 6907);
       attr_dev(div, "class", "scrollable svelte-1octkco");
       add_render_callback(function () {
         return (
@@ -6612,7 +6612,7 @@ function create_else_block$1(ctx) {
       ctx[4] &&
       /*refs*/
       ctx[4].length);
-      add_location(div, file$7, 294, 2, 6706);
+      add_location(div, file$7, 294, 2, 6704);
     },
     m: function mount(target, anchor) {
       if (if_block0) if_block0.m(target, anchor);
@@ -6803,9 +6803,9 @@ function create_if_block$4(ctx) {
     },
     h: function hydrate() {
       attr_dev(span, "class", "svelte-1octkco");
-      add_location(span, file$7, 243, 3, 5835);
+      add_location(span, file$7, 243, 3, 5833);
       attr_dev(div, "class", "message svelte-1octkco");
-      add_location(div, file$7, 242, 2, 5810);
+      add_location(div, file$7, 242, 2, 5808);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -6884,9 +6884,9 @@ function create_if_block_3$1(ctx) {
       attr_dev(svg, "height",
       /*refsHeight*/
       ctx[12]);
-      add_location(svg, file$7, 251, 3, 5945);
+      add_location(svg, file$7, 251, 3, 5943);
       attr_dev(div, "class", "refs svelte-1octkco");
-      add_location(div, file$7, 250, 2, 5923);
+      add_location(div, file$7, 250, 2, 5921);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -7033,7 +7033,7 @@ function create_each_block_2(ctx) {
       /*refHeight*/
       ctx[20]);
       attr_dev(rect, "class", "svelte-1octkco");
-      add_location(rect, file$7, 269, 5, 6234);
+      add_location(rect, file$7, 269, 5, 6232);
       attr_dev(text_1, "x", text_1_x_value =
       /*textX*/
       ctx[75]);
@@ -7047,7 +7047,7 @@ function create_each_block_2(ctx) {
       toggle_class(text_1, "right",
       /*isRight*/
       ctx[72]);
-      add_location(text_1, file$7, 274, 5, 6312);
+      add_location(text_1, file$7, 274, 5, 6310);
       attr_dev(line, "class", "ref");
       attr_dev(line, "stroke", line_stroke_value =
       /*color*/
@@ -7072,14 +7072,14 @@ function create_each_block_2(ctx) {
       ctx[12] -
       /*y*/
       ctx[77]);
-      add_location(line, file$7, 280, 5, 6431);
+      add_location(line, file$7, 280, 5, 6429);
       attr_dev(g, "class", "ref svelte-1octkco");
       attr_dev(g, "transform", g_transform_value = "translate(" +
       /*valueX*/
       ctx[76] + ", " +
       /*y*/
       ctx[77] + ")");
-      add_location(g, file$7, 265, 4, 6161);
+      add_location(g, file$7, 265, 4, 6159);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -7311,7 +7311,7 @@ function create_each_block_1(key_1, ctx) {
       attr_dev(rect, "height",
       /*itemHeight*/
       ctx[13]);
-      add_location(rect, file$7, 328, 6, 7505);
+      add_location(rect, file$7, 328, 6, 7503);
       attr_dev(line, "stroke", line_stroke_value =
       /*barColor*/
       ctx[61]);
@@ -7331,7 +7331,7 @@ function create_each_block_1(key_1, ctx) {
       /*barY*/
       ctx[14]);
       attr_dev(line, "class", "svelte-1octkco");
-      add_location(line, file$7, 333, 6, 7591);
+      add_location(line, file$7, 333, 6, 7589);
       attr_dev(text0, "class", "key svelte-1octkco");
       attr_dev(text0, "dx", text0_dx_value =
       /*dxKey*/
@@ -7345,7 +7345,7 @@ function create_each_block_1(key_1, ctx) {
       toggle_class(text0, "neg",
       /*isNeg*/
       ctx[66]);
-      add_location(text0, file$7, 341, 6, 7732);
+      add_location(text0, file$7, 341, 6, 7730);
       attr_dev(text1, "class", "value svelte-1octkco");
       attr_dev(text1, "x", text1_x_value =
       /*xValue*/
@@ -7356,7 +7356,7 @@ function create_each_block_1(key_1, ctx) {
       toggle_class(text1, "neg",
       /*isNeg*/
       ctx[66]);
-      add_location(text1, file$7, 348, 6, 7859);
+      add_location(text1, file$7, 348, 6, 7857);
       attr_dev(g, "class", "item svelte-1octkco");
       attr_dev(g, "transform", g_transform_value = "translate(0, " +
       /*itemHeight*/
@@ -7369,7 +7369,7 @@ function create_each_block_1(key_1, ctx) {
       toggle_class(g, "deselected",
       /*deselected*/
       ctx[63]);
-      add_location(g, file$7, 319, 5, 7212);
+      add_location(g, file$7, 319, 5, 7210);
       this.first = g;
     },
     m: function mount(target, anchor) {
@@ -7641,7 +7641,7 @@ function create_if_block_2$2(ctx) {
       attr_dev(line, "y2",
       /*svgHeight*/
       ctx[16]);
-      add_location(line, file$7, 360, 4, 8052);
+      add_location(line, file$7, 360, 4, 8050);
     },
     m: function mount(target, anchor) {
       insert_dev(target, line, anchor);
@@ -7827,7 +7827,7 @@ function create_each_block$3(ctx) {
       attr_dev(line, "y2",
       /*svgHeight*/
       ctx[16]);
-      add_location(line, file$7, 376, 4, 8295);
+      add_location(line, file$7, 376, 4, 8293);
     },
     m: function mount(target, anchor) {
       insert_dev(target, line, anchor);
@@ -7951,12 +7951,12 @@ function create_fragment$d(ctx) {
       toggle_class(main, "titled",
       /*title*/
       ctx[6]);
-      add_location(main, file$7, 239, 1, 5741);
+      add_location(main, file$7, 239, 1, 5739);
       attr_dev(div, "style",
       /*style*/
       ctx[11]);
       attr_dev(div, "class", "BarchartVDiv svelte-1octkco");
-      add_location(div, file$7, 230, 0, 5642);
+      add_location(div, file$7, 230, 0, 5640);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -8521,7 +8521,7 @@ function instance$d($$self, $$props, $$invalidate) {
     65536) {
        $$invalidate(49, makeRefsLayout = pipe([sortByValue, mapWith(function (obj, idx) {
         var label = "".concat(obj.key, " (").concat(obj.value, ")");
-        var textLength = obj.key.length * theme.fontSize * 0.6;
+        var textLength = label.length * theme.fontSize * 0.6;
         var rectWidth = textLength + 2 * theme.padding;
         var valueX = getX(obj.value);
         var isRight = valueX + rectWidth > width;

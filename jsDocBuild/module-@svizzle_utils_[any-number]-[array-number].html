@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>@svizzle/utils/object-number - Svizzle</title>
+    <title>@svizzle/utils/[any-number]-[array-number] - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">@svizzle/utils/object-number</h1>
+    <h1 class="page-title">@svizzle/utils/[any-number]-[array-number]</h1>
     
 
     
@@ -89,7 +89,7 @@
 
     
 
-    <h4 class="name" id=".getObjSize"><span class="type-signature">(static) </span>getObjSize<span class="signature">(object)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id=".makeAverageWith"><span class="type-signature">(static) </span>makeAverageWith<span class="signature">(–)</span><span class="type-signature"> &rarr; {number}</span></h4>
 
     
 
@@ -101,13 +101,13 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tools_utils_src_object-number.js.html">tools/utils/src/object-number.js</a>, <a href="tools_utils_src_object-number.js.html#line25">line 25</a>
+        <a href="tools_utils_src_[any-number]-[array-number].js.html">tools/utils/src/[any-number]-[array-number].js</a>, <a href="tools_utils_src_[any-number]-[array-number].js.html#line33">line 33</a>
     </li></ul></dd>
     
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>0.11.0</li></ul></dd>
     
 
     
@@ -144,7 +144,7 @@
 
 
 <div class="description usertext">
-    <p>Return the size of the provided object</p>
+    <p>Return the average of values of a {key, value}[] array</p>
 </div>
 
 
@@ -157,8 +157,18 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>> getObjSize({a: 1, b: 2})
-2</code></pre>
+    <pre class="prettyprint"><code>> makeAverageOfA = makeAverageWith(_.getKey('a'));
+> makeAverageOfA([
+	{a: 1, b: 2},
+	{a: 10, b: 7},
+	{a: 7, b: 9},
+])
+> makeAverageOfA([
+	{a: 11, b: 4},
+	{a: 7, b: 9},
+	{a: 9, b: 0},
+])
+9</code></pre>
 
 
 
@@ -188,13 +198,13 @@
 
         <tr>
             
-                <td class="name"><code>object</code></td>
+                <td class="name"><code>–</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">array</span>
 
 
             
@@ -204,7 +214,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>{key, value}[]</p></td>
         </tr>
 
     
@@ -229,344 +239,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>size</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".valuesMax"><span class="type-signature">(static) </span>valuesMax<span class="signature">(object)</span><span class="type-signature"> &rarr; {number}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tools_utils_src_object-number.js.html">tools/utils/src/object-number.js</a>, <a href="tools_utils_src_object-number.js.html#line40">line 40</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Return the max of the provided object values</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>> valuesMax({a: -3, b: 2, c: 1})
-2</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>max</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".valuesMin"><span class="type-signature">(static) </span>valuesMin<span class="signature">(object)</span><span class="type-signature"> &rarr; {number}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tools_utils_src_object-number.js.html">tools/utils/src/object-number.js</a>, <a href="tools_utils_src_object-number.js.html#line60">line 60</a>
-    </li></ul></dd>
-    
-
-    
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>0.1.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Return the min of the provided object values</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>> valuesMin({a: -3, b: 2, c: 1})
--3</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>max</p>
-</div>
-
 
 
 <dl class="param-type">
