@@ -1,3 +1,7 @@
+## `@svizzle/barchart` v0.6.2
+
+- fix: calculate refs labels length using the whole label text
+
 ## `@svizzle/barchart` v0.6.1
 
 - fix: don't attempt to scroll if `items` is not provided or is empty

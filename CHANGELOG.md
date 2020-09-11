@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## 20200911
+
+## `@svizzle/barchart` v0.6.2
+
+- fix: calculate refs labels length using the whole label text
+
+
 ## 20200910
 
 ## `@svizzle/barchart` v0.6.1

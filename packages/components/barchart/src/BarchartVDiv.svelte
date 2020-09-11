@@ -145,7 +145,7 @@
 		sortByValue,
 		mapWith((obj, idx) => {
 			const label = `${obj.key} (${obj.value})`;
-			const textLength = obj.key.length * theme.fontSize * 0.6;
+			const textLength = label.length * theme.fontSize * 0.6;
 			const rectWidth = textLength + 2 * theme.padding;
 			const valueX = getX(obj.value);
 			const isRight = valueX + rectWidth > width;
