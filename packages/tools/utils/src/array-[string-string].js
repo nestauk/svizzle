@@ -7,6 +7,7 @@ import {sliceString} from './string_proto-string';
 
 /**
  * Return a function extracting the portion of a string between the provided indices (first included, second excluded).
+ * Note that indices can be negative.
  * @see {@link module:@svizzle/utils/string_proto-string.sliceString|sliceString}
  *
  * @function
@@ -16,11 +17,21 @@ import {sliceString} from './string_proto-string';
  * @return {function} - Function - String -> Boolean
  *
  * @example
-> slicer = sliceStringAt([3, 5])
-> slicer('0123456789')
+> slicerPosPos = sliceStringAt([3, 5])
+> slicerPosPos('0123456789')
 '34'
-> slicer('abcdef')
-'de'
+
+> slicerPosImplicit = sliceStringAt([3])
+> slicerPosImplicit('0123456789')
+'3456789'
+
+> slicerPosNeg = sliceStringAt([1, -3])
+> slicerPosNeg('0123456789')
+'123456'
+
+> slicerNegPos = sliceStringAt([-6, 6])
+> slicerNeg3('0123456789')
+'45'
  *
  * @version 0.5.0
  */

@@ -6,6 +6,7 @@ import * as _ from 'lamb';
 
 /**
  * Return the portion of the provided string between the provided indices (first included, second excluded).
+ * Note that indices can be negative.
  * (named `sliceString` to avoid conflict with `Array.prototype.slice`)
  * @see
  {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice|String.prototype.slice},

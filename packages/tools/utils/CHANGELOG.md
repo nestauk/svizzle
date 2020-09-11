@@ -1,5 +1,7 @@
 ## `@svizzle/utils` v0.11.0
 
+- add a npm script to check that we're exporting all modules from `./src`
+
 ### (Any -> Boolean) -> (Array -> Array)
 
 - add `raiseWith` (was originally provided in `v0.10.0` but I forgot to export `src/[any-boolean]-[array-array]` in that release)

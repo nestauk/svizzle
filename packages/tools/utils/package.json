@@ -54,7 +54,9 @@
 	"scripts": {
 		"build": "rollup -c",
 		"bumppack": "npm run setprerelease && npm run pack",
-		"lint": "eslint rollup.config.js src/*.js",
+		"check_exports": "npm run chmod && ./bin/check_exports.js",
+		"chmod": "chmod u+x bin/*",
+		"lint": "npm run check_exports && eslint rollup.config.js src/*.js",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/index.js ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=dev",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=dev",
