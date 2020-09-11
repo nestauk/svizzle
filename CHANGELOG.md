@@ -6,6 +6,12 @@
 
 - fix: calculate refs labels length using the whole label text
 
+## `@svizzle/utils` v0.11.0
+
+### (Any -> Boolean) -> (Array -> Array)
+
+- add `raiseWith` (was originally provided in `v0.10.0` but I forgot to export `src/[any-boolean]-[array-array]` in that release)
+
 
 ## 20200910
 
@@ -34,10 +40,6 @@
 - show a customisable message if `items` is not provided or is empty
 
 ## `@svizzle/utils` v0.10.0
-
-### (Any -> Boolean) -> (Array -> Array)
-
-- add `raiseWith`
 
 ### Any -> Boolean
 
