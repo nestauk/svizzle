@@ -12,6 +12,14 @@
 
 - add `raiseWith` (was originally provided in `v0.10.0` but I forgot to export `src/[any-boolean]-[array-array]` in that release)
 
+### (Any -> Number) -> (Array -> Number)
+
+- add `makeAverageWith`
+
+### Array -> Number
+
+- add `arrayAverage`, `keyValueArrayAverage`
+
 
 ## 20200910
 

@@ -3,10 +3,12 @@ import {strict as assert} from 'assert';
 import * as _ from 'lamb';
 
 import {
+	arrayAverage,
 	arrayMax,
 	arrayMin,
 	arraySum,
-	makeRandomNumInRange
+	keyValueArrayAverage,
+	makeRandomNumInRange,
 } from './array-number';
 import {makeIsWithinRange} from './array-[number-boolean]';
 
@@ -28,11 +30,26 @@ describe('Array -> Number', function() {
 	});
 
 	describe('arraySum', function() {
-		it('should return the sum of the elements of the provided array', function() {
+		it('should return the sum of the numbers in the provided array', function() {
 			assert.deepStrictEqual(arraySum([1, -2, 3, -4, 5]), 3);
 		});
 		it('should return 0 if an empty array is provided', function() {
 			assert.deepStrictEqual(arraySum([]), 0);
+		});
+	});
+
+	describe('arrayAverage', function() {
+		it('should return the average of the numbers in the provided array', function() {
+			assert.deepStrictEqual(arrayAverage([1, 23, 6]), 10);
+		});
+	});
+	describe('keyValueArrayAverage', function() {
+		it('should return the average of values of a {key, value}[] array', function() {
+			assert.deepStrictEqual(keyValueArrayAverage([
+				{key: 'a', value: 1},
+				{key: 'b', value: 23},
+				{key: 'c', value: 6},
+			]), 10);
 		});
 	});
 

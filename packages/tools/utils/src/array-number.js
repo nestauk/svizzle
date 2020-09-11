@@ -4,7 +4,8 @@
 
 import * as _ from 'lamb';
 
-/* random */
+import {getValue} from './object-any';
+import {getLength} from './iterable-number';
 
 /**
  * Return a random number in the specified range.
@@ -21,8 +22,6 @@ import * as _ from 'lamb';
  */
 export const makeRandomNumInRange = ([min, max]) =>
 	min + (max - min) * Math.random();
-
-/* max */
 
 /**
  * Return the max of the numbers in the provided array
@@ -41,8 +40,6 @@ export const makeRandomNumInRange = ([min, max]) =>
  * @version 0.1.0
  */
 export const arrayMax = _.apply(Math.max);
-
-/* min */
 
 /**
  * Return the min of the numbers in the provided array
@@ -63,7 +60,7 @@ export const arrayMax = _.apply(Math.max);
 export const arrayMin = _.apply(Math.min);
 
 /**
- * Return the sum of the elements of the provided array
+ * Return the sum of the numbers in the provided array
  *
  * @function
  * @arg {array} array
@@ -78,3 +75,46 @@ export const arrayMin = _.apply(Math.min);
  * @version 0.3.0
  */
 export const arraySum = _.reduceWith(_.sum, 0);
+
+/**
+ * Return the average of the numbers in the provided array
+ *
+ * @function
+ * @arg {array} – number[]
+ * @return {number}
+ *
+ * @example
+> arrayAverage([1, 23, 6])
+10
+ *
+ * @version 0.11.0
+ */
+export const arrayAverage = _.pipe([
+	_.collect([arraySum, getLength]),
+	_.apply(_.divide),
+]);
+
+/**
+ * Return the average of values of a {key, value}[] array
+ *
+ * @function
+ * @arg {array} – {key, value}[]
+ * @return {number}
+ *
+ * @example
+> keyValueArrayAverage([
+	{key: 'a', value: 1},
+	{key: 'b', value: 23},
+	{key: 'c', value: 6},
+])
+10
+ *
+ * @version 0.11.0
+ */
+export const keyValueArrayAverage = _.pipe([
+	_.collect([
+		_.pipe([_.mapWith(getValue), arraySum]),
+		getLength
+	]),
+	_.apply(_.divide),
+]);
