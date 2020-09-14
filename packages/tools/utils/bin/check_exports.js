@@ -6,7 +6,7 @@ import * as _ from 'lamb';
 import {readDir, readFile} from '@svizzle/file';
 
 import {sliceStringAt} from '../src/array-[string-string]';
-import {isIterableEmpty} from '../src/iterable-boolean';
+import {isIterableNotEmpty} from '../src/iterable-boolean';
 import {makeEndsWith} from '../src/string-[string-boolean]';
 import {prepend} from '../src/string-[string-string]';
 
@@ -30,16 +30,16 @@ Promise.all([
 	])),
 
 	readFile(INDEX_PATH, 'utf-8')
-	.then(exported => [...exported.matchAll(regex)].map(_.getAt(1)))
+	.then(srcIndex => [...srcIndex.matchAll(regex)].map(_.getAt(1)))
 	.then(_.sortWith([])),
 ])
 .then(([modules, exported]) => _.pullFrom(modules, exported))
-.then(overlap => {
-	if (isIterableEmpty(overlap)) {
-		console.log('👍 Exporting all modules from ./src')
-	} else {
-		const list = overlap.map(prepend('💥 ')).join('\n');
-		console.log(`✋ Not exporting these modules from ./src:\n${list}`)
+.then(leftovers => {
+	if (isIterableNotEmpty(leftovers)) {
+		const list = leftovers.map(prepend('- ')).join('\n');
+		console.log(`\n======================\n✋`)
+		console.log(`/utils: index.js not exporting modules in ./src with these filenames:\n${list}`)
+		console.log(`======================\n`)
 
 		// eslint-disable-next-line no-process-exit
 		process.exit(1);
