@@ -143,28 +143,38 @@
 
 	$: makeRefsLayout = pipe([
 		sortByValue,
-		mapWith((obj, idx) => {
-			const label = `${obj.key} (${obj.value})`;
-			const textLength = label.length * theme.fontSize * 0.6;
-			const rectWidth = textLength + 2 * theme.padding;
-			const valueX = getX(obj.value);
-			const isRight = valueX + rectWidth > width;
+		mapWith((ref, idx) => {
+			const valueX = getX(ref.value);
+			let formattedValue = ref.formatFn ? ref.formatFn(ref.value) : ref.value;
+			let label = `${ref.key} (${formattedValue})`;
+			let textLength = label.length * theme.fontSize * 0.5;
+			let rectWidth = textLength + 2 * theme.padding;
+			let goesOff = valueX + rectWidth > width;
+			let isAlignedRight = goesOff && valueX > width / 2;
+
+			if (goesOff && ref.keyAbbr) {
+				label = `${ref.keyAbbr} (${formattedValue})`;
+				textLength = label.length * theme.fontSize * 0.5;
+				rectWidth = textLength + 2 * theme.padding;
+				isAlignedRight =
+					valueX + rectWidth > width
+					&& valueX > width / 2;
+			}
 
 			return {
-				...obj,
-				isRight,
+				...ref,
+				isAlignedRight,
 				label,
 				rectWidth,
 				textLength,
-				textX: isRight ? -theme.padding : theme.padding,
+				textX: isAlignedRight ? -theme.padding : theme.padding,
 				valueX,
-				x: isRight ? -rectWidth : 0,
+				x: isAlignedRight ? -rectWidth : 0,
 				y: theme.padding + idx * (theme.padding + refHeight)
 			}
 		})
 	]);
 	$: refsLayout = refs && refs.length && makeRefsLayout(refs);
-
 	$: refHeight = theme.padding + theme.fontSize;
 	$: refsHeight =
 		refs && refs.length * (theme.padding + refHeight) + theme.padding
@@ -253,7 +263,7 @@
 				{#each refsLayout as {
 					color,
 					dasharray,
-					isRight,
+					isAlignedRight,
 					label,
 					linewidth,
 					rectWidth,
@@ -273,7 +283,7 @@
 						height={refHeight}
 					/>
 					<text
-						class:right={isRight}
+						class:right={isAlignedRight}
 						x={textX}
 						y={refHeight / 2}
 						{textLength}

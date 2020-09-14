@@ -1,5 +1,13 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/barchart` v0.6.3
+
+When we build the ref label we now can:
+- format the value using the `format` property of a reference
+- abbreviate the key in case the label goes off the barchart width, using the `keyAbbr` property of a reference
+
 ## 20200911
 
 ## `@svizzle/barchart` v0.6.2
