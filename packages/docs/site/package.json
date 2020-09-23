@@ -5,6 +5,7 @@
 		"@svizzle/choropleth": "^0.6.1",
 		"@svizzle/histogram": "^0.3.0",
 		"@svizzle/legend": "^0.1.0",
+		"@svizzle/ui": "^0.0.1",
 		"@svizzle/utils": "^0.11.0",
 		"compression": "^1.7.1",
 		"d3-color": "^1.4.0",

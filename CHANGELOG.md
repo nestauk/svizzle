@@ -6,6 +6,10 @@
 
 - show the `message` only if `projection` is `undefined` OR the internal geojson has an empty `features` property
 
+## `@svizzle/ui` v0.1.0 (next)
+
+- add `<Switch />`, a simple toggle between 2 values
+
 ## `@svizzle/utils` v0.11.1 (next)
 
 - fix a dep cycle introduced earlier
