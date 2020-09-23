@@ -3,7 +3,9 @@
 import path from 'path';
 
 import * as _ from 'lamb';
-import {readDir, readFile} from '@svizzle/file';
+
+// have to do this to avoid dep cycles: @svizzle/file -> @svizzle/utils -> @svizzle/file
+import {readDir, readFile} from '../../file/src/read';
 
 import {sliceStringAt} from '../src/array-[string-string]';
 import {isIterableNotEmpty} from '../src/iterable-boolean';

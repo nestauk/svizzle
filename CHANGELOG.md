@@ -6,6 +6,10 @@
 
 - show the `message` only if `projection` is `undefined` OR the internal geojson has an empty `features` property
 
+## `@svizzle/utils` v0.11.1 (next)
+
+- fix a dep cycle introduced earlier
+
 
 ## 20200915
 

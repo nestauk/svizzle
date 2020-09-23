@@ -1,3 +1,7 @@
+## `@svizzle/utils` v0.11.1 (next)
+
+- fix a dep cycle introduced earlier
+
 ## `@svizzle/utils` v0.11.0
 
 - add a npm script to check that we're exporting all modules from `./src`
