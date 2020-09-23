@@ -1,3 +1,7 @@
+## `@svizzle/choropleth` v0.6.2
+
+- show the `message` only if `projection` is `undefined` OR the internal geojson has an empty `features` property
+
 ## `@svizzle/choropleth` v0.6.1
 
 - fix the message in case `topojson` has no objects or `projection` is `undefined` (useful if you know it has been generated with a geojson with an empty `features` property)

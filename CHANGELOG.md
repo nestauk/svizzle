@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/choropleth` v0.6.2 (next)
+
+- show the `message` only if `projection` is `undefined` OR the internal geojson has an empty `features` property
+
+
 ## 20200915
 
 ## `@svizzle/barchart` v0.6.3

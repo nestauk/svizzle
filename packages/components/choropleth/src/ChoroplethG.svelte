@@ -104,7 +104,7 @@
 	class:interactive={isInteractive}
 	class='ChoroplethG'
 >
-	{#if !topojson || !projection}
+	{#if !topojson || !currentProjection}
 
 	<text
 		class='message'
