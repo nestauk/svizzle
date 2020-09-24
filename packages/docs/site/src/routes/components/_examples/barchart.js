@@ -767,7 +767,10 @@ export default formatExamples([
 			`,
 		}],
 		doc: [
-			{tag: 'p', content: 'You can show reference lines by providing an array `refs` with shape `{key, value}[]`.'},
+			{tag: 'p', content: 'You can show reference lines by providing an array `refs` with defaut shape `{key: string, value: number}[]`.'},
+			{tag: 'p', content: 'Reference items can also have props:'},
+			{tag: 'p', content: '• `keyAbbr`, the string to use if the ref label for that item overflows the barchart width'},
+			{tag: 'p', content: '• `format`, a function to format the value to be shown in the ref label'},
 			{tag: 'p', content: 'You can style reference lines usind the `theme` props `refColor`, `refDasharray` and `refWidth`.'},
 		],
 		name: 'BarchartVDiv',

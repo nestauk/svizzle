@@ -1,3 +1,8 @@
+## `@svizzle/site` v0.3.2
+
+- `@svizzle/ui`: add docs
+- `@svizzle/barchart`: document `ref.format`, `ref.keyAbbr`
+
 ## `@svizzle/site` v0.3.1
 
 - add linting

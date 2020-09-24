@@ -6,6 +6,11 @@
 
 - show the `message` only if `projection` is `undefined` OR the internal geojson has an empty `features` property
 
+## `@svizzle/site` v0.3.2
+
+- `@svizzle/ui`: add docs
+- `@svizzle/barchart`: document `ref.format`, `ref.keyAbbr`
+
 ## `@svizzle/ui` v0.1.0 (next)
 
 - add `<Switch />`, a simple toggle between 2 values
