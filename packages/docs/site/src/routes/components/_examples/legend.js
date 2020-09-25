@@ -31,7 +31,7 @@ const backgroundColor = '#feffd4';
 export default formatExamples([
 	{
 		data: [{
-			key: 'uniform bins',
+			key: 'Uniform bins',
 			props: {bins},
 			usage: `
 				<ColorBinsG
@@ -41,13 +41,54 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'non-uniform bins',
+			key: 'Non-uniform bins',
 			props: {bins: bins_nonUniform},
 			usage: `
 				<ColorBinsG
 					{bins}
 					{height}
 					{width}
+				/>
+			`,
+		}, {
+			key: 'No bins',
+			props: {},
+			usage: `
+				<ColorBinsG
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Empty bins',
+			props: {bins: []},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Empty bins with custom message',
+			props: {
+				bins: [],
+				message: 'Please provide data!',
+				theme: {
+					messageColor: 'red',
+					messageFontSize: '2rem',
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					message='Please provide data!',
+					theme={{
+						messageColor: 'red',
+						messageFontSize: '2rem',
+					}}
 				/>
 			`,
 		}],

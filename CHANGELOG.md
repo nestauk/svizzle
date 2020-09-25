@@ -6,6 +6,10 @@
 
 - show the `message` only if `projection` is `undefined` OR the internal geojson has an empty `features` property
 
+## `@svizzle/legend` v0.1.1 (next)
+
+- show a customisable message if `bins` is not provided or is empty
+
 ## `@svizzle/site` v0.3.2
 
 - `@svizzle/ui`: add docs

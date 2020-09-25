@@ -50,6 +50,8 @@
 		brushStrokeOpacity: 0.8,
 		brushStrokeWidth: 8,
 		fontSize: 12,
+		messageColor: 'black',
+		messageFontSize: '1rem',
 		selectedBinStroke: 'black',
 		selectedBinStrokeWidth: 2,
 		textColor: 'black',
@@ -63,6 +65,7 @@
 	export let bins; // {range: [number, number], color: string}[]
 	export let flags;
 	export let geometry;
+	export let message;
 	export let selectedBins;
 	export let theme;
 	export let ticksFormatFn;
@@ -71,6 +74,7 @@
 	$: bins = bins || [];
 	$: flags = flags ? {...defaultFlags, ...flags} : defaultFlags;
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
+	$: message = message || 'No data';
 	$: selectedBins = selectedBins || [];
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: ticksFormatFn = ticksFormatFn || (x => x);
@@ -91,10 +95,10 @@
 	};
 
 	/* scale */
-	$: [valuesMin, valuesMax] = [bins[0].range[0], last(bins).range[1]];
+	$: valuesExtent = bins.length && [bins[0].range[0], last(bins).range[1]];
 	$: range = flags.isVertical ? [innerHeight, 0] : [0, innerWidth];
-	$: scale = bins.length &&
-		scaleLinear().domain([valuesMin, valuesMax]).range(range);
+	$: scale = valuesExtent &&
+		scaleLinear().domain(valuesExtent).range(range);
 
 	/* bars */
 	$: lastIndex = bins.length - 1;
@@ -291,109 +295,121 @@
 
 <svelte:options namespace='svg' />
 
-{#if height && width && scale}
+{#if height && width}
 <g
 	{style}
 	class:interactive={flags.isInteractive}
 	class='ColorBinsG'
 >
-	<!-- background -->
-	{#if flags.withBackground}
-	<rect class='bkg' {width} {height} />
-	{/if}
+	{#if bins.length === 0}
 
-	<!-- sensor to dismiss the selection -->
-	{#if flags.isInteractive}
-	<rect
-		{height}
-		{width}
-		class:reset={selectedBins.length > 0}
-		class='bkgSensor'
-		on:click={resetSelection}
-	/>
-	{/if}
+		<text
+			class='message'
+			x={width/2}
+			y={height/2}
+		>{message}</text>
 
-	<g transform='translate({origin.x},{origin.y})'>
+	{:else}
 
-		<!-- bars -->
-		<g
-			class='bars'
-			on:mouseleave={resetBrush}
-		>
-			<rect
-				class='barsSensorBkg'
-				height={binsSize.height}
-				width={binsSize.width}
-			/>
+		<!-- background -->
+		{#if flags.withBackground}
+			<rect class='bkg' {width} {height} />
+		{/if}
 
-			{#each bars as {
-				barWidth,
-				barHeight,
-				fill,
-				selected,
-				x,
-				y
-			}, index}
+		<!-- sensor to dismiss the selection -->
+		{#if flags.isInteractive}
+		<rect
+			{height}
+			{width}
+			class:reset={selectedBins.length > 0}
+			class='bkgSensor'
+			on:click={resetSelection}
+		/>
+		{/if}
+
+		<g transform='translate({origin.x},{origin.y})'>
+
+			<!-- bars -->
 			<g
-				class='bar'
-				transform='translate({x},{y})'
+				class='bars'
+				on:mouseleave={resetBrush}
 			>
 				<rect
-					{fill}
-					class:selected
-					height={barHeight}
-					width={barWidth}
+					class='barsSensorBkg'
+					height={binsSize.height}
+					width={binsSize.width}
 				/>
-				{#if flags.isInteractive}
-				<rect
-					class='rectsensor'
-					height={barHeight}
-					on:mousedown={onMousedown}
-					on:mouseover={onMouseenter(index)}
-					on:mouseout={onMouseleave(index)}
-					on:mousemove={isMousedown ? onMousemove(index) : null}
-					on:mouseup={onMouseup(index)}
-					width={barWidth}
+
+				{#each bars as {
+					barWidth,
+					barHeight,
+					fill,
+					selected,
+					x,
+					y
+				}, index}
+				<g
+					class='bar'
+					transform='translate({x},{y})'
+				>
+					<rect
+						{fill}
+						class:selected
+						height={barHeight}
+						width={barWidth}
+					/>
+					{#if flags.isInteractive}
+					<rect
+						class='rectsensor'
+						height={barHeight}
+						on:mousedown={onMousedown}
+						on:mouseover={onMouseenter(index)}
+						on:mouseout={onMouseleave(index)}
+						on:mousemove={isMousedown ? onMousemove(index) : null}
+						on:mouseup={onMouseup(index)}
+						width={barWidth}
+					/>
+					{/if}
+				</g>
+				{/each}
+			</g>
+
+			<!-- ticks -->
+			{#if flags.showTicks}
+			<g
+				class:vertical={flags.isVertical}
+				class='ticks'
+				font-size={theme.fontSize}
+			>
+				{#each ticks as {label, x, y}}
+				<text {x} {y}>{label}</text>
+				{/each}
+			</g>
+			{/if}
+
+			<!-- brush -->
+			{#if isBrushing}
+			<g
+				class='brush'
+			>
+				{#if flags.isVertical}
+				<line
+					y1={brushLine.p1}
+					y2={brushLine.p2}
+				/>
+				{:else}
+				<line
+					x1={brushLine.p1}
+					x2={brushLine.p2}
+					y1={geometry.barThickness}
+					y2={geometry.barThickness}
 				/>
 				{/if}
 			</g>
-			{/each}
-		</g>
-
-		<!-- ticks -->
-		{#if flags.showTicks}
-		<g
-			class:vertical={flags.isVertical}
-			class='ticks'
-			font-size={theme.fontSize}
-		>
-			{#each ticks as {label, x, y}}
-			<text {x} {y}>{label}</text>
-			{/each}
-		</g>
-		{/if}
-
-		<!-- brush -->
-		{#if isBrushing}
-		<g
-			class='brush'
-		>
-			{#if flags.isVertical}
-			<line
-				y1={brushLine.p1}
-				y2={brushLine.p2}
-			/>
-			{:else}
-			<line
-				x1={brushLine.p1}
-				x2={brushLine.p2}
-				y1={geometry.barThickness}
-				y2={geometry.barThickness}
-			/>
 			{/if}
 		</g>
-		{/if}
-	</g>
+
+	{/if} <!-- if bins -->
 </g>
 {/if}
 
@@ -403,6 +419,14 @@
 	}
 	.ColorBinsG.interactive {
 		pointer-events: auto;
+	}
+
+	text.message {
+		dominant-baseline: middle;
+		fill: var(--messageColor);
+		font-size: var(--messageFontSize);
+		stroke: none;
+		text-anchor: middle;
 	}
 
 	rect {
