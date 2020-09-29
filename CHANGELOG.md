@@ -2,6 +2,10 @@
 
 ## next
 
+## `@svizzle/barchart` v0.6.4 (next)
+
+- fix: show zeroes
+
 ## `@svizzle/choropleth` v0.6.2 (next)
 
 - show the `message` only if `projection` is `undefined` OR the internal geojson has an empty `features` property
@@ -13,7 +17,9 @@
 ## `@svizzle/site` v0.3.2
 
 - `@svizzle/ui`: add docs
-- `@svizzle/barchart`: document `ref.format`, `ref.keyAbbr`
+- `@svizzle/barchart`:
+	- document `ref.format`, `ref.keyAbbr`
+	- add examples for zeroes fix
 
 ## `@svizzle/ui` v0.1.0 (next)
 

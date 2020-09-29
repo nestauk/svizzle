@@ -3,7 +3,8 @@ import {
 	countryKeyValuePositive,
 	countryKeyValuePositiveWithZeroes,
 	countryKeyValueNegatives,
-	countryKeyValueMixed,
+	countryKeyValueMixedWithZeroes,
+	countryKeyValueNegativesWithZeroes,
 	countryKeyValueAlt,
 	keyToColorWorld,
 	keyToColorWorldFn,
@@ -47,9 +48,17 @@ export default formatExamples([
 				<BarchartV {items} />
 			`,
 		}, {
-			key: 'Mixed values',
+			key: 'Negative and zero values',
 			props: {
-				items: countryKeyValueMixed,
+				items: countryKeyValueNegativesWithZeroes,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
 			},
 			usage: `
 				<BarchartV {items} />
@@ -175,10 +184,10 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'Mixed values',
+			key: 'Mixed values with zeroes',
 			props: {
 				barHeight,
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				theme: {
 					axisColor,
 					backgroundColor,
@@ -240,9 +249,9 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'Mixed values',
+			key: 'Mixed values with zeroes',
 			props: {
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				keyToColor: keyToColorWorldShort,
 				theme: {barDefaultColor},
 			},
@@ -289,9 +298,9 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'Mixed values',
+			key: 'Mixed values with zeroes',
 			props: {
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				keyToColor: keyToColorWorld
 			},
 			usage: `
@@ -336,9 +345,9 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'Mixed values',
+			key: 'Mixed values with zeroes',
 			props: {
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				keyToColorFn: keyToColorWorldFn
 			},
 			usage: `
@@ -363,7 +372,7 @@ export default formatExamples([
 			key: 'A focused key (no scroll)',
 			props: {
 				focusedKey: 'CY',
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				theme: {focusedKeyColor: 'yellow'},
 			},
 			usage: `
@@ -377,7 +386,7 @@ export default formatExamples([
 			key: 'Another focused key',
 			props: {
 				focusedKey: 'BG',
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				shouldScrollToFocusedKey: true,
 				theme: {focusedKeyColor: 'yellow'},
 			},
@@ -393,7 +402,7 @@ export default formatExamples([
 			key: 'Another focused key',
 			props: {
 				focusedKey: 'PL',
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				shouldScrollToFocusedKey: true,
 				theme: {focusedKeyColor: 'yellow'},
 			},
@@ -408,7 +417,7 @@ export default formatExamples([
 		}, {
 			key: 'No focused key (should not scroll)',
 			props: {
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				shouldScrollToFocusedKey: true,
 				theme: {focusedKeyColor: 'yellow'},
 			},
@@ -510,10 +519,10 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'Mixed values',
+			key: 'Mixed values with zeroes',
 			props: {
 				keyToLabel,
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 			},
 			usage: `
 				<BarchartV
@@ -612,7 +621,7 @@ export default formatExamples([
 		}, {
 			key: 'Multiple refs, with axis',
 			props: {
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				refs: [
 					{key: 'Another value', value: -153},
 					{key: 'National average', value: 200},
@@ -748,7 +757,7 @@ export default formatExamples([
 		}, {
 			key: 'Multiple refs exceeding data extent (pos & neg extent)',
 			props: {
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				refs: [
 					{key: 'Another value', value: -200},
 					{key: 'National average', value: 500},
@@ -812,10 +821,10 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'Mixed values',
+			key: 'Mixed values with zeroes',
 			props: {
 				isInteractive: true,
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				title: 'Hover and click me',
 			},
 			usage: `
@@ -895,9 +904,9 @@ export default formatExamples([
 				/>
 			`,
 		}, {
-			key: 'Mixed values',
+			key: 'Mixed values with zeroes',
 			props: {
-				items: countryKeyValueMixed,
+				items: countryKeyValueMixedWithZeroes,
 				formatFn: x => `${x}%`,
 			},
 			usage: `

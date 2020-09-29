@@ -158,7 +158,7 @@ export const countryKeyValueNegatives = [
 	{ key: 'GB', value: -56 }
 ].sort((a, b) => a.value - b.value);
 
-export const countryKeyValueMixed = [
+export const countryKeyValueMixedWithZeroes = [
 	{ key: 'AL', value: 112 },
 	{ key: 'AD', value: -234 },
 	{ key: 'AM', value: 36 },
@@ -166,7 +166,7 @@ export const countryKeyValueMixed = [
 	{ key: 'AZ', value: -123 },
 	{ key: 'BY', value: 56 },
 	{ key: 'BE', value: 15 },
-	{ key: 'BA', value: -12 },
+	{ key: 'BA', value: 0 },
 	{ key: 'BG', value: 568 },
 	{ key: 'HR', value: -213 },
 	{ key: 'CY', value: 456 },
@@ -182,7 +182,7 @@ export const countryKeyValueMixed = [
 	{ key: 'IS', value: 578 },
 	{ key: 'IE', value: 24 },
 	{ key: 'IT', value: 6 },
-	{ key: 'KZ', value: 5 },
+	{ key: 'KZ', value: 0 },
 	{ key: 'LV', value: -58 },
 	{ key: 'LI', value: 5 },
 	{ key: 'LT', value: 69 },
@@ -209,6 +209,58 @@ export const countryKeyValueMixed = [
 	{ key: 'UA', value: 2 },
 	{ key: 'GB', value: 56 }
 ].sort((a, b) => b.value - a.value);
+
+export const countryKeyValueNegativesWithZeroes = [
+	{ key: 'AL', value: -112 },
+	{ key: 'AD', value: -234 },
+	{ key: 'AM', value: -36 },
+	{ key: 'AT', value: -357 },
+	{ key: 'AZ', value: -123 },
+	{ key: 'BY', value: -56 },
+	{ key: 'BE', value: -15 },
+	{ key: 'BA', value: -12 },
+	{ key: 'BG', value: -568 },
+	{ key: 'HR', value: -213 },
+	{ key: 'CY', value: -456 },
+	{ key: 'CZ', value: -21 },
+	{ key: 'DK', value: -345 },
+	{ key: 'EE', value: -37 },
+	{ key: 'FI', value: -376 },
+	{ key: 'FR', value: -346 },
+	{ key: 'GE', value: -17 },
+	{ key: 'DE', value: -567 },
+	{ key: 'GR', value: -47 },
+	{ key: 'HU', value: -23 },
+	{ key: 'IS', value: -578 },
+	{ key: 'IE', value: -24 },
+	{ key: 'IT', value: -6 },
+	{ key: 'KZ', value: 0 },
+	{ key: 'LV', value: -58 },
+	{ key: 'LI', value: -5 },
+	{ key: 'LT', value: -69 },
+	{ key: 'LU', value: -23 },
+	{ key: 'MT', value: -36 },
+	{ key: 'MD', value: -57 },
+	{ key: 'MC', value: -69 },
+	{ key: 'ME', value: -223 },
+	{ key: 'NL', value: -35 },
+	{ key: 'MK', value: -57 },
+	{ key: 'NO', value: -79 },
+	{ key: 'PL', value: -12 },
+	{ key: 'PT', value: -46 },
+	{ key: 'RO', value: -37 },
+	{ key: 'RU', value: -678 },
+	{ key: 'SM', value: -345 },
+	{ key: 'RS', value: -67 },
+	{ key: 'SK', value: -23 },
+	{ key: 'SI', value: -567 },
+	{ key: 'ES', value: -23 },
+	{ key: 'SE', value: -768 },
+	{ key: 'CH', value: -56 },
+	{ key: 'TR', value: -78 },
+	{ key: 'UA', value: 0 },
+	{ key: 'GB', value: -56 }
+].sort((a, b) => a.value - b.value);
 
 export const countryKeyValueAlt = [
 	{ key: 'AL', value: 113 },

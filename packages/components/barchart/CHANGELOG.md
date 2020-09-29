@@ -1,3 +1,7 @@
+## `@svizzle/barchart` v0.6.4 (next)
+
+- fix: show zeroes
+
 ## `@svizzle/barchart` v0.6.3
 
 When we build the ref label we now can:
