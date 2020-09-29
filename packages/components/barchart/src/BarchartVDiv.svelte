@@ -20,6 +20,7 @@
 		getKey,
 		getValue,
 		makeMergeAppliedFnMap,
+		sliceString,
 	} from '@svizzle/utils';
 
 	const dispatch = createEventDispatcher();
@@ -35,7 +36,7 @@
 		backgroundOpacity: 1,
 
 		// exposed and documented
-		axisColor: 'grey',
+		axisColor: 'lightgrey',
 		backgroundColor: transparentColor,
 		barDefaultColor: 'black',
 		deselectedOpacity: 0.25,
@@ -57,7 +58,7 @@
 	export let focusedKey;
 	export let formatFn;
 	export let isInteractive;
-	export let items;
+	export let items; // {key, value}[]
 	export let keyToColor;
 	export let keyToColorFn;
 	export let keyToLabel;
@@ -92,6 +93,7 @@
 
 	$: valueAccessor = valueAccessor || getValue;
 
+	$: averageCharWidth = theme.fontSize * 0.5;
 	$: barPadding = theme.fontSize / 2;
 	$: itemHeight = theme.fontSize + barHeight + 3 * barPadding;
 	$: barY = itemHeight - barPadding - barHeight / 2;
@@ -109,9 +111,18 @@
 		: max > 0 ? [0, max] : [min, 0];
 	$: getX = linearScale(domain, [0, width]);
 	$: x0 = getX(0);
-	$: bars = items.map((item, idx) => {
+	$: columnsWidth = {neg: x0, pos: width - x0};
+
+	/* layout */
+	$: bars = items.map(item => {
 		const value = valueAccessor(item);
 		const isNeg = value < 0;
+		const label = keyToLabel && keyToLabel[item.key]
+			? keyToLabel[item.key]
+			: keyToLabelFn
+				? keyToLabelFn(item.key)
+				: item.key;
+		const labelLength = label.length * averageCharWidth;
 
 		return {...item, ...{
 			barColor: keyToColor
@@ -120,23 +131,68 @@
 					? keyToColorFn(item.key)
 					: theme.barDefaultColor,
 			displayValue: formatFn ? formatFn(value) : value,
-			dxKey: crossesZero
-				? isNeg ? -barPadding : barPadding
-				: 0,
 			isNeg,
-			label: keyToLabel && keyToLabel[item.key]
-				? keyToLabel[item.key]
-				: keyToLabelFn
-					? keyToLabelFn(item.key)
-					: item.key,
-			x: getX(value),
-			xValue: crossesZero
-				? value < 0 ? 0 : width
-				: allNegatives ? 0 : width,
-			y: (idx + 1) * itemHeight // bottom of the item rect
+			label,
+			labelLength,
+			value,
 		}}
 	});
-	$: barsByKey = index(bars, getKey);
+	$: labelsMaxLengths = bars.reduce((acc, {displayValue, isNeg, labelLength}) => {
+		const signKey = isNeg ? 'neg' : 'pos';
+		const displayValueLength = String(displayValue).length * averageCharWidth;
+
+		acc[signKey].label = Math.max(acc[signKey].label, labelLength);
+		acc[signKey].value = Math.max(acc[signKey].value, displayValueLength);
+
+		return acc;
+	}, {
+		neg: {label: 0, value: 0},
+		pos: {label: 0, value: 0},
+	});
+	$: labelsRoom = {
+		neg: Math.max(0, columnsWidth.neg - labelsMaxLengths.neg.value - barPadding),
+		pos: Math.max(0, columnsWidth.pos - labelsMaxLengths.pos.value - barPadding)
+	};
+
+	$: barsLayout = bars.map((bar, idx) => {
+		let {isNeg, label, labelLength, value} = bar;
+
+		const room = labelsRoom.neg + labelsRoom.pos;
+		const overflowRatio = labelLength / room;
+
+		if (overflowRatio > 1) {
+			const cutIndex = Math.floor(room / averageCharWidth) - 1;
+
+			label = `${sliceString(label, 0, cutIndex)}…`;
+			labelLength = label.length;
+		}
+
+		return {...bar, ...{
+			isLabelAlignedRight: crossesZero
+				? isNeg
+					? labelsMaxLengths.neg.label < labelsRoom.neg
+					: labelsMaxLengths.pos.label > labelsRoom.pos
+				: allNegatives,
+			isValueAlignedRight: crossesZero ? !isNeg : !allNegatives,
+			label,
+			labelLength,
+			labelX: crossesZero
+				? isNeg
+					? labelsMaxLengths.neg.label <= labelsRoom.neg
+						? x0 - barPadding
+						: labelsMaxLengths.neg.value + barPadding
+					: labelsMaxLengths.pos.label <= labelsRoom.pos
+						? x0 + barPadding
+						: width - labelsMaxLengths.pos.value - barPadding
+				: allNegatives ? width : 0,
+			x: getX(value),
+			valueX: crossesZero
+				? isNeg ? 0 : width
+				: allNegatives ? 0 : width,
+			y: idx * itemHeight,
+		}}
+	});
+	$: barsByKey = index(barsLayout, getKey);
 
 	/* refs */
 
@@ -146,14 +202,14 @@
 			const valueX = getX(ref.value);
 			let formattedValue = ref.formatFn ? ref.formatFn(ref.value) : ref.value;
 			let label = `${ref.key} (${formattedValue})`;
-			let textLength = label.length * theme.fontSize * 0.5;
+			let textLength = label.length * averageCharWidth;
 			let rectWidth = textLength + 2 * theme.padding;
 			let goesOff = valueX + rectWidth > width;
 			let isAlignedRight = goesOff && valueX > width / 2;
 
 			if (goesOff && ref.keyAbbr) {
 				label = `${ref.keyAbbr} (${formattedValue})`;
-				textLength = label.length * theme.fontSize * 0.5;
+				textLength = label.length * averageCharWidth;
 				rectWidth = textLength + 2 * theme.padding;
 				isAlignedRight =
 					valueX + rectWidth > width
@@ -189,7 +245,7 @@
 	beforeUpdate(() => {
 		wasNotResettingScroll = !shouldResetScroll
 	});
-	$: afterUpdate(() => {
+	afterUpdate(() => {
 		if (shouldResetScroll && items && items.length && !isEqual(previousItems, items) && scrollable) {
 			scrollable.scrollTop = 0;
 			previousItems = items;
@@ -314,17 +370,39 @@
 				<svg {width} height={svgHeight}>
 					<rect class='bkg' {width} height={svgHeight} />
 
+					<!-- refs lines -->
+					{#if refsLayout}
+						{#each refsLayout as {
+							color,
+							dasharray,
+							linewidth,
+							valueX: x,
+						}}
+							<line
+								class='ref'
+								stroke={color || theme.refColor}
+								stroke-dasharray={dasharray || theme.refDasharray}
+								stroke-width={linewidth || theme.refWidth}
+								x1={x}
+								x2={x}
+								y2={svgHeight}
+							/>
+						{/each}
+					{/if}
+
 					<!-- bars -->
 					<g>
-						{#each bars as {
+						{#each barsLayout as {
 							barColor,
 							displayValue,
-							dxKey,
-							isNeg,
+							isLabelAlignedRight,
+							isValueAlignedRight,
 							key,
 							label,
+							labelX,
+							valueX,
 							x,
-							xValue,
+							y
 						}, index (key)}
 							<g
 								class:clickable={isInteractive}
@@ -354,16 +432,15 @@
 									y2={barY}
 								/>
 								<text
-									class:left={allNegatives || isNeg}
-									class='key'
-									dx={dxKey}
-									x={x0}
+									class:right={isLabelAlignedRight}
+									class='label'
+									x={labelX}
 									y={textY}
 								>{label}</text>
 								<text
-									class:right={allNegatives || isNeg}
+									class:right={isValueAlignedRight}
 									class='value'
-									x={xValue}
+									x={valueX}
 									y={textY}
 								>{displayValue}</text>
 							</g>
@@ -378,26 +455,6 @@
 							x2={x0}
 							y2={svgHeight}
 						/>
-					{/if}
-
-					<!-- refs lines -->
-					{#if refsLayout}
-						{#each refsLayout as {
-							color,
-							dasharray,
-							linewidth,
-							valueX: x,
-						}}
-							<line
-								class='ref'
-								stroke={color || theme.refColor}
-								stroke-dasharray={dasharray || theme.refDasharray}
-								stroke-width={linewidth || theme.refWidth}
-								x1={x}
-								x2={x}
-								y2={svgHeight}
-							/>
-						{/each}
 					{/if}
 
 				</svg>
@@ -491,13 +548,10 @@
 		font-size: var(--fontSize);
 		stroke: none;
 	}
-	.item text.key.left {
-		text-anchor: end;
-	}
-	.item text.value {
+	.item text.label.right {
 		text-anchor: end;
 	}
 	.item text.value.right {
-		text-anchor: start;
+		text-anchor: end;
 	}
 </style>

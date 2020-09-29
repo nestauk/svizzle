@@ -5,6 +5,7 @@
 ## `@svizzle/barchart` v0.6.4 (next)
 
 - fix: show zeroes
+- labels now adapt to the available width
 
 ## `@svizzle/choropleth` v0.6.2 (next)
 
