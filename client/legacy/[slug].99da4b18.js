@@ -1,5 +1,5 @@
-import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.4c579b7d.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as pullFrom, al as has, am as lookup, an as _, ao as setIn } from './_utils.26830af8.js';
+import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.4bb80d41.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as has, al as pullFrom, am as lookup, an as _, ao as setIn } from './_utils.5069aa50.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -434,6 +434,52 @@ false
 var makeIsWithinRange = function makeIsWithinRange(range) {
   return allOf([isGTE(range[0]), isLTE(range[1])]);
 };
+
+/**
+* @module @svizzle/utils/string_proto-string
+*/
+/**
+ * Return the portion of the provided string between the provided indices (first included, second excluded).
+ * Note that indices can be negative.
+ * (named `sliceString` to avoid conflict with `Array.prototype.slice`)
+ * @see
+ {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice|String.prototype.slice},
+ {@link module:@svizzle/utils/array-[string-string].sliceStringAt|sliceStringAt}
+ *
+ * @function
+ * @arg {string} string
+ * @arg {number} beginIndex - The zero-based index at which to begin extraction
+ * @arg {number} endIndex - Optional. The zero-based index before which to end extraction. If negative, starts counting from the end.
+ * @return {string}
+ *
+ * @example
+> sliceString('0123456789', 3)
+'3456789'
+> sliceString('0123456789', 3, 5)
+'34'
+> sliceString('0123456789', 3, -1)
+'345678'
+ *
+ * @version 0.5.0
+ */
+
+var sliceString = generic(String.prototype.slice);
+/**
+ * Return a string by trimming white space from the provided string
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim|String.prototype.trim}
+ *
+ * @function
+ * @arg {string} string
+ * @return {string}
+ *
+ * @example
+> trim('   abc   \n  ')
+'abc'
+ *
+ * @version 0.1.0
+ */
+
+var trim = generic(String.prototype.trim);
 
 /**
 * @module @svizzle/utils/string-[array-string]
@@ -6389,44 +6435,44 @@ var file$7 = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/bar
 
 function get_each_context$3(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[55] = list[i].color;
-  child_ctx[56] = list[i].dasharray;
-  child_ctx[57] = list[i].linewidth;
-  child_ctx[58] = list[i].valueX;
+  child_ctx[62] = list[i].barColor;
+  child_ctx[63] = list[i].displayValue;
+  child_ctx[64] = list[i].isLabelAlignedRight;
+  child_ctx[65] = list[i].isValueAlignedRight;
+  child_ctx[66] = list[i].key;
+  child_ctx[67] = list[i].label;
+  child_ctx[68] = list[i].labelX;
+  child_ctx[69] = list[i].valueX;
+  child_ctx[70] = list[i].x;
+  child_ctx[71] = list[i].y;
+  child_ctx[73] = i;
   return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[61] = list[i].barColor;
-  child_ctx[62] = list[i].bkgColor;
-  child_ctx[63] = list[i].deselected;
-  child_ctx[64] = list[i].displayValue;
-  child_ctx[65] = list[i].dxKey;
-  child_ctx[66] = list[i].isNeg;
-  child_ctx[67] = list[i].key;
-  child_ctx[68] = list[i].label;
-  child_ctx[58] = list[i].x;
-  child_ctx[69] = list[i].xValue;
-  child_ctx[71] = i;
+  child_ctx[74] = list[i].color;
+  child_ctx[75] = list[i].dasharray;
+  child_ctx[76] = list[i].linewidth;
+  child_ctx[70] = list[i].valueX;
   return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
   var child_ctx = ctx.slice();
-  child_ctx[55] = list[i].color;
-  child_ctx[56] = list[i].dasharray;
-  child_ctx[72] = list[i].isRight;
-  child_ctx[68] = list[i].label;
-  child_ctx[57] = list[i].linewidth;
-  child_ctx[73] = list[i].rectWidth;
-  child_ctx[74] = list[i].textLength;
-  child_ctx[75] = list[i].textX;
-  child_ctx[76] = list[i].valueX;
-  child_ctx[58] = list[i].x;
-  child_ctx[77] = list[i].y;
+  child_ctx[74] = list[i].color;
+  child_ctx[75] = list[i].dasharray;
+  child_ctx[79] = list[i].isAlignedRight;
+  child_ctx[67] = list[i].label;
+  child_ctx[76] = list[i].linewidth;
+  child_ctx[80] = list[i].rectWidth;
+  child_ctx[81] = list[i].textLength;
+  child_ctx[82] = list[i].textX;
+  child_ctx[69] = list[i].valueX;
+  child_ctx[70] = list[i].x;
+  child_ctx[71] = list[i].y;
   return child_ctx;
-} // (235:1) {#if title}
+} // (302:1) {#if title}
 
 
 function create_if_block_4(ctx) {
@@ -6439,7 +6485,7 @@ function create_if_block_4(ctx) {
       h2 = element("h2");
       t = text(
       /*title*/
-      ctx[6]);
+      ctx[8]);
       this.h();
     },
     l: function claim(nodes) {
@@ -6453,16 +6499,16 @@ function create_if_block_4(ctx) {
       var h2_nodes = children(h2);
       t = claim_text(h2_nodes,
       /*title*/
-      ctx[6]);
+      ctx[8]);
       h2_nodes.forEach(detach_dev);
       header_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
-      attr_dev(h2, "class", "svelte-1octkco");
-      add_location(h2, file$7, 236, 2, 5703);
-      attr_dev(header, "class", "svelte-1octkco");
-      add_location(header, file$7, 235, 1, 5692);
+      attr_dev(h2, "class", "svelte-s141rk");
+      add_location(h2, file$7, 303, 2, 7802);
+      attr_dev(header, "class", "svelte-s141rk");
+      add_location(header, file$7, 302, 1, 7791);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -6472,9 +6518,9 @@ function create_if_block_4(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*title*/
-      64) set_data_dev(t,
+      256) set_data_dev(t,
       /*title*/
-      ctx[6]);
+      ctx[8]);
     },
     d: function destroy(detaching) {
       if (detaching) detach_dev(header);
@@ -6484,11 +6530,11 @@ function create_if_block_4(ctx) {
     block: block,
     id: create_if_block_4.name,
     type: "if",
-    source: "(235:1) {#if title}",
+    source: "(302:1) {#if title}",
     ctx: ctx
   });
   return block;
-} // (247:2) {:else}
+} // (314:2) {:else}
 
 
 function create_else_block$1(ctx) {
@@ -6499,39 +6545,38 @@ function create_else_block$1(ctx) {
   var g;
   var each_blocks = [];
   var each_1_lookup = new Map();
-  var if_block1_anchor;
   var div_resize_listener;
   var mounted;
   var dispose;
   var if_block0 =
   /*refs*/
   ctx[4].length && create_if_block_3$1(ctx);
-  var each_value_1 =
-  /*bars*/
-  ctx[19];
-  validate_each_argument(each_value_1);
+  var if_block1 =
+  /*refsLayout*/
+  ctx[23] && create_if_block_2$2(ctx);
+  var each_value =
+  /*barsLayout*/
+  ctx[21];
+  validate_each_argument(each_value);
 
   var get_key = function get_key(ctx) {
     return (
       /*key*/
-      ctx[67]
+      ctx[66]
     );
   };
 
-  validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
+  validate_each_keys(ctx, each_value, get_each_context$3, get_key);
 
-  for (var i = 0; i < each_value_1.length; i += 1) {
-    var child_ctx = get_each_context_1(ctx, each_value_1, i);
+  for (var i = 0; i < each_value.length; i += 1) {
+    var child_ctx = get_each_context$3(ctx, each_value, i);
     var key = get_key(child_ctx);
-    each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
+    each_1_lookup.set(key, each_blocks[i] = create_each_block$3(key, child_ctx));
   }
 
-  var if_block1 =
-  /*crossesZero*/
-  ctx[17] && create_if_block_2$2(ctx);
   var if_block2 =
-  /*refsLayout*/
-  ctx[21] && create_if_block_1$3(ctx);
+  /*crossesZero*/
+  ctx[19] && create_if_block_1$3(ctx);
   var block = {
     c: function create() {
       if (if_block0) if_block0.c();
@@ -6539,14 +6584,13 @@ function create_else_block$1(ctx) {
       div = element("div");
       svg = svg_element("svg");
       rect = svg_element("rect");
+      if (if_block1) if_block1.c();
       g = svg_element("g");
 
       for (var _i = 0; _i < each_blocks.length; _i += 1) {
         each_blocks[_i].c();
       }
 
-      if (if_block1) if_block1.c();
-      if_block1_anchor = empty();
       if (if_block2) if_block2.c();
       this.h();
     },
@@ -6568,6 +6612,7 @@ function create_else_block$1(ctx) {
         height: true
       }, 1);
       children(rect).forEach(detach_dev);
+      if (if_block1) if_block1.l(svg_nodes);
       g = claim_element(svg_nodes, "g", {}, 1);
       var g_nodes = children(g);
 
@@ -6576,31 +6621,29 @@ function create_else_block$1(ctx) {
       }
 
       g_nodes.forEach(detach_dev);
-      if (if_block1) if_block1.l(svg_nodes);
-      if_block1_anchor = empty();
       if (if_block2) if_block2.l(svg_nodes);
       svg_nodes.forEach(detach_dev);
       div_nodes.forEach(detach_dev);
       this.h();
     },
     h: function hydrate() {
-      attr_dev(rect, "class", "bkg svelte-1octkco");
+      attr_dev(rect, "class", "bkg svelte-s141rk");
       attr_dev(rect, "width",
       /*width*/
-      ctx[9]);
+      ctx[11]);
       attr_dev(rect, "height",
       /*svgHeight*/
-      ctx[16]);
-      add_location(rect, file$7, 303, 4, 6944);
-      add_location(g, file$7, 306, 4, 7015);
+      ctx[18]);
+      add_location(rect, file$7, 371, 5, 9204);
+      add_location(g, file$7, 394, 5, 9703);
       attr_dev(svg, "width",
       /*width*/
-      ctx[9]);
+      ctx[11]);
       attr_dev(svg, "height",
       /*svgHeight*/
-      ctx[16]);
-      add_location(svg, file$7, 302, 3, 6907);
-      attr_dev(div, "class", "scrollable svelte-1octkco");
+      ctx[18]);
+      add_location(svg, file$7, 370, 4, 9166);
+      attr_dev(div, "class", "scrollable svelte-s141rk");
       add_render_callback(function () {
         return (
           /*div_elementresize_handler*/
@@ -6612,7 +6655,7 @@ function create_else_block$1(ctx) {
       ctx[4] &&
       /*refs*/
       ctx[4].length);
-      add_location(div, file$7, 294, 2, 6704);
+      add_location(div, file$7, 362, 3, 8955);
     },
     m: function mount(target, anchor) {
       if (if_block0) if_block0.m(target, anchor);
@@ -6620,14 +6663,13 @@ function create_else_block$1(ctx) {
       insert_dev(target, div, anchor);
       append_dev(div, svg);
       append_dev(svg, rect);
+      if (if_block1) if_block1.m(svg, null);
       append_dev(svg, g);
 
       for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
         each_blocks[_i3].m(g, null);
       }
 
-      if (if_block1) if_block1.m(svg, null);
-      append_dev(svg, if_block1_anchor);
       if (if_block2) if_block2.m(svg, null);
       div_resize_listener = add_resize_listener(div,
       /*div_elementresize_handler*/
@@ -6661,49 +6703,49 @@ function create_else_block$1(ctx) {
 
       if (dirty[0] &
       /*width*/
-      512) {
+      2048) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[9]);
+        ctx[11]);
       }
 
       if (dirty[0] &
       /*svgHeight*/
-      65536) {
+      262144) {
         attr_dev(rect, "height",
         /*svgHeight*/
-        ctx[16]);
-      }
-
-      if (dirty[0] &
-      /*itemHeight, bars, isInteractive, onClick, onMouseenter, onMouseleave, textY, x0, barHeight, barY, width*/
-      30204419) {
-        var _each_value_ =
-        /*bars*/
-        ctx[19];
-        validate_each_argument(_each_value_);
-        validate_each_keys(ctx, _each_value_, get_each_context_1, get_key);
-        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, _each_value_, each_1_lookup, g, destroy_block, create_each_block_1, null, get_each_context_1);
+        ctx[18]);
       }
 
       if (
-      /*crossesZero*/
-      ctx[17]) {
+      /*refsLayout*/
+      ctx[23]) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
         } else {
           if_block1 = create_if_block_2$2(ctx);
           if_block1.c();
-          if_block1.m(svg, if_block1_anchor);
+          if_block1.m(svg, g);
         }
       } else if (if_block1) {
         if_block1.d(1);
         if_block1 = null;
       }
 
+      if (dirty[0] &
+      /*itemHeight, barsLayout, isInteractive, selectedKeys, onClick, onMouseenter, onMouseleave, textY, barHeight, x0, barY, width, focusedKey, theme, hoveredKey*/
+      120818915) {
+        var _each_value =
+        /*barsLayout*/
+        ctx[21];
+        validate_each_argument(_each_value);
+        validate_each_keys(ctx, _each_value, get_each_context$3, get_key);
+        each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, _each_value, each_1_lookup, g, destroy_block, create_each_block$3, null, get_each_context$3);
+      }
+
       if (
-      /*refsLayout*/
-      ctx[21]) {
+      /*crossesZero*/
+      ctx[19]) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
         } else {
@@ -6718,18 +6760,18 @@ function create_else_block$1(ctx) {
 
       if (dirty[0] &
       /*width*/
-      512) {
+      2048) {
         attr_dev(svg, "width",
         /*width*/
-        ctx[9]);
+        ctx[11]);
       }
 
       if (dirty[0] &
       /*svgHeight*/
-      65536) {
+      262144) {
         attr_dev(svg, "height",
         /*svgHeight*/
-        ctx[16]);
+        ctx[18]);
       }
 
       if (dirty[0] &
@@ -6746,12 +6788,12 @@ function create_else_block$1(ctx) {
       if (if_block0) if_block0.d(detaching);
       if (detaching) detach_dev(t);
       if (detaching) detach_dev(div);
+      if (if_block1) if_block1.d();
 
       for (var _i4 = 0; _i4 < each_blocks.length; _i4 += 1) {
         each_blocks[_i4].d();
       }
 
-      if (if_block1) if_block1.d();
       if (if_block2) if_block2.d();
       div_resize_listener();
       /*div_binding*/
@@ -6765,11 +6807,11 @@ function create_else_block$1(ctx) {
     block: block,
     id: create_else_block$1.name,
     type: "else",
-    source: "(247:2) {:else}",
+    source: "(314:2) {:else}",
     ctx: ctx
   });
   return block;
-} // (241:2) {#if !items || items.length === 0}
+} // (308:2) {#if !items || items.length === 0}
 
 
 function create_if_block$4(ctx) {
@@ -6802,10 +6844,10 @@ function create_if_block$4(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(span, "class", "svelte-1octkco");
-      add_location(span, file$7, 243, 3, 5833);
-      attr_dev(div, "class", "message svelte-1octkco");
-      add_location(div, file$7, 242, 2, 5808);
+      attr_dev(span, "class", "svelte-s141rk");
+      add_location(span, file$7, 310, 4, 7934);
+      attr_dev(div, "class", "message svelte-s141rk");
+      add_location(div, file$7, 309, 3, 7908);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -6827,11 +6869,11 @@ function create_if_block$4(ctx) {
     block: block,
     id: create_if_block$4.name,
     type: "if",
-    source: "(241:2) {#if !items || items.length === 0}",
+    source: "(308:2) {#if !items || items.length === 0}",
     ctx: ctx
   });
   return block;
-} // (250:2) {#if refs.length}
+} // (317:3) {#if refs.length}
 
 
 function create_if_block_3$1(ctx) {
@@ -6839,7 +6881,7 @@ function create_if_block_3$1(ctx) {
   var svg;
   var each_value_2 =
   /*refsLayout*/
-  ctx[21];
+  ctx[23];
   validate_each_argument(each_value_2);
   var each_blocks = [];
 
@@ -6880,13 +6922,13 @@ function create_if_block_3$1(ctx) {
     h: function hydrate() {
       attr_dev(svg, "width",
       /*width*/
-      ctx[9]);
+      ctx[11]);
       attr_dev(svg, "height",
       /*refsHeight*/
-      ctx[12]);
-      add_location(svg, file$7, 251, 3, 5943);
-      attr_dev(div, "class", "refs svelte-1octkco");
-      add_location(div, file$7, 250, 2, 5921);
+      ctx[14]);
+      add_location(svg, file$7, 318, 5, 8051);
+      attr_dev(div, "class", "refs svelte-s141rk");
+      add_location(div, file$7, 317, 4, 8027);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -6899,10 +6941,10 @@ function create_if_block_3$1(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*refsLayout, theme, refHeight, refsHeight*/
-      3149856) {
+      12599360) {
         each_value_2 =
         /*refsLayout*/
-        ctx[21];
+        ctx[23];
         validate_each_argument(each_value_2);
 
         var _i8;
@@ -6930,18 +6972,18 @@ function create_if_block_3$1(ctx) {
 
       if (dirty[0] &
       /*width*/
-      512) {
+      2048) {
         attr_dev(svg, "width",
         /*width*/
-        ctx[9]);
+        ctx[11]);
       }
 
       if (dirty[0] &
       /*refsHeight*/
-      4096) {
+      16384) {
         attr_dev(svg, "height",
         /*refsHeight*/
-        ctx[12]);
+        ctx[14]);
       }
     },
     d: function destroy(detaching) {
@@ -6953,11 +6995,11 @@ function create_if_block_3$1(ctx) {
     block: block,
     id: create_if_block_3$1.name,
     type: "if",
-    source: "(250:2) {#if refs.length}",
+    source: "(317:3) {#if refs.length}",
     ctx: ctx
   });
   return block;
-} // (253:4) {#each refsLayout as {      color,      dasharray,      isRight,      label,      linewidth,      rectWidth,      textLength,      textX,      valueX,      x,      y,     }}
+} // (320:6) {#each refsLayout as {        color,        dasharray,        isAlignedRight,        label,        linewidth,        rectWidth,        textLength,        textX,        valueX,        x,        y,       }}
 
 
 function create_each_block_2(ctx) {
@@ -6968,7 +7010,7 @@ function create_each_block_2(ctx) {
   var text_1;
   var t_value =
   /*label*/
-  ctx[68] + "";
+  ctx[67] + "";
   var t;
   var text_1_x_value;
   var text_1_y_value;
@@ -7025,61 +7067,61 @@ function create_each_block_2(ctx) {
     h: function hydrate() {
       attr_dev(rect, "x", rect_x_value =
       /*x*/
-      ctx[58]);
+      ctx[70]);
       attr_dev(rect, "width", rect_width_value =
       /*rectWidth*/
-      ctx[73]);
+      ctx[80]);
       attr_dev(rect, "height",
       /*refHeight*/
-      ctx[20]);
-      attr_dev(rect, "class", "svelte-1octkco");
-      add_location(rect, file$7, 269, 5, 6232);
+      ctx[22]);
+      attr_dev(rect, "class", "svelte-s141rk");
+      add_location(rect, file$7, 336, 8, 8388);
       attr_dev(text_1, "x", text_1_x_value =
       /*textX*/
-      ctx[75]);
+      ctx[82]);
       attr_dev(text_1, "y", text_1_y_value =
       /*refHeight*/
-      ctx[20] / 2);
+      ctx[22] / 2);
       attr_dev(text_1, "textLength", text_1_textLength_value =
       /*textLength*/
-      ctx[74]);
-      attr_dev(text_1, "class", "svelte-1octkco");
+      ctx[81]);
+      attr_dev(text_1, "class", "svelte-s141rk");
       toggle_class(text_1, "right",
-      /*isRight*/
-      ctx[72]);
-      add_location(text_1, file$7, 274, 5, 6310);
+      /*isAlignedRight*/
+      ctx[79]);
+      add_location(text_1, file$7, 341, 8, 8481);
       attr_dev(line, "class", "ref");
       attr_dev(line, "stroke", line_stroke_value =
       /*color*/
-      ctx[55] ||
+      ctx[74] ||
       /*theme*/
-      ctx[5].refColor);
+      ctx[6].refColor);
       attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
       /*dasharray*/
-      ctx[56] ||
+      ctx[75] ||
       /*theme*/
-      ctx[5].refDasharray);
+      ctx[6].refDasharray);
       attr_dev(line, "stroke-width", line_stroke_width_value =
       /*linewidth*/
-      ctx[57] ||
+      ctx[76] ||
       /*theme*/
-      ctx[5].refWidth);
+      ctx[6].refWidth);
       attr_dev(line, "y1",
       /*refHeight*/
-      ctx[20]);
+      ctx[22]);
       attr_dev(line, "y2", line_y__value =
       /*refsHeight*/
-      ctx[12] -
+      ctx[14] -
       /*y*/
-      ctx[77]);
-      add_location(line, file$7, 280, 5, 6429);
-      attr_dev(g, "class", "ref svelte-1octkco");
+      ctx[71]);
+      add_location(line, file$7, 347, 8, 8625);
+      attr_dev(g, "class", "ref svelte-s141rk");
       attr_dev(g, "transform", g_transform_value = "translate(" +
       /*valueX*/
-      ctx[76] + ", " +
+      ctx[69] + ", " +
       /*y*/
-      ctx[77] + ")");
-      add_location(g, file$7, 265, 4, 6159);
+      ctx[71] + ")");
+      add_location(g, file$7, 332, 7, 8303);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -7091,121 +7133,121 @@ function create_each_block_2(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*refsLayout*/
-      2097152 && rect_x_value !== (rect_x_value =
+      8388608 && rect_x_value !== (rect_x_value =
       /*x*/
-      ctx[58])) {
+      ctx[70])) {
         attr_dev(rect, "x", rect_x_value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      2097152 && rect_width_value !== (rect_width_value =
+      8388608 && rect_width_value !== (rect_width_value =
       /*rectWidth*/
-      ctx[73])) {
+      ctx[80])) {
         attr_dev(rect, "width", rect_width_value);
       }
 
       if (dirty[0] &
       /*refHeight*/
-      1048576) {
+      4194304) {
         attr_dev(rect, "height",
         /*refHeight*/
-        ctx[20]);
+        ctx[22]);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      2097152 && t_value !== (t_value =
+      8388608 && t_value !== (t_value =
       /*label*/
-      ctx[68] + "")) set_data_dev(t, t_value);
+      ctx[67] + "")) set_data_dev(t, t_value);
 
       if (dirty[0] &
       /*refsLayout*/
-      2097152 && text_1_x_value !== (text_1_x_value =
+      8388608 && text_1_x_value !== (text_1_x_value =
       /*textX*/
-      ctx[75])) {
+      ctx[82])) {
         attr_dev(text_1, "x", text_1_x_value);
       }
 
       if (dirty[0] &
       /*refHeight*/
-      1048576 && text_1_y_value !== (text_1_y_value =
+      4194304 && text_1_y_value !== (text_1_y_value =
       /*refHeight*/
-      ctx[20] / 2)) {
+      ctx[22] / 2)) {
         attr_dev(text_1, "y", text_1_y_value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      2097152 && text_1_textLength_value !== (text_1_textLength_value =
+      8388608 && text_1_textLength_value !== (text_1_textLength_value =
       /*textLength*/
-      ctx[74])) {
+      ctx[81])) {
         attr_dev(text_1, "textLength", text_1_textLength_value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      2097152) {
+      8388608) {
         toggle_class(text_1, "right",
-        /*isRight*/
-        ctx[72]);
+        /*isAlignedRight*/
+        ctx[79]);
       }
 
       if (dirty[0] &
       /*refsLayout, theme*/
-      2097184 && line_stroke_value !== (line_stroke_value =
+      8388672 && line_stroke_value !== (line_stroke_value =
       /*color*/
-      ctx[55] ||
+      ctx[74] ||
       /*theme*/
-      ctx[5].refColor)) {
+      ctx[6].refColor)) {
         attr_dev(line, "stroke", line_stroke_value);
       }
 
       if (dirty[0] &
       /*refsLayout, theme*/
-      2097184 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
+      8388672 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
       /*dasharray*/
-      ctx[56] ||
+      ctx[75] ||
       /*theme*/
-      ctx[5].refDasharray)) {
+      ctx[6].refDasharray)) {
         attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value);
       }
 
       if (dirty[0] &
       /*refsLayout, theme*/
-      2097184 && line_stroke_width_value !== (line_stroke_width_value =
+      8388672 && line_stroke_width_value !== (line_stroke_width_value =
       /*linewidth*/
-      ctx[57] ||
+      ctx[76] ||
       /*theme*/
-      ctx[5].refWidth)) {
+      ctx[6].refWidth)) {
         attr_dev(line, "stroke-width", line_stroke_width_value);
       }
 
       if (dirty[0] &
       /*refHeight*/
-      1048576) {
+      4194304) {
         attr_dev(line, "y1",
         /*refHeight*/
-        ctx[20]);
+        ctx[22]);
       }
 
       if (dirty[0] &
       /*refsHeight, refsLayout*/
-      2101248 && line_y__value !== (line_y__value =
+      8404992 && line_y__value !== (line_y__value =
       /*refsHeight*/
-      ctx[12] -
+      ctx[14] -
       /*y*/
-      ctx[77])) {
+      ctx[71])) {
         attr_dev(line, "y2", line_y__value);
       }
 
       if (dirty[0] &
       /*refsLayout*/
-      2097152 && g_transform_value !== (g_transform_value = "translate(" +
+      8388608 && g_transform_value !== (g_transform_value = "translate(" +
       /*valueX*/
-      ctx[76] + ", " +
+      ctx[69] + ", " +
       /*y*/
-      ctx[77] + ")")) {
+      ctx[71] + ")")) {
         attr_dev(g, "transform", g_transform_value);
       }
     },
@@ -7217,14 +7259,222 @@ function create_each_block_2(ctx) {
     block: block,
     id: create_each_block_2.name,
     type: "each",
-    source: "(253:4) {#each refsLayout as {      color,      dasharray,      isRight,      label,      linewidth,      rectWidth,      textLength,      textX,      valueX,      x,      y,     }}",
+    source: "(320:6) {#each refsLayout as {        color,        dasharray,        isAlignedRight,        label,        linewidth,        rectWidth,        textLength,        textX,        valueX,        x,        y,       }}",
     ctx: ctx
   });
   return block;
-} // (308:5) {#each bars as {       barColor,       bkgColor,       deselected,       displayValue,       dxKey,       isNeg,       key,       label,       x,       xValue,      }
+} // (375:5) {#if refsLayout}
 
 
-function create_each_block_1(key_1, ctx) {
+function create_if_block_2$2(ctx) {
+  var each_1_anchor;
+  var each_value_1 =
+  /*refsLayout*/
+  ctx[23];
+  validate_each_argument(each_value_1);
+  var each_blocks = [];
+
+  for (var i = 0; i < each_value_1.length; i += 1) {
+    each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+  }
+
+  var block = {
+    c: function create() {
+      for (var _i9 = 0; _i9 < each_blocks.length; _i9 += 1) {
+        each_blocks[_i9].c();
+      }
+
+      each_1_anchor = empty();
+    },
+    l: function claim(nodes) {
+      for (var _i10 = 0; _i10 < each_blocks.length; _i10 += 1) {
+        each_blocks[_i10].l(nodes);
+      }
+
+      each_1_anchor = empty();
+    },
+    m: function mount(target, anchor) {
+      for (var _i11 = 0; _i11 < each_blocks.length; _i11 += 1) {
+        each_blocks[_i11].m(target, anchor);
+      }
+
+      insert_dev(target, each_1_anchor, anchor);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*refsLayout, theme, svgHeight*/
+      8650816) {
+        each_value_1 =
+        /*refsLayout*/
+        ctx[23];
+        validate_each_argument(each_value_1);
+
+        var _i12;
+
+        for (_i12 = 0; _i12 < each_value_1.length; _i12 += 1) {
+          var child_ctx = get_each_context_1(ctx, each_value_1, _i12);
+
+          if (each_blocks[_i12]) {
+            each_blocks[_i12].p(child_ctx, dirty);
+          } else {
+            each_blocks[_i12] = create_each_block_1(child_ctx);
+
+            each_blocks[_i12].c();
+
+            each_blocks[_i12].m(each_1_anchor.parentNode, each_1_anchor);
+          }
+        }
+
+        for (; _i12 < each_blocks.length; _i12 += 1) {
+          each_blocks[_i12].d(1);
+        }
+
+        each_blocks.length = each_value_1.length;
+      }
+    },
+    d: function destroy(detaching) {
+      destroy_each(each_blocks, detaching);
+      if (detaching) detach_dev(each_1_anchor);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_2$2.name,
+    type: "if",
+    source: "(375:5) {#if refsLayout}",
+    ctx: ctx
+  });
+  return block;
+} // (376:6) {#each refsLayout as {        color,        dasharray,        linewidth,        valueX: x,       }}
+
+
+function create_each_block_1(ctx) {
+  var line;
+  var line_stroke_value;
+  var line_stroke_dasharray_value;
+  var line_stroke_width_value;
+  var line_x__value;
+  var line_x__value_1;
+  var block = {
+    c: function create() {
+      line = svg_element("line");
+      this.h();
+    },
+    l: function claim(nodes) {
+      line = claim_element(nodes, "line", {
+        class: true,
+        stroke: true,
+        "stroke-dasharray": true,
+        "stroke-width": true,
+        x1: true,
+        x2: true,
+        y2: true
+      }, 1);
+      children(line).forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(line, "class", "ref");
+      attr_dev(line, "stroke", line_stroke_value =
+      /*color*/
+      ctx[74] ||
+      /*theme*/
+      ctx[6].refColor);
+      attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
+      /*dasharray*/
+      ctx[75] ||
+      /*theme*/
+      ctx[6].refDasharray);
+      attr_dev(line, "stroke-width", line_stroke_width_value =
+      /*linewidth*/
+      ctx[76] ||
+      /*theme*/
+      ctx[6].refWidth);
+      attr_dev(line, "x1", line_x__value =
+      /*x*/
+      ctx[70]);
+      attr_dev(line, "x2", line_x__value_1 =
+      /*x*/
+      ctx[70]);
+      attr_dev(line, "y2",
+      /*svgHeight*/
+      ctx[18]);
+      add_location(line, file$7, 381, 7, 9413);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, line, anchor);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      8388672 && line_stroke_value !== (line_stroke_value =
+      /*color*/
+      ctx[74] ||
+      /*theme*/
+      ctx[6].refColor)) {
+        attr_dev(line, "stroke", line_stroke_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      8388672 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
+      /*dasharray*/
+      ctx[75] ||
+      /*theme*/
+      ctx[6].refDasharray)) {
+        attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout, theme*/
+      8388672 && line_stroke_width_value !== (line_stroke_width_value =
+      /*linewidth*/
+      ctx[76] ||
+      /*theme*/
+      ctx[6].refWidth)) {
+        attr_dev(line, "stroke-width", line_stroke_width_value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      8388608 && line_x__value !== (line_x__value =
+      /*x*/
+      ctx[70])) {
+        attr_dev(line, "x1", line_x__value);
+      }
+
+      if (dirty[0] &
+      /*refsLayout*/
+      8388608 && line_x__value_1 !== (line_x__value_1 =
+      /*x*/
+      ctx[70])) {
+        attr_dev(line, "x2", line_x__value_1);
+      }
+
+      if (dirty[0] &
+      /*svgHeight*/
+      262144) {
+        attr_dev(line, "y2",
+        /*svgHeight*/
+        ctx[18]);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(line);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_each_block_1.name,
+    type: "each",
+    source: "(376:6) {#each refsLayout as {        color,        dasharray,        linewidth,        valueX: x,       }}",
+    ctx: ctx
+  });
+  return block;
+} // (396:6) {#each barsLayout as {        barColor,        displayValue,        isLabelAlignedRight,        isValueAlignedRight,        key,        label,        labelX,        valueX,        x,        y       }
+
+
+function create_each_block$3(key_1, ctx) {
   var g;
   var rect;
   var rect_fill_value;
@@ -7234,13 +7484,13 @@ function create_each_block_1(key_1, ctx) {
   var text0;
   var t0_value =
   /*label*/
-  ctx[68] + "";
+  ctx[67] + "";
   var t0;
-  var text0_dx_value;
+  var text0_x_value;
   var text1;
   var t1_value =
   /*displayValue*/
-  ctx[64] + "";
+  ctx[63] + "";
   var t1;
   var text1_x_value;
   var g_transform_value;
@@ -7283,7 +7533,6 @@ function create_each_block_1(key_1, ctx) {
       children(line).forEach(detach_dev);
       text0 = claim_element(g_nodes, "text", {
         class: true,
-        dx: true,
         x: true,
         y: true
       }, 1);
@@ -7304,72 +7553,83 @@ function create_each_block_1(key_1, ctx) {
     h: function hydrate() {
       attr_dev(rect, "width",
       /*width*/
-      ctx[9]);
+      ctx[11]);
       attr_dev(rect, "fill", rect_fill_value =
-      /*bkgColor*/
-      ctx[62]);
+      /*key*/
+      ctx[66] ===
+      /*focusedKey*/
+      ctx[7] ?
+      /*theme*/
+      ctx[6].focusedKeyColor :
+      /*key*/
+      ctx[66] ===
+      /*hoveredKey*/
+      ctx[10] ?
+      /*theme*/
+      ctx[6].hoverColor : transparentColor);
       attr_dev(rect, "height",
       /*itemHeight*/
-      ctx[13]);
-      add_location(rect, file$7, 328, 6, 7503);
+      ctx[15]);
+      add_location(rect, file$7, 416, 8, 10295);
       attr_dev(line, "stroke", line_stroke_value =
       /*barColor*/
-      ctx[61]);
+      ctx[62]);
       attr_dev(line, "stroke-width",
       /*barHeight*/
       ctx[0]);
       attr_dev(line, "x1",
       /*x0*/
-      ctx[18]);
+      ctx[20]);
       attr_dev(line, "x2", line_x__value =
       /*x*/
-      ctx[58]);
+      ctx[70]);
       attr_dev(line, "y1",
       /*barY*/
-      ctx[14]);
+      ctx[16]);
       attr_dev(line, "y2",
       /*barY*/
-      ctx[14]);
-      attr_dev(line, "class", "svelte-1octkco");
-      add_location(line, file$7, 333, 6, 7589);
-      attr_dev(text0, "class", "key svelte-1octkco");
-      attr_dev(text0, "dx", text0_dx_value =
-      /*dxKey*/
-      ctx[65]);
-      attr_dev(text0, "x",
-      /*x0*/
-      ctx[18]);
+      ctx[16]);
+      attr_dev(line, "class", "svelte-s141rk");
+      add_location(line, file$7, 426, 8, 10536);
+      attr_dev(text0, "class", "label svelte-s141rk");
+      attr_dev(text0, "x", text0_x_value =
+      /*labelX*/
+      ctx[68]);
       attr_dev(text0, "y",
       /*textY*/
-      ctx[15]);
-      toggle_class(text0, "neg",
-      /*isNeg*/
-      ctx[66]);
-      add_location(text0, file$7, 341, 6, 7730);
-      attr_dev(text1, "class", "value svelte-1octkco");
+      ctx[17]);
+      toggle_class(text0, "right",
+      /*isLabelAlignedRight*/
+      ctx[64]);
+      add_location(text0, file$7, 434, 8, 10693);
+      attr_dev(text1, "class", "value svelte-s141rk");
       attr_dev(text1, "x", text1_x_value =
-      /*xValue*/
+      /*valueX*/
       ctx[69]);
       attr_dev(text1, "y",
       /*textY*/
-      ctx[15]);
-      toggle_class(text1, "neg",
-      /*isNeg*/
-      ctx[66]);
-      add_location(text1, file$7, 348, 6, 7857);
-      attr_dev(g, "class", "item svelte-1octkco");
+      ctx[17]);
+      toggle_class(text1, "right",
+      /*isValueAlignedRight*/
+      ctx[65]);
+      add_location(text1, file$7, 440, 8, 10836);
+      attr_dev(g, "class", "item svelte-s141rk");
       attr_dev(g, "transform", g_transform_value = "translate(0, " +
       /*itemHeight*/
-      ctx[13] *
+      ctx[15] *
       /*index*/
-      ctx[71] + ")");
+      ctx[73] + ")");
       toggle_class(g, "clickable",
       /*isInteractive*/
       ctx[1]);
       toggle_class(g, "deselected",
-      /*deselected*/
-      ctx[63]);
-      add_location(g, file$7, 319, 5, 7210);
+      /*selectedKeys*/
+      ctx[5].length && !isIn(
+      /*selectedKeys*/
+      ctx[5],
+      /*key*/
+      ctx[66]));
+      add_location(g, file$7, 407, 7, 9934);
       this.first = g;
     },
     m: function mount(target, anchor) {
@@ -7387,39 +7647,39 @@ function create_each_block_1(key_1, ctx) {
           /*isInteractive*/
           ctx[1] &&
           /*onClick*/
-          ctx[22](
+          ctx[24](
           /*key*/
-          ctx[67]))) (
+          ctx[66]))) (
           /*isInteractive*/
           ctx[1] &&
           /*onClick*/
-          ctx[22](
+          ctx[24](
           /*key*/
-          ctx[67])).apply(this, arguments);
+          ctx[66])).apply(this, arguments);
         }, false, false, false), listen_dev(g, "mouseenter", function () {
           if (is_function(
           /*onMouseenter*/
-          ctx[23](
+          ctx[25](
           /*key*/
-          ctx[67])))
+          ctx[66])))
             /*onMouseenter*/
-            ctx[23](
+            ctx[25](
             /*key*/
-            ctx[67]).apply(this, arguments);
+            ctx[66]).apply(this, arguments);
         }, false, false, false), listen_dev(g, "mouseleave", function () {
           if (is_function(
           /*isInteractive*/
           ctx[1] &&
           /*onMouseleave*/
-          ctx[24](
+          ctx[26](
           /*key*/
-          ctx[67]))) (
+          ctx[66]))) (
           /*isInteractive*/
           ctx[1] &&
           /*onMouseleave*/
-          ctx[24](
+          ctx[26](
           /*key*/
-          ctx[67])).apply(this, arguments);
+          ctx[66])).apply(this, arguments);
         }, false, false, false)];
         mounted = true;
       }
@@ -7429,33 +7689,43 @@ function create_each_block_1(key_1, ctx) {
 
       if (dirty[0] &
       /*width*/
-      512) {
+      2048) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[9]);
+        ctx[11]);
       }
 
       if (dirty[0] &
-      /*bars*/
-      524288 && rect_fill_value !== (rect_fill_value =
-      /*bkgColor*/
-      ctx[62])) {
+      /*barsLayout, focusedKey, theme, hoveredKey*/
+      2098368 && rect_fill_value !== (rect_fill_value =
+      /*key*/
+      ctx[66] ===
+      /*focusedKey*/
+      ctx[7] ?
+      /*theme*/
+      ctx[6].focusedKeyColor :
+      /*key*/
+      ctx[66] ===
+      /*hoveredKey*/
+      ctx[10] ?
+      /*theme*/
+      ctx[6].hoverColor : transparentColor)) {
         attr_dev(rect, "fill", rect_fill_value);
       }
 
       if (dirty[0] &
       /*itemHeight*/
-      8192) {
+      32768) {
         attr_dev(rect, "height",
         /*itemHeight*/
-        ctx[13]);
+        ctx[15]);
       }
 
       if (dirty[0] &
-      /*bars*/
-      524288 && line_stroke_value !== (line_stroke_value =
+      /*barsLayout*/
+      2097152 && line_stroke_value !== (line_stroke_value =
       /*barColor*/
-      ctx[61])) {
+      ctx[62])) {
         attr_dev(line, "stroke", line_stroke_value);
       }
 
@@ -7469,111 +7739,103 @@ function create_each_block_1(key_1, ctx) {
 
       if (dirty[0] &
       /*x0*/
-      262144) {
+      1048576) {
         attr_dev(line, "x1",
         /*x0*/
-        ctx[18]);
+        ctx[20]);
       }
 
       if (dirty[0] &
-      /*bars*/
-      524288 && line_x__value !== (line_x__value =
+      /*barsLayout*/
+      2097152 && line_x__value !== (line_x__value =
       /*x*/
-      ctx[58])) {
+      ctx[70])) {
         attr_dev(line, "x2", line_x__value);
       }
 
       if (dirty[0] &
       /*barY*/
-      16384) {
+      65536) {
         attr_dev(line, "y1",
         /*barY*/
-        ctx[14]);
+        ctx[16]);
       }
 
       if (dirty[0] &
       /*barY*/
-      16384) {
+      65536) {
         attr_dev(line, "y2",
         /*barY*/
-        ctx[14]);
+        ctx[16]);
       }
 
       if (dirty[0] &
-      /*bars*/
-      524288 && t0_value !== (t0_value =
+      /*barsLayout*/
+      2097152 && t0_value !== (t0_value =
       /*label*/
-      ctx[68] + "")) set_data_dev(t0, t0_value);
+      ctx[67] + "")) set_data_dev(t0, t0_value);
 
       if (dirty[0] &
-      /*bars*/
-      524288 && text0_dx_value !== (text0_dx_value =
-      /*dxKey*/
-      ctx[65])) {
-        attr_dev(text0, "dx", text0_dx_value);
-      }
-
-      if (dirty[0] &
-      /*x0*/
-      262144) {
-        attr_dev(text0, "x",
-        /*x0*/
-        ctx[18]);
+      /*barsLayout*/
+      2097152 && text0_x_value !== (text0_x_value =
+      /*labelX*/
+      ctx[68])) {
+        attr_dev(text0, "x", text0_x_value);
       }
 
       if (dirty[0] &
       /*textY*/
-      32768) {
+      131072) {
         attr_dev(text0, "y",
         /*textY*/
-        ctx[15]);
+        ctx[17]);
       }
 
       if (dirty[0] &
-      /*bars*/
-      524288) {
-        toggle_class(text0, "neg",
-        /*isNeg*/
-        ctx[66]);
+      /*barsLayout*/
+      2097152) {
+        toggle_class(text0, "right",
+        /*isLabelAlignedRight*/
+        ctx[64]);
       }
 
       if (dirty[0] &
-      /*bars*/
-      524288 && t1_value !== (t1_value =
+      /*barsLayout*/
+      2097152 && t1_value !== (t1_value =
       /*displayValue*/
-      ctx[64] + "")) set_data_dev(t1, t1_value);
+      ctx[63] + "")) set_data_dev(t1, t1_value);
 
       if (dirty[0] &
-      /*bars*/
-      524288 && text1_x_value !== (text1_x_value =
-      /*xValue*/
+      /*barsLayout*/
+      2097152 && text1_x_value !== (text1_x_value =
+      /*valueX*/
       ctx[69])) {
         attr_dev(text1, "x", text1_x_value);
       }
 
       if (dirty[0] &
       /*textY*/
-      32768) {
+      131072) {
         attr_dev(text1, "y",
         /*textY*/
-        ctx[15]);
+        ctx[17]);
       }
 
       if (dirty[0] &
-      /*bars*/
-      524288) {
-        toggle_class(text1, "neg",
-        /*isNeg*/
-        ctx[66]);
+      /*barsLayout*/
+      2097152) {
+        toggle_class(text1, "right",
+        /*isValueAlignedRight*/
+        ctx[65]);
       }
 
       if (dirty[0] &
-      /*itemHeight, bars*/
-      532480 && g_transform_value !== (g_transform_value = "translate(0, " +
+      /*itemHeight, barsLayout*/
+      2129920 && g_transform_value !== (g_transform_value = "translate(0, " +
       /*itemHeight*/
-      ctx[13] *
+      ctx[15] *
       /*index*/
-      ctx[71] + ")")) {
+      ctx[73] + ")")) {
         attr_dev(g, "transform", g_transform_value);
       }
 
@@ -7586,11 +7848,15 @@ function create_each_block_1(key_1, ctx) {
       }
 
       if (dirty[0] &
-      /*bars*/
-      524288) {
+      /*selectedKeys, barsLayout*/
+      2097184) {
         toggle_class(g, "deselected",
-        /*deselected*/
-        ctx[63]);
+        /*selectedKeys*/
+        ctx[5].length && !isIn(
+        /*selectedKeys*/
+        ctx[5],
+        /*key*/
+        ctx[66]));
       }
     },
     d: function destroy(detaching) {
@@ -7601,16 +7867,16 @@ function create_each_block_1(key_1, ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_each_block_1.name,
+    id: create_each_block$3.name,
     type: "each",
-    source: "(308:5) {#each bars as {       barColor,       bkgColor,       deselected,       displayValue,       dxKey,       isNeg,       key,       label,       x,       xValue,      }",
+    source: "(396:6) {#each barsLayout as {        barColor,        displayValue,        isLabelAlignedRight,        isValueAlignedRight,        key,        label,        labelX,        valueX,        x,        y       }",
     ctx: ctx
   });
   return block;
-} // (360:4) {#if crossesZero}
+} // (452:5) {#if crossesZero}
 
 
-function create_if_block_2$2(ctx) {
+function create_if_block_1$3(ctx) {
   var line;
   var line_stroke_value;
   var block = {
@@ -7631,17 +7897,17 @@ function create_if_block_2$2(ctx) {
     h: function hydrate() {
       attr_dev(line, "stroke", line_stroke_value =
       /*theme*/
-      ctx[5].axisColor);
+      ctx[6].axisColor);
       attr_dev(line, "x1",
       /*x0*/
-      ctx[18]);
+      ctx[20]);
       attr_dev(line, "x2",
       /*x0*/
-      ctx[18]);
+      ctx[20]);
       attr_dev(line, "y2",
       /*svgHeight*/
-      ctx[16]);
-      add_location(line, file$7, 360, 4, 8050);
+      ctx[18]);
+      add_location(line, file$7, 452, 6, 11063);
     },
     m: function mount(target, anchor) {
       insert_dev(target, line, anchor);
@@ -7649,253 +7915,45 @@ function create_if_block_2$2(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*theme*/
-      32 && line_stroke_value !== (line_stroke_value =
+      64 && line_stroke_value !== (line_stroke_value =
       /*theme*/
-      ctx[5].axisColor)) {
+      ctx[6].axisColor)) {
         attr_dev(line, "stroke", line_stroke_value);
       }
 
       if (dirty[0] &
       /*x0*/
-      262144) {
+      1048576) {
         attr_dev(line, "x1",
         /*x0*/
-        ctx[18]);
+        ctx[20]);
       }
 
       if (dirty[0] &
       /*x0*/
-      262144) {
+      1048576) {
         attr_dev(line, "x2",
         /*x0*/
-        ctx[18]);
+        ctx[20]);
       }
 
       if (dirty[0] &
       /*svgHeight*/
-      65536) {
+      262144) {
         attr_dev(line, "y2",
         /*svgHeight*/
-        ctx[16]);
+        ctx[18]);
       }
     },
     d: function destroy(detaching) {
       if (detaching) detach_dev(line);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block_2$2.name,
-    type: "if",
-    source: "(360:4) {#if crossesZero}",
-    ctx: ctx
-  });
-  return block;
-} // (370:4) {#if refsLayout}
-
-
-function create_if_block_1$3(ctx) {
-  var each_1_anchor;
-  var each_value =
-  /*refsLayout*/
-  ctx[21];
-  validate_each_argument(each_value);
-  var each_blocks = [];
-
-  for (var i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
-  }
-
-  var block = {
-    c: function create() {
-      for (var _i9 = 0; _i9 < each_blocks.length; _i9 += 1) {
-        each_blocks[_i9].c();
-      }
-
-      each_1_anchor = empty();
-    },
-    l: function claim(nodes) {
-      for (var _i10 = 0; _i10 < each_blocks.length; _i10 += 1) {
-        each_blocks[_i10].l(nodes);
-      }
-
-      each_1_anchor = empty();
-    },
-    m: function mount(target, anchor) {
-      for (var _i11 = 0; _i11 < each_blocks.length; _i11 += 1) {
-        each_blocks[_i11].m(target, anchor);
-      }
-
-      insert_dev(target, each_1_anchor, anchor);
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*refsLayout, theme, svgHeight*/
-      2162720) {
-        each_value =
-        /*refsLayout*/
-        ctx[21];
-        validate_each_argument(each_value);
-
-        var _i12;
-
-        for (_i12 = 0; _i12 < each_value.length; _i12 += 1) {
-          var child_ctx = get_each_context$3(ctx, each_value, _i12);
-
-          if (each_blocks[_i12]) {
-            each_blocks[_i12].p(child_ctx, dirty);
-          } else {
-            each_blocks[_i12] = create_each_block$3(child_ctx);
-
-            each_blocks[_i12].c();
-
-            each_blocks[_i12].m(each_1_anchor.parentNode, each_1_anchor);
-          }
-        }
-
-        for (; _i12 < each_blocks.length; _i12 += 1) {
-          each_blocks[_i12].d(1);
-        }
-
-        each_blocks.length = each_value.length;
-      }
-    },
-    d: function destroy(detaching) {
-      destroy_each(each_blocks, detaching);
-      if (detaching) detach_dev(each_1_anchor);
     }
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
     id: create_if_block_1$3.name,
     type: "if",
-    source: "(370:4) {#if refsLayout}",
-    ctx: ctx
-  });
-  return block;
-} // (371:4) {#each refsLayout as {      color,      dasharray,      linewidth,      valueX: x,     }}
-
-
-function create_each_block$3(ctx) {
-  var line;
-  var line_stroke_value;
-  var line_stroke_dasharray_value;
-  var line_stroke_width_value;
-  var line_x__value;
-  var line_x__value_1;
-  var block = {
-    c: function create() {
-      line = svg_element("line");
-      this.h();
-    },
-    l: function claim(nodes) {
-      line = claim_element(nodes, "line", {
-        class: true,
-        stroke: true,
-        "stroke-dasharray": true,
-        "stroke-width": true,
-        x1: true,
-        x2: true,
-        y2: true
-      }, 1);
-      children(line).forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(line, "class", "ref");
-      attr_dev(line, "stroke", line_stroke_value =
-      /*color*/
-      ctx[55] ||
-      /*theme*/
-      ctx[5].refColor);
-      attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value =
-      /*dasharray*/
-      ctx[56] ||
-      /*theme*/
-      ctx[5].refDasharray);
-      attr_dev(line, "stroke-width", line_stroke_width_value =
-      /*linewidth*/
-      ctx[57] ||
-      /*theme*/
-      ctx[5].refWidth);
-      attr_dev(line, "x1", line_x__value =
-      /*x*/
-      ctx[58]);
-      attr_dev(line, "x2", line_x__value_1 =
-      /*x*/
-      ctx[58]);
-      attr_dev(line, "y2",
-      /*svgHeight*/
-      ctx[16]);
-      add_location(line, file$7, 376, 4, 8293);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, line, anchor);
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*refsLayout, theme*/
-      2097184 && line_stroke_value !== (line_stroke_value =
-      /*color*/
-      ctx[55] ||
-      /*theme*/
-      ctx[5].refColor)) {
-        attr_dev(line, "stroke", line_stroke_value);
-      }
-
-      if (dirty[0] &
-      /*refsLayout, theme*/
-      2097184 && line_stroke_dasharray_value !== (line_stroke_dasharray_value =
-      /*dasharray*/
-      ctx[56] ||
-      /*theme*/
-      ctx[5].refDasharray)) {
-        attr_dev(line, "stroke-dasharray", line_stroke_dasharray_value);
-      }
-
-      if (dirty[0] &
-      /*refsLayout, theme*/
-      2097184 && line_stroke_width_value !== (line_stroke_width_value =
-      /*linewidth*/
-      ctx[57] ||
-      /*theme*/
-      ctx[5].refWidth)) {
-        attr_dev(line, "stroke-width", line_stroke_width_value);
-      }
-
-      if (dirty[0] &
-      /*refsLayout*/
-      2097152 && line_x__value !== (line_x__value =
-      /*x*/
-      ctx[58])) {
-        attr_dev(line, "x1", line_x__value);
-      }
-
-      if (dirty[0] &
-      /*refsLayout*/
-      2097152 && line_x__value_1 !== (line_x__value_1 =
-      /*x*/
-      ctx[58])) {
-        attr_dev(line, "x2", line_x__value_1);
-      }
-
-      if (dirty[0] &
-      /*svgHeight*/
-      65536) {
-        attr_dev(line, "y2",
-        /*svgHeight*/
-        ctx[16]);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(line);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_each_block$3.name,
-    type: "each",
-    source: "(371:4) {#each refsLayout as {      color,      dasharray,      linewidth,      valueX: x,     }}",
+    source: "(452:5) {#if crossesZero}",
     ctx: ctx
   });
   return block;
@@ -7907,7 +7965,7 @@ function create_fragment$d(ctx) {
   var main;
   var if_block0 =
   /*title*/
-  ctx[6] && create_if_block_4(ctx);
+  ctx[8] && create_if_block_4(ctx);
 
   function select_block_type(ctx, dirty) {
     if (!
@@ -7947,16 +8005,16 @@ function create_fragment$d(ctx) {
       this.h();
     },
     h: function hydrate() {
-      attr_dev(main, "class", "svelte-1octkco");
+      attr_dev(main, "class", "svelte-s141rk");
       toggle_class(main, "titled",
       /*title*/
-      ctx[6]);
-      add_location(main, file$7, 239, 1, 5739);
+      ctx[8]);
+      add_location(main, file$7, 306, 1, 7838);
       attr_dev(div, "style",
       /*style*/
-      ctx[11]);
-      attr_dev(div, "class", "BarchartVDiv svelte-1octkco");
-      add_location(div, file$7, 230, 0, 5640);
+      ctx[13]);
+      attr_dev(div, "class", "BarchartVDiv svelte-s141rk");
+      add_location(div, file$7, 297, 0, 7739);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -7968,7 +8026,7 @@ function create_fragment$d(ctx) {
     p: function update(ctx, dirty) {
       if (
       /*title*/
-      ctx[6]) {
+      ctx[8]) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
@@ -7995,18 +8053,18 @@ function create_fragment$d(ctx) {
 
       if (dirty[0] &
       /*title*/
-      64) {
+      256) {
         toggle_class(main, "titled",
         /*title*/
-        ctx[6]);
+        ctx[8]);
       }
 
       if (dirty[0] &
       /*style*/
-      2048) {
+      8192) {
         attr_dev(div, "style",
         /*style*/
-        ctx[11]);
+        ctx[13]);
       }
     },
     i: noop$1,
@@ -8041,7 +8099,7 @@ function instance$d($$self, $$props, $$invalidate) {
     // exposed but undocumented
     backgroundOpacity: 1,
     // exposed and documented
-    axisColor: "grey",
+    axisColor: "lightgrey",
     backgroundColor: transparentColor,
     barDefaultColor: "black",
     deselectedOpacity: 0.25,
@@ -8062,7 +8120,8 @@ function instance$d($$self, $$props, $$invalidate) {
   var focusedKey = $$props.focusedKey;
   var formatFn = $$props.formatFn;
   var isInteractive = $$props.isInteractive;
-  var items = $$props.items;
+  var items = $$props.items; // {key, value}[]
+
   var keyToColor = $$props.keyToColor;
   var keyToColorFn = $$props.keyToColorFn;
   var keyToLabel = $$props.keyToLabel;
@@ -8086,6 +8145,12 @@ function instance$d($$self, $$props, $$invalidate) {
   beforeUpdate(function () {
     $$invalidate(39, wasNotResettingScroll = !shouldResetScroll);
   });
+  afterUpdate(function () {
+    if (shouldResetScroll && items && items.length && !justCompare(previousItems, items) && scrollable) {
+      $$invalidate(12, scrollable.scrollTop = 0, scrollable);
+      previousItems = items;
+    }
+  });
   /* events */
 
   var onClick = function onClick(key) {
@@ -8098,7 +8163,7 @@ function instance$d($$self, $$props, $$invalidate) {
 
   var onMouseenter = function onMouseenter(key) {
     return function () {
-      $$invalidate(8, hoveredKey = key);
+      $$invalidate(10, hoveredKey = key);
       isInteractive && dispatch("entered", {
         id: key
       });
@@ -8125,24 +8190,24 @@ function instance$d($$self, $$props, $$invalidate) {
   function div_elementresize_handler() {
     height = this.clientHeight;
     width = this.clientWidth;
-    $$invalidate(7, height);
-    $$invalidate(9, width);
+    $$invalidate(9, height);
+    $$invalidate(11, width);
   }
 
   function div_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](function () {
       scrollable = $$value;
-      ((($$invalidate(10, scrollable), $$invalidate(26, shouldResetScroll)), $$invalidate(2, items)), $$invalidate(38, previousItems)), $$invalidate(39, wasNotResettingScroll);
+      ($$invalidate(12, scrollable), $$invalidate(39, wasNotResettingScroll)), $$invalidate(27, shouldResetScroll);
     });
   }
 
   var mouseleave_handler = function mouseleave_handler() {
-    $$invalidate(8, hoveredKey = null);
+    $$invalidate(10, hoveredKey = null);
   };
 
   $$self.$set = function ($$props) {
     if ("barHeight" in $$props) $$invalidate(0, barHeight = $$props.barHeight);
-    if ("focusedKey" in $$props) $$invalidate(28, focusedKey = $$props.focusedKey);
+    if ("focusedKey" in $$props) $$invalidate(7, focusedKey = $$props.focusedKey);
     if ("formatFn" in $$props) $$invalidate(29, formatFn = $$props.formatFn);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("items" in $$props) $$invalidate(2, items = $$props.items);
@@ -8152,12 +8217,12 @@ function instance$d($$self, $$props, $$invalidate) {
     if ("keyToLabelFn" in $$props) $$invalidate(33, keyToLabelFn = $$props.keyToLabelFn);
     if ("message" in $$props) $$invalidate(3, message = $$props.message);
     if ("refs" in $$props) $$invalidate(4, refs = $$props.refs);
-    if ("selectedKeys" in $$props) $$invalidate(25, selectedKeys = $$props.selectedKeys);
-    if ("shouldResetScroll" in $$props) $$invalidate(26, shouldResetScroll = $$props.shouldResetScroll);
+    if ("selectedKeys" in $$props) $$invalidate(5, selectedKeys = $$props.selectedKeys);
+    if ("shouldResetScroll" in $$props) $$invalidate(27, shouldResetScroll = $$props.shouldResetScroll);
     if ("shouldScrollToFocusedKey" in $$props) $$invalidate(34, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
-    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
-    if ("title" in $$props) $$invalidate(6, title = $$props.title);
-    if ("valueAccessor" in $$props) $$invalidate(27, valueAccessor = $$props.valueAccessor);
+    if ("theme" in $$props) $$invalidate(6, theme = $$props.theme);
+    if ("title" in $$props) $$invalidate(8, title = $$props.title);
+    if ("valueAccessor" in $$props) $$invalidate(28, valueAccessor = $$props.valueAccessor);
   };
 
   $$self.$capture_state = function () {
@@ -8179,6 +8244,7 @@ function instance$d($$self, $$props, $$invalidate) {
       getKey: getKey,
       getValue: getValue,
       makeMergeAppliedFnMap: makeMergeAppliedFnMap,
+      sliceString: sliceString,
       dispatch: dispatch,
       sortByValue: sortByValue,
       transparentColor: transparentColor,
@@ -8212,7 +8278,9 @@ function instance$d($$self, $$props, $$invalidate) {
       onMouseleave: onMouseleave,
       style: style,
       refsHeight: refsHeight,
+      averageCharWidth: averageCharWidth,
       barPadding: barPadding,
+      labelValueDistance: labelValueDistance,
       itemHeight: itemHeight,
       barY: barY,
       textY: textY,
@@ -8223,10 +8291,15 @@ function instance$d($$self, $$props, $$invalidate) {
       min: min,
       max: max,
       crossesZero: crossesZero,
+      allNegatives: allNegatives,
       domain: domain,
       getX: getX,
       x0: x0,
+      columnsWidth: columnsWidth,
       bars: bars,
+      labelsMaxLengths: labelsMaxLengths,
+      labelsRoom: labelsRoom,
+      barsLayout: barsLayout,
       barsByKey: barsByKey,
       makeRefsLayout: makeRefsLayout,
       refHeight: refHeight,
@@ -8237,7 +8310,7 @@ function instance$d($$self, $$props, $$invalidate) {
 
   $$self.$inject_state = function ($$props) {
     if ("barHeight" in $$props) $$invalidate(0, barHeight = $$props.barHeight);
-    if ("focusedKey" in $$props) $$invalidate(28, focusedKey = $$props.focusedKey);
+    if ("focusedKey" in $$props) $$invalidate(7, focusedKey = $$props.focusedKey);
     if ("formatFn" in $$props) $$invalidate(29, formatFn = $$props.formatFn);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("items" in $$props) $$invalidate(2, items = $$props.items);
@@ -8247,44 +8320,53 @@ function instance$d($$self, $$props, $$invalidate) {
     if ("keyToLabelFn" in $$props) $$invalidate(33, keyToLabelFn = $$props.keyToLabelFn);
     if ("message" in $$props) $$invalidate(3, message = $$props.message);
     if ("refs" in $$props) $$invalidate(4, refs = $$props.refs);
-    if ("selectedKeys" in $$props) $$invalidate(25, selectedKeys = $$props.selectedKeys);
-    if ("shouldResetScroll" in $$props) $$invalidate(26, shouldResetScroll = $$props.shouldResetScroll);
+    if ("selectedKeys" in $$props) $$invalidate(5, selectedKeys = $$props.selectedKeys);
+    if ("shouldResetScroll" in $$props) $$invalidate(27, shouldResetScroll = $$props.shouldResetScroll);
     if ("shouldScrollToFocusedKey" in $$props) $$invalidate(34, shouldScrollToFocusedKey = $$props.shouldScrollToFocusedKey);
-    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
-    if ("title" in $$props) $$invalidate(6, title = $$props.title);
-    if ("valueAccessor" in $$props) $$invalidate(27, valueAccessor = $$props.valueAccessor);
-    if ("height" in $$props) $$invalidate(7, height = $$props.height);
-    if ("hoveredKey" in $$props) $$invalidate(8, hoveredKey = $$props.hoveredKey);
-    if ("width" in $$props) $$invalidate(9, width = $$props.width);
-    if ("previousItems" in $$props) $$invalidate(38, previousItems = $$props.previousItems);
-    if ("scrollable" in $$props) $$invalidate(10, scrollable = $$props.scrollable);
+    if ("theme" in $$props) $$invalidate(6, theme = $$props.theme);
+    if ("title" in $$props) $$invalidate(8, title = $$props.title);
+    if ("valueAccessor" in $$props) $$invalidate(28, valueAccessor = $$props.valueAccessor);
+    if ("height" in $$props) $$invalidate(9, height = $$props.height);
+    if ("hoveredKey" in $$props) $$invalidate(10, hoveredKey = $$props.hoveredKey);
+    if ("width" in $$props) $$invalidate(11, width = $$props.width);
+    if ("previousItems" in $$props) previousItems = $$props.previousItems;
+    if ("scrollable" in $$props) $$invalidate(12, scrollable = $$props.scrollable);
     if ("wasNotResettingScroll" in $$props) $$invalidate(39, wasNotResettingScroll = $$props.wasNotResettingScroll);
-    if ("style" in $$props) $$invalidate(11, style = $$props.style);
-    if ("refsHeight" in $$props) $$invalidate(12, refsHeight = $$props.refsHeight);
-    if ("barPadding" in $$props) $$invalidate(40, barPadding = $$props.barPadding);
-    if ("itemHeight" in $$props) $$invalidate(13, itemHeight = $$props.itemHeight);
-    if ("barY" in $$props) $$invalidate(14, barY = $$props.barY);
-    if ("textY" in $$props) $$invalidate(15, textY = $$props.textY);
-    if ("svgHeight" in $$props) $$invalidate(16, svgHeight = $$props.svgHeight);
-    if ("getMin" in $$props) $$invalidate(41, getMin = $$props.getMin);
-    if ("getMax" in $$props) $$invalidate(42, getMax = $$props.getMax);
-    if ("refsValues" in $$props) $$invalidate(43, refsValues = $$props.refsValues);
-    if ("min" in $$props) $$invalidate(44, min = $$props.min);
-    if ("max" in $$props) $$invalidate(45, max = $$props.max);
-    if ("crossesZero" in $$props) $$invalidate(17, crossesZero = $$props.crossesZero);
-    if ("domain" in $$props) $$invalidate(46, domain = $$props.domain);
-    if ("getX" in $$props) $$invalidate(47, getX = $$props.getX);
-    if ("x0" in $$props) $$invalidate(18, x0 = $$props.x0);
-    if ("bars" in $$props) $$invalidate(19, bars = $$props.bars);
-    if ("barsByKey" in $$props) $$invalidate(48, barsByKey = $$props.barsByKey);
-    if ("makeRefsLayout" in $$props) $$invalidate(49, makeRefsLayout = $$props.makeRefsLayout);
-    if ("refHeight" in $$props) $$invalidate(20, refHeight = $$props.refHeight);
-    if ("refsLayout" in $$props) $$invalidate(21, refsLayout = $$props.refsLayout);
-    if ("focusedY" in $$props) $$invalidate(50, focusedY = $$props.focusedY);
+    if ("style" in $$props) $$invalidate(13, style = $$props.style);
+    if ("refsHeight" in $$props) $$invalidate(14, refsHeight = $$props.refsHeight);
+    if ("averageCharWidth" in $$props) $$invalidate(40, averageCharWidth = $$props.averageCharWidth);
+    if ("barPadding" in $$props) $$invalidate(41, barPadding = $$props.barPadding);
+    if ("labelValueDistance" in $$props) $$invalidate(42, labelValueDistance = $$props.labelValueDistance);
+    if ("itemHeight" in $$props) $$invalidate(15, itemHeight = $$props.itemHeight);
+    if ("barY" in $$props) $$invalidate(16, barY = $$props.barY);
+    if ("textY" in $$props) $$invalidate(17, textY = $$props.textY);
+    if ("svgHeight" in $$props) $$invalidate(18, svgHeight = $$props.svgHeight);
+    if ("getMin" in $$props) $$invalidate(43, getMin = $$props.getMin);
+    if ("getMax" in $$props) $$invalidate(44, getMax = $$props.getMax);
+    if ("refsValues" in $$props) $$invalidate(45, refsValues = $$props.refsValues);
+    if ("min" in $$props) $$invalidate(46, min = $$props.min);
+    if ("max" in $$props) $$invalidate(47, max = $$props.max);
+    if ("crossesZero" in $$props) $$invalidate(19, crossesZero = $$props.crossesZero);
+    if ("allNegatives" in $$props) $$invalidate(48, allNegatives = $$props.allNegatives);
+    if ("domain" in $$props) $$invalidate(49, domain = $$props.domain);
+    if ("getX" in $$props) $$invalidate(50, getX = $$props.getX);
+    if ("x0" in $$props) $$invalidate(20, x0 = $$props.x0);
+    if ("columnsWidth" in $$props) $$invalidate(51, columnsWidth = $$props.columnsWidth);
+    if ("bars" in $$props) $$invalidate(52, bars = $$props.bars);
+    if ("labelsMaxLengths" in $$props) $$invalidate(53, labelsMaxLengths = $$props.labelsMaxLengths);
+    if ("labelsRoom" in $$props) $$invalidate(54, labelsRoom = $$props.labelsRoom);
+    if ("barsLayout" in $$props) $$invalidate(21, barsLayout = $$props.barsLayout);
+    if ("barsByKey" in $$props) $$invalidate(55, barsByKey = $$props.barsByKey);
+    if ("makeRefsLayout" in $$props) $$invalidate(56, makeRefsLayout = $$props.makeRefsLayout);
+    if ("refHeight" in $$props) $$invalidate(22, refHeight = $$props.refHeight);
+    if ("refsLayout" in $$props) $$invalidate(23, refsLayout = $$props.refsLayout);
+    if ("focusedY" in $$props) $$invalidate(57, focusedY = $$props.focusedY);
   };
 
   var style;
+  var averageCharWidth;
   var barPadding;
+  var labelValueDistance;
   var itemHeight;
   var barY;
   var textY;
@@ -8295,10 +8377,15 @@ function instance$d($$self, $$props, $$invalidate) {
   var min;
   var max;
   var crossesZero;
+  var allNegatives;
   var domain;
   var getX;
   var x0;
+  var columnsWidth;
   var bars;
+  var labelsMaxLengths;
+  var labelsRoom;
+  var barsLayout;
   var barsByKey;
   var makeRefsLayout;
   var refsLayout;
@@ -8344,195 +8431,298 @@ function instance$d($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys*/
-    33554432) {
-       $$invalidate(25, selectedKeys = selectedKeys || []);
+    32) {
+       $$invalidate(5, selectedKeys = selectedKeys || []);
     }
 
     if ($$self.$$.dirty[0] &
     /*shouldResetScroll*/
-    67108864) {
-       $$invalidate(26, shouldResetScroll = shouldResetScroll || false);
+    134217728) {
+       $$invalidate(27, shouldResetScroll = shouldResetScroll || false);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    32) {
-       $$invalidate(5, theme = theme ? _objectSpread$2(_objectSpread$2({}, defaultTheme), theme) : defaultTheme);
+    64) {
+       $$invalidate(6, theme = theme ? _objectSpread$2(_objectSpread$2({}, defaultTheme), theme) : defaultTheme);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    32) {
-       $$invalidate(20, refHeight = theme.padding + theme.fontSize);
+    64) {
+       $$invalidate(22, refHeight = theme.padding + theme.fontSize);
     }
 
     if ($$self.$$.dirty[0] &
     /*refs, theme, refHeight*/
-    1048624) {
-       $$invalidate(12, refsHeight = refs && refs.length * (theme.padding + refHeight) + theme.padding || 0);
+    4194384) {
+       $$invalidate(14, refsHeight = refs && refs.length * (theme.padding + refHeight) + theme.padding || 0);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme, refsHeight*/
-    4128) {
-       $$invalidate(11, style = makeStyleVars(_objectSpread$2(_objectSpread$2({}, augmentTheme(theme)), {}, {
+    16448) {
+       $$invalidate(13, style = makeStyleVars(_objectSpread$2(_objectSpread$2({}, augmentTheme(theme)), {}, {
         refsHeightPx: toPx(refsHeight)
       })));
     }
 
     if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    134217728) {
-       $$invalidate(27, valueAccessor = valueAccessor || getValue);
+    268435456) {
+       $$invalidate(28, valueAccessor = valueAccessor || getValue);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    32) {
-       $$invalidate(40, barPadding = theme.fontSize / 2);
+    64) {
+       $$invalidate(40, averageCharWidth = theme.fontSize * 0.5);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*theme*/
+    64) {
+       $$invalidate(41, barPadding = theme.fontSize / 2);
+    }
+
+    if ($$self.$$.dirty[1] &
+    /*barPadding*/
+    1024) {
+       $$invalidate(42, labelValueDistance = 3 * barPadding);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme, barHeight*/
-    33 | $$self.$$.dirty[1] &
+    65 | $$self.$$.dirty[1] &
     /*barPadding*/
-    512) {
-       $$invalidate(13, itemHeight = theme.fontSize + barHeight + 3 * barPadding);
+    1024) {
+       $$invalidate(15, itemHeight = theme.fontSize + barHeight + 3 * barPadding);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, barHeight*/
-    8193 | $$self.$$.dirty[1] &
+    32769 | $$self.$$.dirty[1] &
     /*barPadding*/
-    512) {
-       $$invalidate(14, barY = itemHeight - barPadding - barHeight / 2);
+    1024) {
+       $$invalidate(16, barY = itemHeight - barPadding - barHeight / 2);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, barHeight*/
-    8193 | $$self.$$.dirty[1] &
+    32769 | $$self.$$.dirty[1] &
     /*barPadding*/
-    512) {
-       $$invalidate(15, textY = itemHeight - barHeight - 2 * barPadding);
+    1024) {
+       $$invalidate(17, textY = itemHeight - barHeight - 2 * barPadding);
     }
 
     if ($$self.$$.dirty[0] &
     /*itemHeight, items*/
-    8196) {
-       $$invalidate(16, svgHeight = itemHeight * items.length);
+    32772) {
+       $$invalidate(18, svgHeight = itemHeight * items.length);
     }
 
     if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    134217728) {
-       $$invalidate(41, getMin = arrayMinWith(valueAccessor));
+    268435456) {
+       $$invalidate(43, getMin = arrayMinWith(valueAccessor));
     }
 
     if ($$self.$$.dirty[0] &
     /*valueAccessor*/
-    134217728) {
-       $$invalidate(42, getMax = arrayMaxWith(valueAccessor));
+    268435456) {
+       $$invalidate(44, getMax = arrayMaxWith(valueAccessor));
     }
 
     if ($$self.$$.dirty[0] &
     /*refs*/
     16) {
-       $$invalidate(43, refsValues = refs.map(getValue));
+       $$invalidate(45, refsValues = refs.map(getValue));
     }
 
     if ($$self.$$.dirty[0] &
     /*items*/
     4 | $$self.$$.dirty[1] &
     /*getMin, refsValues*/
-    5120) {
-       $$invalidate(44, min = Math.min.apply(Math, [getMin(items)].concat(_toConsumableArray(refsValues))));
+    20480) {
+       $$invalidate(46, min = Math.min.apply(Math, [getMin(items)].concat(_toConsumableArray(refsValues))));
     }
 
     if ($$self.$$.dirty[0] &
     /*items*/
     4 | $$self.$$.dirty[1] &
     /*getMax, refsValues*/
-    6144) {
-       $$invalidate(45, max = Math.max.apply(Math, [getMax(items)].concat(_toConsumableArray(refsValues))));
+    24576) {
+       $$invalidate(47, max = Math.max.apply(Math, [getMax(items)].concat(_toConsumableArray(refsValues))));
     }
 
     if ($$self.$$.dirty[1] &
     /*min, max*/
-    24576) {
-       $$invalidate(17, crossesZero = Math.sign(min) === -Math.sign(max));
+    98304) {
+       $$invalidate(19, crossesZero = Math.sign(min) === -Math.sign(max));
     }
 
     if ($$self.$$.dirty[0] &
     /*crossesZero*/
-    131072 | $$self.$$.dirty[1] &
+    524288 | $$self.$$.dirty[1] &
+    /*min*/
+    32768) {
+       $$invalidate(48, allNegatives = !crossesZero && Math.sign(min) < 0);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*crossesZero*/
+    524288 | $$self.$$.dirty[1] &
     /*min, max*/
-    24576) {
-       $$invalidate(46, domain = crossesZero ? [min, max] : max > 0 ? [0, max] : [min, 0]);
+    98304) {
+       $$invalidate(49, domain = crossesZero ? [min, max] : max > 0 ? [0, max] : [min, 0]);
     }
 
     if ($$self.$$.dirty[0] &
     /*width*/
-    512 | $$self.$$.dirty[1] &
+    2048 | $$self.$$.dirty[1] &
     /*domain*/
-    32768) {
-       $$invalidate(47, getX = linear(domain, [0, width]));
+    262144) {
+       $$invalidate(50, getX = linear(domain, [0, width]));
     }
 
     if ($$self.$$.dirty[1] &
     /*getX*/
-    65536) {
-       $$invalidate(18, x0 = getX(0));
+    524288) {
+       $$invalidate(20, x0 = getX(0));
     }
 
     if ($$self.$$.dirty[0] &
-    /*items, valueAccessor, keyToColor, theme, focusedKey, hoveredKey, formatFn, crossesZero, selectedKeys, width, itemHeight*/
-    2046960420 | $$self.$$.dirty[1] &
-    /*keyToColorFn, barPadding, keyToLabel, keyToLabelFn, getX*/
-    66055) {
-       $$invalidate(19, bars = items.map(function (item, idx) {
+    /*x0, width*/
+    1050624) {
+       $$invalidate(51, columnsWidth = {
+        neg: x0,
+        pos: width - x0
+      });
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*items, valueAccessor, keyToColor, theme, formatFn*/
+    1879048260 | $$self.$$.dirty[1] &
+    /*keyToLabel, keyToLabelFn, averageCharWidth, keyToColorFn*/
+    519) {
+      /* layout */
+       $$invalidate(52, bars = items.map(function (item) {
         var value = valueAccessor(item);
         var isNeg = value < 0;
+        var label = keyToLabel && keyToLabel[item.key] ? keyToLabel[item.key] : keyToLabelFn ? keyToLabelFn(item.key) : item.key;
+        var labelLength = label.length * averageCharWidth;
         return _objectSpread$2(_objectSpread$2({}, item), {
           barColor: keyToColor ? keyToColor[item.key] || theme.barDefaultColor : keyToColorFn ? keyToColorFn(item.key) : theme.barDefaultColor,
-          bkgColor: item.key === focusedKey ? theme.focusedKeyColor : item.key === hoveredKey ? theme.hoverColor : transparentColor,
           displayValue: formatFn ? formatFn(value) : value,
-          dxKey: crossesZero ? isNeg ? -barPadding : barPadding : 0,
           isNeg: isNeg,
-          label: keyToLabel && keyToLabel[item.key] ? keyToLabel[item.key] : keyToLabelFn ? keyToLabelFn(item.key) : item.key,
-          deselected: selectedKeys.length && !isIn(selectedKeys, item.key),
-          x: getX(value),
-          xValue: value > 0 ? width : 0,
-          y: (idx + 1) * itemHeight // bottom of the item rect
+          label: label,
+          labelLength: labelLength,
+          value: value
+        });
+      }));
+    }
 
+    if ($$self.$$.dirty[1] &
+    /*bars, averageCharWidth*/
+    2097664) {
+       $$invalidate(53, labelsMaxLengths = bars.reduce(function (acc, _ref) {
+        var displayValue = _ref.displayValue,
+            isNeg = _ref.isNeg,
+            labelLength = _ref.labelLength;
+        var signKey = isNeg ? "neg" : "pos";
+        var displayValueLength = String(displayValue).length * averageCharWidth;
+        acc[signKey].label = Math.max(acc[signKey].label, labelLength);
+        acc[signKey].value = Math.max(acc[signKey].value, displayValueLength);
+        return acc;
+      }, {
+        neg: {
+          label: 0,
+          value: 0
+        },
+        pos: {
+          label: 0,
+          value: 0
+        }
+      }));
+    }
+
+    if ($$self.$$.dirty[1] &
+    /*columnsWidth, labelsMaxLengths, labelValueDistance*/
+    5244928) {
+       $$invalidate(54, labelsRoom = {
+        neg: Math.max(0, columnsWidth.neg - labelsMaxLengths.neg.value - labelValueDistance),
+        pos: Math.max(0, columnsWidth.pos - labelsMaxLengths.pos.value - labelValueDistance)
+      });
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*crossesZero, x0, width, itemHeight*/
+    1607680 | $$self.$$.dirty[1] &
+    /*bars, labelsRoom, averageCharWidth, labelsMaxLengths, allNegatives, barPadding, labelValueDistance, getX*/
+    15339008) {
+       $$invalidate(21, barsLayout = bars.map(function (bar, idx) {
+        var isNeg = bar.isNeg,
+            label = bar.label,
+            labelLength = bar.labelLength,
+            value = bar.value;
+        var room = labelsRoom.neg + labelsRoom.pos;
+        var overflowRatio = labelLength / room;
+
+        if (overflowRatio > 1) {
+          var cutIndex = Math.floor(room / averageCharWidth) - 1;
+          label = "".concat(sliceString(label, 0, cutIndex), "\u2026");
+          labelLength = label.length;
+        }
+
+        return _objectSpread$2(_objectSpread$2({}, bar), {
+          isLabelAlignedRight: crossesZero ? isNeg ? labelsMaxLengths.neg.label < labelsRoom.neg : labelsMaxLengths.pos.label > labelsRoom.pos : allNegatives,
+          isValueAlignedRight: crossesZero ? !isNeg : !allNegatives,
+          label: label,
+          labelLength: labelLength,
+          labelX: crossesZero ? isNeg ? labelsMaxLengths.neg.label <= labelsRoom.neg ? x0 - barPadding : labelsMaxLengths.neg.value + labelValueDistance : labelsMaxLengths.pos.label <= labelsRoom.pos ? x0 + barPadding : width - labelsMaxLengths.pos.value - labelValueDistance : allNegatives ? width : 0,
+          x: getX(value),
+          valueX: crossesZero ? isNeg ? 0 : width : allNegatives ? 0 : width,
+          y: idx * itemHeight
         });
       }));
     }
 
     if ($$self.$$.dirty[0] &
-    /*bars*/
-    524288) {
-       $$invalidate(48, barsByKey = index(bars, getKey));
+    /*barsLayout*/
+    2097152) {
+       $$invalidate(55, barsByKey = index(barsLayout, getKey));
     }
 
     if ($$self.$$.dirty[0] &
     /*theme, width, refHeight*/
-    1049120 | $$self.$$.dirty[1] &
-    /*getX*/
-    65536) {
-       $$invalidate(49, makeRefsLayout = pipe([sortByValue, mapWith(function (obj, idx) {
-        var label = "".concat(obj.key, " (").concat(obj.value, ")");
-        var textLength = label.length * theme.fontSize * 0.6;
+    4196416 | $$self.$$.dirty[1] &
+    /*getX, averageCharWidth*/
+    524800) {
+      /* refs */
+       $$invalidate(56, makeRefsLayout = pipe([sortByValue, mapWith(function (ref, idx) {
+        var valueX = getX(ref.value);
+        var formattedValue = ref.formatFn ? ref.formatFn(ref.value) : ref.value;
+        var label = "".concat(ref.key, " (").concat(formattedValue, ")");
+        var textLength = label.length * averageCharWidth;
         var rectWidth = textLength + 2 * theme.padding;
-        var valueX = getX(obj.value);
-        var isRight = valueX + rectWidth > width;
-        return _objectSpread$2(_objectSpread$2({}, obj), {}, {
-          isRight: isRight,
+        var goesOff = valueX + rectWidth > width;
+        var isAlignedRight = goesOff && valueX > width / 2;
+
+        if (goesOff && ref.keyAbbr) {
+          label = "".concat(ref.keyAbbr, " (").concat(formattedValue, ")");
+          textLength = label.length * averageCharWidth;
+          rectWidth = textLength + 2 * theme.padding;
+          isAlignedRight = valueX + rectWidth > width && valueX > width / 2;
+        }
+
+        return _objectSpread$2(_objectSpread$2({}, ref), {}, {
+          isAlignedRight: isAlignedRight,
           label: label,
           rectWidth: rectWidth,
           textLength: textLength,
-          textX: isRight ? -theme.padding : theme.padding,
+          textX: isAlignedRight ? -theme.padding : theme.padding,
           valueX: valueX,
-          x: isRight ? -rectWidth : 0,
+          x: isAlignedRight ? -rectWidth : 0,
           y: theme.padding + idx * (theme.padding + refHeight)
         });
       })]));
@@ -8542,46 +8732,33 @@ function instance$d($$self, $$props, $$invalidate) {
     /*refs*/
     16 | $$self.$$.dirty[1] &
     /*makeRefsLayout*/
-    262144) {
-       $$invalidate(21, refsLayout = refs && refs.length && makeRefsLayout(refs));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*shouldResetScroll, items, scrollable*/
-    67109892 | $$self.$$.dirty[1] &
-    /*previousItems*/
-    128) {
-       afterUpdate(function () {
-        if (shouldResetScroll && items && items.length && !justCompare(previousItems, items) && scrollable) {
-          $$invalidate(10, scrollable.scrollTop = 0, scrollable);
-          $$invalidate(38, previousItems = items);
-        }
-      });
+    33554432) {
+       $$invalidate(23, refsLayout = refs && refs.length && makeRefsLayout(refs));
     }
 
     if ($$self.$$.dirty[0] &
     /*shouldResetScroll, scrollable*/
-    67109888 | $$self.$$.dirty[1] &
+    134221824 | $$self.$$.dirty[1] &
     /*wasNotResettingScroll*/
     256) {
        if (wasNotResettingScroll && shouldResetScroll && scrollable) {
-        $$invalidate(10, scrollable.scrollTop = 0, scrollable);
+        $$invalidate(12, scrollable.scrollTop = 0, scrollable);
       }
     }
 
     if ($$self.$$.dirty[0] &
     /*focusedKey*/
-    268435456 | $$self.$$.dirty[1] &
+    128 | $$self.$$.dirty[1] &
     /*shouldScrollToFocusedKey, barsByKey*/
-    131080) {
-       $$invalidate(50, focusedY = shouldScrollToFocusedKey && focusedKey && barsByKey[focusedKey] && barsByKey[focusedKey].y);
+    16777224) {
+       $$invalidate(57, focusedY = shouldScrollToFocusedKey && focusedKey && barsByKey[focusedKey] && barsByKey[focusedKey].y);
     }
 
     if ($$self.$$.dirty[0] &
     /*focusedKey, scrollable, itemHeight, height*/
-    268444800 | $$self.$$.dirty[1] &
+    37504 | $$self.$$.dirty[1] &
     /*shouldScrollToFocusedKey, focusedY*/
-    524296) {
+    67108872) {
        if (shouldScrollToFocusedKey && focusedKey && scrollable) {
         var yAbs = -scrollable.scrollTop + focusedY;
 
@@ -8600,7 +8777,7 @@ function instance$d($$self, $$props, $$invalidate) {
     }
   };
 
-  return [barHeight, isInteractive, items, message, refs, theme, title, height, hoveredKey, width, scrollable, style, refsHeight, itemHeight, barY, textY, svgHeight, crossesZero, x0, bars, refHeight, refsLayout, onClick, onMouseenter, onMouseleave, selectedKeys, shouldResetScroll, valueAccessor, focusedKey, formatFn, keyToColor, keyToColorFn, keyToLabel, keyToLabelFn, shouldScrollToFocusedKey, div_elementresize_handler, div_binding, mouseleave_handler];
+  return [barHeight, isInteractive, items, message, refs, selectedKeys, theme, focusedKey, title, height, hoveredKey, width, scrollable, style, refsHeight, itemHeight, barY, textY, svgHeight, crossesZero, x0, barsLayout, refHeight, refsLayout, onClick, onMouseenter, onMouseleave, shouldResetScroll, valueAccessor, formatFn, keyToColor, keyToColorFn, keyToLabel, keyToLabelFn, shouldScrollToFocusedKey, div_elementresize_handler, div_binding, mouseleave_handler];
 }
 
 var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -8616,7 +8793,7 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$d, create_fragment$d, safe_not_equal, {
       barHeight: 0,
-      focusedKey: 28,
+      focusedKey: 7,
       formatFn: 29,
       isInteractive: 1,
       items: 2,
@@ -8626,12 +8803,12 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       keyToLabelFn: 33,
       message: 3,
       refs: 4,
-      selectedKeys: 25,
-      shouldResetScroll: 26,
+      selectedKeys: 5,
+      shouldResetScroll: 27,
       shouldScrollToFocusedKey: 34,
-      theme: 5,
-      title: 6,
-      valueAccessor: 27
+      theme: 6,
+      title: 8,
+      valueAccessor: 28
     }, [-1, -1, -1]);
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -8650,7 +8827,7 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*focusedKey*/
-    ctx[28] === undefined && !("focusedKey" in props)) {
+    ctx[7] === undefined && !("focusedKey" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'focusedKey'");
     }
 
@@ -8710,13 +8887,13 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*selectedKeys*/
-    ctx[25] === undefined && !("selectedKeys" in props)) {
+    ctx[5] === undefined && !("selectedKeys" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'selectedKeys'");
     }
 
     if (
     /*shouldResetScroll*/
-    ctx[26] === undefined && !("shouldResetScroll" in props)) {
+    ctx[27] === undefined && !("shouldResetScroll" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'shouldResetScroll'");
     }
 
@@ -8728,19 +8905,19 @@ var BarchartVDiv = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*theme*/
-    ctx[5] === undefined && !("theme" in props)) {
+    ctx[6] === undefined && !("theme" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'theme'");
     }
 
     if (
     /*title*/
-    ctx[6] === undefined && !("title" in props)) {
+    ctx[8] === undefined && !("title" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'title'");
     }
 
     if (
     /*valueAccessor*/
-    ctx[27] === undefined && !("valueAccessor" in props)) {
+    ctx[28] === undefined && !("valueAccessor" in props)) {
       console.warn("<BarchartVDiv> was created without expected prop 'valueAccessor'");
     }
 
@@ -8925,9 +9102,9 @@ function create_if_block$5(ctx) {
   function select_block_type(ctx, dirty) {
     if (!
     /*topojson*/
-    ctx[6] || !
-    /*projection*/
-    ctx[4]) return create_if_block_1$4;
+    ctx[5] || !
+    /*currentProjection*/
+    ctx[11]) return create_if_block_1$4;
     return create_else_block$2;
   }
 
@@ -8952,7 +9129,7 @@ function create_if_block$5(ctx) {
     h: function hydrate() {
       attr_dev(g, "style",
       /*style*/
-      ctx[10]);
+      ctx[9]);
       attr_dev(g, "class", "ChoroplethG svelte-54gkh3");
       toggle_class(g, "interactive",
       /*isInteractive*/
@@ -8978,10 +9155,10 @@ function create_if_block$5(ctx) {
 
       if (dirty[0] &
       /*style*/
-      1024) {
+      512) {
         attr_dev(g, "style",
         /*style*/
-        ctx[10]);
+        ctx[9]);
       }
 
       if (dirty[0] &
@@ -9014,7 +9191,7 @@ function create_else_block$2(ctx) {
   var g_transform_value;
   var if_block =
   /*coloredGeojson*/
-  ctx[11] && create_if_block_2$3(ctx);
+  ctx[10] && create_if_block_2$3(ctx);
   var block = {
     c: function create() {
       rect = svg_element("rect");
@@ -9040,18 +9217,18 @@ function create_else_block$2(ctx) {
     h: function hydrate() {
       attr_dev(rect, "height",
       /*height*/
-      ctx[5]);
+      ctx[4]);
       attr_dev(rect, "width",
       /*width*/
-      ctx[7]);
+      ctx[6]);
       attr_dev(rect, "class", "bkg svelte-54gkh3");
-      add_location(rect, file$8, 116, 1, 3244);
+      add_location(rect, file$8, 116, 1, 3251);
       attr_dev(g, "transform", g_transform_value = "translate(" +
       /*geometry*/
       ctx[0].left + "," +
       /*geometry*/
       ctx[0].top + ")");
-      add_location(g, file$8, 121, 1, 3290);
+      add_location(g, file$8, 121, 1, 3297);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -9061,23 +9238,23 @@ function create_else_block$2(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*height*/
-      32) {
+      16) {
         attr_dev(rect, "height",
         /*height*/
-        ctx[5]);
+        ctx[4]);
       }
 
       if (dirty[0] &
       /*width*/
-      128) {
+      64) {
         attr_dev(rect, "width",
         /*width*/
-        ctx[7]);
+        ctx[6]);
       }
 
       if (
       /*coloredGeojson*/
-      ctx[11]) {
+      ctx[10]) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
@@ -9114,7 +9291,7 @@ function create_else_block$2(ctx) {
     ctx: ctx
   });
   return block;
-} // (107:1) {#if !topojson || !projection}
+} // (107:1) {#if !topojson || !currentProjection}
 
 
 function create_if_block_1$4(ctx) {
@@ -9147,11 +9324,11 @@ function create_if_block_1$4(ctx) {
       attr_dev(text_1, "class", "message svelte-54gkh3");
       attr_dev(text_1, "x", text_1_x_value =
       /*width*/
-      ctx[7] / 2);
+      ctx[6] / 2);
       attr_dev(text_1, "y", text_1_y_value =
       /*height*/
-      ctx[5] / 2);
-      add_location(text_1, file$8, 108, 1, 3160);
+      ctx[4] / 2);
+      add_location(text_1, file$8, 108, 1, 3167);
     },
     m: function mount(target, anchor) {
       insert_dev(target, text_1, anchor);
@@ -9166,17 +9343,17 @@ function create_if_block_1$4(ctx) {
 
       if (dirty[0] &
       /*width*/
-      128 && text_1_x_value !== (text_1_x_value =
+      64 && text_1_x_value !== (text_1_x_value =
       /*width*/
-      ctx[7] / 2)) {
+      ctx[6] / 2)) {
         attr_dev(text_1, "x", text_1_x_value);
       }
 
       if (dirty[0] &
       /*height*/
-      32 && text_1_y_value !== (text_1_y_value =
+      16 && text_1_y_value !== (text_1_y_value =
       /*height*/
-      ctx[5] / 2)) {
+      ctx[4] / 2)) {
         attr_dev(text_1, "y", text_1_y_value);
       }
     },
@@ -9188,7 +9365,7 @@ function create_if_block_1$4(ctx) {
     block: block,
     id: create_if_block_1$4.name,
     type: "if",
-    source: "(107:1) {#if !topojson || !projection}",
+    source: "(107:1) {#if !topojson || !currentProjection}",
     ctx: ctx
   });
   return block;
@@ -9199,7 +9376,7 @@ function create_if_block_2$3(ctx) {
   var each_1_anchor;
   var each_value =
   /*coloredGeojson*/
-  ctx[11].features;
+  ctx[10].features;
   validate_each_argument(each_value);
   var each_blocks = [];
 
@@ -9232,10 +9409,10 @@ function create_if_block_2$3(ctx) {
     p: function update(ctx, dirty) {
       if (dirty[0] &
       /*coloredGeojson, key, key_alt, isDeselected, isSelected, focusedKey, isFocused, geopath, isClickable, dispatch, getPayload, isInteractive*/
-      523014) {
+      521606) {
         each_value =
         /*coloredGeojson*/
-        ctx[11].features;
+        ctx[10].features;
         validate_each_argument(each_value);
 
         var _i4;
@@ -9294,7 +9471,7 @@ function create_each_block$4(ctx) {
 
     return (
       /*click_handler*/
-      (_ctx = ctx)[26].apply(_ctx, [
+      (_ctx = ctx)[27].apply(_ctx, [
       /*feature*/
       ctx[37]].concat(args))
     );
@@ -9309,7 +9486,7 @@ function create_each_block$4(ctx) {
 
     return (
       /*mouseenter_handler*/
-      (_ctx2 = ctx)[27].apply(_ctx2, [
+      (_ctx2 = ctx)[28].apply(_ctx2, [
       /*feature*/
       ctx[37]].concat(args))
     );
@@ -9324,7 +9501,7 @@ function create_each_block$4(ctx) {
 
     return (
       /*mouseleave_handler*/
-      (_ctx3 = ctx)[28].apply(_ctx3, [
+      (_ctx3 = ctx)[29].apply(_ctx3, [
       /*feature*/
       ctx[37]].concat(args))
     );
@@ -9366,13 +9543,13 @@ function create_each_block$4(ctx) {
       ctx[17](
       /*feature*/
       ctx[37]));
-      add_location(path, file$8, 131, 3, 3646);
+      add_location(path, file$8, 131, 3, 3653);
       attr_dev(g, "class", "feature svelte-54gkh3");
       attr_dev(g, "id", g_id_value =
       /*feature*/
       ctx[37].properties[
       /*key*/
-      ctx[9]] ||
+      ctx[8]] ||
       /*feature*/
       ctx[37].properties[
       /*key_alt*/
@@ -9389,12 +9566,12 @@ function create_each_block$4(ctx) {
       ctx[37]));
       toggle_class(g, "focused",
       /*focusedKey*/
-      ctx[8] &&
+      ctx[7] &&
       /*isFocused*/
       ctx[14](
       /*feature*/
       ctx[37]));
-      add_location(g, file$8, 124, 2, 3418);
+      add_location(g, file$8, 124, 2, 3425);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -9410,7 +9587,7 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*geopath, coloredGeojson*/
-      6144 && path_d_value !== (path_d_value =
+      5120 && path_d_value !== (path_d_value =
       /*geopath*/
       ctx[12](
       /*feature*/
@@ -9420,7 +9597,7 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*coloredGeojson*/
-      2048) {
+      1024) {
         set_style(path, "fill",
         /*feature*/
         ctx[37].properties.color || null);
@@ -9428,7 +9605,7 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*isClickable, coloredGeojson*/
-      133120) {
+      132096) {
         toggle_class(path, "clickable",
         /*isClickable*/
         ctx[17](
@@ -9438,11 +9615,11 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*coloredGeojson, key, key_alt*/
-      2564 && g_id_value !== (g_id_value =
+      1284 && g_id_value !== (g_id_value =
       /*feature*/
       ctx[37].properties[
       /*key*/
-      ctx[9]] ||
+      ctx[8]] ||
       /*feature*/
       ctx[37].properties[
       /*key_alt*/
@@ -9452,7 +9629,7 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*isDeselected, coloredGeojson*/
-      67584) {
+      66560) {
         toggle_class(g, "deselected",
         /*isDeselected*/
         ctx[16](
@@ -9462,7 +9639,7 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*isSelected, coloredGeojson*/
-      34816) {
+      33792) {
         toggle_class(g, "selected",
         /*isSelected*/
         ctx[15](
@@ -9472,10 +9649,10 @@ function create_each_block$4(ctx) {
 
       if (dirty[0] &
       /*focusedKey, isFocused, coloredGeojson*/
-      18688) {
+      17536) {
         toggle_class(g, "focused",
         /*focusedKey*/
-        ctx[8] &&
+        ctx[7] &&
         /*isFocused*/
         ctx[14](
         /*feature*/
@@ -9502,9 +9679,9 @@ function create_fragment$e(ctx) {
   var if_block_anchor;
   var if_block =
   /*height*/
-  ctx[5] &&
+  ctx[4] &&
   /*width*/
-  ctx[7] && create_if_block$5(ctx);
+  ctx[6] && create_if_block$5(ctx);
   var block = {
     c: function create() {
       if (if_block) if_block.c();
@@ -9521,9 +9698,9 @@ function create_fragment$e(ctx) {
     p: function update(ctx, dirty) {
       if (
       /*height*/
-      ctx[5] &&
+      ctx[4] &&
       /*width*/
-      ctx[7]) {
+      ctx[6]) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
@@ -9613,23 +9790,23 @@ function instance$e($$self, $$props, $$invalidate) {
   };
 
   $$self.$set = function ($$props) {
-    if ("height" in $$props) $$invalidate(5, height = $$props.height);
-    if ("topojson" in $$props) $$invalidate(6, topojson = $$props.topojson);
-    if ("topojsonId" in $$props) $$invalidate(23, topojsonId = $$props.topojsonId);
-    if ("width" in $$props) $$invalidate(7, width = $$props.width);
-    if ("focusedKey" in $$props) $$invalidate(8, focusedKey = $$props.focusedKey);
+    if ("height" in $$props) $$invalidate(4, height = $$props.height);
+    if ("topojson" in $$props) $$invalidate(5, topojson = $$props.topojson);
+    if ("topojsonId" in $$props) $$invalidate(24, topojsonId = $$props.topojsonId);
+    if ("width" in $$props) $$invalidate(6, width = $$props.width);
+    if ("focusedKey" in $$props) $$invalidate(7, focusedKey = $$props.focusedKey);
     if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
-    if ("key" in $$props) $$invalidate(9, key = $$props.key);
-    if ("keyToColor" in $$props) $$invalidate(24, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(25, keyToColorFn = $$props.keyToColorFn);
+    if ("key" in $$props) $$invalidate(8, key = $$props.key);
+    if ("keyToColor" in $$props) $$invalidate(25, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(26, keyToColorFn = $$props.keyToColorFn);
     if ("message" in $$props) $$invalidate(3, message = $$props.message);
-    if ("projection" in $$props) $$invalidate(4, projection = $$props.projection);
-    if ("projectionFn" in $$props) $$invalidate(19, projectionFn = $$props.projectionFn);
-    if ("projectionId" in $$props) $$invalidate(20, projectionId = $$props.projectionId);
-    if ("selectedKeys" in $$props) $$invalidate(21, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(22, theme = $$props.theme);
+    if ("projection" in $$props) $$invalidate(19, projection = $$props.projection);
+    if ("projectionFn" in $$props) $$invalidate(20, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(21, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(22, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(23, theme = $$props.theme);
   };
 
   $$self.$capture_state = function () {
@@ -9681,31 +9858,31 @@ function instance$e($$self, $$props, $$invalidate) {
   };
 
   $$self.$inject_state = function ($$props) {
-    if ("height" in $$props) $$invalidate(5, height = $$props.height);
-    if ("topojson" in $$props) $$invalidate(6, topojson = $$props.topojson);
-    if ("topojsonId" in $$props) $$invalidate(23, topojsonId = $$props.topojsonId);
-    if ("width" in $$props) $$invalidate(7, width = $$props.width);
-    if ("focusedKey" in $$props) $$invalidate(8, focusedKey = $$props.focusedKey);
+    if ("height" in $$props) $$invalidate(4, height = $$props.height);
+    if ("topojson" in $$props) $$invalidate(5, topojson = $$props.topojson);
+    if ("topojsonId" in $$props) $$invalidate(24, topojsonId = $$props.topojsonId);
+    if ("width" in $$props) $$invalidate(6, width = $$props.width);
+    if ("focusedKey" in $$props) $$invalidate(7, focusedKey = $$props.focusedKey);
     if ("geometry" in $$props) $$invalidate(0, geometry = $$props.geometry);
     if ("isInteractive" in $$props) $$invalidate(1, isInteractive = $$props.isInteractive);
     if ("key_alt" in $$props) $$invalidate(2, key_alt = $$props.key_alt);
-    if ("key" in $$props) $$invalidate(9, key = $$props.key);
-    if ("keyToColor" in $$props) $$invalidate(24, keyToColor = $$props.keyToColor);
-    if ("keyToColorFn" in $$props) $$invalidate(25, keyToColorFn = $$props.keyToColorFn);
+    if ("key" in $$props) $$invalidate(8, key = $$props.key);
+    if ("keyToColor" in $$props) $$invalidate(25, keyToColor = $$props.keyToColor);
+    if ("keyToColorFn" in $$props) $$invalidate(26, keyToColorFn = $$props.keyToColorFn);
     if ("message" in $$props) $$invalidate(3, message = $$props.message);
-    if ("projection" in $$props) $$invalidate(4, projection = $$props.projection);
-    if ("projectionFn" in $$props) $$invalidate(19, projectionFn = $$props.projectionFn);
-    if ("projectionId" in $$props) $$invalidate(20, projectionId = $$props.projectionId);
-    if ("selectedKeys" in $$props) $$invalidate(21, selectedKeys = $$props.selectedKeys);
-    if ("theme" in $$props) $$invalidate(22, theme = $$props.theme);
-    if ("projectionFunc" in $$props) $$invalidate(29, projectionFunc = $$props.projectionFunc);
-    if ("style" in $$props) $$invalidate(10, style = $$props.style);
-    if ("innerHeight" in $$props) $$invalidate(30, innerHeight = $$props.innerHeight);
-    if ("innerWidth" in $$props) $$invalidate(31, innerWidth = $$props.innerWidth);
-    if ("createColoredGeojson" in $$props) $$invalidate(32, createColoredGeojson = $$props.createColoredGeojson);
-    if ("geojson" in $$props) $$invalidate(33, geojson = $$props.geojson);
-    if ("coloredGeojson" in $$props) $$invalidate(11, coloredGeojson = $$props.coloredGeojson);
-    if ("currentProjection" in $$props) $$invalidate(34, currentProjection = $$props.currentProjection);
+    if ("projection" in $$props) $$invalidate(19, projection = $$props.projection);
+    if ("projectionFn" in $$props) $$invalidate(20, projectionFn = $$props.projectionFn);
+    if ("projectionId" in $$props) $$invalidate(21, projectionId = $$props.projectionId);
+    if ("selectedKeys" in $$props) $$invalidate(22, selectedKeys = $$props.selectedKeys);
+    if ("theme" in $$props) $$invalidate(23, theme = $$props.theme);
+    if ("projectionFunc" in $$props) $$invalidate(30, projectionFunc = $$props.projectionFunc);
+    if ("style" in $$props) $$invalidate(9, style = $$props.style);
+    if ("innerHeight" in $$props) $$invalidate(31, innerHeight = $$props.innerHeight);
+    if ("innerWidth" in $$props) $$invalidate(32, innerWidth = $$props.innerWidth);
+    if ("createColoredGeojson" in $$props) $$invalidate(33, createColoredGeojson = $$props.createColoredGeojson);
+    if ("geojson" in $$props) $$invalidate(34, geojson = $$props.geojson);
+    if ("coloredGeojson" in $$props) $$invalidate(10, coloredGeojson = $$props.coloredGeojson);
+    if ("currentProjection" in $$props) $$invalidate(11, currentProjection = $$props.currentProjection);
     if ("geopath" in $$props) $$invalidate(12, geopath = $$props.geopath);
     if ("getPayload" in $$props) $$invalidate(13, getPayload = $$props.getPayload);
     if ("isFocused" in $$props) $$invalidate(14, isFocused = $$props.isFocused);
@@ -9755,20 +9932,20 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*projection*/
-    16) {
-       $$invalidate(4, projection = projection || null);
+    524288) {
+       $$invalidate(19, projection = projection || null);
     }
 
     if ($$self.$$.dirty[0] &
     /*projectionFn*/
-    524288) {
-       $$invalidate(19, projectionFn = projectionFn || null);
+    1048576) {
+       $$invalidate(20, projectionFn = projectionFn || null);
     }
 
     if ($$self.$$.dirty[0] &
     /*projectionId*/
-    1048576) {
-       $$invalidate(20, projectionId = projectionId || null);
+    2097152) {
+       $$invalidate(21, projectionId = projectionId || null);
     }
 
     if ($$self.$$.dirty[0] &
@@ -9779,44 +9956,44 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*projectionFn, projectionId*/
-    1572864) {
-       $$invalidate(29, projectionFunc = projectionFn || projectionId && projections[projectionId] || equirectangular);
+    3145728) {
+       $$invalidate(30, projectionFunc = projectionFn || projectionId && projections[projectionId] || equirectangular);
     }
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys*/
-    2097152) {
-       $$invalidate(21, selectedKeys = selectedKeys || []);
+    4194304) {
+       $$invalidate(22, selectedKeys = selectedKeys || []);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    4194304) {
-       $$invalidate(22, theme = theme ? _objectSpread$3(_objectSpread$3({}, defaultTheme), theme) : defaultTheme);
+    8388608) {
+       $$invalidate(23, theme = theme ? _objectSpread$3(_objectSpread$3({}, defaultTheme), theme) : defaultTheme);
     }
 
     if ($$self.$$.dirty[0] &
     /*theme*/
-    4194304) {
-       $$invalidate(10, style = makeStyleVars(theme));
+    8388608) {
+       $$invalidate(9, style = makeStyleVars(theme));
     }
 
     if ($$self.$$.dirty[0] &
     /*height, geometry*/
-    33) {
-       $$invalidate(30, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
+    17) {
+       $$invalidate(31, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
     }
 
     if ($$self.$$.dirty[0] &
     /*width, geometry*/
-    129) {
-       $$invalidate(31, innerWidth = Math.max(0, width - geometry.left - geometry.right));
+    65) {
+       $$invalidate(32, innerWidth = Math.max(0, width - geometry.left - geometry.right));
     }
 
     if ($$self.$$.dirty[0] &
     /*key_alt, key, keyToColor, keyToColorFn*/
-    50332164) {
-       $$invalidate(32, createColoredGeojson = makeUpdateFeaturesProperty({
+    100663556) {
+       $$invalidate(33, createColoredGeojson = makeUpdateFeaturesProperty({
         key_alt: key_alt,
         key: key,
         map: keyToColor,
@@ -9827,33 +10004,33 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*topojson, topojsonId*/
-    8388672) {
-       $$invalidate(33, geojson = topojson && topoToGeo(topojson, topojsonId));
+    16777248) {
+       $$invalidate(34, geojson = topojson && topoToGeo(topojson, topojsonId));
     }
 
     if ($$self.$$.dirty[1] &
     /*geojson, createColoredGeojson*/
-    6) {
-       $$invalidate(11, coloredGeojson = geojson && createColoredGeojson(geojson));
+    12) {
+       $$invalidate(10, coloredGeojson = geojson && createColoredGeojson(geojson));
     }
 
     if ($$self.$$.dirty[0] &
-    /*projection, projectionFunc, innerHeight*/
-    1610612752 | $$self.$$.dirty[1] &
-    /*geojson, innerWidth*/
-    5) {
-       $$invalidate(34, currentProjection = projection || geojson && geojson.features.length && projectionFunc().fitSize([innerWidth, innerHeight], geojson));
+    /*projection, projectionFunc*/
+    1074266112 | $$self.$$.dirty[1] &
+    /*geojson, innerWidth, innerHeight*/
+    11) {
+       $$invalidate(11, currentProjection = projection || geojson && geojson.features.length && projectionFunc().fitSize([innerWidth, innerHeight], geojson));
     }
 
-    if ($$self.$$.dirty[1] &
+    if ($$self.$$.dirty[0] &
     /*currentProjection*/
-    8) {
+    2048) {
        $$invalidate(12, geopath = currentProjection && geoPath(currentProjection));
     }
 
     if ($$self.$$.dirty[0] &
     /*key, key_alt*/
-    516) {
+    260) {
        $$invalidate(13, getPayload = function getPayload(feature) {
         return feature.properties[key] || feature.properties[key_alt];
       });
@@ -9861,7 +10038,7 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*focusedKey, getPayload*/
-    8448) {
+    8320) {
        $$invalidate(14, isFocused = function isFocused(feature) {
         return focusedKey === getPayload(feature);
       });
@@ -9869,7 +10046,7 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys, getPayload*/
-    2105344) {
+    4202496) {
        $$invalidate(15, isSelected = function isSelected(feature) {
         return selectedKeys.length && selectedKeys.includes(getPayload(feature));
       });
@@ -9877,7 +10054,7 @@ function instance$e($$self, $$props, $$invalidate) {
 
     if ($$self.$$.dirty[0] &
     /*selectedKeys, getPayload*/
-    2105344) {
+    4202496) {
        $$invalidate(16, isDeselected = function isDeselected(feature) {
         return selectedKeys.length && !selectedKeys.includes(getPayload(feature));
       });
@@ -9892,7 +10069,7 @@ function instance$e($$self, $$props, $$invalidate) {
     }
   };
 
-  return [geometry, isInteractive, key_alt, message, projection, height, topojson, width, focusedKey, key, style, coloredGeojson, geopath, getPayload, isFocused, isSelected, isDeselected, isClickable, dispatch, projectionFn, projectionId, selectedKeys, theme, topojsonId, keyToColor, keyToColorFn, click_handler, mouseenter_handler, mouseleave_handler];
+  return [geometry, isInteractive, key_alt, message, height, topojson, width, focusedKey, key, style, coloredGeojson, currentProjection, geopath, getPayload, isFocused, isSelected, isDeselected, isClickable, dispatch, projection, projectionFn, projectionId, selectedKeys, theme, topojsonId, keyToColor, keyToColorFn, click_handler, mouseenter_handler, mouseleave_handler];
 }
 
 var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
@@ -9907,23 +10084,23 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     _this = _super.call(this, options);
     init(_assertThisInitialized(_this), options, instance$e, create_fragment$e, safe_not_equal, {
-      height: 5,
-      topojson: 6,
-      topojsonId: 23,
-      width: 7,
-      focusedKey: 8,
+      height: 4,
+      topojson: 5,
+      topojsonId: 24,
+      width: 6,
+      focusedKey: 7,
       geometry: 0,
       isInteractive: 1,
       key_alt: 2,
-      key: 9,
-      keyToColor: 24,
-      keyToColorFn: 25,
+      key: 8,
+      keyToColor: 25,
+      keyToColorFn: 26,
       message: 3,
-      projection: 4,
-      projectionFn: 19,
-      projectionId: 20,
-      selectedKeys: 21,
-      theme: 22
+      projection: 19,
+      projectionFn: 20,
+      projectionId: 21,
+      selectedKeys: 22,
+      theme: 23
     }, [-1, -1]);
     dispatch_dev("SvelteRegisterComponent", {
       component: _assertThisInitialized(_this),
@@ -9936,31 +10113,31 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*height*/
-    ctx[5] === undefined && !("height" in props)) {
+    ctx[4] === undefined && !("height" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'height'");
     }
 
     if (
     /*topojson*/
-    ctx[6] === undefined && !("topojson" in props)) {
+    ctx[5] === undefined && !("topojson" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'topojson'");
     }
 
     if (
     /*topojsonId*/
-    ctx[23] === undefined && !("topojsonId" in props)) {
+    ctx[24] === undefined && !("topojsonId" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'topojsonId'");
     }
 
     if (
     /*width*/
-    ctx[7] === undefined && !("width" in props)) {
+    ctx[6] === undefined && !("width" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'width'");
     }
 
     if (
     /*focusedKey*/
-    ctx[8] === undefined && !("focusedKey" in props)) {
+    ctx[7] === undefined && !("focusedKey" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'focusedKey'");
     }
 
@@ -9984,19 +10161,19 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*key*/
-    ctx[9] === undefined && !("key" in props)) {
+    ctx[8] === undefined && !("key" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'key'");
     }
 
     if (
     /*keyToColor*/
-    ctx[24] === undefined && !("keyToColor" in props)) {
+    ctx[25] === undefined && !("keyToColor" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'keyToColor'");
     }
 
     if (
     /*keyToColorFn*/
-    ctx[25] === undefined && !("keyToColorFn" in props)) {
+    ctx[26] === undefined && !("keyToColorFn" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'keyToColorFn'");
     }
 
@@ -10008,31 +10185,31 @@ var ChoroplethG = /*#__PURE__*/function (_SvelteComponentDev) {
 
     if (
     /*projection*/
-    ctx[4] === undefined && !("projection" in props)) {
+    ctx[19] === undefined && !("projection" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'projection'");
     }
 
     if (
     /*projectionFn*/
-    ctx[19] === undefined && !("projectionFn" in props)) {
+    ctx[20] === undefined && !("projectionFn" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'projectionFn'");
     }
 
     if (
     /*projectionId*/
-    ctx[20] === undefined && !("projectionId" in props)) {
+    ctx[21] === undefined && !("projectionId" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'projectionId'");
     }
 
     if (
     /*selectedKeys*/
-    ctx[21] === undefined && !("selectedKeys" in props)) {
+    ctx[22] === undefined && !("selectedKeys" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'selectedKeys'");
     }
 
     if (
     /*theme*/
-    ctx[22] === undefined && !("theme" in props)) {
+    ctx[23] === undefined && !("theme" in props)) {
       console.warn("<ChoroplethG> was created without expected prop 'theme'");
     }
 
@@ -11435,2643 +11612,16 @@ function _isNativeReflectConstruct$g() { if (typeof Reflect === "undefined" || !
 function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var file$a = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/legend/src/ColorBinsG.svelte";
+var file$a = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/histogram/src/HistogramG.svelte";
 
 function get_each_context$5(ctx, list, i) {
-  var child_ctx = ctx.slice();
-  child_ctx[48] = list[i].label;
-  child_ctx[49] = list[i].x;
-  child_ctx[50] = list[i].y;
-  return child_ctx;
-}
-
-function get_each_context_1$1(ctx, list, i) {
-  var child_ctx = ctx.slice();
-  child_ctx[53] = list[i].barWidth;
-  child_ctx[54] = list[i].barHeight;
-  child_ctx[55] = list[i].fill;
-  child_ctx[56] = list[i].selected;
-  child_ctx[49] = list[i].x;
-  child_ctx[50] = list[i].y;
-  child_ctx[58] = i;
-  return child_ctx;
-} // (294:0) {#if height && width && scale}
-
-
-function create_if_block$7(ctx) {
-  var g2;
-  var if_block0_anchor;
-  var g1;
-  var g0;
-  var rect;
-  var rect_height_value;
-  var rect_width_value;
-  var if_block2_anchor;
-  var g1_transform_value;
-  var mounted;
-  var dispose;
-  var if_block0 =
-  /*flags*/
-  ctx[0].withBackground && create_if_block_6(ctx);
-  var if_block1 =
-  /*flags*/
-  ctx[0].isInteractive && create_if_block_5(ctx);
-  var each_value_1 =
-  /*bars*/
-  ctx[10];
-  validate_each_argument(each_value_1);
-  var each_blocks = [];
-
-  for (var i = 0; i < each_value_1.length; i += 1) {
-    each_blocks[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
-  }
-
-  var if_block2 =
-  /*flags*/
-  ctx[0].showTicks && create_if_block_3$2(ctx);
-  var if_block3 =
-  /*isBrushing*/
-  ctx[12] && create_if_block_1$5(ctx);
-  var block = {
-    c: function create() {
-      g2 = svg_element("g");
-      if (if_block0) if_block0.c();
-      if_block0_anchor = empty();
-      if (if_block1) if_block1.c();
-      g1 = svg_element("g");
-      g0 = svg_element("g");
-      rect = svg_element("rect");
-
-      for (var _i = 0; _i < each_blocks.length; _i += 1) {
-        each_blocks[_i].c();
-      }
-
-      if (if_block2) if_block2.c();
-      if_block2_anchor = empty();
-      if (if_block3) if_block3.c();
-      this.h();
-    },
-    l: function claim(nodes) {
-      g2 = claim_element(nodes, "g", {
-        style: true,
-        class: true
-      }, 1);
-      var g2_nodes = children(g2);
-      if (if_block0) if_block0.l(g2_nodes);
-      if_block0_anchor = empty();
-      if (if_block1) if_block1.l(g2_nodes);
-      g1 = claim_element(g2_nodes, "g", {
-        transform: true
-      }, 1);
-      var g1_nodes = children(g1);
-      g0 = claim_element(g1_nodes, "g", {
-        class: true
-      }, 1);
-      var g0_nodes = children(g0);
-      rect = claim_element(g0_nodes, "rect", {
-        class: true,
-        height: true,
-        width: true
-      }, 1);
-      children(rect).forEach(detach_dev);
-
-      for (var _i2 = 0; _i2 < each_blocks.length; _i2 += 1) {
-        each_blocks[_i2].l(g0_nodes);
-      }
-
-      g0_nodes.forEach(detach_dev);
-      if (if_block2) if_block2.l(g1_nodes);
-      if_block2_anchor = empty();
-      if (if_block3) if_block3.l(g1_nodes);
-      g1_nodes.forEach(detach_dev);
-      g2_nodes.forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(rect, "class", "barsSensorBkg svelte-7e9eom");
-      attr_dev(rect, "height", rect_height_value =
-      /*binsSize*/
-      ctx[8].height);
-      attr_dev(rect, "width", rect_width_value =
-      /*binsSize*/
-      ctx[8].width);
-      add_location(rect, file$a, 322, 3, 7527);
-      attr_dev(g0, "class", "bars");
-      add_location(g0, file$a, 318, 2, 7471);
-      attr_dev(g1, "transform", g1_transform_value = "translate(" +
-      /*origin*/
-      ctx[7].x + "," +
-      /*origin*/
-      ctx[7].y + ")");
-      add_location(g1, file$a, 315, 1, 7403);
-      attr_dev(g2, "style",
-      /*style*/
-      ctx[14]);
-      attr_dev(g2, "class", "ColorBinsG svelte-7e9eom");
-      toggle_class(g2, "interactive",
-      /*flags*/
-      ctx[0].isInteractive);
-      add_location(g2, file$a, 294, 0, 7034);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, g2, anchor);
-      if (if_block0) if_block0.m(g2, null);
-      append_dev(g2, if_block0_anchor);
-      if (if_block1) if_block1.m(g2, null);
-      append_dev(g2, g1);
-      append_dev(g1, g0);
-      append_dev(g0, rect);
-
-      for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
-        each_blocks[_i3].m(g0, null);
-      }
-
-      if (if_block2) if_block2.m(g1, null);
-      append_dev(g1, if_block2_anchor);
-      if (if_block3) if_block3.m(g1, null);
-
-      if (!mounted) {
-        dispose = listen_dev(g0, "mouseleave",
-        /*resetBrush*/
-        ctx[21], false, false, false);
-        mounted = true;
-      }
-    },
-    p: function update(ctx, dirty) {
-      if (
-      /*flags*/
-      ctx[0].withBackground) {
-        if (if_block0) {
-          if_block0.p(ctx, dirty);
-        } else {
-          if_block0 = create_if_block_6(ctx);
-          if_block0.c();
-          if_block0.m(g2, if_block0_anchor);
-        }
-      } else if (if_block0) {
-        if_block0.d(1);
-        if_block0 = null;
-      }
-
-      if (
-      /*flags*/
-      ctx[0].isInteractive) {
-        if (if_block1) {
-          if_block1.p(ctx, dirty);
-        } else {
-          if_block1 = create_if_block_5(ctx);
-          if_block1.c();
-          if_block1.m(g2, g1);
-        }
-      } else if (if_block1) {
-        if_block1.d(1);
-        if_block1 = null;
-      }
-
-      if (dirty[0] &
-      /*binsSize*/
-      256 && rect_height_value !== (rect_height_value =
-      /*binsSize*/
-      ctx[8].height)) {
-        attr_dev(rect, "height", rect_height_value);
-      }
-
-      if (dirty[0] &
-      /*binsSize*/
-      256 && rect_width_value !== (rect_width_value =
-      /*binsSize*/
-      ctx[8].width)) {
-        attr_dev(rect, "width", rect_width_value);
-      }
-
-      if (dirty[0] &
-      /*bars, onMousedown, onMouseenter, onMouseleave, isMousedown, onMousemove, onMouseup, flags*/
-      2032705) {
-        each_value_1 =
-        /*bars*/
-        ctx[10];
-        validate_each_argument(each_value_1);
-
-        var _i4;
-
-        for (_i4 = 0; _i4 < each_value_1.length; _i4 += 1) {
-          var child_ctx = get_each_context_1$1(ctx, each_value_1, _i4);
-
-          if (each_blocks[_i4]) {
-            each_blocks[_i4].p(child_ctx, dirty);
-          } else {
-            each_blocks[_i4] = create_each_block_1$1(child_ctx);
-
-            each_blocks[_i4].c();
-
-            each_blocks[_i4].m(g0, null);
-          }
-        }
-
-        for (; _i4 < each_blocks.length; _i4 += 1) {
-          each_blocks[_i4].d(1);
-        }
-
-        each_blocks.length = each_value_1.length;
-      }
-
-      if (
-      /*flags*/
-      ctx[0].showTicks) {
-        if (if_block2) {
-          if_block2.p(ctx, dirty);
-        } else {
-          if_block2 = create_if_block_3$2(ctx);
-          if_block2.c();
-          if_block2.m(g1, if_block2_anchor);
-        }
-      } else if (if_block2) {
-        if_block2.d(1);
-        if_block2 = null;
-      }
-
-      if (
-      /*isBrushing*/
-      ctx[12]) {
-        if (if_block3) {
-          if_block3.p(ctx, dirty);
-        } else {
-          if_block3 = create_if_block_1$5(ctx);
-          if_block3.c();
-          if_block3.m(g1, null);
-        }
-      } else if (if_block3) {
-        if_block3.d(1);
-        if_block3 = null;
-      }
-
-      if (dirty[0] &
-      /*origin*/
-      128 && g1_transform_value !== (g1_transform_value = "translate(" +
-      /*origin*/
-      ctx[7].x + "," +
-      /*origin*/
-      ctx[7].y + ")")) {
-        attr_dev(g1, "transform", g1_transform_value);
-      }
-
-      if (dirty[0] &
-      /*style*/
-      16384) {
-        attr_dev(g2, "style",
-        /*style*/
-        ctx[14]);
-      }
-
-      if (dirty[0] &
-      /*flags*/
-      1) {
-        toggle_class(g2, "interactive",
-        /*flags*/
-        ctx[0].isInteractive);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(g2);
-      if (if_block0) if_block0.d();
-      if (if_block1) if_block1.d();
-      destroy_each(each_blocks, detaching);
-      if (if_block2) if_block2.d();
-      if (if_block3) if_block3.d();
-      mounted = false;
-      dispose();
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block$7.name,
-    type: "if",
-    source: "(294:0) {#if height && width && scale}",
-    ctx: ctx
-  });
-  return block;
-} // (301:1) {#if flags.withBackground}
-
-
-function create_if_block_6(ctx) {
-  var rect;
-  var block = {
-    c: function create() {
-      rect = svg_element("rect");
-      this.h();
-    },
-    l: function claim(nodes) {
-      rect = claim_element(nodes, "rect", {
-        class: true,
-        width: true,
-        height: true
-      }, 1);
-      children(rect).forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(rect, "class", "bkg svelte-7e9eom");
-      attr_dev(rect, "width",
-      /*width*/
-      ctx[5]);
-      attr_dev(rect, "height",
-      /*height*/
-      ctx[4]);
-      add_location(rect, file$a, 301, 1, 7159);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, rect, anchor);
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*width*/
-      32) {
-        attr_dev(rect, "width",
-        /*width*/
-        ctx[5]);
-      }
-
-      if (dirty[0] &
-      /*height*/
-      16) {
-        attr_dev(rect, "height",
-        /*height*/
-        ctx[4]);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(rect);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block_6.name,
-    type: "if",
-    source: "(301:1) {#if flags.withBackground}",
-    ctx: ctx
-  });
-  return block;
-} // (306:1) {#if flags.isInteractive}
-
-
-function create_if_block_5(ctx) {
-  var rect;
-  var mounted;
-  var dispose;
-  var block = {
-    c: function create() {
-      rect = svg_element("rect");
-      this.h();
-    },
-    l: function claim(nodes) {
-      rect = claim_element(nodes, "rect", {
-        height: true,
-        width: true,
-        class: true
-      }, 1);
-      children(rect).forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(rect, "height",
-      /*height*/
-      ctx[4]);
-      attr_dev(rect, "width",
-      /*width*/
-      ctx[5]);
-      attr_dev(rect, "class", "bkgSensor svelte-7e9eom");
-      toggle_class(rect, "reset",
-      /*selectedBins*/
-      ctx[2].length > 0);
-      add_location(rect, file$a, 306, 1, 7275);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, rect, anchor);
-
-      if (!mounted) {
-        dispose = listen_dev(rect, "click",
-        /*resetSelection*/
-        ctx[22], false, false, false);
-        mounted = true;
-      }
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*height*/
-      16) {
-        attr_dev(rect, "height",
-        /*height*/
-        ctx[4]);
-      }
-
-      if (dirty[0] &
-      /*width*/
-      32) {
-        attr_dev(rect, "width",
-        /*width*/
-        ctx[5]);
-      }
-
-      if (dirty[0] &
-      /*selectedBins*/
-      4) {
-        toggle_class(rect, "reset",
-        /*selectedBins*/
-        ctx[2].length > 0);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(rect);
-      mounted = false;
-      dispose();
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block_5.name,
-    type: "if",
-    source: "(306:1) {#if flags.isInteractive}",
-    ctx: ctx
-  });
-  return block;
-} // (347:4) {#if flags.isInteractive}
-
-
-function create_if_block_4$1(ctx) {
-  var rect;
-  var rect_height_value;
-  var rect_width_value;
-  var mounted;
-  var dispose;
-  var block = {
-    c: function create() {
-      rect = svg_element("rect");
-      this.h();
-    },
-    l: function claim(nodes) {
-      rect = claim_element(nodes, "rect", {
-        class: true,
-        height: true,
-        width: true
-      }, 1);
-      children(rect).forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(rect, "class", "rectsensor svelte-7e9eom");
-      attr_dev(rect, "height", rect_height_value =
-      /*barHeight*/
-      ctx[54]);
-      attr_dev(rect, "width", rect_width_value =
-      /*barWidth*/
-      ctx[53]);
-      add_location(rect, file$a, 347, 4, 7912);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, rect, anchor);
-
-      if (!mounted) {
-        dispose = [listen_dev(rect, "mousedown",
-        /*onMousedown*/
-        ctx[17], false, false, false), listen_dev(rect, "mouseover",
-        /*onMouseenter*/
-        ctx[16](
-        /*index*/
-        ctx[58]), false, false, false), listen_dev(rect, "mouseout",
-        /*onMouseleave*/
-        ctx[20](
-        /*index*/
-        ctx[58]), false, false, false), listen_dev(rect, "mousemove", function () {
-          if (is_function(
-          /*isMousedown*/
-          ctx[6] ?
-          /*onMousemove*/
-          ctx[18](
-          /*index*/
-          ctx[58]) : null)) (
-          /*isMousedown*/
-          ctx[6] ?
-          /*onMousemove*/
-          ctx[18](
-          /*index*/
-          ctx[58]) : null).apply(this, arguments);
-        }, false, false, false), listen_dev(rect, "mouseup",
-        /*onMouseup*/
-        ctx[19](
-        /*index*/
-        ctx[58]), false, false, false)];
-        mounted = true;
-      }
-    },
-    p: function update(new_ctx, dirty) {
-      ctx = new_ctx;
-
-      if (dirty[0] &
-      /*bars*/
-      1024 && rect_height_value !== (rect_height_value =
-      /*barHeight*/
-      ctx[54])) {
-        attr_dev(rect, "height", rect_height_value);
-      }
-
-      if (dirty[0] &
-      /*bars*/
-      1024 && rect_width_value !== (rect_width_value =
-      /*barWidth*/
-      ctx[53])) {
-        attr_dev(rect, "width", rect_width_value);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(rect);
-      mounted = false;
-      run_all(dispose);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block_4$1.name,
-    type: "if",
-    source: "(347:4) {#if flags.isInteractive}",
-    ctx: ctx
-  });
-  return block;
-} // (329:3) {#each bars as {     barWidth,     barHeight,     fill,     selected,     x,     y    }
-
-
-function create_each_block_1$1(ctx) {
-  var g;
-  var rect;
-  var rect_fill_value;
-  var rect_height_value;
-  var rect_width_value;
-  var g_transform_value;
-  var if_block =
-  /*flags*/
-  ctx[0].isInteractive && create_if_block_4$1(ctx);
-  var block = {
-    c: function create() {
-      g = svg_element("g");
-      rect = svg_element("rect");
-      if (if_block) if_block.c();
-      this.h();
-    },
-    l: function claim(nodes) {
-      g = claim_element(nodes, "g", {
-        class: true,
-        transform: true
-      }, 1);
-      var g_nodes = children(g);
-      rect = claim_element(g_nodes, "rect", {
-        fill: true,
-        height: true,
-        width: true,
-        class: true
-      }, 1);
-      children(rect).forEach(detach_dev);
-      if (if_block) if_block.l(g_nodes);
-      g_nodes.forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(rect, "fill", rect_fill_value =
-      /*fill*/
-      ctx[55]);
-      attr_dev(rect, "height", rect_height_value =
-      /*barHeight*/
-      ctx[54]);
-      attr_dev(rect, "width", rect_width_value =
-      /*barWidth*/
-      ctx[53]);
-      attr_dev(rect, "class", "svelte-7e9eom");
-      toggle_class(rect, "selected",
-      /*selected*/
-      ctx[56]);
-      add_location(rect, file$a, 340, 4, 7787);
-      attr_dev(g, "class", "bar svelte-7e9eom");
-      attr_dev(g, "transform", g_transform_value = "translate(" +
-      /*x*/
-      ctx[49] + "," +
-      /*y*/
-      ctx[50] + ")");
-      add_location(g, file$a, 336, 3, 7724);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, g, anchor);
-      append_dev(g, rect);
-      if (if_block) if_block.m(g, null);
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*bars*/
-      1024 && rect_fill_value !== (rect_fill_value =
-      /*fill*/
-      ctx[55])) {
-        attr_dev(rect, "fill", rect_fill_value);
-      }
-
-      if (dirty[0] &
-      /*bars*/
-      1024 && rect_height_value !== (rect_height_value =
-      /*barHeight*/
-      ctx[54])) {
-        attr_dev(rect, "height", rect_height_value);
-      }
-
-      if (dirty[0] &
-      /*bars*/
-      1024 && rect_width_value !== (rect_width_value =
-      /*barWidth*/
-      ctx[53])) {
-        attr_dev(rect, "width", rect_width_value);
-      }
-
-      if (dirty[0] &
-      /*bars*/
-      1024) {
-        toggle_class(rect, "selected",
-        /*selected*/
-        ctx[56]);
-      }
-
-      if (
-      /*flags*/
-      ctx[0].isInteractive) {
-        if (if_block) {
-          if_block.p(ctx, dirty);
-        } else {
-          if_block = create_if_block_4$1(ctx);
-          if_block.c();
-          if_block.m(g, null);
-        }
-      } else if (if_block) {
-        if_block.d(1);
-        if_block = null;
-      }
-
-      if (dirty[0] &
-      /*bars*/
-      1024 && g_transform_value !== (g_transform_value = "translate(" +
-      /*x*/
-      ctx[49] + "," +
-      /*y*/
-      ctx[50] + ")")) {
-        attr_dev(g, "transform", g_transform_value);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(g);
-      if (if_block) if_block.d();
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_each_block_1$1.name,
-    type: "each",
-    source: "(329:3) {#each bars as {     barWidth,     barHeight,     fill,     selected,     x,     y    }",
-    ctx: ctx
-  });
-  return block;
-} // (364:2) {#if flags.showTicks}
-
-
-function create_if_block_3$2(ctx) {
-  var g;
-  var g_font_size_value;
-  var each_value =
-  /*ticks*/
-  ctx[11];
-  validate_each_argument(each_value);
-  var each_blocks = [];
-
-  for (var i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$5(get_each_context$5(ctx, each_value, i));
-  }
-
-  var block = {
-    c: function create() {
-      g = svg_element("g");
-
-      for (var _i5 = 0; _i5 < each_blocks.length; _i5 += 1) {
-        each_blocks[_i5].c();
-      }
-
-      this.h();
-    },
-    l: function claim(nodes) {
-      g = claim_element(nodes, "g", {
-        class: true,
-        "font-size": true
-      }, 1);
-      var g_nodes = children(g);
-
-      for (var _i6 = 0; _i6 < each_blocks.length; _i6 += 1) {
-        each_blocks[_i6].l(g_nodes);
-      }
-
-      g_nodes.forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(g, "class", "ticks svelte-7e9eom");
-      attr_dev(g, "font-size", g_font_size_value =
-      /*theme*/
-      ctx[3].fontSize);
-      toggle_class(g, "vertical",
-      /*flags*/
-      ctx[0].isVertical);
-      add_location(g, file$a, 364, 2, 8281);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, g, anchor);
-
-      for (var _i7 = 0; _i7 < each_blocks.length; _i7 += 1) {
-        each_blocks[_i7].m(g, null);
-      }
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*ticks*/
-      2048) {
-        each_value =
-        /*ticks*/
-        ctx[11];
-        validate_each_argument(each_value);
-
-        var _i8;
-
-        for (_i8 = 0; _i8 < each_value.length; _i8 += 1) {
-          var child_ctx = get_each_context$5(ctx, each_value, _i8);
-
-          if (each_blocks[_i8]) {
-            each_blocks[_i8].p(child_ctx, dirty);
-          } else {
-            each_blocks[_i8] = create_each_block$5(child_ctx);
-
-            each_blocks[_i8].c();
-
-            each_blocks[_i8].m(g, null);
-          }
-        }
-
-        for (; _i8 < each_blocks.length; _i8 += 1) {
-          each_blocks[_i8].d(1);
-        }
-
-        each_blocks.length = each_value.length;
-      }
-
-      if (dirty[0] &
-      /*theme*/
-      8 && g_font_size_value !== (g_font_size_value =
-      /*theme*/
-      ctx[3].fontSize)) {
-        attr_dev(g, "font-size", g_font_size_value);
-      }
-
-      if (dirty[0] &
-      /*flags*/
-      1) {
-        toggle_class(g, "vertical",
-        /*flags*/
-        ctx[0].isVertical);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(g);
-      destroy_each(each_blocks, detaching);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block_3$2.name,
-    type: "if",
-    source: "(364:2) {#if flags.showTicks}",
-    ctx: ctx
-  });
-  return block;
-} // (370:3) {#each ticks as {label, x, y}}
-
-
-function create_each_block$5(ctx) {
-  var text_1;
-  var t_value =
-  /*label*/
-  ctx[48] + "";
-  var t;
-  var text_1_x_value;
-  var text_1_y_value;
-  var block = {
-    c: function create() {
-      text_1 = svg_element("text");
-      t = text(t_value);
-      this.h();
-    },
-    l: function claim(nodes) {
-      text_1 = claim_element(nodes, "text", {
-        x: true,
-        y: true,
-        class: true
-      }, 1);
-      var text_1_nodes = children(text_1);
-      t = claim_text(text_1_nodes, t_value);
-      text_1_nodes.forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(text_1, "x", text_1_x_value =
-      /*x*/
-      ctx[49]);
-      attr_dev(text_1, "y", text_1_y_value =
-      /*y*/
-      ctx[50]);
-      attr_dev(text_1, "class", "svelte-7e9eom");
-      add_location(text_1, file$a, 370, 3, 8409);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, text_1, anchor);
-      append_dev(text_1, t);
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*ticks*/
-      2048 && t_value !== (t_value =
-      /*label*/
-      ctx[48] + "")) set_data_dev(t, t_value);
-
-      if (dirty[0] &
-      /*ticks*/
-      2048 && text_1_x_value !== (text_1_x_value =
-      /*x*/
-      ctx[49])) {
-        attr_dev(text_1, "x", text_1_x_value);
-      }
-
-      if (dirty[0] &
-      /*ticks*/
-      2048 && text_1_y_value !== (text_1_y_value =
-      /*y*/
-      ctx[50])) {
-        attr_dev(text_1, "y", text_1_y_value);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(text_1);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_each_block$5.name,
-    type: "each",
-    source: "(370:3) {#each ticks as {label, x, y}}",
-    ctx: ctx
-  });
-  return block;
-} // (377:2) {#if isBrushing}
-
-
-function create_if_block_1$5(ctx) {
-  var g;
-
-  function select_block_type(ctx, dirty) {
-    if (
-    /*flags*/
-    ctx[0].isVertical) return create_if_block_2$4;
-    return create_else_block$3;
-  }
-
-  var current_block_type = select_block_type(ctx);
-  var if_block = current_block_type(ctx);
-  var block = {
-    c: function create() {
-      g = svg_element("g");
-      if_block.c();
-      this.h();
-    },
-    l: function claim(nodes) {
-      g = claim_element(nodes, "g", {
-        class: true
-      }, 1);
-      var g_nodes = children(g);
-      if_block.l(g_nodes);
-      g_nodes.forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(g, "class", "brush svelte-7e9eom");
-      add_location(g, file$a, 377, 2, 8503);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, g, anchor);
-      if_block.m(g, null);
-    },
-    p: function update(ctx, dirty) {
-      if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
-        if_block.p(ctx, dirty);
-      } else {
-        if_block.d(1);
-        if_block = current_block_type(ctx);
-
-        if (if_block) {
-          if_block.c();
-          if_block.m(g, null);
-        }
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(g);
-      if_block.d();
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block_1$5.name,
-    type: "if",
-    source: "(377:2) {#if isBrushing}",
-    ctx: ctx
-  });
-  return block;
-} // (386:3) {:else}
-
-
-function create_else_block$3(ctx) {
-  var line;
-  var line_x__value;
-  var line_x__value_1;
-  var line_y__value;
-  var line_y__value_1;
-  var block = {
-    c: function create() {
-      line = svg_element("line");
-      this.h();
-    },
-    l: function claim(nodes) {
-      line = claim_element(nodes, "line", {
-        x1: true,
-        x2: true,
-        y1: true,
-        y2: true,
-        class: true
-      }, 1);
-      children(line).forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(line, "x1", line_x__value =
-      /*brushLine*/
-      ctx[13].p1);
-      attr_dev(line, "x2", line_x__value_1 =
-      /*brushLine*/
-      ctx[13].p2);
-      attr_dev(line, "y1", line_y__value =
-      /*geometry*/
-      ctx[1].barThickness);
-      attr_dev(line, "y2", line_y__value_1 =
-      /*geometry*/
-      ctx[1].barThickness);
-      attr_dev(line, "class", "svelte-7e9eom");
-      add_location(line, file$a, 386, 3, 8626);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, line, anchor);
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*brushLine*/
-      8192 && line_x__value !== (line_x__value =
-      /*brushLine*/
-      ctx[13].p1)) {
-        attr_dev(line, "x1", line_x__value);
-      }
-
-      if (dirty[0] &
-      /*brushLine*/
-      8192 && line_x__value_1 !== (line_x__value_1 =
-      /*brushLine*/
-      ctx[13].p2)) {
-        attr_dev(line, "x2", line_x__value_1);
-      }
-
-      if (dirty[0] &
-      /*geometry*/
-      2 && line_y__value !== (line_y__value =
-      /*geometry*/
-      ctx[1].barThickness)) {
-        attr_dev(line, "y1", line_y__value);
-      }
-
-      if (dirty[0] &
-      /*geometry*/
-      2 && line_y__value_1 !== (line_y__value_1 =
-      /*geometry*/
-      ctx[1].barThickness)) {
-        attr_dev(line, "y2", line_y__value_1);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(line);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_else_block$3.name,
-    type: "else",
-    source: "(386:3) {:else}",
-    ctx: ctx
-  });
-  return block;
-} // (381:3) {#if flags.isVertical}
-
-
-function create_if_block_2$4(ctx) {
-  var line;
-  var line_y__value;
-  var line_y__value_1;
-  var block = {
-    c: function create() {
-      line = svg_element("line");
-      this.h();
-    },
-    l: function claim(nodes) {
-      line = claim_element(nodes, "line", {
-        y1: true,
-        y2: true,
-        class: true
-      }, 1);
-      children(line).forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(line, "y1", line_y__value =
-      /*brushLine*/
-      ctx[13].p1);
-      attr_dev(line, "y2", line_y__value_1 =
-      /*brushLine*/
-      ctx[13].p2);
-      attr_dev(line, "class", "svelte-7e9eom");
-      add_location(line, file$a, 381, 3, 8556);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, line, anchor);
-    },
-    p: function update(ctx, dirty) {
-      if (dirty[0] &
-      /*brushLine*/
-      8192 && line_y__value !== (line_y__value =
-      /*brushLine*/
-      ctx[13].p1)) {
-        attr_dev(line, "y1", line_y__value);
-      }
-
-      if (dirty[0] &
-      /*brushLine*/
-      8192 && line_y__value_1 !== (line_y__value_1 =
-      /*brushLine*/
-      ctx[13].p2)) {
-        attr_dev(line, "y2", line_y__value_1);
-      }
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(line);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block_2$4.name,
-    type: "if",
-    source: "(381:3) {#if flags.isVertical}",
-    ctx: ctx
-  });
-  return block;
-}
-
-function create_fragment$g(ctx) {
-  var if_block_anchor;
-  var if_block =
-  /*height*/
-  ctx[4] &&
-  /*width*/
-  ctx[5] &&
-  /*scale*/
-  ctx[9] && create_if_block$7(ctx);
-  var block = {
-    c: function create() {
-      if (if_block) if_block.c();
-      if_block_anchor = empty();
-    },
-    l: function claim(nodes) {
-      if (if_block) if_block.l(nodes);
-      if_block_anchor = empty();
-    },
-    m: function mount(target, anchor) {
-      if (if_block) if_block.m(target, anchor);
-      insert_dev(target, if_block_anchor, anchor);
-    },
-    p: function update(ctx, dirty) {
-      if (
-      /*height*/
-      ctx[4] &&
-      /*width*/
-      ctx[5] &&
-      /*scale*/
-      ctx[9]) {
-        if (if_block) {
-          if_block.p(ctx, dirty);
-        } else {
-          if_block = create_if_block$7(ctx);
-          if_block.c();
-          if_block.m(if_block_anchor.parentNode, if_block_anchor);
-        }
-      } else if (if_block) {
-        if_block.d(1);
-        if_block = null;
-      }
-    },
-    i: noop$1,
-    o: noop$1,
-    d: function destroy(detaching) {
-      if (if_block) if_block.d(detaching);
-      if (detaching) detach_dev(if_block_anchor);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_fragment$g.name,
-    type: "component",
-    source: "",
-    ctx: ctx
-  });
-  return block;
-}
-
-function instance$g($$self, $$props, $$invalidate) {
-  var $brush;
-  var dispatch = createEventDispatcher();
-  var defaultFlags = {
-    isInteractive: false,
-    isVertical: false,
-    showTicks: true,
-    withBackground: false
-  };
-  var defaultGeometry = {
-    barThickness: 25,
-    bottom: 10,
-    brushThreshold: 10,
-    // pixels to trigger brushing
-    left: 10,
-    right: 10,
-    gap: 2,
-    textPadding: 5,
-    top: 10
-  };
-  var defaultTheme = {
-    backgroundColor: "white",
-    backgroundOpacity: 1,
-    binFill: "white",
-    binStroke: null,
-    // null for no stroke, or a color string
-    binStrokeWidth: 1,
-    // ineffective for binStroke: null
-    brushAddStroke: "rgb(107,248,134)",
-    brushRemoveStroke: "rgb(246,97,20)",
-    brushStrokeOpacity: 0.8,
-    brushStrokeWidth: 8,
-    fontSize: 12,
-    selectedBinStroke: "black",
-    selectedBinStrokeWidth: 2,
-    textColor: "black"
-  };
-  var height = $$props.height;
-  var width = $$props.width;
-  var bins = $$props.bins; // {range: [number, number], color: string}[]
-
-  var flags = $$props.flags;
-  var geometry = $$props.geometry;
-  var selectedBins = $$props.selectedBins;
-  var theme = $$props.theme;
-  var ticksFormatFn = $$props.ticksFormatFn;
-  /* brushing */
-
-  var isMousedown = false;
-  var brushOff = {
-    delta: 0,
-    end: null,
-    origin: {
-      x: null,
-      y: null
-    },
-    start: null,
-    modifier: null,
-    state: "Off"
-  };
-  var brush = writable(brushOff);
-  validate_store(brush, "brush");
-  component_subscribe($$self, brush, function (value) {
-    return $$invalidate(34, $brush = value);
-  });
-  /* events */
-
-  var getModifier = function getModifier(event) {
-    return event.shiftKey ? "shift" : event.altKey ? "alt" : null;
-  };
-
-  var onMouseenter = function onMouseenter(index) {
-    return function () {
-      if (isBrushing) {
-        brush.update(mergeObj({
-          end: index
-        }));
-      }
-
-      dispatch("entered", index);
-    };
-  };
-
-  var onMousedown = function onMousedown(event) {
-    $$invalidate(6, isMousedown = true);
-    brush.set({
-      delta: 0,
-      modifier: getModifier(event),
-      origin: {
-        x: event.offsetX,
-        y: event.offsetY
-      },
-      state: "Pressed"
-    });
-  };
-
-  var onMousemove = function onMousemove(index) {
-    return function (event) {
-      if (isPressed) {
-        var delta = vectorLength2D(event.offsetX - $brush.origin.x, event.offsetY - $brush.origin.y);
-
-        if (delta > geometry.brushThreshold) {
-          brush.update(mergeObj({
-            end: index,
-            start: index,
-            state: "Brushing"
-          }));
-          dispatch("brushstart", index);
-        } else {
-          brush.update(mergeObj({
-            delta: delta
-          }));
-        }
-      }
-    };
-  };
-
-  var onMouseup = function onMouseup(index) {
-    return function () {
-      $$invalidate(6, isMousedown = false);
-
-      if (isPressed) {
-        if ($brush.delta < geometry.brushThreshold) {
-          if (doesBrushAdd) {
-            $$invalidate(2, selectedBins = uniques(appendTo(selectedBins, index)));
-          } else if (doesBrushRemove) {
-            $$invalidate(2, selectedBins = pullFrom(selectedBins, [index]));
-          } else {
-            $$invalidate(2, selectedBins = [index]);
-          }
-
-          dispatch("clicked", {
-            index: index,
-            selectedBins: selectedBins
-          });
-        }
-      } else if (isBrushing) {
-        dispatch("brushend", index);
-      }
-
-      brush.set(brushOff);
-    };
-  };
-
-  var onMouseleave = function onMouseleave(index) {
-    return function () {
-      dispatch("exited", index);
-    };
-  };
-
-  var resetBrush = function resetBrush() {
-    brush.set(brushOff);
-  };
-
-  var resetSelection = function resetSelection() {
-    $$invalidate(2, selectedBins = []);
-    dispatch("clicked", {
-      selectedBins: selectedBins
-    });
-  };
-
-  var writable_props = ["height", "width", "bins", "flags", "geometry", "selectedBins", "theme", "ticksFormatFn"];
-  Object.keys($$props).forEach(function (key) {
-    if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<ColorBinsG> was created with unknown prop '".concat(key, "'"));
-  });
-  var _$$props$$$slots = $$props.$$slots,
-      $$slots = _$$props$$$slots === void 0 ? {} : _$$props$$$slots,
-      $$scope = $$props.$$scope;
-  validate_slots("ColorBinsG", $$slots, []);
-
-  $$self.$set = function ($$props) {
-    if ("height" in $$props) $$invalidate(4, height = $$props.height);
-    if ("width" in $$props) $$invalidate(5, width = $$props.width);
-    if ("bins" in $$props) $$invalidate(23, bins = $$props.bins);
-    if ("flags" in $$props) $$invalidate(0, flags = $$props.flags);
-    if ("geometry" in $$props) $$invalidate(1, geometry = $$props.geometry);
-    if ("selectedBins" in $$props) $$invalidate(2, selectedBins = $$props.selectedBins);
-    if ("theme" in $$props) $$invalidate(3, theme = $$props.theme);
-    if ("ticksFormatFn" in $$props) $$invalidate(24, ticksFormatFn = $$props.ticksFormatFn);
-  };
-
-  $$self.$capture_state = function () {
-    return {
-      createEventDispatcher: createEventDispatcher,
-      writable: writable,
-      makeStyleVars: makeStyleVars,
-      vectorLength2D: vectorLength2D,
-      concat: concat,
-      inclusiveRange: inclusiveRange,
-      mergeObj: mergeObj,
-      scaleLinear: linear$1,
-      appendTo: appendTo,
-      last: last,
-      pullFrom: pullFrom,
-      sort: sort,
-      uniques: uniques,
-      getBinsTicks: getBinsTicks,
-      dispatch: dispatch,
-      defaultFlags: defaultFlags,
-      defaultGeometry: defaultGeometry,
-      defaultTheme: defaultTheme,
-      height: height,
-      width: width,
-      bins: bins,
-      flags: flags,
-      geometry: geometry,
-      selectedBins: selectedBins,
-      theme: theme,
-      ticksFormatFn: ticksFormatFn,
-      isMousedown: isMousedown,
-      brushOff: brushOff,
-      brush: brush,
-      getModifier: getModifier,
-      onMouseenter: onMouseenter,
-      onMousedown: onMousedown,
-      onMousemove: onMousemove,
-      onMouseup: onMouseup,
-      onMouseleave: onMouseleave,
-      resetBrush: resetBrush,
-      resetSelection: resetSelection,
-      innerWidth: innerWidth,
-      innerHeight: innerHeight,
-      widgetThickness: widgetThickness,
-      origin: origin,
-      binsSize: binsSize,
-      valuesMin: valuesMin,
-      valuesMax: valuesMax,
-      range: range,
-      scale: scale,
-      lastIndex: lastIndex,
-      semigap: semigap,
-      bars: bars,
-      ticksDistance: ticksDistance,
-      ticks: ticks,
-      isBrushing: isBrushing,
-      $brush: $brush,
-      isPressed: isPressed,
-      doesBrushAdd: doesBrushAdd,
-      doesBrushRemove: doesBrushRemove,
-      brushStroke: brushStroke,
-      brushExtent: brushExtent,
-      brushRange: brushRange,
-      brushExtentBarYs: brushExtentBarYs,
-      brushLine: brushLine,
-      style: style
-    };
-  };
-
-  $$self.$inject_state = function ($$props) {
-    if ("height" in $$props) $$invalidate(4, height = $$props.height);
-    if ("width" in $$props) $$invalidate(5, width = $$props.width);
-    if ("bins" in $$props) $$invalidate(23, bins = $$props.bins);
-    if ("flags" in $$props) $$invalidate(0, flags = $$props.flags);
-    if ("geometry" in $$props) $$invalidate(1, geometry = $$props.geometry);
-    if ("selectedBins" in $$props) $$invalidate(2, selectedBins = $$props.selectedBins);
-    if ("theme" in $$props) $$invalidate(3, theme = $$props.theme);
-    if ("ticksFormatFn" in $$props) $$invalidate(24, ticksFormatFn = $$props.ticksFormatFn);
-    if ("isMousedown" in $$props) $$invalidate(6, isMousedown = $$props.isMousedown);
-    if ("innerWidth" in $$props) $$invalidate(25, innerWidth = $$props.innerWidth);
-    if ("innerHeight" in $$props) $$invalidate(26, innerHeight = $$props.innerHeight);
-    if ("widgetThickness" in $$props) $$invalidate(27, widgetThickness = $$props.widgetThickness);
-    if ("origin" in $$props) $$invalidate(7, origin = $$props.origin);
-    if ("binsSize" in $$props) $$invalidate(8, binsSize = $$props.binsSize);
-    if ("valuesMin" in $$props) $$invalidate(28, valuesMin = $$props.valuesMin);
-    if ("valuesMax" in $$props) $$invalidate(29, valuesMax = $$props.valuesMax);
-    if ("range" in $$props) $$invalidate(30, range = $$props.range);
-    if ("scale" in $$props) $$invalidate(9, scale = $$props.scale);
-    if ("lastIndex" in $$props) $$invalidate(31, lastIndex = $$props.lastIndex);
-    if ("semigap" in $$props) $$invalidate(32, semigap = $$props.semigap);
-    if ("bars" in $$props) $$invalidate(10, bars = $$props.bars);
-    if ("ticksDistance" in $$props) $$invalidate(33, ticksDistance = $$props.ticksDistance);
-    if ("ticks" in $$props) $$invalidate(11, ticks = $$props.ticks);
-    if ("isBrushing" in $$props) $$invalidate(12, isBrushing = $$props.isBrushing);
-    if ("isPressed" in $$props) isPressed = $$props.isPressed;
-    if ("doesBrushAdd" in $$props) $$invalidate(36, doesBrushAdd = $$props.doesBrushAdd);
-    if ("doesBrushRemove" in $$props) $$invalidate(37, doesBrushRemove = $$props.doesBrushRemove);
-    if ("brushStroke" in $$props) $$invalidate(38, brushStroke = $$props.brushStroke);
-    if ("brushExtent" in $$props) $$invalidate(39, brushExtent = $$props.brushExtent);
-    if ("brushRange" in $$props) $$invalidate(40, brushRange = $$props.brushRange);
-    if ("brushExtentBarYs" in $$props) $$invalidate(41, brushExtentBarYs = $$props.brushExtentBarYs);
-    if ("brushLine" in $$props) $$invalidate(13, brushLine = $$props.brushLine);
-    if ("style" in $$props) $$invalidate(14, style = $$props.style);
-  };
-
-  var innerWidth;
-  var innerHeight;
-  var widgetThickness;
-  var origin;
-  var binsSize;
-  var valuesMin;
-  var valuesMax;
-  var range;
-  var scale;
-  var lastIndex;
-  var semigap;
-  var bars;
-  var ticksDistance;
-  var ticks;
-  var isBrushing;
-  var isPressed;
-  var doesBrushAdd;
-  var doesBrushRemove;
-  var brushStroke;
-  var brushExtent;
-  var brushRange;
-  var brushExtentBarYs;
-  var brushLine;
-  var style;
-
-  if ($$props && "$$inject" in $$props) {
-    $$self.$inject_state($$props.$$inject);
-  }
-
-  $$self.$$.update = function () {
-    if ($$self.$$.dirty[0] &
-    /*bins*/
-    8388608) {
-      // FIXME https://github.com/sveltejs/svelte/issues/4442
-       $$invalidate(23, bins = bins || []);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*flags*/
-    1) {
-       $$invalidate(0, flags = flags ? _objectSpread$4(_objectSpread$4({}, defaultFlags), flags) : defaultFlags);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*geometry*/
-    2) {
-       $$invalidate(1, geometry = geometry ? _objectSpread$4(_objectSpread$4({}, defaultGeometry), geometry) : defaultGeometry);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*selectedBins*/
-    4) {
-       $$invalidate(2, selectedBins = selectedBins || []);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*theme*/
-    8) {
-       $$invalidate(3, theme = theme ? _objectSpread$4(_objectSpread$4({}, defaultTheme), theme) : defaultTheme);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*ticksFormatFn*/
-    16777216) {
-       $$invalidate(24, ticksFormatFn = ticksFormatFn || function (x) {
-        return x;
-      });
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*width, geometry*/
-    34) {
-      /* layout */
-       $$invalidate(25, innerWidth = Math.max(0, width - geometry.left - geometry.right));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*height, geometry*/
-    18) {
-       $$invalidate(26, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*geometry, flags, theme*/
-    11) {
-       $$invalidate(27, widgetThickness = geometry.barThickness + flags.showTicks ? theme.fontSize + geometry.textPadding : 0);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*geometry, flags, innerWidth, widgetThickness, innerHeight*/
-    234881027) {
-       $$invalidate(7, origin = {
-        x: geometry.left + (flags.isVertical ? (innerWidth - widgetThickness) / 2 : 0),
-        y: geometry.top + (flags.isVertical ? 0 : (innerHeight - widgetThickness) / 2)
-      });
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*flags, geometry, innerWidth, innerHeight*/
-    100663299) {
-       $$invalidate(8, binsSize = {
-        width: flags.isVertical ? geometry.barThickness : innerWidth,
-        height: flags.isVertical ? innerHeight : geometry.barThickness
-      });
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*bins*/
-    8388608) {
-      var _ref;
-
-      /* scale */
-       $$invalidate(28, (_ref = [bins[0].range[0], last(bins).range[1]], valuesMin = _ref[0], valuesMax = _ref[1], _ref), valuesMin, ($$invalidate(29, valuesMax), $$invalidate(23, bins)));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*flags, innerHeight, innerWidth*/
-    100663297) {
-       $$invalidate(30, range = flags.isVertical ? [innerHeight, 0] : [0, innerWidth]);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*bins, valuesMin, valuesMax, range*/
-    1887436800) {
-       $$invalidate(9, scale = bins.length && linear$1().domain([valuesMin, valuesMax]).range(range));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*bins*/
-    8388608) {
-      /* bars */
-       $$invalidate(31, lastIndex = bins.length - 1);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*geometry*/
-    2) {
-       $$invalidate(32, semigap = geometry.gap / 2);
-    }
-
-    if ($$self.$$.dirty[1] &
-    /*$brush*/
-    8) {
-       $$invalidate(12, isBrushing = $brush.state === "Brushing");
-    }
-
-    if ($$self.$$.dirty[1] &
-    /*$brush*/
-    8) {
-       $$invalidate(36, doesBrushAdd = $brush.modifier === "shift");
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*isBrushing*/
-    4096 | $$self.$$.dirty[1] &
-    /*$brush*/
-    8) {
-       $$invalidate(39, brushExtent = isBrushing && sort([$brush.start, $brush.end]));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*isBrushing*/
-    4096 | $$self.$$.dirty[1] &
-    /*brushExtent*/
-    256) {
-       $$invalidate(40, brushRange = isBrushing && inclusiveRange(brushExtent));
-    }
-
-    if ($$self.$$.dirty[1] &
-    /*$brush*/
-    8) {
-       $$invalidate(37, doesBrushRemove = $brush.modifier === "alt");
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*isBrushing, selectedBins*/
-    4100 | $$self.$$.dirty[1] &
-    /*doesBrushAdd, brushRange, doesBrushRemove, $brush*/
-    616) {
-       if (isBrushing) {
-        $$invalidate(2, selectedBins = doesBrushAdd ? uniques(concat(selectedBins, brushRange)) : doesBrushRemove ? pullFrom(selectedBins, brushRange) : brushRange);
-        dispatch("brushed", {
-          end: $brush.end,
-          selectedBins: selectedBins,
-          start: $brush.start
-        });
-      }
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*bins, selectedBins, scale, flags, geometry, theme*/
-    8389135 | $$self.$$.dirty[1] &
-    /*semigap, lastIndex*/
-    3) {
-       $$invalidate(10, bars = bins.map(function (bin, index) {
-        var _bin$range = _slicedToArray(bin.range, 2),
-            v1 = _bin$range[0],
-            v2 = _bin$range[1],
-            color = bin.color;
-
-        var selected = selectedBins.length && selectedBins.includes(index);
-        var p1 = scale(v1);
-        var p2 = scale(v2);
-        var x;
-        var y;
-        var start;
-        var end;
-        var sensorX;
-        var sensorY;
-
-        if (flags.isVertical) {
-          start = p1 - (index > 0 ? semigap : 0);
-          end = p2 + (index < lastIndex ? semigap : 0);
-          x = 0;
-          y = end;
-          sensorX = 0;
-          sensorY = p2;
-        } else {
-          start = p1 + (index > 0 ? semigap : 0);
-          end = p2 - (index < lastIndex ? semigap : 0);
-          x = start;
-          y = 0;
-          sensorX = p1;
-          sensorY = 0;
-        }
-
-        var barLength = Math.abs(end - start);
-        var sensorLength = Math.abs(p2 - p1);
-        return _objectSpread$4(_objectSpread$4({}, bin), {
-          barHeight: flags.isVertical ? barLength : geometry.barThickness,
-          barWidth: flags.isVertical ? geometry.barThickness : barLength,
-          fill: color || theme.binFill,
-          p1: p1,
-          p2: p2,
-          selected: selected,
-          sensorHeight: flags.isVertical ? sensorLength : geometry.barThickness,
-          sensorWidth: flags.isVertical ? geometry.barThickness : sensorLength,
-          sensorX: sensorX,
-          sensorY: sensorY,
-          x: x,
-          y: y
-        });
-      }));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*geometry*/
-    2) {
-      /* ticks */
-       $$invalidate(33, ticksDistance = geometry.barThickness + geometry.textPadding);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*bins, ticksFormatFn, flags, scale*/
-    25166337 | $$self.$$.dirty[1] &
-    /*ticksDistance*/
-    4) {
-       $$invalidate(11, ticks = getBinsTicks(bins).map(function (value) {
-        return {
-          label: ticksFormatFn(value),
-          x: flags.isVertical ? ticksDistance : scale(value),
-          y: flags.isVertical ? scale(value) : ticksDistance
-        };
-      }));
-    }
-
-    if ($$self.$$.dirty[1] &
-    /*$brush*/
-    8) {
-       isPressed = $brush.state === "Pressed";
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*theme*/
-    8 | $$self.$$.dirty[1] &
-    /*doesBrushAdd, doesBrushRemove*/
-    96) {
-       $$invalidate(38, brushStroke = doesBrushAdd ? theme.brushAddStroke : doesBrushRemove ? theme.brushRemoveStroke : null);
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*isBrushing, bars*/
-    5120 | $$self.$$.dirty[1] &
-    /*brushExtent*/
-    256) {
-       $$invalidate(41, brushExtentBarYs = isBrushing && sort([bars[brushExtent[0]].p1, bars[brushExtent[0]].p2, bars[brushExtent[1]].p1, bars[brushExtent[1]].p2]));
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*isBrushing*/
-    4096 | $$self.$$.dirty[1] &
-    /*brushExtentBarYs*/
-    1024) {
-       $$invalidate(13, brushLine = isBrushing && {
-        p1: brushExtentBarYs[0],
-        p2: brushExtentBarYs[3]
-      });
-    }
-
-    if ($$self.$$.dirty[0] &
-    /*theme*/
-    8 | $$self.$$.dirty[1] &
-    /*brushStroke*/
-    128) {
-      /* style */
-       $$invalidate(14, style = makeStyleVars(_objectSpread$4(_objectSpread$4({}, theme), {}, {
-        brushStroke: brushStroke
-      })));
-    }
-  };
-
-  return [flags, geometry, selectedBins, theme, height, width, isMousedown, origin, binsSize, scale, bars, ticks, isBrushing, brushLine, style, brush, onMouseenter, onMousedown, onMousemove, onMouseup, onMouseleave, resetBrush, resetSelection, bins, ticksFormatFn];
-}
-
-var ColorBinsG = /*#__PURE__*/function (_SvelteComponentDev) {
-  _inherits(ColorBinsG, _SvelteComponentDev);
-
-  var _super = _createSuper$g(ColorBinsG);
-
-  function ColorBinsG(options) {
-    var _this;
-
-    _classCallCheck(this, ColorBinsG);
-
-    _this = _super.call(this, options);
-    init(_assertThisInitialized(_this), options, instance$g, create_fragment$g, safe_not_equal, {
-      height: 4,
-      width: 5,
-      bins: 23,
-      flags: 0,
-      geometry: 1,
-      selectedBins: 2,
-      theme: 3,
-      ticksFormatFn: 24
-    }, [-1, -1]);
-    dispatch_dev("SvelteRegisterComponent", {
-      component: _assertThisInitialized(_this),
-      tagName: "ColorBinsG",
-      options: options,
-      id: create_fragment$g.name
-    });
-    var ctx = _this.$$.ctx;
-    var props = options.props || {};
-
-    if (
-    /*height*/
-    ctx[4] === undefined && !("height" in props)) {
-      console.warn("<ColorBinsG> was created without expected prop 'height'");
-    }
-
-    if (
-    /*width*/
-    ctx[5] === undefined && !("width" in props)) {
-      console.warn("<ColorBinsG> was created without expected prop 'width'");
-    }
-
-    if (
-    /*bins*/
-    ctx[23] === undefined && !("bins" in props)) {
-      console.warn("<ColorBinsG> was created without expected prop 'bins'");
-    }
-
-    if (
-    /*flags*/
-    ctx[0] === undefined && !("flags" in props)) {
-      console.warn("<ColorBinsG> was created without expected prop 'flags'");
-    }
-
-    if (
-    /*geometry*/
-    ctx[1] === undefined && !("geometry" in props)) {
-      console.warn("<ColorBinsG> was created without expected prop 'geometry'");
-    }
-
-    if (
-    /*selectedBins*/
-    ctx[2] === undefined && !("selectedBins" in props)) {
-      console.warn("<ColorBinsG> was created without expected prop 'selectedBins'");
-    }
-
-    if (
-    /*theme*/
-    ctx[3] === undefined && !("theme" in props)) {
-      console.warn("<ColorBinsG> was created without expected prop 'theme'");
-    }
-
-    if (
-    /*ticksFormatFn*/
-    ctx[24] === undefined && !("ticksFormatFn" in props)) {
-      console.warn("<ColorBinsG> was created without expected prop 'ticksFormatFn'");
-    }
-
-    return _this;
-  }
-
-  _createClass(ColorBinsG, [{
-    key: "height",
-    get: function get() {
-      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "width",
-    get: function get() {
-      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "bins",
-    get: function get() {
-      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "flags",
-    get: function get() {
-      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "geometry",
-    get: function get() {
-      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "selectedBins",
-    get: function get() {
-      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "theme",
-    get: function get() {
-      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "ticksFormatFn",
-    get: function get() {
-      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }]);
-
-  return ColorBinsG;
-}(SvelteComponentDev);
-
-function _createSuper$h(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$h(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct$h() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-var file$b = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/legend/src/ColorBinsDiv.svelte"; // (32:1) {#if title}
-
-function create_if_block_1$6(ctx) {
-  var header;
-  var h2;
-  var t;
-  var block = {
-    c: function create() {
-      header = element("header");
-      h2 = element("h2");
-      t = text(
-      /*title*/
-      ctx[0]);
-      this.h();
-    },
-    l: function claim(nodes) {
-      header = claim_element(nodes, "HEADER", {
-        class: true
-      });
-      var header_nodes = children(header);
-      h2 = claim_element(header_nodes, "H2", {
-        class: true
-      });
-      var h2_nodes = children(h2);
-      t = claim_text(h2_nodes,
-      /*title*/
-      ctx[0]);
-      h2_nodes.forEach(detach_dev);
-      header_nodes.forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(h2, "class", "svelte-1amymvq");
-      add_location(h2, file$b, 33, 2, 651);
-      attr_dev(header, "class", "svelte-1amymvq");
-      add_location(header, file$b, 32, 1, 640);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, header, anchor);
-      append_dev(header, h2);
-      append_dev(h2, t);
-    },
-    p: function update(ctx, dirty) {
-      if (dirty &
-      /*title*/
-      1) set_data_dev(t,
-      /*title*/
-      ctx[0]);
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(header);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block_1$6.name,
-    type: "if",
-    source: "(32:1) {#if title}",
-    ctx: ctx
-  });
-  return block;
-} // (46:3) {#if bins}
-
-
-function create_if_block$8(ctx) {
-  var colorbinsg;
-  var current;
-  colorbinsg = new ColorBinsG({
-    props: {
-      bins:
-      /*bins*/
-      ctx[1],
-      flags:
-      /*flags*/
-      ctx[2],
-      geometry:
-      /*geometry*/
-      ctx[3],
-      height:
-      /*height*/
-      ctx[7],
-      selectedBins:
-      /*selectedBins*/
-      ctx[4],
-      theme:
-      /*theme*/
-      ctx[5],
-      ticksFormatFn:
-      /*ticksFormatFn*/
-      ctx[6],
-      width:
-      /*width*/
-      ctx[8]
-    },
-    $$inline: true
-  });
-  colorbinsg.$on("brushed",
-  /*brushed_handler*/
-  ctx[12]);
-  colorbinsg.$on("brushend",
-  /*brushend_handler*/
-  ctx[13]);
-  colorbinsg.$on("brushstart",
-  /*brushstart_handler*/
-  ctx[14]);
-  colorbinsg.$on("clicked",
-  /*clicked_handler*/
-  ctx[15]);
-  colorbinsg.$on("entered",
-  /*entered_handler*/
-  ctx[16]);
-  colorbinsg.$on("exited",
-  /*exited_handler*/
-  ctx[17]);
-  var block = {
-    c: function create() {
-      create_component(colorbinsg.$$.fragment);
-    },
-    l: function claim(nodes) {
-      claim_component(colorbinsg.$$.fragment, nodes);
-    },
-    m: function mount(target, anchor) {
-      mount_component(colorbinsg, target, anchor);
-      current = true;
-    },
-    p: function update(ctx, dirty) {
-      var colorbinsg_changes = {};
-      if (dirty &
-      /*bins*/
-      2) colorbinsg_changes.bins =
-      /*bins*/
-      ctx[1];
-      if (dirty &
-      /*flags*/
-      4) colorbinsg_changes.flags =
-      /*flags*/
-      ctx[2];
-      if (dirty &
-      /*geometry*/
-      8) colorbinsg_changes.geometry =
-      /*geometry*/
-      ctx[3];
-      if (dirty &
-      /*height*/
-      128) colorbinsg_changes.height =
-      /*height*/
-      ctx[7];
-      if (dirty &
-      /*selectedBins*/
-      16) colorbinsg_changes.selectedBins =
-      /*selectedBins*/
-      ctx[4];
-      if (dirty &
-      /*theme*/
-      32) colorbinsg_changes.theme =
-      /*theme*/
-      ctx[5];
-      if (dirty &
-      /*ticksFormatFn*/
-      64) colorbinsg_changes.ticksFormatFn =
-      /*ticksFormatFn*/
-      ctx[6];
-      if (dirty &
-      /*width*/
-      256) colorbinsg_changes.width =
-      /*width*/
-      ctx[8];
-      colorbinsg.$set(colorbinsg_changes);
-    },
-    i: function intro(local) {
-      if (current) return;
-      transition_in(colorbinsg.$$.fragment, local);
-      current = true;
-    },
-    o: function outro(local) {
-      transition_out(colorbinsg.$$.fragment, local);
-      current = false;
-    },
-    d: function destroy(detaching) {
-      destroy_component(colorbinsg, detaching);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_if_block$8.name,
-    type: "if",
-    source: "(46:3) {#if bins}",
-    ctx: ctx
-  });
-  return block;
-}
-
-function create_fragment$h(ctx) {
-  var div;
-  var t;
-  var main;
-  var svg;
-  var main_resize_listener;
-  var current;
-  var if_block0 =
-  /*title*/
-  ctx[0] && create_if_block_1$6(ctx);
-  var if_block1 =
-  /*bins*/
-  ctx[1] && create_if_block$8(ctx);
-  var block = {
-    c: function create() {
-      div = element("div");
-      if (if_block0) if_block0.c();
-      t = space();
-      main = element("main");
-      svg = svg_element("svg");
-      if (if_block1) if_block1.c();
-      this.h();
-    },
-    l: function claim(nodes) {
-      div = claim_element(nodes, "DIV", {
-        class: true,
-        style: true
-      });
-      var div_nodes = children(div);
-      if (if_block0) if_block0.l(div_nodes);
-      t = claim_space(div_nodes);
-      main = claim_element(div_nodes, "MAIN", {
-        class: true
-      });
-      var main_nodes = children(main);
-      svg = claim_element(main_nodes, "svg", {
-        width: true,
-        height: true,
-        class: true
-      }, 1);
-      var svg_nodes = children(svg);
-      if (if_block1) if_block1.l(svg_nodes);
-      svg_nodes.forEach(detach_dev);
-      main_nodes.forEach(detach_dev);
-      div_nodes.forEach(detach_dev);
-      this.h();
-    },
-    h: function hydrate() {
-      attr_dev(svg, "width",
-      /*width*/
-      ctx[8]);
-      attr_dev(svg, "height",
-      /*height*/
-      ctx[7]);
-      attr_dev(svg, "class", "svelte-1amymvq");
-      add_location(svg, file$b, 41, 2, 793);
-      attr_dev(main, "class", "svelte-1amymvq");
-      add_render_callback(function () {
-        return (
-          /*main_elementresize_handler*/
-          ctx[18].call(main)
-        );
-      });
-      toggle_class(main, "titled",
-      /*title*/
-      ctx[0] &&
-      /*title*/
-      ctx[0].length);
-      add_location(main, file$b, 36, 1, 687);
-      attr_dev(div, "class", "ColorBinsDiv svelte-1amymvq");
-      attr_dev(div, "style",
-      /*style*/
-      ctx[9]);
-      toggle_class(div, "interactive",
-      /*flags*/
-      ctx[2] &&
-      /*flags*/
-      ctx[2].isInteractive);
-      add_location(div, file$b, 26, 0, 538);
-    },
-    m: function mount(target, anchor) {
-      insert_dev(target, div, anchor);
-      if (if_block0) if_block0.m(div, null);
-      append_dev(div, t);
-      append_dev(div, main);
-      append_dev(main, svg);
-      if (if_block1) if_block1.m(svg, null);
-      main_resize_listener = add_resize_listener(main,
-      /*main_elementresize_handler*/
-      ctx[18].bind(main));
-      current = true;
-    },
-    p: function update(ctx, _ref) {
-      var _ref2 = _slicedToArray(_ref, 1),
-          dirty = _ref2[0];
-
-      if (
-      /*title*/
-      ctx[0]) {
-        if (if_block0) {
-          if_block0.p(ctx, dirty);
-        } else {
-          if_block0 = create_if_block_1$6(ctx);
-          if_block0.c();
-          if_block0.m(div, t);
-        }
-      } else if (if_block0) {
-        if_block0.d(1);
-        if_block0 = null;
-      }
-
-      if (
-      /*bins*/
-      ctx[1]) {
-        if (if_block1) {
-          if_block1.p(ctx, dirty);
-
-          if (dirty &
-          /*bins*/
-          2) {
-            transition_in(if_block1, 1);
-          }
-        } else {
-          if_block1 = create_if_block$8(ctx);
-          if_block1.c();
-          transition_in(if_block1, 1);
-          if_block1.m(svg, null);
-        }
-      } else if (if_block1) {
-        group_outros();
-        transition_out(if_block1, 1, 1, function () {
-          if_block1 = null;
-        });
-        check_outros();
-      }
-
-      if (!current || dirty &
-      /*width*/
-      256) {
-        attr_dev(svg, "width",
-        /*width*/
-        ctx[8]);
-      }
-
-      if (!current || dirty &
-      /*height*/
-      128) {
-        attr_dev(svg, "height",
-        /*height*/
-        ctx[7]);
-      }
-
-      if (dirty &
-      /*title*/
-      1) {
-        toggle_class(main, "titled",
-        /*title*/
-        ctx[0] &&
-        /*title*/
-        ctx[0].length);
-      }
-
-      if (!current || dirty &
-      /*style*/
-      512) {
-        attr_dev(div, "style",
-        /*style*/
-        ctx[9]);
-      }
-
-      if (dirty &
-      /*flags*/
-      4) {
-        toggle_class(div, "interactive",
-        /*flags*/
-        ctx[2] &&
-        /*flags*/
-        ctx[2].isInteractive);
-      }
-    },
-    i: function intro(local) {
-      if (current) return;
-      transition_in(if_block1);
-      current = true;
-    },
-    o: function outro(local) {
-      transition_out(if_block1);
-      current = false;
-    },
-    d: function destroy(detaching) {
-      if (detaching) detach_dev(div);
-      if (if_block0) if_block0.d();
-      if (if_block1) if_block1.d();
-      main_resize_listener();
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block: block,
-    id: create_fragment$h.name,
-    type: "component",
-    source: "",
-    ctx: ctx
-  });
-  return block;
-}
-
-function instance$h($$self, $$props, $$invalidate) {
-  var headerHeight = $$props.headerHeight;
-  var padding = $$props.padding;
-  var title = $$props.title;
-  var bins = $$props.bins; // {range: [number, number], color: string}[]
-
-  var flags = $$props.flags;
-  var geometry = $$props.geometry;
-  var selectedBins = $$props.selectedBins;
-  var theme = $$props.theme;
-  var ticksFormatFn = $$props.ticksFormatFn;
-  var height = 0;
-  var width = 0;
-  var writable_props = ["headerHeight", "padding", "title", "bins", "flags", "geometry", "selectedBins", "theme", "ticksFormatFn"];
-  Object.keys($$props).forEach(function (key) {
-    if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<ColorBinsDiv> was created with unknown prop '".concat(key, "'"));
-  });
-  var _$$props$$$slots = $$props.$$slots,
-      $$slots = _$$props$$$slots === void 0 ? {} : _$$props$$$slots,
-      $$scope = $$props.$$scope;
-  validate_slots("ColorBinsDiv", $$slots, []);
-
-  function brushed_handler(event) {
-    bubble($$self, event);
-  }
-
-  function brushend_handler(event) {
-    bubble($$self, event);
-  }
-
-  function brushstart_handler(event) {
-    bubble($$self, event);
-  }
-
-  function clicked_handler(event) {
-    bubble($$self, event);
-  }
-
-  function entered_handler(event) {
-    bubble($$self, event);
-  }
-
-  function exited_handler(event) {
-    bubble($$self, event);
-  }
-
-  function main_elementresize_handler() {
-    height = this.clientHeight;
-    width = this.clientWidth;
-    $$invalidate(7, height);
-    $$invalidate(8, width);
-  }
-
-  $$self.$set = function ($$props) {
-    if ("headerHeight" in $$props) $$invalidate(10, headerHeight = $$props.headerHeight);
-    if ("padding" in $$props) $$invalidate(11, padding = $$props.padding);
-    if ("title" in $$props) $$invalidate(0, title = $$props.title);
-    if ("bins" in $$props) $$invalidate(1, bins = $$props.bins);
-    if ("flags" in $$props) $$invalidate(2, flags = $$props.flags);
-    if ("geometry" in $$props) $$invalidate(3, geometry = $$props.geometry);
-    if ("selectedBins" in $$props) $$invalidate(4, selectedBins = $$props.selectedBins);
-    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
-    if ("ticksFormatFn" in $$props) $$invalidate(6, ticksFormatFn = $$props.ticksFormatFn);
-  };
-
-  $$self.$capture_state = function () {
-    return {
-      makeStyleVars: makeStyleVars,
-      ColorBinsG: ColorBinsG,
-      headerHeight: headerHeight,
-      padding: padding,
-      title: title,
-      bins: bins,
-      flags: flags,
-      geometry: geometry,
-      selectedBins: selectedBins,
-      theme: theme,
-      ticksFormatFn: ticksFormatFn,
-      height: height,
-      width: width,
-      style: style
-    };
-  };
-
-  $$self.$inject_state = function ($$props) {
-    if ("headerHeight" in $$props) $$invalidate(10, headerHeight = $$props.headerHeight);
-    if ("padding" in $$props) $$invalidate(11, padding = $$props.padding);
-    if ("title" in $$props) $$invalidate(0, title = $$props.title);
-    if ("bins" in $$props) $$invalidate(1, bins = $$props.bins);
-    if ("flags" in $$props) $$invalidate(2, flags = $$props.flags);
-    if ("geometry" in $$props) $$invalidate(3, geometry = $$props.geometry);
-    if ("selectedBins" in $$props) $$invalidate(4, selectedBins = $$props.selectedBins);
-    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
-    if ("ticksFormatFn" in $$props) $$invalidate(6, ticksFormatFn = $$props.ticksFormatFn);
-    if ("height" in $$props) $$invalidate(7, height = $$props.height);
-    if ("width" in $$props) $$invalidate(8, width = $$props.width);
-    if ("style" in $$props) $$invalidate(9, style = $$props.style);
-  };
-
-  var style;
-
-  if ($$props && "$$inject" in $$props) {
-    $$self.$inject_state($$props.$$inject);
-  }
-
-  $$self.$$.update = function () {
-    if ($$self.$$.dirty &
-    /*padding*/
-    2048) {
-       $$invalidate(11, padding = padding || "10px");
-    }
-
-    if ($$self.$$.dirty &
-    /*headerHeight*/
-    1024) {
-       $$invalidate(10, headerHeight = headerHeight || "2rem");
-    }
-
-    if ($$self.$$.dirty &
-    /*headerHeight, padding*/
-    3072) {
-       $$invalidate(9, style = makeStyleVars({
-        headerHeight: headerHeight,
-        padding: padding
-      }));
-    }
-  };
-
-  return [title, bins, flags, geometry, selectedBins, theme, ticksFormatFn, height, width, style, headerHeight, padding, brushed_handler, brushend_handler, brushstart_handler, clicked_handler, entered_handler, exited_handler, main_elementresize_handler];
-}
-
-var ColorBinsDiv = /*#__PURE__*/function (_SvelteComponentDev) {
-  _inherits(ColorBinsDiv, _SvelteComponentDev);
-
-  var _super = _createSuper$h(ColorBinsDiv);
-
-  function ColorBinsDiv(options) {
-    var _this;
-
-    _classCallCheck(this, ColorBinsDiv);
-
-    _this = _super.call(this, options);
-    init(_assertThisInitialized(_this), options, instance$h, create_fragment$h, safe_not_equal, {
-      headerHeight: 10,
-      padding: 11,
-      title: 0,
-      bins: 1,
-      flags: 2,
-      geometry: 3,
-      selectedBins: 4,
-      theme: 5,
-      ticksFormatFn: 6
-    });
-    dispatch_dev("SvelteRegisterComponent", {
-      component: _assertThisInitialized(_this),
-      tagName: "ColorBinsDiv",
-      options: options,
-      id: create_fragment$h.name
-    });
-    var ctx = _this.$$.ctx;
-    var props = options.props || {};
-
-    if (
-    /*headerHeight*/
-    ctx[10] === undefined && !("headerHeight" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'headerHeight'");
-    }
-
-    if (
-    /*padding*/
-    ctx[11] === undefined && !("padding" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'padding'");
-    }
-
-    if (
-    /*title*/
-    ctx[0] === undefined && !("title" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'title'");
-    }
-
-    if (
-    /*bins*/
-    ctx[1] === undefined && !("bins" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'bins'");
-    }
-
-    if (
-    /*flags*/
-    ctx[2] === undefined && !("flags" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'flags'");
-    }
-
-    if (
-    /*geometry*/
-    ctx[3] === undefined && !("geometry" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'geometry'");
-    }
-
-    if (
-    /*selectedBins*/
-    ctx[4] === undefined && !("selectedBins" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'selectedBins'");
-    }
-
-    if (
-    /*theme*/
-    ctx[5] === undefined && !("theme" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'theme'");
-    }
-
-    if (
-    /*ticksFormatFn*/
-    ctx[6] === undefined && !("ticksFormatFn" in props)) {
-      console.warn("<ColorBinsDiv> was created without expected prop 'ticksFormatFn'");
-    }
-
-    return _this;
-  }
-
-  _createClass(ColorBinsDiv, [{
-    key: "headerHeight",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "padding",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "title",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "bins",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "flags",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "geometry",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "selectedBins",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "theme",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }, {
-    key: "ticksFormatFn",
-    get: function get() {
-      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    },
-    set: function set(value) {
-      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    }
-  }]);
-
-  return ColorBinsDiv;
-}(SvelteComponentDev);
-
-var legend = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	ColorBinsG: ColorBinsG,
-	ColorBinsDiv: ColorBinsDiv
-});
-
-function _createSuper$i(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$i(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _isNativeReflectConstruct$i() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var file$c = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/histogram/src/HistogramG.svelte";
-
-function get_each_context$6(ctx, list, i) {
   var child_ctx = ctx.slice();
   child_ctx[52] = list[i].tick;
   child_ctx[53] = list[i].y;
   return child_ctx;
 }
 
-function get_each_context_1$2(ctx, list, i) {
+function get_each_context_1$1(ctx, list, i) {
   var child_ctx = ctx.slice();
   child_ctx[56] = list[i].barLength;
   child_ctx[57] = list[i].barThickness;
@@ -14087,14 +11637,14 @@ function get_each_context_1$2(ctx, list, i) {
 } // (327:0) {#if height && width}
 
 
-function create_if_block$9(ctx) {
+function create_if_block$7(ctx) {
   var g;
 
   function select_block_type(ctx, dirty) {
     if (
     /*bins*/
-    ctx[0].length === 0) return create_if_block_1$7;
-    return create_else_block$4;
+    ctx[0].length === 0) return create_if_block_1$5;
+    return create_else_block$3;
   }
 
   var current_block_type = select_block_type(ctx);
@@ -14123,7 +11673,7 @@ function create_if_block$9(ctx) {
       toggle_class(g, "interactive",
       /*flags*/
       ctx[1].isInteractive);
-      add_location(g, file$c, 327, 0, 7903);
+      add_location(g, file$a, 327, 0, 7903);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -14165,7 +11715,7 @@ function create_if_block$9(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block$9.name,
+    id: create_if_block$7.name,
     type: "if",
     source: "(327:0) {#if height && width}",
     ctx: ctx
@@ -14174,7 +11724,7 @@ function create_if_block$9(ctx) {
 } // (341:1) {:else}
 
 
-function create_else_block$4(ctx) {
+function create_else_block$3(ctx) {
   var if_block0_anchor;
   var g1;
   var g0;
@@ -14196,18 +11746,18 @@ function create_else_block$4(ctx) {
   var each_blocks = [];
 
   for (var i = 0; i < each_value_1.length; i += 1) {
-    each_blocks[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
+    each_blocks[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
   }
 
   var if_block2 = !
   /*flags*/
-  ctx[1].hideOrigin && create_if_block_4$2(ctx);
+  ctx[1].hideOrigin && create_if_block_4$1(ctx);
   var if_block3 = !
   /*flags*/
-  ctx[1].hideTicks && create_if_block_3$3(ctx);
+  ctx[1].hideTicks && create_if_block_3$2(ctx);
   var if_block4 =
   /*isBrushing*/
-  ctx[17] && create_if_block_2$5(ctx);
+  ctx[17] && create_if_block_2$4(ctx);
   var block = {
     c: function create() {
       if (if_block0) if_block0.c();
@@ -14267,20 +11817,20 @@ function create_else_block$4(ctx) {
       /*innerHeight*/
       ctx[10]);
       attr_dev(line, "class", "svelte-1egg7b");
-      add_location(line, file$c, 409, 3, 9348);
+      add_location(line, file$a, 409, 3, 9348);
       attr_dev(g0, "class", "axis svelte-1egg7b");
       attr_dev(g0, "transform", g0_transform_value = "translate(" +
       /*origin*/
       ctx[11].x + "," +
       /*origin*/
       ctx[11].y + ")");
-      add_location(g0, file$c, 405, 2, 9276);
+      add_location(g0, file$a, 405, 2, 9276);
       attr_dev(g1, "transform", g1_transform_value = "translate(" +
       /*safety*/
       ctx[8].left + "," +
       /*safety*/
       ctx[8].top + ")");
-      add_location(g1, file$c, 358, 1, 8382);
+      add_location(g1, file$a, 358, 1, 8382);
     },
     m: function mount(target, anchor) {
       if (if_block0) if_block0.m(target, anchor);
@@ -14341,12 +11891,12 @@ function create_else_block$4(ctx) {
         var _i4;
 
         for (_i4 = 0; _i4 < each_value_1.length; _i4 += 1) {
-          var child_ctx = get_each_context_1$2(ctx, each_value_1, _i4);
+          var child_ctx = get_each_context_1$1(ctx, each_value_1, _i4);
 
           if (each_blocks[_i4]) {
             each_blocks[_i4].p(child_ctx, dirty);
           } else {
-            each_blocks[_i4] = create_each_block_1$2(child_ctx);
+            each_blocks[_i4] = create_each_block_1$1(child_ctx);
 
             each_blocks[_i4].c();
 
@@ -14379,7 +11929,7 @@ function create_else_block$4(ctx) {
         if (if_block2) {
           if_block2.p(ctx, dirty);
         } else {
-          if_block2 = create_if_block_4$2(ctx);
+          if_block2 = create_if_block_4$1(ctx);
           if_block2.c();
           if_block2.m(g0, if_block2_anchor);
         }
@@ -14394,7 +11944,7 @@ function create_else_block$4(ctx) {
         if (if_block3) {
           if_block3.p(ctx, dirty);
         } else {
-          if_block3 = create_if_block_3$3(ctx);
+          if_block3 = create_if_block_3$2(ctx);
           if_block3.c();
           if_block3.m(g0, null);
         }
@@ -14419,7 +11969,7 @@ function create_else_block$4(ctx) {
         if (if_block4) {
           if_block4.p(ctx, dirty);
         } else {
-          if_block4 = create_if_block_2$5(ctx);
+          if_block4 = create_if_block_2$4(ctx);
           if_block4.c();
           if_block4.m(g1, null);
         }
@@ -14451,7 +12001,7 @@ function create_else_block$4(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_else_block$4.name,
+    id: create_else_block$3.name,
     type: "else",
     source: "(341:1) {:else}",
     ctx: ctx
@@ -14460,7 +12010,7 @@ function create_else_block$4(ctx) {
 } // (333:1) {#if bins.length === 0}
 
 
-function create_if_block_1$7(ctx) {
+function create_if_block_1$5(ctx) {
   var text_1;
   var t;
   var text_1_x_value;
@@ -14494,7 +12044,7 @@ function create_if_block_1$7(ctx) {
       attr_dev(text_1, "y", text_1_y_value =
       /*height*/
       ctx[5] / 2);
-      add_location(text_1, file$c, 334, 1, 8005);
+      add_location(text_1, file$a, 334, 1, 8005);
     },
     m: function mount(target, anchor) {
       insert_dev(target, text_1, anchor);
@@ -14529,7 +12079,7 @@ function create_if_block_1$7(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_1$7.name,
+    id: create_if_block_1$5.name,
     type: "if",
     source: "(333:1) {#if bins.length === 0}",
     ctx: ctx
@@ -14562,7 +12112,7 @@ function create_if_block_8(ctx) {
       attr_dev(rect, "height",
       /*height*/
       ctx[5]);
-      add_location(rect, file$c, 344, 1, 8138);
+      add_location(rect, file$a, 344, 1, 8138);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -14628,7 +12178,7 @@ function create_if_block_7(ctx) {
       toggle_class(rect, "reset",
       /*selectedBins*/
       ctx[4].length > 0);
-      add_location(rect, file$c, 349, 1, 8254);
+      add_location(rect, file$a, 349, 1, 8254);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -14682,7 +12232,7 @@ function create_if_block_7(ctx) {
 } // (375:3) {#if displayValue}
 
 
-function create_if_block_6$1(ctx) {
+function create_if_block_6(ctx) {
   var rect;
   var rect_fill_value;
   var rect_x_value;
@@ -14721,7 +12271,7 @@ function create_if_block_6$1(ctx) {
       toggle_class(rect, "selected",
       /*selected*/
       ctx[62]);
-      add_location(rect, file$c, 375, 3, 8659);
+      add_location(rect, file$a, 375, 3, 8659);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -14773,7 +12323,7 @@ function create_if_block_6$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_6$1.name,
+    id: create_if_block_6.name,
     type: "if",
     source: "(375:3) {#if displayValue}",
     ctx: ctx
@@ -14782,7 +12332,7 @@ function create_if_block_6$1(ctx) {
 } // (392:3) {#if flags.isInteractive}
 
 
-function create_if_block_5$1(ctx) {
+function create_if_block_5(ctx) {
   var rect;
   var rect_height_value;
   var mounted;
@@ -14809,7 +12359,7 @@ function create_if_block_5$1(ctx) {
       attr_dev(rect, "width",
       /*innerWidth*/
       ctx[9]);
-      add_location(rect, file$c, 392, 3, 8964);
+      add_location(rect, file$a, 392, 3, 8964);
     },
     m: function mount(target, anchor) {
       insert_dev(target, rect, anchor);
@@ -14874,7 +12424,7 @@ function create_if_block_5$1(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_5$1.name,
+    id: create_if_block_5.name,
     type: "if",
     source: "(392:3) {#if flags.isInteractive}",
     ctx: ctx
@@ -14883,7 +12433,7 @@ function create_if_block_5$1(ctx) {
 } // (360:2) {#each bars as {    barLength,    barThickness,    displayValue,    fill,    labelAnchor,    labelX,    selected,    x,    y1,   }
 
 
-function create_each_block_1$2(ctx) {
+function create_each_block_1$1(ctx) {
   var g;
   var text_1;
   var t_value =
@@ -14896,10 +12446,10 @@ function create_each_block_1$2(ctx) {
   var g_transform_value;
   var if_block0 =
   /*displayValue*/
-  ctx[58] && create_if_block_6$1(ctx);
+  ctx[58] && create_if_block_6(ctx);
   var if_block1 =
   /*flags*/
-  ctx[1].isInteractive && create_if_block_5$1(ctx);
+  ctx[1].isInteractive && create_if_block_5(ctx);
   var block = {
     c: function create() {
       g = svg_element("g");
@@ -14944,12 +12494,12 @@ function create_each_block_1$2(ctx) {
       attr_dev(text_1, "text-anchor", text_1_text_anchor_value =
       /*labelAnchor*/
       ctx[60]);
-      add_location(text_1, file$c, 384, 3, 8785);
+      add_location(text_1, file$a, 384, 3, 8785);
       attr_dev(g, "class", "bin svelte-1egg7b");
       attr_dev(g, "transform", g_transform_value = "translate(0," +
       /*y1*/
       ctx[64] + ")");
-      add_location(g, file$c, 370, 2, 8579);
+      add_location(g, file$a, 370, 2, 8579);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -14965,7 +12515,7 @@ function create_each_block_1$2(ctx) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_6$1(ctx);
+          if_block0 = create_if_block_6(ctx);
           if_block0.c();
           if_block0.m(g, text_1);
         }
@@ -15018,7 +12568,7 @@ function create_each_block_1$2(ctx) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
         } else {
-          if_block1 = create_if_block_5$1(ctx);
+          if_block1 = create_if_block_5(ctx);
           if_block1.c();
           if_block1.m(g, null);
         }
@@ -15043,7 +12593,7 @@ function create_each_block_1$2(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_each_block_1$2.name,
+    id: create_each_block_1$1.name,
     type: "each",
     source: "(360:2) {#each bars as {    barLength,    barThickness,    displayValue,    fill,    labelAnchor,    labelX,    selected,    x,    y1,   }",
     ctx: ctx
@@ -15052,7 +12602,7 @@ function create_each_block_1$2(ctx) {
 } // (413:3) {#if !flags.hideOrigin}
 
 
-function create_if_block_4$2(ctx) {
+function create_if_block_4$1(ctx) {
   var circle;
   var circle_r_value;
   var block = {
@@ -15073,7 +12623,7 @@ function create_if_block_4$2(ctx) {
       /*geometry*/
       ctx[2].originRadius);
       attr_dev(circle, "class", "svelte-1egg7b");
-      add_location(circle, file$c, 413, 3, 9444);
+      add_location(circle, file$a, 413, 3, 9444);
     },
     m: function mount(target, anchor) {
       insert_dev(target, circle, anchor);
@@ -15093,7 +12643,7 @@ function create_if_block_4$2(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_4$2.name,
+    id: create_if_block_4$1.name,
     type: "if",
     source: "(413:3) {#if !flags.hideOrigin}",
     ctx: ctx
@@ -15102,7 +12652,7 @@ function create_if_block_4$2(ctx) {
 } // (416:3) {#if !flags.hideTicks}
 
 
-function create_if_block_3$3(ctx) {
+function create_if_block_3$2(ctx) {
   var each_1_anchor;
   var each_value =
   /*ticks*/
@@ -15111,7 +12661,7 @@ function create_if_block_3$3(ctx) {
   var each_blocks = [];
 
   for (var i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$6(get_each_context$6(ctx, each_value, i));
+    each_blocks[i] = create_each_block$5(get_each_context$5(ctx, each_value, i));
   }
 
   var block = {
@@ -15148,12 +12698,12 @@ function create_if_block_3$3(ctx) {
         var _i8;
 
         for (_i8 = 0; _i8 < each_value.length; _i8 += 1) {
-          var child_ctx = get_each_context$6(ctx, each_value, _i8);
+          var child_ctx = get_each_context$5(ctx, each_value, _i8);
 
           if (each_blocks[_i8]) {
             each_blocks[_i8].p(child_ctx, dirty);
           } else {
-            each_blocks[_i8] = create_each_block$6(child_ctx);
+            each_blocks[_i8] = create_each_block$5(child_ctx);
 
             each_blocks[_i8].c();
 
@@ -15175,7 +12725,7 @@ function create_if_block_3$3(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_3$3.name,
+    id: create_if_block_3$2.name,
     type: "if",
     source: "(416:3) {#if !flags.hideTicks}",
     ctx: ctx
@@ -15184,7 +12734,7 @@ function create_if_block_3$3(ctx) {
 } // (417:3) {#each ticks as {tick, y}}
 
 
-function create_each_block$6(ctx) {
+function create_each_block$5(ctx) {
   var text_1;
   var t_value =
   /*tick*/
@@ -15224,7 +12774,7 @@ function create_each_block$6(ctx) {
       attr_dev(text_1, "text-anchor",
       /*ticksAnchor*/
       ctx[13]);
-      add_location(text_1, file$c, 417, 3, 9548);
+      add_location(text_1, file$a, 417, 3, 9548);
     },
     m: function mount(target, anchor) {
       insert_dev(target, text_1, anchor);
@@ -15275,7 +12825,7 @@ function create_each_block$6(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_each_block$6.name,
+    id: create_each_block$5.name,
     type: "each",
     source: "(417:3) {#each ticks as {tick, y}}",
     ctx: ctx
@@ -15284,7 +12834,7 @@ function create_each_block$6(ctx) {
 } // (428:2) {#if isBrushing}
 
 
-function create_if_block_2$5(ctx) {
+function create_if_block_2$4(ctx) {
   var g;
   var line;
   var line_y__value;
@@ -15319,12 +12869,12 @@ function create_if_block_2$5(ctx) {
       /*brushLine*/
       ctx[18].y2);
       attr_dev(line, "class", "svelte-1egg7b");
-      add_location(line, file$c, 432, 3, 9780);
+      add_location(line, file$a, 432, 3, 9780);
       attr_dev(g, "class", "brush svelte-1egg7b");
       attr_dev(g, "transform", g_transform_value = "translate(" +
       /*origin*/
       ctx[11].x + ",0)");
-      add_location(g, file$c, 428, 2, 9716);
+      add_location(g, file$a, 428, 2, 9716);
     },
     m: function mount(target, anchor) {
       insert_dev(target, g, anchor);
@@ -15361,7 +12911,7 @@ function create_if_block_2$5(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_2$5.name,
+    id: create_if_block_2$4.name,
     type: "if",
     source: "(428:2) {#if isBrushing}",
     ctx: ctx
@@ -15369,13 +12919,13 @@ function create_if_block_2$5(ctx) {
   return block;
 }
 
-function create_fragment$i(ctx) {
+function create_fragment$g(ctx) {
   var if_block_anchor;
   var if_block =
   /*height*/
   ctx[5] &&
   /*width*/
-  ctx[6] && create_if_block$9(ctx);
+  ctx[6] && create_if_block$7(ctx);
   var block = {
     c: function create() {
       if (if_block) if_block.c();
@@ -15398,7 +12948,7 @@ function create_fragment$i(ctx) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
-          if_block = create_if_block$9(ctx);
+          if_block = create_if_block$7(ctx);
           if_block.c();
           if_block.m(if_block_anchor.parentNode, if_block_anchor);
         }
@@ -15416,7 +12966,7 @@ function create_fragment$i(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_fragment$i.name,
+    id: create_fragment$g.name,
     type: "component",
     source: "",
     ctx: ctx
@@ -15424,7 +12974,7 @@ function create_fragment$i(ctx) {
   return block;
 }
 
-function instance$i($$self, $$props, $$invalidate) {
+function instance$g($$self, $$props, $$invalidate) {
   var $brush;
   var dispatch = createEventDispatcher();
   var makeMaxBarThickness = arrayMaxWith(getKey$3("barThickness"));
@@ -15775,13 +13325,13 @@ function instance$i($$self, $$props, $$invalidate) {
     if ($$self.$$.dirty[0] &
     /*flags*/
     2) {
-       $$invalidate(1, flags = flags ? _objectSpread$5(_objectSpread$5({}, defaultFlags), flags) : defaultFlags);
+       $$invalidate(1, flags = flags ? _objectSpread$4(_objectSpread$4({}, defaultFlags), flags) : defaultFlags);
     }
 
     if ($$self.$$.dirty[0] &
     /*geometry*/
     4) {
-       $$invalidate(2, geometry = geometry ? _objectSpread$5(_objectSpread$5({}, defaultGeometry), geometry) : defaultGeometry);
+       $$invalidate(2, geometry = geometry ? _objectSpread$4(_objectSpread$4({}, defaultGeometry), geometry) : defaultGeometry);
     }
 
     if ($$self.$$.dirty[0] &
@@ -15799,7 +13349,7 @@ function instance$i($$self, $$props, $$invalidate) {
     if ($$self.$$.dirty[0] &
     /*theme*/
     134217728) {
-       $$invalidate(27, theme = theme ? _objectSpread$5(_objectSpread$5({}, defaultTheme), theme) : defaultTheme);
+       $$invalidate(27, theme = theme ? _objectSpread$4(_objectSpread$4({}, defaultTheme), theme) : defaultTheme);
     }
 
     if ($$self.$$.dirty[0] &
@@ -15983,7 +13533,7 @@ function instance$i($$self, $$props, $$invalidate) {
         var labelX = flags.isRightToLeft ? x - geometry.textPadding : barLength + geometry.textPadding;
         var labelAnchor = flags.isRightToLeft ? "end" : "start";
         var fill = bin.color || (binsFill && binsFill[index] ? binsFill[index] : theme.binFill);
-        return _objectSpread$5(_objectSpread$5({}, bin), {
+        return _objectSpread$4(_objectSpread$4({}, bin), {
           barLength: barLength,
           barThickness: barThickness,
           displayValue: displayValue,
@@ -16051,7 +13601,7 @@ function instance$i($$self, $$props, $$invalidate) {
     /*brushStroke*/
     1024) {
       /* style */
-       $$invalidate(19, style = makeStyleVars(_objectSpread$5(_objectSpread$5({}, theme), {}, {
+       $$invalidate(19, style = makeStyleVars(_objectSpread$4(_objectSpread$4({}, theme), {}, {
         brushStroke: brushStroke
       })));
     }
@@ -16063,7 +13613,7 @@ function instance$i($$self, $$props, $$invalidate) {
 var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
   _inherits(HistogramG, _SvelteComponentDev);
 
-  var _super = _createSuper$i(HistogramG);
+  var _super = _createSuper$g(HistogramG);
 
   function HistogramG(options) {
     var _this;
@@ -16071,7 +13621,7 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
     _classCallCheck(this, HistogramG);
 
     _this = _super.call(this, options);
-    init(_assertThisInitialized(_this), options, instance$i, create_fragment$i, safe_not_equal, {
+    init(_assertThisInitialized(_this), options, instance$g, create_fragment$g, safe_not_equal, {
       height: 5,
       width: 6,
       bins: 0,
@@ -16087,7 +13637,7 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
       component: _assertThisInitialized(_this),
       tagName: "HistogramG",
       options: options,
-      id: create_fragment$i.name
+      id: create_fragment$g.name
     });
     var ctx = _this.$$.ctx;
     var props = options.props || {};
@@ -16240,12 +13790,12 @@ var HistogramG = /*#__PURE__*/function (_SvelteComponentDev) {
   return HistogramG;
 }(SvelteComponentDev);
 
-function _createSuper$j(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$j(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _createSuper$h(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$h(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _isNativeReflectConstruct$j() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-var file$d = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/histogram/src/HistogramDiv.svelte"; // (34:1) {#if title}
+function _isNativeReflectConstruct$h() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+var file$b = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/histogram/src/HistogramDiv.svelte"; // (34:1) {#if title}
 
-function create_if_block_1$8(ctx) {
+function create_if_block_1$6(ctx) {
   var header;
   var h2;
   var t;
@@ -16276,14 +13826,14 @@ function create_if_block_1$8(ctx) {
     },
     h: function hydrate() {
       attr_dev(h2, "class", "svelte-4i00u3");
-      add_location(h2, file$d, 35, 2, 697);
+      add_location(h2, file$b, 35, 2, 697);
       attr_dev(header, "class", "svelte-4i00u3");
       toggle_class(header, "rightToLeft",
       /*flags*/
       ctx[3] &&
       /*flags*/
       ctx[3].isRightToLeft);
-      add_location(header, file$d, 34, 1, 637);
+      add_location(header, file$b, 34, 1, 637);
     },
     m: function mount(target, anchor) {
       insert_dev(target, header, anchor);
@@ -16313,7 +13863,7 @@ function create_if_block_1$8(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_1$8.name,
+    id: create_if_block_1$6.name,
     type: "if",
     source: "(34:1) {#if title}",
     ctx: ctx
@@ -16322,7 +13872,7 @@ function create_if_block_1$8(ctx) {
 } // (48:3) {#if bins}
 
 
-function create_if_block$a(ctx) {
+function create_if_block$8(ctx) {
   var histogramg;
   var current;
   histogramg = new HistogramG({
@@ -16458,7 +14008,7 @@ function create_if_block$a(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block$a.name,
+    id: create_if_block$8.name,
     type: "if",
     source: "(48:3) {#if bins}",
     ctx: ctx
@@ -16466,7 +14016,7 @@ function create_if_block$a(ctx) {
   return block;
 }
 
-function create_fragment$j(ctx) {
+function create_fragment$h(ctx) {
   var div;
   var t;
   var main;
@@ -16475,10 +14025,10 @@ function create_fragment$j(ctx) {
   var current;
   var if_block0 =
   /*title*/
-  ctx[0] && create_if_block_1$8(ctx);
+  ctx[0] && create_if_block_1$6(ctx);
   var if_block1 =
   /*bins*/
-  ctx[1] && create_if_block$a(ctx);
+  ctx[1] && create_if_block$8(ctx);
   var block = {
     c: function create() {
       div = element("div");
@@ -16521,7 +14071,7 @@ function create_fragment$j(ctx) {
       /*height*/
       ctx[9]);
       attr_dev(svg, "class", "svelte-4i00u3");
-      add_location(svg, file$d, 43, 2, 839);
+      add_location(svg, file$b, 43, 2, 839);
       attr_dev(main, "class", "svelte-4i00u3");
       add_render_callback(function () {
         return (
@@ -16534,7 +14084,7 @@ function create_fragment$j(ctx) {
       ctx[0] &&
       /*title*/
       ctx[0].length);
-      add_location(main, file$d, 38, 1, 733);
+      add_location(main, file$b, 38, 1, 733);
       attr_dev(div, "class", "HistogramDiv svelte-4i00u3");
       attr_dev(div, "style",
       /*style*/
@@ -16544,7 +14094,7 @@ function create_fragment$j(ctx) {
       ctx[3] &&
       /*flags*/
       ctx[3].isInteractive);
-      add_location(div, file$d, 28, 0, 535);
+      add_location(div, file$b, 28, 0, 535);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -16568,7 +14118,7 @@ function create_fragment$j(ctx) {
         if (if_block0) {
           if_block0.p(ctx, dirty);
         } else {
-          if_block0 = create_if_block_1$8(ctx);
+          if_block0 = create_if_block_1$6(ctx);
           if_block0.c();
           if_block0.m(div, t);
         }
@@ -16589,7 +14139,7 @@ function create_fragment$j(ctx) {
             transition_in(if_block1, 1);
           }
         } else {
-          if_block1 = create_if_block$a(ctx);
+          if_block1 = create_if_block$8(ctx);
           if_block1.c();
           transition_in(if_block1, 1);
           if_block1.m(svg, null);
@@ -16664,7 +14214,7 @@ function create_fragment$j(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_fragment$j.name,
+    id: create_fragment$h.name,
     type: "component",
     source: "",
     ctx: ctx
@@ -16672,7 +14222,7 @@ function create_fragment$j(ctx) {
   return block;
 }
 
-function instance$j($$self, $$props, $$invalidate) {
+function instance$h($$self, $$props, $$invalidate) {
   var headerHeight = $$props.headerHeight;
   var padding = $$props.padding;
   var title = $$props.title;
@@ -16813,7 +14363,7 @@ function instance$j($$self, $$props, $$invalidate) {
 var HistogramDiv = /*#__PURE__*/function (_SvelteComponentDev) {
   _inherits(HistogramDiv, _SvelteComponentDev);
 
-  var _super = _createSuper$j(HistogramDiv);
+  var _super = _createSuper$h(HistogramDiv);
 
   function HistogramDiv(options) {
     var _this;
@@ -16821,7 +14371,7 @@ var HistogramDiv = /*#__PURE__*/function (_SvelteComponentDev) {
     _classCallCheck(this, HistogramDiv);
 
     _this = _super.call(this, options);
-    init(_assertThisInitialized(_this), options, instance$j, create_fragment$j, safe_not_equal, {
+    init(_assertThisInitialized(_this), options, instance$h, create_fragment$h, safe_not_equal, {
       headerHeight: 12,
       padding: 13,
       title: 0,
@@ -16838,7 +14388,7 @@ var HistogramDiv = /*#__PURE__*/function (_SvelteComponentDev) {
       component: _assertThisInitialized(_this),
       tagName: "HistogramDiv",
       options: options,
-      id: create_fragment$j.name
+      id: create_fragment$h.name
     });
     var ctx = _this.$$.ctx;
     var props = options.props || {};
@@ -17024,19 +14574,3458 @@ var histogram = /*#__PURE__*/Object.freeze({
 	getNonEmptyBinsTicks: getNonEmptyBinsTicks
 });
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function _createSuper$i(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$i(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var components = _objectSpread$6(_objectSpread$6(_objectSpread$6(_objectSpread$6({}, barchart), choropleth), histogram), legend);
+function _isNativeReflectConstruct$i() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var file$c = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/legend/src/ColorBinsG.svelte";
+
+function get_each_context$6(ctx, list, i) {
+  var child_ctx = ctx.slice();
+  child_ctx[48] = list[i].label;
+  child_ctx[49] = list[i].x;
+  child_ctx[50] = list[i].y;
+  return child_ctx;
+}
+
+function get_each_context_1$2(ctx, list, i) {
+  var child_ctx = ctx.slice();
+  child_ctx[53] = list[i].barWidth;
+  child_ctx[54] = list[i].barHeight;
+  child_ctx[55] = list[i].fill;
+  child_ctx[56] = list[i].selected;
+  child_ctx[49] = list[i].x;
+  child_ctx[50] = list[i].y;
+  child_ctx[58] = i;
+  return child_ctx;
+} // (298:0) {#if height && width}
+
+
+function create_if_block$9(ctx) {
+  var g;
+
+  function select_block_type(ctx, dirty) {
+    if (
+    /*bins*/
+    ctx[0].length === 0) return create_if_block_1$7;
+    return create_else_block$4;
+  }
+
+  var current_block_type = select_block_type(ctx);
+  var if_block = current_block_type(ctx);
+  var block = {
+    c: function create() {
+      g = svg_element("g");
+      if_block.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      g = claim_element(nodes, "g", {
+        style: true,
+        class: true
+      }, 1);
+      var g_nodes = children(g);
+      if_block.l(g_nodes);
+      g_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(g, "style",
+      /*style*/
+      ctx[15]);
+      attr_dev(g, "class", "ColorBinsG svelte-19g5ym1");
+      toggle_class(g, "interactive",
+      /*flags*/
+      ctx[1].isInteractive);
+      add_location(g, file$c, 298, 0, 7130);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, g, anchor);
+      if_block.m(g, null);
+    },
+    p: function update(ctx, dirty) {
+      if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+        if_block.p(ctx, dirty);
+      } else {
+        if_block.d(1);
+        if_block = current_block_type(ctx);
+
+        if (if_block) {
+          if_block.c();
+          if_block.m(g, null);
+        }
+      }
+
+      if (dirty[0] &
+      /*style*/
+      32768) {
+        attr_dev(g, "style",
+        /*style*/
+        ctx[15]);
+      }
+
+      if (dirty[0] &
+      /*flags*/
+      2) {
+        toggle_class(g, "interactive",
+        /*flags*/
+        ctx[1].isInteractive);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(g);
+      if_block.d();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block$9.name,
+    type: "if",
+    source: "(298:0) {#if height && width}",
+    ctx: ctx
+  });
+  return block;
+} // (312:1) {:else}
+
+
+function create_else_block$4(ctx) {
+  var if_block0_anchor;
+  var g1;
+  var g0;
+  var rect;
+  var rect_height_value;
+  var rect_width_value;
+  var if_block2_anchor;
+  var g1_transform_value;
+  var mounted;
+  var dispose;
+  var if_block0 =
+  /*flags*/
+  ctx[1].withBackground && create_if_block_7$1(ctx);
+  var if_block1 =
+  /*flags*/
+  ctx[1].isInteractive && create_if_block_6$1(ctx);
+  var each_value_1 =
+  /*bars*/
+  ctx[11];
+  validate_each_argument(each_value_1);
+  var each_blocks = [];
+
+  for (var i = 0; i < each_value_1.length; i += 1) {
+    each_blocks[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
+  }
+
+  var if_block2 =
+  /*flags*/
+  ctx[1].showTicks && create_if_block_4$2(ctx);
+  var if_block3 =
+  /*isBrushing*/
+  ctx[13] && create_if_block_2$5(ctx);
+  var block = {
+    c: function create() {
+      if (if_block0) if_block0.c();
+      if_block0_anchor = empty();
+      if (if_block1) if_block1.c();
+      g1 = svg_element("g");
+      g0 = svg_element("g");
+      rect = svg_element("rect");
+
+      for (var _i = 0; _i < each_blocks.length; _i += 1) {
+        each_blocks[_i].c();
+      }
+
+      if (if_block2) if_block2.c();
+      if_block2_anchor = empty();
+      if (if_block3) if_block3.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      if (if_block0) if_block0.l(nodes);
+      if_block0_anchor = empty();
+      if (if_block1) if_block1.l(nodes);
+      g1 = claim_element(nodes, "g", {
+        transform: true
+      }, 1);
+      var g1_nodes = children(g1);
+      g0 = claim_element(g1_nodes, "g", {
+        class: true
+      }, 1);
+      var g0_nodes = children(g0);
+      rect = claim_element(g0_nodes, "rect", {
+        class: true,
+        height: true,
+        width: true
+      }, 1);
+      children(rect).forEach(detach_dev);
+
+      for (var _i2 = 0; _i2 < each_blocks.length; _i2 += 1) {
+        each_blocks[_i2].l(g0_nodes);
+      }
+
+      g0_nodes.forEach(detach_dev);
+      if (if_block2) if_block2.l(g1_nodes);
+      if_block2_anchor = empty();
+      if (if_block3) if_block3.l(g1_nodes);
+      g1_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(rect, "class", "barsSensorBkg svelte-19g5ym1");
+      attr_dev(rect, "height", rect_height_value =
+      /*binsSize*/
+      ctx[10].height);
+      attr_dev(rect, "width", rect_width_value =
+      /*binsSize*/
+      ctx[10].width);
+      add_location(rect, file$c, 336, 4, 7760);
+      attr_dev(g0, "class", "bars");
+      add_location(g0, file$c, 332, 3, 7700);
+      attr_dev(g1, "transform", g1_transform_value = "translate(" +
+      /*origin*/
+      ctx[9].x + "," +
+      /*origin*/
+      ctx[9].y + ")");
+      add_location(g1, file$c, 329, 2, 7630);
+    },
+    m: function mount(target, anchor) {
+      if (if_block0) if_block0.m(target, anchor);
+      insert_dev(target, if_block0_anchor, anchor);
+      if (if_block1) if_block1.m(target, anchor);
+      insert_dev(target, g1, anchor);
+      append_dev(g1, g0);
+      append_dev(g0, rect);
+
+      for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
+        each_blocks[_i3].m(g0, null);
+      }
+
+      if (if_block2) if_block2.m(g1, null);
+      append_dev(g1, if_block2_anchor);
+      if (if_block3) if_block3.m(g1, null);
+
+      if (!mounted) {
+        dispose = listen_dev(g0, "mouseleave",
+        /*resetBrush*/
+        ctx[22], false, false, false);
+        mounted = true;
+      }
+    },
+    p: function update(ctx, dirty) {
+      if (
+      /*flags*/
+      ctx[1].withBackground) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+        } else {
+          if_block0 = create_if_block_7$1(ctx);
+          if_block0.c();
+          if_block0.m(if_block0_anchor.parentNode, if_block0_anchor);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+
+      if (
+      /*flags*/
+      ctx[1].isInteractive) {
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
+        } else {
+          if_block1 = create_if_block_6$1(ctx);
+          if_block1.c();
+          if_block1.m(g1.parentNode, g1);
+        }
+      } else if (if_block1) {
+        if_block1.d(1);
+        if_block1 = null;
+      }
+
+      if (dirty[0] &
+      /*binsSize*/
+      1024 && rect_height_value !== (rect_height_value =
+      /*binsSize*/
+      ctx[10].height)) {
+        attr_dev(rect, "height", rect_height_value);
+      }
+
+      if (dirty[0] &
+      /*binsSize*/
+      1024 && rect_width_value !== (rect_width_value =
+      /*binsSize*/
+      ctx[10].width)) {
+        attr_dev(rect, "width", rect_width_value);
+      }
+
+      if (dirty[0] &
+      /*bars, onMousedown, onMouseenter, onMouseleave, isMousedown, onMousemove, onMouseup, flags*/
+      4065538) {
+        each_value_1 =
+        /*bars*/
+        ctx[11];
+        validate_each_argument(each_value_1);
+
+        var _i4;
+
+        for (_i4 = 0; _i4 < each_value_1.length; _i4 += 1) {
+          var child_ctx = get_each_context_1$2(ctx, each_value_1, _i4);
+
+          if (each_blocks[_i4]) {
+            each_blocks[_i4].p(child_ctx, dirty);
+          } else {
+            each_blocks[_i4] = create_each_block_1$2(child_ctx);
+
+            each_blocks[_i4].c();
+
+            each_blocks[_i4].m(g0, null);
+          }
+        }
+
+        for (; _i4 < each_blocks.length; _i4 += 1) {
+          each_blocks[_i4].d(1);
+        }
+
+        each_blocks.length = each_value_1.length;
+      }
+
+      if (
+      /*flags*/
+      ctx[1].showTicks) {
+        if (if_block2) {
+          if_block2.p(ctx, dirty);
+        } else {
+          if_block2 = create_if_block_4$2(ctx);
+          if_block2.c();
+          if_block2.m(g1, if_block2_anchor);
+        }
+      } else if (if_block2) {
+        if_block2.d(1);
+        if_block2 = null;
+      }
+
+      if (
+      /*isBrushing*/
+      ctx[13]) {
+        if (if_block3) {
+          if_block3.p(ctx, dirty);
+        } else {
+          if_block3 = create_if_block_2$5(ctx);
+          if_block3.c();
+          if_block3.m(g1, null);
+        }
+      } else if (if_block3) {
+        if_block3.d(1);
+        if_block3 = null;
+      }
+
+      if (dirty[0] &
+      /*origin*/
+      512 && g1_transform_value !== (g1_transform_value = "translate(" +
+      /*origin*/
+      ctx[9].x + "," +
+      /*origin*/
+      ctx[9].y + ")")) {
+        attr_dev(g1, "transform", g1_transform_value);
+      }
+    },
+    d: function destroy(detaching) {
+      if (if_block0) if_block0.d(detaching);
+      if (detaching) detach_dev(if_block0_anchor);
+      if (if_block1) if_block1.d(detaching);
+      if (detaching) detach_dev(g1);
+      destroy_each(each_blocks, detaching);
+      if (if_block2) if_block2.d();
+      if (if_block3) if_block3.d();
+      mounted = false;
+      dispose();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_else_block$4.name,
+    type: "else",
+    source: "(312:1) {:else}",
+    ctx: ctx
+  });
+  return block;
+} // (304:1) {#if bins.length === 0}
+
+
+function create_if_block_1$7(ctx) {
+  var text_1;
+  var t;
+  var text_1_x_value;
+  var text_1_y_value;
+  var block = {
+    c: function create() {
+      text_1 = svg_element("text");
+      t = text(
+      /*message*/
+      ctx[3]);
+      this.h();
+    },
+    l: function claim(nodes) {
+      text_1 = claim_element(nodes, "text", {
+        class: true,
+        x: true,
+        y: true
+      }, 1);
+      var text_1_nodes = children(text_1);
+      t = claim_text(text_1_nodes,
+      /*message*/
+      ctx[3]);
+      text_1_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(text_1, "class", "message svelte-19g5ym1");
+      attr_dev(text_1, "x", text_1_x_value =
+      /*width*/
+      ctx[7] / 2);
+      attr_dev(text_1, "y", text_1_y_value =
+      /*height*/
+      ctx[6] / 2);
+      add_location(text_1, file$c, 305, 2, 7233);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, text_1, anchor);
+      append_dev(text_1, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*message*/
+      8) set_data_dev(t,
+      /*message*/
+      ctx[3]);
+
+      if (dirty[0] &
+      /*width*/
+      128 && text_1_x_value !== (text_1_x_value =
+      /*width*/
+      ctx[7] / 2)) {
+        attr_dev(text_1, "x", text_1_x_value);
+      }
+
+      if (dirty[0] &
+      /*height*/
+      64 && text_1_y_value !== (text_1_y_value =
+      /*height*/
+      ctx[6] / 2)) {
+        attr_dev(text_1, "y", text_1_y_value);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(text_1);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_1$7.name,
+    type: "if",
+    source: "(304:1) {#if bins.length === 0}",
+    ctx: ctx
+  });
+  return block;
+} // (315:2) {#if flags.withBackground}
+
+
+function create_if_block_7$1(ctx) {
+  var rect;
+  var block = {
+    c: function create() {
+      rect = svg_element("rect");
+      this.h();
+    },
+    l: function claim(nodes) {
+      rect = claim_element(nodes, "rect", {
+        class: true,
+        width: true,
+        height: true
+      }, 1);
+      children(rect).forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(rect, "class", "bkg svelte-19g5ym1");
+      attr_dev(rect, "width",
+      /*width*/
+      ctx[7]);
+      attr_dev(rect, "height",
+      /*height*/
+      ctx[6]);
+      add_location(rect, file$c, 315, 3, 7374);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, rect, anchor);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*width*/
+      128) {
+        attr_dev(rect, "width",
+        /*width*/
+        ctx[7]);
+      }
+
+      if (dirty[0] &
+      /*height*/
+      64) {
+        attr_dev(rect, "height",
+        /*height*/
+        ctx[6]);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(rect);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_7$1.name,
+    type: "if",
+    source: "(315:2) {#if flags.withBackground}",
+    ctx: ctx
+  });
+  return block;
+} // (320:2) {#if flags.isInteractive}
+
+
+function create_if_block_6$1(ctx) {
+  var rect;
+  var mounted;
+  var dispose;
+  var block = {
+    c: function create() {
+      rect = svg_element("rect");
+      this.h();
+    },
+    l: function claim(nodes) {
+      rect = claim_element(nodes, "rect", {
+        height: true,
+        width: true,
+        class: true
+      }, 1);
+      children(rect).forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(rect, "height",
+      /*height*/
+      ctx[6]);
+      attr_dev(rect, "width",
+      /*width*/
+      ctx[7]);
+      attr_dev(rect, "class", "bkgSensor svelte-19g5ym1");
+      toggle_class(rect, "reset",
+      /*selectedBins*/
+      ctx[4].length > 0);
+      add_location(rect, file$c, 320, 2, 7494);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, rect, anchor);
+
+      if (!mounted) {
+        dispose = listen_dev(rect, "click",
+        /*resetSelection*/
+        ctx[23], false, false, false);
+        mounted = true;
+      }
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*height*/
+      64) {
+        attr_dev(rect, "height",
+        /*height*/
+        ctx[6]);
+      }
+
+      if (dirty[0] &
+      /*width*/
+      128) {
+        attr_dev(rect, "width",
+        /*width*/
+        ctx[7]);
+      }
+
+      if (dirty[0] &
+      /*selectedBins*/
+      16) {
+        toggle_class(rect, "reset",
+        /*selectedBins*/
+        ctx[4].length > 0);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(rect);
+      mounted = false;
+      dispose();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_6$1.name,
+    type: "if",
+    source: "(320:2) {#if flags.isInteractive}",
+    ctx: ctx
+  });
+  return block;
+} // (361:5) {#if flags.isInteractive}
+
+
+function create_if_block_5$1(ctx) {
+  var rect;
+  var rect_height_value;
+  var rect_width_value;
+  var mounted;
+  var dispose;
+  var block = {
+    c: function create() {
+      rect = svg_element("rect");
+      this.h();
+    },
+    l: function claim(nodes) {
+      rect = claim_element(nodes, "rect", {
+        class: true,
+        height: true,
+        width: true
+      }, 1);
+      children(rect).forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(rect, "class", "rectsensor svelte-19g5ym1");
+      attr_dev(rect, "height", rect_height_value =
+      /*barHeight*/
+      ctx[54]);
+      attr_dev(rect, "width", rect_width_value =
+      /*barWidth*/
+      ctx[53]);
+      add_location(rect, file$c, 361, 5, 8169);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, rect, anchor);
+
+      if (!mounted) {
+        dispose = [listen_dev(rect, "mousedown",
+        /*onMousedown*/
+        ctx[18], false, false, false), listen_dev(rect, "mouseover",
+        /*onMouseenter*/
+        ctx[17](
+        /*index*/
+        ctx[58]), false, false, false), listen_dev(rect, "mouseout",
+        /*onMouseleave*/
+        ctx[21](
+        /*index*/
+        ctx[58]), false, false, false), listen_dev(rect, "mousemove", function () {
+          if (is_function(
+          /*isMousedown*/
+          ctx[8] ?
+          /*onMousemove*/
+          ctx[19](
+          /*index*/
+          ctx[58]) : null)) (
+          /*isMousedown*/
+          ctx[8] ?
+          /*onMousemove*/
+          ctx[19](
+          /*index*/
+          ctx[58]) : null).apply(this, arguments);
+        }, false, false, false), listen_dev(rect, "mouseup",
+        /*onMouseup*/
+        ctx[20](
+        /*index*/
+        ctx[58]), false, false, false)];
+        mounted = true;
+      }
+    },
+    p: function update(new_ctx, dirty) {
+      ctx = new_ctx;
+
+      if (dirty[0] &
+      /*bars*/
+      2048 && rect_height_value !== (rect_height_value =
+      /*barHeight*/
+      ctx[54])) {
+        attr_dev(rect, "height", rect_height_value);
+      }
+
+      if (dirty[0] &
+      /*bars*/
+      2048 && rect_width_value !== (rect_width_value =
+      /*barWidth*/
+      ctx[53])) {
+        attr_dev(rect, "width", rect_width_value);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(rect);
+      mounted = false;
+      run_all(dispose);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_5$1.name,
+    type: "if",
+    source: "(361:5) {#if flags.isInteractive}",
+    ctx: ctx
+  });
+  return block;
+} // (343:4) {#each bars as {      barWidth,      barHeight,      fill,      selected,      x,      y     }
+
+
+function create_each_block_1$2(ctx) {
+  var g;
+  var rect;
+  var rect_fill_value;
+  var rect_height_value;
+  var rect_width_value;
+  var g_transform_value;
+  var if_block =
+  /*flags*/
+  ctx[1].isInteractive && create_if_block_5$1(ctx);
+  var block = {
+    c: function create() {
+      g = svg_element("g");
+      rect = svg_element("rect");
+      if (if_block) if_block.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      g = claim_element(nodes, "g", {
+        class: true,
+        transform: true
+      }, 1);
+      var g_nodes = children(g);
+      rect = claim_element(g_nodes, "rect", {
+        fill: true,
+        height: true,
+        width: true,
+        class: true
+      }, 1);
+      children(rect).forEach(detach_dev);
+      if (if_block) if_block.l(g_nodes);
+      g_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(rect, "fill", rect_fill_value =
+      /*fill*/
+      ctx[55]);
+      attr_dev(rect, "height", rect_height_value =
+      /*barHeight*/
+      ctx[54]);
+      attr_dev(rect, "width", rect_width_value =
+      /*barWidth*/
+      ctx[53]);
+      attr_dev(rect, "class", "svelte-19g5ym1");
+      toggle_class(rect, "selected",
+      /*selected*/
+      ctx[56]);
+      add_location(rect, file$c, 354, 5, 8037);
+      attr_dev(g, "class", "bar svelte-19g5ym1");
+      attr_dev(g, "transform", g_transform_value = "translate(" +
+      /*x*/
+      ctx[49] + "," +
+      /*y*/
+      ctx[50] + ")");
+      add_location(g, file$c, 350, 4, 7970);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, g, anchor);
+      append_dev(g, rect);
+      if (if_block) if_block.m(g, null);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*bars*/
+      2048 && rect_fill_value !== (rect_fill_value =
+      /*fill*/
+      ctx[55])) {
+        attr_dev(rect, "fill", rect_fill_value);
+      }
+
+      if (dirty[0] &
+      /*bars*/
+      2048 && rect_height_value !== (rect_height_value =
+      /*barHeight*/
+      ctx[54])) {
+        attr_dev(rect, "height", rect_height_value);
+      }
+
+      if (dirty[0] &
+      /*bars*/
+      2048 && rect_width_value !== (rect_width_value =
+      /*barWidth*/
+      ctx[53])) {
+        attr_dev(rect, "width", rect_width_value);
+      }
+
+      if (dirty[0] &
+      /*bars*/
+      2048) {
+        toggle_class(rect, "selected",
+        /*selected*/
+        ctx[56]);
+      }
+
+      if (
+      /*flags*/
+      ctx[1].isInteractive) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block_5$1(ctx);
+          if_block.c();
+          if_block.m(g, null);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+
+      if (dirty[0] &
+      /*bars*/
+      2048 && g_transform_value !== (g_transform_value = "translate(" +
+      /*x*/
+      ctx[49] + "," +
+      /*y*/
+      ctx[50] + ")")) {
+        attr_dev(g, "transform", g_transform_value);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(g);
+      if (if_block) if_block.d();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_each_block_1$2.name,
+    type: "each",
+    source: "(343:4) {#each bars as {      barWidth,      barHeight,      fill,      selected,      x,      y     }",
+    ctx: ctx
+  });
+  return block;
+} // (378:3) {#if flags.showTicks}
+
+
+function create_if_block_4$2(ctx) {
+  var g;
+  var g_font_size_value;
+  var each_value =
+  /*ticks*/
+  ctx[12];
+  validate_each_argument(each_value);
+  var each_blocks = [];
+
+  for (var i = 0; i < each_value.length; i += 1) {
+    each_blocks[i] = create_each_block$6(get_each_context$6(ctx, each_value, i));
+  }
+
+  var block = {
+    c: function create() {
+      g = svg_element("g");
+
+      for (var _i5 = 0; _i5 < each_blocks.length; _i5 += 1) {
+        each_blocks[_i5].c();
+      }
+
+      this.h();
+    },
+    l: function claim(nodes) {
+      g = claim_element(nodes, "g", {
+        class: true,
+        "font-size": true
+      }, 1);
+      var g_nodes = children(g);
+
+      for (var _i6 = 0; _i6 < each_blocks.length; _i6 += 1) {
+        each_blocks[_i6].l(g_nodes);
+      }
+
+      g_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(g, "class", "ticks svelte-19g5ym1");
+      attr_dev(g, "font-size", g_font_size_value =
+      /*theme*/
+      ctx[5].fontSize);
+      toggle_class(g, "vertical",
+      /*flags*/
+      ctx[1].isVertical);
+      add_location(g, file$c, 378, 3, 8554);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, g, anchor);
+
+      for (var _i7 = 0; _i7 < each_blocks.length; _i7 += 1) {
+        each_blocks[_i7].m(g, null);
+      }
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*ticks*/
+      4096) {
+        each_value =
+        /*ticks*/
+        ctx[12];
+        validate_each_argument(each_value);
+
+        var _i8;
+
+        for (_i8 = 0; _i8 < each_value.length; _i8 += 1) {
+          var child_ctx = get_each_context$6(ctx, each_value, _i8);
+
+          if (each_blocks[_i8]) {
+            each_blocks[_i8].p(child_ctx, dirty);
+          } else {
+            each_blocks[_i8] = create_each_block$6(child_ctx);
+
+            each_blocks[_i8].c();
+
+            each_blocks[_i8].m(g, null);
+          }
+        }
+
+        for (; _i8 < each_blocks.length; _i8 += 1) {
+          each_blocks[_i8].d(1);
+        }
+
+        each_blocks.length = each_value.length;
+      }
+
+      if (dirty[0] &
+      /*theme*/
+      32 && g_font_size_value !== (g_font_size_value =
+      /*theme*/
+      ctx[5].fontSize)) {
+        attr_dev(g, "font-size", g_font_size_value);
+      }
+
+      if (dirty[0] &
+      /*flags*/
+      2) {
+        toggle_class(g, "vertical",
+        /*flags*/
+        ctx[1].isVertical);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(g);
+      destroy_each(each_blocks, detaching);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_4$2.name,
+    type: "if",
+    source: "(378:3) {#if flags.showTicks}",
+    ctx: ctx
+  });
+  return block;
+} // (384:4) {#each ticks as {label, x, y}}
+
+
+function create_each_block$6(ctx) {
+  var text_1;
+  var t_value =
+  /*label*/
+  ctx[48] + "";
+  var t;
+  var text_1_x_value;
+  var text_1_y_value;
+  var block = {
+    c: function create() {
+      text_1 = svg_element("text");
+      t = text(t_value);
+      this.h();
+    },
+    l: function claim(nodes) {
+      text_1 = claim_element(nodes, "text", {
+        x: true,
+        y: true,
+        class: true
+      }, 1);
+      var text_1_nodes = children(text_1);
+      t = claim_text(text_1_nodes, t_value);
+      text_1_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(text_1, "x", text_1_x_value =
+      /*x*/
+      ctx[49]);
+      attr_dev(text_1, "y", text_1_y_value =
+      /*y*/
+      ctx[50]);
+      attr_dev(text_1, "class", "svelte-19g5ym1");
+      add_location(text_1, file$c, 384, 4, 8688);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, text_1, anchor);
+      append_dev(text_1, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*ticks*/
+      4096 && t_value !== (t_value =
+      /*label*/
+      ctx[48] + "")) set_data_dev(t, t_value);
+
+      if (dirty[0] &
+      /*ticks*/
+      4096 && text_1_x_value !== (text_1_x_value =
+      /*x*/
+      ctx[49])) {
+        attr_dev(text_1, "x", text_1_x_value);
+      }
+
+      if (dirty[0] &
+      /*ticks*/
+      4096 && text_1_y_value !== (text_1_y_value =
+      /*y*/
+      ctx[50])) {
+        attr_dev(text_1, "y", text_1_y_value);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(text_1);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_each_block$6.name,
+    type: "each",
+    source: "(384:4) {#each ticks as {label, x, y}}",
+    ctx: ctx
+  });
+  return block;
+} // (391:3) {#if isBrushing}
+
+
+function create_if_block_2$5(ctx) {
+  var g;
+
+  function select_block_type_1(ctx, dirty) {
+    if (
+    /*flags*/
+    ctx[1].isVertical) return create_if_block_3$3;
+    return create_else_block_1;
+  }
+
+  var current_block_type = select_block_type_1(ctx);
+  var if_block = current_block_type(ctx);
+  var block = {
+    c: function create() {
+      g = svg_element("g");
+      if_block.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      g = claim_element(nodes, "g", {
+        class: true
+      }, 1);
+      var g_nodes = children(g);
+      if_block.l(g_nodes);
+      g_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(g, "class", "brush svelte-19g5ym1");
+      add_location(g, file$c, 391, 3, 8788);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, g, anchor);
+      if_block.m(g, null);
+    },
+    p: function update(ctx, dirty) {
+      if (current_block_type === (current_block_type = select_block_type_1(ctx)) && if_block) {
+        if_block.p(ctx, dirty);
+      } else {
+        if_block.d(1);
+        if_block = current_block_type(ctx);
+
+        if (if_block) {
+          if_block.c();
+          if_block.m(g, null);
+        }
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(g);
+      if_block.d();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_2$5.name,
+    type: "if",
+    source: "(391:3) {#if isBrushing}",
+    ctx: ctx
+  });
+  return block;
+} // (400:4) {:else}
+
+
+function create_else_block_1(ctx) {
+  var line;
+  var line_x__value;
+  var line_x__value_1;
+  var line_y__value;
+  var line_y__value_1;
+  var block = {
+    c: function create() {
+      line = svg_element("line");
+      this.h();
+    },
+    l: function claim(nodes) {
+      line = claim_element(nodes, "line", {
+        x1: true,
+        x2: true,
+        y1: true,
+        y2: true,
+        class: true
+      }, 1);
+      children(line).forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(line, "x1", line_x__value =
+      /*brushLine*/
+      ctx[14].p1);
+      attr_dev(line, "x2", line_x__value_1 =
+      /*brushLine*/
+      ctx[14].p2);
+      attr_dev(line, "y1", line_y__value =
+      /*geometry*/
+      ctx[2].barThickness);
+      attr_dev(line, "y2", line_y__value_1 =
+      /*geometry*/
+      ctx[2].barThickness);
+      attr_dev(line, "class", "svelte-19g5ym1");
+      add_location(line, file$c, 400, 4, 8920);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, line, anchor);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*brushLine*/
+      16384 && line_x__value !== (line_x__value =
+      /*brushLine*/
+      ctx[14].p1)) {
+        attr_dev(line, "x1", line_x__value);
+      }
+
+      if (dirty[0] &
+      /*brushLine*/
+      16384 && line_x__value_1 !== (line_x__value_1 =
+      /*brushLine*/
+      ctx[14].p2)) {
+        attr_dev(line, "x2", line_x__value_1);
+      }
+
+      if (dirty[0] &
+      /*geometry*/
+      4 && line_y__value !== (line_y__value =
+      /*geometry*/
+      ctx[2].barThickness)) {
+        attr_dev(line, "y1", line_y__value);
+      }
+
+      if (dirty[0] &
+      /*geometry*/
+      4 && line_y__value_1 !== (line_y__value_1 =
+      /*geometry*/
+      ctx[2].barThickness)) {
+        attr_dev(line, "y2", line_y__value_1);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(line);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_else_block_1.name,
+    type: "else",
+    source: "(400:4) {:else}",
+    ctx: ctx
+  });
+  return block;
+} // (395:4) {#if flags.isVertical}
+
+
+function create_if_block_3$3(ctx) {
+  var line;
+  var line_y__value;
+  var line_y__value_1;
+  var block = {
+    c: function create() {
+      line = svg_element("line");
+      this.h();
+    },
+    l: function claim(nodes) {
+      line = claim_element(nodes, "line", {
+        y1: true,
+        y2: true,
+        class: true
+      }, 1);
+      children(line).forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(line, "y1", line_y__value =
+      /*brushLine*/
+      ctx[14].p1);
+      attr_dev(line, "y2", line_y__value_1 =
+      /*brushLine*/
+      ctx[14].p2);
+      attr_dev(line, "class", "svelte-19g5ym1");
+      add_location(line, file$c, 395, 4, 8845);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, line, anchor);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty[0] &
+      /*brushLine*/
+      16384 && line_y__value !== (line_y__value =
+      /*brushLine*/
+      ctx[14].p1)) {
+        attr_dev(line, "y1", line_y__value);
+      }
+
+      if (dirty[0] &
+      /*brushLine*/
+      16384 && line_y__value_1 !== (line_y__value_1 =
+      /*brushLine*/
+      ctx[14].p2)) {
+        attr_dev(line, "y2", line_y__value_1);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(line);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_3$3.name,
+    type: "if",
+    source: "(395:4) {#if flags.isVertical}",
+    ctx: ctx
+  });
+  return block;
+}
+
+function create_fragment$i(ctx) {
+  var if_block_anchor;
+  var if_block =
+  /*height*/
+  ctx[6] &&
+  /*width*/
+  ctx[7] && create_if_block$9(ctx);
+  var block = {
+    c: function create() {
+      if (if_block) if_block.c();
+      if_block_anchor = empty();
+    },
+    l: function claim(nodes) {
+      if (if_block) if_block.l(nodes);
+      if_block_anchor = empty();
+    },
+    m: function mount(target, anchor) {
+      if (if_block) if_block.m(target, anchor);
+      insert_dev(target, if_block_anchor, anchor);
+    },
+    p: function update(ctx, dirty) {
+      if (
+      /*height*/
+      ctx[6] &&
+      /*width*/
+      ctx[7]) {
+        if (if_block) {
+          if_block.p(ctx, dirty);
+        } else {
+          if_block = create_if_block$9(ctx);
+          if_block.c();
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+    },
+    i: noop$1,
+    o: noop$1,
+    d: function destroy(detaching) {
+      if (if_block) if_block.d(detaching);
+      if (detaching) detach_dev(if_block_anchor);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_fragment$i.name,
+    type: "component",
+    source: "",
+    ctx: ctx
+  });
+  return block;
+}
+
+function instance$i($$self, $$props, $$invalidate) {
+  var $brush;
+  var dispatch = createEventDispatcher();
+  var defaultFlags = {
+    isInteractive: false,
+    isVertical: false,
+    showTicks: true,
+    withBackground: false
+  };
+  var defaultGeometry = {
+    barThickness: 25,
+    bottom: 10,
+    brushThreshold: 10,
+    // pixels to trigger brushing
+    left: 10,
+    right: 10,
+    gap: 2,
+    textPadding: 5,
+    top: 10
+  };
+  var defaultTheme = {
+    backgroundColor: "white",
+    backgroundOpacity: 1,
+    binFill: "white",
+    binStroke: null,
+    // null for no stroke, or a color string
+    binStrokeWidth: 1,
+    // ineffective for binStroke: null
+    brushAddStroke: "rgb(107,248,134)",
+    brushRemoveStroke: "rgb(246,97,20)",
+    brushStrokeOpacity: 0.8,
+    brushStrokeWidth: 8,
+    fontSize: 12,
+    messageColor: "black",
+    messageFontSize: "1rem",
+    selectedBinStroke: "black",
+    selectedBinStrokeWidth: 2,
+    textColor: "black"
+  };
+  var height = $$props.height;
+  var width = $$props.width;
+  var bins = $$props.bins; // {range: [number, number], color: string}[]
+
+  var flags = $$props.flags;
+  var geometry = $$props.geometry;
+  var message = $$props.message;
+  var selectedBins = $$props.selectedBins;
+  var theme = $$props.theme;
+  var ticksFormatFn = $$props.ticksFormatFn;
+  /* brushing */
+
+  var isMousedown = false;
+  var brushOff = {
+    delta: 0,
+    end: null,
+    origin: {
+      x: null,
+      y: null
+    },
+    start: null,
+    modifier: null,
+    state: "Off"
+  };
+  var brush = writable(brushOff);
+  validate_store(brush, "brush");
+  component_subscribe($$self, brush, function (value) {
+    return $$invalidate(34, $brush = value);
+  });
+  /* events */
+
+  var getModifier = function getModifier(event) {
+    return event.shiftKey ? "shift" : event.altKey ? "alt" : null;
+  };
+
+  var onMouseenter = function onMouseenter(index) {
+    return function () {
+      if (isBrushing) {
+        brush.update(mergeObj({
+          end: index
+        }));
+      }
+
+      dispatch("entered", index);
+    };
+  };
+
+  var onMousedown = function onMousedown(event) {
+    $$invalidate(8, isMousedown = true);
+    brush.set({
+      delta: 0,
+      modifier: getModifier(event),
+      origin: {
+        x: event.offsetX,
+        y: event.offsetY
+      },
+      state: "Pressed"
+    });
+  };
+
+  var onMousemove = function onMousemove(index) {
+    return function (event) {
+      if (isPressed) {
+        var delta = vectorLength2D(event.offsetX - $brush.origin.x, event.offsetY - $brush.origin.y);
+
+        if (delta > geometry.brushThreshold) {
+          brush.update(mergeObj({
+            end: index,
+            start: index,
+            state: "Brushing"
+          }));
+          dispatch("brushstart", index);
+        } else {
+          brush.update(mergeObj({
+            delta: delta
+          }));
+        }
+      }
+    };
+  };
+
+  var onMouseup = function onMouseup(index) {
+    return function () {
+      $$invalidate(8, isMousedown = false);
+
+      if (isPressed) {
+        if ($brush.delta < geometry.brushThreshold) {
+          if (doesBrushAdd) {
+            $$invalidate(4, selectedBins = uniques(appendTo(selectedBins, index)));
+          } else if (doesBrushRemove) {
+            $$invalidate(4, selectedBins = pullFrom(selectedBins, [index]));
+          } else {
+            $$invalidate(4, selectedBins = [index]);
+          }
+
+          dispatch("clicked", {
+            index: index,
+            selectedBins: selectedBins
+          });
+        }
+      } else if (isBrushing) {
+        dispatch("brushend", index);
+      }
+
+      brush.set(brushOff);
+    };
+  };
+
+  var onMouseleave = function onMouseleave(index) {
+    return function () {
+      dispatch("exited", index);
+    };
+  };
+
+  var resetBrush = function resetBrush() {
+    brush.set(brushOff);
+  };
+
+  var resetSelection = function resetSelection() {
+    $$invalidate(4, selectedBins = []);
+    dispatch("clicked", {
+      selectedBins: selectedBins
+    });
+  };
+
+  var writable_props = ["height", "width", "bins", "flags", "geometry", "message", "selectedBins", "theme", "ticksFormatFn"];
+  Object.keys($$props).forEach(function (key) {
+    if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<ColorBinsG> was created with unknown prop '".concat(key, "'"));
+  });
+  var _$$props$$$slots = $$props.$$slots,
+      $$slots = _$$props$$$slots === void 0 ? {} : _$$props$$$slots,
+      $$scope = $$props.$$scope;
+  validate_slots("ColorBinsG", $$slots, []);
+
+  $$self.$set = function ($$props) {
+    if ("height" in $$props) $$invalidate(6, height = $$props.height);
+    if ("width" in $$props) $$invalidate(7, width = $$props.width);
+    if ("bins" in $$props) $$invalidate(0, bins = $$props.bins);
+    if ("flags" in $$props) $$invalidate(1, flags = $$props.flags);
+    if ("geometry" in $$props) $$invalidate(2, geometry = $$props.geometry);
+    if ("message" in $$props) $$invalidate(3, message = $$props.message);
+    if ("selectedBins" in $$props) $$invalidate(4, selectedBins = $$props.selectedBins);
+    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
+    if ("ticksFormatFn" in $$props) $$invalidate(24, ticksFormatFn = $$props.ticksFormatFn);
+  };
+
+  $$self.$capture_state = function () {
+    return {
+      createEventDispatcher: createEventDispatcher,
+      writable: writable,
+      makeStyleVars: makeStyleVars,
+      vectorLength2D: vectorLength2D,
+      concat: concat,
+      inclusiveRange: inclusiveRange,
+      mergeObj: mergeObj,
+      scaleLinear: linear$1,
+      appendTo: appendTo,
+      last: last,
+      pullFrom: pullFrom,
+      sort: sort,
+      uniques: uniques,
+      getBinsTicks: getBinsTicks,
+      dispatch: dispatch,
+      defaultFlags: defaultFlags,
+      defaultGeometry: defaultGeometry,
+      defaultTheme: defaultTheme,
+      height: height,
+      width: width,
+      bins: bins,
+      flags: flags,
+      geometry: geometry,
+      message: message,
+      selectedBins: selectedBins,
+      theme: theme,
+      ticksFormatFn: ticksFormatFn,
+      isMousedown: isMousedown,
+      brushOff: brushOff,
+      brush: brush,
+      getModifier: getModifier,
+      onMouseenter: onMouseenter,
+      onMousedown: onMousedown,
+      onMousemove: onMousemove,
+      onMouseup: onMouseup,
+      onMouseleave: onMouseleave,
+      resetBrush: resetBrush,
+      resetSelection: resetSelection,
+      innerWidth: innerWidth,
+      innerHeight: innerHeight,
+      widgetThickness: widgetThickness,
+      origin: origin,
+      binsSize: binsSize,
+      valuesExtent: valuesExtent,
+      range: range,
+      scale: scale,
+      lastIndex: lastIndex,
+      semigap: semigap,
+      bars: bars,
+      ticksDistance: ticksDistance,
+      ticks: ticks,
+      isBrushing: isBrushing,
+      $brush: $brush,
+      isPressed: isPressed,
+      doesBrushAdd: doesBrushAdd,
+      doesBrushRemove: doesBrushRemove,
+      brushStroke: brushStroke,
+      brushExtent: brushExtent,
+      brushRange: brushRange,
+      brushExtentBarYs: brushExtentBarYs,
+      brushLine: brushLine,
+      style: style
+    };
+  };
+
+  $$self.$inject_state = function ($$props) {
+    if ("height" in $$props) $$invalidate(6, height = $$props.height);
+    if ("width" in $$props) $$invalidate(7, width = $$props.width);
+    if ("bins" in $$props) $$invalidate(0, bins = $$props.bins);
+    if ("flags" in $$props) $$invalidate(1, flags = $$props.flags);
+    if ("geometry" in $$props) $$invalidate(2, geometry = $$props.geometry);
+    if ("message" in $$props) $$invalidate(3, message = $$props.message);
+    if ("selectedBins" in $$props) $$invalidate(4, selectedBins = $$props.selectedBins);
+    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
+    if ("ticksFormatFn" in $$props) $$invalidate(24, ticksFormatFn = $$props.ticksFormatFn);
+    if ("isMousedown" in $$props) $$invalidate(8, isMousedown = $$props.isMousedown);
+    if ("innerWidth" in $$props) $$invalidate(25, innerWidth = $$props.innerWidth);
+    if ("innerHeight" in $$props) $$invalidate(26, innerHeight = $$props.innerHeight);
+    if ("widgetThickness" in $$props) $$invalidate(27, widgetThickness = $$props.widgetThickness);
+    if ("origin" in $$props) $$invalidate(9, origin = $$props.origin);
+    if ("binsSize" in $$props) $$invalidate(10, binsSize = $$props.binsSize);
+    if ("valuesExtent" in $$props) $$invalidate(28, valuesExtent = $$props.valuesExtent);
+    if ("range" in $$props) $$invalidate(29, range = $$props.range);
+    if ("scale" in $$props) $$invalidate(30, scale = $$props.scale);
+    if ("lastIndex" in $$props) $$invalidate(31, lastIndex = $$props.lastIndex);
+    if ("semigap" in $$props) $$invalidate(32, semigap = $$props.semigap);
+    if ("bars" in $$props) $$invalidate(11, bars = $$props.bars);
+    if ("ticksDistance" in $$props) $$invalidate(33, ticksDistance = $$props.ticksDistance);
+    if ("ticks" in $$props) $$invalidate(12, ticks = $$props.ticks);
+    if ("isBrushing" in $$props) $$invalidate(13, isBrushing = $$props.isBrushing);
+    if ("isPressed" in $$props) isPressed = $$props.isPressed;
+    if ("doesBrushAdd" in $$props) $$invalidate(36, doesBrushAdd = $$props.doesBrushAdd);
+    if ("doesBrushRemove" in $$props) $$invalidate(37, doesBrushRemove = $$props.doesBrushRemove);
+    if ("brushStroke" in $$props) $$invalidate(38, brushStroke = $$props.brushStroke);
+    if ("brushExtent" in $$props) $$invalidate(39, brushExtent = $$props.brushExtent);
+    if ("brushRange" in $$props) $$invalidate(40, brushRange = $$props.brushRange);
+    if ("brushExtentBarYs" in $$props) $$invalidate(41, brushExtentBarYs = $$props.brushExtentBarYs);
+    if ("brushLine" in $$props) $$invalidate(14, brushLine = $$props.brushLine);
+    if ("style" in $$props) $$invalidate(15, style = $$props.style);
+  };
+
+  var innerWidth;
+  var innerHeight;
+  var widgetThickness;
+  var origin;
+  var binsSize;
+  var valuesExtent;
+  var range;
+  var scale;
+  var lastIndex;
+  var semigap;
+  var bars;
+  var ticksDistance;
+  var ticks;
+  var isBrushing;
+  var isPressed;
+  var doesBrushAdd;
+  var doesBrushRemove;
+  var brushStroke;
+  var brushExtent;
+  var brushRange;
+  var brushExtentBarYs;
+  var brushLine;
+  var style;
+
+  if ($$props && "$$inject" in $$props) {
+    $$self.$inject_state($$props.$$inject);
+  }
+
+  $$self.$$.update = function () {
+    if ($$self.$$.dirty[0] &
+    /*bins*/
+    1) {
+      // FIXME https://github.com/sveltejs/svelte/issues/4442
+       $$invalidate(0, bins = bins || []);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*flags*/
+    2) {
+       $$invalidate(1, flags = flags ? _objectSpread$5(_objectSpread$5({}, defaultFlags), flags) : defaultFlags);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*geometry*/
+    4) {
+       $$invalidate(2, geometry = geometry ? _objectSpread$5(_objectSpread$5({}, defaultGeometry), geometry) : defaultGeometry);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*message*/
+    8) {
+       $$invalidate(3, message = message || "No data");
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*selectedBins*/
+    16) {
+       $$invalidate(4, selectedBins = selectedBins || []);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*theme*/
+    32) {
+       $$invalidate(5, theme = theme ? _objectSpread$5(_objectSpread$5({}, defaultTheme), theme) : defaultTheme);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*ticksFormatFn*/
+    16777216) {
+       $$invalidate(24, ticksFormatFn = ticksFormatFn || function (x) {
+        return x;
+      });
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*width, geometry*/
+    132) {
+      /* layout */
+       $$invalidate(25, innerWidth = Math.max(0, width - geometry.left - geometry.right));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*height, geometry*/
+    68) {
+       $$invalidate(26, innerHeight = Math.max(0, height - geometry.top - geometry.bottom));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*geometry, flags, theme*/
+    38) {
+       $$invalidate(27, widgetThickness = geometry.barThickness + flags.showTicks ? theme.fontSize + geometry.textPadding : 0);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*geometry, flags, innerWidth, widgetThickness, innerHeight*/
+    234881030) {
+       $$invalidate(9, origin = {
+        x: geometry.left + (flags.isVertical ? (innerWidth - widgetThickness) / 2 : 0),
+        y: geometry.top + (flags.isVertical ? 0 : (innerHeight - widgetThickness) / 2)
+      });
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*flags, geometry, innerWidth, innerHeight*/
+    100663302) {
+       $$invalidate(10, binsSize = {
+        width: flags.isVertical ? geometry.barThickness : innerWidth,
+        height: flags.isVertical ? innerHeight : geometry.barThickness
+      });
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*bins*/
+    1) {
+      /* scale */
+       $$invalidate(28, valuesExtent = bins.length && [bins[0].range[0], last(bins).range[1]]);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*flags, innerHeight, innerWidth*/
+    100663298) {
+       $$invalidate(29, range = flags.isVertical ? [innerHeight, 0] : [0, innerWidth]);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*valuesExtent, range*/
+    805306368) {
+       $$invalidate(30, scale = valuesExtent && linear$1().domain(valuesExtent).range(range));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*bins*/
+    1) {
+      /* bars */
+       $$invalidate(31, lastIndex = bins.length - 1);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*geometry*/
+    4) {
+       $$invalidate(32, semigap = geometry.gap / 2);
+    }
+
+    if ($$self.$$.dirty[1] &
+    /*$brush*/
+    8) {
+       $$invalidate(13, isBrushing = $brush.state === "Brushing");
+    }
+
+    if ($$self.$$.dirty[1] &
+    /*$brush*/
+    8) {
+       $$invalidate(36, doesBrushAdd = $brush.modifier === "shift");
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*isBrushing*/
+    8192 | $$self.$$.dirty[1] &
+    /*$brush*/
+    8) {
+       $$invalidate(39, brushExtent = isBrushing && sort([$brush.start, $brush.end]));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*isBrushing*/
+    8192 | $$self.$$.dirty[1] &
+    /*brushExtent*/
+    256) {
+       $$invalidate(40, brushRange = isBrushing && inclusiveRange(brushExtent));
+    }
+
+    if ($$self.$$.dirty[1] &
+    /*$brush*/
+    8) {
+       $$invalidate(37, doesBrushRemove = $brush.modifier === "alt");
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*isBrushing, selectedBins*/
+    8208 | $$self.$$.dirty[1] &
+    /*doesBrushAdd, brushRange, doesBrushRemove, $brush*/
+    616) {
+       if (isBrushing) {
+        $$invalidate(4, selectedBins = doesBrushAdd ? uniques(concat(selectedBins, brushRange)) : doesBrushRemove ? pullFrom(selectedBins, brushRange) : brushRange);
+        dispatch("brushed", {
+          end: $brush.end,
+          selectedBins: selectedBins,
+          start: $brush.start
+        });
+      }
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*bins, selectedBins, scale, flags, geometry, theme*/
+    1073741879 | $$self.$$.dirty[1] &
+    /*semigap, lastIndex*/
+    3) {
+       $$invalidate(11, bars = bins.map(function (bin, index) {
+        var _bin$range = _slicedToArray(bin.range, 2),
+            v1 = _bin$range[0],
+            v2 = _bin$range[1],
+            color = bin.color;
+
+        var selected = selectedBins.length && selectedBins.includes(index);
+        var p1 = scale(v1);
+        var p2 = scale(v2);
+        var x;
+        var y;
+        var start;
+        var end;
+        var sensorX;
+        var sensorY;
+
+        if (flags.isVertical) {
+          start = p1 - (index > 0 ? semigap : 0);
+          end = p2 + (index < lastIndex ? semigap : 0);
+          x = 0;
+          y = end;
+          sensorX = 0;
+          sensorY = p2;
+        } else {
+          start = p1 + (index > 0 ? semigap : 0);
+          end = p2 - (index < lastIndex ? semigap : 0);
+          x = start;
+          y = 0;
+          sensorX = p1;
+          sensorY = 0;
+        }
+
+        var barLength = Math.abs(end - start);
+        var sensorLength = Math.abs(p2 - p1);
+        return _objectSpread$5(_objectSpread$5({}, bin), {
+          barHeight: flags.isVertical ? barLength : geometry.barThickness,
+          barWidth: flags.isVertical ? geometry.barThickness : barLength,
+          fill: color || theme.binFill,
+          p1: p1,
+          p2: p2,
+          selected: selected,
+          sensorHeight: flags.isVertical ? sensorLength : geometry.barThickness,
+          sensorWidth: flags.isVertical ? geometry.barThickness : sensorLength,
+          sensorX: sensorX,
+          sensorY: sensorY,
+          x: x,
+          y: y
+        });
+      }));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*geometry*/
+    4) {
+      /* ticks */
+       $$invalidate(33, ticksDistance = geometry.barThickness + geometry.textPadding);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*bins, ticksFormatFn, flags, scale*/
+    1090519043 | $$self.$$.dirty[1] &
+    /*ticksDistance*/
+    4) {
+       $$invalidate(12, ticks = getBinsTicks(bins).map(function (value) {
+        return {
+          label: ticksFormatFn(value),
+          x: flags.isVertical ? ticksDistance : scale(value),
+          y: flags.isVertical ? scale(value) : ticksDistance
+        };
+      }));
+    }
+
+    if ($$self.$$.dirty[1] &
+    /*$brush*/
+    8) {
+       isPressed = $brush.state === "Pressed";
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*theme*/
+    32 | $$self.$$.dirty[1] &
+    /*doesBrushAdd, doesBrushRemove*/
+    96) {
+       $$invalidate(38, brushStroke = doesBrushAdd ? theme.brushAddStroke : doesBrushRemove ? theme.brushRemoveStroke : null);
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*isBrushing, bars*/
+    10240 | $$self.$$.dirty[1] &
+    /*brushExtent*/
+    256) {
+       $$invalidate(41, brushExtentBarYs = isBrushing && sort([bars[brushExtent[0]].p1, bars[brushExtent[0]].p2, bars[brushExtent[1]].p1, bars[brushExtent[1]].p2]));
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*isBrushing*/
+    8192 | $$self.$$.dirty[1] &
+    /*brushExtentBarYs*/
+    1024) {
+       $$invalidate(14, brushLine = isBrushing && {
+        p1: brushExtentBarYs[0],
+        p2: brushExtentBarYs[3]
+      });
+    }
+
+    if ($$self.$$.dirty[0] &
+    /*theme*/
+    32 | $$self.$$.dirty[1] &
+    /*brushStroke*/
+    128) {
+      /* style */
+       $$invalidate(15, style = makeStyleVars(_objectSpread$5(_objectSpread$5({}, theme), {}, {
+        brushStroke: brushStroke
+      })));
+    }
+  };
+
+  return [bins, flags, geometry, message, selectedBins, theme, height, width, isMousedown, origin, binsSize, bars, ticks, isBrushing, brushLine, style, brush, onMouseenter, onMousedown, onMousemove, onMouseup, onMouseleave, resetBrush, resetSelection, ticksFormatFn];
+}
+
+var ColorBinsG = /*#__PURE__*/function (_SvelteComponentDev) {
+  _inherits(ColorBinsG, _SvelteComponentDev);
+
+  var _super = _createSuper$i(ColorBinsG);
+
+  function ColorBinsG(options) {
+    var _this;
+
+    _classCallCheck(this, ColorBinsG);
+
+    _this = _super.call(this, options);
+    init(_assertThisInitialized(_this), options, instance$i, create_fragment$i, safe_not_equal, {
+      height: 6,
+      width: 7,
+      bins: 0,
+      flags: 1,
+      geometry: 2,
+      message: 3,
+      selectedBins: 4,
+      theme: 5,
+      ticksFormatFn: 24
+    }, [-1, -1]);
+    dispatch_dev("SvelteRegisterComponent", {
+      component: _assertThisInitialized(_this),
+      tagName: "ColorBinsG",
+      options: options,
+      id: create_fragment$i.name
+    });
+    var ctx = _this.$$.ctx;
+    var props = options.props || {};
+
+    if (
+    /*height*/
+    ctx[6] === undefined && !("height" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'height'");
+    }
+
+    if (
+    /*width*/
+    ctx[7] === undefined && !("width" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'width'");
+    }
+
+    if (
+    /*bins*/
+    ctx[0] === undefined && !("bins" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'bins'");
+    }
+
+    if (
+    /*flags*/
+    ctx[1] === undefined && !("flags" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'flags'");
+    }
+
+    if (
+    /*geometry*/
+    ctx[2] === undefined && !("geometry" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'geometry'");
+    }
+
+    if (
+    /*message*/
+    ctx[3] === undefined && !("message" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'message'");
+    }
+
+    if (
+    /*selectedBins*/
+    ctx[4] === undefined && !("selectedBins" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'selectedBins'");
+    }
+
+    if (
+    /*theme*/
+    ctx[5] === undefined && !("theme" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'theme'");
+    }
+
+    if (
+    /*ticksFormatFn*/
+    ctx[24] === undefined && !("ticksFormatFn" in props)) {
+      console.warn("<ColorBinsG> was created without expected prop 'ticksFormatFn'");
+    }
+
+    return _this;
+  }
+
+  _createClass(ColorBinsG, [{
+    key: "height",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "width",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "bins",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "flags",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "geometry",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "message",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "selectedBins",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "theme",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "ticksFormatFn",
+    get: function get() {
+      throw new Error("<ColorBinsG>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsG>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }]);
+
+  return ColorBinsG;
+}(SvelteComponentDev);
+
+function _createSuper$j(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$j(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct$j() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+var file$d = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/legend/src/ColorBinsDiv.svelte"; // (32:1) {#if title}
+
+function create_if_block_1$8(ctx) {
+  var header;
+  var h2;
+  var t;
+  var block = {
+    c: function create() {
+      header = element("header");
+      h2 = element("h2");
+      t = text(
+      /*title*/
+      ctx[0]);
+      this.h();
+    },
+    l: function claim(nodes) {
+      header = claim_element(nodes, "HEADER", {
+        class: true
+      });
+      var header_nodes = children(header);
+      h2 = claim_element(header_nodes, "H2", {
+        class: true
+      });
+      var h2_nodes = children(h2);
+      t = claim_text(h2_nodes,
+      /*title*/
+      ctx[0]);
+      h2_nodes.forEach(detach_dev);
+      header_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(h2, "class", "svelte-1amymvq");
+      add_location(h2, file$d, 33, 2, 651);
+      attr_dev(header, "class", "svelte-1amymvq");
+      add_location(header, file$d, 32, 1, 640);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, header, anchor);
+      append_dev(header, h2);
+      append_dev(h2, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty &
+      /*title*/
+      1) set_data_dev(t,
+      /*title*/
+      ctx[0]);
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(header);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_1$8.name,
+    type: "if",
+    source: "(32:1) {#if title}",
+    ctx: ctx
+  });
+  return block;
+} // (46:3) {#if bins}
+
+
+function create_if_block$a(ctx) {
+  var colorbinsg;
+  var current;
+  colorbinsg = new ColorBinsG({
+    props: {
+      bins:
+      /*bins*/
+      ctx[1],
+      flags:
+      /*flags*/
+      ctx[2],
+      geometry:
+      /*geometry*/
+      ctx[3],
+      height:
+      /*height*/
+      ctx[7],
+      selectedBins:
+      /*selectedBins*/
+      ctx[4],
+      theme:
+      /*theme*/
+      ctx[5],
+      ticksFormatFn:
+      /*ticksFormatFn*/
+      ctx[6],
+      width:
+      /*width*/
+      ctx[8]
+    },
+    $$inline: true
+  });
+  colorbinsg.$on("brushed",
+  /*brushed_handler*/
+  ctx[12]);
+  colorbinsg.$on("brushend",
+  /*brushend_handler*/
+  ctx[13]);
+  colorbinsg.$on("brushstart",
+  /*brushstart_handler*/
+  ctx[14]);
+  colorbinsg.$on("clicked",
+  /*clicked_handler*/
+  ctx[15]);
+  colorbinsg.$on("entered",
+  /*entered_handler*/
+  ctx[16]);
+  colorbinsg.$on("exited",
+  /*exited_handler*/
+  ctx[17]);
+  var block = {
+    c: function create() {
+      create_component(colorbinsg.$$.fragment);
+    },
+    l: function claim(nodes) {
+      claim_component(colorbinsg.$$.fragment, nodes);
+    },
+    m: function mount(target, anchor) {
+      mount_component(colorbinsg, target, anchor);
+      current = true;
+    },
+    p: function update(ctx, dirty) {
+      var colorbinsg_changes = {};
+      if (dirty &
+      /*bins*/
+      2) colorbinsg_changes.bins =
+      /*bins*/
+      ctx[1];
+      if (dirty &
+      /*flags*/
+      4) colorbinsg_changes.flags =
+      /*flags*/
+      ctx[2];
+      if (dirty &
+      /*geometry*/
+      8) colorbinsg_changes.geometry =
+      /*geometry*/
+      ctx[3];
+      if (dirty &
+      /*height*/
+      128) colorbinsg_changes.height =
+      /*height*/
+      ctx[7];
+      if (dirty &
+      /*selectedBins*/
+      16) colorbinsg_changes.selectedBins =
+      /*selectedBins*/
+      ctx[4];
+      if (dirty &
+      /*theme*/
+      32) colorbinsg_changes.theme =
+      /*theme*/
+      ctx[5];
+      if (dirty &
+      /*ticksFormatFn*/
+      64) colorbinsg_changes.ticksFormatFn =
+      /*ticksFormatFn*/
+      ctx[6];
+      if (dirty &
+      /*width*/
+      256) colorbinsg_changes.width =
+      /*width*/
+      ctx[8];
+      colorbinsg.$set(colorbinsg_changes);
+    },
+    i: function intro(local) {
+      if (current) return;
+      transition_in(colorbinsg.$$.fragment, local);
+      current = true;
+    },
+    o: function outro(local) {
+      transition_out(colorbinsg.$$.fragment, local);
+      current = false;
+    },
+    d: function destroy(detaching) {
+      destroy_component(colorbinsg, detaching);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block$a.name,
+    type: "if",
+    source: "(46:3) {#if bins}",
+    ctx: ctx
+  });
+  return block;
+}
+
+function create_fragment$j(ctx) {
+  var div;
+  var t;
+  var main;
+  var svg;
+  var main_resize_listener;
+  var current;
+  var if_block0 =
+  /*title*/
+  ctx[0] && create_if_block_1$8(ctx);
+  var if_block1 =
+  /*bins*/
+  ctx[1] && create_if_block$a(ctx);
+  var block = {
+    c: function create() {
+      div = element("div");
+      if (if_block0) if_block0.c();
+      t = space();
+      main = element("main");
+      svg = svg_element("svg");
+      if (if_block1) if_block1.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      div = claim_element(nodes, "DIV", {
+        class: true,
+        style: true
+      });
+      var div_nodes = children(div);
+      if (if_block0) if_block0.l(div_nodes);
+      t = claim_space(div_nodes);
+      main = claim_element(div_nodes, "MAIN", {
+        class: true
+      });
+      var main_nodes = children(main);
+      svg = claim_element(main_nodes, "svg", {
+        width: true,
+        height: true,
+        class: true
+      }, 1);
+      var svg_nodes = children(svg);
+      if (if_block1) if_block1.l(svg_nodes);
+      svg_nodes.forEach(detach_dev);
+      main_nodes.forEach(detach_dev);
+      div_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(svg, "width",
+      /*width*/
+      ctx[8]);
+      attr_dev(svg, "height",
+      /*height*/
+      ctx[7]);
+      attr_dev(svg, "class", "svelte-1amymvq");
+      add_location(svg, file$d, 41, 2, 793);
+      attr_dev(main, "class", "svelte-1amymvq");
+      add_render_callback(function () {
+        return (
+          /*main_elementresize_handler*/
+          ctx[18].call(main)
+        );
+      });
+      toggle_class(main, "titled",
+      /*title*/
+      ctx[0] &&
+      /*title*/
+      ctx[0].length);
+      add_location(main, file$d, 36, 1, 687);
+      attr_dev(div, "class", "ColorBinsDiv svelte-1amymvq");
+      attr_dev(div, "style",
+      /*style*/
+      ctx[9]);
+      toggle_class(div, "interactive",
+      /*flags*/
+      ctx[2] &&
+      /*flags*/
+      ctx[2].isInteractive);
+      add_location(div, file$d, 26, 0, 538);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, div, anchor);
+      if (if_block0) if_block0.m(div, null);
+      append_dev(div, t);
+      append_dev(div, main);
+      append_dev(main, svg);
+      if (if_block1) if_block1.m(svg, null);
+      main_resize_listener = add_resize_listener(main,
+      /*main_elementresize_handler*/
+      ctx[18].bind(main));
+      current = true;
+    },
+    p: function update(ctx, _ref) {
+      var _ref2 = _slicedToArray(_ref, 1),
+          dirty = _ref2[0];
+
+      if (
+      /*title*/
+      ctx[0]) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+        } else {
+          if_block0 = create_if_block_1$8(ctx);
+          if_block0.c();
+          if_block0.m(div, t);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+
+      if (
+      /*bins*/
+      ctx[1]) {
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
+
+          if (dirty &
+          /*bins*/
+          2) {
+            transition_in(if_block1, 1);
+          }
+        } else {
+          if_block1 = create_if_block$a(ctx);
+          if_block1.c();
+          transition_in(if_block1, 1);
+          if_block1.m(svg, null);
+        }
+      } else if (if_block1) {
+        group_outros();
+        transition_out(if_block1, 1, 1, function () {
+          if_block1 = null;
+        });
+        check_outros();
+      }
+
+      if (!current || dirty &
+      /*width*/
+      256) {
+        attr_dev(svg, "width",
+        /*width*/
+        ctx[8]);
+      }
+
+      if (!current || dirty &
+      /*height*/
+      128) {
+        attr_dev(svg, "height",
+        /*height*/
+        ctx[7]);
+      }
+
+      if (dirty &
+      /*title*/
+      1) {
+        toggle_class(main, "titled",
+        /*title*/
+        ctx[0] &&
+        /*title*/
+        ctx[0].length);
+      }
+
+      if (!current || dirty &
+      /*style*/
+      512) {
+        attr_dev(div, "style",
+        /*style*/
+        ctx[9]);
+      }
+
+      if (dirty &
+      /*flags*/
+      4) {
+        toggle_class(div, "interactive",
+        /*flags*/
+        ctx[2] &&
+        /*flags*/
+        ctx[2].isInteractive);
+      }
+    },
+    i: function intro(local) {
+      if (current) return;
+      transition_in(if_block1);
+      current = true;
+    },
+    o: function outro(local) {
+      transition_out(if_block1);
+      current = false;
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(div);
+      if (if_block0) if_block0.d();
+      if (if_block1) if_block1.d();
+      main_resize_listener();
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_fragment$j.name,
+    type: "component",
+    source: "",
+    ctx: ctx
+  });
+  return block;
+}
+
+function instance$j($$self, $$props, $$invalidate) {
+  var headerHeight = $$props.headerHeight;
+  var padding = $$props.padding;
+  var title = $$props.title;
+  var bins = $$props.bins; // {range: [number, number], color: string}[]
+
+  var flags = $$props.flags;
+  var geometry = $$props.geometry;
+  var selectedBins = $$props.selectedBins;
+  var theme = $$props.theme;
+  var ticksFormatFn = $$props.ticksFormatFn;
+  var height = 0;
+  var width = 0;
+  var writable_props = ["headerHeight", "padding", "title", "bins", "flags", "geometry", "selectedBins", "theme", "ticksFormatFn"];
+  Object.keys($$props).forEach(function (key) {
+    if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<ColorBinsDiv> was created with unknown prop '".concat(key, "'"));
+  });
+  var _$$props$$$slots = $$props.$$slots,
+      $$slots = _$$props$$$slots === void 0 ? {} : _$$props$$$slots,
+      $$scope = $$props.$$scope;
+  validate_slots("ColorBinsDiv", $$slots, []);
+
+  function brushed_handler(event) {
+    bubble($$self, event);
+  }
+
+  function brushend_handler(event) {
+    bubble($$self, event);
+  }
+
+  function brushstart_handler(event) {
+    bubble($$self, event);
+  }
+
+  function clicked_handler(event) {
+    bubble($$self, event);
+  }
+
+  function entered_handler(event) {
+    bubble($$self, event);
+  }
+
+  function exited_handler(event) {
+    bubble($$self, event);
+  }
+
+  function main_elementresize_handler() {
+    height = this.clientHeight;
+    width = this.clientWidth;
+    $$invalidate(7, height);
+    $$invalidate(8, width);
+  }
+
+  $$self.$set = function ($$props) {
+    if ("headerHeight" in $$props) $$invalidate(10, headerHeight = $$props.headerHeight);
+    if ("padding" in $$props) $$invalidate(11, padding = $$props.padding);
+    if ("title" in $$props) $$invalidate(0, title = $$props.title);
+    if ("bins" in $$props) $$invalidate(1, bins = $$props.bins);
+    if ("flags" in $$props) $$invalidate(2, flags = $$props.flags);
+    if ("geometry" in $$props) $$invalidate(3, geometry = $$props.geometry);
+    if ("selectedBins" in $$props) $$invalidate(4, selectedBins = $$props.selectedBins);
+    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
+    if ("ticksFormatFn" in $$props) $$invalidate(6, ticksFormatFn = $$props.ticksFormatFn);
+  };
+
+  $$self.$capture_state = function () {
+    return {
+      makeStyleVars: makeStyleVars,
+      ColorBinsG: ColorBinsG,
+      headerHeight: headerHeight,
+      padding: padding,
+      title: title,
+      bins: bins,
+      flags: flags,
+      geometry: geometry,
+      selectedBins: selectedBins,
+      theme: theme,
+      ticksFormatFn: ticksFormatFn,
+      height: height,
+      width: width,
+      style: style
+    };
+  };
+
+  $$self.$inject_state = function ($$props) {
+    if ("headerHeight" in $$props) $$invalidate(10, headerHeight = $$props.headerHeight);
+    if ("padding" in $$props) $$invalidate(11, padding = $$props.padding);
+    if ("title" in $$props) $$invalidate(0, title = $$props.title);
+    if ("bins" in $$props) $$invalidate(1, bins = $$props.bins);
+    if ("flags" in $$props) $$invalidate(2, flags = $$props.flags);
+    if ("geometry" in $$props) $$invalidate(3, geometry = $$props.geometry);
+    if ("selectedBins" in $$props) $$invalidate(4, selectedBins = $$props.selectedBins);
+    if ("theme" in $$props) $$invalidate(5, theme = $$props.theme);
+    if ("ticksFormatFn" in $$props) $$invalidate(6, ticksFormatFn = $$props.ticksFormatFn);
+    if ("height" in $$props) $$invalidate(7, height = $$props.height);
+    if ("width" in $$props) $$invalidate(8, width = $$props.width);
+    if ("style" in $$props) $$invalidate(9, style = $$props.style);
+  };
+
+  var style;
+
+  if ($$props && "$$inject" in $$props) {
+    $$self.$inject_state($$props.$$inject);
+  }
+
+  $$self.$$.update = function () {
+    if ($$self.$$.dirty &
+    /*padding*/
+    2048) {
+       $$invalidate(11, padding = padding || "10px");
+    }
+
+    if ($$self.$$.dirty &
+    /*headerHeight*/
+    1024) {
+       $$invalidate(10, headerHeight = headerHeight || "2rem");
+    }
+
+    if ($$self.$$.dirty &
+    /*headerHeight, padding*/
+    3072) {
+       $$invalidate(9, style = makeStyleVars({
+        headerHeight: headerHeight,
+        padding: padding
+      }));
+    }
+  };
+
+  return [title, bins, flags, geometry, selectedBins, theme, ticksFormatFn, height, width, style, headerHeight, padding, brushed_handler, brushend_handler, brushstart_handler, clicked_handler, entered_handler, exited_handler, main_elementresize_handler];
+}
+
+var ColorBinsDiv = /*#__PURE__*/function (_SvelteComponentDev) {
+  _inherits(ColorBinsDiv, _SvelteComponentDev);
+
+  var _super = _createSuper$j(ColorBinsDiv);
+
+  function ColorBinsDiv(options) {
+    var _this;
+
+    _classCallCheck(this, ColorBinsDiv);
+
+    _this = _super.call(this, options);
+    init(_assertThisInitialized(_this), options, instance$j, create_fragment$j, safe_not_equal, {
+      headerHeight: 10,
+      padding: 11,
+      title: 0,
+      bins: 1,
+      flags: 2,
+      geometry: 3,
+      selectedBins: 4,
+      theme: 5,
+      ticksFormatFn: 6
+    });
+    dispatch_dev("SvelteRegisterComponent", {
+      component: _assertThisInitialized(_this),
+      tagName: "ColorBinsDiv",
+      options: options,
+      id: create_fragment$j.name
+    });
+    var ctx = _this.$$.ctx;
+    var props = options.props || {};
+
+    if (
+    /*headerHeight*/
+    ctx[10] === undefined && !("headerHeight" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'headerHeight'");
+    }
+
+    if (
+    /*padding*/
+    ctx[11] === undefined && !("padding" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'padding'");
+    }
+
+    if (
+    /*title*/
+    ctx[0] === undefined && !("title" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'title'");
+    }
+
+    if (
+    /*bins*/
+    ctx[1] === undefined && !("bins" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'bins'");
+    }
+
+    if (
+    /*flags*/
+    ctx[2] === undefined && !("flags" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'flags'");
+    }
+
+    if (
+    /*geometry*/
+    ctx[3] === undefined && !("geometry" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'geometry'");
+    }
+
+    if (
+    /*selectedBins*/
+    ctx[4] === undefined && !("selectedBins" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'selectedBins'");
+    }
+
+    if (
+    /*theme*/
+    ctx[5] === undefined && !("theme" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'theme'");
+    }
+
+    if (
+    /*ticksFormatFn*/
+    ctx[6] === undefined && !("ticksFormatFn" in props)) {
+      console.warn("<ColorBinsDiv> was created without expected prop 'ticksFormatFn'");
+    }
+
+    return _this;
+  }
+
+  _createClass(ColorBinsDiv, [{
+    key: "headerHeight",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "padding",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "title",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "bins",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "flags",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "geometry",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "selectedBins",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "theme",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "ticksFormatFn",
+    get: function get() {
+      throw new Error("<ColorBinsDiv>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<ColorBinsDiv>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }]);
+
+  return ColorBinsDiv;
+}(SvelteComponentDev);
+
+var legend = /*#__PURE__*/Object.freeze({
+	__proto__: null,
+	ColorBinsG: ColorBinsG,
+	ColorBinsDiv: ColorBinsDiv
+});
+
+var IDX = 36,
+    HEX = '';
+
+while (IDX--) {
+  HEX += IDX.toString(36);
+}
+
+function uid (len) {
+  var str = '',
+      num = len || 11;
+
+  while (num--) {
+    str += HEX[Math.random() * 36 | 0];
+  }
+
+  return str;
+}
 
 function _createSuper$k(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$k(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct$k() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var file$e = "Users/lbonavita/Dev/projects/nesta/svizzle/packages/components/ui/src/Switch.svelte"; // (37:2) {#if !hideLabels}
+
+function create_if_block_1$9(ctx) {
+  var label;
+  var t_value =
+  /*values*/
+  ctx[0][0] + "";
+  var t;
+  var label_for_value;
+  var block = {
+    c: function create() {
+      label = element("label");
+      t = text(t_value);
+      this.h();
+    },
+    l: function claim(nodes) {
+      label = claim_element(nodes, "LABEL", {
+        for: true,
+        class: true
+      });
+      var label_nodes = children(label);
+      t = claim_text(label_nodes, t_value);
+      label_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(label, "for", label_for_value = "left-" +
+      /*id*/
+      ctx[5]);
+      attr_dev(label, "class", "svelte-1yh7a7q");
+      toggle_class(label, "greyed",
+      /*currentValue*/
+      ctx[2] !==
+      /*values*/
+      ctx[0][0]);
+      add_location(label, file$e, 37, 3, 814);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, label, anchor);
+      append_dev(label, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty &
+      /*values*/
+      1 && t_value !== (t_value =
+      /*values*/
+      ctx[0][0] + "")) set_data_dev(t, t_value);
+
+      if (dirty &
+      /*currentValue, values*/
+      5) {
+        toggle_class(label, "greyed",
+        /*currentValue*/
+        ctx[2] !==
+        /*values*/
+        ctx[0][0]);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(label);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block_1$9.name,
+    type: "if",
+    source: "(37:2) {#if !hideLabels}",
+    ctx: ctx
+  });
+  return block;
+} // (59:2) {#if !hideLabels}
+
+
+function create_if_block$b(ctx) {
+  var label;
+  var t_value =
+  /*values*/
+  ctx[0][1] + "";
+  var t;
+  var label_for_value;
+  var block = {
+    c: function create() {
+      label = element("label");
+      t = text(t_value);
+      this.h();
+    },
+    l: function claim(nodes) {
+      label = claim_element(nodes, "LABEL", {
+        for: true,
+        class: true
+      });
+      var label_nodes = children(label);
+      t = claim_text(label_nodes, t_value);
+      label_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(label, "for", label_for_value = "right-" +
+      /*id*/
+      ctx[5]);
+      attr_dev(label, "class", "svelte-1yh7a7q");
+      toggle_class(label, "greyed",
+      /*currentValue*/
+      ctx[2] !==
+      /*values*/
+      ctx[0][1]);
+      add_location(label, file$e, 59, 3, 1299);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, label, anchor);
+      append_dev(label, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty &
+      /*values*/
+      1 && t_value !== (t_value =
+      /*values*/
+      ctx[0][1] + "")) set_data_dev(t, t_value);
+
+      if (dirty &
+      /*currentValue, values*/
+      5) {
+        toggle_class(label, "greyed",
+        /*currentValue*/
+        ctx[2] !==
+        /*values*/
+        ctx[0][1]);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(label);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_if_block$b.name,
+    type: "if",
+    source: "(59:2) {#if !hideLabels}",
+    ctx: ctx
+  });
+  return block;
+}
+
+function create_fragment$k(ctx) {
+  var div;
+  var fieldset;
+  var t0;
+  var span2;
+  var input0;
+  var input0_id_value;
+  var input0_value_value;
+  var t1;
+  var input1;
+  var input1_id_value;
+  var input1_value_value;
+  var t2;
+  var span0;
+  var t3;
+  var span1;
+  var t4;
+  var mounted;
+  var dispose;
+  var if_block0 = !
+  /*hideLabels*/
+  ctx[1] && create_if_block_1$9(ctx);
+  var if_block1 = !
+  /*hideLabels*/
+  ctx[1] && create_if_block$b(ctx);
+  var block = {
+    c: function create() {
+      div = element("div");
+      fieldset = element("fieldset");
+      if (if_block0) if_block0.c();
+      t0 = space();
+      span2 = element("span");
+      input0 = element("input");
+      t1 = space();
+      input1 = element("input");
+      t2 = space();
+      span0 = element("span");
+      t3 = space();
+      span1 = element("span");
+      t4 = space();
+      if (if_block1) if_block1.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      div = claim_element(nodes, "DIV", {
+        class: true,
+        style: true
+      });
+      var div_nodes = children(div);
+      fieldset = claim_element(div_nodes, "FIELDSET", {
+        role: true,
+        class: true
+      });
+      var fieldset_nodes = children(fieldset);
+      if (if_block0) if_block0.l(fieldset_nodes);
+      t0 = claim_space(fieldset_nodes);
+      span2 = claim_element(fieldset_nodes, "SPAN", {
+        class: true
+      });
+      var span2_nodes = children(span2);
+      input0 = claim_element(span2_nodes, "INPUT", {
+        type: true,
+        id: true,
+        value: true,
+        class: true
+      });
+      t1 = claim_space(span2_nodes);
+      input1 = claim_element(span2_nodes, "INPUT", {
+        type: true,
+        id: true,
+        value: true,
+        class: true
+      });
+      t2 = claim_space(span2_nodes);
+      span0 = claim_element(span2_nodes, "SPAN", {
+        "aria-hidden": true,
+        class: true
+      });
+      children(span0).forEach(detach_dev);
+      t3 = claim_space(span2_nodes);
+      span1 = claim_element(span2_nodes, "SPAN", {
+        "aria-hidden": true,
+        class: true
+      });
+      children(span1).forEach(detach_dev);
+      span2_nodes.forEach(detach_dev);
+      t4 = claim_space(fieldset_nodes);
+      if (if_block1) if_block1.l(fieldset_nodes);
+      fieldset_nodes.forEach(detach_dev);
+      div_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(input0, "type", "radio");
+      attr_dev(input0, "id", input0_id_value = "left-" +
+      /*id*/
+      ctx[5]);
+      input0.__value = input0_value_value =
+      /*values*/
+      ctx[0][0];
+      input0.value = input0.__value;
+      attr_dev(input0, "class", "svelte-1yh7a7q");
+      /*$$binding_groups*/
+
+      ctx[10][0].push(input0);
+      add_location(input0, file$e, 43, 3, 961);
+      attr_dev(input1, "type", "radio");
+      attr_dev(input1, "id", input1_id_value = "right-" +
+      /*id*/
+      ctx[5]);
+      input1.__value = input1_value_value =
+      /*values*/
+      ctx[0][1];
+      input1.value = input1.__value;
+      attr_dev(input1, "class", "svelte-1yh7a7q");
+      /*$$binding_groups*/
+
+      ctx[10][0].push(input1);
+      add_location(input1, file$e, 49, 3, 1066);
+      attr_dev(span0, "aria-hidden", "true");
+      attr_dev(span0, "class", "bkg svelte-1yh7a7q");
+      add_location(span0, file$e, 55, 3, 1172);
+      attr_dev(span1, "aria-hidden", "true");
+      attr_dev(span1, "class", "knob svelte-1yh7a7q");
+      add_location(span1, file$e, 56, 3, 1220);
+      attr_dev(span2, "class", "wrapper svelte-1yh7a7q");
+      toggle_class(span2, "isRight",
+      /*isRight*/
+      ctx[3]);
+      add_location(span2, file$e, 42, 2, 921);
+      attr_dev(fieldset, "role", "radiogroup");
+      attr_dev(fieldset, "class", "svelte-1yh7a7q");
+      add_location(fieldset, file$e, 35, 1, 762);
+      attr_dev(div, "class", "switch svelte-1yh7a7q");
+      attr_dev(div, "style",
+      /*style*/
+      ctx[4]);
+      add_location(div, file$e, 34, 0, 714);
+    },
+    m: function mount(target, anchor) {
+      insert_dev(target, div, anchor);
+      append_dev(div, fieldset);
+      if (if_block0) if_block0.m(fieldset, null);
+      append_dev(fieldset, t0);
+      append_dev(fieldset, span2);
+      append_dev(span2, input0);
+      input0.checked = input0.__value ===
+      /*currentValue*/
+      ctx[2];
+      append_dev(span2, t1);
+      append_dev(span2, input1);
+      input1.checked = input1.__value ===
+      /*currentValue*/
+      ctx[2];
+      append_dev(span2, t2);
+      append_dev(span2, span0);
+      append_dev(span2, t3);
+      append_dev(span2, span1);
+      append_dev(fieldset, t4);
+      if (if_block1) if_block1.m(fieldset, null);
+
+      if (!mounted) {
+        dispose = [listen_dev(input0, "change",
+        /*input0_change_handler*/
+        ctx[9]), listen_dev(input1, "change",
+        /*input1_change_handler*/
+        ctx[11]), listen_dev(div, "click",
+        /*toggle*/
+        ctx[6], false, false, false)];
+        mounted = true;
+      }
+    },
+    p: function update(ctx, _ref) {
+      var _ref2 = _slicedToArray(_ref, 1),
+          dirty = _ref2[0];
+
+      if (!
+      /*hideLabels*/
+      ctx[1]) {
+        if (if_block0) {
+          if_block0.p(ctx, dirty);
+        } else {
+          if_block0 = create_if_block_1$9(ctx);
+          if_block0.c();
+          if_block0.m(fieldset, t0);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+
+      if (dirty &
+      /*values*/
+      1 && input0_value_value !== (input0_value_value =
+      /*values*/
+      ctx[0][0])) {
+        prop_dev(input0, "__value", input0_value_value);
+        input0.value = input0.__value;
+      }
+
+      if (dirty &
+      /*currentValue*/
+      4) {
+        input0.checked = input0.__value ===
+        /*currentValue*/
+        ctx[2];
+      }
+
+      if (dirty &
+      /*values*/
+      1 && input1_value_value !== (input1_value_value =
+      /*values*/
+      ctx[0][1])) {
+        prop_dev(input1, "__value", input1_value_value);
+        input1.value = input1.__value;
+      }
+
+      if (dirty &
+      /*currentValue*/
+      4) {
+        input1.checked = input1.__value ===
+        /*currentValue*/
+        ctx[2];
+      }
+
+      if (dirty &
+      /*isRight*/
+      8) {
+        toggle_class(span2, "isRight",
+        /*isRight*/
+        ctx[3]);
+      }
+
+      if (!
+      /*hideLabels*/
+      ctx[1]) {
+        if (if_block1) {
+          if_block1.p(ctx, dirty);
+        } else {
+          if_block1 = create_if_block$b(ctx);
+          if_block1.c();
+          if_block1.m(fieldset, null);
+        }
+      } else if (if_block1) {
+        if_block1.d(1);
+        if_block1 = null;
+      }
+
+      if (dirty &
+      /*style*/
+      16) {
+        attr_dev(div, "style",
+        /*style*/
+        ctx[4]);
+      }
+    },
+    i: noop$1,
+    o: noop$1,
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(div);
+      if (if_block0) if_block0.d();
+      /*$$binding_groups*/
+
+      ctx[10][0].splice(
+      /*$$binding_groups*/
+      ctx[10][0].indexOf(input0), 1);
+      /*$$binding_groups*/
+
+      ctx[10][0].splice(
+      /*$$binding_groups*/
+      ctx[10][0].indexOf(input1), 1);
+      if (if_block1) if_block1.d();
+      mounted = false;
+      run_all(dispose);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_fragment$k.name,
+    type: "component",
+    source: "",
+    ctx: ctx
+  });
+  return block;
+}
+
+function instance$k($$self, $$props, $$invalidate) {
+  var dispatch = createEventDispatcher();
+  var defaultTheme = {
+    height: "24px",
+    color: "grey",
+    backgroundColor: "white",
+    knobColor: "lightgrey"
+  };
+  var value = $$props.value;
+  var values = $$props.values;
+  var theme = $$props.theme;
+  var hideLabels = $$props.hideLabels;
+  var id = uid();
+
+  function toggle() {
+    $$invalidate(2, currentValue = currentValue === values[0] ? values[1] : values[0]);
+    dispatch("toggled", currentValue);
+  }
+
+  var writable_props = ["value", "values", "theme", "hideLabels"];
+  Object.keys($$props).forEach(function (key) {
+    if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn("<Switch> was created with unknown prop '".concat(key, "'"));
+  });
+  var _$$props$$$slots = $$props.$$slots,
+      $$slots = _$$props$$$slots === void 0 ? {} : _$$props$$$slots,
+      $$scope = $$props.$$scope;
+  validate_slots("Switch", $$slots, []);
+  var $$binding_groups = [[]];
+
+  function input0_change_handler() {
+    currentValue = this.__value;
+    ($$invalidate(2, currentValue), $$invalidate(8, value)), $$invalidate(0, values);
+  }
+
+  function input1_change_handler() {
+    currentValue = this.__value;
+    ($$invalidate(2, currentValue), $$invalidate(8, value)), $$invalidate(0, values);
+  }
+
+  $$self.$set = function ($$props) {
+    if ("value" in $$props) $$invalidate(8, value = $$props.value);
+    if ("values" in $$props) $$invalidate(0, values = $$props.values);
+    if ("theme" in $$props) $$invalidate(7, theme = $$props.theme);
+    if ("hideLabels" in $$props) $$invalidate(1, hideLabels = $$props.hideLabels);
+  };
+
+  $$self.$capture_state = function () {
+    return {
+      createEventDispatcher: createEventDispatcher,
+      makeStyleVars: makeStyleVars,
+      uid: uid,
+      dispatch: dispatch,
+      defaultTheme: defaultTheme,
+      value: value,
+      values: values,
+      theme: theme,
+      hideLabels: hideLabels,
+      id: id,
+      toggle: toggle,
+      currentValue: currentValue,
+      isRight: isRight,
+      style: style
+    };
+  };
+
+  $$self.$inject_state = function ($$props) {
+    if ("value" in $$props) $$invalidate(8, value = $$props.value);
+    if ("values" in $$props) $$invalidate(0, values = $$props.values);
+    if ("theme" in $$props) $$invalidate(7, theme = $$props.theme);
+    if ("hideLabels" in $$props) $$invalidate(1, hideLabels = $$props.hideLabels);
+    if ("currentValue" in $$props) $$invalidate(2, currentValue = $$props.currentValue);
+    if ("isRight" in $$props) $$invalidate(3, isRight = $$props.isRight);
+    if ("style" in $$props) $$invalidate(4, style = $$props.style);
+  };
+
+  var currentValue;
+  var isRight;
+  var style;
+
+  if ($$props && "$$inject" in $$props) {
+    $$self.$inject_state($$props.$$inject);
+  }
+
+  $$self.$$.update = function () {
+    if ($$self.$$.dirty &
+    /*value, values*/
+    257) {
+       $$invalidate(2, currentValue = value || values[0]);
+    }
+
+    if ($$self.$$.dirty &
+    /*currentValue, values*/
+    5) {
+       $$invalidate(3, isRight = currentValue === values[1]);
+    }
+
+    if ($$self.$$.dirty &
+    /*theme*/
+    128) {
+       $$invalidate(7, theme = _objectSpread$6(_objectSpread$6({}, defaultTheme), theme));
+    }
+
+    if ($$self.$$.dirty &
+    /*theme*/
+    128) {
+       $$invalidate(4, style = makeStyleVars(theme));
+    }
+  };
+
+  return [values, hideLabels, currentValue, isRight, style, id, toggle, theme, value, input0_change_handler, $$binding_groups, input1_change_handler];
+}
+
+var Switch = /*#__PURE__*/function (_SvelteComponentDev) {
+  _inherits(Switch, _SvelteComponentDev);
+
+  var _super = _createSuper$k(Switch);
+
+  function Switch(options) {
+    var _this;
+
+    _classCallCheck(this, Switch);
+
+    _this = _super.call(this, options);
+    init(_assertThisInitialized(_this), options, instance$k, create_fragment$k, safe_not_equal, {
+      value: 8,
+      values: 0,
+      theme: 7,
+      hideLabels: 1
+    });
+    dispatch_dev("SvelteRegisterComponent", {
+      component: _assertThisInitialized(_this),
+      tagName: "Switch",
+      options: options,
+      id: create_fragment$k.name
+    });
+    var ctx = _this.$$.ctx;
+    var props = options.props || {};
+
+    if (
+    /*value*/
+    ctx[8] === undefined && !("value" in props)) {
+      console.warn("<Switch> was created without expected prop 'value'");
+    }
+
+    if (
+    /*values*/
+    ctx[0] === undefined && !("values" in props)) {
+      console.warn("<Switch> was created without expected prop 'values'");
+    }
+
+    if (
+    /*theme*/
+    ctx[7] === undefined && !("theme" in props)) {
+      console.warn("<Switch> was created without expected prop 'theme'");
+    }
+
+    if (
+    /*hideLabels*/
+    ctx[1] === undefined && !("hideLabels" in props)) {
+      console.warn("<Switch> was created without expected prop 'hideLabels'");
+    }
+
+    return _this;
+  }
+
+  _createClass(Switch, [{
+    key: "value",
+    get: function get() {
+      throw new Error("<Switch>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<Switch>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "values",
+    get: function get() {
+      throw new Error("<Switch>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<Switch>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "theme",
+    get: function get() {
+      throw new Error("<Switch>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<Switch>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }, {
+    key: "hideLabels",
+    get: function get() {
+      throw new Error("<Switch>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<Switch>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }]);
+
+  return Switch;
+}(SvelteComponentDev);
+
+var ui = /*#__PURE__*/Object.freeze({
+	__proto__: null,
+	Switch: Switch
+});
+
 function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var file$e = "src/routes/components/[slug].svelte";
+var components = _objectSpread$7(_objectSpread$7(_objectSpread$7(_objectSpread$7(_objectSpread$7({}, barchart), choropleth), histogram), legend), ui);
+
+function _createSuper$l(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct$l(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct$l() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var file$f = "src/routes/components/[slug].svelte";
 
 function get_each_context$7(ctx, list, i) {
   var child_ctx = ctx.slice();
@@ -17125,16 +18114,16 @@ function create_if_block_2$6(ctx) {
       this.h();
     },
     h: function hydrate() {
-      add_location(h2, file$e, 74, 3, 1698);
+      add_location(h2, file$f, 74, 3, 1698);
       attr_dev(select, "size", select_size_value =
       /*data*/
       ctx[0].length);
       attr_dev(select, "class", "svelte-1gqqmmb");
-      add_location(select, file$e, 77, 4, 1800);
+      add_location(select, file$f, 77, 4, 1800);
       attr_dev(div0, "class", "distancer svelte-1gqqmmb");
-      add_location(div0, file$e, 75, 3, 1728);
+      add_location(div0, file$f, 75, 3, 1728);
       attr_dev(div1, "class", "distancer svelte-1gqqmmb");
-      add_location(div1, file$e, 73, 2, 1671);
+      add_location(div1, file$f, 73, 2, 1671);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div1, anchor);
@@ -17249,7 +18238,7 @@ function create_each_block_2$1(ctx) {
       /*selected*/
       ctx[10];
       attr_dev(option, "class", "svelte-1gqqmmb");
-      add_location(option, file$e, 82, 5, 1943);
+      add_location(option, file$f, 82, 5, 1943);
     },
     m: function mount(target, anchor) {
       insert_dev(target, option, anchor);
@@ -17287,7 +18276,7 @@ function create_each_block_2$1(ctx) {
 } // (94:2) {#if payloads}
 
 
-function create_if_block_1$9(ctx) {
+function create_if_block_1$a(ctx) {
   var h2;
   var t0;
   var t1;
@@ -17336,9 +18325,9 @@ function create_if_block_1$9(ctx) {
       this.h();
     },
     h: function hydrate() {
-      add_location(h2, file$e, 94, 2, 2120);
+      add_location(h2, file$f, 94, 2, 2120);
       attr_dev(div, "class", "distancer svelte-1gqqmmb");
-      add_location(div, file$e, 95, 2, 2138);
+      add_location(div, file$f, 95, 2, 2138);
     },
     m: function mount(target, anchor) {
       insert_dev(target, h2, anchor);
@@ -17391,7 +18380,7 @@ function create_if_block_1$9(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block_1$9.name,
+    id: create_if_block_1$a.name,
     type: "if",
     source: "(94:2) {#if payloads}",
     ctx: ctx
@@ -17449,11 +18438,11 @@ function create_each_block_1$3(ctx) {
     },
     h: function hydrate() {
       attr_dev(span, "class", "svelte-1gqqmmb");
-      add_location(span, file$e, 98, 4, 2232);
+      add_location(span, file$f, 98, 4, 2232);
       attr_dev(pre, "class", "svelte-1gqqmmb");
-      add_location(pre, file$e, 99, 4, 2255);
+      add_location(pre, file$f, 99, 4, 2255);
       attr_dev(div, "class", "row svelte-1gqqmmb");
-      add_location(div, file$e, 97, 3, 2210);
+      add_location(div, file$f, 97, 3, 2210);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -17541,10 +18530,10 @@ function create_each_block$7(ctx) {
       this.h();
     },
     h: function hydrate() {
-      add_location(code, file$e, 115, 7, 2551);
-      add_location(h3, file$e, 115, 3, 2547);
+      add_location(code, file$f, 115, 7, 2551);
+      add_location(h3, file$f, 115, 3, 2547);
       attr_dev(div, "class", "distancer svelte-1gqqmmb");
-      add_location(div, file$e, 116, 3, 2583);
+      add_location(div, file$f, 116, 3, 2583);
     },
     m: function mount(target, anchor) {
       insert_dev(target, h3, anchor);
@@ -17706,13 +18695,13 @@ function create_else_block$5(ctx) {
 } // (125:2) {#if isSVG}
 
 
-function create_if_block$b(ctx) {
+function create_if_block$c(ctx) {
   var div;
   var svg;
   var switch_instance;
   var div_resize_listener;
   var current;
-  var switch_instance_spread_levels = [_objectSpread$7(_objectSpread$7({},
+  var switch_instance_spread_levels = [_objectSpread$8(_objectSpread$8({},
   /*current_data*/
   ctx[11].props), {}, {
     width:
@@ -17775,7 +18764,7 @@ function create_if_block$b(ctx) {
       attr_dev(svg, "height",
       /*height*/
       ctx[6]);
-      add_location(svg, file$e, 129, 3, 2814);
+      add_location(svg, file$f, 129, 3, 2814);
       attr_dev(div, "class", "svgwrapper svelte-1gqqmmb");
       add_render_callback(function () {
         return (
@@ -17783,7 +18772,7 @@ function create_if_block$b(ctx) {
           ctx[17].call(div)
         );
       });
-      add_location(div, file$e, 125, 2, 2721);
+      add_location(div, file$f, 125, 2, 2721);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div, anchor);
@@ -17801,7 +18790,7 @@ function create_if_block$b(ctx) {
     p: function update(ctx, dirty) {
       var switch_instance_changes = dirty[0] &
       /*current_data, width, height*/
-      2144 ? get_spread_update(switch_instance_spread_levels, [_objectSpread$7(_objectSpread$7({},
+      2144 ? get_spread_update(switch_instance_spread_levels, [_objectSpread$8(_objectSpread$8({},
       /*current_data*/
       ctx[11].props), {}, {
         width:
@@ -17875,7 +18864,7 @@ function create_if_block$b(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_if_block$b.name,
+    id: create_if_block$c.name,
     type: "if",
     source: "(125:2) {#if isSVG}",
     ctx: ctx
@@ -17883,7 +18872,7 @@ function create_if_block$b(ctx) {
   return block;
 }
 
-function create_fragment$k(ctx) {
+function create_fragment$l(ctx) {
   var title_value;
   var t0;
   var main;
@@ -17933,7 +18922,7 @@ function create_fragment$k(ctx) {
   ctx[0].length > 1 && create_if_block_2$6(ctx);
   var if_block1 =
   /*payloads*/
-  ctx[8] && create_if_block_1$9(ctx);
+  ctx[8] && create_if_block_1$a(ctx);
   var each_value =
   /*displayProps*/
   ctx[12];
@@ -17950,7 +18939,7 @@ function create_fragment$k(ctx) {
     });
   };
 
-  var if_block_creators = [create_if_block$b, create_else_block$5];
+  var if_block_creators = [create_if_block$c, create_else_block$5];
   var if_blocks = [];
 
   function select_block_type(ctx, dirty) {
@@ -18077,23 +19066,23 @@ function create_fragment$k(ctx) {
     },
     h: function hydrate() {
       attr_dev(h1, "class", "svelte-1gqqmmb");
-      add_location(h1, file$e, 63, 1, 1503);
+      add_location(h1, file$f, 63, 1, 1503);
       attr_dev(div0, "class", "distancer svelte-1gqqmmb");
-      add_location(div0, file$e, 67, 2, 1562);
-      add_location(h20, file$e, 107, 3, 2374);
+      add_location(div0, file$f, 67, 2, 1562);
+      add_location(h20, file$f, 107, 3, 2374);
       attr_dev(pre, "class", "svelte-1gqqmmb");
-      add_location(pre, file$e, 108, 3, 2392);
+      add_location(pre, file$f, 108, 3, 2392);
       attr_dev(div1, "class", "distancer svelte-1gqqmmb");
-      add_location(div1, file$e, 106, 2, 2347);
-      add_location(h21, file$e, 113, 3, 2480);
+      add_location(div1, file$f, 106, 2, 2347);
+      add_location(h21, file$f, 113, 3, 2480);
       attr_dev(div2, "class", "distancer svelte-1gqqmmb");
-      add_location(div2, file$e, 112, 2, 2453);
+      add_location(div2, file$f, 112, 2, 2453);
       attr_dev(div3, "class", "col col1 svelte-1gqqmmb");
-      add_location(div3, file$e, 64, 1, 1521);
+      add_location(div3, file$f, 64, 1, 1521);
       attr_dev(div4, "class", "col col2 svelte-1gqqmmb");
-      add_location(div4, file$e, 123, 1, 2682);
+      add_location(div4, file$f, 123, 1, 2682);
       attr_dev(main, "class", "svelte-1gqqmmb");
-      add_location(main, file$e, 62, 0, 1495);
+      add_location(main, file$f, 62, 0, 1495);
     },
     m: function mount(target, anchor) {
       insert_dev(target, t0, anchor);
@@ -18175,7 +19164,7 @@ function create_fragment$k(ctx) {
         if (if_block1) {
           if_block1.p(ctx, dirty);
         } else {
-          if_block1 = create_if_block_1$9(ctx);
+          if_block1 = create_if_block_1$a(ctx);
           if_block1.c();
           if_block1.m(div3, t5);
         }
@@ -18283,7 +19272,7 @@ function create_fragment$k(ctx) {
   };
   dispatch_dev("SvelteRegisterBlock", {
     block: block,
-    id: create_fragment$k.name,
+    id: create_fragment$l.name,
     type: "component",
     source: "",
     ctx: ctx
@@ -18486,7 +19475,7 @@ function instance_1($$self, $$props, $$invalidate) {
 var U5Bslugu5D = /*#__PURE__*/function (_SvelteComponentDev) {
   _inherits(U5Bslugu5D, _SvelteComponentDev);
 
-  var _super = _createSuper$k(U5Bslugu5D);
+  var _super = _createSuper$l(U5Bslugu5D);
 
   function U5Bslugu5D(options) {
     var _this;
@@ -18494,7 +19483,7 @@ var U5Bslugu5D = /*#__PURE__*/function (_SvelteComponentDev) {
     _classCallCheck(this, U5Bslugu5D);
 
     _this = _super.call(this, options);
-    init(_assertThisInitialized(_this), options, instance_1, create_fragment$k, safe_not_equal, {
+    init(_assertThisInitialized(_this), options, instance_1, create_fragment$l, safe_not_equal, {
       data: 0,
       doc: 1,
       events: 14,
@@ -18506,7 +19495,7 @@ var U5Bslugu5D = /*#__PURE__*/function (_SvelteComponentDev) {
       component: _assertThisInitialized(_this),
       tagName: "U5Bslugu5D",
       options: options,
-      id: create_fragment$k.name
+      id: create_fragment$l.name
     });
     var ctx = _this.$$.ctx;
     var props = options.props || {};

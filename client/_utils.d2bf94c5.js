@@ -1,5 +1,3 @@
-import { F as _typeof, A as _slicedToArray } from './client.4c579b7d.js';
-
 /**
 * @overview lamb - A lightweight, and docile, JavaScript library to help embracing functional programming.
 * @author Andrea Scartabelli <andrea.scartabelli@gmail.com>
@@ -7,7 +5,6 @@ import { F as _typeof, A as _slicedToArray } from './client.4c579b7d.js';
 * @module lamb
 * @license MIT
 */
-
 /**
  * The placeholder object used in partial application.
  * @memberof module:lamb
@@ -19,6 +16,7 @@ import { F as _typeof, A as _slicedToArray } from './client.4c579b7d.js';
  * @type {Object}
  */
 var __ = {};
+
 /**
  * Builds a function that returns a constant value.
  * It's actually the simplest form of the K combinator or Kestrel.
@@ -43,12 +41,12 @@ var __ = {};
  * @param {*} value
  * @returns {Function}
  */
-
-function always(value) {
-  return function () {
-    return value;
-  };
+function always (value) {
+    return function () {
+        return value;
+    };
 }
+
 /**
  * Verifies that the two supplied values are the same value using the "SameValueZero" comparison.<br/>
  * With this comparison <code>NaN</code> is equal to itself, but <code>0</code> and <code>-0</code> are
@@ -75,11 +73,10 @@ function always(value) {
  * @param {*} b
  * @returns {Boolean}
  */
-
-
-function areSVZ(a, b) {
-  return a !== a ? b !== b : a === b; // eslint-disable-line no-self-compare
+function areSVZ (a, b) {
+    return a !== a ? b !== b : a === b; // eslint-disable-line no-self-compare
 }
+
 /**
  * Builds a function that passes only two arguments to the given function.<br/>
  * It's simply a shortcut for a common use case of {@link module:lamb.aritize|aritize},
@@ -96,13 +93,12 @@ function areSVZ(a, b) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function binary(fn) {
-  return function (a, b) {
-    return fn.call(this, a, b);
-  };
+function binary (fn) {
+    return function (a, b) {
+        return fn.call(this, a, b);
+    };
 }
+
 /**
  * "Clamps" a number within the given limits, both included.<br/>
  * The function will convert to number all its parameters before starting any
@@ -126,19 +122,18 @@ function binary(fn) {
  * @param {Number} max
  * @returns {Number}
  */
+function clamp (n, min, max) {
+    n = +n;
+    min = +min;
+    max = +max;
 
-
-function clamp(n, min, max) {
-  n = +n;
-  min = +min;
-  max = +max;
-
-  if (min > max) {
-    return NaN;
-  } else {
-    return n < min ? min : n > max ? max : n;
-  }
+    if (min > max) {
+        return NaN;
+    } else {
+        return n < min ? min : n > max ? max : n;
+    }
 }
+
 /**
  * Builds a partially applied function.<br/>
  * The {@link module:lamb.__|__} object can be used as a placeholder for arguments.<br/>
@@ -168,30 +163,29 @@ function clamp(n, min, max) {
  * @param {Array} args
  * @returns {Function}
  */
+function partial (fn, args) {
+    return function () {
+        if (!Array.isArray(args)) {
+            return fn.apply(this, arguments);
+        }
 
+        var lastIdx = 0;
+        var newArgs = [];
+        var argsLen = args.length;
 
-function partial(fn, args) {
-  return function () {
-    if (!Array.isArray(args)) {
-      return fn.apply(this, arguments);
-    }
+        for (var i = 0, boundArg; i < argsLen; i++) {
+            boundArg = args[i];
+            newArgs[i] = boundArg === __ ? arguments[lastIdx++] : boundArg;
+        }
 
-    var lastIdx = 0;
-    var newArgs = [];
-    var argsLen = args.length;
+        for (var len = arguments.length; lastIdx < len; lastIdx++) {
+            newArgs[i++] = arguments[lastIdx];
+        }
 
-    for (var i = 0, boundArg; i < argsLen; i++) {
-      boundArg = args[i];
-      newArgs[i] = boundArg === __ ? arguments[lastIdx++] : boundArg;
-    }
-
-    for (var len = arguments.length; lastIdx < len; lastIdx++) {
-      newArgs[i++] = arguments[lastIdx];
-    }
-
-    return fn.apply(this, newArgs);
-  };
+        return fn.apply(this, newArgs);
+    };
 }
+
 /**
  * Builds a partial application of a ternary function so that its first parameter
  * is expected as the last one.<br/>
@@ -203,14 +197,14 @@ function partial(fn, args) {
  * @param {Boolean} shouldAritize
  * @returns {Function}
  */
+function _makePartial3 (fn, shouldAritize) {
+    return function (a, b) {
+        var f = shouldAritize && arguments.length !== 2 ? binary(fn) : fn;
 
-
-function _makePartial3(fn, shouldAritize) {
-  return function (a, b) {
-    var f = shouldAritize && arguments.length !== 2 ? binary(fn) : fn;
-    return partial(f, [__, a, b]);
-  };
+        return partial(f, [__, a, b]);
+    };
 }
+
 /**
  * A curried version of {@link module:lamb.clamp|clamp}, expecting a <code>min</code>
  * and a <code>max</code> value, that builds a function waiting for the number to clamp.
@@ -232,9 +226,8 @@ function _makePartial3(fn, shouldAritize) {
  * @param {Number} max
  * @returns {Function}
  */
-
-
 var clampWithin = _makePartial3(clamp);
+
 /**
  * The I combinator. Any value passed to the function is simply returned as it is.
  * @example
@@ -249,11 +242,10 @@ var clampWithin = _makePartial3(clamp);
  * @param {*} value
  * @returns {*} The value passed as parameter.
  */
-
-
-function identity(value) {
-  return value;
+function identity (value) {
+    return value;
 }
+
 /**
  * Returns a function that is the composition of the functions given as parameters.
  * The first function consumes the result of the function that follows.
@@ -278,16 +270,15 @@ function identity(value) {
  * @param {Function} b
  * @returns {Function}
  */
-
-
-function compose(a, b) {
-  return arguments.length ? function () {
-    return a.call(this, b.apply(this, arguments));
-  } : identity;
+function compose (a, b) {
+    return arguments.length ? function () {
+        return a.call(this, b.apply(this, arguments));
+    } : identity;
 }
 
 var MAX_ARRAY_LENGTH = 4294967295;
 var MAX_SAFE_INTEGER = 9007199254740991;
+
 /**
  * Converts a value to a valid array length, thus an integer within
  * <code>0</code> and <code>2<sup>32</sup> - 1</code> (both included).
@@ -295,10 +286,10 @@ var MAX_SAFE_INTEGER = 9007199254740991;
  * @param {*} value
  * @returns {Number}
  */
-
-function _toArrayLength(value) {
-  return clamp(value, 0, MAX_ARRAY_LENGTH) >>> 0;
+function _toArrayLength (value) {
+    return clamp(value, 0, MAX_ARRAY_LENGTH) >>> 0;
 }
+
 /* eslint-disable jsdoc/require-returns-check */
 
 /**
@@ -320,13 +311,12 @@ function _toArrayLength(value) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Undefined}
  */
-
-
-function forEach(arrayLike, iteratee) {
-  for (var i = 0, len = _toArrayLength(arrayLike.length); i < len; i++) {
-    iteratee(arrayLike[i], i, arrayLike);
-  }
+function forEach (arrayLike, iteratee) {
+    for (var i = 0, len = _toArrayLength(arrayLike.length); i < len; i++) {
+        iteratee(arrayLike[i], i, arrayLike);
+    }
 }
+
 /**
  * Creates generic functions out of methods.
  * @author A very little change on a great idea by [Irakli Gozalishvili]{@link https://github.com/Gozala/}.
@@ -346,9 +336,8 @@ function forEach(arrayLike, iteratee) {
  * @param {Function} method
  * @returns {Function}
  */
-
-
 var generic = Function.bind.bind(Function.call);
+
 /**
  * Verifies if a value is <code>null</code>.
  * @example
@@ -363,10 +352,10 @@ var generic = Function.bind.bind(Function.call);
  * @param {*} value
  * @returns {Boolean}
  */
-
-function isNull(value) {
-  return value === null;
+function isNull (value) {
+    return value === null;
 }
+
 /**
  * Verifies if a value is <code>undefined</code>.
  * @example
@@ -381,11 +370,10 @@ function isNull(value) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isUndefined(value) {
-  return value === void 0;
+function isUndefined (value) {
+    return value === void 0;
 }
+
 /**
  * Verifies if a value is <code>null</code> or <code>undefined</code>.
  * @example
@@ -403,11 +391,10 @@ function isUndefined(value) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isNil(value) {
-  return isNull(value) || isUndefined(value);
+function isNil (value) {
+    return isNull(value) || isUndefined(value);
 }
+
 /**
  * Curries a function of arity 2.
  * @private
@@ -415,15 +402,14 @@ function isNil(value) {
  * @param {Boolean} [isRightCurry=false]
  * @returns {Function}
  */
-
-
-function _curry2(fn, isRightCurry) {
-  return function (a) {
-    return function (b) {
-      return isRightCurry ? fn.call(this, b, a) : fn.call(this, a, b);
+function _curry2 (fn, isRightCurry) {
+    return function (a) {
+        return function (b) {
+            return isRightCurry ? fn.call(this, b, a) : fn.call(this, a, b);
+        };
     };
-  };
 }
+
 /**
  * A curried version of {@link module:lamb.areSVZ|areSVZ}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -460,9 +446,8 @@ function _curry2(fn, isRightCurry) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var isSVZ = _curry2(areSVZ);
+
 /**
  * Builds a new array by applying the iteratee function to each element of the
  * received array-like object.<br/>
@@ -481,19 +466,17 @@ var isSVZ = _curry2(areSVZ);
  * @param {ListIteratorCallback} iteratee
  * @returns {Array}
  */
+function map (arrayLike, iteratee) {
+    var len = _toArrayLength(arrayLike.length);
+    var result = Array(len);
 
+    for (var i = 0; i < len; i++) {
+        result[i] = iteratee(arrayLike[i], i, arrayLike);
+    }
 
-function map(arrayLike, iteratee) {
-  var len = _toArrayLength(arrayLike.length);
-
-  var result = Array(len);
-
-  for (var i = 0; i < len; i++) {
-    result[i] = iteratee(arrayLike[i], i, arrayLike);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.map|map} that uses the provided iteratee to
  * build a function expecting the array-like object to act upon.
@@ -512,9 +495,8 @@ function map(arrayLike, iteratee) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var mapWith = _curry2(map, true);
+
 /**
  * Like {@link module:lamb.partial|partial} will build a partially applied function and
  * it will accept placeholders.<br/>
@@ -549,35 +531,34 @@ var mapWith = _curry2(map, true);
  * @since 0.52.0
  * @returns {Function}
  */
+function partialRight (fn, args) {
+    return function () {
+        if (!Array.isArray(args)) {
+            return fn.apply(this, arguments);
+        }
 
+        var lastIdx = arguments.length - 1;
+        var argsLen = args.length;
+        var boundArgs = Array(argsLen);
+        var newArgs = [];
 
-function partialRight(fn, args) {
-  return function () {
-    if (!Array.isArray(args)) {
-      return fn.apply(this, arguments);
-    }
+        for (var i = argsLen - 1, boundArg; i > -1; i--) {
+            boundArg = args[i];
+            boundArgs[i] = boundArg === __ ? arguments[lastIdx--] : boundArg;
+        }
 
-    var lastIdx = arguments.length - 1;
-    var argsLen = args.length;
-    var boundArgs = Array(argsLen);
-    var newArgs = [];
+        for (i = 0; i <= lastIdx; i++) {
+            newArgs[i] = arguments[i];
+        }
 
-    for (var i = argsLen - 1, boundArg; i > -1; i--) {
-      boundArg = args[i];
-      boundArgs[i] = boundArg === __ ? arguments[lastIdx--] : boundArg;
-    }
+        for (var j = 0; j < argsLen; j++) {
+            newArgs[i++] = boundArgs[j];
+        }
 
-    for (i = 0; i <= lastIdx; i++) {
-      newArgs[i] = arguments[i];
-    }
-
-    for (var j = 0; j < argsLen; j++) {
-      newArgs[i++] = boundArgs[j];
-    }
-
-    return fn.apply(this, newArgs);
-  };
+        return fn.apply(this, newArgs);
+    };
 }
+
 /**
  * Builds a reduce function. The <code>step</code> parameter must be <code>1</code>
  * to build  {@link module:lamb.reduce|reduce} and <code>-1</code> to build
@@ -586,36 +567,34 @@ function partialRight(fn, args) {
  * @param {Number} step
  * @returns {Function}
  */
+function _makeReducer (step) {
+    return function (arrayLike, accumulator, initialValue) {
+        var len = _toArrayLength(arrayLike.length);
+        var idx = step === 1 ? 0 : len - 1;
+        var nCalls;
+        var result;
 
+        if (arguments.length === 3) {
+            nCalls = len;
+            result = initialValue;
+        } else {
+            if (len === 0) {
+                throw new TypeError("Reduce of empty array-like with no initial value");
+            }
 
-function _makeReducer(step) {
-  return function (arrayLike, accumulator, initialValue) {
-    var len = _toArrayLength(arrayLike.length);
+            result = arrayLike[idx];
+            idx += step;
+            nCalls = len - 1;
+        }
 
-    var idx = step === 1 ? 0 : len - 1;
-    var nCalls;
-    var result;
+        for (; nCalls--; idx += step) {
+            result = accumulator(result, arrayLike[idx], idx, arrayLike);
+        }
 
-    if (arguments.length === 3) {
-      nCalls = len;
-      result = initialValue;
-    } else {
-      if (len === 0) {
-        throw new TypeError("Reduce of empty array-like with no initial value");
-      }
-
-      result = arrayLike[idx];
-      idx += step;
-      nCalls = len - 1;
-    }
-
-    for (; nCalls--; idx += step) {
-      result = accumulator(result, arrayLike[idx], idx, arrayLike);
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Reduces (or folds) the values of an array-like object, starting from the first, to a new
  * value using the provided <code>accumulator</code> function.<br/>
@@ -634,9 +613,8 @@ function _makeReducer(step) {
  * @param {*} [initialValue]
  * @returns {*}
  */
-
-
 var reduce = _makeReducer(1);
+
 /**
  * A partial application of {@link module:lamb.reduce|reduce} that uses the
  * provided <code>accumulator</code> and the optional <code>initialValue</code> to
@@ -658,29 +636,26 @@ var reduce = _makeReducer(1);
  * @param {*} [initialValue]
  * @returns {Function}
  */
-
-
 var reduceWith = _makePartial3(reduce, true);
+
 /**
  * Converts a value to an integer.
  * @private
  * @param {*} value
  * @returns {Number}
  */
+function _toInteger (value) {
+    var n = +value;
 
-
-function _toInteger(value) {
-  var n = +value;
-
-  if (n !== n) {
-    // eslint-disable-line no-self-compare
-    return 0;
-  } else if (n % 1 === 0) {
-    return n;
-  } else {
-    return Math.floor(Math.abs(n)) * (n < 0 ? -1 : 1);
-  }
+    if (n !== n) { // eslint-disable-line no-self-compare
+        return 0;
+    } else if (n % 1 === 0) {
+        return n;
+    } else {
+        return Math.floor(Math.abs(n)) * (n < 0 ? -1 : 1);
+    }
 }
+
 /**
  * Builds an array by extracting a portion of an array-like object.<br/>
  * Note that unlike the native array method this function ensures that dense
@@ -706,34 +681,31 @@ function _toInteger(value) {
  * @param {Number} end - Index at which to end extraction. Extracts up to but not including end.
  * @returns {Array}
  */
+function slice (arrayLike, start, end) {
+    var len = _toArrayLength(arrayLike.length);
+    var begin = _toInteger(start);
+    var upTo = _toInteger(end);
 
+    if (begin < 0) {
+        begin = begin < -len ? 0 : begin + len;
+    }
 
-function slice(arrayLike, start, end) {
-  var len = _toArrayLength(arrayLike.length);
+    if (upTo < 0) {
+        upTo = upTo < -len ? 0 : upTo + len;
+    } else if (upTo > len) {
+        upTo = len;
+    }
 
-  var begin = _toInteger(start);
+    var resultLen = upTo - begin;
+    var result = resultLen > 0 ? Array(resultLen) : [];
 
-  var upTo = _toInteger(end);
+    for (var i = 0; i < resultLen; i++) {
+        result[i] = arrayLike[begin + i];
+    }
 
-  if (begin < 0) {
-    begin = begin < -len ? 0 : begin + len;
-  }
-
-  if (upTo < 0) {
-    upTo = upTo < -len ? 0 : upTo + len;
-  } else if (upTo > len) {
-    upTo = len;
-  }
-
-  var resultLen = upTo - begin;
-  var result = resultLen > 0 ? Array(resultLen) : [];
-
-  for (var i = 0; i < resultLen; i++) {
-    result[i] = arrayLike[begin + i];
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Given the <code>start</code> and <code>end</code> bounds, builds a partial application
  * of {@link module:lamb.slice|slice} expecting the array-like object to slice.<br/>
@@ -757,11 +729,10 @@ function slice(arrayLike, start, end) {
  * @param {Number} end - Index at which to end extraction. Extracts up to but not including end.
  * @returns {Function}
  */
-
-
 var sliceAt = _makePartial3(slice);
 
 var objectProtoToString = Object.prototype.toString;
+
 /**
  * Retrieves the "type tag" from the given value.
  * @example
@@ -783,10 +754,10 @@ var objectProtoToString = Object.prototype.toString;
  * @param {*} value
  * @returns {String}
  */
-
-function type(value) {
-  return objectProtoToString.call(value).slice(8, -1);
+function type (value) {
+    return objectProtoToString.call(value).slice(8, -1);
 }
+
 /**
  * Appends the given value at the end of a copy of the provided array-like object.
  * @example
@@ -804,11 +775,10 @@ function type(value) {
  * @param {*} value
  * @returns {Array}
  */
-
-
-function appendTo(arrayLike, value) {
-  return slice(arrayLike, 0, arrayLike.length).concat([value]);
+function appendTo (arrayLike, value) {
+    return slice(arrayLike, 0, arrayLike.length).concat([value]);
 }
+
 /**
  * A curried version of {@link module:lamb.appendTo|appendTo} that uses the value to append
  * to build a function expecting the array-like object to act upon.
@@ -827,9 +797,8 @@ function appendTo(arrayLike, value) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var append = _curry2(appendTo, true);
+
 /**
  * Checks if an array-like object contains the given value.<br/>
  * Please note that the equality test is made with {@link module:lamb.areSVZ|areSVZ}; so you can
@@ -852,20 +821,19 @@ var append = _curry2(appendTo, true);
  * @param {*} value
  * @returns {Boolean}
  */
+function isIn (arrayLike, value) {
+    var result = false;
 
-
-function isIn(arrayLike, value) {
-  var result = false;
-
-  for (var i = 0, len = arrayLike.length; i < len; i++) {
-    if (areSVZ(value, arrayLike[i])) {
-      result = true;
-      break;
+    for (var i = 0, len = arrayLike.length; i < len; i++) {
+        if (areSVZ(value, arrayLike[i])) {
+            result = true;
+            break;
+        }
     }
-  }
 
-  return result;
+    return result;
 }
+
 /**
  * Builds a predicate to check if an array-like object contains the given value.<br/>
  * Please note that the equality test is made with {@link module:lamb.areSVZ|areSVZ}; so you can
@@ -884,31 +852,29 @@ function isIn(arrayLike, value) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var contains = _curry2(isIn, true);
+
 /**
  * Builds a "grouping function" for an array-like object.
  * @private
  * @param {Function} makeValue
  * @returns {Function}
  */
+function _groupWith (makeValue) {
+    return function (arrayLike, iteratee) {
+        var result = {};
+        var len = arrayLike.length;
 
+        for (var i = 0, element, key; i < len; i++) {
+            element = arrayLike[i];
+            key = iteratee(element, i, arrayLike);
+            result[key] = makeValue(result[key], element);
+        }
 
-function _groupWith(makeValue) {
-  return function (arrayLike, iteratee) {
-    var result = {};
-    var len = arrayLike.length;
-
-    for (var i = 0, element, key; i < len; i++) {
-      element = arrayLike[i];
-      key = iteratee(element, i, arrayLike);
-      result[key] = makeValue(result[key], element);
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Transforms an array-like object in a lookup table with the keys generated by the provided
  * <code>iteratee</code>, having as values the count of matches for the key.
@@ -934,11 +900,10 @@ function _groupWith(makeValue) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Object}
  */
-
-
 var count = _groupWith(function (a) {
-  return a ? ++a : 1;
+    return a ? ++a : 1;
 });
+
 /**
  * A curried version of {@link module:lamb.count|count} that uses the provided iteratee to
  * build a function expecting the array-like object to act upon.
@@ -964,9 +929,8 @@ var count = _groupWith(function (a) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var countBy = _curry2(count, true);
+
 /**
  * Builds an array comprised of all values of the array-like object passing the <code>predicate</code>
  * test.<br/>
@@ -987,18 +951,17 @@ var countBy = _curry2(count, true);
  * @since 0.1.0
  * @returns {Array}
  */
+function filter (arrayLike, predicate) {
+    var len = arrayLike.length;
+    var result = [];
 
+    for (var i = 0; i < len; i++) {
+        predicate(arrayLike[i], i, arrayLike) && result.push(arrayLike[i]);
+    }
 
-function filter(arrayLike, predicate) {
-  var len = arrayLike.length;
-  var result = [];
-
-  for (var i = 0; i < len; i++) {
-    predicate(arrayLike[i], i, arrayLike) && result.push(arrayLike[i]);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Returns a predicate that negates the given one.
  * @example
@@ -1014,13 +977,12 @@ function filter(arrayLike, predicate) {
  * @param {Function} predicate
  * @returns {Function}
  */
-
-
-function not(predicate) {
-  return function () {
-    return !predicate.apply(this, arguments);
-  };
+function not (predicate) {
+    return function () {
+        return !predicate.apply(this, arguments);
+    };
 }
+
 /**
  * Using the provided iteratee, builds a function that will return an array comprised of the
  * unique elements of an array-like object. The values being compared are the ones returned by
@@ -1049,24 +1011,23 @@ function not(predicate) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
+function uniquesBy (iteratee) {
+    return function (arrayLike) {
+        var result = [];
 
+        for (var i = 0, len = arrayLike.length, seen = [], value; i < len; i++) {
+            value = iteratee(arrayLike[i], i, arrayLike);
 
-function uniquesBy(iteratee) {
-  return function (arrayLike) {
-    var result = [];
+            if (!isIn(seen, value)) {
+                seen.push(value);
+                result.push(arrayLike[i]);
+            }
+        }
 
-    for (var i = 0, len = arrayLike.length, seen = [], value; i < len; i++) {
-      value = iteratee(arrayLike[i], i, arrayLike);
-
-      if (!isIn(seen, value)) {
-        seen.push(value);
-        result.push(arrayLike[i]);
-      }
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Returns an array comprised of the unique elements of the given array-like object.<br/>
  * Note that this function uses the ["SameValueZero" comparison]{@link module:lamb.areSVZ|areSVZ}
@@ -1086,9 +1047,8 @@ function uniquesBy(iteratee) {
  * @param {ArrayLike} arrayLike
  * @returns {Array}
  */
-
-
 var uniques = uniquesBy(identity);
+
 /**
  * Returns an array of unique items present only in the first of the two given
  * array-like objects. To determine uniqueness the function uses the
@@ -1112,11 +1072,12 @@ var uniques = uniquesBy(identity);
  * @param {ArrayLike} other
  * @returns {Array}
  */
+function difference (arrayLike, other) {
+    var isNotInOther = partial(not(isIn), [other]);
 
-function difference(arrayLike, other) {
-  var isNotInOther = partial(not(isIn), [other]);
-  return uniques(filter(arrayLike, isNotInOther));
+    return uniques(filter(arrayLike, isNotInOther));
 }
+
 /**
  * Builds an array without the first <code>n</code> elements of the given array or array-like object.
  * Note that, being this only a shortcut for a specific use case of {@link module:lamb.slice|slice},
@@ -1139,11 +1100,10 @@ function difference(arrayLike, other) {
  * @param {Number} n
  * @returns {Array}
  */
-
-
-function dropFrom(arrayLike, n) {
-  return slice(arrayLike, n, arrayLike.length);
+function dropFrom (arrayLike, n) {
+    return slice(arrayLike, n, arrayLike.length);
 }
+
 /**
  * A curried version of {@link module:lamb.dropFrom|dropFrom} that expects the number of elements
  * to drop to build a function waiting for the list to take the elements from.<br/>
@@ -1165,9 +1125,8 @@ function dropFrom(arrayLike, n) {
  * @param {Number} n
  * @returns {Function}
  */
-
-
 var drop = _curry2(dropFrom, true);
+
 /**
  * Gets the index of the last element satisfying a predicate in an array-like object.
  * @private
@@ -1176,27 +1135,26 @@ var drop = _curry2(dropFrom, true);
  * @param {Boolean} fromLast
  * @returns {Number}
  */
+function _getLastHitIndex (arrayLike, predicate, fromLast) {
+    var idx;
+    var increment;
+    var len = arrayLike.length;
 
+    if (fromLast) {
+        idx = len - 1;
+        increment = -1;
+    } else {
+        idx = 0;
+        increment = 1;
+    }
 
-function _getLastHitIndex(arrayLike, predicate, fromLast) {
-  var idx;
-  var increment;
-  var len = arrayLike.length;
+    while (idx >= 0 && idx < len && predicate(arrayLike[idx], idx, arrayLike)) {
+        idx += increment;
+    }
 
-  if (fromLast) {
-    idx = len - 1;
-    increment = -1;
-  } else {
-    idx = 0;
-    increment = 1;
-  }
-
-  while (idx >= 0 && idx < len && predicate(arrayLike[idx], idx, arrayLike)) {
-    idx += increment;
-  }
-
-  return idx;
+    return idx;
 }
+
 /**
  * Helper to build the {@link module:lamb.takeWhile|takeWhile},
  * {@link module:lamb.takeLastWhile|takeLastWhile}, {@link module:lamb.dropWhile|dropWhile} and
@@ -1206,34 +1164,32 @@ function _getLastHitIndex(arrayLike, predicate, fromLast) {
  * @param {Boolean} fromLast
  * @returns {Function}
  */
+function _takeOrDropWhile (isTake, fromLast) {
+    return function (predicate) {
+        return function (arrayLike) {
+            var idxFrom;
+            var idxTo;
+            var lastHitIndex = _getLastHitIndex(arrayLike, predicate, fromLast);
 
+            if (isTake && fromLast) {
+                idxFrom = lastHitIndex + 1;
+                idxTo = arrayLike.length;
+            } else if (isTake) {
+                idxFrom = 0;
+                idxTo = lastHitIndex;
+            } else if (!isTake && fromLast) {
+                idxFrom = 0;
+                idxTo = lastHitIndex + 1;
+            } else {
+                idxFrom = lastHitIndex;
+                idxTo = arrayLike.length;
+            }
 
-function _takeOrDropWhile(isTake, fromLast) {
-  return function (predicate) {
-    return function (arrayLike) {
-      var idxFrom;
-      var idxTo;
-
-      var lastHitIndex = _getLastHitIndex(arrayLike, predicate, fromLast);
-
-      if (isTake && fromLast) {
-        idxFrom = lastHitIndex + 1;
-        idxTo = arrayLike.length;
-      } else if (isTake) {
-        idxFrom = 0;
-        idxTo = lastHitIndex;
-      } else if (!isTake && fromLast) {
-        idxFrom = 0;
-        idxTo = lastHitIndex + 1;
-      } else {
-        idxFrom = lastHitIndex;
-        idxTo = arrayLike.length;
-      }
-
-      return slice(arrayLike, idxFrom, idxTo);
+            return slice(arrayLike, idxFrom, idxTo);
+        };
     };
-  };
 }
+
 /**
  * Builds a function that drops the last elements satisfying a predicate
  * from an array or array-like object.
@@ -1255,9 +1211,8 @@ function _takeOrDropWhile(isTake, fromLast) {
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var dropLastWhile = _takeOrDropWhile(false, true);
+
 /**
  * Builds a function that drops the first elements satisfying a predicate
  * from an array or array-like object.
@@ -1279,9 +1234,8 @@ var dropLastWhile = _takeOrDropWhile(false, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var dropWhile = _takeOrDropWhile(false, false);
+
 /**
  * Helper to build the {@link module:lamb.everyIn|everyIn} or the
  * {@link module:lamb.someIn|someIn} function.
@@ -1289,19 +1243,18 @@ var dropWhile = _takeOrDropWhile(false, false);
  * @param {Boolean} defaultResult
  * @returns {Function}
  */
+function _makeArrayChecker (defaultResult) {
+    return function (arrayLike, predicate) {
+        for (var i = 0, len = arrayLike.length; i < len; i++) {
+            if (defaultResult ^ !!predicate(arrayLike[i], i, arrayLike)) {
+                return !defaultResult;
+            }
+        }
 
-
-function _makeArrayChecker(defaultResult) {
-  return function (arrayLike, predicate) {
-    for (var i = 0, len = arrayLike.length; i < len; i++) {
-      if (defaultResult ^ !!predicate(arrayLike[i], i, arrayLike)) {
-        return !defaultResult;
-      }
-    }
-
-    return defaultResult;
-  };
+        return defaultResult;
+    };
 }
+
 /**
  * Checks if all the elements in an array-like object satisfy the given predicate.<br/>
  * The function will stop calling the predicate as soon as it returns a <em>falsy</em> value.<br/>
@@ -1341,9 +1294,8 @@ function _makeArrayChecker(defaultResult) {
  * @param {ListIteratorCallback} predicate
  * @returns {Boolean}
  */
-
-
 var everyIn = _makeArrayChecker(true);
+
 /**
  * A curried version of {@link module:lamb.everyIn|everyIn} that expects a predicate
  * to build a function waiting for the array-like to act upon.
@@ -1365,9 +1317,8 @@ var everyIn = _makeArrayChecker(true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var every = _curry2(everyIn, true);
+
 /**
  * A curried version of {@link module:lamb.filter|filter} that uses the given predicate
  * to build a function expecting the array-like object to act upon.
@@ -1388,9 +1339,8 @@ var every = _curry2(everyIn, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var filterWith = _curry2(filter, true);
+
 /**
  * Helper to create the {@link module:lamb.findIndex|findIndex} and
  * {@link module:lamb.findLastIndex|findLastIndex} functions.
@@ -1400,31 +1350,30 @@ var filterWith = _curry2(filter, true);
  * @param {Boolean} fromLast
  * @returns {Number}
  */
+function _findIndex (arrayLike, predicate, fromLast) {
+    var start;
+    var increment;
+    var len = arrayLike.length;
+    var result = -1;
 
-
-function _findIndex(arrayLike, predicate, fromLast) {
-  var start;
-  var increment;
-  var len = arrayLike.length;
-  var result = -1;
-
-  if (fromLast) {
-    start = len - 1;
-    increment = -1;
-  } else {
-    start = 0;
-    increment = 1;
-  }
-
-  for (var i = start; i < len && i >= 0; i += increment) {
-    if (predicate(arrayLike[i], i, arrayLike)) {
-      result = i;
-      break;
+    if (fromLast) {
+        start = len - 1;
+        increment = -1;
+    } else {
+        start = 0;
+        increment = 1;
     }
-  }
 
-  return result;
+    for (var i = start; i < len && i >= 0; i += increment) {
+        if (predicate(arrayLike[i], i, arrayLike)) {
+            result = i;
+            break;
+        }
+    }
+
+    return result;
 }
+
 /**
  * Searches for an element satisfying the predicate in the given array-like object and returns its
  * index if the search is successful. Returns <code>-1</code> otherwise.
@@ -1451,11 +1400,10 @@ function _findIndex(arrayLike, predicate, fromLast) {
  * @param {ListIteratorCallback} predicate
  * @returns {Number}
  */
-
-
-function findIndex(arrayLike, predicate) {
-  return _findIndex(arrayLike, predicate, false);
+function findIndex (arrayLike, predicate) {
+    return _findIndex(arrayLike, predicate, false);
 }
+
 /**
  * Searches for an element satisfying the predicate in the given array-like object and returns it if
  * the search is successful. Returns <code>undefined</code> otherwise.
@@ -1482,12 +1430,12 @@ function findIndex(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {*}
  */
+function find (arrayLike, predicate) {
+    var idx = findIndex(arrayLike, predicate);
 
-
-function find(arrayLike, predicate) {
-  var idx = findIndex(arrayLike, predicate);
-  return idx === -1 ? void 0 : arrayLike[idx];
+    return idx === -1 ? void 0 : arrayLike[idx];
 }
+
 /**
  * A curried version of {@link module:lamb.findIndex|findIndex} that uses the given predicate
  * to build a function expecting the array-like object to search.
@@ -1510,9 +1458,8 @@ function find(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var findIndexWhere = _curry2(findIndex, true);
+
 /**
  * Searches for an element satisfying the predicate in the given array-like object starting from
  * the end and returns its index if the search is successful. Returns <code>-1</code> otherwise.
@@ -1538,11 +1485,10 @@ var findIndexWhere = _curry2(findIndex, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Number}
  */
-
-
-function findLastIndex(arrayLike, predicate) {
-  return _findIndex(arrayLike, predicate, true);
+function findLastIndex (arrayLike, predicate) {
+    return _findIndex(arrayLike, predicate, true);
 }
+
 /**
  * Searches for an element satisfying the predicate in the given array-like object starting from the end
  * and returns it if the search is successful. Returns <code>undefined</code> otherwise.
@@ -1569,12 +1515,12 @@ function findLastIndex(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {*}
  */
+function findLast (arrayLike, predicate) {
+    var idx = findLastIndex(arrayLike, predicate);
 
-
-function findLast(arrayLike, predicate) {
-  var idx = findLastIndex(arrayLike, predicate);
-  return idx === -1 ? void 0 : arrayLike[idx];
+    return idx === -1 ? void 0 : arrayLike[idx];
 }
+
 /**
  * A curried version of {@link module:lamb.findLastIndex|findLastIndex} that uses the given predicate
  * to build a function expecting the array-like object to search.
@@ -1596,9 +1542,8 @@ function findLast(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var findLastIndexWhere = _curry2(findLastIndex, true);
+
 /**
  * A curried version of {@link module:lamb.findLast|findLast} that uses the given
  * predicate to build a function expecting the array-like object to search.
@@ -1621,9 +1566,8 @@ var findLastIndexWhere = _curry2(findLastIndex, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var findLastWhere = _curry2(findLast, true);
+
 /**
  * A curried version of {@link module:lamb.find|find} that uses the given
  * predicate to build a function expecting the array-like object to search.
@@ -1646,9 +1590,8 @@ var findLastWhere = _curry2(findLast, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var findWhere = _curry2(find, true);
+
 /**
  * Similar to {@link module:lamb.map|map}, but if the mapping function returns an array this will
  * be concatenated, rather than pushed, to the final result.
@@ -1668,23 +1611,22 @@ var findWhere = _curry2(find, true);
  * @param {ListIteratorCallback} iteratee
  * @returns {Array}
  */
+function flatMap (array, iteratee) {
+    return reduce(array, function (result, el, idx, arr) {
+        var v = iteratee(el, idx, arr);
 
+        if (!Array.isArray(v)) {
+            v = [v];
+        }
 
-function flatMap(array, iteratee) {
-  return reduce(array, function (result, el, idx, arr) {
-    var v = iteratee(el, idx, arr);
+        for (var i = 0, len = v.length, rLen = result.length; i < len; i++) {
+            result[rLen + i] = v[i];
+        }
 
-    if (!Array.isArray(v)) {
-      v = [v];
-    }
-
-    for (var i = 0, len = v.length, rLen = result.length; i < len; i++) {
-      result[rLen + i] = v[i];
-    }
-
-    return result;
-  }, []);
+        return result;
+    }, []);
 }
+
 /**
  * A curried version of {@link module:lamb.flatMap|flatMap} that uses provided iteratee
  * to build a function expecting the array to act upon.
@@ -1703,9 +1645,8 @@ function flatMap(array, iteratee) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var flatMapWith = _curry2(flatMap, true);
+
 /**
  * Flattens an array.
  * @private
@@ -1715,30 +1656,28 @@ var flatMapWith = _curry2(flatMap, true);
  * @param {Number} idx - The next index to be filled in the output
  * @returns {Array} The output array filled with the results
  */
+function _flatten (array, isDeep, output, idx) {
+    for (var i = 0, len = array.length, value, j, vLen; i < len; i++) {
+        value = array[i];
 
+        if (!Array.isArray(value)) {
+            output[idx++] = value;
+        } else if (isDeep) {
+            _flatten(value, true, output, idx);
+            idx = output.length;
+        } else {
+            vLen = value.length;
+            output.length += vLen;
 
-function _flatten(array, isDeep, output, idx) {
-  for (var i = 0, len = array.length, value, j, vLen; i < len; i++) {
-    value = array[i];
-
-    if (!Array.isArray(value)) {
-      output[idx++] = value;
-    } else if (isDeep) {
-      _flatten(value, true, output, idx);
-
-      idx = output.length;
-    } else {
-      vLen = value.length;
-      output.length += vLen;
-
-      for (j = 0; j < vLen; j++) {
-        output[idx++] = value[j];
-      }
+            for (j = 0; j < vLen; j++) {
+                output[idx++] = value[j];
+            }
+        }
     }
-  }
 
-  return output;
+    return output;
 }
+
 /**
  * Helper to build the {@link module:lamb.flatten|flatten} and
  * {@link module:lamb.shallowFlatten|shallowFlatten} functions.
@@ -1747,11 +1686,10 @@ function _flatten(array, isDeep, output, idx) {
  * @param {Boolean} isDeep
  * @returns {Function}
  */
-
-
 var _makeArrayFlattener = _curry2(function (isDeep, array) {
-  return Array.isArray(array) ? _flatten(array, isDeep, [], 0) : slice(array, 0, array.length);
+    return Array.isArray(array) ? _flatten(array, isDeep, [], 0) : slice(array, 0, array.length);
 });
+
 /**
  * Flattens an array.
  * @example <caption>Showing the difference with <code>shallowFlatten</code>:</caption>
@@ -1768,9 +1706,8 @@ var _makeArrayFlattener = _curry2(function (isDeep, array) {
  * @param {Array} array
  * @returns {Array}
  */
-
-
 var flatten = _makeArrayFlattener(true);
+
 /**
  * Checks if the given number, even negative, represents an array-like index
  * within the provided length. If so returns its natural number equivalent.<br/>
@@ -1780,12 +1717,12 @@ var flatten = _makeArrayFlattener(true);
  * @param {Number} len
  * @returns {Number}
  */
+function _toNaturalIndex (idx, len) {
+    idx = _toInteger(idx);
 
-
-function _toNaturalIndex(idx, len) {
-  idx = _toInteger(idx);
-  return idx >= -len && idx < len ? idx < 0 ? idx + len : idx : NaN;
+    return idx >= -len && idx < len ? idx < 0 ? idx + len : idx : NaN;
 }
+
 /**
  * Retrieves the element at the given index in an array-like object.<br/>
  * Like {@link module:lamb.slice|slice} the index can be negative.<br/>
@@ -1809,13 +1746,12 @@ function _toNaturalIndex(idx, len) {
  * @param {Number} index
  * @returns {*}
  */
+function getIndex (arrayLike, index) {
+    var idx = _toNaturalIndex(index, _toArrayLength(arrayLike.length));
 
-
-function getIndex(arrayLike, index) {
-  var idx = _toNaturalIndex(index, _toArrayLength(arrayLike.length));
-
-  return idx === idx ? arrayLike[idx] : void 0; // eslint-disable-line no-self-compare
+    return idx === idx ? arrayLike[idx] : void 0; // eslint-disable-line no-self-compare
 }
+
 /**
  * A curried version of {@link module:lamb.getIndex|getIndex} that uses the provided index
  * to build a function expecting the array-like object holding the element we want to retrieve.
@@ -1840,9 +1776,8 @@ function getIndex(arrayLike, index) {
  * @param {Number} index
  * @returns {Function}
  */
-
-
 var getAt = _curry2(getIndex, true);
+
 /**
  * Transforms an array-like object into a lookup table using the provided iteratee as a grouping
  * criterion to generate keys and values.
@@ -1901,16 +1836,16 @@ var getAt = _curry2(getIndex, true);
  * @param {ListIteratorCallback} iteratee
  * @returns {Object}
  */
-
-
 var group = _groupWith(function (a, b) {
-  if (!a) {
-    return [b];
-  }
+    if (!a) {
+        return [b];
+    }
 
-  a[a.length] = b;
-  return a;
+    a[a.length] = b;
+
+    return a;
 });
+
 /**
  * A curried version of {@link module:lamb.group|group} that uses the provided iteratee
  * to build a function expecting the array-like object to act upon.
@@ -1949,9 +1884,8 @@ var group = _groupWith(function (a, b) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var groupBy = _curry2(group, true);
+
 /**
  * Retrieves the first element of an array-like object.<br/>
  * Just a common use case of {@link module:lamb.getAt|getAt} exposed for convenience.
@@ -1969,9 +1903,8 @@ var groupBy = _curry2(group, true);
  * @param {ArrayLike} arrayLike
  * @returns {*}
  */
-
-
 var head = getAt(0);
+
 /**
  * Similar to {@link module:lamb.group|group}, but the generated lookup table will have
  * only one element of the original array-like object for each value.<br/>
@@ -2023,10 +1956,10 @@ var head = getAt(0);
  * @param {ListIteratorCallback} iteratee
  * @returns {Object}
  */
-
 var index = _groupWith(function (a, b) {
-  return b;
+    return b;
 });
+
 /**
  * A curried version of {@link module:lamb.index|index} that uses the provided iteratee
  * to build a function expecting the array-like object to act upon.
@@ -2057,9 +1990,8 @@ var index = _groupWith(function (a, b) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
 var indexBy = _curry2(index, true);
+
 /**
  * Returns a copy of the given array-like object without the last element.
  * @example
@@ -2076,9 +2008,8 @@ var indexBy = _curry2(index, true);
  * @param {ArrayLike} arrayLike
  * @returns {Array}
  */
-
-
 var init = partial(slice, [__, 0, -1]);
+
 /**
  * Inserts the provided element in a copy of an array-like object at the
  * specified index.<br/>
@@ -2105,12 +2036,14 @@ var init = partial(slice, [__, 0, -1]);
  * @param {*} element
  * @returns {Array}
  */
+function insert (arrayLike, index, element) {
+    var result = slice(arrayLike, 0, arrayLike.length);
 
-function insert(arrayLike, index, element) {
-  var result = slice(arrayLike, 0, arrayLike.length);
-  result.splice(index, 0, element);
-  return result;
+    result.splice(index, 0, element);
+
+    return result;
 }
+
 /**
  * Builds a partial application of {@link module:lamb.insert|insert}
  * expecting the array-like object to act upon.
@@ -2133,9 +2066,8 @@ function insert(arrayLike, index, element) {
  * @param {*} element
  * @returns {Function}
  */
-
-
 var insertAt = _makePartial3(insert);
+
 /**
  * Returns an array of every unique item that is included in all two given arrays
  * or array-like objects.<br/>
@@ -2158,20 +2090,19 @@ var insertAt = _makePartial3(insert);
  * @param {ArrayLike} b
  * @returns {Array}
  */
+function intersection (a, b) {
+    var result = [];
+    var lenA = a.length;
 
-
-function intersection(a, b) {
-  var result = [];
-  var lenA = a.length;
-
-  if (lenA && b.length) {
-    for (var i = 0; i < lenA; i++) {
-      !isIn(result, a[i]) && isIn(b, a[i]) && result.push(a[i]);
+    if (lenA && b.length) {
+        for (var i = 0; i < lenA; i++) {
+            !isIn(result, a[i]) && isIn(b, a[i]) && result.push(a[i]);
+        }
     }
-  }
 
-  return result;
+    return result;
 }
+
 /**
  * Transforms an array-like object into a string by joining its elements with
  * the given separator.<br/>
@@ -2203,11 +2134,10 @@ function intersection(a, b) {
  * @param {String} separator
  * @returns {String}
  */
-
-
-function join(arrayLike, separator) {
-  return map(arrayLike, String).join(String(separator));
+function join (arrayLike, separator) {
+    return map(arrayLike, String).join(String(separator));
 }
+
 /**
  * A curried version of {@link module:lamb.join|join} that accepts an optional
  * separator and builds a function expecting the array-like object to act upon.<br/>
@@ -2228,9 +2158,8 @@ function join(arrayLike, separator) {
  * @param {String} separator
  * @returns {Function}
  */
-
-
 var joinWith = _curry2(join, true);
+
 /**
  * Retrieves the last element of an array-like object.<br/>
  * Just a common use case of {@link module:lamb.getAt|getAt} exposed for convenience.
@@ -2248,9 +2177,8 @@ var joinWith = _curry2(join, true);
  * @param {ArrayLike} arrayLike
  * @returns {*}
  */
-
-
 var last = getAt(-1);
+
 /**
  * Builds helper functions to extract portions of the arguments
  * object rather efficiently without having to write for loops
@@ -2261,20 +2189,20 @@ var last = getAt(-1);
  * @param {Number} idx
  * @returns {Function}
  */
+function _argsToArrayFrom (idx) {
+    return function () {
+        var argsLen = arguments.length || idx;
+        var len = argsLen - idx;
+        var result = Array(len);
 
-function _argsToArrayFrom(idx) {
-  return function () {
-    var argsLen = arguments.length || idx;
-    var len = argsLen - idx;
-    var result = Array(len);
+        for (var i = 0; i < len; i++) {
+            result[i] = arguments[i + idx];
+        }
 
-    for (var i = 0; i < len; i++) {
-      result[i] = arguments[i + idx];
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Generates an array with the values passed as arguments.<br/>
  * Behaves like ES6's [Array.of]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of}.
@@ -2288,9 +2216,8 @@ function _argsToArrayFrom(idx) {
  * @param {...*} value
  * @returns {Array}
  */
-
-
 var list = _argsToArrayFrom(0);
+
 /**
  * Splits an array-like object in two lists: the first with the elements satisfying the given predicate,
  * the others with the remaining elements.
@@ -2308,19 +2235,18 @@ var list = _argsToArrayFrom(0);
  * @param {ListIteratorCallback} predicate
  * @returns {Array<Array, Array>}
  */
+function partition (arrayLike, predicate) {
+    var result = [[], []];
+    var len = arrayLike.length;
 
+    for (var i = 0, el; i < len; i++) {
+        el = arrayLike[i];
+        result[predicate(el, i, arrayLike) ? 0 : 1].push(el);
+    }
 
-function partition(arrayLike, predicate) {
-  var result = [[], []];
-  var len = arrayLike.length;
-
-  for (var i = 0, el; i < len; i++) {
-    el = arrayLike[i];
-    result[predicate(el, i, arrayLike) ? 0 : 1].push(el);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.partition|partition} that uses the provided
  * predicate to build a function expecting the array-like object to act upon.
@@ -2351,9 +2277,8 @@ function partition(arrayLike, predicate) {
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var partitionWith = _curry2(partition, true);
+
 /**
  * Returns the value of the object property with the given key.
  * @example
@@ -2371,11 +2296,10 @@ var partitionWith = _curry2(partition, true);
  * @param {String} key
  * @returns {*}
  */
-
-
-function getIn(obj, key) {
-  return obj[key];
+function getIn (obj, key) {
+    return obj[key];
 }
+
 /**
  * A curried version of {@link module:lamb.getIn|getIn}.<br/>
  * Receives a property name and builds a function expecting the object from which we want to retrieve
@@ -2397,9 +2321,8 @@ function getIn(obj, key) {
  * @param {String} key
  * @returns {Function}
  */
-
-
 var getKey = _curry2(getIn, true);
+
 /**
  * A curried version of {@link module:lamb.pluckFrom|pluckFrom} expecting the key to retrieve to
  * build a function waiting for the array-like object to act upon.
@@ -2422,9 +2345,8 @@ var getKey = _curry2(getIn, true);
  * @param {String} key
  * @returns {Function}
  */
-
-
 var pluck = compose(mapWith, getKey);
+
 /**
  * "Plucks" the values of the specified key from a list of objects.
  * @example
@@ -2453,10 +2375,10 @@ var pluck = compose(mapWith, getKey);
  * @param {String} key
  * @returns {Array}
  */
-
-function pluckFrom(arrayLike, key) {
-  return map(arrayLike, getKey(key));
+function pluckFrom (arrayLike, key) {
+    return map(arrayLike, getKey(key));
 }
+
 /**
  * Creates an array copy of the given array-like object without the
  * specified values.<br/>
@@ -2482,13 +2404,12 @@ function pluckFrom(arrayLike, key) {
  * @param {ArrayLike} values
  * @returns {Array}
  */
-
-
-function pullFrom(arrayLike, values) {
-  return values ? filter(arrayLike, function (element) {
-    return !isIn(values, element);
-  }) : slice(arrayLike, 0, arrayLike.length);
+function pullFrom (arrayLike, values) {
+    return values ? filter(arrayLike, function (element) {
+        return !isIn(values, element);
+    }) : slice(arrayLike, 0, arrayLike.length);
 }
+
 /**
  * A curried version of {@link module:lamb.pullFrom|pullFrom} expecting
  * a list of values to build a function waiting for an array-like object.<br/>
@@ -2513,9 +2434,8 @@ function pullFrom(arrayLike, values) {
  * @param {ArrayLike} values
  * @returns {Function}
  */
-
-
 var pull = _curry2(pullFrom, true);
+
 /**
  * Same as {@link module:lamb.reduce|reduce}, but starts the fold operation from the last
  * element instead.<br/>
@@ -2531,9 +2451,8 @@ var pull = _curry2(pullFrom, true);
  * @param {*} [initialValue]
  * @returns {*}
  */
-
-
 var reduceRight = _makeReducer(-1);
+
 /**
  * A partial application of {@link module:lamb.reduce|reduceRight} that uses the
  * provided <code>accumulator</code> and the optional <code>initialValue</code> to
@@ -2555,9 +2474,8 @@ var reduceRight = _makeReducer(-1);
  * @param {*} [initialValue]
  * @returns {Function}
  */
-
-
 var reduceRightWith = _makePartial3(reduceRight, true);
+
 /**
  * Reverses a copy of the given array-like object.
  * @example
@@ -2573,19 +2491,17 @@ var reduceRightWith = _makePartial3(reduceRight, true);
  * @param {ArrayLike} arrayLike
  * @returns {Array}
  */
+function reverse (arrayLike) {
+    var len = _toArrayLength(arrayLike.length);
+    var result = Array(len);
 
+    for (var i = 0, ofs = len - 1; i < len; i++) {
+        result[i] = arrayLike[ofs - i];
+    }
 
-function reverse(arrayLike) {
-  var len = _toArrayLength(arrayLike.length);
-
-  var result = Array(len);
-
-  for (var i = 0, ofs = len - 1; i < len; i++) {
-    result[i] = arrayLike[ofs - i];
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Returns a copy of the given array-like with the element rotated by the desired amount.
  * Negative indexes are allowed.
@@ -2604,13 +2520,13 @@ function reverse(arrayLike) {
  * @param {Number} amount
  * @returns {Array}
  */
+function rotate (arrayLike, amount) {
+    var len = arrayLike.length;
+    var shift = amount % len;
 
-
-function rotate(arrayLike, amount) {
-  var len = arrayLike.length;
-  var shift = amount % len;
-  return slice(arrayLike, -shift, len).concat(slice(arrayLike, 0, -shift));
+    return slice(arrayLike, -shift, len).concat(slice(arrayLike, 0, -shift));
 }
+
 /**
  * A curried version of {@link module:lamb.rotate|rotate}.<br/>
  * Uses the given amount to build a function expecting the array to rotate by that amount.
@@ -2628,9 +2544,8 @@ function rotate(arrayLike, amount) {
  * @param {Number} amount
  * @returns {Function}
  */
-
-
 var rotateBy = _curry2(rotate, true);
+
 /**
  * Sets an index in an array-like object.<br/>
  * If provided with an updater function it will use it to update the current value,
@@ -2642,20 +2557,17 @@ var rotateBy = _curry2(rotate, true);
  * @param {Function} [updater]
  * @returns {Array}
  */
+function _setIndex (arrayLike, idx, value, updater) {
+    var result = slice(arrayLike, 0, arrayLike.length);
+    var n = _toNaturalIndex(idx, result.length);
 
+    if (n === n) { // eslint-disable-line no-self-compare
+        result[n] = arguments.length === 4 ? updater(arrayLike[n]) : value;
+    }
 
-function _setIndex(arrayLike, idx, value, updater) {
-  var result = slice(arrayLike, 0, arrayLike.length);
-
-  var n = _toNaturalIndex(idx, result.length);
-
-  if (n === n) {
-    // eslint-disable-line no-self-compare
-    result[n] = arguments.length === 4 ? updater(arrayLike[n]) : value;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.setIndex|setIndex} that builds
  * a function that creates a copy of an array-like object with the given
@@ -2683,9 +2595,8 @@ function _setIndex(arrayLike, idx, value, updater) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var setAt = _makePartial3(_setIndex);
+
 /**
  * Builds a new function that passes only the specified amount of arguments to the original one.<br/>
  * As {@link module:lamb.slice|slice} is used to extract the arguments, you can also
@@ -2705,21 +2616,19 @@ var setAt = _makePartial3(_setIndex);
  * @param {Number} arity
  * @returns {Function}
  */
+function aritize (fn, arity) {
+    return function () {
+        var n = _toInteger(arity);
+        var args = list.apply(null, arguments).slice(0, n);
 
+        for (var i = args.length; i < n; i++) {
+            args[i] = void 0;
+        }
 
-function aritize(fn, arity) {
-  return function () {
-    var n = _toInteger(arity);
-
-    var args = list.apply(null, arguments).slice(0, n);
-
-    for (var i = args.length; i < n; i++) {
-      args[i] = void 0;
-    }
-
-    return fn.apply(this, args);
-  };
+        return fn.apply(this, args);
+    };
 }
+
 /**
  * Creates a copy of an array-like object with the given index changed to
  * the desired value.<br/>
@@ -2743,9 +2652,8 @@ function aritize(fn, arity) {
  * @param {*} value
  * @returns {Array}
  */
-
-
 var setIndex = aritize(_setIndex, 3);
+
 /**
  * Flattens the "first level" of an array.
  * @example <caption>Showing the difference with <code>flatten</code>:</caption>
@@ -2762,8 +2670,8 @@ var setIndex = aritize(_setIndex, 3);
  * @param {Array} array
  * @returns {Array}
  */
-
 var shallowFlatten = _makeArrayFlattener(false);
+
 /**
  * Checks if at least one element in an array-like object satisfies the given predicate.<br/>
  * The function will stop calling the predicate as soon as it returns a <em>truthy</em> value.<br/>
@@ -2800,9 +2708,8 @@ var shallowFlatten = _makeArrayFlattener(false);
  * @param {ListIteratorCallback} predicate
  * @returns {Boolean}
  */
-
-
 var someIn = _makeArrayChecker(false);
+
 /**
  * A curried version of {@link module:lamb.someIn|someIn} that uses the given predicate to
  * build a function waiting for the array-like to act upon.
@@ -2824,9 +2731,8 @@ var someIn = _makeArrayChecker(false);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var some = _curry2(someIn, true);
+
 /**
  * Accepts a list of sorting criteria with at least one element
  * and builds a function that compares two values with such criteria.
@@ -2834,26 +2740,25 @@ var some = _curry2(someIn, true);
  * @param {Sorter[]} criteria
  * @returns {Function}
  */
+function _compareWith (criteria) {
+    return function (a, b) {
+        var len = criteria.length;
+        var criterion = criteria[0];
+        var result = criterion.compare(a.value, b.value);
 
+        for (var i = 1; result === 0 && i < len; i++) {
+            criterion = criteria[i];
+            result = criterion.compare(a.value, b.value);
+        }
 
-function _compareWith(criteria) {
-  return function (a, b) {
-    var len = criteria.length;
-    var criterion = criteria[0];
-    var result = criterion.compare(a.value, b.value);
+        if (result === 0) {
+            result = a.index - b.index;
+        }
 
-    for (var i = 1; result === 0 && i < len; i++) {
-      criterion = criteria[i];
-      result = criterion.compare(a.value, b.value);
-    }
-
-    if (result === 0) {
-      result = a.index - b.index;
-    }
-
-    return criterion.isDescending ? -result : result;
-  };
+        return criterion.isDescending ? -result : result;
+    };
 }
+
 /**
  * The default comparer for sorting functions.<br/>
  * If the given values are of different types they
@@ -2864,23 +2769,22 @@ function _compareWith(criteria) {
  * @param {*} b
  * @returns {Number} -1 | 0 | 1
  */
+function _comparer (a, b) {
+    var result = 0;
 
+    if (typeof a !== typeof b) {
+        a = String(a);
+        b = String(b);
+    }
 
-function _comparer(a, b) {
-  var result = 0;
+    if (!areSVZ(a, b)) {
+        // eslint-disable-next-line no-self-compare
+        result = a > b || a !== a ? 1 : -1;
+    }
 
-  if (_typeof(a) !== _typeof(b)) {
-    a = String(a);
-    b = String(b);
-  }
-
-  if (!areSVZ(a, b)) {
-    // eslint-disable-next-line no-self-compare
-    result = a > b || a !== a ? 1 : -1;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Builds a sorting criterion. If the comparer function is missing, the default
  * comparer will be used instead.
@@ -2890,40 +2794,38 @@ function _comparer(a, b) {
  * @param {Function} [comparer]
  * @returns {Sorter}
  */
-
-
-function _sorter(reader, isDescending, comparer) {
-  if (typeof reader !== "function" || reader === identity) {
-    reader = null;
-  }
-
-  if (typeof comparer !== "function") {
-    comparer = _comparer;
-  }
-
-  return {
-    isDescending: isDescending === true,
-    compare: function compare(a, b) {
-      if (reader) {
-        a = reader(a);
-        b = reader(b);
-      }
-
-      return comparer(a, b);
+function _sorter (reader, isDescending, comparer) {
+    if (typeof reader !== "function" || reader === identity) {
+        reader = null;
     }
-  };
+
+    if (typeof comparer !== "function") {
+        comparer = _comparer;
+    }
+
+    return {
+        isDescending: isDescending === true,
+        compare: function (a, b) {
+            if (reader) {
+                a = reader(a);
+                b = reader(b);
+            }
+
+            return comparer(a, b);
+        }
+    };
 }
+
 /**
  * Converts a sorting function to a sorting criterion if necessary.
  * @private
  * @param {Function} criterion
  * @returns {Sorter}
  */
-
-
-function _makeCriterion(criterion) {
-  return criterion && typeof criterion.compare === "function" ? criterion : _sorter(criterion);
+function _makeCriterion (criterion) {
+    return criterion && typeof criterion.compare === "function" ? criterion : _sorter(criterion);
 }
+
 /**
  * Builds a list of sorting criteria from a list of sorter functions. Returns a list containing
  * a single default sorting criterion if the sorter list is empty.
@@ -2931,11 +2833,10 @@ function _makeCriterion(criterion) {
  * @param {Function[]} sorters
  * @returns {Sorter[]}
  */
-
-
-function _makeCriteria(sorters) {
-  return sorters && sorters.length ? map(sorters, _makeCriterion) : [_sorter()];
+function _makeCriteria (sorters) {
+    return sorters && sorters.length ? map(sorters, _makeCriterion) : [_sorter()];
 }
+
 /**
  * Returns a [stably]{@link https://en.wikipedia.org/wiki/Sorting_algorithm#Stability} sorted
  * copy of an array-like object using the given criteria.<br/>
@@ -2997,30 +2898,24 @@ function _makeCriteria(sorters) {
  * @param {Sorter[]|Function[]} [sorters=[{@link module:lamb.sorter|sorter()}]]
  * @returns {Array}
  */
+function sort (arrayLike, sorters) {
+    var criteria = _makeCriteria(sorters);
+    var len = _toArrayLength(arrayLike.length);
+    var result = Array(len);
 
+    for (var i = 0; i < len; i++) {
+        result[i] = { value: arrayLike[i], index: i };
+    }
 
-function sort(arrayLike, sorters) {
-  var criteria = _makeCriteria(sorters);
+    result.sort(_compareWith(criteria));
 
-  var len = _toArrayLength(arrayLike.length);
+    for (i = 0; i < len; i++) {
+        result[i] = result[i].value;
+    }
 
-  var result = Array(len);
-
-  for (var i = 0; i < len; i++) {
-    result[i] = {
-      value: arrayLike[i],
-      index: i
-    };
-  }
-
-  result.sort(_compareWith(criteria));
-
-  for (i = 0; i < len; i++) {
-    result[i] = result[i].value;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Establishes at which index an element should be inserted in a sorted array to respect
  * the array order. Needs the comparer used to sort the array.
@@ -3032,32 +2927,28 @@ function sort(arrayLike, sorters) {
  * @param {Number} end
  * @returns {Number}
  */
+function _getInsertionIndex (array, element, comparer, start, end) {
+    if (array.length === 0) {
+        return 0;
+    }
 
+    var pivot = (start + end) >> 1;
+    var result = comparer(
+        { value: element, index: pivot },
+        { value: array[pivot], index: pivot }
+    );
 
-function _getInsertionIndex(array, element, comparer, start, end) {
-  if (array.length === 0) {
-    return 0;
-  }
-
-  var pivot = start + end >> 1;
-  var result = comparer({
-    value: element,
-    index: pivot
-  }, {
-    value: array[pivot],
-    index: pivot
-  });
-
-  if (end - start <= 1) {
-    return result < 0 ? pivot : pivot + 1;
-  } else if (result < 0) {
-    return _getInsertionIndex(array, element, comparer, start, pivot);
-  } else if (result === 0) {
-    return pivot + 1;
-  } else {
-    return _getInsertionIndex(array, element, comparer, pivot, end);
-  }
+    if (end - start <= 1) {
+        return result < 0 ? pivot : pivot + 1;
+    } else if (result < 0) {
+        return _getInsertionIndex(array, element, comparer, start, pivot);
+    } else if (result === 0) {
+        return pivot + 1;
+    } else {
+        return _getInsertionIndex(array, element, comparer, pivot, end);
+    }
 }
+
 /**
  * Inserts an element in a copy of a sorted array respecting the sort order.
  * @example <caption>With simple values:</caption>
@@ -3104,22 +2995,21 @@ function _getInsertionIndex(array, element, comparer, start, end) {
  * used to sort the array.
  * @returns {Array}
  */
+function sortedInsert (arrayLike, element, sorters) {
+    var result = slice(arrayLike, 0, arrayLike.length);
 
+    if (arguments.length === 1) {
+        return result;
+    }
 
-function sortedInsert(arrayLike, element, sorters) {
-  var result = slice(arrayLike, 0, arrayLike.length);
+    var criteria = _makeCriteria(sorters);
+    var idx = _getInsertionIndex(result, element, _compareWith(criteria), 0, result.length);
 
-  if (arguments.length === 1) {
+    result.splice(idx, 0, element);
+
     return result;
-  }
-
-  var criteria = _makeCriteria(sorters);
-
-  var idx = _getInsertionIndex(result, element, _compareWith(criteria), 0, result.length);
-
-  result.splice(idx, 0, element);
-  return result;
 }
+
 /**
  * Creates an ascending sort criterion with the provided <code>reader</code> and
  * <code>comparer</code>.<br/>
@@ -3138,9 +3028,8 @@ function sortedInsert(arrayLike, element, sorters) {
  * @param {Function} [comparer] An optional custom comparer function.
  * @returns {Sorter}
  */
-
-
 var sorter = partial(_sorter, [__, false, __]);
+
 /**
  * Creates a descending sort criterion with the provided <code>reader</code> and
  * <code>comparer</code>.<br/>
@@ -3159,8 +3048,8 @@ var sorter = partial(_sorter, [__, false, __]);
  * @param {Function} [comparer] An optional custom comparer function.
  * @returns {Sorter}
  */
-
 var sorterDesc = partial(_sorter, [__, true, __]);
+
 /**
  * Builds a partial application of {@link module:lamb.sort|sort} using the provided criteria.
  * The returned function expects the array-like object to sort.
@@ -3185,8 +3074,8 @@ var sorterDesc = partial(_sorter, [__, true, __]);
  * @param {Sorter[]|Function[]} [sorters=[{@link module:lamb.sorter|sorter()}]]
  * @returns {Function}
  */
-
 var sortWith = _curry2(sort, true);
+
 /**
  * Returns a copy of the given array-like object without the first element.
  * @example
@@ -3203,9 +3092,8 @@ var sortWith = _curry2(sort, true);
  * @param {ArrayLike} arrayLike
  * @returns {Array}
  */
-
-
 var tail = drop(1);
+
 /**
  * Retrieves the first <code>n</code> elements from an array or array-like object.<br/>
  * Note that, being this a shortcut for a common use case of {@link module:lamb.slice|slice},
@@ -3228,10 +3116,10 @@ var tail = drop(1);
  * @param {Number} n
  * @returns {Array}
  */
-
-function takeFrom(arrayLike, n) {
-  return slice(arrayLike, 0, n);
+function takeFrom (arrayLike, n) {
+    return slice(arrayLike, 0, n);
 }
+
 /**
  * A curried version of {@link module:lamb.takeFrom|takeFrom} that expects the number of elements
  * to retrieve to build a function waiting for the list to take the elements from.<br/>
@@ -3253,9 +3141,8 @@ function takeFrom(arrayLike, n) {
  * @param {Number} n
  * @returns {Function}
  */
-
-
 var take = _curry2(takeFrom, true);
+
 /**
  * Builds a function that takes the last elements satisfying a predicate
  * from an array or array-like object.
@@ -3277,9 +3164,8 @@ var take = _curry2(takeFrom, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var takeLastWhile = _takeOrDropWhile(true, true);
+
 /**
  * Builds a function that takes the first elements satisfying a predicate from
  * an array or array-like object.
@@ -3301,9 +3187,8 @@ var takeLastWhile = _takeOrDropWhile(true, true);
  * @param {ListIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var takeWhile = _takeOrDropWhile(true, false);
+
 /**
  * Transposes a matrix. Can also be used to reverse a {@link module:lamb.zip|zip} operation.<br/>
  * Just like {@link module:lamb.zip|zip}, the received array-like objects will be truncated to the
@@ -3332,37 +3217,35 @@ var takeWhile = _takeOrDropWhile(true, false);
  * @param {ArrayLike<ArrayLike>} arrayLike
  * @returns {Array<Array>}
  */
+function transpose (arrayLike) {
+    var minLen = MAX_ARRAY_LENGTH;
+    var len = _toArrayLength(arrayLike.length);
 
-
-function transpose(arrayLike) {
-  var minLen = MAX_ARRAY_LENGTH;
-
-  var len = _toArrayLength(arrayLike.length);
-
-  if (len === 0) {
-    return [];
-  }
-
-  for (var j = 0, elementLen; j < len; j++) {
-    elementLen = _toArrayLength(arrayLike[j].length);
-
-    if (elementLen < minLen) {
-      minLen = elementLen;
+    if (len === 0) {
+        return [];
     }
-  }
 
-  var result = Array(minLen);
+    for (var j = 0, elementLen; j < len; j++) {
+        elementLen = _toArrayLength(arrayLike[j].length);
 
-  for (var i = 0, el; i < minLen; i++) {
-    el = result[i] = Array(len);
-
-    for (j = 0; j < len; j++) {
-      el[j] = arrayLike[j][i];
+        if (elementLen < minLen) {
+            minLen = elementLen;
+        }
     }
-  }
 
-  return result;
+    var result = Array(minLen);
+
+    for (var i = 0, el; i < minLen; i++) {
+        el = result[i] = Array(len);
+
+        for (j = 0; j < len; j++) {
+            el[j] = arrayLike[j][i];
+        }
+    }
+
+    return result;
 }
+
 /**
  * Builds a TypeError stating that it's not possible to convert the given value to the
  * desired type.
@@ -3371,11 +3254,10 @@ function transpose(arrayLike) {
  * @param {String} desiredType
  * @returns {TypeError}
  */
-
-
-function _makeTypeErrorFor(value, desiredType) {
-  return new TypeError("Cannot convert " + type(value).toLowerCase() + " to " + desiredType);
+function _makeTypeErrorFor (value, desiredType) {
+    return new TypeError("Cannot convert " + type(value).toLowerCase() + " to " + desiredType);
 }
+
 /**
  * Creates a pipeline of functions, where each function consumes the result of the previous one.
  * @example
@@ -3392,24 +3274,24 @@ function _makeTypeErrorFor(value, desiredType) {
  * @param {Function[]} functions
  * @returns {Function}
  */
-
-
-function pipe(functions) {
-  if (!Array.isArray(functions)) {
-    throw _makeTypeErrorFor(functions, "array");
-  }
-
-  var len = functions.length;
-  return len ? function () {
-    var result = functions[0].apply(this, arguments);
-
-    for (var i = 1; i < len; i++) {
-      result = functions[i].call(this, result);
+function pipe (functions) {
+    if (!Array.isArray(functions)) {
+        throw _makeTypeErrorFor(functions, "array");
     }
 
-    return result;
-  } : identity;
+    var len = functions.length;
+
+    return len ? function () {
+        var result = functions[0].apply(this, arguments);
+
+        for (var i = 1; i < len; i++) {
+            result = functions[i].call(this, result);
+        }
+
+        return result;
+    } : identity;
 }
+
 /**
  * Using the provided iteratee to transform values, builds a function that will
  * return an array of the unique elements  in the two provided array-like objects.<br/>
@@ -3432,11 +3314,10 @@ function pipe(functions) {
  * @param {ListIteratorCallback} iteratee
  * @returns {Function}
  */
-
-
-function unionBy(iteratee) {
-  return pipe([binary(list), flatMapWith(drop(0)), uniquesBy(iteratee)]);
+function unionBy (iteratee) {
+    return pipe([binary(list), flatMapWith(drop(0)), uniquesBy(iteratee)]);
 }
+
 /**
  * Returns a list of every unique element present in the two given array-like objects.<br/>
  * Uses the ["SameValueZero" comparison]{@link module:lamb.areSVZ|areSVZ}
@@ -3460,9 +3341,8 @@ function unionBy(iteratee) {
  * @param {ArrayLike} b
  * @returns {Array}
  */
-
-
 var union = unionBy(identity);
+
 /**
  * Builds a function that creates a copy of an array-like object with the given index
  * changed by applying the provided function to its value.<br/>
@@ -3485,12 +3365,12 @@ var union = unionBy(identity);
  * @param {Function} updater
  * @returns {Function}
  */
-
-function updateAt(index, updater) {
-  return function (arrayLike) {
-    return _setIndex(arrayLike, index, null, updater);
-  };
+function updateAt (index, updater) {
+    return function (arrayLike) {
+        return _setIndex(arrayLike, index, null, updater);
+    };
 }
+
 /**
  * Creates a copy of an array-like object with the given index changed by applying the
  * provided function to its value.<br/>
@@ -3515,9 +3395,8 @@ function updateAt(index, updater) {
  * @param {Function} updater
  * @returns {Array}
  */
-
-
 var updateIndex = partial(_setIndex, [__, __, null, __]);
+
 /**
  * Builds a list of arrays out of the two given array-like objects by pairing items with
  * the same index.<br/>
@@ -3539,10 +3418,10 @@ var updateIndex = partial(_setIndex, [__, __, null, __]);
  * @param {ArrayLike} b
  * @returns {Array<Array>}
  */
-
-function zip(a, b) {
-  return transpose([a, b]);
+function zip (a, b) {
+    return transpose([a, b]);
 }
+
 /**
  * "{@link module:lamb.zip|Zips}" an array-like object by pairing its values with their index.
  * @example
@@ -3556,9 +3435,8 @@ function zip(a, b) {
  * @param {ArrayLike} arrayLike
  * @returns {Array<Array<*, Number>>}
  */
-
-
 var zipWithIndex = mapWith(binary(list));
+
 /**
  * Applies the given function to a list of arguments.
  * @example
@@ -3572,10 +3450,10 @@ var zipWithIndex = mapWith(binary(list));
  * @param {ArrayLike} args
  * @returns {*}
  */
-
-function application(fn, args) {
-  return fn.apply(this, Object(args));
+function application (fn, args) {
+    return fn.apply(this, Object(args));
 }
+
 /**
  * A left-curried version of {@link module:lamb.application|application}. Expects the function
  * to apply and builds a function waiting for the arguments array.
@@ -3592,9 +3470,8 @@ function application(fn, args) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
 var apply = _curry2(application);
+
 /**
  * A right-curried version of {@link module:lamb.application|application}. Expects an array-like
  * object to use as arguments and builds a function waiting for the target of the application.
@@ -3613,9 +3490,8 @@ var apply = _curry2(application);
  * @param {ArrayLike} args
  * @returns {Function}
  */
-
-
 var applyTo = _curry2(application, true);
+
 /**
  * Keeps building a partial application of the received function as long
  * as it's called with placeholders; applies the original function to
@@ -3627,38 +3503,37 @@ var applyTo = _curry2(application, true);
  * @param {Array} argsHolder
  * @returns {Function|*}
  */
+function _asPartial (fn, argsHolder) {
+    return function () {
+        var argsLen = arguments.length;
+        var lastIdx = 0;
+        var newArgs = [];
 
+        for (var i = 0, len = argsHolder.length, boundArg; i < len; i++) {
+            boundArg = argsHolder[i];
+            newArgs[i] = boundArg === __ && lastIdx < argsLen ? arguments[lastIdx++] : boundArg;
+        }
 
-function _asPartial(fn, argsHolder) {
-  return function () {
-    var argsLen = arguments.length;
-    var lastIdx = 0;
-    var newArgs = [];
+        while (lastIdx < argsLen) {
+            newArgs[i++] = arguments[lastIdx++];
+        }
 
-    for (var i = 0, len = argsHolder.length, boundArg; i < len; i++) {
-      boundArg = argsHolder[i];
-      newArgs[i] = boundArg === __ && lastIdx < argsLen ? arguments[lastIdx++] : boundArg;
-    }
+        for (i = 0; i < argsLen; i++) {
+            if (arguments[i] === __) {
+                return _asPartial(fn, newArgs);
+            }
+        }
 
-    while (lastIdx < argsLen) {
-      newArgs[i++] = arguments[lastIdx++];
-    }
+        for (i = 0, len = newArgs.length; i < len; i++) {
+            if (newArgs[i] === __) {
+                newArgs[i] = void 0;
+            }
+        }
 
-    for (i = 0; i < argsLen; i++) {
-      if (arguments[i] === __) {
-        return _asPartial(fn, newArgs);
-      }
-    }
-
-    for (i = 0, len = newArgs.length; i < len; i++) {
-      if (newArgs[i] === __) {
-        newArgs[i] = void 0;
-      }
-    }
-
-    return fn.apply(this, newArgs);
-  };
+        return fn.apply(this, newArgs);
+    };
 }
+
 /**
  * Decorates the received function so that it can be called with
  * placeholders to build a partial application of it.<br/>
@@ -3699,11 +3574,10 @@ function _asPartial(fn, argsHolder) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function asPartial(fn) {
-  return _asPartial(fn, []);
+function asPartial (fn) {
+    return _asPartial(fn, []);
 }
+
 /**
  * Accepts a series of functions and builds a new function. The functions in the series
  * will then be applied, in order, with the values received by the function built with
@@ -3731,17 +3605,16 @@ function asPartial(fn) {
  * @param {Function[]} functions
  * @returns {Function}
  */
+function collect (functions) {
+    if (!Array.isArray(functions)) {
+        throw _makeTypeErrorFor(functions, "array");
+    }
 
-
-function collect(functions) {
-  if (!Array.isArray(functions)) {
-    throw _makeTypeErrorFor(functions, "array");
-  }
-
-  return function () {
-    return map(functions, applyTo(arguments));
-  };
+    return function () {
+        return map(functions, applyTo(arguments));
+    };
 }
+
 /**
  * Used by curry functions to collect arguments until the arity is consumed,
  * then applies the original function.
@@ -3753,30 +3626,29 @@ function collect(functions) {
  * @param {Array} argsHolder
  * @returns {Function}
  */
+function _currier (fn, arity, isRightCurry, isAutoCurry, argsHolder) {
+    return function () {
+        var holderLen = argsHolder.length;
+        var argsLen = arguments.length;
+        var newArgsLen = holderLen + (argsLen > 1 && isAutoCurry ? argsLen : 1);
+        var newArgs = Array(newArgsLen);
 
+        for (var i = 0; i < holderLen; i++) {
+            newArgs[i] = argsHolder[i];
+        }
 
-function _currier(fn, arity, isRightCurry, isAutoCurry, argsHolder) {
-  return function () {
-    var holderLen = argsHolder.length;
-    var argsLen = arguments.length;
-    var newArgsLen = holderLen + (argsLen > 1 && isAutoCurry ? argsLen : 1);
-    var newArgs = Array(newArgsLen);
+        for (; i < newArgsLen; i++) {
+            newArgs[i] = arguments[i - holderLen];
+        }
 
-    for (var i = 0; i < holderLen; i++) {
-      newArgs[i] = argsHolder[i];
-    }
-
-    for (; i < newArgsLen; i++) {
-      newArgs[i] = arguments[i - holderLen];
-    }
-
-    if (newArgsLen >= arity) {
-      return fn.apply(this, isRightCurry ? newArgs.reverse() : newArgs);
-    } else {
-      return _currier(fn, arity, isRightCurry, isAutoCurry, newArgs);
-    }
-  };
+        if (newArgsLen >= arity) {
+            return fn.apply(this, isRightCurry ? newArgs.reverse() : newArgs);
+        } else {
+            return _currier(fn, arity, isRightCurry, isAutoCurry, newArgs);
+        }
+    };
 }
+
 /**
  * Curries a function of arity 3.
  * @private
@@ -3784,17 +3656,16 @@ function _currier(fn, arity, isRightCurry, isAutoCurry, argsHolder) {
  * @param {Boolean} [isRightCurry=false]
  * @returns {Function}
  */
-
-
-function _curry3(fn, isRightCurry) {
-  return function (a) {
-    return function (b) {
-      return function (c) {
-        return isRightCurry ? fn.call(this, c, b, a) : fn.call(this, a, b, c);
-      };
+function _curry3 (fn, isRightCurry) {
+    return function (a) {
+        return function (b) {
+            return function (c) {
+                return isRightCurry ? fn.call(this, c, b, a) : fn.call(this, a, b, c);
+            };
+        };
     };
-  };
 }
+
 /**
  * Prepares a function for currying. If it's not auto-currying and the arity
  * is 2 or 3 returns optimized functions, otherwise delegates the currying
@@ -3808,23 +3679,22 @@ function _curry3(fn, isRightCurry) {
  * @param {Boolean} [isAutoCurry=false]
  * @returns {Function}
  */
+function _curry (fn, arity, isRightCurry, isAutoCurry) {
+    if (arity >>> 0 !== arity) {
+        arity = fn.length;
+    }
 
-
-function _curry(fn, arity, isRightCurry, isAutoCurry) {
-  if (arity >>> 0 !== arity) {
-    arity = fn.length;
-  }
-
-  if (isAutoCurry && arity > 1 || arity > 3) {
-    return _currier(fn, arity, isRightCurry, isAutoCurry, []);
-  } else if (arity === 2) {
-    return _curry2(fn, isRightCurry);
-  } else if (arity === 3) {
-    return _curry3(fn, isRightCurry);
-  } else {
-    return fn;
-  }
+    if (isAutoCurry && arity > 1 || arity > 3) {
+        return _currier(fn, arity, isRightCurry, isAutoCurry, []);
+    } else if (arity === 2) {
+        return _curry2(fn, isRightCurry);
+    } else if (arity === 3) {
+        return _curry3(fn, isRightCurry);
+    } else {
+        return fn;
+    }
 }
+
 /**
  * Transforms the evaluation of the given function in the evaluation of a sequence of functions
  * expecting only one argument. Each function of the sequence is a partial application of the
@@ -3849,11 +3719,10 @@ function _curry(fn, arity, isRightCurry, isAutoCurry) {
  * @param {Number} [arity=fn.length]
  * @returns {Function}
  */
-
-
-function curry(fn, arity) {
-  return _curry(fn, arity, false);
+function curry (fn, arity) {
+    return _curry(fn, arity, false);
 }
+
 /**
  * Builds an auto-curried function. The resulting function can be called multiple times with
  * any number of arguments, and the original function will be applied only when the specified
@@ -3879,11 +3748,10 @@ function curry(fn, arity) {
  * @param {Number} [arity=fn.length]
  * @returns {Function}
  */
-
-
-function curryable(fn, arity) {
-  return _curry(fn, arity, false, true);
+function curryable (fn, arity) {
+    return _curry(fn, arity, false, true);
 }
+
 /**
  * Same as {@link module:lamb.curryable|curryable}, but currying starts from the rightmost argument.
  * @example
@@ -3905,11 +3773,10 @@ function curryable(fn, arity) {
  * @param {Number} [arity=fn.length]
  * @returns {Function}
  */
-
-
-function curryableRight(fn, arity) {
-  return _curry(fn, arity, true, true);
+function curryableRight (fn, arity) {
+    return _curry(fn, arity, true, true);
 }
+
 /**
  * Same as {@link module:lamb.curry|curry}, but currying starts from the rightmost argument.
  * @example
@@ -3930,11 +3797,10 @@ function curryableRight(fn, arity) {
  * @param {Number} [arity=fn.length]
  * @returns {Function}
  */
-
-
-function curryRight(fn, arity) {
-  return _curry(fn, arity, true);
+function curryRight (fn, arity) {
+    return _curry(fn, arity, true);
 }
+
 /**
  * Returns a function that will execute the given function only if it stops being called for the
  * specified timespan.<br/>
@@ -3959,22 +3825,21 @@ function curryRight(fn, arity) {
  * @param {Number} timespan - Expressed in milliseconds
  * @returns {Function}
  */
+function debounce (fn, timespan) {
+    var timeoutID;
 
+    return function () {
+        var args = arguments;
+        var debounced = function () {
+            timeoutID = null;
+            fn.apply(this, args);
+        }.bind(this);
 
-function debounce(fn, timespan) {
-  var timeoutID;
-  return function () {
-    var args = arguments;
-
-    var debounced = function () {
-      timeoutID = null;
-      fn.apply(this, args);
-    }.bind(this);
-
-    clearTimeout(timeoutID);
-    timeoutID = setTimeout(debounced, timespan);
-  };
+        clearTimeout(timeoutID);
+        timeoutID = setTimeout(debounced, timespan);
+    };
 }
+
 /**
  * Returns a function that applies the original function with the arguments in reverse order.
  * @example
@@ -3987,14 +3852,14 @@ function debounce(fn, timespan) {
  * @param {Function} fn
  * @returns {Function}
  */
+function flip (fn) {
+    return function () {
+        var args = list.apply(null, arguments).reverse();
 
-
-function flip(fn) {
-  return function () {
-    var args = list.apply(null, arguments).reverse();
-    return fn.apply(this, args);
-  };
+        return fn.apply(this, args);
+    };
 }
+
 /**
  * Builds a function that returns the argument received at the given index.<br/>
  * As with {@link module:lamb.getAt|getAt} negative indexes are allowed.<br/>
@@ -4017,13 +3882,12 @@ function flip(fn) {
  * @param {Number} idx
  * @returns {Function}
  */
-
-
-function getArgAt(idx) {
-  return function () {
-    return arguments[_toNaturalIndex(idx, arguments.length)];
-  };
+function getArgAt (idx) {
+    return function () {
+        return arguments[_toNaturalIndex(idx, arguments.length)];
+    };
 }
+
 /* eslint-disable jsdoc/check-param-names */
 
 /**
@@ -4039,29 +3903,28 @@ function getArgAt(idx) {
  * @param {...*} [args]
  * @returns {*}
  */
+function _invoke (methodName, boundArgs, target) {
+    var method = target[methodName];
 
+    if (typeof method !== "function") {
+        return void 0;
+    }
 
-function _invoke(methodName, boundArgs, target) {
-  var method = target[methodName];
+    var boundArgsLen = boundArgs ? _toArrayLength(boundArgs.length) : 0;
+    var finalArgsLen = boundArgsLen + arguments.length - 3;
+    var finalArgs = Array(finalArgsLen);
 
-  if (typeof method !== "function") {
-    return void 0;
-  }
+    for (var i = 0; i < boundArgsLen; i++) {
+        finalArgs[i] = boundArgs[i];
+    }
 
-  var boundArgsLen = boundArgs ? _toArrayLength(boundArgs.length) : 0;
-  var finalArgsLen = boundArgsLen + arguments.length - 3;
-  var finalArgs = Array(finalArgsLen);
+    for (var ofs = 3 - i; i < finalArgsLen; i++) {
+        finalArgs[i] = arguments[i + ofs];
+    }
 
-  for (var i = 0; i < boundArgsLen; i++) {
-    finalArgs[i] = boundArgs[i];
-  }
-
-  for (var ofs = 3 - i; i < finalArgsLen; i++) {
-    finalArgs[i] = arguments[i + ofs];
-  }
-
-  return method.apply(target, finalArgs);
+    return method.apply(target, finalArgs);
 }
+
 /**
  * Builds a function that will invoke the given method name on any received object and
  * return the result. If no method with such name is found the function will return
@@ -4093,11 +3956,10 @@ function _invoke(methodName, boundArgs, target) {
  * @param {ArrayLike} [boundArgs=[]]
  * @returns {Function}
  */
-
-
-function invoke(methodName, boundArgs) {
-  return partial(_invoke, [methodName, boundArgs]);
+function invoke (methodName, boundArgs) {
+    return partial(_invoke, [methodName, boundArgs]);
 }
+
 /**
  * Accepts an object and builds a function expecting a method name, and optionally arguments,
  * to call on such object.
@@ -4118,11 +3980,10 @@ function invoke(methodName, boundArgs) {
  * @param {Object} target
  * @returns {Function}
  */
-
-
-function invokeOn(target) {
-  return partial(_invoke, [__, [], target]);
+function invokeOn (target) {
+    return partial(_invoke, [__, [], target]);
 }
+
 /**
  * Builds a function that allows to map over the received arguments before applying them
  * to the original one.
@@ -4145,11 +4006,10 @@ function invokeOn(target) {
  * @param {ListIteratorCallback} mapper
  * @returns {Function}
  */
-
-
-function mapArgs(fn, mapper) {
-  return pipe([list, mapWith(mapper), apply(fn)]);
+function mapArgs (fn, mapper) {
+    return pipe([list, mapWith(mapper), apply(fn)]);
 }
+
 /**
  * Builds a function that allows to "tap" into the arguments of the original one.
  * This allows to extract simple values from complex ones, transform arguments or simply intercept them.
@@ -4169,21 +4029,20 @@ function mapArgs(fn, mapper) {
  * @param {Function[]} tappers
  * @returns {Function}
  */
+function tapArgs (fn, tappers) {
+    return function () {
+        var len = arguments.length;
+        var tappersLen = tappers.length;
+        var args = [];
 
+        for (var i = 0; i < len; i++) {
+            args.push(i < tappersLen ? tappers[i](arguments[i]) : arguments[i]);
+        }
 
-function tapArgs(fn, tappers) {
-  return function () {
-    var len = arguments.length;
-    var tappersLen = tappers.length;
-    var args = [];
-
-    for (var i = 0; i < len; i++) {
-      args.push(i < tappersLen ? tappers[i](arguments[i]) : arguments[i]);
-    }
-
-    return fn.apply(this, args);
-  };
+        return fn.apply(this, args);
+    };
 }
+
 /**
  * Returns a function that will invoke the passed function at most once in the given timespan.<br/>
  * The first call in this case happens as soon as the function is invoked; see also
@@ -4204,22 +4063,22 @@ function tapArgs(fn, tappers) {
  * @param {Number} timespan - Expressed in milliseconds.
  * @returns {Function}
  */
+function throttle (fn, timespan) {
+    var result;
+    var lastCall = 0;
 
+    return function () {
+        var now = Date.now();
 
-function throttle(fn, timespan) {
-  var result;
-  var lastCall = 0;
-  return function () {
-    var now = Date.now();
+        if (now - lastCall >= timespan) {
+            lastCall = now;
+            result = fn.apply(this, arguments);
+        }
 
-    if (now - lastCall >= timespan) {
-      lastCall = now;
-      result = fn.apply(this, arguments);
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Builds a function that passes only one argument to the given function.<br/>
  * It's simply a shortcut for a common use case of {@link module:lamb.aritize|aritize},
@@ -4237,13 +4096,12 @@ function throttle(fn, timespan) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function unary(fn) {
-  return function (a) {
-    return fn.call(this, a);
-  };
+function unary (fn) {
+    return function (a) {
+        return fn.call(this, a);
+    };
 }
+
 /**
  * Accepts a series of functions and builds a function that applies the received
  * arguments to each one and returns the first non-<code>undefined</code> value.<br/>
@@ -4277,28 +4135,27 @@ function unary(fn) {
  * @param {Function[]} functions
  * @returns {Function}
  */
-
-
-function adapter(functions) {
-  if (!Array.isArray(functions)) {
-    throw _makeTypeErrorFor(functions, "array");
-  }
-
-  return function () {
-    var len = functions.length;
-    var result;
-
-    for (var i = 0; i < len; i++) {
-      result = functions[i].apply(this, arguments);
-
-      if (!isUndefined(result)) {
-        break;
-      }
+function adapter (functions) {
+    if (!Array.isArray(functions)) {
+        throw _makeTypeErrorFor(functions, "array");
     }
 
-    return result;
-  };
+    return function () {
+        var len = functions.length;
+        var result;
+
+        for (var i = 0; i < len; i++) {
+            result = functions[i].apply(this, arguments);
+
+            if (!isUndefined(result)) {
+                break;
+            }
+        }
+
+        return result;
+    };
 }
+
 /**
  * Creates a function to check the given predicates.<br/>
  * Used to build the {@link module:lamb.allOf|allOf} and the
@@ -4307,29 +4164,28 @@ function adapter(functions) {
  * @param {Boolean} checkAll
  * @returns {Function}
  */
-
-
-function _checkPredicates(checkAll) {
-  return function (predicates) {
-    if (!Array.isArray(predicates)) {
-      throw _makeTypeErrorFor(predicates, "array");
-    }
-
-    return function () {
-      for (var i = 0, len = predicates.length, result; i < len; i++) {
-        result = predicates[i].apply(this, arguments);
-
-        if (checkAll && !result) {
-          return false;
-        } else if (!checkAll && result) {
-          return true;
+function _checkPredicates (checkAll) {
+    return function (predicates) {
+        if (!Array.isArray(predicates)) {
+            throw _makeTypeErrorFor(predicates, "array");
         }
-      }
 
-      return checkAll;
+        return function () {
+            for (var i = 0, len = predicates.length, result; i < len; i++) {
+                result = predicates[i].apply(this, arguments);
+
+                if (checkAll && !result) {
+                    return false;
+                } else if (!checkAll && result) {
+                    return true;
+                }
+            }
+
+            return checkAll;
+        };
     };
-  };
 }
+
 /**
  * Accepts an array of predicates and builds a new one that returns true if they are all satisfied
  * by the same arguments. The functions in the array will be applied one at a time until a
@@ -4350,9 +4206,8 @@ function _checkPredicates(checkAll) {
  * @param {Function[]} predicates
  * @returns {Function}
  */
-
-
 var allOf = _checkPredicates(true);
+
 /**
  * Accepts an array of predicates and builds a new one that returns true if at least one of them is
  * satisfied by the received arguments. The functions in the array will be applied one at a time
@@ -4378,9 +4233,8 @@ var allOf = _checkPredicates(true);
  * @param {Function[]} predicates
  * @returns {Function}
  */
-
-
 var anyOf = _checkPredicates(false);
+
 /**
  * Verifies that the two supplied values are the same value using the "SameValue" comparison.<br/>
  * Note that this doesn't behave as the strict equality operator, but rather as a shim of ES6's
@@ -4410,11 +4264,10 @@ var anyOf = _checkPredicates(false);
  * @param {*} b
  * @returns {Boolean}
  */
-
-
-function areSame(a, b) {
-  return a === 0 && b === 0 ? 1 / a === 1 / b : areSVZ(a, b);
+function areSame (a, b) {
+    return a === 0 && b === 0 ? 1 / a === 1 / b : areSVZ(a, b);
 }
+
 /**
  * Builds a case for {@link module:lamb.adapter|adapter}.<br/>
  * The function will apply the received arguments to <code>fn</code> if the predicate is satisfied
@@ -4439,13 +4292,12 @@ function areSame(a, b) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function casus(predicate, fn) {
-  return function () {
-    return predicate.apply(this, arguments) ? fn.apply(this, arguments) : void 0;
-  };
+function casus (predicate, fn) {
+    return function () {
+        return predicate.apply(this, arguments) ? fn.apply(this, arguments) : void 0;
+    };
 }
+
 /**
  * Builds a function that will apply the received arguments to <code>trueFn</code>,
  * if the predicate is satisfied with the same arguments, or to <code>falseFn</code> otherwise.<br/>
@@ -4472,13 +4324,12 @@ function casus(predicate, fn) {
  * @param {Function} falseFn
  * @returns {Function}
  */
-
-
-function condition(predicate, trueFn, falseFn) {
-  return function () {
-    return (predicate.apply(this, arguments) ? trueFn : falseFn).apply(this, arguments);
-  };
+function condition (predicate, trueFn, falseFn) {
+    return function () {
+        return (predicate.apply(this, arguments) ? trueFn : falseFn).apply(this, arguments);
+    };
 }
+
 /**
  * Verifies that the first given value is greater than the second.<br/>
  * Wraps the native <code>&gt;</code> operator within a function.
@@ -4507,11 +4358,10 @@ function condition(predicate, trueFn, falseFn) {
  * @param {Number|String|Date|Boolean} b
  * @returns {Boolean}
  */
-
-
-function gt(a, b) {
-  return a > b;
+function gt (a, b) {
+    return a > b;
 }
+
 /**
  * Verifies that the first given value is greater than or equal to the second.
  * Regarding equality, beware that this is simply a wrapper for the native
@@ -4534,11 +4384,10 @@ function gt(a, b) {
  * @param {Number|String|Date|Boolean} b
  * @returns {Boolean}
  */
-
-
-function gte(a, b) {
-  return a >= b;
+function gte (a, b) {
+    return a >= b;
 }
+
 /**
  * A curried version of {@link module:lamb.areSame|areSame}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4575,9 +4424,8 @@ function gte(a, b) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var is = _curry2(areSame);
+
 /**
  * A right curried version of {@link module:lamb.gt|gt}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4600,9 +4448,8 @@ var is = _curry2(areSame);
  * @param {Number|String|Date|Boolean} value
  * @returns {Function}
  */
-
-
 var isGT = _curry2(gt, true);
+
 /**
  * A right curried version of {@link module:lamb.gte|gte}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4626,9 +4473,8 @@ var isGT = _curry2(gt, true);
  * @param {Number|String|Date|Boolean} value
  * @returns {Function}
  */
-
-
 var isGTE = _curry2(gte, true);
+
 /**
  * Verifies that the first given value is less than the second.<br/>
  * Wraps the native <code>&lt;</code> operator within a function.
@@ -4657,11 +4503,10 @@ var isGTE = _curry2(gte, true);
  * @param {Number|String|Date|Boolean} b
  * @returns {Boolean}
  */
-
-
-function lt(a, b) {
-  return a < b;
+function lt (a, b) {
+    return a < b;
 }
+
 /**
  * A right curried version of {@link module:lamb.lt|lt}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4684,9 +4529,8 @@ function lt(a, b) {
  * @param {Number|String|Date|Boolean} value
  * @returns {Function}
  */
-
-
 var isLT = _curry2(lt, true);
+
 /**
  * Verifies that the first given value is less than or equal to the second.
  * Regarding equality, beware that this is simply a wrapper for the native
@@ -4709,11 +4553,10 @@ var isLT = _curry2(lt, true);
  * @param {Number|String|Date|Boolean} b
  * @returns {Boolean}
  */
-
-
-function lte(a, b) {
-  return a <= b;
+function lte (a, b) {
+    return a <= b;
 }
+
 /**
  * A right curried version of {@link module:lamb.lte|lte}.<br/>
  * Accepts a value and builds a predicate that checks whether the value
@@ -4737,9 +4580,8 @@ function lte(a, b) {
  * @param {Number|String|Date|Boolean} value
  * @returns {Function}
  */
-
-
 var isLTE = _curry2(lte, true);
+
 /**
  * Builds a unary function that will check its argument against the given predicate.
  * If the predicate isn't satisfied, the provided <code>fn</code> function will be
@@ -4765,13 +4607,12 @@ var isLTE = _curry2(lte, true);
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function unless(predicate, fn) {
-  return function (value) {
-    return predicate.call(this, value) ? value : fn.call(this, value);
-  };
+function unless (predicate, fn) {
+    return function (value) {
+        return predicate.call(this, value) ? value : fn.call(this, value);
+    };
 }
+
 /**
  * Builds a unary function that will check its argument against the given predicate.
  * If the predicate is satisfied, the provided <code>fn</code> function will be
@@ -4797,13 +4638,12 @@ function unless(predicate, fn) {
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function when(predicate, fn) {
-  return function (value) {
-    return predicate.call(this, value) ? fn.call(this, value) : value;
-  };
+function when (predicate, fn) {
+    return function (value) {
+        return predicate.call(this, value) ? fn.call(this, value) : value;
+    };
 }
+
 /**
  * Sums two numbers.
  * @example
@@ -4817,11 +4657,10 @@ function when(predicate, fn) {
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function sum(a, b) {
-  return a + b;
+function sum (a, b) {
+    return a + b;
 }
+
 /**
  * A curried version of {@link module:lamb.sum|sum}.
  * @example
@@ -4838,9 +4677,8 @@ function sum(a, b) {
  * @param {Number} a
  * @returns {Function}
  */
-
-
 var add = _curry2(sum, true);
+
 /**
  * Subtracts two numbers.
  * @example
@@ -4854,11 +4692,10 @@ var add = _curry2(sum, true);
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function subtract(a, b) {
-  return a - b;
+function subtract (a, b) {
+    return a - b;
 }
+
 /**
  * A curried version of {@link module:lamb.subtract|subtract} that expects the
  * subtrahend to build a function waiting for the minuend.
@@ -4876,9 +4713,8 @@ function subtract(a, b) {
  * @param {Number} a
  * @returns {Function}
  */
-
-
 var deduct = _curry2(subtract, true);
+
 /**
  * Divides two numbers.
  * @example
@@ -4892,11 +4728,10 @@ var deduct = _curry2(subtract, true);
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function divide(a, b) {
-  return a / b;
+function divide (a, b) {
+    return a / b;
 }
+
 /**
  * A curried version of {@link module:lamb.divide|divide} that expects a divisor to
  * build a function waiting for the dividend.
@@ -4914,9 +4749,8 @@ function divide(a, b) {
  * @param {Number} a
  * @returns {Function}
  */
-
-
 var divideBy = _curry2(divide, true);
+
 /**
  * Generates a sequence of values of the desired length with the provided iteratee.
  * The values being iterated, and received by the iteratee, are the results generated so far.
@@ -4934,17 +4768,16 @@ var divideBy = _curry2(divide, true);
  * @param {ListIteratorCallback} iteratee
  * @returns {Array}
  */
+function generate (start, len, iteratee) {
+    var result = [start];
 
+    for (var i = 0, limit = len - 1; i < limit; i++) {
+        result.push(iteratee(result[i], i, result));
+    }
 
-function generate(start, len, iteratee) {
-  var result = [start];
-
-  for (var i = 0, limit = len - 1; i < limit; i++) {
-    result.push(iteratee(result[i], i, result));
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Verifies whether the received value is a finite number.<br/>
  * Behaves almost as a shim of ES6's [Number.isFinite]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite},
@@ -4964,11 +4797,10 @@ function generate(start, len, iteratee) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isFinite_(value) {
-  return type(value) === "Number" && isFinite(value);
+function isFinite_ (value) {
+    return type(value) === "Number" && isFinite(value);
 }
+
 /**
  * Verifies whether the received value is a number and an integer.
  * Behaves almost as a shim of ES6's [Number.isInteger]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger},
@@ -4989,11 +4821,10 @@ function isFinite_(value) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isInteger(value) {
-  return type(value) === "Number" && value % 1 === 0;
+function isInteger (value) {
+    return type(value) === "Number" && value % 1 === 0;
 }
+
 /**
  * Verifies whether the received value is a "safe integer", meaning that is a number and that
  * can be exactly represented as an IEEE-754 double precision number.
@@ -5020,11 +4851,10 @@ function isInteger(value) {
  * @param {*} value
  * @returns {Boolean}
  */
-
-
-function isSafeInteger(value) {
-  return isInteger(value) && Math.abs(value) <= MAX_SAFE_INTEGER;
+function isSafeInteger (value) {
+    return isInteger(value) && Math.abs(value) <= MAX_SAFE_INTEGER;
 }
+
 /**
  * Performs the modulo operation and should not be confused with the
  * {@link module:lamb.remainder|remainder}.
@@ -5047,11 +4877,10 @@ function isSafeInteger(value) {
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function modulo(a, b) {
-  return a - b * Math.floor(a / b);
+function modulo (a, b) {
+    return a - (b * Math.floor(a / b));
 }
+
 /**
  * Multiplies two numbers.
  * @example
@@ -5065,11 +4894,10 @@ function modulo(a, b) {
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function multiply(a, b) {
-  return a * b;
+function multiply (a, b) {
+    return a * b;
 }
+
 /**
  * A curried version of {@link module:lamb.multiply|multiply}.
  * @example
@@ -5085,9 +4913,8 @@ function multiply(a, b) {
  * @param {Number} a
  * @returns {Function}
  */
-
-
 var multiplyBy = _curry2(multiply, true);
+
 /**
  * Generates a random integer between two given integers, both included.
  * Note that no safety measure is taken if the provided arguments aren't integers, so
@@ -5104,11 +4931,10 @@ var multiplyBy = _curry2(multiply, true);
  * @param {Number} max
  * @returns {Number}
  */
-
-
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+function randomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
 /**
  * Converts a value to a number and returns it if it's not NaN, otherwise
  * returns zero.
@@ -5116,12 +4942,12 @@ function randomInt(min, max) {
  * @param {*} value
  * @returns {Number}
  */
+function _forceToNumber (value) {
+    var n = +value;
 
-
-function _forceToNumber(value) {
-  var n = +value;
-  return n === n ? n : 0; // eslint-disable-line no-self-compare
+    return n === n ? n : 0; // eslint-disable-line no-self-compare
 }
+
 /**
  * Generates an arithmetic progression of numbers starting from <code>start</code> up to,
  * but not including, <code>limit</code>, using the given <code>step</code>.
@@ -5147,27 +4973,26 @@ function _forceToNumber(value) {
  * @param {Number} [step=1]
  * @returns {Number[]}
  */
+function range (start, limit, step) {
+    start = _forceToNumber(start);
+    limit = _forceToNumber(limit);
+    step = arguments.length === 3 ? _forceToNumber(step) : 1;
 
+    if (step === 0) {
+        return limit === start ? [] : [start];
+    }
 
-function range(start, limit, step) {
-  start = _forceToNumber(start);
-  limit = _forceToNumber(limit);
-  step = arguments.length === 3 ? _forceToNumber(step) : 1;
+    var len = Math.max(Math.ceil((limit - start) / step), 0);
+    var result = Array(len);
 
-  if (step === 0) {
-    return limit === start ? [] : [start];
-  }
+    for (var i = 0, last = start; i < len; i++) {
+        result[i] = last;
+        last += step;
+    }
 
-  var len = Math.max(Math.ceil((limit - start) / step), 0);
-  var result = Array(len);
-
-  for (var i = 0, last = start; i < len; i++) {
-    result[i] = last;
-    last += step;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Gets the remainder of the division of two numbers.
  * Not to be confused with the {@link module:lamb.modulo|modulo} as the remainder
@@ -5188,11 +5013,10 @@ function range(start, limit, step) {
  * @param {Number} b
  * @returns {Number}
  */
-
-
-function remainder(a, b) {
-  return a % b;
+function remainder (a, b) {
+    return a % b;
 }
+
 /**
  * Checks whether the specified key is a own enumerable property of the given object or not.
  * @private
@@ -5201,9 +5025,8 @@ function remainder(a, b) {
  * @param {String} key
  * @returns {Boolean}
  */
-
-
 var _isOwnEnumerable = generic(Object.prototype.propertyIsEnumerable);
+
 /**
  * Builds a list of the enumerable properties of an object.
  * The function is null-safe, unlike the public one.
@@ -5211,17 +5034,16 @@ var _isOwnEnumerable = generic(Object.prototype.propertyIsEnumerable);
  * @param {Object} obj
  * @returns {String[]}
  */
+function _safeEnumerables (obj) {
+    var result = [];
 
+    for (var key in obj) {
+        result.push(key);
+    }
 
-function _safeEnumerables(obj) {
-  var result = [];
-
-  for (var key in obj) {
-    result.push(key);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Checks whether the specified key is an enumerable property of the given object or not.
  * @private
@@ -5229,11 +5051,10 @@ function _safeEnumerables(obj) {
  * @param {String} key
  * @returns {Boolean}
  */
-
-
-function _isEnumerable(obj, key) {
-  return key in Object(obj) && (_isOwnEnumerable(obj, key) || ~_safeEnumerables(obj).indexOf(key));
+function _isEnumerable (obj, key) {
+    return key in Object(obj) && (_isOwnEnumerable(obj, key) || ~_safeEnumerables(obj).indexOf(key));
 }
+
 /**
  * Helper to retrieve the correct key while evaluating a path.
  * @private
@@ -5242,17 +5063,17 @@ function _isEnumerable(obj, key) {
  * @param {Boolean} includeNonEnumerables
  * @returns {String|Number|Undefined}
  */
+function _getPathKey (target, key, includeNonEnumerables) {
+    if (includeNonEnumerables && key in Object(target) || _isEnumerable(target, key)) {
+        return key;
+    }
 
+    var n = +key;
+    var len = target && target.length;
 
-function _getPathKey(target, key, includeNonEnumerables) {
-  if (includeNonEnumerables && key in Object(target) || _isEnumerable(target, key)) {
-    return key;
-  }
-
-  var n = +key;
-  var len = target && target.length;
-  return n >= -len && n < len ? n < 0 ? n + len : n : void 0;
+    return n >= -len && n < len ? n < 0 ? n + len : n : void 0;
 }
+
 /**
  * Checks if a path is valid in the given object and retrieves the path target.
  * @private
@@ -5261,36 +5082,29 @@ function _getPathKey(target, key, includeNonEnumerables) {
  * @param {Boolean} walkNonEnumerables
  * @returns {Object}
  */
-
-
-function _getPathInfo(obj, parts, walkNonEnumerables) {
-  if (isNil(obj)) {
-    throw _makeTypeErrorFor(obj, "object");
-  }
-
-  var target = obj;
-  var i = -1;
-  var len = parts.length;
-  var key;
-
-  while (++i < len) {
-    key = _getPathKey(target, parts[i], walkNonEnumerables);
-
-    if (isUndefined(key)) {
-      break;
+function _getPathInfo (obj, parts, walkNonEnumerables) {
+    if (isNil(obj)) {
+        throw _makeTypeErrorFor(obj, "object");
     }
 
-    target = target[key];
-  }
+    var target = obj;
+    var i = -1;
+    var len = parts.length;
+    var key;
 
-  return i === len ? {
-    isValid: true,
-    target: target
-  } : {
-    isValid: false,
-    target: void 0
-  };
+    while (++i < len) {
+        key = _getPathKey(target, parts[i], walkNonEnumerables);
+
+        if (isUndefined(key)) {
+            break;
+        }
+
+        target = target[key];
+    }
+
+    return i === len ? { isValid: true, target: target } : { isValid: false, target: void 0 };
 }
+
 /**
  * Splits a sting path using the provided separator and returns an array
  * of path parts.
@@ -5299,11 +5113,10 @@ function _getPathInfo(obj, parts, walkNonEnumerables) {
  * @param {String} separator
  * @returns {String[]}
  */
-
-
-function _toPathParts(path, separator) {
-  return String(path).split(separator || ".");
+function _toPathParts (path, separator) {
+    return String(path).split(separator || ".");
 }
+
 /**
  * Gets a nested property value from an object using the given path.<br/>
  * The path is a string with property names separated by dots by default, but
@@ -5355,11 +5168,10 @@ function _toPathParts(path, separator) {
  * @param {String} [separator="."]
  * @returns {*}
  */
-
-
-function getPathIn(obj, path, separator) {
-  return _getPathInfo(obj, _toPathParts(path, separator), true).target;
+function getPathIn (obj, path, separator) {
+    return _getPathInfo(obj, _toPathParts(path, separator), true).target;
 }
+
 /**
  * Builds a <code>checker</code> function meant to be used with
  * {@link module:lamb.validate|validate}.<br/>
@@ -5401,14 +5213,14 @@ function getPathIn(obj, path, separator) {
  * @returns {Function} A checker function which returns an error in the form
  * <code>["message", ["propertyA", "propertyB"]]</code> or an empty array.
  */
+function checker (predicate, message, keyPaths, pathSeparator) {
+    return function (obj) {
+        var getValues = partial(getPathIn, [obj, __, pathSeparator]);
 
-
-function checker(predicate, message, keyPaths, pathSeparator) {
-  return function (obj) {
-    var getValues = partial(getPathIn, [obj, __, pathSeparator]);
-    return predicate.apply(obj, map(keyPaths, getValues)) ? [] : [message, keyPaths];
-  };
+        return predicate.apply(obj, map(keyPaths, getValues)) ? [] : [message, keyPaths];
+    };
 }
+
 /**
  * Creates a non-null-safe version of the provided "getKeys" function.
  * @private
@@ -5416,15 +5228,14 @@ function checker(predicate, message, keyPaths, pathSeparator) {
  * @param {Function} getKeys
  * @returns {Function}
  */
-
-
 var _unsafeKeyListFrom = _curry2(function (getKeys, obj) {
-  if (isNil(obj)) {
-    throw _makeTypeErrorFor(obj, "object");
-  }
+    if (isNil(obj)) {
+        throw _makeTypeErrorFor(obj, "object");
+    }
 
-  return getKeys(obj);
+    return getKeys(obj);
 });
+
 /**
  * Creates an array with all the enumerable properties of the given object.
  * @example <caption>Showing the difference with {@link module:lamb.keys|keys}:</caption>
@@ -5445,9 +5256,8 @@ var _unsafeKeyListFrom = _curry2(function (getKeys, obj) {
  * @param {Object} obj
  * @returns {String[]}
  */
-
-
 var enumerables = _unsafeKeyListFrom(_safeEnumerables);
+
 /**
  * Builds an object from a list of key / value pairs like the one
  * returned by {@link module:lamb.pairs|pairs} or {@link module:lamb.ownPairs|ownPairs}.<br/>
@@ -5464,15 +5274,16 @@ var enumerables = _unsafeKeyListFrom(_safeEnumerables);
  * @param {Array<Array<String, *>>} pairsList
  * @returns {Object}
  */
+function fromPairs (pairsList) {
+    var result = {};
 
+    forEach(pairsList, function (pair) {
+        result[pair[0]] = pair[1];
+    });
 
-function fromPairs(pairsList) {
-  var result = {};
-  forEach(pairsList, function (pair) {
-    result[pair[0]] = pair[1];
-  });
-  return result;
+    return result;
 }
+
 /**
  * Builds a partial application of {@link module:lamb.getPathIn|getPathIn} with the given
  * path and separator, expecting the object to act upon.<br/>
@@ -5502,9 +5313,8 @@ function fromPairs(pairsList) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
-
-
 var getPath = _makePartial3(getPathIn);
+
 /**
  * Verifies the existence of a property in an object.
  * @example
@@ -5529,15 +5339,14 @@ var getPath = _makePartial3(getPathIn);
  * @param {String} key
  * @returns {Boolean}
  */
+function has (obj, key) {
+    if (typeof obj !== "object" && !isUndefined(obj)) {
+        obj = Object(obj);
+    }
 
-
-function has(obj, key) {
-  if (_typeof(obj) !== "object" && !isUndefined(obj)) {
-    obj = Object(obj);
-  }
-
-  return key in obj;
+    return key in obj;
 }
+
 /**
  * Curried version of {@link module:lamb.has|has}.<br/>
  * Returns a function expecting the object to check against the given key.
@@ -5559,9 +5368,8 @@ function has(obj, key) {
  * @param {String} key
  * @returns {Function}
  */
-
-
 var hasKey = _curry2(has, true);
+
 /**
  * Verifies if an object has the specified property and that the property isn't inherited through
  * the prototype chain.<br/>
@@ -5587,9 +5395,8 @@ var hasKey = _curry2(has, true);
  * @param {String} key
  * @returns {Boolean}
  */
-
-
 var hasOwn = generic(Object.prototype.hasOwnProperty);
+
 /**
  * Curried version of {@link module:lamb.hasOwn|hasOwn}.<br/>
  * Returns a function expecting the object to check against the given key.
@@ -5611,8 +5418,8 @@ var hasOwn = generic(Object.prototype.hasOwnProperty);
  * @param {String} key
  * @returns {Function}
  */
-
 var hasOwnKey = _curry2(hasOwn, true);
+
 /**
  * Builds a predicate expecting an object to check against the given key / value pair.<br/>
  * The value check is made with the ["SameValueZero" comparison]{@link module:lamb.areSVZ|areSVZ}.
@@ -5630,13 +5437,12 @@ var hasOwnKey = _curry2(hasOwn, true);
  * @param {*} value
  * @returns {Function}
  */
-
-
-function hasKeyValue(key, value) {
-  return function (obj) {
-    return isUndefined(value) ? has(obj, key) && obj[key] === value : areSVZ(value, obj[key]);
-  };
+function hasKeyValue (key, value) {
+    return function (obj) {
+        return isUndefined(value) ? has(obj, key) && obj[key] === value : areSVZ(value, obj[key]);
+    };
 }
+
 /**
  * Builds a predicate to check if the given path exists in an object and holds the desired value.<br/>
  * The value check is made with the ["SameValueZero" comparison]{@link module:lamb.areSVZ|areSVZ}.<br/>
@@ -5673,15 +5479,14 @@ function hasKeyValue(key, value) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
+function hasPathValue (path, value, separator) {
+    return function (obj) {
+        var pathInfo = _getPathInfo(obj, _toPathParts(path, separator), true);
 
-
-function hasPathValue(path, value, separator) {
-  return function (obj) {
-    var pathInfo = _getPathInfo(obj, _toPathParts(path, separator), true);
-
-    return pathInfo.isValid && areSVZ(pathInfo.target, value);
-  };
+        return pathInfo.isValid && areSVZ(pathInfo.target, value);
+    };
 }
+
 /**
  * A null-safe version of <code>Object.keys</code>.
  * @private
@@ -5689,9 +5494,8 @@ function hasPathValue(path, value, separator) {
  * @param {Object} obj
  * @returns {String[]}
  */
-
-
 var _safeKeys = compose(Object.keys, Object);
+
 /**
  * Retrieves the list of the own enumerable properties of an object.<br/>
  * Although [Object.keys]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys}
@@ -5717,9 +5521,8 @@ var _safeKeys = compose(Object.keys, Object);
  * @param {Object} obj
  * @returns {String[]}
  */
-
-
 var keys = _unsafeKeyListFrom(_safeKeys);
+
 /**
  * Builds a predicate to check if the given key satisfies the desired condition
  * on an object.
@@ -5741,13 +5544,12 @@ var keys = _unsafeKeyListFrom(_safeKeys);
  * @param {String} key
  * @returns {Function}
  */
-
-
-function keySatisfies(predicate, key) {
-  return function (obj) {
-    return predicate.call(this, obj[key]);
-  };
+function keySatisfies (predicate, key) {
+    return function (obj) {
+        return predicate.call(this, obj[key]);
+    };
 }
+
 /**
  * Builds an object from the two given lists, using the first one as keys and the last
  * one as values.<br/>
@@ -5768,18 +5570,17 @@ function keySatisfies(predicate, key) {
  * @param {ArrayLike} values
  * @returns {Object}
  */
+function make (names, values) {
+    var result = {};
+    var valuesLen = values.length;
 
+    for (var i = 0, len = names.length; i < len; i++) {
+        result[names[i]] = i < valuesLen ? values[i] : void 0;
+    }
 
-function make(names, values) {
-  var result = {};
-  var valuesLen = values.length;
-
-  for (var i = 0, len = names.length; i < len; i++) {
-    result[names[i]] = i < valuesLen ? values[i] : void 0;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Creates a new object by applying the given function
  * to all enumerable properties of the source one.
@@ -5799,21 +5600,20 @@ function make(names, values) {
  * @param {ObjectIteratorCallback} fn
  * @returns {Object}
  */
+function mapValues (source, fn) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "object");
+    }
 
+    var result = {};
 
-function mapValues(source, fn) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "object");
-  }
+    for (var key in source) {
+        result[key] = fn(source[key], key, source);
+    }
 
-  var result = {};
-
-  for (var key in source) {
-    result[key] = fn(source[key], key, source);
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.mapValues|mapValues}.<br/>
  * Expects a mapping function to build a new function waiting for the
@@ -5836,9 +5636,8 @@ function mapValues(source, fn) {
  * @param {ObjectIteratorCallback} fn
  * @returns {Function}
  */
-
-
 var mapValuesWith = _curry2(mapValues, true);
+
 /**
  * Merges the received objects using the provided function to retrieve their keys.
  * @private
@@ -5847,16 +5646,16 @@ var mapValuesWith = _curry2(mapValues, true);
  * @param {Object} b
  * @returns {Function}
  */
+function _merge (getKeys, a, b) {
+    return reduce([a, b], function (result, source) {
+        forEach(getKeys(source), function (key) {
+            result[key] = source[key];
+        });
 
-
-function _merge(getKeys, a, b) {
-  return reduce([a, b], function (result, source) {
-    forEach(getKeys(source), function (key) {
-      result[key] = source[key];
-    });
-    return result;
-  }, {});
+        return result;
+    }, {});
 }
+
 /**
  * Merges the enumerable properties of the provided sources into a new object.<br/>
  * In case of key homonymy the last source has precedence over the first.
@@ -5880,9 +5679,8 @@ function _merge(getKeys, a, b) {
  * @param {Object} b
  * @returns {Object}
  */
-
-
 var merge = partial(_merge, [enumerables]);
+
 /**
  * Same as {@link module:lamb.merge|merge}, but only the own properties of the
  * sources are taken into account.
@@ -5914,8 +5712,8 @@ var merge = partial(_merge, [enumerables]);
  * @param {Object} b
  * @returns {Object}
  */
-
 var mergeOwn = partial(_merge, [keys]);
+
 /**
  * Accepts an object and build a function expecting a key to create a "pair" with the key
  * and its value.
@@ -5924,10 +5722,10 @@ var mergeOwn = partial(_merge, [keys]);
  * @param {Object} obj
  * @returns {Function}
  */
-
 var _keyToPairIn = _curry2(function (obj, key) {
-  return [key, obj[key]];
+    return [key, obj[key]];
 });
+
 /**
  * Using the provided function to retrieve the keys, builds a new function
  * expecting an object to create a list of key / value pairs.
@@ -5936,11 +5734,10 @@ var _keyToPairIn = _curry2(function (obj, key) {
  * @param {Function} getKeys
  * @returns {Function}
  */
-
-
 var _pairsFrom = _curry2(function (getKeys, obj) {
-  return map(getKeys(obj), _keyToPairIn(obj));
+    return map(getKeys(obj), _keyToPairIn(obj));
 });
+
 /**
  * Same as {@link module:lamb.pairs|pairs}, but only the own enumerable properties of the object are
  * taken into account.<br/>
@@ -5963,9 +5760,8 @@ var _pairsFrom = _curry2(function (getKeys, obj) {
  * @param {Object} obj
  * @returns {Array<Array<String, *>>}
  */
-
-
 var ownPairs = _pairsFrom(keys);
+
 /**
  * Using the provided function to retrieve the keys of an object, builds
  * a function expecting an object to create the list of values for such keys.
@@ -5974,13 +5770,12 @@ var ownPairs = _pairsFrom(keys);
  * @param {Function} getKeys
  * @returns {Function}
  */
-
-
 var _valuesFrom = _curry2(function (getKeys, obj) {
-  return map(getKeys(obj), function (key) {
-    return obj[key];
-  });
+    return map(getKeys(obj), function (key) {
+        return obj[key];
+    });
 });
+
 /**
  * Same as {@link module:lamb.values|values}, but only the own enumerable properties of the object are
  * taken into account.<br/>
@@ -6001,9 +5796,8 @@ var _valuesFrom = _curry2(function (getKeys, obj) {
  * @param {Object} obj
  * @returns {Array}
  */
-
-
 var ownValues = _valuesFrom(keys);
+
 /**
  * Converts an object into an array of key / value pairs of its enumerable properties.<br/>
  * See also {@link module:lamb.ownPairs|ownPairs} for picking only the own enumerable
@@ -6020,9 +5814,8 @@ var ownValues = _valuesFrom(keys);
  * @param {Object} obj
  * @returns {Array<Array<String, *>>}
  */
-
-
 var pairs = _pairsFrom(enumerables);
+
 /**
  * Checks if the provided path exists in the given object.<br/>
  * Note that the function will check even non-enumerable properties.
@@ -6051,11 +5844,10 @@ var pairs = _pairsFrom(enumerables);
  * @param {String} [separator="."]
  * @returns {Boolean}
  */
-
-
-function pathExistsIn(obj, path, separator) {
-  return _getPathInfo(obj, _toPathParts(path, separator), true).isValid;
+function pathExistsIn (obj, path, separator) {
+    return _getPathInfo(obj, _toPathParts(path, separator), true).isValid;
 }
+
 /**
  * Builds a partial application of {@link module:lamb.pathExistsIn|pathExistsIn} using the given
  * path and the optional separator. The resulting function expects the object to check.<br/>
@@ -6089,9 +5881,8 @@ function pathExistsIn(obj, path, separator) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
-
-
 var pathExists = _makePartial3(pathExistsIn);
+
 /**
  * Builds a predicate that verifies if a condition is satisfied for the given
  * path in an object.<br/>
@@ -6121,15 +5912,14 @@ var pathExists = _makePartial3(pathExistsIn);
  * @param {String} [separator="."]
  * @returns {Function}
  */
+function pathSatisfies (predicate, path, separator) {
+    return function (obj) {
+        var pathInfo = _getPathInfo(obj, _toPathParts(path, separator), true);
 
-
-function pathSatisfies(predicate, path, separator) {
-  return function (obj) {
-    var pathInfo = _getPathInfo(obj, _toPathParts(path, separator), true);
-
-    return predicate.call(this, pathInfo.target);
-  };
+        return predicate.call(this, pathInfo.target);
+    };
 }
+
 /**
  * Returns an object containing only the specified properties of the given object.<br/>
  * Non existent properties will be ignored.
@@ -6148,21 +5938,20 @@ function pathSatisfies(predicate, path, separator) {
  * @param {String[]} whitelist
  * @returns {Object}
  */
+function pickIn (source, whitelist) {
+    var result = {};
 
+    for (var i = 0, len = whitelist.length, key; i < len; i++) {
+        key = whitelist[i];
 
-function pickIn(source, whitelist) {
-  var result = {};
-
-  for (var i = 0, len = whitelist.length, key; i < len; i++) {
-    key = whitelist[i];
-
-    if (has(source, key)) {
-      result[key] = source[key];
+        if (has(source, key)) {
+            result[key] = source[key];
+        }
     }
-  }
 
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.pickIn|pickIn}, expecting a whitelist of keys to build
  * a function waiting for the object to act upon.
@@ -6200,9 +5989,8 @@ function pickIn(source, whitelist) {
  * @param {String[]} whitelist
  * @returns {Function}
  */
-
-
 var pick = _curry2(pickIn, true);
+
 /**
  * Builds a function expecting an object whose enumerable properties will be checked
  * against the given predicate.<br/>
@@ -6222,25 +6010,24 @@ var pick = _curry2(pickIn, true);
  * @param {ObjectIteratorCallback} predicate
  * @returns {Function}
  */
+function pickIf (predicate) {
+    return function (source) {
+        if (isNil(source)) {
+            throw _makeTypeErrorFor(source, "object");
+        }
 
+        var result = {};
 
-function pickIf(predicate) {
-  return function (source) {
-    if (isNil(source)) {
-      throw _makeTypeErrorFor(source, "object");
-    }
+        for (var key in source) {
+            if (predicate(source[key], key, source)) {
+                result[key] = source[key];
+            }
+        }
 
-    var result = {};
-
-    for (var key in source) {
-      if (predicate(source[key], key, source)) {
-        result[key] = source[key];
-      }
-    }
-
-    return result;
-  };
+        return result;
+    };
 }
+
 /**
  * Creates a copy of the given object with its enumerable keys renamed as
  * indicated in the provided lookup table.
@@ -6263,29 +6050,28 @@ function pickIf(predicate) {
  * @param {Object} keysMap
  * @returns {Object}
  */
+function renameIn (source, keysMap) {
+    keysMap = Object(keysMap);
+    var result = {};
+    var oldKeys = enumerables(source);
 
-
-function renameIn(source, keysMap) {
-  keysMap = Object(keysMap);
-  var result = {};
-  var oldKeys = enumerables(source);
-
-  for (var prop in keysMap) {
-    if (~oldKeys.indexOf(prop)) {
-      result[keysMap[prop]] = source[prop];
+    for (var prop in keysMap) {
+        if (~oldKeys.indexOf(prop)) {
+            result[keysMap[prop]] = source[prop];
+        }
     }
-  }
 
-  for (var i = 0, len = oldKeys.length, key; i < len; i++) {
-    key = oldKeys[i];
+    for (var i = 0, len = oldKeys.length, key; i < len; i++) {
+        key = oldKeys[i];
 
-    if (!(key in keysMap || key in result)) {
-      result[key] = source[key];
+        if (!(key in keysMap || key in result)) {
+            result[key] = source[key];
+        }
     }
-  }
 
-  return result;
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.renameIn|renameIn} expecting a
  * <code>keysMap</code> to build a function waiting for the object to act upon.
@@ -6315,9 +6101,8 @@ function renameIn(source, keysMap) {
  * @param {Object} keysMap
  * @returns {Function}
  */
-
-
 var rename = _curry2(renameIn, true);
+
 /**
  * Uses the provided function as a <code>keysMap</code> generator and returns
  * a function expecting the object whose keys we want to {@link module:lamb.renameIn|renameIn}.
@@ -6340,13 +6125,12 @@ var rename = _curry2(renameIn, true);
  * @param {Function} fn
  * @returns {Function}
  */
-
-
-function renameWith(fn) {
-  return function (source) {
-    return renameIn(source, fn(source));
-  };
+function renameWith (fn) {
+    return function (source) {
+        return renameIn(source, fn(source));
+    };
 }
+
 /**
  * Sets, or creates, a property in a copy of the provided object to the desired value.
  * @private
@@ -6355,18 +6139,18 @@ function renameWith(fn) {
  * @param {*} value
  * @returns {Object}
  */
+function _setIn (source, key, value) {
+    var result = {};
 
+    for (var prop in source) {
+        result[prop] = source[prop];
+    }
 
-function _setIn(source, key, value) {
-  var result = {};
+    result[key] = value;
 
-  for (var prop in source) {
-    result[prop] = source[prop];
-  }
-
-  result[key] = value;
-  return result;
+    return result;
 }
+
 /**
  * Sets the specified key to the given value in a copy of the provided object.<br/>
  * All the remaining enumerable keys of the source object will be simply copied in the
@@ -6396,15 +6180,14 @@ function _setIn(source, key, value) {
  * @param {*} value
  * @returns {Object}
  */
+function setIn (source, key, value) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "object");
+    }
 
-
-function setIn(source, key, value) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "object");
-  }
-
-  return _setIn(source, key, value);
+    return _setIn(source, key, value);
 }
+
 /**
  * Builds a partial application of {@link module:lamb.setIn|setIn} with the provided
  * <code>key</code> and <code>value</code>.<br/>
@@ -6429,9 +6212,8 @@ function setIn(source, key, value) {
  * @param {*} value
  * @returns {Function}
  */
-
-
 var setKey = _makePartial3(setIn);
+
 /**
  * Accepts a target object and a key name and verifies that the target is an array and that
  * the key is an existing index.
@@ -6440,12 +6222,12 @@ var setKey = _makePartial3(setIn);
  * @param {String|Number} key
  * @returns {Boolean}
  */
+function _isArrayIndex (target, key) {
+    var n = +key;
 
-
-function _isArrayIndex(target, key) {
-  var n = +key;
-  return Array.isArray(target) && n % 1 === 0 && !(n < 0 && _isEnumerable(target, key));
+    return Array.isArray(target) && n % 1 === 0 && !(n < 0 && _isEnumerable(target, key));
 }
+
 /**
  * Sets the object's property targeted by the given path to the desired value.<br/>
  * Works with arrays and is able to set their indexes, even negative ones.
@@ -6455,23 +6237,26 @@ function _isArrayIndex(target, key) {
  * @param {*} value
  * @returns {Object|Array}
  */
+function _setPathIn (obj, parts, value) {
+    var key = parts[0];
+    var partsLen = parts.length;
+    var v;
 
+    if (partsLen === 1) {
+        v = value;
+    } else {
+        var targetKey = _getPathKey(obj, key, false);
 
-function _setPathIn(obj, parts, value) {
-  var key = parts[0];
-  var partsLen = parts.length;
-  var v;
+        v = _setPathIn(
+            isUndefined(targetKey) ? targetKey : obj[targetKey],
+            slice(parts, 1, partsLen),
+            value
+        );
+    }
 
-  if (partsLen === 1) {
-    v = value;
-  } else {
-    var targetKey = _getPathKey(obj, key, false);
-
-    v = _setPathIn(isUndefined(targetKey) ? targetKey : obj[targetKey], slice(parts, 1, partsLen), value);
-  }
-
-  return _isArrayIndex(obj, key) ? _setIndex(obj, key, v) : _setIn(obj, key, v);
+    return _isArrayIndex(obj, key) ? _setIndex(obj, key, v) : _setIn(obj, key, v);
 }
+
 /**
  * Allows to change a nested value in a copy of the provided object.<br/>
  * The function will delegate the "set action" to {@link module:lamb.setIn|setIn} or
@@ -6531,15 +6316,14 @@ function _setPathIn(obj, parts, value) {
  * @param {String} [separator="."]
  * @returns {Object|Array}
  */
+function setPathIn (source, path, value, separator) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "object");
+    }
 
-
-function setPathIn(source, path, value, separator) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "object");
-  }
-
-  return _setPathIn(source, _toPathParts(path, separator), value);
+    return _setPathIn(source, _toPathParts(path, separator), value);
 }
+
 /**
  * Builds a partial application of {@link module:lamb.setPathIn|setPathIn} expecting the
  * object to act upon.<br/>
@@ -6560,13 +6344,12 @@ function setPathIn(source, path, value, separator) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
-
-
-function setPath(path, value, separator) {
-  return function (source) {
-    return setPathIn(source, path, value, separator);
-  };
+function setPath (path, value, separator) {
+    return function (source) {
+        return setPathIn(source, path, value, separator);
+    };
 }
+
 /**
  * Returns a copy of the source object without the specified properties.
  * @example
@@ -6585,24 +6368,23 @@ function setPath(path, value, separator) {
  * @param {String[]} blacklist
  * @returns {Object}
  */
-
-
-function skipIn(source, blacklist) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "object");
-  }
-
-  var result = {};
-  var props = make(blacklist, []);
-
-  for (var key in source) {
-    if (!(key in props)) {
-      result[key] = source[key];
+function skipIn (source, blacklist) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "object");
     }
-  }
 
-  return result;
+    var result = {};
+    var props = make(blacklist, []);
+
+    for (var key in source) {
+        if (!(key in props)) {
+            result[key] = source[key];
+        }
+    }
+
+    return result;
 }
+
 /**
  * A curried version of {@link module:lamb.skipIn|skipIn}, expecting a blacklist of keys to build
  * a function waiting for the object to act upon.
@@ -6640,9 +6422,8 @@ function skipIn(source, blacklist) {
  * @param {String[]} blacklist
  * @returns {Function}
  */
-
-
 var skip = _curry2(skipIn, true);
+
 /**
  * Builds a function expecting an object whose enumerable properties will be checked
  * against the given predicate.<br/>
@@ -6663,9 +6444,8 @@ var skip = _curry2(skipIn, true);
  * @param {ObjectIteratorCallback} predicate
  * @returns {Function}
  */
-
-
 var skipIf = compose(pickIf, not);
+
 /**
  * Using the provided function to retrieve the keys of an object, builds
  * a function expecting an object to create an array containing a list
@@ -6676,14 +6456,15 @@ var skipIf = compose(pickIf, not);
  * @param {Function} getKeys
  * @returns {Function}
  */
-
 var _tearFrom = _curry2(function (getKeys, obj) {
-  return reduce(getKeys(obj), function (result, key) {
-    result[0].push(key);
-    result[1].push(obj[key]);
-    return result;
-  }, [[], []]);
+    return reduce(getKeys(obj), function (result, key) {
+        result[0].push(key);
+        result[1].push(obj[key]);
+
+        return result;
+    }, [[], []]);
 });
+
 /**
  * Tears an object apart by transforming it in an array of two lists: one containing
  * its enumerable keys, the other containing the corresponding values.<br/>
@@ -6701,9 +6482,8 @@ var _tearFrom = _curry2(function (getKeys, obj) {
  * @param {Object} obj
  * @returns {Array<String[], Array>}
  */
-
-
 var tear = _tearFrom(enumerables);
+
 /**
  * Same as {@link module:lamb.tear|tear}, but only the own properties of the object are
  * taken into account.
@@ -6725,9 +6505,8 @@ var tear = _tearFrom(enumerables);
  * @param {Object} obj
  * @returns {Array<String[], Array>}
  */
-
-
 var tearOwn = _tearFrom(keys);
+
 /**
  * Creates a copy of the given object having the desired key value updated by applying
  * the provided function to it.<br/>
@@ -6756,11 +6535,12 @@ var tearOwn = _tearFrom(keys);
  * @param {Function} updater
  * @returns {Object}
  */
-
-
-function updateIn(source, key, updater) {
-  return _isEnumerable(source, key) ? _setIn(source, key, updater(source[key])) : _merge(enumerables, source, {});
+function updateIn (source, key, updater) {
+    return _isEnumerable(source, key)
+        ? _setIn(source, key, updater(source[key]))
+        : _merge(enumerables, source, {});
 }
+
 /**
  * Builds a partial application of {@link module:lamb.updateIn|updateIn} with the provided
  * <code>key</code> and <code>updater</code>, expecting the object to act upon.<br/>
@@ -6783,9 +6563,8 @@ function updateIn(source, key, updater) {
  * @param {Function} updater
  * @returns {Function}
  */
-
-
 var updateKey = _makePartial3(updateIn);
+
 /**
  * Allows to change a nested value in a copy of the given object by applying the provided
  * function to it.<br/>
@@ -6838,19 +6617,17 @@ var updateKey = _makePartial3(updateIn);
  * @param {String} [separator="."]
  * @returns {Object|Array}
  */
+function updatePathIn (source, path, updater, separator) {
+    var parts = _toPathParts(path, separator);
+    var pathInfo = _getPathInfo(source, parts, false);
 
-
-function updatePathIn(source, path, updater, separator) {
-  var parts = _toPathParts(path, separator);
-
-  var pathInfo = _getPathInfo(source, parts, false);
-
-  if (pathInfo.isValid) {
-    return _setPathIn(source, parts, updater(pathInfo.target));
-  } else {
-    return Array.isArray(source) ? slice(source, 0, source.length) : _merge(enumerables, source, {});
-  }
+    if (pathInfo.isValid) {
+        return _setPathIn(source, parts, updater(pathInfo.target));
+    } else {
+        return Array.isArray(source) ? slice(source, 0, source.length) : _merge(enumerables, source, {});
+    }
 }
+
 /**
  * Builds a partial application of {@link module:lamb.updatePathIn|updatePathIn}
  * expecting the object to act upon.<br/>
@@ -6875,13 +6652,12 @@ function updatePathIn(source, path, updater, separator) {
  * @param {String} [separator="."]
  * @returns {Function}
  */
-
-
-function updatePath(path, updater, separator) {
-  return function (source) {
-    return updatePathIn(source, path, updater, separator);
-  };
+function updatePath (path, updater, separator) {
+    return function (source) {
+        return updatePathIn(source, path, updater, separator);
+    };
 }
+
 /**
  * Validates an object with the given list of {@link module:lamb.checker|checker} functions.
  * @example
@@ -6912,16 +6688,16 @@ function updatePath(path, updater, separator) {
  * @returns {Array<Array<String, String[]>>} An array of errors in the form returned by
  * {@link module:lamb.checker|checker}, or an empty array.
  */
+function validate (obj, checkers) {
+    return reduce(checkers, function (errors, _checker) {
+        var result = _checker(obj);
 
+        result.length && errors.push(result);
 
-function validate(obj, checkers) {
-  return reduce(checkers, function (errors, _checker) {
-    var result = _checker(obj);
-
-    result.length && errors.push(result);
-    return errors;
-  }, []);
+        return errors;
+    }, []);
 }
+
 /**
  * A curried version of {@link module:lamb.validate|validate} accepting a list of
  * {@link module:lamb.checker|checkers} and returning a function expecting the object to validate.
@@ -6953,9 +6729,8 @@ function validate(obj, checkers) {
  * @param {Function[]} checkers
  * @returns {Function}
  */
-
-
 var validateWith = _curry2(validate, true);
+
 /**
  * Generates an array with the values of the enumerable properties of the given object.<br/>
  * See also {@link module:lamb.ownValues|ownValues} to pick only from the own properties of the object.
@@ -6972,9 +6747,8 @@ var validateWith = _curry2(validate, true);
  * @param {Object} obj
  * @returns {Array}
  */
-
-
 var values = _valuesFrom(enumerables);
+
 /**
  * A null-safe function to repeat the source string the desired amount of times.
  * @private
@@ -6982,17 +6756,16 @@ var values = _valuesFrom(enumerables);
  * @param {Number} times
  * @returns {String}
  */
+function _repeat (source, times) {
+    var result = "";
 
+    for (var i = 0; i < times; i++) {
+        result += source;
+    }
 
-function _repeat(source, times) {
-  var result = "";
-
-  for (var i = 0; i < times; i++) {
-    result += source;
-  }
-
-  return result;
+    return result;
 }
+
 /**
  * Builds the prefix or suffix to be used when padding a string.
  * @private
@@ -7001,15 +6774,14 @@ function _repeat(source, times) {
  * @param {Number} len
  * @returns {String}
  */
+function _getPadding (source, char, len) {
+    if (!isNil(source) && type(source) !== "String") {
+        source = String(source);
+    }
 
-
-function _getPadding(source, char, len) {
-  if (!isNil(source) && type(source) !== "String") {
-    source = String(source);
-  }
-
-  return _repeat(String(char)[0] || "", Math.ceil(len - source.length));
+    return _repeat(String(char)[0] || "", Math.ceil(len - source.length));
 }
+
 /**
  * Pads a string to the desired length with the given char starting from the beginning of the string.
  * @example
@@ -7030,11 +6802,10 @@ function _getPadding(source, char, len) {
  * @param {Number} len
  * @returns {String}
  */
-
-
-function padLeft(source, char, len) {
-  return _getPadding(source, char, len) + source;
+function padLeft (source, char, len) {
+    return _getPadding(source, char, len) + source;
 }
+
 /**
  * Pads a string to the desired length with the given char starting from the end of the string.
  * @example
@@ -7055,11 +6826,10 @@ function padLeft(source, char, len) {
  * @param {Number} len
  * @returns {String}
  */
-
-
-function padRight(source, char, len) {
-  return source + _getPadding(source, char, len);
+function padRight (source, char, len) {
+    return source + _getPadding(source, char, len);
 }
+
 /**
  * Builds a new string by repeating the source string the desired amount of times.<br/>
  * Note that unlike the current ES6 proposal for
@@ -7078,15 +6848,14 @@ function padRight(source, char, len) {
  * @param {Number} times
  * @returns {String}
  */
+function repeat (source, times) {
+    if (isNil(source)) {
+        throw _makeTypeErrorFor(source, "string");
+    }
 
-
-function repeat(source, times) {
-  if (isNil(source)) {
-    throw _makeTypeErrorFor(source, "string");
-  }
-
-  return _repeat(source, Math.floor(times));
+    return _repeat(source, Math.floor(times));
 }
+
 /**
  * Splits a string into an array of substrings using the given separator.
  * @example
@@ -7103,9 +6872,8 @@ function repeat(source, times) {
  * @param {String|RegExp} separator
  * @returns {String[]}
  */
-
-
 var split = binary(generic(String.prototype.split));
+
 /**
  * A curried version of {@link module:lamb.split|split} that accepts
  * a separator and builds a function expecting the string to split.
@@ -7123,8 +6891,8 @@ var split = binary(generic(String.prototype.split));
  * @param {String|RegExp} separator
  * @returns {Function}
  */
-
 var splitBy = _curry2(split, true);
+
 /**
  * A generic version of <code>String.prototype.search</code>
  * @private
@@ -7133,9 +6901,8 @@ var splitBy = _curry2(split, true);
  * @param {RegExp} pattern
  * @returns {Number}
  */
-
-
 var _search = generic(String.prototype.search);
+
 /**
  * Builds a predicate expecting a string to test against the given regular expression pattern.
  * @example
@@ -7150,13 +6917,12 @@ var _search = generic(String.prototype.search);
  * @param {RegExp} pattern
  * @returns {Function}
  */
-
-
-function testWith(pattern) {
-  return function (s) {
-    return _search(s, pattern) !== -1;
-  };
+function testWith (pattern) {
+    return function (s) {
+        return _search(s, pattern) !== -1;
+    };
 }
+
 /**
  * Accepts a constructor and builds a predicate expecting an object,
  * which will be tested to verify whether the prototype of the constructor
@@ -7186,13 +6952,12 @@ function testWith(pattern) {
  * @param {*} constructor
  * @returns {Function}
  */
-
-
-function isInstanceOf(constructor) {
-  return function (obj) {
-    return obj instanceof constructor;
-  };
+function isInstanceOf (constructor) {
+    return function (obj) {
+        return obj instanceof constructor;
+    };
 }
+
 /**
  * Builds a predicate that expects a value to check against the specified type.
  * @example
@@ -7208,12 +6973,10 @@ function isInstanceOf(constructor) {
  * @param {String} typeName
  * @returns {Function}
  */
-
-
-function isType(typeName) {
-  return function (value) {
-    return type(value) === typeName;
-  };
+function isType (typeName) {
+    return function (value) {
+        return type(value) === typeName;
+    };
 }
 
 var _ = /*#__PURE__*/Object.freeze({
@@ -7432,6 +7195,7 @@ var _ = /*#__PURE__*/Object.freeze({
 /**
 * @module @svizzle/utils/any-boolean
 */
+
 /**
  * Return true is the input is an array
  *
@@ -7457,8 +7221,8 @@ false
  *
  * @version 0.1.0
  */
+const isArray = isType('Array');
 
-var isArray = isType('Array');
 /**
  * Return true is the input is not a NaN.
  * Remember that {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#Confusing_special-case_behavior|isNaN coerces the input with Number()} to the output can be a bit surprising.
@@ -7503,8 +7267,8 @@ false
  *
  * @version 0.1.0
  */
+const isNotNaN = not(isNaN);
 
-var isNotNaN = not(isNaN);
 /**
  * Return true is the input is not undefined or null.
  *
@@ -7545,8 +7309,8 @@ false
  *
  * @version 0.2.0
  */
+const isNotNil = not(isNil);
 
-var isNotNil = not(isNil);
 /**
  * Return true is the input is not null.
  *
@@ -7587,8 +7351,8 @@ true
  *
  * @version 0.4.0
  */
+const isNotNull = not(isNull);
 
-var isNotNull = not(isNull);
 /**
  * Return true is the input is a number
  *
@@ -7616,8 +7380,8 @@ false
  *
  * @version 0.1.0
  */
+const isNumber = isType('Number');
 
-var isNumber = isType('Number');
 /**
  * Return true is the input is a valid number (including not being NaN)
  *
@@ -7657,8 +7421,8 @@ var isNumber = isType('Number');
  * @version 0.1.0
  * @see {@link module:@svizzle/utils/[any-any]-[any-boolean].isValidNumberWith|isValidNumberWith}
  */
+const isValidNumber = allOf([isNumber, isNotNaN]);
 
-var isValidNumber = allOf([isNumber, isNotNaN]);
 /**
  * Return true if the input, converted to Number, is indeed a number
  *
@@ -7695,8 +7459,8 @@ var isValidNumber = allOf([isNumber, isNotNaN]);
 [false, ...]
  * @version 0.1.0
  */
+const toNumberisValidNumber = pipe([Number, isValidNumber]);
 
-var toNumberisValidNumber = pipe([Number, isValidNumber]);
 /**
  * Return true if the input, parsed to float, is a valid number
  *
@@ -7734,12 +7498,12 @@ var toNumberisValidNumber = pipe([Number, isValidNumber]);
 [false, ...]
  * @version 0.1.0
  */
-
-var toFloatIsValidNumber = pipe([parseFloat, isValidNumber]);
+const toFloatIsValidNumber = pipe([parseFloat, isValidNumber]);
 
 /**
 * @module @svizzle/utils/array_proto-array
 */
+
 /**
  * Return an array by concatenating the provided arrays
  * @see
@@ -7758,8 +7522,11 @@ var toFloatIsValidNumber = pipe([parseFloat, isValidNumber]);
  *
  * @version 0.1.0
  */
+const concat = generic(Array.prototype.concat);
 
-var concat = generic(Array.prototype.concat);
+/**
+* @module @svizzle/utils/[any-any]-[object-object]
+*/
 
 /**
  * Return a function expecting an object and returning an index of all its values using the provided accessor.
@@ -7804,14 +7571,16 @@ var concat = generic(Array.prototype.concat);
  * @version 0.6.0
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].groupValuesWith|groupValuesWith}
  */
-
-var indexValuesWith = function indexValuesWith(accessor) {
-  return pipe([values, apply(concat), indexBy(accessor)]);
-};
+const indexValuesWith = accessor => pipe([
+	values,
+	apply(concat),
+	indexBy(accessor)
+]);
 
 /**
 * @module @svizzle/utils/constructor-[[any-any]:accumcb-[array-any]]
 */
+
 /**
  * Return a function expecting a reducer function and returning a reduce function
  * with an instance of the provided constructor as the initial value
@@ -7832,16 +7601,12 @@ Object { 11: 'b', 00: 'a' }
  *
  * @version 0.3.0
  */
-
-var reduceTo = function reduceTo(ctor) {
-  return function (fn) {
-    return reduceWith(fn, new ctor());
-  };
-};
+const reduceTo = ctor => fn => reduceWith(fn, new ctor());
 
 /**
 * @module @svizzle/utils/[any-any]:accumcb-[array-any]
 */
+
 /**
  * Return a reduce function expecting an array to reduce with the passed reducer
  * with an empty array as the initial value
@@ -7865,12 +7630,12 @@ var reduceTo = function reduceTo(ctor) {
  *
  * @version 0.3.0
  */
-
-var reduceFromEmptyArray = reduceTo(Array);
+const reduceFromEmptyArray = reduceTo(Array);
 
 /**
 * @module @svizzle/utils/iterable-number
 */
+
 /**
  * Get the length of the iterable
  *
@@ -7899,8 +7664,11 @@ var reduceFromEmptyArray = reduceTo(Array);
  *
  * @version 0.1.0
  */
+const getLength = getKey('length');
 
-var getLength = getKey('length');
+/**
+* @module @svizzle/utils/array-[array-array]
+*/
 
 /**
  * Return a function plucking the provided keys from the expected array
@@ -7920,14 +7688,12 @@ var getLength = getKey('length');
  * @version 0.8.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
  */
-
-var pluckKeys = function pluckKeys(keys) {
-  return mapWith(pick(keys));
-};
+const pluckKeys = keys => mapWith(pick(keys));
 
 /**
 * @module @svizzle/utils/number-boolean
 */
+
 /**
  * Return `true` if the input number is 0.
  *
@@ -7943,8 +7709,8 @@ false
  *
  * @version 0.1.0
  */
+const is0 = is(0);
 
-var is0 = is(0);
 /**
  * Return `true` if the input number is 1.
  *
@@ -7960,8 +7726,8 @@ false
  *
  * @version 0.1.0
  */
+const is1 = is(1);
 
-var is1 = is(1);
 /**
  * Return `true` if the input number is greater than 0.
  *
@@ -7977,8 +7743,8 @@ true
  *
  * @version 0.1.0
  */
+const isGT0 = isGT(0);
 
-var isGT0 = isGT(0);
 /**
  * Return `true` if the input number is greater than 1.
  *
@@ -7994,12 +7760,12 @@ true
  *
  * @version 0.1.0
  */
-
-var isGT1 = isGT(1);
+const isGT1 = isGT(1);
 
 /**
 * @module @svizzle/utils/iterable-boolean
 */
+
 /**
  * Use to check if an iterable is empty
  *
@@ -8028,8 +7794,8 @@ false
  *
  * @version 0.1.0
  */
+const isIterableEmpty = pipe([getLength, is0]);
 
-var isIterableEmpty = pipe([getLength, is0]);
 /**
  * Use to check if an iterable is not empty
  *
@@ -8056,8 +7822,8 @@ true
  *
  * @version 0.1.0
  */
+const isIterableNotEmpty = pipe([getLength, isGT0]);
 
-var isIterableNotEmpty = pipe([getLength, isGT0]);
 /**
  * Use to check if an iterable has a single element
  *
@@ -8086,8 +7852,8 @@ false
  *
  * @version 0.1.0
  */
+const hasIterableLength1 = pipe([getLength, is1]);
 
-var hasIterableLength1 = pipe([getLength, is1]);
 /**
  * Use to check if an iterable has more than an element
  *
@@ -8116,8 +7882,7 @@ true
  *
  * @version 0.1.0
  */
-
-var isIterableLongerThan1 = pipe([getLength, isGT1]);
+const isIterableLongerThan1 = pipe([getLength, isGT1]);
 
 /**
 * @module @svizzle/utils/iterable-object
@@ -8161,16 +7926,7 @@ var isIterableLongerThan1 = pipe([getLength, isGT1]);
  *
  * @version 0.1.0
  */
-var pairToKeyValueObject = function pairToKeyValueObject(_ref) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      key = _ref2[0],
-      value = _ref2[1];
-
-  return {
-    key: key,
-    value: value
-  };
-};
+const pairToKeyValueObject = ([key, value]) => ({key, value});
 
 /**
 * @module @svizzle/utils/number-[number-number]
@@ -8192,26 +7948,11 @@ var pairToKeyValueObject = function pairToKeyValueObject(_ref) {
 2.42
  * @version 0.6.0
  */
-var roundTo = function roundTo(precision) {
-  return function (x) {
-    return Number(x.toFixed(precision));
-  };
-};
+const roundTo = precision => x => Number(x.toFixed(precision));
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
+/**
+* @module @svizzle/utils/object-[object-object]
+*/
 
 /**
  * Return a function expecting an object to be used as the argument of the provided functions
@@ -8244,12 +7985,8 @@ function _defineProperty(obj, key, value) {
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
  */
+const applyFnMap = fnMap => obj => mapValues(fnMap, applyTo([obj]));
 
-var applyFnMap = function applyFnMap(fnMap) {
-  return function (obj) {
-    return mapValues(fnMap, applyTo([obj]));
-  };
-};
 /**
  * Return a function that applies the provided map to the expected object and merges the result to the object.
  * This is useful to add new properties to an object, eventually modifying existing ones by using keys expected to be in the input objects.
@@ -8289,13 +8026,12 @@ var applyFnMap = function applyFnMap(fnMap) {
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
  */
+const makeMergeAppliedFnMap = fnMap => {
+	const makeProps = applyFnMap(fnMap);
 
-var makeMergeAppliedFnMap = function makeMergeAppliedFnMap(fnMap) {
-  var makeProps = applyFnMap(fnMap);
-  return function (obj) {
-    return merge(obj, makeProps(obj));
-  };
+	return obj => merge(obj, makeProps(obj));
 };
+
 /**
  * Return a function that expects an object and applies the functions in the values of the input object to the correspondent values of the provided object .
  * Can be useful with [d3.csvParse]{@link https://github.com/d3/d3-dsv#csvParse}, see the example below.
@@ -8335,12 +8071,12 @@ bar,4,4,25px
  * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  */
+const transformValues = fnMap => mapValuesWith(
+	(value, key) => key in fnMap
+		? application(fnMap[key], [value])
+		: value
+);
 
-var transformValues = function transformValues(fnMap) {
-  return mapValuesWith(function (value, key) {
-    return key in fnMap ? application(fnMap[key], [value]) : value;
-  });
-};
 /**
  * Return a function expecting an object to merge with the input object
  *
@@ -8357,14 +8093,12 @@ var transformValues = function transformValues(fnMap) {
  *
  * @version 0.1.0
  */
-
-var mergeObj = function mergeObj(obj) {
-  return partial(merge, [__, obj]);
-};
+const mergeObj = obj => partial(merge, [__, obj]);
 
 /**
 * @module @svizzle/utils/object-object
 */
+
 /**
  * Return a copy of the object without falsy values
  *
@@ -8382,8 +8116,8 @@ var mergeObj = function mergeObj(obj) {
  *
  * @version 0.2.0
  */
+const pickIfTruthy = pickIf(identity);
 
-var pickIfTruthy = pickIf(identity);
 /**
  * Return an object with swapped keys and values.
  * Note that if there are duplicate values, since the keys of the resulting object have to be unique, the last occurrence of each value would be used but depending on the interpreter implementation the output keys might vary.
@@ -8404,8 +8138,15 @@ var pickIfTruthy = pickIf(identity);
  * @version 0.6.0
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].indexValuesWith|indexValuesWith}
  */
+const swapKeyValue = pipe([
+	pairs,
+	mapWith(reverse),
+	fromPairs
+]);
 
-var swapKeyValue = pipe([pairs, mapWith(reverse), fromPairs]);
+/**
+* @module @svizzle/utils/object-array
+*/
 
 /**
  * Concatenate the values of the provided object.
@@ -8420,8 +8161,8 @@ var swapKeyValue = pipe([pairs, mapWith(reverse), fromPairs]);
  *
  * @version 0.4.0
  */
+const concatValues = pipe([values, apply(concat)]);
 
-var concatValues = pipe([values, apply(concat)]);
 /**
  * Return an array of the permutations of the provided object values items, by key.
  * Note that this function assumes the provided object values are arrays.
@@ -8441,21 +8182,24 @@ var concatValues = pipe([values, apply(concat)]);
  *
  * @version 0.6.0
  */
+const makeKeyedValuesPermutations = pipe([
+	pairs,
+	filterWith(pipe([
+		last,
+		allOf([isArray, isIterableNotEmpty])
+	])),
+	reduceFromEmptyArray((acc, [key, values]) => {
+		const props = values.map(value => ({[key]: value}));
 
-var makeKeyedValuesPermutations = pipe([pairs, filterWith(pipe([last, allOf([isArray, isIterableNotEmpty])])), reduceFromEmptyArray(function (acc, _ref) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      key = _ref2[0],
-      values = _ref2[1];
+		return acc.length === 0
+			? props
+			: flatMap(
+				props,
+				prop => acc.map(obj => merge(obj, prop))
+			);
+	})
+]);
 
-  var props = values.map(function (value) {
-    return _defineProperty({}, key, value);
-  });
-  return acc.length === 0 ? props : flatMap(props, function (prop) {
-    return acc.map(function (obj) {
-      return merge(obj, prop);
-    });
-  });
-})]);
 /**
  * Return an array of {key, value} objects from an object
  *
@@ -8470,8 +8214,11 @@ var makeKeyedValuesPermutations = pipe([pairs, filterWith(pipe([last, allOf([isA
  *
  * @version 0.1.0
  */
+const objectToKeyValueArray = pipe([
+	pairs,
+	mapWith(pairToKeyValueObject)
+]);
 
-var objectToKeyValueArray = pipe([pairs, mapWith(pairToKeyValueObject)]);
 /**
  * Return the keys of the provided object with a truthy value
  *
@@ -8489,43 +8236,40 @@ var objectToKeyValueArray = pipe([pairs, mapWith(pairToKeyValueObject)]);
  *
  * @version 0.1.0
  */
+const getTruthyValuesKeys = pipe([pickIfTruthy, keys]);
 
-var getTruthyValuesKeys = pipe([pickIfTruthy, keys]);
-
-function ascending (a, b) {
+function ascending(a, b) {
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 }
 
-function bisector (compare) {
+function bisector(compare) {
   if (compare.length === 1) compare = ascendingComparator(compare);
   return {
-    left: function left(a, x, lo, hi) {
+    left: function(a, x, lo, hi) {
       if (lo == null) lo = 0;
       if (hi == null) hi = a.length;
-
       while (lo < hi) {
         var mid = lo + hi >>> 1;
-        if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
+        if (compare(a[mid], x) < 0) lo = mid + 1;
+        else hi = mid;
       }
-
       return lo;
     },
-    right: function right(a, x, lo, hi) {
+    right: function(a, x, lo, hi) {
       if (lo == null) lo = 0;
       if (hi == null) hi = a.length;
-
       while (lo < hi) {
         var mid = lo + hi >>> 1;
-        if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
+        if (compare(a[mid], x) > 0) hi = mid;
+        else lo = mid + 1;
       }
-
       return lo;
     }
   };
 }
 
 function ascendingComparator(f) {
-  return function (d, x) {
+  return function(d, x) {
     return ascending(f(d), x);
   };
 }
@@ -8536,12 +8280,14 @@ var bisectRight = ascendingBisect.right;
 var e10 = Math.sqrt(50),
     e5 = Math.sqrt(10),
     e2 = Math.sqrt(2);
-function ticks (start, stop, count) {
+
+function ticks(start, stop, count) {
   var reverse,
       i = -1,
       n,
       ticks,
       step;
+
   stop = +stop, start = +start, count = +count;
   if (start === stop && count > 0) return [start];
   if (reverse = stop < start) n = start, start = stop, stop = n;
@@ -8551,60 +8297,49 @@ function ticks (start, stop, count) {
     start = Math.ceil(start / step);
     stop = Math.floor(stop / step);
     ticks = new Array(n = Math.ceil(stop - start + 1));
-
-    while (++i < n) {
-      ticks[i] = (start + i) * step;
-    }
+    while (++i < n) ticks[i] = (start + i) * step;
   } else {
     start = Math.floor(start * step);
     stop = Math.ceil(stop * step);
     ticks = new Array(n = Math.ceil(start - stop + 1));
-
-    while (++i < n) {
-      ticks[i] = (start - i) / step;
-    }
+    while (++i < n) ticks[i] = (start - i) / step;
   }
 
   if (reverse) ticks.reverse();
+
   return ticks;
 }
+
 function tickIncrement(start, stop, count) {
   var step = (stop - start) / Math.max(0, count),
       power = Math.floor(Math.log(step) / Math.LN10),
       error = step / Math.pow(10, power);
-  return power >= 0 ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power) : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
+  return power >= 0
+      ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power)
+      : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
 }
+
 function tickStep(start, stop, count) {
   var step0 = Math.abs(stop - start) / Math.max(0, count),
       step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)),
       error = step0 / step1;
-  if (error >= e10) step1 *= 10;else if (error >= e5) step1 *= 5;else if (error >= e2) step1 *= 2;
+  if (error >= e10) step1 *= 10;
+  else if (error >= e5) step1 *= 5;
+  else if (error >= e2) step1 *= 2;
   return stop < start ? -step1 : step1;
 }
 
 function initRange(domain, range) {
   switch (arguments.length) {
-    case 0:
-      break;
-
-    case 1:
-      this.range(domain);
-      break;
-
-    default:
-      this.range(range).domain(domain);
-      break;
+    case 0: break;
+    case 1: this.range(domain); break;
+    default: this.range(range).domain(domain); break;
   }
-
   return this;
 }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+const implicit = Symbol("implicit");
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-var implicit = Symbol("implicit");
 function ordinal() {
   var index = new Map(),
       domain = [],
@@ -8612,74 +8347,58 @@ function ordinal() {
       unknown = implicit;
 
   function scale(d) {
-    var key = d + "",
-        i = index.get(key);
-
+    var key = d + "", i = index.get(key);
     if (!i) {
       if (unknown !== implicit) return unknown;
       index.set(key, i = domain.push(d));
     }
-
     return range[(i - 1) % range.length];
   }
 
-  scale.domain = function (_) {
+  scale.domain = function(_) {
     if (!arguments.length) return domain.slice();
     domain = [], index = new Map();
-
-    var _iterator = _createForOfIteratorHelper(_),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var value = _step.value;
-        var key = value + "";
-        if (index.has(key)) continue;
-        index.set(key, domain.push(value));
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
+    for (const value of _) {
+      const key = value + "";
+      if (index.has(key)) continue;
+      index.set(key, domain.push(value));
     }
-
     return scale;
   };
 
-  scale.range = function (_) {
+  scale.range = function(_) {
     return arguments.length ? (range = Array.from(_), scale) : range.slice();
   };
 
-  scale.unknown = function (_) {
+  scale.unknown = function(_) {
     return arguments.length ? (unknown = _, scale) : unknown;
   };
 
-  scale.copy = function () {
+  scale.copy = function() {
     return ordinal(domain, range).unknown(unknown);
   };
 
   initRange.apply(scale, arguments);
+
   return scale;
 }
 
-function define (constructor, factory, prototype) {
+function define(constructor, factory, prototype) {
   constructor.prototype = factory.prototype = prototype;
   prototype.constructor = constructor;
 }
+
 function extend(parent, definition) {
   var prototype = Object.create(parent.prototype);
-
-  for (var key in definition) {
-    prototype[key] = definition[key];
-  }
-
+  for (var key in definition) prototype[key] = definition[key];
   return prototype;
 }
 
 function Color() {}
-var _darker = 0.7;
 
-var _brighter = 1 / _darker;
+var darker = 0.7;
+var brighter = 1 / darker;
+
 var reI = "\\s*([+-]?\\d+)\\s*",
     reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
     reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
@@ -8690,6 +8409,7 @@ var reI = "\\s*([+-]?\\d+)\\s*",
     reRgbaPercent = new RegExp("^rgba\\(" + [reP, reP, reP, reN] + "\\)$"),
     reHslPercent = new RegExp("^hsl\\(" + [reN, reP, reP] + "\\)$"),
     reHslaPercent = new RegExp("^hsla\\(" + [reN, reP, reP, reN] + "\\)$");
+
 var named = {
   aliceblue: 0xf0f8ff,
   antiquewhite: 0xfaebd7,
@@ -8840,15 +8560,15 @@ var named = {
   yellow: 0xffff00,
   yellowgreen: 0x9acd32
 };
+
 define(Color, color, {
-  copy: function copy(channels) {
-    return Object.assign(new this.constructor(), this, channels);
+  copy: function(channels) {
+    return Object.assign(new this.constructor, this, channels);
   },
-  displayable: function displayable() {
+  displayable: function() {
     return this.rgb().displayable();
   },
-  hex: color_formatHex,
-  // Deprecated! Use color.formatHex.
+  hex: color_formatHex, // Deprecated! Use color.formatHex.
   formatHex: color_formatHex,
   formatHsl: color_formatHsl,
   formatRgb: color_formatRgb,
@@ -8871,18 +8591,19 @@ function color(format) {
   var m, l;
   format = (format + "").trim().toLowerCase();
   return (m = reHex.exec(format)) ? (l = m[1].length, m = parseInt(m[1], 16), l === 6 ? rgbn(m) // #ff0000
-  : l === 3 ? new Rgb(m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, (m & 0xf) << 4 | m & 0xf, 1) // #f00
-  : l === 8 ? rgba(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
-  : l === 4 ? rgba(m >> 12 & 0xf | m >> 8 & 0xf0, m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, ((m & 0xf) << 4 | m & 0xf) / 0xff) // #f000
-  : null // invalid hex
-  ) : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
-  : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
-  : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
-  : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
-  : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
-  : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
-  : named.hasOwnProperty(format) ? rgbn(named[format]) // eslint-disable-line no-prototype-builtins
-  : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0) : null;
+      : l === 3 ? new Rgb((m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), ((m & 0xf) << 4) | (m & 0xf), 1) // #f00
+      : l === 8 ? rgba(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
+      : l === 4 ? rgba((m >> 12 & 0xf) | (m >> 8 & 0xf0), (m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), (((m & 0xf) << 4) | (m & 0xf)) / 0xff) // #f000
+      : null) // invalid hex
+      : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
+      : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
+      : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
+      : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
+      : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
+      : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
+      : named.hasOwnProperty(format) ? rgbn(named[format]) // eslint-disable-line no-prototype-builtins
+      : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0)
+      : null;
 }
 
 function rgbn(n) {
@@ -8896,36 +8617,41 @@ function rgba(r, g, b, a) {
 
 function rgbConvert(o) {
   if (!(o instanceof Color)) o = color(o);
-  if (!o) return new Rgb();
+  if (!o) return new Rgb;
   o = o.rgb();
   return new Rgb(o.r, o.g, o.b, o.opacity);
 }
+
 function rgb(r, g, b, opacity) {
   return arguments.length === 1 ? rgbConvert(r) : new Rgb(r, g, b, opacity == null ? 1 : opacity);
 }
+
 function Rgb(r, g, b, opacity) {
   this.r = +r;
   this.g = +g;
   this.b = +b;
   this.opacity = +opacity;
 }
+
 define(Rgb, rgb, extend(Color, {
-  brighter: function brighter(k) {
-    k = k == null ? _brighter : Math.pow(_brighter, k);
+  brighter: function(k) {
+    k = k == null ? brighter : Math.pow(brighter, k);
     return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
   },
-  darker: function darker(k) {
-    k = k == null ? _darker : Math.pow(_darker, k);
+  darker: function(k) {
+    k = k == null ? darker : Math.pow(darker, k);
     return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
   },
-  rgb: function rgb() {
+  rgb: function() {
     return this;
   },
-  displayable: function displayable() {
-    return -0.5 <= this.r && this.r < 255.5 && -0.5 <= this.g && this.g < 255.5 && -0.5 <= this.b && this.b < 255.5 && 0 <= this.opacity && this.opacity <= 1;
+  displayable: function() {
+    return (-0.5 <= this.r && this.r < 255.5)
+        && (-0.5 <= this.g && this.g < 255.5)
+        && (-0.5 <= this.b && this.b < 255.5)
+        && (0 <= this.opacity && this.opacity <= 1);
   },
-  hex: rgb_formatHex,
-  // Deprecated! Use color.formatHex.
+  hex: rgb_formatHex, // Deprecated! Use color.formatHex.
   formatHex: rgb_formatHex,
   formatRgb: rgb_formatRgb,
   toString: rgb_formatRgb
@@ -8936,9 +8662,12 @@ function rgb_formatHex() {
 }
 
 function rgb_formatRgb() {
-  var a = this.opacity;
-  a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
-  return (a === 1 ? "rgb(" : "rgba(") + Math.max(0, Math.min(255, Math.round(this.r) || 0)) + ", " + Math.max(0, Math.min(255, Math.round(this.g) || 0)) + ", " + Math.max(0, Math.min(255, Math.round(this.b) || 0)) + (a === 1 ? ")" : ", " + a + ")");
+  var a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
+  return (a === 1 ? "rgb(" : "rgba(")
+      + Math.max(0, Math.min(255, Math.round(this.r) || 0)) + ", "
+      + Math.max(0, Math.min(255, Math.round(this.g) || 0)) + ", "
+      + Math.max(0, Math.min(255, Math.round(this.b) || 0))
+      + (a === 1 ? ")" : ", " + a + ")");
 }
 
 function hex(value) {
@@ -8947,14 +8676,16 @@ function hex(value) {
 }
 
 function hsla(h, s, l, a) {
-  if (a <= 0) h = s = l = NaN;else if (l <= 0 || l >= 1) h = s = NaN;else if (s <= 0) h = NaN;
+  if (a <= 0) h = s = l = NaN;
+  else if (l <= 0 || l >= 1) h = s = NaN;
+  else if (s <= 0) h = NaN;
   return new Hsl(h, s, l, a);
 }
 
 function hslConvert(o) {
   if (o instanceof Hsl) return new Hsl(o.h, o.s, o.l, o.opacity);
   if (!(o instanceof Color)) o = color(o);
-  if (!o) return new Hsl();
+  if (!o) return new Hsl;
   if (o instanceof Hsl) return o;
   o = o.rgb();
   var r = o.r / 255,
@@ -8965,17 +8696,18 @@ function hslConvert(o) {
       h = NaN,
       s = max - min,
       l = (max + min) / 2;
-
   if (s) {
-    if (r === max) h = (g - b) / s + (g < b) * 6;else if (g === max) h = (b - r) / s + 2;else h = (r - g) / s + 4;
+    if (r === max) h = (g - b) / s + (g < b) * 6;
+    else if (g === max) h = (b - r) / s + 2;
+    else h = (r - g) / s + 4;
     s /= l < 0.5 ? max + min : 2 - max - min;
     h *= 60;
   } else {
     s = l > 0 && l < 1 ? 0 : h;
   }
-
   return new Hsl(h, s, l, o.opacity);
 }
+
 function hsl(h, s, l, opacity) {
   return arguments.length === 1 ? hslConvert(h) : new Hsl(h, s, l, opacity == null ? 1 : opacity);
 }
@@ -8988,59 +8720,74 @@ function Hsl(h, s, l, opacity) {
 }
 
 define(Hsl, hsl, extend(Color, {
-  brighter: function brighter(k) {
-    k = k == null ? _brighter : Math.pow(_brighter, k);
+  brighter: function(k) {
+    k = k == null ? brighter : Math.pow(brighter, k);
     return new Hsl(this.h, this.s, this.l * k, this.opacity);
   },
-  darker: function darker(k) {
-    k = k == null ? _darker : Math.pow(_darker, k);
+  darker: function(k) {
+    k = k == null ? darker : Math.pow(darker, k);
     return new Hsl(this.h, this.s, this.l * k, this.opacity);
   },
-  rgb: function rgb() {
+  rgb: function() {
     var h = this.h % 360 + (this.h < 0) * 360,
         s = isNaN(h) || isNaN(this.s) ? 0 : this.s,
         l = this.l,
         m2 = l + (l < 0.5 ? l : 1 - l) * s,
         m1 = 2 * l - m2;
-    return new Rgb(hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2), hsl2rgb(h, m1, m2), hsl2rgb(h < 120 ? h + 240 : h - 120, m1, m2), this.opacity);
+    return new Rgb(
+      hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2),
+      hsl2rgb(h, m1, m2),
+      hsl2rgb(h < 120 ? h + 240 : h - 120, m1, m2),
+      this.opacity
+    );
   },
-  displayable: function displayable() {
-    return (0 <= this.s && this.s <= 1 || isNaN(this.s)) && 0 <= this.l && this.l <= 1 && 0 <= this.opacity && this.opacity <= 1;
+  displayable: function() {
+    return (0 <= this.s && this.s <= 1 || isNaN(this.s))
+        && (0 <= this.l && this.l <= 1)
+        && (0 <= this.opacity && this.opacity <= 1);
   },
-  formatHsl: function formatHsl() {
-    var a = this.opacity;
-    a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
-    return (a === 1 ? "hsl(" : "hsla(") + (this.h || 0) + ", " + (this.s || 0) * 100 + "%, " + (this.l || 0) * 100 + "%" + (a === 1 ? ")" : ", " + a + ")");
+  formatHsl: function() {
+    var a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
+    return (a === 1 ? "hsl(" : "hsla(")
+        + (this.h || 0) + ", "
+        + (this.s || 0) * 100 + "%, "
+        + (this.l || 0) * 100 + "%"
+        + (a === 1 ? ")" : ", " + a + ")");
   }
 }));
-/* From FvD 13.37, CSS Color Module Level 3 */
 
+/* From FvD 13.37, CSS Color Module Level 3 */
 function hsl2rgb(h, m1, m2) {
-  return (h < 60 ? m1 + (m2 - m1) * h / 60 : h < 180 ? m2 : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60 : m1) * 255;
+  return (h < 60 ? m1 + (m2 - m1) * h / 60
+      : h < 180 ? m2
+      : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60
+      : m1) * 255;
 }
 
-function constant (x) {
-  return function () {
+function constant(x) {
+  return function() {
     return x;
   };
 }
 
 function linear(a, d) {
-  return function (t) {
+  return function(t) {
     return a + t * d;
   };
 }
 
 function exponential(a, b, y) {
-  return a = Math.pow(a, y), b = Math.pow(b, y) - a, y = 1 / y, function (t) {
+  return a = Math.pow(a, y), b = Math.pow(b, y) - a, y = 1 / y, function(t) {
     return Math.pow(a + t * b, y);
   };
 }
+
 function gamma(y) {
-  return (y = +y) === 1 ? nogamma : function (a, b) {
+  return (y = +y) === 1 ? nogamma : function(a, b) {
     return b - a ? exponential(a, b, y) : constant(isNaN(a) ? b : a);
   };
 }
+
 function nogamma(a, b) {
   var d = b - a;
   return d ? linear(a, d) : constant(isNaN(a) ? b : a);
@@ -9054,7 +8801,7 @@ var rgb$1 = (function rgbGamma(y) {
         g = color(start.g, end.g),
         b = color(start.b, end.b),
         opacity = nogamma(start.opacity, end.opacity);
-    return function (t) {
+    return function(t) {
       start.r = r(t);
       start.g = g(t);
       start.b = b(t);
@@ -9064,22 +8811,21 @@ var rgb$1 = (function rgbGamma(y) {
   }
 
   rgb$1.gamma = rgbGamma;
+
   return rgb$1;
 })(1);
 
-function numberArray (a, b) {
+function numberArray(a, b) {
   if (!b) b = [];
   var n = a ? Math.min(b.length, a.length) : 0,
       c = b.slice(),
       i;
-  return function (t) {
-    for (i = 0; i < n; ++i) {
-      c[i] = a[i] * (1 - t) + b[i] * t;
-    }
-
+  return function(t) {
+    for (i = 0; i < n; ++i) c[i] = a[i] * (1 - t) + b[i] * t;
     return c;
   };
 }
+
 function isNumberArray(x) {
   return ArrayBuffer.isView(x) && !(x instanceof DataView);
 }
@@ -9091,42 +8837,35 @@ function genericArray(a, b) {
       c = new Array(nb),
       i;
 
-  for (i = 0; i < na; ++i) {
-    x[i] = interpolate(a[i], b[i]);
-  }
+  for (i = 0; i < na; ++i) x[i] = interpolate(a[i], b[i]);
+  for (; i < nb; ++i) c[i] = b[i];
 
-  for (; i < nb; ++i) {
-    c[i] = b[i];
-  }
-
-  return function (t) {
-    for (i = 0; i < na; ++i) {
-      c[i] = x[i](t);
-    }
-
+  return function(t) {
+    for (i = 0; i < na; ++i) c[i] = x[i](t);
     return c;
   };
 }
 
-function date (a, b) {
-  var d = new Date();
-  return a = +a, b = +b, function (t) {
+function date(a, b) {
+  var d = new Date;
+  return a = +a, b = +b, function(t) {
     return d.setTime(a * (1 - t) + b * t), d;
   };
 }
 
-function interpolateNumber (a, b) {
-  return a = +a, b = +b, function (t) {
+function interpolateNumber(a, b) {
+  return a = +a, b = +b, function(t) {
     return a * (1 - t) + b * t;
   };
 }
 
-function object (a, b) {
+function object(a, b) {
   var i = {},
       c = {},
       k;
-  if (a === null || _typeof(a) !== "object") a = {};
-  if (b === null || _typeof(b) !== "object") b = {};
+
+  if (a === null || typeof a !== "object") a = {};
+  if (b === null || typeof b !== "object") b = {};
 
   for (k in b) {
     if (k in a) {
@@ -9136,11 +8875,8 @@ function object (a, b) {
     }
   }
 
-  return function (t) {
-    for (k in i) {
-      c[k] = i[k](t);
-    }
-
+  return function(t) {
+    for (k in i) c[k] = i[k](t);
     return c;
   };
 }
@@ -9149,138 +8885,128 @@ var reA = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g,
     reB = new RegExp(reA.source, "g");
 
 function zero(b) {
-  return function () {
+  return function() {
     return b;
   };
 }
 
 function one(b) {
-  return function (t) {
+  return function(t) {
     return b(t) + "";
   };
 }
 
-function string (a, b) {
-  var bi = reA.lastIndex = reB.lastIndex = 0,
-      // scan index for next number in b
-  am,
-      // current match in a
-  bm,
-      // current match in b
-  bs,
-      // string preceding current number in b, if any
-  i = -1,
-      // index in s
-  s = [],
-      // string constants and placeholders
-  q = []; // number interpolators
+function string(a, b) {
+  var bi = reA.lastIndex = reB.lastIndex = 0, // scan index for next number in b
+      am, // current match in a
+      bm, // current match in b
+      bs, // string preceding current number in b, if any
+      i = -1, // index in s
+      s = [], // string constants and placeholders
+      q = []; // number interpolators
+
   // Coerce inputs to strings.
+  a = a + "", b = b + "";
 
-  a = a + "", b = b + ""; // Interpolate pairs of numbers in a & b.
-
-  while ((am = reA.exec(a)) && (bm = reB.exec(b))) {
-    if ((bs = bm.index) > bi) {
-      // a string precedes the next number in b
+  // Interpolate pairs of numbers in a & b.
+  while ((am = reA.exec(a))
+      && (bm = reB.exec(b))) {
+    if ((bs = bm.index) > bi) { // a string precedes the next number in b
       bs = b.slice(bi, bs);
       if (s[i]) s[i] += bs; // coalesce with previous string
       else s[++i] = bs;
     }
-
-    if ((am = am[0]) === (bm = bm[0])) {
-      // numbers in a & b match
+    if ((am = am[0]) === (bm = bm[0])) { // numbers in a & b match
       if (s[i]) s[i] += bm; // coalesce with previous string
       else s[++i] = bm;
-    } else {
-      // interpolate non-matching numbers
+    } else { // interpolate non-matching numbers
       s[++i] = null;
-      q.push({
-        i: i,
-        x: interpolateNumber(am, bm)
-      });
+      q.push({i: i, x: interpolateNumber(am, bm)});
     }
-
     bi = reB.lastIndex;
-  } // Add remains of b.
+  }
 
-
+  // Add remains of b.
   if (bi < b.length) {
     bs = b.slice(bi);
     if (s[i]) s[i] += bs; // coalesce with previous string
     else s[++i] = bs;
-  } // Special optimization for only a single match.
+  }
+
+  // Special optimization for only a single match.
   // Otherwise, interpolate each of the numbers and rejoin the string.
-
-
-  return s.length < 2 ? q[0] ? one(q[0].x) : zero(b) : (b = q.length, function (t) {
-    for (var i = 0, o; i < b; ++i) {
-      s[(o = q[i]).i] = o.x(t);
-    }
-
-    return s.join("");
-  });
+  return s.length < 2 ? (q[0]
+      ? one(q[0].x)
+      : zero(b))
+      : (b = q.length, function(t) {
+          for (var i = 0, o; i < b; ++i) s[(o = q[i]).i] = o.x(t);
+          return s.join("");
+        });
 }
 
-function interpolate (a, b) {
-  var t = _typeof(b),
-      c;
-
-  return b == null || t === "boolean" ? constant(b) : (t === "number" ? interpolateNumber : t === "string" ? (c = color(b)) ? (b = c, rgb$1) : string : b instanceof color ? rgb$1 : b instanceof Date ? date : isNumberArray(b) ? numberArray : Array.isArray(b) ? genericArray : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object : interpolateNumber)(a, b);
+function interpolate(a, b) {
+  var t = typeof b, c;
+  return b == null || t === "boolean" ? constant(b)
+      : (t === "number" ? interpolateNumber
+      : t === "string" ? ((c = color(b)) ? (b = c, rgb$1) : string)
+      : b instanceof color ? rgb$1
+      : b instanceof Date ? date
+      : isNumberArray(b) ? numberArray
+      : Array.isArray(b) ? genericArray
+      : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object
+      : interpolateNumber)(a, b);
 }
 
-function interpolateRound (a, b) {
-  return a = +a, b = +b, function (t) {
+function interpolateRound(a, b) {
+  return a = +a, b = +b, function(t) {
     return Math.round(a * (1 - t) + b * t);
   };
 }
 
-function constant$1 (x) {
-  return function () {
+function constant$1(x) {
+  return function() {
     return x;
   };
 }
 
-function number (x) {
+function number(x) {
   return +x;
 }
 
 var unit = [0, 1];
+
 function identity$1(x) {
   return x;
 }
 
 function normalize(a, b) {
-  return (b -= a = +a) ? function (x) {
-    return (x - a) / b;
-  } : constant$1(isNaN(b) ? NaN : 0.5);
+  return (b -= (a = +a))
+      ? function(x) { return (x - a) / b; }
+      : constant$1(isNaN(b) ? NaN : 0.5);
 }
 
 function clamper(a, b) {
   var t;
   if (a > b) t = a, a = b, b = t;
-  return function (x) {
-    return Math.max(a, Math.min(b, x));
-  };
-} // normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
+  return function(x) { return Math.max(a, Math.min(b, x)); };
+}
+
+// normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
 // interpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding range value x in [a,b].
-
-
 function bimap(domain, range, interpolate) {
-  var d0 = domain[0],
-      d1 = domain[1],
-      r0 = range[0],
-      r1 = range[1];
-  if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
-  return function (x) {
-    return r0(d0(x));
-  };
+  var d0 = domain[0], d1 = domain[1], r0 = range[0], r1 = range[1];
+  if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);
+  else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
+  return function(x) { return r0(d0(x)); };
 }
 
 function polymap(domain, range, interpolate) {
   var j = Math.min(domain.length, range.length) - 1,
       d = new Array(j),
       r = new Array(j),
-      i = -1; // Reverse descending domains.
+      i = -1;
 
+  // Reverse descending domains.
   if (domain[j] < domain[0]) {
     domain = domain.slice().reverse();
     range = range.slice().reverse();
@@ -9291,15 +9017,21 @@ function polymap(domain, range, interpolate) {
     r[i] = interpolate(range[i], range[i + 1]);
   }
 
-  return function (x) {
+  return function(x) {
     var i = bisectRight(domain, x, 1, j) - 1;
     return r[i](d[i](x));
   };
 }
 
 function copy(source, target) {
-  return target.domain(source.domain()).range(source.range()).interpolate(source.interpolate()).clamp(source.clamp()).unknown(source.unknown());
+  return target
+      .domain(source.domain())
+      .range(source.range())
+      .interpolate(source.interpolate())
+      .clamp(source.clamp())
+      .unknown(source.unknown());
 }
+
 function transformer() {
   var domain = unit,
       range = unit,
@@ -9324,39 +9056,40 @@ function transformer() {
     return isNaN(x = +x) ? unknown : (output || (output = piecewise(domain.map(transform), range, interpolate$1)))(transform(clamp(x)));
   }
 
-  scale.invert = function (y) {
+  scale.invert = function(y) {
     return clamp(untransform((input || (input = piecewise(range, domain.map(transform), interpolateNumber)))(y)));
   };
 
-  scale.domain = function (_) {
+  scale.domain = function(_) {
     return arguments.length ? (domain = Array.from(_, number), rescale()) : domain.slice();
   };
 
-  scale.range = function (_) {
+  scale.range = function(_) {
     return arguments.length ? (range = Array.from(_), rescale()) : range.slice();
   };
 
-  scale.rangeRound = function (_) {
+  scale.rangeRound = function(_) {
     return range = Array.from(_), interpolate$1 = interpolateRound, rescale();
   };
 
-  scale.clamp = function (_) {
+  scale.clamp = function(_) {
     return arguments.length ? (clamp = _ ? true : identity$1, rescale()) : clamp !== identity$1;
   };
 
-  scale.interpolate = function (_) {
+  scale.interpolate = function(_) {
     return arguments.length ? (interpolate$1 = _, rescale()) : interpolate$1;
   };
 
-  scale.unknown = function (_) {
+  scale.unknown = function(_) {
     return arguments.length ? (unknown = _, scale) : unknown;
   };
 
-  return function (t, u) {
+  return function(t, u) {
     transform = t, untransform = u;
     return rescale();
   };
 }
+
 function continuous() {
   return transformer()(identity$1, identity$1);
 }
@@ -9364,22 +9097,24 @@ function continuous() {
 // Computes the decimal coefficient and exponent of the specified number x with
 // significant digits p, where x is positive and p is in [1, 21] or undefined.
 // For example, formatDecimal(1.23) returns ["123", 0].
-function formatDecimal (x, p) {
+function formatDecimal(x, p) {
   if ((i = (x = p ? x.toExponential(p - 1) : x.toExponential()).indexOf("e")) < 0) return null; // NaN, ±Infinity
+  var i, coefficient = x.slice(0, i);
 
-  var i,
-      coefficient = x.slice(0, i); // The string returned by toExponential either has the form \d\.\d+e[-+]\d+
+  // The string returned by toExponential either has the form \d\.\d+e[-+]\d+
   // (e.g., 1.2e+3) or the form \de[-+]\d+ (e.g., 1e+3).
-
-  return [coefficient.length > 1 ? coefficient[0] + coefficient.slice(2) : coefficient, +x.slice(i + 1)];
+  return [
+    coefficient.length > 1 ? coefficient[0] + coefficient.slice(2) : coefficient,
+    +x.slice(i + 1)
+  ];
 }
 
-function exponent (x) {
+function exponent(x) {
   return x = formatDecimal(Math.abs(x)), x ? x[1] : NaN;
 }
 
-function formatGroup (grouping, thousands) {
-  return function (value, width) {
+function formatGroup(grouping, thousands) {
+  return function(value, width) {
     var i = value.length,
         t = [],
         j = 0,
@@ -9397,9 +9132,9 @@ function formatGroup (grouping, thousands) {
   };
 }
 
-function formatNumerals (numerals) {
-  return function (value) {
-    return value.replace(/[0-9]/g, function (i) {
+function formatNumerals(numerals) {
+  return function(value) {
+    return value.replace(/[0-9]/g, function(i) {
       return numerals[+i];
     });
   };
@@ -9407,6 +9142,7 @@ function formatNumerals (numerals) {
 
 // [[fill]align][sign][symbol][0][width][,][.precision][~][type]
 var re = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
+
 function formatSpecifier(specifier) {
   if (!(match = re.exec(specifier))) throw new Error("invalid format: " + specifier);
   var match;
@@ -9423,6 +9159,7 @@ function formatSpecifier(specifier) {
     type: match[10]
   });
 }
+
 formatSpecifier.prototype = FormatSpecifier.prototype; // instanceof
 
 function FormatSpecifier(specifier) {
@@ -9438,97 +9175,80 @@ function FormatSpecifier(specifier) {
   this.type = specifier.type === undefined ? "" : specifier.type + "";
 }
 
-FormatSpecifier.prototype.toString = function () {
-  return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width === undefined ? "" : Math.max(1, this.width | 0)) + (this.comma ? "," : "") + (this.precision === undefined ? "" : "." + Math.max(0, this.precision | 0)) + (this.trim ? "~" : "") + this.type;
+FormatSpecifier.prototype.toString = function() {
+  return this.fill
+      + this.align
+      + this.sign
+      + this.symbol
+      + (this.zero ? "0" : "")
+      + (this.width === undefined ? "" : Math.max(1, this.width | 0))
+      + (this.comma ? "," : "")
+      + (this.precision === undefined ? "" : "." + Math.max(0, this.precision | 0))
+      + (this.trim ? "~" : "")
+      + this.type;
 };
 
 // Trims insignificant zeros, e.g., replaces 1.2000k with 1.2k.
-function formatTrim (s) {
+function formatTrim(s) {
   out: for (var n = s.length, i = 1, i0 = -1, i1; i < n; ++i) {
     switch (s[i]) {
-      case ".":
-        i0 = i1 = i;
-        break;
-
-      case "0":
-        if (i0 === 0) i0 = i;
-        i1 = i;
-        break;
-
-      default:
-        if (!+s[i]) break out;
-        if (i0 > 0) i0 = 0;
-        break;
+      case ".": i0 = i1 = i; break;
+      case "0": if (i0 === 0) i0 = i; i1 = i; break;
+      default: if (!+s[i]) break out; if (i0 > 0) i0 = 0; break;
     }
   }
-
   return i0 > 0 ? s.slice(0, i0) + s.slice(i1 + 1) : s;
 }
 
 var prefixExponent;
-function formatPrefixAuto (x, p) {
+
+function formatPrefixAuto(x, p) {
   var d = formatDecimal(x, p);
   if (!d) return x + "";
   var coefficient = d[0],
       exponent = d[1],
       i = exponent - (prefixExponent = Math.max(-8, Math.min(8, Math.floor(exponent / 3))) * 3) + 1,
       n = coefficient.length;
-  return i === n ? coefficient : i > n ? coefficient + new Array(i - n + 1).join("0") : i > 0 ? coefficient.slice(0, i) + "." + coefficient.slice(i) : "0." + new Array(1 - i).join("0") + formatDecimal(x, Math.max(0, p + i - 1))[0]; // less than 1y!
+  return i === n ? coefficient
+      : i > n ? coefficient + new Array(i - n + 1).join("0")
+      : i > 0 ? coefficient.slice(0, i) + "." + coefficient.slice(i)
+      : "0." + new Array(1 - i).join("0") + formatDecimal(x, Math.max(0, p + i - 1))[0]; // less than 1y!
 }
 
-function formatRounded (x, p) {
+function formatRounded(x, p) {
   var d = formatDecimal(x, p);
   if (!d) return x + "";
   var coefficient = d[0],
       exponent = d[1];
-  return exponent < 0 ? "0." + new Array(-exponent).join("0") + coefficient : coefficient.length > exponent + 1 ? coefficient.slice(0, exponent + 1) + "." + coefficient.slice(exponent + 1) : coefficient + new Array(exponent - coefficient.length + 2).join("0");
+  return exponent < 0 ? "0." + new Array(-exponent).join("0") + coefficient
+      : coefficient.length > exponent + 1 ? coefficient.slice(0, exponent + 1) + "." + coefficient.slice(exponent + 1)
+      : coefficient + new Array(exponent - coefficient.length + 2).join("0");
 }
 
 var formatTypes = {
-  "%": function _(x, p) {
-    return (x * 100).toFixed(p);
-  },
-  "b": function b(x) {
-    return Math.round(x).toString(2);
-  },
-  "c": function c(x) {
-    return x + "";
-  },
-  "d": function d(x) {
-    return Math.round(x).toString(10);
-  },
-  "e": function e(x, p) {
-    return x.toExponential(p);
-  },
-  "f": function f(x, p) {
-    return x.toFixed(p);
-  },
-  "g": function g(x, p) {
-    return x.toPrecision(p);
-  },
-  "o": function o(x) {
-    return Math.round(x).toString(8);
-  },
-  "p": function p(x, _p) {
-    return formatRounded(x * 100, _p);
-  },
+  "%": function(x, p) { return (x * 100).toFixed(p); },
+  "b": function(x) { return Math.round(x).toString(2); },
+  "c": function(x) { return x + ""; },
+  "d": function(x) { return Math.round(x).toString(10); },
+  "e": function(x, p) { return x.toExponential(p); },
+  "f": function(x, p) { return x.toFixed(p); },
+  "g": function(x, p) { return x.toPrecision(p); },
+  "o": function(x) { return Math.round(x).toString(8); },
+  "p": function(x, p) { return formatRounded(x * 100, p); },
   "r": formatRounded,
   "s": formatPrefixAuto,
-  "X": function X(x) {
-    return Math.round(x).toString(16).toUpperCase();
-  },
-  "x": function x(_x) {
-    return Math.round(_x).toString(16);
-  }
+  "X": function(x) { return Math.round(x).toString(16).toUpperCase(); },
+  "x": function(x) { return Math.round(x).toString(16); }
 };
 
-function identity$2 (x) {
+function identity$2(x) {
   return x;
 }
 
 var map$1 = Array.prototype.map,
-    prefixes = ["y", "z", "a", "f", "p", "n", "µ", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
-function formatLocale (locale) {
+    prefixes = ["y","z","a","f","p","n","µ","m","","k","M","G","T","P","E","Z","Y"];
+
+function formatLocale(locale) {
   var group = locale.grouping === undefined || locale.thousands === undefined ? identity$2 : formatGroup(map$1.call(locale.grouping, Number), locale.thousands + ""),
       currencyPrefix = locale.currency === undefined ? "" : locale.currency[0] + "",
       currencySuffix = locale.currency === undefined ? "" : locale.currency[1] + "",
@@ -9540,6 +9260,7 @@ function formatLocale (locale) {
 
   function newFormat(specifier) {
     specifier = formatSpecifier(specifier);
+
     var fill = specifier.fill,
         align = specifier.align,
         sign = specifier.sign,
@@ -9549,55 +9270,67 @@ function formatLocale (locale) {
         comma = specifier.comma,
         precision = specifier.precision,
         trim = specifier.trim,
-        type = specifier.type; // The "n" type is an alias for ",g".
+        type = specifier.type;
 
-    if (type === "n") comma = true, type = "g"; // The "" type, and any invalid type, is an alias for ".12~g".
-    else if (!formatTypes[type]) precision === undefined && (precision = 12), trim = true, type = "g"; // If zero fill is specified, padding goes after sign and before digits.
+    // The "n" type is an alias for ",g".
+    if (type === "n") comma = true, type = "g";
 
-    if (zero || fill === "0" && align === "=") zero = true, fill = "0", align = "="; // Compute the prefix and suffix.
+    // The "" type, and any invalid type, is an alias for ".12~g".
+    else if (!formatTypes[type]) precision === undefined && (precision = 12), trim = true, type = "g";
+
+    // If zero fill is specified, padding goes after sign and before digits.
+    if (zero || (fill === "0" && align === "=")) zero = true, fill = "0", align = "=";
+
+    // Compute the prefix and suffix.
     // For SI-prefix, the suffix is lazily computed.
-
     var prefix = symbol === "$" ? currencyPrefix : symbol === "#" && /[boxX]/.test(type) ? "0" + type.toLowerCase() : "",
-        suffix = symbol === "$" ? currencySuffix : /[%p]/.test(type) ? percent : ""; // What format function should we use?
+        suffix = symbol === "$" ? currencySuffix : /[%p]/.test(type) ? percent : "";
+
+    // What format function should we use?
     // Is this an integer type?
     // Can this type generate exponential notation?
-
     var formatType = formatTypes[type],
-        maybeSuffix = /[defgprs%]/.test(type); // Set the default precision if not specified,
+        maybeSuffix = /[defgprs%]/.test(type);
+
+    // Set the default precision if not specified,
     // or clamp the specified precision to the supported range.
     // For significant precision, it must be in [1, 21].
     // For fixed precision, it must be in [0, 20].
-
-    precision = precision === undefined ? 6 : /[gprs]/.test(type) ? Math.max(1, Math.min(21, precision)) : Math.max(0, Math.min(20, precision));
+    precision = precision === undefined ? 6
+        : /[gprs]/.test(type) ? Math.max(1, Math.min(21, precision))
+        : Math.max(0, Math.min(20, precision));
 
     function format(value) {
       var valuePrefix = prefix,
           valueSuffix = suffix,
-          i,
-          n,
-          c;
+          i, n, c;
 
       if (type === "c") {
         valueSuffix = formatType(value) + valueSuffix;
         value = "";
       } else {
-        value = +value; // Determine the sign. -0 is not less than 0, but 1 / -0 is!
+        value = +value;
 
-        var valueNegative = value < 0 || 1 / value < 0; // Perform the initial formatting.
+        // Determine the sign. -0 is not less than 0, but 1 / -0 is!
+        var valueNegative = value < 0 || 1 / value < 0;
 
-        value = isNaN(value) ? nan : formatType(Math.abs(value), precision); // Trim insignificant zeros.
+        // Perform the initial formatting.
+        value = isNaN(value) ? nan : formatType(Math.abs(value), precision);
 
-        if (trim) value = formatTrim(value); // If a negative value rounds to zero after formatting, and no explicit positive sign is requested, hide the sign.
+        // Trim insignificant zeros.
+        if (trim) value = formatTrim(value);
 
-        if (valueNegative && +value === 0 && sign !== "+") valueNegative = false; // Compute the prefix and suffix.
+        // If a negative value rounds to zero after formatting, and no explicit positive sign is requested, hide the sign.
+        if (valueNegative && +value === 0 && sign !== "+") valueNegative = false;
 
-        valuePrefix = (valueNegative ? sign === "(" ? sign : minus : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
-        valueSuffix = (type === "s" ? prefixes[8 + prefixExponent / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : ""); // Break the formatted value into the integer “value” part that can be
+        // Compute the prefix and suffix.
+        valuePrefix = (valueNegative ? (sign === "(" ? sign : minus) : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
+        valueSuffix = (type === "s" ? prefixes[8 + prefixExponent / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : "");
+
+        // Break the formatted value into the integer “value” part that can be
         // grouped, and fractional or exponential “suffix” part that is not.
-
         if (maybeSuffix) {
           i = -1, n = value.length;
-
           while (++i < n) {
             if (c = value.charCodeAt(i), 48 > c || c > 57) {
               valueSuffix = (c === 46 ? decimal + value.slice(i + 1) : value.slice(i)) + valueSuffix;
@@ -9606,38 +9339,30 @@ function formatLocale (locale) {
             }
           }
         }
-      } // If the fill character is not "0", grouping is applied before padding.
+      }
 
+      // If the fill character is not "0", grouping is applied before padding.
+      if (comma && !zero) value = group(value, Infinity);
 
-      if (comma && !zero) value = group(value, Infinity); // Compute the padding.
-
+      // Compute the padding.
       var length = valuePrefix.length + value.length + valueSuffix.length,
-          padding = length < width ? new Array(width - length + 1).join(fill) : ""; // If the fill character is "0", grouping is applied after padding.
+          padding = length < width ? new Array(width - length + 1).join(fill) : "";
 
-      if (comma && zero) value = group(padding + value, padding.length ? width - valueSuffix.length : Infinity), padding = ""; // Reconstruct the final output based on the desired alignment.
+      // If the fill character is "0", grouping is applied after padding.
+      if (comma && zero) value = group(padding + value, padding.length ? width - valueSuffix.length : Infinity), padding = "";
 
+      // Reconstruct the final output based on the desired alignment.
       switch (align) {
-        case "<":
-          value = valuePrefix + value + valueSuffix + padding;
-          break;
-
-        case "=":
-          value = valuePrefix + padding + value + valueSuffix;
-          break;
-
-        case "^":
-          value = padding.slice(0, length = padding.length >> 1) + valuePrefix + value + valueSuffix + padding.slice(length);
-          break;
-
-        default:
-          value = padding + valuePrefix + value + valueSuffix;
-          break;
+        case "<": value = valuePrefix + value + valueSuffix + padding; break;
+        case "=": value = valuePrefix + padding + value + valueSuffix; break;
+        case "^": value = padding.slice(0, length = padding.length >> 1) + valuePrefix + value + valueSuffix + padding.slice(length); break;
+        default: value = padding + valuePrefix + value + valueSuffix; break;
       }
 
       return numerals(value);
     }
 
-    format.toString = function () {
+    format.toString = function() {
       return specifier + "";
     };
 
@@ -9649,7 +9374,7 @@ function formatLocale (locale) {
         e = Math.max(-8, Math.min(8, Math.floor(exponent(value) / 3))) * 3,
         k = Math.pow(10, -e),
         prefix = prefixes[8 + e / 3];
-    return function (value) {
+    return function(value) {
       return f(k * value) + prefix;
     };
   }
@@ -9663,6 +9388,7 @@ function formatLocale (locale) {
 var locale;
 var format;
 var formatPrefix;
+
 defaultLocale({
   decimal: ".",
   thousands: ",",
@@ -9670,6 +9396,7 @@ defaultLocale({
   currency: ["$", ""],
   minus: "-"
 });
+
 function defaultLocale(definition) {
   locale = formatLocale(definition);
   format = locale.format;
@@ -9677,68 +9404,62 @@ function defaultLocale(definition) {
   return locale;
 }
 
-function precisionFixed (step) {
+function precisionFixed(step) {
   return Math.max(0, -exponent(Math.abs(step)));
 }
 
-function precisionPrefix (step, value) {
+function precisionPrefix(step, value) {
   return Math.max(0, Math.max(-8, Math.min(8, Math.floor(exponent(value) / 3))) * 3 - exponent(Math.abs(step)));
 }
 
-function precisionRound (step, max) {
+function precisionRound(step, max) {
   step = Math.abs(step), max = Math.abs(max) - step;
   return Math.max(0, exponent(max) - exponent(step)) + 1;
 }
 
-function tickFormat (start, stop, count, specifier) {
+function tickFormat(start, stop, count, specifier) {
   var step = tickStep(start, stop, count),
       precision;
   specifier = formatSpecifier(specifier == null ? ",f" : specifier);
-
   switch (specifier.type) {
-    case "s":
-      {
-        var value = Math.max(Math.abs(start), Math.abs(stop));
-        if (specifier.precision == null && !isNaN(precision = precisionPrefix(step, value))) specifier.precision = precision;
-        return formatPrefix(specifier, value);
-      }
-
+    case "s": {
+      var value = Math.max(Math.abs(start), Math.abs(stop));
+      if (specifier.precision == null && !isNaN(precision = precisionPrefix(step, value))) specifier.precision = precision;
+      return formatPrefix(specifier, value);
+    }
     case "":
     case "e":
     case "g":
     case "p":
-    case "r":
-      {
-        if (specifier.precision == null && !isNaN(precision = precisionRound(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
-        break;
-      }
-
+    case "r": {
+      if (specifier.precision == null && !isNaN(precision = precisionRound(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
+      break;
+    }
     case "f":
-    case "%":
-      {
-        if (specifier.precision == null && !isNaN(precision = precisionFixed(step))) specifier.precision = precision - (specifier.type === "%") * 2;
-        break;
-      }
+    case "%": {
+      if (specifier.precision == null && !isNaN(precision = precisionFixed(step))) specifier.precision = precision - (specifier.type === "%") * 2;
+      break;
+    }
   }
-
   return format(specifier);
 }
 
 function linearish(scale) {
   var domain = scale.domain;
 
-  scale.ticks = function (count) {
+  scale.ticks = function(count) {
     var d = domain();
     return ticks(d[0], d[d.length - 1], count == null ? 10 : count);
   };
 
-  scale.tickFormat = function (count, specifier) {
+  scale.tickFormat = function(count, specifier) {
     var d = domain();
     return tickFormat(d[0], d[d.length - 1], count == null ? 10 : count, specifier);
   };
 
-  scale.nice = function (count) {
+  scale.nice = function(count) {
     if (count == null) count = 10;
+
     var d = domain(),
         i0 = 0,
         i1 = d.length - 1,
@@ -9778,2014 +9499,1750 @@ function linearish(scale) {
 
   return scale;
 }
+
 function linear$1() {
   var scale = continuous();
 
-  scale.copy = function () {
+  scale.copy = function() {
     return copy(scale, linear$1());
   };
 
   initRange.apply(scale, arguments);
+
   return linearish(scale);
 }
 
-var countryKeyValuePositive = [{
-  key: 'AL',
-  value: 112
-}, {
-  key: 'AD',
-  value: 234
-}, {
-  key: 'AM',
-  value: 36
-}, {
-  key: 'AT',
-  value: 357
-}, {
-  key: 'AZ',
-  value: 123
-}, {
-  key: 'BY',
-  value: 56
-}, {
-  key: 'BE',
-  value: 15
-}, {
-  key: 'BA',
-  value: 12
-}, {
-  key: 'BG',
-  value: 568
-}, {
-  key: 'HR',
-  value: 213
-}, {
-  key: 'CY',
-  value: 456
-}, {
-  key: 'CZ',
-  value: 21
-}, {
-  key: 'DK',
-  value: 345
-}, {
-  key: 'EE',
-  value: 37
-}, {
-  key: 'FI',
-  value: 376
-}, {
-  key: 'FR',
-  value: 346
-}, {
-  key: 'GE',
-  value: 17
-}, {
-  key: 'DE',
-  value: 567
-}, {
-  key: 'GR',
-  value: 47
-}, {
-  key: 'HU',
-  value: 23
-}, {
-  key: 'IS',
-  value: 578
-}, {
-  key: 'IE',
-  value: 24
-}, {
-  key: 'IT',
-  value: 6
-}, {
-  key: 'KZ',
-  value: 5
-}, {
-  key: 'LV',
-  value: 58
-}, {
-  key: 'LI',
-  value: 5
-}, {
-  key: 'LT',
-  value: 69
-}, {
-  key: 'LU',
-  value: 23
-}, {
-  key: 'MT',
-  value: 36
-}, {
-  key: 'MD',
-  value: 57
-}, {
-  key: 'MC',
-  value: 69
-}, {
-  key: 'ME',
-  value: 223
-}, {
-  key: 'NL',
-  value: 35
-}, {
-  key: 'MK',
-  value: 57
-}, {
-  key: 'NO',
-  value: 79
-}, {
-  key: 'PL',
-  value: 12
-}, {
-  key: 'PT',
-  value: 46
-}, {
-  key: 'RO',
-  value: 37
-}, {
-  key: 'RU',
-  value: 678
-}, {
-  key: 'SM',
-  value: 345
-}, {
-  key: 'RS',
-  value: 67
-}, {
-  key: 'SK',
-  value: 23
-}, {
-  key: 'SI',
-  value: 567
-}, {
-  key: 'ES',
-  value: 23
-}, {
-  key: 'SE',
-  value: 768
-}, {
-  key: 'CH',
-  value: 56
-}, {
-  key: 'TR',
-  value: 78
-}, {
-  key: 'UA',
-  value: 2
-}, {
-  key: 'GB',
-  value: 56
-}].sort(function (a, b) {
-  return b.value - a.value;
-});
-var countryKeyValuePositiveWithZeroes = [{
-  key: 'AL',
-  value: 112
-}, {
-  key: 'AD',
-  value: 234
-}, {
-  key: 'AM',
-  value: 36
-}, {
-  key: 'AT',
-  value: 357
-}, {
-  key: 'AZ',
-  value: 123
-}, {
-  key: 'BY',
-  value: 0
-}, {
-  key: 'BE',
-  value: 15
-}, {
-  key: 'BA',
-  value: 12
-}, {
-  key: 'BG',
-  value: 568
-}, {
-  key: 'HR',
-  value: 213
-}, {
-  key: 'CY',
-  value: 0
-}, {
-  key: 'CZ',
-  value: 21
-}, {
-  key: 'DK',
-  value: 0
-}, {
-  key: 'EE',
-  value: 37
-}, {
-  key: 'FI',
-  value: 376
-}, {
-  key: 'FR',
-  value: 0
-}, {
-  key: 'GE',
-  value: 17
-}, {
-  key: 'DE',
-  value: 567
-}, {
-  key: 'GR',
-  value: 47
-}, {
-  key: 'HU',
-  value: 23
-}, {
-  key: 'IS',
-  value: 0
-}, {
-  key: 'IE',
-  value: 24
-}, {
-  key: 'IT',
-  value: 6
-}, {
-  key: 'KZ',
-  value: 5
-}, {
-  key: 'LV',
-  value: 58
-}, {
-  key: 'LI',
-  value: 0
-}, {
-  key: 'LT',
-  value: 69
-}, {
-  key: 'LU',
-  value: 23
-}, {
-  key: 'MT',
-  value: 0
-}, {
-  key: 'MD',
-  value: 57
-}, {
-  key: 'MC',
-  value: 69
-}, {
-  key: 'ME',
-  value: 223
-}, {
-  key: 'NL',
-  value: 35
-}, {
-  key: 'MK',
-  value: 57
-}, {
-  key: 'NO',
-  value: 0
-}, {
-  key: 'PL',
-  value: 12
-}, {
-  key: 'PT',
-  value: 46
-}, {
-  key: 'RO',
-  value: 37
-}, {
-  key: 'RU',
-  value: 678
-}, {
-  key: 'SM',
-  value: 345
-}, {
-  key: 'RS',
-  value: 0
-}, {
-  key: 'SK',
-  value: 23
-}, {
-  key: 'SI',
-  value: 567
-}, {
-  key: 'ES',
-  value: 0
-}, {
-  key: 'SE',
-  value: 0
-}, {
-  key: 'CH',
-  value: 56
-}, {
-  key: 'TR',
-  value: 78
-}, {
-  key: 'UA',
-  value: 2
-}, {
-  key: 'GB',
-  value: 56
-}].sort(function (a, b) {
-  return b.value - a.value;
-});
-var countryKeyValueNegatives = [{
-  key: 'AL',
-  value: -112
-}, {
-  key: 'AD',
-  value: -234
-}, {
-  key: 'AM',
-  value: -36
-}, {
-  key: 'AT',
-  value: -357
-}, {
-  key: 'AZ',
-  value: -123
-}, {
-  key: 'BY',
-  value: -56
-}, {
-  key: 'BE',
-  value: -15
-}, {
-  key: 'BA',
-  value: -12
-}, {
-  key: 'BG',
-  value: -568
-}, {
-  key: 'HR',
-  value: -213
-}, {
-  key: 'CY',
-  value: -456
-}, {
-  key: 'CZ',
-  value: -21
-}, {
-  key: 'DK',
-  value: -345
-}, {
-  key: 'EE',
-  value: -37
-}, {
-  key: 'FI',
-  value: -376
-}, {
-  key: 'FR',
-  value: -346
-}, {
-  key: 'GE',
-  value: -17
-}, {
-  key: 'DE',
-  value: -567
-}, {
-  key: 'GR',
-  value: -47
-}, {
-  key: 'HU',
-  value: -23
-}, {
-  key: 'IS',
-  value: -578
-}, {
-  key: 'IE',
-  value: -24
-}, {
-  key: 'IT',
-  value: -6
-}, {
-  key: 'KZ',
-  value: -5
-}, {
-  key: 'LV',
-  value: -58
-}, {
-  key: 'LI',
-  value: -5
-}, {
-  key: 'LT',
-  value: -69
-}, {
-  key: 'LU',
-  value: -23
-}, {
-  key: 'MT',
-  value: -36
-}, {
-  key: 'MD',
-  value: -57
-}, {
-  key: 'MC',
-  value: -69
-}, {
-  key: 'ME',
-  value: -223
-}, {
-  key: 'NL',
-  value: -35
-}, {
-  key: 'MK',
-  value: -57
-}, {
-  key: 'NO',
-  value: -79
-}, {
-  key: 'PL',
-  value: -12
-}, {
-  key: 'PT',
-  value: -46
-}, {
-  key: 'RO',
-  value: -37
-}, {
-  key: 'RU',
-  value: -678
-}, {
-  key: 'SM',
-  value: -345
-}, {
-  key: 'RS',
-  value: -67
-}, {
-  key: 'SK',
-  value: -23
-}, {
-  key: 'SI',
-  value: -567
-}, {
-  key: 'ES',
-  value: -23
-}, {
-  key: 'SE',
-  value: -768
-}, {
-  key: 'CH',
-  value: -56
-}, {
-  key: 'TR',
-  value: -78
-}, {
-  key: 'UA',
-  value: -2
-}, {
-  key: 'GB',
-  value: -56
-}].sort(function (a, b) {
-  return a.value - b.value;
-});
-var countryKeyValueMixed = [{
-  key: 'AL',
-  value: 112
-}, {
-  key: 'AD',
-  value: -234
-}, {
-  key: 'AM',
-  value: 36
-}, {
-  key: 'AT',
-  value: 357
-}, {
-  key: 'AZ',
-  value: -123
-}, {
-  key: 'BY',
-  value: 56
-}, {
-  key: 'BE',
-  value: 15
-}, {
-  key: 'BA',
-  value: -12
-}, {
-  key: 'BG',
-  value: 568
-}, {
-  key: 'HR',
-  value: -213
-}, {
-  key: 'CY',
-  value: 456
-}, {
-  key: 'CZ',
-  value: 21
-}, {
-  key: 'DK',
-  value: -345
-}, {
-  key: 'EE',
-  value: 37
-}, {
-  key: 'FI',
-  value: 376
-}, {
-  key: 'FR',
-  value: 346
-}, {
-  key: 'GE',
-  value: 17
-}, {
-  key: 'DE',
-  value: 567
-}, {
-  key: 'GR',
-  value: 47
-}, {
-  key: 'HU',
-  value: -23
-}, {
-  key: 'IS',
-  value: 578
-}, {
-  key: 'IE',
-  value: 24
-}, {
-  key: 'IT',
-  value: 6
-}, {
-  key: 'KZ',
-  value: 5
-}, {
-  key: 'LV',
-  value: -58
-}, {
-  key: 'LI',
-  value: 5
-}, {
-  key: 'LT',
-  value: 69
-}, {
-  key: 'LU',
-  value: 23
-}, {
-  key: 'MT',
-  value: 36
-}, {
-  key: 'MD',
-  value: -57
-}, {
-  key: 'MC',
-  value: 69
-}, {
-  key: 'ME',
-  value: 223
-}, {
-  key: 'NL',
-  value: 35
-}, {
-  key: 'MK',
-  value: -57
-}, {
-  key: 'NO',
-  value: 79
-}, {
-  key: 'PL',
-  value: 12
-}, {
-  key: 'PT',
-  value: -46
-}, {
-  key: 'RO',
-  value: 37
-}, {
-  key: 'RU',
-  value: 678
-}, {
-  key: 'SM',
-  value: -345
-}, {
-  key: 'RS',
-  value: 67
-}, {
-  key: 'SK',
-  value: 23
-}, {
-  key: 'SI',
-  value: 567
-}, {
-  key: 'ES',
-  value: 23
-}, {
-  key: 'SE',
-  value: 768
-}, {
-  key: 'CH',
-  value: 56
-}, {
-  key: 'TR',
-  value: 78
-}, {
-  key: 'UA',
-  value: 2
-}, {
-  key: 'GB',
-  value: 56
-}].sort(function (a, b) {
-  return b.value - a.value;
-});
-var countryKeyValueAlt = [{
-  key: 'AL',
-  value: 113
-}, {
-  key: 'AD',
-  value: 193
-}, {
-  key: 'AM',
-  value: 66
-}, {
-  key: 'AT',
-  value: 923
-}, {
-  key: 'AZ',
-  value: 8
-}, {
-  key: 'BY',
-  value: 122
-}, {
-  key: 'BE',
-  value: 6
-}, {
-  key: 'BA',
-  value: 29
-}, {
-  key: 'BG',
-  value: 272
-}, {
-  key: 'HR',
-  value: 300
-}, {
-  key: 'CY',
-  value: 585
-}, {
-  key: 'CZ',
-  value: 31
-}, {
-  key: 'DK',
-  value: 406
-}, {
-  key: 'EE',
-  value: 46
-}, {
-  key: 'FI',
-  value: 1097
-}, {
-  key: 'FR',
-  value: 611
-}, {
-  key: 'GE',
-  value: 48
-}, {
-  key: 'DE',
-  value: 30
-}, {
-  key: 'GR',
-  value: 37
-}, {
-  key: 'HU',
-  value: 11
-}, {
-  key: 'IS',
-  value: 432
-}, {
-  key: 'IE',
-  value: 52
-}, {
-  key: 'IT',
-  value: 11
-}, {
-  key: 'KZ',
-  value: 12
-}, {
-  key: 'LV',
-  value: 128
-}, {
-  key: 'LI',
-  value: 2
-}, {
-  key: 'LT',
-  value: 129
-}, {
-  key: 'LU',
-  value: 26
-}, {
-  key: 'MT',
-  value: 61
-}, {
-  key: 'MD',
-  value: 18
-}, {
-  key: 'MC',
-  value: 84
-}, {
-  key: 'ME',
-  value: 188
-}, {
-  key: 'NL',
-  value: 18
-}, {
-  key: 'MK',
-  value: 100
-}, {
-  key: 'NO',
-  value: 50
-}, {
-  key: 'PL',
-  value: 32
-}, {
-  key: 'PT',
-  value: 89
-}, {
-  key: 'RO',
-  value: 31
-}, {
-  key: 'RU',
-  value: 303
-}, {
-  key: 'SM',
-  value: 907
-}, {
-  key: 'RS',
-  value: 113
-}, {
-  key: 'SK',
-  value: 48
-}, {
-  key: 'SI',
-  value: 1272
-}, {
-  key: 'ES',
-  value: 6
-}, {
-  key: 'SE',
-  value: 291
-}, {
-  key: 'CH',
-  value: 16
-}, {
-  key: 'TR',
-  value: 16
-}, {
-  key: 'UA',
-  value: 1
-} // { key: 'GB', value: 92 }
+const countryKeyValuePositive = [
+	{ key: 'AL', value: 112 },
+	{ key: 'AD', value: 234 },
+	{ key: 'AM', value: 36 },
+	{ key: 'AT', value: 357 },
+	{ key: 'AZ', value: 123 },
+	{ key: 'BY', value: 56 },
+	{ key: 'BE', value: 15 },
+	{ key: 'BA', value: 12 },
+	{ key: 'BG', value: 568 },
+	{ key: 'HR', value: 213 },
+	{ key: 'CY', value: 456 },
+	{ key: 'CZ', value: 21 },
+	{ key: 'DK', value: 345 },
+	{ key: 'EE', value: 37 },
+	{ key: 'FI', value: 376 },
+	{ key: 'FR', value: 346 },
+	{ key: 'GE', value: 17 },
+	{ key: 'DE', value: 567 },
+	{ key: 'GR', value: 47 },
+	{ key: 'HU', value: 23 },
+	{ key: 'IS', value: 578 },
+	{ key: 'IE', value: 24 },
+	{ key: 'IT', value: 6 },
+	{ key: 'KZ', value: 5 },
+	{ key: 'LV', value: 58 },
+	{ key: 'LI', value: 5 },
+	{ key: 'LT', value: 69 },
+	{ key: 'LU', value: 23 },
+	{ key: 'MT', value: 36 },
+	{ key: 'MD', value: 57 },
+	{ key: 'MC', value: 69 },
+	{ key: 'ME', value: 223 },
+	{ key: 'NL', value: 35 },
+	{ key: 'MK', value: 57 },
+	{ key: 'NO', value: 79 },
+	{ key: 'PL', value: 12 },
+	{ key: 'PT', value: 46 },
+	{ key: 'RO', value: 37 },
+	{ key: 'RU', value: 678 },
+	{ key: 'SM', value: 345 },
+	{ key: 'RS', value: 67 },
+	{ key: 'SK', value: 23 },
+	{ key: 'SI', value: 567 },
+	{ key: 'ES', value: 23 },
+	{ key: 'SE', value: 768 },
+	{ key: 'CH', value: 56 },
+	{ key: 'TR', value: 78 },
+	{ key: 'UA', value: 2 },
+	{ key: 'GB', value: 56 }
+].sort((a, b) => b.value - a.value);
+
+const countryKeyValuePositiveWithZeroes = [
+	{ key: 'AL', value: 112 },
+	{ key: 'AD', value: 234 },
+	{ key: 'AM', value: 36 },
+	{ key: 'AT', value: 357 },
+	{ key: 'AZ', value: 123 },
+	{ key: 'BY', value: 0 },
+	{ key: 'BE', value: 15 },
+	{ key: 'BA', value: 12 },
+	{ key: 'BG', value: 568 },
+	{ key: 'HR', value: 213 },
+	{ key: 'CY', value: 0 },
+	{ key: 'CZ', value: 21 },
+	{ key: 'DK', value: 0 },
+	{ key: 'EE', value: 37 },
+	{ key: 'FI', value: 376 },
+	{ key: 'FR', value: 0 },
+	{ key: 'GE', value: 17 },
+	{ key: 'DE', value: 567 },
+	{ key: 'GR', value: 47 },
+	{ key: 'HU', value: 23 },
+	{ key: 'IS', value: 0 },
+	{ key: 'IE', value: 24 },
+	{ key: 'IT', value: 6 },
+	{ key: 'KZ', value: 5 },
+	{ key: 'LV', value: 58 },
+	{ key: 'LI', value: 0 },
+	{ key: 'LT', value: 69 },
+	{ key: 'LU', value: 23 },
+	{ key: 'MT', value: 0 },
+	{ key: 'MD', value: 57 },
+	{ key: 'MC', value: 69 },
+	{ key: 'ME', value: 223 },
+	{ key: 'NL', value: 35 },
+	{ key: 'MK', value: 57 },
+	{ key: 'NO', value: 0 },
+	{ key: 'PL', value: 12 },
+	{ key: 'PT', value: 46 },
+	{ key: 'RO', value: 37 },
+	{ key: 'RU', value: 678 },
+	{ key: 'SM', value: 345 },
+	{ key: 'RS', value: 0 },
+	{ key: 'SK', value: 23 },
+	{ key: 'SI', value: 567 },
+	{ key: 'ES', value: 0 },
+	{ key: 'SE', value: 0 },
+	{ key: 'CH', value: 56 },
+	{ key: 'TR', value: 78 },
+	{ key: 'UA', value: 2 },
+	{ key: 'GB', value: 56 }
+].sort((a, b) => b.value - a.value);
+
+const countryKeyValueNegatives = [
+	{ key: 'AL', value: -112 },
+	{ key: 'AD', value: -234 },
+	{ key: 'AM', value: -36 },
+	{ key: 'AT', value: -357 },
+	{ key: 'AZ', value: -123 },
+	{ key: 'BY', value: -56 },
+	{ key: 'BE', value: -15 },
+	{ key: 'BA', value: -12 },
+	{ key: 'BG', value: -568 },
+	{ key: 'HR', value: -213 },
+	{ key: 'CY', value: -456 },
+	{ key: 'CZ', value: -21 },
+	{ key: 'DK', value: -345 },
+	{ key: 'EE', value: -37 },
+	{ key: 'FI', value: -376 },
+	{ key: 'FR', value: -346 },
+	{ key: 'GE', value: -17 },
+	{ key: 'DE', value: -567 },
+	{ key: 'GR', value: -47 },
+	{ key: 'HU', value: -23 },
+	{ key: 'IS', value: -578 },
+	{ key: 'IE', value: -24 },
+	{ key: 'IT', value: -6 },
+	{ key: 'KZ', value: -5 },
+	{ key: 'LV', value: -58 },
+	{ key: 'LI', value: -5 },
+	{ key: 'LT', value: -69 },
+	{ key: 'LU', value: -23 },
+	{ key: 'MT', value: -36 },
+	{ key: 'MD', value: -57 },
+	{ key: 'MC', value: -69 },
+	{ key: 'ME', value: -223 },
+	{ key: 'NL', value: -35 },
+	{ key: 'MK', value: -57 },
+	{ key: 'NO', value: -79 },
+	{ key: 'PL', value: -12 },
+	{ key: 'PT', value: -46 },
+	{ key: 'RO', value: -37 },
+	{ key: 'RU', value: -678 },
+	{ key: 'SM', value: -345 },
+	{ key: 'RS', value: -67 },
+	{ key: 'SK', value: -23 },
+	{ key: 'SI', value: -567 },
+	{ key: 'ES', value: -23 },
+	{ key: 'SE', value: -768 },
+	{ key: 'CH', value: -56 },
+	{ key: 'TR', value: -78 },
+	{ key: 'UA', value: -2 },
+	{ key: 'GB', value: -56 }
+].sort((a, b) => a.value - b.value);
+
+const countryKeyValueMixedWithZeroes = [
+	{ key: 'AL', value: 112 },
+	{ key: 'AD', value: -234 },
+	{ key: 'AM', value: 36 },
+	{ key: 'AT', value: 357 },
+	{ key: 'AZ', value: -123 },
+	{ key: 'BY', value: 56 },
+	{ key: 'BE', value: 15 },
+	{ key: 'BA', value: 0 },
+	{ key: 'BG', value: 568 },
+	{ key: 'HR', value: -213 },
+	{ key: 'CY', value: 456 },
+	{ key: 'CZ', value: 21 },
+	{ key: 'DK', value: -345 },
+	{ key: 'EE', value: 37 },
+	{ key: 'FI', value: 376 },
+	{ key: 'FR', value: 346 },
+	{ key: 'GE', value: 17 },
+	{ key: 'DE', value: 567 },
+	{ key: 'GR', value: 47 },
+	{ key: 'HU', value: -23 },
+	{ key: 'IS', value: 578 },
+	{ key: 'IE', value: 24 },
+	{ key: 'IT', value: 6 },
+	{ key: 'KZ', value: 0 },
+	{ key: 'LV', value: -58 },
+	{ key: 'LI', value: 5 },
+	{ key: 'LT', value: 69 },
+	{ key: 'LU', value: 23 },
+	{ key: 'MT', value: 36 },
+	{ key: 'MD', value: -57 },
+	{ key: 'MC', value: 69 },
+	{ key: 'ME', value: 223 },
+	{ key: 'NL', value: 35 },
+	{ key: 'MK', value: -57 },
+	{ key: 'NO', value: 79 },
+	{ key: 'PL', value: 12 },
+	{ key: 'PT', value: -46 },
+	{ key: 'RO', value: 37 },
+	{ key: 'RU', value: 678 },
+	{ key: 'SM', value: -345 },
+	{ key: 'RS', value: 67 },
+	{ key: 'SK', value: 23 },
+	{ key: 'SI', value: 567 },
+	{ key: 'ES', value: 23 },
+	{ key: 'SE', value: 768 },
+	{ key: 'CH', value: 56 },
+	{ key: 'TR', value: 78 },
+	{ key: 'UA', value: 2 },
+	{ key: 'GB', value: 56 }
+].sort((a, b) => b.value - a.value);
+
+const countryKeyValueNegativesWithZeroes = [
+	{ key: 'AL', value: -112 },
+	{ key: 'AD', value: -234 },
+	{ key: 'AM', value: -36 },
+	{ key: 'AT', value: -357 },
+	{ key: 'AZ', value: -123 },
+	{ key: 'BY', value: -56 },
+	{ key: 'BE', value: -15 },
+	{ key: 'BA', value: -12 },
+	{ key: 'BG', value: -568 },
+	{ key: 'HR', value: -213 },
+	{ key: 'CY', value: -456 },
+	{ key: 'CZ', value: -21 },
+	{ key: 'DK', value: -345 },
+	{ key: 'EE', value: -37 },
+	{ key: 'FI', value: -376 },
+	{ key: 'FR', value: -346 },
+	{ key: 'GE', value: -17 },
+	{ key: 'DE', value: -567 },
+	{ key: 'GR', value: -47 },
+	{ key: 'HU', value: -23 },
+	{ key: 'IS', value: -578 },
+	{ key: 'IE', value: -24 },
+	{ key: 'IT', value: -6 },
+	{ key: 'KZ', value: 0 },
+	{ key: 'LV', value: -58 },
+	{ key: 'LI', value: -5 },
+	{ key: 'LT', value: -69 },
+	{ key: 'LU', value: -23 },
+	{ key: 'MT', value: -36 },
+	{ key: 'MD', value: -57 },
+	{ key: 'MC', value: -69 },
+	{ key: 'ME', value: -223 },
+	{ key: 'NL', value: -35 },
+	{ key: 'MK', value: -57 },
+	{ key: 'NO', value: -79 },
+	{ key: 'PL', value: -12 },
+	{ key: 'PT', value: -46 },
+	{ key: 'RO', value: -37 },
+	{ key: 'RU', value: -678 },
+	{ key: 'SM', value: -345 },
+	{ key: 'RS', value: -67 },
+	{ key: 'SK', value: -23 },
+	{ key: 'SI', value: -567 },
+	{ key: 'ES', value: -23 },
+	{ key: 'SE', value: -768 },
+	{ key: 'CH', value: -56 },
+	{ key: 'TR', value: -78 },
+	{ key: 'UA', value: 0 },
+	{ key: 'GB', value: -56 }
+].sort((a, b) => a.value - b.value);
+
+const countryKeyValueAlt = [
+	{ key: 'AL', value: 113 },
+	{ key: 'AD', value: 193 },
+	{ key: 'AM', value: 66 },
+	{ key: 'AT', value: 923 },
+	{ key: 'AZ', value: 8 },
+	{ key: 'BY', value: 122 },
+	{ key: 'BE', value: 6 },
+	{ key: 'BA', value: 29 },
+	{ key: 'BG', value: 272 },
+	{ key: 'HR', value: 300 },
+	{ key: 'CY', value: 585 },
+	{ key: 'CZ', value: 31 },
+	{ key: 'DK', value: 406 },
+	{ key: 'EE', value: 46 },
+	{ key: 'FI', value: 1097 },
+	{ key: 'FR', value: 611 },
+	{ key: 'GE', value: 48 },
+	{ key: 'DE', value: 30 },
+	{ key: 'GR', value: 37 },
+	{ key: 'HU', value: 11 },
+	{ key: 'IS', value: 432 },
+	{ key: 'IE', value: 52 },
+	{ key: 'IT', value: 11 },
+	{ key: 'KZ', value: 12 },
+	{ key: 'LV', value: 128 },
+	{ key: 'LI', value: 2 },
+	{ key: 'LT', value: 129 },
+	{ key: 'LU', value: 26 },
+	{ key: 'MT', value: 61 },
+	{ key: 'MD', value: 18 },
+	{ key: 'MC', value: 84 },
+	{ key: 'ME', value: 188 },
+	{ key: 'NL', value: 18 },
+	{ key: 'MK', value: 100 },
+	{ key: 'NO', value: 50 },
+	{ key: 'PL', value: 32 },
+	{ key: 'PT', value: 89 },
+	{ key: 'RO', value: 31 },
+	{ key: 'RU', value: 303 },
+	{ key: 'SM', value: 907 },
+	{ key: 'RS', value: 113 },
+	{ key: 'SK', value: 48 },
+	{ key: 'SI', value: 1272 },
+	{ key: 'ES', value: 6 },
+	{ key: 'SE', value: 291 },
+	{ key: 'CH', value: 16 },
+	{ key: 'TR', value: 16 },
+	{ key: 'UA', value: 1 },
+	// { key: 'GB', value: 92 }
 ];
-var countryKeyRawValue = [{
-  key: 'AL',
-  rawValue: 112
-}, {
-  key: 'AD',
-  rawValue: 234
-}, {
-  key: 'AM',
-  rawValue: 36
-}, {
-  key: 'AT',
-  rawValue: 357
-}, {
-  key: 'AZ',
-  rawValue: 123
-}, {
-  key: 'BY',
-  rawValue: 56
-}, {
-  key: 'BE',
-  rawValue: 15
-}, {
-  key: 'BA',
-  rawValue: 12
-}, {
-  key: 'BG',
-  rawValue: 568
-}, {
-  key: 'HR',
-  rawValue: 213
-}, {
-  key: 'CY',
-  rawValue: 456
-}, {
-  key: 'CZ',
-  rawValue: 21
-}, {
-  key: 'DK',
-  rawValue: 345
-}, {
-  key: 'EE',
-  rawValue: 37
-}, {
-  key: 'FI',
-  rawValue: 376
-}, {
-  key: 'FR',
-  rawValue: 346
-}, {
-  key: 'GE',
-  rawValue: 17
-}, {
-  key: 'DE',
-  rawValue: 567
-}, {
-  key: 'GR',
-  rawValue: 47
-}, {
-  key: 'HU',
-  rawValue: 23
-}, {
-  key: 'IS',
-  rawValue: 578
-}, {
-  key: 'IE',
-  rawValue: 24
-}, {
-  key: 'IT',
-  rawValue: 6
-}, {
-  key: 'KZ',
-  rawValue: 5
-}, {
-  key: 'LV',
-  rawValue: 58
-}, {
-  key: 'LI',
-  rawValue: 5
-}, {
-  key: 'LT',
-  rawValue: 69
-}, {
-  key: 'LU',
-  rawValue: 23
-}, {
-  key: 'MT',
-  rawValue: 36
-}, {
-  key: 'MD',
-  rawValue: 57
-}, {
-  key: 'MC',
-  rawValue: 69
-}, {
-  key: 'ME',
-  rawValue: 223
-}, {
-  key: 'NL',
-  rawValue: 35
-}, {
-  key: 'MK',
-  rawValue: 57
-}, {
-  key: 'NO',
-  rawValue: 79
-}, {
-  key: 'PL',
-  rawValue: 12
-}, {
-  key: 'PT',
-  rawValue: 46
-}, {
-  key: 'RO',
-  rawValue: 37
-}, {
-  key: 'RU',
-  rawValue: 678
-}, {
-  key: 'SM',
-  rawValue: 345
-}, {
-  key: 'RS',
-  rawValue: 67
-}, {
-  key: 'SK',
-  rawValue: 23
-}, {
-  key: 'SI',
-  rawValue: 567
-}, {
-  key: 'ES',
-  rawValue: 23
-}, {
-  key: 'SE',
-  rawValue: 768
-}, {
-  key: 'CH',
-  rawValue: 56
-}, {
-  key: 'TR',
-  rawValue: 78
-}, {
-  key: 'UA',
-  rawValue: 2
-}, {
-  key: 'GB',
-  rawValue: 56
-}];
-var keyToColorWorldFull = {
-  AL: 'antiquewhite',
-  AD: 'aqua',
-  AM: 'blue',
-  AT: 'blueviolet',
-  AZ: 'chartreuse',
-  BY: 'rgb(255, 69, 0)',
-  BE: 'brown',
-  BA: 'aquamarine',
-  BG: 'rgb(128, 128, 0)',
-  HR: 'cadetblue',
-  CY: 'deepskyblue',
-  CZ: 'gold',
-  DK: 'chocolate',
-  EE: 'cornflowerblue',
-  FI: 'dimgray',
-  FR: 'firebrick',
-  GE: 'rgb( 65, 105, 225)',
-  DE: 'greenyellow',
-  GR: 'darkgoldenrod',
-  HU: 'darkmagenta',
-  IS: 'dodgerblue',
-  IE: 'crimson',
-  IT: 'darkcyan',
-  KZ: 'darkblue',
-  LV: 'darkturquoise',
-  LI: 'coral',
-  LT: 'darkkhaki',
-  LU: 'lightsalmon',
-  MT: 'darkorchid',
-  MD: 'darkolivegreen',
-  MC: 'darkslategray',
-  ME: 'darkslateblue',
-  NL: 'rgb(216, 191, 216)',
-  MK: 'tomato',
-  NO: 'darksalmon',
-  PL: 'rgb(238, 130, 238)',
-  PT: 'darkred',
-  RO: 'red',
-  RU: 'green',
-  SM: 'rgb(188, 143, 143)',
-  RS: 'darkorange',
-  SK: 'rgb( 0, 0, 128)',
-  SI: 'darkseagreen',
-  ES: 'lightblue',
-  SE: 'mediumseagreen',
-  CH: 'rgb(255, 255, 0)',
-  TR: 'yellowgreen',
-  UA: 'rgb(152, 251, 152)',
-  GB: 'rgb(128, 0, 128)'
-}; // keep these 2 commented for the `keyToColorWorld` example to show 2 black bars.
 
-var keyToColorWorld = skipIn(keyToColorWorldFull, ['AL', 'AD']);
-var keyToColorWorldShort = {
-  AM: 'blue',
-  AT: 'blueviolet',
-  AZ: 'chartreuse',
-  BY: 'rgb(255, 69, 0)',
-  BE: 'brown',
-  BA: 'aquamarine',
-  BG: 'rgb(128, 128, 0)'
+const countryKeyRawValue = [
+	{ key: 'AL', rawValue: 112 },
+	{ key: 'AD', rawValue: 234 },
+	{ key: 'AM', rawValue: 36 },
+	{ key: 'AT', rawValue: 357 },
+	{ key: 'AZ', rawValue: 123 },
+	{ key: 'BY', rawValue: 56 },
+	{ key: 'BE', rawValue: 15 },
+	{ key: 'BA', rawValue: 12 },
+	{ key: 'BG', rawValue: 568 },
+	{ key: 'HR', rawValue: 213 },
+	{ key: 'CY', rawValue: 456 },
+	{ key: 'CZ', rawValue: 21 },
+	{ key: 'DK', rawValue: 345 },
+	{ key: 'EE', rawValue: 37 },
+	{ key: 'FI', rawValue: 376 },
+	{ key: 'FR', rawValue: 346 },
+	{ key: 'GE', rawValue: 17 },
+	{ key: 'DE', rawValue: 567 },
+	{ key: 'GR', rawValue: 47 },
+	{ key: 'HU', rawValue: 23 },
+	{ key: 'IS', rawValue: 578 },
+	{ key: 'IE', rawValue: 24 },
+	{ key: 'IT', rawValue: 6 },
+	{ key: 'KZ', rawValue: 5 },
+	{ key: 'LV', rawValue: 58 },
+	{ key: 'LI', rawValue: 5 },
+	{ key: 'LT', rawValue: 69 },
+	{ key: 'LU', rawValue: 23 },
+	{ key: 'MT', rawValue: 36 },
+	{ key: 'MD', rawValue: 57 },
+	{ key: 'MC', rawValue: 69 },
+	{ key: 'ME', rawValue: 223 },
+	{ key: 'NL', rawValue: 35 },
+	{ key: 'MK', rawValue: 57 },
+	{ key: 'NO', rawValue: 79 },
+	{ key: 'PL', rawValue: 12 },
+	{ key: 'PT', rawValue: 46 },
+	{ key: 'RO', rawValue: 37 },
+	{ key: 'RU', rawValue: 678 },
+	{ key: 'SM', rawValue: 345 },
+	{ key: 'RS', rawValue: 67 },
+	{ key: 'SK', rawValue: 23 },
+	{ key: 'SI', rawValue: 567 },
+	{ key: 'ES', rawValue: 23 },
+	{ key: 'SE', rawValue: 768 },
+	{ key: 'CH', rawValue: 56 },
+	{ key: 'TR', rawValue: 78 },
+	{ key: 'UA', rawValue: 2 },
+	{ key: 'GB', rawValue: 56 }
+];
+
+const keyToColorWorldFull = {
+	AL: 'antiquewhite',
+	AD: 'aqua',
+	AM: 'blue',
+	AT: 'blueviolet',
+	AZ: 'chartreuse',
+	BY: 'rgb(255, 69, 0)',
+	BE: 'brown',
+	BA: 'aquamarine',
+	BG: 'rgb(128, 128, 0)',
+	HR: 'cadetblue',
+	CY: 'deepskyblue',
+	CZ: 'gold',
+	DK: 'chocolate',
+	EE: 'cornflowerblue',
+	FI: 'dimgray',
+	FR: 'firebrick',
+	GE: 'rgb( 65, 105, 225)',
+	DE: 'greenyellow',
+	GR: 'darkgoldenrod',
+	HU: 'darkmagenta',
+	IS: 'dodgerblue',
+	IE: 'crimson',
+	IT: 'darkcyan',
+	KZ: 'darkblue',
+	LV: 'darkturquoise',
+	LI: 'coral',
+	LT: 'darkkhaki',
+	LU: 'lightsalmon',
+	MT: 'darkorchid',
+	MD: 'darkolivegreen',
+	MC: 'darkslategray',
+	ME: 'darkslateblue',
+	NL: 'rgb(216, 191, 216)',
+	MK: 'tomato',
+	NO: 'darksalmon',
+	PL: 'rgb(238, 130, 238)',
+	PT: 'darkred',
+	RO: 'red',
+	RU: 'green',
+	SM: 'rgb(188, 143, 143)',
+	RS: 'darkorange',
+	SK: 'rgb( 0, 0, 128)',
+	SI: 'darkseagreen',
+	ES: 'lightblue',
+	SE: 'mediumseagreen',
+	CH: 'rgb(255, 255, 0)',
+	TR: 'yellowgreen',
+	UA: 'rgb(152, 251, 152)',
+	GB: 'rgb(128, 0, 128)'
 };
 
-var keyToColorWorldFullKeys = keys(keyToColorWorldFull);
+// keep these 2 commented for the `keyToColorWorld` example to show 2 black bars.
+const keyToColorWorld = skipIn(keyToColorWorldFull, ['AL', 'AD']);
 
-var hueScale = linear$1().domain([0, keyToColorWorldFullKeys.length]).range([0, 300]);
-var keyToColorWorldFn = ordinal().domain(keyToColorWorldFullKeys).range(keyToColorWorldFullKeys.map(function (k, i) {
-  return hsl(hueScale(i), 0.5, 0.5).toString();
-}));
-var keyToColorUK2016 = {
-  UK: 'cornsilk',
-  UKC: 'antiquewhite',
-  UKC1: 'aqua',
-  UKC11: 'aquamarine',
-  UKC12: 'azure',
-  UKC13: 'beige',
-  UKC14: 'bisque',
-  UKC2: 'black',
-  UKC21: 'blanchedalmond',
-  UKC22: 'blue',
-  UKC23: 'blueviolet',
-  UKD: 'brown',
-  UKD1: 'burlywood',
-  UKD11: 'cadetblue',
-  UKD12: 'chartreuse',
-  UKD3: 'chocolate',
-  UKD33: 'coral',
-  UKD34: 'cornflowerblue',
-  UKD35: 'cornsilk',
-  UKD36: 'crimson',
-  UKD37: 'cyan',
-  UKD4: 'darkblue',
-  UKD41: 'darkcyan',
-  UKD42: 'darkgoldenrod',
-  UKD44: 'darkgray',
-  UKD45: 'darkgreen',
-  UKD46: 'darkgrey',
-  UKD47: 'darkkhaki',
-  UKD6: 'darkmagenta',
-  UKD61: 'darkolivegreen',
-  UKD62: 'darkorange',
-  UKD63: 'darkorchid',
-  UKD7: 'darkred',
-  UKD71: 'darksalmon',
-  UKD72: 'darkseagreen',
-  UKD73: 'darkslateblue',
-  UKD74: 'darkslategray',
-  UKE: 'darkslategrey',
-  UKE1: 'darkturquoise',
-  UKE11: 'darkviolet',
-  UKE12: 'deeppink',
-  UKE13: 'deepskyblue',
-  UKE2: 'dimgray',
-  UKE21: 'dimgrey',
-  UKE22: 'dodgerblue',
-  UKE3: 'firebrick',
-  UKE31: 'floralwhite',
-  UKE32: 'forestgreen',
-  UKE4: 'fuchsia',
-  UKE41: 'gainsboro',
-  UKE42: 'ghostwhite',
-  UKE44: 'gold',
-  UKE45: 'goldenrod',
-  UKF: 'gray',
-  UKF1: 'grey',
-  UKF11: 'green',
-  UKF12: 'greenyellow',
-  UKF13: 'honeydew',
-  UKF14: 'hotpink',
-  UKF15: 'indianred',
-  UKF16: 'indigo',
-  UKF2: 'ivory',
-  UKF21: 'khaki',
-  UKF22: 'lavender',
-  UKF24: 'lavenderblush',
-  UKF25: 'lawngreen',
-  UKF3: 'lemonchiffon',
-  UKF30: 'lightblue',
-  UKG: 'lightcoral',
-  UKG1: 'lightcyan',
-  UKG11: 'lightgoldenrodyellow',
-  UKG12: 'lightgray',
-  UKG13: 'lightgreen',
-  UKG2: 'lightgrey',
-  UKG21: 'lightpink',
-  UKG22: 'lightsalmon',
-  UKG23: 'lightseagreen',
-  UKG24: 'lightskyblue',
-  UKG3: 'lightslategray',
-  UKG31: 'lightslategrey',
-  UKG32: 'lightsteelblue',
-  UKG33: 'lightyellow',
-  UKG36: 'lime',
-  UKG37: 'limegreen',
-  UKG38: 'linen',
-  UKG39: 'magenta',
-  UKH: 'maroon',
-  UKH1: 'mediumaquamarine',
-  UKH11: 'mediumblue',
-  UKH12: 'mediumorchid',
-  UKH14: 'mediumpurple',
-  UKH15: 'mediumseagreen',
-  UKH16: 'mediumslateblue',
-  UKH17: 'mediumspringgreen',
-  UKH2: 'mediumturquoise',
-  UKH21: 'mediumvioletred',
-  UKH23: 'midnightblue',
-  UKH24: 'mintcream',
-  UKH25: 'mistyrose',
-  UKH3: 'moccasin',
-  UKH31: 'navajowhite',
-  UKH32: 'navy',
-  UKH34: 'oldlace',
-  UKH35: 'olive',
-  UKH36: 'olivedrab',
-  UKH37: 'orange',
-  UKI: 'orangered',
-  UKI3: 'orchid',
-  UKI31: 'palegoldenrod',
-  UKI32: 'palegreen',
-  UKI33: 'paleturquoise',
-  UKI34: 'palevioletred',
-  UKI4: 'papayawhip',
-  UKI41: 'peachpuff',
-  UKI42: 'peru',
-  UKI43: 'pink',
-  UKI44: 'plum',
-  UKI45: 'powderblue',
-  UKI5: 'purple',
-  UKI51: 'red',
-  UKI52: 'rosybrown',
-  UKI53: 'royalblue',
-  UKI54: 'saddlebrown',
-  UKI6: 'salmon',
-  UKI61: 'sandybrown',
-  UKI62: 'seagreen',
-  UKI63: 'seashell',
-  UKI7: 'sienna',
-  UKI71: 'silver',
-  UKI72: 'skyblue',
-  UKI73: 'slateblue',
-  UKI74: 'slategray',
-  UKI75: 'slategrey',
-  UKJ: 'snow',
-  UKJ1: 'springgreen',
-  UKJ11: 'steelblue',
-  UKJ12: 'tan',
-  UKJ13: 'teal',
-  UKJ14: 'thistle',
-  UKJ2: 'tomato',
-  UKJ21: 'turquoise',
-  UKJ22: 'violet',
-  UKJ25: 'wheat',
-  UKJ26: 'white',
-  UKJ27: 'whitesmoke',
-  UKJ28: 'yellow',
-  UKJ3: 'yellowgreen',
-  UKJ31: 'aliceblue',
-  UKJ32: 'antiquewhite',
-  UKJ34: 'aqua',
-  UKJ35: 'aquamarine',
-  UKJ36: 'azure',
-  UKJ37: 'beige',
-  UKJ4: 'bisque',
-  UKJ41: 'black',
-  UKJ43: 'blanchedalmond',
-  UKJ44: 'blue',
-  UKJ45: 'blueviolet',
-  UKJ46: 'brown',
-  UKK: 'burlywood',
-  UKK1: 'cadetblue',
-  UKK11: 'chartreuse',
-  UKK12: 'chocolate',
-  UKK13: 'coral',
-  UKK14: 'cornflowerblue',
-  UKK15: 'cornsilk',
-  UKK2: 'crimson',
-  UKK21: 'cyan',
-  UKK22: 'darkblue',
-  UKK23: 'darkcyan',
-  UKK3: 'darkgoldenrod',
-  UKK30: 'darkgray',
-  UKK4: 'darkgreen',
-  UKK41: 'darkgrey',
-  UKK42: 'darkkhaki',
-  UKK43: 'darkmagenta',
-  UKL: 'darkolivegreen',
-  UKL1: 'darkorange',
-  UKL11: 'darkorchid',
-  UKL12: 'darkred',
-  UKL13: 'darksalmon',
-  UKL14: 'darkseagreen',
-  UKL15: 'darkslateblue',
-  UKL16: 'darkslategray',
-  UKL17: 'darkslategrey',
-  UKL18: 'darkturquoise',
-  UKL2: 'darkviolet',
-  UKL21: 'deeppink',
-  UKL22: 'deepskyblue',
-  UKL23: 'dimgray',
-  UKL24: 'dimgrey',
-  UKM: 'dodgerblue',
-  UKM5: 'firebrick',
-  UKM50: 'floralwhite',
-  UKM6: 'forestgreen',
-  UKM61: 'fuchsia',
-  UKM62: 'gainsboro',
-  UKM63: 'ghostwhite',
-  UKM64: 'gold',
-  UKM65: 'goldenrod',
-  UKM66: 'gray',
-  UKM7: 'grey',
-  UKM71: 'green',
-  UKM72: 'greenyellow',
-  UKM73: 'honeydew',
-  UKM75: 'hotpink',
-  UKM76: 'indianred',
-  UKM77: 'indigo',
-  UKM78: 'ivory',
-  UKM8: 'khaki',
-  UKM81: 'lavender',
-  UKM82: 'lavenderblush',
-  UKM83: 'lawngreen',
-  UKM84: 'lemonchiffon',
-  UKM9: 'lightblue',
-  UKM91: 'lightcoral',
-  UKM92: 'lightcyan',
-  UKM93: 'lightgoldenrodyellow',
-  UKM94: 'lightgray',
-  UKM95: 'lightgreen',
-  UKN: 'lightgrey',
-  UKN0: 'lightpink',
-  UKN06: 'lightsalmon',
-  UKN07: 'lightseagreen',
-  UKN08: 'lightskyblue',
-  UKN09: 'lightslategray',
-  UKN10: 'lightslategrey',
-  UKN11: 'lightsteelblue',
-  UKN12: 'lightyellow',
-  UKN13: 'lime',
-  UKN14: 'limegreen',
-  UKN15: 'linen',
-  UKN16: 'magenta'
-};
-var keyToLabel = {
-  AL: 'Albania',
-  AD: 'Andorra',
-  AM: 'Armenia',
-  AT: 'Austria',
-  AZ: 'Azerbaijan',
-  BY: 'Belarus',
-  BE: 'Belgium',
-  BA: 'Bosnia and Herzegovina',
-  BG: 'Bulgaria',
-  HR: 'Croatia',
-  CY: 'Cyprus',
-  CZ: 'Czechia',
-  DK: 'Denmark',
-  EE: 'Estonia',
-  FI: 'Finland',
-  FR: 'France',
-  GE: 'Georgia',
-  DE: 'Germany',
-  GR: 'Greece',
-  HU: 'Hungary',
-  IS: 'Iceland',
-  IE: 'Ireland',
-  IT: 'Italy',
-  KZ: 'Kazakhstan',
-  LV: 'Latvia',
-  LI: 'Liechtenstein',
-  LT: 'Lithuania',
-  LU: 'Luxembourg',
-  MT: 'Malta',
-  MD: 'Moldova',
-  MC: 'Monaco',
-  ME: 'Montenegro',
-  NL: 'Netherlands',
-  MK: 'North Macedonia (formerly Macedonia)',
-  NO: 'Norway',
-  PL: 'Poland',
-  PT: 'Portugal',
-  RO: 'Romania',
-  RU: 'Russian Federation',
-  SM: 'San Marino',
-  RS: 'Serbia',
-  SK: 'Slovakia',
-  SI: 'Slovenia',
-  ES: 'Spain',
-  SE: 'Sweden',
-  CH: 'Switzerland',
-  TR: 'Turkey',
-  UA: 'Ukraine',
-  GB: 'United Kingdom (UK)'
+const keyToColorWorldShort = {
+	AM: 'blue',
+	AT: 'blueviolet',
+	AZ: 'chartreuse',
+	BY: 'rgb(255, 69, 0)',
+	BE: 'brown',
+	BA: 'aquamarine',
+	BG: 'rgb(128, 128, 0)',
 };
 
-var formatSvelteMarkup = function formatSvelteMarkup(str) {
-  return str.trim().replace(/^\t{4}/gm, '').replace(/^\t/gm, '  ');
+const keyToColorWorldFullKeys = keys(keyToColorWorldFull);
+
+const hueScale =
+	linear$1()
+	.domain([0, keyToColorWorldFullKeys.length])
+	.range([0, 300]);
+
+const keyToColorWorldFn =
+	ordinal()
+	.domain(keyToColorWorldFullKeys)
+	.range(keyToColorWorldFullKeys.map((k, i) => hsl(hueScale(i), 0.5, 0.5).toString()));
+
+const keyToColorUK2016 = {
+	UK: 'cornsilk',
+	UKC: 'antiquewhite',
+	UKC1: 'aqua',
+	UKC11: 'aquamarine',
+	UKC12: 'azure',
+	UKC13: 'beige',
+	UKC14: 'bisque',
+	UKC2: 'black',
+	UKC21: 'blanchedalmond',
+	UKC22: 'blue',
+	UKC23: 'blueviolet',
+	UKD: 'brown',
+	UKD1: 'burlywood',
+	UKD11: 'cadetblue',
+	UKD12: 'chartreuse',
+	UKD3: 'chocolate',
+	UKD33: 'coral',
+	UKD34: 'cornflowerblue',
+	UKD35: 'cornsilk',
+	UKD36: 'crimson',
+	UKD37: 'cyan',
+	UKD4: 'darkblue',
+	UKD41: 'darkcyan',
+	UKD42: 'darkgoldenrod',
+	UKD44: 'darkgray',
+	UKD45: 'darkgreen',
+	UKD46: 'darkgrey',
+	UKD47: 'darkkhaki',
+	UKD6: 'darkmagenta',
+	UKD61: 'darkolivegreen',
+	UKD62: 'darkorange',
+	UKD63: 'darkorchid',
+	UKD7: 'darkred',
+	UKD71: 'darksalmon',
+	UKD72: 'darkseagreen',
+	UKD73: 'darkslateblue',
+	UKD74: 'darkslategray',
+	UKE: 'darkslategrey',
+	UKE1: 'darkturquoise',
+	UKE11: 'darkviolet',
+	UKE12: 'deeppink',
+	UKE13: 'deepskyblue',
+	UKE2: 'dimgray',
+	UKE21: 'dimgrey',
+	UKE22: 'dodgerblue',
+	UKE3: 'firebrick',
+	UKE31: 'floralwhite',
+	UKE32: 'forestgreen',
+	UKE4: 'fuchsia',
+	UKE41: 'gainsboro',
+	UKE42: 'ghostwhite',
+	UKE44: 'gold',
+	UKE45: 'goldenrod',
+	UKF: 'gray',
+	UKF1: 'grey',
+	UKF11: 'green',
+	UKF12: 'greenyellow',
+	UKF13: 'honeydew',
+	UKF14: 'hotpink',
+	UKF15: 'indianred',
+	UKF16: 'indigo',
+	UKF2: 'ivory',
+	UKF21: 'khaki',
+	UKF22: 'lavender',
+	UKF24: 'lavenderblush',
+	UKF25: 'lawngreen',
+	UKF3: 'lemonchiffon',
+	UKF30: 'lightblue',
+	UKG: 'lightcoral',
+	UKG1: 'lightcyan',
+	UKG11: 'lightgoldenrodyellow',
+	UKG12: 'lightgray',
+	UKG13: 'lightgreen',
+	UKG2: 'lightgrey',
+	UKG21: 'lightpink',
+	UKG22: 'lightsalmon',
+	UKG23: 'lightseagreen',
+	UKG24: 'lightskyblue',
+	UKG3: 'lightslategray',
+	UKG31: 'lightslategrey',
+	UKG32: 'lightsteelblue',
+	UKG33: 'lightyellow',
+	UKG36: 'lime',
+	UKG37: 'limegreen',
+	UKG38: 'linen',
+	UKG39: 'magenta',
+	UKH: 'maroon',
+	UKH1: 'mediumaquamarine',
+	UKH11: 'mediumblue',
+	UKH12: 'mediumorchid',
+	UKH14: 'mediumpurple',
+	UKH15: 'mediumseagreen',
+	UKH16: 'mediumslateblue',
+	UKH17: 'mediumspringgreen',
+	UKH2: 'mediumturquoise',
+	UKH21: 'mediumvioletred',
+	UKH23: 'midnightblue',
+	UKH24: 'mintcream',
+	UKH25: 'mistyrose',
+	UKH3: 'moccasin',
+	UKH31: 'navajowhite',
+	UKH32: 'navy',
+	UKH34: 'oldlace',
+	UKH35: 'olive',
+	UKH36: 'olivedrab',
+	UKH37: 'orange',
+	UKI: 'orangered',
+	UKI3: 'orchid',
+	UKI31: 'palegoldenrod',
+	UKI32: 'palegreen',
+	UKI33: 'paleturquoise',
+	UKI34: 'palevioletred',
+	UKI4: 'papayawhip',
+	UKI41: 'peachpuff',
+	UKI42: 'peru',
+	UKI43: 'pink',
+	UKI44: 'plum',
+	UKI45: 'powderblue',
+	UKI5: 'purple',
+	UKI51: 'red',
+	UKI52: 'rosybrown',
+	UKI53: 'royalblue',
+	UKI54: 'saddlebrown',
+	UKI6: 'salmon',
+	UKI61: 'sandybrown',
+	UKI62: 'seagreen',
+	UKI63: 'seashell',
+	UKI7: 'sienna',
+	UKI71: 'silver',
+	UKI72: 'skyblue',
+	UKI73: 'slateblue',
+	UKI74: 'slategray',
+	UKI75: 'slategrey',
+	UKJ: 'snow',
+	UKJ1: 'springgreen',
+	UKJ11: 'steelblue',
+	UKJ12: 'tan',
+	UKJ13: 'teal',
+	UKJ14: 'thistle',
+	UKJ2: 'tomato',
+	UKJ21: 'turquoise',
+	UKJ22: 'violet',
+	UKJ25: 'wheat',
+	UKJ26: 'white',
+	UKJ27: 'whitesmoke',
+	UKJ28: 'yellow',
+	UKJ3: 'yellowgreen',
+	UKJ31: 'aliceblue',
+	UKJ32: 'antiquewhite',
+	UKJ34: 'aqua',
+	UKJ35: 'aquamarine',
+	UKJ36: 'azure',
+	UKJ37: 'beige',
+	UKJ4: 'bisque',
+	UKJ41: 'black',
+	UKJ43: 'blanchedalmond',
+	UKJ44: 'blue',
+	UKJ45: 'blueviolet',
+	UKJ46: 'brown',
+	UKK: 'burlywood',
+	UKK1: 'cadetblue',
+	UKK11: 'chartreuse',
+	UKK12: 'chocolate',
+	UKK13: 'coral',
+	UKK14: 'cornflowerblue',
+	UKK15: 'cornsilk',
+	UKK2: 'crimson',
+	UKK21: 'cyan',
+	UKK22: 'darkblue',
+	UKK23: 'darkcyan',
+	UKK3: 'darkgoldenrod',
+	UKK30: 'darkgray',
+	UKK4: 'darkgreen',
+	UKK41: 'darkgrey',
+	UKK42: 'darkkhaki',
+	UKK43: 'darkmagenta',
+	UKL: 'darkolivegreen',
+	UKL1: 'darkorange',
+	UKL11: 'darkorchid',
+	UKL12: 'darkred',
+	UKL13: 'darksalmon',
+	UKL14: 'darkseagreen',
+	UKL15: 'darkslateblue',
+	UKL16: 'darkslategray',
+	UKL17: 'darkslategrey',
+	UKL18: 'darkturquoise',
+	UKL2: 'darkviolet',
+	UKL21: 'deeppink',
+	UKL22: 'deepskyblue',
+	UKL23: 'dimgray',
+	UKL24: 'dimgrey',
+	UKM: 'dodgerblue',
+	UKM5: 'firebrick',
+	UKM50: 'floralwhite',
+	UKM6: 'forestgreen',
+	UKM61: 'fuchsia',
+	UKM62: 'gainsboro',
+	UKM63: 'ghostwhite',
+	UKM64: 'gold',
+	UKM65: 'goldenrod',
+	UKM66: 'gray',
+	UKM7: 'grey',
+	UKM71: 'green',
+	UKM72: 'greenyellow',
+	UKM73: 'honeydew',
+	UKM75: 'hotpink',
+	UKM76: 'indianred',
+	UKM77: 'indigo',
+	UKM78: 'ivory',
+	UKM8: 'khaki',
+	UKM81: 'lavender',
+	UKM82: 'lavenderblush',
+	UKM83: 'lawngreen',
+	UKM84: 'lemonchiffon',
+	UKM9: 'lightblue',
+	UKM91: 'lightcoral',
+	UKM92: 'lightcyan',
+	UKM93: 'lightgoldenrodyellow',
+	UKM94: 'lightgray',
+	UKM95: 'lightgreen',
+	UKN: 'lightgrey',
+	UKN0: 'lightpink',
+	UKN06: 'lightsalmon',
+	UKN07: 'lightseagreen',
+	UKN08: 'lightskyblue',
+	UKN09: 'lightslategray',
+	UKN10: 'lightslategrey',
+	UKN11: 'lightsteelblue',
+	UKN12: 'lightyellow',
+	UKN13: 'lime',
+	UKN14: 'limegreen',
+	UKN15: 'linen',
+	UKN16: 'magenta'
 };
-var formatExamples = mapWith(transformValues({
-  doc: mapWith(transformValues({
-    content: function content(s) {
-      return s.trim();
-    }
-  })),
-  data: mapWith(transformValues({
-    usage: formatSvelteMarkup
-  }))
+
+const keyToLabel = {
+	AL: 'Albania',
+	AD: 'Andorra',
+	AM: 'Armenia',
+	AT: 'Austria',
+	AZ: 'Azerbaijan',
+	BY: 'Belarus',
+	BE: 'Belgium',
+	BA: 'Bosnia and Herzegovina',
+	BG: 'Bulgaria',
+	HR: 'Croatia',
+	CY: 'Cyprus',
+	CZ: 'Czechia',
+	DK: 'Denmark',
+	EE: 'Estonia',
+	FI: 'Finland',
+	FR: 'France',
+	GE: 'Georgia',
+	DE: 'Germany',
+	GR: 'Greece',
+	HU: 'Hungary',
+	IS: 'Iceland',
+	IE: 'Ireland',
+	IT: 'Italy',
+	KZ: 'Kazakhstan',
+	LV: 'Latvia',
+	LI: 'Liechtenstein',
+	LT: 'Lithuania',
+	LU: 'Luxembourg',
+	MT: 'Malta',
+	MD: 'Moldova',
+	MC: 'Monaco',
+	ME: 'Montenegro',
+	NL: 'Netherlands',
+	MK: 'North Macedonia (formerly Macedonia)',
+	NO: 'Norway',
+	PL: 'Poland',
+	PT: 'Portugal',
+	RO: 'Romania',
+	RU: 'Russian Federation',
+	SM: 'San Marino',
+	RS: 'Serbia',
+	SK: 'Slovakia',
+	SI: 'Slovenia',
+	ES: 'Spain',
+	SE: 'Sweden',
+	CH: 'Switzerland',
+	TR: 'Turkey',
+	UA: 'Ukraine',
+	GB: 'United Kingdom (UK)',
+};
+
+const formatSvelteMarkup = str =>
+	str.trim()
+	.replace(/^\t{4}/gum, '')
+	.replace(/^\t/gum, '  ');
+
+const formatExamples = mapWith(transformValues({
+	doc: mapWith(transformValues({
+		content: s => s.trim(),
+	})),
+	data: mapWith(transformValues({
+		usage: formatSvelteMarkup
+	}))
 }));
 
-var axisColor = 'red';
-var backgroundColor = 'antiquewhite';
-var barDefaultColor = 'orange';
-var barHeight = 12;
-var fontSize = 22;
-var textColor = 'green';
-var title = 'My title';
-var barchart = formatExamples([{
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive
-    },
-    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives
-    },
-    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
-  }, {
-    key: 'Positive and zero values',
-    props: {
-      items: countryKeyValuePositiveWithZeroes
-    },
-    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed
-    },
-    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
-  }, {
-    key: 'No data',
-    props: {},
-    usage: "\n\t\t\t\t<BarchartV />\n\t\t\t"
-  }, {
-    key: 'Empty data',
-    props: {
-      items: []
-    },
-    usage: "\n\t\t\t\t<BarchartV {items} />\n\t\t\t"
-  }, {
-    key: 'Empty data with custom message',
-    props: {
-      items: [],
-      message: 'Please provide data!',
-      theme: {
-        messageColor: 'red',
-        messageFontSize: '2rem'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tmessage='Please provide data!',\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tmessageColor: 'red',\n\t\t\t\t\t\tmessageFontSize: '2rem',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'In the most basic setup, you need to provide a `{items}` array of objects with the shape `{key: string, props: number}`.'
-  }, {
-    tag: 'p',
-    content: 'Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default.'
-  }, {
-    tag: 'p',
-    content: 'If `items` is undefined or empty the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv',
-  title: 'Basic props'
-}, {
-  data: [{
-    key: null,
-    props: {
-      items: countryKeyValuePositive,
-      title: title
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\ttitle='".concat(title, "'\n\t\t\t\t/>\n\t\t\t")
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'Providing a `{title}` shows the barchart with an `h2` header.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-title',
-  title: 'Title'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      barHeight: barHeight,
-      items: countryKeyValuePositive,
-      theme: {
-        axisColor: axisColor,
-        backgroundColor: backgroundColor,
-        fontSize: fontSize,
-        hoverColor: 'palegreen',
-        textColor: textColor
-      },
-      title: 'Hover me!'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tbarHeight = ".concat(barHeight, "\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\taxisColor: '").concat(axisColor, "',\n\t\t\t\t\t\tbackgroundColor: '").concat(backgroundColor, "',\n\t\t\t\t\t\tfontSize: ").concat(fontSize, ",\n\t\t\t\t\t\thoverColor: 'palegreen',\n\t\t\t\t\t\ttextColor: '").concat(textColor, "',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'All negative values',
-    props: {
-      barHeight: barHeight,
-      items: countryKeyValueNegatives,
-      theme: {
-        axisColor: axisColor,
-        backgroundColor: backgroundColor,
-        fontSize: fontSize,
-        textColor: textColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tbarHeight = ".concat(barHeight, "\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\taxisColor: '").concat(axisColor, "',\n\t\t\t\t\t\tbackgroundColor: '").concat(backgroundColor, "',\n\t\t\t\t\t\tfontSize: ").concat(fontSize, ",\n\t\t\t\t\t\ttextColor: '").concat(textColor, "'\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'Mixed values',
-    props: {
-      barHeight: barHeight,
-      items: countryKeyValueMixed,
-      theme: {
-        axisColor: axisColor,
-        backgroundColor: backgroundColor,
-        fontSize: fontSize,
-        textColor: textColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tbarHeight = ".concat(barHeight, "\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\taxisColor: '").concat(axisColor, "',\n\t\t\t\t\t\tbackgroundColor: '").concat(backgroundColor, "',\n\t\t\t\t\t\tfontSize: ").concat(fontSize, ",\n\t\t\t\t\t\ttextColor: '").concat(textColor, "'\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t")
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can setup a `backgroundColor` and the `textColor`.'
-  }, {
-    tag: 'p',
-    content: '`barHeight` and `fontSize` contribute to determine the distance between bars.'
-  }, {
-    tag: 'p',
-    content: 'You can configure the axis color using the `axisColor` props (used in case there are values of both signs).'
-  }, {
-    tag: 'p',
-    content: 'You can choose the hovered bar background color by providing `hoverColor`.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-styles',
-  title: 'Styles'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive,
-      keyToColor: keyToColorWorldShort,
-      theme: {
-        barDefaultColor: barDefaultColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\ttheme={{barDefaultColor:'".concat(barDefaultColor, "'}}\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives,
-      keyToColor: keyToColorWorldShort,
-      theme: {
-        barDefaultColor: barDefaultColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\ttheme={{barDefaultColor:'".concat(barDefaultColor, "'}}\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed,
-      keyToColor: keyToColorWorldShort,
-      theme: {
-        barDefaultColor: barDefaultColor
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\ttheme={{barDefaultColor:'".concat(barDefaultColor, "'}}\n\t\t\t\t/>\n\t\t\t")
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can provide a `barDefaultColor` to be used for bars with no correspondent key in `keyToColor`.'
-  }, {
-    tag: 'p',
-    content: 'If not provided, `barDefaultColor` is `null`, which renders `black`.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-barDefaultColor',
-  title: 'Default bars color'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive,
-      keyToColor: keyToColorWorld
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives,
-      keyToColor: keyToColorWorld
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed,
-      keyToColor: keyToColorWorld
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color.'
-  }, {
-    tag: 'p',
-    content: 'Notice that the default color for keys not in `keyToColor` is set by `barDefaultColor` (black if not provided, see `AL` and `AD`).'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-keyToColor',
-  title: 'Bars color (via mapping)'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive,
-      keyToColorFn: keyToColorWorldFn
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives,
-      keyToColorFn: keyToColorWorldFn
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed,
-      keyToColorFn: keyToColorWorldFn
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{items}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'Instead of passing `keyToColor` you can pass a function `keyToColorFn`.'
-  }, {
-    tag: 'p',
-    content: 'Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence.'
-  }, {
-    tag: 'p',
-    content: 'Also note that if the value returned by `keyToColorFn` is falsy the fallback is `barDefaultColor` (which falls back to `black` if `barDefaultColor` is not provided).'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-keyToColorFn',
-  title: 'Bars color (via function)'
-}, {
-  data: [{
-    key: 'A focused key (no scroll)',
-    props: {
-      focusedKey: 'CY',
-      items: countryKeyValueMixed,
-      theme: {
-        focusedKeyColor: 'yellow'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='CY'\n\t\t\t\t\ttheme={{focusedKeyColor: 'yellow'}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Another focused key',
-    props: {
-      focusedKey: 'BG',
-      items: countryKeyValueMixed,
-      shouldScrollToFocusedKey: true,
-      theme: {
-        focusedKeyColor: 'yellow'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='CY'\n\t\t\t\t\tshouldScrollToFocusedKey={true}\n\t\t\t\t\ttheme={{focusedKeyColor: 'yellow'}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Another focused key',
-    props: {
-      focusedKey: 'PL',
-      items: countryKeyValueMixed,
-      shouldScrollToFocusedKey: true,
-      theme: {
-        focusedKeyColor: 'yellow'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tfocusedKey='PL'\n\t\t\t\t\tshouldScrollToFocusedKey={true}\n\t\t\t\t\ttheme={{focusedKeyColor: 'yellow'}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No focused key (should not scroll)',
-    props: {
-      items: countryKeyValueMixed,
-      shouldScrollToFocusedKey: true,
-      theme: {
-        focusedKeyColor: 'yellow'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldScrollToFocusedKey={true}\n\t\t\t\t\ttheme={{focusedKeyColor: 'yellow'}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can set the focused bar by providing its key.'
-  }, {
-    tag: 'p',
-    content: 'This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection.'
-  }, {
-    tag: 'p',
-    content: 'You can set the focused bar background color by providing its `focusedKeyColor`.'
-  }, {
-    tag: 'p',
-    content: 'By passing `shouldScrollToFocusedKey` to `true` you can set chart to always scroll to the focused key, if any.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-focusedKey',
-  title: 'Focused key'
-}, {
-  data: [{
-    key: 'Some selected keys',
-    props: {
-      selectedKeys: ['AD', 'AM', 'HR', 'CY', 'DE'],
-      items: countryKeyValuePositive
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tselectedKeys={['HR', 'AM', 'HR', 'CY', 'DE']},\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Some other selected keys (with colors, default opacity)',
-    props: {
-      items: countryKeyValuePositive,
-      keyToColor: keyToColorWorld,
-      selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI']
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tselectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Some other selected keys (with colors and custom opacity)',
-    props: {
-      items: countryKeyValuePositive,
-      keyToColor: keyToColorWorld,
-      selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI'],
-      theme: {
-        deselectedOpacity: 0.1
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToColor}\n\t\t\t\t\tselectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},\n\t\t\t\t\ttheme={{deselectedOpacity: 0.1}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can select a set of bars by passing `selectedKeys`, an array of keys. The correspondent bars will get a lower opacity.'
-  }, {
-    tag: 'p',
-    content: 'If needed you can setup a custom opacity for the deselected bars by passing `deselectedOpacity` in the `theme` object.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-selectedKeys',
-  title: 'Selected keys'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      keyToLabel: keyToLabel,
-      items: countryKeyValuePositive
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      keyToLabel: keyToLabel,
-      items: countryKeyValueNegatives
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      keyToLabel: keyToLabel,
-      items: countryKeyValueMixed
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\t{keyToLabel}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'By providing a object mapping bar key -> bar label, you can control how the bar are labeled.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-keyToLabel',
-  title: 'Labels (via mapping)'
-}, {
-  data: [{
-    key: null,
-    props: {
-      items: countryKeyValuePositive,
-      keyToLabelFn: function keyToLabelFn(x) {
-        return "--".concat(x, "--");
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tkeyToLabelFn={x => '--' + x + '--'}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'By providing a function mapping bar key -> bar label, you can control how the bar are labeled programmatically.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-keyToLabelFn',
-  title: 'Labels (via function)'
-}, {
-  data: [{
-    key: 'With no title',
-    props: {
-      items: countryKeyValuePositive,
-      refs: [{
-        key: 'National average',
-        value: 200
-      }]
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'National average', value: 200}\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'With a title',
-    props: {
-      items: countryKeyValuePositive,
-      refs: [{
-        key: 'National average',
-        value: 200
-      }],
-      title: 'With a title'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'National average', value: 200}\n\t\t\t\t\t]}\n\t\t\t\t\ttitle='Compare it with national average'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Multiple refs, with a title',
-    props: {
-      items: countryKeyValuePositive,
-      refs: [{
-        key: 'National average',
-        value: 200
-      }, {
-        key: 'Another value',
-        value: 53
-      }, {
-        key: 'Yet another value',
-        value: 700
-      }],
-      title: 'Multiple refs'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'National average', value: 200},\n\t\t\t\t\t\t{key: 'Another value', value: 53},\n\t\t\t\t\t\t{key: 'Yet another value', value: 400},\n\t\t\t\t\t]}\n\t\t\t\t\ttitle='Multiple refs'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Multiple refs, with axis',
-    props: {
-      items: countryKeyValueMixed,
-      refs: [{
-        key: 'Another value',
-        value: -153
-      }, {
-        key: 'National average',
-        value: 200
-      }, {
-        key: 'Yet another value',
-        value: 700
-      }]
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'Another value', value: -153},\n\t\t\t\t\t\t{key: 'National average', value: 200},\n\t\t\t\t\t\t{key: 'Yet another value', value: 400},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Common line style',
-    props: {
-      items: countryKeyValuePositive,
-      refs: [{
-        key: 'National average',
-        value: 200
-      }, {
-        key: 'Another value',
-        value: 53
-      }],
-      theme: {
-        refDasharray: '2 10',
-        refWidth: 2,
-        refColor: 'red'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'National average', value: 200},\n\t\t\t\t\t\t{key: 'Another value', value: 53}\n\t\t\t\t\t]}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\trefDasharray: '2 10',\n\t\t\t\t\t\trefWidth: 2,\n\t\t\t\t\t\trefColor: 'red',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Specific line style',
-    props: {
-      items: countryKeyValuePositive,
-      refs: [{
-        key: 'National average',
-        value: 200
-      }, {
-        key: 'Another value',
-        value: 53,
-        dasharray: '4 10',
-        linewidth: 2,
-        color: 'blue'
-      }, {
-        key: 'Yet another value',
-        value: 400,
-        dasharray: '2 2',
-        color: 'orange'
-      }],
-      theme: {
-        refDasharray: '2 10',
-        refWidth: 2,
-        refColor: 'red'
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'National average', value: 200},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tkey: 'Another value',\n\t\t\t\t\t\t\tvalue: 53,\n\t\t\t\t\t\t\tdasharray: '4 10',\n\t\t\t\t\t\t\tlinewidth: 2,\n\t\t\t\t\t\t\tcolor: 'blue',\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tkey: 'Yet another value',\n\t\t\t\t\t\t\tvalue: 400,\n\t\t\t\t\t\t\tdasharray: '2 2',\n\t\t\t\t\t\t\tcolor: 'orange',\n\t\t\t\t\t\t}\n\t\t\t\t\t]}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\trefDasharray: '2 10',\n\t\t\t\t\t\trefWidth: 2,\n\t\t\t\t\t\trefColor: 'red',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Ref lines exceeding data extent',
-    props: {
-      items: countryKeyValuePositive,
-      refs: [{
-        key: 'National average',
-        value: 1200
-      }]
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'National average', value: 1200}\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Multiple refs exceeding data extent (positive extent)',
-    props: {
-      items: countryKeyValuePositive,
-      refs: [{
-        key: 'Another value',
-        value: -200
-      }, {
-        key: 'National average',
-        value: 500
-      }, {
-        key: 'Yet another value',
-        value: 1300
-      }]
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'Another value', value: -200},\n\t\t\t\t\t\t{key: 'National average', value: 500},\n\t\t\t\t\t\t{key: 'Yet another value', value: 1300},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Multiple refs exceeding data extent (pos & neg extent)',
-    props: {
-      items: countryKeyValueMixed,
-      refs: [{
-        key: 'Another value',
-        value: -200
-      }, {
-        key: 'National average',
-        value: 500
-      }, {
-        key: 'Yet another value',
-        value: 1300
-      }]
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\trefs={[\n\t\t\t\t\t\t{key: 'Another value', value: -200},\n\t\t\t\t\t\t{key: 'National average', value: 500},\n\t\t\t\t\t\t{key: 'Yet another value', value: 1300},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can show reference lines by providing an array `refs` with shape `{key, value}[]`.'
-  }, {
-    tag: 'p',
-    content: 'You can style reference lines usind the `theme` props `refColor`, `refDasharray` and `refWidth`.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-refs',
-  title: 'Reference lines'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      isInteractive: true,
-      items: countryKeyValuePositive,
-      title: 'Hover and click me'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      isInteractive: true,
-      items: countryKeyValueNegatives,
-      title: 'Hover and click me'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      isInteractive: true,
-      items: countryKeyValueMixed,
-      title: 'Hover and click me'
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'If `true`, the component emits events when interacting with the bars.'
-  }, {
-    tag: 'p',
-    content: 'The payload is an object `{id: key}` (`key` being the key of the bar we interacted with)'
-  }, {
-    tag: 'p',
-    content: "• Clicking on a bar dispatches a `clicked` event: `dispatch('clicked', {id: key})`."
-  }, {
-    tag: 'p',
-    content: "• Mouse-entering a bar dispatches a `entered` event: `dispatch('entered', {id: key})`."
-  }, {
-    tag: 'p',
-    content: "• Mouse-exiting a bar dispatches a `exited` event: `dispatch('exited', {id: key})`."
-  }, {
-    tag: 'p',
-    content: 'Please hover and click the bars of this barchart to read the correspondent event payload below.'
-  }],
-  events: ['entered', 'exited', 'clicked'],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-interactivity',
-  title: 'Interactivity'
-}, {
-  data: [{
-    key: null,
-    props: {
-      items: countryKeyRawValue,
-      valueAccessor: function valueAccessor(item) {
-        return Number(Math.sqrt(item.rawValue).toFixed(3));
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tvalueAccessor={item => Number((item.rawValue / 25.3).toFixed(3))}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'By default we assume that `items` has the shape `{key, value}`.'
-  }, {
-    tag: 'p',
-    content: 'By providing a `valueAccessor` function we can derive the bar value from `items` with different shapes.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-valueAccessor',
-  title: 'Values accessor'
-}, {
-  data: [{
-    key: 'All positive values',
-    props: {
-      items: countryKeyValuePositive,
-      formatFn: function formatFn(x) {
-        return "".concat(x, "%");
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'All negative values',
-    props: {
-      items: countryKeyValueNegatives,
-      formatFn: function formatFn(x) {
-        return "".concat(x, "%");
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Mixed values',
-    props: {
-      items: countryKeyValueMixed,
-      formatFn: function formatFn(x) {
-        return "".concat(x, "%");
-      }
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tformatFn={x => x + '%'}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can provide a `formatFn` function to turn the `value` in the desired string.'
-  }, {
-    tag: 'p',
-    content: 'A way to use this would be to pass a function derived from `d3-format`.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-formatFn',
-  title: 'Values format'
-}, {
-  data: [{
-    key: 'countryKeyValuePositive',
-    props: {
-      shouldResetScroll: false,
-      items: countryKeyValuePositive,
-      title: "When updated, scroll doesn't reset"
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={false}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'countryKeyValueAlt',
-    props: {
-      shouldResetScroll: false,
-      items: countryKeyValueAlt,
-      title: "When updated, scroll doesn't reset"
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={false}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'If `shouldResetScroll` is not provided or set to `false`, updating the props will not reset the scroll.'
-  }, {
-    tag: 'p',
-    content: 'In this example, scrolling the barchart and then switching props using the buttons below should not reset the scroll.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-no-shouldResetScroll',
-  title: 'Scroll reset (disabled)'
-}, {
-  data: [{
-    key: 'countryKeyValuePositive',
-    props: {
-      shouldResetScroll: true,
-      items: countryKeyValuePositive,
-      title: "When updated, scroll resets"
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={true}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'countryKeyValueAlt',
-    props: {
-      shouldResetScroll: true,
-      items: countryKeyValueAlt,
-      title: "When updated, scroll resets"
-    },
-    usage: "\n\t\t\t\t<BarchartV\n\t\t\t\t\t{items}\n\t\t\t\t\tshouldResetScroll={true}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'If `shouldResetScroll` is set to `true`, updating the `items` prop will reset the scroll.'
-  }, {
-    tag: 'p',
-    content: 'In this example, scrolling the barchart and then updating props using the buttons below should reset the scroll.'
-  }],
-  name: 'BarchartVDiv',
-  packageName: 'barchart',
-  slug: 'BarchartVDiv-shouldResetScroll',
-  title: 'Scroll reset (enabled)'
-}]);
+const axisColor = 'red';
+const backgroundColor = 'antiquewhite';
+const barDefaultColor = 'orange';
+const barHeight = 12;
+const fontSize = 22;
+const textColor = 'green';
+const title = 'My title';
+
+var barchart = formatExamples([
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'Positive and zero values',
+			props: {
+				items: countryKeyValuePositiveWithZeroes,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'Negative and zero values',
+			props: {
+				items: countryKeyValueNegativesWithZeroes,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'No data',
+			props: {
+			},
+			usage: `
+				<BarchartV />
+			`,
+		}, {
+			key: 'Empty data',
+			props: {
+				items: [],
+			},
+			usage: `
+				<BarchartV {items} />
+			`,
+		}, {
+			key: 'Empty data with custom message',
+			props: {
+				items: [],
+				message: 'Please provide data!',
+				theme: {
+					messageColor: 'red',
+					messageFontSize: '2rem',
+				}
+			},
+			usage: `
+				<BarchartV
+					{items}
+					message='Please provide data!',
+					theme={{
+						messageColor: 'red',
+						messageFontSize: '2rem',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'In the most basic setup, you need to provide a `{items}` array of objects with the shape `{key: string, props: number}`.'},
+			{tag: 'p', content: 'Note that if there are both positive and negative values the chart will show a vertical axis, `grey` by default.'},
+			{tag: 'p', content: 'If `items` is undefined or empty the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv',
+		title: 'Basic props',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				items: countryKeyValuePositive,
+				title
+			},
+			usage: `
+				<BarchartV
+					{items}
+					title='${title}'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'Providing a `{title}` shows the barchart with an `h2` header.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-title',
+		title: 'Title',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				barHeight,
+				items: countryKeyValuePositive,
+				theme: {
+					axisColor,
+					backgroundColor,
+					fontSize,
+					hoverColor: 'palegreen',
+					textColor,
+				},
+				title: 'Hover me!',
+			},
+			usage: `
+				<BarchartV
+					{items}
+					barHeight = ${barHeight}
+					theme={{
+						axisColor: '${axisColor}',
+						backgroundColor: '${backgroundColor}',
+						fontSize: ${fontSize},
+						hoverColor: 'palegreen',
+						textColor: '${textColor}',
+					}}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				barHeight,
+				items: countryKeyValueNegatives,
+				theme: {
+					axisColor,
+					backgroundColor,
+					fontSize,
+					textColor,
+				},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					barHeight = ${barHeight}
+					theme={{
+						axisColor: '${axisColor}',
+						backgroundColor: '${backgroundColor}',
+						fontSize: ${fontSize},
+						textColor: '${textColor}'
+					}}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				barHeight,
+				items: countryKeyValueMixedWithZeroes,
+				theme: {
+					axisColor,
+					backgroundColor,
+					fontSize,
+					textColor,
+				},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					barHeight = ${barHeight}
+					theme={{
+						axisColor: '${axisColor}',
+						backgroundColor: '${backgroundColor}',
+						fontSize: ${fontSize},
+						textColor: '${textColor}'
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can setup a `backgroundColor` and the `textColor`.'},
+			{tag: 'p', content: '`barHeight` and `fontSize` contribute to determine the distance between bars.'},
+			{tag: 'p', content: 'You can configure the axis color using the `axisColor` props (used in case there are values of both signs).'},
+			{tag: 'p', content: 'You can choose the hovered bar background color by providing `hoverColor`.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-styles',
+		title: 'Styles',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorWorldShort,
+				theme: {barDefaultColor},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				keyToColor: keyToColorWorldShort,
+				theme: {barDefaultColor},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+				keyToColor: keyToColorWorldShort,
+				theme: {barDefaultColor},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					theme={{barDefaultColor:'${barDefaultColor}'}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can provide a `barDefaultColor` to be used for bars with no correspondent key in `keyToColor`.'},
+			{tag: 'p', content: 'If not provided, `barDefaultColor` is `null`, which renders `black`.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-barDefaultColor',
+		title: 'Default bars color',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorWorld
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				keyToColor: keyToColorWorld
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+				keyToColor: keyToColorWorld
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color.'},
+			{tag: 'p', content: 'Notice that the default color for keys not in `keyToColor` is set by `barDefaultColor` (black if not provided, see `AL` and `AD`).'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-keyToColor',
+		title: 'Bars color (via mapping)',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColorFn: keyToColorWorldFn
+			},
+			usage: `
+				<BarchartV
+					{keyToColorFn}
+					{items}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				keyToColorFn: keyToColorWorldFn
+			},
+			usage: `
+				<BarchartV
+					{keyToColorFn}
+					{items}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+				keyToColorFn: keyToColorWorldFn
+			},
+			usage: `
+				<BarchartV
+					{keyToColorFn}
+					{items}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'Instead of passing `keyToColor` you can pass a function `keyToColorFn`.'},
+			{tag: 'p', content: 'Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence.'},
+			{tag: 'p', content: 'Also note that if the value returned by `keyToColorFn` is falsy the fallback is `barDefaultColor` (which falls back to `black` if `barDefaultColor` is not provided).'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-keyToColorFn',
+		title: 'Bars color (via function)',
+	},
+	{
+		data: [{
+			key: 'A focused key (no scroll)',
+			props: {
+				focusedKey: 'CY',
+				items: countryKeyValueMixedWithZeroes,
+				theme: {focusedKeyColor: 'yellow'},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					focusedKey='CY'
+					theme={{focusedKeyColor: 'yellow'}}
+				/>
+			`,
+		}, {
+			key: 'Another focused key',
+			props: {
+				focusedKey: 'BG',
+				items: countryKeyValueMixedWithZeroes,
+				shouldScrollToFocusedKey: true,
+				theme: {focusedKeyColor: 'yellow'},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					focusedKey='CY'
+					shouldScrollToFocusedKey={true}
+					theme={{focusedKeyColor: 'yellow'}}
+				/>
+			`,
+		}, {
+			key: 'Another focused key',
+			props: {
+				focusedKey: 'PL',
+				items: countryKeyValueMixedWithZeroes,
+				shouldScrollToFocusedKey: true,
+				theme: {focusedKeyColor: 'yellow'},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					focusedKey='PL'
+					shouldScrollToFocusedKey={true}
+					theme={{focusedKeyColor: 'yellow'}}
+				/>
+			`,
+		}, {
+			key: 'No focused key (should not scroll)',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+				shouldScrollToFocusedKey: true,
+				theme: {focusedKeyColor: 'yellow'},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldScrollToFocusedKey={true}
+					theme={{focusedKeyColor: 'yellow'}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can set the focused bar by providing its key.'},
+			{tag: 'p', content: 'This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection.'},
+			{tag: 'p', content: 'You can set the focused bar background color by providing its `focusedKeyColor`.'},
+			{tag: 'p', content: 'By passing `shouldScrollToFocusedKey` to `true` you can set chart to always scroll to the focused key, if any.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-focusedKey',
+		title: 'Focused key',
+	},
+	{
+		data: [{
+			key: 'Some selected keys',
+			props: {
+				selectedKeys: ['AD', 'AM', 'HR', 'CY', 'DE'],
+				items: countryKeyValuePositive,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					selectedKeys={['HR', 'AM', 'HR', 'CY', 'DE']},
+				/>
+			`,
+		}, {
+			key: 'Some other selected keys (with colors, default opacity)',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorWorld,
+				selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI'],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					selectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},
+				/>
+			`,
+		}, {
+			key: 'Some other selected keys (with colors and custom opacity)',
+			props: {
+				items: countryKeyValuePositive,
+				keyToColor: keyToColorWorld,
+				selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI'],
+				theme: {deselectedOpacity: 0.1}
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToColor}
+					selectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},
+					theme={{deselectedOpacity: 0.1}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can select a set of bars by passing `selectedKeys`, an array of keys. The correspondent bars will get a lower opacity.'},
+			{tag: 'p', content: 'If needed you can setup a custom opacity for the deselected bars by passing `deselectedOpacity` in the `theme` object.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-selectedKeys',
+		title: 'Selected keys',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				keyToLabel,
+				items: countryKeyValuePositive,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToLabel}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				keyToLabel,
+				items: countryKeyValueNegatives,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToLabel}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				keyToLabel,
+				items: countryKeyValueMixedWithZeroes,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					{keyToLabel}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'By providing a object mapping bar key -> bar label, you can control how the bar are labeled.'},
+			{tag: 'p', content: 'The chart adapts by laying out labels according to the available width, and shortening them and adding an ellipsis if necessary.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-keyToLabel',
+		title: 'Labels (via mapping)',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				items: countryKeyValuePositive,
+				keyToLabelFn: x => `--${x}--`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					keyToLabelFn={x => '--' + x + '--'}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'By providing a function mapping bar key -> bar label, you can control how the bar are labeled programmatically.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-keyToLabelFn',
+		title: 'Labels (via function)',
+	},
+	{
+		data: [{
+			key: 'With no title',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200}
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200}
+					]}
+				/>
+			`,
+		}, {
+			key: 'With a title',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200}
+				],
+				title: 'With a title'
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200}
+					]}
+					title='Compare it with national average'
+				/>
+			`,
+		}, {
+			key: 'Multiple refs, with a title',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200},
+					{key: 'Another value', value: 53},
+					{key: 'Yet another value', value: 700},
+				],
+				title: 'Multiple refs'
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200},
+						{key: 'Another value', value: 53},
+						{key: 'Yet another value', value: 400},
+					]}
+					title='Multiple refs'
+				/>
+			`,
+		}, {
+			key: 'Multiple refs, with axis',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+				refs: [
+					{key: 'Another value', value: -153},
+					{key: 'National average', value: 200},
+					{key: 'Yet another value', value: 700},
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'Another value', value: -153},
+						{key: 'National average', value: 200},
+						{key: 'Yet another value', value: 400},
+					]}
+				/>
+			`,
+		}, {
+			key: 'Common line style',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200},
+					{key: 'Another value', value: 53}
+				],
+				theme: {
+					refDasharray: '2 10',
+					refWidth: 2,
+					refColor: 'red',
+				},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200},
+						{key: 'Another value', value: 53}
+					]}
+					theme={{
+						refDasharray: '2 10',
+						refWidth: 2,
+						refColor: 'red',
+					}}
+				/>
+			`,
+		}, {
+			key: 'Specific line style',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 200},
+					{
+						key: 'Another value',
+						value: 53,
+						dasharray: '4 10',
+						linewidth: 2,
+						color: 'blue',
+					},
+					{
+						key: 'Yet another value',
+						value: 400,
+						dasharray: '2 2',
+						color: 'orange',
+					},
+				],
+				theme: {
+					refDasharray: '2 10',
+					refWidth: 2,
+					refColor: 'red',
+				},
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 200},
+						{
+							key: 'Another value',
+							value: 53,
+							dasharray: '4 10',
+							linewidth: 2,
+							color: 'blue',
+						},
+						{
+							key: 'Yet another value',
+							value: 400,
+							dasharray: '2 2',
+							color: 'orange',
+						}
+					]}
+					theme={{
+						refDasharray: '2 10',
+						refWidth: 2,
+						refColor: 'red',
+					}}
+				/>
+			`,
+		}, {
+			key: 'Ref lines exceeding data extent',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'National average', value: 1200}
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'National average', value: 1200}
+					]}
+				/>
+			`,
+		}, {
+			key: 'Multiple refs exceeding data extent (positive extent)',
+			props: {
+				items: countryKeyValuePositive,
+				refs: [
+					{key: 'Another value', value: -200},
+					{key: 'National average', value: 500},
+					{key: 'Yet another value', value: 1300},
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'Another value', value: -200},
+						{key: 'National average', value: 500},
+						{key: 'Yet another value', value: 1300},
+					]}
+				/>
+			`,
+		}, {
+			key: 'Multiple refs exceeding data extent (pos & neg extent)',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+				refs: [
+					{key: 'Another value', value: -200},
+					{key: 'National average', value: 500},
+					{key: 'Yet another value', value: 1300},
+				],
+			},
+			usage: `
+				<BarchartV
+					{items}
+					refs={[
+						{key: 'Another value', value: -200},
+						{key: 'National average', value: 500},
+						{key: 'Yet another value', value: 1300},
+					]}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can show reference lines by providing an array `refs` with defaut shape `{key: string, value: number}[]`.'},
+			{tag: 'p', content: 'Reference items can also have props:'},
+			{tag: 'p', content: '• `keyAbbr`, the string to use if the ref label for that item overflows the barchart width'},
+			{tag: 'p', content: '• `format`, a function to format the value to be shown in the ref label'},
+			{tag: 'p', content: 'You can style reference lines usind the `theme` props `refColor`, `refDasharray` and `refWidth`.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-refs',
+		title: 'Reference lines',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				isInteractive: true,
+				items: countryKeyValuePositive,
+				title: 'Hover and click me',
+			},
+			usage: `
+				<BarchartV
+					{items}
+					isInteractive={true}
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				isInteractive: true,
+				items: countryKeyValueNegatives,
+				title: 'Hover and click me',
+			},
+			usage: `
+				<BarchartV
+					{items}
+					isInteractive={true}
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				isInteractive: true,
+				items: countryKeyValueMixedWithZeroes,
+				title: 'Hover and click me',
+			},
+			usage: `
+				<BarchartV
+					{items}
+					isInteractive={true}
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'If `true`, the component emits events when interacting with the bars.'},
+			{tag: 'p', content: 'The payload is an object `{id: key}` (`key` being the key of the bar we interacted with)'},
+			{tag: 'p', content: "• Clicking on a bar dispatches a `clicked` event: `dispatch('clicked', {id: key})`."},
+			{tag: 'p', content: "• Mouse-entering a bar dispatches a `entered` event: `dispatch('entered', {id: key})`."},
+			{tag: 'p', content: "• Mouse-exiting a bar dispatches a `exited` event: `dispatch('exited', {id: key})`."},
+			{tag: 'p', content: 'Please hover and click the bars of this barchart to read the correspondent event payload below.'},
+		],
+		events: [
+			'entered',
+			'exited',
+			'clicked',
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-interactivity',
+		title: 'Interactivity',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				items: countryKeyRawValue,
+				valueAccessor: item => Number(Math.sqrt(item.rawValue).toFixed(3)),
+			},
+			usage: `
+				<BarchartV
+					{items}
+					valueAccessor={item => Number((item.rawValue / 25.3).toFixed(3))}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'By default we assume that `items` has the shape `{key, value}`.'},
+			{tag: 'p', content: 'By providing a `valueAccessor` function we can derive the bar value from `items` with different shapes.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-valueAccessor',
+		title: 'Values accessor',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				formatFn: x => `${x}%`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					formatFn={x => x + '%'}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				formatFn: x => `${x}%`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					formatFn={x => x + '%'}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+				formatFn: x => `${x}%`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					formatFn={x => x + '%'}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can provide a `formatFn` function to turn the `value` in the desired string.'},
+			{tag: 'p', content: 'A way to use this would be to pass a function derived from `d3-format`.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-formatFn',
+		title: 'Values format',
+	},
+	{
+		data: [{
+			key: 'countryKeyValuePositive',
+			props: {
+				shouldResetScroll: false,
+				items: countryKeyValuePositive,
+				title: `When updated, scroll doesn't reset`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldResetScroll={false}
+				/>
+			`,
+		}, {
+			key: 'countryKeyValueAlt',
+			props: {
+				shouldResetScroll: false,
+				items: countryKeyValueAlt,
+				title: `When updated, scroll doesn't reset`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldResetScroll={false}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'If `shouldResetScroll` is not provided or set to `false`, updating the props will not reset the scroll.'},
+			{tag: 'p', content: 'In this example, scrolling the barchart and then switching props using the buttons below should not reset the scroll.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-no-shouldResetScroll',
+		title: 'Scroll reset (disabled)',
+	},
+	{
+		data: [{
+			key: 'countryKeyValuePositive',
+			props: {
+				shouldResetScroll: true,
+				items: countryKeyValuePositive,
+				title: `When updated, scroll resets`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldResetScroll={true}
+				/>
+			`,
+		}, {
+			key: 'countryKeyValueAlt',
+			props: {
+				shouldResetScroll: true,
+				items: countryKeyValueAlt,
+				title: `When updated, scroll resets`,
+			},
+			usage: `
+				<BarchartV
+					{items}
+					shouldResetScroll={true}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'If `shouldResetScroll` is set to `true`, updating the `items` prop will reset the scroll.'},
+			{tag: 'p', content: 'In this example, scrolling the barchart and then updating props using the buttons below should reset the scroll.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-shouldResetScroll',
+		title: 'Scroll reset (enabled)',
+	},
+]);
 
 var type$1 = "Topology";
 var objects = {
@@ -220994,11 +220451,11 @@ var NUTS_RG_03M_2016_4326_LEVL_3_DE = {
 	arcs: arcs$5
 };
 
-function identity$3 (x) {
+function identity$3(x) {
   return x;
 }
 
-function transform$6 (transform) {
+function transform$6(transform) {
   if (transform == null) return identity$3;
   var x0,
       y0,
@@ -221006,40 +220463,26 @@ function transform$6 (transform) {
       ky = transform.scale[1],
       dx = transform.translate[0],
       dy = transform.translate[1];
-  return function (input, i) {
+  return function(input, i) {
     if (!i) x0 = y0 = 0;
-    var j = 2,
-        n = input.length,
-        output = new Array(n);
+    var j = 2, n = input.length, output = new Array(n);
     output[0] = (x0 += input[0]) * kx + dx;
     output[1] = (y0 += input[1]) * ky + dy;
-
-    while (j < n) {
-      output[j] = input[j], ++j;
-    }
-
+    while (j < n) output[j] = input[j], ++j;
     return output;
   };
 }
 
-function reverse$1 (array, n) {
-  var t,
-      j = array.length,
-      i = j - n;
-
-  while (i < --j) {
-    t = array[i], array[i++] = array[j], array[j] = t;
-  }
+function reverse$1(array, n) {
+  var t, j = array.length, i = j - n;
+  while (i < --j) t = array[i], array[i++] = array[j], array[j] = t;
 }
 
-function feature (topology, o) {
+function feature(topology, o) {
   if (typeof o === "string") o = topology.objects[o];
-  return o.type === "GeometryCollection" ? {
-    type: "FeatureCollection",
-    features: o.geometries.map(function (o) {
-      return feature$1(topology, o);
-    })
-  } : feature$1(topology, o);
+  return o.type === "GeometryCollection"
+      ? {type: "FeatureCollection", features: o.geometries.map(function(o) { return feature$1(topology, o); })}
+      : feature$1(topology, o);
 }
 
 function feature$1(topology, o) {
@@ -221047,22 +220490,9 @@ function feature$1(topology, o) {
       bbox = o.bbox,
       properties = o.properties == null ? {} : o.properties,
       geometry = object$1(topology, o);
-  return id == null && bbox == null ? {
-    type: "Feature",
-    properties: properties,
-    geometry: geometry
-  } : bbox == null ? {
-    type: "Feature",
-    id: id,
-    properties: properties,
-    geometry: geometry
-  } : {
-    type: "Feature",
-    id: id,
-    bbox: bbox,
-    properties: properties,
-    geometry: geometry
-  };
+  return id == null && bbox == null ? {type: "Feature", properties: properties, geometry: geometry}
+      : bbox == null ? {type: "Feature", id: id, properties: properties, geometry: geometry}
+      : {type: "Feature", id: id, bbox: bbox, properties: properties, geometry: geometry};
 }
 
 function object$1(topology, o) {
@@ -221071,11 +220501,9 @@ function object$1(topology, o) {
 
   function arc(i, points) {
     if (points.length) points.pop();
-
     for (var a = arcs[i < 0 ? ~i : i], k = 0, n = a.length; k < n; ++k) {
       points.push(transformPoint(a[k], k));
     }
-
     if (i < 0) reverse$1(points, n);
   }
 
@@ -221085,24 +220513,14 @@ function object$1(topology, o) {
 
   function line(arcs) {
     var points = [];
-
-    for (var i = 0, n = arcs.length; i < n; ++i) {
-      arc(arcs[i], points);
-    }
-
+    for (var i = 0, n = arcs.length; i < n; ++i) arc(arcs[i], points);
     if (points.length < 2) points.push(points[0]); // This should never happen per the specification.
-
     return points;
   }
 
   function ring(arcs) {
     var points = line(arcs);
-
-    while (points.length < 4) {
-      points.push(points[0]);
-    } // This may happen if an arc has only two points.
-
-
+    while (points.length < 4) points.push(points[0]); // This may happen if an arc has only two points.
     return points;
   }
 
@@ -221111,48 +220529,18 @@ function object$1(topology, o) {
   }
 
   function geometry(o) {
-    var type = o.type,
-        coordinates;
-
+    var type = o.type, coordinates;
     switch (type) {
-      case "GeometryCollection":
-        return {
-          type: type,
-          geometries: o.geometries.map(geometry)
-        };
-
-      case "Point":
-        coordinates = point(o.coordinates);
-        break;
-
-      case "MultiPoint":
-        coordinates = o.coordinates.map(point);
-        break;
-
-      case "LineString":
-        coordinates = line(o.arcs);
-        break;
-
-      case "MultiLineString":
-        coordinates = o.arcs.map(line);
-        break;
-
-      case "Polygon":
-        coordinates = polygon(o.arcs);
-        break;
-
-      case "MultiPolygon":
-        coordinates = o.arcs.map(polygon);
-        break;
-
-      default:
-        return null;
+      case "GeometryCollection": return {type: type, geometries: o.geometries.map(geometry)};
+      case "Point": coordinates = point(o.coordinates); break;
+      case "MultiPoint": coordinates = o.coordinates.map(point); break;
+      case "LineString": coordinates = line(o.arcs); break;
+      case "MultiLineString": coordinates = o.arcs.map(line); break;
+      case "Polygon": coordinates = polygon(o.arcs); break;
+      case "MultiPolygon": coordinates = o.arcs.map(polygon); break;
+      default: return null;
     }
-
-    return {
-      type: type,
-      coordinates: coordinates
-    };
+    return {type: type, coordinates: coordinates};
   }
 
   return geometry(o);
@@ -221191,119 +220579,106 @@ function object$1(topology, o) {
  *   //=geometryIndex
  * });
  */
-
 function coordEach(geojson, callback, excludeWrapCoord) {
-  // Handles null Geometry -- Skips this GeoJSON
-  if (geojson === null) return;
-  var j,
-      k,
-      l,
-      geometry,
-      stopG,
-      coords,
-      geometryMaybeCollection,
-      wrapShrink = 0,
-      coordIndex = 0,
-      isGeometryCollection,
-      type = geojson.type,
-      isFeatureCollection = type === 'FeatureCollection',
-      isFeature = type === 'Feature',
-      stop = isFeatureCollection ? geojson.features.length : 1; // This logic may look a little weird. The reason why it is that way
-  // is because it's trying to be fast. GeoJSON supports multiple kinds
-  // of objects at its root: FeatureCollection, Features, Geometries.
-  // This function has the responsibility of handling all of them, and that
-  // means that some of the `for` loops you see below actually just don't apply
-  // to certain inputs. For instance, if you give this just a
-  // Point geometry, then both loops are short-circuited and all we do
-  // is gradually rename the input until it's called 'geometry'.
-  //
-  // This also aims to allocate as few resources as possible: just a
-  // few numbers and booleans, rather than any temporary arrays as would
-  // be required with the normalization approach.
+    // Handles null Geometry -- Skips this GeoJSON
+    if (geojson === null) return;
+    var j, k, l, geometry, stopG, coords,
+        geometryMaybeCollection,
+        wrapShrink = 0,
+        coordIndex = 0,
+        isGeometryCollection,
+        type = geojson.type,
+        isFeatureCollection = type === 'FeatureCollection',
+        isFeature = type === 'Feature',
+        stop = isFeatureCollection ? geojson.features.length : 1;
 
-  for (var featureIndex = 0; featureIndex < stop; featureIndex++) {
-    geometryMaybeCollection = isFeatureCollection ? geojson.features[featureIndex].geometry : isFeature ? geojson.geometry : geojson;
-    isGeometryCollection = geometryMaybeCollection ? geometryMaybeCollection.type === 'GeometryCollection' : false;
-    stopG = isGeometryCollection ? geometryMaybeCollection.geometries.length : 1;
+    // This logic may look a little weird. The reason why it is that way
+    // is because it's trying to be fast. GeoJSON supports multiple kinds
+    // of objects at its root: FeatureCollection, Features, Geometries.
+    // This function has the responsibility of handling all of them, and that
+    // means that some of the `for` loops you see below actually just don't apply
+    // to certain inputs. For instance, if you give this just a
+    // Point geometry, then both loops are short-circuited and all we do
+    // is gradually rename the input until it's called 'geometry'.
+    //
+    // This also aims to allocate as few resources as possible: just a
+    // few numbers and booleans, rather than any temporary arrays as would
+    // be required with the normalization approach.
+    for (var featureIndex = 0; featureIndex < stop; featureIndex++) {
+        geometryMaybeCollection = (isFeatureCollection ? geojson.features[featureIndex].geometry :
+            (isFeature ? geojson.geometry : geojson));
+        isGeometryCollection = (geometryMaybeCollection) ? geometryMaybeCollection.type === 'GeometryCollection' : false;
+        stopG = isGeometryCollection ? geometryMaybeCollection.geometries.length : 1;
 
-    for (var geomIndex = 0; geomIndex < stopG; geomIndex++) {
-      var multiFeatureIndex = 0;
-      var geometryIndex = 0;
-      geometry = isGeometryCollection ? geometryMaybeCollection.geometries[geomIndex] : geometryMaybeCollection; // Handles null Geometry -- Skips this geometry
+        for (var geomIndex = 0; geomIndex < stopG; geomIndex++) {
+            var multiFeatureIndex = 0;
+            var geometryIndex = 0;
+            geometry = isGeometryCollection ?
+                geometryMaybeCollection.geometries[geomIndex] : geometryMaybeCollection;
 
-      if (geometry === null) continue;
-      coords = geometry.coordinates;
-      var geomType = geometry.type;
-      wrapShrink = excludeWrapCoord && (geomType === 'Polygon' || geomType === 'MultiPolygon') ? 1 : 0;
+            // Handles null Geometry -- Skips this geometry
+            if (geometry === null) continue;
+            coords = geometry.coordinates;
+            var geomType = geometry.type;
 
-      switch (geomType) {
-        case null:
-          break;
+            wrapShrink = (excludeWrapCoord && (geomType === 'Polygon' || geomType === 'MultiPolygon')) ? 1 : 0;
 
-        case 'Point':
-          if (callback(coords, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
-          coordIndex++;
-          multiFeatureIndex++;
-          break;
-
-        case 'LineString':
-        case 'MultiPoint':
-          for (j = 0; j < coords.length; j++) {
-            if (callback(coords[j], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
-            coordIndex++;
-            if (geomType === 'MultiPoint') multiFeatureIndex++;
-          }
-
-          if (geomType === 'LineString') multiFeatureIndex++;
-          break;
-
-        case 'Polygon':
-        case 'MultiLineString':
-          for (j = 0; j < coords.length; j++) {
-            for (k = 0; k < coords[j].length - wrapShrink; k++) {
-              if (callback(coords[j][k], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
-              coordIndex++;
-            }
-
-            if (geomType === 'MultiLineString') multiFeatureIndex++;
-            if (geomType === 'Polygon') geometryIndex++;
-          }
-
-          if (geomType === 'Polygon') multiFeatureIndex++;
-          break;
-
-        case 'MultiPolygon':
-          for (j = 0; j < coords.length; j++) {
-            geometryIndex = 0;
-
-            for (k = 0; k < coords[j].length; k++) {
-              for (l = 0; l < coords[j][k].length - wrapShrink; l++) {
-                if (callback(coords[j][k][l], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
+            switch (geomType) {
+            case null:
+                break;
+            case 'Point':
+                if (callback(coords, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
                 coordIndex++;
-              }
-
-              geometryIndex++;
+                multiFeatureIndex++;
+                break;
+            case 'LineString':
+            case 'MultiPoint':
+                for (j = 0; j < coords.length; j++) {
+                    if (callback(coords[j], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
+                    coordIndex++;
+                    if (geomType === 'MultiPoint') multiFeatureIndex++;
+                }
+                if (geomType === 'LineString') multiFeatureIndex++;
+                break;
+            case 'Polygon':
+            case 'MultiLineString':
+                for (j = 0; j < coords.length; j++) {
+                    for (k = 0; k < coords[j].length - wrapShrink; k++) {
+                        if (callback(coords[j][k], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
+                        coordIndex++;
+                    }
+                    if (geomType === 'MultiLineString') multiFeatureIndex++;
+                    if (geomType === 'Polygon') geometryIndex++;
+                }
+                if (geomType === 'Polygon') multiFeatureIndex++;
+                break;
+            case 'MultiPolygon':
+                for (j = 0; j < coords.length; j++) {
+                    geometryIndex = 0;
+                    for (k = 0; k < coords[j].length; k++) {
+                        for (l = 0; l < coords[j][k].length - wrapShrink; l++) {
+                            if (callback(coords[j][k][l], coordIndex, featureIndex, multiFeatureIndex, geometryIndex) === false) return false;
+                            coordIndex++;
+                        }
+                        geometryIndex++;
+                    }
+                    multiFeatureIndex++;
+                }
+                break;
+            case 'GeometryCollection':
+                for (j = 0; j < geometry.geometries.length; j++)
+                    if (coordEach(geometry.geometries[j], callback, excludeWrapCoord) === false) return false;
+                break;
+            default:
+                throw new Error('Unknown Geometry Type');
             }
-
-            multiFeatureIndex++;
-          }
-
-          break;
-
-        case 'GeometryCollection':
-          for (j = 0; j < geometry.geometries.length; j++) {
-            if (coordEach(geometry.geometries[j], callback, excludeWrapCoord) === false) return false;
-          }
-
-          break;
-
-        default:
-          throw new Error('Unknown Geometry Type');
-      }
+        }
     }
-  }
 }
 
+/**
+ * @module helpers
+ */
 /**
  * Wraps a GeoJSON {@link Geometry} in a GeoJSON {@link Feature}.
  *
@@ -221324,27 +220699,18 @@ function coordEach(geojson, callback, excludeWrapCoord) {
  *
  * //=feature
  */
-
 function feature$2(geom, properties, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var feat = {
-    type: "Feature"
-  };
-
-  if (options.id === 0 || options.id) {
-    feat.id = options.id;
-  }
-
-  if (options.bbox) {
-    feat.bbox = options.bbox;
-  }
-
-  feat.properties = properties || {};
-  feat.geometry = geom;
-  return feat;
+    if (options === void 0) { options = {}; }
+    var feat = { type: "Feature" };
+    if (options.id === 0 || options.id) {
+        feat.id = options.id;
+    }
+    if (options.bbox) {
+        feat.bbox = options.bbox;
+    }
+    feat.properties = properties || {};
+    feat.geometry = geom;
+    return feat;
 }
 /**
  * Creates a {@link Point} {@link Feature} from a Position.
@@ -221361,17 +220727,13 @@ function feature$2(geom, properties, options) {
  *
  * //=point
  */
-
 function point(coordinates, properties, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var geom = {
-    type: "Point",
-    coordinates: coordinates
-  };
-  return feature$2(geom, properties, options);
+    if (options === void 0) { options = {}; }
+    var geom = {
+        type: "Point",
+        coordinates: coordinates,
+    };
+    return feature$2(geom, properties, options);
 }
 /**
  * Takes one or more {@link Feature|Features} and creates a {@link FeatureCollection}.
@@ -221395,26 +220757,17 @@ function point(coordinates, properties, options) {
  *
  * //=collection
  */
-
 function featureCollection(features, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var fc = {
-    type: "FeatureCollection"
-  };
-
-  if (options.id) {
-    fc.id = options.id;
-  }
-
-  if (options.bbox) {
-    fc.bbox = options.bbox;
-  }
-
-  fc.features = features;
-  return fc;
+    if (options === void 0) { options = {}; }
+    var fc = { type: "FeatureCollection" };
+    if (options.id) {
+        fc.id = options.id;
+    }
+    if (options.bbox) {
+        fc.bbox = options.bbox;
+    }
+    fc.features = features;
+    return fc;
 }
 
 /**
@@ -221434,21 +220787,17 @@ function featureCollection(features, options) {
  * //addToMap
  * var addToMap = [polygon, centroid]
  */
-
 function centroid(geojson, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var xSum = 0;
-  var ySum = 0;
-  var len = 0;
-  coordEach(geojson, function (coord) {
-    xSum += coord[0];
-    ySum += coord[1];
-    len++;
-  });
-  return point([xSum / len, ySum / len], options.properties);
+    if (options === void 0) { options = {}; }
+    var xSum = 0;
+    var ySum = 0;
+    var len = 0;
+    coordEach(geojson, function (coord) {
+        xSum += coord[0];
+        ySum += coord[1];
+        len++;
+    });
+    return point([xSum / len, ySum / len], options.properties);
 }
 
 /**
@@ -221474,31 +220823,31 @@ function centroid(geojson, options) {
  * //addToMap
  * var addToMap = [truncated];
  */
-
 function truncate(geojson, options) {
-  if (options === void 0) {
-    options = {};
-  } // Optional parameters
-
-
-  var precision = options.precision;
-  var coordinates = options.coordinates;
-  var mutate = options.mutate; // default params
-
-  precision = precision === undefined || precision === null || isNaN(precision) ? 6 : precision;
-  coordinates = coordinates === undefined || coordinates === null || isNaN(coordinates) ? 3 : coordinates; // validation
-
-  if (!geojson) throw new Error('<geojson> is required');
-  if (typeof precision !== 'number') throw new Error('<precision> must be a number');
-  if (typeof coordinates !== 'number') throw new Error('<coordinates> must be a number'); // prevent input mutation
-
-  if (mutate === false || mutate === undefined) geojson = JSON.parse(JSON.stringify(geojson));
-  var factor = Math.pow(10, precision); // Truncate Coordinates
-
-  coordEach(geojson, function (coords) {
-    truncateCoords(coords, factor, coordinates);
-  });
-  return geojson;
+    if (options === void 0) { options = {}; }
+    // Optional parameters
+    var precision = options.precision;
+    var coordinates = options.coordinates;
+    var mutate = options.mutate;
+    // default params
+    precision = (precision === undefined || precision === null || isNaN(precision)) ? 6 : precision;
+    coordinates = (coordinates === undefined || coordinates === null || isNaN(coordinates)) ? 3 : coordinates;
+    // validation
+    if (!geojson)
+        throw new Error('<geojson> is required');
+    if (typeof precision !== 'number')
+        throw new Error('<precision> must be a number');
+    if (typeof coordinates !== 'number')
+        throw new Error('<coordinates> must be a number');
+    // prevent input mutation
+    if (mutate === false || mutate === undefined)
+        geojson = JSON.parse(JSON.stringify(geojson));
+    var factor = Math.pow(10, precision);
+    // Truncate Coordinates
+    coordEach(geojson, function (coords) {
+        truncateCoords(coords, factor, coordinates);
+    });
+    return geojson;
 }
 /**
  * Truncate Coordinates - Mutates coordinates in place
@@ -221509,22 +220858,21 @@ function truncate(geojson, options) {
  * @param {number} coordinates maximum number of coordinates (primarly used to remove z coordinates)
  * @returns {Array<any>} mutated coordinates
  */
-
-
 function truncateCoords(coords, factor, coordinates) {
-  // Remove extra coordinates (usually elevation coordinates and more)
-  if (coords.length > coordinates) coords.splice(coordinates, coords.length); // Truncate coordinate decimals
-
-  for (var i = 0; i < coords.length; i++) {
-    coords[i] = Math.round(coords[i] * factor) / factor;
-  }
-
-  return coords;
+    // Remove extra coordinates (usually elevation coordinates and more)
+    if (coords.length > coordinates)
+        coords.splice(coordinates, coords.length);
+    // Truncate coordinate decimals
+    for (var i = 0; i < coords.length; i++) {
+        coords[i] = Math.round(coords[i] * factor) / factor;
+    }
+    return coords;
 }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/**
+* @module @svizzle/geo/geojson
+*/
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 /**
  * Return a function expecting a geojson and creating or updating the provided property of all features using the provided map.
  * Note that you can pass a `key or an alternative key `key_alt` e.g. when you use ISO Alpha 2 codes and you need to identify unrecognized territories with another key.
@@ -221611,25 +220959,38 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 }
  * @version 0.5.0
  */
+const makeUpdateFeaturesProperty = ({
+	key_alt,
+	key,
+	map,
+	mapFn,
+	propName,
+}) =>
+	updateKey('features', mapWith(
+		updateKey('properties', properties => {
+			let propValue;
 
-var makeUpdateFeaturesProperty = function makeUpdateFeaturesProperty(_ref) {
-  var key_alt = _ref.key_alt,
-      key = _ref.key,
-      map = _ref.map,
-      mapFn = _ref.mapFn,
-      propName = _ref.propName;
-  return updateKey('features', mapWith(updateKey('properties', function (properties) {
-    var propValue;
+			if (map) {
+				propValue = has(map, properties[key])
+					? map[properties[key]]
+					: has(map, properties[key_alt])
+						? map[properties[key_alt]]
+						: undefined;
+			} else if (mapFn) {
+				propValue = properties[key]
+					? mapFn(properties[key])
+					: properties[key_alt]
+						? mapFn(properties[key_alt])
+						: undefined;
+			}
 
-    if (map) {
-      propValue = has(map, properties[key]) ? map[properties[key]] : has(map, properties[key_alt]) ? map[properties[key_alt]] : undefined;
-    } else if (mapFn) {
-      propValue = properties[key] ? mapFn(properties[key]) : properties[key_alt] ? mapFn(properties[key_alt]) : undefined;
-    }
+			return {
+				...properties,
+				[propName]: propValue
+			}
+		})
+	));
 
-    return _objectSpread(_objectSpread({}, properties), {}, _defineProperty({}, propName, propValue));
-  })));
-};
 /**
  * Return the a collection of centroids of the provided features, each having the correspondent feature properties.
  *
@@ -221668,12 +221029,12 @@ var makeUpdateFeaturesProperty = function makeUpdateFeaturesProperty(_ref) {
 }
  * @version 0.1.0
  */
+const makeCentroids = pipe([
+	mapWith(feature => centroid(feature, {properties: feature.properties})),
+	featureCollection
+]);
 
-var makeCentroids = pipe([mapWith(function (feature) {
-  return centroid(feature, {
-    properties: feature.properties
-  });
-}), featureCollection]);
+// TODO use a reduce to include only items with lat/lng as defined by coordPicker
 
 /**
  * Return a function returning a copy of the provided geojson having the geometry coordinates rounded to the given precision.
@@ -221697,26 +221058,24 @@ var makeCentroids = pipe([mapWith(function (feature) {
 }
  * @version 0.1.0
  */
+const setGeometryPrecision = precision =>
+	geojson => truncate(geojson, {precision, mutate: false});
 
-var setGeometryPrecision = function setGeometryPrecision(precision) {
-  return function (geojson) {
-    return truncate(geojson, {
-      precision: precision,
-      mutate: false
-    });
-  };
-}; // TODO DOC: define FeatureCollection type
+// TODO DOC: define FeatureCollection type
 
 /**
 * @module @svizzle/choropleth/utils
 */
-var defaultGeometry = {
-  bottom: 10,
-  left: 10,
-  right: 10,
-  top: 10
+
+const defaultGeometry = {
+	bottom: 10,
+	left: 10,
+	right: 10,
+	top: 10,
 };
-var truncateGeojson = setGeometryPrecision(4);
+
+const truncateGeojson = setGeometryPrecision(4);
+
 /**
  * Convert a topojson to a geojson truncating coordinates to precision 4.
  * This is quite specific to `@svizzle/choropleth` to limit the geojson weight down for performance reasons.
@@ -221773,10 +221132,8 @@ var truncateGeojson = setGeometryPrecision(4);
  *
  * @version 0.4.0
  */
-
-var topoToGeo = function topoToGeo(topojson, id) {
-  return truncateGeojson(feature(topojson, topojson.objects[id]));
-};
+const topoToGeo = (topojson, id) =>
+	truncateGeojson(feature(topojson, topojson.objects[id]));
 
 // Adds floating point numbers with twice the normal precision.
 // Reference: J. R. Shewchuk, Adaptive Precision Floating-Point Arithmetic and
@@ -221784,8 +221141,9 @@ var topoToGeo = function topoToGeo(topojson, id) {
 // 305–363 (1997).
 // Code adapted from GeographicLib by Charles F. F. Karney,
 // http://geographiclib.sourceforge.net/
-function adder () {
-  return new Adder();
+
+function adder() {
+  return new Adder;
 }
 
 function Adder() {
@@ -221794,28 +221152,28 @@ function Adder() {
 
 Adder.prototype = {
   constructor: Adder,
-  reset: function reset() {
+  reset: function() {
     this.s = // rounded value
     this.t = 0; // exact error
   },
-  add: function add(y) {
-    _add(temp, y, this.t);
-
-    _add(this, temp.s, this.s);
-
-    if (this.s) this.t += temp.t;else this.s = temp.t;
+  add: function(y) {
+    add$1(temp, y, this.t);
+    add$1(this, temp.s, this.s);
+    if (this.s) this.t += temp.t;
+    else this.s = temp.t;
   },
-  valueOf: function valueOf() {
+  valueOf: function() {
     return this.s;
   }
 };
-var temp = new Adder();
 
-function _add(adder, a, b) {
+var temp = new Adder;
+
+function add$1(adder, a, b) {
   var x = adder.s = a + b,
       bv = x - a,
       av = x - bv;
-  adder.t = a - av + (b - bv);
+  adder.t = (a - av) + (b - bv);
 }
 
 var epsilon = 1e-6;
@@ -221824,8 +221182,10 @@ var pi = Math.PI;
 var halfPi = pi / 2;
 var quarterPi = pi / 4;
 var tau = pi * 2;
+
 var degrees = 180 / pi;
 var radians = pi / 180;
+
 var abs = Math.abs;
 var atan = Math.atan;
 var atan2 = Math.atan2;
@@ -221833,14 +221193,14 @@ var cos = Math.cos;
 var exp = Math.exp;
 var log = Math.log;
 var sin = Math.sin;
-var sign = Math.sign || function (x) {
-  return x > 0 ? 1 : x < 0 ? -1 : 0;
-};
+var sign = Math.sign || function(x) { return x > 0 ? 1 : x < 0 ? -1 : 0; };
 var sqrt = Math.sqrt;
 var tan = Math.tan;
+
 function acos(x) {
   return x > 1 ? 0 : x < -1 ? pi : Math.acos(x);
 }
+
 function asin(x) {
   return x > 1 ? halfPi : x < -1 ? -halfPi : Math.asin(x);
 }
@@ -221854,97 +221214,62 @@ function streamGeometry(geometry, stream) {
 }
 
 var streamObjectType = {
-  Feature: function Feature(object, stream) {
+  Feature: function(object, stream) {
     streamGeometry(object.geometry, stream);
   },
-  FeatureCollection: function FeatureCollection(object, stream) {
-    var features = object.features,
-        i = -1,
-        n = features.length;
-
-    while (++i < n) {
-      streamGeometry(features[i].geometry, stream);
-    }
+  FeatureCollection: function(object, stream) {
+    var features = object.features, i = -1, n = features.length;
+    while (++i < n) streamGeometry(features[i].geometry, stream);
   }
 };
+
 var streamGeometryType = {
-  Sphere: function Sphere(object, stream) {
+  Sphere: function(object, stream) {
     stream.sphere();
   },
-  Point: function Point(object, stream) {
+  Point: function(object, stream) {
     object = object.coordinates;
     stream.point(object[0], object[1], object[2]);
   },
-  MultiPoint: function MultiPoint(object, stream) {
-    var coordinates = object.coordinates,
-        i = -1,
-        n = coordinates.length;
-
-    while (++i < n) {
-      object = coordinates[i], stream.point(object[0], object[1], object[2]);
-    }
+  MultiPoint: function(object, stream) {
+    var coordinates = object.coordinates, i = -1, n = coordinates.length;
+    while (++i < n) object = coordinates[i], stream.point(object[0], object[1], object[2]);
   },
-  LineString: function LineString(object, stream) {
+  LineString: function(object, stream) {
     streamLine(object.coordinates, stream, 0);
   },
-  MultiLineString: function MultiLineString(object, stream) {
-    var coordinates = object.coordinates,
-        i = -1,
-        n = coordinates.length;
-
-    while (++i < n) {
-      streamLine(coordinates[i], stream, 0);
-    }
+  MultiLineString: function(object, stream) {
+    var coordinates = object.coordinates, i = -1, n = coordinates.length;
+    while (++i < n) streamLine(coordinates[i], stream, 0);
   },
-  Polygon: function Polygon(object, stream) {
+  Polygon: function(object, stream) {
     streamPolygon(object.coordinates, stream);
   },
-  MultiPolygon: function MultiPolygon(object, stream) {
-    var coordinates = object.coordinates,
-        i = -1,
-        n = coordinates.length;
-
-    while (++i < n) {
-      streamPolygon(coordinates[i], stream);
-    }
+  MultiPolygon: function(object, stream) {
+    var coordinates = object.coordinates, i = -1, n = coordinates.length;
+    while (++i < n) streamPolygon(coordinates[i], stream);
   },
-  GeometryCollection: function GeometryCollection(object, stream) {
-    var geometries = object.geometries,
-        i = -1,
-        n = geometries.length;
-
-    while (++i < n) {
-      streamGeometry(geometries[i], stream);
-    }
+  GeometryCollection: function(object, stream) {
+    var geometries = object.geometries, i = -1, n = geometries.length;
+    while (++i < n) streamGeometry(geometries[i], stream);
   }
 };
 
 function streamLine(coordinates, stream, closed) {
-  var i = -1,
-      n = coordinates.length - closed,
-      coordinate;
+  var i = -1, n = coordinates.length - closed, coordinate;
   stream.lineStart();
-
-  while (++i < n) {
-    coordinate = coordinates[i], stream.point(coordinate[0], coordinate[1], coordinate[2]);
-  }
-
+  while (++i < n) coordinate = coordinates[i], stream.point(coordinate[0], coordinate[1], coordinate[2]);
   stream.lineEnd();
 }
 
 function streamPolygon(coordinates, stream) {
-  var i = -1,
-      n = coordinates.length;
+  var i = -1, n = coordinates.length;
   stream.polygonStart();
-
-  while (++i < n) {
-    streamLine(coordinates[i], stream, 1);
-  }
-
+  while (++i < n) streamLine(coordinates[i], stream, 1);
   stream.polygonEnd();
 }
 
-function geoStream (object, stream) {
+function geoStream(object, stream) {
   if (object && streamObjectType.hasOwnProperty(object.type)) {
     streamObjectType[object.type](object, stream);
   } else {
@@ -221955,39 +221280,45 @@ function geoStream (object, stream) {
 function spherical(cartesian) {
   return [atan2(cartesian[1], cartesian[0]), asin(cartesian[2])];
 }
+
 function cartesian(spherical) {
-  var lambda = spherical[0],
-      phi = spherical[1],
-      cosPhi = cos(phi);
+  var lambda = spherical[0], phi = spherical[1], cosPhi = cos(phi);
   return [cosPhi * cos(lambda), cosPhi * sin(lambda), sin(phi)];
 }
+
 function cartesianDot(a, b) {
   return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 }
+
 function cartesianCross(a, b) {
   return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
-} // TODO return a
+}
 
+// TODO return a
 function cartesianAddInPlace(a, b) {
   a[0] += b[0], a[1] += b[1], a[2] += b[2];
 }
+
 function cartesianScale(vector, k) {
   return [vector[0] * k, vector[1] * k, vector[2] * k];
-} // TODO return d
+}
 
+// TODO return d
 function cartesianNormalizeInPlace(d) {
   var l = sqrt(d[0] * d[0] + d[1] * d[1] + d[2] * d[2]);
   d[0] /= l, d[1] /= l, d[2] /= l;
 }
 
-function compose$1 (a, b) {
+function compose$1(a, b) {
+
   function compose(x, y) {
     return x = a(x, y), b(x[0], x[1]);
   }
 
-  if (a.invert && b.invert) compose.invert = function (x, y) {
+  if (a.invert && b.invert) compose.invert = function(x, y) {
     return x = b.invert(x, y), x && a.invert(x[0], x[1]);
   };
+
   return compose;
 }
 
@@ -221996,12 +221327,16 @@ function rotationIdentity(lambda, phi) {
 }
 
 rotationIdentity.invert = rotationIdentity;
+
 function rotateRadians(deltaLambda, deltaPhi, deltaGamma) {
-  return (deltaLambda %= tau) ? deltaPhi || deltaGamma ? compose$1(rotationLambda(deltaLambda), rotationPhiGamma(deltaPhi, deltaGamma)) : rotationLambda(deltaLambda) : deltaPhi || deltaGamma ? rotationPhiGamma(deltaPhi, deltaGamma) : rotationIdentity;
+  return (deltaLambda %= tau) ? (deltaPhi || deltaGamma ? compose$1(rotationLambda(deltaLambda), rotationPhiGamma(deltaPhi, deltaGamma))
+    : rotationLambda(deltaLambda))
+    : (deltaPhi || deltaGamma ? rotationPhiGamma(deltaPhi, deltaGamma)
+    : rotationIdentity);
 }
 
 function forwardRotationLambda(deltaLambda) {
-  return function (lambda, phi) {
+  return function(lambda, phi) {
     return lambda += deltaLambda, [lambda > pi ? lambda - tau : lambda < -pi ? lambda + tau : lambda, phi];
   };
 }
@@ -222024,22 +221359,28 @@ function rotationPhiGamma(deltaPhi, deltaGamma) {
         y = sin(lambda) * cosPhi,
         z = sin(phi),
         k = z * cosDeltaPhi + x * sinDeltaPhi;
-    return [atan2(y * cosDeltaGamma - k * sinDeltaGamma, x * cosDeltaPhi - z * sinDeltaPhi), asin(k * cosDeltaGamma + y * sinDeltaGamma)];
+    return [
+      atan2(y * cosDeltaGamma - k * sinDeltaGamma, x * cosDeltaPhi - z * sinDeltaPhi),
+      asin(k * cosDeltaGamma + y * sinDeltaGamma)
+    ];
   }
 
-  rotation.invert = function (lambda, phi) {
+  rotation.invert = function(lambda, phi) {
     var cosPhi = cos(phi),
         x = cos(lambda) * cosPhi,
         y = sin(lambda) * cosPhi,
         z = sin(phi),
         k = z * cosDeltaGamma - y * sinDeltaGamma;
-    return [atan2(y * cosDeltaGamma + z * sinDeltaGamma, x * cosDeltaPhi + k * sinDeltaPhi), asin(k * cosDeltaPhi - x * sinDeltaPhi)];
+    return [
+      atan2(y * cosDeltaGamma + z * sinDeltaGamma, x * cosDeltaPhi + k * sinDeltaPhi),
+      asin(k * cosDeltaPhi - x * sinDeltaPhi)
+    ];
   };
 
   return rotation;
 }
 
-function rotation (rotate) {
+function rotation(rotate) {
   rotate = rotateRadians(rotate[0] * radians, rotate[1] * radians, rotate.length > 2 ? rotate[2] * radians : 0);
 
   function forward(coordinates) {
@@ -222047,7 +221388,7 @@ function rotation (rotate) {
     return coordinates[0] *= degrees, coordinates[1] *= degrees, coordinates;
   }
 
-  forward.invert = function (coordinates) {
+  forward.invert = function(coordinates) {
     coordinates = rotate.invert(coordinates[0] * radians, coordinates[1] * radians);
     return coordinates[0] *= degrees, coordinates[1] *= degrees, coordinates;
   };
@@ -222055,12 +221396,12 @@ function rotation (rotate) {
   return forward;
 }
 
+// Generates a circle centered at [0°, 0°], with a given radius and precision.
 function circleStream(stream, radius, delta, direction, t0, t1) {
   if (!delta) return;
   var cosRadius = cos(radius),
       sinRadius = sin(radius),
       step = direction * delta;
-
   if (t0 == null) {
     t0 = radius + direction * tau;
     t1 = radius - step / 2;
@@ -222069,13 +221410,13 @@ function circleStream(stream, radius, delta, direction, t0, t1) {
     t1 = circleRadius(cosRadius, t1);
     if (direction > 0 ? t0 < t1 : t0 > t1) t0 += direction * tau;
   }
-
   for (var point, t = t0; direction > 0 ? t > t1 : t < t1; t -= step) {
     point = spherical([cosRadius, -sinRadius * cos(t), -sinRadius * sin(t)]);
     stream.point(point[0], point[1]);
   }
-} // Returns the signed angle of a cartesian point relative to [cosRadius, 0, 0].
+}
 
+// Returns the signed angle of a cartesian point relative to [cosRadius, 0, 0].
 function circleRadius(cosRadius, point) {
   point = cartesian(point), point[0] -= cosRadius;
   cartesianNormalizeInPlace(point);
@@ -222083,21 +221424,21 @@ function circleRadius(cosRadius, point) {
   return ((-point[2] < 0 ? -radius : radius) + tau - epsilon) % tau;
 }
 
-function clipBuffer () {
+function clipBuffer() {
   var lines = [],
       line;
   return {
-    point: function point(x, y, m) {
+    point: function(x, y, m) {
       line.push([x, y, m]);
     },
-    lineStart: function lineStart() {
+    lineStart: function() {
       lines.push(line = []);
     },
     lineEnd: noop,
-    rejoin: function rejoin() {
+    rejoin: function() {
       if (lines.length > 1) lines.push(lines.pop().concat(lines.shift()));
     },
-    result: function result() {
+    result: function() {
       var result = lines;
       lines = [];
       line = null;
@@ -222106,7 +221447,7 @@ function clipBuffer () {
   };
 }
 
-function pointEqual (a, b) {
+function pointEqual(a, b) {
   return abs(a[0] - b[0]) < epsilon && abs(a[1] - b[1]) < epsilon;
 }
 
@@ -222114,42 +221455,32 @@ function Intersection(point, points, other, entry) {
   this.x = point;
   this.z = points;
   this.o = other; // another intersection
-
   this.e = entry; // is an entry?
-
   this.v = false; // visited
-
   this.n = this.p = null; // next & previous
-} // A generalized polygon clipping algorithm: given a polygon that has been cut
+}
+
+// A generalized polygon clipping algorithm: given a polygon that has been cut
 // into its visible line segments, and rejoins the segments by interpolating
 // along the clip edge.
-
-
-function clipRejoin (segments, compareIntersection, startInside, interpolate, stream) {
+function clipRejoin(segments, compareIntersection, startInside, interpolate, stream) {
   var subject = [],
       clip = [],
       i,
       n;
-  segments.forEach(function (segment) {
+
+  segments.forEach(function(segment) {
     if ((n = segment.length - 1) <= 0) return;
-    var n,
-        p0 = segment[0],
-        p1 = segment[n],
-        x;
+    var n, p0 = segment[0], p1 = segment[n], x;
 
     if (pointEqual(p0, p1)) {
       if (!p0[2] && !p1[2]) {
         stream.lineStart();
-
-        for (i = 0; i < n; ++i) {
-          stream.point((p0 = segment[i])[0], p0[1]);
-        }
-
+        for (i = 0; i < n; ++i) stream.point((p0 = segment[i])[0], p0[1]);
         stream.lineEnd();
         return;
-      } // handle degenerate cases by moving the point
-
-
+      }
+      // handle degenerate cases by moving the point
       p1[0] += 2 * epsilon;
     }
 
@@ -222158,7 +221489,9 @@ function clipRejoin (segments, compareIntersection, startInside, interpolate, st
     subject.push(x = new Intersection(p1, segment, null, false));
     clip.push(x.o = new Intersection(p1, null, x, true));
   });
+
   if (!subject.length) return;
+
   clip.sort(compareIntersection);
   link(subject);
   link(clip);
@@ -222175,46 +221508,31 @@ function clipRejoin (segments, compareIntersection, startInside, interpolate, st
     // Find first unvisited intersection.
     var current = start,
         isSubject = true;
-
-    while (current.v) {
-      if ((current = current.n) === start) return;
-    }
-
+    while (current.v) if ((current = current.n) === start) return;
     points = current.z;
     stream.lineStart();
-
     do {
       current.v = current.o.v = true;
-
       if (current.e) {
         if (isSubject) {
-          for (i = 0, n = points.length; i < n; ++i) {
-            stream.point((point = points[i])[0], point[1]);
-          }
+          for (i = 0, n = points.length; i < n; ++i) stream.point((point = points[i])[0], point[1]);
         } else {
           interpolate(current.x, current.n.x, 1, stream);
         }
-
         current = current.n;
       } else {
         if (isSubject) {
           points = current.p.z;
-
-          for (i = points.length - 1; i >= 0; --i) {
-            stream.point((point = points[i])[0], point[1]);
-          }
+          for (i = points.length - 1; i >= 0; --i) stream.point((point = points[i])[0], point[1]);
         } else {
           interpolate(current.x, current.p.x, -1, stream);
         }
-
         current = current.p;
       }
-
       current = current.o;
       points = current.z;
       isSubject = !isSubject;
     } while (!current.v);
-
     stream.lineEnd();
   }
 }
@@ -222225,13 +221543,11 @@ function link(array) {
       i = 0,
       a = array[0],
       b;
-
   while (++i < n) {
     a.n = b = array[i];
     b.p = a;
     a = b;
   }
-
   a.n = b = array[0];
   b.p = a;
 }
@@ -222239,18 +221555,24 @@ function link(array) {
 var sum$1 = adder();
 
 function longitude(point) {
-  if (abs(point[0]) <= pi) return point[0];else return sign(point[0]) * ((abs(point[0]) + pi) % tau - pi);
+  if (abs(point[0]) <= pi)
+    return point[0];
+  else
+    return sign(point[0]) * ((abs(point[0]) + pi) % tau - pi);
 }
 
-function polygonContains (polygon, point) {
+function polygonContains(polygon, point) {
   var lambda = longitude(point),
       phi = point[1],
       sinPhi = sin(phi),
       normal = [sin(lambda), -cos(lambda), 0],
       angle = 0,
       winding = 0;
+
   sum$1.reset();
-  if (sinPhi === 1) phi = halfPi + epsilon;else if (sinPhi === -1) phi = -halfPi - epsilon;
+
+  if (sinPhi === 1) phi = halfPi + epsilon;
+  else if (sinPhi === -1) phi = -halfPi - epsilon;
 
   for (var i = 0, n = polygon.length; i < n; ++i) {
     if (!(m = (ring = polygon[i]).length)) continue;
@@ -222273,23 +221595,26 @@ function polygonContains (polygon, point) {
           absDelta = sign * delta,
           antimeridian = absDelta > pi,
           k = sinPhi0 * sinPhi1;
-      sum$1.add(atan2(k * sign * sin(absDelta), cosPhi0 * cosPhi1 + k * cos(absDelta)));
-      angle += antimeridian ? delta + sign * tau : delta; // Are the longitudes either side of the point’s meridian (lambda),
-      // and are the latitudes smaller than the parallel (phi)?
 
+      sum$1.add(atan2(k * sign * sin(absDelta), cosPhi0 * cosPhi1 + k * cos(absDelta)));
+      angle += antimeridian ? delta + sign * tau : delta;
+
+      // Are the longitudes either side of the point’s meridian (lambda),
+      // and are the latitudes smaller than the parallel (phi)?
       if (antimeridian ^ lambda0 >= lambda ^ lambda1 >= lambda) {
         var arc = cartesianCross(cartesian(point0), cartesian(point1));
         cartesianNormalizeInPlace(arc);
         var intersection = cartesianCross(normal, arc);
         cartesianNormalizeInPlace(intersection);
         var phiArc = (antimeridian ^ delta >= 0 ? -1 : 1) * asin(intersection[2]);
-
         if (phi > phiArc || phi === phiArc && (arc[0] || arc[1])) {
           winding += antimeridian ^ delta >= 0 ? 1 : -1;
         }
       }
     }
-  } // First, determine whether the South pole is inside or outside:
+  }
+
+  // First, determine whether the South pole is inside or outside:
   //
   // It is inside if:
   // * the polygon winds around it in a clockwise direction.
@@ -222300,51 +221625,48 @@ function polygonContains (polygon, point) {
   // from the point to the South pole.  If it is zero, then the point is the
   // same side as the South pole.
 
-
-  return (angle < -epsilon || angle < epsilon && sum$1 < -epsilon) ^ winding & 1;
+  return (angle < -epsilon || angle < epsilon && sum$1 < -epsilon) ^ (winding & 1);
 }
 
-function ascending$1 (a, b) {
+function ascending$1(a, b) {
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 }
 
-function bisector$1 (compare) {
+function bisector$1(compare) {
   if (compare.length === 1) compare = ascendingComparator$1(compare);
   return {
-    left: function left(a, x, lo, hi) {
+    left: function(a, x, lo, hi) {
       if (lo == null) lo = 0;
       if (hi == null) hi = a.length;
-
       while (lo < hi) {
         var mid = lo + hi >>> 1;
-        if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
+        if (compare(a[mid], x) < 0) lo = mid + 1;
+        else hi = mid;
       }
-
       return lo;
     },
-    right: function right(a, x, lo, hi) {
+    right: function(a, x, lo, hi) {
       if (lo == null) lo = 0;
       if (hi == null) hi = a.length;
-
       while (lo < hi) {
         var mid = lo + hi >>> 1;
-        if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
+        if (compare(a[mid], x) > 0) hi = mid;
+        else lo = mid + 1;
       }
-
       return lo;
     }
   };
 }
 
 function ascendingComparator$1(f) {
-  return function (d, x) {
+  return function(d, x) {
     return ascending$1(f(d), x);
   };
 }
 
 var ascendingBisect$1 = bisector$1(ascending$1);
 
-function merge$1 (arrays) {
+function merge$1(arrays) {
   var n = arrays.length,
       m,
       i = -1,
@@ -222352,16 +221674,12 @@ function merge$1 (arrays) {
       merged,
       array;
 
-  while (++i < n) {
-    j += arrays[i].length;
-  }
-
+  while (++i < n) j += arrays[i].length;
   merged = new Array(j);
 
   while (--n >= 0) {
     array = arrays[n];
     m = array.length;
-
     while (--m >= 0) {
       merged[--j] = array[m];
     }
@@ -222370,8 +221688,8 @@ function merge$1 (arrays) {
   return merged;
 }
 
-function clip (pointVisible, clipLine, interpolate, start) {
-  return function (sink) {
+function clip(pointVisible, clipLine, interpolate, start) {
+  return function(sink) {
     var line = clipLine(sink),
         ringBuffer = clipBuffer(),
         ringSink = clipLine(ringBuffer),
@@ -222379,24 +221697,24 @@ function clip (pointVisible, clipLine, interpolate, start) {
         polygon,
         segments,
         ring;
+
     var clip = {
       point: point,
       lineStart: lineStart,
       lineEnd: lineEnd,
-      polygonStart: function polygonStart() {
+      polygonStart: function() {
         clip.point = pointRing;
         clip.lineStart = ringStart;
         clip.lineEnd = ringEnd;
         segments = [];
         polygon = [];
       },
-      polygonEnd: function polygonEnd() {
+      polygonEnd: function() {
         clip.point = point;
         clip.lineStart = lineStart;
         clip.lineEnd = lineEnd;
         segments = merge$1(segments);
         var startInside = polygonContains(polygon, start);
-
         if (segments.length) {
           if (!polygonStarted) sink.polygonStart(), polygonStarted = true;
           clipRejoin(segments, compareIntersection, startInside, interpolate, sink);
@@ -222406,11 +221724,10 @@ function clip (pointVisible, clipLine, interpolate, start) {
           interpolate(null, null, 1, sink);
           sink.lineEnd();
         }
-
         if (polygonStarted) sink.polygonEnd(), polygonStarted = false;
         segments = polygon = null;
       },
-      sphere: function sphere() {
+      sphere: function() {
         sink.polygonStart();
         sink.lineStart();
         interpolate(null, null, 1, sink);
@@ -222450,38 +221767,35 @@ function clip (pointVisible, clipLine, interpolate, start) {
     function ringEnd() {
       pointRing(ring[0][0], ring[0][1]);
       ringSink.lineEnd();
+
       var clean = ringSink.clean(),
           ringSegments = ringBuffer.result(),
-          i,
-          n = ringSegments.length,
-          m,
+          i, n = ringSegments.length, m,
           segment,
           point;
+
       ring.pop();
       polygon.push(ring);
       ring = null;
-      if (!n) return; // No intersections.
 
+      if (!n) return;
+
+      // No intersections.
       if (clean & 1) {
         segment = ringSegments[0];
-
         if ((m = segment.length - 1) > 0) {
           if (!polygonStarted) sink.polygonStart(), polygonStarted = true;
           sink.lineStart();
-
-          for (i = 0; i < m; ++i) {
-            sink.point((point = segment[i])[0], point[1]);
-          }
-
+          for (i = 0; i < m; ++i) sink.point((point = segment[i])[0], point[1]);
           sink.lineEnd();
         }
-
         return;
-      } // Rejoin connected segments.
+      }
+
+      // Rejoin connected segments.
       // TODO reuse ringBuffer.rejoin()?
-
-
       if (n > 1 && clean & 2) ringSegments.push(ringSegments.pop().concat(ringSegments.shift()));
+
       segments.push(ringSegments.filter(validSegment));
     }
 
@@ -222491,67 +221805,66 @@ function clip (pointVisible, clipLine, interpolate, start) {
 
 function validSegment(segment) {
   return segment.length > 1;
-} // Intersections are sorted along the clip edge. For both antimeridian cutting
-// and circle clipping, the same comparison is used.
-
-
-function compareIntersection(a, b) {
-  return ((a = a.x)[0] < 0 ? a[1] - halfPi - epsilon : halfPi - a[1]) - ((b = b.x)[0] < 0 ? b[1] - halfPi - epsilon : halfPi - b[1]);
 }
 
-var clipAntimeridian = clip(function () {
-  return true;
-}, clipAntimeridianLine, clipAntimeridianInterpolate, [-pi, -halfPi]); // Takes a line and cuts into visible segments. Return values: 0 - there were
+// Intersections are sorted along the clip edge. For both antimeridian cutting
+// and circle clipping, the same comparison is used.
+function compareIntersection(a, b) {
+  return ((a = a.x)[0] < 0 ? a[1] - halfPi - epsilon : halfPi - a[1])
+       - ((b = b.x)[0] < 0 ? b[1] - halfPi - epsilon : halfPi - b[1]);
+}
+
+var clipAntimeridian = clip(
+  function() { return true; },
+  clipAntimeridianLine,
+  clipAntimeridianInterpolate,
+  [-pi, -halfPi]
+);
+
+// Takes a line and cuts into visible segments. Return values: 0 - there were
 // intersections or the line was empty; 1 - no intersections; 2 - there were
 // intersections, and the first and last segments should be rejoined.
-
 function clipAntimeridianLine(stream) {
   var lambda0 = NaN,
       phi0 = NaN,
       sign0 = NaN,
-      _clean; // no intersections
-
+      clean; // no intersections
 
   return {
-    lineStart: function lineStart() {
+    lineStart: function() {
       stream.lineStart();
-      _clean = 1;
+      clean = 1;
     },
-    point: function point(lambda1, phi1) {
+    point: function(lambda1, phi1) {
       var sign1 = lambda1 > 0 ? pi : -pi,
           delta = abs(lambda1 - lambda0);
-
-      if (abs(delta - pi) < epsilon) {
-        // line crosses a pole
+      if (abs(delta - pi) < epsilon) { // line crosses a pole
         stream.point(lambda0, phi0 = (phi0 + phi1) / 2 > 0 ? halfPi : -halfPi);
         stream.point(sign0, phi0);
         stream.lineEnd();
         stream.lineStart();
         stream.point(sign1, phi0);
         stream.point(lambda1, phi0);
-        _clean = 0;
-      } else if (sign0 !== sign1 && delta >= pi) {
-        // line crosses antimeridian
+        clean = 0;
+      } else if (sign0 !== sign1 && delta >= pi) { // line crosses antimeridian
         if (abs(lambda0 - sign0) < epsilon) lambda0 -= sign0 * epsilon; // handle degeneracies
-
         if (abs(lambda1 - sign1) < epsilon) lambda1 -= sign1 * epsilon;
         phi0 = clipAntimeridianIntersect(lambda0, phi0, lambda1, phi1);
         stream.point(sign0, phi0);
         stream.lineEnd();
         stream.lineStart();
         stream.point(sign1, phi0);
-        _clean = 0;
+        clean = 0;
       }
-
       stream.point(lambda0 = lambda1, phi0 = phi1);
       sign0 = sign1;
     },
-    lineEnd: function lineEnd() {
+    lineEnd: function() {
       stream.lineEnd();
       lambda0 = phi0 = NaN;
     },
-    clean: function clean() {
-      return 2 - _clean; // if intersections, rejoin first and last segments
+    clean: function() {
+      return 2 - clean; // if intersections, rejoin first and last segments
     }
   };
 }
@@ -222560,12 +221873,15 @@ function clipAntimeridianIntersect(lambda0, phi0, lambda1, phi1) {
   var cosPhi0,
       cosPhi1,
       sinLambda0Lambda1 = sin(lambda0 - lambda1);
-  return abs(sinLambda0Lambda1) > epsilon ? atan((sin(phi0) * (cosPhi1 = cos(phi1)) * sin(lambda1) - sin(phi1) * (cosPhi0 = cos(phi0)) * sin(lambda0)) / (cosPhi0 * cosPhi1 * sinLambda0Lambda1)) : (phi0 + phi1) / 2;
+  return abs(sinLambda0Lambda1) > epsilon
+      ? atan((sin(phi0) * (cosPhi1 = cos(phi1)) * sin(lambda1)
+          - sin(phi1) * (cosPhi0 = cos(phi0)) * sin(lambda0))
+          / (cosPhi0 * cosPhi1 * sinLambda0Lambda1))
+      : (phi0 + phi1) / 2;
 }
 
 function clipAntimeridianInterpolate(from, to, direction, stream) {
   var phi;
-
   if (from == null) {
     phi = direction * halfPi;
     stream.point(-pi, phi);
@@ -222588,7 +221904,7 @@ function clipAntimeridianInterpolate(from, to, direction, stream) {
   }
 }
 
-function clipCircle (radius) {
+function clipCircle(radius) {
   var cr = cos(radius),
       delta = 6 * radians,
       smallRadius = cr > 0,
@@ -222600,40 +221916,38 @@ function clipCircle (radius) {
 
   function visible(lambda, phi) {
     return cos(lambda) * cos(phi) > cr;
-  } // Takes a line and cuts into visible segments. Return values used for polygon
+  }
+
+  // Takes a line and cuts into visible segments. Return values used for polygon
   // clipping: 0 - there were intersections or the line was empty; 1 - no
   // intersections 2 - there were intersections, and the first and last segments
   // should be rejoined.
-
-
   function clipLine(stream) {
     var point0, // previous point
-    c0, // code for previous point
-    v0, // visibility of previous point
-    v00, // visibility of first point
-    _clean; // no intersections
-
-
+        c0, // code for previous point
+        v0, // visibility of previous point
+        v00, // visibility of first point
+        clean; // no intersections
     return {
-      lineStart: function lineStart() {
+      lineStart: function() {
         v00 = v0 = false;
-        _clean = 1;
+        clean = 1;
       },
-      point: function point(lambda, phi) {
+      point: function(lambda, phi) {
         var point1 = [lambda, phi],
             point2,
             v = visible(lambda, phi),
-            c = smallRadius ? v ? 0 : code(lambda, phi) : v ? code(lambda + (lambda < 0 ? pi : -pi), phi) : 0;
+            c = smallRadius
+              ? v ? 0 : code(lambda, phi)
+              : v ? code(lambda + (lambda < 0 ? pi : -pi), phi) : 0;
         if (!point0 && (v00 = v0 = v)) stream.lineStart();
-
         if (v !== v0) {
           point2 = intersect(point0, point1);
-          if (!point2 || pointEqual(point0, point2) || pointEqual(point1, point2)) point1[2] = 1;
+          if (!point2 || pointEqual(point0, point2) || pointEqual(point1, point2))
+            point1[2] = 1;
         }
-
         if (v !== v0) {
-          _clean = 0;
-
+          clean = 0;
           if (v) {
             // outside going in
             stream.lineStart();
@@ -222645,15 +221959,13 @@ function clipCircle (radius) {
             stream.point(point2[0], point2[1], 2);
             stream.lineEnd();
           }
-
           point0 = point2;
         } else if (notHemisphere && point0 && smallRadius ^ v) {
-          var t; // If the codes for two points are different, or are both zero,
+          var t;
+          // If the codes for two points are different, or are both zero,
           // and there this segment intersects with the small circle.
-
           if (!(c & c0) && (t = intersect(point1, point0, true))) {
-            _clean = 0;
-
+            clean = 0;
             if (smallRadius) {
               stream.lineStart();
               stream.point(t[0][0], t[0][1]);
@@ -222667,94 +221979,104 @@ function clipCircle (radius) {
             }
           }
         }
-
         if (v && (!point0 || !pointEqual(point0, point1))) {
           stream.point(point1[0], point1[1]);
         }
-
         point0 = point1, v0 = v, c0 = c;
       },
-      lineEnd: function lineEnd() {
+      lineEnd: function() {
         if (v0) stream.lineEnd();
         point0 = null;
       },
       // Rejoin first and last segments if there were intersections and the first
       // and last points were visible.
-      clean: function clean() {
-        return _clean | (v00 && v0) << 1;
+      clean: function() {
+        return clean | ((v00 && v0) << 1);
       }
     };
-  } // Intersects the great circle between a and b with the clip circle.
+  }
 
-
+  // Intersects the great circle between a and b with the clip circle.
   function intersect(a, b, two) {
     var pa = cartesian(a),
-        pb = cartesian(b); // We have two planes, n1.p = d1 and n2.p = d2.
+        pb = cartesian(b);
+
+    // We have two planes, n1.p = d1 and n2.p = d2.
     // Find intersection line p(t) = c1 n1 + c2 n2 + t (n1 ⨯ n2).
-
-    var n1 = [1, 0, 0],
-        // normal
-    n2 = cartesianCross(pa, pb),
+    var n1 = [1, 0, 0], // normal
+        n2 = cartesianCross(pa, pb),
         n2n2 = cartesianDot(n2, n2),
-        n1n2 = n2[0],
-        // cartesianDot(n1, n2),
-    determinant = n2n2 - n1n2 * n1n2; // Two polar points.
+        n1n2 = n2[0], // cartesianDot(n1, n2),
+        determinant = n2n2 - n1n2 * n1n2;
 
+    // Two polar points.
     if (!determinant) return !two && a;
-    var c1 = cr * n2n2 / determinant,
+
+    var c1 =  cr * n2n2 / determinant,
         c2 = -cr * n1n2 / determinant,
         n1xn2 = cartesianCross(n1, n2),
         A = cartesianScale(n1, c1),
         B = cartesianScale(n2, c2);
-    cartesianAddInPlace(A, B); // Solve |p(t)|^2 = 1.
+    cartesianAddInPlace(A, B);
 
+    // Solve |p(t)|^2 = 1.
     var u = n1xn2,
         w = cartesianDot(A, u),
         uu = cartesianDot(u, u),
         t2 = w * w - uu * (cartesianDot(A, A) - 1);
+
     if (t2 < 0) return;
+
     var t = sqrt(t2),
         q = cartesianScale(u, (-w - t) / uu);
     cartesianAddInPlace(q, A);
     q = spherical(q);
-    if (!two) return q; // Two intersection points.
 
+    if (!two) return q;
+
+    // Two intersection points.
     var lambda0 = a[0],
         lambda1 = b[0],
         phi0 = a[1],
         phi1 = b[1],
         z;
+
     if (lambda1 < lambda0) z = lambda0, lambda0 = lambda1, lambda1 = z;
+
     var delta = lambda1 - lambda0,
         polar = abs(delta - pi) < epsilon,
         meridian = polar || delta < epsilon;
-    if (!polar && phi1 < phi0) z = phi0, phi0 = phi1, phi1 = z; // Check that the first point is between a and b.
 
-    if (meridian ? polar ? phi0 + phi1 > 0 ^ q[1] < (abs(q[0] - lambda0) < epsilon ? phi0 : phi1) : phi0 <= q[1] && q[1] <= phi1 : delta > pi ^ (lambda0 <= q[0] && q[0] <= lambda1)) {
+    if (!polar && phi1 < phi0) z = phi0, phi0 = phi1, phi1 = z;
+
+    // Check that the first point is between a and b.
+    if (meridian
+        ? polar
+          ? phi0 + phi1 > 0 ^ q[1] < (abs(q[0] - lambda0) < epsilon ? phi0 : phi1)
+          : phi0 <= q[1] && q[1] <= phi1
+        : delta > pi ^ (lambda0 <= q[0] && q[0] <= lambda1)) {
       var q1 = cartesianScale(u, (-w + t) / uu);
       cartesianAddInPlace(q1, A);
       return [q, spherical(q1)];
     }
-  } // Generates a 4-bit vector representing the location of a point relative to
+  }
+
+  // Generates a 4-bit vector representing the location of a point relative to
   // the small circle's bounding box.
-
-
   function code(lambda, phi) {
     var r = smallRadius ? radius : pi - radius,
         code = 0;
     if (lambda < -r) code |= 1; // left
     else if (lambda > r) code |= 2; // right
-
     if (phi < -r) code |= 4; // below
     else if (phi > r) code |= 8; // above
-
     return code;
   }
 
   return clip(visible, clipLine, interpolate, smallRadius ? [0, -radius] : [-pi, radius - pi]);
 }
 
-function clipLine (a, b, x0, y0, x1, y1) {
+function clipLine(a, b, x0, y0, x1, y1) {
   var ax = a[0],
       ay = a[1],
       bx = b[0],
@@ -222764,10 +222086,10 @@ function clipLine (a, b, x0, y0, x1, y1) {
       dx = bx - ax,
       dy = by - ay,
       r;
+
   r = x0 - ax;
   if (!dx && r > 0) return;
   r /= dx;
-
   if (dx < 0) {
     if (r < t0) return;
     if (r < t1) t1 = r;
@@ -222779,7 +222101,6 @@ function clipLine (a, b, x0, y0, x1, y1) {
   r = x1 - ax;
   if (!dx && r < 0) return;
   r /= dx;
-
   if (dx < 0) {
     if (r > t1) return;
     if (r > t0) t0 = r;
@@ -222791,7 +222112,6 @@ function clipLine (a, b, x0, y0, x1, y1) {
   r = y0 - ay;
   if (!dy && r > 0) return;
   r /= dy;
-
   if (dy < 0) {
     if (r < t0) return;
     if (r < t1) t1 = r;
@@ -222803,7 +222123,6 @@ function clipLine (a, b, x0, y0, x1, y1) {
   r = y1 - ay;
   if (!dy && r < 0) return;
   r /= dy;
-
   if (dy < 0) {
     if (r > t1) return;
     if (r > t0) t0 = r;
@@ -222817,30 +222136,34 @@ function clipLine (a, b, x0, y0, x1, y1) {
   return true;
 }
 
-var clipMax = 1e9,
-    clipMin = -clipMax; // TODO Use d3-polygon’s polygonContains here for the ring check?
+var clipMax = 1e9, clipMin = -clipMax;
+
+// TODO Use d3-polygon’s polygonContains here for the ring check?
 // TODO Eliminate duplicate buffering in clipBuffer and polygon.push?
 
 function clipRectangle(x0, y0, x1, y1) {
+
   function visible(x, y) {
     return x0 <= x && x <= x1 && y0 <= y && y <= y1;
   }
 
   function interpolate(from, to, direction, stream) {
-    var a = 0,
-        a1 = 0;
-
-    if (from == null || (a = corner(from, direction)) !== (a1 = corner(to, direction)) || comparePoint(from, to) < 0 ^ direction > 0) {
-      do {
-        stream.point(a === 0 || a === 3 ? x0 : x1, a > 1 ? y1 : y0);
-      } while ((a = (a + direction + 4) % 4) !== a1);
+    var a = 0, a1 = 0;
+    if (from == null
+        || (a = corner(from, direction)) !== (a1 = corner(to, direction))
+        || comparePoint(from, to) < 0 ^ direction > 0) {
+      do stream.point(a === 0 || a === 3 ? x0 : x1, a > 1 ? y1 : y0);
+      while ((a = (a + direction + 4) % 4) !== a1);
     } else {
       stream.point(to[0], to[1]);
     }
   }
 
   function corner(p, direction) {
-    return abs(p[0] - x0) < epsilon ? direction > 0 ? 0 : 3 : abs(p[0] - x1) < epsilon ? direction > 0 ? 2 : 1 : abs(p[1] - y0) < epsilon ? direction > 0 ? 1 : 0 : direction > 0 ? 3 : 2; // abs(p[1] - y1) < epsilon
+    return abs(p[0] - x0) < epsilon ? direction > 0 ? 0 : 3
+        : abs(p[0] - x1) < epsilon ? direction > 0 ? 2 : 1
+        : abs(p[1] - y0) < epsilon ? direction > 0 ? 1 : 0
+        : direction > 0 ? 3 : 2; // abs(p[1] - y1) < epsilon
   }
 
   function compareIntersection(a, b) {
@@ -222850,25 +222173,24 @@ function clipRectangle(x0, y0, x1, y1) {
   function comparePoint(a, b) {
     var ca = corner(a, 1),
         cb = corner(b, 1);
-    return ca !== cb ? ca - cb : ca === 0 ? b[1] - a[1] : ca === 1 ? a[0] - b[0] : ca === 2 ? a[1] - b[1] : b[0] - a[0];
+    return ca !== cb ? ca - cb
+        : ca === 0 ? b[1] - a[1]
+        : ca === 1 ? a[0] - b[0]
+        : ca === 2 ? a[1] - b[1]
+        : b[0] - a[0];
   }
 
-  return function (stream) {
+  return function(stream) {
     var activeStream = stream,
         bufferStream = clipBuffer(),
         segments,
         polygon,
         ring,
-        x__,
-        y__,
-        v__,
-        // first point
-    x_,
-        y_,
-        v_,
-        // previous point
-    first,
+        x__, y__, v__, // first point
+        x_, y_, v_, // previous point
+        first,
         clean;
+
     var clipStream = {
       point: point,
       lineStart: lineStart,
@@ -222887,19 +222209,15 @@ function clipRectangle(x0, y0, x1, y1) {
       for (var i = 0, n = polygon.length; i < n; ++i) {
         for (var ring = polygon[i], j = 1, m = ring.length, point = ring[0], a0, a1, b0 = point[0], b1 = point[1]; j < m; ++j) {
           a0 = b0, a1 = b1, point = ring[j], b0 = point[0], b1 = point[1];
-
-          if (a1 <= y1) {
-            if (b1 > y1 && (b0 - a0) * (y1 - a1) > (b1 - a1) * (x0 - a0)) ++winding;
-          } else {
-            if (b1 <= y1 && (b0 - a0) * (y1 - a1) < (b1 - a1) * (x0 - a0)) --winding;
-          }
+          if (a1 <= y1) { if (b1 > y1 && (b0 - a0) * (y1 - a1) > (b1 - a1) * (x0 - a0)) ++winding; }
+          else { if (b1 <= y1 && (b0 - a0) * (y1 - a1) < (b1 - a1) * (x0 - a0)) --winding; }
         }
       }
 
       return winding;
-    } // Buffer geometry within a polygon and then clip it en masse.
+    }
 
-
+    // Buffer geometry within a polygon and then clip it en masse.
     function polygonStart() {
       activeStream = bufferStream, segments = [], polygon = [], clean = true;
     }
@@ -222908,23 +222226,18 @@ function clipRectangle(x0, y0, x1, y1) {
       var startInside = polygonInside(),
           cleanInside = clean && startInside,
           visible = (segments = merge$1(segments)).length;
-
       if (cleanInside || visible) {
         stream.polygonStart();
-
         if (cleanInside) {
           stream.lineStart();
           interpolate(null, null, 1, stream);
           stream.lineEnd();
         }
-
         if (visible) {
           clipRejoin(segments, compareIntersection, startInside, interpolate, stream);
         }
-
         stream.polygonEnd();
       }
-
       activeStream = stream, segments = polygon = ring = null;
     }
 
@@ -222934,18 +222247,17 @@ function clipRectangle(x0, y0, x1, y1) {
       first = true;
       v_ = false;
       x_ = y_ = NaN;
-    } // TODO rather than special-case polygons, simply handle them separately.
+    }
+
+    // TODO rather than special-case polygons, simply handle them separately.
     // Ideally, coincident intersection points should be jittered to avoid
     // clipping issues.
-
-
     function lineEnd() {
       if (segments) {
         linePoint(x__, y__);
         if (v__ && v_) bufferStream.rejoin();
         segments.push(bufferStream.result());
       }
-
       clipStream.point = point;
       if (v_) activeStream.lineEnd();
     }
@@ -222953,26 +222265,23 @@ function clipRectangle(x0, y0, x1, y1) {
     function linePoint(x, y) {
       var v = visible(x, y);
       if (polygon) ring.push([x, y]);
-
       if (first) {
         x__ = x, y__ = y, v__ = v;
         first = false;
-
         if (v) {
           activeStream.lineStart();
           activeStream.point(x, y);
         }
       } else {
-        if (v && v_) activeStream.point(x, y);else {
+        if (v && v_) activeStream.point(x, y);
+        else {
           var a = [x_ = Math.max(clipMin, Math.min(clipMax, x_)), y_ = Math.max(clipMin, Math.min(clipMax, y_))],
               b = [x = Math.max(clipMin, Math.min(clipMax, x)), y = Math.max(clipMin, Math.min(clipMax, y))];
-
           if (clipLine(a, b, x0, y0, x1, y1)) {
             if (!v_) {
               activeStream.lineStart();
               activeStream.point(a[0], a[1]);
             }
-
             activeStream.point(b[0], b[1]);
             if (!v) activeStream.lineEnd();
             clean = false;
@@ -222983,7 +222292,6 @@ function clipRectangle(x0, y0, x1, y1) {
           }
         }
       }
-
       x_ = x, y_ = y, v_ = v;
     }
 
@@ -222991,7 +222299,7 @@ function clipRectangle(x0, y0, x1, y1) {
   };
 }
 
-function identity$4 (x) {
+function identity$4(x) {
   return x;
 }
 
@@ -222999,13 +222307,14 @@ var x0 = Infinity,
     y0 = x0,
     x1 = -x0,
     y1 = x1;
+
 var boundsStream = {
   point: boundsPoint,
   lineStart: noop,
   lineEnd: noop,
   polygonStart: noop,
   polygonEnd: noop,
-  result: function result() {
+  result: function() {
     var bounds = [[x0, y0], [x1, y1]];
     x1 = y1 = -(y0 = x0 = Infinity);
     return bounds;
@@ -223020,13 +222329,9 @@ function boundsPoint(x, y) {
 }
 
 function transformer$1(methods) {
-  return function (stream) {
-    var s = new TransformStream();
-
-    for (var key in methods) {
-      s[key] = methods[key];
-    }
-
+  return function(stream) {
+    var s = new TransformStream;
+    for (var key in methods) s[key] = methods[key];
     s.stream = stream;
     return s;
   };
@@ -223036,24 +222341,12 @@ function TransformStream() {}
 
 TransformStream.prototype = {
   constructor: TransformStream,
-  point: function point(x, y) {
-    this.stream.point(x, y);
-  },
-  sphere: function sphere() {
-    this.stream.sphere();
-  },
-  lineStart: function lineStart() {
-    this.stream.lineStart();
-  },
-  lineEnd: function lineEnd() {
-    this.stream.lineEnd();
-  },
-  polygonStart: function polygonStart() {
-    this.stream.polygonStart();
-  },
-  polygonEnd: function polygonEnd() {
-    this.stream.polygonEnd();
-  }
+  point: function(x, y) { this.stream.point(x, y); },
+  sphere: function() { this.stream.sphere(); },
+  lineStart: function() { this.stream.lineStart(); },
+  lineEnd: function() { this.stream.lineEnd(); },
+  polygonStart: function() { this.stream.polygonStart(); },
+  polygonEnd: function() { this.stream.polygonEnd(); }
 };
 
 function fit(projection, fitBounds, object) {
@@ -223067,7 +222360,7 @@ function fit(projection, fitBounds, object) {
 }
 
 function fitExtent(projection, extent, object) {
-  return fit(projection, function (b) {
+  return fit(projection, function(b) {
     var w = extent[1][0] - extent[0][0],
         h = extent[1][1] - extent[0][1],
         k = Math.min(w / (b[1][0] - b[0][0]), h / (b[1][1] - b[0][1])),
@@ -223076,11 +222369,13 @@ function fitExtent(projection, extent, object) {
     projection.scale(150 * k).translate([x, y]);
   }, object);
 }
+
 function fitSize(projection, size, object) {
   return fitExtent(projection, [[0, 0], size], object);
 }
+
 function fitWidth(projection, width, object) {
-  return fit(projection, function (b) {
+  return fit(projection, function(b) {
     var w = +width,
         k = w / (b[1][0] - b[0][0]),
         x = (w - k * (b[1][0] + b[0][0])) / 2,
@@ -223088,8 +222383,9 @@ function fitWidth(projection, width, object) {
     projection.scale(150 * k).translate([x, y]);
   }, object);
 }
+
 function fitHeight(projection, height, object) {
-  return fit(projection, function (b) {
+  return fit(projection, function(b) {
     var h = +height,
         k = h / (b[1][1] - b[0][1]),
         x = -k * b[0][0],
@@ -223098,17 +222394,16 @@ function fitHeight(projection, height, object) {
   }, object);
 }
 
-var maxDepth = 16,
-    // maximum depth of subdivision
-cosMinDistance = cos(30 * radians); // cos(minimum angular distance)
+var maxDepth = 16, // maximum depth of subdivision
+    cosMinDistance = cos(30 * radians); // cos(minimum angular distance)
 
-function resample (project, delta2) {
+function resample(project, delta2) {
   return +delta2 ? resample$1(project, delta2) : resampleNone(project);
 }
 
 function resampleNone(project) {
   return transformer$1({
-    point: function point(x, y) {
+    point: function(x, y) {
       x = project(x, y);
       this.stream.point(x[0], x[1]);
     }
@@ -223116,11 +222411,11 @@ function resampleNone(project) {
 }
 
 function resample$1(project, delta2) {
+
   function resampleLineTo(x0, y0, lambda0, a0, b0, c0, x1, y1, lambda1, a1, b1, c1, depth, stream) {
     var dx = x1 - x0,
         dy = y1 - y0,
         d2 = dx * dx + dy * dy;
-
     if (d2 > 4 * delta2 && depth--) {
       var a = a0 + a1,
           b = b0 + b1,
@@ -223134,34 +222429,25 @@ function resample$1(project, delta2) {
           dx2 = x2 - x0,
           dy2 = y2 - y0,
           dz = dy * dx2 - dx * dy2;
-
       if (dz * dz / d2 > delta2 // perpendicular projected distance
-      || abs((dx * dx2 + dy * dy2) / d2 - 0.5) > 0.3 // midpoint close to an end
-      || a0 * a1 + b0 * b1 + c0 * c1 < cosMinDistance) {
-        // angular distance
+          || abs((dx * dx2 + dy * dy2) / d2 - 0.5) > 0.3 // midpoint close to an end
+          || a0 * a1 + b0 * b1 + c0 * c1 < cosMinDistance) { // angular distance
         resampleLineTo(x0, y0, lambda0, a0, b0, c0, x2, y2, lambda2, a /= m, b /= m, c, depth, stream);
         stream.point(x2, y2);
         resampleLineTo(x2, y2, lambda2, a, b, c, x1, y1, lambda1, a1, b1, c1, depth, stream);
       }
     }
   }
-
-  return function (stream) {
+  return function(stream) {
     var lambda00, x00, y00, a00, b00, c00, // first point
-    lambda0, x0, y0, a0, b0, c0; // previous point
+        lambda0, x0, y0, a0, b0, c0; // previous point
 
     var resampleStream = {
       point: point,
       lineStart: lineStart,
       lineEnd: lineEnd,
-      polygonStart: function polygonStart() {
-        stream.polygonStart();
-        resampleStream.lineStart = ringStart;
-      },
-      polygonEnd: function polygonEnd() {
-        stream.polygonEnd();
-        resampleStream.lineStart = lineStart;
-      }
+      polygonStart: function() { stream.polygonStart(); resampleStream.lineStart = ringStart; },
+      polygonEnd: function() { stream.polygonEnd(); resampleStream.lineStart = lineStart; }
     };
 
     function point(x, y) {
@@ -223176,8 +222462,7 @@ function resample$1(project, delta2) {
     }
 
     function linePoint(lambda, phi) {
-      var c = cartesian([lambda, phi]),
-          p = project(lambda, phi);
+      var c = cartesian([lambda, phi]), p = project(lambda, phi);
       resampleLineTo(x0, y0, lambda0, a0, b0, c0, x0 = p[0], y0 = p[1], lambda0 = lambda, a0 = c[0], b0 = c[1], c0 = c[2], maxDepth, stream);
       stream.point(x0, y0);
     }
@@ -223209,14 +222494,14 @@ function resample$1(project, delta2) {
 }
 
 var transformRadians = transformer$1({
-  point: function point(x, y) {
+  point: function(x, y) {
     this.stream.point(x * radians, y * radians);
   }
 });
 
 function transformRotate(rotate) {
   return transformer$1({
-    point: function point(x, y) {
+    point: function(x, y) {
       var r = rotate(x, y);
       return this.stream.point(r[0], r[1]);
     }
@@ -223225,15 +222510,12 @@ function transformRotate(rotate) {
 
 function scaleTranslate(k, dx, dy, sx, sy) {
   function transform(x, y) {
-    x *= sx;
-    y *= sy;
+    x *= sx; y *= sy;
     return [dx + k * x, dy - k * y];
   }
-
-  transform.invert = function (x, y) {
+  transform.invert = function(x, y) {
     return [(x - dx) / k * sx, (dy - y) / k * sy];
   };
-
   return transform;
 }
 
@@ -223246,58 +222528,33 @@ function scaleTranslateRotate(k, dx, dy, sx, sy, alpha) {
       bi = sinAlpha / k,
       ci = (sinAlpha * dy - cosAlpha * dx) / k,
       fi = (sinAlpha * dx + cosAlpha * dy) / k;
-
   function transform(x, y) {
-    x *= sx;
-    y *= sy;
+    x *= sx; y *= sy;
     return [a * x - b * y + dx, dy - b * x - a * y];
   }
-
-  transform.invert = function (x, y) {
+  transform.invert = function(x, y) {
     return [sx * (ai * x - bi * y + ci), sy * (fi - bi * x - ai * y)];
   };
-
   return transform;
 }
 
 function projection(project) {
-  return projectionMutator(function () {
-    return project;
-  })();
+  return projectionMutator(function() { return project; })();
 }
+
 function projectionMutator(projectAt) {
   var project,
-      k = 150,
-      // scale
-  x = 480,
-      y = 250,
-      // translate
-  lambda = 0,
-      phi = 0,
-      // center
-  deltaLambda = 0,
-      deltaPhi = 0,
-      deltaGamma = 0,
-      rotate,
-      // pre-rotate
-  alpha = 0,
-      // post-rotate angle
-  sx = 1,
-      // reflectX
-  sy = 1,
-      // reflectX
-  theta = null,
-      preclip = clipAntimeridian,
-      // pre-clip angle
-  x0 = null,
-      y0,
-      x1,
-      y1,
-      postclip = identity$4,
-      // post-clip extent
-  delta2 = 0.5,
-      // precision
-  projectResample,
+      k = 150, // scale
+      x = 480, y = 250, // translate
+      lambda = 0, phi = 0, // center
+      deltaLambda = 0, deltaPhi = 0, deltaGamma = 0, rotate, // pre-rotate
+      alpha = 0, // post-rotate angle
+      sx = 1, // reflectX
+      sy = 1, // reflectX
+      theta = null, preclip = clipAntimeridian, // pre-clip angle
+      x0 = null, y0, x1, y1, postclip = identity$4, // post-clip extent
+      delta2 = 0.5, // precision
+      projectResample,
       projectTransform,
       projectRotateTransform,
       cache,
@@ -223312,71 +222569,71 @@ function projectionMutator(projectAt) {
     return point && [point[0] * degrees, point[1] * degrees];
   }
 
-  projection.stream = function (stream) {
+  projection.stream = function(stream) {
     return cache && cacheStream === stream ? cache : cache = transformRadians(transformRotate(rotate)(preclip(projectResample(postclip(cacheStream = stream)))));
   };
 
-  projection.preclip = function (_) {
+  projection.preclip = function(_) {
     return arguments.length ? (preclip = _, theta = undefined, reset()) : preclip;
   };
 
-  projection.postclip = function (_) {
+  projection.postclip = function(_) {
     return arguments.length ? (postclip = _, x0 = y0 = x1 = y1 = null, reset()) : postclip;
   };
 
-  projection.clipAngle = function (_) {
+  projection.clipAngle = function(_) {
     return arguments.length ? (preclip = +_ ? clipCircle(theta = _ * radians) : (theta = null, clipAntimeridian), reset()) : theta * degrees;
   };
 
-  projection.clipExtent = function (_) {
+  projection.clipExtent = function(_) {
     return arguments.length ? (postclip = _ == null ? (x0 = y0 = x1 = y1 = null, identity$4) : clipRectangle(x0 = +_[0][0], y0 = +_[0][1], x1 = +_[1][0], y1 = +_[1][1]), reset()) : x0 == null ? null : [[x0, y0], [x1, y1]];
   };
 
-  projection.scale = function (_) {
+  projection.scale = function(_) {
     return arguments.length ? (k = +_, recenter()) : k;
   };
 
-  projection.translate = function (_) {
+  projection.translate = function(_) {
     return arguments.length ? (x = +_[0], y = +_[1], recenter()) : [x, y];
   };
 
-  projection.center = function (_) {
+  projection.center = function(_) {
     return arguments.length ? (lambda = _[0] % 360 * radians, phi = _[1] % 360 * radians, recenter()) : [lambda * degrees, phi * degrees];
   };
 
-  projection.rotate = function (_) {
+  projection.rotate = function(_) {
     return arguments.length ? (deltaLambda = _[0] % 360 * radians, deltaPhi = _[1] % 360 * radians, deltaGamma = _.length > 2 ? _[2] % 360 * radians : 0, recenter()) : [deltaLambda * degrees, deltaPhi * degrees, deltaGamma * degrees];
   };
 
-  projection.angle = function (_) {
+  projection.angle = function(_) {
     return arguments.length ? (alpha = _ % 360 * radians, recenter()) : alpha * degrees;
   };
 
-  projection.reflectX = function (_) {
+  projection.reflectX = function(_) {
     return arguments.length ? (sx = _ ? -1 : 1, recenter()) : sx < 0;
   };
 
-  projection.reflectY = function (_) {
+  projection.reflectY = function(_) {
     return arguments.length ? (sy = _ ? -1 : 1, recenter()) : sy < 0;
   };
 
-  projection.precision = function (_) {
+  projection.precision = function(_) {
     return arguments.length ? (projectResample = resample(projectTransform, delta2 = _ * _), reset()) : sqrt(delta2);
   };
 
-  projection.fitExtent = function (extent, object) {
+  projection.fitExtent = function(extent, object) {
     return fitExtent(projection, extent, object);
   };
 
-  projection.fitSize = function (size, object) {
+  projection.fitSize = function(size, object) {
     return fitSize(projection, size, object);
   };
 
-  projection.fitWidth = function (width, object) {
+  projection.fitWidth = function(width, object) {
     return fitWidth(projection, width, object);
   };
 
-  projection.fitHeight = function (height, object) {
+  projection.fitHeight = function(height, object) {
     return fitHeight(projection, height, object);
   };
 
@@ -223395,7 +222652,7 @@ function projectionMutator(projectAt) {
     return projection;
   }
 
-  return function () {
+  return function() {
     project = projectAt.apply(this, arguments);
     projection.invert = project.invert && invert;
     return recenter();
@@ -223408,7 +222665,7 @@ function conicProjection(projectAt) {
       m = projectionMutator(projectAt),
       p = m(phi0, phi1);
 
-  p.parallels = function (_) {
+  p.parallels = function(_) {
     return arguments.length ? m(phi0 = _[0] * radians, phi1 = _[1] * radians) : [phi0 * degrees, phi1 * degrees];
   };
 
@@ -223422,7 +222679,7 @@ function cylindricalEqualAreaRaw(phi0) {
     return [lambda * cosPhi0, sin(phi) / cosPhi0];
   }
 
-  forward.invert = function (x, y) {
+  forward.invert = function(x, y) {
     return [x / cosPhi0, asin(y * cosPhi0)];
   };
 
@@ -223430,73 +222687,79 @@ function cylindricalEqualAreaRaw(phi0) {
 }
 
 function conicEqualAreaRaw(y0, y1) {
-  var sy0 = sin(y0),
-      n = (sy0 + sin(y1)) / 2; // Are the parallels symmetrical around the Equator?
+  var sy0 = sin(y0), n = (sy0 + sin(y1)) / 2;
 
+  // Are the parallels symmetrical around the Equator?
   if (abs(n) < epsilon) return cylindricalEqualAreaRaw(y0);
-  var c = 1 + sy0 * (2 * n - sy0),
-      r0 = sqrt(c) / n;
+
+  var c = 1 + sy0 * (2 * n - sy0), r0 = sqrt(c) / n;
 
   function project(x, y) {
     var r = sqrt(c - 2 * n * sin(y)) / n;
     return [r * sin(x *= n), r0 - r * cos(x)];
   }
 
-  project.invert = function (x, y) {
+  project.invert = function(x, y) {
     var r0y = r0 - y,
         l = atan2(x, abs(r0y)) * sign(r0y);
-    if (r0y * n < 0) l -= pi * sign(x) * sign(r0y);
+    if (r0y * n < 0)
+      l -= pi * sign(x) * sign(r0y);
     return [l / n, asin((c - (x * x + r0y * r0y) * n * n) / (2 * n))];
   };
 
   return project;
 }
-function geoConicEqualArea () {
-  return conicProjection(conicEqualAreaRaw).scale(155.424).center([0, 33.6442]);
+
+function geoConicEqualArea() {
+  return conicProjection(conicEqualAreaRaw)
+      .scale(155.424)
+      .center([0, 33.6442]);
 }
 
 function mercatorRaw(lambda, phi) {
   return [lambda, log(tan((halfPi + phi) / 2))];
 }
 
-mercatorRaw.invert = function (x, y) {
+mercatorRaw.invert = function(x, y) {
   return [x, 2 * atan(exp(y)) - halfPi];
 };
 
-function mercator () {
-  return mercatorProjection(mercatorRaw).scale(961 / tau);
+function mercator() {
+  return mercatorProjection(mercatorRaw)
+      .scale(961 / tau);
 }
+
 function mercatorProjection(project) {
   var m = projection(project),
       center = m.center,
       scale = m.scale,
       translate = m.translate,
       clipExtent = m.clipExtent,
-      x0 = null,
-      y0,
-      x1,
-      y1; // clip extent
+      x0 = null, y0, x1, y1; // clip extent
 
-  m.scale = function (_) {
+  m.scale = function(_) {
     return arguments.length ? (scale(_), reclip()) : scale();
   };
 
-  m.translate = function (_) {
+  m.translate = function(_) {
     return arguments.length ? (translate(_), reclip()) : translate();
   };
 
-  m.center = function (_) {
+  m.center = function(_) {
     return arguments.length ? (center(_), reclip()) : center();
   };
 
-  m.clipExtent = function (_) {
-    return arguments.length ? (_ == null ? x0 = y0 = x1 = y1 = null : (x0 = +_[0][0], y0 = +_[0][1], x1 = +_[1][0], y1 = +_[1][1]), reclip()) : x0 == null ? null : [[x0, y0], [x1, y1]];
+  m.clipExtent = function(_) {
+    return arguments.length ? ((_ == null ? x0 = y0 = x1 = y1 = null : (x0 = +_[0][0], y0 = +_[0][1], x1 = +_[1][0], y1 = +_[1][1])), reclip()) : x0 == null ? null : [[x0, y0], [x1, y1]];
   };
 
   function reclip() {
     var k = pi * scale(),
         t = m(rotation(m.rotate()).invert([0, 0]));
-    return clipExtent(x0 == null ? [[t[0] - k, t[1] - k], [t[0] + k, t[1] + k]] : project === mercatorRaw ? [[Math.max(t[0] - k, x0), y0], [Math.min(t[0] + k, x1), y1]] : [[x0, Math.max(t[1] - k, y0)], [x1, Math.min(t[1] + k, y1)]]);
+    return clipExtent(x0 == null
+        ? [[t[0] - k, t[1] - k], [t[0] + k, t[1] + k]] : project === mercatorRaw
+        ? [[Math.max(t[0] - k, x0), y0], [Math.min(t[0] + k, x1), y1]]
+        : [[x0, Math.max(t[1] - k, y0)], [x1, Math.min(t[1] + k, y1)]]);
   }
 
   return reclip();
@@ -223508,672 +222771,941 @@ var A1 = 1.340264,
     A4 = 0.003796,
     M = sqrt(3) / 2,
     iterations = 12;
+
 function equalEarthRaw(lambda, phi) {
-  var l = asin(M * sin(phi)),
-      l2 = l * l,
-      l6 = l2 * l2 * l2;
-  return [lambda * cos(l) / (M * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2))), l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2))];
+  var l = asin(M * sin(phi)), l2 = l * l, l6 = l2 * l2 * l2;
+  return [
+    lambda * cos(l) / (M * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2))),
+    l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2))
+  ];
 }
 
-equalEarthRaw.invert = function (x, y) {
-  var l = y,
-      l2 = l * l,
-      l6 = l2 * l2 * l2;
-
+equalEarthRaw.invert = function(x, y) {
+  var l = y, l2 = l * l, l6 = l2 * l2 * l2;
   for (var i = 0, delta, fy, fpy; i < iterations; ++i) {
     fy = l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2)) - y;
     fpy = A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2);
     l -= delta = fy / fpy, l2 = l * l, l6 = l2 * l2 * l2;
     if (abs(delta) < epsilon2) break;
   }
-
-  return [M * x * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2)) / cos(l), asin(sin(l) / M)];
+  return [
+    M * x * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2)) / cos(l),
+    asin(sin(l) / M)
+  ];
 };
 
-function projectionFn () {
-  return projection(equalEarthRaw).scale(177.158);
+function projectionFn() {
+  return projection(equalEarthRaw)
+      .scale(177.158);
 }
 
 function transverseMercatorRaw(lambda, phi) {
   return [log(tan((halfPi + phi) / 2)), -lambda];
 }
 
-transverseMercatorRaw.invert = function (x, y) {
+transverseMercatorRaw.invert = function(x, y) {
   return [-y, 2 * atan(exp(x)) - halfPi];
 };
 
-function geoTransverseMercator () {
+function geoTransverseMercator() {
   var m = mercatorProjection(transverseMercatorRaw),
       center = m.center,
       rotate = m.rotate;
 
-  m.center = function (_) {
+  m.center = function(_) {
     return arguments.length ? center([-_[1], _[0]]) : (_ = center(), [_[1], -_[0]]);
   };
 
-  m.rotate = function (_) {
+  m.rotate = function(_) {
     return arguments.length ? rotate([_[0], _[1], _.length > 2 ? _[2] + 90 : 90]) : (_ = rotate(), [_[0], _[1], _[2] - 90]);
   };
 
-  return rotate([0, 0, 90]).scale(159.155);
+  return rotate([0, 0, 90])
+      .scale(159.155);
 }
 
-var geojson_UK3 = topoToGeo(NUTS_RG_03M_2016_4326_LEVL_3_UK, 'NUTS');
-var projection_UK3_reflected_300x300 = projectionFn().reflectX(true).fitSize([300, 300], geojson_UK3);
-var choropleth = formatExamples([{
-  data: [{
-    key: 'World_110m_iso_a2_topo',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
-    props: {
-      key: 'NUTS_ID',
-      topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
-    props: {
-      topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
-    props: {
-      topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-    props: {
-      topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_3_DE',
-    props: {
-      topojson: NUTS_RG_03M_2016_4326_LEVL_3_DE,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_DE}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No topojson',
-    props: {},
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No topojson with custom message',
-    props: {
-      message: 'Please provide data!',
-      theme: {
-        messageColor: 'red',
-        messageFontSize: '2rem'
-      }
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tmessage='Please provide data!',\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tmessageColor: 'red',\n\t\t\t\t\t\tmessageFontSize: '2rem',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "In the most basic setup, you need to provide:"
-  }, {
-    tag: 'p',
-    content: "• `height`, `width`;"
-  }, {
-    tag: 'p',
-    content: "• `topojson`, the Topojson of regions to be represented, with `properties` having the a field corresponding to the prop `key`."
-  }, {
-    tag: 'p',
-    content: "• `topojsonId`, the key to us to select items in the `objects` field inthe topojson; e.g. `NUTS` or `countries`."
-  }, {
-    tag: 'p',
-    content: "The default projection (`geoEquirectangular`) will be applied."
-  }, {
-    tag: 'p',
-    content: 'Under certain conditions the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem):'
-  }, {
-    tag: 'p',
-    content: '• if `topojson` is undefined or it has no objects;'
-  }, {
-    tag: 'p',
-    content: '• if you pass `projection` and it is `undefined`: this is an useful way to control the message if you know that the projection has been generated with a geojson with an empty `features` property.'
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG',
-  title: 'Basic props'
-}, {
-  data: [{
-    key: null,
-    props: {
-      theme: {
-        backgroundColor: '#f1feff',
-        defaultFill: 'black',
-        defaultStroke: 'magenta',
-        defaultStrokeWidth: 1
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbackgroundColor: '#f1feff',\n\t\t\t\t\t\tdefaultFill: 'black',\n\t\t\t\t\t\tdefaultStroke: 'magenta',\n\t\t\t\t\t\tdefaultStrokeWidth: 1,\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "You can customise the map colors and stroke size."
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-styles',
-  title: 'Styles'
-}, {
-  data: [{
-    key: 'World_110m_iso_a2_topo',
-    props: {
-      key: 'iso_a2',
-      keyToColor: keyToColorWorld,
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tkeyToColor={keyToColorWorld}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
-    props: {
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
-    props: {
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
-    props: {
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-    props: {
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "You can color features by passing:"
-  }, {
-    tag: 'p',
-    content: "• `keyToColor`, a object mapping region `key|key_alt` to color (see below);"
-  }, {
-    tag: 'p',
-    content: "• `key`, the key to be used in the features `properties` field as the region identifier, e.g. `iso_a2`;"
-  }, {
-    tag: 'p',
-    content: "• Note that you might provide a topojson where not all the objects have the provided `key`."
-  }, {
-    tag: 'p',
-    content: "  For example if you provide `key: 'iso_a2'` (ISO Alpha 2 codes), disputed or partially recognised countries might not have that code (e.g. `Kosovo`)."
-  }, {
-    tag: 'p',
-    content: "  For these cases you can provide a `key_alt`, equal to `name` by default."
-  }, {
-    tag: 'p',
-    content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."
-  }, {
-    tag: 'p',
-    content: "Also note that if the value returned by `keyToColor` is falsy the fallback is `defaultFill` (which defaults to `white`)."
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-keyToColor',
-  title: 'Colors via map'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."
-  }, {
-    tag: 'p',
-    content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"
-  }, {
-    tag: 'p',
-    content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."
-  }, {
-    tag: 'p',
-    content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `defaultFill` (which defaults to `white`)."
-  }],
-  data: [{
-    key: null,
-    props: {
-      key: 'iso_a2',
-      keyToColorFn: keyToColorWorldFn,
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-keyToColorFn',
-  title: 'Colors via function'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."
-  }, {
-    tag: 'p',
-    content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"
-  }],
-  data: [{
-    key: 'none selected',
-    props: {
-      key: 'iso_a2',
-      theme: {
-        defaultFill: 'palegreen',
-        defaultStroke: 'red',
-        deselectedOpacity: 0.5,
-        selectedStroke: 'palegoldenrod',
-        selectedStrokeWidth: 4
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tdefaultFill: 'palegreen',\n\t\t\t\t\t\tdefaultStroke: 'red',\n\t\t\t\t\t\tdeselectedOpacity: 0.5,\n\t\t\t\t\t\tselectedStroke: 'palegoldenrod',\n\t\t\t\t\t\tselectedStrokeWidth: 4\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some countries selected',
-    props: {
-      key: 'iso_a2',
-      selectedKeys: ['TD', 'US', 'AU', 'CN'],
-      theme: {
-        defaultFill: 'palegreen',
-        defaultStroke: 'red',
-        deselectedOpacity: 0.25,
-        selectedStroke: '#00c5fa',
-        selectedStrokeWidth: 4
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tselectedKeys=['TD', 'US', 'AU', 'CN']\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tdefaultFill: 'palegreen',\n\t\t\t\t\t\tdefaultStroke: 'red',\n\t\t\t\t\t\tdeselectedOpacity: 0.25,\n\t\t\t\t\t\tselectedStroke: '#00c5fa',\n\t\t\t\t\t\tselectedStrokeWidth: 4,\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-selectedKeys',
-  title: 'Selected regions'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "You can highlight one specific region using `focusedKey` and specify a style for it."
-  }, {
-    tag: 'p',
-    content: "If the focused region is also one of the selected regions, the focused style takes precedence."
-  }, {
-    tag: 'p',
-    content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"
-  }],
-  data: [{
-    key: 'some countries selected, default style',
-    props: {
-      focusedKey: 'BR',
-      key: 'iso_a2',
-      keyToColorFn: keyToColorWorldFn,
-      selectedKeys: ['TD', 'US', 'RU', 'CN', 'BR'],
-      theme: {
-        selectedStrokeWidth: 2
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{keyToColorFn},\n\t\t\t\t\t{width}\n\t\t\t\t\tfocusedKey='BR',\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tselectedKeys=['TD', 'US', 'RU', 'CN', 'BR']\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tselectedStrokeWidth: 2\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some countries selected, custom style',
-    props: {
-      focusedKey: 'BR',
-      key: 'iso_a2',
-      keyToColorFn: keyToColorWorldFn,
-      selectedKeys: ['TD', 'US', 'RU', 'CN', 'BR'],
-      theme: {
-        focusedDasharray: '4 4',
-        focusedStroke: 'magenta',
-        focusedStrokeWidth: 4,
-        selectedStrokeWidth: 2
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{keyToColorFn}\n\t\t\t\t\t{width}\n\t\t\t\t\tfocusedKey='BR',\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tselectedKeys=['TD', 'US', 'RU', 'CN', 'BR']\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tfocusedDasharray: '4 4',\n\t\t\t\t\t\tfocusedStroke: 'magenta',\n\t\t\t\t\t\tfocusedStrokeWidth: 4,\n\t\t\t\t\t\tselectedStrokeWidth: 2,\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-focusedKey',
-  title: 'Focused region'
-}, {
-  data: [{
-    key: 'default hover style',
-    props: {
-      isInteractive: true,
-      key: 'iso_a2',
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'custom hover style',
-    props: {
-      isInteractive: true,
-      key: 'iso_a2',
-      theme: {
-        hoverFill: 'yellow',
-        hoverStroke: 'orange',
-        hoverStrokeWidth: 2,
-        hoverStrokedasharray: '2 2'
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tisInteractive={true}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ton:clicked={onClicked}\n\t\t\t\t\ton:entered={onEntered}\n\t\t\t\t\ton:exited={onExited}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\thoverFill: 'yellow',\n\t\t\t\t\t\thoverStroke: 'orange',\n\t\t\t\t\t\thoverStrokeWidth: 3,\n\t\t\t\t\t\thoverStrokedasharray: '4 4',\n\t\t\t\t\t}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "To use interactivity, you need to provide:"
-  }, {
-    tag: 'p',
-    content: "• `isInteractive` set to true;"
-  }, {
-    tag: 'p',
-    content: "• `key` or `key_alt` (see basic props for an examplation of these)"
-  }, {
-    tag: 'p',
-    content: "The component then emits events when interacting with the regions."
-  }, {
-    tag: 'p',
-    content: "The payload is the `key` or `key_alt` of the region being interacted with:"
-  }, {
-    tag: 'p',
-    content: "• Clicking a region dispatches a `clicked` event;"
-  }, {
-    tag: 'p',
-    content: "• Mouse-entering a region dispatches a `entered` event;"
-  }, {
-    tag: 'p',
-    content: "• Mouse-exiting a region dispatches a `exited` event."
-  }, {
-    tag: 'p',
-    content: "You can style the hovered region by passing:"
-  }, {
-    tag: 'p',
-    content: "• `hoverFill` (default: `#f6f6f6`),"
-  }, {
-    tag: 'p',
-    content: "• `hoverStroke` (default: `black`),"
-  }, {
-    tag: 'p',
-    content: "• `hoverStrokeWidth` (default: 1.5),"
-  }, {
-    tag: 'p',
-    content: "• `hoverStrokedasharray` (default: '')."
-  }, {
-    tag: 'p',
-    content: "Please hover and click regions of this chart to read the correspondent event payload below."
-  }],
-  events: ['clicked', 'entered', 'exited'],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-interactivity',
-  title: 'Interactivity'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "You can provide a projection function either by passing `projectionFn` or by choosing among some of the projections provided by `d3-geo` by passing a `projectionId` choosing among the ids below."
-  }, {
-    tag: 'p',
-    content: "Azimuthal projections:"
-  }, {
-    tag: 'p',
-    content: "• `geoAzimuthalEqualArea`"
-  }, {
-    tag: 'p',
-    content: "• `geoAzimuthalEquidistant`"
-  }, {
-    tag: 'p',
-    content: "Equal-Earth projections: `geoEqualEarth`"
-  }, {
-    tag: 'p',
-    content: "Cylindrical projections"
-  }, {
-    tag: 'p',
-    content: "• `geoEquirectangular`"
-  }, {
-    tag: 'p',
-    content: "• `geoMercator`"
-  }, {
-    tag: 'p',
-    content: "• `geoNaturalEarth1`"
-  }, {
-    tag: 'p',
-    content: "You can also pass a precomputed `projection`, useful when you need to share a projection with other components: this won't be affected internally and will be used as given."
-  }, {
-    tag: 'p',
-    content: "If you don't pass `projection`, `projectionFn` or `projectionId`, the default projection is `geoEquirectangular`."
-  }, {
-    tag: 'p',
-    content: "In other words, the order of precedence here is: `projection`, `projectionFn`, `projectionId`, default."
-  }],
-  data: [{
-    key: 'projectionId: geoAzimuthalEqualArea',
-    props: {
-      key: 'iso_a2',
-      projectionId: 'geoAzimuthalEqualArea',
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionId='geoAzimuthalEqualArea'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'projectionId: geoAzimuthalEquidistant',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projectionId: 'geoAzimuthalEquidistant'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionId='geoAzimuthalEquidistant'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'projectionId: geoEqualEarth',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projectionId: 'geoEqualEarth'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionId='geoEqualEarth'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'projectionId: geoEquirectangular',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projectionId: 'geoEquirectangular'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionId='geoEquirectangular'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'projectionId: geoMercator',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projectionId: 'geoMercator'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionId='geoMercator'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'projectionId: geoNaturalEarth1',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projectionId: 'geoNaturalEarth1'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionId='geoNaturalEarth1'\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'projectionFn: geoConicEqualArea',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projectionFn: geoConicEqualArea
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionFn=d3.geoConicEqualArea\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'projectionFn: geoTransverseMercator',
-    props: {
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries',
-      key: 'iso_a2',
-      projectionFn: geoTransverseMercator
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tprojectionFn=d3.geoTransverseMercator\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'custom projection (UK NUTS3 ReflectX 300x300)',
-    props: {
-      topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
-      topojsonId: 'NUTS',
-      key: 'NUTS_ID',
-      projection: projection_UK3_reflected_300x300
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{projection}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-projection',
-  title: 'Projection'
-}, {
-  data: [{
-    key: 'default geometry',
-    props: {
-      key: 'iso_a2',
-      theme: {
-        backgroundColor: '#eee'
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttheme={{backgroundColor: '#eee'}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'no safety',
-    props: {
-      geometry: {
-        bottom: 0,
-        left: 0,
-        right: 0,
-        top: 0
-      },
-      key: 'iso_a2',
-      theme: {
-        backgroundColor: '#eee'
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tbottom: 0,\n\t\t\t\t\t\tleft: 0,\n\t\t\t\t\t\tright: 0,\n\t\t\t\t\t\ttop: 0,\n\t\t\t\t\t}}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttheme={{backgroundColor: '#eee'}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'custom geometry',
-    props: {
-      geometry: {
-        bottom: 10,
-        left: 90,
-        right: 30,
-        top: 20
-      },
-      key: 'iso_a2',
-      theme: {
-        backgroundColor: '#eee'
-      },
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tbottom: 10,\n\t\t\t\t\t\tleft: 90,\n\t\t\t\t\t\tright: 30,\n\t\t\t\t\t\ttop: 20,\n\t\t\t\t\t}}\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\ttheme={{backgroundColor: '#eee'}}\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can adjust the safety area using `geometry`.'
-  }],
-  name: 'ChoroplethG',
-  namespace: 'svg',
-  packageName: 'choropleth',
-  slug: 'ChoroplethG-geometry',
-  title: 'Geometry'
-}, {
-  doc: [{
-    tag: 'p',
-    content: "If you need to render the choropleth as an html element, you can use `ChoroplethDiv` providing the same props but `width` and `height`."
-  }, {
-    tag: 'p',
-    content: "This will render the choropleth in a `div`."
-  }, {
-    tag: 'p',
-    content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"
-  }],
-  data: [{
-    key: 'World_110m_iso_a2_topo',
-    props: {
-      key: 'iso_a2',
-      keyToColor: keyToColorWorld,
-      padding: '3em',
-      theme: {
-        backgroundColor: '#eee'
-      },
-      title: 'Some world countries',
-      topojson: World_110m_iso_a2_topo,
-      topojsonId: 'countries'
-    },
-    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\tkey='iso_a2'\n\t\t\t\t\tkeyToColor={keyToColorWorld}\n\t\t\t\t\tpadding='3em'\n\t\t\t\t\ttheme={{backgroundColor: '#eee'}}\n\t\t\t\t\ttitle='Some world countries\n\t\t\t\t\ttopojson={World_110m_iso_a2_topo}\n\t\t\t\t\ttopojsonId='countries'\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
-    props: {
-      backgroundColor: '#eee',
-      key: 'NUTS_ID',
-      keyToColor: keyToColorUK2016,
-      padding: '0.5em',
-      theme: {
-        backgroundColor: '#f1feff'
-      },
-      title: 'UK NUTS3 (2016)',
-      topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
-      topojsonId: 'NUTS'
-    },
-    usage: "\n\t\t\t\t<ChoroplethDiv\n\t\t\t\t\tbackgroundColor='#eee'\n\t\t\t\t\tkey='NUTS_ID'\n\t\t\t\t\tkeyToColor={keyToColorUK2016}\n\t\t\t\t\tpadding='0.5em'\n\t\t\t\t\ttheme={{backgroundColor: '#f1feff'}}\n\t\t\t\t\ttitle='UK NUTS3 (2016)'\n\t\t\t\t\ttopojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}\n\t\t\t\t\ttopojsonId='NUTS'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  name: 'ChoroplethDiv',
-  packageName: 'choropleth',
-  slug: 'ChoroplethDiv',
-  title: 'ChoroplethDiv'
-}]);
+const geojson_UK3 = topoToGeo(NUTS_RG_03M_2016_4326_LEVL_3_UK, 'NUTS');
+const projection_UK3_reflected_300x300 =
+	projectionFn()
+	.reflectX(true)
+	.fitSize([300, 300], geojson_UK3);
+
+var choropleth = formatExamples([
+	{
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
+			props: {
+				key: 'NUTS_ID',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_DE',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_DE,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_DE}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'No topojson',
+			props: {},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'No topojson with custom message',
+			props: {
+				message: 'Please provide data!',
+				theme: {
+					messageColor: 'red',
+					messageFontSize: '2rem',
+				}
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					message='Please provide data!',
+					theme={{
+						messageColor: 'red',
+						messageFontSize: '2rem',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "In the most basic setup, you need to provide:"},
+			{tag: 'p', content: "• `height`, `width`;"},
+			{tag: 'p', content: "• `topojson`, the Topojson of regions to be represented, with `properties` having the a field corresponding to the prop `key`."},
+			{tag: 'p', content: "• `topojsonId`, the key to us to select items in the `objects` field inthe topojson; e.g. `NUTS` or `countries`."},
+			{tag: 'p', content: "The default projection (`geoEquirectangular`) will be applied."},
+			{tag: 'p', content: 'Under certain conditions the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem):'},
+			{tag: 'p', content: '• if `topojson` is undefined or it has no objects;'},
+			{tag: 'p', content: '• if you pass `projection` and it is `undefined`: this is an useful way to control the message if you know that the projection has been generated with a geojson with an empty `features` property.'},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG',
+		title: 'Basic props',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				theme: {
+					backgroundColor: '#f1feff',
+					defaultFill: 'black',
+					defaultStroke: 'magenta',
+					defaultStrokeWidth: 1,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					theme={{
+						backgroundColor: '#f1feff',
+						defaultFill: 'black',
+						defaultStroke: 'magenta',
+						defaultStrokeWidth: 1,
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "You can customise the map colors and stroke size."},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-styles',
+		title: 'Styles',
+	},
+	{
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
+				key: 'iso_a2',
+				keyToColor: keyToColorWorld,
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					keyToColor={keyToColorWorld}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_0_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_0_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_0_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_1_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_1_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_1_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_2_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_2_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_2_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "You can color features by passing:"},
+			{tag: 'p', content: "• `keyToColor`, a object mapping region `key|key_alt` to color (see below);"},
+			{tag: 'p', content: "• `key`, the key to be used in the features `properties` field as the region identifier, e.g. `iso_a2`;"},
+			{tag: 'p', content: "• Note that you might provide a topojson where not all the objects have the provided `key`."},
+			{tag: 'p', content: "  For example if you provide `key: 'iso_a2'` (ISO Alpha 2 codes), disputed or partially recognised countries might not have that code (e.g. `Kosovo`)."},
+			{tag: 'p', content: "  For these cases you can provide a `key_alt`, equal to `name` by default."},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColor` is falsy the fallback is `defaultFill` (which defaults to `white`)."},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-keyToColor',
+		title: 'Colors via map',
+	},
+	{
+		doc: [
+			{tag: 'p', content: "Instead of passing `keyToColor` you can pass a function `keyToColorFn`."},
+			{tag: 'p', content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"},
+			{tag: 'p', content: "Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence."},
+			{tag: 'p', content: "Also note that if the value returned by `keyToColorFn` is falsy the fallback is `defaultFill` (which defaults to `white`)."},
+		],
+		data: [{
+			key: null,
+			props: {
+				key: 'iso_a2',
+				keyToColorFn: keyToColorWorldFn,
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{keyToColorFn}
+					{width}
+					key='iso_a2'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-keyToColorFn',
+		title: 'Colors via function',
+	},
+	{
+		doc: [
+			{tag: 'p', content: "You can highlight regions using `selectedKeys` and specify a style for selected regions."},
+			{tag: 'p', content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"},
+		],
+		data: [{
+			key: 'none selected',
+			props: {
+				key: 'iso_a2',
+				theme: {
+					defaultFill: 'palegreen',
+					defaultStroke: 'red',
+					deselectedOpacity: 0.5,
+					selectedStroke: 'palegoldenrod',
+					selectedStrokeWidth: 4,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					theme={{
+						defaultFill: 'palegreen',
+						defaultStroke: 'red',
+						deselectedOpacity: 0.5,
+						selectedStroke: 'palegoldenrod',
+						selectedStrokeWidth: 4
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'some countries selected',
+			props: {
+				key: 'iso_a2',
+				selectedKeys: ['TD', 'US', 'AU', 'CN'],
+				theme: {
+					defaultFill: 'palegreen',
+					defaultStroke: 'red',
+					deselectedOpacity: 0.25,
+					selectedStroke: '#00c5fa',
+					selectedStrokeWidth: 4,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					selectedKeys=['TD', 'US', 'AU', 'CN']
+					theme={{
+						defaultFill: 'palegreen',
+						defaultStroke: 'red',
+						deselectedOpacity: 0.25,
+						selectedStroke: '#00c5fa',
+						selectedStrokeWidth: 4,
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-selectedKeys',
+		title: 'Selected regions',
+	},
+	{
+		doc: [
+			{tag: 'p', content: "You can highlight one specific region using `focusedKey` and specify a style for it."},
+			{tag: 'p', content: "If the focused region is also one of the selected regions, the focused style takes precedence."},
+			{tag: 'p', content: "You also have to pass `key` or `key_alt` (see basic props for an examplation of these)"},
+		],
+		data: [{
+			key: 'some countries selected, default style',
+			props: {
+				focusedKey: 'BR',
+				key: 'iso_a2',
+				keyToColorFn: keyToColorWorldFn,
+				selectedKeys: ['TD', 'US', 'RU', 'CN', 'BR'],
+				theme: {
+					selectedStrokeWidth: 2,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{keyToColorFn},
+					{width}
+					focusedKey='BR',
+					key='iso_a2'
+					selectedKeys=['TD', 'US', 'RU', 'CN', 'BR']
+					theme={{
+						selectedStrokeWidth: 2
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'some countries selected, custom style',
+			props: {
+				focusedKey: 'BR',
+				key: 'iso_a2',
+				keyToColorFn: keyToColorWorldFn,
+				selectedKeys: ['TD', 'US', 'RU', 'CN', 'BR'],
+				theme: {
+					focusedDasharray: '4 4',
+					focusedStroke: 'magenta',
+					focusedStrokeWidth: 4,
+					selectedStrokeWidth: 2,
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{keyToColorFn}
+					{width}
+					focusedKey='BR',
+					key='iso_a2'
+					selectedKeys=['TD', 'US', 'RU', 'CN', 'BR']
+					theme={{
+						focusedDasharray: '4 4',
+						focusedStroke: 'magenta',
+						focusedStrokeWidth: 4,
+						selectedStrokeWidth: 2,
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-focusedKey',
+		title: 'Focused region',
+	},
+	{
+		data: [{
+			key: 'default hover style',
+			props: {
+				isInteractive: true,
+				key: 'iso_a2',
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					isInteractive={true}
+					key='iso_a2'
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'custom hover style',
+			props: {
+				isInteractive: true,
+				key: 'iso_a2',
+				theme: {
+					hoverFill: 'yellow',
+					hoverStroke: 'orange',
+					hoverStrokeWidth: 2,
+					hoverStrokedasharray: '2 2',
+				},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					isInteractive={true}
+					key='iso_a2'
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+					theme={{
+						hoverFill: 'yellow',
+						hoverStroke: 'orange',
+						hoverStrokeWidth: 3,
+						hoverStrokedasharray: '4 4',
+					}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "To use interactivity, you need to provide:"},
+			{tag: 'p', content: "• `isInteractive` set to true;"},
+			{tag: 'p', content: "• `key` or `key_alt` (see basic props for an examplation of these)"},
+			{tag: 'p', content: "The component then emits events when interacting with the regions."},
+			{tag: 'p', content: "The payload is the `key` or `key_alt` of the region being interacted with:"},
+			{tag: 'p', content: "• Clicking a region dispatches a `clicked` event;"},
+			{tag: 'p', content: "• Mouse-entering a region dispatches a `entered` event;"},
+			{tag: 'p', content: "• Mouse-exiting a region dispatches a `exited` event."},
+			{tag: 'p', content: "You can style the hovered region by passing:"},
+			{tag: 'p', content: "• `hoverFill` (default: `#f6f6f6`),"},
+			{tag: 'p', content: "• `hoverStroke` (default: `black`),"},
+			{tag: 'p', content: "• `hoverStrokeWidth` (default: 1.5),"},
+			{tag: 'p', content: "• `hoverStrokedasharray` (default: '')."},
+			{tag: 'p', content: "Please hover and click regions of this chart to read the correspondent event payload below."},
+		],
+		events: [
+			'clicked',
+			'entered',
+			'exited',
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-interactivity',
+		title: 'Interactivity',
+	},
+	{
+		doc: [
+			{tag: 'p', content: "You can provide a projection function either by passing `projectionFn` or by choosing among some of the projections provided by `d3-geo` by passing a `projectionId` choosing among the ids below."},
+			{tag: 'p', content: "Azimuthal projections:"},
+			{tag: 'p', content: "• `geoAzimuthalEqualArea`"},
+			{tag: 'p', content: "• `geoAzimuthalEquidistant`"},
+			{tag: 'p', content: "Equal-Earth projections: `geoEqualEarth`"},
+			{tag: 'p', content: "Cylindrical projections"},
+			{tag: 'p', content: "• `geoEquirectangular`"},
+			{tag: 'p', content: "• `geoMercator`"},
+			{tag: 'p', content: "• `geoNaturalEarth1`"},
+			{tag: 'p', content: "You can also pass a precomputed `projection`, useful when you need to share a projection with other components: this won't be affected internally and will be used as given."},
+			{tag: 'p', content: "If you don't pass `projection`, `projectionFn` or `projectionId`, the default projection is `geoEquirectangular`."},
+			{tag: 'p', content: "In other words, the order of precedence here is: `projection`, `projectionFn`, `projectionId`, default."},
+		],
+		data: [{
+			key: 'projectionId: geoAzimuthalEqualArea',
+			props: {
+				key: 'iso_a2',
+				projectionId: 'geoAzimuthalEqualArea',
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projectionId='geoAzimuthalEqualArea'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'projectionId: geoAzimuthalEquidistant',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projectionId: 'geoAzimuthalEquidistant',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projectionId='geoAzimuthalEquidistant'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'projectionId: geoEqualEarth',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projectionId: 'geoEqualEarth',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projectionId='geoEqualEarth'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'projectionId: geoEquirectangular',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projectionId: 'geoEquirectangular',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projectionId='geoEquirectangular'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'projectionId: geoMercator',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projectionId: 'geoMercator',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projectionId='geoMercator'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'projectionId: geoNaturalEarth1',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projectionId: 'geoNaturalEarth1',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projectionId='geoNaturalEarth1'
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'projectionFn: geoConicEqualArea',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projectionFn: geoConicEqualArea,
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projectionFn=d3.geoConicEqualArea
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'projectionFn: geoTransverseMercator',
+			props: {
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+				key: 'iso_a2',
+				projectionFn: geoTransverseMercator,
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					projectionFn=d3.geoTransverseMercator
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'custom projection (UK NUTS3 ReflectX 300x300)',
+			props: {
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+				key: 'NUTS_ID',
+				projection: projection_UK3_reflected_300x300,
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{projection}
+					{width}
+					key='NUTS_ID'
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-projection',
+		title: 'Projection',
+	},
+
+	{
+		data: [{
+			key: 'default geometry',
+			props: {
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'no safety',
+			props: {
+				geometry: {
+					bottom: 0,
+					left: 0,
+					right: 0,
+					top: 0,
+				},
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					geometry={{
+						bottom: 0,
+						left: 0,
+						right: 0,
+						top: 0,
+					}}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'custom geometry',
+			props: {
+				geometry: {
+					bottom: 10,
+					left: 90,
+					right: 30,
+					top: 20,
+				},
+				key: 'iso_a2',
+				theme: {backgroundColor: '#eee'},
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethG
+					{height}
+					{width}
+					geometry={{
+						bottom: 10,
+						left: 90,
+						right: 30,
+						top: 20,
+					}}
+					key='iso_a2'
+					theme={{backgroundColor: '#eee'}}
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can adjust the safety area using `geometry`.'},
+		],
+		name: 'ChoroplethG',
+		namespace: 'svg',
+		packageName: 'choropleth',
+		slug: 'ChoroplethG-geometry',
+		title: 'Geometry',
+	},
+
+	{
+		doc: [
+			{tag: 'p', content: "If you need to render the choropleth as an html element, you can use `ChoroplethDiv` providing the same props but `width` and `height`."},
+			{tag: 'p', content: "This will render the choropleth in a `div`."},
+			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"},
+		],
+		data: [{
+			key: 'World_110m_iso_a2_topo',
+			props: {
+				key: 'iso_a2',
+				keyToColor: keyToColorWorld,
+				padding: '3em',
+				theme: {backgroundColor: '#eee'},
+				title: 'Some world countries',
+				topojson: World_110m_iso_a2_topo,
+				topojsonId: 'countries',
+			},
+			usage: `
+				<ChoroplethDiv
+					key='iso_a2'
+					keyToColor={keyToColorWorld}
+					padding='3em'
+					theme={{backgroundColor: '#eee'}}
+					title='Some world countries
+					topojson={World_110m_iso_a2_topo}
+					topojsonId='countries'
+				/>
+			`,
+		}, {
+			key: 'NUTS_RG_03M_2016_4326_LEVL_3_UK',
+			props: {
+				backgroundColor: '#eee',
+				key: 'NUTS_ID',
+				keyToColor: keyToColorUK2016,
+				padding: '0.5em',
+				theme: {backgroundColor: '#f1feff'},
+				title: 'UK NUTS3 (2016)',
+				topojson: NUTS_RG_03M_2016_4326_LEVL_3_UK,
+				topojsonId: 'NUTS',
+			},
+			usage: `
+				<ChoroplethDiv
+					backgroundColor='#eee'
+					key='NUTS_ID'
+					keyToColor={keyToColorUK2016}
+					padding='0.5em'
+					theme={{backgroundColor: '#f1feff'}}
+					title='UK NUTS3 (2016)'
+					topojson={NUTS_RG_03M_2016_4326_LEVL_3_UK}
+					topojsonId='NUTS'
+				/>
+			`,
+		}],
+		name: 'ChoroplethDiv',
+		packageName: 'choropleth',
+		slug: 'ChoroplethDiv',
+		title: 'ChoroplethDiv',
+	}
+]);
 
 var bins = [
 	{
@@ -233602,860 +233134,1172 @@ var bins_value_non_uniform = [
 	}
 ];
 
-var bins_2_value = bins_2.map(function (_ref) {
-  var range = _ref.range,
-      values = _ref.values;
-  return {
-    range: range,
-    value: values ? values.length : 0
-  };
-});
-var bins_value_non_uniform_non_contiguous = bins_value_non_uniform.filter(function (v, i) {
-  return i % 2 === 0;
-});
-var backgroundColor$1 = '#feffd4';
-var binFill = 'orange';
-var selectedBins = [1, 5, 6];
-var histogram = formatExamples([{
-  data: [{
-    key: 'some bins {range, values}',
-    props: {
-      bins: bins
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some other bins {range, values}',
-    props: {
-      bins: bins_2
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some bins {range, value}',
-    props: {
-      bins: bins_2_value
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non uniform bins',
-    props: {
-      bins: bins_value_non_uniform
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non-uniform non-contiguous bins',
-    props: {
-      bins: bins_value_non_uniform_non_contiguous
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No bins',
-    props: {},
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Empty bins',
-    props: {
-      bins: []
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Empty bins with custom message',
-    props: {
-      bins: [],
-      message: 'Please provide data!',
-      theme: {
-        messageColor: 'red',
-        messageFontSize: '2rem'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tmessage='Please provide data!',\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tmessageColor: 'red',\n\t\t\t\t\t\tmessageFontSize: '2rem',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'In the most basic setup, you need to provide:'
-  }, {
-    tag: 'p',
-    content: '• `width` and `height` (numbers).'
-  }, {
-    tag: 'p',
-    content: '• `bins`, an array of objects of two possible shapes:'
-  }, {
-    tag: 'p',
-    content: '•• `{range: [number, number], value: number}`: this will use `value` as the length of the bin'
-  }, {
-    tag: 'p',
-    content: '•• `{range: [number, number], values: any[]}`: this will use the length of `values` as the length of the bin'
-  }, {
-    tag: 'p',
-    content: 'Ranges are assumed to be sorted and bins are assumed to be sorted by `range`, that is the first value of a bin `range` is greater than the second value of the previos bin `range`.'
-  }, {
-    tag: 'p',
-    content: 'You can draw non-uniform non-contiguous bins, that is ranges don\'t have be to contiguous or be all of the same size.'
-  }, {
-    tag: 'p',
-    content: 'If `bins` is undefined or empty the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG',
-  title: 'Basic props'
-}, {
-  data: [{
-    key: 'extent across various order of magnitude – no log scale',
-    props: {
-      bins: bins_3
-    },
-    usage: "<HistogramG {bins} />"
-  }, {
-    key: 'extent across various order of magnitude – log scale',
-    props: {
-      bins: bins_3,
-      flags: {
-        useLogScale: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{useLogScale: true}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'If the bins length varies across various order of magnitude, you can set `useLogScale` to `true`.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-logScale',
-  title: 'Log scale'
-}, {
-  data: [{
-    key: 'some bins',
-    props: {
-      bins: bins,
-      binsFill: binsFill,
-      theme: {
-        binStroke: 'red',
-        binStrokeWidth: 3
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{binsFill}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbinStroke: 'red',\n\t\t\t\t\t\tbinStrokeWidth: 3,\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some other bins',
-    props: {
-      bins: bins_2,
-      binsFill: binsFill_2,
-      theme: {
-        binStroke: 'palegreen',
-        binStrokeWidth: 5,
-        textColor: 'red'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{binsFill}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbinStroke: 'palegreen',\n\t\t\t\t\t\tbinStrokeWidth: 5,\n\t\t\t\t\t\ttextColor: 'red',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can customise colors by providing a `binsFill` array'
-  }, {
-    tag: 'p',
-    content: 'You can customise the bins border color and width by providing `binStroke` (a color) and `binStrokeWidth` (a number) and `textColor`.'
-  }, {
-    tag: 'p',
-    content: 'Also see the interactivity section for selected bins style props.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-style',
-  title: 'Bins style'
-}, {
-  data: [{
-    key: null,
-    props: {
-      theme: {
-        backgroundColor: backgroundColor$1
-      },
-      bins: bins,
-      flags: {
-        withBackground: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{withBackground: true}}\n\t\t\t\t\ttheme={{backgroundColor: '".concat(backgroundColor$1, "'}}\n\t\t\t\t/>\n\t\t\t")
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can add a background prividing `withBackground` with a custom color using `backgroundColor`, which defaults to `white`.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-background',
-  title: 'Background'
-}, {
-  data: [{
-    key: 'bins with integer ranges',
-    props: {
-      bins: bins
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'bins with decimal ranges (no ticksFormatFn)',
-    props: {
-      bins: bins_2
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'bins with decimal ranges (w/ ticksFormatFn)',
-    props: {
-      bins: bins_2,
-      ticksFormatFn: roundTo(2)
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tticksFormatFn={roundTo(2)}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'no ticks',
-    props: {
-      bins: bins_2,
-      flags: {
-        hideTicks: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\thideTicks={{hideTicks: true}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can customize the ticks format by providing a `ticksFormatFn`.'
-  }, {
-    tag: 'p',
-    content: 'You can hide the ticks by setting `hideTicks` to true.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-ticks',
-  title: 'Ticks'
-}, {
-  data: [{
-    key: 'no safety',
-    props: {
-      bins: bins_2
-    },
-    usage: "<HistogramG {bins} />"
-  }, {
-    key: 'safety',
-    props: {
-      bins: bins_2,
-      geometry: {
-        safetyXTicks: 160
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tsafetyXTicks: 160,\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'no ticks, safety',
-    props: {
-      bins: bins_2,
-      flags: {
-        hideTicks: true
-      },
-      geometry: {
-        safetyXNoTicks: 50,
-        safetyXValues: 50
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{hideTicks: true}}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tsafetyXNoTicks: 50,\n\t\t\t\t\t\tsafetyXValues: 50\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can adjust the safety distances to control overflow using:'
-  }, {
-    tag: 'p',
-    content: '- `safetyXNoTicks`: the amount of pixels from the axis to the border when you use `hideTicks`.'
-  }, {
-    tag: 'p',
-    content: '- `safetyXTicks`: the amount of pixels from the axis to the border when you show ticks.'
-  }, {
-    tag: 'p',
-    content: '- `safetyXValues`: the amounf of pixels from top of the taller bin to the opposite border.'
-  }, {
-    tag: 'p',
-    content: '- `safetyY`: the number of pixels on top and bottom limits.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-safety',
-  title: 'Safety'
-}, {
-  data: [{
-    key: 'some bins',
-    props: {
-      bins: bins,
-      flags: {
-        isInteractive: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'some other bins, pre-selected',
-    props: {
-      bins: bins_2,
-      flags: {
-        isInteractive: true
-      },
-      selectedBins: selectedBins
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t\tselectedBins=".concat(JSON.stringify(selectedBins), "\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        isInteractive: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non-uniform non-contiguous bins',
-    props: {
-      bins: bins_value_non_uniform_non_contiguous,
-      flags: {
-        isInteractive: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non-uniform styled bins',
-    props: {
-      bins: bins_value_non_uniform,
-      binsFill: binsFill_2,
-      flags: {
-        isInteractive: true
-      },
-      theme: {
-        binStroke: 'green',
-        binStrokeWidth: 2
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{binsFill}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbinStroke: 'green',\n\t\t\t\t\t\tbinStrokeWidth: 2,\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'custom selected bin style',
-    props: {
-      bins: bins_value_non_uniform,
-      binsFill: binsFill_2,
-      flags: {
-        isInteractive: true
-      },
-      theme: {
-        binStroke: 'green',
-        binStrokeWidth: 2,
-        selectedBinFill: 'yellow',
-        selectedBinStroke: 'red',
-        selectedBinStrokeWidth: '5'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{binsFill}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbinStroke: 'green',\n\t\t\t\t\t\tbinStrokeWidth: 2,\n\t\t\t\t\t\tselectedBinFill: 'yellow',\n\t\t\t\t\t\tselectedBinStroke: 'red',\n\t\t\t\t\t\tselectedBinStrokeWidth: '5',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "If `isInteractive` is `true`, the component emits events when interacting with the bins."
-  }, {
-    tag: 'p',
-    content: "Events:"
-  }, {
-    tag: 'p',
-    content: "• Clicking a bin selects or deselects it depending on if it was already selected and depending on the pressed modifier key (see below) and dispatches a `clicked` event with payload `{index, selectedBins}`"
-  }, {
-    tag: 'p',
-    content: "• Clicking the background resets the selection and dispatches a `clicked` event, with payload `{selectedBins: []}`"
-  }, {
-    tag: 'p',
-    content: "• Mouse-exiting a bin dispatches a `exited` event, with the payload being the exited bin index"
-  }, {
-    tag: 'p',
-    content: "• Brushing – clicking a bin and dragging the pointer over other bins selects them and dispatches brush events:"
-  }, {
-    tag: 'p',
-    content: "•• as soon as we start brushing, a `brushstart` event gets dispatched, the payload being the index of the bin where we started brushing;"
-  }, {
-    tag: 'p',
-    content: "•• continuing dragging, when the pointer crosses bins a `brushed` event gets dispatched with the payload being `{selectedBins, end, start}`, the currently selected bins and the brushing start and end indices;"
-  }, {
-    tag: 'p',
-    content: "•• when we stop dragging by releasing the pointer, a `brushend` event gets dispatched, the payload being the index of the bin where we stopped brushing."
-  }, {
-    tag: 'p',
-    content: "You can use modifiers to add or remove to the selection:"
-  }, {
-    tag: 'p',
-    content: "• Holding the `shift` key when brushing or clicking adds the brushed bins to the selection, the payload being the start bin index;"
-  }, {
-    tag: 'p',
-    content: "• Holding the `alt` key when brushing or clicking removes the brushed bins to the selection."
-  }, {
-    tag: 'p',
-    content: "A green/red (respectively) line is displayed to help you understand what's going on. You can customise these with props `brushAddStroke`, `brushRemoveStroke`, `brushStrokeOpacity`, `brushStrokeWidth`"
-  }, {
-    tag: 'p',
-    content: "You can customize the style of selected bins using: `selectedBinFill`, `selectedBinStroke`, `selectedBinStrokeWidth`."
-  }, {
-    tag: 'p',
-    content: "Please interact with the chart to read the correspondent event payload below."
-  }],
-  events: ['brushed', 'brushend', 'brushstart', 'clicked', 'entered', 'exited'],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-interactivity',
-  title: 'Interactivity'
-}, {
-  data: [{
-    key: 'Left-right, bottom-up (default)',
-    props: {
-      bins: bins
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Right-left, bottom-up',
-    props: {
-      bins: bins,
-      flags: {
-        isRightToLeft: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isRightToLeft: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Left-right, top-down',
-    props: {
-      bins: bins,
-      flags: {
-        isTopDown: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tisTopDown={true}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Right-left, top-down',
-    props: {
-      bins: bins,
-      flags: {
-        isRightToLeft: true,
-        isTopDown: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{\n\t\t\t\t\t\tisRightToLeft: true,\n\t\t\t\t\t\tisTopDown: true\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No origin dot',
-    props: {
-      bins: bins,
-      flags: {
-        hideOrigin: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{hideOrigin: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Custom origin dot',
-    props: {
-      bins: bins,
-      geometry: {
-        originRadius: 5
-      },
-      theme: {
-        originColor: 'red'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{originRadius: 5}}\n\t\t\t\t\ttheme={{originColor: 'red'}}\n\t\t\t\t/>\n\t\t\t"
-  }, // non-uniform
-  {
-    key: 'Left-right, bottom-up (default) – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Right-left, bottom-up – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        isRightToLeft: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isRightToLeft: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Left-right, top-down – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        isTopDown: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isTopDown: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Right-left, top-down – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        isRightToLeft: true,
-        isTopDown: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{\n\t\t\t\t\t\tisRightToLeft: true,\n\t\t\t\t\t\tisTopDown: true\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'No origin dot – non uniform bins',
-    props: {
-      bins: bins_value_non_uniform,
-      flags: {
-        hideOrigin: true
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags: {hideOrigin: true}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'Custom origin dot – on-uniform non-contiguous bins',
-    props: {
-      bins: bins_value_non_uniform_non_contiguous,
-      geometry: {
-        originRadius: 5
-      },
-      theme: {
-        originColor: 'red'
-      }
-    },
-    usage: "\n\t\t\t\t<HistogramG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tgeometry={{originRadius: 5}}\n\t\t\t\t\ttheme={{originColor: 'red'}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'You can customise the chart horizontal and vertical direction by providing the two booleans `isRightToLeft` and `isTopDown`'
-  }, {
-    tag: 'p',
-    content: 'By default it shows a dot to quickly identify the origin, but you can hide it by setting `hideOrigin` to `true`.'
-  }, {
-    tag: 'p',
-    content: 'The dot color can be chosen using `originColor`.'
-  }],
-  name: 'HistogramG',
-  namespace: 'svg',
-  packageName: 'histogram',
-  slug: 'HistogramG-orientation',
-  title: 'Orientation'
-}, {
-  data: [{
-    key: 'some bins',
-    props: {
-      bins: bins,
-      flags: {
-        withBackground: true
-      },
-      padding: '3em',
-      theme: {
-        backgroundColor: backgroundColor$1,
-        binFill: binFill
-      },
-      title: 'Some bins'
-    },
-    usage: "\n\t\t\t\t<HistogramDiv\n\t\t\t\t\t{bins}\n\t\t\t\t\tflags={{withBackground: true}}\n\t\t\t\t\tpadding='3em'\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbackgroundColor: '".concat(backgroundColor$1, "',\n\t\t\t\t\t\tbinFill: '").concat(binFill, "',\n\t\t\t\t\t}}\n\t\t\t\t\ttitle='Some bins'\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'some other bins',
-    props: {
-      bins: bins_2,
-      ticksFormatFn: roundTo(2),
-      title: 'Some other bins'
-    },
-    usage: "\n\t\t\t\t<HistogramDiv\n\t\t\t\t\t{bins}\n\t\t\t\t\tticksFormatFn={roundTo(2)}\n\t\t\t\t\ttitle='Some other bins'\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "If you need to render the histogram as an html element, you can use `HistogramDiv` providing the same props but `width` and `height`."
-  }, {
-    tag: 'p',
-    content: "This will render the histogram in a `div`."
-  }, {
-    tag: 'p',
-    content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"
-  }],
-  name: 'HistogramDiv',
-  packageName: 'histogram',
-  slug: 'HistogramDiv',
-  title: 'HistogramDiv'
-}]);
+const bins_2_value = bins_2.map(
+	({range, values}) => ({range, value: values ? values.length : 0})
+);
+const bins_value_non_uniform_non_contiguous =
+	bins_value_non_uniform.filter((v, i) => i % 2 === 0);
 
-var bins$1 = [{
-  range: [0, 5],
-  color: 'red'
-}, {
-  range: [5, 10],
-  color: 'yellow'
-}, {
-  range: [10, 15],
-  color: 'palegreen'
-}, {
-  range: [15, 20],
-  color: 'cyan'
-}, {
-  range: [20, 25],
-  color: 'khaki'
-}, {
-  range: [25, 30],
-  color: 'lightskyblue'
-}, {
-  range: [30, 35],
-  color: 'blue'
-}, {
-  range: [35, 40],
-  color: 'magenta'
-}, {
-  range: [40, 45],
-  color: 'orange'
-}, {
-  range: [45, 50],
-  color: 'violet'
-}, {
-  range: [50, 55],
-  color: 'brown'
-}];
-var bins_nonUniform = [{
-  range: [0.1, 0.3],
-  color: 'lightskyblue'
-}, {
-  range: [0.3, 0.5],
-  color: 'khaki'
-}, {
-  range: [0.5, 0.7],
-  color: 'yellow'
-}, {
-  range: [0.7, 1],
-  color: 'brown'
-}, {
-  range: [1, 2],
-  color: 'blue'
-}, {
-  range: [2, 2.2],
-  color: 'palegreen'
-}, {
-  range: [2.2, 2.5],
-  color: 'orange'
-}, {
-  range: [2.5, 2.7],
-  color: 'magenta'
-}, {
-  range: [2.7, 3],
-  color: 'red'
-}, {
-  range: [3, 4],
-  color: 'violet'
-}, {
-  range: [4, 5],
-  color: 'cyan'
-}];
-var backgroundColor$2 = '#feffd4';
-var legend = formatExamples([{
-  data: [{
-    key: 'uniform bins',
-    props: {
-      bins: bins$1
-    },
-    usage: "\n\t\t\t\t<ColorBinsG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'non-uniform bins',
-    props: {
-      bins: bins_nonUniform
-    },
-    usage: "\n\t\t\t\t<ColorBinsG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'In the most basic setup, you need to provide `bins`, `height` and `width`.'
-  }],
-  name: 'ColorBinsG',
-  namespace: 'svg',
-  packageName: 'legend',
-  slug: 'ColorBinsG',
-  title: 'ColorBinsG: Basic props'
-}, {
-  data: [{
-    key: 'horizontal',
-    props: {
-      bins: bins$1
-    },
-    usage: "\n\t\t\t\t<ColorBinsG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'vertical',
-    props: {
-      bins: bins$1,
-      flags: {
-        isVertical: true
-      }
-    },
-    usage: "\n\t\t\t\t<ColorBinsG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{\n\t\t\t\t\t\tisVertical: true\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: 'The legend can be horizontal (default) or vertical.'
-  }],
-  name: 'ColorBinsG',
-  namespace: 'svg',
-  packageName: 'legend',
-  slug: 'ColorBinsG-orientation',
-  title: 'ColorBinsG: orientation'
-}, {
-  data: [{
-    key: null,
-    props: {
-      bins: bins$1,
-      flags: {
-        withBackground: true
-      },
-      geometry: {
-        left: 40,
-        right: 40
-      },
-      selectedBins: [2, 4, 5, 6],
-      theme: {
-        backgroundColor: 'palegreen',
-        backgroundOpacity: 0.1,
-        binStroke: 'black',
-        binStrokeWidth: 0.5,
-        fontSize: 30,
-        selectedBinStroke: 'red',
-        selectedBinStrokeWidth: 3,
-        textColor: 'blue'
-      }
-    },
-    usage: "\n\t\t\t\t<ColorBinsG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{\n\t\t\t\t\t\twithBackground: true\n\t\t\t\t\t}}\n\t\t\t\t\tgeometry={{\n\t\t\t\t\t\tleft: 40,\n\t\t\t\t\t\tright: 40,\n\t\t\t\t\t}}\n\t\t\t\t\tselectedBins={[2, 4, 5, 6]}\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbackgroundColor: 'palegreen',\n\t\t\t\t\t\tbackgroundOpacity: 0.1,\n\t\t\t\t\t\tbinStroke: 'black',\n\t\t\t\t\t\tbinStrokeWidth: 0.5,\n\t\t\t\t\t\tfontSize: 30,\n\t\t\t\t\t\tselectedBinStroke: 'red',\n\t\t\t\t\t\tselectedBinStrokeWidth: 3,\n\t\t\t\t\t\ttextColor: 'blue',\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "You can customise colors and strokes."
-  }],
-  name: 'ColorBinsG',
-  namespace: 'svg',
-  packageName: 'legend',
-  slug: 'ColorBinsG-styles',
-  title: 'ColorBinsG: styles'
-}, {
-  data: [{
-    key: 'horizontal',
-    props: {
-      bins: bins$1,
-      flags: {
-        isInteractive: true
-      }
-    },
-    usage: "\n\t\t\t\t<ColorBinsG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{isInteractive: true}}\n\t\t\t\t/>\n\t\t\t"
-  }, {
-    key: 'vertical',
-    props: {
-      bins: bins$1,
-      flags: {
-        isInteractive: true,
-        isVertical: true
-      }
-    },
-    usage: "\n\t\t\t\t<ColorBinsG\n\t\t\t\t\t{bins}\n\t\t\t\t\t{height}\n\t\t\t\t\t{width}\n\t\t\t\t\tflags={{\n\t\t\t\t\t\tisInteractive: true,\n\t\t\t\t\t\tisVertical: true\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "If `isInteractive` is `true`, the component emits events when interacting with the bins."
-  }, {
-    tag: 'p',
-    content: "Events:"
-  }, {
-    tag: 'p',
-    content: "• Clicking a bin selects or deselects it depending on if it was already selected and depending on the pressed modifier key (see below) and dispatches a `clicked` event with payload `{index, selectedBins}`"
-  }, {
-    tag: 'p',
-    content: "• Clicking the background resets the selection and dispatches a `clicked` event, with payload `{selectedBins: []}`"
-  }, {
-    tag: 'p',
-    content: "• Mouse-entering a bin dispatches a `entered` event, with the payload being the entered bin index"
-  }, {
-    tag: 'p',
-    content: "• Mouse-exiting a bin dispatches a `exited` event, with the payload being the exited bin index"
-  }, {
-    tag: 'p',
-    content: "• Brushing – clicking a bin and dragging the pointer over other bins selects them and dispatches brush events:"
-  }, {
-    tag: 'p',
-    content: "•• as soon as we start brushing, a `brushstart` event gets dispatched, the payload being the index of the bin where we started brushing;"
-  }, {
-    tag: 'p',
-    content: "•• continuing dragging, when the pointer crosses bins a `brushed` event gets dispatched with the payload being `{selectedBins, end, start}`, the currently selected bins and the brushing start and end indices;"
-  }, {
-    tag: 'p',
-    content: "•• when we stop dragging by releasing the pointer, a `brushend` event gets dispatched, the payload being the index of the bin where we stopped brushing."
-  }, {
-    tag: 'p',
-    content: "You can use modifiers to add or remove to the selection:"
-  }, {
-    tag: 'p',
-    content: "• Holding the `shift` key when brushing or clicking adds the brushed bins to the selection, the payload being the start bin index;"
-  }, {
-    tag: 'p',
-    content: "• Holding the `alt` key when brushing or clicking removes the brushed bins to the selection."
-  }, {
-    tag: 'p',
-    content: "A green/red line is displayed to help you understand what's going on (respectively). You can customise these with props `brushAddStroke`, `brushRemoveStroke`, `brushStrokeOpacity`, `brushStrokeWidth`"
-  }, {
-    tag: 'p',
-    content: "You can customize the style of selected bins using: `selectedBinStroke`, `selectedBinStrokeWidth`."
-  }, {
-    tag: 'p',
-    content: "Please interact with the chart to read the correspondent event payload below."
-  }],
-  events: ['brushed', 'brushend', 'brushstart', 'clicked', 'entered', 'exited'],
-  name: 'ColorBinsG',
-  namespace: 'svg',
-  packageName: 'legend',
-  slug: 'ColorBinsG-interactivity',
-  title: 'ColorBinsG: interactivity'
-}, {
-  data: [{
-    key: 'A legend',
-    props: {
-      bins: bins$1,
-      flags: {
-        withBackground: true
-      },
-      padding: '3em',
-      theme: {
-        backgroundColor: backgroundColor$2
-      },
-      title: 'A legend'
-    },
-    usage: "\n\t\t\t\t<ColorBinsDiv\n\t\t\t\t\t{bins}\n\t\t\t\t\tflags={{withBackground: true}}\n\t\t\t\t\tpadding='3em'\n\t\t\t\t\ttheme={{\n\t\t\t\t\t\tbackgroundColor: '".concat(backgroundColor$2, "',\n\t\t\t\t\t}}\n\t\t\t\t\ttitle='A legend'\n\t\t\t\t/>\n\t\t\t")
-  }, {
-    key: 'Another legend',
-    props: {
-      bins: bins_nonUniform,
-      title: 'Another legend',
-      flags: {
-        isVertical: true
-      }
-    },
-    usage: "\n\t\t\t\t<ColorBinsDiv\n\t\t\t\t\t{bins}\n\t\t\t\t\ttitle='Another legend'\n\t\t\t\t\tflags={{isVertical: true}}\n\t\t\t\t/>\n\t\t\t"
-  }],
-  doc: [{
-    tag: 'p',
-    content: "If you need to render the colorbins legend as an html element, you can use `ColorBinsDiv` providing the same props but `width` and `height`."
-  }, {
-    tag: 'p',
-    content: "This will render the legend in a `div`."
-  }, {
-    tag: 'p',
-    content: "You can add `title` (rendered as a `h2`), `padding` (default: '10px') and `headerHeight` (default: '2rem')"
-  }],
-  name: 'ColorBinsDiv',
-  packageName: 'legend',
-  slug: 'ColorBinsDiv',
-  title: 'ColorBinsDiv'
-}]);
+const backgroundColor$1 = '#feffd4';
+const binFill = 'orange';
+const selectedBins = [1, 5, 6];
+
+var histogram = formatExamples([
+	{
+		data: [{
+			key: 'some bins {range, values}',
+			props: {bins},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'some other bins {range, values}',
+			props: {bins: bins_2},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'some bins {range, value}',
+			props: {bins: bins_2_value},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'non uniform bins',
+			props: {bins: bins_value_non_uniform},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'non-uniform non-contiguous bins',
+			props: {bins: bins_value_non_uniform_non_contiguous},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'No bins',
+			props: {},
+			usage: `
+				<HistogramG
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Empty bins',
+			props: {bins: []},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Empty bins with custom message',
+			props: {
+				bins: [],
+				message: 'Please provide data!',
+				theme: {
+					messageColor: 'red',
+					messageFontSize: '2rem',
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					message='Please provide data!',
+					theme={{
+						messageColor: 'red',
+						messageFontSize: '2rem',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'In the most basic setup, you need to provide:'},
+			{tag: 'p', content: '• `width` and `height` (numbers).'},
+			{tag: 'p', content: '• `bins`, an array of objects of two possible shapes:'},
+			{tag: 'p', content: '•• `{range: [number, number], value: number}`: this will use `value` as the length of the bin'},
+			{tag: 'p', content: '•• `{range: [number, number], values: any[]}`: this will use the length of `values` as the length of the bin'},
+			{tag: 'p', content: 'Ranges are assumed to be sorted and bins are assumed to be sorted by `range`, that is the first value of a bin `range` is greater than the second value of the previos bin `range`.'},
+			{tag: 'p', content: 'You can draw non-uniform non-contiguous bins, that is ranges don\'t have be to contiguous or be all of the same size.'},
+			{tag: 'p', content: 'If `bins` is undefined or empty the chart shows a message that you can customize using the props `message`, `theme.messageColor` (default: black) and `theme.messageFontSize` (default: 1rem).'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG',
+		title: 'Basic props',
+	},
+	{
+		data: [{
+			key: 'extent across various order of magnitude – no log scale',
+			props: {bins: bins_3},
+			usage: `<HistogramG {bins} />`,
+		}, {
+			key: 'extent across various order of magnitude – log scale',
+			props: {
+				bins: bins_3,
+				flags: {useLogScale: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{useLogScale: true}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'If the bins length varies across various order of magnitude, you can set `useLogScale` to `true`.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-logScale',
+		title: 'Log scale',
+	},
+	{
+		data: [{
+			key: 'some bins',
+			props: {
+				bins,
+				binsFill,
+				theme: {
+					binStroke: 'red',
+					binStrokeWidth: 3,
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{binsFill}
+					{height}
+					{width}
+					theme={{
+						binStroke: 'red',
+						binStrokeWidth: 3,
+					}}
+				/>
+			`,
+		}, {
+			key: 'some other bins',
+			props: {
+				bins: bins_2,
+				binsFill: binsFill_2,
+				theme: {
+					binStroke: 'palegreen',
+					binStrokeWidth: 5,
+					textColor: 'red',
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{binsFill}
+					{height}
+					{width}
+					theme={{
+						binStroke: 'palegreen',
+						binStrokeWidth: 5,
+						textColor: 'red',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can customise colors by providing a `binsFill` array'},
+			{tag: 'p', content: 'You can customise the bins border color and width by providing `binStroke` (a color) and `binStrokeWidth` (a number) and `textColor`.'},
+			{tag: 'p', content: 'Also see the interactivity section for selected bins style props.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-style',
+		title: 'Bins style',
+	},
+	{
+		data: [{
+			key: null,
+			props: {
+				theme: {
+					backgroundColor: backgroundColor$1,
+				},
+				bins,
+				flags: {withBackground: true},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{withBackground: true}}
+					theme={{backgroundColor: '${backgroundColor$1}'}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can add a background prividing `withBackground` with a custom color using `backgroundColor`, which defaults to `white`.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-background',
+		title: 'Background',
+	},
+	{
+		data: [{
+			key: 'bins with integer ranges',
+			props: {bins},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'bins with decimal ranges (no ticksFormatFn)',
+			props: {bins: bins_2},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'bins with decimal ranges (w/ ticksFormatFn)',
+			props: {
+				bins: bins_2,
+				ticksFormatFn: roundTo(2)
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					ticksFormatFn={roundTo(2)}
+				/>
+			`,
+		}, {
+			key: 'no ticks',
+			props: {
+				bins: bins_2,
+				flags: {hideTicks: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					hideTicks={{hideTicks: true}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can customize the ticks format by providing a `ticksFormatFn`.'},
+			{tag: 'p', content: 'You can hide the ticks by setting `hideTicks` to true.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-ticks',
+		title: 'Ticks',
+	},
+	{
+		data: [{
+			key: 'no safety',
+			props: {bins: bins_2},
+			usage: `<HistogramG {bins} />`,
+		}, {
+			key: 'safety',
+			props: {
+				bins: bins_2,
+				geometry: {
+					safetyXTicks: 160,
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					geometry={{
+						safetyXTicks: 160,
+					}}
+				/>
+			`,
+		}, {
+			key: 'no ticks, safety',
+			props: {
+				bins: bins_2,
+				flags: {hideTicks: true},
+				geometry: {
+					safetyXNoTicks: 50,
+					safetyXValues: 50
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{hideTicks: true}}
+					geometry={{
+						safetyXNoTicks: 50,
+						safetyXValues: 50
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can adjust the safety distances to control overflow using:'},
+			{tag: 'p', content: '- `safetyXNoTicks`: the amount of pixels from the axis to the border when you use `hideTicks`.'},
+			{tag: 'p', content: '- `safetyXTicks`: the amount of pixels from the axis to the border when you show ticks.'},
+			{tag: 'p', content: '- `safetyXValues`: the amounf of pixels from top of the taller bin to the opposite border.'},
+			{tag: 'p', content: '- `safetyY`: the number of pixels on top and bottom limits.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-safety',
+		title: 'Safety',
+	},
+	{
+		data: [{
+			key: 'some bins',
+			props: {
+				bins,
+				flags: {isInteractive: true},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+				/>
+			`,
+		}, {
+			key: 'some other bins, pre-selected',
+			props: {
+				bins: bins_2,
+				flags: {isInteractive: true},
+				selectedBins
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+					selectedBins=${JSON.stringify(selectedBins)}
+				/>
+			`,
+		}, {
+			key: 'non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {isInteractive: true},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+				/>
+			`,
+		}, {
+			key: 'non-uniform non-contiguous bins',
+			props: {
+				bins: bins_value_non_uniform_non_contiguous,
+				flags: {isInteractive: true},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+				/>
+			`,
+		}, {
+			key: 'non-uniform styled bins',
+			props: {
+				bins: bins_value_non_uniform,
+				binsFill: binsFill_2,
+				flags: {isInteractive: true},
+				theme: {
+					binStroke: 'green',
+					binStrokeWidth: 2,
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{binsFill}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+					theme={{
+						binStroke: 'green',
+						binStrokeWidth: 2,
+					}}
+				/>
+			`,
+		}, {
+			key: 'custom selected bin style',
+			props: {
+				bins: bins_value_non_uniform,
+				binsFill: binsFill_2,
+				flags: {isInteractive: true},
+				theme: {
+					binStroke: 'green',
+					binStrokeWidth: 2,
+					selectedBinFill: 'yellow',
+					selectedBinStroke: 'red',
+					selectedBinStrokeWidth: '5',
+				}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{binsFill}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+					theme={{
+						binStroke: 'green',
+						binStrokeWidth: 2,
+						selectedBinFill: 'yellow',
+						selectedBinStroke: 'red',
+						selectedBinStrokeWidth: '5',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "If `isInteractive` is `true`, the component emits events when interacting with the bins."},
+			{tag: 'p', content: "Events:"},
+			{tag: 'p', content: "• Clicking a bin selects or deselects it depending on if it was already selected and depending on the pressed modifier key (see below) and dispatches a `clicked` event with payload `{index, selectedBins}`"},
+			{tag: 'p', content: "• Clicking the background resets the selection and dispatches a `clicked` event, with payload `{selectedBins: []}`"},
+			{tag: 'p', content: "• Mouse-exiting a bin dispatches a `exited` event, with the payload being the exited bin index"},
+			{tag: 'p', content: "• Brushing – clicking a bin and dragging the pointer over other bins selects them and dispatches brush events:"},
+			{tag: 'p', content: "•• as soon as we start brushing, a `brushstart` event gets dispatched, the payload being the index of the bin where we started brushing;"},
+			{tag: 'p', content: "•• continuing dragging, when the pointer crosses bins a `brushed` event gets dispatched with the payload being `{selectedBins, end, start}`, the currently selected bins and the brushing start and end indices;"},
+			{tag: 'p', content: "•• when we stop dragging by releasing the pointer, a `brushend` event gets dispatched, the payload being the index of the bin where we stopped brushing."},
+			{tag: 'p', content: "You can use modifiers to add or remove to the selection:"},
+			{tag: 'p', content: "• Holding the `shift` key when brushing or clicking adds the brushed bins to the selection, the payload being the start bin index;"},
+			{tag: 'p', content: "• Holding the `alt` key when brushing or clicking removes the brushed bins to the selection."},
+			{tag: 'p', content: "A green/red (respectively) line is displayed to help you understand what's going on. You can customise these with props `brushAddStroke`, `brushRemoveStroke`, `brushStrokeOpacity`, `brushStrokeWidth`"},
+			{tag: 'p', content: "You can customize the style of selected bins using: `selectedBinFill`, `selectedBinStroke`, `selectedBinStrokeWidth`."},
+			{tag: 'p', content: "Please interact with the chart to read the correspondent event payload below."},
+		],
+		events: [
+			'brushed',
+			'brushend',
+			'brushstart',
+			'clicked',
+			'entered',
+			'exited',
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-interactivity',
+		title: 'Interactivity',
+	},
+	{
+		data: [{
+			key: 'Left-right, bottom-up (default)',
+			props: {
+				bins
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Right-left, bottom-up',
+			props: {
+				bins,
+				flags: {isRightToLeft: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isRightToLeft: true}}
+				/>
+			`,
+		}, {
+			key: 'Left-right, top-down',
+			props: {
+				bins,
+				flags: {isTopDown: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					isTopDown={true}
+				/>
+			`,
+		}, {
+			key: 'Right-left, top-down',
+			props: {
+				bins,
+				flags: {
+					isRightToLeft: true,
+					isTopDown: true
+				},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						isRightToLeft: true,
+						isTopDown: true
+					}}
+				/>
+			`,
+		}, {
+			key: 'No origin dot',
+			props: {
+				bins,
+				flags: {hideOrigin: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{hideOrigin: true}}
+				/>
+			`,
+		}, {
+			key: 'Custom origin dot',
+			props: {
+				bins,
+				geometry: {originRadius: 5},
+				theme: {originColor: 'red'}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					geometry={{originRadius: 5}}
+					theme={{originColor: 'red'}}
+				/>
+			`,
+		},
+
+		// non-uniform
+		{
+			key: 'Left-right, bottom-up (default) – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Right-left, bottom-up – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {isRightToLeft: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isRightToLeft: true}}
+				/>
+			`,
+		}, {
+			key: 'Left-right, top-down – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {isTopDown: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{isTopDown: true}}
+				/>
+			`,
+		}, {
+			key: 'Right-left, top-down – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {
+					isRightToLeft: true,
+					isTopDown: true
+				},
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						isRightToLeft: true,
+						isTopDown: true
+					}}
+				/>
+			`,
+		}, {
+			key: 'No origin dot – non uniform bins',
+			props: {
+				bins: bins_value_non_uniform,
+				flags: {hideOrigin: true}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					flags: {hideOrigin: true}
+				/>
+			`,
+		}, {
+			key: 'Custom origin dot – on-uniform non-contiguous bins',
+			props: {
+				bins: bins_value_non_uniform_non_contiguous,
+				geometry: {originRadius: 5},
+				theme: {originColor: 'red'}
+			},
+			usage: `
+				<HistogramG
+					{bins}
+					{height}
+					{width}
+					geometry={{originRadius: 5}}
+					theme={{originColor: 'red'}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can customise the chart horizontal and vertical direction by providing the two booleans `isRightToLeft` and `isTopDown`'},
+			{tag: 'p', content: 'By default it shows a dot to quickly identify the origin, but you can hide it by setting `hideOrigin` to `true`.'},
+			{tag: 'p', content: 'The dot color can be chosen using `originColor`.'},
+		],
+		name: 'HistogramG',
+		namespace: 'svg',
+		packageName: 'histogram',
+		slug: 'HistogramG-orientation',
+		title: 'Orientation',
+	},
+	{
+		data: [{
+			key: 'some bins',
+			props: {
+				bins,
+				flags: {withBackground: true},
+				padding: '3em',
+				theme: {
+					backgroundColor: backgroundColor$1,
+					binFill,
+				},
+				title: 'Some bins',
+			},
+			usage: `
+				<HistogramDiv
+					{bins}
+					flags={{withBackground: true}}
+					padding='3em'
+					theme={{
+						backgroundColor: '${backgroundColor$1}',
+						binFill: '${binFill}',
+					}}
+					title='Some bins'
+				/>
+			`,
+		},
+		{
+			key: 'some other bins',
+			props: {
+				bins: bins_2,
+				ticksFormatFn: roundTo(2),
+				title: 'Some other bins',
+			},
+			usage: `
+				<HistogramDiv
+					{bins}
+					ticksFormatFn={roundTo(2)}
+					title='Some other bins'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "If you need to render the histogram as an html element, you can use `HistogramDiv` providing the same props but `width` and `height`."},
+			{tag: 'p', content: "This will render the histogram in a `div`."},
+			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"},
+		],
+		name: 'HistogramDiv',
+		packageName: 'histogram',
+		slug: 'HistogramDiv',
+		title: 'HistogramDiv',
+	},
+]);
+
+const bins$1 = [
+	{range: [0, 5], color: 'red'},
+	{range: [5, 10], color: 'yellow'},
+	{range: [10, 15], color: 'palegreen'},
+	{range: [15, 20], color: 'cyan'},
+	{range: [20, 25], color: 'khaki'},
+	{range: [25, 30], color: 'lightskyblue'},
+	{range: [30, 35], color: 'blue'},
+	{range: [35, 40], color: 'magenta'},
+	{range: [40, 45], color: 'orange'},
+	{range: [45, 50], color: 'violet'},
+	{range: [50, 55], color: 'brown'},
+];
+const bins_nonUniform = [
+	{range: [0.1, 0.3], color: 'lightskyblue'},
+	{range: [0.3, 0.5], color: 'khaki'},
+	{range: [0.5, 0.7], color: 'yellow'},
+	{range: [0.7, 1], color: 'brown'},
+	{range: [1, 2], color: 'blue'},
+	{range: [2, 2.2], color: 'palegreen'},
+	{range: [2.2, 2.5], color: 'orange'},
+	{range: [2.5, 2.7], color: 'magenta'},
+	{range: [2.7, 3], color: 'red'},
+	{range: [3, 4], color: 'violet'},
+	{range: [4, 5], color: 'cyan'},
+];
+const backgroundColor$2 = '#feffd4';
+
+var legend = formatExamples([
+	{
+		data: [{
+			key: 'Uniform bins',
+			props: {bins: bins$1},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Non-uniform bins',
+			props: {bins: bins_nonUniform},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'No bins',
+			props: {},
+			usage: `
+				<ColorBinsG
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Empty bins',
+			props: {bins: []},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Empty bins with custom message',
+			props: {
+				bins: [],
+				message: 'Please provide data!',
+				theme: {
+					messageColor: 'red',
+					messageFontSize: '2rem',
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					message='Please provide data!',
+					theme={{
+						messageColor: 'red',
+						messageFontSize: '2rem',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'In the most basic setup, you need to provide `bins`, `height` and `width`.'},
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG',
+		title: 'ColorBinsG: Basic props',
+	}, {
+		data: [{
+			key: 'horizontal',
+			props: {
+				bins: bins$1,
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'vertical',
+			props: {
+				bins: bins$1,
+				flags: {
+					isVertical: true
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						isVertical: true
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'The legend can be horizontal (default) or vertical.'},
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG-orientation',
+		title: 'ColorBinsG: orientation',
+	}, {
+		data: [{
+			key: null,
+			props: {
+				bins: bins$1,
+				flags: {
+					withBackground: true,
+				},
+				geometry: {
+					left: 40,
+					right: 40,
+				},
+				selectedBins: [2, 4, 5, 6],
+				theme: {
+					backgroundColor: 'palegreen',
+					backgroundOpacity: 0.1,
+					binStroke: 'black',
+					binStrokeWidth: 0.5,
+					fontSize: 30,
+					selectedBinStroke: 'red',
+					selectedBinStrokeWidth: 3,
+					textColor: 'blue',
+				},
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						withBackground: true
+					}}
+					geometry={{
+						left: 40,
+						right: 40,
+					}}
+					selectedBins={[2, 4, 5, 6]}
+					theme={{
+						backgroundColor: 'palegreen',
+						backgroundOpacity: 0.1,
+						binStroke: 'black',
+						binStrokeWidth: 0.5,
+						fontSize: 30,
+						selectedBinStroke: 'red',
+						selectedBinStrokeWidth: 3,
+						textColor: 'blue',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "You can customise colors and strokes."},
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG-styles',
+		title: 'ColorBinsG: styles',
+	}, {
+		data: [{
+			key: 'horizontal',
+			props: {
+				bins: bins$1,
+				flags: {isInteractive: true}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{isInteractive: true}}
+				/>
+			`,
+		}, {
+			key: 'vertical',
+			props: {
+				bins: bins$1,
+				flags: {
+					isInteractive: true,
+					isVertical: true
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						isInteractive: true,
+						isVertical: true
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "If `isInteractive` is `true`, the component emits events when interacting with the bins."},
+			{tag: 'p', content: "Events:"},
+			{tag: 'p', content: "• Clicking a bin selects or deselects it depending on if it was already selected and depending on the pressed modifier key (see below) and dispatches a `clicked` event with payload `{index, selectedBins}`"},
+			{tag: 'p', content: "• Clicking the background resets the selection and dispatches a `clicked` event, with payload `{selectedBins: []}`"},
+			{tag: 'p', content: "• Mouse-entering a bin dispatches a `entered` event, with the payload being the entered bin index"},
+			{tag: 'p', content: "• Mouse-exiting a bin dispatches a `exited` event, with the payload being the exited bin index"},
+			{tag: 'p', content: "• Brushing – clicking a bin and dragging the pointer over other bins selects them and dispatches brush events:"},
+			{tag: 'p', content: "•• as soon as we start brushing, a `brushstart` event gets dispatched, the payload being the index of the bin where we started brushing;"},
+			{tag: 'p', content: "•• continuing dragging, when the pointer crosses bins a `brushed` event gets dispatched with the payload being `{selectedBins, end, start}`, the currently selected bins and the brushing start and end indices;"},
+			{tag: 'p', content: "•• when we stop dragging by releasing the pointer, a `brushend` event gets dispatched, the payload being the index of the bin where we stopped brushing."},
+			{tag: 'p', content: "You can use modifiers to add or remove to the selection:"},
+			{tag: 'p', content: "• Holding the `shift` key when brushing or clicking adds the brushed bins to the selection, the payload being the start bin index;"},
+			{tag: 'p', content: "• Holding the `alt` key when brushing or clicking removes the brushed bins to the selection."},
+			{tag: 'p', content: "A green/red line is displayed to help you understand what's going on (respectively). You can customise these with props `brushAddStroke`, `brushRemoveStroke`, `brushStrokeOpacity`, `brushStrokeWidth`"},
+			{tag: 'p', content: "You can customize the style of selected bins using: `selectedBinStroke`, `selectedBinStrokeWidth`."},
+			{tag: 'p', content: "Please interact with the chart to read the correspondent event payload below."},
+		],
+		events: [
+			'brushed',
+			'brushend',
+			'brushstart',
+			'clicked',
+			'entered',
+			'exited',
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG-interactivity',
+		title: 'ColorBinsG: interactivity',
+	}, {
+		data: [{
+			key: 'A legend',
+			props: {
+				bins: bins$1,
+				flags: {withBackground: true},
+				padding: '3em',
+				theme: {
+					backgroundColor: backgroundColor$2,
+				},
+				title: 'A legend',
+			},
+			usage: `
+				<ColorBinsDiv
+					{bins}
+					flags={{withBackground: true}}
+					padding='3em'
+					theme={{
+						backgroundColor: '${backgroundColor$2}',
+					}}
+					title='A legend'
+				/>
+			`,
+		},
+		{
+			key: 'Another legend',
+			props: {
+				bins: bins_nonUniform,
+				title: 'Another legend',
+				flags: {isVertical: true}
+			},
+			usage: `
+				<ColorBinsDiv
+					{bins}
+					title='Another legend'
+					flags={{isVertical: true}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: "If you need to render the colorbins legend as an html element, you can use `ColorBinsDiv` providing the same props but `width` and `height`."},
+			{tag: 'p', content: "This will render the legend in a `div`."},
+			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (default: '10px') and `headerHeight` (default: '2rem')"},
+		],
+		name: 'ColorBinsDiv',
+		packageName: 'legend',
+		slug: 'ColorBinsDiv',
+		title: 'ColorBinsDiv',
+	},
+]);
+
+var ui = formatExamples([
+	{
+		data: [{
+			key: 'A switch',
+			props: {
+				value: 'Off',
+				values: ['Off', 'On']
+			},
+			usage: `
+				<Switch
+					value='Off'
+					values={['Off', 'On']}
+				/>
+			`,
+		}, {
+			key: 'A switch set to the second value',
+			props: {
+				value: 'On',
+				values: ['Off', 'On']
+			},
+			usage: `
+				<Switch
+					value='On'
+					values={['Off', 'On']}
+				/>
+			`,
+		}, {
+			key: 'A switch with no value',
+			props: {
+				values: ['Off', 'On']
+			},
+			usage: `
+				<Switch values={['Off', 'On']} />
+			`,
+		}, {
+			key: 'A switch with a theme',
+			props: {
+				values: ['Off', 'On'],
+				theme: {
+					height: '60px',
+					color: 'orange',
+					backgroundColor: 'darkviolet',
+					knobColor: 'orange'
+				}
+			},
+			usage: `
+				<Switch
+					values={['Off', 'On']}
+					theme={{
+						height: '60px',
+						color: 'orange',
+						backgroundColor: 'darkviolet',
+						knobColor: 'orange'
+					}}
+				/>
+			`,
+		}, {
+			key: 'A switch without labels',
+			props: {
+				values: ['Off', 'On'],
+				hideLabels: true
+			},
+			usage: `
+				<Switch
+					values={['Off', 'On']}
+					hideLabels={true}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'A simple toggle to select one of two values.'},
+			{tag: 'p', content: 'By default it will be created with the first value of `values`, or you can pass the `value` prop to control it.'},
+			{tag: 'p', content: 'Passing a `theme` it is possible to style it.'},
+		],
+		events: [
+			'toggled',
+		],
+		name: 'Switch',
+		packageName: 'ui',
+		slug: 'ui-Switch',
+		title: 'Switch',
+	},
+]);
 
 var examples = /*#__PURE__*/Object.freeze({
     __proto__: null,
     barchart: barchart,
     choropleth: choropleth,
     histogram: histogram,
-    legend: legend
+    legend: legend,
+    ui: ui
 });
 
-var makeLookup = indexValuesWith(getKey('slug'));
-var lookup = makeLookup(examples);
+const makeLookup = indexValuesWith(getKey('slug'));
+const lookup = makeLookup(examples);
 
-var makeSidebar = pipe([mapValuesWith(pluckKeys(['slug', 'title'])), objectToKeyValueArray]);
+const makeSidebar = pipe([
+	mapValuesWith(pluckKeys(['slug', 'title'])),
+	objectToKeyValueArray,
+]);
+const sidebar = makeSidebar(examples);
 
-var sidebar = makeSidebar(examples);
-
-export { getPath as $, ticks as A, format as B, adder as C, noop as D, abs as E, sqrt as F, tau as G, geoStream as H, boundsStream as I, identity$4 as J, sin as K, atan2 as L, asin as M, cos as N, projection as O, acos as P, epsilon as Q, _defineProperty as R, skipIf as S, isNil as T, pairs as U, makeMergeAppliedFnMap as V, index as W, isIn as X, projectionFn as Y, mercator as Z, __ as _, isUndefined as a, makeUpdateFeaturesProperty as a0, topoToGeo as a1, defaultGeometry as a2, sort as a3, adapter as a4, map as a5, reduce as a6, isNotNil as a7, isIterableNotEmpty as a8, every as a9, hasKey as aa, flatten as ab, findIndexWhere as ac, findLastIndexWhere as ad, slice as ae, uniques as af, filterWith as ag, concat as ah, mergeObj as ai, linear$1 as aj, pullFrom as ak, has as al, lookup as am, _ as an, setIn as ao, range as b, collect as c, appendTo as d, sortWith as e, sorterDesc as f, getKey as g, head as h, isNotNull as i, apply as j, identity as k, last as l, make as m, mapWith as n, always as o, pipe as p, generic as q, reduceWith as r, sidebar as s, allOf as t, isGTE as u, isLTE as v, partial as w, transformer as x, copy as y, initRange as z };
+export { makeUpdateFeaturesProperty as $, ticks as A, format as B, adder as C, noop as D, abs as E, sqrt as F, tau as G, geoStream as H, boundsStream as I, identity$4 as J, sin as K, atan2 as L, asin as M, cos as N, projection as O, acos as P, epsilon as Q, skipIf as R, isNil as S, pairs as T, makeMergeAppliedFnMap as U, index as V, isIn as W, projectionFn as X, mercator as Y, getPath as Z, __ as _, isUndefined as a, topoToGeo as a0, defaultGeometry as a1, sort as a2, adapter as a3, map as a4, reduce as a5, isNotNil as a6, isIterableNotEmpty as a7, every as a8, hasKey as a9, flatten as aa, findIndexWhere as ab, findLastIndexWhere as ac, slice as ad, uniques as ae, filterWith as af, concat as ag, mergeObj as ah, linear$1 as ai, has as aj, pullFrom as ak, lookup as al, _ as am, setIn as an, range as b, collect as c, appendTo as d, sortWith as e, sorterDesc as f, getKey as g, head as h, isNotNull as i, apply as j, identity as k, last as l, make as m, mapWith as n, always as o, pipe as p, generic as q, reduceWith as r, sidebar as s, allOf as t, isGTE as u, isLTE as v, partial as w, transformer as x, copy as y, initRange as z };
