@@ -4,7 +4,7 @@
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
 	"dependencies": {
-		"@svizzle/utils": "^0.11.0",
+		"@svizzle/utils": "^0.11.1",
 		"d3-dsv": "^1.2.0",
 		"lamb": "^0.59.2"
 	},

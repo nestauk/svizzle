@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.6.4 (next)
+## `@svizzle/barchart` v0.6.4
 
 - fix: show zeroes
 - labels now adapt to the available width

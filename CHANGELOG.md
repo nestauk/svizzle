@@ -2,16 +2,16 @@
 
 ## next
 
-## `@svizzle/barchart` v0.6.4 (next)
+## `@svizzle/barchart` v0.6.4
 
 - fix: show zeroes
 - labels now adapt to the available width
 
-## `@svizzle/choropleth` v0.6.2 (next)
+## `@svizzle/choropleth` v0.6.2
 
 - show the `message` only if `projection` is `undefined` OR the internal geojson has an empty `features` property
 
-## `@svizzle/legend` v0.1.1 (next)
+## `@svizzle/legend` v0.1.1
 
 - show a customisable message if `bins` is not provided or is empty
 
@@ -20,13 +20,14 @@
 - `@svizzle/ui`: add docs
 - `@svizzle/barchart`:
 	- document `ref.format`, `ref.keyAbbr`
+	- document barchart labels adaptive layout
 	- add examples for zeroes fix
 
-## `@svizzle/ui` v0.1.0 (next)
+## `@svizzle/ui` v0.1.0
 
 - add `<Switch />`, a simple toggle between 2 values
 
-## `@svizzle/utils` v0.11.1 (next)
+## `@svizzle/utils` v0.11.1
 
 - fix a dep cycle introduced earlier
 

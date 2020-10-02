@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.11.1 (next)
+## `@svizzle/utils` v0.11.1
 
 - fix a dep cycle introduced earlier
 
