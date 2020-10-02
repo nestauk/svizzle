@@ -95,6 +95,7 @@
 
 	$: averageCharWidth = theme.fontSize * 0.5;
 	$: barPadding = theme.fontSize / 2;
+	$: labelValueDistance = 3 * barPadding;
 	$: itemHeight = theme.fontSize + barHeight + 3 * barPadding;
 	$: barY = itemHeight - barPadding - barHeight / 2;
 	$: textY = itemHeight - barHeight - 2 * barPadding;
@@ -150,8 +151,8 @@
 		pos: {label: 0, value: 0},
 	});
 	$: labelsRoom = {
-		neg: Math.max(0, columnsWidth.neg - labelsMaxLengths.neg.value - barPadding),
-		pos: Math.max(0, columnsWidth.pos - labelsMaxLengths.pos.value - barPadding)
+		neg: Math.max(0, columnsWidth.neg - labelsMaxLengths.neg.value - labelValueDistance),
+		pos: Math.max(0, columnsWidth.pos - labelsMaxLengths.pos.value - labelValueDistance)
 	};
 
 	$: barsLayout = bars.map((bar, idx) => {
@@ -180,10 +181,10 @@
 				? isNeg
 					? labelsMaxLengths.neg.label <= labelsRoom.neg
 						? x0 - barPadding
-						: labelsMaxLengths.neg.value + barPadding
+						: labelsMaxLengths.neg.value + labelValueDistance
 					: labelsMaxLengths.pos.label <= labelsRoom.pos
 						? x0 + barPadding
-						: width - labelsMaxLengths.pos.value - barPadding
+						: width - labelsMaxLengths.pos.value - labelValueDistance
 				: allNegatives ? width : 0,
 			x: getX(value),
 			valueX: crossesZero

@@ -533,6 +533,7 @@ export default formatExamples([
 		}],
 		doc: [
 			{tag: 'p', content: 'By providing a object mapping bar key -> bar label, you can control how the bar are labeled.'},
+			{tag: 'p', content: 'The chart adapts by laying out labels according to the available width, and shortening them and adding an ellipsis if necessary.'},
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
