@@ -1,3 +1,9 @@
+## `@svizzle/utils` v0.12.0 (next)
+
+### (Any -> Any) -> (Object -> Array)
+
+- add `valuesWith`
+
 ## `@svizzle/utils` v0.11.1
 
 - fix a dep cycle introduced earlier

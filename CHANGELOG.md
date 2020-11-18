@@ -1,4 +1,12 @@
 # Svizzle changelog
+## next
+
+## `@svizzle/utils` v0.12.0 (next)
+
+### (Any -> Any) -> (Object -> Array)
+
+- add `valuesWith`
+
 
 ## 20201002
 
