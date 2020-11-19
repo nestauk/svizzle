@@ -1,11 +1,11 @@
 # Svizzle changelog
-## next
+## 20201119
 
-## `@svizzle/dom` v0.4.2 (next)
+## `@svizzle/dom` v0.4.2
 
 - depends on a newer `@svizzle/utils` because of `prepend` renamed to `makePrefixed`
 
-## `@svizzle/utils` v0.12.0 (next)
+## `@svizzle/utils` v0.12.0
 
 ### (Any -> Any) -> (Object -> Array)
 

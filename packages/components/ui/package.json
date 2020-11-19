@@ -4,7 +4,7 @@
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.4.1",
+		"@svizzle/dom": "^0.4.2",
 		"uid": "^1.0.0"
 	},
 	"description": "A set of UI components for Svelte.",

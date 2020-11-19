@@ -1,4 +1,4 @@
-## `@svizzle/dom` v0.4.2 (next)
+## `@svizzle/dom` v0.4.2
 
 - depends on a newer `@svizzle/utils` because of `prepend` renamed to `makePrefixed`
 

@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.12.0 (next)
+## `@svizzle/utils` v0.12.0
 
 ### (Any -> Any) -> (Object -> Array)
 
