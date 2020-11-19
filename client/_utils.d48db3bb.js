@@ -7197,7 +7197,7 @@ var _ = /*#__PURE__*/Object.freeze({
 */
 
 /**
- * Return true is the input is an array
+ * Return true if the input is an array
  *
  * @function
  * @arg {*} any
@@ -7224,7 +7224,7 @@ false
 const isArray = isType('Array');
 
 /**
- * Return true is the input is not a NaN.
+ * Return true if the input is not a NaN.
  * Remember that {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#Confusing_special-case_behavior|isNaN coerces the input with Number()} to the output can be a bit surprising.
  *
  * @function
@@ -7270,7 +7270,7 @@ false
 const isNotNaN = not(isNaN);
 
 /**
- * Return true is the input is not undefined or null.
+ * Return true if the input is not undefined or null.
  *
  * @function
  * @arg {*} any
@@ -7312,7 +7312,7 @@ false
 const isNotNil = not(isNil);
 
 /**
- * Return true is the input is not null.
+ * Return true if the input is not null.
  *
  * @function
  * @arg {*} any
@@ -7354,7 +7354,7 @@ true
 const isNotNull = not(isNull);
 
 /**
- * Return true is the input is a number
+ * Return true if the input is a number
  *
  * @function
  * @arg {*} any
@@ -7383,7 +7383,7 @@ false
 const isNumber = isType('Number');
 
 /**
- * Return true is the input is a valid number (including not being NaN)
+ * Return true if the input is a valid number (including not being NaN)
  *
  * @function
  * @arg {*} any

@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>tools/utils/src/[any-any]:accumcb-[array-any].js - Svizzle</title>
+    <title>tools/utils/src/[any-boolean]-[object-any].js - Svizzle</title>
     
     <meta name="description" content="Documentation for Svizzle" />
     
@@ -40,7 +40,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">tools/utils/src/[any-any]:accumcb-[array-any].js</h1>
+    <h1 class="page-title">tools/utils/src/[any-boolean]-[object-any].js</h1>
     
 
     
@@ -51,58 +51,33 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
-* @module @svizzle/utils/[any-any]:accumcb-[array-any]
+* @module @svizzle/utils/[any-boolean]-[object-any]
 */
 
-import {reduceTo} from './constructor-[[any-any]:accumcb-[array-any]]';
+import * as _ from 'lamb';
 
 /**
- * Return a reduce function expecting an array to reduce with the passed reducer
- * with an empty array as the initial value
+ * Return a function expecting an object and returning the first of its values
+ * satisfying the provided predicate
  *
  * @function
- * @arg {function} function - reducer
- * @return {function} - Array -> Any
+ * @arg {predicate}
+ * @return {function} - Object -> Any
  *
  * @example
-> reduce = reduceFromEmptyArray((acc, x) => {
-  return acc.slice(-2).concat([x.value]);
-})
-> reduce([
-  {a: 1, value: 2},
-  {a: 1, value: 3},
-  {a: 1, value: 0},
-  {a: 1, value: 4},
-  {a: 1, value: 7}
-])
-[0, 4, 7]
+> findFirstOdd = findValueWith(x => x % 2 === 1);
+> findFirstOdd({a: 2, b: 4, c: 3, d: 6, e: 7})
+3
+> findItem = findValueWith(isKeyValue(['max', 10]))
+> findItem({a: {id: 'foo', min: 1, max: 2}, b: {id: 'bar', min: -1, max: 10}, c: {id: 'baz', min: -4, max: 10}})
+{id: 'bar', min: -1, max: 10}
  *
- * @version 0.3.0
+ * @version 0.12.0
  */
-export const reduceFromEmptyArray = reduceTo(Array);
-
-/**
- * Return a reduce function expecting an array to reduce with the passed reducer
- * with an empty object as the initial value
- *
- * @function
- * @arg {function} function - reducer
- * @return {function} - Array -> Any
- *
- * @example
-> reduce = reduceFromEmptyObject((acc, x) => {
-  acc[x.id] = x.name;
-  return acc;
-})
-> reduce([
-  {id: '00', name: 'a'},
-  {id: '11', name: 'b'}
-])
-{ 11: 'b', 00: 'a' }
- *
- * @version 0.3.0
- */
-export const reduceFromEmptyObject = reduceTo(Object);
+export const findValueWith = predicate => _.pipe([
+	_.values,
+	_.findWhere(predicate)
+]);
 </code></pre>
         </article>
     </section>

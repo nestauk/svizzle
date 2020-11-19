@@ -1,5 +1,5 @@
-import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.4bb80d41.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as has, al as pullFrom, am as lookup, an as _, ao as setIn } from './_utils.5069aa50.js';
+import { A as _slicedToArray, _ as _inherits, a as _getPrototypeOf, b as _possibleConstructorReturn, c as _classCallCheck, i as init, s as safe_not_equal, d as _assertThisInitialized, e as dispatch_dev, w as _createClass, S as SvelteComponentDev, v as validate_slots, g as element, t as text, k as claim_element, l as children, m as claim_text, h as detach_dev, n as attr_dev, E as toggle_class, o as add_location, p as insert_dev, r as append_dev, H as listen_dev, u as noop$1, I as bubble, G as set_data_dev, J as empty, K as getContext, L as setContext, M as create_component, N as claim_component, O as mount_component, C as transition_in, D as transition_out, P as destroy_component, f as space, j as claim_space, Q as group_outros, R as check_outros, x as validate_each_argument, z as destroy_each, T as globals, U as null_to_empty, V as createEventDispatcher, W as beforeUpdate, X as afterUpdate, Y as _toConsumableArray, Z as binding_callbacks, $ as validate_each_keys, a0 as svg_element, a1 as is_function, a2 as run_all, a3 as add_render_callback, a4 as add_resize_listener, a5 as update_keyed_each, a6 as destroy_block, a7 as set_style, a8 as validate_store, a9 as component_subscribe, aa as writable, ab as prop_dev, q as query_selector_all, ac as assign, ad as get_spread_update, ae as get_spread_object } from './client.24d491f4.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as _defineProperty, S as skipIf, T as isNil, U as pairs$1, V as makeMergeAppliedFnMap, W as index, X as isIn, Y as projectionFn, Z as mercator, $ as getPath, a0 as makeUpdateFeaturesProperty, a1 as topoToGeo, a2 as defaultGeometry, a3 as sort, a4 as adapter, a5 as map, a6 as reduce, a7 as isNotNil, a8 as isIterableNotEmpty, a9 as every, aa as hasKey, ab as flatten, ac as findIndexWhere, ad as findLastIndexWhere, ae as slice, af as uniques, ag as filterWith, ah as concat, ai as mergeObj, aj as linear$1, ak as has, al as pullFrom, am as lookup, an as _, ao as setIn } from './_utils.2c3778df.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -547,7 +547,6 @@ var joinWithSemicolon = joinWith(';');
 /**
 * @module @svizzle/utils/string-[string-string]
 */
-
 /**
  * Return a function that prepends the provided string to the input string
  *
@@ -556,15 +555,16 @@ var joinWithSemicolon = joinWith(';');
  * @return {function} - String -> String
  *
  * @example
-> prefixed = prepend('prefix')
+> prefixed = makePrefixed('---')
 > prefixed('A')
-'prefixA'
+'---A'
 > prefixed('B')
-'prefixB'
+'---B'
  *
  * @version 0.1.0
  */
-var prepend = function prepend(prefix) {
+
+var makePrefixed = function makePrefixed(prefix) {
   return function (string) {
     return prefix + string;
   };
@@ -6404,7 +6404,7 @@ var makeStyle = pipe([skipIf(isNil), pairs$1, mapWith(joinWithColon), joinWithSe
  * @version 0.4.0
  */
 
-var makeStyleVars = pipe([skipIf(isNil), pairs$1, mapWith(pipe([joinWithColon, prepend('--')])), joinWithSemicolon]);
+var makeStyleVars = pipe([skipIf(isNil), pairs$1, mapWith(pipe([joinWithColon, makePrefixed('--')])), joinWithSemicolon]);
 /**
  * Return a px representation of the received number.
  * Throws an error if the input is not a number.

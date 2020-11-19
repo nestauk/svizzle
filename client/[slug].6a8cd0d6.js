@@ -1,5 +1,5 @@
-import { S as SvelteComponentDev, i as init, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, y as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, z as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, w as transition_in, x as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, r as destroy_each, L as globals, M as null_to_empty, N as createEventDispatcher, O as beforeUpdate, P as afterUpdate, Q as binding_callbacks, R as validate_each_keys, T as svg_element, U as is_function, V as run_all, W as add_render_callback, X as add_resize_listener, Y as update_keyed_each, Z as destroy_block, _ as set_style, $ as validate_store, a0 as component_subscribe, a1 as writable, a2 as prop_dev, q as query_selector_all, a3 as assign, a4 as get_spread_update, a5 as get_spread_object } from './client.b38ac0dd.js';
-import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as skipIf, S as isNil, T as pairs$1, U as makeMergeAppliedFnMap, V as index, W as isIn, X as projectionFn, Y as mercator, Z as getPath, $ as makeUpdateFeaturesProperty, a0 as topoToGeo, a1 as defaultGeometry, a2 as sort, a3 as adapter, a4 as map, a5 as reduce, a6 as isNotNil, a7 as isIterableNotEmpty, a8 as every, a9 as hasKey, aa as flatten, ab as findIndexWhere, ac as findLastIndexWhere, ad as slice, ae as uniques, af as filterWith, ag as concat, ah as mergeObj, ai as linear$1, aj as has, ak as pullFrom, al as lookup, am as _, an as setIn } from './_utils.d2bf94c5.js';
+import { S as SvelteComponentDev, i as init, s as safe_not_equal, d as dispatch_dev, v as validate_slots, e as element, t as text, f as claim_element, g as children, h as claim_text, b as detach_dev, j as attr_dev, y as toggle_class, k as add_location, l as insert_dev, m as append_dev, A as listen_dev, n as noop$1, B as bubble, z as set_data_dev, C as empty, D as getContext, E as setContext, F as create_component, G as claim_component, H as mount_component, w as transition_in, x as transition_out, I as destroy_component, a as space, c as claim_space, J as group_outros, K as check_outros, o as validate_each_argument, r as destroy_each, L as globals, M as null_to_empty, N as createEventDispatcher, O as beforeUpdate, P as afterUpdate, Q as binding_callbacks, R as validate_each_keys, T as svg_element, U as is_function, V as run_all, W as add_render_callback, X as add_resize_listener, Y as update_keyed_each, Z as destroy_block, _ as set_style, $ as validate_store, a0 as component_subscribe, a1 as writable, a2 as prop_dev, q as query_selector_all, a3 as assign, a4 as get_spread_update, a5 as get_spread_object } from './client.1d37d4f5.js';
+import { p as pipe, i as isNotNull, r as reduceWith, g as getKey$3, c as collect, h as head, l as last, a as isUndefined, b as range, d as appendTo, e as sortWith, f as sorterDesc, j as apply, m as make, k as identity, n as mapWith, o as always, q as generic, t as allOf, u as isGTE, v as isLTE, w as partial, _ as __, x as transformer, y as copy, z as initRange, A as ticks, B as format, C as adder, D as noop, E as abs, F as sqrt, G as tau, H as geoStream, I as boundsStream, J as identity$1, K as sin, L as atan2, M as asin, N as cos, O as projection, P as acos, Q as epsilon, R as skipIf, S as isNil, T as pairs$1, U as makeMergeAppliedFnMap, V as index, W as isIn, X as projectionFn, Y as mercator, Z as getPath, $ as makeUpdateFeaturesProperty, a0 as topoToGeo, a1 as defaultGeometry, a2 as sort, a3 as adapter, a4 as map, a5 as reduce, a6 as isNotNil, a7 as isIterableNotEmpty, a8 as every, a9 as hasKey, aa as flatten, ab as findIndexWhere, ac as findLastIndexWhere, ad as slice, ae as uniques, af as filterWith, ag as concat, ah as mergeObj, ai as linear$1, aj as has, ak as pullFrom, al as lookup, am as _, an as setIn } from './_utils.d48db3bb.js';
 
 /**
 * @module @svizzle/utils/[any-any]-[any-boolean]
@@ -547,15 +547,15 @@ const joinWithSemicolon = joinWith(';');
  * @return {function} - String -> String
  *
  * @example
-> prefixed = prepend('prefix')
+> prefixed = makePrefixed('---')
 > prefixed('A')
-'prefixA'
+'---A'
 > prefixed('B')
-'prefixB'
+'---B'
  *
  * @version 0.1.0
  */
-const prepend = prefix => string => prefix + string;
+const makePrefixed = prefix => string => prefix + string;
 
 function extent(values, valueof) {
   let min;
@@ -5456,7 +5456,7 @@ const makeStyle = pipe([
 const makeStyleVars = pipe([
 	skipIf(isNil),
 	pairs$1,
-	mapWith(pipe([joinWithColon, prepend('--')])),
+	mapWith(pipe([joinWithColon, makePrefixed('--')])),
 	joinWithSemicolon
 ]);
 
