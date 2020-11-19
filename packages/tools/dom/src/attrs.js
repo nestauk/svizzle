@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {joinWithColon, joinWithSemicolon, prepend} from '@svizzle/utils';
+import {joinWithColon, joinWithSemicolon, makePrefixed} from '@svizzle/utils';
 
 /**
  * Return a style string from an object
@@ -42,7 +42,7 @@ export const makeStyle = _.pipe([
 export const makeStyleVars = _.pipe([
 	_.skipIf(_.isNil),
 	_.pairs,
-	_.mapWith(_.pipe([joinWithColon, prepend('--')])),
+	_.mapWith(_.pipe([joinWithColon, makePrefixed('--')])),
 	joinWithSemicolon
 ]);
 

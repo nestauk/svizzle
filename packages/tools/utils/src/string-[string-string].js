@@ -3,6 +3,24 @@
 */
 
 /**
+ * Return a function that appends the provided string to the input string
+ *
+ * @function
+ * @arg {string} postfix - The string to be appended
+ * @return {function} - String -> String
+ *
+ * @example
+> postfixed = makePostfix('---')
+> postfixed('A')
+'A---'
+> postfixed('B')
+'B---'
+ *
+ * @version 0.12.0
+ */
+export const makePostfixed = postfix => string => string + postfix;
+
+/**
  * Return a function that prepends the provided string to the input string
  *
  * @function
@@ -10,12 +28,12 @@
  * @return {function} - String -> String
  *
  * @example
-> prefixed = prepend('prefix')
+> prefixed = makePrefixed('---')
 > prefixed('A')
-'prefixA'
+'---A'
 > prefixed('B')
-'prefixB'
+'---B'
  *
  * @version 0.1.0
  */
-export const prepend = prefix => string => prefix + string;
+export const makePrefixed = prefix => string => prefix + string;

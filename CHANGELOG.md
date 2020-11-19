@@ -1,6 +1,10 @@
 # Svizzle changelog
 ## next
 
+## `@svizzle/dom` v0.4.2 (next)
+
+- depends on a newer `@svizzle/utils` because of `prepend` renamed to `makePrefixed`
+
 ## `@svizzle/utils` v0.12.0 (next)
 
 ### (Any -> Any) -> (Object -> Array)
@@ -18,6 +22,11 @@
 ### Array -> Object
 
 - add `makeIndexByKey`
+
+### String -> String
+
+- add `makePostfixed`
+- rename `prepend` to `makePrefixed`
 
 
 ## 20201002

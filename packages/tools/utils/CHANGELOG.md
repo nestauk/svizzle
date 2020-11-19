@@ -16,6 +16,11 @@
 
 - add `makeIndexByKey`
 
+### String -> String
+
+- add `makePostfixed`
+- rename `prepend` to `makePrefixed`
+
 ## `@svizzle/utils` v0.11.1
 
 - fix a dep cycle introduced earlier

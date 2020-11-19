@@ -10,7 +10,7 @@ import {readDir, readFile} from '../../file/src/read';
 import {sliceStringAt} from '../src/array-[string-string]';
 import {isIterableNotEmpty} from '../src/iterable-boolean';
 import {makeEndsWith} from '../src/string-[string-boolean]';
-import {prepend} from '../src/string-[string-string]';
+import {makePrefixed} from '../src/string-[string-string]';
 
 const INDEX_PATH = path.resolve(__dirname, '../index.js');
 const SRC_DIR_PATH = path.resolve(__dirname, '../src');
@@ -38,7 +38,7 @@ Promise.all([
 .then(([modules, exported]) => _.pullFrom(modules, exported))
 .then(leftovers => {
 	if (isIterableNotEmpty(leftovers)) {
-		const list = leftovers.map(prepend('- ./src/')).join('\n');
+		const list = leftovers.map(makePrefixed('- ./src/')).join('\n');
 		console.log(`\n======================\n✋`)
 		console.log(`/utils: index.js not exporting modules in ./src with these filenames:\n\n${list}`)
 		console.log(`======================\n`)

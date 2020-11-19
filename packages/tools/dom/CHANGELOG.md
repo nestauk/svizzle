@@ -1,3 +1,7 @@
+## `@svizzle/dom` v0.4.2 (next)
+
+- depends on a newer `@svizzle/utils` because of `prepend` renamed to `makePrefixed`
+
 ## `@svizzle/dom` v0.4.1
 
 - build: remove comments from `.mjs` files
