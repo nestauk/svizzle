@@ -38,9 +38,9 @@ Promise.all([
 .then(([modules, exported]) => _.pullFrom(modules, exported))
 .then(leftovers => {
 	if (isIterableNotEmpty(leftovers)) {
-		const list = leftovers.map(prepend('- ')).join('\n');
+		const list = leftovers.map(prepend('- ./src/')).join('\n');
 		console.log(`\n======================\n✋`)
-		console.log(`/utils: index.js not exporting modules in ./src with these filenames:\n${list}`)
+		console.log(`/utils: index.js not exporting modules in ./src with these filenames:\n\n${list}`)
 		console.log(`======================\n`)
 
 		// eslint-disable-next-line no-process-exit

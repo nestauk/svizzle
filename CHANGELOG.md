@@ -7,6 +7,18 @@
 
 - add `valuesWith`
 
+### (Any -> Boolean) -> (Object -> Any)
+
+- add `findValueWith`
+
+### Any -> Boolean
+
+- add `isFunction`
+
+### Array -> Object
+
+- add `makeIndexByKey`
+
 
 ## 20201002
 

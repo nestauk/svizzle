@@ -27,7 +27,7 @@ false
 export const hasObjSize1 = _.pipe([getObjSize, is1]);
 
 /*
- * Return true is some of the provided object properties are `null`
+ * Return true if some of the provided object properties are `null`
  *
  * @function
  * @arg {object} object

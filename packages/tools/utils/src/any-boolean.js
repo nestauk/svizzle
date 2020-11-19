@@ -5,7 +5,7 @@
 import * as _ from 'lamb';
 
 /**
- * Return true is the input is an arguments list
+ * Return true if the input is an arguments list
  *
  * @function
  * @arg {*} any
@@ -32,7 +32,7 @@ true
 export const isArguments = _.isType('Arguments');
 
 /**
- * Return true is the input is an array
+ * Return true if the input is an array
  *
  * @function
  * @arg {*} any
@@ -59,7 +59,7 @@ false
 export const isArray = _.isType('Array');
 
 /**
- * Return true is the input is not a NaN.
+ * Return true if the input is not a NaN.
  * Remember that {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#Confusing_special-case_behavior|isNaN coerces the input with Number()} to the output can be a bit surprising.
  *
  * @function
@@ -105,7 +105,7 @@ false
 export const isNotNaN = _.not(isNaN);
 
 /**
- * Return true is the input is not undefined or null.
+ * Return true if the input is not undefined or null.
  *
  * @function
  * @arg {*} any
@@ -147,7 +147,7 @@ false
 export const isNotNil = _.not(_.isNil);
 
 /**
- * Return true is the input is not null.
+ * Return true if the input is not null.
  *
  * @function
  * @arg {*} any
@@ -189,7 +189,40 @@ true
 export const isNotNull = _.not(_.isNull);
 
 /**
- * Return true is the input is a number
+ * Return true if the input is a function
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> isFunction(() => 2)
+true
+> makeFunc = n => x => x + n;
+> isFunction(makeFunc(3))
+true
+> isFunction(1)
+false
+> isFunction(NaN)
+false
+> isFunction(Infinity)
+false
+> isFunction([1, 2])
+false
+> isFunction({a: 1})
+false
+> isFunction('foo')
+false
+> function returnArgs () {return arguments}
+> isFunction(returnArgs())
+false
+ *
+ * @version 0.12.0
+ */
+export const isFunction = _.isType('Function');
+
+/**
+ * Return true if the input is a number
  *
  * @function
  * @arg {*} any
@@ -218,7 +251,7 @@ false
 export const isNumber = _.isType('Number');
 
 /**
- * Return true is the input is an object
+ * Return true if the input is an object
  *
  * @function
  * @arg {*} any
@@ -250,7 +283,7 @@ false
 export const isObject = _.isType('Object');
 
 /**
- * Return true is the input is a string
+ * Return true if the input is a string
  *
  * @function
  * @arg {*} any
@@ -283,7 +316,7 @@ false
 export const isString = _.isType('String');
 
 /**
- * Return true is the input is a valid number (including not being NaN)
+ * Return true if the input is a valid number (including not being NaN)
  *
  * @function
  * @arg {*} any

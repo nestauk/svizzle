@@ -4,6 +4,18 @@
 
 - add `valuesWith`
 
+### (Any -> Boolean) -> (Object -> Any)
+
+- add `findValueWith`
+
+### Any -> Boolean
+
+- add `isFunction`
+
+### Array -> Object
+
+- add `makeIndexByKey`
+
 ## `@svizzle/utils` v0.11.1
 
 - fix a dep cycle introduced earlier

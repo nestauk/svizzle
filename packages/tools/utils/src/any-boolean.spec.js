@@ -3,6 +3,7 @@ import {strict as assert} from 'assert';
 import {
 	isArguments,
 	isArray,
+	isFunction,
 	isNotNaN,
 	isNotNil,
 	isNotNull,
@@ -119,6 +120,25 @@ describe('Any -> Boolean', function() {
 		// 👎
 		it('should return `false` if the input is null', function() {
 			assert.deepStrictEqual(isNotNull(null), false);
+		});
+	});
+	describe('isFunction', function() {
+		// 👍
+		it('should return `true` if the input is a function', function() {
+			const makeFunc = n => x => x + n;
+			assert.deepStrictEqual(isFunction(() => 2), true);
+			assert.deepStrictEqual(isFunction(makeFunc(3)), true);
+		});
+
+		// 👎
+		it('should return `false` if the input is not a function', function() {
+			assert.deepStrictEqual(isFunction(1), false);
+			assert.deepStrictEqual(isFunction(NaN), false);
+			assert.deepStrictEqual(isFunction(Infinity), false);
+			assert.deepStrictEqual(isFunction([1, 2]), false);
+			assert.deepStrictEqual(isFunction({a: 1}), false);
+			assert.deepStrictEqual(isFunction('foo'), false);
+			assert.deepStrictEqual(isFunction(returnArgs()), false);
 		});
 	});
 	describe('isNumber', function() {

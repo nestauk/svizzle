@@ -3,6 +3,7 @@ import {strict as assert} from 'assert';
 import {
 	keyValueArrayToObject,
 	makeAllOccurrences,
+	makeIndexByKey,
 	makeKeyedFalse,
 	makeKeyedTrue,
 	makeKeyedZeroes,
@@ -31,15 +32,33 @@ describe('Array -> Object', function() {
 			);
 		});
 	});
-	describe('makeKeyedZeroes', function() {
-		it('should return an object with the provided array elements as keys and all values equal to zero', function() {
+	describe('makeIndexByKey', function() {
+		it('should return an object with the provided array elements as keys and all values equal to their index in the array - strings', function() {
 			assert.deepStrictEqual(
-				makeKeyedZeroes(['a', 'b']),
-				{a: 0, b: 0}
+				makeIndexByKey(['a', 'b']),
+				{a: 0, b: 1}
+			);
+		});
+		it('should return an object with the provided array elements as keys and all values equal to their index in the array - numbers', function() {
+			assert.deepStrictEqual(
+				makeIndexByKey([2, -4]),
+				{'2': 0, '-4': 1}
+			);
+		});
+		it('should return an object with the provided array elements as keys and all values equal to their index in the array - arrays', function() {
+			assert.deepStrictEqual(
+				makeIndexByKey([[1,2,3], [3,4,5], [1,2,3]]),
+				{'3,4,5': 1, '1,2,3': 2}
 			);
 			assert.deepStrictEqual(
-				makeKeyedZeroes([1, 2]),
-				{'1': 0, '2': 0}
+				makeIndexByKey([[1,2,{a:1}], [3,4,5], [1,2,3]]),
+				{'1,2,[object Object]': 0, '3,4,5': 1, '1,2,3': 2}
+			);
+		});
+		it('should return an object with the provided array elements as keys and all values equal to their index in the array - objects', function() {
+			assert.deepStrictEqual(
+				makeIndexByKey([{a: 1}, {b: 2}, {c: 3}]),
+				{'[object Object]': 2}
 			);
 		});
 	});
@@ -56,6 +75,18 @@ describe('Array -> Object', function() {
 			assert.deepStrictEqual(
 				makeKeyedTrue(['a', 'b']),
 				{a: true, b: true}
+			);
+		});
+	});
+	describe('makeKeyedZeroes', function() {
+		it('should return an object with the provided array elements as keys and all values equal to zero', function() {
+			assert.deepStrictEqual(
+				makeKeyedZeroes(['a', 'b']),
+				{a: 0, b: 0}
+			);
+			assert.deepStrictEqual(
+				makeKeyedZeroes([1, 2]),
+				{'1': 0, '2': 0}
 			);
 		});
 	});

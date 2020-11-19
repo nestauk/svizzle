@@ -41,6 +41,29 @@ export const keyValueArrayToObject = objects => _.reduce(objects,
 );
 
 /**
+ * Return an object with the provided array elements as keys and all values equal to their index in the array
+ *
+ * @function
+ * @arg {array} array
+ * @return {object}
+ *
+ * @example
+> makeIndexByKey(['a', 'b'])
+{a: 0, b: 1}
+> makeIndexByKey([2, -4])
+{'2': 0, '-4': 1}
+> makeIndexByKey([[1,2,3], [3,4,5], [1,2,3]])
+{'3,4,5': 1, '1,2,3': 2}
+> makeIndexByKey([[1,2,{a:1}], [3,4,5], [1,2,3]])
+{'1,2,[object Object]': 0, '3,4,5': 1, '1,2,3': 2}
+> makeIndexByKey([{a: 1}, {b: 2}, {c: 3}])
+{'[object Object]': 2}
+ *
+ * @version 0.12.0
+ */
+export const makeIndexByKey = _.pipe([_.zipWithIndex, _.fromPairs]);
+
+/**
  * Return an object with the provided array elements as keys and all values equal to `true`
  *
  * @function
