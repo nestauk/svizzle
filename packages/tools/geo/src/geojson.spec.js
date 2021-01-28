@@ -168,15 +168,14 @@ describe('geojson', function() {
 					type: 'FeatureCollection',
 					features: [{
 						type: 'Feature',
-						geometry: {type: 'Point', coordinates: [0.2, -0.2]},
+						geometry: {type: 'Point', coordinates: [0, 0]},
 						properties: {foo: 'a'}
 					}, {
 						type: 'Feature',
-						geometry: {type: 'Point', coordinates: [1.2, -0.2]},
+						geometry: {type: 'Point', coordinates: [1, 0]},
 						properties: {foo: 'b'}
 					}]
 				};
-
 				assert.deepStrictEqual(makeCentroids(features), expectedCentroids);
 			}
 		);

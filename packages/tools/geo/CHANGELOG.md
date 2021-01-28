@@ -1,3 +1,7 @@
+## `@svizzle/geo` v0.6.2 (next)
+
+- Updated `@turf/*` to version `6.3.0`
+
 ## `@svizzle/geo` v0.6.1
 
 - build: remove comments from `.mjs` files

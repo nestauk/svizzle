@@ -2,6 +2,11 @@
 
 ## next
 
+## `@svizzle/geo` v0.6.2 (next)
+
+- Updated `@turf/*` to version `6.3.0`
+
+
 ## `@svizzle/utils` v0.13.0 (next)
 
 ### (Any -> Array) -> (Array -> Object)
