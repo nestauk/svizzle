@@ -22,11 +22,17 @@ describe('Array -> (Any -> Boolean)', function() {
 		});
 	});
 	describe('makeIsIncluded', function() {
-		it('return a function returning true if the passed primitive value is found in the provided array', function() {
+		it('return a function returning true if the passed primitive value is found in the provided array - number', function() {
 			const isIncluded = makeIsIncluded([1, 2, 3]);
 
 			assert.deepStrictEqual(isIncluded(1), true);
 			assert.deepStrictEqual(isIncluded(4), false);
+		});
+		it('return a function returning true if the passed primitive value is found in the provided array - string', function() {
+			const isIncluded = makeIsIncluded(['a', 'q', 'w']);
+
+			assert.deepStrictEqual(isIncluded('a'), true);
+			assert.deepStrictEqual(isIncluded('r'), false);
 		});
 	});
 });

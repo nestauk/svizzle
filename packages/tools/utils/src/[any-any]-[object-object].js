@@ -10,7 +10,7 @@ import {concat} from './array_proto-array';
 
 /**
  * Return a function expecting an object and returning an object grouping its values using the provided accessor.
- * Note that this works by concatenating all values before indexing hence you can also directly index values being arrays (see the second example).
+ * Note that this works by concatenating all values before grouping hence you can also directly index values being arrays (see the second example).
  *
  * @function
  * @arg {function} accessor - Any -> Any
