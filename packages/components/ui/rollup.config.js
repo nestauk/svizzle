@@ -23,8 +23,26 @@ const banner = makeBanner(pkg);
 const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = {
-	Switch: 'src/Switch.svelte',
+	Icon: 'src/icons/Icon.svelte',
+	IconCheck: 'src/icons/IconCheck.svelte',
+	IconCheckSquare: 'src/icons/IconCheckSquare.svelte',
+	IconChevronDown: 'src/icons/IconChevronDown.svelte',
+	IconChevronLeft: 'src/icons/IconChevronLeft.svelte',
+	IconChevronRight: 'src/icons/IconChevronRight.svelte',
+	IconChevronUp: 'src/icons/IconChevronUp.svelte',
+	IconClipboard: 'src/icons/IconClipboard.svelte',
+	IconDelete: 'src/icons/IconDelete.svelte',
+	IconDownload: 'src/icons/IconDownload.svelte',
+	IconExternalLink: 'src/icons/IconExternalLink.svelte',
+	IconFilter: 'src/icons/IconFilter.svelte',
+	IconGlobe: 'src/icons/IconGlobe.svelte',
+	IconHelpCircle: 'src/icons/IconHelpCircle.svelte',
+	IconInfo: 'src/icons/IconInfo.svelte',
+	IconSettings: 'src/icons/IconSettings.svelte',
+	IconSliders: 'src/icons/IconSliders.svelte',
+	IconSquare: 'src/icons/IconSquare.svelte',
 	index: 'src/index.js',
+	Switch: 'src/Switch.svelte',
 };
 const removeComments = cleanup({
 	extensions: ['js', 'mjs']

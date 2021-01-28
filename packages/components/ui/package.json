@@ -14,6 +14,7 @@
 		"eslint-plugin-import": "^2.18.2",
 		"eslint-plugin-svelte3": "^2.7.3",
 		"esm": "^3.2.25",
+		"feather-icons": "^4.28.0",
 		"lamb": "^0.59.2",
 		"mkdirp": "^1.0.4",
 		"mocha": "^5.2.0",

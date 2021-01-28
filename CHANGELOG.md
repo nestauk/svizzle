@@ -7,6 +7,28 @@
 - Updated `@turf/*` to version `6.3.0`
 
 
+## `@svizzle/ui` v0.2.0 (next)`
+
+- add `src/icons/Icon.svelte`
+- add `src/icons/IconCheck.svelte`
+- add `src/icons/IconCheckSquare.svelte`
+- add `src/icons/IconChevronDown.svelte`
+- add `src/icons/IconChevronLeft.svelte`
+- add `src/icons/IconChevronRight.svelte`
+- add `src/icons/IconChevronUp.svelte`
+- add `src/icons/IconClipboard.svelte`
+- add `src/icons/IconDelete.svelte`
+- add `src/icons/IconDownload.svelte`
+- add `src/icons/IconExternalLink.svelte`
+- add `src/icons/IconFilter.svelte`
+- add `src/icons/IconGlobe.svelte`
+- add `src/icons/IconHelpCircle.svelte`
+- add `src/icons/IconInfo.svelte`
+- add `src/icons/IconSettings.svelte`
+- add `src/icons/IconSliders.svelte`
+- add `src/icons/IconSquare.svelte`
+
+
 ## `@svizzle/utils` v0.13.0 (next)
 
 ### (Any -> Array) -> (Array -> Object)
