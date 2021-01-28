@@ -1,3 +1,9 @@
+## `@svizzle/utils` v0.13.0 (next)
+
+### (Any -> Array) -> (Array -> Object)
+
+- add `makeArrayToObjectWith`
+
 ## `@svizzle/utils` v0.12.0
 
 ### (Any -> Any) -> (Object -> Array)

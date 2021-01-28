@@ -1,4 +1,14 @@
 # Svizzle changelog
+
+## next
+
+## `@svizzle/utils` v0.13.0 (next)
+
+### (Any -> Array) -> (Array -> Object)
+
+- add `makeArrayToObjectWith`
+
+
 ## 20201119
 
 ## `@svizzle/dom` v0.4.2
