@@ -11,7 +11,7 @@ describe('(Any -> Boolean) -> (Array -> Object)', function() {
 			const expected = {aa: 'aaa', bb: 'bbb', 11: '111'};
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should work with a value valueIndexToPair function', function() {
+		it('should work with a valueIndexToPair function', function() {
 			const valueIndexToPair = (x, i) => [`${i}${i}`, `${x}${x}${x}`];
 			const arrayToObject = makeArrayToObjectWith(valueIndexToPair);
 			const actual = arrayToObject(['a', 'b', 1]);

@@ -73,7 +73,7 @@ describe('dev: common', function() {
 					version: '0.1.0',
 					author: 'nestauk (https://www.nesta.org.uk/)'
 				}),
-				'// svizzle v0.1.0 - © 2020 nestauk (https://www.nesta.org.uk/)'
+				'// svizzle v0.1.0 - © 2021 nestauk (https://www.nesta.org.uk/)'
 			);
 			assert.deepStrictEqual(
 				makeBanner({
@@ -81,7 +81,7 @@ describe('dev: common', function() {
 					version: '0.1.0',
 					author: {name: 'nestauk', url: 'https://www.nesta.org.uk/'}
 				}),
-				'// svizzle v0.1.0 - © 2020 nestauk'
+				'// svizzle v0.1.0 - © 2021 nestauk'
 			);
 		});
 	});
