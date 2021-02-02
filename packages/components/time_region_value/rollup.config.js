@@ -23,28 +23,10 @@ const banner = makeBanner(pkg);
 const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 const input = {
-	ExternalLink: 'src/ExternalLink.svelte',
-	Icon: 'src/icons/Icon.svelte',
-	IconCheck: 'src/icons/IconCheck.svelte',
-	IconCheckSquare: 'src/icons/IconCheckSquare.svelte',
-	IconChevronDown: 'src/icons/IconChevronDown.svelte',
-	IconChevronLeft: 'src/icons/IconChevronLeft.svelte',
-	IconChevronRight: 'src/icons/IconChevronRight.svelte',
-	IconChevronUp: 'src/icons/IconChevronUp.svelte',
-	IconClipboard: 'src/icons/IconClipboard.svelte',
-	IconDelete: 'src/icons/IconDelete.svelte',
-	IconDownload: 'src/icons/IconDownload.svelte',
-	IconExternalLink: 'src/icons/IconExternalLink.svelte',
-	IconFilter: 'src/icons/IconFilter.svelte',
-	IconGlobe: 'src/icons/IconGlobe.svelte',
-	IconHelpCircle: 'src/icons/IconHelpCircle.svelte',
-	IconInfo: 'src/icons/IconInfo.svelte',
-	IconSettings: 'src/icons/IconSettings.svelte',
-	IconSliders: 'src/icons/IconSliders.svelte',
-	IconSquare: 'src/icons/IconSquare.svelte',
-	index: 'src/index.js',
-	LinkButton: 'src/LinkButton.svelte',
-	Switch: 'src/Switch.svelte',
+	Index: 'src/routes/index.svelte',
+	Layout: 'src/routes/_layout.svelte',
+	IdIndex: 'src/routes/[id]/index.svelte',
+	IdYear: 'src/routes/[id]/[year].svelte',
 };
 const removeComments = cleanup({
 	extensions: ['js', 'mjs']
@@ -52,12 +34,10 @@ const removeComments = cleanup({
 const treeshake = {
 	annotations: true,
 	moduleSideEffects: id =>
-		// prevent from unadvertantly setting to false no matter what we install
-		!(/@svizzle\/dom/gu).test(id)
-		|| !(/uid/gu).test(id)
-		// || !(/@svizzle\/utils/gu).test(id)
+	// prevent from unadvertantly setting to false no matter what we install
 		// || !(/just-compare/gu).test(id)
-		// || !(/lamb/gu).test(id)
+		!(/@svizzle\/utils/gu).test(id)
+		|| !(/lamb/gu).test(id)
 }
 
 const makeBrowserConfig = _.pipe([

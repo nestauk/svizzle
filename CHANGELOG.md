@@ -7,8 +7,17 @@
 - Updated `@turf/*` to version `6.3.0`
 
 
+## `@svizzle/time_region_value` v0.1.0 (next)
+
+- add `_layout.svelte`
+- add `index.svelte`
+- add `[id]/index.svelte`
+- add `[id]/[year].svelte`
+
+
 ## `@svizzle/ui` v0.2.0 (next)`
 
+- add `src/ExternalLink.svelte`
 - add `src/icons/Icon.svelte`
 - add `src/icons/IconCheck.svelte`
 - add `src/icons/IconCheckSquare.svelte`
@@ -27,6 +36,7 @@
 - add `src/icons/IconSettings.svelte`
 - add `src/icons/IconSliders.svelte`
 - add `src/icons/IconSquare.svelte`
+- add `src/LinkButton.svelte`
 
 
 ## `@svizzle/utils` v0.13.0 (next)
