@@ -62,9 +62,7 @@
 	"main": "dist/index.js",
 	"module": "src/index.js",
 	"name": "@svizzle/time_region_value",
-	"publishConfig": {
-		"access": "public"
-	},
+	"private": true,
 	"repository": {
 		"directory": "packages/components/time_region_value",
 		"type": "git",
