@@ -25,4 +25,4 @@
 	<line x1="17" y1="16" x2="23" y2="16" />
 </Icon>
 
-<!-- feathericons/feather/icons/sliders.svg -->
+<!-- feather/icons/sliders.svg -->

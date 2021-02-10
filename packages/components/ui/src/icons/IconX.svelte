@@ -18,4 +18,4 @@
 	<line x1="6" y1="6" x2="18" y2="18" />
 </Icon>
 
-<!-- feathericons/feather/icons/x.svg -->
+<!-- feather/icons/x.svg -->

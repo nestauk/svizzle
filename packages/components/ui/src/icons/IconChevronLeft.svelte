@@ -17,4 +17,4 @@
 	<polyline points="15 18 9 12 15 6" />
 </Icon>
 
-<!-- feathericons/feather/icons/chevrons-left.svg -->
+<!-- feather/icons/chevrons-left.svg -->

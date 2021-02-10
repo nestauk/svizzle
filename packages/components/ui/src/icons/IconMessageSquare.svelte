@@ -14,9 +14,7 @@
 	height={size}
 	width={size}
 >
-	<line class="top-bun" x1="3" y1="12" x2="21" y2="12" />
-	<line class="meat" x1="3" y1="6" x2="21" y2="6" />
-	<line class="bottom-bun" x1="3" y1="18" x2="21" y2="18" />
+	<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
 </Icon>
 
-<!-- feather/icons/menu.svg -->
+<!-- feather/icons/message-square.svg -->

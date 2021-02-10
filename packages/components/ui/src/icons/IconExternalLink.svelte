@@ -19,4 +19,4 @@
 	<line x1="10" y1="14" x2="21" y2="3" />
 </Icon>
 
-<!-- feathericons/feather/icons/external-link.svg -->
+<!-- feather/icons/external-link.svg -->

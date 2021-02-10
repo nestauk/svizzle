@@ -17,4 +17,4 @@
 	<polyline points="20 6 9 17 4 12" />
 </Icon>
 
-<!-- feathericons/feather/icons/check.svg -->
+<!-- feather/icons/check.svg -->

@@ -34,6 +34,7 @@
 - add `src/icons/IconHelpCircle.svelte`
 - add `src/icons/IconInfo.svelte`
 - add `src/icons/IconMenu.svelte`
+- add `src/icons/IconMessageSquare.svelte`
 - add `src/icons/IconSettings.svelte`
 - add `src/icons/IconSliders.svelte`
 - add `src/icons/IconSquare.svelte`

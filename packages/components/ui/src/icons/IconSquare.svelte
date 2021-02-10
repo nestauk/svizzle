@@ -17,4 +17,4 @@
 	<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
 </Icon>
 
-<!-- feathericons/feather/icons/square.svg -->
+<!-- feather/icons/square.svg -->
