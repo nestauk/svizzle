@@ -14,7 +14,8 @@
 	height={size}
 	width={size}
 >
-	<polyline points="15 18 9 12 15 6" />
+	<line x1="18" y1="6" x2="6" y2="18" />
+	<line x1="6" y1="6" x2="18" y2="18" />
 </Icon>
 
-<!-- feathericons/feather/icons/chevrons-left.svg -->
+<!-- feathericons/feather/icons/x.svg -->

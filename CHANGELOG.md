@@ -33,9 +33,11 @@
 - add `src/icons/IconGlobe.svelte`
 - add `src/icons/IconHelpCircle.svelte`
 - add `src/icons/IconInfo.svelte`
+- add `src/icons/IconMenu.svelte`
 - add `src/icons/IconSettings.svelte`
 - add `src/icons/IconSliders.svelte`
 - add `src/icons/IconSquare.svelte`
+- add `src/icons/IconX.svelte`
 - add `src/LinkButton.svelte`
 
 
