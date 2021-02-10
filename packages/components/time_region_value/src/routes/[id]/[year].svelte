@@ -7,7 +7,7 @@
 	import {extent} from 'd3-array';
 	import {geoEqualEarth as projectionFn} from 'd3-geo';
 	import {writable} from 'svelte/store';
-	import {makeStyle, toPx} from '@svizzle/dom';
+	import {makeStyle, makeStyleVars, toPx} from '@svizzle/dom';
 	import {
 		applyFnMap,
 		getValue,
@@ -23,15 +23,16 @@
 	import {topoToGeo, defaultGeometry} from '@svizzle/choropleth/src/utils';
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
 	import Switch from '@svizzle/ui/src/Switch.svelte';
+	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
+	import ChevronDown from '@svizzle/ui/src/icons/feather/ChevronDown.svelte';
+	import ChevronUp from '@svizzle/ui/src/icons/feather/ChevronUp.svelte';
+	import Globe from '@svizzle/ui/src/icons/feather/Globe.svelte';
+	import Info from '@svizzle/ui/src/icons/feather/Info.svelte';
 
 	/* local components */
 
 	import GeoFilterModal from 'components/GeoFilterModal.svelte';
 	import InfoModal from 'components/InfoModal/InfoModal.svelte';
-	import IconChevronDown from '@svizzle/ui/src/icons/IconChevronDown.svelte';
-	import IconChevronUp from '@svizzle/ui/src/icons/IconChevronUp.svelte';
-	import IconGlobe from '@svizzle/ui/src/icons/IconGlobe.svelte';
-	import IconInfo from '@svizzle/ui/src/icons/IconInfo.svelte';
 
 	/* local stores */
 
@@ -65,7 +66,7 @@
 		makeGetRefFormatOf,
 	} from 'utils/format';
 	import {makeValueAccessor} from 'utils/generic';
-	import {colorSelected} from 'shared/colors';
+	import defaultTheme from 'shared/theme';
 
 	/* data */
 
@@ -107,6 +108,10 @@
 
 	/* reactive vars */
 
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+
+	$: style = makeStyleVars(theme);
 	$: makeColorScale = $makeColorScaleStore;
 	$: makeColorBins = $makeColorBinsStore;
 	$: legendHeight = height / 3;
@@ -309,16 +314,20 @@
 	}
 </script>
 
-<div class='container'>
+<div
+	{style}
+	class='time_region_value_IdYear'
+>
 	<header>
 		<div>
 			<h1>{title} ({year})</h1>
 			<p>{subtitle}</p>
 		</div>
 		<div on:click={toggleInfoModal}>
-			<IconInfo
-				size=30
-				strokeWidth=1.5
+			<Icon
+				glyph={Info}
+				size={30}
+				strokeWidth={1.5}
 			/>
 		</div>
 	</header>
@@ -330,15 +339,27 @@
 					class='globe clickable'
 					on:click={toggleGeoModal}
 				>
-					<IconGlobe
-						strokeWidth={1.5}
-						stroke={$areThereUnselectedNUTS1Regions ? colorSelected : 'black'}
+					<Icon
+						glyph={Globe}
 						size={28}
+						stroke={$areThereUnselectedNUTS1Regions
+							? defaultTheme.colorSelected
+							: defaultTheme.colorRef
+						}
+						strokeWidth={1.5}
 					/>
 					{#if $geoModalStore.isVisible}
-					<IconChevronUp strokeWidth={1} size={24} />
+						<Icon
+							glyph={ChevronUp}
+							size={24}
+							strokeWidth={1}
+						/>
 					{:else}
-					<IconChevronDown strokeWidth={1} size={24} />
+						<Icon
+							glyph={ChevronDown}
+							size={24}
+							strokeWidth={1}
+						/>
 					{/if}
 				</div>
 
@@ -395,9 +416,9 @@
 									defaultFill: defaultGray,
 									defaultStroke: 'gray',
 									defaultStrokeWidth: 0.25,
-									focusedStroke: 'black',
+									focusedStroke: theme.colorBlack,
 									focusedStrokeWidth: 1.5,
-									selectedStroke: 'black',
+									selectedStroke: theme.colorBlack,
 									selectedStrokeWidth: 0.5,
 								}}
 							/>
@@ -437,7 +458,7 @@
 										withBackground: true,
 									}}
 									theme={{
-										backgroundColor: 'white',
+										backgroundColor: theme.colorWhite,
 										backgroundOpacity: 0.5,
 									}}
 									ticksFormatFn={formatFn}
@@ -530,32 +551,31 @@
 </div>
 
 <style>
-	.container {
-		--indicators-h1-height: 4.5rem;
+	.time_region_value_IdYear {
 		height: 100%;
 		width: 100%;
 		user-select: none;
 	}
 
-	.container > header {
-		height: var(--indicators-h1-height);
+	.time_region_value_IdYear > header {
+		height: var(--dimHeaderHeight);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 	}
 
-	.container > header div:nth-child(1) {
+	.time_region_value_IdYear > header div:nth-child(1) {
 		flex: 1;
 	}
-	.container > header div:nth-child(1) h1 {
+	.time_region_value_IdYear > header div:nth-child(1) h1 {
 		margin: 0;
 	}
-	.container > header div:nth-child(1) p {
+	.time_region_value_IdYear > header div:nth-child(1) p {
 		font-style: italic;
 		font-size: 1rem;
-		color: grey;
+		color: var(--colorRef);
 	}
-	.container > header div:nth-child(2) {
+	.time_region_value_IdYear > header div:nth-child(2) {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -566,7 +586,7 @@
 		display: grid;
 		grid-template-columns: 100%;
 		grid-template-rows: 4rem calc(100% - 4rem);
-		height: calc(100% - var(--indicators-h1-height));
+		height: calc(100% - var(--dimHeaderHeight));
 		overflow-y: auto;
 		position: relative;
 		width: 100%;
@@ -626,21 +646,21 @@
 		pointer-events: none;
 	}
 	.cities circle {
-		fill: white;
-		stroke: black;
+		fill: var(--colorWhite);
+		stroke: var(--colorBlack);
 	}
 	.cities text {
 		dominant-baseline: middle;
-		fill: black;
+		fill: var(--colorBlack);
 		stroke: none;
 	}
 	.cities text.isLeft {
 		text-anchor: end;
 	}
 	.cities text.background {
-		fill: white;
+		fill: var(--colorWhite);
 		fill-opacity: 0.8;
-		stroke: white;
+		stroke: var(--colorWhite);
 		stroke-opacity: 0.8;
 		stroke-width: 4;
 	}
@@ -650,13 +670,13 @@
 	.tooltip {
 		position: absolute;
 		pointer-events: none;
-		border: 1px solid black;
-		background-color: white;
-		color: black;
+		border: 1px solid var(--colorBlack);
+		background-color: var(--colorWhite);
+		color: var(--colorBlack);
 	}
 	.tooltip header {
-		background-color: var(--color-grey-40);
-		color: white;
+		background-color: var(--colorRef);
+		color: var(--colorWhite);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -681,7 +701,7 @@
 		width: 100%;
 	}
 	.message span {
-		font-size: var(--messageFontSize);
-		color: var(--messageColor);
+		font-size: var(--dimFontSizeMessage);
+		color: var(--colorRef);
 	}
 </style>

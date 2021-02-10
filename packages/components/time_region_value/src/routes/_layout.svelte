@@ -1,15 +1,18 @@
 <script>
 	import {onMount} from 'svelte';
+	import {makeStyleVars} from '@svizzle/dom';
 
 	import Timeline from 'components/Timeline.svelte';
 	import {setGroupsStore} from 'stores/data';
 	import {timelineHeightStore, timelineWidthStore} from 'stores/layout';
 	import {availableYearsStore, selectedYearStore} from 'stores/selection';
+	import defaultTheme from 'shared/theme';
 
 	export let goTo = null; // pass `@sapper/app`'s `goto`
 	export let groupsStore;
 	export let hrefBase = '';
 	export let segment;
+	export let theme = defaultTheme;
 
 	let current;
 	let scrollable;
@@ -22,6 +25,10 @@
 		});
 	});
 
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+
+	$: style = makeStyleVars(theme);
 	$: groupsStore && setGroupsStore($groupsStore);
 
 	// eslint-disable-next-line no-shadow,no-unused-vars
@@ -50,32 +57,35 @@
 	}
 </script>
 
-<section class='layout'>
+<section
+	{style}
+	class='time_region_value_layout'
+>
 	<nav
 		bind:this={scrollable}
 		bind:clientHeight={scrollableHeight}
 	>
 		{#each $groupsStore as {label, indicators}}
-		<div class='group'>
-			<h2>{label}</h2>
-			{#each indicators as {title, schema}}
-			<a
-				rel='prefetch'
-				href='{hrefBase}/{schema.value.id}'
-			>
-				<p
-					class:selected='{schema.value.id === segment}'
-					use:keepOnScreen={{
-						id: schema.value.id,
-						segment,
-						scrollableHeight
-					}}
-				>
-				{title}
-				</p>
-			</a>
-			{/each}
-		</div>
+			<div class='group'>
+				<h2>{label}</h2>
+				{#each indicators as {title, schema}}
+					<a
+						rel='prefetch'
+						href='{hrefBase}/{schema.value.id}'
+					>
+						<p
+							class:selected='{schema.value.id === segment}'
+							use:keepOnScreen={{
+								id: schema.value.id,
+								segment,
+								scrollableHeight
+							}}
+						>
+						{title}
+						</p>
+					</a>
+				{/each}
+			</div>
 		{/each}
 	</nav>
 	<section class='content'>
@@ -100,14 +110,12 @@
 </section>
 
 <style>
-	.layout {
+	.time_region_value_layout {
 		height: 100%;
 		width: 100%;
 
-		--sidebarWidth: 340px;
-
 		display: grid;
-		grid-template-columns: var(--sidebarWidth) calc(100% - var(--sidebarWidth));
+		grid-template-columns: var(--dimSidebarWidth) calc(100% - var(--dimSidebarWidth));
 		grid-template-rows: 100%;
 	}
 
@@ -116,13 +124,13 @@
 	nav {
 		height: 100%;
 		width: 100%;
-		padding: var(--dim-padding);
+		padding: var(--dimPadding);
 		overflow-y: auto;
 
-		background-color: var(--color-main);
-		border-right: 1px solid var(--color-main-lighter);
-		color: white;
-		font-weight: var(--dim-fontsize-light);
+		background-color: var(--colorMain);
+		border-right: 1px solid var(--colorMainLighter);
+		color: var(--colorWhite);
+		font-weight: var(--dimFontWeight);
 	}
 
 	nav .group:not(:last-child) {
@@ -133,7 +141,7 @@
 	}
 
 	nav h2 {
-		font-family: 'Open Sans Semibold', sans-serif;
+		font-family: var(--fontFamilySemibold), sans-serif;
 		margin-bottom: 1rem;
 	}
 	nav a {
@@ -147,12 +155,12 @@
 		margin-bottom: 0.5rem;
 	}
 	nav p.selected {
-		background-color: var(--color-main-desat-50) !important;
-		font-family: 'Open Sans Regular', sans-serif;
+		background-color: var(--colorMainDesat) !important;
+		font-family: var(--fontFamilyRegular), sans-serif;
 	}
 	nav p:hover {
 		cursor: pointer;
-		background-color: var(--color-selected);
+		background-color: var(--colorSelectedDesat);
 	}
 
 	/* content */
@@ -165,12 +173,12 @@
 	.content section {
 		height: 100%;
 		width: 100%;
-		padding: var(--dim-padding) var(--dim-padding) 0 var(--dim-padding);
+		padding: var(--dimPadding) var(--dimPadding) 0 var(--dimPadding);
 	}
 	.content nav {
 		height: 100%;
 		width: 100%;
-		background-color: var(--color-paleyellow) !important;
-		padding: 0 var(--dim-padding);
+		background-color: var(--colorNav) !important;
+		padding: 0 var(--dimPadding);
 	}
 </style>

@@ -4,7 +4,8 @@ import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 import svelte from 'rollup-plugin-svelte';
 import babel from 'rollup-plugin-babel';
-import { terser } from 'rollup-plugin-terser';
+import {terser} from 'rollup-plugin-terser';
+import yaml from '@rollup/plugin-yaml';
 
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
@@ -43,6 +44,7 @@ export default {
 			}),
 			commonjs(),
 			json(),
+			yaml(),
 
 			legacy && babel({
 				extensions: ['.js', '.mjs', '.html', '.svelte'],
@@ -101,6 +103,7 @@ export default {
 			}),
 			commonjs(),
 			json(),
+			yaml(),
 		],
 		preserveEntrySignatures,
 	},
@@ -117,6 +120,7 @@ export default {
 			}),
 			commonjs(),
 			json(),
+			yaml(),
 			!dev && terser()
 		],
 		preserveEntrySignatures,

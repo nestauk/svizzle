@@ -9,6 +9,7 @@
 	import {quadtree} from 'd3-quadtree';
 	import {scaleLinear} from 'd3-scale';
 	import {line, curveMonotoneX} from 'd3-shape';
+	import {makeStyleVars} from '@svizzle/dom';
 	import {
 		applyFnMap,
 		isIterableNotEmpty,
@@ -22,10 +23,11 @@
 	// components
 
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
-	import IconChevronDown from '@svizzle/ui/src/icons/IconChevronDown.svelte';
-	import IconChevronUp from '@svizzle/ui/src/icons/IconChevronUp.svelte';
-	import IconGlobe from '@svizzle/ui/src/icons/IconGlobe.svelte';
-	import IconInfo from '@svizzle/ui/src/icons/IconInfo.svelte';
+	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
+	import ChevronDown from '@svizzle/ui/src/icons/feather/ChevronDown.svelte';
+	import ChevronUp from '@svizzle/ui/src/icons/feather/ChevronUp.svelte';
+	import Globe from '@svizzle/ui/src/icons/feather/Globe.svelte';
+	import Info from '@svizzle/ui/src/icons/feather/Info.svelte';
 	import Switch from '@svizzle/ui/src/Switch.svelte';
 
 	/* local components */
@@ -60,12 +62,12 @@
 		resetSelectedYear
 	} from 'stores/selection';
 
-	/* local utils  */
+	/* local utils */
 
 	import {getNutsId, sortAscByYear} from 'utils/domain';
 	import {makeGetIndicatorFormatOf} from 'utils/format';
 	import {makeValueAccessor} from 'utils/generic';
-	import {colorSelected} from 'shared/colors';
+	import defaultTheme from 'shared/theme';
 
 	/* data */
 
@@ -105,6 +107,7 @@
 	export let data;
 	export let id;
 	export let lookupStore;
+	export let theme = defaultTheme;
 	export let types;
 
 	/* vars */
@@ -140,6 +143,10 @@
 		year_extent,
 	} = $lookupStore[id] || {});
 
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+
+	$: style = makeStyleVars(theme);
 	$: legendHeight = height / 3;
 	$: makeColorScale = $makeColorScaleStore;
 	$: makeColorBins = $makeColorBinsStore;
@@ -208,9 +215,10 @@
 	$: chartTitle = `${useOrderScale ? 'Ranking by' : ''} ${schema.value.label}`;
 
 	// legend
+
 	$: colorBins = makeColorBins(colorScale);
 
-	/* tooltip */
+	// tooltip
 
 	$: quadTree = isIterableNotEmpty(filteredData) &&
 		quadtree()
@@ -262,14 +270,17 @@
 
 <!-- svelte-ignore component-name-lowercase -->
 
-<div class='container'>
+<div
+	{style}
+	class='time_region_value_IdIndex'
+>
 	<header>
 		<div>
 			<h1>{title}</h1>
 			<p>{subtitle}</p>
 		</div>
 		<div on:click={toggleInfoModal}>
-			<IconInfo
+			<Info
 				size={30}
 				strokeWidth={1.5}
 			/>
@@ -283,15 +294,27 @@
 					class='globe clickable'
 					on:click={toggleGeoModal}
 				>
-					<IconGlobe
-						strokeWidth={1.5}
-						stroke={$areThereUnselectedNUTS1Regions ? colorSelected : 'black'}
+					<Icon
+						glyph={Globe}
 						size={28}
+						stroke={$areThereUnselectedNUTS1Regions
+							? defaultTheme.colorSelected
+							: defaultTheme.colorRef
+						}
+						strokeWidth={1.5}
 					/>
 					{#if $geoModalStore.isVisible}
-					<IconChevronUp strokeWidth={1} size={24} />
+						<Icon
+							glyph={ChevronUp}
+							size={24}
+							strokeWidth={1}
+						/>
 					{:else}
-					<IconChevronDown strokeWidth={1} size={24} />
+						<Icon
+							glyph={ChevronDown}
+							size={24}
+							strokeWidth={1}
+						/>
 					{/if}
 				</div>
 
@@ -432,7 +455,7 @@
 									withBackground: true,
 								}}
 								theme={{
-									backgroundColor: 'white',
+									backgroundColor: theme.colorWhite,
 									backgroundOpacity: 0.5,
 								}}
 								ticksFormatFn={formatFn}
@@ -500,15 +523,14 @@
 </div>
 
 <style>
-	.container {
-		--indicators-h1-height: 4.5rem;
+	.time_region_value_IdIndex {
 		height: 100%;
 		width: 100%;
 		user-select: none;
 	}
 
 	header {
-		height: var(--indicators-h1-height);
+		height: var(--dimHeaderHeight);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -522,7 +544,7 @@
 	header div:nth-child(1) p {
 		font-style: italic;
 		font-size: 1rem;
-		color: grey;
+		color: var(--colorRefLight);
 	}
 	header div:nth-child(2) {
 		align-items: center;
@@ -536,7 +558,7 @@
 		display: grid;
 		grid-template-columns: 100%;
 		grid-template-rows: 4rem calc(100% - 4rem);
-		height: calc(100% - var(--indicators-h1-height));
+		height: calc(100% - var(--dimHeaderHeight));
 		overflow-y: auto;
 		position: relative;
 		width: 100%;
@@ -555,7 +577,7 @@
 	}
 
 	.globe {
-		border: 1px solid lightgrey;
+		border: 1px solid var(--colorRefLight);
 		margin-right: 0.25rem;
 		padding: 0.25rem;
 	}
@@ -574,7 +596,7 @@
 	}
 
 	svg .ref line {
-		stroke: var(--color-grey-180);
+		stroke: var(--colorRefLight);
 		pointer-events: none;
 	}
 	svg .x line {
@@ -582,9 +604,9 @@
 		pointer-events: none;
 	}
 	svg text {
-		fill: var(--color-grey-70);
+		fill: var(--colorRef);
 		dominant-baseline: middle;
-		font-weight: var(--dim-fontsize-light);
+		font-weight: var(--dimFontWeight);
 		stroke: none;
 		pointer-events: none;
 	}
@@ -629,8 +651,8 @@
 	}
 
 	svg circle {
-		fill: white;
-		stroke: black;
+		fill: var(--colorWhite);
+		stroke: var(--colorBlack);
 		stroke-width: 1.5;
 		pointer-events: none;
 	}
@@ -638,13 +660,13 @@
 	/* marker */
 
 	svg .marker text {
-		fill: black;
+		fill: var(--colorBlack);
 		dominant-baseline: middle;
 		pointer-events: none;
 	}
 	svg .marker text.bkg {
 		fill: none;
-		stroke: white;
+		stroke: var(--colorWhite);
 		stroke-width: 5;
 		stroke-linecap: round;
 		stroke-linecap: round;

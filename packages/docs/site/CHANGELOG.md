@@ -2,6 +2,7 @@
 
 - document `ExternalLink`
 - document `LinkButton`
+- add a compounds section to show `time_region_value`
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`
 	- `@rollup/plugin-node-resolve`

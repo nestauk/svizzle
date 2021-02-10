@@ -1,6 +1,10 @@
 <script>
+	import {makeStyleVars} from '@svizzle/dom';
+
 	import {resetSafetyStore, timelineLayoutStore} from 'stores/layout';
 	import {resetSelection} from 'stores/selection';
+
+	import defaultTheme from 'shared/theme';
 
 	const gap = 7;
 
@@ -12,6 +16,7 @@
 	export let groupsStore;
 	export let hrefBase = '';
 	export let yearRangeStore;
+	export let theme = defaultTheme;
 
 	resetSelection();
 	resetSafetyStore();
@@ -20,23 +25,30 @@
 	let width = isSapperExported && 1000; // bound
 	let height; // bound
 
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+
+	$: style = makeStyleVars(theme);
 	$: layout = $timelineLayoutStore;
 	$: vStep = 2 * layout.radius + 3 * gap + layout.fontSize;
 </script>
 
-<div class="container">
+<div
+	{style}
+	class='time_region_value_Index'
+>
 	<header>
 		<h1>Indicators</h1>
 	</header>
 
 	<div
-		class="timedist"
+		class='timedist'
 		bind:clientHeight={height}
 		bind:clientWidth={width}
 	>
 		<ul>
 			{#each $groupsStore as {description, indicators, label}}
-			<div class="group">
+			<div class='group'>
 				<h2>{label}</h2>
 				<p>{description}</p>
 
@@ -117,18 +129,17 @@
 </div>
 
 <style>
-	.container {
-		--indicators-h1-height: 2rem;
+	.time_region_value_Index {
 		height: 100%;
 		width: 100%;
 	}
 
-	.container header {
-		height: var(--indicators-h1-height);
+	.time_region_value_Index header {
+		height: var(--dimHeaderHeight);
 	}
 
-	.container .timedist {
-		height: calc(100% - var(--indicators-h1-height));
+	.time_region_value_Index .timedist {
+		height: calc(100% - var(--dimHeaderHeight));
 		width: 100%;
 		overflow-y: auto;
 	}
@@ -137,22 +148,18 @@
 		line-height: 1.5;
 	}
 
-	/* a {
-		text-decoration: none;
-	} */
-
 	.group {
 		margin-top: 1rem;
 	}
 
 	svg .xref line {
-		stroke: grey;
+		stroke: var(--colorRef);
 		stroke-dasharray: 2 2;
 	}
 
 	svg .xref text {
 		stroke: none;
-		fill: grey;
+		fill: var(--colorRef);
 		dominant-baseline: hanging;
 		text-anchor: middle;
 		font-size: 10px;
@@ -160,27 +167,27 @@
 	}
 
 	svg .indicatorsrange line {
-		stroke: black;
+		stroke: var(--colorBlack);
 		stroke-width: 0.7;
 		pointer-events: none;
 	}
 
 	svg .indicatorsrange text {
 		stroke: none;
-		fill: rgb(70, 70, 70);
+		fill: var(--colorRef);
 		dominant-baseline: middle;
 		text-anchor: middle;
 		pointer-events: none;
 	}
 	svg .indicatorsrange text.bkg {
-		stroke: white;
+		stroke: var(--colorWhite);
 		stroke-width: 5;
 	}
 
 	svg .indicatorsrange circle {
 		fill-opacity: 1;
-		fill: white;
-		stroke: black;
+		fill: var(--colorWhite);
+		stroke: var(--colorBlack);
 		stroke-width: 1.5;
 		cursor: pointer;
 	}
