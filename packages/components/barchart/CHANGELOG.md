@@ -1,3 +1,10 @@
+## `@svizzle/barchart` v0.6.5 (next)
+
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
+
 ## `@svizzle/barchart` v0.6.4
 
 - fix: show zeroes

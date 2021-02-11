@@ -1,3 +1,10 @@
+## `@svizzle/site` v0.3.3 (next)
+
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte`
+
 ## `@svizzle/site` v0.3.2
 
 - `@svizzle/ui`: add docs

@@ -1,8 +1,11 @@
 ## `@svizzle/utils` v0.13.0 (next)
 
+- updated some dev dependencies
+
 ### (Any -> Array) -> (Array -> Object)
 
 - add `makeArrayToObjectWith`
+
 
 ## `@svizzle/utils` v0.12.0
 
@@ -27,9 +30,11 @@
 - add `makePostfixed`
 - rename `prepend` to `makePrefixed`
 
+
 ## `@svizzle/utils` v0.11.1
 
 - fix a dep cycle introduced earlier
+
 
 ## `@svizzle/utils` v0.11.0
 

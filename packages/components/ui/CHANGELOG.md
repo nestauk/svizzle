@@ -23,6 +23,10 @@
 - add `src/icons/IconSquare.svelte`
 - add `src/icons/IconX.svelte`
 - add `src/LinkButton.svelte`
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
 
 
 ## `@svizzle/ui` v0.1.0`

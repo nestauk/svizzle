@@ -1,6 +1,12 @@
+## `@svizzle/dev` v0.4.2 (next)
+
+- updated some dev dependencies
+
+
 ## `@svizzle/dev` v0.4.1
 
 - build: remove comments from `.mjs` files
+
 
 ## `@svizzle/dev` v0.4.0
 
@@ -8,6 +14,7 @@
 - Moved `lamb` back to main dependencies (no need to install it separately anymore)
 - docs: converted all examples to a REPL-like format
 - dev: using single quotes rather than double quote where possible
+
 
 ## `@svizzle/dev` v0.3.0
 

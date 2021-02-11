@@ -4,8 +4,8 @@ import path from 'path';
 import {terser} from 'rollup-plugin-terser';
 import analyze from 'rollup-plugin-analyzer';
 import cleanup from 'rollup-plugin-cleanup';
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 
 import * as _ from 'lamb';
@@ -22,6 +22,7 @@ const analyzer = analyze({
 const banner = makeBanner(pkg);
 const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
+
 const input = {
 	ExternalLink: 'src/ExternalLink.svelte',
 	Icon: 'src/icons/Icon.svelte',
@@ -39,9 +40,12 @@ const input = {
 	IconGlobe: 'src/icons/IconGlobe.svelte',
 	IconHelpCircle: 'src/icons/IconHelpCircle.svelte',
 	IconInfo: 'src/icons/IconInfo.svelte',
+	IconMenu: 'src/icons/IconMenu.svelte',
+	IconMessageSquare: 'src/icons/IconMessageSquare.svelte',
 	IconSettings: 'src/icons/IconSettings.svelte',
 	IconSliders: 'src/icons/IconSliders.svelte',
 	IconSquare: 'src/icons/IconSquare.svelte',
+	IconX: 'src/icons/IconX.svelte',
 	index: 'src/index.js',
 	LinkButton: 'src/LinkButton.svelte',
 	Switch: 'src/Switch.svelte',
@@ -74,7 +78,9 @@ const makeBrowserConfig = _.pipe([
 		plugins: [
 			resolve(),
 			commonjs(),
-			svelte(),
+			svelte({
+				emitCss: false
+			}),
 			removeComments,
 			// json(),
 			// buble({
@@ -117,7 +123,9 @@ const cjsConfig = {
 	plugins: [
 		resolve(),
 		commonjs(),
-		svelte(),
+		svelte({
+			emitCss: false
+		}),
 		removeComments,
 	],
 	treeshake

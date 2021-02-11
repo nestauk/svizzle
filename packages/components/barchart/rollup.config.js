@@ -4,8 +4,8 @@ import path from 'path';
 import {terser} from 'rollup-plugin-terser';
 import analyze from 'rollup-plugin-analyzer';
 import cleanup from 'rollup-plugin-cleanup';
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 
 import * as _ from 'lamb';
@@ -53,7 +53,9 @@ const makeBrowserConfig = _.pipe([
 		plugins: [
 			resolve(),
 			commonjs(),
-			svelte(),
+			svelte({
+				emitCss: false
+			}),
 			removeComments,
 			// json(),
 			// buble({
@@ -96,7 +98,9 @@ const cjsConfig = {
 	plugins: [
 		resolve(),
 		commonjs(),
-		svelte(),
+		svelte({
+			emitCss: false
+		}),
 		removeComments,
 	],
 	treeshake

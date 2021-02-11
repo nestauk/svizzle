@@ -4,3 +4,4 @@
 - add `index.svelte`
 - add `[id]/index.svelte`
 - add `[id]/[year].svelte`
+- note that for now `rollup-plugin-svelte` is using `emitCss: false`

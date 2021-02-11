@@ -1,3 +1,7 @@
+## `@svizzle/request` v0.3.2 (next)
+
+- updated some dev dependencies
+
 ## `@svizzle/request` v0.3.1
 
 - build: remove comments from `.mjs` files

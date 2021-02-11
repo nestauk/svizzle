@@ -1,3 +1,10 @@
+## `@svizzle/legend` v0.1.2 (next)
+
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
+
 ## `@svizzle/legend` v0.1.1
 
 - show a customisable message if `bins` is not provided or is empty

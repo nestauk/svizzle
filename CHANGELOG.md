@@ -2,10 +2,66 @@
 
 ## next
 
+## `@svizzle/barchart` v0.6.5 (next)
+
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
+
+## `@svizzle/choropleth` v0.6.3 (next)
+
+- updated some dependencies:
+	- `d3-geo`
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
+
+## `@svizzle/dev` v0.4.2 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/dom` v0.4.3 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/file` v0.9.1 (next)
+
+- updated some dev dependencies
+
 ## `@svizzle/geo` v0.6.2 (next)
 
-- Updated `@turf/*` to version `6.3.0`
+- updated `@turf/*` to version `6.3.0`
+- updated some dev dependencies
 
+## `@svizzle/geometry` v0.3.2 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/histogram` v0.3.1 (next)
+
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
+
+## `@svizzle/legend` v0.1.2 (next)
+
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
+
+## `@svizzle/request` v0.3.2 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/site` v0.3.3 (next)
+
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
 
 ## `@svizzle/time_region_value` v0.1.0 (next)
 
@@ -13,7 +69,7 @@
 - add `index.svelte`
 - add `[id]/index.svelte`
 - add `[id]/[year].svelte`
-
+- note that for now `rollup-plugin-svelte` is using `emitCss: false`
 
 ## `@svizzle/ui` v0.2.0 (next)`
 
@@ -40,9 +96,14 @@
 - add `src/icons/IconSquare.svelte`
 - add `src/icons/IconX.svelte`
 - add `src/LinkButton.svelte`
-
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
 
 ## `@svizzle/utils` v0.13.0 (next)
+
+- updated some dev dependencies
 
 ### (Any -> Array) -> (Array -> Object)
 

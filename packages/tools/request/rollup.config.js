@@ -1,17 +1,18 @@
-import path from "path";
-import analyze from "rollup-plugin-analyzer";
-import buble from "rollup-plugin-buble";
-import cleanup from "rollup-plugin-cleanup";
-import commonjs from "rollup-plugin-commonjs";
-import resolve from "rollup-plugin-node-resolve";
-import {terser} from "rollup-plugin-terser";
+import path from 'path';
+
+import analyze from 'rollup-plugin-analyzer';
+import buble from 'rollup-plugin-buble';
+import cleanup from 'rollup-plugin-cleanup';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import {terser} from 'rollup-plugin-terser';
 
 import {
 	makeBanner,
 	renameToMinJs
-} from "@svizzle/dev";
+} from '@svizzle/dev';
 
-import pkg from "./package.json";
+import pkg from './package.json';
 
 const analyzer = analyze({
 	limit: 15,
@@ -38,7 +39,7 @@ const cjsConfig = {
 	output: {
 		banner,
 		file: pkg.main,
-		format: "cjs",
+		format: 'cjs',
 		indent: false
 	},
 	plugins: [
@@ -55,7 +56,7 @@ const browserConfig = {
 	output: {
 		banner,
 		file: pkg.browser,
-		format: "umd",
+		format: 'umd',
 		name: pkg.name,
 		indent: false
 	},

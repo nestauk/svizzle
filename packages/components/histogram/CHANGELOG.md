@@ -1,3 +1,10 @@
+## `@svizzle/histogram` v0.3.1 (next)
+
+- updated some dev dependencies:
+	- `@rollup/plugin-commonjs`
+	- `@rollup/plugin-node-resolve`
+	- `rollup-plugin-svelte` (for now using `emitCss: false`)
+
 ## `@svizzle/histogram` v0.3.0
 
 - show a customisable message if `items` is not provided or is empty
