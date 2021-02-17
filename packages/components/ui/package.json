@@ -65,5 +65,5 @@
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=dev"
 	},
 	"sideEffects": false,
-	"version": "0.1.0"
+	"version": "0.2.0-dev.0"
 }
