@@ -1,10 +1,15 @@
 ## `@svizzle/utils` v0.13.0 (next)
 
 - updated some dev dependencies
+- removed `joinWith`, now provided by `lamb`
 
 ### (Any -> Array) -> (Array -> Object)
 
 - add `makeArrayToObjectWith`
+
+### Array -> String
+
+- add `joinWithBlank`
 
 
 ## `@svizzle/utils` v0.12.0

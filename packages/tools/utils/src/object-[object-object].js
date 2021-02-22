@@ -20,7 +20,7 @@ import * as _ from 'lamb';
 	coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
 	fullname: _.pipe([
 		_.collect([_.getKey('fname'), _.getKey('lname')]),
-		joinWith(' ')
+		_.joinWith(' ')
 	]),
 });
 > formatted = _.map(raw, format)
@@ -50,7 +50,7 @@ export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
 	coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
 	fullname: _.pipe([
 		_.collect([_.getKey('fname'), _.getKey('lname')]),
-		joinWith(' ')
+		_.joinWith(' ')
 	]),
 	lat: obj => roundTo2(obj.lat),
 	lng: obj => roundTo2(obj.lng),

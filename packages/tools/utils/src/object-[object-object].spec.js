@@ -3,7 +3,7 @@ import {strict as assert} from 'assert';
 import * as _ from 'lamb';
 
 import {roundTo} from './number-[number-number]';
-import {joinWith} from './string-[array-string]';
+import {joinWithBlank} from './array-string';
 import {
 	applyFnMap,
 	makeMergeAppliedFnMap,
@@ -23,7 +23,7 @@ describe('Object -> (Object -> Object)', function() {
 				coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
 				fullname: _.pipe([
 					_.collect([_.getKey('fname'), _.getKey('lname')]),
-					joinWith(' ')
+					joinWithBlank
 				]),
 			});
 
@@ -39,7 +39,7 @@ describe('Object -> (Object -> Object)', function() {
 				coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
 				fullname: _.pipe([
 					_.collect([_.getKey('fname'), _.getKey('lname')]),
-					joinWith(' ')
+					joinWithBlank
 				]),
 				lat: obj => roundTo2(obj.lat),
 				lng: obj => roundTo2(obj.lng),

@@ -2,11 +2,27 @@
 * @module @svizzle/utils/array-string
 */
 
-import {joinWith} from './string-[array-string]';
+import {joinWith} from 'lamb';
+
+/**
+ * Return a string joining the provided array items with a blank
+ * @see {@link https://ascartabelli.github.io/lamb/module-lamb.html#joinWith|joinWith}
+ *
+ * @function
+ * @arg {array} array
+ * @return {string}
+ *
+ * @example
+> joinWithBlank(['a', 'b', 'c'])
+'a b c'
+ *
+ * @version 0.13.0
+ */
+export const joinWithBlank = joinWith(' ');
 
 /**
  * Return a string joining the provided array items with a dash
- * @see {@link module:@svizzle/utils/string-[array-string].joinWith|joinWith}
+ * @see {@link https://ascartabelli.github.io/lamb/module-lamb.html#joinWith|joinWith}
  *
  * @function
  * @arg {array} array
@@ -22,7 +38,7 @@ export const joinWithDash = joinWith('-');
 
 /**
  * Return a string joining the provided array items with a colon
- * @see {@link module:@svizzle/utils/string-[array-string].joinWith|joinWith}
+ * @see {@link https://ascartabelli.github.io/lamb/module-lamb.html#joinWith|joinWith}
  *
  * @function
  * @arg {array} array
@@ -38,7 +54,7 @@ export const joinWithColon = joinWith(':');
 
 /**
  * Return a string joining the provided array items with a semicolon
- * @see {@link module:@svizzle/utils/string-[array-string].joinWith|joinWith}
+ * @see {@link https://ascartabelli.github.io/lamb/module-lamb.html#joinWith|joinWith}
  *
  * @function
  * @arg {array} array

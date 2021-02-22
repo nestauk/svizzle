@@ -8,7 +8,7 @@ import * as _ from 'lamb';
  * Return an string by joining the provided array with the provided separator
  * @see
  {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join|Array.prototype.join},
- {@link module:@svizzle/utils/string-[array-string].joinWith|joinWith}
+ {@link https://ascartabelli.github.io/lamb/module-lamb.html#joinWith|joinWith}
  *
  * @function
  * @arg {array} array
