@@ -9,7 +9,6 @@
 		"rimraf": "^3.0.2",
 		"serve": "^11.3.0"
 	},
-	"dependencies": {},
 	"husky": {
 		"hooks": {
 			"pre-push": "npm run lernalint"

@@ -2,6 +2,10 @@ export {default as ExternalLink} from './ExternalLink.svelte';
 export {default as LinkButton} from './LinkButton.svelte';
 export {default as Switch} from './Switch.svelte';
 
+// gauges
+
+export {default as ScreenGauge} from './gauges/ScreenGauge.svelte';
+
 // icons
 
 export {default as Icon} from './icons/Icon.svelte';

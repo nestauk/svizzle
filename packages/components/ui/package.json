@@ -5,6 +5,7 @@
 	},
 	"dependencies": {
 		"@svizzle/dom": "^0.4.2",
+		"@svizzle/utils": "^0.12.0",
 		"uid": "^1.0.0"
 	},
 	"description": "A set of UI components for Svelte.",

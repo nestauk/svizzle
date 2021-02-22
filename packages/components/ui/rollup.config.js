@@ -48,6 +48,7 @@ const input = {
 	IconX: 'src/icons/IconX.svelte',
 	index: 'src/index.js',
 	LinkButton: 'src/LinkButton.svelte',
+	ScreenGauge: 'src/gauges/ScreenGauge.svelte',
 	Switch: 'src/Switch.svelte',
 };
 const removeComments = cleanup({
