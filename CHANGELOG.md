@@ -2,6 +2,8 @@
 
 ## next
 
+Added a new way to upload tarballs to the repo to all packages.
+
 ## `@svizzle/barchart` v0.6.5 (next)
 
 - updated some dev dependencies:

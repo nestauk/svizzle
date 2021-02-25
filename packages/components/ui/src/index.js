@@ -4,7 +4,7 @@ export {default as Switch} from './Switch.svelte';
 
 // gauges
 
-export {default as ScreenGauge} from './gauges/ScreenGauge.svelte';
+export {default as ScreenGauge} from './gauges/screen/ScreenGauge.svelte';
 
 // icons
 

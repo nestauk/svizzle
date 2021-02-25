@@ -140,25 +140,38 @@ Instead we'll tag manually a bunch of releases together:
 
 ### Publishing development package tarballs between releases
 
-The first time we need to push something that would require us to bump to the next `minor` version, run `npm run setpreminor`: this will update the version to the next minor as a prerelease, say from `0.2.0` to `0.3.0-dev.0`.
+If we need to test a package directly in an app, but we don't want to publish it on npm, we can upload a tarball of the current version of the package to the `pkgs` orphan branch.
+Tarballs in `pkgs` should be considered permanent to avoid breaking apps depending on them: they should not be updated, moved or deleted because.
+This method should be used sparingly.
 
-Run `npm run pack` to create a temporary package distribution in `pkg/`.
-This allows to test things in real like projects without having to actually publish a release on npm.
+#### Usage
 
-For example, the first time we added a new important change to `@svizzle/utils` after we published version `0.2.0`,
-- `npm run setpreminor`
-- `npm run pack`
-- `git add pkg`
-- `git commit`
-- `git push`
-- this will give us a package tarball at https://github.com/nestauk/svizzle/raw/dev/packages/tools/utils/pkg/0.3.0-dev.0.tar.gz
+- Set up a dev version:
+	- the first time we need to push something that would require us to bump the version:
+		- to bump the next `patch` number, run `npm run setprepatch` to update `version` to the next patch, say from `0.6.1` to `0.6.2-dev.0`;
+		- to bump the next `minor` number, run `npm run setpreminor` to update `version` to the next minor, say from `0.2.0` to `0.3.0-dev.0`.
+	- for the next dev releases, run `npm run setprerelease` to update `version` say from `0.3.0-dev.0` to `0.3.0-dev.1`, or `0.3.0-dev.1` to `0.3.0-dev.2`, and so on.
 
-From the second time on, run
-- `npm run setprerelease`: this will update the version from `0.3.0-dev.0` to `0.3.0-dev.1`, from `0.3.0-dev.1` to `0.3.0-dev.2` and so on
-- `npm run pack`
-- `git add pkg`
-- `git commit`
-- `git push`
-- this will give us a package tarball at https://github.com/nestauk/svizzle/raw/dev/packages/tools/utils/pkg/0.3.0-dev.1.tar.gz (or subsequent numbers)
+- Build the package:
+	- move to the root of the repo and run: `npm run lernabuild` to build all Svizzle packages, or
+	- `lerna run build --scope=@svizzle/utils` to build only the package that you need to upload
 
-It's important to note that these tarballs are a mean to be able to test new features on real projects or when porting a component from an app to Svizzle, without having to publish to npm each and every intermediate commit, but they are subject to deletion, so use them sparingly.
+- Run `npm run pack` to create a dev package tarball in `pkg/`, e.g. `pkg/ui@0.3.0-dev.1`.
+
+- Make sure that the working area is clean to avoid errors, because `uploadPack` will have to temporarily switch to the `pkgs` branch. For example, you'll need to commit the change in `package.json` due to the version update.
+
+- Upload the tarball to `pkgs` using `npm run uploadPack`.
+
+- If you want to clean all the `pkg` dirs created in the process, you can move to the root of the repository and run `npm run cleanpkg`.
+
+#### Example
+
+The first time we added a new important change to `@svizzle/utils` after we published version `0.2.0`:
+- `npm run setpreminor`: `0.2.0` => `0.3.0-dev.0`
+- `npm run pack`: creates `pkg/utils@0.3.0-dev.0.tar.gz`
+- `npm run uploadPack`: uploads the tarball in the `pkgs` branch, to be found at https://github.com/nestauk/svizzle/raw/pkgs/utils@0.3.0-dev.0.tar.gz
+
+The second time (and on):
+- `npm run setprerelease`: `0.3.0-dev.0` => `0.3.0-dev.1`
+- `npm run pack`: creates `pkg/utils@0.3.0-dev.1.tar.gz`
+- `npm run uploadPack`: uploads the tarball in the `pkgs` branch, to be found at https://github.com/nestauk/svizzle/raw/pkgs/utils@0.3.0-dev.1.tar.gz

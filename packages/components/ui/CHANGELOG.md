@@ -1,6 +1,7 @@
 ## `@svizzle/ui` v0.2.0 (next)`
 
 - add `src/ExternalLink.svelte`
+- add `src/gauges/ScreenGauge.svelte`
 - add `src/icons/Icon.svelte`
 - add `src/icons/IconCheck.svelte`
 - add `src/icons/IconCheckSquare.svelte`

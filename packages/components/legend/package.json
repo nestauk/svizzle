@@ -4,6 +4,10 @@
 	"bugs": {
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
+	"config": {
+		"name": "legend",
+		"preid": "dev"
+	},
 	"dependencies": {
 		"@svizzle/dom": "^0.4.2",
 		"@svizzle/geometry": "^0.3.1",
@@ -68,9 +72,11 @@
 		"buildpack": "npm run build && npm run pack",
 		"bumppack": "npm run setprerelease && npm run pack",
 		"lint": "eslint rollup.config.js 'src/*.{js,svelte}'",
-		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
-		"setpreminor": "npm --no-git-tag-version version preminor --preid=dev",
-		"setprerelease": "npm --no-git-tag-version version prerelease --preid=dev"
+		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
+		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
+		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
+		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
+		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
 	},
 	"sideEffects": false,
 	"version": "0.1.1"

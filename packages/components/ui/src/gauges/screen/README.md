@@ -30,15 +30,15 @@ This component exports a store like the below:
 		portrait: false,
 	},
 	sizeFlags: {
-		large: true,
-		medium: true,
-		small: true,
-		xLarge: true,
 		xSmall: false,
+		small: true,
+		medium: true,
+		large: true,
+		xLarge: true,
 	},
 	text: {
-		height: 39.5,
-		width: 123.51409978308027
+		maxChars: 123,
+		maxLines: 39,
 	}
 }
 ```
@@ -66,9 +66,9 @@ In a Sapper app this would usually be a `_layout.svelte` file.
 ```
 
 Props:
-- `breakpoints`: an array of 4 numbers defining as the amount of chars filling the width of a device at a specific breakpoint. E.g.:
+- `breakpoints`: an array of 4 numbers defining the amount of chars filling the width of a device at a specific breakpoint. E.g.:
 ```
-       60     82       100     120
+       45      90      135     180
 xsmall | small | medium | large | xLarge
 ```
 - `fontSize`: passing a string accepted by `font-size` sets the font size of the sample text;
@@ -78,7 +78,7 @@ xsmall | small | medium | large | xLarge
 	- DPPR: the display pixel ratio
 	- Orientation: one of `landscape` or `portrait`
 	- Text: max amount of chars by max amount of lines we can fit in the current display with the current font and font size;
-- `sampleText`: this component renders a hidden text to measure the average width or the current font; by default this text is the English alphabet (lowercase and upppercase) but you can pass a string of your choice, especially useful for other languages;
+- `sampleText`: this component renders a hidden text to measure the average width of the current font; by default this text is the English alphabet (lowercase and uppercase) but you can pass a string of your choice, especially useful for other languages.
 
 
 ### Use `screen`
@@ -92,8 +92,9 @@ In other components of your app, `import` the `screen` store from `ScreenGauge.s
 	console.log($screen);
 </script>
 
-{#if $screen.size.medium && $screen.orientation.landscape}
-	<p>Medium (landscape)</p>
-{/if}
-/>
+<main class={$screen?.classes}>
+	{#if $screen?.sizeFlags.medium && $screen?.orientationFlags.landscape}
+		<p>Medium (landscape)</p>
+	{/if}
+</main>
 ```

@@ -147,7 +147,7 @@ export const transformPaths = pathToFn => obj =>
 	}, _.merge({}, obj));
 
 /**
- * Return a function that expects an object and applies the functions in the values of the input object to the correspondent values of the provided object .
+ * Return a function that expects an object and applies the functions in the values of the input object to the correspondent values of the provided object.
  * Can be useful with [d3.csvParse]{@link https://github.com/d3/d3-dsv#csvParse}, see the example below.
  * Since 0.6.0 it assumes identity for missing keys.
  *
