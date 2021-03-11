@@ -24,6 +24,7 @@ const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 
 const input = {
+	defaults: 'src/defaults.js',
 	ExternalLink: 'src/ExternalLink.svelte',
 	Icon: 'src/icons/Icon.svelte',
 	IconCheck: 'src/icons/IconCheck.svelte',

@@ -1,6 +1,7 @@
 export {default as ExternalLink} from './ExternalLink.svelte';
 export {default as LinkButton} from './LinkButton.svelte';
 export {default as Switch} from './Switch.svelte';
+export {breakpoints} from './defaults';
 
 // gauges
 

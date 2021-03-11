@@ -57,20 +57,18 @@ In a Sapper app this would usually be a `_layout.svelte` file.
 	import ScreenGauge from '@svizzle/ui/src/gauges/ScreenGauge.svelte';
 
 	const isDev = process.env.NODE_ENV === 'development';
+	const fontSize = '16px';
 </script>
 
 <ScreenGauge
+	{fontSize}
 	{isDev}
-	bands={[60, 82, 100, 120]}
+	breakpoints={[60, 82, 100, 120]}
 />
 ```
 
 Props:
-- `breakpoints`: an array of 4 numbers defining the amount of chars filling the width of a device at a specific breakpoint. E.g.:
-```
-       45      90      135     180
-xsmall | small | medium | large | xLarge
-```
+- `breakpoints`: an array of 4 numbers defining the amount of chars filling the width of a device at a specific breakpoint. If you don't pass it, it will use the [default breakpoints](../../../README.md#Breakpoints), `[45, 90, 135, 180]`;
 - `fontSize`: passing a string accepted by `font-size` sets the font size of the sample text;
 - `isDev`: if this is `true`, render a fixed `div` with some display features:
 	- Classes: the valid class names among `xsmall`, `small`, `medium`, `large`, `xLarge`

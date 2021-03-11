@@ -8,12 +8,14 @@
 	import * as _ from 'lamb';
 	import {getTruthyValuesKeys, joinWithBlank} from '@svizzle/utils';
 
+	import {breakpoints as defaultBreakpoints} from '../../defaults';
+
 	const getClasses = _.pipe([getTruthyValuesKeys, joinWithBlank]);
 
 	export let fontSize = null;
 	export let isDev = false;
 	export let sampleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-	export let breakpoints = null;
+	export let breakpoints = defaultBreakpoints;
 
 	let innerHeight;
 	let innerWidth;
