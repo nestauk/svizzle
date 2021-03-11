@@ -17,11 +17,14 @@
 		"@rollup/plugin-commonjs": "^17.1.0",
 		"@rollup/plugin-node-resolve": "^11.1.1",
 		"@svizzle/dev": "^0.4.1",
+		"@svizzle/file": "^0.9.0",
+		"camelcase": "^6.2.0",
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.18.2",
 		"eslint-plugin-svelte3": "^2.7.3",
 		"esm": "^3.2.25",
 		"feather-icons": "^4.28.0",
+		"hast-util-to-html": "^7.1.2",
 		"lamb": "^0.59.2",
 		"mkdirp": "^1.0.4",
 		"mocha": "^5.2.0",
@@ -32,7 +35,8 @@
 		"rollup-plugin-cleanup": "^3.1.1",
 		"rollup-plugin-svelte": "^7.1.0",
 		"rollup-plugin-terser": "^5.2.0",
-		"svelte": "^3.24.0"
+		"svelte": "^3.24.0",
+		"svg-parser": "^2.0.4"
 	},
 	"files": [
 		"!*.spec.js",
@@ -65,9 +69,10 @@
 		"build": "rimraf dist && rollup -c",
 		"bumppack": "npm run setprerelease && npm run pack",
 		"lint": "eslint rollup.config.js 'src/*.{js,svelte}'",
+		"makeFeatherIcons": "rimraf src/icons/feather && mkdirp src/icons/feather && node -r esm ./bin/makeFeatherIcons.js",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
-		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
+		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
 		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
 	},

@@ -4,7 +4,47 @@ A set of UI components for Svelte.
 
 ## Icons
 
-A collection of some of Feather icons; the SVGs are taken from https://github.com/feathericons/feather/tree/master/icons.
+We can pass a Svelte component to the [`Icon`](./src/icons/Icon.svelte) component in order to render the desired icon, like this:
+
+```svelte
+<script>
+	import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
+	import {default as Download} from '@svizzle/ui/src/icons/feather/Download.svelte';
+</script>
+
+<Icon
+	glyph={Download}
+	size=30
+	strokeWidth=1.5
+/>
+```
+
+`Icon` props:
+- `glyph`
+	- description: the svelte component of the icon to be rendered (of course you can provide your own)
+	- type: `svelte component`
+	- default: `null`
+- `size`:
+	- description: icon size
+	- type: `number`
+	- default: `24`
+- style:
+	- `fill`:
+		- description: the color to be used to fill closed shapes
+		- type: `string`
+		- default: `'none'`
+	- `stroke`:
+		- description: lines color
+		- type: `string`
+		- default: `'currentColor'`
+	- `strokeWidth`:
+		- description: lines thickness
+		- type: `number`
+		- default: `2`
+
+As a commodity, icons from https://github.com/feathericons/feather/tree/master/icons are automatically turned into Svelte components and provided in `./src/icons/feather` for ease of use.
+
+Note that the `makeFeatherIcons` npm script assumes the `feather` directory in the root of the Svizzle repository because Lerna is set up to hoist packages in the root `node_modules` dir.
 
 ## Switch
 

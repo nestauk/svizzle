@@ -58,6 +58,9 @@ export const writeFile = util.promisify(fs.writeFile);
 .catch(err => console.error(err));
  *
  * @version 0.1.0
+ * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
+ * @see {@link module:@svizzle/file/write.saveString|saveString}
+ * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
  */
 export const saveObj = (filepath, indent = 0) => object =>
 	writeFile(filepath, JSON.stringify(object, null, indent), 'utf8');
@@ -78,6 +81,9 @@ export const saveObj = (filepath, indent = 0) => object =>
 .catch(err => console.error(err));
  *
  * @version 0.1.0
+ * @see {@link module:@svizzle/file/write.saveObj|saveObj}
+ * @see {@link module:@svizzle/file/write.saveString|saveString}
+ * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
  */
 export const saveObjPassthrough = (filepath, indent = 0) =>
 	object =>
@@ -99,6 +105,9 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
 .catch(err => console.error(err));
  *
  * @version 0.7.0
+ * @see {@link module:@svizzle/file/write.saveObj|saveObj}
+ * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
+ * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
  */
 export const saveString = filepath =>
 	string => writeFile(filepath, string, 'utf8');
@@ -118,6 +127,9 @@ export const saveString = filepath =>
 .catch(err => console.error(err));
  *
  * @version 0.7.0
+ * @see {@link module:@svizzle/file/write.saveObj|saveObj}
+ * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
+ * @see {@link module:@svizzle/file/write.saveString|saveString}
  */
 export const saveStringPassthrough = filepath =>
 	string => writeFile(filepath, string, 'utf8').then(() => string);

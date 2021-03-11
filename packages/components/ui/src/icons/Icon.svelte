@@ -1,43 +1,41 @@
 <script>
-	import {
-		fill as _fill,
-		height as _height,
-		stroke as _stroke,
-		strokeLinecap,
-		strokeLinejoin,
-		strokeWidth as _strokeWidth,
-		svgXmlns,
-		viewBox,
-		width as _width,
-	} from './config';
+	const defaultFill = 'none';
+	const defaultGlyph = null;
+	const defaultSize = 24;
+	const defaultStroke = 'currentColor';
+	const defaultStrokeWidth = 2;
+	const strokeLinecap = 'round';
+	const strokeLinejoin = 'round';
+	const svgXmlns = 'http://www.w3.org/2000/svg';
+	const viewBox = `0 0 24 24`;
 
-	export let fill = _fill;
-	export let height = _height;
-	export let stroke = _stroke;
-	export let strokeWidth = _strokeWidth;
-	export let width = _width;
+	export let fill = defaultFill;
+	export let glyph = defaultGlyph;
+	export let size = defaultSize;
+	export let stroke = defaultStroke;
+	export let strokeWidth = defaultStrokeWidth;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: fill = fill || _fill;
-	$: height = height || _height;
-	$: stroke = stroke || _stroke;
-	$: strokeWidth = strokeWidth || _strokeWidth;
-	$: width = width || _width;
+	$: fill = fill || defaultFill;
+	$: glyph = glyph || defaultGlyph;
+	$: size = size || defaultSize;
+	$: stroke = stroke || defaultStroke;
+	$: strokeWidth = strokeWidth || defaultStrokeWidth;
 </script>
 
 <div>
 	<svg
 		{fill}
-		{height}
 		{stroke}
 		{svgXmlns}
 		{viewBox}
-		{width}
+		height={size}
 		stroke-linecap={strokeLinecap}
 		stroke-linejoin={strokeLinejoin}
 		stroke-width={strokeWidth}
+		width={size}
 	>
-		<slot></slot>
+		<svelte:component this={glyph} />
 	</svg>
 </div>
 

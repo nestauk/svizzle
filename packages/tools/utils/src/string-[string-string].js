@@ -10,13 +10,14 @@
  * @return {function} - String -> String
  *
  * @example
-> postfixed = makePostfix('---')
+> postfixed = makePostfixed('---')
 > postfixed('A')
 'A---'
 > postfixed('B')
 'B---'
  *
  * @version 0.12.0
+ * @see {@link module:@svizzle/utils/string-[string-string].makePrefixed|makePrefixed}
  */
 export const makePostfixed = postfix => string => string + postfix;
 
@@ -35,5 +36,6 @@ export const makePostfixed = postfix => string => string + postfix;
 '---B'
  *
  * @version 0.1.0
+ * @see {@link module:@svizzle/utils/string-[string-string].makePostfixed|makePostfixed}
  */
 export const makePrefixed = prefix => string => prefix + string;

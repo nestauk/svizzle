@@ -1,5 +1,6 @@
 <script>
-	import IconExternalLink from './icons/IconExternalLink.svelte';
+	import ExternalLink from './icons/feather/ExternalLink.svelte';
+	import Icon from './icons/Icon.svelte';
 
 	export let href = null;
 	export let size = 14;
@@ -12,10 +13,12 @@
 <a {href} target='_blank'>
 	<span>{text}</span>
 	<span>
-		<IconExternalLink
+		<Icon
 			{size}
 			stroke='rgb(16, 174, 249)'
-		/>
+		>
+			<ExternalLink />
+		</Icon>
 	</span>
 </a>
 

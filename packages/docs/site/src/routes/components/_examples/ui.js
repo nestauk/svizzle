@@ -1,6 +1,102 @@
+import {default as AlertTriangle} from '@svizzle/ui/src/icons/feather/AlertTriangle.svelte';
+import {default as ArrowRightCircle} from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+import {default as Sun} from '@svizzle/ui/src/icons/feather/Sun.svelte';
+import {default as Settings} from '@svizzle/ui/src/icons/feather/Settings.svelte';
+
 import {formatExamples} from './utils';
 
 export default formatExamples([
+	{
+		data: [{
+			key: '`glyph`: Settings',
+			props: {
+				glyph: Settings
+			},
+			usage: `
+				<script>
+					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
+					import {default as Settings} from '@svizzle/ui/src/icons/feather/Settings.svelte';
+				</script>
+				<Icon glyph={Settings} />
+			`,
+		}, {
+			key: '`glyph`: AlertTriangle, `size`, `strokeWidth`, `stroke`',
+			props: {
+				glyph: AlertTriangle,
+				size: 300,
+				strokeWidth: 3,
+				stroke: 'orangered',
+			},
+			usage: `
+				<script>
+					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
+					import {default as AlertTriangle} from '@svizzle/ui/src/icons/feather/AlertTriangle.svelte';
+				</script>
+				<Icon
+					glyph={AlertTriangle}
+					size=300
+					strokeWidth=3
+					stroke='orangered'
+				/>
+			`,
+		}, {
+			key: '`glyph`: Sun, `stroke`',
+			props: {
+				glyph: Sun,
+				stroke: 'gold',
+			},
+			usage: `
+				<script>
+					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
+					import {default as Sun} from '@svizzle/ui/src/icons/feather/Sun.svelte';
+				</script>
+				<Icon
+					glyph={Sun}
+					stroke='gold'
+				/>
+			`,
+		}, {
+			key: '`glyph`: ArrowRightCircle, `fill`, `size`',
+			props: {
+				fill: 'palegreen',
+				glyph: ArrowRightCircle,
+				size: 100,
+				strokeWidth: 1,
+			},
+			usage: `
+				<script>
+					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
+					import {default as ArrowRightCircle} from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+				</script>
+				<Icon
+					fill='palegreen'
+					glyph={Sun}
+					size=100
+					strokeWidth=1
+				/>
+			`,
+		}, {
+			key: 'No props',
+			props: {},
+			usage: `
+				<script>
+					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
+				</script>
+				<Icon />
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'We need to pass the `glyph` prop (a Svelte component that renders SVG tags) to `Icon`.'},
+			{tag: 'p', content: 'We provide Feather icons glyphs (https://feathericons.com/) in `@svizzle/ui/src/icons/feather/`, where component names are Feather ids, camel cased: e.g. `alert-triangle` => `AlertTriangle`.'},
+			{tag: 'p', content: 'Later on we might provide more icon collections. Or of course you can use your own glyphs!'},
+			{tag: 'p', content: 'To style an icon, use `fill`, `stroke` (strings) and `strokeWidth` (a number).'},
+			{tag: 'p', content: 'To size the icon, use `size` (a number).'},
+		],
+		name: 'Icon',
+		packageName: 'ui',
+		slug: 'ui-Icon',
+		title: 'Icons',
+	},
 	{
 		data: [{
 			key: 'A switch',

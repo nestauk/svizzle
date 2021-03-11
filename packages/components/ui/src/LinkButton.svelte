@@ -1,5 +1,6 @@
 <script>
-	import IconDownload from './icons/IconDownload.svelte';
+	import Icon from './icons/Icon.svelte';
+	import Download from './icons/feather/Download.svelte';
 
 	export let text = null;
 	export let url = null;
@@ -12,10 +13,12 @@
 			<span>{text}</span>
 			{#if withDownloadIcon}
 			<span>
-				<IconDownload
+				<Icon
 					size=30
 					strokeWidth=1.5
-				/>
+				>
+					<Download/>
+				</Icon>
 			</span>
 			{/if}
 		</div>
