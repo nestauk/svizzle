@@ -1,5 +1,7 @@
-## `@svizzle/file` v0.9.1 (next)
+## `@svizzle/file` v0.10.0 (next)
 
+- updated `readDirFiles` logic
+- updated `readDirFilesIndexed` logic and added an argument
 - updated some dev dependencies
 
 ## `@svizzle/file` v0.9.0

@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-import {filterWith, fromPairs} from 'lamb';
+import {filterWith, fromPairs, identity} from 'lamb';
 import {
 	dsvFormat,
 	csvParse,
@@ -66,13 +66,19 @@ export const readDir = util.promisify(fs.readdir);
  * @function
  * @arg {string} dirPath - the directory path
  * @arg {function} filterPathFn - (String -> Boolean) predicate to filter the filepaths (e.g. ()
- * @arg {function} parse - (String -> Any) target file parser
+ * @arg {function} parseFn - (String -> Any) target file parser
  * @return {promise} - @sideEffects: fs.readdir, fs.readFile
  *
  * @example
 $ ls -a source/dir
-.   .foo  01.csv  foo.txt
-..  .bar  02.csv  bar.json
+.   01.csv  foo.txt  .foo
+..  02.csv  bar.json
+$ cat source/dir/.foo
+hidden foo
+$ cat source/dir/foo.txt
+foo
+$ cat source/dir/bar.json
+{"a": 1}
 $ cat source/dir/01.csv
 a,b
 foo,1
@@ -80,6 +86,24 @@ bar,2
 $ cat source/dir/02.csv
 foo,1
 bar,2
+
+> readDirFiles('source/dir/')
+.then(x => console.log(x))
+.catch(err => console.error(err))
+
+[
+	'a,b\nfoo,1\nbar,2',
+	'foo,1\nbar,2',
+	'foo',
+	'{"a": 1}',
+	'hidden foo'
+]
+
+> readDirFiles('source/dir/', isPathCSV)
+.then(x => console.log(x))
+.catch(err => console.error(err))
+
+['a,b\nfoo,1\nbar,2', 'foo,1\nbar,2']
 
 > readDirFiles('source/dir/', isPathCSV, d3.csvParseRows)
 .then(x => console.log(x))
@@ -94,26 +118,29 @@ bar,2
 export const readDirFiles = (
 	dirPath,
 	filterPathFn,
-	parse
+	parseFn
 ) =>
 	readDir(dirPath, 'utf8')
-	.then(filterWith(filterPathFn))
+	.then(filterPathFn ? filterWith(filterPathFn) : identity)
 	.then(filenames => Promise.all(
 		filenames.map(filename => {
 			const filepath = path.join(dirPath, filename);
+			const promise = readFile(filepath, 'utf-8')
 
-			return readFile(filepath, 'utf-8').then(parse)
+			return parseFn ? promise.then(parseFn) : promise
 		})
 	));
 
 /**
  * [node environment]
  * Return a promise that reads files in the given directory with a file path satisfying the provided criteria, returning their content parsed with the provided parser indexed by file name.
+ * From v0.10.0, `withFilepathAsKey` drives what to get as keys.
  *
  * @function
  * @arg {string} dirPath - the directory path
  * @arg {function} filterPathFn - (String -> Boolean) predicate to filter the filepaths (e.g. ()
- * @arg {function} parse - (String -> Any) target file parser
+ * @arg {function} parseFn - (String -> Any) target file parser
+ * @arg {boolean=false} withFilepathAsKey - defaults to `false`, to return objects with file names as keys; if `true`, keys are file paths.
  * @return {promise} - @sideEffects: fs.readdir, fs.readFile
  *
  * @example
@@ -141,16 +168,20 @@ bar,2
 export const readDirFilesIndexed = (
 	dirPath,
 	filterPathFn,
-	parse
+	parseFn,
+	withFilepathAsKey = false
 ) =>
 	readDir(dirPath, 'utf8')
-	.then(filterWith(filterPathFn))
+	.then(filterPathFn ? filterWith(filterPathFn) : identity)
 	.then(filenames => Promise.all(
 		filenames.map(filename => {
 			const filepath = path.join(dirPath, filename);
 
 			return readFile(filepath, 'utf-8')
-			.then(content => [filename, parse(content)]);
+			.then(content => [
+				withFilepathAsKey ? filepath : filename,
+				parseFn ? parseFn(content) : content
+			]);
 		})
 	))
 	.then(fromPairs)

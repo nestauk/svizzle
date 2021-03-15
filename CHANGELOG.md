@@ -27,8 +27,10 @@ Added a new way to upload tarballs to the repo to all packages.
 
 - updated some dev dependencies
 
-## `@svizzle/file` v0.9.1 (next)
+## `@svizzle/file` v0.10.0 (next)
 
+- updated `readDirFiles` logic
+- updated `readDirFilesIndexed` logic and added an argument
 - updated some dev dependencies
 
 ## `@svizzle/geo` v0.6.2 (next)

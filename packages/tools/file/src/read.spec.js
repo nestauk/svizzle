@@ -35,32 +35,60 @@ describe('read', function() {
 		);
 	});
 	describe('readDir', function() {
-		const dirItems = [
-			'a.txt',
-			'a1.json',
-			'aDir',
-			'ab.csv',
-			'ab.tsv',
-			'ab.txt',
-			'b2.json',
-			'multi.json',
-			'rows.csv',
-			'rows.tsv',
-			'rows.txt',
-		];
 		it('should return a promise that reads the directory at the provided path',
 			async function() {
 				const dirPath = path.resolve(__dirname, '../test_assets');
-				const items = await readDir(dirPath, 'utf-8');
-				assert.deepStrictEqual(items, dirItems);
+				const expected = [
+					'a.txt',
+					'a1.json',
+					'aDir',
+					'ab.csv',
+					'ab.tsv',
+					'ab.txt',
+					'b2.json',
+					'multi.json',
+					'rows.csv',
+					'rows.tsv',
+					'rows.txt',
+				];
+				const actual = await readDir(dirPath, 'utf-8');
+				assert.deepStrictEqual(actual, expected);
 			}
 		);
 	});
 	describe('readDirFiles', function() {
-		it('should return a promise that reads and parses files in the given directory and with a file path satisfying a provided criteria',
+		const isCSV = hasAnyExtensionOf(['.csv']);
+
+		it('should read all the files in `dirPath`',
+			async function() {
+				const dirPath = path.resolve(__dirname, '../test_assets/aDir');
+				const actual = await readDirFiles(dirPath);
+				const expected = [
+					'hidden foo\n',
+					'I\'m a text file\nfor you to read\n'
+				];
+				assert.deepStrictEqual(actual, expected);
+			}
+		);
+		it('should filter the files and return their content as is if we don\'t provide a parser',
 			async function() {
 				const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
-				const isCSV = hasAnyExtensionOf(['.csv']);
+				const actual = await readDirFiles(dirPath, isCSV);
+				const expected = ['a,b\nfoo,1\nbar,2\n', 'foo,1\nbar,2\n'];
+				assert.deepStrictEqual(actual, expected);
+			}
+		);
+		it('should filter the files and return no content if no file name passes the predicate',
+			async function() {
+				const dirPath = path.resolve(__dirname, '../test_assets/aDir');
+				const actual = await readDirFiles(dirPath, isCSV);
+				const expected = [];
+				assert.deepStrictEqual(actual, expected);
+			}
+		);
+		it('should parse the files contents',
+			async function() {
+				const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
 				const actual = await readDirFiles(dirPath, isCSV, csvParseRows);
 				const expected = [
 					[['a', 'b'], ['foo', '1'], ['bar', '2']],
@@ -71,18 +99,107 @@ describe('read', function() {
 		);
 	});
 	describe('readDirFilesIndexed', function() {
-		it('should return a promise that reads and parses files in the given directory and with a file path satisfying a provided criteria',
-			async function() {
-				const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
-				const isCSV = hasAnyExtensionOf(['.csv']);
-				const actual = await readDirFilesIndexed(dirPath, isCSV, csvParseRows);
-				const expected = {
-					'ab.csv': [['a', 'b'], ['foo', '1'], ['bar', '2']],
-					'rows.csv': [['foo', '1'], ['bar', '2']]
-				};
-				assert.deepStrictEqual(actual, expected);
-			}
-		);
+		const isCSV = hasAnyExtensionOf(['.csv']);
+
+		describe('file name as key', function() {
+			it('should read all the files in `dirPath`',
+				async function() {
+					const dirPath = path.resolve(__dirname, '../test_assets/aDir');
+					const actual = await readDirFilesIndexed(dirPath);
+					const expected = {
+						'.foo': 'hidden foo\n',
+						'a.txt': 'I\'m a text file\nfor you to read\n'
+					};
+					assert.deepStrictEqual(actual, expected);
+				}
+			);
+			it('should filter the files and return their content as is if we don\'t provide a parser',
+				async function() {
+					const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
+					const actual = await readDirFilesIndexed(dirPath, isCSV);
+					const expected = {
+						'ab.csv': 'a,b\nfoo,1\nbar,2\n',
+						'rows.csv': 'foo,1\nbar,2\n'
+					};
+					assert.deepStrictEqual(actual, expected);
+				}
+			);
+			it('should filter the files and return no content if no file name passes the predicate',
+				async function() {
+					const dirPath = path.resolve(__dirname, '../test_assets/aDir');
+					const actual = await readDirFilesIndexed(dirPath, isCSV, csvParseRows);
+					const expected = {};
+					assert.deepStrictEqual(actual, expected);
+				}
+			);
+
+			it('should parse the files contents',
+				async function() {
+					const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
+					const actual = await readDirFilesIndexed(dirPath, isCSV, csvParseRows);
+					const expected = {
+						'ab.csv': [['a', 'b'], ['foo', '1'], ['bar', '2']],
+						'rows.csv': [['foo', '1'], ['bar', '2']]
+					};
+					assert.deepStrictEqual(actual, expected);
+				}
+			);
+		});
+
+		describe('file path as key', function() {
+			it('should read all the files in `dirPath`',
+				async function() {
+					const dirPath = path.resolve(__dirname, '../test_assets/aDir');
+					const actual = await readDirFilesIndexed(dirPath, null, null, true);
+					const expected = {
+						[path.join(dirPath, '.foo')]: 'hidden foo\n',
+						[path.join(dirPath, 'a.txt')]: 'I\'m a text file\nfor you to read\n'
+					};
+					assert.deepStrictEqual(actual, expected);
+				}
+			);
+			it('should filter the files and return their content as is if we don\'t provide a parser',
+				async function() {
+					const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
+					const actual = await readDirFilesIndexed(dirPath, isCSV, null, true);
+					const expected = {
+						[path.join(dirPath, 'ab.csv')]: 'a,b\nfoo,1\nbar,2\n',
+						[path.join(dirPath, 'rows.csv')]: 'foo,1\nbar,2\n'
+					};
+					assert.deepStrictEqual(actual, expected);
+				}
+			);
+			it('should filter the files and return no content if no file name passes the predicate',
+				async function() {
+					const dirPath = path.resolve(__dirname, '../test_assets/aDir');
+					const actual = await readDirFilesIndexed(
+						dirPath,
+						isCSV,
+						csvParseRows,
+						true
+					);
+					const expected = {};
+					assert.deepStrictEqual(actual, expected);
+				}
+			);
+
+			it('should parse the files contents',
+				async function() {
+					const dirPath = path.resolve(__dirname, '../test_assets'); // ab.csv, rows.csv
+					const actual = await readDirFilesIndexed(
+						dirPath,
+						isCSV,
+						csvParseRows,
+						true
+					);
+					const expected = {
+						[path.join(dirPath, 'ab.csv')]: [['a', 'b'], ['foo', '1'], ['bar', '2']],
+						[path.join(dirPath, 'rows.csv')]: [['foo', '1'], ['bar', '2']]
+					};
+					assert.deepStrictEqual(actual, expected);
+				}
+			);
+		});
 	});
 	describe('readCsv', function() {
 		it('should return a promise that reads and then parses a csv file - with header',
