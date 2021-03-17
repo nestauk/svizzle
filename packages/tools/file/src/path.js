@@ -6,8 +6,6 @@ import path from 'path';
 
 import * as _ from 'lamb';
 
-import {mergeObj} from '@svizzle/utils';
-
 /**
  * Detect if a file name has one of the provided extensions.
  * [node environment]
@@ -68,7 +66,7 @@ export const filterJsonExtensions =
 export const renameToExtension = ext => _.pipe([
 	path.parse,
 	_.skip(['base']), // [1]
-	mergeObj({ext}),
+	obj => ({...obj, ext}),
 	path.format
 ]);
 

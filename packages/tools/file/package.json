@@ -8,7 +8,6 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/utils": "^0.12.0",
 		"d3-dsv": "^1.2.0",
 		"lamb": "^0.59.2"
 	},
@@ -37,9 +36,11 @@
 		"dist/*",
 		"index.js",
 		"LICENSE",
-		"src/**/*.js",
+		"src/*.js",
 		"!pkg/*",
-		"!*.spec.js"
+		"!*.spec.js",
+		"!*.todo.js",
+		"README.md"
 	],
 	"homepage": "https://github.com/nestauk/svizzle",
 	"keywords": [
@@ -66,7 +67,7 @@
 		"build": "rollup -c",
 		"bumppack": "npm run setprerelease && npm run pack",
 		"lint": "eslint rollup.config.js src/*.js",
-		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/index.js ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
+		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/README.md ${dirname}/src/",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",

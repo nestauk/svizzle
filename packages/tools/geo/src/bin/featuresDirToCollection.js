@@ -7,8 +7,9 @@ import commander from 'commander';
 import {featureCollection} from '@turf/helpers';
 
 import {readJsonDir} from '@svizzle/file';
-import {setGeometryPrecision} from '../src/geojson';
-import {version} from '../package.json';
+
+import {setGeometryPrecision} from '../modules/geojson';
+import {version} from '../../package.json';
 
 commander
 .version(version)
@@ -34,6 +35,7 @@ const pipeTo = out => obj => {
 	if (out === '-') {
 		console.log(obj);
 	} else {
+		// eslint-disable-next-line no-sync
 		fs.writeFileSync(path.resolve(output), JSON.stringify(obj), 'utf8');
 	}
 }

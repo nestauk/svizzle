@@ -17,7 +17,7 @@ import {ndjsonToArray} from '@svizzle/utils';
  * @arg {boolean} [useFetch=true] -
  *      Use the Fetch API? (default = `true`).
  *      Useful to pass `Modernizr.fetch` to disable the Fetch API if not available.
- * @return {promise} – @sideEffects: fetch
+ * @return {promise} - @sideEffects: fetch
  *
  * @example
 requestJson('json/url')
