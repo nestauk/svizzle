@@ -12,6 +12,7 @@ import * as _ from 'lamb';
 import {makeBanner, renameToMinJs} from '@svizzle/dev';
 
 import pkg from './package.json';
+import rollupIconsInput from './src/rollup/rollupIconsInput.json';
 
 const analyzer = analyze({
 	limit: 15,
@@ -24,29 +25,10 @@ const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 
 const input = {
+	...rollupIconsInput,
 	defaults: 'src/defaults.js',
 	ExternalLink: 'src/ExternalLink.svelte',
 	Icon: 'src/icons/Icon.svelte',
-	IconCheck: 'src/icons/IconCheck.svelte',
-	IconCheckSquare: 'src/icons/IconCheckSquare.svelte',
-	IconChevronDown: 'src/icons/IconChevronDown.svelte',
-	IconChevronLeft: 'src/icons/IconChevronLeft.svelte',
-	IconChevronRight: 'src/icons/IconChevronRight.svelte',
-	IconChevronUp: 'src/icons/IconChevronUp.svelte',
-	IconClipboard: 'src/icons/IconClipboard.svelte',
-	IconDelete: 'src/icons/IconDelete.svelte',
-	IconDownload: 'src/icons/IconDownload.svelte',
-	IconExternalLink: 'src/icons/IconExternalLink.svelte',
-	IconFilter: 'src/icons/IconFilter.svelte',
-	IconGlobe: 'src/icons/IconGlobe.svelte',
-	IconHelpCircle: 'src/icons/IconHelpCircle.svelte',
-	IconInfo: 'src/icons/IconInfo.svelte',
-	IconMenu: 'src/icons/IconMenu.svelte',
-	IconMessageSquare: 'src/icons/IconMessageSquare.svelte',
-	IconSettings: 'src/icons/IconSettings.svelte',
-	IconSliders: 'src/icons/IconSliders.svelte',
-	IconSquare: 'src/icons/IconSquare.svelte',
-	IconX: 'src/icons/IconX.svelte',
 	index: 'src/index.js',
 	LinkButton: 'src/LinkButton.svelte',
 	ScreenGauge: 'src/gauges/screen/ScreenGauge.svelte',

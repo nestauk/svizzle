@@ -1,55 +1,98 @@
 <script>
-	import Icon from './icons/Icon.svelte';
-	import Download from './icons/feather/Download.svelte';
+	import {makeStyleVars} from '@svizzle/dom';
 
-	export let text = null;
-	export let url = null;
-	export let withDownloadIcon = false;
+	import Icon from './icons/Icon.svelte';
+
+	const {
+		defaultFill,
+		defaultSize,
+		defaultStroke,
+		defaultStrokeWidth
+	} = Icon;
+	const defaultText = 'Please provide `text`';
+	const defaultTheme = {
+		backgroundColor: 'black',
+		boxShadowColor: 'lightgrey',
+		boxShadowVec: '2px 8px 9px -4px',
+		iconFill: defaultFill,
+		iconStroke: defaultStroke,
+		iconStrokeWidth: defaultStrokeWidth,
+		textColor: 'white',
+	};
+	const missingHrefText = 'Please provide `href`';
+
+	export let glyph = null;
+	export let href = null;
+	export let iconSize = defaultSize;
+	export let text = defaultText;
+	export let theme = defaultTheme;
+
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: iconSize = iconSize || defaultSize;
+	$: style = makeStyleVars(theme);
+	$: text = text || defaultText;
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 </script>
 
-<div class='linkbutton'>
-	<a href={url}>
+<div
+	{style}
+	class='linkButton'
+>
+	{#if href}
+		<a {href}>
+			<div class="clickable">
+				{#if text}
+					<span>{text}</span>
+				{/if}
+				{#if glyph}
+					<span>
+						<Icon
+							{glyph}
+							fill={theme.iconFill}
+							size={iconSize}
+							stroke={theme.iconStroke}
+							strokeWidth={theme.iconStrokeWidth}
+						/>
+					</span>
+				{/if}
+			</div>
+		</a>
+	{:else}
 		<div>
-			<span>{text}</span>
-			{#if withDownloadIcon}
-			<span>
-				<Icon
-					size=30
-					strokeWidth=1.5
-				>
-					<Download/>
-				</Icon>
-			</span>
+			{#if text}
+				<span>{missingHrefText}</span>
 			{/if}
 		</div>
-	</a>
+	{/if}
 </div>
 
 <style>
-	.linkbutton {
+	.linkButton {
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
 	}
 
-	.linkbutton a {
+	.linkButton a {
 		border-bottom: none;
 		text-decoration: none;
 	}
-	.linkbutton a div {
+	.linkButton div {
 		font-weight: bold;
-		background-color: var(--color-link);
-		color: white;
+		background-color: var(--backgroundColor);
+		color: var(--textColor);
 		padding: 1rem;
 		font-size: 1.2rem;
-		box-shadow: var(--box-shadow-xy);
-		cursor: pointer;
+		box-shadow: var(--boxShadowVec) var(--boxShadowColor);
 	}
-	.linkbutton a div {
+	.linkButton div {
 		display: flex;
 		align-items: center;
 	}
-	.linkbutton a div span:nth-child(2) {
+	.linkButton div span:nth-child(2) {
 		margin-left: 1rem;
+	}
+	.linkButton div.clickable {
+		cursor: pointer;
 	}
 </style>

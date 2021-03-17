@@ -1,5 +1,7 @@
 ## `@svizzle/site` v0.3.3 (next)
 
+- document `ExternalLink`
+- document `LinkButton`
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`
 	- `@rollup/plugin-node-resolve`

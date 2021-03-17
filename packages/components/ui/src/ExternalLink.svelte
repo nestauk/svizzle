@@ -1,24 +1,43 @@
 <script>
+	import {makeStyleVars} from '@svizzle/dom';
+
 	import ExternalLink from './icons/feather/ExternalLink.svelte';
 	import Icon from './icons/Icon.svelte';
 
-	export let href = null;
-	export let size = 14;
-	export let text = '';
+	const {defaultStrokeWidth} = Icon;
+	const defaultTheme = {
+		iconStroke: 'rgb(16, 174, 249)',
+		iconStrokeWidth: defaultStrokeWidth,
+		textColor: 'black',
+	};
+	const defaultIconSize = 14;
 
-	$: size = size || 14;
+	export let href = null;
+	export let iconSize = defaultIconSize;
+	export let text = '';
+	export let theme = defaultTheme;
+
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: href = href || null;
+	$: iconSize = iconSize || defaultIconSize;
+	$: style = makeStyleVars(theme);
 	$: text = text || '';
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 </script>
 
-<a {href} target='_blank'>
+<a
+	{href}
+	{style}
+	target='_blank'
+>
 	<span>{text}</span>
 	<span>
 		<Icon
-			{size}
-			stroke='rgb(16, 174, 249)'
-		>
-			<ExternalLink />
-		</Icon>
+			glyph={ExternalLink}
+			size={iconSize}
+			stroke={theme.iconStroke}
+			strokeWidth={theme.iconStrokeWidth}
+		/>
 	</span>
 </a>
 
@@ -27,6 +46,9 @@
 		text-decoration: none;
 	}
 
+	a span:nth-child(1) {
+		color: var(--textColor);
+	}
 	a span:nth-child(2) {
 		margin-left: 0.1rem;
 	}

@@ -2,7 +2,11 @@ import {strict as assert} from 'assert';
 
 import * as _ from 'lamb';
 
-import {applyTransformsSequence, pluckValuesKeys} from './array-[object-object]';
+import {
+	applyTransformsSequence,
+	pluckValuesKeys,
+	remapWith,
+} from './array-[object-object]';
 
 describe('Array -> (Object -> Object)', function() {
 	describe('applyTransformsSequence', function() {
@@ -145,6 +149,24 @@ describe('Array -> (Object -> Object)', function() {
 				foo: {a: 1, k: 4},
 				bar: {a: 5}
 			};
+			assert.deepStrictEqual(actual, expected);
+		});
+	});
+
+	describe('remapWith', function() {
+		const remap = remapWith([
+			key => `${key}${key}`,
+			value => 3 * value,
+		]);
+
+		it('should be able to remap an object', function() {
+			let actual = remap({a: 1, b: 2});
+			let expected = {aa: 3, bb: 6};
+			assert.deepStrictEqual(actual, expected);
+		});
+		it('should be able to remap an empty object', function() {
+			let actual = remap({});
+			let expected = {};
 			assert.deepStrictEqual(actual, expected);
 		});
 	});

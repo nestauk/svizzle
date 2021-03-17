@@ -1,5 +1,6 @@
 import {default as AlertTriangle} from '@svizzle/ui/src/icons/feather/AlertTriangle.svelte';
 import {default as ArrowRightCircle} from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+import {default as Download} from '@svizzle/ui/src/icons/feather/Download.svelte';
 import {default as Sun} from '@svizzle/ui/src/icons/feather/Sun.svelte';
 import {default as Settings} from '@svizzle/ui/src/icons/feather/Settings.svelte';
 
@@ -87,10 +88,11 @@ export default formatExamples([
 		}],
 		doc: [
 			{tag: 'p', content: 'We need to pass the `glyph` prop (a Svelte component that renders SVG tags) to `Icon`.'},
-			{tag: 'p', content: 'We provide Feather icons glyphs (https://feathericons.com/) in `@svizzle/ui/src/icons/feather/`, where component names are Feather ids, camel cased: e.g. `alert-triangle` => `AlertTriangle`.'},
+			{tag: 'p', content: 'We provide Feather icons glyphs (https://feathericons.com/) in `@svizzle/ui/src/icons/feather/`, where component names are camel cased Feather ids: e.g. `alert-triangle` => `AlertTriangle`.'},
 			{tag: 'p', content: 'Later on we might provide more icon collections. Or of course you can use your own glyphs!'},
 			{tag: 'p', content: 'To style an icon, use `fill`, `stroke` (strings) and `strokeWidth` (a number).'},
 			{tag: 'p', content: 'To size the icon, use `size` (a number).'},
+			{tag: 'p', content: '`Icon` exports there readonly props: `defaultFill = "none"`, `defaultSize = 24`, `defaultStroke = "currentColor"`, `defaultStrokeWidth = 2`.'},
 		],
 		name: 'Icon',
 		packageName: 'ui',
@@ -178,4 +180,179 @@ export default formatExamples([
 		slug: 'ui-Switch',
 		title: 'Switch',
 	},
+	{
+		data: [{
+			key: 'href + text',
+			props: {
+				href: 'https://svelte.dev',
+				text: 'Svelte website',
+			},
+			usage: `
+				<ExternalLink
+					href='https://svelte.dev'
+					text='Svelte website'
+				/>
+			`,
+		}, {
+			key: 'href only',
+			props: {
+				href: 'https://svelte.dev',
+			},
+			usage: `
+				<ExternalLink href='https://svelte.dev'/>
+			`,
+		}, {
+			key: 'href + text + iconSize',
+			props: {
+				href: 'https://svelte.dev',
+				text: 'Svelte website',
+				iconSize: 30,
+			},
+			usage: `
+				<ExternalLink
+					href='https://svelte.dev'
+					text='Svelte website'
+					iconSize=30
+				/>
+			`,
+		}, {
+			key: 'Style',
+			props: {
+				href: 'https://svelte.dev',
+				text: 'Svelte website',
+				theme: {
+					iconStroke: 'red',
+					iconStrokeWidth: 4,
+					textColor: 'orange',
+				}
+			},
+			usage: `
+				<ExternalLink
+					href='https://svelte.dev'
+					text='Svelte website'
+					theme={{
+						iconStroke: 'red',
+						iconStrokeWidth: 4,
+						textColor: 'orange',
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'A simple link with an "external link" icon.'},
+			{tag: 'p', content: 'You can pass `href` and an `text`.'},
+			{tag: 'p', content: 'The `size` prop (a number in pixels) controls the icon size.'},
+			{tag: 'p', content: `Note that the link text isn't styled but it is clickable.`},
+		],
+		name: 'ExternalLink',
+		packageName: 'ui',
+		slug: 'ui-ExternalLink',
+		title: 'ExternalLink',
+	},
+	{
+		data: [{
+			key: 'href + text',
+			props: {
+				href: 'https://svelte.dev',
+				text: 'Navigate',
+			},
+			usage: `
+				<LinkButton
+					href='https://svelte.dev'
+					text='Navigate'
+				/>
+			`,
+		}, {
+			key: 'No `href`',
+			props: {
+				text: 'Click me',
+			},
+			usage: `
+				<LinkButton text='Click me'/>
+			`,
+		}, {
+			key: 'No `text`',
+			props: {
+				href: 'https://svelte.dev'
+			},
+			usage: `
+				<LinkButton href='https://svelte.dev'/>
+			`,
+		}, {
+			key: 'href + text + glyph (Download icon)',
+			props: {
+				href: 'https://svelte.dev',
+				text: 'Navigate',
+				glyph: Download,
+			},
+			usage: `
+				<LinkButton
+					href='https://svelte.dev'
+					text='Navigate'
+					glyph={Download}
+				/>
+			`,
+		}, {
+			key: 'href + text + glyph (AlertTriangle icon) + theme',
+			props: {
+				href: 'https://svelte.dev',
+				text: 'Proceed with caution!',
+				glyph: AlertTriangle,
+				theme: {
+					backgroundColor: 'red',
+					boxShadowColor: 'blue',
+					boxShadowVec: '4px 8px 8px -4px',
+					textColor: 'yellow',
+				}
+			},
+			usage: `
+				<LinkButton
+					href='https://svelte.dev'
+					glyph={AlertTriangle}
+					theme={{
+						backgroundColor: 'red',
+						boxShadowColor: 'blue',
+						boxShadowVec: '4px 8px 8px -4px',
+						textColor: 'yellow',
+					}}
+					text='Proceed with caution!'
+				/>
+			`,
+		}, {
+			key: 'Styled/Sized icon (ArrowRightCircle icon)',
+			props: {
+				href: 'https://svelte.dev',
+				text: 'Styled/Sized icon',
+				glyph: ArrowRightCircle,
+				theme: {
+					iconFill: 'magenta',
+					iconStroke: 'palegreen',
+					iconStrokeWidth: 3,
+				},
+				iconSize: 35
+			},
+			usage: `
+				<LinkButton
+					href='https://svelte.dev'
+					glyph={ArrowRightCircle}
+					theme={{
+						iconFill: 'magenta',
+						iconStroke: 'palegreen',
+						iconStrokeWidth: 3,
+					}}
+					text='Styled/Sized icon'
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'A simple link with an "external link" icon.'},
+			{tag: 'p', content: 'You can pass `href` and an `text`.'},
+			{tag: 'p', content: 'The `size` prop (a number in pixels) controls the icon size.'},
+			{tag: 'p', content: `Note that the link text isn't styled but it is clickable.`},
+		],
+		name: 'LinkButton',
+		packageName: 'ui',
+		slug: 'ui-LinkButton',
+		title: 'LinkButton',
+	}
 ]);

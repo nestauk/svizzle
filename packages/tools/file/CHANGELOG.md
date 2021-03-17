@@ -1,5 +1,6 @@
 ## `@svizzle/file` v0.10.0 (next)
 
+- add `resolveToDir`
 - updated `readDirFiles` logic
 - updated `readDirFilesIndexed` logic and added an argument
 - updated some dev dependencies

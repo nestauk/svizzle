@@ -59,7 +59,7 @@ export const filterJsonExtensions =
 > renameToJson('file.txt')
 'file.json'
 > renameToJson('file.min.js')
-'file.min.json'
+'file.txt'
  *
  * @version 0.4.0
  */
@@ -85,3 +85,27 @@ const renameToExtension = ext => filepath => {
 	return filepath.replace(oldExt, ext);
 }
 */
+
+
+/**
+ * Return a function expecting a filename and returning it resolved to
+ * the provided directory path
+ * [node environment]
+ *
+ * @function
+ * @arg {string} dirPath - path of the dir to resolve to
+ * @return {function} - String -> String
+ *
+ * @example
+> resolve = resolveToDir('/output/dir/');
+
+> resolve('file1.txt')
+'/output/dir/file1.txt'
+
+> resolve('file2.txt')
+'/output/dir/file2.txt'
+ *
+ * @version 0.10.0
+ */
+export const resolveToDir =
+	dirPath => filename => path.resolve(dirPath, filename);

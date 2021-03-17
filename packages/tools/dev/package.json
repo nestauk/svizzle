@@ -43,7 +43,7 @@
 	],
 	"license": "MIT",
 	"main": "dist/index.js",
-	"module": "src/index.js",
+	"module": "index.js",
 	"name": "@svizzle/dev",
 	"publishConfig": {
 		"access": "public"

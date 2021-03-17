@@ -39,7 +39,7 @@ Promise.all([
 	if (isIterableNotEmpty(leftovers)) {
 		const list = leftovers.map(makePrefixed('- ./src/modules/')).join('\n');
 		console.log(`\n======================\n✋`)
-		console.log(`/utils: index.js not exporting these modules:\n\n${list}`)
+		console.log(`/utils: index.js not exporting these modules from ./src/modules:\n\n${list}`)
 		console.log(`======================\n`)
 
 		// eslint-disable-next-line no-process-exit

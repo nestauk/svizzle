@@ -1,9 +1,10 @@
 <script>
-	const defaultFill = 'none';
+	export const defaultFill = 'none';
+	export const defaultSize = 24;
+	export const defaultStroke = 'currentColor';
+	export const defaultStrokeWidth = 2;
+
 	const defaultGlyph = null;
-	const defaultSize = 24;
-	const defaultStroke = 'currentColor';
-	const defaultStrokeWidth = 2;
 	const strokeLinecap = 'round';
 	const strokeLinejoin = 'round';
 	const svgXmlns = 'http://www.w3.org/2000/svg';

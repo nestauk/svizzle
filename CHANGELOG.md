@@ -29,6 +29,7 @@ Added a new way to upload tarballs to the repo to all packages.
 
 ## `@svizzle/file` v0.10.0 (next)
 
+- add `resolveToDir`
 - updated `readDirFiles` logic
 - updated `readDirFilesIndexed` logic and added an argument
 - updated some dev dependencies
@@ -62,10 +63,12 @@ Added a new way to upload tarballs to the repo to all packages.
 
 ## `@svizzle/site` v0.3.3 (next)
 
+- document `ExternalLink`
+- document `LinkButton`
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`
 	- `@rollup/plugin-node-resolve`
-	- `rollup-plugin-svelte` (for now using `emitCss: false`)
+	- `rollup-plugin-svelte`
 
 ## `@svizzle/time_region_value` v0.1.0 (next)
 

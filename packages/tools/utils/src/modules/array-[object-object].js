@@ -157,3 +157,28 @@ export const applyTransformsSequence = pathFnPairs => obj =>
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluck
  */
 export const pluckValuesKeys = keys => _.mapValuesWith(_.pick(keys));
+
+/**
+ * Return a function expecting an object and returning an object having
+ * keys and values defined by applying the provided array of two functions
+ * to the input object keys and values.
+ *
+ * @function
+ * @arg {array} - [keysFn, valuesFn] both being (Any -> Any)
+ * @return {function} - (Object -> Object)
+ *
+ * @example
+> remap = remapWith([
+	key => `${key}${key}`,
+	value => 3 * value,
+]);
+> remap({a: 1, b: 2})
+{aa: 3, bb: 6}
+ *
+ * @version 0.13.0
+ */
+export const remapWith = ([keysFn, valuesFn]) => _.pipe([
+	_.pairs,
+	_.mapWith(([key, value]) => [keysFn(key), valuesFn(value)]),
+	_.fromPairs,
+]);
