@@ -18,7 +18,7 @@
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
 		"mkdirp": "^1.0.4",
-		"mocha": "^5.2.0",
+		"mocha": "^8.3.2",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.21.0",
 		"rollup-plugin-analyzer": "^3.1.2",
