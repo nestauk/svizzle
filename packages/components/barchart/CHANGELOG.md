@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.6.5 (next)
+## `@svizzle/barchart` v0.6.5
 
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`

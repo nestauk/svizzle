@@ -1,17 +1,17 @@
 # Svizzle changelog
 
-## next
+## 20210413
 
-Added a new way to upload tarballs to the repo to all packages.
+- Added a new way to upload tarballs to the repo to all packages.
 
-## `@svizzle/barchart` v0.6.5 (next)
+## `@svizzle/barchart` v0.6.5
 
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`
 	- `@rollup/plugin-node-resolve`
 	- `rollup-plugin-svelte` (for now using `emitCss: false`)
 
-## `@svizzle/choropleth` v0.6.3 (next)
+## `@svizzle/choropleth` v0.6.3
 
 - updated some dependencies:
 	- `d3-geo`
@@ -19,49 +19,49 @@ Added a new way to upload tarballs to the repo to all packages.
 	- `@rollup/plugin-node-resolve`
 	- `rollup-plugin-svelte` (for now using `emitCss: false`)
 
-## `@svizzle/dev` v0.4.2 (next)
+## `@svizzle/dev` v0.4.2
 
 - updated some dev dependencies
 
-## `@svizzle/dom` v0.4.3 (next)
+## `@svizzle/dom` v0.4.3
 
 - updated some dev dependencies
 
-## `@svizzle/file` v0.10.0 (next)
+## `@svizzle/file` v0.10.0
 
 - add `resolveToDir`
 - updated `readDirFiles` logic
 - updated `readDirFilesIndexed` logic and added an argument
 - updated some dev dependencies
 
-## `@svizzle/geo` v0.6.2 (next)
+## `@svizzle/geo` v0.6.2
 
 - updated `@turf/*` to version `6.3.0`
 - updated some dev dependencies
 
-## `@svizzle/geometry` v0.3.2 (next)
+## `@svizzle/geometry` v0.3.2
 
 - updated some dev dependencies
 
-## `@svizzle/histogram` v0.3.1 (next)
+## `@svizzle/histogram` v0.3.1
 
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`
 	- `@rollup/plugin-node-resolve`
 	- `rollup-plugin-svelte` (for now using `emitCss: false`)
 
-## `@svizzle/legend` v0.1.2 (next)
+## `@svizzle/legend` v0.1.2
 
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`
 	- `@rollup/plugin-node-resolve`
 	- `rollup-plugin-svelte` (for now using `emitCss: false`)
 
-## `@svizzle/request` v0.3.2 (next)
+## `@svizzle/request` v0.3.2
 
 - updated some dev dependencies
 
-## `@svizzle/site` v0.3.3 (next)
+## `@svizzle/site` v0.3.3
 
 - document `ExternalLink`
 - document `LinkButton`
@@ -70,7 +70,7 @@ Added a new way to upload tarballs to the repo to all packages.
 	- `@rollup/plugin-node-resolve`
 	- `rollup-plugin-svelte`
 
-## `@svizzle/time_region_value` v0.1.0 (next)
+## `@svizzle/time_region_value` v0.1.0
 
 - add `_layout.svelte`
 - add `index.svelte`
@@ -78,7 +78,7 @@ Added a new way to upload tarballs to the repo to all packages.
 - add `[id]/[year].svelte`
 - note that for now `rollup-plugin-svelte` is using `emitCss: false`
 
-## `@svizzle/ui` v0.2.0 (next)
+## `@svizzle/ui` v0.2.0
 
 - add responsiveness `breakpoints` (see `src/defaults.js`)
 - add `src/gauges/ScreenGauge.svelte`
@@ -90,7 +90,7 @@ Added a new way to upload tarballs to the repo to all packages.
 	- `@rollup/plugin-node-resolve`
 	- `rollup-plugin-svelte` (for now using `emitCss: false`)
 
-## `@svizzle/utils` v0.13.0 (next)
+## `@svizzle/utils` v0.13.0
 
 - updated some dev dependencies
 - removed `joinWith`, now provided by `lamb`

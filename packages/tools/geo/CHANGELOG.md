@@ -1,4 +1,4 @@
-## `@svizzle/geo` v0.6.2 (next)
+## `@svizzle/geo` v0.6.2
 
 - updated `@turf/*` to version `6.3.0`
 - updated some dev dependencies

@@ -1,4 +1,4 @@
-## `@svizzle/legend` v0.1.2 (next)
+## `@svizzle/legend` v0.1.2
 
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`

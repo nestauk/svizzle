@@ -1,4 +1,4 @@
-## `@svizzle/geometry` v0.3.2 (next)
+## `@svizzle/geometry` v0.3.2
 
 - updated some dev dependencies
 

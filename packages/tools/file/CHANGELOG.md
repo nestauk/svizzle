@@ -1,4 +1,4 @@
-## `@svizzle/file` v0.10.0 (next)
+## `@svizzle/file` v0.10.0
 
 - add `resolveToDir`
 - updated `readDirFiles` logic

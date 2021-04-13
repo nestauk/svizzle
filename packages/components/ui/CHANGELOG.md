@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.2.0 (next)
+## `@svizzle/ui` v0.2.0
 
 - add responsiveness `breakpoints` (see `src/defaults.js`)
 - add `src/gauges/ScreenGauge.svelte`

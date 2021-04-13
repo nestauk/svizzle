@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.13.0 (next)
+## `@svizzle/utils` v0.13.0
 
 - updated some dev dependencies
 - removed `joinWith`, now provided by `lamb`

@@ -1,4 +1,4 @@
-## `@svizzle/histogram` v0.3.1 (next)
+## `@svizzle/histogram` v0.3.1
 
 - updated some dev dependencies:
 	- `@rollup/plugin-commonjs`

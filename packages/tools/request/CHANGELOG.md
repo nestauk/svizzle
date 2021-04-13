@@ -1,4 +1,4 @@
-## `@svizzle/request` v0.3.2 (next)
+## `@svizzle/request` v0.3.2
 
 - updated some dev dependencies
 

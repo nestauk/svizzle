@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.3.3 (next)
+## `@svizzle/site` v0.3.3
 
 - document `ExternalLink`
 - document `LinkButton`
