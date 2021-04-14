@@ -18,6 +18,7 @@ Svizzle is a mono-repo containing the source code of various npm packages: pleas
 - [`@svizzle/choropleth`](https://github.com/nestauk/svizzle/tree/master/packages/components/choropleth)
 - [`@svizzle/histogram`](https://github.com/nestauk/svizzle/tree/master/packages/components/histogram)
 - [`@svizzle/legend`](https://github.com/nestauk/svizzle/tree/master/packages/components/legend)
+- [`@svizzle/time_region_value`](https://github.com/nestauk/svizzle/tree/master/packages/components/time_region_value)
 - [`@svizzle/ui`](https://github.com/nestauk/svizzle/tree/master/packages/components/ui)
 
 **[Tools](https://github.com/nestauk/svizzle/tree/master/packages/tools)**

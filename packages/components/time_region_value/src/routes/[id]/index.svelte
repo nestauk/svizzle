@@ -3,56 +3,57 @@
 
 	// utils
 
-	import * as _ from 'lamb';
-	import {writable} from 'svelte/store';
-	import {extent, max} from 'd3-array';
-	import {quadtree} from 'd3-quadtree';
-	import {scaleLinear} from 'd3-scale';
-	import {line, curveMonotoneX} from 'd3-shape';
 	import {makeStyleVars} from '@svizzle/dom';
+	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
+	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
 	import {
-		applyFnMap,
-		isIterableNotEmpty,
 		makeKeyed,
-		mergeObj,
-		objectToKeyValueArray,
 		setIndexAsKey,
-		transformValues,
 	} from '@svizzle/utils';
+	import * as _ from 'lamb';
+	import {onMount} from 'svelte';
+	import {extent} from 'd3-array';
+
+	/* local deps */
 
 	// components
 
-	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
-	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
-	import ChevronDown from '@svizzle/ui/src/icons/feather/ChevronDown.svelte';
-	import ChevronUp from '@svizzle/ui/src/icons/feather/ChevronUp.svelte';
-	import Globe from '@svizzle/ui/src/icons/feather/Globe.svelte';
-	import Info from '@svizzle/ui/src/icons/feather/Info.svelte';
-	import Switch from '@svizzle/ui/src/Switch.svelte';
-
-	/* local components */
-
-	import InfoModal from 'components/InfoModal/InfoModal.svelte';
 	import GeoFilterModal from 'components/GeoFilterModal.svelte';
+	import Header from 'components/Header.svelte';
+	import InfoModal from 'components/Info/InfoModal.svelte';
+	import InfoView from 'components/Info/InfoView.svelte';
+	import SettingsRow from 'components/SettingsRow.svelte';
+	import SettingsView from 'components/SettingsView.svelte';
+	import TrendsDiv from 'components/TrendsDiv.svelte';
+	import TrendsG from 'components/TrendsG.svelte';
 
-	/* local stores */
+	// stores
 
 	import {
 		currentSchemeIndexStore,
 		makeColorBinsStore,
 		makeColorScaleStore,
 	} from 'stores/colorScale';
-	import {timelineLayoutStore} from 'stores/layout';
+	import {
+		isSmallScreen,
+		screenClasses,
+	} from 'stores/layout';
 	import {
 		doFilterRegionsStore,
 		geoModalStore,
+		hideGeoModal,
 		hideInfoModal,
 		infoModalStore,
 		toggleGeoModal,
 		toggleInfoModal,
 	} from 'stores/modals';
 	import {
-		areThereUnselectedNUTS1Regions,
+		setRoute,
+		showView,
+		viewsClasses,
+	} from 'stores/navigation';
+	import {
+		noSelectedRegions,
 		nutsSelectionStore,
 		preselectedNUTS2IdsStore,
 		selectedNUT2IdsStore,
@@ -64,19 +65,12 @@
 
 	/* local utils */
 
-	import {getNutsId, sortAscByYear} from 'utils/domain';
+	import sharedTheme from 'theme';
 	import {makeGetIndicatorFormatOf} from 'utils/format';
-	import {makeValueAccessor} from 'utils/generic';
-	import defaultTheme from 'shared/theme';
-
-	/* data */
-
-	import yearlyKeyToLabel from 'data/NUTS2_UK_labels';
-	// TODO
-	// import yearlyKeyToLabel from '@svizzle/atlas/NUTS2_UK_labels';
 
 	/* consts */
 
+	const legendBarThickness = 40;
 	const makeSetOrderWith = accessor => _.pipe([
 		_.groupBy(_.getKey('year')),
 		_.mapValuesWith(_.pipe([
@@ -86,42 +80,38 @@
 		_.values,
 		_.flatten,
 	]);
-	const makeTrends = _.pipe([
-		_.groupBy(getNutsId),
-		_.mapValuesWith(sortAscByYear),
-		objectToKeyValueArray
-	]);
-	const getOrder = _.getKey('order');
 	const makeKeyedTrue = makeKeyed(true);
-
-	const gap = 4;
-	const labelFontSize = 14;
-	const axisFontSize = 12;
-	const tooltipFontSize = 10;
-	const tooltipPadding = 5;
-	const tooltipShift = 1.5 * tooltipPadding + 0.5 * tooltipFontSize;
-	const legendBarThickness = 40;
 
 	/* props */
 
 	export let data;
 	export let id;
 	export let lookupStore;
-	export let theme = defaultTheme;
+	export let theme = sharedTheme;
 	export let types;
 
-	/* vars */
+	/* init */
 
-	let height;
-	let highlightedKey;
-	let width;
-	let useOrderScale = false;
+	onMount(() => {
+		setRoute('Id');
+	});
+
+	/* local vars */
+
+	// bound
+	let mediumTrendsHeight;
+	let mediumTrendsWidth;
+
+	// rest
+	let useRankScale = false;
 
 	/* reactive vars */
 
+	// navigation
+	$: $isSmallScreen && hideGeoModal();
+	$: $isSmallScreen && hideInfoModal();
+	$: id && showView('trends');
 	$: id && resetSelectedYear();
-	$: id && hideInfoModal();
-
 	$: ({
 		api_doc_url,
 		api_type,
@@ -130,6 +120,7 @@
 		data_date,
 		description,
 		endpoint_url,
+		is_experimental,
 		is_public,
 		query,
 		region,
@@ -143,313 +134,206 @@
 		year_extent,
 	} = $lookupStore[id] || {});
 
-	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+	// update stores
+	$: availableYearsStore.set(availableYears);
 
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: theme = theme ? {...sharedTheme, ...theme} : sharedTheme;
+
+	// style
 	$: style = makeStyleVars(theme);
-	$: legendHeight = height / 3;
-	$: makeColorScale = $makeColorScaleStore;
-	$: makeColorBins = $makeColorBinsStore;
+
+	// utils
 	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
 	$: formatFn = getIndicatorFormat($lookupStore);
-	$: availableYearsStore.set(availableYears);
-	$: layout = $timelineLayoutStore;
-	$: getIndicatorValue = makeValueAccessor(id);
+	$: getIndicatorValue = _.getKey(id);
 	$: setOrder = makeSetOrderWith(getIndicatorValue);
-	$: selectedRegionsObj = makeKeyedTrue($selectedNUT2IdsStore);
-	$: preselectedRegionsObj = makeKeyedTrue($preselectedNUTS2IdsStore);
+
+	// selection
+	$: selectedRegions = makeKeyedTrue($selectedNUT2IdsStore);
+	$: preselectedRegions = makeKeyedTrue($preselectedNUTS2IdsStore);
+	$: valueExtext = extent(filteredData, getIndicatorValue);
 	$: rankedData = setOrder(data);
 	$: filteredData = $doFilterRegionsStore
 		? _.filter(rankedData, ({nuts_id}) =>
-			_.has(selectedRegionsObj, nuts_id) || _.has(preselectedRegionsObj, nuts_id)
+			_.has(selectedRegions, nuts_id) ||
+			_.has(preselectedRegions, nuts_id)
 		)
 		: rankedData;
-	$: valueExtext = extent(filteredData, getIndicatorValue);
-	$: maxOrder = max(rankedData, getOrder);
-	$: trends = makeTrends(filteredData);
-	$: taggedTrends = _.map(trends, item => ({
-		...item,
-		preselected: _.has(preselectedRegionsObj, item.key),
-		selected: _.has(selectedRegionsObj, item.key),
-	}));
-	$: radius = Math.min(layout.radius, 0.5 * (height / maxOrder) - gap);
-	$: yMin = radius + 2 * gap + labelFontSize;
-	$: yMax = height - Math.max(radius, axisFontSize / 2) - gap;
-	$: yLabel = gap + labelFontSize / 2;
-	$: labelUnit =
-		schema.value.unit_string ||
-		schema.value.type &&
-		_.has(types, schema.value.type) &&
-		_.has(types[schema.value.type], 'unit_string') &&
-		types[schema.value.type].unit_string;
-	$: scaleY = useOrderScale
-		? scaleLinear().domain([0, maxOrder]).range([yMin, yMax])
-		: scaleLinear().domain(valueExtext).range([yMax, yMin]);
-	$: ticks = scaleY && scaleY.ticks().map(value => ({
-		label: useOrderScale ? value + 1 : formatFn(value),
-		y: scaleY(value)
-	}));
-	$: getX = d => layout.scaleX(d.year);
-	$: getY = d => useOrderScale ? scaleY(d.order) : scaleY(getIndicatorValue(d));
-	$: lineGenerator =
-		line()
-		.x(getX)
-		.y(getY)
-		.curve(curveMonotoneX);
-	$: trendLines = _.map(taggedTrends, transformValues({value: lineGenerator}));
-	$: colorScale = makeColorScale(valueExtext);
-	$: getStopOffset = d => `${100 * layout.scaleX(d.year) / width}%`;
-	$: gradients = _.map(taggedTrends, transformValues({
-		value: _.mapWith(applyFnMap({
-			offset: getStopOffset,
-			stopColor: _.pipe([getIndicatorValue, colorScale])
-		}))
-	}));
+	$: trendsData = {
+		filteredData,
+		preselectedRegions,
+		rankedData,
+		selectedRegions,
+		valueExtext,
+		year_extent,
+	}
 
-	$: X1 = layout.fullScaleX(year_extent[0]);
-	$: X2 = layout.fullScaleX(year_extent[1]);
-	$: x1 = layout.scaleX(year_extent[0]);
-	$: x2 = layout.scaleX(year_extent[1]);
-	$: xMed = (x1 + x2) / 2;
+	// layout
+	$: mediumLegendHeight = mediumTrendsHeight / 3;
 
-	$: chartTitle = `${useOrderScale ? 'Ranking by' : ''} ${schema.value.label}`;
+	// colors
+	$: colorScale = $makeColorScaleStore(valueExtext);
 
 	// legend
-
+	$: makeColorBins = $makeColorBinsStore;
 	$: colorBins = makeColorBins(colorScale);
 
-	// tooltip
+	/* event handlers */
 
-	$: quadTree = isIterableNotEmpty(filteredData) &&
-		quadtree()
-		.x(getX)
-		.y(getY)
-		.addAll(filteredData)
-		.extent([[x1, 0],[x2, height]]);
-
-	const tooltipDefault = {isVisible: false};
-	const tooltip = writable(tooltipDefault);
-
-	const onMouseMove = event => {
-		const {offsetX, offsetY} = event;
-
-		if (offsetX < x1 || offsetX > x2 || !quadTree) {
-			tooltip.set(tooltipDefault);
-			return;
-		}
-
-		const datum = quadTree.find(offsetX, offsetY);
-		const {nuts_id, nuts_year_spec} = datum;
-
-		highlightedKey = nuts_id;
-		const keyToLabel = yearlyKeyToLabel[nuts_year_spec];
-		const dotX = getX(datum);
-		const dotY = getY(datum);
-		const isRight = dotX > (X1 + X2) / 2;
-		const shiftX = isRight ? -tooltipShift : tooltipShift;
-		const shiftY =
-			Math.max(yMin + tooltipShift, Math.min(dotY, yMax - tooltipShift)) - dotY;
-
-		tooltip.update(mergeObj({
-			isVisible: true,
-			...datum,
-			nuts_label: `${keyToLabel[nuts_id]} (${nuts_id})`,
-			value: formatFn(getIndicatorValue(datum)),
-			dotX,
-			dotY,
-			isRight,
-			shiftX,
-			shiftY,
-		}));
-	}
-
-	const onMouseLeave = () => {
-		tooltip.set(tooltipDefault);
-	}
+	const toggledColorScheme = ({detail}) => {
+		currentSchemeIndexStore.set(detail === 'Red-Blue' ? 0 : 1)
+	};
+	const toggledFiltering = ({detail}) => {
+		$doFilterRegionsStore = detail === 'Filter'
+	};
+	const toggledRanking = ({detail}) => {
+		useRankScale = detail === 'Ranking'
+	};
 </script>
 
 <!-- svelte-ignore component-name-lowercase -->
 
 <div
 	{style}
-	class='time_region_value_IdIndex'
+	class='time_region_value_IdIndex {$screenClasses}'
 >
-	<header>
-		<div>
-			<h1>{title}</h1>
-			<p>{subtitle}</p>
-		</div>
-		<div on:click={toggleInfoModal}>
-			<Info
-				size={30}
-				strokeWidth={1.5}
-			/>
-		</div>
-	</header>
+	<Header
+		{subtitle}
+		{title}
+		on:click={toggleInfoModal}
+	/>
 
-	<section>
-		<div class='controls'>
-			<div class='optgroup'>
-				<div
-					class='globe clickable'
-					on:click={toggleGeoModal}
-				>
-					<Icon
-						glyph={Globe}
-						size={28}
-						stroke={$areThereUnselectedNUTS1Regions
-							? defaultTheme.colorSelected
-							: defaultTheme.colorRef
-						}
-						strokeWidth={1.5}
+	<div class='viewport {$viewsClasses}'>
+		{#if $isSmallScreen}
+
+			<!-- small -->
+
+			<div class='view trends'>
+				<div class='topbox'>
+					<ColorBinsDiv
+						bins={colorBins}
+						geometry={{
+							barThickness: 15,
+							left: 30,
+							right: 30,
+						}}
+						flags={{
+							withBackground: true,
+							showTicksExtentOnly: true,
+						}}
+						theme={{
+							backgroundColor: theme.colorWhite,
+							backgroundOpacity: 0.5,
+						}}
+						ticksFormatFn={formatFn}
 					/>
-					{#if $geoModalStore.isVisible}
-						<Icon
-							glyph={ChevronUp}
-							size={24}
-							strokeWidth={1}
-						/>
-					{:else}
-						<Icon
-							glyph={ChevronDown}
-							size={24}
-							strokeWidth={1}
-						/>
-					{/if}
 				</div>
-
-				<Switch
-					value={$doFilterRegionsStore ? 'Filter' : 'Highlight'}
-					values={['Highlight', 'Filter']}
-					on:toggled={event => {
-						$doFilterRegionsStore = event.detail === 'Filter'
+				<div class='content'>
+					<TrendsDiv
+						{colorScale}
+						{formatFn}
+						{getIndicatorValue}
+						{schema}
+						{theme}
+						{types}
+						{useRankScale}
+						data={trendsData}
+					/>
+				</div>
+			</div>
+			<div class='view info'>
+				<InfoView
+					{api_doc_url}
+					{api_type}
+					{auth_provider}
+					{data_date}
+					{description}
+					{endpoint_url}
+					{is_experimental}
+					{is_public}
+					{query}
+					{region}
+					{source_name}
+					{source_url}
+					{theme}
+					{url}
+					{warning}
+					{year_extent}
+				/>
+			</div>
+			<div class='view settings'>
+				<SettingsView
+					flags={{
+						doFilter: $doFilterRegionsStore,
+						showRankingControl: true,
+					}}
+					handlers={{
+						toggledColorScheme,
+						toggledFiltering,
+						toggledRanking,
 					}}
 				/>
 			</div>
 
-			<div class='optgroup'>
-				<Switch
-					value={'Absolute'}
-					values={['Absolute', 'Ranking']}
-					on:toggled={event => {
-						// eslint-disable-next-line no-unused-vars
-						useOrderScale = event.detail === 'Ranking'
+		{:else}
+
+			<!-- medium + -->
+
+			<div class='topbox'>
+				<SettingsRow
+					colorScheme={{
+						value: 'Red-Blue',
+						values: ['Red-Blue', 'Green-Blue']
 					}}
+					flags={{
+						noSelectedRegions: $noSelectedRegions,
+						doFilter: $doFilterRegionsStore,
+						isGeoModalVisible: $geoModalStore.isVisible,
+						showRankingControl: true
+					}}
+					handlers={{
+						toggledColorScheme,
+						toggledFiltering,
+						toggledRanking,
+						toggledGeoModal: toggleGeoModal,
+					}}
+					theme={_.pick(theme, ['colorBase', 'colorSelected'])}
 				/>
 			</div>
 
-			<div class='optgroup'>
-				<Switch
-					value={$currentSchemeIndexStore ? 'Green-Blue' : 'Red-Blue'}
-					values={['Red-Blue', 'Green-Blue']}
-					on:toggled={event => {
-						$currentSchemeIndexStore = event.detail === 'Red-Blue' ? 0 : 1
-					}}
-				/>
-			</div>
-		</div>
+			<div
+				{style}
+				bind:clientHeight={mediumTrendsHeight}
+				bind:clientWidth={mediumTrendsWidth}
+				class='content'
+			>
+				{#if trendsData && mediumTrendsWidth && mediumTrendsHeight}
+					<svg
+						height={mediumTrendsHeight}
+						width={mediumTrendsWidth}
+					>
+						<!-- trends -->
 
-		<div
-			class='trends'
-			bind:clientHeight={height}
-			bind:clientWidth={width}
-			on:mousemove={onMouseMove}
-			on:mouseleave={onMouseLeave}
-		>
-			{#if width && height}
-				<svg
-					{width}
-					{height}
-				>
-					{#if trends.length}
-						<defs>
-							{#each gradients as {key, value}}
-								<linearGradient
-									id={key}
-									gradientUnits='userSpaceOnUse'
-								>
-									{#each value as {offset, stopColor}}
-										<stop {offset} stop-color={stopColor} />
-									{/each}
-								</linearGradient>
-							{/each}
-						</defs>
-
-						<!-- axes -->
-						<g>
-							<text
-								class='label'
-								x='{xMed}'
-								y={yLabel}
-								font-size={labelFontSize}
-							>
-								<tspan>{chartTitle}</tspan>
-								{#if labelUnit}<tspan>[{labelUnit}]</tspan>{/if}
-							</text>
-							<g class='ref x'>
-								{#each $availableYearsStore as year}
-									<line
-										x1={layout.scaleX(year)}
-										x2={layout.scaleX(year)}
-										y1={yMin}
-										y2={yMax}
-									/>
-								{/each}
-							</g>
-							<g
-								class='ref left'
-								transform='translate({x1},0)'
-							>
-								{#each ticks as {label, y}}
-									<line x2='-10' y1={y} y2={y}/>
-									<text dx='-15' dy={y} font-size={axisFontSize}>{label}</text>
-								{/each}
-							</g>
-							<g
-								class='ref right'
-								transform='translate({x2},0)'
-							>
-								{#each ticks as {label, y}}
-									<line x2='10' y1={y} y2={y}/>
-									<text dx='15' dy={y} font-size={axisFontSize}>{label}</text>
-								{/each}
-							</g>
-						</g>
-
-						<!-- curves -->
-						<g>
-							{#each trendLines as {key, value, preselected, selected}}
-							<path
-								class:deselected={!selected}
-								class:preselected={preselected}
-								class:dimmed='{$tooltip.isVisible && highlightedKey !== key}'
-								class:focused='{$tooltip.isVisible && highlightedKey === key}'
-								d={value}
-								stroke='url(#{key})'
-							/>
-							{/each}
-						</g>
-
-						<!-- single year: dots -->
-						{#if $availableYearsStore.length === 1}
-						<g>
-						{#each trends as {key, value}}
-							{#each value as d}
-								<circle
-									cx={getX(d)}
-									cy={getY(d)}
-									r={radius}
-								/>
-							{/each}
-						{/each}
-						</g>
-						{/if}
+						<TrendsG
+							{colorScale}
+							{formatFn}
+							{getIndicatorValue}
+							{schema}
+							{theme}
+							{types}
+							{useRankScale}
+							data={trendsData}
+							height={mediumTrendsHeight}
+							width={mediumTrendsWidth}
+						/>
 
 						<!-- legend -->
-						<g transform='translate(0,{legendHeight})'>
+
+						<g transform='translate(0,{mediumLegendHeight})'>
 							<ColorBinsG
 								width={legendBarThickness}
-								height={legendHeight}
+								height={mediumLegendHeight}
 								bins={colorBins}
 								flags={{
 									isVertical: true,
@@ -463,216 +347,124 @@
 							/>
 						</g>
 
-						<!-- tooltip -->
-						{#if $tooltip.isVisible}
-							<g
-								class='marker'
-								transform='translate({$tooltip.dotX},{$tooltip.dotY})'
-							>
-								<circle r={radius} />
-								<g
-									class:right={$tooltip.isRight}
-									transform='translate({$tooltip.shiftX},{$tooltip.shiftY})'
-								>
-									<text dy={-tooltipShift} class='bkg'>{$tooltip.value}</text>
-									<text dy={-tooltipShift}>{$tooltip.value}</text>
-									<text dy={tooltipShift} class='bkg'>{$tooltip.nuts_label}</text>
-									<text dy={tooltipShift}>{$tooltip.nuts_label}</text>
-								</g>
-							</g>
-						{/if}
+					</svg>
+				{/if}
+			</div>
 
-					{:else}
-						<text
-							class='message'
-							x={width / 2}
-							y={height / 2}
-						>No data</text>
-					{/if}
-				</svg>
-			{/if}
+			<!-- modals -->
 
 			{#if $geoModalStore.isVisible}
-			<GeoFilterModal
-				{nutsSelectionStore}
-				on:click={toggleGeoModal}
-			/>
+				<GeoFilterModal
+					{nutsSelectionStore}
+					on:click={toggleGeoModal}
+				/>
+			{:else if $infoModalStore.isVisible}
+				<InfoModal
+					{api_doc_url}
+					{api_type}
+					{auth_provider}
+					{data_date}
+					{description}
+					{endpoint_url}
+					{is_public}
+					{is_experimental}
+					{query}
+					{region}
+					{source_name}
+					{source_url}
+					{theme}
+					{url}
+					{warning}
+					{year_extent}
+					on:click={toggleInfoModal}
+				/>
 			{/if}
-		</div>
-
-		<!-- modal -->
-		{#if $infoModalStore.isVisible}
-		<InfoModal
-			{api_doc_url}
-			{api_type}
-			{auth_provider}
-			{data_date}
-			{description}
-			{endpoint_url}
-			{is_public}
-			{query}
-			{region}
-			{source_name}
-			{source_url}
-			{url}
-			{warning}
-			{year_extent}
-			on:click={toggleInfoModal}
-		/>
 		{/if}
-	</section>
+	</div>
 </div>
 
 <style>
 	.time_region_value_IdIndex {
-		height: 100%;
-		width: 100%;
-		user-select: none;
-	}
-
-	header {
-		height: var(--dimHeaderHeight);
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	header div:nth-child(1) {
-		flex: 1;
-	}
-	header div:nth-child(1) h1 {
-		margin: 0;
-	}
-	header div:nth-child(1) p {
-		font-style: italic;
-		font-size: 1rem;
-		color: var(--colorRefLight);
-	}
-	header div:nth-child(2) {
-		align-items: center;
-		cursor: pointer;
-		display: flex;
-		justify-content: space-between;
-		margin-left: 1rem;
-	}
-
-	section {
 		display: grid;
 		grid-template-columns: 100%;
-		grid-template-rows: 4rem calc(100% - 4rem);
-		height: calc(100% - var(--dimHeaderHeight));
-		overflow-y: auto;
+		grid-template-rows: min-content 1fr;
+		height: 100%;
+		user-select: none;
+		width: 100%;
+	}
+
+	.viewport {
+		display: grid;
+		grid-template-rows: 100%;
+		height: 100%;
+		position: relative;
+	}
+
+	/* small */
+
+	.small .viewport {
+		grid-template-areas: 'trends info settings';
+		grid-template-columns: 33.333% 33.333% 33.333%;
+		overflow-y: hidden; /* prevents svg charts from getting taller indefinitely */
+		width: 300%;
+
+		/* see the comment in the correspondent CSS in /[id]/[year] */
+		/* transition:
+			transform
+			var(--transDuration)
+			var(--transFunction); */
+	}
+	.small .viewport.trends {
+		transform: translate(0%, 0px);
+	}
+	.small .viewport.info {
+		transform: translate(-33.333%, 0px);
+		padding: 1.5rem;
+	}
+	.small .viewport.settings {
+		transform: translate(-66.666%, 0px);
+	}
+
+	.view {
+		height: 100%;
+		width: 100%;
+		padding: 0 var(--dimPadding);
+	}
+	.view.trends {
+		display: grid;
+		grid-area: trends;
+		grid-template-areas: 'topbox' 'content';
+		grid-template-columns: 100%;
+		grid-template-rows: 15% 85%;
+	}
+	.view.trends .topbox{
+		grid-area: topbox;
+	}
+	.view.trends .content{
+		grid-area: content;
+	}
+	.view.info {
+		grid-area: info;
+	}
+	.view.settings {
+		grid-area: settings;
+	}
+
+	/* medium */
+
+	.medium .viewport {
+		grid-template-areas: 'topbox' 'content';
+		grid-template-columns: 100%;
+		grid-template-rows: 10% 90%;
+		padding: 0 var(--dimPadding) var(--dimPadding) var(--dimPadding);
 		position: relative;
 		width: 100%;
 	}
 
-	.controls {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: space-between;
-		width: 100%;
+	.medium .viewport .topbox {
+		grid-area: topbox;
 	}
-
-	.controls > div:not(:last-child) {
-		margin-right: 0.5rem;
-	}
-
-	.globe {
-		border: 1px solid var(--colorRefLight);
-		margin-right: 0.25rem;
-		padding: 0.25rem;
-	}
-	.optgroup {
-		display: flex;
-		align-items: center;
-		padding: 0.25rem;
-	}
-
-	.trends {
-		position: relative;
-	}
-	.trends, svg {
-		height: 100%;
-		width: 100%;
-	}
-
-	svg .ref line {
-		stroke: var(--colorRefLight);
-		pointer-events: none;
-	}
-	svg .x line {
-		stroke-dasharray: 2 2;
-		pointer-events: none;
-	}
-	svg text {
-		fill: var(--colorRef);
-		dominant-baseline: middle;
-		font-weight: var(--dimFontWeight);
-		stroke: none;
-		pointer-events: none;
-	}
-	svg text.label,
-	svg text.message {
-		text-anchor: middle;
-		dominant-baseline: middle;
-	}
-	svg text.label tspan:nth-child(1) {
-		font-weight: bold;
-	}
-	svg text.label tspan:nth-child(2) {
-		font-style: italic;
-	}
-	svg .left text {
-		text-anchor: end;
-	}
-	svg .right text {
-		text-anchor: start;
-	}
-
-	svg path {
-		fill: none;
-		pointer-events: none;
-	}
-	svg path.focused {
-		stroke-width: 3;
-		stroke-opacity: 1 !important;
-		stroke-dasharray: 10 4;
-	}
-	svg path.preselected {
-		stroke-width: 2;
-		stroke-opacity: 1 !important;
-		stroke-dasharray: 10 4;
-	}
-	svg path.dimmed {
-		stroke-opacity: 0.6;
-	}
-	svg path.deselected {
-		stroke-width: 0.75;
-		stroke-opacity: 0.25;
-	}
-
-	svg circle {
-		fill: var(--colorWhite);
-		stroke: var(--colorBlack);
-		stroke-width: 1.5;
-		pointer-events: none;
-	}
-
-	/* marker */
-
-	svg .marker text {
-		fill: var(--colorBlack);
-		dominant-baseline: middle;
-		pointer-events: none;
-	}
-	svg .marker text.bkg {
-		fill: none;
-		stroke: var(--colorWhite);
-		stroke-width: 5;
-		stroke-linecap: round;
-		stroke-linecap: round;
-	}
-	svg .marker .right text {
-		text-anchor: end;
+	.medium .viewport .content {
+		grid-area: content;
 	}
 </style>

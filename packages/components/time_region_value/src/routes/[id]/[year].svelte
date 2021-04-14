@@ -3,10 +3,6 @@
 
 	// utils
 
-	import * as _ from 'lamb';
-	import {extent} from 'd3-array';
-	import {geoEqualEarth as projectionFn} from 'd3-geo';
-	import {writable} from 'svelte/store';
 	import {makeStyle, makeStyleVars, toPx} from '@svizzle/dom';
 	import {
 		applyFnMap,
@@ -15,43 +11,56 @@
 		keyValueArrayToObject,
 		mergeObj,
 	} from '@svizzle/utils';
+	import {extent} from 'd3-array';
+	import {geoEqualEarth as projectionFn} from 'd3-geo';
+	import * as _ from 'lamb';
+	import {onMount} from 'svelte';
+	import {writable} from 'svelte/store';
 
 	// components
 
+	import {topoToGeo, defaultGeometry} from '@svizzle/choropleth/src/utils';
 	import BarchartVDiv from '@svizzle/barchart/src/BarchartVDiv.svelte';
 	import ChoroplethG from '@svizzle/choropleth/src/ChoroplethG.svelte';
-	import {topoToGeo, defaultGeometry} from '@svizzle/choropleth/src/utils';
+	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
-	import Switch from '@svizzle/ui/src/Switch.svelte';
-	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
-	import ChevronDown from '@svizzle/ui/src/icons/feather/ChevronDown.svelte';
-	import ChevronUp from '@svizzle/ui/src/icons/feather/ChevronUp.svelte';
-	import Globe from '@svizzle/ui/src/icons/feather/Globe.svelte';
-	import Info from '@svizzle/ui/src/icons/feather/Info.svelte';
+	import MessageView from '@svizzle/ui/src/MessageView.svelte';
 
-	/* local components */
+	/* local deps */
+
+	// components
 
 	import GeoFilterModal from 'components/GeoFilterModal.svelte';
-	import InfoModal from 'components/InfoModal/InfoModal.svelte';
+	import Header from 'components/Header.svelte';
+	import InfoModal from 'components/Info/InfoModal.svelte';
+	import InfoView from 'components/Info/InfoView.svelte';
+	import SettingsRow from 'components/SettingsRow.svelte';
+	import SettingsView from 'components/SettingsView.svelte';
 
-	/* local stores */
+	// stores
 
 	import {
 		currentSchemeIndexStore,
 		makeColorBinsStore,
 		makeColorScaleStore,
 	} from 'stores/colorScale';
-	import {resetSafetyStore} from 'stores/layout';
+	import {isSmallScreen, screenClasses} from 'stores/layout';
 	import {
 		doFilterRegionsStore,
 		geoModalStore,
+		hideGeoModal,
 		hideInfoModal,
 		infoModalStore,
 		toggleGeoModal,
 		toggleInfoModal,
 	} from 'stores/modals';
 	import {
-		areThereUnselectedNUTS1Regions,
+		setRoute,
+		showView,
+		viewsClasses,
+	} from 'stores/navigation';
+	import {
+		noSelectedRegions,
 		nutsSelectionStore,
 		preselectedNUTS2IdsStore,
 		selectedNUT2IdsStore,
@@ -65,14 +74,13 @@
 		makeGetIndicatorFormatOf,
 		makeGetRefFormatOf,
 	} from 'utils/format';
-	import {makeValueAccessor} from 'utils/generic';
-	import defaultTheme from 'shared/theme';
+	import defaultTheme from 'theme';
+	import config from 'config';
 
 	/* data */
 
 	import yearlyKeyToLabel from 'data/NUTS2_UK_labels';
-	// TODO
-	// import yearlyKeyToLabel from '@svizzle/atlas/NUTS2_UK_labels';
+	// import yearlyKeyToLabel from '@svizzle/atlas/NUTS2_UK_labels'; // TODO
 
 	import majorCities from 'data/majorCities';
 	import topos from 'data/topojson';
@@ -89,10 +97,6 @@
 
 	/* props */
 
-	// bound
-	export let height;
-	export let width;
-
 	// rest
 	export let data;
 	export let id;
@@ -100,30 +104,29 @@
 	export let types;
 	export let year;
 
-	/* local vars / init */
+	/* init */
 
+	onMount(() => {
+		setRoute('IdYear');
+	});
+
+	/* local vars */
+
+	// bound
+	let mapHeight;
+	let mapWidth;
+
+	// rest
 	let selectedKeys = [];
-
-	resetSafetyStore();
 
 	/* reactive vars */
 
-	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-
-	$: style = makeStyleVars(theme);
-	$: makeColorScale = $makeColorScaleStore;
-	$: makeColorBins = $makeColorBinsStore;
-	$: legendHeight = height / 3;
-	$: choroplethSafety = {...defaultGeometry, left: legendBarThickness * 2};
+	// navigation
+	$: $isSmallScreen && hideGeoModal();
+	$: $isSmallScreen && hideInfoModal();
+	$: id && showView('map');
 	$: id && year && hideInfoModal();
 	$: selectedYearStore.set(Number(year));
-	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
-	$: formatFn = getIndicatorFormat($lookupStore);
-	$: getRefFormatFn = makeGetRefFormatOf(id);
-	$: refFormatFn = getRefFormatFn($lookupStore);
-	$: getIndicatorValue = makeValueAccessor(id);
-	// $: data && lookupStore.update(_.setPath(`${id}.data`, data));
 	$: ({
 		api_doc_url,
 		api_type,
@@ -132,6 +135,7 @@
 		data_date,
 		description,
 		endpoint_url,
+		is_experimental,
 		is_public,
 		query,
 		region,
@@ -144,24 +148,29 @@
 		warning,
 		year_extent,
 	} = $lookupStore[id] || {});
+	// can't as `lookupStore` could be a derived
+	// $: data && lookupStore.update(_.setPath(`${id}.data`, data));
 
-	$: labelUnit =
-		schema.value.unit_string ||
-		schema.value.type &&
-		_.has(types, schema.value.type) &&
-		_.has(types[schema.value.type], 'unit_string') &&
-		types[schema.value.type].unit_string;
-	$: barchartTitle = schema.value.label + (labelUnit ? ` [${labelUnit}]` : '');
-
-	// $: indicatorData = $lookupStore[id].data;
-	$: yearData = data && data.filter(obj => obj.year === year);
+	// update stores
 	$: availableYearsStore.set(availableYears);
+
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+
+	// style
+	$: style = makeStyleVars(theme);
+
+	// utils
+	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
+	$: formatFn = getIndicatorFormat($lookupStore);
+	$: getRefFormatFn = makeGetRefFormatOf(id);
+	$: refFormatFn = getRefFormatFn($lookupStore);
+	$: getIndicatorValue = _.getKey(id);
 	$: makeKeyToValue = _.pipe([
 		_.indexBy(getNutsId),
 		_.mapValuesWith(getIndicatorValue)
 	]);
 	$: keyToValue = yearData && makeKeyToValue(yearData);
-
 	$: makeItems = _.pipe([
 		_.mapWith(applyFnMap({
 			key: getNutsId,
@@ -169,17 +178,24 @@
 		})),
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
+
+	// layout
+	$: legendHeight = mapHeight / 3;
+	$: choroplethSafety = $isSmallScreen
+		? defaultGeometry
+		: {...defaultGeometry, left: legendBarThickness * 2};
+	$: noData = filteredData.length === 0;
+
+	// flags
+	$: showMap = mapHeight && mapWidth && topojson;
+
+	// selection
+	// $: indicatorData = $lookupStore[id].data; // FIXME not guaranteed
+	$: yearData = data && data.filter(obj => obj.year === year);
 	$: items = yearData && makeItems(yearData);
 	$: filteredItems = _.filter(items, ({key}) =>
 		_.isIn($selectedNUT2IdsStore, key) || _.isIn($preselectedNUTS2IdsStore, key)
 	);
-	$: refs = [{
-		key: 'National average',
-		keyAbbr: 'Nat. avg.',
-		value: keyValueArrayAverage(items),
-		formatFn: refFormatFn
-	}];
-
 	$: filteredData = $doFilterRegionsStore
 		? _.filter(yearData, ({nuts_id}) =>
 			$selectedNUT2IdsStore.includes(nuts_id) ||
@@ -188,6 +204,8 @@
 		: yearData;
 
 	// colors
+	$: makeColorScale = $makeColorScaleStore;
+	$: makeColorBins = $makeColorBinsStore;
 	$: valueExtext = filteredData.length && extent(filteredData, getIndicatorValue);
 	$: colorScale = filteredData.length && makeColorScale(valueExtext);
 	$: colorBins = filteredData.length && makeColorBins(colorScale);
@@ -197,6 +215,21 @@
 	]);
 	$: keyToColorAll = filteredData.length && makeKeyToColor(items);
 	$: keyToColorFiltered = filteredData.length && makeKeyToColor(filteredItems);
+
+	// labels
+	$: labelUnit =
+		schema.value.unit_string ||
+		schema.value.type &&
+		_.has(types, schema.value.type) &&
+		_.has(types[schema.value.type], 'unit_string') &&
+		types[schema.value.type].unit_string;
+	$: barchartTitle = schema.value.label + (labelUnit ? ` [${labelUnit}]` : '');
+	$: barchartRefs = [{
+		key: 'National average',
+		keyAbbr: 'Nat. avg.',
+		value: keyValueArrayAverage(items),
+		formatFn: refFormatFn
+	}];
 
 	// map
 	$: nuts_year_spec = yearData && yearData[0].nuts_year_spec
@@ -213,9 +246,9 @@
 		}, [])
 	);
 	$: choroplethInnerHeight =
-		height - choroplethSafety.top - choroplethSafety.bottom;
+		mapHeight - choroplethSafety.top - choroplethSafety.bottom;
 	$: choroplethInnerWidth =
-		width - choroplethSafety.left - choroplethSafety.right;
+		mapWidth - choroplethSafety.left - choroplethSafety.right;
 	$: baseProjection = baseGeojson &&
 		projectionFn()
 		.fitSize([choroplethInnerWidth, choroplethInnerHeight], baseGeojson);
@@ -238,7 +271,7 @@
 		const isLeft =
 			obj.isLeft && X - labelDx - length < choroplethSafety.left
 				? false
-				: X + labelDx + length > width - choroplethSafety.right
+				: X + labelDx + length > mapWidth - choroplethSafety.right
 					? true
 					: obj.isLeft;
 		const dx = isLeft ? -labelDx : labelDx;
@@ -261,12 +294,12 @@
 	const makeTooltipStyle = event => {
 		const {layerX: X, layerY: Y} = event;
 
-		const x = X < width / 2
+		const x = X < mapWidth / 2
 			? {key: 'left', value: X + 20}
-			: {key: 'right', value: width - X + 10};
-		const y = Y < height / 2
+			: {key: 'right', value: mapWidth - X + 10};
+		const y = Y < mapHeight / 2
 			? {key: 'top', value: Y + 20}
-			: {key: 'bottom', value: height - Y + 10};
+			: {key: 'bottom', value: mapHeight - Y + 10};
 
 		return makeStyle({
 			[x.key]: toPx(x.value),
@@ -312,332 +345,529 @@
 	const onExitedBar = () => {
 		focusedKey = null;
 	}
+
+	/* settings handlers */
+
+	const toggledColorScheme = ({detail}) => {
+		currentSchemeIndexStore.set(detail === 'Red-Blue' ? 0 : 1)
+	};
+	const toggledFiltering = ({detail}) => {
+		$doFilterRegionsStore = detail === 'Filter'
+	};
 </script>
 
 <div
 	{style}
-	class='time_region_value_IdYear'
+	class='time_region_value_IdYear {$screenClasses}'
 >
-	<header>
-		<div>
-			<h1>{title} ({year})</h1>
-			<p>{subtitle}</p>
-		</div>
-		<div on:click={toggleInfoModal}>
-			<Icon
-				glyph={Info}
-				size={30}
-				strokeWidth={1.5}
-			/>
-		</div>
-	</header>
+	<Header
+		{subtitle}
+		{title}
+		on:click={toggleInfoModal}
+	/>
 
-	<section>
-		<div class='controls'>
-			<div class='optgroup'>
-				<div
-					class='globe clickable'
-					on:click={toggleGeoModal}
-				>
-					<Icon
-						glyph={Globe}
-						size={28}
-						stroke={$areThereUnselectedNUTS1Regions
-							? defaultTheme.colorSelected
-							: defaultTheme.colorRef
-						}
-						strokeWidth={1.5}
-					/>
-					{#if $geoModalStore.isVisible}
-						<Icon
-							glyph={ChevronUp}
-							size={24}
-							strokeWidth={1}
+	<div
+		class='viewport {$viewsClasses}'
+		class:noData
+	>
+		{#if $isSmallScreen}
+
+			<!-- small -->
+
+			<!-- map -->
+
+			<div
+				class:noData
+				class='view map'
+			>
+				{#if noData}
+					<MessageView text={config.noDataMessage} />
+				{:else}
+					<div class='topbox'>
+						<ColorBinsDiv
+							bins={colorBins}
+							geometry={{
+								barThickness: 15,
+								left: 30,
+								right: 30,
+							}}
+							flags={{
+								withBackground: true,
+								showTicksExtentOnly: true,
+							}}
+							theme={{
+								backgroundColor: theme.colorWhite,
+								backgroundOpacity: 0.5,
+							}}
+							ticksFormatFn={formatFn}
 						/>
-					{:else}
-						<Icon
-							glyph={ChevronDown}
-							size={24}
-							strokeWidth={1}
-						/>
-					{/if}
-				</div>
-
-				<Switch
-					value={$doFilterRegionsStore ? 'Filter' : 'Highlight'}
-					values={['Highlight', 'Filter']}
-					on:toggled={event => {
-						$doFilterRegionsStore = event.detail === 'Filter'
-					}}
-				/>
-			</div>
-
-			<div class='optgroup'>
-				<Switch
-					value={$currentSchemeIndexStore ? 'Green-Blue' : 'Red-Blue'}
-					values={['Red-Blue', 'Green-Blue']}
-					on:toggled={event => {
-						$currentSchemeIndexStore = event.detail === 'Red-Blue' ? 0 : 1
-					}}
-				/>
-			</div>
-		</div>
-
-		{#if filteredData.length}
-			<div class='geodistro'>
-
-				<!-- col1 -->
-				<div
-					class="col col1"
-					on:mousemove={onMousemoved}
-					bind:clientWidth={width}
-					bind:clientHeight={height}
-				>
-					{#if topojson}
-						<svg
-							{width}
-							{height}
+					</div>
+					<div class='content'>
+						<div
+							bind:clientHeight={mapHeight}
+							bind:clientWidth={mapWidth}
+							class='map'
+							on:mousemove={onMousemoved}
 						>
-							<ChoroplethG
-								{focusedKey}
-								{height}
-								{projection}
-								{selectedKeys}
-								{topojson}
-								{topojsonId}
-								{width}
-								geometry={{left: choroplethSafety.left}}
-								isInteractive={true}
-								key='NUTS_ID'
-								keyToColor={$doFilterRegionsStore ? keyToColorFiltered : keyToColorAll}
-								on:entered={onEnteredRegion}
-								on:exited={onExitedRegion}
-								theme={{
-									defaultFill: defaultGray,
-									defaultStroke: 'gray',
-									defaultStrokeWidth: 0.25,
-									focusedStroke: theme.colorBlack,
-									focusedStrokeWidth: 1.5,
-									selectedStroke: theme.colorBlack,
-									selectedStrokeWidth: 0.5,
-								}}
-							/>
-
-							<!-- cities -->
-							{#if cities}
-							<g class='cities'>
-								{#each cities as {isLeft, name, X, Y, dx, dy}}
-									<g transform='translate({X},{Y})'>
-										<circle r={markerRadius}/>
-										<text
-											{dx}
-											{dy}
-											class:isLeft
-											class='background'
-											font-size={labelsFontSize}
-										>{name}</text>
-										<text
-											{dx}
-											{dy}
-											class:isLeft
-											font-size={labelsFontSize}
-										>{name}</text>
-									</g>
-								{/each}
-							</g>
+							{#if showMap}
+								<svg
+									height={mapHeight}
+									width={mapWidth}
+								>
+									<ChoroplethG
+										{focusedKey}
+										{projection}
+										{selectedKeys}
+										{topojson}
+										{topojsonId}
+										height={mapHeight}
+										isInteractive={true}
+										key='NUTS_ID'
+										keyToColor={$doFilterRegionsStore
+											? keyToColorFiltered
+											: keyToColorAll
+										}
+										on:entered={onEnteredRegion}
+										on:exited={onExitedRegion}
+										theme={{
+											defaultFill: defaultGray,
+											defaultStroke: 'gray',
+											defaultStrokeWidth: 0.25,
+											focusedStroke: theme.colorBlack,
+											focusedStrokeWidth: 1.5,
+											selectedStroke: theme.colorBlack,
+											selectedStrokeWidth: 0.5,
+										}}
+										width={mapWidth}
+									/>
+								</svg>
 							{/if}
-
-							<!-- legend -->
-							<g transform='translate(0,{legendHeight})'>
-								<ColorBinsG
-									width={legendBarThickness}
-									height={legendHeight}
-									bins={colorBins}
-									flags={{
-										isVertical: true,
-										withBackground: true,
-									}}
-									theme={{
-										backgroundColor: theme.colorWhite,
-										backgroundOpacity: 0.5,
-									}}
-									ticksFormatFn={formatFn}
-								/>
-							</g>
-						</svg>
-					{/if}
-
-					<!-- tooltip -->
-					{#if $tooltip.isVisible}
-					<div
-						class="tooltip"
-						style={$tooltip.style}
-					>
-						<header>
-							<span>{$tooltip.regionId}</span>
-							{#if $tooltip.value}
-							<span>{$tooltip.value}</span>
-							{/if}
-						</header>
-						<div>
-							<span>{$tooltip.nuts_label}</span>
 						</div>
 					</div>
-					{/if}
-				</div>
+				{/if}
+			</div>
 
-				<!-- col2 -->
-				<div class="col col2">
-					<BarchartVDiv
-						{focusedKey}
-						{formatFn}
-						{keyToLabel}
-						{refs}
-						{selectedKeys}
-						isInteractive={true}
-						items={$doFilterRegionsStore ? filteredItems : items}
-						keyToColor={keyToColorAll}
-						on:entered={onEnteredBar}
-						on:exited={onExitedBar}
-						shouldResetScroll={true}
-						shouldScrollToFocusedKey={true}
-						theme={{
-							barDefaultColor: defaultGray,
-							focusedKeyColor: 'rgb(211, 238, 253)',
-							titleFontSize: '1.2rem',
-						}}
-						title={barchartTitle}
-					/>
-				</div>
+			<!-- barchart -->
 
+			<div
+				class:noData
+				class='view barchart'
+			>
+				{#if noData}
+					<MessageView text={config.noDataMessage} />
+				{:else}
+					<div class='topbox'>
+						<ColorBinsDiv
+							bins={colorBins}
+							geometry={{
+								barThickness: 15,
+								left: 30,
+								right: 30,
+							}}
+							flags={{
+								withBackground: true,
+								showTicksExtentOnly: true,
+							}}
+							theme={{
+								backgroundColor: theme.colorWhite,
+								backgroundOpacity: 0.5,
+							}}
+							ticksFormatFn={formatFn}
+						/>
+					</div>
+					<div class='content'>
+						<BarchartVDiv
+							{focusedKey}
+							{formatFn}
+							{keyToLabel}
+							{selectedKeys}
+							isInteractive={true}
+							items={$doFilterRegionsStore ? filteredItems : items}
+							keyToColor={keyToColorAll}
+							on:entered={onEnteredBar}
+							on:exited={onExitedBar}
+							refs={barchartRefs}
+							shouldResetScroll={true}
+							shouldScrollToFocusedKey={true}
+							theme={{
+								barDefaultColor: defaultGray,
+								focusedKeyColor: 'rgb(211, 238, 253)',
+								titleFontSize: '1.2rem',
+							}}
+							title={barchartTitle}
+						/>
+					</div>
+				{/if}
+			</div>
+
+			<!-- info -->
+
+			<div class='view info'>
+				<InfoView
+					{api_doc_url}
+					{api_type}
+					{auth_provider}
+					{data_date}
+					{description}
+					{endpoint_url}
+					{is_experimental}
+					{is_public}
+					{query}
+					{region}
+					{source_name}
+					{source_url}
+					{theme}
+					{url}
+					{warning}
+					{year_extent}
+				/>
+			</div>
+
+			<!-- settings -->
+
+			<div class='view settings'>
+				<SettingsView
+					flags={{
+						doFilter: $doFilterRegionsStore,
+						showRankingControl: false,
+					}}
+					handlers={{
+						toggledColorScheme,
+						toggledFiltering,
+					}}
+				/>
 			</div>
 
 		{:else}
 
-			<div class='message'>
-				<span>No data</span>
+			<!-- medium + -->
+
+			<div class='topbox'>
+				<SettingsRow
+					colorScheme={{
+						value: 'Red-Blue',
+						values: ['Red-Blue', 'Green-Blue']
+					}}
+					flags={{
+						noSelectedRegions: $noSelectedRegions,
+						doFilter: $doFilterRegionsStore,
+						isGeoModalVisible: $geoModalStore.isVisible,
+						showRankingControl: false
+					}}
+					handlers={{
+						toggledColorScheme,
+						toggledFiltering,
+						toggledGeoModal: toggleGeoModal,
+					}}
+					theme={_.pick(theme, ['colorBase', 'colorSelected'])}
+				/>
 			</div>
 
-		{/if} <!-- filteredData.length  -->
+			<div
+				{style}
+				class='content'
+				class:noData
+			>
+				{#if filteredData.length}
+					<!-- map -->
 
-		<!-- geo modal -->
-		{#if $geoModalStore.isVisible}
-		<GeoFilterModal
-			{nutsSelectionStore}
-			on:click={toggleGeoModal}
-		/>
-		{/if}
+					<div
+						bind:clientHeight={mapHeight}
+						bind:clientWidth={mapWidth}
+						class='map'
+						on:mousemove={onMousemoved}
+					>
+						{#if showMap}
+							<svg
+								height={mapHeight}
+								width={mapWidth}
+							>
+								<!-- choropleth -->
 
-		{#if $infoModalStore.isVisible}
-		<InfoModal
-			{api_doc_url}
-			{api_type}
-			{auth_provider}
-			{data_date}
-			{description}
-			{endpoint_url}
-			{is_public}
-			{query}
-			{region}
-			{source_name}
-			{source_url}
-			{url}
-			{year_extent}
-			{warning}
-			on:click={toggleInfoModal}
-		/>
-		{/if}
-	</section>
+								<ChoroplethG
+									{focusedKey}
+									{projection}
+									{selectedKeys}
+									{topojson}
+									{topojsonId}
+									geometry={{left: choroplethSafety.left}}
+									height={mapHeight}
+									isInteractive={true}
+									key='NUTS_ID'
+									keyToColor={$doFilterRegionsStore
+										? keyToColorFiltered
+										: keyToColorAll
+									}
+									on:entered={onEnteredRegion}
+									on:exited={onExitedRegion}
+									theme={{
+										defaultFill: defaultGray,
+										defaultStroke: 'gray',
+										defaultStrokeWidth: 0.25,
+										focusedStroke: theme.colorBlack,
+										focusedStrokeWidth: 1.5,
+										selectedStroke: theme.colorBlack,
+										selectedStrokeWidth: 0.5,
+									}}
+									width={mapWidth}
+								/>
+
+								<!-- cities -->
+
+								{#if cities}
+									<g class='cities'>
+										{#each cities as {isLeft, name, X, Y, dx, dy}}
+											<g transform='translate({X},{Y})'>
+												<circle r={markerRadius}/>
+												<text
+													{dx}
+													{dy}
+													class:isLeft
+													class='background'
+													font-size={labelsFontSize}
+												>{name}</text>
+												<text
+													{dx}
+													{dy}
+													class:isLeft
+													font-size={labelsFontSize}
+												>{name}</text>
+											</g>
+										{/each}
+									</g>
+								{/if}
+
+								<!-- legend -->
+
+								<g transform='translate(0,{legendHeight})'>
+									<ColorBinsG
+										width={legendBarThickness}
+										height={legendHeight}
+										bins={colorBins}
+										flags={{
+											isVertical: true,
+											withBackground: true,
+										}}
+										theme={{
+											backgroundColor: theme.colorWhite,
+											backgroundOpacity: 0.5,
+										}}
+										ticksFormatFn={formatFn}
+									/>
+								</g>
+
+							</svg>
+
+							<!-- tooltip -->
+
+							{#if $tooltip.isVisible}
+								<div
+									class='tooltip'
+									style={$tooltip.style}
+								>
+									<header>
+										<span>{$tooltip.regionId}</span>
+										{#if $tooltip.value}
+										<span>{$tooltip.value}</span>
+										{/if}
+									</header>
+									<div>
+										<span>{$tooltip.nuts_label}</span>
+									</div>
+								</div>
+							{/if}
+
+						{/if}	<!-- {#if showMap} -->
+					</div>
+
+					<!-- barchart -->
+
+					<div class='barchart'>
+						<BarchartVDiv
+							{focusedKey}
+							{formatFn}
+							{keyToLabel}
+							{selectedKeys}
+							isInteractive={true}
+							items={$doFilterRegionsStore ? filteredItems : items}
+							keyToColor={keyToColorAll}
+							on:entered={onEnteredBar}
+							on:exited={onExitedBar}
+							refs={barchartRefs}
+							shouldResetScroll={true}
+							shouldScrollToFocusedKey={true}
+							theme={{
+								barDefaultColor: defaultGray,
+								focusedKeyColor: 'rgb(211, 238, 253)',
+								titleFontSize: '1.2rem',
+							}}
+							title={barchartTitle}
+						/>
+					</div>
+
+				{:else}
+
+					<MessageView text='No data' />
+
+				{/if} <!-- filteredData.length  -->
+
+			</div>	<!-- .content -->
+
+			<!-- modals -->
+
+			{#if $geoModalStore.isVisible}
+				<GeoFilterModal
+					{nutsSelectionStore}
+					on:click={toggleGeoModal}
+				/>
+			{:else if $infoModalStore.isVisible}
+				<InfoModal
+					{api_doc_url}
+					{api_type}
+					{auth_provider}
+					{data_date}
+					{description}
+					{endpoint_url}
+					{is_experimental}
+					{is_public}
+					{query}
+					{region}
+					{source_name}
+					{source_url}
+					{theme}
+					{url}
+					{year_extent}
+					{warning}
+					on:click={toggleInfoModal}
+				/>
+			{/if}
+
+		{/if}	<!-- medium + -->
+	</div>
 </div>
 
 <style>
 	.time_region_value_IdYear {
-		height: 100%;
-		width: 100%;
-		user-select: none;
-	}
-
-	.time_region_value_IdYear > header {
-		height: var(--dimHeaderHeight);
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.time_region_value_IdYear > header div:nth-child(1) {
-		flex: 1;
-	}
-	.time_region_value_IdYear > header div:nth-child(1) h1 {
-		margin: 0;
-	}
-	.time_region_value_IdYear > header div:nth-child(1) p {
-		font-style: italic;
-		font-size: 1rem;
-		color: var(--colorRef);
-	}
-	.time_region_value_IdYear > header div:nth-child(2) {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		cursor: pointer;
-	}
-
-	section {
 		display: grid;
 		grid-template-columns: 100%;
-		grid-template-rows: 4rem calc(100% - 4rem);
-		height: calc(100% - var(--dimHeaderHeight));
-		overflow-y: auto;
-		position: relative;
-		width: 100%;
-	}
-
-	.controls {
-		align-items: center;
-		display: flex;
+		grid-template-rows: min-content 1fr;
 		height: 100%;
-		justify-content: space-between;
+		/* user-select: none; */
 		width: 100%;
 	}
 
-	.controls > div:not(:last-child) {
-		margin-right: 0.5rem;
-	}
-
-	.globe {
-		border: 1px solid lightgrey;
-		margin-right: 0.25rem;
-		padding: 0.25rem;
-	}
-	.optgroup {
-		display: flex;
-		align-items: center;
-		padding: 0.25rem;
-	}
-
-	.geodistro {
+	.viewport {
 		display: grid;
-		grid-template-columns: 65% 35%;
 		grid-template-rows: 100%;
 		height: 100%;
-		overflow-y: auto;
-		position: relative;
+		overflow-y: hidden; /* prevents svg charts from getting taller indefinitely */
+		position: relative; /* modals */
+	}
+
+	/* small */
+
+	.small .viewport {
+		grid-template-areas: 'map barchart info settings';
+		grid-template-columns: 25% 25% 25% 25%;
+		overflow-y: hidden; /* prevents svg charts from getting taller indefinitely */
+		width: 400%;
+		/*
+			TODO
+			Originally we had sliding views in the viewport but when we slide
+			the map view to the barchart view we see the legend sliding too, to then
+			reappear identical, not great as it might make the user wonder
+			what's changed. We'd need to have a new vieport hosting the map and
+			the barchart so that the legend would remain still while we navigate.
+		*/
+		/* transition:
+			transform
+			var(--transDuration)
+			var(--transFunction); */
+	}
+	.small .viewport.map {
+		transform: translate(0%, 0px);
+	}
+	.small .viewport.barchart {
+		transform: translate(-25%, 0px);
+	}
+	.small .viewport.info {
+		transform: translate(-50%, 0px);
+		padding: 1.5rem;
+	}
+	.small .viewport.settings {
+		transform: translate(-75%, 0px);
+	}
+
+	.view.noData {
+		display: block !important;
+	}
+	.view {
+		height: 100%;
+		width: 100%;
+		padding: 0 var(--dimPadding);
+	}
+	.view.map {
+		grid-area: map;
+	}
+	.view.barchart {
+		grid-area: barchart;
+	}
+	.view.map,
+	.view.barchart {
+		display: grid;
+		grid-template-areas: 'topbox' 'content';
+		grid-template-columns: 100%;
+		grid-template-rows: 15% 85%;
+	}
+	.view.map .topbox,
+	.view.barchart .topbox {
+		grid-area: topbox;
+	}
+	.view.map .content,
+	.view.barchart .content {
+		grid-area: content;
+	}
+	.view.map .content .map {
+		height: 100%;
 		width: 100%;
 	}
+	.view.info {
+		grid-area: info;
+	}
+	.view.settings {
+		grid-area: settings;
+	}
 
-	.col1 {
-		grid-column: 1 / span 1;
-		overflow-y: hidden;
+	/* medium */
+
+	.medium .viewport {
+		grid-template-areas: 'topbox' 'content';
+		grid-template-columns: 100%;
+		grid-template-rows: 10% 90%;
+		padding: 0 var(--dimPadding) var(--dimPadding) var(--dimPadding);
 		position: relative;
+		width: 100%;
+		overflow-y: hidden;
 	}
 
-	.col2 {
-		grid-column: 2 / span 1;
+	.medium .viewport .topbox {
+		grid-area: topbox;
 	}
-
-
-	:global(.col2 .BarchartVDiv header h2) {
-		margin-bottom: 1rem;
+	.medium .viewport .content.noData {
+		display: block;
+	}
+	.medium .viewport .content {
+		display: grid;
+		grid-area: content;
+		grid-template-areas: 'map barchart';
+		grid-template-columns: 65% 35%;
+		grid-template-rows: 100%;
+	}
+	.medium .viewport .content .map {
+		grid-area: map;
+	}
+	.medium .viewport .content .barchart {
+		grid-area: barchart;
 	}
 
 	/* cities */

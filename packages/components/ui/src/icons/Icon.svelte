@@ -8,11 +8,11 @@
 	const strokeLinecap = 'round';
 	const strokeLinejoin = 'round';
 	const svgXmlns = 'http://www.w3.org/2000/svg';
-	const viewBox = `0 0 24 24`;
 
 	export let fill = defaultFill;
 	export let glyph = defaultGlyph;
 	export let size = defaultSize;
+	export let glyphSize = defaultSize;
 	export let stroke = defaultStroke;
 	export let strokeWidth = defaultStrokeWidth;
 
@@ -22,6 +22,7 @@
 	$: size = size || defaultSize;
 	$: stroke = stroke || defaultStroke;
 	$: strokeWidth = strokeWidth || defaultStrokeWidth;
+	$: viewBox = `0 0 ${glyphSize} ${glyphSize}`;
 </script>
 
 <div>

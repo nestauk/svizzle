@@ -1,184 +1,202 @@
 <script>
-	import {onMount} from 'svelte';
+	import * as _ from 'lamb';
 	import {makeStyleVars} from '@svizzle/dom';
+	import ScreenGauge from '@svizzle/ui/src/gauges/screen/ScreenGauge.svelte';
+	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
 
+	import Sidebar from 'components/Sidebar.svelte';
 	import Timeline from 'components/Timeline.svelte';
+	import ViewSelector from 'components/ViewSelector.svelte';
+	import sharedTheme from 'theme';
 	import {setGroupsStore} from 'stores/data';
-	import {timelineHeightStore, timelineWidthStore} from 'stores/layout';
+	import {
+		isSmallScreen,
+		screenClasses,
+		timelineHeightStore,
+		timelineWidthStore,
+	} from 'stores/layout';
+	import {
+		isTimelineHidden,
+		routes,
+		showView,
+		views,
+		viewsClasses,
+	} from 'stores/navigation';
 	import {availableYearsStore, selectedYearStore} from 'stores/selection';
-	import defaultTheme from 'shared/theme';
 
-	export let goTo = null; // pass `@sapper/app`'s `goto`
-	export let groupsStore;
+	export let goTo = null;
+	export let groupsStore = null;
 	export let hrefBase = '';
-	export let segment;
-	export let theme = defaultTheme;
-
-	let current;
-	let scrollable;
-	let scrollableHeight;
-
-	onMount(() => {
-		current && current.scrollIntoView({
-			block: 'nearest',
-			behavior: 'smooth'
-		});
-	});
+	export let segment = null;
+	export let theme = sharedTheme;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+	$: theme = theme ? {...sharedTheme, ...theme} : sharedTheme;
 
 	$: style = makeStyleVars(theme);
 	$: groupsStore && setGroupsStore($groupsStore);
-
-	// eslint-disable-next-line no-shadow,no-unused-vars
-	function keepOnScreen(node, {id, segment, scrollableHeight}) {
-		if (id === segment) {
-			current = node;
-		}
-
-		return {
-			// eslint-disable-next-line no-shadow,no-unused-vars
-			update({id, segment, scrollableHeight}) {
-				if (id === segment) {
-					const {y: Y} = scrollable.getBoundingClientRect();
-					const {y} = node.getBoundingClientRect();
-					const yRel = y - Y;
-
-					if (yRel < 0 || yRel > scrollableHeight) {
-						scrollable.scrollTo({
-							top: yRel,
-							behavior: 'smooth'
-						});
-					}
-				}
-			}
-		};
-	}
+	$: routeId = $isSmallScreen && $routes.Id;
+	$: routeIdYear = $isSmallScreen && $routes.IdYear;
 </script>
 
-<section
-	{style}
-	class='time_region_value_layout'
->
-	<nav
-		bind:this={scrollable}
-		bind:clientHeight={scrollableHeight}
+<ScreenGauge/>
+
+{#if $screenClasses}
+	<section
+		{style}
+		class='time_region_value_layout {$screenClasses}'
 	>
-		{#each $groupsStore as {label, indicators}}
-			<div class='group'>
-				<h2>{label}</h2>
-				{#each indicators as {title, schema}}
-					<a
-						rel='prefetch'
-						href='{hrefBase}/{schema.value.id}'
-					>
-						<p
-							class:selected='{schema.value.id === segment}'
-							use:keepOnScreen={{
-								id: schema.value.id,
-								segment,
-								scrollableHeight
-							}}
-						>
-						{title}
-						</p>
-					</a>
-				{/each}
-			</div>
-		{/each}
-	</nav>
-	<section class='content'>
-		<section>
-			<slot>No child component was provided</slot>
-		</section>
-		<nav
-			bind:clientHeight={$timelineHeightStore}
-			bind:clientWidth={$timelineWidthStore}
+		<div
+			class:routeId
+			class:routeIdYear
+			class='viewport {$viewsClasses}'
 		>
-			<Timeline
-				{goTo}
-				availableYears={$availableYearsStore}
-				height={$timelineHeightStore}
-				indicatorId={segment}
-				selectedYear={$selectedYearStore}
-				width={$timelineWidthStore}
-				{hrefBase}
+			<div class='sidebar'>
+				<Sidebar
+					{groupsStore}
+					{hrefBase}
+					theme={sharedTheme}
+					currentId={segment}
+				/>
+			</div>
+			<div
+				class='content'
+				class:isTimelineHidden={$isTimelineHidden}
+				bind:clientWidth={$timelineWidthStore}
+			>
+				<section>
+					<slot></slot>
+				</section>
+				{#if !$isTimelineHidden}
+					<nav
+						bind:clientHeight={$timelineHeightStore}
+					>
+						<Timeline
+							{goTo}
+							{hrefBase}
+							availableYears={$availableYearsStore}
+							height={$timelineHeightStore}
+							indicatorId={segment}
+							selectedYear={$selectedYearStore}
+							showLess={$isSmallScreen}
+							width={$timelineWidthStore}
+						/>
+					</nav>
+				{/if}
+			</div>
+		</div>
+
+		{#if $isSmallScreen}
+			<ViewSelector
+				{routes}
+				{showView}
+				{views}
+				theme={_.pickIn(sharedTheme, ['dimBoxShadowY', 'colorBoxShadow'])}
 			/>
-		</nav>
+		{/if}
 	</section>
-</section>
+{:else}
+	<LoadingView stroke={theme.colorMain}/>
+{/if}
 
 <style>
 	.time_region_value_layout {
+		background-color: var(--colorWhite);
+		display: grid;
+		grid-template-columns: 100%;
+		height: 100%;
+		overflow: hidden;
+		width: 100%;
+	}
+	.small.time_region_value_layout {
+		grid-template-rows:
+			calc(100% - var(--dimSmallSelectorHeight))
+			var(--dimSmallSelectorHeight);
+	}
+	.medium.time_region_value_layout {
+		grid-template-rows: 100%;
+	}
+
+	/* viewport */
+
+	.viewport {
+		display: grid;
+		grid-template-rows: 100%;
 		height: 100%;
 		width: 100%;
+	}
+	.small .viewport {
+		transition:
+			transform
+			var(--transDuration)
+			var(--transFunction);
+		grid-template-columns: 50% 50%;
+		width: 200%;
+	}
+	.small .viewport.sidebar {
+		transform: translate(0%, 0px);
+	}
+	.small .viewport.distribution,
+	.small .viewport.trends,
+	.small .viewport.map,
+	.small .viewport.barchart,
+	.small .viewport.settings,
+	.small .viewport.info {
+		transform: translate(-50%, 0px);
+	}
 
-		display: grid;
-		grid-template-columns: var(--dimSidebarWidth) calc(100% - var(--dimSidebarWidth));
-		grid-template-rows: 100%;
+	.medium .viewport,
+	.medium .viewport.sidebar,
+	.medium .viewport.distribution,
+	.medium .viewport.trends,
+	.medium .viewport.map,
+	.medium .viewport.barchart,
+	.medium .viewport.settings,
+	.medium .viewport.info {
+		grid-template-columns:
+			var(--dimSidebarWidth)
+			calc(100% - var(--dimSidebarWidth));
+		transform: translate(0%, 0px);
+		transition: null;
+		width: 100%;
 	}
 
 	/* sidebar */
 
-	nav {
+	.sidebar {
 		height: 100%;
 		width: 100%;
-		padding: var(--dimPadding);
-		overflow-y: auto;
-
-		background-color: var(--colorMain);
-		border-right: 1px solid var(--colorMainLighter);
-		color: var(--colorWhite);
-		font-weight: var(--dimFontWeight);
-	}
-
-	nav .group:not(:last-child) {
-		margin-bottom: 1rem;
-	}
-	nav .group:not(:first-child) {
-		margin-top: 1rem;
-	}
-
-	nav h2 {
-		font-family: var(--fontFamilySemibold), sans-serif;
-		margin-bottom: 1rem;
-	}
-	nav a {
-		text-decoration: none;
-	}
-	nav p {
-		line-height: 1.5rem;
-		display: flex;
-		align-items: center;
-		padding: 0.4rem;
-		margin-bottom: 0.5rem;
-	}
-	nav p.selected {
-		background-color: var(--colorMainDesat) !important;
-		font-family: var(--fontFamilyRegular), sans-serif;
-	}
-	nav p:hover {
-		cursor: pointer;
-		background-color: var(--colorSelectedDesat);
 	}
 
 	/* content */
 
 	.content {
+		--dimTimelineHeight: 60px;
 		display: grid;
-		grid-template-rows: calc(100% - 60px) 60px;
 		grid-template-columns: 100%;
+		height: 100%;
+		width: 100%;
+	}
+	.content {
+		grid-template-areas: 'slot' 'nav';
+		grid-template-rows:
+			calc(100% - var(--dimTimelineHeight))
+			var(--dimTimelineHeight);
 	}
 	.content section {
+		grid-area: slot;
 		height: 100%;
 		width: 100%;
-		padding: var(--dimPadding) var(--dimPadding) 0 var(--dimPadding);
 	}
 	.content nav {
-		height: 100%;
-		width: 100%;
 		background-color: var(--colorNav) !important;
+		grid-area: nav;
+		height: 100%;
 		padding: 0 var(--dimPadding);
+		width: 100%;
+	}
+	.content.isTimelineHidden {
+		grid-template-areas: 'slot';
+		grid-template-rows: 100%;
 	}
 </style>

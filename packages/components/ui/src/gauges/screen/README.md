@@ -87,7 +87,7 @@ In other components of your app, `import` the `screen` store from `ScreenGauge.s
 <script>
 	import {screen} from '@svizzle/ui/src/gauges/ScreenGauge.svelte';
 
-	console.log($screen);
+	$: console.log($screen);
 </script>
 
 <main class={$screen?.classes}>

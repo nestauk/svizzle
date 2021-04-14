@@ -33,9 +33,9 @@
 		barThickness: 25,
 		bottom: 10,
 		brushThreshold: 10, // pixels to trigger brushing
+		gap: 2,
 		left: 10,
 		right: 10,
-		gap: 2,
 		textPadding: 5,
 		top: 10,
 	}
@@ -83,12 +83,14 @@
 	/* layout */
 	$: innerWidth = Math.max(0, width - geometry.left - geometry.right);
 	$: innerHeight = Math.max(0, height - geometry.top - geometry.bottom);
-
-	$: widgetThickness = geometry.barThickness + flags.showTicks
-		? flags.isVertical
-			? 0
-			: geometry.textPadding + theme.fontSize
-		: 0;
+	$: widgetThickness =
+		geometry.barThickness + (
+			flags.showTicks
+				? flags.isVertical
+					? 0
+					: geometry.textPadding + theme.fontSize
+				: 0
+		);
 	$: origin = {
 		x: geometry.left + (flags.isVertical ? (innerWidth - widgetThickness) / 2 : 0),
 		y: geometry.top + (flags.isVertical ? 0 : (innerHeight - widgetThickness) / 2),

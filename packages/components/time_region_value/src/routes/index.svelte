@@ -1,12 +1,22 @@
 <script>
+	import * as _ from 'lamb';
+	import {onMount} from 'svelte';
 	import {makeStyleVars} from '@svizzle/dom';
 
-	import {resetSafetyStore, timelineLayoutStore} from 'stores/layout';
-	import {resetSelection} from 'stores/selection';
+	import defaultTheme from 'theme';
 
-	import defaultTheme from 'shared/theme';
+	/* local stores */
+
+	import {isSmallScreen, timelineLayoutStore} from 'stores/layout';
+	import {setRoute, showView} from 'stores/navigation';
+	import {resetSelection} from 'stores/selection';
+	import {shortenYear} from 'utils/format';
+
+	/* consts */
 
 	const gap = 7;
+
+	/* props */
 
 	// sapper
 	export let goTo = null; // pass `@sapper/app`'s `goto`
@@ -18,12 +28,20 @@
 	export let yearRangeStore;
 	export let theme = defaultTheme;
 
-	resetSelection();
-	resetSafetyStore();
+	/* init */
 
+	onMount(() => {
+		resetSelection();
+		setRoute('Index');
+		showView('distribution');
+	});
+
+	/* local vars */
+
+	// bound
 	// when exporting, to crawl links in the svg, we need to have width defined
-	let width = isSapperExported && 1000; // bound
-	let height; // bound
+	let width = isSapperExported && 1000;
+	let height;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
@@ -31,6 +49,7 @@
 	$: style = makeStyleVars(theme);
 	$: layout = $timelineLayoutStore;
 	$: vStep = 2 * layout.radius + 3 * gap + layout.fontSize;
+	$: shortenYearFn = $isSmallScreen ? shortenYear : _.identity;
 </script>
 
 <div
@@ -48,80 +67,90 @@
 	>
 		<ul>
 			{#each $groupsStore as {description, indicators, label}}
-			<div class='group'>
-				<h2>{label}</h2>
-				<p>{description}</p>
+				<div class='group'>
+					<h2>{label}</h2>
+					<p>{description}</p>
 
-				{#if width}
-				<svg
-					{width}
-					height='{4 * gap + layout.fontSize + vStep * indicators.length}'
-				>
-					<!-- global years range -->
-
-					{#each $yearRangeStore as year}
-						<g
-							class='xref'
-							transform='translate({layout.scaleX(year)},0)'
+					{#if width}
+						<svg
+							{width}
+							height='{4 * gap + layout.fontSize + vStep * indicators.length}'
 						>
-							<line
-								y1='{gap}'
-								y2='{gap + vStep * indicators.length}'
-							/>
-							<text
-								font-size={layout.fontSize}
-								y='{2 * gap + vStep * indicators.length + layout.fontSize / 2}'
-							> {year}
-							</text>
-						</g>
-					{/each}
+							<!-- axis -->
 
-					<!-- indicators -->
-
-					{#each indicators as {availableYears, title, schema, year_extent}, y}
-					<g
-						class='indicatorsrange'
-						transform='translate(0,{vStep * (y + 1)})'
-					>
-						<text
-							class='bkg'
-							x='{(layout.scaleX(year_extent[0]) + layout.scaleX(year_extent[1])) / 2}'
-							dy='{-(layout.fontSize + gap)}'
-							font-size={layout.fontSize}
-						>{title}</text>
-						<text
-							x='{(layout.scaleX(year_extent[0]) + layout.scaleX(year_extent[1])) / 2}'
-							dy='{-(layout.fontSize + gap)}'
-							font-size={layout.fontSize}
-						>{title}</text>
-						<line
-							x1='{layout.scaleX(year_extent[0]) + layout.radius}'
-							x2='{layout.scaleX(year_extent[1]) - layout.radius}'
-						/>
-						{#each availableYears as year}
-							{#if goTo}
-								<circle
-									cx='{layout.scaleX(year)}'
-									r={layout.radius}
-									on:click='{() => goTo(`${hrefBase}/${schema.value.id}/${year}`)}'
-								/>
-							{:else}
-								<a
-									rel='prefetch'
-									href='{hrefBase}/{schema.value.id}/{year}'
+							{#each $yearRangeStore as year}
+								<g
+									class='xref'
+									transform='translate({layout.scaleX(year)},0)'
 								>
-									<circle
-										cx='{layout.scaleX(year)}'
-										r={layout.radius}
+									<!-- line -->
+									{#if indicators.length > 1}
+										<line
+											y1='{gap}'
+											y2='{gap + vStep * indicators.length}'
+										/>
+									{/if}
+
+									<!-- year -->
+									<text
+										font-size={layout.fontSize}
+										y='{2 * gap + vStep * indicators.length + layout.fontSize / 2}'
+									>{shortenYearFn(year)}
+									</text>
+								</g>
+							{/each}
+
+							<!-- indicators -->
+
+							{#each indicators as {availableYears, title, schema, year_extent}, y}
+								<g
+									class='indicatorsrange'
+									transform='translate(0,{vStep * (y + 1)})'
+								>
+									<!-- title -->
+									<text
+										class='bkg'
+										x='{(layout.scaleX(year_extent[0]) + layout.scaleX(year_extent[1])) / 2}'
+										dy='{-(layout.fontSize + gap)}'
+										font-size={layout.fontSize}
+									>{title}</text>
+									<text
+										x='{(layout.scaleX(year_extent[0]) + layout.scaleX(year_extent[1])) / 2}'
+										dy='{-(layout.fontSize + gap)}'
+										font-size={layout.fontSize}
+									>{title}</text>
+
+									<!-- joining line -->
+									<line
+										x1='{layout.scaleX(year_extent[0]) + layout.radius}'
+										x2='{layout.scaleX(year_extent[1]) - layout.radius}'
 									/>
-								</a>
-							{/if}
-						{/each}
-					</g>
-					{/each}
-				</svg>
-				{/if}
-			</div>
+
+									<!-- dots -->
+									{#each availableYears as year}
+										{#if goTo}
+											<circle
+												cx='{layout.scaleX(year)}'
+												r={layout.radius}
+												on:click='{() => goTo(`${hrefBase}/${schema.value.id}/${year}`)}'
+											/>
+										{:else}
+											<a
+												rel='prefetch'
+												href='{hrefBase}/{schema.value.id}/{year}'
+											>
+												<circle
+													cx='{layout.scaleX(year)}'
+													r={layout.radius}
+												/>
+											</a>
+										{/if}
+									{/each}
+								</g>
+							{/each}
+						</svg>
+					{/if}
+				</div>
 			{/each}
 		</ul>
 	</div>
@@ -132,14 +161,15 @@
 	.time_region_value_Index {
 		height: 100%;
 		width: 100%;
+		padding: var(--dimPadding) var(--dimPadding) 0 var(--dimPadding);
 	}
 
 	.time_region_value_Index header {
-		height: var(--dimHeaderHeight);
+		height: var(--dimHeaderHeightShort);
 	}
 
 	.time_region_value_Index .timedist {
-		height: calc(100% - var(--dimHeaderHeight));
+		height: calc(100% - var(--dimHeaderHeightShort));
 		width: 100%;
 		overflow-y: auto;
 	}
@@ -153,7 +183,7 @@
 	}
 
 	svg .xref line {
-		stroke: var(--colorRef);
+		stroke: var(--colorLightgrey);
 		stroke-dasharray: 2 2;
 	}
 
