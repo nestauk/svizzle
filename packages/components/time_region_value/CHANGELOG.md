@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.1.1
+
+- fix: include `*.json` and `*.yaml` files in the distribution (v0.1.0 won't work because of this)
+
 ## `@svizzle/time_region_value` v0.1.0
 
 - add `_layout.svelte`

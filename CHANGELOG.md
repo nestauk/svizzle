@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## 20210415
+
+## `@svizzle/time_region_value` v0.1.1
+
+- fix: include `*.json` and `*.yaml` files in the distribution (v0.1.0 won't work because of this)
+
+
 ## 20210413
 
 - Added a new way to upload tarballs to the repo to all packages.

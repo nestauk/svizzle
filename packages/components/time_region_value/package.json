@@ -53,7 +53,9 @@
 		"LICENSE",
 		"README.md",
 		"src/**/*.js",
-		"src/**/*.svelte"
+		"src/**/*.json",
+		"src/**/*.svelte",
+		"src/**/*.yaml"
 	],
 	"homepage": "https://github.com/nestauk/svizzle",
 	"keywords": [
