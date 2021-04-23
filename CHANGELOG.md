@@ -2,19 +2,67 @@
 
 ## next
 
-## `@svizzle/histogram` v0.4.0
+## `@svizzle/barchart` v0.6.6 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/choropleth` v0.6.4 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/dev` v0.4.3 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/dom` v0.4.4 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/file` v0.10.1 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/geo` v0.6.3 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/geometry` v0.3.3 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/histogram` v0.4.0 (next)
 
 - utils: add `getBinsTicksExtent`
+- updated some dev dependencies
 
-## `@svizzle/legend` v0.2.0
+## `@svizzle/legend` v0.2.0 (next)
 
 - add the field `showTicksExtentOnly` to `flags` prop
+- updated some dev dependencies
 
-## `@svizzle/site` v0.3.4
+## `@svizzle/request` v0.3.3 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/site` v0.3.4 (next)
 
 - `legend/ColorsBinG`:
-	- document `flags.showTicksExtentOnly`
-	- document the `geometry` prop
+   - document `flags.showTicksExtentOnly`
+   - document the `geometry` prop
+- `time_region_value`: fix a bug when generating random data for
+- updated some dev dependencies
+
+## `@svizzle/time_region_value` v0.1.2 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/ui` v0.2.1 (next)
+
+- updated some dev dependencies
+
+## `@svizzle/utils` v0.13.1 (next)
+
+- updated some dev dependencies
 
 
 ## 20210415

@@ -3,6 +3,8 @@
 - `legend/ColorsBinG`:
    - document `flags.showTicksExtentOnly`
    - document the `geometry` prop
+- `time_region_value`: fix a bug when generating random data for
+- updated some dev dependencies
 
 ## `@svizzle/site` v0.3.3
 
@@ -14,10 +16,12 @@
 	- `@rollup/plugin-node-resolve`
 	- `rollup-plugin-svelte`
 
+
 ## `@svizzle/site` v0.3.2
 
 - `@svizzle/ui`: add docs
 - `@svizzle/barchart`: document `ref.format`, `ref.keyAbbr`
+
 
 ## `@svizzle/site` v0.3.1
 
@@ -25,6 +29,7 @@
 - extract a formatting utility from examples
 - add Germany NUTS2 2016 as it seems to be the heavier example
 - add `@svizzle/legend` docs
+
 
 ## `@svizzle/site` v0.3.0
 

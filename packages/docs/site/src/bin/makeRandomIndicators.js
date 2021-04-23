@@ -3,10 +3,11 @@
 import path from 'path';
 
 import * as _ from 'lamb';
-import {csvFormat} from 'd3-dsv';
-import {saveObj, saveString} from '@svizzle/file';
-import {tapMessage} from '@svizzle/dev';
 import Chance from 'chance';
+import {csvFormat} from 'd3-dsv';
+import {tapMessage} from '@svizzle/dev';
+import {saveObj, saveString} from '@svizzle/file';
+import {inclusiveRange} from '@svizzle/utils';
 import NUTS2_UK_by_year
 	from '../routes/compounds/time_region_value/_data/NUTS2_UK_by_year';
 
@@ -61,7 +62,7 @@ const createIndicator = groupId => {
 		source_url: chance.url(),
 		url: `/svizzle/data/${id}.csv`,
 		year_extent,
-		availableYears: _.range(...year_extent)
+		availableYears: inclusiveRange(year_extent)
 	}
 }
 

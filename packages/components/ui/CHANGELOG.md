@@ -1,3 +1,7 @@
+## `@svizzle/ui` v0.2.1 (next)
+
+- updated some dev dependencies
+
 ## `@svizzle/ui` v0.2.0
 
 - add responsiveness `breakpoints` (see `src/defaults.js`)

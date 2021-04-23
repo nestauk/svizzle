@@ -1,3 +1,7 @@
+## `@svizzle/file` v0.10.1 (next)
+
+- updated some dev dependencies
+
 ## `@svizzle/file` v0.10.0
 
 - add `resolveToDir`

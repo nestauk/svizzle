@@ -1,6 +1,8 @@
 ## `@svizzle/legend` v0.2.0 (next)
 
 - add the field `showTicksExtentOnly` to `flags` prop
+- updated some dev dependencies
+
 
 ## `@svizzle/legend` v0.1.2
 

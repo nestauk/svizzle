@@ -1,3 +1,7 @@
+## `@svizzle/utils` v0.13.1 (next)
+
+- updated some dev dependencies
+
 ## `@svizzle/utils` v0.13.0
 
 - updated some dev dependencies

@@ -1,18 +1,18 @@
 [
   {
-    "description": "Bu cuvowoc zazdam zufpetol pe gafog toenpo tibap gemkedpa pem se tidti ahe safcazzuj.",
-    "id": "holog",
-    "label": "Gabin fonusipi wolej si to udugek.",
+    "description": "Ra wapjoci gi ma tartac biehiezo hoif mifvawlu evacuhwi tin irdod itvovwut.",
+    "id": "uvowt",
+    "label": "Edzum ne sev en ko gofi.",
     "order": 0,
     "indicators": [
       {
-        "api_doc_url": "http://waw.ki/eku",
+        "api_doc_url": "http://suwevzek.st/simled",
         "api_type": "FETCH",
-        "data_date": "21041023",
-        "title": "Bori gobuw ihapita firbowi.",
-        "subtitle": "Nala onori naflila ikiso gaz citufu.",
-        "endpoint_url": "http://cijwi.gs/cunac",
-        "framework_group": "holog",
+        "data_date": "2099720",
+        "title": "Hezodfec estive giw wil.",
+        "subtitle": "Ko lulgerca gekburite meba eze fuzwo.",
+        "endpoint_url": "http://hatvit.iq/sowgas",
+        "framework_group": "uvowt",
         "is_experimental": false,
         "order": [
           "year",
@@ -33,35 +33,40 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "silre",
-            "label": "Ike oce vosow botan teelatec.",
+            "id": "himuk",
+            "label": "Rijigej fi jepmijzi jivcole bilootu.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Zasa el nep lak."
+            "label": "Lipku wid navovuv avwomu."
           }
         },
-        "source_name": "Neg fed pukez isute.",
-        "source_url": "http://wob.tf/javbe",
-        "url": "/svizzle/data/silre.csv",
+        "source_name": "Runcil budagadu gabih idaruc.",
+        "source_url": "http://peg.so/ulopejuni",
+        "url": "/svizzle/data/himuk.csv",
         "year_extent": [
-          2010,
-          2012
+          2008,
+          2014
         ],
         "availableYears": [
+          2008,
+          2009,
           2010,
-          2011
+          2011,
+          2012,
+          2013,
+          2014
         ]
       },
       {
-        "api_doc_url": "http://cakvoz.ro/cedese",
+        "api_doc_url": "http://eligu.wf/tecgu",
         "api_type": "FETCH",
-        "data_date": "209515",
-        "title": "Ja fek muugmof fuca.",
-        "subtitle": "Jas tuhtiobu ijo rifukbu suc tehube.",
-        "endpoint_url": "http://utuode.ve/cit",
-        "framework_group": "holog",
+        "data_date": "2065722",
+        "title": "Wokfemos ulip epuwacfim ewuwi.",
+        "subtitle": "Gavis undo farimij wev bahaciv vebniw.",
+        "endpoint_url": "http://robni.cf/hiewuuta",
+        "framework_group": "uvowt",
         "is_experimental": true,
         "order": [
           "year",
@@ -82,43 +87,93 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "uzvos",
-            "label": "Mowcog fatecnoj seah codlajmuj bohew.",
+            "id": "milow",
+            "label": "Seterew zu kugab itaun zu.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Udpo havig igtozot pu."
+            "label": "Efuhekem mobubpis jannulcup muwjecrit."
           }
         },
-        "source_name": "Kien idisokaja wit notejol.",
-        "source_url": "http://melavu.er/degev",
-        "url": "/svizzle/data/uzvos.csv",
+        "source_name": "Doha duzbasun hogsab ogi.",
+        "source_url": "http://mufwebwaf.bw/pos",
+        "url": "/svizzle/data/milow.csv",
         "year_extent": [
-          2006,
-          2016
+          2008,
+          2013
         ],
         "availableYears": [
-          2006,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013
+        ]
+      },
+      {
+        "api_doc_url": "http://gug.gy/ajvi",
+        "api_type": "FETCH",
+        "data_date": "2078931",
+        "title": "Cuemodag hagcur citni ji.",
+        "subtitle": "Tisegeza wassevuf pu tiabera dazihet af.",
+        "endpoint_url": "http://temgafzaz.ax/tohza",
+        "framework_group": "uvowt",
+        "is_experimental": true,
+        "order": [
+          "year",
+          "nuts_id",
+          "nuts_year_spec",
+          "value.id"
+        ],
+        "region": {
+          "type": "NutsRegion",
+          "level": 2,
+          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
+        },
+        "schema": {
+          "nuts_id": {
+            "type": "NutsRegion.id"
+          },
+          "nuts_year_spec": {
+            "type": "NutsRegion.year_spec"
+          },
+          "value": {
+            "id": "cibro",
+            "label": "Bipletcup legiv igi ziisi iptikni.",
+            "type": "int"
+          },
+          "year": {
+            "data_type": "int",
+            "label": "Co cuak jukiwfo vi."
+          }
+        },
+        "source_name": "Tumivowu zihdig za zekuvnur.",
+        "source_url": "http://mor.sd/ucovot",
+        "url": "/svizzle/data/cibro.csv",
+        "year_extent": [
+          2007,
+          2013
+        ],
+        "availableYears": [
           2007,
           2008,
           2009,
           2010,
           2011,
           2012,
-          2013,
-          2014,
-          2015
+          2013
         ]
       },
       {
-        "api_doc_url": "http://aseutpi.bw/sisa",
+        "api_doc_url": "http://teriga.bm/kavoviizo",
         "api_type": "FETCH",
-        "data_date": "2107627",
-        "title": "Zofoahu velgadin fumuzo kusulu.",
-        "subtitle": "Odi gap mij sojtet ge be.",
-        "endpoint_url": "http://asacepbuj.ke/iconojlen",
-        "framework_group": "holog",
+        "data_date": "2103930",
+        "title": "Meja fahpaj hidpuk fadeb.",
+        "subtitle": "Otduzez rara defowda so fo ha.",
+        "endpoint_url": "http://lih.mq/sujmihgif",
+        "framework_group": "uvowt",
         "is_experimental": false,
         "order": [
           "year",
@@ -139,27 +194,23 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "tipod",
-            "label": "Ziva ikepa nodmozuw sewu fopowo.",
+            "id": "fukag",
+            "label": "Ojme dofehman loeduh tihavde uzbozo.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Fasacsa sudodoc wowzafig gohmom."
+            "label": "Niwlaj manci sim ta."
           }
         },
-        "source_name": "Nalcowuh tiz rapi kohijet.",
-        "source_url": "http://laceib.ps/kij",
-        "url": "/svizzle/data/tipod.csv",
+        "source_name": "Wintuk po dioke pa.",
+        "source_url": "http://du.cf/donhuj",
+        "url": "/svizzle/data/fukag.csv",
         "year_extent": [
-          2006,
-          2015
+          2010,
+          2014
         ],
         "availableYears": [
-          2006,
-          2007,
-          2008,
-          2009,
           2010,
           2011,
           2012,
@@ -170,19 +221,19 @@
     ]
   },
   {
-    "description": "Ikwu junam zokzoh azmeene pajuk je dehem zonlu ruvluaja ijihu uho ak tutnettuk.",
-    "id": "cabaw",
-    "label": "Jegmuleb fisot iftigoz senifod pivo nag.",
+    "description": "Dien ij cibetcob zu pog lir wawa goham lesjafman movupa vocewup baevke ewe tiz dep.",
+    "id": "dajca",
+    "label": "Mubujro icooro ujata ziehuj luopsov wernefas.",
     "order": 1,
     "indicators": [
       {
-        "api_doc_url": "http://uzu.mk/re",
+        "api_doc_url": "http://kamgof.aw/rodcirfe",
         "api_type": "FETCH",
-        "data_date": "2065222",
-        "title": "Ighop wowbulog rom fafgerdif.",
-        "subtitle": "Kujlig lugulup sirih azcel jep wo.",
-        "endpoint_url": "http://je.cy/is",
-        "framework_group": "cabaw",
+        "data_date": "205198",
+        "title": "Folof fago ked toc.",
+        "subtitle": "Upacaise fe tig soiwsol junpowoh zulfag.",
+        "endpoint_url": "http://nenel.sl/hanlicet",
+        "framework_group": "dajca",
         "is_experimental": false,
         "order": [
           "year",
@@ -203,187 +254,23 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "tojor",
-            "label": "Sah muzlofer muf ib afla.",
+            "id": "howpo",
+            "label": "Asran li ihjof bekgulrol oza.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Bifsajhob ca cipid vapzeeg."
+            "label": "Diodno guz fo adlejsi."
           }
         },
-        "source_name": "Bitja sowac co hipu.",
-        "source_url": "http://oci.no/powupu",
-        "url": "/svizzle/data/tojor.csv",
+        "source_name": "Ostu dimur lad riwdet.",
+        "source_url": "http://esi.gn/jiwi",
+        "url": "/svizzle/data/howpo.csv",
         "year_extent": [
-          2006,
-          2014
-        ],
-        "availableYears": [
-          2006,
-          2007,
           2008,
-          2009,
-          2010,
-          2011,
-          2012,
-          2013
-        ]
-      }
-    ]
-  },
-  {
-    "description": "Arhe fufub lah dajifefa ul mufpape ivena ibjuh saj zigefoda gouj oghojab rivba wi.",
-    "id": "fimza",
-    "label": "Pagjismu migahwa atbu bejiwnul fuvidha wemakluv.",
-    "order": 2,
-    "indicators": [
-      {
-        "api_doc_url": "http://sa.ro/jajuuvo",
-        "api_type": "FETCH",
-        "data_date": "2057531",
-        "title": "Ij bisuw ce mup.",
-        "subtitle": "Joljedrek febujlez hukaite optulmuc vuf kusre.",
-        "endpoint_url": "http://teg.cr/ni",
-        "framework_group": "fimza",
-        "is_experimental": false,
-        "order": [
-          "year",
-          "nuts_id",
-          "nuts_year_spec",
-          "value.id"
-        ],
-        "region": {
-          "type": "NutsRegion",
-          "level": 2,
-          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
-        },
-        "schema": {
-          "nuts_id": {
-            "type": "NutsRegion.id"
-          },
-          "nuts_year_spec": {
-            "type": "NutsRegion.year_spec"
-          },
-          "value": {
-            "id": "puwem",
-            "label": "Ob dudga zuptawtar vun la.",
-            "type": "int"
-          },
-          "year": {
-            "data_type": "int",
-            "label": "Vo ocemuju hufo vazwilog."
-          }
-        },
-        "source_name": "Locen wij widebjil baetti.",
-        "source_url": "http://ja.se/nuclurpih",
-        "url": "/svizzle/data/puwem.csv",
-        "year_extent": [
-          2011,
-          2014
+          2015
         ],
         "availableYears": [
-          2011,
-          2012,
-          2013
-        ]
-      },
-      {
-        "api_doc_url": "http://givovej.tp/pepuja",
-        "api_type": "FETCH",
-        "data_date": "209143",
-        "title": "Gowo kor nuwdi lodevzim.",
-        "subtitle": "Hu olbaces jofig apu guh hih.",
-        "endpoint_url": "http://goannib.ru/he",
-        "framework_group": "fimza",
-        "is_experimental": true,
-        "order": [
-          "year",
-          "nuts_id",
-          "nuts_year_spec",
-          "value.id"
-        ],
-        "region": {
-          "type": "NutsRegion",
-          "level": 2,
-          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
-        },
-        "schema": {
-          "nuts_id": {
-            "type": "NutsRegion.id"
-          },
-          "nuts_year_spec": {
-            "type": "NutsRegion.year_spec"
-          },
-          "value": {
-            "id": "regoc",
-            "label": "Mijmir sirudke adi mo tiafe.",
-            "type": "int"
-          },
-          "year": {
-            "data_type": "int",
-            "label": "Gukakid sufo ludi cidanme."
-          }
-        },
-        "source_name": "Esbe na gir wiku.",
-        "source_url": "http://mice.me/cec",
-        "url": "/svizzle/data/regoc.csv",
-        "year_extent": [
-          2010,
-          2012
-        ],
-        "availableYears": [
-          2010,
-          2011
-        ]
-      },
-      {
-        "api_doc_url": "http://ehe.va/biivfiw",
-        "api_type": "FETCH",
-        "data_date": "21111211",
-        "title": "Amdieni watami giroh dazukfa.",
-        "subtitle": "Sufal kopos gekwi makbuv pu va.",
-        "endpoint_url": "http://kottewa.cw/gagbaf",
-        "framework_group": "fimza",
-        "is_experimental": true,
-        "order": [
-          "year",
-          "nuts_id",
-          "nuts_year_spec",
-          "value.id"
-        ],
-        "region": {
-          "type": "NutsRegion",
-          "level": 2,
-          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
-        },
-        "schema": {
-          "nuts_id": {
-            "type": "NutsRegion.id"
-          },
-          "nuts_year_spec": {
-            "type": "NutsRegion.year_spec"
-          },
-          "value": {
-            "id": "socre",
-            "label": "Ebadalow ikeriv igapuw fi roelu.",
-            "type": "int"
-          },
-          "year": {
-            "data_type": "int",
-            "label": "Gajtuvjiw hoj doav vuw."
-          }
-        },
-        "source_name": "Pewotif connape ibutif jokfop.",
-        "source_url": "http://pitum.me/pedlo",
-        "url": "/svizzle/data/socre.csv",
-        "year_extent": [
-          2006,
-          2016
-        ],
-        "availableYears": [
-          2006,
-          2007,
           2008,
           2009,
           2010,
@@ -395,13 +282,13 @@
         ]
       },
       {
-        "api_doc_url": "http://zohean.mm/uhe",
+        "api_doc_url": "http://fi.sn/rasatig",
         "api_type": "FETCH",
-        "data_date": "210787",
-        "title": "Mecurpin biz otu muribzo.",
-        "subtitle": "Dogi natre eljitu ne izokujne uzunonu.",
-        "endpoint_url": "http://dupu.bn/goknoson",
-        "framework_group": "fimza",
+        "data_date": "2052912",
+        "title": "Ditmifnuj toswera tew cet.",
+        "subtitle": "Le cen wenose ezajavroj fiwate hophukro.",
+        "endpoint_url": "http://muv.tt/fo",
+        "framework_group": "dajca",
         "is_experimental": true,
         "order": [
           "year",
@@ -422,24 +309,80 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "viava",
-            "label": "Awretki dakizhog wub kerlupuj pawuzezup.",
+            "id": "imudg",
+            "label": "Depeij daal mupzike elpugib rarjofet.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Robma ku cembi ogo."
+            "label": "Nuj wuk gido te."
           }
         },
-        "source_name": "Gusvek ta tet holu.",
-        "source_url": "http://koduro.ws/niprunhop",
-        "url": "/svizzle/data/viava.csv",
+        "source_name": "Hetog sofis gohibuw mamdew.",
+        "source_url": "http://ejeedhup.lk/jovap",
+        "url": "/svizzle/data/imudg.csv",
         "year_extent": [
           2008,
-          2013
+          2017
         ],
         "availableYears": [
           2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017
+        ]
+      },
+      {
+        "api_doc_url": "http://edahe.kg/giru",
+        "api_type": "FETCH",
+        "data_date": "208773",
+        "title": "Vewaw loswienu ser luce.",
+        "subtitle": "Paazut wedcub gobkufu viw zavpoljiz ebuciih.",
+        "endpoint_url": "http://em.ga/inure",
+        "framework_group": "dajca",
+        "is_experimental": true,
+        "order": [
+          "year",
+          "nuts_id",
+          "nuts_year_spec",
+          "value.id"
+        ],
+        "region": {
+          "type": "NutsRegion",
+          "level": 2,
+          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
+        },
+        "schema": {
+          "nuts_id": {
+            "type": "NutsRegion.id"
+          },
+          "nuts_year_spec": {
+            "type": "NutsRegion.year_spec"
+          },
+          "value": {
+            "id": "acpuf",
+            "label": "Jucav jabwo jicoh obimaubu suc.",
+            "type": "int"
+          },
+          "year": {
+            "data_type": "int",
+            "label": "Unworu jawkem gibgozcuh rup."
+          }
+        },
+        "source_name": "Nerabo bi vej it.",
+        "source_url": "http://puckaof.mg/obekiga",
+        "url": "/svizzle/data/acpuf.csv",
+        "year_extent": [
+          2009,
+          2012
+        ],
+        "availableYears": [
           2009,
           2010,
           2011,
@@ -447,14 +390,14 @@
         ]
       },
       {
-        "api_doc_url": "http://wiz.tr/sada",
+        "api_doc_url": "http://mi.gl/ravod",
         "api_type": "FETCH",
-        "data_date": "2118621",
-        "title": "Norikut luzcimi hu latol.",
-        "subtitle": "Cus ziajtum jomerce sedadho teferhec kobrod.",
-        "endpoint_url": "http://dosorzuv.nc/vonetet",
-        "framework_group": "fimza",
-        "is_experimental": false,
+        "data_date": "20971210",
+        "title": "Ujavuc hidosce nog cud.",
+        "subtitle": "Kawrota owogihe zajis biw lutipi calomsug.",
+        "endpoint_url": "http://emvoju.dm/sikjimvad",
+        "framework_group": "dajca",
+        "is_experimental": true,
         "order": [
           "year",
           "nuts_id",
@@ -474,41 +417,97 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "hezti",
-            "label": "Lihe be fehuf to we.",
+            "id": "jatit",
+            "label": "Jize du ud lew repec.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Gepgut pinlujew agpas cufjof."
+            "label": "Kuwuf une kaantek ecuogde."
           }
         },
-        "source_name": "Robihfo low kafpeh ivekmam.",
-        "source_url": "http://kabab.ax/nuwirez",
-        "url": "/svizzle/data/hezti.csv",
+        "source_name": "Ihzusesi surevvuk ad dilisvam.",
+        "source_url": "http://ahaaje.ma/boag",
+        "url": "/svizzle/data/jatit.csv",
         "year_extent": [
-          2006,
-          2014
+          2009,
+          2013
         ],
         "availableYears": [
-          2006,
-          2007,
-          2008,
           2009,
           2010,
           2011,
           2012,
           2013
         ]
+      }
+    ]
+  },
+  {
+    "description": "Elgighel he bakgud efedar oro ho hidoufo tan zumozibu keraskot ostirem ijeru seawa delrilil in izamac wipa celegwut.",
+    "id": "jigek",
+    "label": "Bot fanogu bod zos ru gozop.",
+    "order": 2,
+    "indicators": [
+      {
+        "api_doc_url": "http://lag.bi/aska",
+        "api_type": "FETCH",
+        "data_date": "2044524",
+        "title": "Sobzufek ca jico tiznidceg.",
+        "subtitle": "Pel wunpah law eza jab cabido.",
+        "endpoint_url": "http://ta.me/ninbe",
+        "framework_group": "jigek",
+        "is_experimental": true,
+        "order": [
+          "year",
+          "nuts_id",
+          "nuts_year_spec",
+          "value.id"
+        ],
+        "region": {
+          "type": "NutsRegion",
+          "level": 2,
+          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
+        },
+        "schema": {
+          "nuts_id": {
+            "type": "NutsRegion.id"
+          },
+          "nuts_year_spec": {
+            "type": "NutsRegion.year_spec"
+          },
+          "value": {
+            "id": "jiduh",
+            "label": "Dosiffa rezeho gepu jo iwe.",
+            "type": "int"
+          },
+          "year": {
+            "data_type": "int",
+            "label": "Cikpa nudokpi cofbifit osu."
+          }
+        },
+        "source_name": "Net rocekom zo tu.",
+        "source_url": "http://mar.fi/futeh",
+        "url": "/svizzle/data/jiduh.csv",
+        "year_extent": [
+          2009,
+          2012
+        ],
+        "availableYears": [
+          2009,
+          2010,
+          2011,
+          2012
+        ]
       },
       {
-        "api_doc_url": "http://te.sh/iwirelpem",
+        "api_doc_url": "http://calipini.ai/lirginfim",
         "api_type": "FETCH",
-        "data_date": "209345",
-        "title": "Feero izodafal ipucuj usajaz.",
-        "subtitle": "He esapriv kamipu jepiopa hal buc.",
-        "endpoint_url": "http://pupkohip.zm/peubku",
-        "framework_group": "fimza",
+        "data_date": "2050101",
+        "title": "Gebirug gim pipid la.",
+        "subtitle": "Zem kifdek ci longoj gudo nas.",
+        "endpoint_url": "http://afbu.hn/wa",
+        "framework_group": "jigek",
         "is_experimental": false,
         "order": [
           "year",
@@ -529,21 +528,76 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "taeni",
-            "label": "Ten jorav okhapten pi ve.",
+            "id": "ulvef",
+            "label": "Afgo ow wublekuc zoppap buvacaz.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Umbe nel lobvidem ko."
+            "label": "Veifmu pepiid gupzatad wif."
           }
         },
-        "source_name": "Logutiumu pahiigi gowemiz togok.",
-        "source_url": "http://pedtem.nf/oti",
-        "url": "/svizzle/data/taeni.csv",
+        "source_name": "Cografu pemwino gurko leto.",
+        "source_url": "http://likoat.mg/hadtef",
+        "url": "/svizzle/data/ulvef.csv",
+        "year_extent": [
+          2010,
+          2017
+        ],
+        "availableYears": [
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017
+        ]
+      },
+      {
+        "api_doc_url": "http://weplow.tr/rorip",
+        "api_type": "FETCH",
+        "data_date": "2054611",
+        "title": "Oje jorwotdoc holi rawe.",
+        "subtitle": "Res gud punsin cesop obkas wogatak.",
+        "endpoint_url": "http://juf.lk/enhurjem",
+        "framework_group": "jigek",
+        "is_experimental": true,
+        "order": [
+          "year",
+          "nuts_id",
+          "nuts_year_spec",
+          "value.id"
+        ],
+        "region": {
+          "type": "NutsRegion",
+          "level": 2,
+          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
+        },
+        "schema": {
+          "nuts_id": {
+            "type": "NutsRegion.id"
+          },
+          "nuts_year_spec": {
+            "type": "NutsRegion.year_spec"
+          },
+          "value": {
+            "id": "uvoug",
+            "label": "Sac da jevah zonug tipehu.",
+            "type": "int"
+          },
+          "year": {
+            "data_type": "int",
+            "label": "Ev ju ricek vapgaufa."
+          }
+        },
+        "source_name": "Zohutad lermel da ja.",
+        "source_url": "http://begukmif.ci/ure",
+        "url": "/svizzle/data/uvoug.csv",
         "year_extent": [
           2006,
-          2017
+          2016
         ],
         "availableYears": [
           2006,
@@ -558,74 +612,16 @@
           2015,
           2016
         ]
-      }
-    ]
-  },
-  {
-    "description": "Liru famiciba wa no ke le fad guhmivo re hes nidikuoz avpa worsag regadca avu nodkov otla focgumzih.",
-    "id": "imvew",
-    "label": "Ec jej kisi aleogsun rucakev nilugof.",
-    "order": 3,
-    "indicators": [
-      {
-        "api_doc_url": "http://jolif.lv/anzoma",
-        "api_type": "FETCH",
-        "data_date": "2058317",
-        "title": "Vadco wavawa rereata duiwjin.",
-        "subtitle": "Olkof be kal ucja rota godecu.",
-        "endpoint_url": "http://goovzer.as/bof",
-        "framework_group": "imvew",
-        "is_experimental": true,
-        "order": [
-          "year",
-          "nuts_id",
-          "nuts_year_spec",
-          "value.id"
-        ],
-        "region": {
-          "type": "NutsRegion",
-          "level": 2,
-          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
-        },
-        "schema": {
-          "nuts_id": {
-            "type": "NutsRegion.id"
-          },
-          "nuts_year_spec": {
-            "type": "NutsRegion.year_spec"
-          },
-          "value": {
-            "id": "abraw",
-            "label": "Iwific ir uduhipo higijzi tezod.",
-            "type": "int"
-          },
-          "year": {
-            "data_type": "int",
-            "label": "De ju piz pilde."
-          }
-        },
-        "source_name": "Dutir iditori wu pabbilpo.",
-        "source_url": "http://dolahwu.eg/gev",
-        "url": "/svizzle/data/abraw.csv",
-        "year_extent": [
-          2009,
-          2012
-        ],
-        "availableYears": [
-          2009,
-          2010,
-          2011
-        ]
       },
       {
-        "api_doc_url": "http://monewmuf.tr/sam",
+        "api_doc_url": "http://mogul.np/liw",
         "api_type": "FETCH",
-        "data_date": "210724",
-        "title": "To pur ijfufak hic.",
-        "subtitle": "Aturitmam ozufazpi nolcu kivikov ihfo lanupor.",
-        "endpoint_url": "http://wopwaaca.ao/ufkab",
-        "framework_group": "imvew",
-        "is_experimental": true,
+        "data_date": "2101428",
+        "title": "Atzucco hecbi wepajom pi.",
+        "subtitle": "Wukuja gekgon nukila cebej den eg.",
+        "endpoint_url": "http://vocep.fk/hoata",
+        "framework_group": "jigek",
+        "is_experimental": false,
         "order": [
           "year",
           "nuts_id",
@@ -645,21 +641,21 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "nuiwu",
-            "label": "Lemsohoz nigiv wugukgov himtowedo wojmebuv.",
+            "id": "kojze",
+            "label": "Tolisvok uj wabudsen inetulu gufinu.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Otja na haj zejuh."
+            "label": "Gicuovo gudmujnuh ebisikav pus."
           }
         },
-        "source_name": "Awefadjan saor ca ke.",
-        "source_url": "http://cibuv.lt/gim",
-        "url": "/svizzle/data/nuiwu.csv",
+        "source_name": "Po zovenno verujzic lipfep.",
+        "source_url": "http://lema.ec/tif",
+        "url": "/svizzle/data/kojze.csv",
         "year_extent": [
           2010,
-          2016
+          2015
         ],
         "availableYears": [
           2010,
@@ -671,169 +667,13 @@
         ]
       },
       {
-        "api_doc_url": "http://ernufa.bf/hodehi",
+        "api_doc_url": "http://opo.eu/ubne",
         "api_type": "FETCH",
-        "data_date": "2061226",
-        "title": "Za um rabaguwu on.",
-        "subtitle": "Ze zonoz bevviz wok muimde ote.",
-        "endpoint_url": "http://sehnata.gm/do",
-        "framework_group": "imvew",
-        "is_experimental": true,
-        "order": [
-          "year",
-          "nuts_id",
-          "nuts_year_spec",
-          "value.id"
-        ],
-        "region": {
-          "type": "NutsRegion",
-          "level": 2,
-          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
-        },
-        "schema": {
-          "nuts_id": {
-            "type": "NutsRegion.id"
-          },
-          "nuts_year_spec": {
-            "type": "NutsRegion.year_spec"
-          },
-          "value": {
-            "id": "feedl",
-            "label": "Gocos ro rushewin zaz goduto.",
-            "type": "int"
-          },
-          "year": {
-            "data_type": "int",
-            "label": "Hu colajkob go wocjojmu."
-          }
-        },
-        "source_name": "Rivemutij za cobzuz wus.",
-        "source_url": "http://demci.li/elaajiwu",
-        "url": "/svizzle/data/feedl.csv",
-        "year_extent": [
-          2007,
-          2012
-        ],
-        "availableYears": [
-          2007,
-          2008,
-          2009,
-          2010,
-          2011
-        ]
-      },
-      {
-        "api_doc_url": "http://ik.ng/ganpifeh",
-        "api_type": "FETCH",
-        "data_date": "20271012",
-        "title": "Josamci bati cod ub.",
-        "subtitle": "Honzomef liczo api cuvojja lev ha.",
-        "endpoint_url": "http://ce.mp/ce",
-        "framework_group": "imvew",
-        "is_experimental": true,
-        "order": [
-          "year",
-          "nuts_id",
-          "nuts_year_spec",
-          "value.id"
-        ],
-        "region": {
-          "type": "NutsRegion",
-          "level": 2,
-          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
-        },
-        "schema": {
-          "nuts_id": {
-            "type": "NutsRegion.id"
-          },
-          "nuts_year_spec": {
-            "type": "NutsRegion.year_spec"
-          },
-          "value": {
-            "id": "tajga",
-            "label": "Te milaj na ofzin ef.",
-            "type": "int"
-          },
-          "year": {
-            "data_type": "int",
-            "label": "Tiscew zunfub begawdup dokce."
-          }
-        },
-        "source_name": "Abi peemaf uhmaluwi mowciw.",
-        "source_url": "http://iweolfeg.net/ad",
-        "url": "/svizzle/data/tajga.csv",
-        "year_extent": [
-          2008,
-          2014
-        ],
-        "availableYears": [
-          2008,
-          2009,
-          2010,
-          2011,
-          2012,
-          2013
-        ]
-      },
-      {
-        "api_doc_url": "http://numzegef.cv/fel",
-        "api_type": "FETCH",
-        "data_date": "2048817",
-        "title": "Liraso zojojelu uge ge.",
-        "subtitle": "Ceh miazzig ifijoavu zajwobga aj eprosa.",
-        "endpoint_url": "http://wo.ch/im",
-        "framework_group": "imvew",
-        "is_experimental": true,
-        "order": [
-          "year",
-          "nuts_id",
-          "nuts_year_spec",
-          "value.id"
-        ],
-        "region": {
-          "type": "NutsRegion",
-          "level": 2,
-          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
-        },
-        "schema": {
-          "nuts_id": {
-            "type": "NutsRegion.id"
-          },
-          "nuts_year_spec": {
-            "type": "NutsRegion.year_spec"
-          },
-          "value": {
-            "id": "vunuv",
-            "label": "Zi gigulip cez dik rigdamtu.",
-            "type": "int"
-          },
-          "year": {
-            "data_type": "int",
-            "label": "Ogi fo laneoce hiwunwi."
-          }
-        },
-        "source_name": "Gimvo wosiazu sencus topnor.",
-        "source_url": "http://zusen.lc/nawka",
-        "url": "/svizzle/data/vunuv.csv",
-        "year_extent": [
-          2008,
-          2012
-        ],
-        "availableYears": [
-          2008,
-          2009,
-          2010,
-          2011
-        ]
-      },
-      {
-        "api_doc_url": "http://fofob.na/orosecre",
-        "api_type": "FETCH",
-        "data_date": "2035116",
-        "title": "Vugwag waasjob doznot ceze.",
-        "subtitle": "Litopo bifo so ceubfo nug fere.",
-        "endpoint_url": "http://jup.hr/wenouh",
-        "framework_group": "imvew",
+        "data_date": "2064130",
+        "title": "Tibajviv mes zinuwo ipihovef.",
+        "subtitle": "Ebi eka jekge suvjigmam icfitsa di.",
+        "endpoint_url": "http://po.zm/simtem",
+        "framework_group": "jigek",
         "is_experimental": false,
         "order": [
           "year",
@@ -854,35 +694,43 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "turus",
-            "label": "Ocelekso ki suko megbako zoj.",
+            "id": "zehim",
+            "label": "Hapfo pe vo fa ze.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Ga pa powwar jowpusle."
+            "label": "Jimnasdi vovi uvuizel kagenpob."
           }
         },
-        "source_name": "Jijoze jadtubo kutovfu lomcib.",
-        "source_url": "http://ni.gd/jer",
-        "url": "/svizzle/data/turus.csv",
+        "source_name": "Wuh vassivku urlofib wo.",
+        "source_url": "http://edojo.sn/eb",
+        "url": "/svizzle/data/zehim.csv",
         "year_extent": [
-          2011,
-          2012
+          2006,
+          2014
         ],
         "availableYears": [
-          2011
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014
         ]
       },
       {
-        "api_doc_url": "http://volkoh.fk/ajwa",
+        "api_doc_url": "http://hah.af/fewuga",
         "api_type": "FETCH",
-        "data_date": "2048410",
-        "title": "Sa egdeler fuhu dogev.",
-        "subtitle": "Fepikisu on cesah ibbo casnucbi vevaka.",
-        "endpoint_url": "http://oda.it/powuwced",
-        "framework_group": "imvew",
-        "is_experimental": true,
+        "data_date": "205625",
+        "title": "Bezopad doaka co tem.",
+        "subtitle": "Libu josiso gem bizvomiw epo ekcegcaz.",
+        "endpoint_url": "http://va.pa/gu",
+        "framework_group": "jigek",
+        "is_experimental": false,
         "order": [
           "year",
           "nuts_id",
@@ -902,45 +750,50 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "utlag",
-            "label": "Ceb git fehuzu let wad.",
+            "id": "revbi",
+            "label": "Amirala suwfa oko muztijlo sul.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Aswa bokiv jez as."
+            "label": "Kik hapid laso wetco."
           }
         },
-        "source_name": "Hizaetu nafokgel pap dejro.",
-        "source_url": "http://hefsoko.pa/cotku",
-        "url": "/svizzle/data/utlag.csv",
+        "source_name": "Bupve but pi dofkifhi.",
+        "source_url": "http://jaskotaci.rw/dekuk",
+        "url": "/svizzle/data/revbi.csv",
         "year_extent": [
-          2010,
-          2014
+          2008,
+          2016
         ],
         "availableYears": [
+          2008,
+          2009,
           2010,
           2011,
           2012,
-          2013
+          2013,
+          2014,
+          2015,
+          2016
         ]
       }
     ]
   },
   {
-    "description": "Homlowle sop ripi mutubboj mirew deg ag cihhobot neroz fokkol ri du ada zelgo cavnuhedo tecazi mir per.",
-    "id": "civgu",
-    "label": "Ozaniob bujuf wokmiseco lan bozej cenule.",
-    "order": 4,
+    "description": "Pu uf jigjudu fajun teguvlek puc jaow ja bav wimliji isco eljud guk puzumiole ci cinva lopzonwur su.",
+    "id": "ucaku",
+    "label": "Jojwij rugineh lekebtut epanudif lebok pi.",
+    "order": 3,
     "indicators": [
       {
-        "api_doc_url": "http://otaabi.cd/zi",
+        "api_doc_url": "http://wav.tw/avder",
         "api_type": "FETCH",
-        "data_date": "20781215",
-        "title": "Lof jizlid aso kebib.",
-        "subtitle": "Ejduwi kev ifvettiz nesnone vihon kupimi.",
-        "endpoint_url": "http://ala.tt/uzju",
-        "framework_group": "civgu",
+        "data_date": "2057921",
+        "title": "Gozobeb etkuco poliro idhotlaf.",
+        "subtitle": "Akuhaenu wucizlim uma uvbowte hemigivo folkamte.",
+        "endpoint_url": "http://sitrufuw.sj/aka",
+        "framework_group": "ucaku",
         "is_experimental": false,
         "order": [
           "year",
@@ -961,26 +814,150 @@
             "type": "NutsRegion.year_spec"
           },
           "value": {
-            "id": "wetbu",
-            "label": "Silodjav cigke tibut widpoaz bepkechob.",
+            "id": "wemeh",
+            "label": "Budde nuh ca nofe ag.",
             "type": "int"
           },
           "year": {
             "data_type": "int",
-            "label": "Gi jid vo kicwatzo."
+            "label": "Rih azjozzo lun ukepugsu."
           }
         },
-        "source_name": "Zeuc fafhi ziiruwe miokuwah.",
-        "source_url": "http://nimfi.za/eguke",
-        "url": "/svizzle/data/wetbu.csv",
+        "source_name": "Vices dam ded wadnez.",
+        "source_url": "http://juotoap.nl/bukji",
+        "url": "/svizzle/data/wemeh.csv",
         "year_extent": [
-          2009,
-          2012
+          2006,
+          2016
         ],
         "availableYears": [
+          2006,
+          2007,
+          2008,
           2009,
           2010,
-          2011
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016
+        ]
+      },
+      {
+        "api_doc_url": "http://juczamozo.bj/jofaj",
+        "api_type": "FETCH",
+        "data_date": "210092",
+        "title": "Te hi wucewo hi.",
+        "subtitle": "Baakaeto behnupa belohju cucoc daljetbep cusdunu.",
+        "endpoint_url": "http://sa.ws/escamfew",
+        "framework_group": "ucaku",
+        "is_experimental": false,
+        "order": [
+          "year",
+          "nuts_id",
+          "nuts_year_spec",
+          "value.id"
+        ],
+        "region": {
+          "type": "NutsRegion",
+          "level": 2,
+          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
+        },
+        "schema": {
+          "nuts_id": {
+            "type": "NutsRegion.id"
+          },
+          "nuts_year_spec": {
+            "type": "NutsRegion.year_spec"
+          },
+          "value": {
+            "id": "muhbi",
+            "label": "Mezipoeja hotogo agitatkuv zoer bag.",
+            "type": "int"
+          },
+          "year": {
+            "data_type": "int",
+            "label": "Boddu jeij dago refhitoc."
+          }
+        },
+        "source_name": "Zap ezwazfam oduhot zu.",
+        "source_url": "http://ikabidar.pk/umupep",
+        "url": "/svizzle/data/muhbi.csv",
+        "year_extent": [
+          2007,
+          2015
+        ],
+        "availableYears": [
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015
+        ]
+      }
+    ]
+  },
+  {
+    "description": "Padenoj ica tuon ciubelu nuhejem ezecuti kenmooj tuuz vovojfat efo atotip vivo vohazob ekamoep wi nabihve.",
+    "id": "supge",
+    "label": "Esinukzi ticguca sonapoz situn iro hecmiha.",
+    "order": 4,
+    "indicators": [
+      {
+        "api_doc_url": "http://vefkag.hr/uwikajif",
+        "api_type": "FETCH",
+        "data_date": "211935",
+        "title": "Di ziuvo iwbu pa.",
+        "subtitle": "Afazi resajo ecmobu sikefe kobrejwa tohsuhcub.",
+        "endpoint_url": "http://pavik.ch/pid",
+        "framework_group": "supge",
+        "is_experimental": false,
+        "order": [
+          "year",
+          "nuts_id",
+          "nuts_year_spec",
+          "value.id"
+        ],
+        "region": {
+          "type": "NutsRegion",
+          "level": 2,
+          "source_url": "http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D"
+        },
+        "schema": {
+          "nuts_id": {
+            "type": "NutsRegion.id"
+          },
+          "nuts_year_spec": {
+            "type": "NutsRegion.year_spec"
+          },
+          "value": {
+            "id": "aroda",
+            "label": "Akboj af wiri kabca le.",
+            "type": "int"
+          },
+          "year": {
+            "data_type": "int",
+            "label": "Ji wiolacup viji iza."
+          }
+        },
+        "source_name": "Bug oma luncume gaznabaw.",
+        "source_url": "http://detitri.kn/rabefgi",
+        "url": "/svizzle/data/aroda.csv",
+        "year_extent": [
+          2010,
+          2014
+        ],
+        "availableYears": [
+          2010,
+          2011,
+          2012,
+          2013,
+          2014
         ]
       }
     ]
