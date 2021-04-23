@@ -1,3 +1,7 @@
+## `@svizzle/histogram` v0.4.0 (next)
+
+- utils: add `getBinsTicksExtent`
+
 ## `@svizzle/histogram` v0.3.1
 
 - updated some dev dependencies:

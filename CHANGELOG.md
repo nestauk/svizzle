@@ -1,5 +1,22 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/histogram` v0.4.0
+
+- utils: add `getBinsTicksExtent`
+
+## `@svizzle/legend` v0.2.0
+
+- add the field `showTicksExtentOnly` to `flags` prop
+
+## `@svizzle/site` v0.3.4
+
+- `legend/ColorsBinG`:
+	- document `flags.showTicksExtentOnly`
+	- document the `geometry` prop
+
+
 ## 20210415
 
 ## `@svizzle/time_region_value` v0.1.1

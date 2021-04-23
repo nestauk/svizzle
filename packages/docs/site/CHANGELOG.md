@@ -1,3 +1,9 @@
+## `@svizzle/site` v0.3.4 (next)
+
+- `legend/ColorsBinG`:
+   - document `flags.showTicksExtentOnly`
+   - document the `geometry` prop
+
 ## `@svizzle/site` v0.3.3
 
 - document `ExternalLink`

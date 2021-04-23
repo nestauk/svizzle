@@ -152,7 +152,7 @@
 	$: makeColorBins = $makeColorBinsStore;
 	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
 	$: formatFn = getIndicatorFormat($lookupStore);
-	$: $availableYearsStore = availableYears;
+	$: availableYearsStore.set(availableYears);
 	$: layout = $timelineLayoutStore;
 	$: getIndicatorValue = makeValueAccessor(id);
 	$: setOrder = makeSetOrderWith(getIndicatorValue);
@@ -332,6 +332,7 @@
 					value={'Absolute'}
 					values={['Absolute', 'Ranking']}
 					on:toggled={event => {
+						// eslint-disable-next-line no-unused-vars
 						useOrderScale = event.detail === 'Ranking'
 					}}
 				/>

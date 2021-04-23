@@ -17,13 +17,14 @@
 		uniques,
 	} from 'lamb';
 
-	import {getBinsTicks} from '@svizzle/histogram/src/utils';
+	import {getBinsTicks, getBinsTicksExtent} from '@svizzle/histogram/src/utils';
 
 	const dispatch = createEventDispatcher();
 
 	const defaultFlags = {
 		isInteractive: false,
 		isVertical: false,
+		showTicksExtentOnly: false,
 		showTicks: true,
 		withBackground: false,
 	}
@@ -82,9 +83,12 @@
 	/* layout */
 	$: innerWidth = Math.max(0, width - geometry.left - geometry.right);
 	$: innerHeight = Math.max(0, height - geometry.top - geometry.bottom);
-	$: widgetThickness =
-		geometry.barThickness +
-		flags.showTicks ? theme.fontSize + geometry.textPadding : 0;
+
+	$: widgetThickness = geometry.barThickness + flags.showTicks
+		? flags.isVertical
+			? 0
+			: geometry.textPadding + theme.fontSize
+		: 0;
 	$: origin = {
 		x: geometry.left + (flags.isVertical ? (innerWidth - widgetThickness) / 2 : 0),
 		y: geometry.top + (flags.isVertical ? 0 : (innerHeight - widgetThickness) / 2),
@@ -150,7 +154,10 @@
 
 	/* ticks */
 	$: ticksDistance = geometry.barThickness + geometry.textPadding;
-	$: ticks = getBinsTicks(bins).map(value => ({
+	$: ticksValues = flags.showTicksExtentOnly
+		? getBinsTicksExtent(bins)
+		: getBinsTicks(bins);
+	$: ticks = ticksValues.map(value => ({
 		label: ticksFormatFn(value),
 		x: flags.isVertical ? ticksDistance : scale(value),
 		y: flags.isVertical ? scale(value) : ticksDistance,
@@ -296,121 +303,121 @@
 <svelte:options namespace='svg' />
 
 {#if height && width}
-<g
-	{style}
-	class:interactive={flags.isInteractive}
-	class='ColorBinsG'
->
-	{#if bins.length === 0}
+	<g
+		{style}
+		class:interactive={flags.isInteractive}
+		class='ColorBinsG'
+	>
+		{#if bins.length === 0}
 
-		<text
-			class='message'
-			x={width/2}
-			y={height/2}
-		>{message}</text>
+			<text
+				class='message'
+				x={width/2}
+				y={height/2}
+			>{message}</text>
 
-	{:else}
+		{:else}
 
-		<!-- background -->
-		{#if flags.withBackground}
-			<rect class='bkg' {width} {height} />
-		{/if}
+			<!-- background -->
+			{#if flags.withBackground}
+				<rect class='bkg' {width} {height} />
+			{/if}
 
-		<!-- sensor to dismiss the selection -->
-		{#if flags.isInteractive}
-		<rect
-			{height}
-			{width}
-			class:reset={selectedBins.length > 0}
-			class='bkgSensor'
-			on:click={resetSelection}
-		/>
-		{/if}
-
-		<g transform='translate({origin.x},{origin.y})'>
-
-			<!-- bars -->
-			<g
-				class='bars'
-				on:mouseleave={resetBrush}
-			>
+			<!-- sensor to dismiss the selection -->
+			{#if flags.isInteractive}
 				<rect
-					class='barsSensorBkg'
-					height={binsSize.height}
-					width={binsSize.width}
+					{height}
+					{width}
+					class:reset={selectedBins.length > 0}
+					class='bkgSensor'
+					on:click={resetSelection}
 				/>
+			{/if}
 
-				{#each bars as {
-					barWidth,
-					barHeight,
-					fill,
-					selected,
-					x,
-					y
-				}, index}
+			<g transform='translate({origin.x},{origin.y})'>
+
+				<!-- bars -->
 				<g
-					class='bar'
-					transform='translate({x},{y})'
+					class='bars'
+					on:mouseleave={resetBrush}
 				>
 					<rect
-						{fill}
-						class:selected
-						height={barHeight}
-						width={barWidth}
+						class='barsSensorBkg'
+						height={binsSize.height}
+						width={binsSize.width}
 					/>
-					{#if flags.isInteractive}
-					<rect
-						class='rectsensor'
-						height={barHeight}
-						on:mousedown={onMousedown}
-						on:mouseover={onMouseenter(index)}
-						on:mouseout={onMouseleave(index)}
-						on:mousemove={isMousedown ? onMousemove(index) : null}
-						on:mouseup={onMouseup(index)}
-						width={barWidth}
-					/>
-					{/if}
+
+					{#each bars as {
+						barWidth,
+						barHeight,
+						fill,
+						selected,
+						x,
+						y
+					}, index}
+						<g
+							class='bar'
+							transform='translate({x},{y})'
+						>
+							<rect
+								{fill}
+								class:selected
+								height={barHeight}
+								width={barWidth}
+							/>
+							{#if flags.isInteractive}
+								<rect
+									class='rectsensor'
+									height={barHeight}
+									on:mousedown={onMousedown}
+									on:mouseover={onMouseenter(index)}
+									on:mouseout={onMouseleave(index)}
+									on:mousemove={isMousedown ? onMousemove(index) : null}
+									on:mouseup={onMouseup(index)}
+									width={barWidth}
+								/>
+							{/if}
+						</g>
+					{/each}
 				</g>
-				{/each}
-			</g>
 
-			<!-- ticks -->
-			{#if flags.showTicks}
-			<g
-				class:vertical={flags.isVertical}
-				class='ticks'
-				font-size={theme.fontSize}
-			>
-				{#each ticks as {label, x, y}}
-				<text {x} {y}>{label}</text>
-				{/each}
-			</g>
-			{/if}
+				<!-- ticks -->
+				{#if flags.showTicks}
+					<g
+						class:vertical={flags.isVertical}
+						class='ticks'
+						font-size={theme.fontSize}
+					>
+						{#each ticks as {label, x, y}}
+							<text {x} {y}>{label}</text>
+						{/each}
+					</g>
+				{/if}
 
-			<!-- brush -->
-			{#if isBrushing}
-			<g
-				class='brush'
-			>
-				{#if flags.isVertical}
-				<line
-					y1={brushLine.p1}
-					y2={brushLine.p2}
-				/>
-				{:else}
-				<line
-					x1={brushLine.p1}
-					x2={brushLine.p2}
-					y1={geometry.barThickness}
-					y2={geometry.barThickness}
-				/>
+				<!-- brush -->
+				{#if isBrushing}
+					<g
+						class='brush'
+					>
+						{#if flags.isVertical}
+							<line
+								y1={brushLine.p1}
+								y2={brushLine.p2}
+							/>
+						{:else}
+							<line
+								x1={brushLine.p1}
+								x2={brushLine.p2}
+								y1={geometry.barThickness}
+								y2={geometry.barThickness}
+							/>
+						{/if}
+					</g>
 				{/if}
 			</g>
-			{/if}
-		</g>
 
-	{/if} <!-- if bins -->
-</g>
+		{/if} <!-- if bins -->
+	</g>
 {/if}
 
 <style>

@@ -3,10 +3,11 @@
 */
 
 import * as _ from 'lamb';
-import { extent, pairs } from 'd3-array';
+import {extent, pairs} from 'd3-array';
 import {
 	arrayMaxWith,
 	arrayMinWith,
+	getFirstAndLast,
 	getValues,
 	inclusiveRange,
 	isIterableNotEmpty,
@@ -79,7 +80,7 @@ export const exactAmountBins = ({
 	const integerMax = integerMin + step * amount;
 	const ranges = pairs(inclusiveRange([integerMin, integerMax, step]));
 
-	// TODO svizzle
+	// TODO svizzle/utils
 	const findRangeIndex = _.adapter(
 		_.map(ranges, (range, index) => {
 			const predicate = _.pipe([
@@ -119,18 +120,21 @@ export const exactAmountBins = ({
  * @example
 > areValidBins([])
 false
+
 > areValidBins([
 	{values: [{a: 2}, {a: 6}]},
 	{range: [6, 10], values: [{a: 7}, {a: 8}]},
 	{range: [10, 14], values: [{a: 12}, {a: 14}]}
 ])
 false
+
 > areValidBins([
 	{range: null, values: [{a: 2}, {a: 6}]},
 	{range: [6, 10], values: [{a: 7}, {a: 8}]},
 	{range: [10, 14], values: [{a: 12}, {a: 14}]}
 ])
 false
+
 > areValidBins([
 	{range: [2, 6], values: [{a: 2}, {a: 6}]},
 	{range: [6, 10], values: [{a: 7}, {a: 8}]},
@@ -373,8 +377,33 @@ export const getTrimmedBinsStats = bins => {
 export const getBinsTicks = _.pipe([
 	_.mapWith(_.getKey('range')),
 	_.flatten,
-	_.uniques
+	_.uniques,
+	_.sortWith([])
 ]);
+
+/**
+ * Return the extent of all ticks for the provided bins
+ *
+ * @function
+ * @arg {array} bins
+ * @return {number[]} ticks extent
+ *
+ * @example
+> getBinsTicksExtent([
+	{range: [-8, -3], values: []},
+	{range: [-3, 2], values: []},
+	{range: [2, 7], values: [2, 6, 7]},
+	{range: [7, 12], values: []},
+	{range: [12, 17], values: []},
+	{range: [17, 22], values: [18, 19, 20]},
+	{range: [22, 27], values: [24, 25]},
+	{range: [27, 32], values: []},
+])
+[-8, 32]
+ *
+ * @version 0.4.0
+ */
+export const getBinsTicksExtent = _.pipe([getBinsTicks, getFirstAndLast]);
 
 /**
  * Return the ticks for the provided bins using the non-empty ones

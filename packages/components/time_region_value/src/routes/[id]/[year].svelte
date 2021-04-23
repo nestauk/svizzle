@@ -117,7 +117,7 @@
 	$: legendHeight = height / 3;
 	$: choroplethSafety = {...defaultGeometry, left: legendBarThickness * 2};
 	$: id && year && hideInfoModal();
-	$: $selectedYearStore = Number(year);
+	$: selectedYearStore.set(Number(year));
 	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
 	$: formatFn = getIndicatorFormat($lookupStore);
 	$: getRefFormatFn = makeGetRefFormatOf(id);
@@ -155,7 +155,7 @@
 
 	// $: indicatorData = $lookupStore[id].data;
 	$: yearData = data && data.filter(obj => obj.year === year);
-	$: $availableYearsStore = availableYears;
+	$: availableYearsStore.set(availableYears);
 	$: makeKeyToValue = _.pipe([
 		_.indexBy(getNutsId),
 		_.mapValuesWith(getIndicatorValue)

@@ -102,6 +102,70 @@ export default formatExamples([
 		title: 'ColorBinsG: Basic props',
 	}, {
 		data: [{
+			key: 'default',
+			props: {
+				bins,
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Larger safety area',
+			props: {
+				bins,
+				geometry: {
+					left: 50,
+					top: 150,
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					geometry: {{
+						left: 50,
+						top: 150,
+					}}
+				/>
+			`,
+		}, {
+			key: 'gap, barThickness, textPadding',
+			props: {
+				bins,
+				geometry: {
+					gap: 8,
+					barThickness: 50,
+					textPadding: 15,
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					geometry: {{
+						gap: 8,
+						barThickness: 50,
+						textPadding: 15,
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'Use the `geometry` prop to control safety areas (default: 10 px), bar thickness (default: 25 px), text padding (default: 5 px), gap (default: 2 px).'},
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG-geometry',
+		title: 'ColorBinsG: geometry',
+	}, {
+		data: [{
 			key: 'horizontal',
 			props: {
 				bins,
@@ -140,6 +204,46 @@ export default formatExamples([
 		packageName: 'legend',
 		slug: 'ColorBinsG-orientation',
 		title: 'ColorBinsG: orientation',
+	}, {
+		data: [{
+			key: 'Show all ticks',
+			props: {
+				bins,
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+				/>
+			`,
+		}, {
+			key: 'Show ticks extent only',
+			props: {
+				bins,
+				flags: {
+					showTicksExtentOnly: true
+				}
+			},
+			usage: `
+				<ColorBinsG
+					{bins}
+					{height}
+					{width}
+					flags={{
+						showTicksExtentOnly: true
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'To show just the ticks extent you can use the flag `showTicksExtentOnly`'},
+		],
+		name: 'ColorBinsG',
+		namespace: 'svg',
+		packageName: 'legend',
+		slug: 'ColorBinsG-ticks',
+		title: 'ColorBinsG: ticks',
 	}, {
 		data: [{
 			key: null,

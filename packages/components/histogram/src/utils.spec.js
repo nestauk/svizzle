@@ -12,9 +12,10 @@ import {
 	getBinsMax,
 	getBinsMin,
 	getBinsTicks,
-	isNonEmptyBin,
+	getBinsTicksExtent,
 	getNonEmptyBinsTicks,
-	getTrimmedBinsStats
+	getTrimmedBinsStats,
+	isNonEmptyBin,
 } from './utils';
 
 describe('histogram/utils', function() {
@@ -212,6 +213,24 @@ describe('histogram/utils', function() {
 			];
 			const actual = getBinsTicks(bins);
 			const expected = [-8, -3, 2, 7, 12, 17, 22, 27, 32];
+
+			assert.deepStrictEqual(actual, expected);
+		});
+	});
+	describe('getBinsTicksExtent', function() {
+		it('should return the extent of all ticks for the provided bins', function() {
+			const bins = [
+				{range: [-8, -3], values: []},
+				{range: [-3, 2], values: []},
+				{range: [2, 7], values: [2, 6, 7]},
+				{range: [7, 12], values: []},
+				{range: [12, 17], values: []},
+				{range: [17, 22], values: [18, 19, 20]},
+				{range: [22, 27], values: [24, 25]},
+				{range: [27, 32], values: []},
+			];
+			const actual = getBinsTicksExtent(bins);
+			const expected = [-8, 32];
 
 			assert.deepStrictEqual(actual, expected);
 		});
