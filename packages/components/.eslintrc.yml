@@ -4,12 +4,12 @@ overrides:
       - '**/*.svelte'
     processor: svelte3/svelte3
     rules:
-      brace-style: 'off'
+      brace-style: off
   -
     files:
       - '**/*.spec.js'
     rules:
-      no-invalid-this: 'off'
-      no-new: 'off'
+      no-invalid-this: off
+      no-new: off
 plugins:
   - svelte3

@@ -32,7 +32,7 @@
 		"@svizzle/file": "^0.10.0",
 		"chance": "^1.1.7",
 		"d3-array": "^2.4.0",
-		"eslint": "^6.8.0",
+		"eslint": "^7.24.0",
 		"eslint-plugin-svelte3": "^2.7.3",
 		"esm": "^3.2.25",
 		"npm-run-all": "^4.1.5",

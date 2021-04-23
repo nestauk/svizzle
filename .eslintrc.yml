@@ -7,9 +7,11 @@ extends: 'eslint:recommended'
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
+parser: '@babel/eslint-parser'
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
+  requireConfigFile: false
 rules:
   accessor-pairs: error
   array-bracket-newline: off
@@ -183,6 +185,7 @@ rules:
   no-underscore-dangle: off
   no-unmodified-loop-condition: error
   no-unneeded-ternary: error
+  no-unsafe-optional-chaining: off
   no-unused-expressions:
     - error
     - allowShortCircuit: true
