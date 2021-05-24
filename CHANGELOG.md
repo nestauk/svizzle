@@ -60,9 +60,17 @@
 
 - updated some dev dependencies
 
-## `@svizzle/utils` v0.13.1 (next)
+## `@svizzle/utils` v0.14.0 (next)
 
 - updated some dev dependencies
+
+### Any -> Undefined
+
+- added `noop`
+
+### Array -> (Any-Any)
+
+- added `truthynessTo`
 
 
 ## 20210415
