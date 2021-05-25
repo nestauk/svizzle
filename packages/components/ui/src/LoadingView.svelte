@@ -1,6 +1,6 @@
 <script>
-	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
-	import Loader from '@svizzle/ui/src/icons/feather/Loader.svelte';
+	import Icon from './icons/Icon.svelte';
+	import Loader from './icons/feather/Loader.svelte';
 
 	export let fill = null;
 	export let glyph = Loader;

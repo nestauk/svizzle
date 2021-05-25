@@ -31,6 +31,8 @@ const input = {
 	Icon: 'src/icons/Icon.svelte',
 	index: 'src/index.js',
 	LinkButton: 'src/LinkButton.svelte',
+	LoadingView: 'src/LoadingView.svelte',
+	MessageView: 'src/MessageView.svelte',
 	ScreenGauge: 'src/gauges/screen/ScreenGauge.svelte',
 	Switch: 'src/Switch.svelte',
 };
