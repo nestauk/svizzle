@@ -56,8 +56,10 @@
 
 - updated some dev dependencies
 
-## `@svizzle/ui` v0.2.1 (next)
+## `@svizzle/ui` v0.3.0 (next)
 
+- add `src/LoadingView.svelte`
+- add `src/MessageView.svelte`
 - updated some dev dependencies
 
 ## `@svizzle/utils` v0.14.0 (next)

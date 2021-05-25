@@ -46,6 +46,38 @@ As a commodity, icons from https://github.com/feathericons/feather/tree/master/i
 
 Note that the `makeFeatherIcons` npm script assumes the `feather` directory in the root of the Svizzle repository because Lerna is set up to hoist packages in the root `node_modules` dir.
 
+## LoadingView
+
+An empty view with a rotating icon at its center, with the same props of `Icon` so that you can control the displayed icon:
+
+```
+<LoadingView
+	{glyph}
+	{size}
+	{stroke}
+	{strokeWidth}
+/>
+```
+
+## MessageView
+
+An empty view with a text at its center.
+
+Props:
+- `backgroundColor` (string, default: 'white')
+- `color` (string, default: 'black')
+- `fontSize` (string, default: '14px')
+- `text` (string, default: 'Please provide a message')
+
+```
+<MessageView
+	{backgroundColor}
+	{color}
+	{fontSize}
+	{text}
+/>
+```
+
 ## Switch
 
 A simple toggle between 2 values.
