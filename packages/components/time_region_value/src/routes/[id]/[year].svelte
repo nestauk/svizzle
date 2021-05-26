@@ -44,28 +44,27 @@
 		makeColorBinsStore,
 		makeColorScaleStore,
 	} from 'stores/colorScale';
-	import {isSmallScreen, screenClasses} from 'stores/layout';
+	import {_isSmallScreen, _screenClasses} from 'stores/layout';
 	import {
-		doFilterRegionsStore,
-		geoModalStore,
+		_doFilterRegions,
+		_geoModal,
+		_infoModal,
 		hideGeoModal,
 		hideInfoModal,
-		infoModalStore,
 		toggleGeoModal,
 		toggleInfoModal,
 	} from 'stores/modals';
 	import {
+		_viewsClasses,
 		setRoute,
 		showView,
-		viewsClasses,
 	} from 'stores/navigation';
 	import {
-		noSelectedRegions,
-		nutsSelectionStore,
-		preselectedNUTS2IdsStore,
-		selectedNUT2IdsStore,
+		_preselectedNUTS2Ids,
+		_selectedNUT2Ids,
+		_someUnselectedRegions,
 	} from 'stores/regionSelection';
-	import {availableYearsStore, selectedYearStore} from 'stores/selection';
+	import {_availableYears, _selectedYear} from 'stores/selection';
 
 	/* utils  */
 
@@ -98,9 +97,9 @@
 	/* props */
 
 	// rest
+	export let _lookup;
 	export let data;
 	export let id;
-	export let lookupStore;
 	export let types;
 	export let year;
 
@@ -122,11 +121,11 @@
 	/* reactive vars */
 
 	// navigation
-	$: $isSmallScreen && hideGeoModal();
-	$: $isSmallScreen && hideInfoModal();
+	$: $_isSmallScreen && hideGeoModal();
+	$: $_isSmallScreen && hideInfoModal();
 	$: id && showView('map');
 	$: id && year && hideInfoModal();
-	$: selectedYearStore.set(Number(year));
+	$: _selectedYear.set(Number(year));
 	$: ({
 		api_doc_url,
 		api_type,
@@ -147,12 +146,12 @@
 		url,
 		warning,
 		year_extent,
-	} = $lookupStore[id] || {});
-	// can't as `lookupStore` could be a derived
-	// $: data && lookupStore.update(_.setPath(`${id}.data`, data));
+	} = $_lookup[id] || {});
+	// can't as `_lookup` could be a derived
+	// $: data && _lookup.update(_.setPath(`${id}.data`, data));
 
 	// update stores
-	$: availableYearsStore.set(availableYears);
+	$: _availableYears.set(availableYears);
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
@@ -162,9 +161,9 @@
 
 	// utils
 	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
-	$: formatFn = getIndicatorFormat($lookupStore);
+	$: formatFn = getIndicatorFormat($_lookup);
 	$: getRefFormatFn = makeGetRefFormatOf(id);
-	$: refFormatFn = getRefFormatFn($lookupStore);
+	$: refFormatFn = getRefFormatFn($_lookup);
 	$: getIndicatorValue = _.getKey(id);
 	$: makeKeyToValue = _.pipe([
 		_.indexBy(getNutsId),
@@ -181,7 +180,7 @@
 
 	// layout
 	$: legendHeight = mapHeight / 3;
-	$: choroplethSafety = $isSmallScreen
+	$: choroplethSafety = $_isSmallScreen
 		? defaultGeometry
 		: {...defaultGeometry, left: legendBarThickness * 2};
 	$: noData = filteredData.length === 0;
@@ -190,16 +189,16 @@
 	$: showMap = mapHeight && mapWidth && topojson;
 
 	// selection
-	// $: indicatorData = $lookupStore[id].data; // FIXME not guaranteed
+	// $: indicatorData = $_lookup[id].data; // FIXME not guaranteed
 	$: yearData = data && data.filter(obj => obj.year === year);
 	$: items = yearData && makeItems(yearData);
 	$: filteredItems = _.filter(items, ({key}) =>
-		_.isIn($selectedNUT2IdsStore, key) || _.isIn($preselectedNUTS2IdsStore, key)
+		_.isIn($_selectedNUT2Ids, key) || _.isIn($_preselectedNUTS2Ids, key)
 	);
-	$: filteredData = $doFilterRegionsStore
+	$: filteredData = $_doFilterRegions
 		? _.filter(yearData, ({nuts_id}) =>
-			$selectedNUT2IdsStore.includes(nuts_id) ||
-			$preselectedNUTS2IdsStore.includes(nuts_id)
+			$_selectedNUT2Ids.includes(nuts_id) ||
+			$_preselectedNUTS2Ids.includes(nuts_id)
 		)
 		: yearData;
 
@@ -257,10 +256,10 @@
 		filteredGeojson.features.length &&
 		projectionFn()
 		.fitSize([choroplethInnerWidth, choroplethInnerHeight], filteredGeojson);
-	$: projection = $doFilterRegionsStore ? filterProjection : baseProjection;
+	$: projection = $_doFilterRegions ? filterProjection : baseProjection;
 
 	// focus
-	$: selectedKeys = $preselectedNUTS2IdsStore.concat($selectedNUT2IdsStore)
+	$: selectedKeys = $_preselectedNUTS2Ids.concat($_selectedNUT2Ids)
 	$: focusedKey = $tooltip.isVisible ? $tooltip.regionId : undefined;
 
 	// cities
@@ -309,7 +308,7 @@
 	}
 	const onEnteredRegion = ({detail: regionId}) => {
 		const hasValue = _.has(keyToValue, regionId);
-		const shouldShowValue = $doFilterRegionsStore
+		const shouldShowValue = $_doFilterRegions
 			? _.isIn(selectedKeys, regionId)
 			: true;
 
@@ -352,13 +351,13 @@
 		currentSchemeIndexStore.set(detail === 'Red-Blue' ? 0 : 1)
 	};
 	const toggledFiltering = ({detail}) => {
-		$doFilterRegionsStore = detail === 'Filter'
+		$_doFilterRegions = detail === 'Filter'
 	};
 </script>
 
 <div
 	{style}
-	class='time_region_value_IdYear {$screenClasses}'
+	class='time_region_value_IdYear {$_screenClasses}'
 >
 	<Header
 		{subtitle}
@@ -367,10 +366,10 @@
 	/>
 
 	<div
-		class='viewport {$viewsClasses}'
+		class='viewport {$_viewsClasses}'
 		class:noData
 	>
-		{#if $isSmallScreen}
+		{#if $_isSmallScreen}
 
 			<!-- small -->
 
@@ -423,7 +422,7 @@
 										height={mapHeight}
 										isInteractive={true}
 										key='NUTS_ID'
-										keyToColor={$doFilterRegionsStore
+										keyToColor={$_doFilterRegions
 											? keyToColorFiltered
 											: keyToColorAll
 										}
@@ -482,7 +481,7 @@
 							{keyToLabel}
 							{selectedKeys}
 							isInteractive={true}
-							items={$doFilterRegionsStore ? filteredItems : items}
+							items={$_doFilterRegions ? filteredItems : items}
 							keyToColor={keyToColorAll}
 							on:entered={onEnteredBar}
 							on:exited={onExitedBar}
@@ -528,7 +527,7 @@
 			<div class='view settings'>
 				<SettingsView
 					flags={{
-						doFilter: $doFilterRegionsStore,
+						doFilter: $_doFilterRegions,
 						showRankingControl: false,
 					}}
 					handlers={{
@@ -549,10 +548,10 @@
 						values: ['Red-Blue', 'Green-Blue']
 					}}
 					flags={{
-						noSelectedRegions: $noSelectedRegions,
-						doFilter: $doFilterRegionsStore,
-						isGeoModalVisible: $geoModalStore.isVisible,
-						showRankingControl: false
+						doFilter: $_doFilterRegions,
+						isGeoModalVisible: $_geoModal.isVisible,
+						showRankingControl: false,
+						someUnselectedRegions: $_someUnselectedRegions,
 					}}
 					handlers={{
 						toggledColorScheme,
@@ -594,7 +593,7 @@
 									height={mapHeight}
 									isInteractive={true}
 									key='NUTS_ID'
-									keyToColor={$doFilterRegionsStore
+									keyToColor={$_doFilterRegions
 										? keyToColorFiltered
 										: keyToColorAll
 									}
@@ -689,7 +688,7 @@
 							{keyToLabel}
 							{selectedKeys}
 							isInteractive={true}
-							items={$doFilterRegionsStore ? filteredItems : items}
+							items={$_doFilterRegions ? filteredItems : items}
 							keyToColor={keyToColorAll}
 							on:entered={onEnteredBar}
 							on:exited={onExitedBar}
@@ -715,12 +714,9 @@
 
 			<!-- modals -->
 
-			{#if $geoModalStore.isVisible}
-				<GeoFilterModal
-					{nutsSelectionStore}
-					on:click={toggleGeoModal}
-				/>
-			{:else if $infoModalStore.isVisible}
+			{#if $_geoModal.isVisible}
+				<GeoFilterModal on:click={toggleGeoModal} />
+			{:else if $_infoModal.isVisible}
 				<InfoModal
 					{api_doc_url}
 					{api_type}

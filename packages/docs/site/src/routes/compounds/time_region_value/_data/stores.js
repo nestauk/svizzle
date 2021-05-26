@@ -1,5 +1,5 @@
 // import * as _ from 'lamb';
-import {derived, get, readable, writable} from 'svelte/store';
+import {derived, get, readable} from 'svelte/store';
 import {inclusiveRange} from '@svizzle/utils';
 import {
 	getYearExtent,
@@ -11,22 +11,8 @@ import groups from './indicatorsGroups.json';
 
 /* data */
 
-export const groupsStore = readable(groups);
-export const lookupStore = derived(groupsStore, makeIndicatorsLookup);
-export const lookup = get(lookupStore);
-export const yearExtentStore = derived(groupsStore, getYearExtent);
-export const yearRangeStore = derived(yearExtentStore, inclusiveRange);
-
-/* selection */
-
-export const selectedYearStore = writable();
-export const resetSelectedYear = () => {
-	selectedYearStore.set();
-}
-
-export const availableYearsStore = writable([]);
-
-export const resetSelection = () => {
-	availableYearsStore.set([]);
-	resetSelectedYear();
-};
+export const _groups = readable(groups);
+export const _lookup = derived(_groups, makeIndicatorsLookup);
+export const lookup = get(_lookup);
+export const _yearExtent = derived(_groups, getYearExtent);
+export const _yearRange = derived(_yearExtent, inclusiveRange);

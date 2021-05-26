@@ -16,7 +16,7 @@
 	import IdYear from '@svizzle/time_region_value/src/routes/[id]/[year].svelte';
 	import types from '@svizzle/time_region_value/src/node_modules/data/types.yaml'; // TODO use a json file
 
-	import {lookupStore} from '../_data/stores';
+	import {_lookup} from '../_data/stores';
 
 	export let data;
 	export let id;
@@ -24,9 +24,9 @@
 </script>
 
 <IdYear
+	{_lookup}
 	{data}
 	{id}
-	{lookupStore}
 	{types}
 	{year}
 />

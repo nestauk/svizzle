@@ -35,31 +35,30 @@
 		makeColorScaleStore,
 	} from 'stores/colorScale';
 	import {
-		isSmallScreen,
-		screenClasses,
+		_isSmallScreen,
+		_screenClasses,
 	} from 'stores/layout';
 	import {
-		doFilterRegionsStore,
-		geoModalStore,
+		_doFilterRegions,
+		_geoModal,
+		_infoModal,
 		hideGeoModal,
 		hideInfoModal,
-		infoModalStore,
 		toggleGeoModal,
 		toggleInfoModal,
 	} from 'stores/modals';
 	import {
+		_viewsClasses,
 		setRoute,
 		showView,
-		viewsClasses,
 	} from 'stores/navigation';
 	import {
-		noSelectedRegions,
-		nutsSelectionStore,
-		preselectedNUTS2IdsStore,
-		selectedNUT2IdsStore,
+		_preselectedNUTS2Ids,
+		_selectedNUT2Ids,
+		_someUnselectedRegions,
 	} from 'stores/regionSelection';
 	import {
-		availableYearsStore,
+		_availableYears,
 		resetSelectedYear
 	} from 'stores/selection';
 
@@ -84,9 +83,9 @@
 
 	/* props */
 
+	export let _lookup;
 	export let data;
 	export let id;
-	export let lookupStore;
 	export let theme = sharedTheme;
 	export let types;
 
@@ -108,8 +107,8 @@
 	/* reactive vars */
 
 	// navigation
-	$: $isSmallScreen && hideGeoModal();
-	$: $isSmallScreen && hideInfoModal();
+	$: $_isSmallScreen && hideGeoModal();
+	$: $_isSmallScreen && hideInfoModal();
 	$: id && showView('trends');
 	$: id && resetSelectedYear();
 	$: ({
@@ -132,10 +131,10 @@
 		url,
 		warning,
 		year_extent,
-	} = $lookupStore[id] || {});
+	} = $_lookup[id] || {});
 
 	// update stores
-	$: availableYearsStore.set(availableYears);
+	$: _availableYears.set(availableYears);
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: theme = theme ? {...sharedTheme, ...theme} : sharedTheme;
@@ -145,16 +144,16 @@
 
 	// utils
 	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
-	$: formatFn = getIndicatorFormat($lookupStore);
+	$: formatFn = getIndicatorFormat($_lookup);
 	$: getIndicatorValue = _.getKey(id);
 	$: setOrder = makeSetOrderWith(getIndicatorValue);
 
 	// selection
-	$: selectedRegions = makeKeyedTrue($selectedNUT2IdsStore);
-	$: preselectedRegions = makeKeyedTrue($preselectedNUTS2IdsStore);
+	$: selectedRegions = makeKeyedTrue($_selectedNUT2Ids);
+	$: preselectedRegions = makeKeyedTrue($_preselectedNUTS2Ids);
 	$: valueExtext = extent(filteredData, getIndicatorValue);
 	$: rankedData = setOrder(data);
-	$: filteredData = $doFilterRegionsStore
+	$: filteredData = $_doFilterRegions
 		? _.filter(rankedData, ({nuts_id}) =>
 			_.has(selectedRegions, nuts_id) ||
 			_.has(preselectedRegions, nuts_id)
@@ -185,7 +184,7 @@
 		currentSchemeIndexStore.set(detail === 'Red-Blue' ? 0 : 1)
 	};
 	const toggledFiltering = ({detail}) => {
-		$doFilterRegionsStore = detail === 'Filter'
+		$_doFilterRegions = detail === 'Filter'
 	};
 	const toggledRanking = ({detail}) => {
 		useRankScale = detail === 'Ranking'
@@ -196,7 +195,7 @@
 
 <div
 	{style}
-	class='time_region_value_IdIndex {$screenClasses}'
+	class='time_region_value_IdIndex {$_screenClasses}'
 >
 	<Header
 		{subtitle}
@@ -204,8 +203,8 @@
 		on:click={toggleInfoModal}
 	/>
 
-	<div class='viewport {$viewsClasses}'>
-		{#if $isSmallScreen}
+	<div class='viewport {$_viewsClasses}'>
+		{#if $_isSmallScreen}
 
 			<!-- small -->
 
@@ -265,7 +264,7 @@
 			<div class='view settings'>
 				<SettingsView
 					flags={{
-						doFilter: $doFilterRegionsStore,
+						doFilter: $_doFilterRegions,
 						showRankingControl: true,
 					}}
 					handlers={{
@@ -287,10 +286,10 @@
 						values: ['Red-Blue', 'Green-Blue']
 					}}
 					flags={{
-						noSelectedRegions: $noSelectedRegions,
-						doFilter: $doFilterRegionsStore,
-						isGeoModalVisible: $geoModalStore.isVisible,
-						showRankingControl: true
+						doFilter: $_doFilterRegions,
+						isGeoModalVisible: $_geoModal.isVisible,
+						showRankingControl: true,
+						someUnselectedRegions: $_someUnselectedRegions,
 					}}
 					handlers={{
 						toggledColorScheme,
@@ -353,12 +352,9 @@
 
 			<!-- modals -->
 
-			{#if $geoModalStore.isVisible}
-				<GeoFilterModal
-					{nutsSelectionStore}
-					on:click={toggleGeoModal}
-				/>
-			{:else if $infoModalStore.isVisible}
+			{#if $_geoModal.isVisible}
+				<GeoFilterModal on:click={toggleGeoModal} />
+			{:else if $_infoModal.isVisible}
 				<InfoModal
 					{api_doc_url}
 					{api_type}

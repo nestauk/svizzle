@@ -3,7 +3,7 @@
 
 	import {goto as goTo} from '@sapper/app';
 
-	import {groupsStore} from './_data/stores';
+	import {_groups} from './_data/stores';
 	import {hrefBase} from './_navigation';
 
 	export let segment;
@@ -20,10 +20,10 @@
 	</nav>
 	<main>
 		<Layout
+			{_groups}
 			{goTo}
-			{groupsStore}
-			{segment}
 			{hrefBase}
+			{segment}
 		>
 			<slot></slot>
 		</Layout>

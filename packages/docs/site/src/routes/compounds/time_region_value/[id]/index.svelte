@@ -16,15 +16,15 @@
 	import IdIndex from '@svizzle/time_region_value/src/routes/[id]/index.svelte';
 	import types from '@svizzle/time_region_value/src/node_modules/data/types.yaml'; // TODO use a json file
 
-	import {lookupStore} from '../_data/stores';
+	import {_lookup} from '../_data/stores';
 
 	export let data;
 	export let id;
 </script>
 
 <IdIndex
+	{_lookup}
 	{data}
 	{id}
-	{lookupStore}
 	{types}
 />

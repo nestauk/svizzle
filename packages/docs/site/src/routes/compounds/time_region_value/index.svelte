@@ -3,13 +3,13 @@
 
 	import {goto as goTo} from '@sapper/app';
 
-	import {groupsStore, yearRangeStore} from './_data/stores';
+	import {_groups, _yearRange} from './_data/stores';
 	import {hrefBase} from './_navigation';
 </script>
 
 <Index
+	{_groups}
+	{_yearRange}
 	{goTo}
-	{groupsStore}
-	{yearRangeStore}
 	{hrefBase}
 />

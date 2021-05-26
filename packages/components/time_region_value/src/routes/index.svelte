@@ -7,7 +7,7 @@
 
 	/* local stores */
 
-	import {isSmallScreen, timelineLayoutStore} from 'stores/layout';
+	import {_isSmallScreen, _timelineLayout} from 'stores/layout';
 	import {setRoute, showView} from 'stores/navigation';
 	import {resetSelection} from 'stores/selection';
 	import {shortenYear} from 'utils/format';
@@ -23,9 +23,9 @@
 	export let isSapperExported = null; // pass `process.env.SAPPER_EXPORT`
 
 	// rest
-	export let groupsStore;
+	export let _groups;
+	export let _yearRange;
 	export let hrefBase = '';
-	export let yearRangeStore;
 	export let theme = defaultTheme;
 
 	/* init */
@@ -47,9 +47,9 @@
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 
 	$: style = makeStyleVars(theme);
-	$: layout = $timelineLayoutStore;
+	$: layout = $_timelineLayout;
 	$: vStep = 2 * layout.radius + 3 * gap + layout.fontSize;
-	$: shortenYearFn = $isSmallScreen ? shortenYear : _.identity;
+	$: shortenYearFn = $_isSmallScreen ? shortenYear : _.identity;
 </script>
 
 <div
@@ -66,7 +66,7 @@
 		bind:clientWidth={width}
 	>
 		<ul>
-			{#each $groupsStore as {description, indicators, label}}
+			{#each $_groups as {description, indicators, label}}
 				<div class='group'>
 					<h2>{label}</h2>
 					<p>{description}</p>
@@ -78,7 +78,7 @@
 						>
 							<!-- axis -->
 
-							{#each $yearRangeStore as year}
+							{#each $_yearRange as year}
 								<g
 									class='xref'
 									transform='translate({layout.scaleX(year)},0)'

@@ -10,22 +10,22 @@
 	import sharedTheme from 'theme';
 	import {setGroupsStore} from 'stores/data';
 	import {
-		isSmallScreen,
-		screenClasses,
-		timelineHeightStore,
-		timelineWidthStore,
+		_isSmallScreen,
+		_screenClasses,
+		_timelineHeight,
+		_timelineWidth,
 	} from 'stores/layout';
 	import {
-		isTimelineHidden,
-		routes,
+		_isTimelineHidden,
+		_routes,
+		_views,
+		_viewsClasses,
 		showView,
-		views,
-		viewsClasses,
 	} from 'stores/navigation';
-	import {availableYearsStore, selectedYearStore} from 'stores/selection';
+	import {_availableYears, _selectedYear} from 'stores/selection';
 
+	export let _groups = null;
 	export let goTo = null;
-	export let groupsStore = null;
 	export let hrefBase = '';
 	export let segment = null;
 	export let theme = sharedTheme;
@@ -34,63 +34,63 @@
 	$: theme = theme ? {...sharedTheme, ...theme} : sharedTheme;
 
 	$: style = makeStyleVars(theme);
-	$: groupsStore && setGroupsStore($groupsStore);
-	$: routeId = $isSmallScreen && $routes.Id;
-	$: routeIdYear = $isSmallScreen && $routes.IdYear;
+	$: _groups && setGroupsStore($_groups);
+	$: routeId = $_isSmallScreen && $_routes.Id;
+	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
 </script>
 
 <ScreenGauge/>
 
-{#if $screenClasses}
+{#if $_screenClasses}
 	<section
 		{style}
-		class='time_region_value_layout {$screenClasses}'
+		class='time_region_value_layout {$_screenClasses}'
 	>
 		<div
 			class:routeId
 			class:routeIdYear
-			class='viewport {$viewsClasses}'
+			class='viewport {$_viewsClasses}'
 		>
 			<div class='sidebar'>
 				<Sidebar
-					{groupsStore}
+					{_groups}
 					{hrefBase}
-					theme={sharedTheme}
 					currentId={segment}
+					theme={sharedTheme}
 				/>
 			</div>
 			<div
 				class='content'
-				class:isTimelineHidden={$isTimelineHidden}
-				bind:clientWidth={$timelineWidthStore}
+				class:isTimelineHidden={$_isTimelineHidden}
+				bind:clientWidth={$_timelineWidth}
 			>
 				<section>
 					<slot></slot>
 				</section>
-				{#if !$isTimelineHidden}
+				{#if !$_isTimelineHidden}
 					<nav
-						bind:clientHeight={$timelineHeightStore}
+						bind:clientHeight={$_timelineHeight}
 					>
 						<Timeline
 							{goTo}
 							{hrefBase}
-							availableYears={$availableYearsStore}
-							height={$timelineHeightStore}
+							availableYears={$_availableYears}
+							height={$_timelineHeight}
 							indicatorId={segment}
-							selectedYear={$selectedYearStore}
-							showLess={$isSmallScreen}
-							width={$timelineWidthStore}
+							selectedYear={$_selectedYear}
+							showLess={$_isSmallScreen}
+							width={$_timelineWidth}
 						/>
 					</nav>
 				{/if}
 			</div>
 		</div>
 
-		{#if $isSmallScreen}
+		{#if $_isSmallScreen}
 			<ViewSelector
-				{routes}
+				{_routes}
+				{_views}
 				{showView}
-				{views}
 				theme={_.pickIn(sharedTheme, ['dimBoxShadowY', 'colorBoxShadow'])}
 			/>
 		{/if}
