@@ -24,10 +24,12 @@ import {parse as parseSVG} from 'svg-parser';
 // Lerna installs all deps in `<root of the repo>/node_modules/`
 const FEATHER_ICONS_DIR =
 	path.resolve(__dirname, '../../../../../node_modules/feather-icons/dist/icons');
-const ROLLUP_INPUT_PATH = path.resolve(__dirname, '../rollup/rollupIconsInput.json');
+const ROLLUP_INPUT_PATH = path.resolve(__dirname, '../../rollup/rollupIconsInputFeather.json');
 const FEATHER_GLYPHS_DIR = path.resolve(__dirname, '../icons/feather');
 
 const resolveToFeatherDir = resolveToDir(FEATHER_GLYPHS_DIR);
+
+// utils
 const isSvgFile = filepath => path.parse(filepath).ext.endsWith('.svg');
 const isSvgTag = _.pipe([_.getKey('tagName'), _.is('svg')]);
 const stringifySvgTags = str => toHtml(str, {space: 'svg'});

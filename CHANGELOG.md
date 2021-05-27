@@ -84,6 +84,7 @@
 - add `src/LoadingView.svelte`
 - add `src/MessageView.svelte`
 - `/src/icons/Icon.svelte`: add the `glyphSize` prop so that we can pass glyphs with sizes different from 24x24
+- add `src/icons/svizzle/A11yPerson.svelte`
 - updated some dev dependencies
 
 ## `@svizzle/utils` v0.14.0 (next)
