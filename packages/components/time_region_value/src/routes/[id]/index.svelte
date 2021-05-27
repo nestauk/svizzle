@@ -6,6 +6,7 @@
 	import {makeStyleVars} from '@svizzle/dom';
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
 	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
+	import MessageView from '@svizzle/ui/src/MessageView.svelte';
 	import {
 		makeKeyed,
 		setIndexAsKey,
@@ -64,7 +65,8 @@
 
 	/* local utils */
 
-	import sharedTheme from 'theme';
+	import config from 'config';
+	import defaultTheme from 'theme';
 	import {makeGetIndicatorFormatOf} from 'utils/format';
 
 	/* consts */
@@ -86,7 +88,7 @@
 	export let _lookup;
 	export let data;
 	export let id;
-	export let theme = sharedTheme;
+	export let theme = defaultTheme;
 	export let types;
 
 	/* init */
@@ -137,7 +139,7 @@
 	$: _availableYears.set(availableYears);
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: theme = theme ? {...sharedTheme, ...theme} : sharedTheme;
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 
 	// style
 	$: style = makeStyleVars(theme);
@@ -167,6 +169,7 @@
 		valueExtext,
 		year_extent,
 	}
+	$: noData = filteredData.length === 0;
 
 	// layout
 	$: mediumLegendHeight = mediumTrendsHeight / 3;
@@ -203,44 +206,59 @@
 		on:click={toggleInfoModal}
 	/>
 
-	<div class='viewport {$_viewsClasses}'>
+	<div
+		class:noData
+		class='viewport {$_viewsClasses}'
+	>
 		{#if $_isSmallScreen}
 
 			<!-- small -->
 
-			<div class='view trends'>
-				<div class='topbox'>
-					<ColorBinsDiv
-						bins={colorBins}
-						geometry={{
-							barThickness: 15,
-							left: 30,
-							right: 30,
-						}}
-						flags={{
-							withBackground: true,
-							showTicksExtentOnly: true,
-						}}
-						theme={{
-							backgroundColor: theme.colorWhite,
-							backgroundOpacity: 0.5,
-						}}
-						ticksFormatFn={formatFn}
-					/>
-				</div>
-				<div class='content'>
-					<TrendsDiv
-						{colorScale}
-						{formatFn}
-						{getIndicatorValue}
-						{schema}
-						{theme}
-						{types}
-						{useRankScale}
-						data={trendsData}
-					/>
-				</div>
+			<!-- trends -->
+
+			<div
+				class:noData
+				class='view trends'
+			>
+				{#if noData}
+					<MessageView text={config.noDataMessage} />
+				{:else}
+					<div class='topbox'>
+						<ColorBinsDiv
+							bins={colorBins}
+							geometry={{
+								barThickness: 15,
+								left: 30,
+								right: 30,
+							}}
+							flags={{
+								withBackground: true,
+								showTicksExtentOnly: true,
+							}}
+							theme={{
+								backgroundColor: theme.colorWhite,
+								backgroundOpacity: 0.5,
+							}}
+							ticksFormatFn={formatFn}
+						/>
+					</div>
+					<div class='content'>
+						<TrendsDiv
+							{colorScale}
+							{formatFn}
+							{getIndicatorValue}
+							{schema}
+							{theme}
+							{types}
+							{useRankScale}
+							data={trendsData}
+						/>
+					</div>
+				{/if}
 			</div>
+
+			<!-- info -->
+
 			<div class='view info'>
 				<InfoView
 					{api_doc_url}
@@ -261,6 +279,9 @@
 					{year_extent}
 				/>
 			</div>
+
+			<!-- settings -->
+
 			<div class='view settings'>
 				<SettingsView
 					flags={{
@@ -278,6 +299,8 @@
 		{:else}
 
 			<!-- medium + -->
+
+			<!-- topbox -->
 
 			<div class='topbox'>
 				<SettingsRow
@@ -301,13 +324,18 @@
 				/>
 			</div>
 
+			<!-- content -->
+
 			<div
 				{style}
 				bind:clientHeight={mediumTrendsHeight}
 				bind:clientWidth={mediumTrendsWidth}
+				class:noData
 				class='content'
 			>
-				{#if trendsData && mediumTrendsWidth && mediumTrendsHeight}
+				{#if noData}
+					<MessageView text='No data' />
+				{:else if trendsData && mediumTrendsWidth && mediumTrendsHeight}
 					<svg
 						height={mediumTrendsHeight}
 						width={mediumTrendsWidth}
@@ -421,6 +449,9 @@
 		transform: translate(-66.666%, 0px);
 	}
 
+	.view.noData {
+		display: block !important;
+	}
 	.view {
 		height: 100%;
 		width: 100%;
@@ -462,5 +493,8 @@
 	}
 	.medium .viewport .content {
 		grid-area: content;
+	}
+	.medium .viewport .content.noData {
+		display: block;
 	}
 </style>

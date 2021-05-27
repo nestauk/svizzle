@@ -66,15 +66,15 @@
 	} from 'stores/regionSelection';
 	import {_availableYears, _selectedYear} from 'stores/selection';
 
-	/* utils  */
+	/* local utils  */
 
+	import config from 'config';
+	import defaultTheme from 'theme';
 	import {getNutsId} from 'utils/domain';
 	import {
 		makeGetIndicatorFormatOf,
 		makeGetRefFormatOf,
 	} from 'utils/format';
-	import defaultTheme from 'theme';
-	import config from 'config';
 
 	/* data */
 
@@ -100,6 +100,7 @@
 	export let _lookup;
 	export let data;
 	export let id;
+	export let theme = defaultTheme;
 	export let types;
 	export let year;
 
@@ -183,7 +184,6 @@
 	$: choroplethSafety = $_isSmallScreen
 		? defaultGeometry
 		: {...defaultGeometry, left: legendBarThickness * 2};
-	$: noData = filteredData.length === 0;
 
 	// flags
 	$: showMap = mapHeight && mapWidth && topojson;
@@ -201,6 +201,7 @@
 			$_preselectedNUTS2Ids.includes(nuts_id)
 		)
 		: yearData;
+	$: noData = filteredData.length === 0;
 
 	// colors
 	$: makeColorScale = $makeColorScaleStore;
@@ -366,8 +367,8 @@
 	/>
 
 	<div
-		class='viewport {$_viewsClasses}'
 		class:noData
+		class='viewport {$_viewsClasses}'
 	>
 		{#if $_isSmallScreen}
 
@@ -564,10 +565,13 @@
 
 			<div
 				{style}
-				class='content'
 				class:noData
+				class='content'
 			>
-				{#if filteredData.length}
+				{#if noData}
+					<MessageView text='No data' />
+				{:else}
+
 					<!-- map -->
 
 					<div
@@ -703,10 +707,6 @@
 							title={barchartTitle}
 						/>
 					</div>
-
-				{:else}
-
-					<MessageView text='No data' />
 
 				{/if} <!-- filteredData.length  -->
 

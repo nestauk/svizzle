@@ -1,5 +1,27 @@
-## `@svizzle/time_region_value` v0.1.2 (next)
+## `@svizzle/time_region_value` v0.2.0 (next)
 
+- responsive layout (`small`, `portrait`):
+	- added a navigation system specific for `small`
+		- the sidebar slides in/out from the left
+		- `/[id]`: trends, info, settings are separate views
+		- `/[id]/[year]`: map, barchart, info, settings are separate views
+		- responsive timeline: shows only one year
+	- use a `derived` for safeties instead of setting them imperatively
+	- /[year] (`small`): removing countries & tooltip for now:
+		- countries cover the map
+		- a mobile tooltip would need a new design
+	- `components/InfoModal/` -> `components/Info/`
+	- geo & info modals are now mutually exclusive, geo has priority
+	- theme:
+		- add some colors to the theme
+		- add transitions values to the theme (for now unused, see comments where the vars are used)
+	- some renames
+- stores have been renamed so that they start with `_`
+- props that are expected to be stores start with `_`
+- adds a loading icon while waiting for `ScreenGauge` to populate `screen`
+- fix missing info icon in `/[id]`
+- add `/time_region_value` to the main readme
+- remove `/time_region_value/src/node_modules/utils/generic.js`
 - updated some dev dependencies
 
 ## `@svizzle/time_region_value` v0.1.1
