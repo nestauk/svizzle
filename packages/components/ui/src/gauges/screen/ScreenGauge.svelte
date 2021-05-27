@@ -6,11 +6,19 @@
 
 <script>
 	import * as _ from 'lamb';
-	import {getTruthyValuesKeys, joinWithBlank} from '@svizzle/utils';
+	import {
+		getTruthyValuesKeys,
+		joinWithBlank,
+		mergeObjects
+	} from '@svizzle/utils';
 
 	import {breakpoints as defaultBreakpoints} from '../../defaults';
 
-	const getClasses = _.pipe([getTruthyValuesKeys, joinWithBlank]);
+	const makeClasses = _.pipe([
+		mergeObjects,
+		getTruthyValuesKeys,
+		joinWithBlank
+	]);
 
 	export let fontSize = null;
 	export let isDev = false;
@@ -24,7 +32,7 @@
 
 	$: sampleLength = sampleText.length;
 
-	const getScreen = () => {
+	const updateScreen = () => {
 		if (isClient) {
 			return
 		}
@@ -51,7 +59,12 @@
 
 		// flags
 
-		const sizeFlags = {
+		const orientations = {
+			landscape: display.aspectRatio >= 1,
+			portrait: display.aspectRatio < 1,
+		};
+
+		const sizes = {
 			xSmall: text.maxChars < breakpoints[0],
 			small: true,
 			medium: text.maxChars >= breakpoints[1],
@@ -59,26 +72,21 @@
 			xLarge: text.maxChars >= breakpoints[3],
 		};
 
-		const orientationFlags = {
-			portrait: display.aspectRatio < 1,
-			landscape: display.aspectRatio >= 1,
-		};
-
 		// update
 
 		screen.set({
-			classes: getClasses(sizeFlags),
+			classes: makeClasses([sizes, orientations]),
 			display,
 			glyph,
-			orientationFlags,
-			sizeFlags,
+			orientations,
+			sizes,
 			text,
 		});
 	}
 
 	$: isClient = typeof window === 'undefined';
-	$: sampleHeight && sampleWidth && getScreen();
-	$: fontSize && getScreen();
+	$: sampleHeight && sampleWidth && updateScreen();
+	$: fontSize && updateScreen();
 	$: devInfo = $screen && {
 		Classes: $screen.classes,
 		Display: `${$screen.display.width} x ${$screen.display.height} px`,
@@ -91,7 +99,7 @@
 <svelte:window
 	bind:innerWidth={innerWidth}
 	bind:innerHeight={innerHeight}
-	on:resize={getScreen}
+	on:resize={updateScreen}
 />
 
 <div class='textSample'>

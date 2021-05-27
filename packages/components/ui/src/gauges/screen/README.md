@@ -8,7 +8,7 @@ This component exports a store like the below:
 
 ```js
 {
-	classes: 'small medium large xLarge',
+	classes: 'small medium large xLarge portrait',
 	display: {
 		aspectRatio: 1.1550632911392404,
 		height: 948,
@@ -25,16 +25,16 @@ This component exports a store like the below:
 		height: 24,
 		width: 8.865384615384615,
 	},
-	orientationFlags: {
+	orientations: {
 		landscape: true,
 		portrait: false,
 	},
-	sizeFlags: {
-		xSmall: false,
-		small: true,
-		medium: true,
+	sizes: {
 		large: true,
+		medium: true,
+		small: true,
 		xLarge: true,
+		xSmall: false,
 	},
 	text: {
 		maxChars: 123,
@@ -43,7 +43,7 @@ This component exports a store like the below:
 }
 ```
 
-In particular, `sizeFlags` and `classes` allow for progressive enhancements starting from `small` as default.
+In particular, `sizes` and `classes` allow for progressive enhancements starting from `small` as default.
 
 ## Usage
 
@@ -91,7 +91,7 @@ In other components of your app, `import` the `screen` store from `ScreenGauge.s
 </script>
 
 <main class={$screen?.classes}>
-	{#if $screen?.sizeFlags.medium && $screen?.orientationFlags.landscape}
+	{#if $screen?.sizes.medium && $screen?.orientations.landscape}
 		<p>Medium (landscape)</p>
 	{/if}
 </main>
