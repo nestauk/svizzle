@@ -7,7 +7,6 @@
 	const defaultIconSize = 14;
 	const defaultRel = 'noopener';
 	const {defaultStrokeWidth} = Icon;
-	const defaultText = '';
 	const defaultTheme = {
 		iconStroke: 'rgb(16, 174, 249)',
 		iconStrokeWidth: defaultStrokeWidth,
@@ -21,7 +20,7 @@
 	export let isExternal = false;
 	export let rel = defaultRel;
 	export let target = null;
-	export let text = defaultText;
+	export let text = null;
 	export let theme = defaultTheme;
 	export let type = null;
 
@@ -33,9 +32,9 @@
 	$: isExternal = isExternal || false;
 	$: rel = rel || defaultRel;
 	$: target = target || null;
-	$: text = href
-		? text || defaultText
-		: '<Link.svelte>: PLEASE PROVIDE A `href` PROP';
+	$: text = !href
+		? '<Link.svelte>: PLEASE PROVIDE A `href` PROP'
+		: text ?? href;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: type = type || null;
 

@@ -188,31 +188,57 @@ export default formatExamples([
 				text: 'Svelte website',
 			},
 			usage: `
-				<ExternalLink
+				<Link
 					href='https://svelte.dev'
 					text='Svelte website'
 				/>
 			`,
 		}, {
-			key: 'href only',
+			key: 'href + no text',
 			props: {
 				href: 'https://svelte.dev',
 			},
 			usage: `
-				<ExternalLink href='https://svelte.dev'/>
+				<Link href='https://svelte.dev'/>
 			`,
 		}, {
-			key: 'href + text + iconSize',
+			key: 'no href + text',
 			props: {
-				href: 'https://svelte.dev',
 				text: 'Svelte website',
-				iconSize: 30,
 			},
 			usage: `
-				<ExternalLink
-					href='https://svelte.dev'
+				<Link
 					text='Svelte website'
+				/>
+			`,
+		}, {
+			key: 'External link',
+			props: {
+				href: 'https://svelte.dev',
+				isExternal: true,
+				text: 'Svelte website',
+			},
+			usage: `
+				<Link
+					href='https://svelte.dev'
+					isExternal={true}
+					text='Svelte website'
+				/>
+			`,
+		}, {
+			key: 'External link + icon size',
+			props: {
+				href: 'https://svelte.dev',
+				iconSize: 30,
+				isExternal: true,
+				text: 'Svelte website',
+			},
+			usage: `
+				<Link
+					href='https://svelte.dev'
 					iconSize=30
+					isExternal={true}
+					text='Svelte website'
 				/>
 			`,
 		}, {
@@ -227,27 +253,50 @@ export default formatExamples([
 				}
 			},
 			usage: `
-				<ExternalLink
+				<Link
 					href='https://svelte.dev'
 					text='Svelte website'
 					theme={{
-						iconStroke: 'red',
-						iconStrokeWidth: 4,
 						textColor: 'orange',
+					}}
+				/>
+			`,
+		}, {
+			key: 'External link + style',
+			props: {
+				href: 'https://svelte.dev',
+				isExternal: true,
+				text: 'Svelte website',
+				theme: {
+					iconStroke: 'green',
+					iconStrokeWidth: 3,
+					textColor: 'magenta',
+				}
+			},
+			usage: `
+				<Link
+					href='https://svelte.dev'
+					isExternal={true}
+					text='Svelte website'
+					theme={{
+						iconStroke: 'green',
+						iconStrokeWidth: 3,
+						textColor: 'magenta',
 					}}
 				/>
 			`,
 		}],
 		doc: [
-			{tag: 'p', content: 'A simple link with an "external link" icon.'},
+			{tag: 'p', content: 'An HTML link.'},
 			{tag: 'p', content: 'You can pass `href` and an `text`.'},
 			{tag: 'p', content: 'The `size` prop (a number in pixels) controls the icon size.'},
 			{tag: 'p', content: `Note that the link text isn't styled but it is clickable.`},
+			{tag: 'p', content: `See @svizzle/ui's README for the full list of props.`},
 		],
-		name: 'ExternalLink',
+		name: 'Link',
 		packageName: 'ui',
-		slug: 'ui-ExternalLink',
-		title: 'ExternalLink',
+		slug: 'ui-Link',
+		title: 'Link',
 	},
 	{
 		data: [{
