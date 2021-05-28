@@ -46,18 +46,37 @@ As a commodity, icons from https://github.com/feathericons/feather/tree/master/i
 
 Note that the `makeFeatherIcons` npm script assumes the `feather` directory in the root of the Svizzle repository because Lerna is set up to hoist packages in the root `node_modules` dir.
 
+## Link
+
+Props:
+- `href`: `string`, defaults to `null`
+- `hreflang`: string, defaults to `null`
+- `iconSize`: number, defaults to `14`
+- `isDownload`: boolean, defaults to `false`
+- `isExternal`: boolean, defaults to `false`
+- `rel`: string, defaults to `'noopener'`
+- `target`: string, defaults to `null`
+- `text`: string, defaults to '' (if `href` isn't provided it turns into `<Link.svelte>: PLEASE PROVIDE A `href` PROP'`)
+- `theme`: `object`, the default being merged to the passed object being:
+	```
+	{
+		iconStroke: 'rgb(16, 174, 249)',
+		iconStrokeWidth: 2,
+		textColor: 'black',
+	}
+	```
+- `type`: `string`, defaults to `null`
+
 ## LoadingView
 
-An empty view with a rotating icon at its center, with the same props of `Icon` so that you can control the displayed icon:
+An empty view with a rotating icon at its center, with the same props of `Icon` so that you can control the displayed icon.
 
-```
-<LoadingView
-	{glyph}
-	{size}
-	{stroke}
-	{strokeWidth}
-/>
-```
+Props:
+- `fill`: string, defaults to `null`
+- `glyph`: Svelte component, defaults to `Loader` (Feather's `loader`)
+- `size`: number, defaults to `50`
+- `stroke`: string, defaults to `null`
+- `strokeWidth`: number, defaults to `0.75`
 
 ## MessageView
 
@@ -68,15 +87,6 @@ Props:
 - `color` (string, default: 'black')
 - `fontSize` (string, default: '14px')
 - `text` (string, default: 'Please provide a message')
-
-```
-<MessageView
-	{backgroundColor}
-	{color}
-	{fontSize}
-	{text}
-/>
-```
 
 ## Switch
 
