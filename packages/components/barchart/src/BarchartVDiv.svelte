@@ -270,12 +270,12 @@
 		const yAbs = -scrollable.scrollTop + focusedY;
 		if (yAbs < 0) {
 			scrollable.scroll({
-				top: focusedY - itemHeight,
+				top: focusedY,
 				behavior: 'smooth'
 			})
-		} else if (yAbs > height) {
+		} else if (yAbs + itemHeight > height) {
 			scrollable.scroll({
-				top: focusedY - height,
+				top: focusedY - height + itemHeight,
 				behavior: 'smooth'
 			})
 		}
