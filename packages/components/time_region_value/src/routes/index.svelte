@@ -11,6 +11,7 @@
 	import {setRoute, showView} from 'stores/navigation';
 	import {resetSelection} from 'stores/selection';
 	import {shortenYear} from 'utils/format';
+	import {makeURL} from 'utils/url';
 
 	/* consts */
 
@@ -19,13 +20,12 @@
 	/* props */
 
 	// sapper
-	export let goTo = null; // pass `@sapper/app`'s `goto`
 	export let isSapperExported = null; // pass `process.env.SAPPER_EXPORT`
 
 	// rest
 	export let _groups;
 	export let _yearRange;
-	export let hrefBase = '';
+	export let hrefBase = ''; // relative to `document.baseURI`
 	export let theme = defaultTheme;
 
 	/* init */
@@ -128,23 +128,15 @@
 
 									<!-- dots -->
 									{#each availableYears as year}
-										{#if goTo}
+										<a
+											rel='prefetch'
+											href={makeURL(hrefBase, schema.value.id, year)}
+										>
 											<circle
 												cx='{layout.scaleX(year)}'
 												r={layout.radius}
-												on:click='{() => goTo(`${hrefBase}/${schema.value.id}/${year}`)}'
 											/>
-										{:else}
-											<a
-												rel='prefetch'
-												href='{hrefBase}/{schema.value.id}/{year}'
-											>
-												<circle
-													cx='{layout.scaleX(year)}'
-													r={layout.radius}
-												/>
-											</a>
-										{/if}
+										</a>
 									{/each}
 								</g>
 							{/each}

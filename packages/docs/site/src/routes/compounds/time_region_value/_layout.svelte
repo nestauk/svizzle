@@ -1,13 +1,15 @@
 <script>
 	import Layout from '@svizzle/time_region_value/src/routes/_layout.svelte';
 
-	import {goto as goTo} from '@sapper/app';
-
 	import {_groups} from './_data/stores';
 	import {hrefBase} from './_navigation';
 
 	export let segment;
 </script>
+
+<svelte:head>
+	<title>@svizzle/time_region_value</title>
+</svelte:head>
 
 <section>
 	<nav>
@@ -15,13 +17,12 @@
 			class='undecor'
 			href='/svizzle/compounds/time_region_value'
 		>
-			<span><code>time_region_value</code></span>
+			<span>@svizzle/time_region_value</span>
 		</a>
 	</nav>
 	<main>
 		<Layout
 			{_groups}
-			{goTo}
 			{hrefBase}
 			{segment}
 		>

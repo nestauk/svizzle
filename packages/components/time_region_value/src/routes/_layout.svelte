@@ -25,8 +25,7 @@
 	import {_availableYears, _selectedYear} from 'stores/selection';
 
 	export let _groups = null;
-	export let goTo = null;
-	export let hrefBase = '';
+	export let hrefBase = ''; // relative to `document.baseURI`
 	export let segment = null;
 	export let theme = sharedTheme;
 
@@ -72,7 +71,6 @@
 						bind:clientHeight={$_timelineHeight}
 					>
 						<Timeline
-							{goTo}
 							{hrefBase}
 							availableYears={$_availableYears}
 							height={$_timelineHeight}
