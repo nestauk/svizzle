@@ -30,39 +30,39 @@
 	{style}
 >
 	{#if title}
-	<header>
-		<h2>{title}</h2>
-	</header>
+		<header>
+			<h2>{title}</h2>
+		</header>
 	{/if}
-	<main
-		bind:clientHeight={height}
-		bind:clientWidth={width}
-		class:titled={title && title.length}
-	>
-		<svg
-			{width}
-			{height}
+		<main
+			bind:clientHeight={height}
+			bind:clientWidth={width}
+			class:titled={title && title.length}
 		>
-			{#if bins}
-			<ColorBinsG
-				{bins}
-				{flags}
-				{geometry}
-				{height}
-				{selectedBins}
-				{theme}
-				{ticksFormatFn}
+			<svg
 				{width}
-				on:brushed
-				on:brushend
-				on:brushstart
-				on:clicked
-				on:entered
-				on:exited
-			/>
-			{/if}
-		</svg>
-	</main>
+				{height}
+			>
+				{#if bins}
+					<ColorBinsG
+						{bins}
+						{flags}
+						{geometry}
+						{height}
+						{selectedBins}
+						{theme}
+						{ticksFormatFn}
+						{width}
+						on:brushed
+						on:brushend
+						on:brushstart
+						on:clicked
+						on:entered
+						on:exited
+					/>
+				{/if}
+			</svg>
+		</main>
 </div>
 
 <style>

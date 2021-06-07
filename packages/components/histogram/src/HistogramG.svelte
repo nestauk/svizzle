@@ -325,122 +325,128 @@
 <svelte:options namespace='svg' />
 
 {#if height && width}
-<g
-	{style}
-	class:interactive={flags.isInteractive}
-	class='HistogramG'
->
-	{#if bins.length === 0}
+	<g
+		{style}
+		class:interactive={flags.isInteractive}
+		class='HistogramG'
+	>
+		{#if bins.length === 0}
 
-	<text
-		class='message'
-		x={width/2}
-		y={height/2}
-	>{message}</text>
-
-	{:else}
-
-	<!-- background -->
-	{#if flags.withBackground}
-	<rect class='bkg' {width} {height} />
-	{/if}
-
-	<!-- sensor to dismiss the selection -->
-	{#if flags.isInteractive}
-	<rect
-		{height}
-		{width}
-		class:reset={selectedBins.length > 0}
-		class='bkgSensor'
-		on:click={resetSelection}
-	/>
-	{/if}
-
-	<g transform='translate({safety.left},{safety.top})'>
-		{#each bars as {
-			barLength,
-			barThickness,
-			displayValue,
-			fill,
-			labelAnchor,
-			labelX,
-			selected,
-			x,
-			y1,
-		}, index}
-		<g
-			class='bin'
-			transform='translate(0,{y1})'
-		>
-			{#if displayValue}
-			<rect
-				{fill}
-				{x}
-				class='bar'
-				class:selected
-				height={barThickness}
-				width={barLength}
-			/>
-			{/if}
 			<text
-				class='binsize'
-				x={labelX}
-				y={barThickness / 2}
-				font-size={fontSize}
-				text-anchor={labelAnchor}
-			>{displayValue}</text>
+				class='message'
+				x={width/2}
+				y={height/2}
+			>{message}</text>
+
+		{:else}
+
+			<!-- background -->
+			{#if flags.withBackground}
+				<rect class='bkg' {width} {height} />
+			{/if}
+
+			<!-- sensor to dismiss the selection -->
 			{#if flags.isInteractive}
-			<rect
-				class='sensor'
-				height={barThickness}
-				on:mousedown={onMousedown}
-				on:mouseenter={onMouseenter(index)}
-				on:mouseleave={onMouseleave(index)}
-				on:mousemove={isMousedown ? onMousemove(index) : null}
-				on:mouseup={onMouseup(index)}
-				width={innerWidth}
-			/>
+				<rect
+					{height}
+					{width}
+					class:reset={selectedBins.length > 0}
+					class='bkgSensor'
+					on:click={resetSelection}
+				/>
 			{/if}
-		</g>
-		{/each}
-		<g
-			class='axis'
-			transform=translate({origin.x},{origin.y})
-		>
-			<line
-				y2={flags.isTopDown ? innerHeight : -innerHeight}
-			/>
-			{#if !flags.hideOrigin}
-			<circle r={geometry.originRadius}/>
-			{/if}
-			{#if !flags.hideTicks}
-			{#each ticks as {tick, y}}
-			<text
-				class='range'
-				x={ticksX}
-				{y}
-				font-size={fontSize}
-				text-anchor={ticksAnchor}
-			>{tick}</text>
-			{/each}
-			{/if}
-		</g>
-		{#if isBrushing}
-		<g
-			class='brush'
-			transform=translate({origin.x},0)
-		>
-			<line
-				y1={brushLine.y1}
-				y2={brushLine.y2}
-			/>
-		</g>
-		{/if}
+
+			<g transform='translate({safety.left},{safety.top})'>
+				{#each bars as {
+					barLength,
+					barThickness,
+					displayValue,
+					fill,
+					labelAnchor,
+					labelX,
+					selected,
+					x,
+					y1,
+				}, index}
+					<g
+						class='bin'
+						transform='translate(0,{y1})'
+					>
+						{#if displayValue}
+							<rect
+								{fill}
+								{x}
+								class='bar'
+								class:selected
+								height={barThickness}
+								width={barLength}
+							/>
+						{/if}
+
+						<text
+							class='binsize'
+							x={labelX}
+							y={barThickness / 2}
+							font-size={fontSize}
+							text-anchor={labelAnchor}
+						>{displayValue}</text>
+
+						{#if flags.isInteractive}
+							<rect
+								class='sensor'
+								height={barThickness}
+								on:mousedown={onMousedown}
+								on:mouseenter={onMouseenter(index)}
+								on:mouseleave={onMouseleave(index)}
+								on:mousemove={isMousedown ? onMousemove(index) : null}
+								on:mouseup={onMouseup(index)}
+								width={innerWidth}
+							/>
+						{/if}
+					</g>
+				{/each}
+
+				<g
+					class='axis'
+					transform=translate({origin.x},{origin.y})
+				>
+					<line
+						y2={flags.isTopDown ? innerHeight : -innerHeight}
+					/>
+
+					{#if !flags.hideOrigin}
+						<circle r={geometry.originRadius}/>
+					{/if}
+
+					{#if !flags.hideTicks}
+						{#each ticks as {tick, y}}
+							<text
+								class='range'
+								x={ticksX}
+								{y}
+								font-size={fontSize}
+								text-anchor={ticksAnchor}
+							>{tick}</text>
+						{/each}
+					{/if}
+				</g>
+
+				{#if isBrushing}
+					<g
+						class='brush'
+						transform=translate({origin.x},0)
+					>
+						<line
+							y1={brushLine.y1}
+							y2={brushLine.y2}
+						/>
+					</g>
+				{/if}
+			</g>
+
+		{/if} <!-- if no bins -->
+
 	</g>
-
-	{/if} <!-- if no bins -->
-
-</g>
 {/if}
 
 <style>

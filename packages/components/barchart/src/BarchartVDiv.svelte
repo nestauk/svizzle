@@ -300,9 +300,9 @@
 	class='BarchartVDiv'
 >
 	{#if title}
-	<header>
-		<h2>{title}</h2>
-	</header>
+		<header>
+			<h2>{title}</h2>
+		</header>
 	{/if}
 	<main class:titled={title} >
 		{#if !items || items.length === 0}

@@ -99,51 +99,51 @@
 <svelte:options namespace='svg' />
 
 {#if height && width}
-<g
-	{style}
-	class:interactive={isInteractive}
-	class='ChoroplethG'
->
-	{#if !topojson || !currentProjection}
+	<g
+		{style}
+		class:interactive={isInteractive}
+		class='ChoroplethG'
+	>
+		{#if !topojson || !currentProjection}
 
-	<text
-		class='message'
-		x={width/2}
-		y={height/2}
-	>{message}</text>
+			<text
+				class='message'
+				x={width/2}
+				y={height/2}
+			>{message}</text>
 
-	{:else}
+		{:else}
 
-	<rect
-		{height}
-		{width}
-		class='bkg'
-	/>
-	<g transform='translate({geometry.left},{geometry.top})'>
-		{#if coloredGeojson}
-		{#each coloredGeojson.features as feature}
-		<g
-			class:deselected={isDeselected(feature)}
-			class:selected={isSelected(feature)}
-			class:focused={focusedKey && isFocused(feature)}
-			class='feature'
-			id={feature.properties[key] || feature.properties[key_alt]}
-		>
-			<path
-				class:clickable={isClickable(feature)}
-				d={geopath(feature)}
-				style='fill:{feature.properties.color || null}'
-				on:click={() => isClickable(feature) && dispatch('clicked', getPayload(feature))}
-				on:mouseenter={() => isInteractive && dispatch('entered', getPayload(feature))}
-				on:mouseleave={() => isInteractive && dispatch('exited', getPayload(feature))}
+			<rect
+				{height}
+				{width}
+				class='bkg'
 			/>
-		</g>
-		{/each}
-		{/if}
-	</g>
+			<g transform='translate({geometry.left},{geometry.top})'>
+				{#if coloredGeojson}
+					{#each coloredGeojson.features as feature}
+						<g
+							class:deselected={isDeselected(feature)}
+							class:selected={isSelected(feature)}
+							class:focused={focusedKey && isFocused(feature)}
+							class='feature'
+							id={feature.properties[key] || feature.properties[key_alt]}
+						>
+							<path
+								class:clickable={isClickable(feature)}
+								d={geopath(feature)}
+								style='fill:{feature.properties.color || null}'
+								on:click={() => isClickable(feature) && dispatch('clicked', getPayload(feature))}
+								on:mouseenter={() => isInteractive && dispatch('entered', getPayload(feature))}
+								on:mouseleave={() => isInteractive && dispatch('exited', getPayload(feature))}
+							/>
+						</g>
+					{/each}
+				{/if}
+			</g>
 
-	{/if} <!-- if no topojson -->
-</g>
+		{/if} <!-- if no topojson -->
+	</g>
 {/if}
 
 <style>

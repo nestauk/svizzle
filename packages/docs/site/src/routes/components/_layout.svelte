@@ -7,16 +7,16 @@
 <section>
 	<nav>
 		{#each sidebar as {key, value}}
-		<div class='distancer'>
-			<h2>{key}</h2>
-			{#each value as {slug, title}}
-			<a href='components/{slug}'>
-				<p class:selected='{slug === segment}'>
-					{title}
-				</p>
-			</a>
-			{/each}
-		</div>
+			<div class='distancer'>
+				<h2>{key}</h2>
+				{#each value as {slug, title}}
+					<a href='components/{slug}'>
+						<p class:selected='{slug === segment}'>
+							{title}
+						</p>
+					</a>
+				{/each}
+			</div>
 		{/each}
 	</nav>
 	<main>

@@ -671,7 +671,7 @@
 									<header>
 										<span>{$_tooltip.regionId}</span>
 										{#if $_tooltip.value}
-										<span>{$_tooltip.value}</span>
+											<span>{$_tooltip.value}</span>
 										{/if}
 									</header>
 									<div>

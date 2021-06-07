@@ -32,9 +32,9 @@
 	{style}
 >
 	{#if title}
-	<header class:rightToLeft={flags && flags.isRightToLeft}>
-		<h2>{title}</h2>
-	</header>
+		<header class:rightToLeft={flags && flags.isRightToLeft}>
+			<h2>{title}</h2>
+		</header>
 	{/if}
 	<main
 		bind:clientHeight={height}
@@ -46,24 +46,24 @@
 			{height}
 		>
 			{#if bins}
-			<HistogramG
-				{bins}
-				{binsFill}
-				{flags}
-				{geometry}
-				{height}
-				{message}
-				{selectedBins}
-				{theme}
-				{ticksFormatFn}
-				{width}
-				on:brushed
-				on:brushend
-				on:brushstart
-				on:clicked
-				on:entered
-				on:exited
-			/>
+				<HistogramG
+					{bins}
+					{binsFill}
+					{flags}
+					{geometry}
+					{height}
+					{message}
+					{selectedBins}
+					{theme}
+					{ticksFormatFn}
+					{width}
+					on:brushed
+					on:brushend
+					on:brushstart
+					on:clicked
+					on:entered
+					on:exited
+				/>
 			{/if}
 		</svg>
 	</main>

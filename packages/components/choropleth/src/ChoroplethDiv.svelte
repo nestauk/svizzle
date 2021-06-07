@@ -41,9 +41,9 @@
 	{style}
 >
 	{#if title}
-	<header>
-		<h2>{title}</h2>
-	</header>
+		<header>
+			<h2>{title}</h2>
+		</header>
 	{/if}
 	<main
 		bind:clientWidth={width}
