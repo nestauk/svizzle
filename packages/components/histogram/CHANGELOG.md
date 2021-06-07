@@ -1,6 +1,7 @@
 ## `@svizzle/histogram` v0.4.0 (next)
 
 - utils: add `getBinsTicksExtent`
+- renamed internal stores to start with an underscore
 - updated some dev dependencies
 
 ## `@svizzle/histogram` v0.3.1

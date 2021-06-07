@@ -31,9 +31,9 @@
 	// stores
 
 	import {
-		currentSchemeIndexStore,
-		makeColorBinsStore,
-		makeColorScaleStore,
+		_colorSchemeIndex,
+		_makeColorScale,
+		_makeColorBins,
 	} from 'stores/colorScale';
 	import {
 		_isSmallScreen,
@@ -175,16 +175,16 @@
 	$: mediumLegendHeight = mediumTrendsHeight / 3;
 
 	// colors
-	$: colorScale = $makeColorScaleStore(valueExtext);
+	$: colorScale = $_makeColorScale(valueExtext);
 
 	// legend
-	$: makeColorBins = $makeColorBinsStore;
+	$: makeColorBins = $_makeColorBins;
 	$: colorBins = makeColorBins(colorScale);
 
 	/* event handlers */
 
 	const toggledColorScheme = ({detail}) => {
-		currentSchemeIndexStore.set(detail === 'Red-Blue' ? 0 : 1)
+		_colorSchemeIndex.set(detail === 'Red-Blue' ? 0 : 1)
 	};
 	const toggledFiltering = ({detail}) => {
 		$_doFilterRegions = detail === 'Filter'

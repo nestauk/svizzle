@@ -34,11 +34,13 @@
 ## `@svizzle/histogram` v0.4.0 (next)
 
 - utils: add `getBinsTicksExtent`
+- renamed internal stores to start with an underscore
 - updated some dev dependencies
 
 ## `@svizzle/legend` v0.2.0 (next)
 
 - add the field `showTicksExtentOnly` to `flags` prop
+- renamed internal stores to start with an underscore
 - updated some dev dependencies
 
 ## `@svizzle/request` v0.3.3 (next)
@@ -78,6 +80,7 @@
 - fix missing info icon in `/[id]`
 - add `/time_region_value` to the main readme
 - remove `/time_region_value/src/node_modules/utils/generic.js`
+- renamed internal stores to start with an underscore
 - updated some dev dependencies
 
 ## `@svizzle/ui` v0.3.0 (next)
@@ -95,7 +98,8 @@
 		- `type`
 	- `ScreenGauge`:
 		- add `landscape`|`portrait` to `classes`
-		- changed the output shape:
+		- renamed `screen` to `_screen` to follow our internal convention to start store names with an underscore
+		- changed the `_screen` shape:
 			- remame `orientationFlags` to `orientations`
 			- remame `sizeFlags` to `sizes`
 - updated some dev dependencies

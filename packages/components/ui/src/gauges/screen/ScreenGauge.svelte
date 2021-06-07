@@ -1,7 +1,7 @@
 <script context='module'>
 	import {writable} from 'svelte/store';
 
-	export const screen = writable();
+	export const _screen = writable();
 </script>
 
 <script>
@@ -74,7 +74,7 @@
 
 		// update
 
-		screen.set({
+		_screen.set({
 			classes: makeClasses([sizes, orientations]),
 			display,
 			glyph,
@@ -87,12 +87,12 @@
 	$: isClient = typeof window === 'undefined';
 	$: sampleHeight && sampleWidth && updateScreen();
 	$: fontSize && updateScreen();
-	$: devInfo = $screen && {
-		Classes: $screen.classes,
-		Display: `${$screen.display.width} x ${$screen.display.height} px`,
-		DPPR: $screen.display.pixelRatio.toPrecision(4),
-		Orientation: $screen.display.aspectRatio > 1 ? 'landscape' : 'portrait',
-		Text: `${$screen.text.maxChars} x ${$screen.text.maxLines} chars`
+	$: devInfo = $_screen && {
+		Classes: $_screen.classes,
+		Display: `${$_screen.display.width} x ${$_screen.display.height} px`,
+		DPPR: $_screen.display.pixelRatio.toPrecision(4),
+		Orientation: $_screen.display.aspectRatio > 1 ? 'landscape' : 'portrait',
+		Text: `${$_screen.text.maxChars} x ${$_screen.text.maxLines} chars`
 	};
 </script>
 

@@ -2,7 +2,7 @@
 
 You can use this component to measure screen features reactively.
 
-## `screen` store
+## `_screen` store
 
 This component exports a store like the below:
 
@@ -79,19 +79,19 @@ Props:
 - `sampleText`: this component renders a hidden text to measure the average width of the current font; by default this text is the English alphabet (lowercase and uppercase) but you can pass a string of your choice, especially useful for other languages.
 
 
-### Use `screen`
+### Use `_screen`
 
-In other components of your app, `import` the `screen` store from `ScreenGauge.svelte` and use as you see fit.
+In other components of your app, `import` the `_screen` store from `ScreenGauge.svelte` and use as you see fit.
 
 ```svelte
 <script>
-	import {screen} from '@svizzle/ui/src/gauges/ScreenGauge.svelte';
+	import {_screen} from '@svizzle/ui/src/gauges/ScreenGauge.svelte';
 
-	$: console.log($screen);
+	$: console.log($_screen);
 </script>
 
-<main class={$screen?.classes}>
-	{#if $screen?.sizes.medium && $screen?.orientations.landscape}
+<main class={$_screen?.classes}>
+	{#if $_screen?.sizes.medium && $_screen?.orientations.landscape}
 		<p>Medium (landscape)</p>
 	{/if}
 </main>

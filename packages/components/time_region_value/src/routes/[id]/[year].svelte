@@ -40,9 +40,9 @@
 	// stores
 
 	import {
-		currentSchemeIndexStore,
-		makeColorBinsStore,
-		makeColorScaleStore,
+		_colorSchemeIndex,
+		_makeColorBins,
+		_makeColorScale,
 	} from 'stores/colorScale';
 	import {_isSmallScreen, _screenClasses} from 'stores/layout';
 	import {
@@ -204,8 +204,8 @@
 	$: noData = filteredData.length === 0;
 
 	// colors
-	$: makeColorScale = $makeColorScaleStore;
-	$: makeColorBins = $makeColorBinsStore;
+	$: makeColorScale = $_makeColorScale;
+	$: makeColorBins = $_makeColorBins;
 	$: valueExtext = filteredData.length && extent(filteredData, getIndicatorValue);
 	$: colorScale = filteredData.length && makeColorScale(valueExtext);
 	$: colorBins = filteredData.length && makeColorBins(colorScale);
@@ -261,7 +261,7 @@
 
 	// focus
 	$: selectedKeys = $_preselectedNUTS2Ids.concat($_selectedNUT2Ids)
-	$: focusedKey = $tooltip.isVisible ? $tooltip.regionId : undefined;
+	$: focusedKey = $_tooltip.isVisible ? $_tooltip.regionId : undefined;
 
 	// cities
 	$: cities = projection && _.map(majorCities, obj => {
@@ -289,7 +289,7 @@
 
 	/* map tooltip */
 
-	const tooltip = writable({isVisible: false});
+	const _tooltip = writable({isVisible: false});
 
 	const makeTooltipStyle = event => {
 		const {layerX: X, layerY: Y} = event;
@@ -317,7 +317,7 @@
 			? formatFn(keyToValue[regionId]) + (labelUnit ? ` ${labelUnit}` : '')
 			: undefined;
 
-		tooltip.update(mergeObj({
+		_tooltip.update(mergeObj({
 			isVisible: true,
 			regionId,
 			nuts_label: keyToLabel[regionId],
@@ -326,13 +326,13 @@
 		}))
 	};
 	const onExitedRegion = () => {
-		tooltip.update(mergeObj({
+		_tooltip.update(mergeObj({
 			isVisible: false,
 			style: 'visibility: hidden'
 		}));
 	};
 	const onMousemoved = event => {
-		$tooltip.isVisible && tooltip.update(mergeObj({
+		$_tooltip.isVisible && _tooltip.update(mergeObj({
 			style: makeTooltipStyle(event),
 		}));
 	};
@@ -349,7 +349,7 @@
 	/* settings handlers */
 
 	const toggledColorScheme = ({detail}) => {
-		currentSchemeIndexStore.set(detail === 'Red-Blue' ? 0 : 1)
+		_colorSchemeIndex.set(detail === 'Red-Blue' ? 0 : 1)
 	};
 	const toggledFiltering = ({detail}) => {
 		$_doFilterRegions = detail === 'Filter'
@@ -663,19 +663,19 @@
 
 							<!-- tooltip -->
 
-							{#if $tooltip.isVisible}
+							{#if $_tooltip.isVisible}
 								<div
 									class='tooltip'
-									style={$tooltip.style}
+									style={$_tooltip.style}
 								>
 									<header>
-										<span>{$tooltip.regionId}</span>
-										{#if $tooltip.value}
-										<span>{$tooltip.value}</span>
+										<span>{$_tooltip.regionId}</span>
+										{#if $_tooltip.value}
+										<span>{$_tooltip.value}</span>
 										{/if}
 									</header>
 									<div>
-										<span>{$tooltip.nuts_label}</span>
+										<span>{$_tooltip.nuts_label}</span>
 									</div>
 								</div>
 							{/if}

@@ -204,19 +204,19 @@
 		modifier: null,
 		state: 'Off',
 	};
-	const brush = writable(brushOff);
+	const _brush = writable(brushOff);
 
-	$: isBrushing = $brush.state === 'Brushing';
-	$: isPressed = $brush.state === 'Pressed';
-	$: doesBrushAdd = $brush.modifier === 'shift';
-	$: doesBrushRemove = $brush.modifier === 'alt';
+	$: isBrushing = $_brush.state === 'Brushing';
+	$: isPressed = $_brush.state === 'Pressed';
+	$: doesBrushAdd = $_brush.modifier === 'shift';
+	$: doesBrushRemove = $_brush.modifier === 'alt';
 	$: brushStroke =
 		doesBrushAdd
 			? theme.brushAddStroke
 			: doesBrushRemove
 				? theme.brushRemoveStroke
 				: null;
-	$: brushExtent = isBrushing && sort([$brush.start, $brush.end]);
+	$: brushExtent = isBrushing && sort([$_brush.start, $_brush.end]);
 	$: brushRange = isBrushing && inclusiveRange(brushExtent);
 	$: brushExtentBarYs = isBrushing && sort([
 		bars[brushExtent[0]].y1,
@@ -236,9 +236,9 @@
 					? pullFrom(selectedBins, brushRange)
 					: brushRange;
 		dispatch('brushed', {
-			end: $brush.end,
+			end: $_brush.end,
 			selectedBins,
-			start: $brush.start,
+			start: $_brush.start,
 		});
 	}
 
@@ -253,7 +253,7 @@
 
 	const onMouseenter = index => () => {
 		if (isBrushing) {
-			brush.update(mergeObj({end: index}));
+			_brush.update(mergeObj({end: index}));
 		}
 		dispatch('entered', index);
 	}
@@ -261,7 +261,7 @@
 	const onMousedown = event => {
 		isMousedown = true;
 
-		brush.set({
+		_brush.set({
 			delta: 0,
 			modifier: getModifier(event),
 			origin: {
@@ -275,18 +275,18 @@
 	const onMousemove = index => event => {
 		if (isPressed) {
 			const delta = vectorLength2D(
-				event.offsetX - $brush.origin.x,
-				event.offsetY - $brush.origin.y
+				event.offsetX - $_brush.origin.x,
+				event.offsetY - $_brush.origin.y
 			);
 			if (delta > geometry.brushThreshold) {
-				brush.update(mergeObj({
+				_brush.update(mergeObj({
 					end: index,
 					start: index,
 					state: 'Brushing',
 				}));
 				dispatch('brushstart', index);
 			} else {
-				brush.update(mergeObj({delta}));
+				_brush.update(mergeObj({delta}));
 			}
 		}
 	}
@@ -295,7 +295,7 @@
 		isMousedown = false;
 
 		if (isPressed) {
-			if ($brush.delta < geometry.brushThreshold) {
+			if ($_brush.delta < geometry.brushThreshold) {
 				if (doesBrushAdd) {
 					selectedBins = uniques(appendTo(selectedBins, index))
 				} else if (doesBrushRemove) {
@@ -309,7 +309,7 @@
 		} else if (isBrushing) {
 			dispatch('brushend', index);
 		}
-		brush.set(brushOff);
+		_brush.set(brushOff);
 	}
 
 	const onMouseleave = index => () => {

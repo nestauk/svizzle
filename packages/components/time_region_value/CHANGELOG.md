@@ -22,6 +22,7 @@
 - fix missing info icon in `/[id]`
 - add `/time_region_value` to the main readme
 - remove `/time_region_value/src/node_modules/utils/generic.js`
+- renamed internal stores to start with an underscore
 - updated some dev dependencies
 
 ## `@svizzle/time_region_value` v0.1.1

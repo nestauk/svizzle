@@ -13,7 +13,8 @@
 		- `type`
 	- `ScreenGauge`:
 		- add `landscape`|`portrait` to `classes`
-		- changed the output shape:
+		- renamed `screen` to `_screen` to follow our internal convention to start store names with an underscore
+		- changed the `_screen` shape:
 			- remame `orientationFlags` to `orientations`
 			- remame `sizeFlags` to `sizes`
 - updated some dev dependencies

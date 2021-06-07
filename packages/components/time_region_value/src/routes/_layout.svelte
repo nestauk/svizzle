@@ -8,7 +8,7 @@
 	import Timeline from 'components/Timeline.svelte';
 	import ViewSelector from 'components/ViewSelector.svelte';
 	import sharedTheme from 'theme';
-	import {setGroupsStore} from 'stores/data';
+	import {setGroups} from 'stores/data';
 	import {
 		_isSmallScreen,
 		_screenClasses,
@@ -34,7 +34,7 @@
 	$: theme = theme ? {...sharedTheme, ...theme} : sharedTheme;
 
 	$: style = makeStyleVars(theme);
-	$: _groups && setGroupsStore($_groups);
+	$: _groups && setGroups($_groups);
 	$: routeId = $_isSmallScreen && $_routes.Id;
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
 </script>

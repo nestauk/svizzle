@@ -1,6 +1,7 @@
 ## `@svizzle/legend` v0.2.0 (next)
 
 - add the field `showTicksExtentOnly` to `flags` prop
+- renamed internal stores to start with an underscore
 - updated some dev dependencies
 
 
