@@ -17,7 +17,7 @@ true
 > is0(2)
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const is0 = _.is(0);
 
@@ -34,7 +34,7 @@ true
 > is1(2)
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const is1 = _.is(1);
 
@@ -51,7 +51,7 @@ false
 > isGT0(2)
 true
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isGT0 = _.isGT(0);
 
@@ -68,6 +68,6 @@ false
 > isGT1(2)
 true
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isGT1 = _.isGT(1);

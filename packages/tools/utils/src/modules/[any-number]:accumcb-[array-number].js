@@ -24,7 +24,7 @@ import * as _ from 'lamb';
 0.7071067811865475
 
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const arrayMaxWith = fn => _.reduceWith((max, item) => {
 	const value = fn(item);
@@ -50,7 +50,7 @@ export const arrayMaxWith = fn => _.reduceWith((max, item) => {
 > minWithAbsSin([Math.PI/4, Math.PI/6])
 0.49999999999999994
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const arrayMinWith = fn => _.reduceWith((min, item) => {
 	const value = fn(item);

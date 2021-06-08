@@ -25,7 +25,7 @@ import {tapValue} from './string-[any-any]';
 {a: 1} // logged
 ['a', 'b', 'c', {a: 1}]
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const tapAppendTo = _.tapArgs(
 	_.appendTo,

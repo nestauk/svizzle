@@ -21,7 +21,7 @@ import {makeSplitBy} from './string-[string-array]';
 > splitByDot('a.b.c')
 ['a', 'b', 'c']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const splitByDot = makeSplitBy('.');
 
@@ -37,7 +37,7 @@ export const splitByDot = makeSplitBy('.');
 > splitByDot('a\nb\nc')
 ['a', 'b', 'c']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const splitByEOL = makeSplitBy('\n');
 
@@ -53,7 +53,7 @@ export const splitByEOL = makeSplitBy('\n');
 > splitBySemiColon('A;B;C')
 ['A', 'B', 'C']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const splitBySemiColon = makeSplitBy(';');
 
@@ -68,7 +68,7 @@ export const splitBySemiColon = makeSplitBy(';');
 > makeRows('A,B\n1,2\n3,4\n')
 ['A,B', '1,2', '3,4']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeLines = _.pipe([
 	trim,
@@ -87,7 +87,7 @@ export const makeLines = _.pipe([
 > makeRows('A,B\n1,2\n3,4\n')
 ['1,2', '3,4']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeRows = _.pipe([
 	trim,
@@ -108,7 +108,7 @@ export const makeRows = _.pipe([
 > ndjsonToArray('{'a':1}\n{'b':2}\n\n')
 [{a: 1}, {b: 2}]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const ndjsonToArray = _.pipe([
 	splitByEOL,

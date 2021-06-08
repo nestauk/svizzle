@@ -22,7 +22,7 @@ import * as _ from 'lamb';
 ].filter(isWeight);
 ['Protein (g)', 'Cholesterol (mg)', 'Selenium (mcg)']
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const containsOneOf = array =>
 	string => _.someIn(array, x => string.includes(x));

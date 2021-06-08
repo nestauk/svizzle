@@ -26,7 +26,7 @@ import {mapValuesToFloatPossibly} from '@svizzle/utils';
 > getElementGeometry(node, ['fontSize'])
 {width: 200, height: 100, 'fontSize': 12}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getElementGeometry = (elem, additionalProps = []) =>
 	mapValuesToFloatPossibly(
@@ -52,7 +52,7 @@ export const getElementGeometry = (elem, additionalProps = []) =>
 		moveNode(this, '#newContainer');
 	});
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const moveNode = (node, newContainer) =>
 	select(newContainer)

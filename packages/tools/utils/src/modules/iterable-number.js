@@ -30,6 +30,6 @@ import * as _ from 'lamb';
 > func('a', 'b')
 2
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getLength = _.getKey('length');

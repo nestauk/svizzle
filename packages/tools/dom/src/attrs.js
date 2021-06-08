@@ -17,7 +17,7 @@ import {joinWithColon, joinWithSemicolon, makePrefixed} from '@svizzle/utils';
 > makeStyle({color: 'red', 'font-size': '10px'})
 'color:red;font-size:10px'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeStyle = _.pipe([
 	_.skipIf(_.isNil),
@@ -37,7 +37,7 @@ export const makeStyle = _.pipe([
 > makeStyleVars({foo: 'red', 'bar': '10px'})
 '--foo:red;--bar:10px'
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const makeStyleVars = _.pipe([
 	_.skipIf(_.isNil),
@@ -58,6 +58,6 @@ export const makeStyleVars = _.pipe([
 > toPx(10)
 '10px'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const toPx = number => `${number}px`

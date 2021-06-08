@@ -17,7 +17,7 @@ import {vectorLength2D} from './2DVector';
 > makePosition2D([1, 2])
 {x: 1, y: 2}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makePosition2D = _.partial(_.make, [['x', 'y'], _.__]);
 
@@ -33,7 +33,7 @@ export const makePosition2D = _.partial(_.make, [['x', 'y'], _.__]);
 > getDistance2D({x: 1, y: 1}, {x: 2, y: 2})
 1.4142135623730951
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getDistance2D = ({x: x1, y: y1}, {x: x2, y: y2}) =>
 	vectorLength2D(x2 - x1, y2 - y1);
@@ -50,7 +50,7 @@ export const getDistance2D = ({x: x1, y: y1}, {x: x2, y: y2}) =>
 > getTwoPointsCenter({x: 1, y: 1}, {x: 3, y: 3})
 {x: 2, y: 2}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getTwoPointsCenter = ({x: x1, y: y1}, {x: x2, y: y2}) => ({
 	x: (x1 + x2) / 2,

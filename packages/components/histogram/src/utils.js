@@ -58,7 +58,7 @@ import {
 	{range: [10, 14], values: [{a: 12}, {a: 14}]}
 ]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const exactAmountBins = ({
 	array,
@@ -142,7 +142,7 @@ false
 ])
 true
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const areValidBins = _.allOf([
 	isIterableNotEmpty,
@@ -167,7 +167,7 @@ export const areValidBins = _.allOf([
 ])
 [{a: 2}, {a: 6}, {a: 7}, {a: 8}, {a: 12}, {a: 14}]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getBinsItems = _.pipe([
 	_.mapWith(getValues),
@@ -191,7 +191,7 @@ export const getValuesLength = _.getPath('values.length');
 ])
 3
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getBinsMax = arrayMaxWith(getValuesLength);
 
@@ -210,7 +210,7 @@ export const getBinsMax = arrayMaxWith(getValuesLength);
 ])
 1
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getBinsMin = arrayMinWith(getValuesLength);
 
@@ -229,7 +229,7 @@ export const getBinsMin = arrayMinWith(getValuesLength);
 ])
 [1, 3]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getBinsExtent = _.collect([getBinsMin, getBinsMax]);
 
@@ -246,7 +246,7 @@ false
 > isNonEmptyBin({range: [2, 7], values: [2, 6, 7]})
 true
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isNonEmptyBin = _.pipe([getValues, isIterableNotEmpty]);
 
@@ -268,7 +268,7 @@ export const isNonEmptyBin = _.pipe([getValues, isIterableNotEmpty]);
 ])
 2
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const findFirstNonEmptyBinIndex = _.findIndexWhere(isNonEmptyBin);
 
@@ -290,7 +290,7 @@ export const findFirstNonEmptyBinIndex = _.findIndexWhere(isNonEmptyBin);
 ])
 4
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const findLastNonEmptyBinIndex = _.findLastIndexWhere(isNonEmptyBin);
 
@@ -337,7 +337,7 @@ export const findLastNonEmptyBinIndex = _.findLastIndexWhere(isNonEmptyBin);
 	start: 0
 }
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getTrimmedBinsStats = bins => {
 	const start = findFirstNonEmptyBinIndex(bins);
@@ -372,7 +372,7 @@ export const getTrimmedBinsStats = bins => {
 ])
 [-8, -3, 2, 7, 12, 17, 22, 27, 32]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getBinsTicks = _.pipe([
 	_.mapWith(_.getKey('range')),
@@ -401,7 +401,7 @@ export const getBinsTicks = _.pipe([
 ])
 [-8, 32]
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const getBinsTicksExtent = _.pipe([getBinsTicks, getFirstAndLast]);
 
@@ -425,7 +425,7 @@ export const getBinsTicksExtent = _.pipe([getBinsTicks, getFirstAndLast]);
 ])
 [2, 7, 17, 22, 27]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getNonEmptyBinsTicks = _.pipe([
 	_.filterWith(getValuesLength),

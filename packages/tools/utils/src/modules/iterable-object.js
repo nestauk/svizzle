@@ -38,6 +38,6 @@
 > pairToKeyValueObject('abc')
 {key: 'a', value: 'b'}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const pairToKeyValueObject = ([key, value]) => ({key, value});

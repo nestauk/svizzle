@@ -20,7 +20,7 @@ import {pairToKeyValueObjectWith} from './[any-any]-[iterable-object]';
 > convertToArray(obj)
 [{key: 'k1', value: 1}, {key: 'k2', value: 2}]
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const objectToKeyValueArrayWith = accessor => _.pipe([
 	_.pairs,
@@ -50,7 +50,7 @@ export const objectToKeyValueArrayWith = accessor => _.pipe([
 > keysAndValues({a: 3, b: 5})
 ['3 (a)', '5 (b)']
  *
- * @version 0.12.0
+ * @since 0.12.0
  */
 export const valuesWith = processor => _.pipe([
 	_.mapValuesWith(processor),

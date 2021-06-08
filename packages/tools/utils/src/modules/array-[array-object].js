@@ -18,7 +18,7 @@ import * as _ from 'lamb';
 > makeWithLatLng([10, 20])
 {lng: 10, lat: 20}
  *
- * @version 0.2.0
+ * @since 0.2.0
  * @see {@link module:@svizzle/utils/array-[array-object].makeWithValues|makeWithValues}
  * @see {@link module:@svizzle/utils/array-[any-object].makeWith|makeWith}
  */
@@ -38,7 +38,7 @@ export const makeWithKeys = keys => _.partial(_.make, [keys, _.__]);
 > makeWithTheseValues(['foo', 'bar'])
 {foo: 1, bar: 2}
  *
- * @version 0.2.0
+ * @since 0.2.0
  * @see {@link module:@svizzle/utils/array-[array-object].makeWithKeys|makeWithKeys}
  * @see {@link module:@svizzle/utils/array-[any-object].makeWith|makeWith}
  */

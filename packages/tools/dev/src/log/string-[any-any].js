@@ -26,7 +26,7 @@ import * as _ from 'lamb';
 [6, 12, 18]
 Saved tripled items in foo/bar.json
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const tapMessage = message => x => {
 	message && console.log(message);
@@ -55,7 +55,7 @@ export const tapMessage = message => x => {
 doubled: [2, 4, 6] // logged
 tripled: [6, 12, 18] // logged
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const tapValue = label => x => {
 	if (label) {
@@ -88,7 +88,7 @@ Object // logged
 values: Array // logged
 length: Number // logged
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const tapType = label => x => {
 	if (label) {
@@ -121,7 +121,7 @@ Object {a: 1, b: 2} // logged
 values: Array [1, 2] // logged
 length: Number 2 // logged
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const tapTypeAndValue = label => x => {
 	if (label) {

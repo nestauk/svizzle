@@ -20,7 +20,7 @@ import {reduceFromEmptyArray} from './[any-any]:accumcb-[array-any]';
 > poly(5)
 510
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const makePolynomial = _.pipe([
 	reduceFromEmptyArray((acc, coefficient, exponent) => {

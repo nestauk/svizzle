@@ -37,7 +37,7 @@ import {filterJsonExtensions} from './path';
 .catch(err => console.error(err))
 
 'the file content'
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const readFile = util.promisify(fs.readFile);
 
@@ -55,7 +55,7 @@ export const readFile = util.promisify(fs.readFile);
 .catch(err => console.error(err))
 
 ['dir1', 'dir2', 'file1.txt', 'file2.txt', 'folder1', 'folder2']
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const readDir = util.promisify(fs.readdir);
 
@@ -113,7 +113,7 @@ bar,2
 	[['a', 'b'], ['foo', '1'], ['bar', '2']],
 	[['foo', '1'], ['bar', '2']]
 ]
- * @version 0.9.0
+ * @since 0.9.0
  */
 export const readDirFiles = (
 	dirPath,
@@ -163,7 +163,7 @@ bar,2
 	'ab.csv': [['a', 1], ['foo', '1'], ['bar', '2']],
 	'rows.csv': [['foo', '1'], ['bar', '2']]
 }
- * @version 0.9.0
+ * @since 0.9.0
  */
 export const readDirFilesIndexed = (
 	dirPath,
@@ -225,7 +225,7 @@ joe,100
 .catch(err => console.error(err))
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const readCsv = (
 	csvPath,
@@ -279,7 +279,7 @@ joe|100
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const readDsv = (
 	filePath,
@@ -336,7 +336,7 @@ joe\t100
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const readTsv = (
 	tsvPath,
@@ -364,7 +364,7 @@ export const readTsv = (
 
 [{name: 'annie', amount: 200}, {name: 'joe', amount: 100}]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const readJson = jsonPath =>
 	readFile(jsonPath, 'utf-8')
@@ -385,7 +385,7 @@ export const readJson = jsonPath =>
 
 [{'a': 1}, '{'a': 2}', '{'a': 2}']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const readJsonDir = dirPath =>
 	readDir(dirPath, 'utf8')

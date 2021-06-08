@@ -25,7 +25,7 @@ import {reduceTo} from './constructor-[[any-any]:accumcb-[array-any]]';
 ])
 [0, 4, 7]
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const reduceFromEmptyArray = reduceTo(Array);
 
@@ -48,6 +48,6 @@ export const reduceFromEmptyArray = reduceTo(Array);
 ])
 { 11: 'b', 00: 'a' }
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const reduceFromEmptyObject = reduceTo(Object);

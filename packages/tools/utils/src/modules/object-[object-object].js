@@ -29,7 +29,7 @@ import * as _ from 'lamb';
 	{coords: [7, 8], fullname: 'John Foo'}
 ]
  *
- * @version 0.1.0
+ * @since 0.1.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
  * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
@@ -70,7 +70,7 @@ export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
 	lng: 10.34,
 }
  *
- * @version 0.9.0
+ * @since 0.9.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
@@ -133,7 +133,7 @@ export const makeMergeAppliedFnMap = fnMap => {
 	'a.0': x => 2 * x  // ...if this runs first, it could return `2 * undefined = NaN`
  });
  *
- * @version 0.6.0
+ * @since 0.6.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
@@ -179,7 +179,7 @@ bar,4,4,25px
 > conversionFn({name: 'foo', a: '9', b: '2', width: '10px'})
 {name: 'foo', a: 3, b: '2', width: '10px'}
  *
- * @version 0.1.0
+ * @since 0.1.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
@@ -205,7 +205,7 @@ export const transformValues = fnMap => _.mapValuesWith(
 > mergeB({a: 1, b: 1})
 {a: 1, b: 2}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mergeObj = obj => _.partial(_.merge, [_.__, obj]);
 
@@ -236,7 +236,7 @@ export const mergeObj = obj => _.partial(_.merge, [_.__, obj]);
 	bar: {k: 1}
 }
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeMergeKeyValue = (key, value) => object =>
 	_.merge(object, {

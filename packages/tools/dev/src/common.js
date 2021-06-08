@@ -16,7 +16,7 @@
 > renameToFoo('filename.spec.txt')
 'filename.spec.foo'
  *
- * @version 0.2.0
+ * @since 0.2.0
  */
 export const renameToExtension = ext => filepath => {
 	const split = filepath.split('.');
@@ -38,7 +38,7 @@ export const renameToExtension = ext => filepath => {
 > renameToCss('filename.js')
 'filename.css'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const renameToCss = renameToExtension('.css');
 
@@ -55,7 +55,7 @@ export const renameToCss = renameToExtension('.css');
 > renameToMinJs('filename.js')
 'filename.min.js'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const renameToMinJs = renameToExtension('.min.js');
 
@@ -72,7 +72,7 @@ export const renameToMinJs = renameToExtension('.min.js');
 > renameToCss('filename.js')
 'filename.mjs'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const renameToMjs = renameToExtension('.mjs');
 
@@ -90,7 +90,7 @@ export const renameToMjs = renameToExtension('.mjs');
 > makeBanner(pkg)
 'svizzle v0.1.0 - © 2021 nestauk'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeBanner = pkg => {
 	const author = typeof pkg.author === 'object'

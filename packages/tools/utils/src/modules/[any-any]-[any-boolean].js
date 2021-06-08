@@ -28,7 +28,7 @@ import {
 > isArrayWith(getValue)({key: 'a', value: [1, 2]})
 true
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isArrayWith = accessor => _.pipe([accessor, isArray]);
 
@@ -45,7 +45,7 @@ true
 > isNilWith(getValue)({key: 'a'})
 true
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isNilWith = accessor => _.pipe([accessor, _.isNil]);
 
@@ -60,7 +60,7 @@ export const isNilWith = accessor => _.pipe([accessor, _.isNil]);
 > isNotNaNWith(getValue)({key: 'a', value: 1})
 true
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isNotNaNWith = accessor => _.pipe([accessor, isNotNaN]);
 
@@ -75,7 +75,7 @@ export const isNotNaNWith = accessor => _.pipe([accessor, isNotNaN]);
 > isNotNilWith(getValue)({key: 'a', value: 1})
 true
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isNotNilWith = accessor => _.pipe([accessor, isNotNil]);
 
@@ -90,7 +90,7 @@ export const isNotNilWith = accessor => _.pipe([accessor, isNotNil]);
 > isNotNullWith(getValue)({key: 'a', value: 1})
 true
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isNotNullWith = accessor => _.pipe([accessor, isNotNull]);
 
@@ -105,7 +105,7 @@ export const isNotNullWith = accessor => _.pipe([accessor, isNotNull]);
 > isNullWith(getValue)({key: 'a', value: null})
 true
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isNullWith = accessor => _.pipe([accessor, _.isNull]);
 
@@ -122,7 +122,7 @@ true
 > isNumberWith(getValue)({key: 'a', value: 'a'})
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isNumberWith = accessor => _.pipe([accessor, isNumber]);
 
@@ -139,7 +139,7 @@ true
 > isObjectWith(getValue)({key: 'a', value: 'a'})
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  * @see {@link module:@svizzle/utils/any-boolean.isObject|isObject}
  */
 export const isObjectWith = accessor => _.pipe([accessor, isObject]);
@@ -157,7 +157,7 @@ false
 > isStringWith(getValue)({key: 'a', value: 1})
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isStringWith = accessor => _.pipe([accessor, isString]);
 
@@ -174,7 +174,7 @@ false
 > isUndefinedWith(getValue)({key: 'a', value: 1})
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isUndefinedWith = accessor => _.pipe([accessor, _.isUndefined]);
 
@@ -191,7 +191,7 @@ false
 > isValidNumberWith(getValue)({key: 'a', value: 1})
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  * @see {@link module:@svizzle/utils/any-boolean.isValidNumber|isValidNumber}
  */
 export const isValidNumberWith = accessor => _.pipe([accessor, isValidNumber]);
@@ -209,7 +209,7 @@ true
 > isToNumberValidNumberWith(getValue)({key: 'a', value: '123px'})
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  * @see {@link module:@svizzle/utils/any-boolean.toNumberisValidNumber|toNumberisValidNumber}
  */
 export const isToNumberValidNumberWith =
@@ -228,7 +228,7 @@ true
 > isToFloatValidNumberWith(getValue)({key: 'a', value: []})
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  * @see {@link module:@svizzle/utils/any-boolean.isToFloatValidNumberWith|isToFloatValidNumberWith}
  */
 export const isToFloatValidNumberWith =

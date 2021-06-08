@@ -16,7 +16,7 @@ import {getKey, getValue} from './object-any';
  *
  * @example getFirstAndLast([0, 1, 2, 3, 4]) // [0, 4]
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const getFirstAndLast = _.collect([_.head, _.last]);
 
@@ -40,7 +40,7 @@ export const getFirstAndLast = _.collect([_.head, _.last]);
 > inclusiveRange([2, 11, 2])
 [2, 4, 6, 8, 10];
  *
- * @version 0.7.0
+ * @since 0.7.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#range
  */
 export const inclusiveRange = ([start, end, step = 1]) => {
@@ -79,7 +79,7 @@ export const inclusiveRange = ([start, end, step = 1]) => {
 	[{bar: 'c'}, {bar: 'd'}]
 ]
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeBiPermutations = items =>
 	_.reduce(items, (acc, item, index, array) => {
@@ -107,7 +107,7 @@ export const makeBiPermutations = items =>
 > setIndexAsIdx([{a: 2}, {c: 5}])
 [{a: 2, idx: 0}, {c: 5, idx: 1}]
  *
- * @version 0.9.0
+ * @since 0.9.0
  */
 export const setIndexAsKey = (key = 'index') => _.pipe([
 	_.zipWithIndex,
@@ -137,7 +137,7 @@ export const setIndexAsKey = (key = 'index') => _.pipe([
 	{key: 'a', value: 4},
 ]
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const sortValueAscKeyAsc = _.sortWith([getValue, getKey]);
 
@@ -164,7 +164,7 @@ export const sortValueAscKeyAsc = _.sortWith([getValue, getKey]);
 	{key: 'a', value: 4},
 ]
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 
 export const sortValueAscKeyDesc = _.sortWith([
@@ -195,7 +195,7 @@ export const sortValueAscKeyDesc = _.sortWith([
 	{key: 'a', value: -30},
 ]
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const sortValueDescKeyAsc = _.sortWith([
 	_.sorterDesc(getValue),
@@ -225,7 +225,7 @@ export const sortValueDescKeyAsc = _.sortWith([
 	{key: 'a', value: -30},
 ]
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const sortValueDescKeyDesc = _.sortWith([
 	_.sorterDesc(getValue),
@@ -243,7 +243,7 @@ export const sortValueDescKeyDesc = _.sortWith([
  *
  * @example swap([0, 1, 2, 3, 4, 5], 1, 4) // [0, 4, 2, 3, 1, 5]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const swap = (array, indexA, indexB) => _.reduce(
 	array,
@@ -285,7 +285,7 @@ export const swap = (array, indexA, indexB) => _.reduce(
 > toggleItem(arrTailObj, {a: 1})
 [1, 2, 3, 4, 1, 2, 3, 4]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const toggleItem = (array, item) => {
 	let found = false;

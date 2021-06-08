@@ -20,7 +20,7 @@ import {getLength} from './iterable-number';
 > getObjSize({a: 1, b: 2})
 2
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getObjSize = _.pipe([_.keys, getLength]);
 
@@ -35,7 +35,7 @@ export const getObjSize = _.pipe([_.keys, getLength]);
 > valuesMax({a: -3, b: 2, c: 1})
 2
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const valuesMax = _.pipe([
 	_.values,
@@ -55,7 +55,7 @@ export const valuesMax = _.pipe([
 > valuesMin({a: -3, b: 2, c: 1})
 -3
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const valuesMin = _.pipe([
 	_.values,

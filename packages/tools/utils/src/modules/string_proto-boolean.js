@@ -22,7 +22,7 @@ true
 > endsWith('Pong', 'ing')
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const endsWith = _.generic(String.prototype.endsWith);
 
@@ -44,6 +44,6 @@ true
 > startsWith('Pong', 'Pin')
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const startsWith = _.generic(String.prototype.startsWith);

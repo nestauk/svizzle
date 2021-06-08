@@ -19,6 +19,6 @@ import * as _ from 'lamb';
 > join([0, 1, 2], '-')
 '0-1-2'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const join = _.generic(Array.prototype.join);

@@ -21,7 +21,7 @@ true
 > endsWithExclamationMark('Who?')
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeEndsWith = _.curryRight(endsWith, 2);
 
@@ -40,7 +40,7 @@ true
 > stringEndsWith('?')
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeStringEndsWith = _.curry(endsWith, 2);
 
@@ -59,7 +59,7 @@ true
 > startsWithHash('This is not')
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeStartsWith = _.curryRight(startsWith, 2);
 
@@ -78,6 +78,6 @@ true
 > stringStartsWith('h')
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeStringStartsWith = _.curry(startsWith, 2);

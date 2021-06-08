@@ -23,6 +23,6 @@ import * as _ from 'lamb';
 > split('a-b-c', '-')
 ['a', 'b', 'c']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const split = _.generic(String.prototype.split);

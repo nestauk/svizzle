@@ -27,7 +27,7 @@ import {reduceFromEmptyObject} from './[any-any]:accumcb-[array-any]';
 {a: 3, b: 2, c: 2, e: 1}
  *
  * @see {@link module:@svizzle/utils/array-object.makeAllOccurrences|makeAllOccurrences},
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeAllOccurrencesWith = accessor =>
 	reduceFromEmptyObject((acc, item) => {

@@ -15,6 +15,6 @@ import * as _ from 'lamb';
 > makePosition3D([1, 2, 3])
 {x: 1, y: 2, z: 3}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makePosition3D = _.partial(_.make, [['x', 'y', 'z'], _.__]);

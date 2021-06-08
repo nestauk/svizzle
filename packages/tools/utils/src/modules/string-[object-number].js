@@ -21,7 +21,7 @@ import {arrayMaxBy, arrayMinBy} from './string-[array-number]';
 > maxByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}})
 7
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const valuesMaxBy = key => _.pipe([
 	_.values,
@@ -43,7 +43,7 @@ export const valuesMaxBy = key => _.pipe([
 > minByK1({a: {k1: 9, k2: 12}, b: {k1: 7,  k2: 2}})
 7
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const valuesMinBy = key => _.pipe([
 	_.values,

@@ -55,7 +55,7 @@ import truncate from '@turf/truncate';
 	}
 })
 [-10.0, -10.0, 10.0, 10.0]
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
 
@@ -143,7 +143,7 @@ export const getOrMakeBBox = json => json.bbox ? json.bbox : bbox(json);
 		properties: {iso_a2: 'FR', color: undefined}
 	}]
 }
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeUpdateFeaturesProperty = ({
 	key_alt,
@@ -213,7 +213,7 @@ export const makeUpdateFeaturesProperty = ({
 		properties: {foo: 'b'}
 	}]
 }
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeCentroids = _.pipe([
 	_.mapWith(feature => centroid(feature, {properties: feature.properties})),
@@ -248,7 +248,7 @@ export const makeCentroids = _.pipe([
 	geometry: {type: 'Point', coordinates: [0.1, 0.1]},
 	properties: {name: 'a'}
 }
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
 	object => ({
@@ -308,7 +308,7 @@ export const makeToPointFeature = (coordPicker, propsTransformer = null) =>
 		properties: {name: 'b'}
 	}]
 }
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
 	_.mapWith(makeToPointFeature(coordPicker, propsTransformer)),
@@ -337,7 +337,7 @@ export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
 	geometry: {type: 'Point', coordinates: [0.1234, 0.1234]},
 	properties: {name: 'a'}
 }
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const setGeometryPrecision = precision =>
 	geojson => truncate(geojson, {precision, mutate: false});

@@ -19,7 +19,7 @@ false
 > isUSA({country_id: 'US', id: 456})
 true
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const isKeyValue = ([key, value]) => _.pipe([_.getKey(key), _.is(value)]);
 
@@ -37,7 +37,7 @@ true
 > isNotUSA({country_id: 'US', id: 456})
 false
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const isNotKeyValue = ([key, value]) => _.pipe([_.getKey(key), isNot(value)]);
 
@@ -55,7 +55,7 @@ false
 > isDefaultStatus({item: {status: 'default'}, id: 456})
 true
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const isPathValue = ([path, value]) => _.pipe([_.getPath(path), _.is(value)]);
 
@@ -73,6 +73,6 @@ true
 > isNotDefaultStatus({item: {status: 'default'}, id: 456})
 false
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const isNotPathValue = ([path, value]) => _.pipe([_.getPath(path), isNot(value)]);

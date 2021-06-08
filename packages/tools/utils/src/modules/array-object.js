@@ -30,7 +30,7 @@ import {reduceFromEmptyObject} from './[any-any]:accumcb-[array-any]';
 	'USA': 1
 }
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const keyValueArrayToObject = objects => _.reduce(objects,
 	(acc, {key, value}) => {
@@ -59,7 +59,7 @@ export const keyValueArrayToObject = objects => _.reduce(objects,
 > makeIndexByKey([{a: 1}, {b: 2}, {c: 3}])
 {'[object Object]': 2}
  *
- * @version 0.12.0
+ * @since 0.12.0
  */
 export const makeIndexByKey = _.pipe([_.zipWithIndex, _.fromPairs]);
 
@@ -74,7 +74,7 @@ export const makeIndexByKey = _.pipe([_.zipWithIndex, _.fromPairs]);
 > makeKeyedFalse(['a', 'b'])
 {a: false, b: false}
  *
- * @version 0.9.0
+ * @since 0.9.0
  */
 export const makeKeyedFalse = makeKeyed(false);
 
@@ -89,7 +89,7 @@ export const makeKeyedFalse = makeKeyed(false);
 > makeKeyedTrue(['a', 'b'])
 {a: true, b: true}
  *
- * @version 0.9.0
+ * @since 0.9.0
  */
 export const makeKeyedTrue = makeKeyed(true);
 
@@ -106,7 +106,7 @@ export const makeKeyedTrue = makeKeyed(true);
 > makeKeyedZeroes(['a', 'b'])
 {a: 0, b: 0}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeKeyedZeroes = makeKeyed(0);
 
@@ -127,7 +127,7 @@ export const makeKeyedZeroes = makeKeyed(0);
 > makeOccurrences(objects, ['k', 'a'])
 {k: 0, a: 3}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeOccurrences = (items, keys) => _.reduce(items,
 	(acc, item) => {
@@ -154,7 +154,7 @@ export const makeOccurrences = (items, keys) => _.reduce(items,
 > makeAllOccurrences(objects)
 {a: 3, b: 2, c: 2, e: 1}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeAllOccurrences = reduceFromEmptyObject((acc, item) => {
 	_.forEach(_.keys(item), key => {
@@ -182,7 +182,7 @@ export const makeAllOccurrences = reduceFromEmptyObject((acc, item) => {
 > mergeObjects([{b: 1}, {a: 6, b: -1}, {a: 1}])
 {a: 1, b: -1}
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const mergeObjects = reduceFromEmptyObject((acc, item) => {
 	_.forEach(_.pairs(item), ([key, value]) => {

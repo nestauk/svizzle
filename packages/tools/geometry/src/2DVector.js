@@ -15,7 +15,7 @@
 > vectorLength2D(0, 0)
 0
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const vectorLength2D = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
 
@@ -38,7 +38,7 @@ export const vectorLength2D = (dx, dy) => Math.sqrt(dx * dx + dy * dy);
 	versor: {x: 0, y: 0}
 }
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeVectorFeatures = ({x, y}) => {
 	const length = vectorLength2D(x, y);

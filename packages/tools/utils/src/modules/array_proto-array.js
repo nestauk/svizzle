@@ -20,6 +20,6 @@ import * as _ from 'lamb';
 > concat([0, 1, 2], [3, 4], [5, 6])
 [0, 1, 2, 3, 4, 5, 6]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const concat = _.generic(Array.prototype.concat);

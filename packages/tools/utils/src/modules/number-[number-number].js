@@ -16,6 +16,6 @@
 2.41
 > roundTo2(2.41785)
 2.42
- * @version 0.6.0
+ * @since 0.6.0
  */
 export const roundTo = precision => x => Number(x.toFixed(precision));

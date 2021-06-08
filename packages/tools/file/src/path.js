@@ -23,7 +23,7 @@ true
 > isJsonOrGeojson('file.csv')
 false
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const hasAnyExtensionOf = extensions =>
 	fileName => extensions.includes(path.extname(fileName));
@@ -40,7 +40,7 @@ export const hasAnyExtensionOf = extensions =>
 > filterJsonExtensions(['file.json', 'file.geojson', 'file.csv'])
 ['file.json', 'file.geojson']
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const filterJsonExtensions =
 	_.filterWith(hasAnyExtensionOf(['.json', '.geojson']));
@@ -61,7 +61,7 @@ export const filterJsonExtensions =
 > renameToJson('file.min.js')
 'file.txt'
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const renameToExtension = ext => _.pipe([
 	path.parse,
@@ -105,7 +105,7 @@ const renameToExtension = ext => filepath => {
 > resolve('file2.txt')
 '/output/dir/file2.txt'
  *
- * @version 0.10.0
+ * @since 0.10.0
  */
 export const resolveToDir =
 	dirPath => filename => path.resolve(dirPath, filename);

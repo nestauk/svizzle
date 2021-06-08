@@ -20,7 +20,7 @@ import * as _ from 'lamb';
 > findItem({a: {id: 'foo', min: 1, max: 2}, b: {id: 'bar', min: -1, max: 10}, c: {id: 'baz', min: -4, max: 10}})
 {id: 'bar', min: -1, max: 10}
  *
- * @version 0.12.0
+ * @since 0.12.0
  */
 export const findValueWith = predicate => _.pipe([
 	_.values,

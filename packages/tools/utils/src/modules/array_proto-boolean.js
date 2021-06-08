@@ -21,6 +21,6 @@ true
 > includes([0, 1, 2], 3)
 false
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const includes = _.generic(Array.prototype.includes);

@@ -34,7 +34,7 @@ true
 > func(1, 2)
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isIterableEmpty = _.pipe([getLength, is0]);
 
@@ -62,7 +62,7 @@ false
 > func(1, 2)
 true
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isIterableNotEmpty = _.pipe([getLength, isGT0]);
 
@@ -92,7 +92,7 @@ true
 > func(1, 2)
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const hasIterableLength1 = _.pipe([getLength, is1]);
 
@@ -122,6 +122,6 @@ false
 > func(1, 2)
 true
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isIterableLongerThan1 = _.pipe([getLength, isGT1]);

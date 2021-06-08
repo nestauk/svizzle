@@ -22,7 +22,7 @@
 [6, 12, 18]
 'Saved tripled items in foo/bar.json – total: 18'
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const tapWith = ([func, label]) => x => {
 	if (label) {

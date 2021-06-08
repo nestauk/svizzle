@@ -19,7 +19,7 @@ import {getEndOfLineLength} from './string-number';
 > capitalize('hello')
 'Hello'
  *
- * @version 0.8.0
+ * @since 0.8.0
  */
 export const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
 
@@ -42,7 +42,7 @@ export const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
 > trimLastNewline('a\nb\nc\n\r\n')
 'a\nb\nc\n'
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const trimLastNewline =
 	_.when(endsWithNewLine, s => {

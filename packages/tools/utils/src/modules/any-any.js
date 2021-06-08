@@ -23,7 +23,7 @@ import {isValidNumber} from './any-boolean';
 > makeEmptyArrayIfUndefined('a')
 'a'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeEmptyArrayIfUndefined = x => _.isUndefined(x) ? [] : x;
 
@@ -59,7 +59,7 @@ true
 null
 > toFloatOrIdentity(undefined)
 undefined
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const toFloatOrIdentity = x => {
 	const parsed = parseFloat(x);

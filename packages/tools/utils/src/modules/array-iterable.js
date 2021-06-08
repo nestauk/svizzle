@@ -25,7 +25,7 @@ undefined
 > getShorter('')
 undefined
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 
 export const getShorter = iterable => {

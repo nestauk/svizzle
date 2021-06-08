@@ -40,7 +40,7 @@
 > stringToObject('')
 {value: -1}
  *
- * @version 0.14.0
+ * @since 0.14.0
  */
 export const truthynessTo =
 	([valueIfTruthy, valueIfFalsy]) => x => x ? valueIfTruthy : valueIfFalsy;

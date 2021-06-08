@@ -23,7 +23,7 @@ true
 > endsWithNewLine('abc\r\n')
 true
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const endsWithNewLine = makeEndsWith('\n'); // s => (/\r?\n/).test(s);
 
@@ -40,7 +40,7 @@ true
 > isTrimmedNotEmpty('  ')
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isTrimmedNotEmpty = _.pipe([
 	trim,

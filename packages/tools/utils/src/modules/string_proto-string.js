@@ -26,7 +26,7 @@ import * as _ from 'lamb';
 > sliceString('0123456789', 3, -1)
 '345678'
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const sliceString = _.generic(String.prototype.slice);
 
@@ -42,6 +42,6 @@ export const sliceString = _.generic(String.prototype.slice);
 > trim('   abc   \n  ')
 'abc'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const trim = _.generic(String.prototype.trim);

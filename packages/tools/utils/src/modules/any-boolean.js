@@ -27,7 +27,7 @@ false
 > isArray(returnArgs())
 true
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const isArguments = _.isType('Arguments');
 
@@ -54,7 +54,7 @@ false
 > isArray(returnArgs())
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isArray = _.isType('Array');
 
@@ -100,7 +100,7 @@ false
 > isNotNaN(returnArgs())
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isNotNaN = _.not(isNaN);
 
@@ -142,7 +142,7 @@ false
 > isNotNil(returnArgs())
 false
  *
- * @version 0.2.0
+ * @since 0.2.0
  */
 export const isNotNil = _.not(_.isNil);
 
@@ -184,7 +184,7 @@ false
 > isNotNull(returnArgs())
 true
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const isNotNull = _.not(_.isNull);
 
@@ -217,7 +217,7 @@ false
 > isFunction(returnArgs())
 false
  *
- * @version 0.12.0
+ * @since 0.12.0
  */
 export const isFunction = _.isType('Function');
 
@@ -246,7 +246,7 @@ false
 > isNumber(returnArgs())
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isNumber = _.isType('Number');
 
@@ -277,7 +277,7 @@ false
 > isObject(returnArgs())
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  * @see {@link module:@svizzle/utils/[any-any]-[any-boolean].isObjectWith|isObjectWith}
  */
 export const isObject = _.isType('Object');
@@ -311,7 +311,7 @@ false
 > isString(returnArgs())
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isString = _.isType('String');
 
@@ -351,7 +351,7 @@ export const isString = _.isType('String');
 });
 [false, ...]
  *
- * @version 0.1.0
+ * @since 0.1.0
  * @see {@link module:@svizzle/utils/[any-any]-[any-boolean].isValidNumberWith|isValidNumberWith}
  */
 export const isValidNumber = _.allOf([isNumber, isNotNaN]);
@@ -386,7 +386,7 @@ true
 false
 > negate({})
 false
- * @version 0.10.0
+ * @since 0.10.0
  */
 export const negate = x => !x;
 
@@ -424,7 +424,7 @@ export const negate = x => !x;
 	toNumberisValidNumber(x)
 });
 [false, ...]
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const toNumberisValidNumber = _.pipe([Number, isValidNumber]);
 
@@ -463,6 +463,6 @@ export const toNumberisValidNumber = _.pipe([Number, isValidNumber]);
 	toFloatIsValidNumber(x)
 });
 [false, ...]
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const toFloatIsValidNumber = _.pipe([parseFloat, isValidNumber]);

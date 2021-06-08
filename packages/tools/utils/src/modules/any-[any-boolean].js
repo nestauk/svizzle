@@ -19,7 +19,7 @@ true
 > isNotTwo(2)
 false
  *
- * @version v0.3.0
+ * @since v0.3.0
  */
 export const isNot = x => _.not(_.is(x));
 
@@ -43,7 +43,7 @@ true
 > isEqualToArray([1, 2, {a: 1}, 3])
 false
  *
- * @version v0.8.0
+ * @since v0.8.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#is
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#isSVZ
  */

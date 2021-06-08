@@ -13,7 +13,7 @@
 > noop()
 undefined
  *
- * @version v0.14.0
+ * @since v0.14.0
  */
 // eslint-disable-next-line no-empty-function
 export const noop = () => {};

@@ -23,7 +23,7 @@ import {makeWithKeys} from './array-[array-object]';
 > makeCircle(4)
 {radius: 4, perimeter: 25.13, area: 50.27}
  *
- * @version 0.2.0
+ * @since 0.2.0
  * @see {@link module:@svizzle/utils/array-[array-object].makeWithKeys|makeWithKeys}
  * @see {@link module:@svizzle/utils/array-[array-object].makeWithValues|makeWithValues}
  */

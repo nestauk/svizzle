@@ -23,7 +23,7 @@ false
 > areAllTruthy(['', {a: 1}])
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const areAllTruthy = _.every(_.identity);
 
@@ -50,6 +50,6 @@ true
 > areSomeTruthy([0, ''])
 > false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const areSomeTruthy = _.some(_.identity);

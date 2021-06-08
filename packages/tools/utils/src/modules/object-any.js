@@ -15,7 +15,7 @@ import * as _ from 'lamb';
 > getId({id: 'foo', name: 'bar'})
 'foo'
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const getId = _.getKey('id');
 
@@ -30,7 +30,7 @@ export const getId = _.getKey('id');
 > getKey({key: 'foo', value: 'bar'})
 'foo'
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const getKey = _.getKey('key');
 
@@ -45,7 +45,7 @@ export const getKey = _.getKey('key');
 > getValue({key: 'foo', value: 'bar'})
 'bar'
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const getValue = _.getKey('value');
 
@@ -60,6 +60,6 @@ export const getValue = _.getKey('value');
 > getValues({key: 'foo', values: [0, 1, 2, 3]})
 [0, 1, 2, 3]
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const getValues = _.getKey('values');

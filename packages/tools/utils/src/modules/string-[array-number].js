@@ -22,7 +22,7 @@ import * as _ from 'lamb';
 > maxByA([{a: 1, b: 1}, {a: 2, b: -2}])
 2
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const arrayMaxBy = key => _.reduceWith((max, item) => {
 	const value = item[key];
@@ -52,7 +52,7 @@ export const arrayMaxBy = key => _.reduceWith((max, item) => {
 > minByA([{a: 1, b: 1}, {a: 2, b: -2}])
 1
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const arrayMinBy = key => _.reduceWith((min, item) => {
 	const value = item[key];

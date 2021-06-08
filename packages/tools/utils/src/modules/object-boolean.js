@@ -22,7 +22,7 @@ true
 > hasObjSize1({a: 1, b: 2})
 false
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const hasObjSize1 = _.pipe([getObjSize, is1]);
 
@@ -41,7 +41,7 @@ false
 > hasSomeNullValues({a: 1, b: undefined, c: null})
 true
  *
- * @version 0.8.0
+ * @since 0.8.0
  */
 export const hasSomeNullValues = _.pipe([
 	_.pairs,
@@ -61,7 +61,7 @@ true
 > isObjEmpty({a: 1})
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isObjEmpty = _.pipe([getObjSize, is0]);
 
@@ -78,6 +78,6 @@ true
 > isObjEmpty({})
 false
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const isObjNotEmpty = _.pipe([getObjSize, isGT0]);

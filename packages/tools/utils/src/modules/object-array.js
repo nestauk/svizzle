@@ -22,7 +22,7 @@ import {pickIfTruthy} from './object-object';
 > concatValues({a: [1, 2, 3], b: [4, 5, 6]})
 [1, 2, 3, 4, 5, 6]
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const concatValues = _.pipe([_.values, _.apply(concat)]);
 
@@ -43,7 +43,7 @@ export const concatValues = _.pipe([_.values, _.apply(concat)]);
 	{a: 0, b: 3, c: 5}, {a: 1, b: 3, c: 5}
 ]
  *
- * @version 0.6.0
+ * @since 0.6.0
  */
 export const makeKeyedValuesPermutations = _.pipe([
 	_.pairs,
@@ -75,7 +75,7 @@ export const makeKeyedValuesPermutations = _.pipe([
 > objectToKeyValueArray(obj)
 [{key: 'k1', value: 'v1'}, {key: 'k2', value: 'v2'}]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const objectToKeyValueArray = _.pipe([
 	_.pairs,
@@ -97,6 +97,6 @@ export const objectToKeyValueArray = _.pipe([
 > getTruthyValuesKeys({a: [1, 2], b: {a: 1}, c: false})
 ['a', 'b']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const getTruthyValuesKeys = _.pipe([pickIfTruthy, _.keys]);

@@ -46,7 +46,7 @@ describe('console.log still works in other tests', function() {
 		console.log('foo') // 'foo'
 	});
 });
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makePrinter = () => {
 	let log;

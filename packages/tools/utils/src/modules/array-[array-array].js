@@ -22,7 +22,7 @@ import * as _ from 'lamb';
 > transformer([1])
 [20]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeArrayTransformer = fnArr => _.pipe([
 	_.partial(_.zip, [fnArr, _.__]),
@@ -44,7 +44,7 @@ export const makeArrayTransformer = fnArr => _.pipe([
 ])
 [{a: 1, k: 4}, {a: 5}]
  *
- * @version 0.8.0
+ * @since 0.8.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
  */
 export const pluckKeys = keys => _.mapWith(_.pick(keys));
@@ -61,7 +61,7 @@ export const pluckKeys = keys => _.mapWith(_.pick(keys));
 > removeIndices([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 [0, 1, 2, 5, 6, 7, 9]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const removeAt = indices => _.reduceWith(
 	(acc, v, i, array) => {

@@ -45,7 +45,7 @@ import {concat} from './array_proto-array';
   a: [{x: 'a', y: 6}],
 }
  *
- * @version 0.6.0
+ * @since 0.6.0
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].indexValuesWith|indexValuesWith}
  */
 export const groupValuesWith = accessor => _.pipe([
@@ -94,7 +94,7 @@ export const groupValuesWith = accessor => _.pipe([
   unique4: {x: 'unique4', y: 8},
 };
  *
- * @version 0.6.0
+ * @since 0.6.0
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].groupValuesWith|groupValuesWith}
  */
 export const indexValuesWith = accessor => _.pipe([
@@ -120,7 +120,7 @@ export const indexValuesWith = accessor => _.pipe([
 {a: 3, b: 1, c: 7},
 
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mergeWith = fn => (a, b) => _.reduce(
 	_.pairs(b),

@@ -29,7 +29,7 @@ async function foo() {
 	// ...;
 }
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const requestJson = (url, useFetch = true) => useFetch
 	? json(url)
@@ -65,7 +65,7 @@ async function foo() {
 	// ...;
 }
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const requestNdjson = (url, useFetch = true) =>
 	(useFetch

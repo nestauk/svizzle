@@ -23,7 +23,7 @@ import {concat} from './array_proto-array';
 });
 [-0.1275, 51.507222]
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeKeysGetter = _.pipe([
 	_.mapWith(_.getKey),
@@ -47,7 +47,7 @@ export const makeKeysGetter = _.pipe([
 })
 ['bread', 'cheese', 'ham', 'wine', 'water']
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const pickAndConcatValues =
 	keys => _.pipe([

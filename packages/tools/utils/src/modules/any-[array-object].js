@@ -18,7 +18,7 @@ import * as _ from 'lamb';
 > makeKeyedEmptyArray(['a', 'b'])
 {a: [], b: []}
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const makeKeyed = value => _.pipe([
 	_.collect([_.identity, _.mapWith(_.always(value))]),

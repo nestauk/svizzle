@@ -122,7 +122,7 @@ import * as _ from 'lamb';
 		'4px'
 	],
 }
- * @version 0.6.0
+ * @since 0.6.0
  * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
@@ -153,7 +153,7 @@ export const applyTransformsSequence = pathFnPairs => obj =>
 	bar: {a: 5}
 }
  *
- * @version 0.8.0
+ * @since 0.8.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluck
  */
 export const pluckValuesKeys = keys => _.mapValuesWith(_.pick(keys));
@@ -175,7 +175,7 @@ export const pluckValuesKeys = keys => _.mapValuesWith(_.pick(keys));
 > remap({a: 1, b: 2})
 {aa: 3, bb: 6}
  *
- * @version 0.13.0
+ * @since 0.13.0
  */
 export const remapWith = ([keysFn, valuesFn]) => _.pipe([
 	_.pairs,

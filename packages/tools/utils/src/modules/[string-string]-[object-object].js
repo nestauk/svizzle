@@ -17,7 +17,7 @@ import * as _ from 'lamb';
 {'--foo': 1, '--bar': 2}
  *
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#renameWith
- * @version 0.9.0
+ * @since 0.9.0
  */
 export const renameKeysWith = renameFn => _.pipe([
 	_.pairs,

@@ -20,7 +20,7 @@ import {split} from './string_proto-array';
 > splitStringBy('-')
 ['a.b', 'c,d:e']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeSplitStringBy = _.curry(split, 2);
 
@@ -40,6 +40,6 @@ export const makeSplitStringBy = _.curry(split, 2);
 > splitByDoubleDot('aa...a..a.a.aa.....aa..')
 > ['aa', '.a', 'a.a.aa', '', '.aa', '']
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeSplitBy = _.curryRight(split, 2);

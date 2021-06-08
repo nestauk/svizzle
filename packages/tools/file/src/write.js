@@ -38,7 +38,7 @@ kV?s
 $ base64 foo.txt
 a1b2cw==
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const writeFile = util.promisify(fs.writeFile);
 
@@ -57,7 +57,7 @@ export const writeFile = util.promisify(fs.writeFile);
 .then(saveObj('destination/path'))
 .catch(err => console.error(err));
  *
- * @version 0.1.0
+ * @since 0.1.0
  * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
  * @see {@link module:@svizzle/file/write.saveString|saveString}
  * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
@@ -80,7 +80,7 @@ export const saveObj = (filepath, indent = 0) => object =>
 .then(saveObjPassthrough('destination/path'))
 .catch(err => console.error(err));
  *
- * @version 0.1.0
+ * @since 0.1.0
  * @see {@link module:@svizzle/file/write.saveObj|saveObj}
  * @see {@link module:@svizzle/file/write.saveString|saveString}
  * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
@@ -104,7 +104,7 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
 .then(saveString('destination/path'))
 .catch(err => console.error(err));
  *
- * @version 0.7.0
+ * @since 0.7.0
  * @see {@link module:@svizzle/file/write.saveObj|saveObj}
  * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
  * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
@@ -126,7 +126,7 @@ export const saveString = filepath =>
 .then(saveStringPassthrough('destination/path'))
 .catch(err => console.error(err));
  *
- * @version 0.7.0
+ * @since 0.7.0
  * @see {@link module:@svizzle/file/write.saveObj|saveObj}
  * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
  * @see {@link module:@svizzle/file/write.saveString|saveString}
@@ -148,7 +148,7 @@ export const saveStringPassthrough = filepath =>
 .then(saveResponse('destination/path'))
 .catch(err => console.error(err));
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const saveResponse = filepath => response => {
 	const dest = fs.createWriteStream(filepath);

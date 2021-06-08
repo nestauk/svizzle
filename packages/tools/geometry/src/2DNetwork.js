@@ -23,7 +23,7 @@ import {makeVectorFeatures} from './2DVector';
 	versor: {x: 0.7071067811865475, y: 0.7071067811865475}
 }
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const linkVector = link => {
 	const x = link.target.x - link.source.x;
@@ -53,7 +53,7 @@ export const linkVector = link => {
 	y2: 1.9292893218813452
 }
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeLinkVector = link => {
 	const {versor, length} = linkVector(link);

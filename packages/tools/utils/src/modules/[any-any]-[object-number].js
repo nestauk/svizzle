@@ -20,7 +20,7 @@ import {arrayMaxWith, arrayMinWith} from './[any-number]:accumcb-[array-number]'
 > maxWithAbsSin({a: -Math.PI/4, b: -Math.PI/6}))
 0.7071067811865475
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const valuesMaxWith = fn => _.pipe([
 	_.values,
@@ -41,7 +41,7 @@ export const valuesMaxWith = fn => _.pipe([
 > minWithAbsSin({a: -Math.PI/4, b: -Math.PI/6}))
 0.49999999999999994
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const valuesMinWith = fn => _.pipe([
 	_.values,

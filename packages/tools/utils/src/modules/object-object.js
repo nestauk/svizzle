@@ -25,7 +25,7 @@ import {mergeWith} from './[any-any]-[object-object]';
 > mapValuesToFloat({a: '1.2', b: 'h2o'})
 {a: 1.2, b: NaN}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mapValuesToFloat = _.mapValuesWith(parseFloat);
 
@@ -40,7 +40,7 @@ export const mapValuesToFloat = _.mapValuesWith(parseFloat);
 > mapValuesToFloatPossibly({a: '1.2', b: '2px', c: 'h2o'})
 {a: 1.2, b: 2, c: 'h2o'}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mapValuesToFloatPossibly = _.mapValuesWith(toFloatOrIdentity);
 
@@ -59,7 +59,7 @@ export const mapValuesToFloatPossibly = _.mapValuesWith(toFloatOrIdentity);
 > mapValuesToNumber({a: '1.2', b: '2s'})
 {a: 1.2, b: NaN}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mapValuesToNumber = _.mapValuesWith(Number);
 
@@ -75,7 +75,7 @@ export const mapValuesToNumber = _.mapValuesWith(Number);
 > mergeWithSum({a: 1, b: 2}, {a: 10, c: 1})
 {a: 11, b: 2, c: 1}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mergeWithSum = mergeWith(_.sum);
 
@@ -94,7 +94,7 @@ export const mergeWithSum = mergeWith(_.sum);
 > mergeWithMerge(obj1, obj2)
 {A: {a: 1, b: 10}, B: {a: 10, b: 1}}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mergeWithMerge = mergeWith(_.merge);
 
@@ -113,7 +113,7 @@ export const mergeWithMerge = mergeWith(_.merge);
 > mergeWithConcat(obj1, obj2)
 {a: [1, 2, 3, 1, 2, 3], b: [4, 5, 6, 4, 5, 6]}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mergeWithConcat = mergeWith(concat);
 
@@ -131,7 +131,7 @@ export const mergeWithConcat = mergeWith(concat);
 > mergeWithAppendTo(obj1, obj2)
 {a: [1, 2, 3, 4], b: [4, 5, 6, [7]]}
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const mergeWithAppendTo = mergeWith(_.appendTo);
 
@@ -150,7 +150,7 @@ export const mergeWithAppendTo = mergeWith(_.appendTo);
 > pickIfTruthy({a: [1, 2], b: {a: 1}, c: false})
 {a: [1, 2], b: {a: 1}}
  *
- * @version 0.2.0
+ * @since 0.2.0
  */
 export const pickIfTruthy = _.pickIf(_.identity);
 
@@ -171,7 +171,7 @@ export const pickIfTruthy = _.pickIf(_.identity);
 > swapKeyValue({a: 1, b: 2, c: 'd', e: 1})
 {2: 'b', d: 'c', 1: 'e'}
  *
- * @version 0.6.0
+ * @since 0.6.0
  * @see {@link module:@svizzle/utils/[any-any]-[object-object].indexValuesWith|indexValuesWith}
  */
 export const swapKeyValue = _.pipe([

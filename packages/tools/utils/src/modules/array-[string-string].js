@@ -33,6 +33,6 @@ import {sliceString} from './string_proto-string';
 > slicerNeg3('0123456789')
 '45'
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const sliceStringAt = arr => _.partial(sliceString, [_.__, ...arr]);

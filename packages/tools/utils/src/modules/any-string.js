@@ -20,6 +20,6 @@
 ]
  *
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const stringify = x => JSON.stringify(x, null, 2);

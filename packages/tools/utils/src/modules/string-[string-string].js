@@ -16,7 +16,7 @@
 > postfixed('B')
 'B---'
  *
- * @version 0.12.0
+ * @since 0.12.0
  * @see {@link module:@svizzle/utils/string-[string-string].makePrefixed|makePrefixed}
  */
 export const makePostfixed = postfix => string => string + postfix;
@@ -35,7 +35,7 @@ export const makePostfixed = postfix => string => string + postfix;
 > prefixed('B')
 '---B'
  *
- * @version 0.1.0
+ * @since 0.1.0
  * @see {@link module:@svizzle/utils/string-[string-string].makePostfixed|makePostfixed}
  */
 export const makePrefixed = prefix => string => prefix + string;

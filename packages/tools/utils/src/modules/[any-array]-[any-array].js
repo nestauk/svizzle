@@ -33,7 +33,7 @@ import {makeBiPermutations} from './array-array';
   [{bar: 'c'}, {bar: 'd'}]
 ]
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeBiPermutationsWith = accessor => _.pipe([
 	accessor,

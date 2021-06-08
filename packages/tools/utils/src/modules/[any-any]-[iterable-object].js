@@ -41,7 +41,7 @@
 > objectifySelfSum('abc')
 {key: 'a', value: 'bb'}
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const pairToKeyValueObjectWith =
 	accessor => ([key, item]) => ({

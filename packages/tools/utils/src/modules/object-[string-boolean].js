@@ -18,7 +18,7 @@ true
 > isKeyOfObj('c')
 false
  *
- * @version 0.7.0
+ * @since 0.7.0
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#hasKey
  */
 export const isKeyOf = obj => key => _.has(obj, key);

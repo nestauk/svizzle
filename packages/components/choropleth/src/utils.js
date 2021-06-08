@@ -68,7 +68,7 @@ export const truncateGeojson = setGeometryPrecision(4);
 	]
 }
  *
- * @version 0.4.0
+ * @since 0.4.0
  */
 export const topoToGeo = (topojson, id) =>
 	truncateGeojson(feature(topojson, topojson.objects[id]));

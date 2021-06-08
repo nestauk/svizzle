@@ -16,7 +16,7 @@ import {joinWith} from 'lamb';
 > joinWithBlank(['a', 'b', 'c'])
 'a b c'
  *
- * @version 0.13.0
+ * @since 0.13.0
  */
 export const joinWithBlank = joinWith(' ');
 
@@ -32,7 +32,7 @@ export const joinWithBlank = joinWith(' ');
 > joinWithDash(['a', 'b', 'c'])
 'a-b-c'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const joinWithDash = joinWith('-');
 
@@ -48,7 +48,7 @@ export const joinWithDash = joinWith('-');
 > joinWithColon(['a', 'b', 'c'])
 'a:b:c'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const joinWithColon = joinWith(':');
 
@@ -64,6 +64,6 @@ export const joinWithColon = joinWith(':');
 > joinWithSemicolon(['a', 'b', 'c'])
 'a;b;c'
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const joinWithSemicolon = joinWith(';');

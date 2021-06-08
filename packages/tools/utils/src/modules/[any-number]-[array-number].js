@@ -28,7 +28,7 @@ import {arraySum} from './array-number';
 ])
 9
  *
- * @version 0.11.0
+ * @since 0.11.0
  */
 export const makeAverageWith = getter => _.pipe([
 	_.collect([

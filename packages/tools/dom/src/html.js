@@ -32,7 +32,7 @@
 </div>
 </main>
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const alignTags = htmlString =>
 	htmlString

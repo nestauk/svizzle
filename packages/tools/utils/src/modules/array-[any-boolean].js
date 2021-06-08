@@ -33,7 +33,7 @@ true
 > isOneOfThoseObjects({a: 3})
 false
  *
- * @version 0.5.0
+ * @since 0.5.0
  */
 export const makeOccursIn = array =>
 	input => _.someIn(array, elem => isEqual(elem, input));
@@ -54,7 +54,7 @@ true
 > isIncluded(4)
 false
  *
- * @version 0.3.0
+ * @since 0.3.0
  * @see {@link module:@svizzle/utils/array_proto-boolean.includes|includes}
  */
 export const makeIsIncluded = array => _.partial(includes, [array, _.__]);

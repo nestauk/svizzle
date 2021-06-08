@@ -18,7 +18,7 @@ import {getLength} from './iterable-number';
 > makeRandomNumInRange(1.2, 7.4)
 4.2
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const makeRandomNumInRange = ([min, max]) =>
 	min + (max - min) * Math.random();
@@ -37,7 +37,7 @@ export const makeRandomNumInRange = ([min, max]) =>
 > arrayMax([-1, -2, 0, 1, 2])
 2
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const arrayMax = _.apply(Math.max);
 
@@ -55,7 +55,7 @@ export const arrayMax = _.apply(Math.max);
 > arrayMin([-1, -2, 0, 1, 2])
 -2
  *
- * @version 0.1.0
+ * @since 0.1.0
  */
 export const arrayMin = _.apply(Math.min);
 
@@ -72,7 +72,7 @@ export const arrayMin = _.apply(Math.min);
 > arraySum([])
 0
  *
- * @version 0.3.0
+ * @since 0.3.0
  */
 export const arraySum = _.reduceWith(_.sum, 0);
 
@@ -87,7 +87,7 @@ export const arraySum = _.reduceWith(_.sum, 0);
 > arrayAverage([1, 23, 6])
 10
  *
- * @version 0.11.0
+ * @since 0.11.0
  */
 export const arrayAverage = _.pipe([
 	_.collect([arraySum, getLength]),
@@ -109,7 +109,7 @@ export const arrayAverage = _.pipe([
 ])
 10
  *
- * @version 0.11.0
+ * @since 0.11.0
  */
 export const keyValueArrayAverage = _.pipe([
 	_.collect([

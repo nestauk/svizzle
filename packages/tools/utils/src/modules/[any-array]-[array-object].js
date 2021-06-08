@@ -24,7 +24,7 @@ import * as _ from 'lamb';
 > arrayToObject2(['a', 'b', 1])
 {'00': 'aaa', '11': 'bbb', '22': '111'}
  *
- * @version 0.13.0
+ * @since 0.13.0
  */
 export const makeArrayToObjectWith = valueIndexToPair => _.pipe([
 	_.mapWith(valueIndexToPair),
