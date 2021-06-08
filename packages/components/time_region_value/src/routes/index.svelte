@@ -1,15 +1,13 @@
 <script>
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
-	import {makeStyleVars} from '@svizzle/dom';
-
-	import defaultTheme from 'theme';
 
 	/* local stores */
 
 	import {_isSmallScreen, _timelineLayout} from 'stores/layout';
 	import {setRoute, showView} from 'stores/navigation';
 	import {resetSelection} from 'stores/selection';
+	import {_style} from 'stores/theme';
 	import {shortenYear} from 'utils/format';
 	import {makeURL} from 'utils/url';
 
@@ -25,8 +23,7 @@
 	// rest
 	export let _groups;
 	export let _yearRange;
-	export let hrefBase = ''; // relative to `document.baseURI`
-	export let theme = defaultTheme;
+	export let hrefBase = '';
 
 	/* init */
 
@@ -43,18 +40,14 @@
 	let width = isSapperExported && 1000;
 	let height;
 
-	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-
-	$: style = makeStyleVars(theme);
 	$: layout = $_timelineLayout;
 	$: vStep = 2 * layout.radius + 3 * gap + layout.fontSize;
 	$: shortenYearFn = $_isSmallScreen ? shortenYear : _.identity;
 </script>
 
 <div
-	{style}
 	class='time_region_value_Index'
+	style={$_style}
 >
 	<header>
 		<h1>Indicators</h1>

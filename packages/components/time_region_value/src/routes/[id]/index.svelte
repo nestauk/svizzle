@@ -3,7 +3,6 @@
 
 	// utils
 
-	import {makeStyleVars} from '@svizzle/dom';
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
 	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
 	import MessageView from '@svizzle/ui/src/MessageView.svelte';
@@ -58,15 +57,12 @@
 		_selectedNUT2Ids,
 		_someUnselectedRegions,
 	} from 'stores/regionSelection';
-	import {
-		_availableYears,
-		resetSelectedYear
-	} from 'stores/selection';
+	import {_availableYears, resetSelectedYear} from 'stores/selection';
+	import {_style, _theme} from 'stores/theme';
 
 	/* local utils */
 
 	import config from 'config';
-	import defaultTheme from 'theme';
 	import {makeGetIndicatorFormatOf} from 'utils/format';
 
 	/* consts */
@@ -88,7 +84,6 @@
 	export let _lookup;
 	export let data;
 	export let id;
-	export let theme = defaultTheme;
 	export let types;
 
 	/* init */
@@ -137,12 +132,6 @@
 
 	// update stores
 	$: _availableYears.set(availableYears);
-
-	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-
-	// style
-	$: style = makeStyleVars(theme);
 
 	// utils
 	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
@@ -197,8 +186,8 @@
 <!-- svelte-ignore component-name-lowercase -->
 
 <div
-	{style}
 	class='time_region_value_IdIndex {$_screenClasses}'
+	style={$_style}
 >
 	<Header
 		{subtitle}
@@ -236,7 +225,7 @@
 								showTicksExtentOnly: true,
 							}}
 							theme={{
-								backgroundColor: theme.colorWhite,
+								backgroundColor: $_theme.colorWhite,
 								backgroundOpacity: 0.5,
 							}}
 							ticksFormatFn={formatFn}
@@ -244,11 +233,11 @@
 					</div>
 					<div class='content'>
 						<TrendsDiv
+							{_style}
 							{colorScale}
 							{formatFn}
 							{getIndicatorValue}
 							{schema}
-							{theme}
 							{types}
 							{useRankScale}
 							data={trendsData}
@@ -273,7 +262,6 @@
 					{region}
 					{source_name}
 					{source_url}
-					{theme}
 					{url}
 					{warning}
 					{year_extent}
@@ -320,18 +308,17 @@
 						toggledRanking,
 						toggledGeoModal: toggleGeoModal,
 					}}
-					theme={_.pick(theme, ['colorBase', 'colorSelected'])}
 				/>
 			</div>
 
 			<!-- content -->
 
 			<div
-				{style}
 				bind:clientHeight={mediumTrendsHeight}
 				bind:clientWidth={mediumTrendsWidth}
 				class:noData
 				class='content'
+				style={$_style}
 			>
 				{#if noData}
 					<MessageView text='No data' />
@@ -343,11 +330,11 @@
 						<!-- trends -->
 
 						<TrendsG
+							{_style}
 							{colorScale}
 							{formatFn}
 							{getIndicatorValue}
 							{schema}
-							{theme}
 							{types}
 							{useRankScale}
 							data={trendsData}
@@ -367,7 +354,7 @@
 									withBackground: true,
 								}}
 								theme={{
-									backgroundColor: theme.colorWhite,
+									backgroundColor: $_theme.colorWhite,
 									backgroundOpacity: 0.5,
 								}}
 								ticksFormatFn={formatFn}
@@ -396,7 +383,6 @@
 					{region}
 					{source_name}
 					{source_url}
-					{theme}
 					{url}
 					{warning}
 					{year_extent}

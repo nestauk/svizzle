@@ -3,7 +3,7 @@
 
 	// utils
 
-	import {makeStyle, makeStyleVars, toPx} from '@svizzle/dom';
+	import {makeStyle, toPx} from '@svizzle/dom';
 	import {
 		applyFnMap,
 		getValue,
@@ -65,11 +65,11 @@
 		_someUnselectedRegions,
 	} from 'stores/regionSelection';
 	import {_availableYears, _selectedYear} from 'stores/selection';
+	import {_style, _theme} from 'stores/theme';
 
 	/* local utils  */
 
 	import config from 'config';
-	import defaultTheme from 'theme';
 	import {getNutsId} from 'utils/domain';
 	import {
 		makeGetIndicatorFormatOf,
@@ -100,7 +100,6 @@
 	export let _lookup;
 	export let data;
 	export let id;
-	export let theme = defaultTheme;
 	export let types;
 	export let year;
 
@@ -153,12 +152,6 @@
 
 	// update stores
 	$: _availableYears.set(availableYears);
-
-	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-
-	// style
-	$: style = makeStyleVars(theme);
 
 	// utils
 	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
@@ -357,8 +350,8 @@
 </script>
 
 <div
-	{style}
 	class='time_region_value_IdYear {$_screenClasses}'
+	style={$_style}
 >
 	<Header
 		{subtitle}
@@ -396,7 +389,7 @@
 								showTicksExtentOnly: true,
 							}}
 							theme={{
-								backgroundColor: theme.colorWhite,
+								backgroundColor: $_theme.colorWhite,
 								backgroundOpacity: 0.5,
 							}}
 							ticksFormatFn={formatFn}
@@ -433,9 +426,9 @@
 											defaultFill: defaultGray,
 											defaultStroke: 'gray',
 											defaultStrokeWidth: 0.25,
-											focusedStroke: theme.colorBlack,
+											focusedStroke: $_theme.colorBlack,
 											focusedStrokeWidth: 1.5,
-											selectedStroke: theme.colorBlack,
+											selectedStroke: $_theme.colorBlack,
 											selectedStrokeWidth: 0.5,
 										}}
 										width={mapWidth}
@@ -469,7 +462,7 @@
 								showTicksExtentOnly: true,
 							}}
 							theme={{
-								backgroundColor: theme.colorWhite,
+								backgroundColor: $_theme.colorWhite,
 								backgroundOpacity: 0.5,
 							}}
 							ticksFormatFn={formatFn}
@@ -516,7 +509,6 @@
 					{region}
 					{source_name}
 					{source_url}
-					{theme}
 					{url}
 					{warning}
 					{year_extent}
@@ -559,14 +551,13 @@
 						toggledFiltering,
 						toggledGeoModal: toggleGeoModal,
 					}}
-					theme={_.pick(theme, ['colorBase', 'colorSelected'])}
 				/>
 			</div>
 
 			<div
-				{style}
 				class:noData
 				class='content'
+				style={$_style}
 			>
 				{#if noData}
 					<MessageView text='No data' />
@@ -607,9 +598,9 @@
 										defaultFill: defaultGray,
 										defaultStroke: 'gray',
 										defaultStrokeWidth: 0.25,
-										focusedStroke: theme.colorBlack,
+										focusedStroke: $_theme.colorBlack,
 										focusedStrokeWidth: 1.5,
-										selectedStroke: theme.colorBlack,
+										selectedStroke: $_theme.colorBlack,
 										selectedStrokeWidth: 0.5,
 									}}
 									width={mapWidth}
@@ -652,7 +643,7 @@
 											withBackground: true,
 										}}
 										theme={{
-											backgroundColor: theme.colorWhite,
+											backgroundColor: $_theme.colorWhite,
 											backgroundOpacity: 0.5,
 										}}
 										ticksFormatFn={formatFn}
@@ -730,7 +721,6 @@
 					{region}
 					{source_name}
 					{source_url}
-					{theme}
 					{url}
 					{year_extent}
 					{warning}

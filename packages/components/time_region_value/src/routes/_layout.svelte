@@ -1,13 +1,11 @@
 <script>
-	import * as _ from 'lamb';
-	import {makeStyleVars} from '@svizzle/dom';
 	import ScreenGauge from '@svizzle/ui/src/gauges/screen/ScreenGauge.svelte';
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
+	import {isObjNotEmpty} from '@svizzle/utils';
 
 	import Sidebar from 'components/Sidebar.svelte';
 	import Timeline from 'components/Timeline.svelte';
 	import ViewSelector from 'components/ViewSelector.svelte';
-	import sharedTheme from 'theme';
 	import {setGroups} from 'stores/data';
 	import {
 		_isSmallScreen,
@@ -23,16 +21,14 @@
 		showView,
 	} from 'stores/navigation';
 	import {_availableYears, _selectedYear} from 'stores/selection';
+	import {_style, _theme, customizeTheme} from 'stores/theme';
 
 	export let _groups = null;
 	export let hrefBase = ''; // relative to `document.baseURI`
 	export let segment = null;
-	export let theme = sharedTheme;
+	export let theme = {};
 
-	// FIXME https://github.com/sveltejs/svelte/issues/4442
-	$: theme = theme ? {...sharedTheme, ...theme} : sharedTheme;
-
-	$: style = makeStyleVars(theme);
+	$: isObjNotEmpty(theme) && customizeTheme(theme);
 	$: _groups && setGroups($_groups);
 	$: routeId = $_isSmallScreen && $_routes.Id;
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
@@ -42,8 +38,8 @@
 
 {#if $_screenClasses}
 	<section
-		{style}
 		class='time_region_value_layout {$_screenClasses}'
+		style={$_style}
 	>
 		<div
 			class:routeId
@@ -55,7 +51,6 @@
 					{_groups}
 					{hrefBase}
 					currentId={segment}
-					theme={sharedTheme}
 				/>
 			</div>
 			<div
@@ -89,12 +84,11 @@
 				{_routes}
 				{_views}
 				{showView}
-				theme={_.pickIn(sharedTheme, ['dimBoxShadowY', 'colorBoxShadow'])}
 			/>
 		{/if}
 	</section>
 {:else}
-	<LoadingView stroke={theme.colorMain}/>
+	<LoadingView stroke={$_theme.colorMain}/>
 {/if}
 
 <style>

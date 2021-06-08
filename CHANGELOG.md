@@ -60,7 +60,7 @@
 
 ## `@svizzle/time_region_value` v0.2.0 (next)
 
-- responsive layout (`small`, `portrait`):
+- support for responsive layout (`small`, `portrait`):
 	- added a navigation system specific for `small`
 		- the sidebar slides in/out from the left
 		- `/[id]`: trends, info, settings are separate views
@@ -75,14 +75,15 @@
 	- theme:
 		- add some colors to the theme
 		- add transitions values to the theme (for now unused, see comments where the vars are used)
-	- some renames
+- remove the `goTo` prop from `src/routes/index.svelte` and `src/routes/_layout_.svelte`
+- now the theme can be passed only to the layout, which updates a store shared by all interested components
 - stores have been renamed so that they start with `_`
 - props that are expected to be stores start with `_`
 - adds a loading icon while waiting for `ScreenGauge` to populate `screen`
 - fix missing info icon in `/[id]`
 - add `/time_region_value` to the main readme
 - remove `/time_region_value/src/node_modules/utils/generic.js`
-- renamed internal stores to start with an underscore
+- some renames
 - updated some dev dependencies
 
 ## `@svizzle/ui` v0.3.0 (next)
