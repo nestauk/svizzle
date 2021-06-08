@@ -39,11 +39,6 @@
 
 	// stores
 
-	import {
-		_colorSchemeIndex,
-		_makeColorBins,
-		_makeColorScale,
-	} from 'stores/colorScale';
 	import {_isSmallScreen, _screenClasses} from 'stores/layout';
 	import {
 		_doFilterRegions,
@@ -65,7 +60,12 @@
 		_someUnselectedRegions,
 	} from 'stores/regionSelection';
 	import {_availableYears, _selectedYear} from 'stores/selection';
-	import {_style, _theme} from 'stores/theme';
+	import {
+		_makeColorBins,
+		_makeColorScale,
+		_style,
+		_theme,
+	} from 'stores/theme';
 
 	/* local utils  */
 
@@ -197,11 +197,9 @@
 	$: noData = filteredData.length === 0;
 
 	// colors
-	$: makeColorScale = $_makeColorScale;
-	$: makeColorBins = $_makeColorBins;
 	$: valueExtext = filteredData.length && extent(filteredData, getIndicatorValue);
-	$: colorScale = filteredData.length && makeColorScale(valueExtext);
-	$: colorBins = filteredData.length && makeColorBins(colorScale);
+	$: colorScale = filteredData.length && $_makeColorScale(valueExtext);
+	$: colorBins = filteredData.length && $_makeColorBins(colorScale);
 	$: makeKeyToColor = _.pipe([
 		keyValueArrayToObject,
 		_.mapValuesWith(colorScale)
@@ -341,9 +339,6 @@
 
 	/* settings handlers */
 
-	const toggledColorScheme = ({detail}) => {
-		_colorSchemeIndex.set(detail === 'Red-Blue' ? 0 : 1)
-	};
 	const toggledFiltering = ({detail}) => {
 		$_doFilterRegions = detail === 'Filter'
 	};
@@ -523,10 +518,7 @@
 						doFilter: $_doFilterRegions,
 						showRankingControl: false,
 					}}
-					handlers={{
-						toggledColorScheme,
-						toggledFiltering,
-					}}
+					handlers={{toggledFiltering}}
 				/>
 			</div>
 
@@ -547,7 +539,6 @@
 						someUnselectedRegions: $_someUnselectedRegions,
 					}}
 					handlers={{
-						toggledColorScheme,
 						toggledFiltering,
 						toggledGeoModal: toggleGeoModal,
 					}}

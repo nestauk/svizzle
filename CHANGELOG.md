@@ -76,7 +76,8 @@
 		- add some colors to the theme
 		- add transitions values to the theme (for now unused, see comments where the vars are used)
 - remove the `goTo` prop from `src/routes/index.svelte` and `src/routes/_layout_.svelte`
-- now the theme can be passed only to the layout, which updates a store shared by all interested components
+- now the `theme` can be passed only to the layout, which updates a store shared by all interested components
+- color schemes are now part of the `theme`
 - stores have been renamed so that they start with `_`
 - props that are expected to be stores start with `_`
 - adds a loading icon while waiting for `ScreenGauge` to populate `screen`

@@ -29,15 +29,7 @@
 
 	// stores
 
-	import {
-		_colorSchemeIndex,
-		_makeColorScale,
-		_makeColorBins,
-	} from 'stores/colorScale';
-	import {
-		_isSmallScreen,
-		_screenClasses,
-	} from 'stores/layout';
+	import {_isSmallScreen, _screenClasses} from 'stores/layout';
 	import {
 		_doFilterRegions,
 		_geoModal,
@@ -58,7 +50,12 @@
 		_someUnselectedRegions,
 	} from 'stores/regionSelection';
 	import {_availableYears, resetSelectedYear} from 'stores/selection';
-	import {_style, _theme} from 'stores/theme';
+	import {
+		_style,
+		_theme,
+		_makeColorScale,
+		_makeColorBins,
+	} from 'stores/theme';
 
 	/* local utils */
 
@@ -167,14 +164,10 @@
 	$: colorScale = $_makeColorScale(valueExtext);
 
 	// legend
-	$: makeColorBins = $_makeColorBins;
-	$: colorBins = makeColorBins(colorScale);
+	$: colorBins = $_makeColorBins(colorScale);
 
 	/* event handlers */
 
-	const toggledColorScheme = ({detail}) => {
-		_colorSchemeIndex.set(detail === 'Red-Blue' ? 0 : 1)
-	};
 	const toggledFiltering = ({detail}) => {
 		$_doFilterRegions = detail === 'Filter'
 	};
@@ -277,7 +270,6 @@
 						showRankingControl: true,
 					}}
 					handlers={{
-						toggledColorScheme,
 						toggledFiltering,
 						toggledRanking,
 					}}
@@ -292,10 +284,6 @@
 
 			<div class='topbox'>
 				<SettingsRow
-					colorScheme={{
-						value: 'Red-Blue',
-						values: ['Red-Blue', 'Green-Blue']
-					}}
 					flags={{
 						doFilter: $_doFilterRegions,
 						isGeoModalVisible: $_geoModal.isVisible,
@@ -303,7 +291,6 @@
 						someUnselectedRegions: $_someUnselectedRegions,
 					}}
 					handlers={{
-						toggledColorScheme,
 						toggledFiltering,
 						toggledRanking,
 						toggledGeoModal: toggleGeoModal,
