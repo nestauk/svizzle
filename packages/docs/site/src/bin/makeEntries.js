@@ -1,7 +1,7 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node -r esm -r svelte/register
 
 import * as _ from 'lamb';
-import {concatValues, joinWith, makePrefixed} from '@svizzle/utils';
+import {concatValues, joinWithBlank, makePrefixed} from '@svizzle/utils';
 
 import * as examples from '../routes/components/_examples';
 
@@ -9,7 +9,7 @@ const makeEntries = _.pipe([
 	concatValues,
 	_.pluck('slug'),
 	_.mapWith(makePrefixed('components/')),
-	joinWith(' ')
+	joinWithBlank
 ]);
 
 const entries = `'components ${makeEntries(examples)}'`;

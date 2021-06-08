@@ -7,7 +7,7 @@
 	height='100%'
 	marginheight='0'
 	marginwidth='0'
-	src='/svizzle/jsDocBuild/'
+	src='jsDocBuild/'
 	title='jsdoc'
 	width='100%'
 >Loading...</iframe>

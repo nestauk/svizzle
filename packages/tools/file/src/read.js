@@ -140,7 +140,7 @@ export const readDirFiles = (
  * @arg {string} dirPath - the directory path
  * @arg {function} filterPathFn - (String -> Boolean) predicate to filter the filepaths (e.g. ()
  * @arg {function} parseFn - (String -> Any) target file parser
- * @arg {boolean=false} withFilepathAsKey - defaults to `false`, to return objects with file names as keys; if `true`, keys are file paths.
+ * @arg {boolean} [withFilepathAsKey=false] - defaults to `false`, to return objects with file names as keys; if `true`, keys are file paths.
  * @return {promise} - @sideEffects: fs.readdir, fs.readFile
  *
  * @example
