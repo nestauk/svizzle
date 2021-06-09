@@ -6,11 +6,15 @@
 	- `src/icons/svizzle/A11yPerson.svelte`
 - changes:
 	- `Icon.svelte`: add the `glyphSize` prop so that we can pass glyphs with sizes different from 24x24
-	- turned `ExternalLink.svelte` into a more generic `Link.svelte`, adding props:
-		- `hreflang`
-		- `isDownload`
-		- `isExternal`
-		- `type`
+	- turned `ExternalLink.svelte` into a more generic `Link.svelte`:
+		- adding props:
+			- `download`
+			- `hreflang`
+			- `isBold`
+			- `isExternal`
+			- `isUnderlined`
+			- `type`
+		- rename `theme.textColor` to `theme.color`
 	- `ScreenGauge`:
 		- add `landscape`|`portrait` to `classes`
 		- renamed `screen` to `_screen` to follow our internal convention to start store names with an underscore

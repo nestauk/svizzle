@@ -1,6 +1,4 @@
 <script>
-	import {makeStyleVars} from '@svizzle/dom';
-
 	import ExternalLink from './icons/feather/ExternalLink.svelte';
 	import Icon from './icons/Icon.svelte';
 
@@ -10,14 +8,16 @@
 	const defaultTheme = {
 		iconStroke: 'rgb(16, 174, 249)',
 		iconStrokeWidth: defaultStrokeWidth,
-		textColor: 'black',
+		color: 'black',
 	};
 
 	export let download = null;
 	export let href = null;
 	export let hreflang = null;
 	export let iconSize = defaultIconSize;
+	export let isBold = false;
 	export let isExternal = false;
+	export let isUnderlined = false;
 	export let rel = defaultRel;
 	export let target = null;
 	export let text = null;
@@ -29,7 +29,9 @@
 	$: href = href || null;
 	$: hreflang = hreflang || null;
 	$: iconSize = iconSize || defaultIconSize;
+	$: isBold = isBold || false;
 	$: isExternal = isExternal || false;
+	$: isUnderlined = isUnderlined || false;
 	$: rel = rel || defaultRel;
 	$: target = target || null;
 	$: text = !href
@@ -38,7 +40,7 @@
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: type = type || null;
 
-	$: style = makeStyleVars(theme);
+	$: style = `--color: ${theme.color}`;
 </script>
 
 <a
@@ -49,8 +51,11 @@
 	{style}
 	{target}
 	{type}
+	class:underlined={isUnderlined}
 >
-	<span>{text}</span>
+	<span class:bold={isBold}>
+		<slot></slot>
+	</span>
 	{#if isExternal}
 		<span>
 			<Icon
@@ -67,12 +72,19 @@
 	a {
 		text-decoration: none;
 	}
+	a.underlined {
+		text-decoration: underline var(--color);
+	}
 
 	a span:nth-child(1) {
-		color: var(--textColor);
+		color: var(--color);
 	}
 	a span:nth-child(2) {
 		margin-left: 0.1rem;
+	}
+
+	.bold {
+		font-weight: bold;
 	}
 </style>
 
