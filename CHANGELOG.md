@@ -2,6 +2,8 @@
 
 ## next
 
+- Add scripts to npm link svizzles locally, useful when testing things before releasing.
+
 ## `@svizzle/barchart` v0.6.6 (next)
 
 - fix scrolling to the selected item
