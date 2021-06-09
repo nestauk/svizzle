@@ -13,10 +13,10 @@
 		textColor: 'black',
 	};
 
+	export let download = null;
 	export let href = null;
 	export let hreflang = null;
 	export let iconSize = defaultIconSize;
-	export let isDownload = false;
 	export let isExternal = false;
 	export let rel = defaultRel;
 	export let target = null;
@@ -25,10 +25,10 @@
 	export let type = null;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: download = download || null;
 	$: href = href || null;
 	$: hreflang = hreflang || null;
 	$: iconSize = iconSize || defaultIconSize;
-	$: isDownload = isDownload || false;
 	$: isExternal = isExternal || false;
 	$: rel = rel || defaultRel;
 	$: target = target || null;
@@ -42,13 +42,13 @@
 </script>
 
 <a
+	{download}
 	{href}
 	{hreflang}
 	{rel}
 	{style}
 	{target}
 	{type}
-	download={isDownload}
 >
 	<span>{text}</span>
 	{#if isExternal}
