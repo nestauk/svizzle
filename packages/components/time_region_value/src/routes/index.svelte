@@ -21,9 +21,9 @@
 	export let isSapperExported = null; // pass `process.env.SAPPER_EXPORT`
 
 	// rest
-	export let _groups;
-	export let _yearRange;
-	export let hrefBase = '';
+	export let _groups = null;
+	export let _yearRange = null;
+	export let hrefBase = ''; // relative to `document.baseURI`
 
 	/* init */
 

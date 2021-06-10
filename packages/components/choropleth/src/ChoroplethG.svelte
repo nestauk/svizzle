@@ -32,25 +32,27 @@
 	}
 
 	// required
-	export let height;
-	export let topojson;
-	export let topojsonId;
-	export let width;
+	export let height = null;
+	export let topojson = null;
+	export let topojsonId = null;
+	export let width = null;
+
+	// one of the two is required
+	export let key = null;
+	export let key_alt = 'name';
 
 	// optional
-	export let focusedKey;
-	export let geometry;
-	export let isInteractive;
-	export let key_alt;
-	export let key;
-	export let keyToColor;
-	export let keyToColorFn;
-	export let message;
-	export let projection;
-	export let projectionFn;
-	export let projectionId;
-	export let selectedKeys;
-	export let theme;
+	export let focusedKey = null;
+	export let geometry = null;
+	export let isInteractive = false;
+	export let keyToColor = null;
+	export let keyToColorFn = null;
+	export let message = 'No data';
+	export let projection = null;
+	export let projectionFn = null;
+	export let projectionId = null;
+	export let selectedKeys = [];
+	export let theme = null;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;

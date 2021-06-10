@@ -59,17 +59,17 @@
 	}
 
 	// required
-	export let height;
-	export let width;
+	export let height = null;
+	export let width = null;
 
 	// optional
-	export let bins; // {range: [number, number], color: string}[]
-	export let flags;
-	export let geometry;
-	export let message;
-	export let selectedBins;
-	export let theme;
-	export let ticksFormatFn;
+	export let bins = []; // {range: [number, number], color: string}[]
+	export let flags = null;
+	export let geometry = null;
+	export let message = 'No data';
+	export let selectedBins = [];
+	export let theme = null;
+	export let ticksFormatFn = null;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: bins = bins || [];

@@ -22,6 +22,7 @@
 - props that are expected to be stores start with `_`
 - adds a loading icon while waiting for `ScreenGauge` to populate `screen`
 - fix missing info icon in `/[id]`
+- added default value to props, changed some defaults
 - add `/time_region_value` to the main readme
 - remove `/time_region_value/src/node_modules/utils/generic.js`
 - some renames

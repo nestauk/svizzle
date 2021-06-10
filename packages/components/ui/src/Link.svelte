@@ -21,7 +21,7 @@
 	export let rel = defaultRel;
 	export let target = null;
 	export let text = null;
-	export let theme = defaultTheme;
+	export let theme = null;
 	export let type = null;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442

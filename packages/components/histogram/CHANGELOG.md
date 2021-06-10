@@ -2,6 +2,7 @@
 
 - utils: add `getBinsTicksExtent`
 - renamed internal stores to start with an underscore
+- added default value to props
 - updated some dev dependencies
 
 ## `@svizzle/histogram` v0.3.1

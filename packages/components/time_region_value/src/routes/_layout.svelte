@@ -1,7 +1,6 @@
 <script>
 	import ScreenGauge from '@svizzle/ui/src/gauges/screen/ScreenGauge.svelte';
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
-	import {isObjNotEmpty} from '@svizzle/utils';
 
 	import Sidebar from 'components/Sidebar.svelte';
 	import Timeline from 'components/Timeline.svelte';
@@ -26,9 +25,9 @@
 	export let _groups = null;
 	export let hrefBase = ''; // relative to `document.baseURI`
 	export let segment = null;
-	export let theme = {};
+	export let theme = null;
 
-	$: isObjNotEmpty(theme) && customizeTheme(theme);
+	$: theme && customizeTheme(theme);
 	$: _groups && setGroups($_groups);
 	$: routeId = $_isSmallScreen && $_routes.Id;
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;

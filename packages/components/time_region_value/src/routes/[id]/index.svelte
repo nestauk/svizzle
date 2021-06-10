@@ -78,10 +78,10 @@
 
 	/* props */
 
-	export let _lookup;
-	export let data;
-	export let id;
-	export let types;
+	export let _lookup = null;
+	export let data = null;
+	export let id = null;
+	export let types = null;
 
 	/* init */
 

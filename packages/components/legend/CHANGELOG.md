@@ -2,8 +2,9 @@
 
 - add the field `showTicksExtentOnly` to `flags` prop
 - renamed internal stores to start with an underscore
+- added default value to props
+- `ColorBinsDiv.svelte`: added the missing `message` prop
 - updated some dev dependencies
-
 
 ## `@svizzle/legend` v0.1.2
 

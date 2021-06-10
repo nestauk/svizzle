@@ -4,7 +4,7 @@
 - `legend/ColorsBinG`:
    - document `flags.showTicksExtentOnly`
    - document the `geometry` prop
-- `time_region_value`: fix a bug when generating random data for
+- fix a bug when generating random data for `time_region_value`
 - updated some dev dependencies
 
 ## `@svizzle/site` v0.3.3

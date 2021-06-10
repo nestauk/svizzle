@@ -4,17 +4,18 @@
 	import ColorBinsG from './ColorBinsG.svelte';
 
 	// html
-	export let headerHeight;
-	export let padding;
-	export let title;
+	export let headerHeight = null;
+	export let padding = null;
+	export let title = null;
 
 	// svg
-	export let bins; // {range: [number, number], color: string}[]
-	export let flags;
-	export let geometry;
-	export let selectedBins;
-	export let theme;
-	export let ticksFormatFn;
+	export let bins = []; // {range: [number, number], color: string}[]
+	export let flags = null;
+	export let geometry = null;
+	export let message = 'No data';
+	export let selectedBins = [];
+	export let theme = null;
+	export let ticksFormatFn = null;
 
 	$: padding = padding || '10px';
 	$: headerHeight = headerHeight || '2rem';
@@ -49,6 +50,7 @@
 						{flags}
 						{geometry}
 						{height}
+						{message}
 						{selectedBins}
 						{theme}
 						{ticksFormatFn}

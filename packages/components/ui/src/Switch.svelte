@@ -12,18 +12,20 @@
 	}
 
 	// mandatory
-	export let value;
-	export let values;
+	export let value = null;
+	export let values = null;
 
 	// optional
-	export let theme;
-	export let hideLabels;
+	export let theme = null;
+	export let hideLabels = false;
 
 	const id = uid();
 
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: currentValue = value || values[0];
+
 	$: isRight = currentValue === values[1];
-	$: theme = {...defaultTheme, ...theme};
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: style = makeStyleVars(theme);
 
 	function toggle() {

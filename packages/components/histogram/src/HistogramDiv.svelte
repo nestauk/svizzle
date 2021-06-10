@@ -9,14 +9,14 @@
 	export let title;
 
 	// svg
-	export let bins;
-	export let binsFill;
-	export let flags;
-	export let geometry;
-	export let message;
-	export let selectedBins;
-	export let theme;
-	export let ticksFormatFn;
+	export let bins = [];
+	export let binsFill = null;
+	export let flags = null;
+	export let geometry = null;
+	export let message = 'No data';
+	export let selectedBins = [];
+	export let theme = null;
+	export let ticksFormatFn = null;
 
 	$: padding = padding || '10px';
 	$: headerHeight = headerHeight || '2rem';

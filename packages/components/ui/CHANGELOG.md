@@ -19,9 +19,10 @@
 		- add `landscape`|`portrait` to `classes`
 		- renamed `screen` to `_screen` to follow our internal convention to start store names with an underscore
 		- changed the `_screen` shape:
-			- remame `orientationFlags` to `orientations`
-			- remame `sizeFlags` to `sizes`
-- updated some dev dependencies
+			- rename `orientationFlags` to `orientations`
+			- rename `sizeFlags` to `sizes`
+	- added default value to props
+	- updated some dev dependencies
 
 ## `@svizzle/ui` v0.2.0
 

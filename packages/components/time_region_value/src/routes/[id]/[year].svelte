@@ -97,11 +97,11 @@
 	/* props */
 
 	// rest
-	export let _lookup;
-	export let data;
-	export let id;
-	export let types;
-	export let year;
+	export let _lookup = null;
+	export let data = null;
+	export let id = null;
+	export let types = null;
+	export let year = null;
 
 	/* init */
 
@@ -528,10 +528,6 @@
 
 			<div class='topbox'>
 				<SettingsRow
-					colorScheme={{
-						value: 'Red-Blue',
-						values: ['Red-Blue', 'Green-Blue']
-					}}
 					flags={{
 						doFilter: $_doFilterRegions,
 						isGeoModalVisible: $_geoModal.isVisible,

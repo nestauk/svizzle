@@ -7,10 +7,12 @@
 ## `@svizzle/barchart` v0.6.6 (next)
 
 - fix scrolling to the selected item
+- added default value to props
 - updated some dev dependencies
 
 ## `@svizzle/choropleth` v0.6.4 (next)
 
+- added default value to props
 - updated some dev dependencies
 
 ## `@svizzle/dev` v0.4.3 (next)
@@ -37,12 +39,15 @@
 
 - utils: add `getBinsTicksExtent`
 - renamed internal stores to start with an underscore
+- added default value to props
 - updated some dev dependencies
 
 ## `@svizzle/legend` v0.2.0 (next)
 
 - add the field `showTicksExtentOnly` to `flags` prop
 - renamed internal stores to start with an underscore
+- added default value to props
+- `ColorBinsDiv.svelte`: added the missing `message` prop
 - updated some dev dependencies
 
 ## `@svizzle/request` v0.3.3 (next)
@@ -55,7 +60,7 @@
 - `legend/ColorsBinG`:
    - document `flags.showTicksExtentOnly`
    - document the `geometry` prop
-- `time_region_value`: fix a bug when generating random data for
+- fix a bug when generating random data for `time_region_value`
 - updated some dev dependencies
 
 ## `@svizzle/time_region_value` v0.2.0 (next)
@@ -82,6 +87,7 @@
 - props that are expected to be stores start with `_`
 - adds a loading icon while waiting for `ScreenGauge` to populate `screen`
 - fix missing info icon in `/[id]`
+- added default value to props, changed some defaults
 - add `/time_region_value` to the main readme
 - remove `/time_region_value/src/node_modules/utils/generic.js`
 - some renames
@@ -108,9 +114,10 @@
 		- add `landscape`|`portrait` to `classes`
 		- renamed `screen` to `_screen` to follow our internal convention to start store names with an underscore
 		- changed the `_screen` shape:
-			- remame `orientationFlags` to `orientations`
-			- remame `sizeFlags` to `sizes`
-- updated some dev dependencies
+			- rename `orientationFlags` to `orientations`
+			- rename `sizeFlags` to `sizes`
+	- added default value to props
+	- updated some dev dependencies
 
 ## `@svizzle/utils` v0.14.0 (next)
 

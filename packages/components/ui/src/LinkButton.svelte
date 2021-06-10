@@ -25,7 +25,7 @@
 	export let href = null;
 	export let iconSize = defaultSize;
 	export let text = defaultText;
-	export let theme = defaultTheme;
+	export let theme = null;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: iconSize = iconSize || defaultSize;

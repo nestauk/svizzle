@@ -54,23 +54,23 @@
 		titleFontSize: '1.5em',
 	};
 
-	export let barHeight;
-	export let focusedKey;
-	export let formatFn;
-	export let isInteractive;
-	export let items; // {key, value}[]
-	export let keyToColor;
-	export let keyToColorFn;
-	export let keyToLabel;
-	export let keyToLabelFn;
-	export let message;
-	export let refs;
-	export let selectedKeys;
-	export let shouldResetScroll;
-	export let shouldScrollToFocusedKey;
-	export let theme;
-	export let title;
-	export let valueAccessor;
+	export let barHeight = 4;
+	export let focusedKey = null;
+	export let formatFn = null;
+	export let isInteractive = false;
+	export let items = []; // {key, value}[]
+	export let keyToColor = null;
+	export let keyToColorFn = null;
+	export let keyToLabel = null;
+	export let keyToLabelFn = null;
+	export let message = null;
+	export let refs = [];
+	export let selectedKeys = [];
+	export let shouldResetScroll = false;
+	export let shouldScrollToFocusedKey = false;
+	export let theme = null;
+	export let title = null;
+	export let valueAccessor = null;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: barHeight = barHeight || 4;
