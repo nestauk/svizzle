@@ -1,4 +1,4 @@
-## `@svizzle/time_region_value` v0.2.0 (next)
+## `@svizzle/time_region_value` v0.2.0
 
 - support for responsive layout (`small`, `portrait`):
 	- added a navigation system specific for `small`

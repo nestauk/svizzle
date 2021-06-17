@@ -1,48 +1,48 @@
 # Svizzle changelog
 
-## next
+## 20210617
 
 - Add scripts to npm link svizzles locally, useful when testing things before releasing.
 
-## `@svizzle/barchart` v0.6.6 (next)
+## `@svizzle/barchart` v0.6.6
 
 - fix scrolling to the selected item
 - added default value to props
 - updated some dev dependencies
 
-## `@svizzle/choropleth` v0.6.4 (next)
+## `@svizzle/choropleth` v0.6.4
 
 - added default value to props
 - updated some dev dependencies
 
-## `@svizzle/dev` v0.4.3 (next)
+## `@svizzle/dev` v0.4.3
 
 - updated some dev dependencies
 
-## `@svizzle/dom` v0.4.4 (next)
+## `@svizzle/dom` v0.4.4
 
 - updated some dev dependencies
 
-## `@svizzle/file` v0.10.1 (next)
+## `@svizzle/file` v0.10.1
 
 - updated some dev dependencies
 
-## `@svizzle/geo` v0.6.3 (next)
+## `@svizzle/geo` v0.6.3
 
 - updated some dev dependencies
 
-## `@svizzle/geometry` v0.3.3 (next)
+## `@svizzle/geometry` v0.3.3
 
 - updated some dev dependencies
 
-## `@svizzle/histogram` v0.4.0 (next)
+## `@svizzle/histogram` v0.4.0
 
 - utils: add `getBinsTicksExtent`
 - renamed internal stores to start with an underscore
 - added default value to props
 - updated some dev dependencies
 
-## `@svizzle/legend` v0.2.0 (next)
+## `@svizzle/legend` v0.2.0
 
 - add the field `showTicksExtentOnly` to `flags` prop
 - renamed internal stores to start with an underscore
@@ -50,11 +50,11 @@
 - `ColorBinsDiv.svelte`: added the missing `message` prop
 - updated some dev dependencies
 
-## `@svizzle/request` v0.3.3 (next)
+## `@svizzle/request` v0.3.3
 
 - updated some dev dependencies
 
-## `@svizzle/site` v0.3.4 (next)
+## `@svizzle/site` v0.3.5
 
 - updated to support `/time_region_value@0.2.0`
 - `legend/ColorsBinG`:
@@ -63,7 +63,7 @@
 - fix a bug when generating random data for `time_region_value`
 - updated some dev dependencies
 
-## `@svizzle/time_region_value` v0.2.0 (next)
+## `@svizzle/time_region_value` v0.2.0
 
 - support for responsive layout (`small`, `portrait`):
 	- added a navigation system specific for `small`
@@ -93,7 +93,7 @@
 - some renames
 - updated some dev dependencies
 
-## `@svizzle/ui` v0.3.0 (next)
+## `@svizzle/ui` v0.3.0
 
 - additions:
 	- `src/LoadingView.svelte`
@@ -122,7 +122,7 @@
 	- added default value to props
 	- updated some dev dependencies
 
-## `@svizzle/utils` v0.14.0 (next)
+## `@svizzle/utils` v0.14.0
 
 - updated some dev dependencies
 

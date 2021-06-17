@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.3.4 (next)
+## `@svizzle/site` v0.3.5
 
 - updated to support `/time_region_value@0.2.0`
 - `legend/ColorsBinG`:

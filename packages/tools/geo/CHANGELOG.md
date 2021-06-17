@@ -1,4 +1,4 @@
-## `@svizzle/geo` v0.6.3 (next)
+## `@svizzle/geo` v0.6.3
 
 - updated some dev dependencies
 

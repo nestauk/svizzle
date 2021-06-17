@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.6.6 (next)
+## `@svizzle/barchart` v0.6.6
 
 - fix scrolling to the selected item
 - added default value to props

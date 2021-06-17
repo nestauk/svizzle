@@ -9,7 +9,7 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/utils": "^0.13.0",
+		"@svizzle/utils": "^0.14.0",
 		"d3-selection": "^1.3.2",
 		"lamb": "^0.59.2"
 	},
@@ -17,8 +17,8 @@
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^17.1.0",
 		"@rollup/plugin-node-resolve": "^11.1.1",
-		"@svizzle/dev": "^0.4.2",
-		"@svizzle/file": "^0.10.0",
+		"@svizzle/dev": "^0.4.3",
+		"@svizzle/file": "^0.10.1",
 		"eslint": "^7.24.0",
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
@@ -71,5 +71,5 @@
 		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
 	},
 	"sideEffects": false,
-	"version": "0.4.3"
+	"version": "0.4.4"
 }

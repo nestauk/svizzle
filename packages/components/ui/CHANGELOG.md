@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.3.0 (next)
+## `@svizzle/ui` v0.3.0
 
 - additions:
 	- `src/LoadingView.svelte`
