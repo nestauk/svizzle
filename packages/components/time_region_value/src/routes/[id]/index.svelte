@@ -51,7 +51,6 @@
 	} from 'stores/regionSelection';
 	import {_availableYears, resetSelectedYear} from 'stores/selection';
 	import {
-		_style,
 		_theme,
 		_makeColorScale,
 		_makeColorBins,
@@ -178,10 +177,7 @@
 
 <!-- svelte-ignore component-name-lowercase -->
 
-<div
-	class='time_region_value_IdIndex {$_screenClasses}'
-	style={$_style}
->
+<div class='time_region_value_IdIndex {$_screenClasses}'>
 	<Header
 		{subtitle}
 		{title}
@@ -226,7 +222,6 @@
 					</div>
 					<div class='content'>
 						<TrendsDiv
-							{_style}
 							{colorScale}
 							{formatFn}
 							{getIndicatorValue}
@@ -305,7 +300,6 @@
 				bind:clientWidth={mediumTrendsWidth}
 				class:noData
 				class='content'
-				style={$_style}
 			>
 				{#if noData}
 					<MessageView text='No data' />
@@ -317,7 +311,6 @@
 						<!-- trends -->
 
 						<TrendsG
-							{_style}
 							{colorScale}
 							{formatFn}
 							{getIndicatorValue}

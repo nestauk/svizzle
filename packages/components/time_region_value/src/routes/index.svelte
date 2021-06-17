@@ -7,7 +7,6 @@
 	import {_isSmallScreen, _timelineLayout} from 'stores/layout';
 	import {setRoute, showView} from 'stores/navigation';
 	import {resetSelection} from 'stores/selection';
-	import {_style} from 'stores/theme';
 	import {shortenYear} from 'utils/format';
 	import {makeURL} from 'utils/url';
 
@@ -45,10 +44,7 @@
 	$: shortenYearFn = $_isSmallScreen ? shortenYear : _.identity;
 </script>
 
-<div
-	class='time_region_value_Index'
-	style={$_style}
->
+<div class='time_region_value_Index'>
 	<header>
 		<h1>Indicators</h1>
 	</header>

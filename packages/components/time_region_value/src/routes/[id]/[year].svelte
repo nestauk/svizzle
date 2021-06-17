@@ -63,7 +63,6 @@
 	import {
 		_makeColorBins,
 		_makeColorScale,
-		_style,
 		_theme,
 	} from 'stores/theme';
 
@@ -344,10 +343,7 @@
 	};
 </script>
 
-<div
-	class='time_region_value_IdYear {$_screenClasses}'
-	style={$_style}
->
+<div class='time_region_value_IdYear {$_screenClasses}'>
 	<Header
 		{subtitle}
 		{title}
@@ -544,7 +540,6 @@
 			<div
 				class:noData
 				class='content'
-				style={$_style}
 			>
 				{#if noData}
 					<MessageView text='No data' />
