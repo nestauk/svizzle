@@ -68,7 +68,7 @@ In a Sapper app this would usually be a `_layout.svelte` file.
 ```
 
 Props:
-- `breakpoints`: an array of 4 numbers defining the amount of chars filling the width of a device at a specific breakpoint. If you don't pass it, it will use the [default breakpoints](../../../README.md#Breakpoints), `[45, 90, 135, 180]`;
+- `breakpoints`: an array of 4 numbers defining the amount of chars filling the width of a device at a specific breakpoint. If you don't pass it, it will use the default breakpoints, `[45, 90, 135, 180]`;
 - `fontSize`: passing a string accepted by `font-size` sets the font size of the sample text;
 - `isDev`: if this is `true`, render a fixed `div` with some display features:
 	- Classes: the valid class names among `xsmall`, `small`, `medium`, `large`, `xLarge`
@@ -85,9 +85,9 @@ In other components of your app, `import` the `_screen` store from `ScreenGauge.
 
 ```svelte
 <script>
-	import {_screen} from '@svizzle/ui/src/gauges/ScreenGauge.svelte';
+	import {_screen, breakpoints} from '@svizzle/ui/src/gauges/ScreenGauge.svelte';
 
-	$: console.log($_screen);
+	$: console.log($_screen, breakpoints);
 </script>
 
 <main class={$_screen?.classes}>

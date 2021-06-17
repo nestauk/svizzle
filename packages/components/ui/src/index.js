@@ -1,4 +1,3 @@
-export {breakpoints} from './defaults';
 export * from './gauges';
 export * from './icons';
 export {default as Link} from './Link.svelte';

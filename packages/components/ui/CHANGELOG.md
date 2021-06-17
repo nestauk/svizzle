@@ -5,7 +5,9 @@
 	- `src/MessageView.svelte`
 	- `src/icons/svizzle/A11yPerson.svelte`
 - changes:
-	- `Icon.svelte`: add the `glyphSize` prop so that we can pass glyphs with sizes different from 24x24
+	- icons:
+		- `Icon.svelte`: add the `glyphSize` prop so that we can pass glyphs with sizes different from 24x24
+		- glyphs are not built anymore
 	- turned `ExternalLink.svelte` into a more generic `Link.svelte`:
 		- adding props:
 			- `download`
@@ -21,6 +23,7 @@
 		- changed the `_screen` shape:
 			- rename `orientationFlags` to `orientations`
 			- rename `sizeFlags` to `sizes`
+		- export `defaultBreakpoints` directly from `ScreenGauge` rather than from a module
 	- added default value to props
 	- updated some dev dependencies
 

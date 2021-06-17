@@ -7,7 +7,6 @@ import {tapMessage} from '@svizzle/dev';
 import {
 	readDirFilesIndexed,
 	resolveToDir,
-	saveObj,
 	saveString,
 	writeFile,
 } from '@svizzle/file';
@@ -24,7 +23,6 @@ import {parse as parseSVG} from 'svg-parser';
 // Lerna installs all deps in `<root of the repo>/node_modules/`
 const FEATHER_ICONS_DIR =
 	path.resolve(__dirname, '../../../../../node_modules/feather-icons/dist/icons');
-const ROLLUP_INPUT_PATH = path.resolve(__dirname, '../../rollup/rollupIconsInputFeather.json');
 const FEATHER_GLYPHS_DIR = path.resolve(__dirname, '../icons/feather');
 
 const resolveToFeatherDir = resolveToDir(FEATHER_GLYPHS_DIR);
@@ -68,23 +66,12 @@ const writeFeatherIndex = _.pipe([
 	_.joinWith('\n'),
 	saveString(resolveToFeatherDir('index.js'))
 ]);
-const createRollupIconsInput = _.pipe([
-	_.keys,
-	_.mapWith(_.collect([
-		makeComponentName,
-		id => `src/icons/feather/${makeComponentName(id)}.svelte`
-	])),
-	_.fromPairs,
-	saveObj(ROLLUP_INPUT_PATH, 2)
-]);
 const setupFeatherIcons = obj => Promise.all([
 	...writeMapToFiles(obj),
 	writeFeatherIndex(obj),
-	createRollupIconsInput(obj),
 ]);
 
 readDirFilesIndexed(FEATHER_ICONS_DIR, isSvgFile, extractSvgBody)
 .then(setupFeatherIcons)
-.then(tapMessage(`Saved files in ${ROLLUP_INPUT_PATH}`))
 .then(tapMessage(`Saved files in ${FEATHER_GLYPHS_DIR}`))
 .catch(err => console.error(err));

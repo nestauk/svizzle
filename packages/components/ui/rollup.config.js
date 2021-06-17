@@ -12,7 +12,6 @@ import * as _ from 'lamb';
 import {makeBanner, renameToMinJs} from '@svizzle/dev';
 
 import pkg from './package.json';
-import rollupIconsInputFeather from './rollup/rollupIconsInputFeather.json';
 
 const analyzer = analyze({
 	limit: 15,
@@ -25,9 +24,6 @@ const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 
 const input = {
-	...rollupIconsInputFeather,
-	A11yPerson: 'src/icons/svizzle/A11yPerson.svelte',
-	defaults: 'src/defaults.js',
 	Icon: 'src/icons/Icon.svelte',
 	index: 'src/index.js',
 	Link: 'src/Link.svelte',

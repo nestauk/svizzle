@@ -2,6 +2,7 @@
 	import {writable} from 'svelte/store';
 
 	export const _screen = writable();
+	export const defaultBreakpoints = [45, 90, 135, 180];
 </script>
 
 <script>
@@ -11,8 +12,6 @@
 		joinWithBlank,
 		mergeObjects
 	} from '@svizzle/utils';
-
-	import {breakpoints as defaultBreakpoints} from '../../defaults';
 
 	const makeClasses = _.pipe([
 		mergeObjects,
