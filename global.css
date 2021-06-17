@@ -52,6 +52,9 @@ p {
 a {
 	color: inherit;
 }
+a.undecor {
+	text-decoration: none;
+}
 
 code {
 	background-color: #f0f0f0;
