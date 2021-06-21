@@ -8,7 +8,7 @@
 		inclusiveRange,
 		mergeObj,
 	} from '@svizzle/utils';
-	import {scaleLinear} from 'd3-scale';
+	import {scaleLinear} from 'yootils';
 	import {
 		appendTo,
 		last,
@@ -103,8 +103,7 @@
 	/* scale */
 	$: valuesExtent = bins.length && [bins[0].range[0], last(bins).range[1]];
 	$: range = flags.isVertical ? [innerHeight, 0] : [0, innerWidth];
-	$: scale = valuesExtent &&
-		scaleLinear().domain(valuesExtent).range(range);
+	$: scale = valuesExtent && scaleLinear(valuesExtent, range);
 
 	/* bars */
 	$: lastIndex = bins.length - 1;

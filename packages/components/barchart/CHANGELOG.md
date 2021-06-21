@@ -1,3 +1,8 @@
+## `@svizzle/barchart` v0.6.7 (next)
+
+- updated some dependencies
+
+
 ## `@svizzle/barchart` v0.6.6
 
 - fix scrolling to the selected item

@@ -8,7 +8,7 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"lamb": "^0.59.2"
+		"lamb": "^0.60.0"
 	},
 	"description": "Svizzle Atlas contains geographic boundaries for mapping.",
 	"devDependencies": {
@@ -16,7 +16,7 @@
 		"@svizzle/file": "^0.10.1",
 		"@svizzle/geo": "^0.6.3",
 		"@svizzle/utils": "^0.14.0",
-		"d3-dsv": "^1.2.0",
+		"d3-dsv": "^2.0.0",
 		"eslint": "^7.24.0",
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
@@ -65,6 +65,7 @@
 		"distsetup": "npm run chmod && bin/dist_setup.sh",
 		"link": "npm link",
 		"lint": "eslint bin/*.js",
+		"outdated": "npm outdated",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/README.md ${dirname}/package.json",
 		"process": "npm run chmod && bin/process.sh",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",

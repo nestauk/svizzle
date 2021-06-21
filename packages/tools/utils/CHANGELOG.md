@@ -1,6 +1,7 @@
 ## `@svizzle/utils` v0.15.0 (next)
 
 - add `isPromise`
+- updated some dependencies
 
 ## `@svizzle/utils` v0.14.0
 

@@ -13,7 +13,7 @@
 		"@svizzle/geometry": "^0.3.3",
 		"@svizzle/utils": "^0.14.0",
 		"d3-scale": "^3.2.1",
-		"lamb": "^0.59.2"
+		"lamb": "^0.60.0"
 	},
 	"description": "Svelte histogram component and histogram utilities.",
 	"devDependencies": {

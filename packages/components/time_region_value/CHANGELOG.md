@@ -3,6 +3,7 @@
 - fetch boundaries at run-time
 - introduce `regionSettings` and start making regional selection a bit more generic
 - fix an error when clicking on a disabled navigation button in the timeline
+- updated some dependencies
 
 ## `@svizzle/time_region_value` v0.2.0
 

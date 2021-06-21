@@ -8,8 +8,8 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"d3-dsv": "^1.2.0",
-		"lamb": "^0.59.2"
+		"d3-dsv": "^2.0.0",
+		"lamb": "^0.60.0"
 	},
 	"description": "Svizzle File contains file related helpers for node.",
 	"devDependencies": {
@@ -68,6 +68,7 @@
 		"bumppack": "npm run setprerelease && npm run pack",
 		"link": "npm link",
 		"lint": "eslint rollup.config.js src/*.js",
+		"outdated": "npm outdated",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/README.md ${dirname}/src/",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",

@@ -39,7 +39,6 @@ const treeshake = {
 		!(/@svizzle\/dom/gu).test(id) ||
 		!(/@svizzle\/geometry/gu).test(id) ||
 		!(/@svizzle\/utils/gu).test(id) ||
-		!(/d3-scale/gu).test(id) ||
 		!(/lamb/gu).test(id)
 }
 

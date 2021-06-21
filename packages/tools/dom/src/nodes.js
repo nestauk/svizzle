@@ -2,7 +2,6 @@
 * @module @svizzle/dom/nodes
 */
 
-import {select} from 'd3-selection';
 import {pickIn} from 'lamb';
 import {mapValuesToFloatPossibly} from '@svizzle/utils';
 
@@ -36,28 +35,3 @@ export const getElementGeometry = (elem, additionalProps = []) =>
 			...additionalProps
 		])
 	);
-
-/* edit */
-
-/**
- * Moves a node in the DOM.
- *
- * @function
- * @arg {object} node - DOM element
- * @arg {object} newContainer - CSS selector or DOM element
- *
- * @example
-> d3.selectAll('#oldContainer .toBeMoved')
-	.each(function(d, i) {
-		moveNode(this, '#newContainer');
-	});
- *
- * @since 0.1.0
- */
-export const moveNode = (node, newContainer) =>
-	select(newContainer)
-	.append(
-		() => select(node).remove().node()
-	);
-
-// TODO test

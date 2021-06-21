@@ -1,3 +1,7 @@
+## `@svizzle/choropleth` v0.6.5 (next)
+
+- updated some dependencies
+
 ## `@svizzle/choropleth` v0.6.4
 
 - added default value to props

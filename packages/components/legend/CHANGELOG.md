@@ -1,3 +1,8 @@
+## `@svizzle/legend` v0.2.1 (next)
+
+- use `yootils` instead of `d3-scale`
+- updated some dependencies
+
 ## `@svizzle/legend` v0.2.0
 
 - add the field `showTicksExtentOnly` to `flags` prop

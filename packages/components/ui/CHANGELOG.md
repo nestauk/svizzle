@@ -1,3 +1,7 @@
+## `@svizzle/ui` v0.3.1 (next)
+
+- updated some dependencies
+
 ## `@svizzle/ui` v0.3.0
 
 - additions:

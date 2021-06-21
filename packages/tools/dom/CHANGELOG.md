@@ -1,3 +1,8 @@
+## `@svizzle/dom` v0.5.0 (next)
+
+- removed `moveNode`
+- updated some dependencies
+
 ## `@svizzle/dom` v0.4.4
 
 - updated some dev dependencies

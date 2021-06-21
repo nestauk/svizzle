@@ -2,11 +2,29 @@
 
 ## next
 
+## `@svizzle/barchart` v0.6.7 (next)
+
+- updated some dependencies
+
+## `@svizzle/choropleth` v0.6.5 (next)
+
+- updated some dependencies
+
+## `@svizzle/legend` v0.2.1 (next)
+
+- use `yootils` instead of `d3-scale`
+- updated some dependencies
+
 ## `@svizzle/time_region_value` v0.3.0 (next)
 
 - fetch boundaries at run-time
 - introduce `regionSettings` and start making regional selection a bit more generic
 - fix an error when clicking on a disabled navigation button in the timeline
+- updated some dependencies
+
+## `@svizzle/ui` v0.3.1 (next)
+
+- updated some dependencies
 
 ## `@svizzle/site` v0.3.6 (next)
 
@@ -15,10 +33,38 @@
 ## `@svizzle/atlas` v0.4.0 (next)
 
 - add utils and specs
+- updated some dependencies
+
+## `@svizzle/dev` v0.4.4 (next)
+
+- updated some dependencies
+
+## `@svizzle/dom` v0.5.0 (next)
+
+- removed `moveNode`
+- updated some dependencies
+
+## `@svizzle/file` v0.10.2 (next)
+
+- updated some dependencies
+
+## `@svizzle/geo` v0.6.3 (next)
+
+- updated some dependencies
+
+## `@svizzle/geometry` v0.3.4 (next)
+
+- updated some dependencies
+
+## `@svizzle/request` v0.3.4 (next)
+
+- updated some dependencies
 
 ## `@svizzle/utils` v0.15.0 (next)
 
 - add `isPromise`
+- updated some dependencies
+
 
 ## 20210617
 

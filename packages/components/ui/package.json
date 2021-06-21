@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@svizzle/dom": "^0.4.4",
 		"@svizzle/utils": "^0.14.0",
-		"uid": "^1.0.0"
+		"uid": "^2.0.0"
 	},
 	"description": "A set of UI components for Svelte.",
 	"devDependencies": {
@@ -25,7 +25,7 @@
 		"esm": "^3.2.25",
 		"feather-icons": "^4.28.0",
 		"hast-util-to-html": "^7.1.2",
-		"lamb": "^0.59.2",
+		"lamb": "^0.60.0",
 		"mkdirp": "^1.0.4",
 		"mocha": "^8.3.2",
 		"rimraf": "^3.0.2",
@@ -71,6 +71,7 @@
 		"link": "npm link",
 		"lint": "eslint rollup.config.js 'src/*.{js,svelte}'",
 		"makeFeatherIcons": "rimraf src/icons/feather && mkdirp src/icons/feather && node -r esm ./src/bin/makeFeatherIcons.js",
+		"outdated": "npm outdated",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",

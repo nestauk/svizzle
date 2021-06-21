@@ -12,7 +12,7 @@
 		"@svizzle/utils": "^0.14.0",
 		"d3-fetch": "^1.1.2",
 		"d3-request": "^1.0.6",
-		"lamb": "^0.59.2"
+		"lamb": "^0.60.0"
 	},
 	"description": "Svizzle Request contains helpers for fetching data.",
 	"devDependencies": {

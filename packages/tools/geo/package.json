@@ -10,12 +10,12 @@
 	},
 	"dependencies": {
 		"@svizzle/file": "^0.10.1",
-		"@turf/bbox": "6.3.0",
-		"@turf/centroid": "6.3.0",
-		"@turf/helpers": "6.3.0",
-		"@turf/truncate": "6.3.0",
-		"commander": "^2.19.0",
-		"lamb": "^0.59.2"
+		"@turf/bbox": "6.4.0",
+		"@turf/centroid": "6.4.0",
+		"@turf/helpers": "6.4.0",
+		"@turf/truncate": "6.4.0",
+		"commander": "^7.2.0",
+		"lamb": "^0.60.0"
 	},
 	"description": "Svizzle Geo contains geography related helpers.",
 	"devDependencies": {
@@ -68,6 +68,7 @@
 		"bumppack": "npm run setprerelease && npm run pack",
 		"link": "npm link",
 		"lint": "eslint rollup.config.js src/**/*.js",
+		"outdated": "npm outdated",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/README.md ${dirname}/src/",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
