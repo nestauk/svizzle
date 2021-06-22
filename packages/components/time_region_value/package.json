@@ -13,6 +13,7 @@
 		"@svizzle/choropleth": "^0.6.4",
 		"@svizzle/dom": "^0.4.4",
 		"@svizzle/legend": "^0.2.0",
+		"@svizzle/request": "^0.3.3",
 		"@svizzle/ui": "^0.3.0",
 		"@svizzle/utils": "^0.14.0",
 		"d3-array": "^2.4.0",

@@ -33,6 +33,8 @@
 		"distro/*.csv",
 		"distro/*.json",
 		"distro/*.yaml",
+		"src/**/*.js",
+		"!src/**/*.spec.js",
 		"LICENSE",
 		"README.md"
 	],
@@ -61,6 +63,7 @@
 		"setup": "npm run chmod && bin/setup.sh",
 		"dist": "npm run chmod && bin/dist.sh",
 		"distsetup": "npm run chmod && bin/dist_setup.sh",
+		"link": "npm link",
 		"lint": "eslint bin/*.js",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/README.md ${dirname}/package.json",
 		"process": "npm run chmod && bin/process.sh",

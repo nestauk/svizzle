@@ -3,6 +3,7 @@
 
 	// utils
 
+	import {makeTopoId} from '@svizzle/atlas/src/utils';
 	import {makeStyle, toPx} from '@svizzle/dom';
 	import {
 		applyFnMap,
@@ -19,11 +20,12 @@
 
 	// components
 
-	import {topoToGeo, defaultGeometry} from '@svizzle/choropleth/src/utils';
+	import {defaultGeometry} from '@svizzle/choropleth/src/utils';
 	import BarchartVDiv from '@svizzle/barchart/src/BarchartVDiv.svelte';
 	import ChoroplethG from '@svizzle/choropleth/src/ChoroplethG.svelte';
 	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
+	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
 	import MessageView from '@svizzle/ui/src/MessageView.svelte';
 
 	/* local deps */
@@ -56,6 +58,7 @@
 	} from 'stores/navigation';
 	import {
 		_preselectedNUTS2Ids,
+		_regionSettings,
 		_selectedNUT2Ids,
 		_someUnselectedRegions,
 	} from 'stores/regionSelection';
@@ -70,10 +73,8 @@
 
 	import config from 'config';
 	import {getNutsId} from 'utils/domain';
-	import {
-		makeGetIndicatorFormatOf,
-		makeGetRefFormatOf,
-	} from 'utils/format';
+	import {getTopojson, makeGeojson, topoCache} from 'utils/boundaries';
+	import {makeGetIndicatorFormatOf, makeGetRefFormatOf} from 'utils/format';
 
 	/* data */
 
@@ -81,21 +82,19 @@
 	// import yearlyKeyToLabel from '@svizzle/atlas/NUTS2_UK_labels'; // TODO
 
 	import majorCities from 'data/majorCities';
-	import topos from 'data/topojson';
 
 	/* consts */
 
 	const defaultGray = '#f3f3f3';
+	const fetchingMessage = 'Fetching boundaries...';
+	const legendBarThickness = 40;
 	const markerRadius = 4;
 	const labelsFontSize = 13;
 	const labelPadding = labelsFontSize / 2;
 	const labelDx = markerRadius + labelPadding;
-	const legendBarThickness = 40;
-	const topojsonId = 'NUTS'; // TODO pass this via data when we'll have LEPs
 
 	/* props */
 
-	// rest
 	export let _lookup = null;
 	export let data = null;
 	export let id = null;
@@ -116,6 +115,7 @@
 
 	// rest
 	let selectedKeys = [];
+	let topojson;
 
 	/* reactive vars */
 
@@ -146,7 +146,7 @@
 		warning,
 		year_extent,
 	} = $_lookup[id] || {});
-	// can't as `_lookup` could be a derived
+	// can't as `_lookup` is a derived
 	// $: data && _lookup.update(_.setPath(`${id}.data`, data));
 
 	// update stores
@@ -177,11 +177,8 @@
 		? defaultGeometry
 		: {...defaultGeometry, left: legendBarThickness * 2};
 
-	// flags
-	$: showMap = mapHeight && mapWidth && topojson;
-
 	// selection
-	// $: indicatorData = $_lookup[id].data; // FIXME not guaranteed
+	// $: indicatorData = $_lookup[id].data; // FIXME
 	$: yearData = data && data.filter(obj => obj.year === year);
 	$: items = yearData && makeItems(yearData);
 	$: filteredItems = _.filter(items, ({key}) =>
@@ -222,14 +219,26 @@
 	}];
 
 	// map
-	$: nuts_year_spec = yearData && yearData[0].nuts_year_spec
-	$: keyToLabel = nuts_year_spec && yearlyKeyToLabel[nuts_year_spec];
-	$: topojson =
-		nuts_year_spec && topos[`NUTS_RG_03M_${nuts_year_spec}_4326_LEVL_2_UK`];
-	$: baseGeojson = topojson && topoToGeo(topojson, topojsonId);
-	$: featuresIndex = baseGeojson &&
-		_.index(baseGeojson.features, _.getPath('properties.NUTS_ID'));
-	$: filteredGeojson = baseGeojson && _.setPathIn(baseGeojson, 'features',
+	$: regionYearSpec = yearData && yearData[0].nuts_year_spec
+	$: keyToLabel = regionYearSpec && yearlyKeyToLabel[regionYearSpec];
+	$: regionId = regionYearSpec && makeTopoId({
+		level: $_regionSettings.level,
+		level0: $_regionSettings.level0,
+		resolution: $_regionSettings.resolution,
+		type: $_regionSettings.type,
+		year: regionYearSpec,
+	});
+	$: (async () => {
+		topojson = await getTopojson(regionId)
+	})();
+	$: geojson = topojson && makeGeojson({
+		objectId: $_regionSettings.objectId,
+		regionId,
+		topojson,
+	});
+	$: featuresIndexer = _.getPath(`properties.${$_regionSettings.key}`)
+	$: featuresIndex = geojson && _.index(geojson.features, featuresIndexer);
+	$: filteredGeojson = geojson && _.setPathIn(geojson, 'features',
 		_.reduce(selectedKeys, (acc, key) => {
 			featuresIndex[key] && acc.push(featuresIndex[key]);
 			return acc;
@@ -239,9 +248,9 @@
 		mapHeight - choroplethSafety.top - choroplethSafety.bottom;
 	$: choroplethInnerWidth =
 		mapWidth - choroplethSafety.left - choroplethSafety.right;
-	$: baseProjection = baseGeojson &&
+	$: baseProjection = geojson &&
 		projectionFn()
-		.fitSize([choroplethInnerWidth, choroplethInnerHeight], baseGeojson);
+		.fitSize([choroplethInnerWidth, choroplethInnerHeight], geojson);
 	$: filterProjection =
 		filteredGeojson &&
 		filteredGeojson.features.length &&
@@ -249,9 +258,12 @@
 		.fitSize([choroplethInnerWidth, choroplethInnerHeight], filteredGeojson);
 	$: projection = $_doFilterRegions ? filterProjection : baseProjection;
 
+	// flags
+	$: showMap = mapHeight && mapWidth && topoCache[regionId] && topojson;
+
 	// focus
 	$: selectedKeys = $_preselectedNUTS2Ids.concat($_selectedNUT2Ids)
-	$: focusedKey = $_tooltip.isVisible ? $_tooltip.regionId : undefined;
+	$: focusedKey = $_tooltip.isVisible ? $_tooltip.areaId : undefined;
 
 	// cities
 	$: cities = projection && _.map(majorCities, obj => {
@@ -297,25 +309,25 @@
 			visibility: 'visible'
 		});
 	}
-	const onEnteredRegion = ({detail: regionId}) => {
-		const hasValue = _.has(keyToValue, regionId);
+	const onEnteredArea = ({detail: areaId}) => {
+		const hasValue = _.has(keyToValue, areaId);
 		const shouldShowValue = $_doFilterRegions
-			? _.isIn(selectedKeys, regionId)
+			? _.isIn(selectedKeys, areaId)
 			: true;
 
 		const value = shouldShowValue && hasValue
-			? formatFn(keyToValue[regionId]) + (labelUnit ? ` ${labelUnit}` : '')
+			? formatFn(keyToValue[areaId]) + (labelUnit ? ` ${labelUnit}` : '')
 			: undefined;
 
 		_tooltip.update(mergeObj({
+			areaId,
 			isVisible: true,
-			regionId,
-			nuts_label: keyToLabel[regionId],
+			regionLabel: keyToLabel[areaId],
 			style: makeTooltipStyle(event),
 			value
 		}))
 	};
-	const onExitedRegion = () => {
+	const onExitedArea = () => {
 		_tooltip.update(mergeObj({
 			isVisible: false,
 			style: 'visibility: hidden'
@@ -403,16 +415,15 @@
 										{projection}
 										{selectedKeys}
 										{topojson}
-										{topojsonId}
 										height={mapHeight}
 										isInteractive={true}
-										key='NUTS_ID'
+										key={$_regionSettings.key}
 										keyToColor={$_doFilterRegions
 											? keyToColorFiltered
 											: keyToColorAll
 										}
-										on:entered={onEnteredRegion}
-										on:exited={onExitedRegion}
+										on:entered={onEnteredArea}
+										on:exited={onExitedArea}
 										theme={{
 											defaultFill: defaultGray,
 											defaultStroke: 'gray',
@@ -422,9 +433,15 @@
 											selectedStroke: $_theme.colorBlack,
 											selectedStrokeWidth: 0.5,
 										}}
+										topojsonId={$_regionSettings.objectId}
 										width={mapWidth}
 									/>
 								</svg>
+							{:else}
+								<LoadingView
+									message={fetchingMessage}
+									stroke={$_theme.colorMain}
+								/>
 							{/if}
 						</div>
 					</div>
@@ -565,17 +582,16 @@
 									{projection}
 									{selectedKeys}
 									{topojson}
-									{topojsonId}
 									geometry={{left: choroplethSafety.left}}
 									height={mapHeight}
 									isInteractive={true}
-									key='NUTS_ID'
+									key={$_regionSettings.key}
 									keyToColor={$_doFilterRegions
 										? keyToColorFiltered
 										: keyToColorAll
 									}
-									on:entered={onEnteredRegion}
-									on:exited={onExitedRegion}
+									on:entered={onEnteredArea}
+									on:exited={onExitedArea}
 									theme={{
 										defaultFill: defaultGray,
 										defaultStroke: 'gray',
@@ -585,6 +601,7 @@
 										selectedStroke: $_theme.colorBlack,
 										selectedStrokeWidth: 0.5,
 									}}
+									topojsonId={$_regionSettings.objectId}
 									width={mapWidth}
 								/>
 
@@ -642,17 +659,22 @@
 									style={$_tooltip.style}
 								>
 									<header>
-										<span>{$_tooltip.regionId}</span>
+										<span>{$_tooltip.areaId}</span>
 										{#if $_tooltip.value}
 											<span>{$_tooltip.value}</span>
 										{/if}
 									</header>
 									<div>
-										<span>{$_tooltip.nuts_label}</span>
+										<span>{$_tooltip.regionLabel}</span>
 									</div>
 								</div>
 							{/if}
 
+						{:else}
+							<LoadingView
+								message={fetchingMessage}
+								stroke={$_theme.colorMain}
+							/>
 						{/if}	<!-- {#if showMap} -->
 					</div>
 

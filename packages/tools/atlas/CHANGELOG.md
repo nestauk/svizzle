@@ -1,3 +1,7 @@
+## `@svizzle/atlas` v0.4.0 (next)
+
+- add utils and specs
+
 ## `@svizzle/atlas` v0.3.0
 
 - Update to Lamb 0.59.2 (some renames needed)

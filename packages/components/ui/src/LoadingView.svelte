@@ -4,6 +4,7 @@
 
 	export let fill = null;
 	export let glyph = Loader;
+	export let message = null;
 	export let size = 50;
 	export let stroke = null;
 	export let strokeWidth = 0.75;
@@ -19,15 +20,21 @@
 			{strokeWidth}
 		/>
 	</div>
+	{#if message}
+		<div>
+			<span>{message}</span>
+		</div>
+	{/if}
 </div>
 
 <style>
 	.LoadingView {
-		width: 100%;
-		height: 100%;
-		display: flex;
 		align-items: center;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 		justify-content: center;
+		width: 100%;
 	}
 
 	.spinner {

@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.3.6 (next)
+
+- updated for changes in `/atlas` and `/time_region_value`
+
 ## `@svizzle/site` v0.3.5
 
 - updated to support `/time_region_value@0.2.0`

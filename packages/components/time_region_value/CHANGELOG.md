@@ -1,3 +1,8 @@
+## `@svizzle/time_region_value` v0.3.0 (next)
+
+- fetch boundaries at run-time
+- introduce `regionSettings` and start making regional selection a bit more generic
+
 ## `@svizzle/time_region_value` v0.2.0
 
 - support for responsive layout (`small`, `portrait`):

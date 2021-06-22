@@ -19,16 +19,19 @@
 		_viewsClasses,
 		showView,
 	} from 'stores/navigation';
+	import {setRegionSettings} from 'stores/regionSelection';
 	import {_availableYears, _selectedYear} from 'stores/selection';
 	import {_style, _theme, customizeTheme} from 'stores/theme';
 
 	export let _groups = null;
 	export let hrefBase = ''; // relative to `document.baseURI`
+	export let regionSettings = null;
 	export let segment = null;
 	export let theme = null;
 
 	$: theme && customizeTheme(theme);
 	$: _groups && setGroups($_groups);
+	$: regionSettings && setRegionSettings(regionSettings);
 	$: routeId = $_isSmallScreen && $_routes.Id;
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
 </script>

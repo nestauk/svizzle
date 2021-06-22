@@ -2,7 +2,7 @@
 	import Layout from '@svizzle/time_region_value/src/routes/_layout.svelte';
 
 	import {_groups} from './_data/stores';
-	import {hrefBase} from './_navigation';
+	import {hrefBase, regionSettings} from './_config';
 
 	export let segment;
 </script>
@@ -24,6 +24,7 @@
 		<Layout
 			{_groups}
 			{hrefBase}
+			{regionSettings}
 			{segment}
 		>
 			<slot></slot>

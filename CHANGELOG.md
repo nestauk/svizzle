@@ -2,10 +2,22 @@
 
 ## next
 
+## `@svizzle/time_region_value` v0.3.0 (next)
+
+- fetch boundaries at run-time
+- introduce `regionSettings` and start making regional selection a bit more generic
+
+## `@svizzle/site` v0.3.6 (next)
+
+- updated for changes in `/atlas` and `/time_region_value`
+
+## `@svizzle/atlas` v0.4.0 (next)
+
+- add utils and specs
+
 ## `@svizzle/utils` v0.15.0 (next)
 
 - add `isPromise`
-
 
 ## 20210617
 
