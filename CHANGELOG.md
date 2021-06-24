@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/utils` v0.15.0 (next)
+
+- add `isPromise`
+
+
 ## 20210617
 
 - Add scripts to npm link svizzles locally, useful when testing things before releasing.

@@ -283,6 +283,27 @@ false
 export const isObject = _.isType('Object');
 
 /**
+ * Return true if the input is a promise
+ *
+ * @function
+ * @arg {*} any
+ * @return {boolean}
+ *
+ * @example
+> isPromise(aFuncReturningAPromise())
+true
+> isPromise({a: 1})
+false
+ *
+ * @since 0.15.0
+ */
+export const isPromise = _.allOf([
+	isNotNil,
+	obj => obj.then && isFunction(obj.then)
+])
+
+
+/**
  * Return true if the input is a string
  *
  * @function

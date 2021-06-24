@@ -9,6 +9,7 @@ import {
 	isNotNull,
 	isNumber,
 	isObject,
+	isPromise,
 	isString,
 	isValidNumber,
 	negate,
@@ -33,6 +34,8 @@ describe('Any -> Boolean', function() {
 			assert.deepStrictEqual(isArguments([1, 2]), false);
 			assert.deepStrictEqual(isArguments(true), false);
 			assert.deepStrictEqual(isArguments(1), false);
+			assert.deepStrictEqual(isArguments(null), false);
+			assert.deepStrictEqual(isArguments(undefined), false);
 			assert.deepStrictEqual(isArguments(NaN), false);
 			assert.deepStrictEqual(isArguments(Infinity), false);
 			assert.deepStrictEqual(isArguments({a: 1}), false);
@@ -51,6 +54,8 @@ describe('Any -> Boolean', function() {
 			assert.deepStrictEqual(isArray(true), false);
 			assert.deepStrictEqual(isArray(1), false);
 			assert.deepStrictEqual(isArray(NaN), false);
+			assert.deepStrictEqual(isArray(null), false);
+			assert.deepStrictEqual(isArray(undefined), false);
 			assert.deepStrictEqual(isArray(Infinity), false);
 			assert.deepStrictEqual(isArray({a: 1}), false);
 			assert.deepStrictEqual(isArray('foo'), false);
@@ -71,13 +76,7 @@ describe('Any -> Boolean', function() {
 
 		// 👎
 		it('should return `false` if the input is a NaN', function() {
-			assert.deepStrictEqual(isNotNaN([1, 2]), false);
-			assert.deepStrictEqual(isNotNaN({a: 1}), false);
-			assert.deepStrictEqual(isNotNaN('123px'), false);
-			assert.deepStrictEqual(isNotNaN('foo'), false);
-			assert.deepStrictEqual(isNotNaN(undefined), false);
 			assert.deepStrictEqual(isNotNaN(NaN), false);
-			assert.deepStrictEqual(isNotNaN(returnArgs()), false);
 		});
 	});
 	describe('isNotNil', function() {
@@ -169,11 +168,38 @@ describe('Any -> Boolean', function() {
 		it('should return `false` if the input is not an object', function() {
 			assert.deepStrictEqual(isObject(true), false);
 			assert.deepStrictEqual(isObject(1), false);
+			assert.deepStrictEqual(isObject(null), false);
+			assert.deepStrictEqual(isObject(undefined), false);
 			assert.deepStrictEqual(isObject(NaN), false);
 			assert.deepStrictEqual(isObject(Infinity), false);
 			assert.deepStrictEqual(isObject([1, 2]), false);
 			assert.deepStrictEqual(isObject('foo'), false);
 			assert.deepStrictEqual(isObject(returnArgs()), false);
+		});
+	});
+	describe('isPromise', function() {
+		// 👍
+		it('should return `true` if the input is a promise', function() {
+			const promise = new Promise(resolve => {
+				setTimeout(() => {
+					resolve('foo');
+				}, 300);
+			});
+			assert.deepStrictEqual(isPromise(promise), true);
+		});
+
+		// 👎
+		it('should return `false` if the input is not a promise', function() {
+			assert.deepStrictEqual(isPromise(true), false);
+			assert.deepStrictEqual(isPromise(1), false);
+			assert.deepStrictEqual(isPromise(NaN), false);
+			assert.deepStrictEqual(isPromise(null), false);
+			assert.deepStrictEqual(isPromise(undefined), false);
+			assert.deepStrictEqual(isPromise(Infinity), false);
+			assert.deepStrictEqual(isPromise({a: 1}), false);
+			assert.deepStrictEqual(isPromise([1, 2]), false);
+			assert.deepStrictEqual(isPromise('foo'), false);
+			assert.deepStrictEqual(isPromise(returnArgs()), false);
 		});
 	});
 	describe('isString', function() {
