@@ -8,7 +8,7 @@
 		inclusiveRange,
 		mergeObj,
 	} from '@svizzle/utils';
-	import {scaleLinear} from 'yootils';
+	import {linearScale} from 'yootils';
 	import {
 		appendTo,
 		last,
@@ -103,7 +103,7 @@
 	/* scale */
 	$: valuesExtent = bins.length && [bins[0].range[0], last(bins).range[1]];
 	$: range = flags.isVertical ? [innerHeight, 0] : [0, innerWidth];
-	$: scale = valuesExtent && scaleLinear(valuesExtent, range);
+	$: scale = valuesExtent && linearScale(valuesExtent, range);
 
 	/* bars */
 	$: lastIndex = bins.length - 1;
