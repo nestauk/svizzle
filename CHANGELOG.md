@@ -10,6 +10,10 @@
 
 - updated some dependencies
 
+## `@svizzle/histogram` v0.4.1 (next)
+
+- updated some dependencies
+
 ## `@svizzle/legend` v0.2.1 (next)
 
 - use `yootils` instead of `d3-scale`
@@ -29,6 +33,7 @@
 ## `@svizzle/site` v0.3.6 (next)
 
 - updated for changes in `/atlas` and `/time_region_value`
+- updated some dependencies
 
 ## `@svizzle/atlas` v0.4.0 (next)
 

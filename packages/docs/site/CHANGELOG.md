@@ -1,6 +1,7 @@
 ## `@svizzle/site` v0.3.6 (next)
 
 - updated for changes in `/atlas` and `/time_region_value`
+- updated some dependencies
 
 ## `@svizzle/site` v0.3.5
 

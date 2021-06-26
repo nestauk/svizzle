@@ -14,7 +14,7 @@
 		"@svizzle/histogram": "^0.4.0",
 		"@svizzle/utils": "^0.14.0",
 		"lamb": "^0.60.0",
-		"yootils": "^0.2.1"
+		"yootils": "^0.0.17"
 	},
 	"description": "Legend Svelte components",
 	"devDependencies": {
