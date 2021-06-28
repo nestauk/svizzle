@@ -24,6 +24,7 @@
 - fetch boundaries at run-time
 - introduce `regionSettings` and start making regional selection a bit more generic
 - fix an error when clicking on a disabled navigation button in the timeline
+- fix fields not being shown in the info modal
 - updated some dependencies
 
 ## `@svizzle/ui` v0.3.1 (next)
