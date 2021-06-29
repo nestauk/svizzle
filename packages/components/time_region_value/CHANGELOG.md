@@ -1,6 +1,7 @@
 ## `@svizzle/time_region_value` v0.3.0 (next)
 
 - fetch boundaries at run-time
+- `_layout`: add props `POIs` (points of interest) and `flags`
 - introduce `regionSettings` and start making regional selection a bit more generic
 - fix an error when clicking on a disabled navigation button in the timeline
 - fix fields not being shown in the info modal
@@ -35,10 +36,12 @@
 - remove `/time_region_value/src/node_modules/utils/generic.js`
 - some renames
 - updated some dev dependencies
+- supports UK NUTS2 only
 
 ## `@svizzle/time_region_value` v0.1.1
 
 - fix: include `*.json` and `*.yaml` files in the distribution (v0.1.0 won't work because of this)
+- supports UK NUTS2 only
 
 ## `@svizzle/time_region_value` v0.1.0
 
@@ -48,3 +51,4 @@
 - add `[id]/[year].svelte`
 - note that for now `rollup-plugin-svelte` is using `emitCss: false`
 - note that this version only supports UK NUTS2 regions
+- supports UK NUTS2 only

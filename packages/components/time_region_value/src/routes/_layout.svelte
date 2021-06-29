@@ -5,7 +5,7 @@
 	import Sidebar from 'components/Sidebar.svelte';
 	import Timeline from 'components/Timeline.svelte';
 	import ViewSelector from 'components/ViewSelector.svelte';
-	import {setGroups} from 'stores/data';
+	import {setGroups, setPOIs} from 'stores/data';
 	import {
 		_isSmallScreen,
 		_screenClasses,
@@ -17,6 +17,7 @@
 		_routes,
 		_views,
 		_viewsClasses,
+		setNavFlags,
 		showView,
 	} from 'stores/navigation';
 	import {setRegionSettings} from 'stores/regionSelection';
@@ -24,14 +25,18 @@
 	import {_style, _theme, customizeTheme} from 'stores/theme';
 
 	export let _groups = null;
+	export let flags = null;
 	export let hrefBase = ''; // relative to `document.baseURI`
+	export let POIs = null;
 	export let regionSettings = null;
 	export let segment = null;
 	export let theme = null;
 
-	$: theme && customizeTheme(theme);
 	$: _groups && setGroups($_groups);
+	$: flags && setNavFlags(flags);
+	$: POIs && setPOIs(POIs);
 	$: regionSettings && setRegionSettings(regionSettings);
+	$: theme && customizeTheme(theme);
 	$: routeId = $_isSmallScreen && $_routes.Id;
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
 </script>

@@ -4,6 +4,12 @@ import regionSpecs from '@svizzle/atlas/src/specs';
 
 export const hrefBase = 'compounds/time_region_value';
 
+/* flags */
+
+export const flags = {
+	showPOIs: true
+}
+
 /* regional selection */
 
 const regionType = 'nuts';

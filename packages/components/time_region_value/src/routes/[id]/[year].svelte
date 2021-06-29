@@ -41,6 +41,7 @@
 
 	// stores
 
+	import {_POIs} from 'stores/data';
 	import {_isSmallScreen, _screenClasses} from 'stores/layout';
 	import {
 		_doFilterRegions,
@@ -52,6 +53,7 @@
 		toggleInfoModal,
 	} from 'stores/modals';
 	import {
+		_navFlags,
 		_viewsClasses,
 		setRoute,
 		showView,
@@ -80,8 +82,6 @@
 
 	import yearlyKeyToLabel from 'data/NUTS2_UK_labels';
 	// import yearlyKeyToLabel from '@svizzle/atlas/NUTS2_UK_labels'; // TODO
-
-	import majorCities from 'data/majorCities';
 
 	/* consts */
 
@@ -265,8 +265,8 @@
 	$: selectedKeys = $_preselectedNUTS2Ids.concat($_selectedNUT2Ids)
 	$: focusedKey = $_tooltip.isVisible ? $_tooltip.areaId : undefined;
 
-	// cities
-	$: cities = projection && _.map(majorCities, obj => {
+	// POIs
+	$: POIsLayout = $_navFlags.showPOIs && projection && _.map($_POIs, obj => {
 		const [x, y] = projection([obj.lng, obj.lat]);
 		const X = x + choroplethSafety.left;
 		const length = obj.name.length * labelsFontSize * 0.6;
@@ -605,11 +605,11 @@
 									width={mapWidth}
 								/>
 
-								<!-- cities -->
+								<!-- POIs -->
 
-								{#if cities}
-									<g class='cities'>
-										{#each cities as {isLeft, name, X, Y, dx, dy}}
+								{#if POIsLayout}
+									<g class='POIs'>
+										{#each POIsLayout as {isLeft, name, X, Y, dx, dy}}
 											<g transform='translate({X},{Y})'>
 												<circle r={markerRadius}/>
 												<text
@@ -860,24 +860,24 @@
 		grid-area: barchart;
 	}
 
-	/* cities */
+	/* POIs */
 
-	.cities {
+	.POIs {
 		pointer-events: none;
 	}
-	.cities circle {
+	.POIs circle {
 		fill: var(--colorWhite);
 		stroke: var(--colorBlack);
 	}
-	.cities text {
+	.POIs text {
 		dominant-baseline: middle;
 		fill: var(--colorBlack);
 		stroke: none;
 	}
-	.cities text.isLeft {
+	.POIs text.isLeft {
 		text-anchor: end;
 	}
-	.cities text.background {
+	.POIs text.background {
 		fill: var(--colorWhite);
 		fill-opacity: 0.8;
 		stroke: var(--colorWhite);

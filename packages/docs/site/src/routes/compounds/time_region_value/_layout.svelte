@@ -1,8 +1,9 @@
 <script>
 	import Layout from '@svizzle/time_region_value/src/routes/_layout.svelte';
 
+	import POIs from './_data/majorCitiesUK';
 	import {_groups} from './_data/stores';
-	import {hrefBase, regionSettings} from './_config';
+	import {flags, hrefBase, regionSettings} from './_config';
 
 	export let segment;
 </script>
@@ -23,7 +24,9 @@
 	<main>
 		<Layout
 			{_groups}
+			{flags}
 			{hrefBase}
+			{POIs}
 			{regionSettings}
 			{segment}
 		>
