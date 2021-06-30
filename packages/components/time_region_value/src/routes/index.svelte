@@ -56,7 +56,7 @@
 	>
 		<ul>
 			{#each $_groups as {description, indicators, label}}
-				<div class='group'>
+				<li class='group'>
 					<h2>{label}</h2>
 					<p>{description}</p>
 
@@ -118,6 +118,7 @@
 									<!-- dots -->
 									{#each availableYears as year}
 										<a
+											aria-label={year}
 											rel='prefetch'
 											href={makeURL(hrefBase, schema.value.id, year)}
 										>
@@ -131,7 +132,7 @@
 							{/each}
 						</svg>
 					{/if}
-				</div>
+				</li>
 			{/each}
 		</ul>
 	</div>
