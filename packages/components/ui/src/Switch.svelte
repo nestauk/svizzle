@@ -6,7 +6,7 @@
 	const dispatch = createEventDispatcher();
 	const defaultTheme = {
 		height: '24px',
-		color: 'grey',
+		color: 'black',
 		backgroundColor: 'white',
 		knobColor: 'lightgrey'
 	}
@@ -35,12 +35,16 @@
 </script>
 
 <div class='switch' {style} on:click={toggle}>
-	<fieldset role='radiogroup'>
+	<fieldset
+		role='radiogroup'
+		aria-label='Select between {values[0]} and {values[1]}'
+	>
+		<legend>Select between {values[0]} and {values[1]}</legend>
 		{#if !hideLabels}
 			<label
 				for='left-{id}'
-				class:greyed={currentValue !== values[0]}
 			>{values[0]}</label>
+			<!-- class:greyed={currentValue !== values[0]} -->
 		{/if}
 		<span class='wrapper' class:isRight>
 			<input
@@ -61,8 +65,8 @@
 		{#if !hideLabels}
 			<label
 				for='right-{id}'
-				class:greyed={currentValue !== values[1]}
 			>{values[1]}</label>
+			<!-- class:greyed={currentValue !== values[1]} -->
 		{/if}
 	</fieldset>
 </div>
@@ -72,6 +76,9 @@
 		border: none;
 		user-select: none;
 		padding: 0;
+	}
+	legend {
+		display: none;
 	}
 
 	.switch {
@@ -83,9 +90,11 @@
 		font-size: 16px;
 		margin: 0 .5em 0;
 	}
+	/*
 	.switch label.greyed {
 		opacity: 0.5;
 	}
+	*/
 	.switch input[type='radio'] {
 		display: inline-block;
 		margin-right: -2px;
