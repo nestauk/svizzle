@@ -24,7 +24,8 @@
 		"d3-scale": "^3.3.0",
 		"d3-scale-chromatic": "^2.0.0",
 		"d3-shape": "^2.1.0",
-		"lamb": "^0.60.0"
+		"lamb": "^0.60.0",
+		"yootils": "^0.0.17"
 	},
 	"description": "Svelte components to be used as Sapper routes for the {time, region, value} domain.",
 	"devDependencies": {

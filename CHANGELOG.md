@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/time_region_value` v0.3.2 (next)
+
+- added a missing dependency
+
+
 ## 20210630 (2)
 
 ## `@svizzle/choropleth` v0.6.6
@@ -50,6 +57,7 @@
 	- 1.3.1 H71 - Providing a description for groups of form controls using fieldset and legend elements https://www.w3.org/WAI/WCAG21/Techniques/html/H71
 	- 4.1.2 H91 - Using HTML form controls and links: https://www.w3.org/WAI/WCAG21/Techniques/html/H91
 - updated some dependencies
+- supports UK NUTS2 only
 
 ## `@svizzle/ui` v0.3.1
 
