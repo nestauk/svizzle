@@ -1,5 +1,24 @@
 # Svizzle changelog
 
+## 20210630 (2)
+
+## `@svizzle/choropleth` v0.6.6
+
+- updated `@svizzle/atlas`
+
+## `@svizzle/time_region_value` v0.3.1
+
+- updated `@svizzle/atlas`
+
+## `@svizzle/site` v0.3.7
+
+- updated `@svizzle/atlas`
+
+## `@svizzle/atlas` v0.4.0
+
+- to be published on npm
+
+
 ## 20210630
 
 ## `@svizzle/barchart` v0.6.7
@@ -44,7 +63,7 @@
 - updated for changes in `/atlas` and `/time_region_value`
 - updated some dependencies
 
-## `@svizzle/atlas` v0.4.0 (next - not published on npm yet)
+## `@svizzle/atlas` v0.4.0 (not published on npm)
 
 - add utils and specs
 - updated some dependencies

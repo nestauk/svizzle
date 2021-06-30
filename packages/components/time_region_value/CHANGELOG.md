@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.3.1
+
+- updated `@svizzle/atlas`
+
 ## `@svizzle/time_region_value` v0.3.0
 
 - fetch boundaries at run-time

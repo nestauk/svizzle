@@ -1,11 +1,11 @@
 {
 	"dependencies": {
-		"@svizzle/atlas": "^0.3.0",
+		"@svizzle/atlas": "^0.4.0",
 		"@svizzle/barchart": "^0.6.7",
-		"@svizzle/choropleth": "^0.6.5",
+		"@svizzle/choropleth": "^0.6.6",
 		"@svizzle/histogram": "^0.4.1",
 		"@svizzle/legend": "^0.2.1",
-		"@svizzle/time_region_value": "^0.3.0",
+		"@svizzle/time_region_value": "^0.3.1",
 		"@svizzle/ui": "^0.3.1",
 		"@svizzle/utils": "^0.15.0",
 		"compression": "^1.7.1",
@@ -61,5 +61,5 @@
 		"start": "node __sapper__/build",
 		"TODO_test": "run-p --race dev cy:run"
 	},
-	"version": "0.3.6"
+	"version": "0.3.7"
 }

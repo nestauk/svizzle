@@ -1,4 +1,4 @@
-## `@svizzle/atlas` v0.4.0 (next)
+## `@svizzle/atlas` v0.4.0
 
 - add utils and specs
 - updated some dependencies
