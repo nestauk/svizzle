@@ -1,13 +1,13 @@
 {
 	"dependencies": {
 		"@svizzle/atlas": "^0.3.0",
-		"@svizzle/barchart": "^0.6.6",
-		"@svizzle/choropleth": "^0.6.4",
-		"@svizzle/histogram": "^0.4.0",
-		"@svizzle/legend": "^0.2.0",
-		"@svizzle/time_region_value": "^0.2.0",
-		"@svizzle/ui": "^0.3.0",
-		"@svizzle/utils": "^0.14.0",
+		"@svizzle/barchart": "^0.6.7",
+		"@svizzle/choropleth": "^0.6.5",
+		"@svizzle/histogram": "^0.4.1",
+		"@svizzle/legend": "^0.2.1",
+		"@svizzle/time_region_value": "^0.3.0",
+		"@svizzle/ui": "^0.3.1",
+		"@svizzle/utils": "^0.15.0",
 		"compression": "^1.7.1",
 		"d3-color": "^2.0.0",
 		"d3-geo": "^2.0.1",
@@ -29,8 +29,8 @@
 		"@rollup/plugin-node-resolve": "^11.1.1",
 		"@rollup/plugin-replace": "^2.3.3",
 		"@rollup/plugin-yaml": "^2.1.0",
-		"@svizzle/dev": "^0.4.3",
-		"@svizzle/file": "^0.10.1",
+		"@svizzle/dev": "^0.4.4",
+		"@svizzle/file": "^0.10.2",
 		"chance": "^1.1.7",
 		"d3-array": "^2.12.1",
 		"eslint": "^7.24.0",
@@ -61,5 +61,5 @@
 		"start": "node __sapper__/build",
 		"TODO_test": "run-p --race dev cy:run"
 	},
-	"version": "0.3.5"
+	"version": "0.3.6"
 }

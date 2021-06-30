@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.6.5 (next)
+## `@svizzle/choropleth` v0.6.5
 
 - updated some dependencies
 

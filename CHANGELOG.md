@@ -1,25 +1,25 @@
 # Svizzle changelog
 
-## next
+## 20210630
 
-## `@svizzle/barchart` v0.6.7 (next)
-
-- updated some dependencies
-
-## `@svizzle/choropleth` v0.6.5 (next)
+## `@svizzle/barchart` v0.6.7
 
 - updated some dependencies
 
-## `@svizzle/histogram` v0.4.1 (next)
+## `@svizzle/choropleth` v0.6.5
 
 - updated some dependencies
 
-## `@svizzle/legend` v0.2.1 (next)
+## `@svizzle/histogram` v0.4.1
+
+- updated some dependencies
+
+## `@svizzle/legend` v0.2.1
 
 - use `yootils` instead of `d3-scale`
 - updated some dependencies
 
-## `@svizzle/time_region_value` v0.3.0 (next)
+## `@svizzle/time_region_value` v0.3.0
 
 - fetch boundaries at run-time
 - `_layout`: add props `POIs` (points of interest) and `flags`
@@ -32,49 +32,49 @@
 	- 4.1.2 H91 - Using HTML form controls and links: https://www.w3.org/WAI/WCAG21/Techniques/html/H91
 - updated some dependencies
 
-## `@svizzle/ui` v0.3.1 (next)
+## `@svizzle/ui` v0.3.1
 
 - comply with WCAG criterias:
 	- 1.3.1 H71 - Providing a description for groups of form controls using fieldset and legend elements https://www.w3.org/WAI/WCAG21/Techniques/html/H71
 	- 1.4.6 G17 - Ensuring that a contrast ratio of at least 7:1 exists between text (and images of text) and background behind the text https://www.w3.org/WAI/WCAG21/Techniques/general/G17
 - updated some dependencies
 
-## `@svizzle/site` v0.3.6 (next)
+## `@svizzle/site` v0.3.6
 
 - updated for changes in `/atlas` and `/time_region_value`
 - updated some dependencies
 
-## `@svizzle/atlas` v0.4.0 (next)
+## `@svizzle/atlas` v0.4.0 (next - not published on npm yet)
 
 - add utils and specs
 - updated some dependencies
 
-## `@svizzle/dev` v0.4.4 (next)
+## `@svizzle/dev` v0.4.4
 
 - updated some dependencies
 
-## `@svizzle/dom` v0.5.0 (next)
+## `@svizzle/dom` v0.5.0
 
 - removed `moveNode`
 - updated some dependencies
 
-## `@svizzle/file` v0.10.2 (next)
+## `@svizzle/file` v0.10.2
 
 - updated some dependencies
 
-## `@svizzle/geo` v0.6.3 (next)
+## `@svizzle/geo` v0.6.4
 
 - updated some dependencies
 
-## `@svizzle/geometry` v0.3.4 (next)
+## `@svizzle/geometry` v0.3.4
 
 - updated some dependencies
 
-## `@svizzle/request` v0.3.4 (next)
+## `@svizzle/request` v0.3.4
 
 - updated some dependencies
 
-## `@svizzle/utils` v0.15.0 (next)
+## `@svizzle/utils` v0.15.0
 
 - add `isPromise`
 - updated some dependencies

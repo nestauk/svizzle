@@ -1,4 +1,4 @@
-## `@svizzle/time_region_value` v0.3.0 (next)
+## `@svizzle/time_region_value` v0.3.0
 
 - fetch boundaries at run-time
 - `_layout`: add props `POIs` (points of interest) and `flags`

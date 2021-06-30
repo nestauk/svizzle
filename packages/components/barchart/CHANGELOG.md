@@ -1,7 +1,6 @@
-## `@svizzle/barchart` v0.6.7 (next)
+## `@svizzle/barchart` v0.6.7
 
 - updated some dependencies
-
 
 ## `@svizzle/barchart` v0.6.6
 

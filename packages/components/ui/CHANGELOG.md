@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.3.1 (next)
+## `@svizzle/ui` v0.3.1
 
 - comply with WCAG criterias:
 	- 1.3.1 H71 - Providing a description for groups of form controls using fieldset and legend elements https://www.w3.org/WAI/WCAG21/Techniques/html/H71

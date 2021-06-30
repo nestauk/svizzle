@@ -1,4 +1,4 @@
-## `@svizzle/dev` v0.4.4 (next)
+## `@svizzle/dev` v0.4.4
 
 - updated some dependencies
 

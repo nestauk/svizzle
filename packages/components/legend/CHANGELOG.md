@@ -1,4 +1,4 @@
-## `@svizzle/legend` v0.2.1 (next)
+## `@svizzle/legend` v0.2.1
 
 - use `yootils` instead of `d3-scale`
 - updated some dependencies
