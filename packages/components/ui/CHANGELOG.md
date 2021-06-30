@@ -1,5 +1,8 @@
 ## `@svizzle/ui` v0.3.1 (next)
 
+- comply with WCAG criterias:
+	- 1.3.1 H71 - Providing a description for groups of form controls using fieldset and legend elements https://www.w3.org/WAI/WCAG21/Techniques/html/H71
+	- 1.4.6 G17 - Ensuring that a contrast ratio of at least 7:1 exists between text (and images of text) and background behind the text https://www.w3.org/WAI/WCAG21/Techniques/general/G17
 - updated some dependencies
 
 ## `@svizzle/ui` v0.3.0
