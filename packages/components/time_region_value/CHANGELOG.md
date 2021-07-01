@@ -1,10 +1,13 @@
-## `@svizzle/time_region_value` v0.3.2 (next)
+## `@svizzle/time_region_value` v0.4.0 (next)
 
+- support ignoring regions (via `regionSettings`, no UI)
 - added a missing dependency
+- supports UK NUTS2 only
 
 ## `@svizzle/time_region_value` v0.3.1
 
 - updated `@svizzle/atlas`
+- supports UK NUTS2 only
 
 ## `@svizzle/time_region_value` v0.3.0
 

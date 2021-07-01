@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.3.8 (next)
+
+- updated for changes in `/time_region_value`
+
 ## `@svizzle/site` v0.3.7
 
 - updated `@svizzle/atlas`

@@ -3,6 +3,8 @@
 
 	// utils
 
+	import prune from 'topojson-simplify/src/prune';
+
 	import {makeTopoId} from '@svizzle/atlas/src/utils';
 	import {makeStyle, toPx} from '@svizzle/dom';
 	import {
@@ -11,6 +13,7 @@
 		keyValueArrayAverage,
 		keyValueArrayToObject,
 		mergeObj,
+		transformPaths,
 	} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {geoEqualEarth as projectionFn} from 'd3-geo';
@@ -59,6 +62,8 @@
 		showView,
 	} from 'stores/navigation';
 	import {
+		_getFeatureKey,
+		_hasValidKey,
 		_preselectedNUTS2Ids,
 		_regionSettings,
 		_selectedNUT2Ids,
@@ -114,8 +119,8 @@
 	let mapWidth;
 
 	// rest
+	let fetchedTopojson;
 	let selectedKeys = [];
-	let topojson;
 
 	/* reactive vars */
 
@@ -228,16 +233,23 @@
 		type: $_regionSettings.type,
 		year: regionYearSpec,
 	});
+	$: geometriesPath = `objects.${$_regionSettings.objectId}.geometries`;
+	$: filterTopojson = _.pipe([
+		transformPaths({
+			[geometriesPath]: _.filterWith($_hasValidKey)
+		}),
+		prune
+	]);
 	$: (async () => {
-		topojson = await getTopojson(regionId)
+		fetchedTopojson = await getTopojson(regionId)
 	})();
+	$: topojson = fetchedTopojson && filterTopojson(fetchedTopojson);
 	$: geojson = topojson && makeGeojson({
 		objectId: $_regionSettings.objectId,
 		regionId,
 		topojson,
 	});
-	$: featuresIndexer = _.getPath(`properties.${$_regionSettings.key}`)
-	$: featuresIndex = geojson && _.index(geojson.features, featuresIndexer);
+	$: featuresIndex = geojson && _.index(geojson.features, $_getFeatureKey);
 	$: filteredGeojson = geojson && _.setPathIn(geojson, 'features',
 		_.reduce(selectedKeys, (acc, key) => {
 			featuresIndex[key] && acc.push(featuresIndex[key]);

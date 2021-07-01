@@ -7,7 +7,7 @@ export const hrefBase = 'compounds/time_region_value';
 /* flags */
 
 export const flags = {
-	showPOIs: true
+	showPOIs: false
 }
 
 /* regional selection */
@@ -15,11 +15,20 @@ export const flags = {
 const regionType = 'nuts';
 
 export const regionSettings = {
-	canFilterByLevel0: false,
-	canSelectLevel: false,
+	canSelectLevels: true,
+	filterableLevel: 0,
+	ignoredRegions: [
+		'ES7',
+		'FR9',
+		'FRY',
+		'IS',
+		'PT2',
+		'PT3',
+		'TR',
+	],
 	key: 'NUTS_ID',
 	level: 2,
-	level0: 'UK',
+	level0: undefined,
 	levels: regionSpecs[regionType].levels,
 	objectId: regionSpecs[regionType].objectId,
 	resolution: '03M',

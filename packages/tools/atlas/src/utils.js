@@ -23,4 +23,4 @@ export const makeTopoId = ({
 }
 
 export const atlasBase = `https://unpkg.com/@svizzle/atlas@${version}/distro`;
-export const makeTopoURL = id => `${atlasBase}/${id}.json`;
+export const makeTopoURL = (id, base = atlasBase) => `${base}/${id}.json`;
