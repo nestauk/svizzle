@@ -79,8 +79,9 @@
 	/* local utils  */
 
 	import config from 'config';
-	import {getNutsId} from 'utils/domain';
 	import {getTopojson, makeGeojson, topoCache} from 'utils/boundaries';
+	import {getNutsId} from 'utils/domain';
+	import {isServerSide} from 'utils/env';
 	import {makeGetIndicatorFormatOf, makeGetRefFormatOf} from 'utils/format';
 
 	/* data */
@@ -224,7 +225,7 @@
 	}];
 
 	// map
-	$: regionYearSpec = yearData && yearData[0].nuts_year_spec
+	$: regionYearSpec = yearData && yearData[0].nuts_year_spec;
 	$: keyToLabel = regionYearSpec && yearlyKeyToLabel[regionYearSpec];
 	$: regionId = regionYearSpec && makeTopoId({
 		level: $_regionSettings.level,
@@ -240,7 +241,7 @@
 		}),
 		prune
 	]);
-	$: (async () => {
+	$: !isServerSide && (async () => {
 		fetchedTopojson = await getTopojson(regionId)
 	})();
 	$: topojson = fetchedTopojson && filterTopojson(fetchedTopojson);

@@ -43,58 +43,59 @@
 
 <ScreenGauge/>
 
-{#if $_screenClasses}
-	<section
-		class='time_region_value_layout {$_screenClasses}'
-		style={$_style}
+<section
+	class='time_region_value_layout {$_screenClasses}'
+	class:hidden={!$_screenClasses}
+	style={$_style}
+>
+	<div
+		class:routeId
+		class:routeIdYear
+		class='viewport {$_viewsClasses}'
 	>
-		<div
-			class:routeId
-			class:routeIdYear
-			class='viewport {$_viewsClasses}'
-		>
-			<div class='sidebar'>
-				<Sidebar
-					{_groups}
-					{hrefBase}
-					currentId={segment}
-				/>
-			</div>
-			<div
-				class='content'
-				class:isTimelineHidden={$_isTimelineHidden}
-				bind:clientWidth={$_timelineWidth}
-			>
-				<section>
-					<slot></slot>
-				</section>
-				{#if !$_isTimelineHidden}
-					<nav
-						bind:clientHeight={$_timelineHeight}
-					>
-						<Timeline
-							{hrefBase}
-							availableYears={$_availableYears}
-							height={$_timelineHeight}
-							indicatorId={segment}
-							selectedYear={$_selectedYear}
-							showLess={$_isSmallScreen}
-							width={$_timelineWidth}
-						/>
-					</nav>
-				{/if}
-			</div>
-		</div>
-
-		{#if $_isSmallScreen}
-			<ViewSelector
-				{_routes}
-				{_views}
-				{showView}
+		<div class='sidebar'>
+			<Sidebar
+				{_groups}
+				{hrefBase}
+				currentId={segment}
 			/>
-		{/if}
-	</section>
-{:else}
+		</div>
+		<div
+			class='content'
+			class:isTimelineHidden={$_isTimelineHidden}
+			bind:clientWidth={$_timelineWidth}
+		>
+			<section>
+				<slot></slot>
+			</section>
+			{#if !$_isTimelineHidden}
+				<nav
+					bind:clientHeight={$_timelineHeight}
+				>
+					<Timeline
+						{hrefBase}
+						availableYears={$_availableYears}
+						height={$_timelineHeight}
+						indicatorId={segment}
+						selectedYear={$_selectedYear}
+						showLess={$_isSmallScreen}
+						width={$_timelineWidth}
+					/>
+				</nav>
+			{/if}
+		</div>
+	</div>
+
+	{#if $_isSmallScreen}
+		<ViewSelector
+			{_routes}
+			{_views}
+			{showView}
+		/>
+	{/if}
+</section>
+
+{#if !$_screenClasses}
 	<LoadingView stroke={$_theme.colorMain}/>
 {/if}
 
@@ -197,5 +198,8 @@
 	.content.isTimelineHidden {
 		grid-template-areas: 'slot';
 		grid-template-rows: 100%;
+	}
+	.hidden {
+		display: none !important;
 	}
 </style>
