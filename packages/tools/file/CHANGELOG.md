@@ -1,3 +1,7 @@
+## `@svizzle/file` v0.11.0 (next)
+
+- add `getPathExt`, `isFileWithExt`, `isCsvFile`, `isJsonFile`, `isTsvFile`, `isYamlFile`
+
 ## `@svizzle/file` v0.10.2
 
 - updated some dependencies

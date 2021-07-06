@@ -13,6 +13,10 @@
 - supports UK NUTS2 only
 - fixed server-side rendering of indicator routes
 
+## `@svizzle/file` v0.11.0 (next)
+
+- add `getPathExt`, `isFileWithExt`, `isCsvFile`, `isJsonFile`, `isTsvFile`, `isYamlFile`
+
 
 ## 20210630 (2)
 

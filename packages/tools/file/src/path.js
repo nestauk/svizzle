@@ -7,6 +7,25 @@ import path from 'path';
 import * as _ from 'lamb';
 
 /**
+ * Return the extension of the provided file path
+ * [node environment]
+ *
+ * @function
+ * @arg {string} filepath
+ * @return {string} - the extension of the file path
+ *
+ * @example
+> getPathExt('foo/bar.txt')
+'txt'
+> getPathExt('foo/bar.todo.md')
+'md'
+ *
+ * @since 0.11.0
+ */
+export const getPathExt =
+	filepath => path.parse(filepath).ext.slice(1);
+
+/**
  * Detect if a file name has one of the provided extensions.
  * [node environment]
  *
@@ -44,6 +63,25 @@ export const hasAnyExtensionOf = extensions =>
  */
 export const filterJsonExtensions =
 	_.filterWith(hasAnyExtensionOf(['.json', '.geojson']));
+
+/**
+ * Return a function that returns true if the input file name has the provided extension
+ * [node environment]
+ *
+ * @function
+ * @arg {string} extension
+ * @return {boolean}
+ *
+ * @example
+> isJson = isFileWithExt('json')
+> isJson('file.json')
+true
+> isJson('file.txt')
+false
+ *
+ * @since 0.11.0
+ */
+export const isFileWithExt = ext => _.pipe([getPathExt, _.is(ext)]);
 
 /**
  * Return a function expecting a filepath and returning it renamed to the provided extension.
@@ -109,3 +147,11 @@ const renameToExtension = ext => filepath => {
  */
 export const resolveToDir =
 	dirPath => filename => path.resolve(dirPath, filename);
+
+
+// no need to test the utils below
+
+export const isCsvFile = isFileWithExt('csv');
+export const isJsonFile = isFileWithExt('json');
+export const isTsvFile = isFileWithExt('tsv');
+export const isYamlFile = hasAnyExtensionOf(['.yaml', '.yml']);
