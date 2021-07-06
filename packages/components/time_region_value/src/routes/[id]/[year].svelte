@@ -224,7 +224,7 @@
 	}];
 
 	// map
-	$: regionYearSpec = yearData && yearData[0].nuts_year_spec
+	$: regionYearSpec = yearData && yearData[0].nuts_year_spec;
 	$: keyToLabel = regionYearSpec && yearlyKeyToLabel[regionYearSpec];
 	$: regionId = regionYearSpec && makeTopoId({
 		level: $_regionSettings.level,
@@ -240,7 +240,7 @@
 		}),
 		prune
 	]);
-	$: (async () => {
+	$: $_navFlags.isClientSide && (async () => {
 		fetchedTopojson = await getTopojson(regionId)
 	})();
 	$: topojson = fetchedTopojson && filterTopojson(fetchedTopojson);
