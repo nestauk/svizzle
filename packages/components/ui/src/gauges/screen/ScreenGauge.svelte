@@ -32,7 +32,7 @@
 	$: sampleLength = sampleText.length;
 
 	const updateScreen = () => {
-		if (isClient) {
+		if (isServerSide) {
 			return
 		}
 
@@ -83,7 +83,7 @@
 		});
 	}
 
-	$: isClient = typeof window === 'undefined';
+	$: isServerSide = typeof window === 'undefined';
 	$: sampleHeight && sampleWidth && updateScreen();
 	$: fontSize && updateScreen();
 	$: devInfo = $_screen && {

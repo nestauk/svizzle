@@ -45,7 +45,7 @@
 
 <section
 	class='time_region_value_layout {$_screenClasses}'
-	class:loading={!$_screenClasses}
+	class:hidden={!$_screenClasses}
 	style={$_style}
 >
 	<div
@@ -100,7 +100,7 @@
 {/if}
 
 <style>
-	.loading {
+	.hidden {
 		display: none !important;
 	}
 	.time_region_value_layout {

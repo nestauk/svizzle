@@ -79,8 +79,9 @@
 	/* local utils  */
 
 	import config from 'config';
-	import {getNutsId} from 'utils/domain';
 	import {getTopojson, makeGeojson, topoCache} from 'utils/boundaries';
+	import {getNutsId} from 'utils/domain';
+	import {isServerSide} from 'utils/env';
 	import {makeGetIndicatorFormatOf, makeGetRefFormatOf} from 'utils/format';
 
 	/* data */
@@ -240,7 +241,7 @@
 		}),
 		prune
 	]);
-	$: $_navFlags.isClientSide && (async () => {
+	$: !isServerSide && (async () => {
 		fetchedTopojson = await getTopojson(regionId)
 	})();
 	$: topojson = fetchedTopojson && filterTopojson(fetchedTopojson);
