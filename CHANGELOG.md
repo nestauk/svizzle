@@ -11,6 +11,7 @@
 - support ignoring regions (via `regionSettings`, no UI)
 - added a missing dependency
 - supports UK NUTS2 only
+- fixed server-side rendering of indicator routes
 
 
 ## 20210630 (2)
