@@ -1,3 +1,16 @@
+## `@svizzle/ui` v0.4.0 (next)
+
+- `LinkButton`:
+	- add props:
+		- `download`
+		- `hreflang`
+		- `rel`
+		- `target`
+		- `type`
+- `Link`:
+	- drop `isExternal` prop
+	- add `showIcon` prop
+
 ## `@svizzle/ui` v0.3.1
 
 - comply with WCAG criterias:

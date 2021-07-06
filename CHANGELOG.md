@@ -4,7 +4,7 @@
 
 ## `@svizzle/site` v0.3.8 (next)
 
-- updated for changes in `/time_region_value`
+- updated for changes in `/time_region_value` and `/ui`
 
 ## `@svizzle/time_region_value` v0.4.0 (next)
 
@@ -12,6 +12,19 @@
 - added a missing dependency
 - supports UK NUTS2 only
 - fixed server-side rendering of indicator routes
+
+## `@svizzle/ui` v0.4.0 (next)
+
+- `LinkButton`:
+	- add props:
+		- `download`
+		- `hreflang`
+		- `rel`
+		- `target`
+		- `type`
+- `Link`:
+	- drop `isExternal` prop
+	- add `showIcon` prop
 
 ## `@svizzle/file` v0.11.0 (next)
 

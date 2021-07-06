@@ -1,6 +1,7 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 
+	import {defaultRel} from './shared';
 	import Icon from './icons/Icon.svelte';
 
 	const {
@@ -21,17 +22,28 @@
 	};
 	const missingHrefText = 'Please provide `href`';
 
+	export let download = null;
 	export let glyph = null;
 	export let href = null;
+	export let hreflang = null;
 	export let iconSize = defaultSize;
+	export let rel = defaultText;
+	export let target = null;
 	export let text = defaultText;
 	export let theme = null;
+	export let type = null;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: rel = rel || defaultRel;
+	$: download = download || null;
+	$: href = href || null;
+	$: hreflang = hreflang || null;
 	$: iconSize = iconSize || defaultSize;
 	$: style = makeStyleVars(theme);
+	$: target = target || null;
 	$: text = text || defaultText;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+	$: type = type || null;
 </script>
 
 <div
@@ -39,7 +51,14 @@
 	class='linkButton'
 >
 	{#if href}
-		<a {href}>
+		<a
+			{download}
+			{href}
+			{hreflang}
+			{rel}
+			{target}
+			{type}
+		>
 			<div class="clickable">
 				{#if text}
 					<span>{text}</span>

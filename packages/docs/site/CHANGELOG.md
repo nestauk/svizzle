@@ -1,6 +1,6 @@
 ## `@svizzle/site` v0.3.8 (next)
 
-- updated for changes in `/time_region_value`
+- updated for changes in `/time_region_value` and `/ui`
 
 ## `@svizzle/site` v0.3.7
 

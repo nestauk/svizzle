@@ -49,15 +49,17 @@ Note that the `makeFeatherIcons` npm script assumes the `feather` directory in t
 ## Link
 
 Props:
+- `download`: `boolean`, defaults to `null`
 - `href`: `string`, defaults to `null`
 - `hreflang`: string, defaults to `null`
 - `iconSize`: number, defaults to `14`
-- `isDownload`: boolean, defaults to `false`
-- `isExternal`: boolean, defaults to `false`
+- `isBold`: boolean, defaults to `false`
+- `isUnderlined`: boolean, defaults to `false`
 - `rel`: string, defaults to `'noopener'`
+- `showIcon`: boolean, defaults to `true`
 - `target`: string, defaults to `null`
 - `text`: string, defaults to '' (if `href` isn't provided it turns into `<Link.svelte>: PLEASE PROVIDE A `href` PROP'`)
-- `theme`: `object`, the default being merged to the passed object being:
+- `theme`: `object`, it gets merged to the default object, that is:
 	```
 	{
 		iconStroke: 'rgb(16, 174, 249)',
@@ -65,7 +67,33 @@ Props:
 		textColor: 'black',
 	}
 	```
-- `type`: `string`, defaults to `null`
+- `type`: `string`, defaults to `null` (see https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types)
+
+## LinkButton
+
+Props:
+- `download`: `boolean`, defaults to `null`
+- `glyph`: a Svelte component for an optional icon
+- `href`: `string`, defaults to `null`
+- `hreflang`: string, defaults to `null`
+- `iconSize`: number, defaults to `14`
+- `rel`: string, defaults to `'noopener'`
+- `target`: string, defaults to `null`
+- `text`: string, defaults to 'Please provide `text`'
+- `theme`: `object`, it gets merged to the default object, that is:
+	```
+	{
+		backgroundColor: 'black',
+		boxShadowColor: 'lightgrey',
+		boxShadowVec: '2px 8px 9px -4px',
+		iconFill: defaultFill,
+		iconStroke: defaultStroke,
+		iconStrokeWidth: defaultStrokeWidth,
+		textColor: 'white',
+	}
+	```
+- `type`: `string`, defaults to `null` (see https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types)
+
 
 ## LoadingView
 

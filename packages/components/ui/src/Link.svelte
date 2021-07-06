@@ -1,9 +1,9 @@
 <script>
+	import {defaultRel} from './shared';
 	import ExternalLink from './icons/feather/ExternalLink.svelte';
 	import Icon from './icons/Icon.svelte';
 
 	const defaultIconSize = 14;
-	const defaultRel = 'noopener';
 	const {defaultStrokeWidth} = Icon;
 	const defaultTheme = {
 		iconStroke: 'rgb(16, 174, 249)',
@@ -16,9 +16,9 @@
 	export let hreflang = null;
 	export let iconSize = defaultIconSize;
 	export let isBold = false;
-	export let isExternal = false;
 	export let isUnderlined = false;
 	export let rel = defaultRel;
+	export let showIcon = true;
 	export let target = null;
 	export let text = null;
 	export let theme = null;
@@ -30,15 +30,16 @@
 	$: hreflang = hreflang || null;
 	$: iconSize = iconSize || defaultIconSize;
 	$: isBold = isBold || false;
-	$: isExternal = isExternal || false;
 	$: isUnderlined = isUnderlined || false;
 	$: rel = rel || defaultRel;
 	$: target = target || null;
+	$: type = type || null;
+
+	$: isExternal = type === 'external';
 	$: text = !href
 		? '<Link.svelte>: PLEASE PROVIDE A `href` PROP'
 		: text ?? href;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	$: type = type || null;
 
 	$: style = `--color: ${theme.color}`;
 </script>
@@ -56,7 +57,7 @@
 	<span class:bold={isBold}>
 		<slot></slot>
 	</span>
-	{#if isExternal}
+	{#if isExternal && showIcon}
 		<span>
 			<Icon
 				glyph={ExternalLink}
