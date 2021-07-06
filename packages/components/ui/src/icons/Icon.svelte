@@ -11,8 +11,8 @@
 
 	export let fill = defaultFill;
 	export let glyph = defaultGlyph;
-	export let size = defaultSize;
 	export let glyphSize = defaultSize;
+	export let size = defaultSize;
 	export let stroke = defaultStroke;
 	export let strokeWidth = defaultStrokeWidth;
 

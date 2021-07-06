@@ -15,9 +15,12 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
-					import {default as Settings} from '@svizzle/ui/src/icons/feather/Settings.svelte';
+					import Icon
+						from '@svizzle/ui/src/icons/Icon.svelte';
+					import Settings
+						from '@svizzle/ui/src/icons/feather/Settings.svelte';
 				</script>
+
 				<Icon glyph={Settings} />
 			`,
 		}, {
@@ -30,9 +33,12 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
-					import {default as AlertTriangle} from '@svizzle/ui/src/icons/feather/AlertTriangle.svelte';
+					import Icon
+						from '@svizzle/ui/src/icons/Icon.svelte';
+					import AlertTriangle
+						from '@svizzle/ui/src/icons/feather/AlertTriangle.svelte';
 				</script>
+
 				<Icon
 					glyph={AlertTriangle}
 					size=300
@@ -48,8 +54,10 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
-					import {default as Sun} from '@svizzle/ui/src/icons/feather/Sun.svelte';
+					import Icon
+						from '@svizzle/ui/src/icons/Icon.svelte';
+					import Sun
+						from '@svizzle/ui/src/icons/feather/Sun.svelte';
 				</script>
 				<Icon
 					glyph={Sun}
@@ -66,12 +74,15 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
-					import {default as ArrowRightCircle} from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+					import Icon
+						from '@svizzle/ui/src/icons/Icon.svelte';
+					import ArrowRightCircle
+						from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
 				</script>
+
 				<Icon
 					fill='palegreen'
-					glyph={Sun}
+					glyph={ArrowRightCircle}
 					size=100
 					strokeWidth=1
 				/>
@@ -81,8 +92,10 @@ export default formatExamples([
 			props: {},
 			usage: `
 				<script>
-					import {default as Icon} from '@svizzle/ui/src/icons/Icon.svelte';
+					import Icon
+						from '@svizzle/ui/src/icons/Icon.svelte';
 				</script>
+
 				<Icon />
 			`,
 		}],
@@ -416,5 +429,71 @@ export default formatExamples([
 		packageName: 'ui',
 		slug: 'ui-LinkButton',
 		title: 'LinkButton',
+	},
+	{
+		data: [{
+			key: 'no props',
+			props: {
+			},
+			usage: `
+				<LoadingView />
+			`,
+		}, {
+			key: 'message',
+			props: {
+				message: 'Loading...'
+			},
+			usage: `
+				<LoadingView
+					message='Loading...'
+				/>
+			`,
+		}, {
+			key: 'glyph',
+			props: {
+				glyph: ArrowRightCircle,
+				size: 100
+			},
+			usage: `
+				<script>
+					import ArrowRightCircle
+						from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+				</script>
+
+				<LoadingView
+					size=100
+					glyph={ArrowRightCircle}
+				/>
+			`,
+		}, {
+			key: 'icon style',
+			props: {
+				fill: 'palegreen',
+				glyph: ArrowRightCircle,
+				stroke: 'blue',
+				strokeWidth: 3
+			},
+			usage: `
+				<script>
+					import ArrowRightCircle
+						from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+				</script>
+
+				<LoadingView
+					fill='palegreen'
+					glyph={ArrowRightCircle}
+					stroke='blue'
+					strokeWidth=3
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'A simple loading view with a spinning icon.'},
+			{tag: 'p', content: `See @svizzle/ui's README for the full list of props.`},
+		],
+		name: 'LoadingView',
+		packageName: 'ui',
+		slug: 'ui-LoadingView',
+		title: 'LoadingView',
 	}
 ]);

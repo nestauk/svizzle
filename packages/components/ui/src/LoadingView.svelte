@@ -8,6 +8,14 @@
 	export let size = 50;
 	export let stroke = null;
 	export let strokeWidth = 0.75;
+
+	// FIXME https://github.com/sveltejs/svelte/issues/4442
+	$: fill = fill || null;
+	$: glyph = glyph || Loader;
+	$: message = message || null;
+	$: size = size || 50;
+	$: stroke = stroke || null;
+	$: strokeWidth = strokeWidth || 0.75;
 </script>
 
 <div class='LoadingView'>

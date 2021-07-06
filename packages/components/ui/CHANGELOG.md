@@ -1,5 +1,8 @@
 ## `@svizzle/ui` v0.4.0 (next)
 
+- `Link`:
+	- drop `isExternal` prop
+	- add `showIcon` prop
 - `LinkButton`:
 	- add props:
 		- `download`
@@ -7,9 +10,9 @@
 		- `rel`
 		- `target`
 		- `type`
-- `Link`:
-	- drop `isExternal` prop
-	- add `showIcon` prop
+- `LoadingView`:
+	- make sure props are set to their default if `undefined`
+	- add documentation on the site
 
 ## `@svizzle/ui` v0.3.1
 
