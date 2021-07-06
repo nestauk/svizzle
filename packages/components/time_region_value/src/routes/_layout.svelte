@@ -100,9 +100,6 @@
 {/if}
 
 <style>
-	.hidden {
-		display: none !important;
-	}
 	.time_region_value_layout {
 		background-color: var(--colorWhite);
 		display: grid;
@@ -201,5 +198,8 @@
 	.content.isTimelineHidden {
 		grid-template-areas: 'slot';
 		grid-template-rows: 100%;
+	}
+	.hidden {
+		display: none !important;
 	}
 </style>
