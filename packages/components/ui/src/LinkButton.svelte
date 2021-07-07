@@ -27,7 +27,7 @@
 	export let href = null;
 	export let hreflang = null;
 	export let iconSize = defaultSize;
-	export let rel = defaultText;
+	export let rel = defaultRel;
 	export let target = null;
 	export let text = defaultText;
 	export let theme = null;

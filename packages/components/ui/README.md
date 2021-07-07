@@ -49,16 +49,23 @@ Note that the `makeFeatherIcons` npm script assumes the `feather` directory in t
 ## Link
 
 Props:
-- `download`: `boolean`, defaults to `null`
+- `download`: `string`, defaults to `null`; serves as a file name as opposed to the file name provided in `href`; use for files that the browser would otherwise display, in order to get a download dialog instead.
+	For example:
+		- if the `href` is a `zip` or `csv` file, it's not needed;
+		- if the `href` is `data/foo.png` (which could be displayed), by providing `download='bar'` we download a file named `bar.png`.
+	Order of precedence of the filename extension offered in save-file dialog:
+		1. extension in the `download` attribute
+		2. mime type of the response (for example when we try to download a picture but we get a 404)
+		3. extension in the `href` attribute.
 - `href`: `string`, defaults to `null`
-- `hreflang`: string, defaults to `null`
-- `iconSize`: number, defaults to `14`
-- `isBold`: boolean, defaults to `false`
-- `isUnderlined`: boolean, defaults to `false`
-- `rel`: string, defaults to `'noopener'`
-- `showIcon`: boolean, defaults to `true`
-- `target`: string, defaults to `null`
-- `text`: string, defaults to '' (if `href` isn't provided it turns into `<Link.svelte>: PLEASE PROVIDE A `href` PROP'`)
+- `hreflang`: `string`, defaults to `null`
+- `iconSize`: `number`, defaults to `14`
+- `isBold`: `boolean`, defaults to `false`
+- `isUnderlined`: `boolean`, defaults to `false`
+- `rel`: `string`, defaults to `'noopener'`
+- `showIcon`: `boolean`, defaults to `true`
+- `target`: `string`, defaults to `null`
+- `text`: `string`, defaults to '' (if `href` isn't provided it turns into `<Link.svelte>: PLEASE PROVIDE A `href` PROP'`)
 - `theme`: `object`, it gets merged to the default object, that is:
 	```
 	{
@@ -72,14 +79,16 @@ Props:
 ## LinkButton
 
 Props:
-- `download`: `boolean`, defaults to `null`
+- `download`: `string`, defaults to `null`; see `Link` above.
+	- if the `href` is a `zip` or `csv` file, it's not needed;
+	- if the `href` is `data/foo.png` (which could be displayed), by providing `download='bar'` we download a file named `bar.png`
 - `glyph`: a Svelte component for an optional icon
 - `href`: `string`, defaults to `null`
-- `hreflang`: string, defaults to `null`
-- `iconSize`: number, defaults to `14`
-- `rel`: string, defaults to `'noopener'`
-- `target`: string, defaults to `null`
-- `text`: string, defaults to 'Please provide `text`'
+- `hreflang`: `string`, defaults to `null`
+- `iconSize`: `number`, defaults to `14`
+- `rel`: `string`, defaults to `'noopener'`
+- `target`: `string`, defaults to `null`
+- `text`: `string`, defaults to 'Please provide `text`'
 - `theme`: `object`, it gets merged to the default object, that is:
 	```
 	{

@@ -45,7 +45,7 @@
 		"lernalint": "lerna run lint",
 		"lernatest": "lerna run test",
 		"lernaversion": "lerna version --no-changelog --no-git-tag-version --no-push --preid=dev",
-		"linkall": "lerna run link",
+		"linkall": "lerna run link && npm list -g",
 		"outdated": "lerna run outdated",
 		"prepublishOnly": "npm run lernacleanboot && lerna run lint && lerna run test && lerna run build",
 		"publishDoc": "gh-pages --dotfiles -d packages/docs/site/__sapper__/export/svizzle",

@@ -32,6 +32,7 @@
 	$: isBold = isBold || false;
 	$: isUnderlined = isUnderlined || false;
 	$: rel = rel || defaultRel;
+	$: showIcon = showIcon || true;
 	$: target = target || null;
 	$: type = type || null;
 
