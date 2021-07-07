@@ -1,3 +1,10 @@
+## `@svizzle/atlas` v0.4.1 (next)
+
+- refactor scripts and the package file structure
+- add new npm scripts
+- changed the shape of the object exported by `src/specs.js`
+- no data change
+
 ## `@svizzle/atlas` v0.4.0
 
 - add utils and specs

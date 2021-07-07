@@ -50,6 +50,13 @@
 - updated for changes in `/time_region_value` and `/ui`
 - updated dev dependencies
 
+## `@svizzle/atlas` v0.4.1 (next)
+
+- refactor scripts and the package file structure
+- add new npm scripts
+- changed the shape of the object exported by `src/specs.js`
+- no data change
+
 ## `@svizzle/file` v0.11.0 (next)
 
 - add `getPathExt`, `isFileWithExt`, `isCsvFile`, `isJsonFile`, `isTsvFile`, `isYamlFile`

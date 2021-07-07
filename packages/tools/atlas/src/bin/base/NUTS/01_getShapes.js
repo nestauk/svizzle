@@ -2,18 +2,24 @@
 
 import path from 'path';
 
+import {tapMessage} from '@svizzle/dev';
+import {readFile, saveObj} from '@svizzle/file';
+import {makeKeyedValuesPermutations, transformValues} from '@svizzle/utils';
 import yaml from 'js-yaml';
 import * as _ from 'lamb';
-import { readFile, saveObj } from '@svizzle/file';
-import {makeKeyedValuesPermutations, transformValues} from '@svizzle/utils';
-import {tapMessage} from '@svizzle/dev';
-import fetch from 'node-fetch';
 import mkdirp from 'mkdirp';
+import fetch from 'node-fetch';
+import rimraf from 'rimraf';
 
-const BASE_URL = 'https://ec.europa.eu/eurostat/cache/GISCO/distribution/v2/nuts';
+import {getBasename, NUTS_DATA_PATH_0, NUTS_DATA_PATH_1} from 'paths';
+import {NUTS_HOME_URL} from 'urls';
 
-const NUTS_SPEC_PATH = path.resolve(__dirname, '../data/0/nuts_spec.yaml');
-const NUTS_BASE_PATH = path.resolve(__dirname, `../data/1/EU/NUTS`);
+/* paths */
+
+const IN_SPEC_PATH = path.resolve(NUTS_DATA_PATH_0, 'nuts_spec.yaml');
+// out: sub-dirs of NUTS_DATA_PATH_1, see makeDestinationPath
+
+/* utils */
 
 const makeURL = ({
 	format,
@@ -23,11 +29,10 @@ const makeURL = ({
 	subset,
 	year,
 }) =>
-	`${BASE_URL}/${format[0]}/NUTS_${spatialtype}_${resolution}_${year}_${proj_epsg_id}_LEVL_${subset}.${format[1]}`;
+	`${NUTS_HOME_URL}/${format[0]}/NUTS_${spatialtype}_${resolution}_${year}_${proj_epsg_id}_LEVL_${subset}.${format[1]}`;
 
 const makeExtension = string => string === 'geojson' ? 'json' : string;
 
-// NUTS_RG_03M_2003_4326_LEVL_1.json
 const makeDestinationPath = ({
 	format,
 	proj_epsg_id,
@@ -37,12 +42,12 @@ const makeDestinationPath = ({
 	year,
 }) =>
 	path.resolve(
-		NUTS_BASE_PATH,
+		NUTS_DATA_PATH_1,
 		format[0],
 		`NUTS_${spatialtype}_${resolution}_${year}_${proj_epsg_id}_LEVL_${subset}.${makeExtension(format[1])}`
+		// e.g. NUTS_RG_03M_2003_4326_LEVL_1.json
 	);
 
-// NUTS_RG_03M_2003_4326
 const makeObjectsKey = ({
 	proj_epsg_id,
 	resolution,
@@ -50,6 +55,7 @@ const makeObjectsKey = ({
 	year,
 }) =>
 	`NUTS_${spatialtype}_${resolution}_${year}_${proj_epsg_id}`;
+	// e.g. NUTS_RG_03M_2003_4326
 
 const permute = _.pipe([
 	_.updatePath('format', _.pairs),
@@ -60,15 +66,23 @@ const makeTopojsonUpdater = key => transformValues({
 	objects: _.rename({[key]: 'NUTS'}),
 });
 
+/* run */
+
 /*
-- Read nuts_spec.yaml
-- Create permutations format/proj/resolution/spatialtype/subset/year
-- Fetch topojson files
-- Assign `objects` to a 'NUTS' property
+- read nuts_spec.yaml
+- create permutations format/proj/resolution/spatialtype/subset/year
+- fetch topojson files
+- assign `objects` to a 'NUTS' property
+
+in:
+	- IN_SPEC_PATH
+	- NUTS_HOME_URL
+out:
+	- OUT_TOPOJSON_DIR/*.topojson
 */
-const process = async () => {
+const run = async () => {
 	const permutations =
-		await readFile(NUTS_SPEC_PATH, 'utf-8')
+		await readFile(IN_SPEC_PATH, 'utf-8')
 		.then(yaml.safeLoad)
 		.then(permute)
 		.catch(err => console.error(err));
@@ -78,12 +92,12 @@ const process = async () => {
 			_.pipe([
 				_.collect([makeURL, makeDestinationPath, _.identity]),
 				([url, filePath, permutation]) => {
+					rimraf.sync(path.parse(filePath).dir);
 					mkdirp.sync(path.parse(filePath).dir);
 
-					const {format} = permutation;
 					const key = makeObjectsKey(permutation);
 
-					const updater = format[0] === 'topojson'
+					const updater = permutation.format[0] === 'topojson'
 						? makeTopojsonUpdater(key)
 						: _.identity;
 
@@ -99,6 +113,9 @@ const process = async () => {
 	).catch(err => console.error(err));
 }
 
-process()
+console.log(`\nrun: ${getBasename(__filename)}\n`);
+console.log('Fetching, please wait...');
+
+run()
 .then(tapMessage('Done'))
 .catch(err => console.error(err));

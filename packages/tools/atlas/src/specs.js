@@ -3,7 +3,7 @@ export default {
 		// epsgId: 4326, // TODO
 		// levels: undefined, // TODO
 		// years: undefined, // TODO
-		objectId: 'countries',
+		objectIds: ['countries', 'land'],
 		properties: ['iso_a2'],
 		resolutions: ['110m'],
 		type: 'world',
@@ -11,7 +11,7 @@ export default {
 	nuts: {
 		epsgId: 4326,
 		levels: [0, 1, 2, 3],
-		objectId: 'NUTS',
+		objectIds: ['NUTS'],
 		properties: [
 			'NUTS_ID',
 			'LEVL_CODE',

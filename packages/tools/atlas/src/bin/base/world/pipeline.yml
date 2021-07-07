@@ -1,0 +1,7 @@
+files:
+  a: WORLD_DATA_PATH_0/iso_a2_to_name_by_type.yaml
+  b: WORLD_DATA_PATH_1/world_110m_iso_a2_topojson.json
+scripts:
+  - path: 01_world_110m_iso_a2_topojson.js
+  input: a
+  output: b

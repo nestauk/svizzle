@@ -1,0 +1,28 @@
+urls:
+  a: NUTS_HOME_URL
+files:
+  a: NUTS_DATA_PATH_0/nuts_spec.yaml
+  b: NUTS_DATA_PATH_1/countries_by_year.yaml
+  c/: NUTS_DATA_PATH_1/csv/*
+  d/: NUTS_DATA_PATH_1/topojson/*
+  e/: NUTS_DATA_PATH_2/topojson/*
+scripts:
+  - path: 01_getMetadata.js
+  inputs:
+    - files.a
+    - urls.a
+  outputs:
+    - b
+    - c/
+  - path: 01_getShapes.js
+  inputs:
+    - files.a
+    - urls.a
+  outputs:
+    - d/
+  - path: 12_getCountriesTopojson.js
+  inputs:
+    - files.b
+    - files.d/
+  outputs:
+    - e/

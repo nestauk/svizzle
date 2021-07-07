@@ -17,7 +17,7 @@ resolution:
   - 03M
   - 10M
   # - 20M
-  # - 60M # doesn't seem to be available
+  # - 60M # doesn't seem to be available
 
 spatialtype:
   # - BN # boundaries (multilines)
