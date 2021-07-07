@@ -7,6 +7,7 @@
 	import {_isSmallScreen, _timelineLayout} from 'stores/layout';
 	import {setRoute, showView} from 'stores/navigation';
 	import {resetSelection} from 'stores/selection';
+	import {isServerSide} from 'utils/env';
 	import {shortenYear} from 'utils/format';
 	import {makeURL} from 'utils/url';
 
@@ -35,9 +36,7 @@
 	/* local vars */
 
 	// bound
-	// when exporting, to crawl links in the svg, we need to have width defined
-	let width = isSapperExported && 1000;
-	let height;
+	let width;
 
 	$: layout = $_timelineLayout;
 	$: vStep = 2 * layout.radius + 3 * gap + layout.fontSize;
@@ -51,7 +50,6 @@
 
 	<div
 		class='timedist'
-		bind:clientHeight={height}
 		bind:clientWidth={width}
 	>
 		<ul>
@@ -60,7 +58,7 @@
 					<h2>{label}</h2>
 					<p>{description}</p>
 
-					{#if width}
+					{#if width || isServerSide}
 						<svg
 							{width}
 							height='{4 * gap + layout.fontSize + vStep * indicators.length}'

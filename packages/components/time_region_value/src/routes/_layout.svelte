@@ -23,6 +23,7 @@
 	import {setRegionSettings} from 'stores/regionSelection';
 	import {_availableYears, _selectedYear} from 'stores/selection';
 	import {_style, _theme, customizeTheme} from 'stores/theme';
+	import {isServerSide} from 'utils/env';
 
 	export let _groups = null;
 	export let flags = null;
@@ -43,57 +44,76 @@
 
 <ScreenGauge/>
 
-<section
-	class='time_region_value_layout {$_screenClasses}'
-	class:hidden={!$_screenClasses}
-	style={$_style}
->
-	<div
-		class:routeId
-		class:routeIdYear
-		class='viewport {$_viewsClasses}'
+<!-- 
+	A Svelte/Sapper issue with binding `$_timelineWidth` to `clientWidth` in a
+	`div.content` below is causing it to miss resize events during load, hence
+	the bound variable/store value is not updated.
+	The workaround causes the following:
+		a. Server-side: isServerSide === true so the markup is rendered for 
+			Sapper to scrape it during export. 
+		b. Client-side:
+			1. Browser receives exported markup populating the DOM, but 
+			   `clientWidth`/`clientHeight` bindings don't update bound
+			   variables (apparently a race condition).
+			2. ($_screenClasses || isServerside) === false so the DOM is cleared
+			3. After a while $_screenClasses is truthy so the DOM is repopulated
+			   and now `clientWidth`/`clientHeight` bindings are properly
+			   recreated and the bound variables/stores are properly updated.
+	TODO Isolate the cause of the bug.
+-->
+{#if $_screenClasses || isServerSide}
+	<section
+		class='time_region_value_layout {$_screenClasses}'
+		class:hidden={!$_screenClasses}
+		style={$_style}
 	>
-		<div class='sidebar'>
-			<Sidebar
-				{_groups}
-				{hrefBase}
-				currentId={segment}
-			/>
-		</div>
 		<div
-			class='content'
-			class:isTimelineHidden={$_isTimelineHidden}
-			bind:clientWidth={$_timelineWidth}
+			class:routeId
+			class:routeIdYear
+			class='viewport {$_viewsClasses}'
 		>
-			<section>
-				<slot></slot>
-			</section>
-			{#if !$_isTimelineHidden}
-				<nav
-					bind:clientHeight={$_timelineHeight}
-				>
-					<Timeline
-						{hrefBase}
-						availableYears={$_availableYears}
-						height={$_timelineHeight}
-						indicatorId={segment}
-						selectedYear={$_selectedYear}
-						showLess={$_isSmallScreen}
-						width={$_timelineWidth}
-					/>
-				</nav>
-			{/if}
+			<div class='sidebar'>
+				<Sidebar
+					{_groups}
+					{hrefBase}
+					currentId={segment}
+				/>
+			</div>
+			<div
+				class='content'
+				class:isTimelineHidden={$_isTimelineHidden}
+				bind:clientWidth={$_timelineWidth}
+			>
+				<section>
+					<slot></slot>
+				</section>
+				{#if !$_isTimelineHidden}
+					<nav
+						bind:clientHeight={$_timelineHeight}
+					>
+						<Timeline
+							{hrefBase}
+							availableYears={$_availableYears}
+							height={$_timelineHeight}
+							indicatorId={segment}
+							selectedYear={$_selectedYear}
+							showLess={$_isSmallScreen}
+							width={$_timelineWidth}
+						/>
+					</nav>
+				{/if}
+			</div>
 		</div>
-	</div>
 
-	{#if $_isSmallScreen}
-		<ViewSelector
-			{_routes}
-			{_views}
-			{showView}
-		/>
-	{/if}
-</section>
+		{#if $_isSmallScreen}
+			<ViewSelector
+				{_routes}
+				{_views}
+				{showView}
+			/>
+		{/if}
+	</section>
+{/if}
 
 {#if !$_screenClasses}
 	<LoadingView stroke={$_theme.colorMain}/>
