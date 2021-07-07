@@ -2,7 +2,7 @@ import regionSpecs from '@svizzle/atlas/src/specs';
 
 /* navigation */
 
-export const hrefBase = 'compounds/time_region_value';
+export const hrefBase = '/svizzle/compounds/time_region_value';
 
 /* flags */
 
