@@ -1,3 +1,7 @@
+## `@svizzle/choropleth` v0.6.7 (next)
+
+- updated dev dependencies
+
 ## `@svizzle/choropleth` v0.6.6
 
 - updated `@svizzle/atlas`

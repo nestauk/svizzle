@@ -80,8 +80,6 @@ Props:
 
 Props:
 - `download`: `string`, defaults to `null`; see `Link` above.
-	- if the `href` is a `zip` or `csv` file, it's not needed;
-	- if the `href` is `data/foo.png` (which could be displayed), by providing `download='bar'` we download a file named `bar.png`
 - `glyph`: a Svelte component for an optional icon
 - `href`: `string`, defaults to `null`
 - `hreflang`: `string`, defaults to `null`

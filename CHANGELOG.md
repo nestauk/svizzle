@@ -2,9 +2,21 @@
 
 ## next
 
-## `@svizzle/site` v0.3.8 (next)
+## `@svizzle/barchart` v0.6.8 (next)
 
-- updated for changes in `/time_region_value` and `/ui`
+- updated dev dependencies
+
+## `@svizzle/choropleth` v0.6.7 (next)
+
+- updated dev dependencies
+
+## `@svizzle/histogram` v0.4.2 (next)
+
+- updated dev dependencies
+
+## `@svizzle/legend` v0.2.2 (next)
+
+- updated dev dependencies
 
 ## `@svizzle/time_region_value` v0.4.0 (next)
 
@@ -12,6 +24,7 @@
 - added a missing dependency
 - supports UK NUTS2 only
 - fixed server-side rendering of indicator routes
+- updated dev dependencies
 
 ## `@svizzle/ui` v0.4.0 (next)
 
@@ -28,6 +41,12 @@
 - `LoadingView`:
 	- make sure props are set to their default if `undefined`
 	- add documentation on the site
+- updated dev dependencies
+
+## `@svizzle/site` v0.3.8 (next)
+
+- updated for changes in `/time_region_value` and `/ui`
+- updated dev dependencies
 
 ## `@svizzle/file` v0.11.0 (next)
 
