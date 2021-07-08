@@ -4,6 +4,7 @@
 - added a missing dependency
 - supports UK NUTS2 only
 - fixed server-side rendering of indicator routes
+- updated dev dependencies
 
 ## `@svizzle/time_region_value` v0.3.1
 

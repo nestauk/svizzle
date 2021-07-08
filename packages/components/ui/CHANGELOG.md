@@ -13,6 +13,7 @@
 - `LoadingView`:
 	- make sure props are set to their default if `undefined`
 	- add documentation on the site
+- updated dev dependencies
 
 ## `@svizzle/ui` v0.3.1
 
