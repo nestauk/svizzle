@@ -17,6 +17,7 @@
 		<a
 			class='undecor'
 			href='/svizzle/compounds/time_region_value'
+			rel='prefetch'
 		>
 			<span>@svizzle/time_region_value</span>
 		</a>

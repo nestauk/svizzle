@@ -119,8 +119,8 @@
 									{#each availableYears as year}
 										<a
 											aria-label={year}
-											rel='prefetch'
 											href={makeURL(hrefBase, schema.value.id, year)}
+											rel='prefetch'
 										>
 											<circle
 												cx='{layout.scaleX(year)}'

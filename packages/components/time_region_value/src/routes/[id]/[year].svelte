@@ -81,7 +81,7 @@
 	import config from 'config';
 	import {getTopojson, makeGeojson, topoCache} from 'utils/boundaries';
 	import {getNutsId} from 'utils/domain';
-	import {isServerSide} from 'utils/env';
+	import {isClientSide} from 'utils/env';
 	import {makeGetIndicatorFormatOf, makeGetRefFormatOf} from 'utils/format';
 
 	/* data */
@@ -241,7 +241,7 @@
 		}),
 		prune
 	]);
-	$: !isServerSide && (async () => {
+	$: isClientSide && (async () => {
 		fetchedTopojson = await getTopojson(regionId)
 	})();
 	$: topojson = fetchedTopojson && filterTopojson(fetchedTopojson);
