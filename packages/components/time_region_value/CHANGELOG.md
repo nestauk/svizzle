@@ -6,6 +6,7 @@
 - fixed server-side rendering of indicator routes
 - updated dev dependencies
 - fixed clicking on SVG anchors
+- workaround for failure to layout on landing
 
 ## `@svizzle/time_region_value` v0.3.1
 

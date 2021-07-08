@@ -26,6 +26,7 @@
 - fixed server-side rendering of indicator routes
 - updated dev dependencies
 - fixed clicking on SVG anchors
+- workaround for failure to layout on landing
 
 ## `@svizzle/ui` v0.4.0 (next)
 
