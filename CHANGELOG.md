@@ -25,6 +25,7 @@
 - supports UK NUTS2 only
 - fixed server-side rendering of indicator routes
 - updated dev dependencies
+- fixed clicking on SVG anchors
 
 ## `@svizzle/ui` v0.4.0 (next)
 

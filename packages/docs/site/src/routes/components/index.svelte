@@ -22,7 +22,10 @@
 <ul>
 	{#each components as component}
 		<li>
-			<a rel='prefetch' href='components/{component.slug}'>
+			<a
+				href='components/{component.slug}'
+				rel='prefetch'
+			>
 				{component.name}
 			</a>
 		</li>

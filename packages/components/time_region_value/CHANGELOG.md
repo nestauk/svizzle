@@ -5,6 +5,7 @@
 - supports UK NUTS2 only
 - fixed server-side rendering of indicator routes
 - updated dev dependencies
+- fixed clicking on SVG anchors
 
 ## `@svizzle/time_region_value` v0.3.1
 
