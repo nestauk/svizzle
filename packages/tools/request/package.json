@@ -66,6 +66,7 @@
 		"link": "npm link",
 		"lint": "eslint rollup.config.js src/*.js",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/README.md ${dirname}/src/",
+		"rmdist": "rimraf dist",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",

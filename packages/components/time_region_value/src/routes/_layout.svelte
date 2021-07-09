@@ -17,6 +17,7 @@
 		_routes,
 		_views,
 		_viewsClasses,
+		setHrefBase,
 		setNavFlags,
 		showView,
 	} from 'stores/navigation';
@@ -27,7 +28,7 @@
 
 	export let _groups = null;
 	export let flags = null;
-	export let hrefBase = ''; // relative to `document.baseURI`
+	export let hrefBase = '';
 	export let POIs = null;
 	export let regionSettings = null;
 	export let segment = null;
@@ -35,6 +36,7 @@
 
 	$: _groups && setGroups($_groups);
 	$: flags && setNavFlags(flags);
+	$: hrefBase && setHrefBase(hrefBase);
 	$: POIs && setPOIs(POIs);
 	$: regionSettings && setRegionSettings(regionSettings);
 	$: theme && customizeTheme(theme);
@@ -44,15 +46,15 @@
 
 <ScreenGauge/>
 
-<!-- 
+<!--
 	A Svelte/Sapper issue with binding `$_timelineWidth` to `clientWidth` in a
 	`div.content` below is causing it to miss resize events during load, hence
 	the bound variable/store value is not updated.
 	The workaround causes the following:
-		a. Server-side: isServerSide === true so the markup is rendered for 
-			Sapper to scrape it during export. 
+		a. Server-side: isServerSide === true so the markup is rendered for
+			Sapper to scrape it during export.
 		b. Client-side:
-			1. Browser receives exported markup populating the DOM, but 
+			1. Browser receives exported markup populating the DOM, but
 			   `clientWidth`/`clientHeight` bindings don't update bound
 			   variables (apparently a race condition).
 			2. ($_screenClasses || isServerside) === false so the DOM is cleared
@@ -75,7 +77,6 @@
 			<div class='sidebar'>
 				<Sidebar
 					{_groups}
-					{hrefBase}
 					currentId={segment}
 				/>
 			</div>
@@ -92,7 +93,6 @@
 						bind:clientHeight={$_timelineHeight}
 					>
 						<Timeline
-							{hrefBase}
 							availableYears={$_availableYears}
 							height={$_timelineHeight}
 							indicatorId={segment}

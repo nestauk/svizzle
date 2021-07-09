@@ -2,6 +2,8 @@
 
 ## next
 
+- remove `AUTHORS` files everywhere
+
 ## `@svizzle/barchart` v0.6.8 (next)
 
 - updated dev dependencies
@@ -21,12 +23,13 @@
 ## `@svizzle/time_region_value` v0.4.0 (next)
 
 - support ignoring regions (via `regionSettings`, no UI)
-- added a missing dependency
-- supports UK NUTS2 only
 - fixed server-side rendering of indicator routes
-- updated dev dependencies
 - fixed clicking on SVG anchors
 - workaround for failure to layout on landing
+- pass `hrefBase` to `Layout` only
+- added a missing dependency
+- updated dev dependencies
+- supports UK NUTS2 only
 
 ## `@svizzle/ui` v0.4.0 (next)
 

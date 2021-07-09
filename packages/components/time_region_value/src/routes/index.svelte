@@ -5,7 +5,7 @@
 	/* local stores */
 
 	import {_isSmallScreen, _timelineLayout} from 'stores/layout';
-	import {setRoute, showView} from 'stores/navigation';
+	import {_hrefBase, setRoute, showView} from 'stores/navigation';
 	import {resetSelection} from 'stores/selection';
 	import {isServerSide} from 'utils/env';
 	import {shortenYear} from 'utils/format';
@@ -17,13 +17,8 @@
 
 	/* props */
 
-	// sapper
-	export let isSapperExported = null; // pass `process.env.SAPPER_EXPORT`
-
-	// rest
 	export let _groups = null;
 	export let _yearRange = null;
-	export let hrefBase = ''; // relative to `document.baseURI`
 
 	/* init */
 
@@ -117,7 +112,7 @@
 									{#each availableYears as year}
 										<a
 											aria-label={year}
-											href={makeURL(hrefBase, schema.value.id, year)}
+											href={makeURL($_hrefBase, schema.value.id, year)}
 											rel='prefetch'
 										>
 											<circle
