@@ -47,7 +47,7 @@
 
 ## `@svizzle/site` v0.3.8 (next)
 
-- updated for changes in `/time_region_value` and `/ui`
+- updated for changes in `/time_region_value`, `/ui`, `/atlas`
 - updated dev dependencies
 
 ## `@svizzle/atlas` v0.5.0 (next)
