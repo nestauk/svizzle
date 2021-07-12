@@ -1,8 +1,9 @@
 ## `@svizzle/ui` v0.4.0 (next)
 
 - `Link`:
-	- drop `isExternal` prop
+	- text has to be passed as a child of the component rather than using the `text` prop
 	- add `showIcon` prop
+	- drop props `isExternal` and `text`
 - `LinkButton`:
 	- add props:
 		- `download`

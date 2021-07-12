@@ -20,7 +20,6 @@
 	export let rel = defaultRel;
 	export let showIcon = true;
 	export let target = null;
-	export let text = null;
 	export let theme = null;
 	export let type = null;
 
@@ -37,9 +36,6 @@
 	$: type = type || null;
 
 	$: isExternal = type === 'external';
-	$: text = !href
-		? '<Link.svelte>: PLEASE PROVIDE A `href` PROP'
-		: text ?? href;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 
 	$: style = `--color: ${theme.color}`;

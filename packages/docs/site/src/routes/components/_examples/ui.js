@@ -195,16 +195,15 @@ export default formatExamples([
 	},
 	{
 		data: [{
+			content: 'Svelte website',
 			key: 'href + text',
 			props: {
 				href: 'https://svelte.dev',
-				text: 'Svelte website',
 			},
 			usage: `
-				<Link
-					href='https://svelte.dev'
-					text='Svelte website'
-				/>
+				<Link href='https://svelte.dev'>
+					Svelte website
+				</Link>
 			`,
 		}, {
 			key: 'href + no text',
@@ -215,88 +214,93 @@ export default formatExamples([
 				<Link href='https://svelte.dev'/>
 			`,
 		}, {
+			content: 'Svelte website',
 			key: 'no href + text',
-			props: {
-				text: 'Svelte website',
-			},
+			props: {},
 			usage: `
-				<Link
-					text='Svelte website'
-				/>
+				<Link>
+					Svelte website
+				</Link>
 			`,
 		}, {
+			content: 'Svelte website',
 			key: 'External link',
 			props: {
 				href: 'https://svelte.dev',
-				text: 'Svelte website',
 				type: 'external',
 			},
 			usage: `
 				<Link
 					href='https://svelte.dev'
-					text='Svelte website'
 					type='external'
-				/>
+				>
+					Svelte website
+				</Link>
 			`,
 		}, {
+			content: 'Svelte website',
 			key: 'External link + icon size',
 			props: {
 				href: 'https://svelte.dev',
 				iconSize: 30,
-				text: 'Svelte website',
 				type: 'external',
 			},
 			usage: `
 				<Link
 					href='https://svelte.dev'
 					iconSize=30
-					text='Svelte website'
 					type='external'
-				/>
+				>
+					Svelte website
+				</Link>
 			`,
 		}, {
+			content: 'Svelte website',
 			key: 'External link, no icon',
 			props: {
 				href: 'https://svelte.dev',
-				iconSize: 30,
 				showIcon: false,
-				text: 'Svelte website',
 				type: 'external',
 			},
 			usage: `
 				<Link
 					href='https://svelte.dev'
-					iconSize=30
 					showIcon={false}
-					text='Svelte website'
 					type='external'
-				/>
+				>
+					Svelte website
+				</Link>
 			`,
 		}, {
+			content: 'Svelte website',
 			key: 'Style',
 			props: {
 				href: 'https://svelte.dev',
-				text: 'Svelte website',
 				theme: {
 					iconStroke: 'red',
 					iconStrokeWidth: 4,
 					textColor: 'orange',
-				}
+				},
+				type: 'external'
 			},
 			usage: `
 				<Link
 					href='https://svelte.dev'
-					text='Svelte website'
 					theme={{
+						iconStroke: 'red',
+						iconStrokeWidth: 4,
 						textColor: 'orange',
 					}}
-				/>
+					type='external'
+				>
+					Svelte website
+				</Link>
 			`,
 		}, {
+			content: 'Svelte website',
 			key: 'External link + style',
 			props: {
 				href: 'https://svelte.dev',
-				text: 'Svelte website',
 				theme: {
 					iconStroke: 'green',
 					iconStrokeWidth: 3,
@@ -307,14 +311,15 @@ export default formatExamples([
 			usage: `
 				<Link
 					href='https://svelte.dev'
-					text='Svelte website'
 					theme={{
 						iconStroke: 'green',
 						iconStrokeWidth: 3,
 						textColor: 'magenta',
-						type='external',
 					}}
-				/>
+					type='external'
+				>
+					Svelte website
+				</Link>
 			`,
 		}],
 		doc: [

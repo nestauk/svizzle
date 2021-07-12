@@ -35,8 +35,8 @@
 	$: payloads = events ? makeKeyedEmptyString(events) : null;
 	$: component = components[name];
 	$: selected = data && 0;
-	$: current_data = data[selected];
-	$: displayProps = _.pairs(current_data.props);
+	$: currentData = data[selected];
+	$: displayProps = _.pairs(currentData.props);
 
 	const makeEventHandler = eventName =>
 		event => {
@@ -106,7 +106,7 @@
 		<!-- usage -->
 		<div class='distancer'>
 			<h2>Usage</h2>
-			<pre>{current_data.usage}</pre>
+			<pre>{currentData.usage}</pre>
 		</div>
 
 		<!-- props -->
@@ -131,16 +131,16 @@
 					<svelte:component
 						bind:this={instance}
 						this={component}
-						{...{...current_data.props, width, height}}
-					/>
+						{...{...currentData.props, width, height}}
+					>{currentData.content}</svelte:component>
 				</svg>
 			</div>
 		{:else}
 			<svelte:component
 				bind:this={instance}
 				this={component}
-				{...current_data.props}
-			/>
+				{...currentData.props}
+			>{currentData.content}</svelte:component>
 		{/if}
 	</div>
 </main>
