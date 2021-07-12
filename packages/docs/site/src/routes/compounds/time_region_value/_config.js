@@ -12,7 +12,7 @@ export const flags = {
 
 /* regional selection */
 
-const regionType = 'nuts';
+const regionType = 'NUTS';
 
 export const regionSettings = {
 	canSelectLevels: true,
@@ -30,7 +30,7 @@ export const regionSettings = {
 	level: 2,
 	level0: undefined,
 	levels: regionSpecs[regionType].levels,
-	objectId: regionSpecs[regionType].objectId,
+	objectId: 'NUTS',
 	resolution: '03M',
 	type: regionType,
 }
