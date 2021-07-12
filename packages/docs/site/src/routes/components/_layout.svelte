@@ -1,4 +1,6 @@
 <script>
+	import Link from '@svizzle/ui/src/Link.svelte';
+
 	import {sidebar} from './_utils';
 
 	export let segment; // 'BarchartV-defaultColor'
@@ -10,14 +12,14 @@
 			<div class='distancer'>
 				<h2>{key}</h2>
 				{#each value as {slug, title}}
-					<a
+					<Link
 						href='components/{slug}'
 						rel='prefetch'
 					>
 						<p class:selected='{slug === segment}'>
 							{title}
 						</p>
-					</a>
+					</Link>
 				{/each}
 			</div>
 		{/each}
@@ -51,10 +53,6 @@
 	nav h2 {
 		font-family: Open Sans Regular;
 	}
-	nav a {
-		text-decoration: none;
-	}
-
 	nav p {
 		line-height: 1.75rem;
 		display: flex;
