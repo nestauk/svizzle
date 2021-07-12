@@ -15,7 +15,7 @@ proj_epsg_id:
 resolution:
   # - 01M
   - 03M
-  - 10M
+  # - 10M
   # - 20M
   # - 60M # doesn't seem to be available
 
@@ -36,3 +36,4 @@ year:
   - 2010
   - 2013
   - 2016
+  - 2021

@@ -9,7 +9,7 @@ export const makeTopoId = ({
 }) => {
 	let id;
 
-	if (type === 'nuts') {
+	if (type === 'NUTS') {
 		id = `NUTS_RG_${resolution}_${year}_4326_LEVL_${level}`;
 
 		if (level0) {
@@ -22,5 +22,8 @@ export const makeTopoId = ({
 	return id;
 }
 
-export const atlasBase = `https://unpkg.com/@svizzle/atlas@${version}/distro`;
-export const makeTopoURL = (id, base = atlasBase) => `${base}/${id}.json`;
+export const atlasBase = `https://unpkg.com/@svizzle/atlas@${version}/data/dist`;
+export const makeTopoURL = (id, type, base = atlasBase) => ({
+	NUTS: `${base}/NUTS/topojson/${id}.json`,
+	world: `${base}/world/${id}.json`,
+})[type]

@@ -30,9 +30,7 @@
 	},
 	"files": [
 		"!pkg/*",
-		"distro/*.csv",
-		"distro/*.json",
-		"distro/*.yaml",
+		"data/dist",
 		"src/**/*.js",
 		"!src/**/*.spec.js",
 		"LICENSE",

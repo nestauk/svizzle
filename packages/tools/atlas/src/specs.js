@@ -8,7 +8,7 @@ export default {
 		resolutions: ['110m'],
 		type: 'world',
 	},
-	nuts: {
+	NUTS: {
 		epsgId: 4326,
 		levels: [0, 1, 2, 3],
 		objectIds: ['NUTS'],
@@ -20,7 +20,7 @@ export default {
 			'FID',
 		],
 		resolutions: ['03M', '10M'],
-		type: 'nuts',
+		type: 'NUTS',
 		years: [
 			2003,
 			2006,

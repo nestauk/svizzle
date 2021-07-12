@@ -1,9 +1,9 @@
-import World_110m_iso_a2_topo from '@svizzle/atlas/distro/World_110m_iso_a2_topo.json';
-import NUTS_RG_03M_2016_4326_LEVL_0_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_0_UK.json';
-import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_1_UK.json';
-import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
-import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
-import NUTS_RG_03M_2016_4326_LEVL_3_DE from '@svizzle/atlas/distro/NUTS_RG_03M_2016_4326_LEVL_3_DE.json';
+import World_110m_iso_a2_topo from '@svizzle/atlas/data/dist/world/world_110m_iso_a2_topojson.json';
+import NUTS_RG_03M_2016_4326_LEVL_0_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_0_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_1_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
+import NUTS_RG_03M_2016_4326_LEVL_3_DE from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_3_DE.json';
 import {topoToGeo} from '@svizzle/choropleth/src/utils';
 import {
 	geoConicEqualArea,
