@@ -1,9 +1,9 @@
-## `@svizzle/atlas` v0.4.1 (next)
+## `@svizzle/atlas` v0.5.0 (next)
 
-- refactor scripts and the package file structure
+- refactor scripts and the package file structure and change atlas utils accordingly
+- NUTS: collect 2021 and remove resolution `10M`
 - add new npm scripts
 - changed the shape of the object exported by `src/specs.js`
-- no data change
 
 ## `@svizzle/atlas` v0.4.0
 
