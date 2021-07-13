@@ -52,7 +52,7 @@
 >
 	{#if href}
 		<a
-			{download}
+			download={download ? '' : null}
 			{href}
 			{hreflang}
 			{rel}
