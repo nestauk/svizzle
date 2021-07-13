@@ -37,6 +37,7 @@
 	- text has to be passed as a child of the component rather than using the `text` prop
 	- add `showIcon` prop
 	- drop props `isExternal` and `text`
+	- fixed behaviour of `download` attribute
 - `LinkButton`:
 	- add props:
 		- `download`
@@ -44,6 +45,7 @@
 		- `rel`
 		- `target`
 		- `type`
+	- fixed behaviour of `download` attribute
 - `LoadingView`:
 	- make sure props are set to their default if `undefined`
 	- add documentation on the site
