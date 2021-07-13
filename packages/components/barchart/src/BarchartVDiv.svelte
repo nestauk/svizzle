@@ -1,11 +1,13 @@
 <script>
 	import isEqual from 'just-compare';
 	import {
+		always,
 		index,
 		isIn,
 		mapWith,
 		pipe,
 		sortWith,
+		when,
 	} from 'lamb';
 	import {
 		afterUpdate,
@@ -53,6 +55,8 @@
 		textColor: 'grey',
 		titleFontSize: '1.5em',
 	};
+
+	const zeroIfNaN = when(isNaN, always(0));
 
 	export let barHeight = 4;
 	export let focusedKey = null;
@@ -110,7 +114,10 @@
 	$: domain = crossesZero
 		? [min, max]
 		: max > 0 ? [0, max] : [min, 0];
-	$: getX = linearScale(domain, [0, width]);
+	$: getX = pipe([
+		linearScale(domain, [0, width]),
+		zeroIfNaN
+	]);
 	$: x0 = getX(0);
 	$: columnsWidth = {neg: x0, pos: width - x0};
 
@@ -402,8 +409,7 @@
 							label,
 							labelX,
 							valueX,
-							x,
-							y
+							x
 						}, index (key)}
 							<g
 								class:clickable={isInteractive}
