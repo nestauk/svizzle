@@ -1,5 +1,6 @@
 <script>
 	import Layout from '@svizzle/time_region_value/src/routes/_layout.svelte';
+	import Link from '@svizzle/ui/src/Link.svelte';
 
 	import POIs from './_data/majorCitiesUK';
 	import {_groups} from './_data/stores';
@@ -14,13 +15,12 @@
 
 <section>
 	<nav>
-		<a
-			class='undecor'
+		<Link
 			href='/svizzle/compounds/time_region_value'
 			rel='prefetch'
 		>
 			<span>@svizzle/time_region_value</span>
-		</a>
+		</Link>
 	</nav>
 	<main>
 		<Layout
