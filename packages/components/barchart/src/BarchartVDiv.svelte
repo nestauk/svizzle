@@ -115,7 +115,7 @@
 		? [min, max]
 		: max > 0 ? [0, max] : [min, 0];
 	$: getX = linearScale(domain, [0, width]);
-	$: x0 = getX(0);
+	$: x0 = zeroIfNaN(getX(0));
 	$: columnsWidth = {neg: x0, pos: width - x0};
 
 	/* layout */
@@ -204,7 +204,7 @@
 	$: makeRefsLayout = pipe([
 		sortByValue,
 		mapWith((ref, idx) => {
-			const valueX = getX(ref.value);
+			const valueX = zeroIfNaN(getX(ref.value));
 			let formattedValue = ref.formatFn ? ref.formatFn(ref.value) : ref.value;
 			let label = `${ref.key} (${formattedValue})`;
 			let textLength = label.length * averageCharWidth;
@@ -388,8 +388,8 @@
 								stroke={color || theme.refColor}
 								stroke-dasharray={dasharray || theme.refDasharray}
 								stroke-width={linewidth || theme.refWidth}
-								x1={zeroIfNaN(x)}
-								x2={zeroIfNaN(x)}
+								x1={x}
+								x2={x}
 								y2={svgHeight}
 							/>
 						{/each}
@@ -431,8 +431,8 @@
 								<line
 									stroke={barColor}
 									stroke-width={barHeight}
-									x1={zeroIfNaN(x0)}
-									x2={zeroIfNaN(x)}
+									x1={x0}
+									x2={x}
 									y1={barY}
 									y2={barY}
 								/>
