@@ -114,8 +114,11 @@
 	$: domain = crossesZero
 		? [min, max]
 		: max > 0 ? [0, max] : [min, 0];
-	$: getX = linearScale(domain, [0, width]);
-	$: x0 = zeroIfNaN(getX(0));
+	$: getX = pipe([
+		linearScale(domain, [0, width]),
+		zeroIfNaN
+	]);
+	$: x0 = getX(0);
 	$: columnsWidth = {neg: x0, pos: width - x0};
 
 	/* layout */
@@ -190,7 +193,7 @@
 						? x0 + barPadding
 						: width - labelsMaxLengths.pos.value - labelValueDistance
 				: allNegatives ? width : 0,
-			x: zeroIfNaN(getX(value)),
+			x: getX(value),
 			valueX: crossesZero
 				? isNeg ? 0 : width
 				: allNegatives ? 0 : width,
@@ -204,7 +207,7 @@
 	$: makeRefsLayout = pipe([
 		sortByValue,
 		mapWith((ref, idx) => {
-			const valueX = zeroIfNaN(getX(ref.value));
+			const valueX = getX(ref.value);
 			let formattedValue = ref.formatFn ? ref.formatFn(ref.value) : ref.value;
 			let label = `${ref.key} (${formattedValue})`;
 			let textLength = label.length * averageCharWidth;
