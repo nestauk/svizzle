@@ -277,9 +277,9 @@ export default formatExamples([
 			props: {
 				href: 'https://svelte.dev',
 				theme: {
+					color: 'orange',
 					iconStroke: 'red',
 					iconStrokeWidth: 4,
-					textColor: 'orange',
 				},
 				type: 'external'
 			},
@@ -287,9 +287,9 @@ export default formatExamples([
 				<Link
 					href='https://svelte.dev'
 					theme={{
+						color: 'orange',
 						iconStroke: 'red',
 						iconStrokeWidth: 4,
-						textColor: 'orange',
 					}}
 					type='external'
 				>
@@ -302,9 +302,9 @@ export default formatExamples([
 			props: {
 				href: 'https://svelte.dev',
 				theme: {
+					color: 'magenta',
 					iconStroke: 'green',
 					iconStrokeWidth: 3,
-					textColor: 'magenta',
 				},
 				type: 'external',
 			},
@@ -312,9 +312,9 @@ export default formatExamples([
 				<Link
 					href='https://svelte.dev'
 					theme={{
+						color: 'magenta',
 						iconStroke: 'green',
 						iconStrokeWidth: 3,
-						textColor: 'magenta',
 					}}
 					type='external'
 				>
