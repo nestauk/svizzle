@@ -190,7 +190,7 @@
 						? x0 + barPadding
 						: width - labelsMaxLengths.pos.value - labelValueDistance
 				: allNegatives ? width : 0,
-			x: getX(value),
+			x: zeroIfNaN(getX(value)),
 			valueX: crossesZero
 				? isNeg ? 0 : width
 				: allNegatives ? 0 : width,
@@ -336,7 +336,7 @@
 						}}
 							<g
 								class='ref'
-								transform='translate({zeroIfNaN(valueX)}, {y})'
+								transform='translate({valueX}, {y})'
 							>
 								<rect
 									{x}
@@ -406,8 +406,7 @@
 							label,
 							labelX,
 							valueX,
-							x,
-							y
+							x
 						}, index (key)}
 							<g
 								class:clickable={isInteractive}
