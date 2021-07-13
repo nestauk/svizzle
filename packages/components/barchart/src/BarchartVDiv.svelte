@@ -1,11 +1,13 @@
 <script>
 	import isEqual from 'just-compare';
 	import {
+		always,
 		index,
 		isIn,
 		mapWith,
 		pipe,
 		sortWith,
+		when,
 	} from 'lamb';
 	import {
 		afterUpdate,
@@ -53,6 +55,8 @@
 		textColor: 'grey',
 		titleFontSize: '1.5em',
 	};
+
+	const zeroIfNaN = when(isNaN, always(0));
 
 	export let barHeight = 4;
 	export let focusedKey = null;
@@ -332,7 +336,7 @@
 						}}
 							<g
 								class='ref'
-								transform='translate({valueX}, {y})'
+								transform='translate({zeroIfNaN(valueX)}, {y})'
 							>
 								<rect
 									{x}
@@ -384,8 +388,8 @@
 								stroke={color || theme.refColor}
 								stroke-dasharray={dasharray || theme.refDasharray}
 								stroke-width={linewidth || theme.refWidth}
-								x1={x}
-								x2={x}
+								x1={zeroIfNaN(x)}
+								x2={zeroIfNaN(x)}
 								y2={svgHeight}
 							/>
 						{/each}
@@ -427,8 +431,8 @@
 								<line
 									stroke={barColor}
 									stroke-width={barHeight}
-									x1={x0}
-									x2={x}
+									x1={zeroIfNaN(x0)}
+									x2={zeroIfNaN(x)}
 									y1={barY}
 									y2={barY}
 								/>
