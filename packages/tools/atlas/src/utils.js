@@ -23,7 +23,5 @@ export const makeTopoId = ({
 }
 
 export const atlasBase = `https://unpkg.com/@svizzle/atlas@${version}/data/dist`;
-export const makeTopoURL = (id, type, base = atlasBase) => ({
-	NUTS: `${base}/NUTS/topojson/${id}.json`,
-	world: `${base}/world/${id}.json`,
-})[type]
+export const makeTopoURL =
+	(id, type, base = atlasBase) => `${base}/${type}/topojson/${id}.json`

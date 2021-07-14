@@ -63,7 +63,7 @@
 		"lint": "eslint --no-ignore src/**/*.js",
 		"outdated": "npm outdated",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/README.md ${dirname}/package.json",
-		"runAll": "npm run chmod && src/bin/runAll.sh",
+		"runAll": "npm run chmod && src/bin/base/runAll.sh",
 		"runNUTS": "npm run chmod && src/bin/base/NUTS/run.sh",
 		"runWorld": "npm run chmod && src/bin/base/world/run.sh",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",

@@ -15,23 +15,23 @@ import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
 import rimraf from 'rimraf';
 
-import {getBasename, NUTS_DATA_PATH_0, NUTS_DATA_PATH_1} from 'paths';
+import {getBasename, NUTS_DATABASE_DIR_0, NUTS_DATABASE_DIR_1} from 'paths';
 import {NUTS_HOME_URL} from 'urls';
 
 /* paths */
 
-const IN_SPEC_PATH = path.resolve(NUTS_DATA_PATH_0, 'nuts_spec.yaml');
+const IN_SPEC_PATH = path.resolve(NUTS_DATABASE_DIR_0, 'nuts_spec.yaml');
 const OUT_COUNTRIES_BY_YEAR_PATH = path.resolve(
-	NUTS_DATA_PATH_1,
+	NUTS_DATABASE_DIR_1,
 	'countries_by_year.yaml'
 );
-const OUT_CSV_BASE_DIR = path.resolve(NUTS_DATA_PATH_1, `csv`);
+const OUT_BASE_DIR = path.resolve(NUTS_DATABASE_DIR_1, 'sourceText');
 
 /* utils */
 
 const makeURL = year => `${NUTS_HOME_URL}/csv/NUTS_AT_${year}.csv`;
 const makePathYearlyCsv = year =>
-	path.resolve(OUT_CSV_BASE_DIR, `NUTS_${year}.csv`);
+	path.resolve(OUT_BASE_DIR, `NUTS_${year}.csv`);
 
 const makeEuCountries = _.pipe([
 	csvParse,
@@ -42,8 +42,8 @@ const makeEuCountries = _.pipe([
 
 /* run */
 
-rimraf.sync(OUT_CSV_BASE_DIR);
-mkdirp.sync(OUT_CSV_BASE_DIR);
+rimraf.sync(OUT_BASE_DIR);
+mkdirp.sync(OUT_BASE_DIR);
 
 console.log(`\nrun: ${getBasename(__filename)}\n`);
 console.log('Fetching, please wait...');
@@ -56,8 +56,8 @@ in:
 	- IN_SPEC_PATH
 	- NUTS_HOME_URL
 out:
-	- OUT_CSV_BASE_DIR/*.csv
-	- NUTS_DATA_PATH_1/countries_by_year.yaml
+	- OUT_BASE_DIR/*.csv
+	- NUTS_DATABASE_DIR_1/countries_by_year.yaml
 */
 readFile(IN_SPEC_PATH, 'utf-8')
 .then(yaml.safeLoad)

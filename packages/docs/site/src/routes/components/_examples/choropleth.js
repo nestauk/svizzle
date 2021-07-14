@@ -1,4 +1,4 @@
-import World_110m_iso_a2_topo from '@svizzle/atlas/data/dist/world/world_110m_iso_a2_topojson.json';
+import world_110m_iso_a2 from '@svizzle/atlas/data/dist/world/topojson/world_110m_iso_a2.json';
 import NUTS_RG_03M_2016_4326_LEVL_0_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_0_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_1_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
@@ -27,16 +27,16 @@ const projection_UK3_reflected_300x300 =
 export default formatExamples([
 	{
 		data: [{
-			key: 'World_110m_iso_a2_topo',
+			key: 'world_110m_iso_a2',
 			props: {
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
 				<ChoroplethG
 					{height}
 					{width}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -167,7 +167,7 @@ export default formatExamples([
 					defaultStroke: 'magenta',
 					defaultStrokeWidth: 1,
 				},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -180,7 +180,7 @@ export default formatExamples([
 						defaultStroke: 'magenta',
 						defaultStrokeWidth: 1,
 					}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -196,11 +196,11 @@ export default formatExamples([
 	},
 	{
 		data: [{
-			key: 'World_110m_iso_a2_topo',
+			key: 'world_110m_iso_a2',
 			props: {
 				key: 'iso_a2',
 				keyToColor: keyToColorWorld,
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -209,7 +209,7 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					keyToColor={keyToColorWorld}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -314,7 +314,7 @@ export default formatExamples([
 			props: {
 				key: 'iso_a2',
 				keyToColorFn: keyToColorWorldFn,
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -323,7 +323,7 @@ export default formatExamples([
 					{keyToColorFn}
 					{width}
 					key='iso_a2'
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -350,7 +350,7 @@ export default formatExamples([
 					selectedStroke: 'palegoldenrod',
 					selectedStrokeWidth: 4,
 				},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -365,7 +365,7 @@ export default formatExamples([
 						selectedStroke: 'palegoldenrod',
 						selectedStrokeWidth: 4
 					}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -381,7 +381,7 @@ export default formatExamples([
 					selectedStroke: '#00c5fa',
 					selectedStrokeWidth: 4,
 				},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -397,7 +397,7 @@ export default formatExamples([
 						selectedStroke: '#00c5fa',
 						selectedStrokeWidth: 4,
 					}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -424,7 +424,7 @@ export default formatExamples([
 				theme: {
 					selectedStrokeWidth: 2,
 				},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -438,7 +438,7 @@ export default formatExamples([
 					theme={{
 						selectedStrokeWidth: 2
 					}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -455,7 +455,7 @@ export default formatExamples([
 					focusedStrokeWidth: 4,
 					selectedStrokeWidth: 2,
 				},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -472,7 +472,7 @@ export default formatExamples([
 						focusedStrokeWidth: 4,
 						selectedStrokeWidth: 2,
 					}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -489,7 +489,7 @@ export default formatExamples([
 			props: {
 				isInteractive: true,
 				key: 'iso_a2',
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -501,7 +501,7 @@ export default formatExamples([
 					on:clicked={onClicked}
 					on:entered={onEntered}
 					on:exited={onExited}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -516,7 +516,7 @@ export default formatExamples([
 					hoverStrokeWidth: 2,
 					hoverStrokedasharray: '2 2',
 				},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -534,7 +534,7 @@ export default formatExamples([
 						hoverStrokeWidth: 3,
 						hoverStrokedasharray: '4 4',
 					}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -586,7 +586,7 @@ export default formatExamples([
 			props: {
 				key: 'iso_a2',
 				projectionId: 'geoAzimuthalEqualArea',
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -595,14 +595,14 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					projectionId='geoAzimuthalEqualArea'
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
 			key: 'projectionId: geoAzimuthalEquidistant',
 			props: {
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 				key: 'iso_a2',
 				projectionId: 'geoAzimuthalEquidistant',
@@ -613,14 +613,14 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					projectionId='geoAzimuthalEquidistant'
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
 			key: 'projectionId: geoEqualEarth',
 			props: {
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 				key: 'iso_a2',
 				projectionId: 'geoEqualEarth',
@@ -631,14 +631,14 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					projectionId='geoEqualEarth'
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
 			key: 'projectionId: geoEquirectangular',
 			props: {
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 				key: 'iso_a2',
 				projectionId: 'geoEquirectangular',
@@ -649,14 +649,14 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					projectionId='geoEquirectangular'
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
 			key: 'projectionId: geoMercator',
 			props: {
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 				key: 'iso_a2',
 				projectionId: 'geoMercator',
@@ -667,14 +667,14 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					projectionId='geoMercator'
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
 			key: 'projectionId: geoNaturalEarth1',
 			props: {
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 				key: 'iso_a2',
 				projectionId: 'geoNaturalEarth1',
@@ -685,14 +685,14 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					projectionId='geoNaturalEarth1'
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
 			key: 'projectionFn: geoConicEqualArea',
 			props: {
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 				key: 'iso_a2',
 				projectionFn: geoConicEqualArea,
@@ -703,14 +703,14 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					projectionFn=d3.geoConicEqualArea
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
 		}, {
 			key: 'projectionFn: geoTransverseMercator',
 			props: {
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 				key: 'iso_a2',
 				projectionFn: geoTransverseMercator,
@@ -721,7 +721,7 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					projectionFn=d3.geoTransverseMercator
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -757,7 +757,7 @@ export default formatExamples([
 			props: {
 				key: 'iso_a2',
 				theme: {backgroundColor: '#eee'},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -766,7 +766,7 @@ export default formatExamples([
 					{width}
 					key='iso_a2'
 					theme={{backgroundColor: '#eee'}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -781,7 +781,7 @@ export default formatExamples([
 				},
 				key: 'iso_a2',
 				theme: {backgroundColor: '#eee'},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -796,7 +796,7 @@ export default formatExamples([
 					}}
 					key='iso_a2'
 					theme={{backgroundColor: '#eee'}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -811,7 +811,7 @@ export default formatExamples([
 				},
 				key: 'iso_a2',
 				theme: {backgroundColor: '#eee'},
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -826,7 +826,7 @@ export default formatExamples([
 					}}
 					key='iso_a2'
 					theme={{backgroundColor: '#eee'}}
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,
@@ -848,14 +848,14 @@ export default formatExamples([
 			{tag: 'p', content: "You can add `title` (rendered as a `h2`), `padding` (a string defaulting to '10px') and `headerHeight` (a string defaulting to '2rem')"},
 		],
 		data: [{
-			key: 'World_110m_iso_a2_topo',
+			key: 'world_110m_iso_a2',
 			props: {
 				key: 'iso_a2',
 				keyToColor: keyToColorWorld,
 				padding: '3em',
 				theme: {backgroundColor: '#eee'},
 				title: 'Some world countries',
-				topojson: World_110m_iso_a2_topo,
+				topojson: world_110m_iso_a2,
 				topojsonId: 'countries',
 			},
 			usage: `
@@ -865,7 +865,7 @@ export default formatExamples([
 					padding='3em'
 					theme={{backgroundColor: '#eee'}}
 					title='Some world countries
-					topojson={World_110m_iso_a2_topo}
+					topojson={world_110m_iso_a2}
 					topojsonId='countries'
 				/>
 			`,

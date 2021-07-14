@@ -11,16 +11,16 @@ import mkdirp from 'mkdirp';
 import prune from 'topojson-simplify/src/prune';
 import rimraf from 'rimraf';
 
-import {getBasename, NUTS_DATA_PATH_1, NUTS_DATA_PATH_2} from 'paths';
+import {getBasename, NUTS_DATABASE_DIR_1, NUTS_DATABASE_DIR_2} from 'paths';
 
 /* path */
 
 const IN_COUNTRIES_BY_YEAR = path.resolve(
-	NUTS_DATA_PATH_1,
+	NUTS_DATABASE_DIR_1,
 	'countries_by_year.yaml'
 );
-const IN_TOPOJSON_DIR = path.resolve(NUTS_DATA_PATH_1, 'topojson');
-const OUT_TOPOJSON_DIR = path.resolve(NUTS_DATA_PATH_2, 'topojson');
+const IN_TOPOJSON_DIR = path.resolve(NUTS_DATABASE_DIR_1, 'topojson');
+const OUT_TOPOJSON_DIR = path.resolve(NUTS_DATABASE_DIR_2, 'topojson');
 
 rimraf.sync(OUT_TOPOJSON_DIR);
 mkdirp.sync(OUT_TOPOJSON_DIR);
@@ -43,10 +43,10 @@ const makeTopojsonFilterByCountryId = countryId => transformPaths({
 - for all countries, filter topojsons by CNTR_CODE and save them
 
 in:
-	- NUTS_DATA_PATH_1/countries_by_year.yaml
-	- NUTS_DATA_PATH_1/topojson/*.json
+	- NUTS_DATABASE_DIR_1/countries_by_year.yaml
+	- NUTS_DATABASE_DIR_1/topojson/*.json
 out:
-	- NUTS_DATA_PATH_2/topojson/*_{country}.json
+	- NUTS_DATABASE_DIR_2/topojson/*_{country}.json
 */
 const run = async () => {
 	const filtersByYear = await readFile(IN_COUNTRIES_BY_YEAR, 'utf-8')

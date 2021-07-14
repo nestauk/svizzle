@@ -11,13 +11,13 @@ import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
 import rimraf from 'rimraf';
 
-import {getBasename, NUTS_DATA_PATH_0, NUTS_DATA_PATH_1} from 'paths';
+import {getBasename, NUTS_DATABASE_DIR_0, NUTS_DATABASE_DIR_1} from 'paths';
 import {NUTS_HOME_URL} from 'urls';
 
 /* paths */
 
-const IN_SPEC_PATH = path.resolve(NUTS_DATA_PATH_0, 'nuts_spec.yaml');
-// out: sub-dirs of NUTS_DATA_PATH_1, see makeDestinationPath
+const IN_SPEC_PATH = path.resolve(NUTS_DATABASE_DIR_0, 'nuts_spec.yaml');
+// out: sub-dirs of NUTS_DATABASE_DIR_1, see makeDestinationPath
 
 /* utils */
 
@@ -42,7 +42,7 @@ const makeDestinationPath = ({
 	year,
 }) =>
 	path.resolve(
-		NUTS_DATA_PATH_1,
+		NUTS_DATABASE_DIR_1,
 		format[0],
 		`NUTS_${spatialtype}_${resolution}_${year}_${proj_epsg_id}_LEVL_${subset}.${makeExtension(format[1])}`
 		// e.g. NUTS_RG_03M_2003_4326_LEVL_1.json

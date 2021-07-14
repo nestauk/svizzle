@@ -7,9 +7,10 @@ import {readFile, saveObjPassthrough} from '@svizzle/file';
 import {getLength, isPathValue, swapKeyValue} from '@svizzle/utils';
 import yaml from 'js-yaml';
 import * as _ from 'lamb';
+import mkdirp from 'mkdirp';
 import WORLD_110_TOPOJSON from 'world-atlas/countries-110m.json';
 
-import {getBasename, WORLD_DATA_PATH_0, WORLD_DATA_PATH_1} from 'paths';
+import {getBasename, WORLD_DATABASE_DIR_0, WORLD_DATABASE_DIR_1} from 'paths';
 
 const ISO_TYPE = 'iso_a2';
 const GEOMETRIES_PATH = 'objects.countries.geometries';
@@ -18,13 +19,19 @@ const UNKNOWN = 'unknown';
 /* paths */
 
 const IN_ISO_A2_TO_NAME_PATH = path.resolve(
-	WORLD_DATA_PATH_0,
+	WORLD_DATABASE_DIR_0,
 	'iso_a2_to_name_by_type.yaml'
 );
-const OUT_TOPOJSON_PATH = path.resolve(
-	WORLD_DATA_PATH_1,
-	`world_110m_${ISO_TYPE}_topojson.json`
+const OUT_TOPOJSON_DIR = path.resolve(
+	WORLD_DATABASE_DIR_1,
+	'topojson'
 );
+const OUT_TOPOJSON_PATH = path.resolve(
+	OUT_TOPOJSON_DIR,
+	`world_110m_${ISO_TYPE}.json`
+);
+
+mkdirp.sync(OUT_TOPOJSON_DIR);
 
 /* utils */
 
@@ -43,9 +50,9 @@ console.log('Fetching, please wait...');
 - edit properties
 
 in:
-	- WORLD_DATA_PATH_0/iso_a2_to_name_by_type.yaml
+	- WORLD_DATABASE_DIR_0/iso_a2_to_name_by_type.yaml
 out:
-	- WORLD_DATA_PATH_1/world_110m_iso_a2_topojson.json
+	- WORLD_DATABASE_DIR_1/world_110m_iso_a2_topojson.json
 */
 readFile(IN_ISO_A2_TO_NAME_PATH, 'utf-8')
 .then(yaml.safeLoad)
