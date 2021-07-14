@@ -1,27 +1,27 @@
 # Svizzle changelog
 
-## next
+## 20210714
 
 - remove `AUTHORS` files everywhere
 
-## `@svizzle/barchart` v0.6.8 (next)
+## `@svizzle/barchart` v0.6.8
 
 - updated dev dependencies
 
-## `@svizzle/choropleth` v0.6.7 (next)
+## `@svizzle/choropleth` v0.6.7
 
 - updated dev dependencies
 - updated a test
 
-## `@svizzle/histogram` v0.4.2 (next)
+## `@svizzle/histogram` v0.4.2
 
 - updated dev dependencies
 
-## `@svizzle/legend` v0.2.2 (next)
+## `@svizzle/legend` v0.2.2
 
 - updated dev dependencies
 
-## `@svizzle/time_region_value` v0.4.0 (next)
+## `@svizzle/time_region_value` v0.4.0
 
 - support ignoring regions (via `regionSettings`, no UI)
 - fixed server-side rendering of indicator routes
@@ -32,7 +32,7 @@
 - updated dev dependencies
 - supports UK NUTS2 only
 
-## `@svizzle/ui` v0.4.0 (next)
+## `@svizzle/ui` v0.4.0
 
 - `Link`:
 	- text has to be passed as a child of the component rather than using the `text` prop
@@ -52,19 +52,19 @@
 	- add documentation on the site
 - updated dev dependencies
 
-## `@svizzle/site` v0.3.8 (next)
+## `@svizzle/site` v0.3.8
 
 - updated for changes in `/time_region_value`, `/ui`, `/atlas`
 - updated dev dependencies
 
-## `@svizzle/atlas` v0.5.0 (next)
+## `@svizzle/atlas` v0.5.0
 
 - refactor scripts and the package file structure and change atlas utils accordingly
 - NUTS: collect 2021 and remove resolution `10M`
 - add new npm scripts
 - changed the shape of the object exported by `src/specs.js`
 
-## `@svizzle/file` v0.11.0 (next)
+## `@svizzle/file` v0.11.0
 
 - add `getPathExt`, `isFileWithExt`, `isCsvFile`, `isJsonFile`, `isTsvFile`, `isYamlFile`
 

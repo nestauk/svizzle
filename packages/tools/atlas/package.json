@@ -13,7 +13,7 @@
 	"description": "Svizzle Atlas contains geographic boundaries for mapping.",
 	"devDependencies": {
 		"@svizzle/dev": "^0.4.4",
-		"@svizzle/file": "^0.10.2",
+		"@svizzle/file": "^0.11.0",
 		"@svizzle/geo": "^0.6.4",
 		"@svizzle/utils": "^0.15.0",
 		"d3-dsv": "^2.0.0",
@@ -72,5 +72,5 @@
 		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
 	},
 	"sideEffects": true,
-	"version": "0.4.0"
+	"version": "0.5.0"
 }

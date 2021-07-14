@@ -9,7 +9,7 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/file": "^0.10.2",
+		"@svizzle/file": "^0.11.0",
 		"@turf/bbox": "6.4.0",
 		"@turf/centroid": "6.4.0",
 		"@turf/helpers": "6.4.0",

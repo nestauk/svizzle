@@ -1,4 +1,4 @@
-## `@svizzle/time_region_value` v0.4.0 (next)
+## `@svizzle/time_region_value` v0.4.0
 
 - support ignoring regions (via `regionSettings`, no UI)
 - fixed server-side rendering of indicator routes

@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.3.8 (next)
+## `@svizzle/site` v0.3.8
 
 - updated for changes in `/time_region_value`, `/ui`, `/atlas`
 - updated dev dependencies

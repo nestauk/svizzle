@@ -83,8 +83,6 @@ In the `dev` branch:
    - Follow instructions to bump changed packages with a `patch`, `minor` or `major` version, accept when ready.
    - After accepting the final confirmation step, this will bump versions (only allowed in `dev`).
 
-- Create a commit on the repo.
-
 - If something goes wrong or we forgot something and Lerna actually committed:
    - discard the version commit, we have 2 ways:
       - `git revert HEAD`: creates a commit to revert the version commit created by Lerna (we will rebase anyway), or
@@ -92,7 +90,9 @@ In the `dev` branch:
    - edit some code again;
    - **rebase again** the commits since the last release.
 
-- If everything went fine: `git push`
+- Move to a new branch and create a commit on the repo.
+
+- If everything went fine: `git push`, then create a PR. Once the PR is approved, merge it to `dev`.
 
 - Merge to `release`:
    - `git checkout release`

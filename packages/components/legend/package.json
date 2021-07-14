@@ -11,7 +11,7 @@
 	"dependencies": {
 		"@svizzle/dom": "^0.5.0",
 		"@svizzle/geometry": "^0.3.4",
-		"@svizzle/histogram": "^0.4.1",
+		"@svizzle/histogram": "^0.4.2",
 		"@svizzle/utils": "^0.15.0",
 		"lamb": "^0.60.0",
 		"yootils": "^0.0.17"
@@ -83,5 +83,5 @@
 		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
 	},
 	"sideEffects": false,
-	"version": "0.2.1"
+	"version": "0.2.2"
 }

@@ -1,4 +1,4 @@
-## `@svizzle/legend` v0.2.2 (next)
+## `@svizzle/legend` v0.2.2
 
 - updated dev dependencies
 

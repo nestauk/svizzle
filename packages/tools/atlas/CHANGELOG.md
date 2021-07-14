@@ -1,4 +1,4 @@
-## `@svizzle/atlas` v0.5.0 (next)
+## `@svizzle/atlas` v0.5.0
 
 - refactor scripts and the package file structure and change atlas utils accordingly
 - NUTS: collect 2021 and remove resolution `10M`

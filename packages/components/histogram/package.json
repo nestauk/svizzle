@@ -82,5 +82,5 @@
 		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
 	},
 	"sideEffects": false,
-	"version": "0.4.1"
+	"version": "0.4.2"
 }

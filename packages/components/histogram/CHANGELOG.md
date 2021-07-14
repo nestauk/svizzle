@@ -1,4 +1,4 @@
-## `@svizzle/histogram` v0.4.2 (next)
+## `@svizzle/histogram` v0.4.2
 
 - updated dev dependencies
 

@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.4.0 (next)
+## `@svizzle/ui` v0.4.0
 
 - `Link`:
 	- text has to be passed as a child of the component rather than using the `text` prop
