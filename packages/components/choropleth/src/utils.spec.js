@@ -1,6 +1,6 @@
 import {strict as assert} from 'assert';
 
-import NUTS_RG_03M_2003_4326_LEVL_0_BE from '@svizzle/atlas/distro/NUTS_RG_03M_2003_4326_LEVL_0_BE.json';
+import NUTS_RG_03M_2003_4326_LEVL_0_BE from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0_BE.json';
 
 import {topoToGeo} from './utils';
 import {geojson} from './utils.specdata';

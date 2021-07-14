@@ -11,6 +11,7 @@
 ## `@svizzle/choropleth` v0.6.7 (next)
 
 - updated dev dependencies
+- updated a test
 
 ## `@svizzle/histogram` v0.4.2 (next)
 
