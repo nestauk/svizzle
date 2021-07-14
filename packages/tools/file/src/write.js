@@ -6,6 +6,8 @@ import fs from 'fs';
 import stream from 'stream';
 import util from 'util';
 
+import * as _ from 'lamb';
+
 const finished = util.promisify(stream.finished);
 
 /**
@@ -50,7 +52,7 @@ export const writeFile = util.promisify(fs.writeFile);
  * @function
  * @arg {string} filepath - The filepath where to save the expected object
  * @arg {number} indent - The amount of blanks to indent the output file
- * @return {function} - Object -> Promise – @sideEffects: fs.writeFile
+ * @return {function} - Object -> Promise - @sideEffects: fs.writeFile
  *
  * @example
 > promiseThatReturnsAnObject()
@@ -58,6 +60,7 @@ export const writeFile = util.promisify(fs.writeFile);
 .catch(err => console.error(err));
  *
  * @since 0.1.0
+ * @see {@link module:@svizzle/file/write.saveObjects|saveObjects}
  * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
  * @see {@link module:@svizzle/file/write.saveString|saveString}
  * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
@@ -73,7 +76,7 @@ export const saveObj = (filepath, indent = 0) => object =>
  * @function
  * @arg {string} filepath - The filepath where to save the expected object
  * @arg {number} indent - The amount of blanks to indent the output file
- * @return {function} - Object -> Promise – @sideEffects: fs.writeFile
+ * @return {function} - Object -> Promise - @sideEffects: fs.writeFile
  *
  * @example
 > promiseThatReturnsAnObject()
@@ -82,6 +85,7 @@ export const saveObj = (filepath, indent = 0) => object =>
  *
  * @since 0.1.0
  * @see {@link module:@svizzle/file/write.saveObj|saveObj}
+ * @see {@link module:@svizzle/file/write.saveObjects|saveObjects}
  * @see {@link module:@svizzle/file/write.saveString|saveString}
  * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
  */
@@ -97,7 +101,7 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
  *
  * @function
  * @arg {string} filepath - The filepath where to save the expected string
- * @return {function} - String -> Promise – @sideEffects: fs.writeFile
+ * @return {function} - String -> Promise - @sideEffects: fs.writeFile
  *
  * @example
 > promiseThatReturnsAString()
@@ -106,6 +110,7 @@ export const saveObjPassthrough = (filepath, indent = 0) =>
  *
  * @since 0.7.0
  * @see {@link module:@svizzle/file/write.saveObj|saveObj}
+ * @see {@link module:@svizzle/file/write.saveObjects|saveObjects}
  * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
  * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
  */
@@ -119,7 +124,7 @@ export const saveString = filepath =>
  *
  * @function
  * @arg {string} filepath - The filepath where to save the expected string
- * @return {function} - String -> Promise – @sideEffects: fs.writeFile
+ * @return {function} - String -> Promise - @sideEffects: fs.writeFile
  *
  * @example
 > promiseThatReturnsAString()
@@ -128,6 +133,7 @@ export const saveString = filepath =>
  *
  * @since 0.7.0
  * @see {@link module:@svizzle/file/write.saveObj|saveObj}
+ * @see {@link module:@svizzle/file/write.saveObjects|saveObjects}
  * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
  * @see {@link module:@svizzle/file/write.saveString|saveString}
  */
@@ -155,3 +161,42 @@ export const saveResponse = filepath => response => {
 
 	return finished(response.body.pipe(dest));
 }
+
+/**
+ * Return a promise that resolves when all the provided objects have been written
+ * with the provided indentation in the correspondent file paths.
+ * [node environment]
+ *
+ * @function
+ * @arg {Object[]} outputs - {filepath, object, indentation}[]
+ * @arg {string} outputs[].filepath - path where to save `object`
+ * @arg {string} outputs[].object - object to write in `filepath`
+ * @arg {number} [outputs[].indentation=2] - The amount of blanks to indent the output file
+ * @return {promise} - Object -> Promise - @sideEffects: fs.writeFile
+ *
+ * @example
+> saveObjects({
+	{
+		filepath: OUT_PATH_detectedChangesById,
+		object: detectedChangesById
+	},
+	{
+		filepath: OUT_PATH_hierarchy,
+		object: hierarchy,
+		indentation: 0
+	},
+})
+.catch(err => console.error(err));
+ *
+ * @since 0.12.0
+ * @see {@link module:@svizzle/file/write.saveObj|saveObj}
+ * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
+ * @see {@link module:@svizzle/file/write.saveString|saveString}
+ * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
+ */
+export const saveObjects = array => Promise.all([
+	_.map(array, ({filepath, object, indentation = 2}) =>
+		saveObj(filepath, indentation)(object)
+		.then(() => console.log(`Saved ${filepath}`))
+	)
+]);	// FIXME: untested, but works in an /atlas script

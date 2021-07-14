@@ -1,3 +1,7 @@
+## `@svizzle/file` v0.12.0 (next)
+
+- add `saveObjects`
+
 ## `@svizzle/file` v0.11.0
 
 - add `getPathExt`, `isFileWithExt`, `isCsvFile`, `isJsonFile`, `isTsvFile`, `isYamlFile`

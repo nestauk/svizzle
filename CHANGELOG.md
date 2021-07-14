@@ -1,5 +1,16 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/atlas` v0.6.0 (next)
+
+- NUTS: add hierarchy and unified ids
+
+## `@svizzle/file` v0.12.0 (next)
+
+- add `saveObjects`
+
+
 ## 20210714
 
 - remove `AUTHORS` files everywhere

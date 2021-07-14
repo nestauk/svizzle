@@ -6,6 +6,7 @@ echo '
 
 node -r esm src/bin/base/NUTS/01_getMetadata.js &&
 node -r esm src/bin/base/NUTS/01_getShapes.js &&
+node -r esm src/bin/base/NUTS/01-2_setUnifiedId.js &&
 node -r esm src/bin/base/NUTS/12_getCountriesTopojson.js &&
 
 echo

@@ -1,6 +1,6 @@
 data/base/NUTS/1
 data/base/NUTS/2
+data/base/NUTS/3
 data/base/world/1
-data/base/world/2
 !src/node_modules
 !src/bin/dist

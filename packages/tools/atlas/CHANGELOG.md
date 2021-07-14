@@ -1,3 +1,7 @@
+## `@svizzle/atlas` v0.6.0 (next)
+
+- NUTS: add hierarchy and unified ids
+
 ## `@svizzle/atlas` v0.5.0
 
 - refactor scripts and the package file structure and change atlas utils accordingly
