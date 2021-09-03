@@ -3,19 +3,8 @@
 
 	// utils
 
-	import prune from 'topojson-simplify/src/prune';
-
-	import {makeTopoId} from '@svizzle/atlas/src/utils';
 	import {makeStyle, toPx} from '@svizzle/dom';
-	import {
-		applyFnMap,
-		getValue,
-		keyValueArrayAverage,
-		keyValueArrayToObject,
-		mergeObj,
-		transformPaths,
-	} from '@svizzle/utils';
-	import {extent} from 'd3-array';
+	import {areAllTruthy, mergeObj} from '@svizzle/utils';
 	import {geoEqualEarth as projectionFn} from 'd3-geo';
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
@@ -44,10 +33,32 @@
 
 	// stores
 
-	import {_POIs} from 'stores/data';
+	import {
+		_barchartRefs,
+		_regionIdToColor,
+		_regionIdToColorFn,
+		_regionIdToValue,
+		_regionIdValuePairs,
+	} from 'stores/barchart';
+	import {_lookup} from 'stores/dataset';
+	import {
+		_filteredGeojson,
+		_geojson,
+		_getAtlasIdFromRegionId,
+		_getRegionIdFromAtlasId,
+		_isTopoFetching,
+		_topojson,
+	} from 'stores/geoBoundaries';
+	import {
+		_colorBins,
+		_formatFn,
+		_indicator,
+		_noData,
+		_selectedRegionAtlasIds,
+		_selectedRegionIds,
+	} from 'stores/indicator';
 	import {_isSmallScreen, _screenClasses} from 'stores/layout';
 	import {
-		_doFilterRegions,
 		_geoModal,
 		_infoModal,
 		hideGeoModal,
@@ -61,36 +72,26 @@
 		setRoute,
 		showView,
 	} from 'stores/navigation';
+	import {_POIs} from 'stores/POIs';
+	import {_regionSettings} from 'stores/regionSettings';
 	import {
-		_getFeatureKey,
-		_hasValidKey,
-		_preselectedNUTS2Ids,
-		_regionSettings,
-		_selectedNUT2Ids,
-		_someUnselectedRegions,
-	} from 'stores/regionSelection';
-	import {_availableYears, _selectedYear} from 'stores/selection';
-	import {
-		_makeColorBins,
-		_makeColorScale,
-		_theme,
-	} from 'stores/theme';
+		_doFilterRegions,
+		_isRegionsSelectionDirty,
+		setCurrentLevel,
+	} from 'stores/selectedRegions';
+	import {setSelectedYear} from 'stores/selectedYear';
+	import {_theme} from 'stores/theme';
 
 	/* local utils  */
 
 	import config from 'config';
-	import {getTopojson, makeGeojson, topoCache} from 'utils/boundaries';
-	import {getNutsId} from 'utils/domain';
-	import {isClientSide} from 'utils/env';
-	import {makeGetIndicatorFormatOf, makeGetRefFormatOf} from 'utils/format';
+	import {regionIdToName} from 'utils/domain';
 
 	/* data */
 
-	import yearlyKeyToLabel from 'data/NUTS2_UK_labels';
-	// import yearlyKeyToLabel from '@svizzle/atlas/NUTS2_UK_labels'; // TODO
-
 	/* consts */
 
+	// IDEA move these to config?
 	const defaultGray = '#f3f3f3';
 	const fetchingMessage = 'Fetching boundaries...';
 	const legendBarThickness = 40;
@@ -101,7 +102,6 @@
 
 	/* props */
 
-	export let _lookup = null;
 	export let data = null;
 	export let id = null;
 	export let types = null;
@@ -119,30 +119,26 @@
 	let mapHeight;
 	let mapWidth;
 
-	// rest
-	let fetchedTopojson;
-	let selectedKeys = [];
-
 	/* reactive vars */
 
 	// navigation
 	$: $_isSmallScreen && hideGeoModal();
 	$: $_isSmallScreen && hideInfoModal();
-	$: id && showView('map');
 	$: id && year && hideInfoModal();
-	$: _selectedYear.set(Number(year));
+	$: id && showView('map');
+	$: id && data && _indicator.set({data, id});
+	$: setSelectedYear(year);
 	$: ({
 		api_doc_url,
 		api_type,
 		auth_provider,
-		availableYears,
 		data_date,
 		description,
 		endpoint_url,
 		is_experimental,
 		is_public,
 		query,
-		region,
+		region_types,
 		schema,
 		source_name,
 		source_url,
@@ -152,64 +148,18 @@
 		warning,
 		year_extent,
 	} = $_lookup[id] || {});
-	// can't as `_lookup` is a derived
-	// $: data && _lookup.update(_.setPath(`${id}.data`, data));
-
-	// update stores
-	$: _availableYears.set(availableYears);
-
-	// utils
-	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
-	$: formatFn = getIndicatorFormat($_lookup);
-	$: getRefFormatFn = makeGetRefFormatOf(id);
-	$: refFormatFn = getRefFormatFn($_lookup);
-	$: getIndicatorValue = _.getKey(id);
-	$: makeKeyToValue = _.pipe([
-		_.indexBy(getNutsId),
-		_.mapValuesWith(getIndicatorValue)
-	]);
-	$: keyToValue = yearData && makeKeyToValue(yearData);
-	$: makeItems = _.pipe([
-		_.mapWith(applyFnMap({
-			key: getNutsId,
-			value: getIndicatorValue
-		})),
-		_.sortWith([_.sorterDesc(getValue)])
-	]);
 
 	// layout
 	$: legendHeight = mapHeight / 3;
 	$: choroplethSafety = $_isSmallScreen
 		? defaultGeometry
 		: {...defaultGeometry, left: legendBarThickness * 2};
+	$: choroplethInnerHeight =
+		mapHeight - choroplethSafety.top - choroplethSafety.bottom;
+	$: choroplethInnerWidth =
+		mapWidth - choroplethSafety.left - choroplethSafety.right;
 
-	// selection
-	// $: indicatorData = $_lookup[id].data; // FIXME
-	$: yearData = data && data.filter(obj => obj.year === year);
-	$: items = yearData && makeItems(yearData);
-	$: filteredItems = _.filter(items, ({key}) =>
-		_.isIn($_selectedNUT2Ids, key) || _.isIn($_preselectedNUTS2Ids, key)
-	);
-	$: filteredData = $_doFilterRegions
-		? _.filter(yearData, ({nuts_id}) =>
-			$_selectedNUT2Ids.includes(nuts_id) ||
-			$_preselectedNUTS2Ids.includes(nuts_id)
-		)
-		: yearData;
-	$: noData = filteredData.length === 0;
-
-	// colors
-	$: valueExtext = filteredData.length && extent(filteredData, getIndicatorValue);
-	$: colorScale = filteredData.length && $_makeColorScale(valueExtext);
-	$: colorBins = filteredData.length && $_makeColorBins(colorScale);
-	$: makeKeyToColor = _.pipe([
-		keyValueArrayToObject,
-		_.mapValuesWith(colorScale)
-	]);
-	$: keyToColorAll = filteredData.length && makeKeyToColor(items);
-	$: keyToColorFiltered = filteredData.length && makeKeyToColor(filteredItems);
-
-	// labels
+	// labels (TODO move to stores/barchart.js)
 	$: labelUnit =
 		schema.value.unit_string ||
 		schema.value.type &&
@@ -217,66 +167,28 @@
 		_.has(types[schema.value.type], 'unit_string') &&
 		types[schema.value.type].unit_string;
 	$: barchartTitle = schema.value.label + (labelUnit ? ` [${labelUnit}]` : '');
-	$: barchartRefs = [{
-		key: 'National average',
-		keyAbbr: 'Nat. avg.',
-		value: keyValueArrayAverage(items),
-		formatFn: refFormatFn
-	}];
 
 	// map
-	$: regionYearSpec = yearData && yearData[0].nuts_year_spec;
-	$: keyToLabel = regionYearSpec && yearlyKeyToLabel[regionYearSpec];
-	$: regionId = regionYearSpec && makeTopoId({
-		level: $_regionSettings.level,
-		level0: $_regionSettings.level0,
-		resolution: $_regionSettings.resolution,
-		type: $_regionSettings.type,
-		year: regionYearSpec,
-	});
-	$: geometriesPath = `objects.${$_regionSettings.objectId}.geometries`;
-	$: filterTopojson = _.pipe([
-		transformPaths({
-			[geometriesPath]: _.filterWith($_hasValidKey)
-		}),
-		prune
-	]);
-	$: isClientSide && (async () => {
-		fetchedTopojson = await getTopojson(regionId)
-	})();
-	$: topojson = fetchedTopojson && filterTopojson(fetchedTopojson);
-	$: geojson = topojson && makeGeojson({
-		objectId: $_regionSettings.objectId,
-		regionId,
-		topojson,
-	});
-	$: featuresIndex = geojson && _.index(geojson.features, $_getFeatureKey);
-	$: filteredGeojson = geojson && _.setPathIn(geojson, 'features',
-		_.reduce(selectedKeys, (acc, key) => {
-			featuresIndex[key] && acc.push(featuresIndex[key]);
-			return acc;
-		}, [])
-	);
-	$: choroplethInnerHeight =
-		mapHeight - choroplethSafety.top - choroplethSafety.bottom;
-	$: choroplethInnerWidth =
-		mapWidth - choroplethSafety.left - choroplethSafety.right;
-	$: baseProjection = geojson &&
-		projectionFn()
-		.fitSize([choroplethInnerWidth, choroplethInnerHeight], geojson);
-	$: filterProjection =
-		filteredGeojson &&
-		filteredGeojson.features.length &&
-		projectionFn()
-		.fitSize([choroplethInnerWidth, choroplethInnerHeight], filteredGeojson);
-	$: projection = $_doFilterRegions ? filterProjection : baseProjection;
+	$: baseProjection =
+		$_geojson &&
+		projectionFn().fitSize(
+			[choroplethInnerWidth, choroplethInnerHeight],
+			$_geojson
+		);
+	$: filteredProjection =
+		$_filteredGeojson?.features.length > 0 &&
+		projectionFn().fitSize(
+			[choroplethInnerWidth, choroplethInnerHeight],
+			$_filteredGeojson
+		);
+	$: projection = $_doFilterRegions ? filteredProjection : baseProjection;
 
 	// flags
-	$: showMap = mapHeight && mapWidth && topoCache[regionId] && topojson;
+	$: showMap = !$_isTopoFetching && areAllTruthy([mapHeight, mapWidth]);
 
 	// focus
-	$: selectedKeys = $_preselectedNUTS2Ids.concat($_selectedNUT2Ids)
-	$: focusedKey = $_tooltip.isVisible ? $_tooltip.areaId : undefined;
+	$: focusedAtlasId = $_tooltip.isVisible ? $_tooltip.atlasId : undefined;
+	$: focusedRegionId = $_getRegionIdFromAtlasId(focusedAtlasId);
 
 	// POIs
 	$: POIsLayout = $_navFlags.showPOIs && projection && _.map($_POIs, obj => {
@@ -322,22 +234,29 @@
 			visibility: 'visible'
 		});
 	}
-	const onEnteredArea = ({detail: areaId}) => {
-		const hasValue = _.has(keyToValue, areaId);
+	const onEnteredArea = event => {
+		const {detail: regionId} = event;
+
+		// FIXME use `atlasId` in topojson
+		const atlasId = $_getAtlasIdFromRegionId(regionId);
+		const hasValue = _.has($_regionIdToValue, atlasId);
 		const shouldShowValue = $_doFilterRegions
-			? _.isIn(selectedKeys, areaId)
+			? _.isIn($_selectedRegionAtlasIds, atlasId)
 			: true;
+		const rawValue = $_regionIdToValue[atlasId];
+		const regionLabel = regionIdToName[atlasId];
 
 		const value = shouldShowValue && hasValue
-			? formatFn(keyToValue[areaId]) + (labelUnit ? ` ${labelUnit}` : '')
+			? $_formatFn(rawValue) + (labelUnit ? ` ${labelUnit}` : '')
 			: undefined;
 
 		_tooltip.update(mergeObj({
-			areaId,
+			atlasId,
 			isVisible: true,
-			regionLabel: keyToLabel[areaId],
+			regionId,
+			regionLabel,
 			style: makeTooltipStyle(event),
-			value
+			value,
 		}))
 	};
 	const onExitedArea = () => {
@@ -354,15 +273,16 @@
 
 	/* barchart hovering */
 
-	const onEnteredBar = ({detail: {id: focusedBarKey}}) => {
-		focusedKey = focusedBarKey;
+	const onEnteredBar = ({detail: {id: focusedBarAtlasId}}) => {
+		focusedAtlasId = focusedBarAtlasId;
 	}
 	const onExitedBar = () => {
-		focusedKey = null;
+		focusedAtlasId = null;
 	}
 
 	/* settings handlers */
 
+	const setLevel = ({detail: level}) => setCurrentLevel(level);
 	const toggledFiltering = ({detail}) => {
 		$_doFilterRegions = detail === 'Filter'
 	};
@@ -376,7 +296,7 @@
 	/>
 
 	<div
-		class:noData
+		class:noData={$_noData}
 		class='viewport {$_viewsClasses}'
 	>
 		{#if $_isSmallScreen}
@@ -386,15 +306,15 @@
 			<!-- map -->
 
 			<div
-				class:noData
+				class:noData={$_noData}
 				class='view map'
 			>
-				{#if noData}
+				{#if $_noData}
 					<MessageView text={config.noDataMessage} />
 				{:else}
 					<div class='topbox'>
 						<ColorBinsDiv
-							bins={colorBins}
+							bins={$_colorBins}
 							geometry={{
 								barThickness: 15,
 								left: 30,
@@ -408,7 +328,7 @@
 								backgroundColor: $_theme.colorWhite,
 								backgroundOpacity: 0.5,
 							}}
-							ticksFormatFn={formatFn}
+							ticksFormatFn={$_formatFn}
 						/>
 					</div>
 					<div class='content'>
@@ -424,19 +344,15 @@
 									width={mapWidth}
 								>
 									<ChoroplethG
-										{focusedKey}
 										{projection}
-										{selectedKeys}
-										{topojson}
+										focusedKey={focusedRegionId}
 										height={mapHeight}
 										isInteractive={true}
 										key={$_regionSettings.key}
-										keyToColor={$_doFilterRegions
-											? keyToColorFiltered
-											: keyToColorAll
-										}
+										keyToColorFn={$_regionIdToColorFn}
 										on:entered={onEnteredArea}
 										on:exited={onExitedArea}
+										selectedKeys={$_selectedRegionIds}
 										theme={{
 											defaultFill: defaultGray,
 											defaultStroke: 'gray',
@@ -446,6 +362,7 @@
 											selectedStroke: $_theme.colorBlack,
 											selectedStrokeWidth: 0.5,
 										}}
+										topojson={$_topojson}
 										topojsonId={$_regionSettings.objectId}
 										width={mapWidth}
 									/>
@@ -464,15 +381,15 @@
 			<!-- barchart -->
 
 			<div
-				class:noData
+				class:noData={$_noData}
 				class='view barchart'
 			>
-				{#if noData}
+				{#if $_noData}
 					<MessageView text={config.noDataMessage} />
 				{:else}
 					<div class='topbox'>
 						<ColorBinsDiv
-							bins={colorBins}
+							bins={$_colorBins}
 							geometry={{
 								barThickness: 15,
 								left: 30,
@@ -486,21 +403,21 @@
 								backgroundColor: $_theme.colorWhite,
 								backgroundOpacity: 0.5,
 							}}
-							ticksFormatFn={formatFn}
+							ticksFormatFn={$_formatFn}
 						/>
 					</div>
 					<div class='content'>
 						<BarchartVDiv
-							{focusedKey}
-							{formatFn}
-							{keyToLabel}
-							{selectedKeys}
+							focusedKey={focusedAtlasId}
+							formatFn={$_formatFn}
 							isInteractive={true}
-							items={$_doFilterRegions ? filteredItems : items}
-							keyToColor={keyToColorAll}
+							items={$_regionIdValuePairs}
+							keyToColor={$_regionIdToColor}
+							keyToLabel={regionIdToName}
 							on:entered={onEnteredBar}
 							on:exited={onExitedBar}
-							refs={barchartRefs}
+							refs={$_barchartRefs}
+							selectedKeys={$_selectedRegionAtlasIds}
 							shouldResetScroll={true}
 							shouldScrollToFocusedKey={true}
 							theme={{
@@ -527,7 +444,7 @@
 					{is_experimental}
 					{is_public}
 					{query}
-					{region}
+					{region_types}
 					{source_name}
 					{source_url}
 					{url}
@@ -544,7 +461,10 @@
 						doFilter: $_doFilterRegions,
 						showRankingControl: false,
 					}}
-					handlers={{toggledFiltering}}
+					handlers={{
+						setLevel,
+						toggledFiltering,
+					}}
 				/>
 			</div>
 
@@ -552,26 +472,31 @@
 
 			<!-- medium + -->
 
+			<!-- topbox -->
+
 			<div class='topbox'>
 				<SettingsRow
 					flags={{
 						doFilter: $_doFilterRegions,
 						isGeoModalVisible: $_geoModal.isVisible,
+						isRegionsSelectionDirty: $_isRegionsSelectionDirty,
 						showRankingControl: false,
-						someUnselectedRegions: $_someUnselectedRegions,
 					}}
 					handlers={{
+						setLevel,
 						toggledFiltering,
 						toggledGeoModal: toggleGeoModal,
 					}}
 				/>
 			</div>
 
+			<!-- content -->
+
 			<div
-				class:noData
+				class:noData={$_noData}
 				class='content'
 			>
-				{#if noData}
+				{#if $_noData}
 					<MessageView text='No data' />
 				{:else}
 
@@ -591,20 +516,16 @@
 								<!-- choropleth -->
 
 								<ChoroplethG
-									{focusedKey}
 									{projection}
-									{selectedKeys}
-									{topojson}
+									focusedKey={focusedRegionId}
 									geometry={{left: choroplethSafety.left}}
 									height={mapHeight}
 									isInteractive={true}
 									key={$_regionSettings.key}
-									keyToColor={$_doFilterRegions
-										? keyToColorFiltered
-										: keyToColorAll
-									}
+									keyToColorFn={$_regionIdToColorFn}
 									on:entered={onEnteredArea}
 									on:exited={onExitedArea}
+									selectedKeys={$_selectedRegionIds}
 									theme={{
 										defaultFill: defaultGray,
 										defaultStroke: 'gray',
@@ -614,6 +535,7 @@
 										selectedStroke: $_theme.colorBlack,
 										selectedStrokeWidth: 0.5,
 									}}
+									topojson={$_topojson}
 									topojsonId={$_regionSettings.objectId}
 									width={mapWidth}
 								/>
@@ -647,18 +569,18 @@
 
 								<g transform='translate(0,{legendHeight})'>
 									<ColorBinsG
-										width={legendBarThickness}
-										height={legendHeight}
-										bins={colorBins}
+										bins={$_colorBins}
 										flags={{
 											isVertical: true,
 											withBackground: true,
 										}}
+										height={legendHeight}
 										theme={{
 											backgroundColor: $_theme.colorWhite,
 											backgroundOpacity: 0.5,
 										}}
-										ticksFormatFn={formatFn}
+										ticksFormatFn={$_formatFn}
+										width={legendBarThickness}
 									/>
 								</g>
 
@@ -672,7 +594,7 @@
 									style={$_tooltip.style}
 								>
 									<header>
-										<span>{$_tooltip.areaId}</span>
+										<span>{$_tooltip.regionId}</span>
 										{#if $_tooltip.value}
 											<span>{$_tooltip.value}</span>
 										{/if}
@@ -695,16 +617,16 @@
 
 					<div class='barchart'>
 						<BarchartVDiv
-							{focusedKey}
-							{formatFn}
-							{keyToLabel}
-							{selectedKeys}
+							focusedKey={focusedAtlasId}
+							formatFn={$_formatFn}
 							isInteractive={true}
-							items={$_doFilterRegions ? filteredItems : items}
-							keyToColor={keyToColorAll}
+							items={$_regionIdValuePairs}
+							keyToColor={$_regionIdToColor}
+							keyToLabel={regionIdToName}
 							on:entered={onEnteredBar}
 							on:exited={onExitedBar}
-							refs={barchartRefs}
+							refs={$_barchartRefs}
+							selectedKeys={$_selectedRegionAtlasIds}
 							shouldResetScroll={true}
 							shouldScrollToFocusedKey={true}
 							theme={{
@@ -716,15 +638,19 @@
 						/>
 					</div>
 
-				{/if} <!-- filteredData.length  -->
+				{/if} <!-- noData  -->
+
+				<!-- geo modal -->
+
+				{#if $_geoModal.isVisible}
+					<GeoFilterModal on:click={toggleGeoModal} />
+				{/if}
 
 			</div>	<!-- .content -->
 
-			<!-- modals -->
+			<!-- info modal -->
 
-			{#if $_geoModal.isVisible}
-				<GeoFilterModal on:click={toggleGeoModal} />
-			{:else if $_infoModal.isVisible}
+			{#if $_infoModal.isVisible}
 				<InfoModal
 					{api_doc_url}
 					{api_type}
@@ -735,7 +661,7 @@
 					{is_experimental}
 					{is_public}
 					{query}
-					{region}
+					{region_types}
 					{source_name}
 					{source_url}
 					{url}
@@ -755,7 +681,6 @@
 		grid-template-columns: 100%;
 		grid-template-rows: min-content 1fr;
 		height: 100%;
-		/* user-select: none; */
 		width: 100%;
 	}
 
@@ -763,8 +688,11 @@
 		display: grid;
 		grid-template-rows: 100%;
 		height: 100%;
-		overflow-y: hidden; /* prevents svg charts from getting taller indefinitely */
-		position: relative; /* modals */
+		position: relative; /* info modal */
+
+		/* overflow-y: hidden; */
+		/* was: prevents svg charts from getting taller indefinitely */
+		/* FIXME do we still need it? */
 	}
 
 	/* small */
@@ -848,7 +776,7 @@
 		grid-template-columns: 100%;
 		grid-template-rows: 10% 90%;
 		padding: 0 var(--dimPadding) var(--dimPadding) var(--dimPadding);
-		position: relative;
+		position: relative;	/* geo modal */
 		width: 100%;
 		overflow-y: hidden;
 	}
@@ -865,6 +793,7 @@
 		grid-template-areas: 'map barchart';
 		grid-template-columns: 65% 35%;
 		grid-template-rows: 100%;
+		position: relative;	/* geo modal */
 	}
 	.medium .viewport .content .map {
 		grid-area: map;

@@ -1,11 +1,13 @@
 <script>
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
 	import ScreenSensor from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
+	import {isServerSide} from '@svizzle/ui/src/utils/env';
 
 	import Sidebar from 'components/Sidebar.svelte';
 	import Timeline from 'components/Timeline.svelte';
 	import ViewSelector from 'components/ViewSelector.svelte';
-	import {setGroups, setPOIs} from 'stores/data';
+	import {setGroups} from 'stores/dataset';
+	import {_availableYears} from 'stores/indicator';
 	import {
 		_isSmallScreen,
 		_screenClasses,
@@ -13,18 +15,18 @@
 		_timelineWidth,
 	} from 'stores/layout';
 	import {
+		_hrefBase,
 		_isTimelineHidden,
+		_navFlags,
 		_routes,
 		_views,
 		_viewsClasses,
-		setHrefBase,
-		setNavFlags,
 		showView,
 	} from 'stores/navigation';
-	import {setRegionSettings} from 'stores/regionSelection';
-	import {_availableYears, _selectedYear} from 'stores/selection';
+	import {_POIs} from 'stores/POIs';
+	import {_regionSettings} from 'stores/regionSettings';
+	import {_selectedYear} from 'stores/selectedYear';
 	import {_style, _theme, customizeTheme} from 'stores/theme';
-	import {isServerSide} from 'utils/env';
 
 	export let _groups = null;
 	export let flags = null;
@@ -35,10 +37,10 @@
 	export let theme = null;
 
 	$: _groups && setGroups($_groups);
-	$: flags && setNavFlags(flags);
-	$: hrefBase && setHrefBase(hrefBase);
-	$: POIs && setPOIs(POIs);
-	$: regionSettings && setRegionSettings(regionSettings);
+	$: flags && _navFlags.set(flags);
+	$: hrefBase && _hrefBase.set(hrefBase);
+	$: POIs && _POIs.set(POIs);
+	$: regionSettings && _regionSettings.set(regionSettings);
 	$: theme && customizeTheme(theme);
 	$: routeId = $_isSmallScreen && $_routes.Id;
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
@@ -86,7 +88,7 @@
 				bind:clientWidth={$_timelineWidth}
 			>
 				<section>
-					<slot></slot>
+					<slot />
 				</section>
 				{#if !$_isTimelineHidden}
 					<nav

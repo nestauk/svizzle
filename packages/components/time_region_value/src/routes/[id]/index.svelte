@@ -6,13 +6,7 @@
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
 	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
 	import MessageView from '@svizzle/ui/src/MessageView.svelte';
-	import {
-		makeKeyed,
-		setIndexAsKey,
-	} from '@svizzle/utils';
-	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
-	import {extent} from 'd3-array';
 
 	/* local deps */
 
@@ -29,9 +23,20 @@
 
 	// stores
 
+	import {_lookup} from 'stores/dataset';
+	import {
+		_colorBins,
+		_colorScale,
+		_formatFn,
+		_getIndicatorValue,
+		_indicator,
+		_noData,
+		_rankedData,
+		_selectedData,
+		_valueExtext,
+	} from 'stores/indicator';
 	import {_isSmallScreen, _screenClasses} from 'stores/layout';
 	import {
-		_doFilterRegions,
 		_geoModal,
 		_infoModal,
 		hideGeoModal,
@@ -45,39 +50,23 @@
 		showView,
 	} from 'stores/navigation';
 	import {
-		_preselectedNUTS2Ids,
-		_selectedNUT2Ids,
-		_someUnselectedRegions,
-	} from 'stores/regionSelection';
-	import {_availableYears, resetSelectedYear} from 'stores/selection';
-	import {
-		_theme,
-		_makeColorScale,
-		_makeColorBins,
-	} from 'stores/theme';
+		_doFilterRegions,
+		_isRegionsSelectionDirty,
+		setCurrentLevel,
+	} from 'stores/selectedRegions';
+	import {resetSelectedYear} from 'stores/selectedYear';
+	import {_theme} from 'stores/theme';
 
 	/* local utils */
 
 	import config from 'config';
-	import {makeGetIndicatorFormatOf} from 'utils/format';
 
 	/* consts */
 
 	const legendBarThickness = 40;
-	const makeSetOrderWith = accessor => _.pipe([
-		_.groupBy(_.getKey('year')),
-		_.mapValuesWith(_.pipe([
-			_.sortWith([_.sorterDesc(accessor)]),
-			setIndexAsKey('order'),
-		])),
-		_.values,
-		_.flatten,
-	]);
-	const makeKeyedTrue = makeKeyed(true);
 
 	/* props */
 
-	export let _lookup = null;
 	export let data = null;
 	export let id = null;
 	export let types = null;
@@ -104,18 +93,18 @@
 	$: $_isSmallScreen && hideInfoModal();
 	$: id && showView('trends');
 	$: id && resetSelectedYear();
+	$: id && data && _indicator.set({data, id});
 	$: ({
 		api_doc_url,
 		api_type,
 		auth_provider,
-		availableYears,
 		data_date,
 		description,
 		endpoint_url,
 		is_experimental,
 		is_public,
 		query,
-		region,
+		region_types,
 		schema,
 		source_name,
 		source_url,
@@ -126,47 +115,20 @@
 		year_extent,
 	} = $_lookup[id] || {});
 
-	// update stores
-	$: _availableYears.set(availableYears);
-
-	// utils
-	$: getIndicatorFormat = makeGetIndicatorFormatOf(id);
-	$: formatFn = getIndicatorFormat($_lookup);
-	$: getIndicatorValue = _.getKey(id);
-	$: setOrder = makeSetOrderWith(getIndicatorValue);
-
 	// selection
-	$: selectedRegions = makeKeyedTrue($_selectedNUT2Ids);
-	$: preselectedRegions = makeKeyedTrue($_preselectedNUTS2Ids);
-	$: valueExtext = extent(filteredData, getIndicatorValue);
-	$: rankedData = setOrder(data);
-	$: filteredData = $_doFilterRegions
-		? _.filter(rankedData, ({nuts_id}) =>
-			_.has(selectedRegions, nuts_id) ||
-			_.has(preselectedRegions, nuts_id)
-		)
-		: rankedData;
 	$: trendsData = {
-		filteredData,
-		preselectedRegions,
-		rankedData,
-		selectedRegions,
-		valueExtext,
+		selectedData: $_selectedData,
+		rankedData: $_rankedData,
+		valueExtext: $_valueExtext,
 		year_extent,
 	}
-	$: noData = filteredData.length === 0;
 
 	// layout
 	$: mediumLegendHeight = mediumTrendsHeight / 3;
 
-	// colors
-	$: colorScale = $_makeColorScale(valueExtext);
-
-	// legend
-	$: colorBins = $_makeColorBins(colorScale);
-
 	/* event handlers */
 
+	const setLevel = ({detail: level}) => setCurrentLevel(level);
 	const toggledFiltering = ({detail}) => {
 		$_doFilterRegions = detail === 'Filter'
 	};
@@ -185,7 +147,7 @@
 	/>
 
 	<div
-		class:noData
+		class:noData={$_noData}
 		class='viewport {$_viewsClasses}'
 	>
 		{#if $_isSmallScreen}
@@ -195,15 +157,15 @@
 			<!-- trends -->
 
 			<div
-				class:noData
+				class:noData={$_noData}
 				class='view trends'
 			>
-				{#if noData}
+				{#if $_noData}
 					<MessageView text={config.noDataMessage} />
 				{:else}
 					<div class='topbox'>
 						<ColorBinsDiv
-							bins={colorBins}
+							bins={$_colorBins}
 							geometry={{
 								barThickness: 15,
 								left: 30,
@@ -217,18 +179,18 @@
 								backgroundColor: $_theme.colorWhite,
 								backgroundOpacity: 0.5,
 							}}
-							ticksFormatFn={formatFn}
+							ticksFormatFn={$_formatFn}
 						/>
 					</div>
 					<div class='content'>
 						<TrendsDiv
-							{colorScale}
-							{formatFn}
-							{getIndicatorValue}
 							{schema}
 							{types}
 							{useRankScale}
+							colorScale={$_colorScale}
 							data={trendsData}
+							formatFn={$_formatFn}
+							getIndicatorValue={$_getIndicatorValue}
 						/>
 					</div>
 				{/if}
@@ -247,7 +209,7 @@
 					{is_experimental}
 					{is_public}
 					{query}
-					{region}
+					{region_types}
 					{source_name}
 					{source_url}
 					{url}
@@ -265,6 +227,7 @@
 						showRankingControl: true,
 					}}
 					handlers={{
+						setLevel,
 						toggledFiltering,
 						toggledRanking,
 					}}
@@ -282,10 +245,11 @@
 					flags={{
 						doFilter: $_doFilterRegions,
 						isGeoModalVisible: $_geoModal.isVisible,
+						isRegionsSelectionDirty: $_isRegionsSelectionDirty,
 						showRankingControl: true,
-						someUnselectedRegions: $_someUnselectedRegions,
 					}}
 					handlers={{
+						setLevel,
 						toggledFiltering,
 						toggledRanking,
 						toggledGeoModal: toggleGeoModal,
@@ -298,10 +262,10 @@
 			<div
 				bind:clientHeight={mediumTrendsHeight}
 				bind:clientWidth={mediumTrendsWidth}
-				class:noData
+				class:noData={$_noData}
 				class='content'
 			>
-				{#if noData}
+				{#if $_noData}
 					<MessageView text='No data' />
 				{:else if trendsData && mediumTrendsWidth && mediumTrendsHeight}
 					<svg
@@ -311,13 +275,13 @@
 						<!-- trends -->
 
 						<TrendsG
-							{colorScale}
-							{formatFn}
-							{getIndicatorValue}
 							{schema}
 							{types}
 							{useRankScale}
+							colorScale={$_colorScale}
 							data={trendsData}
+							formatFn={$_formatFn}
+							getIndicatorValue={$_getIndicatorValue}
 							height={mediumTrendsHeight}
 							width={mediumTrendsWidth}
 						/>
@@ -326,30 +290,35 @@
 
 						<g transform='translate(0,{mediumLegendHeight})'>
 							<ColorBinsG
-								width={legendBarThickness}
-								height={mediumLegendHeight}
-								bins={colorBins}
+								bins={$_colorBins}
 								flags={{
 									isVertical: true,
 									withBackground: true,
 								}}
+								height={mediumLegendHeight}
 								theme={{
 									backgroundColor: $_theme.colorWhite,
 									backgroundOpacity: 0.5,
 								}}
-								ticksFormatFn={formatFn}
+								ticksFormatFn={$_formatFn}
+								width={legendBarThickness}
 							/>
 						</g>
 
 					</svg>
+				{/if}	<!-- noData  -->
+
+				<!-- geo modal -->
+
+				{#if $_geoModal.isVisible}
+					<GeoFilterModal on:click={toggleGeoModal} />
 				{/if}
-			</div>
 
-			<!-- modals -->
+			</div> <!-- .content -->
 
-			{#if $_geoModal.isVisible}
-				<GeoFilterModal on:click={toggleGeoModal} />
-			{:else if $_infoModal.isVisible}
+			<!-- info modal -->
+
+			{#if $_infoModal.isVisible}
 				<InfoModal
 					{api_doc_url}
 					{api_type}
@@ -360,7 +329,7 @@
 					{is_public}
 					{is_experimental}
 					{query}
-					{region}
+					{region_types}
 					{source_name}
 					{source_url}
 					{url}
@@ -369,7 +338,8 @@
 					on:click={toggleInfoModal}
 				/>
 			{/if}
-		{/if}
+
+		{/if}	<!-- medium + -->
 	</div>
 </div>
 
@@ -379,7 +349,6 @@
 		grid-template-columns: 100%;
 		grid-template-rows: min-content 1fr;
 		height: 100%;
-		user-select: none;
 		width: 100%;
 	}
 
@@ -387,7 +356,7 @@
 		display: grid;
 		grid-template-rows: 100%;
 		height: 100%;
-		position: relative;
+		position: relative; /* info modal */
 	}
 
 	/* small */
@@ -435,6 +404,7 @@
 	}
 	.view.trends .content{
 		grid-area: content;
+		position: relative;	/* geo modal */
 	}
 	.view.info {
 		grid-area: info;
@@ -450,7 +420,7 @@
 		grid-template-columns: 100%;
 		grid-template-rows: 10% 90%;
 		padding: 0 var(--dimPadding) var(--dimPadding) var(--dimPadding);
-		position: relative;
+		position: relative;	/* geo modal */
 		width: 100%;
 	}
 

@@ -1,4 +1,5 @@
 <script>
+	import {isServerSide} from '@svizzle/ui/src/utils/env';
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
 
@@ -6,8 +7,7 @@
 
 	import {_isSmallScreen, _timelineLayout} from 'stores/layout';
 	import {_hrefBase, setRoute, showView} from 'stores/navigation';
-	import {resetSelection} from 'stores/selection';
-	import {isServerSide} from 'utils/env';
+	import {resetSelectedYear} from 'stores/selectedYear';
 	import {shortenYear} from 'utils/format';
 	import {makeURL} from 'utils/url';
 
@@ -23,7 +23,7 @@
 	/* init */
 
 	onMount(() => {
-		resetSelection();
+		resetSelectedYear();
 		setRoute('Index');
 		showView('distribution');
 	});

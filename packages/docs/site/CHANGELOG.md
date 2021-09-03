@@ -1,7 +1,12 @@
 ## `@svizzle/site` v0.3.10 (next)
 
 - moved all `dependencies` to `devDependencies` to [avoid having to maintain](https://github.com/sveltejs/sapper-template-rollup#using-external-components) the `external` list in `rollup.config.js` (prone to error)
-
+- change to accomodate `@svizzle/time_region_value@0.5.0`:
+	- shows random data for all NUTS levels and for the whole of Europe
+	- added required configs
+	- `makeRandomIndicators.js` now sorts datapoints columns using `order`
+	- deleted NUTS2/UK data
+	- not showing POIs anymore for now
 
 ## `@svizzle/site` v0.3.9
 

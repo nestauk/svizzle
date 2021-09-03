@@ -11,9 +11,36 @@
 - now exporting `projections` from `src/shared`
 - `ChoroplethG.svelte`: refactored to use the new imports
 
+## `@svizzle/time_region_value` v0.5.0 (next)
+
+Breaking:
+	- now supports NUTS levels 0123 for the whole of Europe
+	- does not support NUTS2/UK specifically anymore
+	- the schema required for this to work has changed (needs documentation)
+
+Some implementation notes:
+	- stores:
+		- heavily refactored and changed their location within `src/node_modules/stores/`
+		- use a function to `set` `_selectedYear` to make sure we set numbers
+	- routes:
+		- simplified as a lot of reactivity now happens in `derived`s
+	- components:
+		- a lot of these have been refactored to accomodate the new stores
+		- `GeoFilterModal.svelte`: refactored + now uses `RegionsSelector`
+		- `InfoModal.svelte`, `InfoView.svelte`: refactored + now show `region_types`
+	- boundaries:
+		- The current version does a lot of reconciliation between the pair `[NUTS_ID, region_year_spec]` and the `atlasId` for a region, resulting in the code being a bit convolute and with suboptimal performance.
+		- Some of the current reconciliation code could be avoided by using the `atlasId` property provided to topojsons features by `/atlas` but we need to release this version to test it in an app, hence we'll need to add that optimisation in a future version.
+
 ## `@svizzle/site` v0.3.10 (next)
 
 - moved all `dependencies` to `devDependencies` to [avoid having to maintain](https://github.com/sveltejs/sapper-template-rollup#using-external-components) the `external` list in `rollup.config.js` (prone to error)
+- change to accomodate `@svizzle/time_region_value@0.5.0`:
+	- shows random data for all NUTS levels and for the whole of Europe
+	- added required configs
+	- `makeRandomIndicators.js` now sorts datapoints columns using `order`
+	- deleted NUTS2/UK data
+	- not showing POIs anymore for now
 
 ## `@svizzle/atlas` v0.6.0 (next)
 

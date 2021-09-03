@@ -5,25 +5,28 @@ import path from 'path';
 import * as _ from 'lamb';
 import Chance from 'chance';
 import {csvFormat} from 'd3-dsv';
+import unifiedNuts from '@svizzle/atlas/data/dist/NUTS/unifiedNuts.json';
 import {tapMessage} from '@svizzle/dev';
 import {saveObj, saveString} from '@svizzle/file';
 import {inclusiveRange} from '@svizzle/utils';
-import NUTS2_UK_by_year
-	from '../routes/compounds/time_region_value/_data/NUTS2_UK_by_year';
 
 const chance = new Chance();
 
-/* indicators specs */
+/* paths */
 
-const GROUPS_PATH = path.resolve(
-	__dirname,
-	'../routes/compounds/time_region_value/_data/indicatorsGroups.json'
+const DIR_site = path.resolve(__dirname, '../..');
+const OUT_PATH_groups = path.resolve(
+	DIR_site,
+	'src/routes/compounds/time_region_value/_data/indicatorsGroups.json'
 );
+const OUT_DIR_static_data = path.resolve(DIR_site, 'static/data');
 
-const createYYYMMDD = () =>
+/* indicators specs: utils */
+
+const createYYYYMMDD = () =>
 	`${chance.year()}${chance.integer({min: 1, max: 12})}${chance.integer({min: 1, max: 31})}`;
 
-const createIndicator = groupId => {
+const createIndicatorSpec = groupId => {
 	const id = chance.word({length: 5});
 	const year_extent = [
 		chance.integer({min: 2006, max: 2011}),
@@ -33,25 +36,31 @@ const createIndicator = groupId => {
 	return {
 		api_doc_url: chance.url(),
 		api_type: 'FETCH', // TODO,
-		data_date: createYYYMMDD(),
-		title: chance.sentence({words: 4}),
-		subtitle: chance.sentence({words: 6}),
+		availableYears: inclusiveRange(year_extent),
+		data_date: createYYYYMMDD(),
+		description: chance.sentence({words: 15}),
 		endpoint_url: chance.url(),
 		framework_group: groupId,
 		is_experimental: chance.bool(),
-		order: ['year', 'nuts_id', 'nuts_year_spec', 'value.id'],
-		region: {
-			type: 'NutsRegion',
-			level: 2,
-			source_url: 'http://geoportal1-ons.opendata.arcgis.com/datasets/48b6b85bb7ea43699ee85f4ecd12fd36_0.zip?outSR=%7B%22latestWkid%22:27700,%22wkid%22:27700%7D'
-		},
+		order: [
+			'year',
+			'region_type',
+			'region_year_spec',
+			'region_id',
+			'region_level',
+			'value.id',
+		],
+		region_types: ['NUTS'],
 		schema: {
-			nuts_id: {type: 'NutsRegion.id'},
-			nuts_year_spec: {type: 'NutsRegion.year_spec'},
+			region_id: 'string',
+			region_level: 'int',
+			region_type: 'string',
+			region_year_spec: 'int',
 			value: {
+				data_type: 'int',
+				format: '.1f', // to keep the average label short in the barchart
 				id,
 				label: chance.sentence({words: 5}),
-				type: 'int'
 			},
 			year: {
 				data_type: 'int',
@@ -60,23 +69,24 @@ const createIndicator = groupId => {
 		},
 		source_name: chance.sentence({words: 4}),
 		source_url: chance.url(),
+		subtitle: chance.sentence({words: 6}),
+		title: chance.sentence({words: 4}),
 		url: `/svizzle/data/${id}.csv`,
 		year_extent,
-		availableYears: inclusiveRange(year_extent)
 	}
 }
 
-const createGroup = ({amountOfIndicators, index}) => {
+const createGroup = ({amountOfIndicators, order}) => {
 	const groupId = chance.word({length: 5});
 
 	return {
 		description: chance.sentence(),
 		id: groupId,
 		label: chance.sentence({words: 6}),
-		order: index,
+		order,
 		indicators: _.map(
 			_.range(0, chance.integer({min: 1, max: amountOfIndicators})),
-			() => createIndicator(groupId)
+			() => createIndicatorSpec(groupId)
 		)
 	}
 };
@@ -85,45 +95,69 @@ const createGroups = amountOfGroups => _.map(
 	_.range(0, amountOfGroups),
 	index => createGroup({
 		amountOfIndicators: chance.integer({min: 3, max: 9}),
-		index
+		order: index
 	})
 );
 
+/* indicators specs: run */
+
 const groups = createGroups(5);
 
-saveObj(GROUPS_PATH, 2)(groups)
-.then(tapMessage(`Saved groups at: ${GROUPS_PATH}`));
+saveObj(OUT_PATH_groups, 2)(groups)
+.then(tapMessage(`Saved groups at: ${OUT_PATH_groups}`));
 
-/* indicators CSVs */
 
-const createYearDatapoints = (id, year, max) => {
-	const spec =
-		_.findLast(NUTS2_UK_by_year, _.pipe([
-			_.getKey('year_spec'),
+/* indicators CSVs: utils */
+
+const makePairsRegionsYearSpec = _.pipe([
+	_.groupBy(_.getKey('year')),
+	_.mapValuesWith((regions, yearSpec) => ({yearSpec, regions})),
+	_.values,
+	_.sortWith([_.getKey('yearSpec')])
+]);
+const pairsRegionsYearSpec = makePairsRegionsYearSpec(unifiedNuts);
+
+const createYearDatapoints = ({indicatorId, keysSorter, max, year}) => {
+	const {regions, yearSpec} =
+		_.findLast(pairsRegionsYearSpec, _.pipe([
+			_.getKey('yearSpec'),
 			_.isLTE(year),
 		]));
 
-	return _.map(spec.regions, nuts_id => ({
-		year,
-		nuts_id,
-		nuts_year_spec: spec.year_spec,
-		[id]: chance.integer({min: 0, max}),
-	}))
-}
+	return _.map(
+		regions,
+		({level, NUTS_ID: region_id}) => keysSorter({
+			[indicatorId]: chance.integer({min: 0, max}),
+			region_id,
+			region_level: level,
+			region_type: 'NUTS',
+			region_year_spec: yearSpec,
+			year,
+		})
+	)
+};
 
-const createAndSaveIndicatorCSV = obj => {
-	const indicatorId = obj.schema.value.id;
+const makeKeysSorter = ({order, schema}) => obj =>
+	_.reduce(order, (acc, aPath) => {
+		const key = aPath === 'value.id' ? _.getPathIn(schema, aPath) : aPath
+
+		acc[key] = obj[key];
+
+		return acc
+	}, {});
+
+const createAndSaveIndicatorCSV = specObj => {
+	const {availableYears, order, schema} = specObj;
+	const indicatorId = schema.value.id;
+	const keysSorter = makeKeysSorter({order, schema});
 	const exp = chance.integer({min: 1, max: 8});
 	const max = Number(`1E${exp}`);
 	const data = _.flatMap(
-		obj.availableYears,
-		year => createYearDatapoints(indicatorId, year, max)
+		availableYears,
+		year => createYearDatapoints({indicatorId, keysSorter, max, year})
 	);
 	const dataString = csvFormat(data);
-	const filepath = path.resolve(
-		__dirname,
-		`../../static/data/${indicatorId}.csv`
-	);
+	const filepath = path.resolve(OUT_DIR_static_data, `${indicatorId}.csv`);
 
 	return saveString(filepath)(dataString)
 }
@@ -133,5 +167,7 @@ const createAndSaveIndicatorCSVsOf = _.pipe([
 	_.mapWith(createAndSaveIndicatorCSV)
 ]);
 
+/* indicators CSVs: run */
+
 Promise.all(createAndSaveIndicatorCSVsOf(groups))
-.then(tapMessage(`Saved indicators in: ../../static/data/`));
+.then(tapMessage(`Saved indicators in: ${OUT_DIR_static_data}`));
