@@ -37,7 +37,7 @@
 
 	$: isExternal = type === 'external';
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	$: style = `--color: ${theme.color}`;
+	$: style = theme.color ? `--color: ${theme.color}` : null;
 </script>
 
 <a

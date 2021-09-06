@@ -2,6 +2,10 @@
 
 ## next
 
+## `@svizzle/ui` v0.4.1 (next)
+
+- `Link`: fixed behaviour of `style` when `theme.color` is nullish
+
 ## `@svizzle/atlas` v0.6.0 (next)
 
 - NUTS: add hierarchy and unified ids
