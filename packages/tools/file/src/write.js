@@ -172,7 +172,7 @@ export const saveResponse = filepath => response => {
  * @arg {string} outputs[].filepath - path where to save `object`
  * @arg {string} outputs[].object - object to write in `filepath`
  * @arg {number} [outputs[].indentation=2] - The amount of blanks to indent the output file
- * @return {promise} - Object -> Promise - @sideEffects: fs.writeFile
+ * @return {promise} - Object -> Promise - @sideEffects: fs.writeFile, console.log
  *
  * @example
 > saveObjects({
