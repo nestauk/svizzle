@@ -3,9 +3,9 @@
 	import Download from '@svizzle/ui/src/icons/feather/Download.svelte';
 	import LinkButton from '@svizzle/ui/src/LinkButton.svelte';
 
-	import PolymorphicString from 'components/Info/PolymorphicString.svelte';
-	import PolymorphicURL from 'components/Info/PolymorphicURL.svelte';
-	import {_theme} from 'stores/theme';
+	import PolymorphicString from './PolymorphicString.svelte';
+	import PolymorphicURL from './PolymorphicURL.svelte';
+	import {_theme} from '../../stores/theme';
 
 	const formatDate = _.pipe([
 		String,

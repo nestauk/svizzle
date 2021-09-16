@@ -10,7 +10,7 @@
 		deselectAllRegions,
 		selectAllRegions,
 		toggleRegionNUTS1,
-	} from 'stores/regionSelection';
+	} from '../stores/regionSelection';
 
 	export let title = null;
 

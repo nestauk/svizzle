@@ -1,13 +1,13 @@
 <script>
 	import Switch from '@svizzle/ui/src/Switch.svelte';
 
-	import RegionsSelector from 'components/RegionsSelector.svelte';
+	import RegionsSelector from './RegionsSelector.svelte';
 	import {
 		_colorSchemeLabel,
 		_colorSchemeLabels,
 		_theme,
 		toggleColorScheme
-	} from 'stores/theme';
+	} from '../stores/theme';
 
 	const defaultHandlers = {
 		toggledFiltering: null,

@@ -18,18 +18,18 @@
 
 	// components
 
-	import GeoFilterModal from 'components/GeoFilterModal.svelte';
-	import Header from 'components/Header.svelte';
-	import InfoModal from 'components/Info/InfoModal.svelte';
-	import InfoView from 'components/Info/InfoView.svelte';
-	import SettingsRow from 'components/SettingsRow.svelte';
-	import SettingsView from 'components/SettingsView.svelte';
-	import TrendsDiv from 'components/TrendsDiv.svelte';
-	import TrendsG from 'components/TrendsG.svelte';
+	import GeoFilterModal from '../../lib/components/GeoFilterModal.svelte';
+	import Header from '../../lib/components/Header.svelte';
+	import InfoModal from '../../lib/components/Info/InfoModal.svelte';
+	import InfoView from '../../lib/components/Info/InfoView.svelte';
+	import SettingsRow from '../../lib/components/SettingsRow.svelte';
+	import SettingsView from '../../lib/components/SettingsView.svelte';
+	import TrendsDiv from '../../lib/components/TrendsDiv.svelte';
+	import TrendsG from '../../lib/components/TrendsG.svelte';
 
 	// stores
 
-	import {_isSmallScreen, _screenClasses} from 'stores/layout';
+	import {_isSmallScreen, _screenClasses} from '../../lib/stores/layout';
 	import {
 		_doFilterRegions,
 		_geoModal,
@@ -38,28 +38,28 @@
 		hideInfoModal,
 		toggleGeoModal,
 		toggleInfoModal,
-	} from 'stores/modals';
+	} from '../../lib/stores/modals';
 	import {
 		_viewsClasses,
 		setRoute,
 		showView,
-	} from 'stores/navigation';
+	} from '../../lib/stores/navigation';
 	import {
 		_preselectedNUTS2Ids,
 		_selectedNUT2Ids,
 		_someUnselectedRegions,
-	} from 'stores/regionSelection';
-	import {_availableYears, resetSelectedYear} from 'stores/selection';
+	} from '../../lib/stores/regionSelection';
+	import {_availableYears, resetSelectedYear} from '../../lib/stores/selection';
 	import {
 		_theme,
 		_makeColorScale,
 		_makeColorBins,
-	} from 'stores/theme';
+	} from '../../lib/stores/theme';
 
 	/* local utils */
 
-	import config from 'config';
-	import {makeGetIndicatorFormatOf} from 'utils/format';
+	import config from '../../lib/config';
+	import {makeGetIndicatorFormatOf} from '../../lib/utils/format';
 
 	/* consts */
 

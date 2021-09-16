@@ -1,5 +1,5 @@
 <script>
-	import TrendsG from 'components/TrendsG.svelte';
+	import TrendsG from './TrendsG.svelte';
 
 	export let colorScale = null;
 	export let data = null;

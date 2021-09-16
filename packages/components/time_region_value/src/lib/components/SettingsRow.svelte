@@ -10,7 +10,7 @@
 		_colorSchemeLabels,
 		_theme,
 		toggleColorScheme
-	} from 'stores/theme';
+	} from '../stores/theme';
 
 	const defaultHandlers = {
 		toggledFiltering: null,

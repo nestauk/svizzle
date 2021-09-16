@@ -10,7 +10,7 @@
 		deselectAllRegions,
 		selectAllRegions,
 		toggleRegionNUTS1,
-	} from 'stores/regionSelection';
+	} from '../stores/regionSelection';
 
 	const onMouseEnter = id => () => {
 		$_preselectedNUTS1Id = id;

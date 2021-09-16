@@ -2,16 +2,16 @@
 	import ScreenGauge from '@svizzle/ui/src/gauges/screen/ScreenGauge.svelte';
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
 
-	import Sidebar from 'components/Sidebar.svelte';
-	import Timeline from 'components/Timeline.svelte';
-	import ViewSelector from 'components/ViewSelector.svelte';
-	import {setGroups, setPOIs} from 'stores/data';
+	import Sidebar from '../lib/components/Sidebar.svelte';
+	import Timeline from '../lib/components/Timeline.svelte';
+	import ViewSelector from '../lib/components/ViewSelector.svelte';
+	import {setGroups, setPOIs} from '../lib/stores/data';
 	import {
 		_isSmallScreen,
 		_screenClasses,
 		_timelineHeight,
 		_timelineWidth,
-	} from 'stores/layout';
+	} from '../lib/stores/layout';
 	import {
 		_isTimelineHidden,
 		_routes,
@@ -20,11 +20,11 @@
 		setHrefBase,
 		setNavFlags,
 		showView,
-	} from 'stores/navigation';
-	import {setRegionSettings} from 'stores/regionSelection';
-	import {_availableYears, _selectedYear} from 'stores/selection';
-	import {_style, _theme, customizeTheme} from 'stores/theme';
-	import {isServerSide} from 'utils/env';
+	} from '../lib/stores/navigation';
+	import {setRegionSettings} from '../lib/stores/regionSelection';
+	import {_availableYears, _selectedYear} from '../lib/stores/selection';
+	import {_style, _theme, customizeTheme} from '../lib/stores/theme';
+	import {isServerSide} from '../lib/utils/env';
 
 	export let _groups = null;
 	export let flags = null;

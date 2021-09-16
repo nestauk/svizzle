@@ -7,7 +7,7 @@ import {
 import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
 
-import UK_NUTS_1_2 from 'data/UK_NUTS_1_2.json';
+import UK_NUTS_1_2 from '../data/UK_NUTS_1_2.json';
 
 export const _regionSettings = writable();
 export const setRegionSettings = obj => _regionSettings.set(obj);

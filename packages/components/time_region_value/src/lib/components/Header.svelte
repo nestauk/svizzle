@@ -3,7 +3,7 @@
 	import Info from '@svizzle/ui/src/icons/feather/Info.svelte';
 	import * as _ from 'lamb';
 
-	import {_isSmallScreen} from 'stores/layout';
+	import {_isSmallScreen} from '../stores/layout';
 
 	export let subtitle = null;
 	export let title = null;

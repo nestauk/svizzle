@@ -19,16 +19,16 @@
 
 	/* local stores */
 
-	import {_timelineLayout as _layout} from 'stores/layout';
-	import {_availableYears} from 'stores/selection';
+	import {_timelineLayout as _layout} from '../stores/layout';
+	import {_availableYears} from '../stores/selection';
 
 	/* local utils */
 
-	import {getNutsId, sortAscByYear} from 'utils/domain';
+	import {getNutsId, sortAscByYear} from '../utils/domain';
 
 	/* data */
 
-	import yearlyKeyToLabel from 'data/NUTS2_UK_labels';
+	import yearlyKeyToLabel from '../data/NUTS2_UK_labels';
 
 	/* consts */
 

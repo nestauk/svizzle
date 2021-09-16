@@ -4,12 +4,12 @@
 
 	/* local stores */
 
-	import {_isSmallScreen, _timelineLayout} from 'stores/layout';
-	import {_hrefBase, setRoute, showView} from 'stores/navigation';
-	import {resetSelection} from 'stores/selection';
-	import {isServerSide} from 'utils/env';
-	import {shortenYear} from 'utils/format';
-	import {makeURL} from 'utils/url';
+	import {_isSmallScreen, _timelineLayout} from '../lib/stores/layout';
+	import {_hrefBase, setRoute, showView} from '../lib/stores/navigation';
+	import {resetSelection} from '../lib/stores/selection';
+	import {isServerSide} from '../lib/utils/env';
+	import {shortenYear} from '../lib/utils/format';
+	import {makeURL} from '../lib/utils/url';
 
 	/* consts */
 

@@ -1,8 +1,8 @@
 import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
 
-import {_isSmallScreen} from 'stores/layout';
-import {makeClasses} from 'utils/style';
+import {_isSmallScreen} from '../stores/layout';
+import {makeClasses} from '../utils/style';
 
 // utils
 
