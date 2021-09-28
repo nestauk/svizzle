@@ -1,3 +1,7 @@
+## `@svizzle/utils` v0.16.0 (next)
+
+- add `arraySumWith`
+
 ## `@svizzle/utils` v0.15.0
 
 - add `isPromise`

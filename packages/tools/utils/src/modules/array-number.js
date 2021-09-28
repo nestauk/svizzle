@@ -4,8 +4,9 @@
 
 import * as _ from 'lamb';
 
-import {getValue} from './object-any';
+import {arraySumWith} from './[any-number]-[array-number]';
 import {getLength} from './iterable-number';
+import {getValue} from './object-any';
 
 /**
  * Return a random number in the specified range.
@@ -98,7 +99,7 @@ export const arrayAverage = _.pipe([
  * Return the average of values of a {key, value}[] array
  *
  * @function
- * @arg {array} – {key, value}[]
+ * @arg {array} - {key, value}[]
  * @return {number}
  *
  * @example
@@ -112,9 +113,6 @@ export const arrayAverage = _.pipe([
  * @since 0.11.0
  */
 export const keyValueArrayAverage = _.pipe([
-	_.collect([
-		_.pipe([_.mapWith(getValue), arraySum]),
-		getLength
-	]),
+	_.collect([arraySumWith(getValue), getLength]),
 	_.apply(_.divide),
 ]);

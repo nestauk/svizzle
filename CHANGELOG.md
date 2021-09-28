@@ -14,6 +14,10 @@
 
 - add `saveObjects`
 
+## `@svizzle/utils` v0.16.0 (next)
+
+- add `arraySumWith`
+
 
 ## 20210714
 
