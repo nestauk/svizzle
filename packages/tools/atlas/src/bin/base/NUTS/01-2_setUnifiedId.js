@@ -121,8 +121,15 @@ const getNutsParentYearlyId = yearlyId =>
 	yearlyId.includes('UKN') && yearlyId.length === 10
 		? yearlyId.slice(0, -2).concat('0')	// North Ireland, e.g. 2016/UKN12 -> 2016/UKN0
 		: yearlyId.includes('N_A')
-			? yearlyId.slice(0, -3).concat('EL')	// 2010/N_A, Mount Athos, 2010/EL
+			? yearlyId.slice(0, 5).concat('EL')	// 2010/N_A, Mount Athos, 2010/EL
 			: yearlyId.slice(0, -1);
+
+const getNutsRootYearlyId = yearlyId =>
+	yearlyId.includes('UKN') && yearlyId.length === 10
+		? yearlyId.slice(0, 7)	// North Ireland, e.g. 2016/UKN12 -> 2016/UK
+		: yearlyId.includes('N_A')
+			? yearlyId.slice(0, 5).concat('EL')	// 2010/N_A, Mount Athos, 2010/EL
+			: yearlyId.slice(0, 7);
 
 const makeUnifiedIds = (sourceTexts, recodes) => {
 	let id = 0;
@@ -161,8 +168,17 @@ const makeUnifiedIds = (sourceTexts, recodes) => {
 				source.pid = yearlyNutsIdToId[parentYearlyId];
 
 				if (_.isUndefined(source.pid)) {
-					console.log('!!! no source.pid for:', yearlyId)
+					console.log('⚠️⚠️⚠️ no source.pid for:', yearlyId)
 				}
+			}
+
+			/* root id */
+
+			const rootYearlyId = getNutsRootYearlyId(yearlyId);
+			source.rootId = yearlyNutsIdToId[rootYearlyId];
+
+			if (_.isUndefined(source.rootId)) {
+				console.log('⚠️⚠️⚠️ no source.rootId for:', yearlyId)
 			}
 
 			return source
@@ -214,33 +230,46 @@ const makeHierarchy = _.pipe([
 		_.groupBy(getId),
 	]),
 	([areasByParentId, areasById]) => _.mapValues(areasById, (areas, id) => {
+		/* name */
 		const name = getName(areas);
 
+		/* pid */
 		// check that `pid` is the same for all areas with the same `id`
 		const pids = _.uniques(_.pluck(areas, 'pid'));
 		if (pids.length > 1) {
-			console.log(`id ${id} has multiple pids: ${pids}`)
+			console.log(`⚠️⚠️⚠️ id ${id} has multiple pids: ${pids}`)
 		}
 		const [{pid},] = areas;
 
-		const props = {}
+		/* rootId */
+		// check that `pid` is the same for all areas with the same `id`
+		const rootIds = _.uniques(_.pluck(areas, 'rootId'));
+		if (rootIds.length > 1) {
+			console.log(`⚠️⚠️⚠️ id ${id} has multiple rootIds: ${rootIds}`)
+		}
+		const [{rootId},] = areas;
+
+		/* level, levels */
+		const lev = {}
 		const levels = getLevels(areas);
 		if (levels.length === 1) {
 			// eslint-disable-next-line prefer-destructuring
-			props.level = levels[0];
+			lev.level = levels[0];
 		} else {
-			props.levels = levels;
+			lev.levels = levels;
 		}
 
+		/* children */
 		const children = areasByParentId[id]
 			? _.uniques(_.map(areasByParentId[id], getId))
 			: undefined;
 
 		return {
+			name,
 			id,
 			pid,
-			name,
-			...props,
+			rootId,
+			...lev,
 			children,
 		}
 	})
