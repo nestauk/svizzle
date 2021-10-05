@@ -1,6 +1,6 @@
 ## `@svizzle/utils` v0.16.0 (next)
 
-- add `arraySumWith`
+- add `arraySumWith`, `updateKeys`
 
 ## `@svizzle/utils` v0.15.0
 

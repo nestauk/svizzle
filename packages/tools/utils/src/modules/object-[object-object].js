@@ -192,6 +192,38 @@ export const transformValues = fnMap => _.mapValuesWith(
 );
 
 /**
+ * Return a function that expects an object and applies the provided updater
+ * function to the values correspondent to the provided keys, leaving the other
+ * properties unchanged.
+ *
+ * @function
+ * @arg {object} - {keys: Array, updater: Any -> Any}
+ * @return {function} - Object -> Object
+ *
+ * @example
+> update = updateKeys({
+	keys: ['a', 'k', 'm'],
+	updater: x => x * 2
+});
+> update({a: 1, b: 2, d: 4, k: 7, m: 2})
+{a: 2, b: 2, d: 4, k: 14, m: 4}
+> update({a: 1, b: 2, d: 4})
+{a: 2, b: 2, d: 4}
+> update({b: 2, d: 4})
+{b: 2, d: 4}
+ *
+ * @since 0.16.0
+ */
+export const updateKeys = ({keys, updater}) => obj =>
+	_.reduce(keys, (acc, key) => {
+		if (key in acc) {
+			acc[key] = updater(acc[key])
+		}
+
+		return acc;
+	}, {...obj});
+
+/**
  * Return a function expecting an object to merge with the input object
  *
  * @function

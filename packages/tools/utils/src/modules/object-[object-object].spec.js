@@ -11,6 +11,7 @@ import {
 	mergeObj,
 	transformPaths,
 	transformValues,
+	updateKeys,
 } from './object-[object-object]';
 
 const roundTo2 = roundTo(2);
@@ -120,6 +121,7 @@ describe('Object -> (Object -> Object)', function() {
 			assert.deepStrictEqual(transform(obj), expected);
 		});
 	});
+
 	describe('transformValues', function() {
 		const obj = {
 			name: 'foo',
@@ -153,6 +155,44 @@ describe('Object -> (Object -> Object)', function() {
 				b: '2',
 				width: '10px'
 			});
+		});
+	});
+
+	describe('updateKeys', function() {
+		const update = updateKeys({
+			keys: ['a', 'k', 'm'],
+			updater: x => x * 2
+		});
+		it('should return a function that expects an object and applies the provided updater function to the values correspondent to the provided keys, leaving the other properties unchanged.', function() {
+			const actual = update({a: 1, b: 2, d: 4, k: 7, m: 2});
+			const expected = {a: 2, b: 2, d: 4, k: 14, m: 4};
+
+			assert.deepStrictEqual(actual, expected);
+		});
+		it('should work when some of the provided keys are not in the input object', function() {
+			const actual = update({a: 1, b: 2, d: 4});
+			const expected = {a: 2, b: 2, d: 4};
+
+			assert.deepStrictEqual(actual, expected);
+		});
+		it('should work when none of the provided keys are in the input object', function() {
+			const actual = update({b: 2, d: 4});
+			const expected = {b: 2, d: 4};
+
+			assert.deepStrictEqual(actual, expected);
+		});
+		it('should work with empty input objects', function() {
+			const actual = update({});
+			const expected = {};
+
+			assert.deepStrictEqual(actual, expected);
+		});
+		it('should not modify the input object', function() {
+			const input = {a: 1, b: 2, d: 4, k: 7, m: 2};
+			const ref = {...input};
+			update(input);
+
+			assert.deepStrictEqual(input, ref);
 		});
 	});
 
