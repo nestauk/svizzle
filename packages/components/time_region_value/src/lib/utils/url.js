@@ -1,4 +1,4 @@
-import {isClientSide} from 'utils/env';
+import {isClientSide} from '../utils/env';
 
 export const makeURL = (base, id, year) => {
 	let url = year

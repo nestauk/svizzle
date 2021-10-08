@@ -2,12 +2,12 @@
 	import * as _ from 'lamb';
 	import {isNotNil} from '@svizzle/utils';
 
-	import {_yearRange} from 'stores/data';
-	import {_timelineLayout as _layout} from 'stores/layout';
-	import {_hrefBase} from 'stores/navigation';
-	import {isServerSide} from 'utils/env';
-	import {shortenYear} from 'utils/format';
-	import {makeURL} from 'utils/url';
+	import {_yearRange} from '../stores/data';
+	import {_timelineLayout as _layout} from '../stores/layout';
+	import {_hrefBase} from '../stores/navigation';
+	import {isServerSide} from '../utils/env';
+	import {shortenYear} from '../utils/format';
+	import {makeURL} from '../utils/url';
 
 	const zeroIfNaN = _.when(isNaN, _.always(0));
 

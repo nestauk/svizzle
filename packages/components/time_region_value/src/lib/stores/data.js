@@ -1,7 +1,7 @@
 import {derived, writable} from 'svelte/store';
 import {inclusiveRange} from '@svizzle/utils';
 
-import {getYearExtent, makeIndicatorsLookup} from 'utils/data';
+import {getYearExtent, makeIndicatorsLookup} from '../utils/data';
 
 /* groups */
 

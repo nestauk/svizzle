@@ -2,7 +2,7 @@
 	import * as _ from 'lamb';
 	import {noop} from '@svizzle/utils';
 
-	import InfoView from 'components/Info/InfoView.svelte';
+	import InfoView from '../Info/InfoView.svelte';
 
 	export let api_doc_url = null;
 	export let api_type = null;

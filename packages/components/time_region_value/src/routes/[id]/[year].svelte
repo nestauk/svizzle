@@ -35,17 +35,17 @@
 
 	// components
 
-	import GeoFilterModal from 'components/GeoFilterModal.svelte';
-	import Header from 'components/Header.svelte';
-	import InfoModal from 'components/Info/InfoModal.svelte';
-	import InfoView from 'components/Info/InfoView.svelte';
-	import SettingsRow from 'components/SettingsRow.svelte';
-	import SettingsView from 'components/SettingsView.svelte';
+	import GeoFilterModal from '../../lib/components/GeoFilterModal.svelte';
+	import Header from '../../lib/components/Header.svelte';
+	import InfoModal from '../../lib/components/Info/InfoModal.svelte';
+	import InfoView from '../../lib/components/Info/InfoView.svelte';
+	import SettingsRow from '../../lib/components/SettingsRow.svelte';
+	import SettingsView from '../../lib/components/SettingsView.svelte';
 
 	// stores
 
-	import {_POIs} from 'stores/data';
-	import {_isSmallScreen, _screenClasses} from 'stores/layout';
+	import {_POIs} from '../../lib/stores/data';
+	import {_isSmallScreen, _screenClasses} from '../../lib/stores/layout';
 	import {
 		_doFilterRegions,
 		_geoModal,
@@ -54,13 +54,13 @@
 		hideInfoModal,
 		toggleGeoModal,
 		toggleInfoModal,
-	} from 'stores/modals';
+	} from '../../lib/stores/modals';
 	import {
 		_navFlags,
 		_viewsClasses,
 		setRoute,
 		showView,
-	} from 'stores/navigation';
+	} from '../../lib/stores/navigation';
 	import {
 		_getFeatureKey,
 		_hasValidKey,
@@ -68,25 +68,25 @@
 		_regionSettings,
 		_selectedNUT2Ids,
 		_someUnselectedRegions,
-	} from 'stores/regionSelection';
-	import {_availableYears, _selectedYear} from 'stores/selection';
+	} from '../../lib/stores/regionSelection';
+	import {_availableYears, _selectedYear} from '../../lib/stores/selection';
 	import {
 		_makeColorBins,
 		_makeColorScale,
 		_theme,
-	} from 'stores/theme';
+	} from '../../lib/stores/theme';
 
 	/* local utils  */
 
-	import config from 'config';
-	import {getTopojson, makeGeojson, topoCache} from 'utils/boundaries';
-	import {getNutsId} from 'utils/domain';
-	import {isClientSide} from 'utils/env';
-	import {makeGetIndicatorFormatOf, makeGetRefFormatOf} from 'utils/format';
+	import config from '../../lib/config';
+	import {getTopojson, makeGeojson, topoCache} from '../../lib/utils/boundaries';
+	import {getNutsId} from '../../lib/utils/domain';
+	import {isClientSide} from '../../lib/utils/env';
+	import {makeGetIndicatorFormatOf, makeGetRefFormatOf} from '../../lib/utils/format';
 
 	/* data */
 
-	import yearlyKeyToLabel from 'data/NUTS2_UK_labels';
+	import yearlyKeyToLabel from '../../lib/data/NUTS2_UK_labels';
 	// import yearlyKeyToLabel from '@svizzle/atlas/NUTS2_UK_labels'; // TODO
 
 	/* consts */

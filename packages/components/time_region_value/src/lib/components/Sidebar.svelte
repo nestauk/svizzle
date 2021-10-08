@@ -2,10 +2,10 @@
 	import Link from '@svizzle/ui/src/Link.svelte';
 	import {onMount} from 'svelte';
 
-	import {setGroups} from 'stores/data';
-	import {_hrefBase} from 'stores/navigation';
-	import {_theme} from 'stores/theme';
-	import {makeURL} from 'utils/url';
+	import {setGroups} from '../stores/data';
+	import {_hrefBase} from '../stores/navigation';
+	import {_theme} from '../stores/theme';
+	import {makeURL} from '../utils/url';
 
 	export let _groups = null;
 	export let currentId = null;
