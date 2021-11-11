@@ -3,19 +3,19 @@
 	import XCircle from './icons/feather/XCircle.svelte';
 
 	export let _screen;
-	export let currentId;
 	export let components;
+	export let currentIndex;
 	
 	let isActive = false;
 
 	function init () {
-		currentId = 0;
+		currentIndex = 0;
 		isActive = true;
 	}
 
 	function next () {
-		currentId++;
-		if (currentId >= components.length) {
+		currentIndex++;
+		if (currentIndex >= components.length) {
 			isActive = false;
 		}
 	}
@@ -31,7 +31,7 @@
 	>
 		<div class='inner'>
 			<div class='content'>
-				<svelte:component this={components?.[currentId]} />
+				<svelte:component this={components?.[currentIndex]} />
 			</div>
 			<button
 				aria-label='Close banner'
