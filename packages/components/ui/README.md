@@ -138,6 +138,13 @@ Props:
 
 Displays a message when Javascript is disabled.
 
+## ResponsiveFlex
+
+Handles content layout so that its children are aligned:
+
+* horizontally on `medium` and larger displays (according to `ScreenGauge`)
+* vertically centered on `small` and smaller displays
+
 ## Switch
 
 A simple toggle between 2 values.

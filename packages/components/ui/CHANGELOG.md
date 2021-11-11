@@ -3,6 +3,7 @@
 - `Link`: fixed behaviour of `style` when `theme.color` is nullish
 - add `MultiBanner` component
 - add `NoScript` component
+- add `ResponsiveFlex` component
 
 ## `@svizzle/ui` v0.4.0
 
