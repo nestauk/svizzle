@@ -6,6 +6,7 @@
 
 - `Link`: fixed behaviour of `style` when `theme.color` is nullish
 - add `MultiBanner` component
+- add `NoScript` component
 
 ## `@svizzle/atlas` v0.6.0 (next)
 

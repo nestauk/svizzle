@@ -134,6 +134,10 @@ Props:
 - `components`: Array of Svelte components, dewfaults to empty array
 - `currentIndex`: number, defaults to 0
 
+## NoScript
+
+Displays a message when Javascript is disabled.
+
 ## Switch
 
 A simple toggle between 2 values.
