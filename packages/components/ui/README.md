@@ -123,6 +123,17 @@ Props:
 - `fontSize` (string, default: '14px')
 - `text` (string, default: 'Please provide a message')
 
+## MultiBanner
+
+A component to display multiple banners in a sequence, to be used typically during page loading.
+
+[See it in action](https://access-research-development-spatial-data.beis.gov.uk/).
+
+Props:
+- `_screen`: `ScreenGauge` store, defaults to `null`
+- `components`: Array of Svelte components, dewfaults to empty array
+- `currentIndex`: number, defaults to 0
+
 ## Switch
 
 A simple toggle between 2 values.

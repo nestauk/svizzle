@@ -1,6 +1,7 @@
 ## `@svizzle/ui` v0.4.1 (next)
 
 - `Link`: fixed behaviour of `style` when `theme.color` is nullish
+- add `MultiBanner` component
 
 ## `@svizzle/ui` v0.4.0
 
