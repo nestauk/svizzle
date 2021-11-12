@@ -129,9 +129,11 @@
 		position: fixed;
 		top: 0;
 		visibility: hidden;
+		width: 0;
 	}
 	.textSample span {
 		display: block;
+		width: max-content;
 	}
 	.devInfo {
 		background-color: white;

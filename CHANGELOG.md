@@ -8,6 +8,7 @@
 - add `MultiBanner` component
 - add `NoScript` component
 - add `ResponsiveFlex` component
+- `ScreenGauge`: fixed `sampleText` enlarging the document size
 
 ## `@svizzle/atlas` v0.6.0 (next)
 

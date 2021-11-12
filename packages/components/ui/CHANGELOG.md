@@ -4,6 +4,7 @@
 - add `MultiBanner` component
 - add `NoScript` component
 - add `ResponsiveFlex` component
+- `ScreenGauge`: fixed `sampleText` enlarging the document size
 
 ## `@svizzle/ui` v0.4.0
 
