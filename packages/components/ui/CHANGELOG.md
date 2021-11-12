@@ -6,6 +6,7 @@
 - add `ResponsiveFlex` component
 - `ScreenGauge`: fixed `sampleText` enlarging the document size
 - rename `ScreenGauge` to `ScreenSensor`
+- `ScreenSensor`: made it into a singleton so that it renders only once
 
 ## `@svizzle/ui` v0.4.0
 
