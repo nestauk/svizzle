@@ -3,6 +3,8 @@
 
 	export const _screen = writable();
 	export const defaultBreakpoints = [45, 90, 135, 180];
+
+	let instancesCount = 0;
 </script>
 
 <script>
@@ -13,11 +15,16 @@
 		mergeObjects
 	} from '@svizzle/utils';
 
+	import WindowBinder from './WindowBinder.svelte';
+
 	const makeClasses = _.pipe([
 		mergeObjects,
 		getTruthyValuesKeys,
 		joinWithBlank
 	]);
+
+	const instanceId = instancesCount++;
+	const shouldRender = instanceId === 0;
 
 	export let fontSize = null;
 	export let isDev = false;
@@ -86,7 +93,7 @@
 	$: isServerSide = typeof window === 'undefined';
 	$: sampleHeight && sampleWidth && updateScreen();
 	$: fontSize && updateScreen();
-	$: devInfo = $_screen && {
+	$: devInfo = shouldRender && $_screen && {
 		Classes: $_screen.classes,
 		Display: `${$_screen.display.width} x ${$_screen.display.height} px`,
 		DPPR: $_screen.display.pixelRatio.toPrecision(4),
@@ -95,29 +102,31 @@
 	};
 </script>
 
-<svelte:window
-	bind:innerWidth={innerWidth}
-	bind:innerHeight={innerHeight}
-	on:resize={updateScreen}
-/>
+{#if shouldRender}
+	<WindowBinder
+		bind:innerHeight
+		bind:innerWidth
+		onResize={updateScreen}
+	/>
 
-<div class='textSample'>
-	<span
-		bind:offsetWidth={sampleWidth}
-		bind:offsetHeight={sampleHeight}
-		style={fontSize && `font-size: ${fontSize}` }
-	>{sampleText}</span>
-</div>
-
-{#if isDev && sampleHeight && sampleWidth && devInfo}
-	<div class='devInfo'>
-		<p>DPPR: {devInfo.DPPR}</p>
-		<p>Display: {devInfo.Display}</p>
-		<p>Text: {devInfo.Text}</p>
-		<p>Classes: {devInfo.Classes}</p>
-		<p>Orientation: {devInfo.Orientation}</p>
-		<button on:click={() => {isDev = false}}>Close</button>
+	<div class='textSample'>
+		<span
+			bind:offsetWidth={sampleWidth}
+			bind:offsetHeight={sampleHeight}
+			style={fontSize && `font-size: ${fontSize}`}
+		>{sampleText}</span>
 	</div>
+
+	{#if isDev && sampleHeight && sampleWidth && devInfo}
+		<div class='devInfo'>
+			<p>DPPR: {devInfo.DPPR}</p>
+			<p>Display: {devInfo.Display}</p>
+			<p>Text: {devInfo.Text}</p>
+			<p>Classes: {devInfo.Classes}</p>
+			<p>Orientation: {devInfo.Orientation}</p>
+			<button on:click={() => {isDev = false}}>Close</button>
+		</div>
+	{/if}
 {/if}
 
 <style>
