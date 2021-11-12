@@ -1,5 +1,5 @@
 <script>
-	import {_screen} from './gauges/screen/ScreenGauge.svelte';
+	import {_screen} from './sensors/screen/ScreenSensor.svelte';
 </script>
 
 <div class='ResponsiveFlex {$_screen?.classes}'>

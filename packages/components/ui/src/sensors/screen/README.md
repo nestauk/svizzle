@@ -1,4 +1,4 @@
-# Screen Gauge Component
+# ScreenSensor Component
 
 You can use this component to measure screen features reactively.
 
@@ -47,20 +47,20 @@ In particular, `sizes` and `classes` allow for progressive enhancements starting
 
 ## Usage
 
-### Render `<ScreenGauge/>`
+### Render `<ScreenSensor/>`
 
-In a component of your app, instantiate this gauge.
+In a component of your app, instantiate this sensor.
 In a Sapper app this would usually be a `_layout.svelte` file.
 
 ```svelte
 <script>
-	import ScreenGauge from '@svizzle/ui/src/gauges/ScreenGauge.svelte';
+	import ScreenSensor from '@svizzle/ui/src/sensors/ScreenSensor.svelte';
 
 	const isDev = process.env.NODE_ENV === 'development';
 	const fontSize = '16px';
 </script>
 
-<ScreenGauge
+<ScreenSensor
 	{fontSize}
 	{isDev}
 	breakpoints={[60, 82, 100, 120]}
@@ -81,11 +81,11 @@ Props:
 
 ### Use `_screen`
 
-In other components of your app, `import` the `_screen` store from `ScreenGauge.svelte` and use as you see fit.
+In other components of your app, `import` the `_screen` store from `ScreenSensor.svelte` and use as you see fit.
 
 ```svelte
 <script>
-	import {_screen, breakpoints} from '@svizzle/ui/src/gauges/ScreenGauge.svelte';
+	import {_screen, breakpoints} from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
 
 	$: console.log($_screen, breakpoints);
 </script>

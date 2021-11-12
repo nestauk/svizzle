@@ -130,7 +130,7 @@ A component to display multiple banners in a sequence, to be used typically duri
 [See it in action](https://access-research-development-spatial-data.beis.gov.uk/).
 
 Props:
-- `_screen`: `ScreenGauge` store, defaults to `null`
+- `_screen`: `ScreenSensor` store, defaults to `null`
 - `components`: Array of Svelte components, dewfaults to empty array
 - `currentIndex`: number, defaults to 0
 
@@ -142,20 +142,20 @@ Displays a message when Javascript is disabled.
 
 Handles content layout so that its children are aligned:
 
-* horizontally on `medium` and larger displays (according to `ScreenGauge`)
+* horizontally on `medium` and larger displays (according to `ScreenSensor`)
 * vertically centered on `small` and smaller displays
 
 ## Switch
 
 A simple toggle between 2 values.
 
-## Gauge components
+## Sensor components
 
 These are components that we instantiate to measure some feature of the device/browser.
 
-### Screen Gauge
+### ScreenSensor
 
-Measures screen features reactively, see [here](src/gauges/screen).
+Measures screen features reactively, see [here](src/sensors/screen).
 
 ## Breakpoints
 

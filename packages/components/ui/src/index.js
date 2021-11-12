@@ -1,4 +1,4 @@
-export * from './gauges';
+export * from './sensors';
 export * from './icons';
 export {default as Link} from './Link.svelte';
 export {default as LinkButton} from './LinkButton.svelte';

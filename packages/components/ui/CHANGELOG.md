@@ -5,6 +5,7 @@
 - add `NoScript` component
 - add `ResponsiveFlex` component
 - `ScreenGauge`: fixed `sampleText` enlarging the document size
+- rename `ScreenGauge` to `ScreenSensor`
 
 ## `@svizzle/ui` v0.4.0
 
