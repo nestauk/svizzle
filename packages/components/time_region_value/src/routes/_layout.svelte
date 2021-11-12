@@ -1,6 +1,6 @@
 <script>
-	import ScreenGauge from '@svizzle/ui/src/gauges/screen/ScreenGauge.svelte';
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
+	import ScreenSensor from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
 
 	import Sidebar from 'components/Sidebar.svelte';
 	import Timeline from 'components/Timeline.svelte';
@@ -44,7 +44,7 @@
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
 </script>
 
-<ScreenGauge/>
+<ScreenSensor/>
 
 <!--
 	A Svelte/Sapper issue with binding `$_timelineWidth` to `clientWidth` in a

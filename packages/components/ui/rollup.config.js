@@ -30,7 +30,7 @@ const input = {
 	LinkButton: 'src/LinkButton.svelte',
 	LoadingView: 'src/LoadingView.svelte',
 	MessageView: 'src/MessageView.svelte',
-	ScreenGauge: 'src/gauges/screen/ScreenGauge.svelte',
+	ScreenSensor: 'src/sensors/screen/ScreenSensor.svelte',
 	Switch: 'src/Switch.svelte',
 };
 const removeComments = cleanup({
