@@ -78,6 +78,12 @@ Props:
 	- Text: max amount of chars by max amount of lines we can fit in the current display with the current font and font size;
 - `sampleText`: this component renders a hidden text to measure the average width of the current font; by default this text is the English alphabet (lowercase and uppercase) but you can pass a string of your choice, especially useful for other languages.
 
+### Caveats
+
+Note that this is a singleton component, meaning that only the first instance
+will work. Properties passed to instances created later will be ignored. On a
+Sapper app this would be typically the component instantiated in
+`_layout.svelte`.
 
 ### Use `_screen`
 
