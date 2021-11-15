@@ -1,6 +1,6 @@
 ## `@svizzle/utils` v0.16.0 (next)
 
-- add `arraySumWith`, `updateKeys`
+- add `arraySumWith`, `pluckPath`, `updateKeys`
 
 ## `@svizzle/utils` v0.15.0
 

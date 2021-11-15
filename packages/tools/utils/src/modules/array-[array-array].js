@@ -45,7 +45,7 @@ export const makeArrayTransformer = fnArr => _.pipe([
 [{a: 1, k: 4}, {a: 5}]
  *
  * @since 0.8.0
- * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluckKey
+ * @see https://ascartabelli.github.io/lamb/module-lamb.html#pluck
  */
 export const pluckKeys = keys => _.mapWith(_.pick(keys));
 

@@ -22,7 +22,7 @@
 
 ## `@svizzle/utils` v0.16.0 (next)
 
-- add `arraySumWith`, `updateKeys`
+- add `arraySumWith`, `pluckPath`, `updateKeys`
 
 
 ## 20210714
