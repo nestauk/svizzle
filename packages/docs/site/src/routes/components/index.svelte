@@ -35,7 +35,6 @@
 
 <style>
 	ul {
-		line-height: 1.5;
 		list-style: none;
 		margin: 0 0 1em 0;
 	}

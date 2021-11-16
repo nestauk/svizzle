@@ -2,6 +2,11 @@
 
 ## next
 
+## `@svizzle/site` v0.3.9 (next)
+
+- removed absolute font property declarations from CSS
+- added `A11yMenu` supporting `medium` and larger displays
+
 ## `@svizzle/ui` v0.5.0 (next)
 
 - `Link`: fixed behaviour of `style` when `theme.color` is nullish

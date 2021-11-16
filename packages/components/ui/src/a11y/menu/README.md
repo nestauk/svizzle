@@ -2,6 +2,11 @@
 
 You can use this component to add accessibility tools to a website.
 
+## Demo
+
+You can visit the [doc site](https://nestauk.github.io/svizzle/) to see it in
+action.
+
 ## Usage
 
 The accessibility menu depends on measurements made by the `<ScreenSensor/>` 
@@ -50,6 +55,9 @@ achieved by wrapping the component in a `<div>` or other element.
 	}
 </style>
 ```
+
+For a full implementation example please refer to
+`packages/docs/site/src/routes/_layout.svelte`.
 
 Props:
 - `A11yMenuDriver`
