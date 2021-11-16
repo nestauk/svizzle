@@ -1,7 +1,7 @@
 <script>
-	import {defaultRel} from './shared';
 	import ExternalLink from './icons/feather/ExternalLink.svelte';
 	import Icon from './icons/Icon.svelte';
+	import {defaultRel} from './utils/shared';
 
 	const defaultIconSize = 14;
 	const {defaultStrokeWidth} = Icon;

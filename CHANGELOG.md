@@ -2,15 +2,17 @@
 
 ## next
 
-## `@svizzle/ui` v0.4.1 (next)
+## `@svizzle/ui` v0.5.0 (next)
 
 - `Link`: fixed behaviour of `style` when `theme.color` is nullish
 - add `MultiBanner` component
 - add `NoScript` component
 - add `ResponsiveFlex` component
-- `ScreenGauge`: fixed `sampleText` enlarging the document size
-- rename `ScreenGauge` to `ScreenSensor`
-- `ScreenSensor`: made it into a singleton so that it renders only once
+- add `isClientSide`, `isServerSide` utils
+- `ScreenGauge`:
+	- fixed `sampleText` enlarging the document size
+	- renamed `ScreenGauge` to `ScreenSensor`
+	- made `ScreenSensor` into a singleton so that it renders only once
 
 ## `@svizzle/atlas` v0.6.0 (next)
 

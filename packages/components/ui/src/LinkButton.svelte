@@ -1,8 +1,8 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 
-	import {defaultRel} from './shared';
 	import Icon from './icons/Icon.svelte';
+	import {defaultRel} from './utils/shared';
 
 	const {
 		defaultFill,
