@@ -51,17 +51,17 @@
 	}
 
 	nav h2 {
-		font-family: Open Sans Regular;
+		font-weight: normal;
 	}
 	nav p {
-		line-height: 1.75rem;
+		line-height: 1.75;
 		display: flex;
 		align-items: center;
 		padding-left: 0.5rem;
 	}
 
 	nav p.selected {
-		font-family: Open Sans SemiBold;
+		font-weight: bold;
 	}
 
 	nav p:hover {

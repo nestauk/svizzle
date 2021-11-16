@@ -1,3 +1,8 @@
+## `@svizzle/site` v0.3.9 (next)
+
+- removed absolute font property declarations from CSS
+- added `A11yMenu` supporting `medium` and larger displays
+
 ## `@svizzle/site` v0.3.8
 
 - updated for changes in `/time_region_value`, `/ui`, `/atlas`
