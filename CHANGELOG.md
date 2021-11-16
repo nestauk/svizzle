@@ -14,6 +14,7 @@
 	- renamed `ScreenGauge` to `ScreenSensor`
 	- made `ScreenSensor` into a singleton so that it renders only once
 - add `StorageIO` component
+- add `A11yMenu` component
 
 ## `@svizzle/atlas` v0.6.0 (next)
 

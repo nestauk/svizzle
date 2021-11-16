@@ -10,6 +10,7 @@
 	- renamed `ScreenGauge` to `ScreenSensor`
 	- made `ScreenSensor` into a singleton so that it renders only once
 - add `StorageIO` component
+- add `A11yMenu` component
 
 ## `@svizzle/ui` v0.4.0
 
