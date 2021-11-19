@@ -26,7 +26,6 @@
 	const instanceId = instancesCount++;
 	const shouldRender = instanceId === 0;
 
-	export let fontSize = null;
 	export let isDev = false;
 	export let sampleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 	export let breakpoints = defaultBreakpoints;
@@ -92,7 +91,6 @@
 
 	$: isServerSide = typeof window === 'undefined';
 	$: sampleHeight && sampleWidth && updateScreen();
-	$: fontSize && updateScreen();
 	$: devInfo = shouldRender && $_screen && {
 		Classes: $_screen.classes,
 		Display: `${$_screen.display.width} x ${$_screen.display.height} px`,
@@ -113,7 +111,6 @@
 		<span
 			bind:offsetWidth={sampleWidth}
 			bind:offsetHeight={sampleHeight}
-			style={fontSize && `font-size: ${fontSize}`}
 		>{sampleText}</span>
 	</div>
 

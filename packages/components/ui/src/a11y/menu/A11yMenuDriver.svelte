@@ -10,17 +10,20 @@
 		mergeDefaultSettings,
 	} from './settings';
 
-	export let targetSelector = 'html';
+	const colorTargetSelector = 'html';
+	const textTargetSelector = 'body';
+
 	export let defaults = null;
 	export let useLocalStorage = true;
 
 	let defaultValue;
 
 	$: defaults && (defaultValue = mergeDefaultSettings(defaults));
-	$: targetNode = isClientSide && document.querySelector(targetSelector);
-	$: targetNode?.classList?.add(['color-corrected']);
-	$: targetNode && applyStyles(targetNode.style, $_a11yTextStyles);
-	$: targetNode && applyStyles(targetNode.style, $_a11yColorStyles);
+	$: colorTargetNode = isClientSide && document.querySelector(colorTargetSelector);
+	$: colorTargetNode?.classList?.add(['colorCorrected']);
+	$: colorTargetNode && applyStyles(colorTargetNode.style, $_a11yColorStyles);
+	$: textTargetNode = isClientSide && document.querySelector(textTargetSelector);
+	$: textTargetNode && applyStyles(textTargetNode.style, $_a11yTextStyles);
 </script>
 
 <ColorCorrection />

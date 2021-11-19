@@ -62,7 +62,6 @@ For a full implementation example please refer to
 Props:
 - `A11yMenuDriver`
 	- `defaults`: Will be merged with factory-default settings. See `settings.js`.
-	- `targetSelector`: Effects will bind to the first element selected by this. Default value is `'html'`.
 	- `useLocalStorage`: When true, settings are stored in browser's local storage and loaded on landing.
 - `A11yMenu`
 	- `_screen`: Receives the `_screen` store from `<ScreenSensor/>`.

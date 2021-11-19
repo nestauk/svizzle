@@ -9,6 +9,7 @@
 	- fixed `sampleText` enlarging the document size
 	- renamed `ScreenGauge` to `ScreenSensor`
 	- made `ScreenSensor` into a singleton so that it renders only once
+	- removed `fontSize` property
 - add `StorageIO` component
 - add `A11yMenu` component
 
