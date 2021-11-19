@@ -70,7 +70,7 @@ https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html
 		position: fixed;
 		visibility: hidden;
 	}
-	:global(.color-corrected) {
+	:global(.colorCorrected) {
 		filter: var(--color-correction); /* color vision deficiency */
 	}
 	:global(.simulated-deuteranopia) {
