@@ -14,6 +14,7 @@
 		joinWithBlank,
 		mergeObjects
 	} from '@svizzle/utils';
+	import {isServerSide} from '../../utils/env.js';
 
 	import WindowBinder from './WindowBinder.svelte';
 
@@ -89,7 +90,6 @@
 		});
 	}
 
-	$: isServerSide = typeof window === 'undefined';
 	$: sampleHeight && sampleWidth && updateScreen();
 	$: devInfo = shouldRender && $_screen && {
 		Classes: $_screen.classes,

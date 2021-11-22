@@ -2,6 +2,7 @@
 
 - removed absolute font property declarations from CSS
 - added `A11yMenu` supporting `medium` and larger displays
+- use `FontsLoader` component
 
 ## `@svizzle/site` v0.3.8
 
