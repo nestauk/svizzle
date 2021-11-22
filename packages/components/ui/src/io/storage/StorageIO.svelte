@@ -21,10 +21,9 @@
 		const initialValue = database.getValue(key) || defaultValue;
 		_store.set(initialValue);
 
-		const updateStore = newValue => {
-			// Current value in storage may be newer than value from event.
-			newValue = database.getValue(key) || defaultValue;
-			_store.set(newValue);
+		const syncStore = () => {
+			const currentValue = database.getValue(key) || defaultValue;
+			_store.set(currentValue);
 		};
 		const updateDb = newValue => {
 			if (isEqual(defaultValue, newValue)) {
@@ -34,13 +33,16 @@
 			}
 		}
 
-		// No infinite loops as both `storage` and `_store`
-		// don't fire if the new and old values are the same.
-		database.addListener?.(key, updateStore);
+		// When we update the store, we also update the database
 		_store.subscribe(updateDb);
 
+		// When the database changes, we sync the store
+		// e.g. you can edit `localStorage` in dev tools and expect the UI to
+		// update because it's bound to the store.
+		database.addListener?.(key, syncStore);
+
 		return () => {
-			database.removeListener?.(key, setValue);
+			database.removeListener?.(key, syncStore);
 		};
 	};
 </script>

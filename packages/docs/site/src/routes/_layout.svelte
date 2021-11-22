@@ -3,32 +3,40 @@
 		from '@svizzle/ui/src/a11y/menu/A11yMenu.svelte';
 	import A11yMenuDriver
 		from '@svizzle/ui/src/a11y/menu/A11yMenuDriver.svelte';
-	import {_isA11yDirty} from '@svizzle/ui/src/a11y/menu/settings';
+	import {
+		_a11ySettings,
+		_isA11yDirty
+	} from '@svizzle/ui/src/a11y/menu/settings';
 	import ScreenSensor, {_screen}
 		from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
+	import FontsLoader from '@svizzle/ui/src/drivers/fonts/FontsLoader.svelte';
 
 	import Nav from 'app/components/Nav.svelte';
+	import {a11yFontFamilies, fontsInfo} from 'app/config';
 
 	export let segment;
 
+	let fontLoadStatus;
 	let showA11yMenu;
 </script>
 
-<ScreenSensor />
 <A11yMenuDriver
 	defaults={{
 		typeface: {
-			defaultValue: 'Avenir Next Variable',
-			values: [
-				'Avenir Next Variable',
-				'Archivo',
-				'Noboto Flex',
-				'Courier New',
-				'Open Dyslexia'
-			],
+			defaultValue: a11yFontFamilies[0],
+			values: a11yFontFamilies,
 		}
 	}}
 />
+<FontsLoader
+	bind:status={fontLoadStatus}
+	firstFamilyToLoad={$_a11ySettings.typeface.value}
+	{fontsInfo}
+/>
+
+{#if fontLoadStatus?.isFirstLoaded}
+	<ScreenSensor />
+{/if}
 
 <header>
 	<Nav

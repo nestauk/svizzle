@@ -12,6 +12,7 @@
 	- removed `fontSize` property
 - add `StorageIO` component
 - add `A11yMenu` component
+- add `FontsLoader` component
 
 ## `@svizzle/ui` v0.4.0
 
