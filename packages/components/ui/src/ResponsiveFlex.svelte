@@ -3,7 +3,7 @@
 </script>
 
 <div class='ResponsiveFlex {$_screen?.classes}'>
-	<slot/>
+	<slot />
 </div>
 
 <style>

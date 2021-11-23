@@ -415,7 +415,7 @@
 					/>
 
 					{#if !flags.hideOrigin}
-						<circle r={geometry.originRadius}/>
+						<circle r={geometry.originRadius} />
 					{/if}
 
 					{#if !flags.hideTicks}

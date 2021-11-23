@@ -624,7 +624,7 @@
 									<g class='POIs'>
 										{#each POIsLayout as {isLeft, name, X, Y, dx, dy}}
 											<g transform='translate({X},{Y})'>
-												<circle r={markerRadius}/>
+												<circle r={markerRadius} />
 												<text
 													{dx}
 													{dy}

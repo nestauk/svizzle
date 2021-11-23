@@ -72,7 +72,7 @@ export const exactAmountBins = ({
 	const [min, max] = activeRange;
 
 	if (min === max) {
-		return [{ values: array }]
+		return [{values: array}]
 	}
 
 	const integerMin = Math.floor(min);
@@ -101,7 +101,7 @@ export const exactAmountBins = ({
 			isNotNil(index) && acc[index].values.push(item)
 			return acc;
 		},
-		_.map(ranges, range => ({ range, values: [] }))
+		_.map(ranges, range => ({range, values: []}))
 	);
 }
 

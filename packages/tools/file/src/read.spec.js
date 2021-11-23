@@ -13,7 +13,7 @@ import {
 	readJsonDir,
 	readTsv,
 } from './read';
-import { hasAnyExtensionOf } from './path';
+import {hasAnyExtensionOf} from './path';
 
 describe('read', function() {
 	describe('readFile', function() {

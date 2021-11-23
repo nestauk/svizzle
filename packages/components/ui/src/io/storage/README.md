@@ -8,7 +8,7 @@ supports storing data in cookies, `localStorage`, `sessionStorage` and
 
 Instantiate the component 
 
-### Render `<StorageIO/>`
+### Render `<StorageIO />`
 
 ```svelte
 <script>
