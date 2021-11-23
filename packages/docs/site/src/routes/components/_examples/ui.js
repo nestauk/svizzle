@@ -211,7 +211,7 @@ export default formatExamples([
 				href: 'https://svelte.dev',
 			},
 			usage: `
-				<Link href='https://svelte.dev'/>
+				<Link href='https://svelte.dev' />
 			`,
 		}, {
 			content: 'Svelte website',
@@ -350,7 +350,7 @@ export default formatExamples([
 				text: 'Click me',
 			},
 			usage: `
-				<LinkButton text='Click me'/>
+				<LinkButton text='Click me' />
 			`,
 		}, {
 			key: 'No `text`',
@@ -358,7 +358,7 @@ export default formatExamples([
 				href: 'https://svelte.dev'
 			},
 			usage: `
-				<LinkButton href='https://svelte.dev'/>
+				<LinkButton href='https://svelte.dev' />
 			`,
 		}, {
 			key: 'href + text + glyph (Download icon)',

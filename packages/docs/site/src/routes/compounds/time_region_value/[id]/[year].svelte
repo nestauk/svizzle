@@ -4,7 +4,7 @@
 
 	import {lookup} from '../_data/stores';
 
-	export function preload({ params: {id, year} }) {
+	export function preload({params: {id, year}}) {
 		return this.fetch(lookup[id].url)
 		.then(r => r.text())
 		.then(parseCSV(id))

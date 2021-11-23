@@ -39,7 +39,7 @@ const extractSvgBody = _.pipe([
 	_.getKey('children'),
 	_.mapWith(stringifySvgTags),
 	_.joinWith(''),
-	makePrefixed(`<svelte:options namespace='svg'/>\n`),
+	makePrefixed(`<svelte:options namespace='svg' />\n`),
 	makePostfixed('\n'),
 ]);
 const makeComponentName = _.pipe([

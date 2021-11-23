@@ -4,11 +4,11 @@
 
 <script context='module'>
 	// eslint-disable-next-line no-unused-vars
-	export function preload({ params, query }) {
+	export function preload({params, query}) {
 		return this.fetch('components.json')
 		.then(r => r.json())
 		.then(components => {
-			return { components };
+			return {components};
 		});
 	}
 </script>

@@ -46,7 +46,7 @@ export const reduceFromEmptyArray = reduceTo(Array);
   {id: '00', name: 'a'},
   {id: '11', name: 'b'}
 ])
-{ 11: 'b', 00: 'a' }
+{11: 'b', 00: 'a'}
  *
  * @since 0.3.0
  */

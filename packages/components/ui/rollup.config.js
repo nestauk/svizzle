@@ -67,7 +67,7 @@ const makeBrowserConfig = _.pipe([
 			removeComments,
 			// json(),
 			// buble({
-			//	 transforms: { dangerousForOf: true }
+			//	 transforms: {dangerousForOf: true}
 			// }),
 		],
 		treeshake

@@ -47,7 +47,7 @@ In particular, `sizes` and `classes` allow for progressive enhancements starting
 
 ## Usage
 
-### Render `<ScreenSensor/>`
+### Render `<ScreenSensor />`
 
 In a component of your app, instantiate this sensor.
 In a Sapper app this would usually be a `_layout.svelte` file.

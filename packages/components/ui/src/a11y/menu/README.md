@@ -9,9 +9,9 @@ action.
 
 ## Usage
 
-The accessibility menu depends on measurements made by the `<ScreenSensor/>` 
+The accessibility menu depends on measurements made by the `<ScreenSensor />` 
 component so it must be instantiated as well. For the options selected in the
-menu to have effect, an instance of the `<A11yMenuDriver/>` component must also
+menu to have effect, an instance of the `<A11yMenuDriver />` component must also
 be present. This component can be configured with customized default settings,
 such as a website specific list of typefaces. You'll find the default settings
 in `packages/components/ui/src/a11y/menu/settings.js`.
@@ -27,11 +27,11 @@ In a Sapper app these components would usually be instanced the main
 		from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
 </script>
 
-<ScreenSensor/>
-<A11yMenuDriver/>
+<ScreenSensor />
+<A11yMenuDriver />
 ```
 
-To display the menu itself `<A11yMenu/>` can be instantiated in the same file or
+To display the menu itself `<A11yMenu />` can be instantiated in the same file or
 elsewhere. Positioning of the component is left up to the developer and can be
 achieved by wrapping the component in a `<div>` or other element.
 
@@ -64,7 +64,7 @@ Props:
 	- `defaults`: Will be merged with factory-default settings. See `settings.js`.
 	- `useLocalStorage`: When true, settings are stored in browser's local storage and loaded on landing.
 - `A11yMenu`
-	- `_screen`: Receives the `_screen` store from `<ScreenSensor/>`.
+	- `_screen`: Receives the `_screen` store from `<ScreenSensor />`.
 
 ## Caveats
 

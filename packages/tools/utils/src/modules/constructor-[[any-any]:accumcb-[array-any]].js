@@ -20,7 +20,7 @@ import * as _ from 'lamb';
 	return acc;
 })
 > foo([{id: '00', name: 'a'}, {id: '11', name: 'b'}])
-Object { 11: 'b', 00: 'a' }
+Object {11: 'b', 00: 'a'}
  *
  * @since 0.3.0
  */

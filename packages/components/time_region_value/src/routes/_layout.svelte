@@ -44,7 +44,7 @@
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
 </script>
 
-<ScreenSensor/>
+<ScreenSensor />
 
 <!--
 	A Svelte/Sapper issue with binding `$_timelineWidth` to `clientWidth` in a
@@ -116,7 +116,7 @@
 {/if}
 
 {#if !$_screenClasses}
-	<LoadingView stroke={$_theme.colorMain}/>
+	<LoadingView stroke={$_theme.colorMain} />
 {/if}
 
 <style>
