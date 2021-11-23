@@ -65,3 +65,11 @@ Props:
 	- `useLocalStorage`: When true, settings are stored in browser's local storage and loaded on landing.
 - `A11yMenu`
 	- `_screen`: Receives the `_screen` store from `<ScreenSensor/>`.
+
+## Caveats
+
+`A11yMenuDriver` defines font families and sizes in the body element. If you
+specify font families and absolute font sizes in your components then these
+will not be affected by the driver. Please see 
+[packages/components/README.md](packages/components/README.md).
+

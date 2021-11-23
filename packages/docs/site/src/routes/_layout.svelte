@@ -25,6 +25,10 @@
 		typeface: {
 			defaultValue: a11yFontFamilies[0],
 			values: a11yFontFamilies,
+		},
+		lineHeight: {
+			defaultValue: 175,
+			values: [125, 150, 175, 200, 250],
 		}
 	}}
 />

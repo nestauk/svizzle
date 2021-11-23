@@ -7,6 +7,12 @@
 - removed absolute font property declarations from CSS
 - added `A11yMenu` supporting `medium` and larger displays
 - use `FontsLoader` component
+- replaced some absolute CSS definitions related to text and fonts
+
+## `@svizzle/time_region_value` v0.4.1 (next)
+
+- replaced some absolute CSS definitions related to text and fonts
+
 
 ## `@svizzle/ui` v0.5.0 (next)
 
@@ -23,6 +29,7 @@
 - add `StorageIO` component
 - add `A11yMenu` component
 - add `FontsLoader` component
+- replaced some absolute CSS definitions related to text and fonts
 
 ## `@svizzle/atlas` v0.6.0 (next)
 

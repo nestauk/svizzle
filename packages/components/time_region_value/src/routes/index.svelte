@@ -149,10 +149,6 @@
 		overflow-y: auto;
 	}
 
-	ul {
-		line-height: 1.5;
-	}
-
 	.group {
 		margin-top: 1rem;
 	}

@@ -87,7 +87,7 @@
 		align-items: center;
 	}
 	.switch label {
-		font-size: 16px;
+		font-size: 1em;
 		margin: 0 .5em 0;
 	}
 	/*
