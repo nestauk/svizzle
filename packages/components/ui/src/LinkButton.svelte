@@ -101,7 +101,7 @@
 		background-color: var(--backgroundColor);
 		color: var(--textColor);
 		padding: 1rem;
-		font-size: 1.2rem;
+		font-size: 1.2em;
 		box-shadow: var(--boxShadowVec) var(--boxShadowColor);
 	}
 	.linkButton div {

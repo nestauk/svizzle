@@ -13,6 +13,7 @@
 - add `StorageIO` component
 - add `A11yMenu` component
 - add `FontsLoader` component
+- replaced some absolute CSS definitions related to text and fonts
 
 ## `@svizzle/ui` v0.4.0
 

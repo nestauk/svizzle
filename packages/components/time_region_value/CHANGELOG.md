@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.4.1 (next)
+
+- replaced some absolute CSS definitions related to text and fonts
+
 ## `@svizzle/time_region_value` v0.4.0
 
 - support ignoring regions (via `regionSettings`, no UI)

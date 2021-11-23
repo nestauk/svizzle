@@ -3,6 +3,7 @@
 - removed absolute font property declarations from CSS
 - added `A11yMenu` supporting `medium` and larger displays
 - use `FontsLoader` component
+- replaced some absolute CSS definitions related to text and fonts
 
 ## `@svizzle/site` v0.3.8
 

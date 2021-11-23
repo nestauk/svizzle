@@ -54,7 +54,6 @@
 		font-weight: normal;
 	}
 	nav p {
-		line-height: 1.75;
 		display: flex;
 		align-items: center;
 		padding-left: 0.5rem;
