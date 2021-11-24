@@ -17,7 +17,7 @@ unfixed bugs and implementation differences in browsers and operating systems.
 </script>
 
 <p use:resizeObserver>
-    Some text content.
+	Some text content.
 </p>
 ```
 
@@ -27,6 +27,6 @@ is `borderBoxSize`.
 
 ```svelte
 <p use:resizeObserver='contentBoxSize'>
-    Some text content.
+	Some text content.
 </p>
 ```
