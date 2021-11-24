@@ -51,7 +51,7 @@
 	class:underlined={isUnderlined}
 >
 	<span class:bold={isBold}>
-		<slot></slot>
+		<slot/>
 	</span>
 	{#if isExternal && showIcon}
 		<span>

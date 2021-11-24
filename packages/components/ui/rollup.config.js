@@ -24,13 +24,20 @@ const dir = 'dist';
 const external = pkg.peerDependencies && Object.keys(pkg.peerDependencies) || [];
 
 const input = {
+	A11yMenu: 'src/a11y/menu/A11yMenu.svelte',
+	A11yMenuDriver: 'src/a11y/menu/A11yMenuDriver.svelte',
+	FontsLoader: 'src/drivers/fonts/FontsLoader.svelte',
 	Icon: 'src/icons/Icon.svelte',
 	index: 'src/index.js',
 	Link: 'src/Link.svelte',
 	LinkButton: 'src/LinkButton.svelte',
 	LoadingView: 'src/LoadingView.svelte',
 	MessageView: 'src/MessageView.svelte',
+	MultiBanner: 'src/MultiBanner.svelte',
+	NoScript: 'src/NoScript.svelte',
+	ResponsiveFlex: 'src/ResponsiveFlex.svelte',
 	ScreenSensor: 'src/sensors/screen/ScreenSensor.svelte',
+	StorageIO: 'src/io/storage/StorageIO.svelte',
 	Switch: 'src/Switch.svelte',
 };
 const removeComments = cleanup({
