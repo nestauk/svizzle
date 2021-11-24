@@ -1,6 +1,6 @@
 <script>
-	export let innerHeight;
-	export let innerWidth;
+	export let innerHeight = null;
+	export let innerWidth = null;
 	export let onResize;
 </script>
 
