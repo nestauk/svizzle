@@ -14,18 +14,24 @@
 		joinWithBlank,
 		mergeObjects
 	} from '@svizzle/utils';
-	import {isServerSide} from '../../utils/env.js';
 
+	import {isServerSide} from '../../utils/env.js';
+	import {setupResizeObserver} from '../../actions/resizeObserver';
 	import WindowBinder from './WindowBinder.svelte';
 
+	// utils
 	const makeClasses = _.pipe([
 		mergeObjects,
 		getTruthyValuesKeys,
 		joinWithBlank
 	]);
 
+	// singleton
 	const instanceId = instancesCount++;
 	const shouldRender = instanceId === 0;
+
+	// action
+	const {_writable: _sampleSize, resizeObserver} = setupResizeObserver();
 
 	export let isDev = false;
 	export let sampleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -33,8 +39,6 @@
 
 	let innerHeight;
 	let innerWidth;
-	let sampleHeight;
-	let sampleWidth;
 
 	$: sampleLength = sampleText.length;
 
@@ -54,8 +58,8 @@
 		};
 
 		const glyph = {
-			width: sampleWidth / sampleLength,
-			height: sampleHeight,
+			width: $_sampleSize.inlineSize / sampleLength,
+			height: $_sampleSize.blockSize
 		}
 
 		const text = {
@@ -90,7 +94,7 @@
 		});
 	}
 
-	$: sampleHeight && sampleWidth && updateScreen();
+	$: $_sampleSize && updateScreen();
 	$: devInfo = shouldRender && $_screen && {
 		Classes: $_screen.classes,
 		Display: `${$_screen.display.width} x ${$_screen.display.height} px`,
@@ -106,15 +110,10 @@
 		bind:innerWidth
 		onResize={updateScreen}
 	/>
-
 	<div class='textSample'>
-		<span
-			bind:offsetWidth={sampleWidth}
-			bind:offsetHeight={sampleHeight}
-		>{sampleText}</span>
+		<span use:resizeObserver>{sampleText}</span>
 	</div>
-
-	{#if isDev && sampleHeight && sampleWidth && devInfo}
+	{#if isDev && $_sampleSize && devInfo}
 		<div class='devInfo'>
 			<p>DPPR: {devInfo.DPPR}</p>
 			<p>Display: {devInfo.Display}</p>
