@@ -199,8 +199,8 @@ export const updateCurrentValue = value => {
 const setValueToDefault = makeMergeAppliedFnMap({value: _.getKey('defaultValue')});
 
 const isValidValue = setting => value =>
-	(setting.values && value in setting.values)
-	|| (setting.range && isValueInRange(value, setting.range))
+	setting.values && value in setting.values
+	|| setting.range && isValueInRange(value, setting.range)
 
 const mergeOnlyUpdateValueIfInvalid = (newSetting, oldSetting) => {
 	const setting = isValidValue(newSetting)(oldSetting.value)
@@ -210,9 +210,11 @@ const mergeOnlyUpdateValueIfInvalid = (newSetting, oldSetting) => {
 }
 
 export const mergeDefaultSettings = newDefaultSettings => {
-	newDefaultSettings = _.mapValuesWith(setValueToDefault)(newDefaultSettings);
+	const mergedDefaultSettings = _.mapValuesWith(setValueToDefault)(
+		newDefaultSettings
+	);
 	_a11ySettings.update(
-		_.curry(mergeWith(mergeOnlyUpdateValueIfInvalid))(newDefaultSettings)
+		_.curry(mergeWith(mergeOnlyUpdateValueIfInvalid))(mergedDefaultSettings)
 	);
 	return mergeWithMerge(defaultA11ySettings, newDefaultSettings);
 }
@@ -225,10 +227,10 @@ const getGroupsResetStatus = _.pipe([
 	_.mapValuesWith(
 		_.pipe([
 			_.mapWith(
-					_.collect([
-						_.getKey('value'),
-						_.getKey('defaultValue'),
-					])
+				_.collect([
+					_.getKey('value'),
+					_.getKey('defaultValue'),
+				])
 			),
 			_.every(_.apply(_.areSame))
 		])
@@ -249,7 +251,9 @@ const resetGroupItems = groupId => _.mapValuesWith(_.adapter([
 	_.casus(isNotOfGroup(groupId), _.identity),
 	_.casus(_.hasKey('value'), setValueToDefault),
 ]));
-export const resetGroup = groupId => _a11ySettings.update(resetGroupItems(groupId));
+export const resetGroup = groupId => _a11ySettings.update(
+	resetGroupItems(groupId)
+);
 
 /* Color corrections CSS property formatter */
 const getValuesOrderedByKeys = keys => obj => _.map(keys, key => obj[key]);

@@ -15,6 +15,8 @@
 - add `A11yMenu` component
 - add `FontsLoader` component
 - replaced some absolute CSS definitions related to text and fonts
+- added missing components to `rollup` input variable
+- fixed linting errors in `src/a11y/menu/settings.js`
 
 ## `@svizzle/ui` v0.4.0
 

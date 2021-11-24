@@ -25,7 +25,7 @@
 		{/each}
 	</nav>
 	<main>
-		<slot></slot>
+		<slot/>
 	</main>
 </section>
 

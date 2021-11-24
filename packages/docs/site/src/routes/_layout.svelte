@@ -51,7 +51,7 @@
 </header>
 
 <main>
-	<slot></slot>
+	<slot/>
 </main>
 {#if showA11yMenu}
 	<section
