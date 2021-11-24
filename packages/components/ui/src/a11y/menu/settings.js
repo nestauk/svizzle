@@ -216,7 +216,7 @@ export const mergeDefaultSettings = newDefaultSettings => {
 	_a11ySettings.update(
 		_.curry(mergeWith(mergeOnlyUpdateValueIfInvalid))(mergedDefaultSettings)
 	);
-	return mergeWithMerge(defaultA11ySettings, newDefaultSettings);
+	return mergeWithMerge(defaultA11ySettings, mergedDefaultSettings);
 }
 
 /* resets */
