@@ -67,7 +67,7 @@
 		"build": "rimraf dist && rollup -c",
 		"bumppack": "npm run setprerelease && npm run pack",
 		"link": "npm link",
-		"lint": "eslint rollup.config.js 'src/*.{js,svelte}'",
+		"lint": "eslint --max-warnings=0 rollup.config.js 'src/**/*.{js,svelte}'",
 		"outdated": "npm outdated",
 		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
 		"rmdist": "rimraf dist",

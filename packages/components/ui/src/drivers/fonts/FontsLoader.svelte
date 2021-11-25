@@ -15,7 +15,7 @@
 	$: if (isClientSide) {
 		_fontsInfo.set(fontsInfo);
 		$_status.isDone  = false;
-	};
+	}
 	$: isClientSide && _firstFamilyToLoad.set(firstFamilyToLoad);
 	$: isClientSide && loadFonts($_runtimeFonts);
 	$: status = $_status;

@@ -13,7 +13,6 @@
 
 - replaced some absolute CSS definitions related to text and fonts
 
-
 ## `@svizzle/ui` v0.5.0 (next)
 
 - `Link`: fixed behaviour of `style` when `theme.color` is nullish
@@ -32,7 +31,9 @@
 - add `FontsLoader` component
 - replaced some absolute CSS definitions related to text and fonts
 - added missing components to `rollup` input variable
-- fixed linting errors in `src/a11y/menu/settings.js`
+- fixed linting errors:
+	- in `src/a11y/menu/settings.js`
+	- linting now fails on warnings
 
 ## `@svizzle/atlas` v0.6.0 (next)
 

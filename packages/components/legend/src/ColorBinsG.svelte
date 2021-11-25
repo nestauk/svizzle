@@ -367,6 +367,7 @@
 								width={barWidth}
 							/>
 							{#if flags.isInteractive}
+								<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 								<rect
 									class='rectsensor'
 									height={barHeight}

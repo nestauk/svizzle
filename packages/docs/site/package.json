@@ -54,7 +54,7 @@
 		"dev": "sapper dev",
 		"chmod": "chmod u+x src/bin/*",
 		"export": "npm run chmod && node -r esm  -r svelte/register src/bin/makeEntries.js | xargs sapper export --legacy --basepath svizzle --concurrent 1 --entry",
-		"lint": "eslint rollup.config.js 'src/**/*.{js,svelte}'",
+		"lint": "eslint --max-warnings=0 rollup.config.js 'src/**/*.{js,svelte}'",
 		"makeTRVdata": "npm run chmod && rimraf static/data/*.csv && node -r esm src/bin/makeRandomIndicators.js",
 		"outdated": "npm outdated",
 		"rmsappers": "rimraf __sapper__ src/node_modules/@sapper",

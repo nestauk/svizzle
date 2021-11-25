@@ -7,6 +7,7 @@
 		sessionStorage,
 	} from "@macfja/svelte-persistent-store";
 	import isEqual from 'just-compare';
+	import {writable} from 'svelte/store';
 
 	const dbFactories = {
 		cookie: () => cookieStorage(),
@@ -56,9 +57,11 @@
 
 	let unbind;
 
-	$: if (!(type in dbFactories)) type = 'noop';
+	$: if (!(type in dbFactories)) {
+		type = 'noop';
+	}
 	$: if (key && type && _store) {
 		unbind?.();
 		unbind = bind({_store, defaultValue, isReactive, key, type});
-	} 
+	}
 </script>
