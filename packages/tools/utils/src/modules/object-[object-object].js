@@ -4,38 +4,7 @@
 
 import * as _ from 'lamb';
 
-/**
- * Return a function expecting an object to be used as the argument of the provided functions
- *
- * @function
- * @arg {object} fnMap - a map of keys and functions Any -> Any
- * @return {function} - Object -> Object
- *
- * @example
-> array = [
-	{fname: 'John', lname: 'Woo', lng: 1, lat: 2},
-	{fname: 'John', lname: 'Foo', lng: 7, lat: 8}
-];
-> format = applyFnMap({
-	coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
-	fullname: _.pipe([
-		_.collect([_.getKey('fname'), _.getKey('lname')]),
-		_.joinWith(' ')
-	]),
-});
-> formatted = _.map(raw, format)
-[
-	{coords: [1, 2], fullname: 'John Woo'},
-	{coords: [7, 8], fullname: 'John Foo'}
-]
- *
- * @since 0.1.0
- * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
- * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
- * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
- * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
- */
-export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
+import {applyFnMap} from './object-[any-object]';
 
 /**
  * Return a function that applies the provided map to the expected object and merges the result to the object.
@@ -71,7 +40,7 @@ export const applyFnMap = fnMap => obj => _.mapValues(fnMap, _.applyTo([obj]));
 }
  *
  * @since 0.9.0
- * @see {@link module:@svizzle/utils/array-[object-object].applyFnMap|applyFnMap}
+ * @see {@link module:@svizzle/utils/object-[any-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
@@ -135,7 +104,7 @@ export const makeMergeAppliedFnMap = fnMap => {
  *
  * @since 0.6.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
- * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
+ * @see {@link module:@svizzle/utils/object-[any-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformValues|transformValues}
  */
@@ -181,7 +150,7 @@ bar,4,4,25px
  *
  * @since 0.1.0
  * @see {@link module:@svizzle/utils/array-[object-object].applyTransformsSequence|applyTransformsSequence}
- * @see {@link module:@svizzle/utils/object-[object-object].applyFnMap|applyFnMap}
+ * @see {@link module:@svizzle/utils/object-[any-object].applyFnMap|applyFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].makeMergeAppliedFnMap|makeMergeAppliedFnMap}
  * @see {@link module:@svizzle/utils/object-[object-object].transformPaths|transformPaths}
  */

@@ -5,7 +5,6 @@ import * as _ from 'lamb';
 import {roundTo} from './number-[number-number]';
 import {joinWithBlank} from './array-string';
 import {
-	applyFnMap,
 	makeMergeAppliedFnMap,
 	makeMergeKeyValue,
 	mergeObj,
@@ -17,23 +16,6 @@ import {
 const roundTo2 = roundTo(2);
 
 describe('Object -> (Object -> Object)', function() {
-	describe('applyFnMap', function() {
-		it('should return a function expecting an object to be used as the argument of the provided functions', function() {
-			const object = {fname: 'John', lname: 'Woo', lng: 1, lat: 2};
-			const format = applyFnMap({
-				coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
-				fullname: _.pipe([
-					_.collect([_.getKey('fname'), _.getKey('lname')]),
-					joinWithBlank
-				]),
-			});
-
-			assert.deepStrictEqual(
-				format(object),
-				{coords: [1, 2], fullname: 'John Woo'}
-			);
-		});
-	});
 	describe('makeMergeAppliedFnMap', function() {
 		it('should return a function that applies the provided map to the expected object and merges te result to the object', function() {
 			const enhancer = makeMergeAppliedFnMap({

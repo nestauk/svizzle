@@ -44,7 +44,8 @@
 
 ## `@svizzle/utils` v0.16.0 (next)
 
-- add `arraySumWith`, `pluckPath`, `updateKeys`
+- added `arraySumWith`, `pluckPath`, `updateKeys`
+- moved `applyFnMap` to `src/modules/object-[any-object]`
 
 
 ## 20210714
@@ -213,7 +214,7 @@
 
 ## `@svizzle/utils` v0.15.0
 
-- add `isPromise`
+- added `isPromise`
 - updated some dependencies
 
 
