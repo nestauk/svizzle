@@ -9,6 +9,8 @@
 	import isEqual from 'just-compare';
 	import {writable} from 'svelte/store';
 
+	import {isClientSide} from '../../utils/env';
+
 	const dbFactories = {
 		cookie: () => cookieStorage(),
 		indexedDB: () => indexedDBStorage(),
@@ -60,7 +62,7 @@
 	$: if (!(type in dbFactories)) {
 		type = 'noop';
 	}
-	$: if (key && type && _store) {
+	$: if (isClientSide && key && type && _store) {
 		unbind?.();
 		unbind = bind({_store, defaultValue, isReactive, key, type});
 	}

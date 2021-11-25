@@ -1,21 +1,21 @@
 ## `@svizzle/ui` v0.5.0 (next)
 
-- `Link`: fixed behaviour of `style` when `theme.color` is nullish
-- add `MultiBanner` component
-- add `NoScript` component
-- add `ResponsiveFlex` component
+- add components:
+	- `MultiBanner`
+	- `NoScript`
+	- `ResponsiveFlex`
+	- `StorageIO`
+	- `A11yMenu`
+	- `FontsLoader`
 - add `isClientSide`, `isServerSide` utils
+- `Link`: fixed behaviour of `style` when `theme.color` is nullish
 - `ScreenGauge`:
 	- fixed `sampleText` enlarging the document size
 	- renamed `ScreenGauge` to `ScreenSensor`
 	- made `ScreenSensor` into a singleton so that it renders only once
 	- removed `fontSize` property
 	- replaced bound size variables by `ResizeObserver` action
-- add `StorageIO` component
-- add `A11yMenu` component
-- add `FontsLoader` component
 - replaced some absolute CSS definitions related to text and fonts
-- added missing components to `rollup` input variable
 - fixed linting errors:
 	- in `src/a11y/menu/settings.js`
 	- linting now fails on warnings
