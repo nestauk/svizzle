@@ -1,3 +1,7 @@
+## `@svizzle/dom` v0.5.1 (next)
+
+- support object spread
+
 ## `@svizzle/dom` v0.5.0
 
 - removed `moveNode`

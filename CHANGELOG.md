@@ -39,14 +39,27 @@
 
 - NUTS: add hierarchy and unified ids
 
+## `@svizzle/dom` v0.5.1 (next)
+
+- support object spread
+
 ## `@svizzle/file` v0.12.0 (next)
 
 - add `saveObjects`
+
+## `@svizzle/geometry` v0.3.5 (next)
+
+- support object spread
+
+## `@svizzle/request` v0.3.5 (next)
+
+- support object spread
 
 ## `@svizzle/utils` v0.16.0 (next)
 
 - added `arraySumWith`, `pluckPath`, `updateKeys`
 - moved `applyFnMap` to `src/modules/object-[any-object]`
+- support object spread
 
 
 ## 20210714

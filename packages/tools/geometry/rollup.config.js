@@ -62,7 +62,7 @@ const browserConfig = {
 		resolve(),
 		commonjs(),
 		removeComments,
-		buble(),
+		buble({objectAssign: 'Object.assign'}),
 	],
 	treeshake
 };

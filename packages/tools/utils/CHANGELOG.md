@@ -2,6 +2,7 @@
 
 - added `arraySumWith`, `pluckPath`, `updateKeys`
 - moved `applyFnMap` to `src/modules/object-[any-object]`
+- support object spread
 
 ## `@svizzle/utils` v0.15.0
 

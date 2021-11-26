@@ -1,3 +1,7 @@
+## `@svizzle/geometry` v0.3.5 (next)
+
+- support object spread
+
 ## `@svizzle/geometry` v0.3.4
 
 - updated some dependencies
