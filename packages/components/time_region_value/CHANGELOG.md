@@ -1,4 +1,4 @@
-## `@svizzle/time_region_value` v0.4.1 (next)
+## `@svizzle/time_region_value` v0.4.1
 
 - replaced some absolute CSS definitions related to text and fonts
 

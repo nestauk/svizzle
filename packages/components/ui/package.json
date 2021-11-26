@@ -8,8 +8,8 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.5.0",
-		"@svizzle/utils": "^0.15.0",
+		"@svizzle/dom": "^0.5.1",
+		"@svizzle/utils": "^0.16.0",
 		"uid": "^1.0.0"
 	},
 	"description": "A set of UI components for Svelte.",
@@ -18,7 +18,7 @@
 		"@rollup/plugin-commonjs": "^17.1.0",
 		"@rollup/plugin-node-resolve": "^11.1.1",
 		"@svizzle/dev": "^0.4.4",
-		"@svizzle/file": "^0.11.0",
+		"@svizzle/file": "^0.12.0",
 		"camelcase": "^6.2.0",
 		"eslint": "^7.24.0",
 		"eslint-plugin-import": "^2.18.2",
@@ -82,5 +82,5 @@
 		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
 	},
 	"sideEffects": false,
-	"version": "0.4.0"
+	"version": "0.5.0"
 }

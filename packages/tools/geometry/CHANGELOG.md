@@ -1,6 +1,6 @@
-## `@svizzle/geometry` v0.3.5 (next)
+## `@svizzle/geometry` v0.3.5
 
-- support object spread
+- support object spread in builds
 
 ## `@svizzle/geometry` v0.3.4
 

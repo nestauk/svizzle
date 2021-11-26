@@ -1,6 +1,6 @@
-## `@svizzle/dom` v0.5.1 (next)
+## `@svizzle/dom` v0.5.1
 
-- support object spread
+- support object spread in builds
 
 ## `@svizzle/dom` v0.5.0
 

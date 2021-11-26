@@ -1,4 +1,4 @@
-## `@svizzle/atlas` v0.6.0 (next)
+## `@svizzle/atlas` v0.5.1 (next - not published on npm yet)
 
 - NUTS: add hierarchy and unified ids
 

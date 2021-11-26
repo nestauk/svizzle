@@ -11,11 +11,11 @@
 		"@svizzle/atlas": "^0.5.0",
 		"@svizzle/barchart": "^0.6.8",
 		"@svizzle/choropleth": "^0.6.7",
-		"@svizzle/dom": "^0.5.0",
+		"@svizzle/dom": "^0.5.1",
 		"@svizzle/legend": "^0.2.2",
-		"@svizzle/request": "^0.3.4",
-		"@svizzle/ui": "^0.4.0",
-		"@svizzle/utils": "^0.15.0",
+		"@svizzle/request": "^0.3.5",
+		"@svizzle/ui": "^0.5.0",
+		"@svizzle/utils": "^0.16.0",
 		"d3-array": "^2.12.1",
 		"d3-dsv": "^2.0.0",
 		"d3-format": "^2.0.0",
@@ -94,5 +94,5 @@
 		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
 	},
 	"sideEffects": false,
-	"version": "0.4.0"
+	"version": "0.4.1"
 }

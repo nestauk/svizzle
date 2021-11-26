@@ -1,4 +1,4 @@
-## `@svizzle/file` v0.12.0 (next)
+## `@svizzle/file` v0.12.0
 
 - add `saveObjects`
 

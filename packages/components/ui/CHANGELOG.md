@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.5.0 (next)
+## `@svizzle/ui` v0.5.0
 
 - add components:
 	- `MultiBanner`

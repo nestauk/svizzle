@@ -1,6 +1,6 @@
-## `@svizzle/request` v0.3.5 (next)
+## `@svizzle/request` v0.3.5
 
-- support object spread
+- support object spread in builds
 
 ## `@svizzle/request` v0.3.4
 

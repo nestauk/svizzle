@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.3.9 (next)
+## `@svizzle/site` v0.3.9
 
 - removed absolute font property declarations from CSS
 - added `A11yMenu` supporting `medium` and larger displays

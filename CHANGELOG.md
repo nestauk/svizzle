@@ -1,19 +1,12 @@
 # Svizzle changelog
 
-## next
+## 20211126
 
-## `@svizzle/site` v0.3.9 (next)
-
-- removed absolute font property declarations from CSS
-- added `A11yMenu` supporting `medium` and larger displays
-- use `FontsLoader` component
-- replaced some absolute CSS definitions related to text and fonts
-
-## `@svizzle/time_region_value` v0.4.1 (next)
+## `@svizzle/time_region_value` v0.4.1
 
 - replaced some absolute CSS definitions related to text and fonts
 
-## `@svizzle/ui` v0.5.0 (next)
+## `@svizzle/ui` v0.5.0
 
 - add components:
 	- `MultiBanner`
@@ -35,31 +28,38 @@
 	- in `src/a11y/menu/settings.js`
 	- linting now fails on warnings
 
-## `@svizzle/atlas` v0.6.0 (next)
+## `@svizzle/site` v0.3.9
+
+- removed absolute font property declarations from CSS
+- added `A11yMenu` supporting `medium` and larger displays
+- use `FontsLoader` component
+- replaced some absolute CSS definitions related to text and fonts
+
+## `@svizzle/atlas` v0.5.1 (next - not published on npm yet)
 
 - NUTS: add hierarchy and unified ids
 
-## `@svizzle/dom` v0.5.1 (next)
+## `@svizzle/dom` v0.5.1
 
-- support object spread
+- support object spread in builds
 
-## `@svizzle/file` v0.12.0 (next)
+## `@svizzle/file` v0.12.0
 
 - add `saveObjects`
 
-## `@svizzle/geometry` v0.3.5 (next)
+## `@svizzle/geometry` v0.3.5
 
-- support object spread
+- support object spread in builds
 
-## `@svizzle/request` v0.3.5 (next)
+## `@svizzle/request` v0.3.5
 
-- support object spread
+- support object spread in builds
 
-## `@svizzle/utils` v0.16.0 (next)
+## `@svizzle/utils` v0.16.0
 
 - added `arraySumWith`, `pluckPath`, `updateKeys`
 - moved `applyFnMap` to `src/modules/object-[any-object]`
-- support object spread
+- support object spread in builds
 
 
 ## 20210714

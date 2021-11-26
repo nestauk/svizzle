@@ -9,9 +9,9 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.5.0",
-		"@svizzle/geometry": "^0.3.4",
-		"@svizzle/utils": "^0.15.0",
+		"@svizzle/dom": "^0.5.1",
+		"@svizzle/geometry": "^0.3.5",
+		"@svizzle/utils": "^0.16.0",
 		"d3-scale": "^3.3.0",
 		"lamb": "^0.60.0"
 	},

@@ -9,9 +9,9 @@
 	},
 	"dependencies": {
 		"@svizzle/atlas": "^0.5.0",
-		"@svizzle/dom": "^0.5.0",
+		"@svizzle/dom": "^0.5.1",
 		"@svizzle/geo": "^0.6.4",
-		"@svizzle/utils": "^0.15.0",
+		"@svizzle/utils": "^0.16.0",
 		"d3-geo": "^2.0.1",
 		"lamb": "^0.60.0",
 		"topojson-client": "^3.1.0"

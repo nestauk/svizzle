@@ -1,8 +1,8 @@
-## `@svizzle/utils` v0.16.0 (next)
+## `@svizzle/utils` v0.16.0
 
 - added `arraySumWith`, `pluckPath`, `updateKeys`
 - moved `applyFnMap` to `src/modules/object-[any-object]`
-- support object spread
+- support object spread in builds
 
 ## `@svizzle/utils` v0.15.0
 
