@@ -12,6 +12,7 @@
 		"@svizzle/barchart": "^0.6.8",
 		"@svizzle/choropleth": "^0.6.7",
 		"@svizzle/dom": "^0.5.1",
+		"@svizzle/geo": "^0.6.4",
 		"@svizzle/legend": "^0.2.2",
 		"@svizzle/request": "^0.3.5",
 		"@svizzle/ui": "^0.5.0",

@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/geo/geojson
+* @module @svizzle/geo/src/modules/geojson
 */
 
 import * as _ from 'lamb';
@@ -341,5 +341,8 @@ export const makeToGeoPoints = (coordPicker, propsTransformer) => _.pipe([
  */
 export const setGeometryPrecision = precision =>
 	geojson => truncate(geojson, {precision, mutate: false});
+
+// convenience function
+export const truncateGeojson = setGeometryPrecision(4);
 
 // TODO DOC: define FeatureCollection type

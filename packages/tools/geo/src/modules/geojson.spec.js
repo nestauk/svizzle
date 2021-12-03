@@ -12,7 +12,7 @@ import {
 	setGeometryPrecision
 } from './geojson';
 
-describe('geojson', function() {
+describe('geo/geojson', function() {
 	describe('getOrMakeBBox', function() {
 		const type = 'FeatureCollection';
 		const features = [{

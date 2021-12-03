@@ -1,5 +1,33 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/choropleth` v0.7.0 (next)
+
+- ported some utilities to `/geo`, hence:
+	- removed `truncateGeojson`
+	- removed `topoToGeo`
+- renamed `src/utils` to `src/shared`
+- now exporting `projections` from `src/shared`
+- `ChoroplethG.svelte`: refactored to use the new imports
+
+## `@svizzle/site` v0.3.10 (next)
+
+- moved all `dependencies` to `devDependencies` to [avoid having to maintain](https://github.com/sveltejs/sapper-template-rollup#using-external-components) the `external` list in `rollup.config.js` (prone to error)
+
+## `@svizzle/atlas` v0.5.1 (next - not published on npm yet)
+
+- NUTS: add hierarchy and unified ids
+- remove the dependency on `@svizzle/geo`
+
+## `@svizzle/geo` v0.7.0 (next)
+
+- port some utilities from `/choropleth`:
+	- add `truncateGeojson`
+	- add `topoToGeo`
+
+
+
 ## 20211126
 
 ## `@svizzle/time_region_value` v0.4.1

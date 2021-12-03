@@ -23,7 +23,7 @@
 
 	// components
 
-	import {defaultGeometry} from '@svizzle/choropleth/src/utils';
+	import {defaultGeometry} from '@svizzle/choropleth/src/shared';
 	import BarchartVDiv from '@svizzle/barchart/src/BarchartVDiv.svelte';
 	import ChoroplethG from '@svizzle/choropleth/src/ChoroplethG.svelte';
 	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';

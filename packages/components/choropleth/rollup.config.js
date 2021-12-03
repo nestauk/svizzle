@@ -27,7 +27,7 @@ const input = {
 	ChoroplethDiv: 'src/ChoroplethDiv.svelte',
 	ChoroplethG: 'src/ChoroplethG.svelte',
 	index: 'src/index.js',
-	utils: 'src/utils.js',
+	shared: 'src/shared.js',
 };
 const removeComments = cleanup({
 	extensions: ['js', 'mjs']

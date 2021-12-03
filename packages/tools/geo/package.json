@@ -15,12 +15,14 @@
 		"@turf/helpers": "6.4.0",
 		"@turf/truncate": "6.4.0",
 		"commander": "^7.2.0",
-		"lamb": "^0.60.0"
+		"lamb": "^0.60.0",
+		"topojson-client": "^3.1.0"
 	},
 	"description": "Svizzle Geo contains geography related helpers.",
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^17.1.0",
 		"@rollup/plugin-node-resolve": "^11.1.1",
+		"@svizzle/atlas": "^0.5.0",
 		"@svizzle/dev": "^0.4.4",
 		"@svizzle/utils": "^0.16.0",
 		"eslint": "^7.24.0",

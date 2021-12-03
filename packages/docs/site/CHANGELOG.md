@@ -1,3 +1,8 @@
+## `@svizzle/site` v0.3.10 (next)
+
+- moved all `dependencies` to `devDependencies` to [avoid having to maintain](https://github.com/sveltejs/sapper-template-rollup#using-external-components) the `external` list in `rollup.config.js` (prone to error)
+
+
 ## `@svizzle/site` v0.3.9
 
 - removed absolute font property declarations from CSS

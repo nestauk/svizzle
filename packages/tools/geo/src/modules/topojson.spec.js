@@ -1,11 +1,12 @@
 import {strict as assert} from 'assert';
 
-import NUTS_RG_03M_2003_4326_LEVL_0_BE from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0_BE.json';
+import NUTS_RG_03M_2003_4326_LEVL_0_BE
+	from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0_BE.json';
 
-import {topoToGeo} from './utils';
-import {geojson} from './utils.specdata';
+import {topoToGeo} from './topojson';
+import {geojson} from './topojson.specdata';
 
-describe('choropleth/utils', function() {
+describe('geo/topojson', function() {
 	describe('topoToGeo', function() {
 		/*
 		// NUTS_RG_03M_2003_4326_LEVL_0_BE.json
@@ -33,11 +34,9 @@ describe('choropleth/utils', function() {
 		*/
 		it('should convert a topojson to a geojson', function() {
 			const actual = topoToGeo(NUTS_RG_03M_2003_4326_LEVL_0_BE, 'NUTS');
-
 			assert.deepStrictEqual(actual, geojson);
 		});
 
 		// TODO check it's a geojson
-		// TODO check the precision is 4
 	});
 });

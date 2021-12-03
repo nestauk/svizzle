@@ -1,3 +1,12 @@
+## `@svizzle/choropleth` v0.7.0 (next)
+
+- ported some utilities to `/geo`, hence:
+	- removed `truncateGeojson`
+	- removed `topoToGeo`
+- renamed `src/utils` to `src/shared`
+- now exporting `projections` from `src/shared`
+- `ChoroplethG.svelte`: refactored to use the new imports
+
 ## `@svizzle/choropleth` v0.6.7
 
 - updated dev dependencies

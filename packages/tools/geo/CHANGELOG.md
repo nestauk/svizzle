@@ -1,3 +1,9 @@
+## `@svizzle/geo` v0.7.0 (next)
+
+- port some utilities from `/choropleth`:
+	- add `truncateGeojson`
+	- add `topoToGeo`
+
 ## `@svizzle/geo` v0.6.4
 
 - updated some dependencies

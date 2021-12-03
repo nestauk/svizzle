@@ -1,13 +1,12 @@
 <script>
 	import {createEventDispatcher} from 'svelte';
 	import {geoPath} from 'd3-geo';
-	import {getPath} from 'lamb';
+	import {getPath, not} from 'lamb';
 	import {makeStyleVars} from '@svizzle/dom';
-	import {makeUpdateFeaturesProperty} from '@svizzle/geo';
+	import {makeUpdateFeaturesProperty, topoToGeo} from '@svizzle/geo';
 	import {isNotNullWith} from '@svizzle/utils';
 
-	import * as projections from './projections';
-	import {topoToGeo, defaultGeometry} from './utils';
+	import {defaultGeometry, projections} from './shared';
 
 	const dispatch = createEventDispatcher();
 	const hasColor = isNotNullWith(getPath('properties.color'));
@@ -86,15 +85,13 @@
 		geojson.features.length &&
 		projectionFunc().fitSize([innerWidth, innerHeight], geojson);
 	$: geopath = currentProjection && geoPath(currentProjection);
-	$: getPayload =
+	$: getFeatureKey =
 		feature => feature.properties[key] || feature.properties[key_alt];
-	$: isFocused = feature => focusedKey === getPayload(feature);
+	$: isFocused = feature => focusedKey === getFeatureKey(feature);
 	$: isSelected = feature =>
 		selectedKeys.length &&
-		selectedKeys.includes(getPayload(feature));
-	$: isDeselected = feature =>
-		selectedKeys.length &&
-		!selectedKeys.includes(getPayload(feature));
+		selectedKeys.includes(getFeatureKey(feature));
+	$: isDeselected = not(isSelected);
 	$: isClickable = feature => isInteractive && hasColor(feature);
 </script>
 
@@ -135,9 +132,9 @@
 								class:clickable={isClickable(feature)}
 								d={geopath(feature)}
 								style='fill:{feature.properties.color || null}'
-								on:click={() => isClickable(feature) && dispatch('clicked', getPayload(feature))}
-								on:mouseenter={() => isInteractive && dispatch('entered', getPayload(feature))}
-								on:mouseleave={() => isInteractive && dispatch('exited', getPayload(feature))}
+								on:click={() => isClickable(feature) && dispatch('clicked', getFeatureKey(feature))}
+								on:mouseenter={() => isInteractive && dispatch('entered', getFeatureKey(feature))}
+								on:mouseleave={() => isInteractive && dispatch('exited', getFeatureKey(feature))}
 							/>
 						</g>
 					{/each}

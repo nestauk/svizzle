@@ -4,7 +4,7 @@ import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/data/dist/NUTS/topoj
 import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
 import NUTS_RG_03M_2016_4326_LEVL_3_DE from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_3_DE.json';
-import {topoToGeo} from '@svizzle/choropleth/src/utils';
+import {topoToGeo} from '@svizzle/geo';
 import {
 	geoConicEqualArea,
 	geoEqualEarth as projectionFn,

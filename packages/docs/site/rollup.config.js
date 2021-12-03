@@ -8,7 +8,6 @@ import {terser} from 'rollup-plugin-terser';
 import yaml from '@rollup/plugin-yaml';
 
 import config from 'sapper/config/rollup.js';
-import pkg from './package.json';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -16,7 +15,10 @@ const legacy = Boolean(process.env.SAPPER_LEGACY_BUILD);
 const preserveEntrySignatures = false;
 
 const onwarn = (warning, _onwarn) =>
-	warning.code !== 'CIRCULAR_DEPENDENCY' && _onwarn(warning);
+	warning.code === 'MISSING_EXPORT' &&
+		(/'preload'/u).test(warning.message) ||
+	warning.code === 'CIRCULAR_DEPENDENCY' ||
+	_onwarn(warning);
 
 export default {
 	client: {
@@ -72,18 +74,9 @@ export default {
 
 	server: {
 		external:
-			Object.keys(pkg.dependencies)
-			.filter(name => ![
-				'@svizzle/barchart',
-				'@svizzle/choropleth',
-				'@svizzle/utils',
-				'svelte-json-tree',
-			].includes(name))
-			.concat(
-				/* eslint-disable-next-line global-require */
-				require('module').builtinModules ||
-				Object.keys(process.binding('natives'))
-			),
+			/* eslint-disable-next-line global-require */
+			require('module').builtinModules ||
+			Object.keys(process.binding('natives')),
 		input: config.server.input(),
 		onwarn,
 		output: config.server.output(),
