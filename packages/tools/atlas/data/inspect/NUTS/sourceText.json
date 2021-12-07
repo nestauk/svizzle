@@ -28747,8 +28747,8 @@
       {
         "NUTS_ID": "DE",
         "CNTR_CODE": "DE",
-        "NUTS_NAME": "Deutschland ",
-        "NAME_LATN": "Deutschland ",
+        "NUTS_NAME": "Deutschland",
+        "NAME_LATN": "Deutschland",
         "level": 0,
         "year": "2010"
       },
@@ -28779,8 +28779,8 @@
       {
         "NUTS_ID": "ES",
         "CNTR_CODE": "ES",
-        "NUTS_NAME": "España ",
-        "NAME_LATN": "España ",
+        "NUTS_NAME": "España",
+        "NAME_LATN": "España",
         "level": 0,
         "year": "2010"
       },
@@ -28835,8 +28835,8 @@
       {
         "NUTS_ID": "IT",
         "CNTR_CODE": "IT",
-        "NUTS_NAME": "Italia ",
-        "NAME_LATN": "Italia ",
+        "NUTS_NAME": "Italia",
+        "NAME_LATN": "Italia",
         "level": 0,
         "year": "2010"
       },
@@ -28899,8 +28899,8 @@
       {
         "NUTS_ID": "NL",
         "CNTR_CODE": "NL",
-        "NUTS_NAME": "Nederland ",
-        "NAME_LATN": "Nederland ",
+        "NUTS_NAME": "Nederland",
+        "NAME_LATN": "Nederland",
         "level": 0,
         "year": "2010"
       },
@@ -52377,7 +52377,7 @@
         "CNTR_CODE": "EL",
         "NUTS_ID": "EL302",
         "NAME_LATN": "Ditikos Tomeas Athinon",
-        "NUTS_NAME": "Δυτικός Τομέας Αθηνών ",
+        "NUTS_NAME": "Δυτικός Τομέας Αθηνών",
         "level": 3,
         "year": "2013"
       },
@@ -59701,8 +59701,8 @@
       {
         "CNTR_CODE": "BE",
         "NUTS_ID": "BE",
-        "NAME_LATN": "BELGIQUE-BELGIË ",
-        "NUTS_NAME": "BELGIQUE-BELGIË ",
+        "NAME_LATN": "BELGIQUE-BELGIË",
+        "NUTS_NAME": "BELGIQUE-BELGIË",
         "level": 0,
         "year": "2016"
       },
@@ -59773,8 +59773,8 @@
       {
         "CNTR_CODE": "ES",
         "NUTS_ID": "ES",
-        "NAME_LATN": "ESPAÑA ",
-        "NUTS_NAME": "ESPAÑA ",
+        "NAME_LATN": "ESPAÑA",
+        "NUTS_NAME": "ESPAÑA",
         "level": 0,
         "year": "2016"
       },
@@ -60734,7 +60734,7 @@
         "CNTR_CODE": "RS",
         "NUTS_ID": "RS1",
         "NAME_LATN": "Srbija - sever",
-        "NUTS_NAME": "Србија - север ",
+        "NUTS_NAME": "Србија - север",
         "level": 1,
         "year": "2016"
       },
@@ -60742,7 +60742,7 @@
         "CNTR_CODE": "RS",
         "NUTS_ID": "RS2",
         "NAME_LATN": "Srbija - jug",
-        "NUTS_NAME": "Србија - југ ",
+        "NUTS_NAME": "Србија - југ",
         "level": 1,
         "year": "2016"
       },
@@ -62021,16 +62021,16 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRD1",
-        "NAME_LATN": "Basse-Normandie ",
-        "NUTS_NAME": "Basse-Normandie ",
+        "NAME_LATN": "Basse-Normandie",
+        "NUTS_NAME": "Basse-Normandie",
         "level": 2,
         "year": "2016"
       },
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRD2",
-        "NAME_LATN": "Haute-Normandie ",
-        "NUTS_NAME": "Haute-Normandie ",
+        "NAME_LATN": "Haute-Normandie",
+        "NUTS_NAME": "Haute-Normandie",
         "level": 2,
         "year": "2016"
       },
@@ -62173,8 +62173,8 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRY2",
-        "NAME_LATN": "Martinique ",
-        "NUTS_NAME": "Martinique ",
+        "NAME_LATN": "Martinique",
+        "NUTS_NAME": "Martinique",
         "level": 2,
         "year": "2016"
       },
@@ -62189,8 +62189,8 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRY4",
-        "NAME_LATN": "La Réunion ",
-        "NUTS_NAME": "La Réunion ",
+        "NAME_LATN": "La Réunion",
+        "NUTS_NAME": "La Réunion",
         "level": 2,
         "year": "2016"
       },
@@ -62501,8 +62501,8 @@
       {
         "CNTR_CODE": "LT",
         "NUTS_ID": "LT02",
-        "NAME_LATN": "Vidurio ir vakarų Lietuvos regionas ",
-        "NUTS_NAME": "Vidurio ir vakarų Lietuvos regionas ",
+        "NAME_LATN": "Vidurio ir vakarų Lietuvos regionas",
+        "NUTS_NAME": "Vidurio ir vakarų Lietuvos regionas",
         "level": 2,
         "year": "2016"
       },
@@ -69301,16 +69301,16 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FR102",
-        "NAME_LATN": "Seine-et-Marne ",
-        "NUTS_NAME": "Seine-et-Marne ",
+        "NAME_LATN": "Seine-et-Marne",
+        "NUTS_NAME": "Seine-et-Marne",
         "level": 3,
         "year": "2016"
       },
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FR103",
-        "NAME_LATN": "Yvelines ",
-        "NUTS_NAME": "Yvelines ",
+        "NAME_LATN": "Yvelines",
+        "NUTS_NAME": "Yvelines",
         "level": 3,
         "year": "2016"
       },
@@ -69325,16 +69325,16 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FR105",
-        "NAME_LATN": "Hauts-de-Seine ",
-        "NUTS_NAME": "Hauts-de-Seine ",
+        "NAME_LATN": "Hauts-de-Seine",
+        "NUTS_NAME": "Hauts-de-Seine",
         "level": 3,
         "year": "2016"
       },
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FR106",
-        "NAME_LATN": "Seine-Saint-Denis ",
-        "NUTS_NAME": "Seine-Saint-Denis ",
+        "NAME_LATN": "Seine-Saint-Denis",
+        "NUTS_NAME": "Seine-Saint-Denis",
         "level": 3,
         "year": "2016"
       },
@@ -69469,16 +69469,16 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRD11",
-        "NAME_LATN": "Calvados ",
-        "NUTS_NAME": "Calvados ",
+        "NAME_LATN": "Calvados",
+        "NUTS_NAME": "Calvados",
         "level": 3,
         "year": "2016"
       },
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRD12",
-        "NAME_LATN": "Manche ",
-        "NUTS_NAME": "Manche ",
+        "NAME_LATN": "Manche",
+        "NUTS_NAME": "Manche",
         "level": 3,
         "year": "2016"
       },
@@ -69597,16 +69597,16 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRF31",
-        "NAME_LATN": "Meurthe-et-Moselle ",
-        "NUTS_NAME": "Meurthe-et-Moselle ",
+        "NAME_LATN": "Meurthe-et-Moselle",
+        "NUTS_NAME": "Meurthe-et-Moselle",
         "level": 3,
         "year": "2016"
       },
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRF32",
-        "NAME_LATN": "Meuse ",
-        "NUTS_NAME": "Meuse ",
+        "NAME_LATN": "Meuse",
+        "NUTS_NAME": "Meuse",
         "level": 3,
         "year": "2016"
       },
@@ -69877,8 +69877,8 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRJ26",
-        "NAME_LATN": "Hautes-Pyrénées ",
-        "NUTS_NAME": "Hautes-Pyrénées ",
+        "NAME_LATN": "Hautes-Pyrénées",
+        "NUTS_NAME": "Hautes-Pyrénées",
         "level": 3,
         "year": "2016"
       },
@@ -70005,8 +70005,8 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRL02",
-        "NAME_LATN": "Hautes-Alpes ",
-        "NUTS_NAME": "Hautes-Alpes ",
+        "NAME_LATN": "Hautes-Alpes",
+        "NUTS_NAME": "Hautes-Alpes",
         "level": 3,
         "year": "2016"
       },
@@ -70069,8 +70069,8 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRY20",
-        "NAME_LATN": "Martinique ",
-        "NUTS_NAME": "Martinique ",
+        "NAME_LATN": "Martinique",
+        "NUTS_NAME": "Martinique",
         "level": 3,
         "year": "2016"
       },
@@ -70093,8 +70093,8 @@
       {
         "CNTR_CODE": "FR",
         "NUTS_ID": "FRY50",
-        "NAME_LATN": "Mayotte ",
-        "NUTS_NAME": "Mayotte ",
+        "NAME_LATN": "Mayotte",
+        "NUTS_NAME": "Mayotte",
         "level": 3,
         "year": "2016"
       },
@@ -70445,24 +70445,24 @@
       {
         "CNTR_CODE": "IE",
         "NUTS_ID": "IE051",
-        "NAME_LATN": "Mid-West ",
-        "NUTS_NAME": "Mid-West ",
+        "NAME_LATN": "Mid-West",
+        "NUTS_NAME": "Mid-West",
         "level": 3,
         "year": "2016"
       },
       {
         "CNTR_CODE": "IE",
         "NUTS_ID": "IE052",
-        "NAME_LATN": "South-East ",
-        "NUTS_NAME": "South-East ",
+        "NAME_LATN": "South-East",
+        "NUTS_NAME": "South-East",
         "level": 3,
         "year": "2016"
       },
       {
         "CNTR_CODE": "IE",
         "NUTS_ID": "IE053",
-        "NAME_LATN": "South-West ",
-        "NUTS_NAME": "South-West ",
+        "NAME_LATN": "South-West",
+        "NUTS_NAME": "South-West",
         "level": 3,
         "year": "2016"
       },
@@ -75749,8 +75749,8 @@
       {
         "CNTR_CODE": "UK",
         "NUTS_ID": "UKN09",
-        "NAME_LATN": "Ards and North Down ",
-        "NUTS_NAME": "Ards and North Down ",
+        "NAME_LATN": "Ards and North Down",
+        "NUTS_NAME": "Ards and North Down",
         "level": 3,
         "year": "2016"
       },
@@ -75843,7 +75843,7 @@
         "CNTR_CODE": "BG",
         "NUTS_ID": "BG",
         "NAME_LATN": "Bulgaria",
-        "NUTS_NAME": "България ",
+        "NUTS_NAME": "България",
         "level": 0,
         "year": "2021"
       },
@@ -75859,7 +75859,7 @@
         "CNTR_CODE": "CY",
         "NUTS_ID": "CY",
         "NAME_LATN": "Kýpros",
-        "NUTS_NAME": "Κύπρος ",
+        "NUTS_NAME": "Κύπρος",
         "level": 0,
         "year": "2021"
       },
@@ -75899,7 +75899,7 @@
         "CNTR_CODE": "EL",
         "NUTS_ID": "EL",
         "NAME_LATN": "Elláda",
-        "NUTS_NAME": "Ελλάδα ",
+        "NUTS_NAME": "Ελλάδα",
         "level": 0,
         "year": "2021"
       },
@@ -78842,7 +78842,7 @@
       {
         "CNTR_CODE": "NO",
         "NUTS_ID": "NO0B",
-        "NAME_LATN": "Jan Mayen and Svalbard\r\n   \r\n",
+        "NAME_LATN": "Jan Mayen and Svalbard",
         "NUTS_NAME": "Jan Mayen and Svalbard",
         "level": 2,
         "year": "2021"
@@ -88154,8 +88154,8 @@
       {
         "CNTR_CODE": "NO",
         "NUTS_ID": "NO0B1",
-        "NAME_LATN": "Jan Mayen\r\n   \r\n",
-        "NUTS_NAME": "Jan Mayen\r\n   \r\n",
+        "NAME_LATN": "Jan Mayen",
+        "NUTS_NAME": "Jan Mayen",
         "level": 3,
         "year": "2021"
       },

@@ -15,10 +15,11 @@
 
 - moved all `dependencies` to `devDependencies` to [avoid having to maintain](https://github.com/sveltejs/sapper-template-rollup#using-external-components) the `external` list in `rollup.config.js` (prone to error)
 
-## `@svizzle/atlas` v0.5.1 (next - not published on npm yet)
+## `@svizzle/atlas` v0.6.0 (next)
 
 - NUTS: add hierarchy and unified ids
 - remove the dependency on `@svizzle/geo`
+- NUTS, add resolution `10M`, update some texts in `3M` files
 
 ## `@svizzle/geo` v0.7.0 (next)
 

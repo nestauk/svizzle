@@ -1,7 +1,8 @@
-## `@svizzle/atlas` v0.5.1 (next - not published on npm yet)
+## `@svizzle/atlas` v0.6.0 (next)
 
 - NUTS: add hierarchy and unified ids
 - remove the dependency on `@svizzle/geo`
+- NUTS, add resolution `10M`, update some texts in `3M` files
 
 ## `@svizzle/atlas` v0.5.0
 
