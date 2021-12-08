@@ -36,17 +36,23 @@ import {getNutsName} from 'utils/nuts';
 /* paths */
 
 const inDirs = {
+	// 0
 	recoded: path.resolve(NUTS_DATABASE_DIR_0, 'history/recoded'),
+
+	// 1
 	sourceText: path.resolve(NUTS_DATABASE_DIR_1, 'sourceText'),
 };
 const outPaths = {
-	detectedChangesById: path.resolve(NUTS_INSPECT_DIR, 'detectedChangesById.json'),
+	// 2
 	hierarchy: path.resolve(NUTS_DATABASE_DIR_2, 'hierarchy.json'),
-	idToYearlyNutsIds: path.resolve(NUTS_DATABASE_DIR_2, 'idToYearlyNutsIds.json'),
+	idToNutsIdByYear: path.resolve(NUTS_DATABASE_DIR_2, 'idToNutsIdByYear.json'),
 	recoded: path.resolve(NUTS_DATABASE_DIR_2, 'recoded.json'),
-	sourceText: path.resolve(NUTS_INSPECT_DIR, 'sourceText.json'),
 	unifiedNuts: path.resolve(NUTS_DATABASE_DIR_2, 'unifiedNuts.json'),
 	yearlyNutsIdToId: path.resolve(NUTS_DATABASE_DIR_2, 'yearlyNutsIdToId.json'),
+
+	// inspect
+	detectedChangesById: path.resolve(NUTS_INSPECT_DIR, 'detectedChangesById.json'),
+	sourceText: path.resolve(NUTS_INSPECT_DIR, 'sourceText.json'),
 }
 
 /* utils */
@@ -84,7 +90,7 @@ const makeAugmentSource = year => _.pipe([
 	_.skip(['MOUNT_TYPE', 'URBN_TYPE', 'COAST_TYPE']),
 	makeMergeAppliedFnMap({
 		level: ({NUTS_ID}) => getNutsIdLevel(NUTS_ID),
-		year: _.always(year),
+		year: _.always(Number(year)),
 	}),
 ]);
 
@@ -135,6 +141,8 @@ const makeUnifiedIds = (sourceTexts, recodes) => {
 	let id = 0;
 	const yearlyNutsIdToId = {};
 
+	// FIXME this reduce has side-effects
+	// i.e. editing `id` & `yearlyNutsIdToId`
 	let unifiedNuts = _.reduce(sourceTexts, (acc, {sources, year}) => {
 		const changeObj = _.find(recodes, change => change.to === year);
 
@@ -187,7 +195,11 @@ const makeUnifiedIds = (sourceTexts, recodes) => {
 		return acc.concat(newSources)
 	}, []);
 
-	return {maxId: id, yearlyNutsIdToId, unifiedNuts}
+	return {
+		maxId: id,
+		unifiedNuts,
+		yearlyNutsIdToId,
+	}
 }
 
 const getDetectedChanges = _.pipe([
@@ -266,7 +278,7 @@ const makeHierarchy = _.pipe([
 
 		return {
 			name,
-			id,
+			id: Number(id),
 			pid,
 			rootId,
 			...lev,
@@ -275,11 +287,20 @@ const makeHierarchy = _.pipe([
 	})
 ]);
 
-const makeIdToNutsIds = _.pipe([
+const makeIdToNutsIdByYear = _.pipe([
 	_.pairs,
 	_.groupBy(_.getAt(1)),
-	_.mapValuesWith(_.mapWith(_.getAt(0)))
+	_.mapValuesWith(
+		_.pipe([
+			_.mapWith(_.pipe([
+				_.getAt(0),
+				_.splitBy('/')
+			])),
+			_.fromPairs
+		])
+	)
 ]);
+
 
 /* run */
 
@@ -299,7 +320,7 @@ const run = async () => {
 
 	const hierarchy = makeHierarchy(unifiedNuts);
 
-	const idToYearlyNutsIds = makeIdToNutsIds(yearlyNutsIdToId);
+	const idToNutsIdByYear = makeIdToNutsIdByYear(yearlyNutsIdToId);
 
 	/* checks */
 
@@ -323,8 +344,8 @@ const run = async () => {
 			object: yearlyNutsIdToId
 		},
 		{
-			filepath: outPaths.idToYearlyNutsIds,
-			object: idToYearlyNutsIds
+			filepath: outPaths.idToNutsIdByYear,
+			object: idToNutsIdByYear
 		},
 		{
 			filepath: outPaths.unifiedNuts,

@@ -11,12 +11,18 @@ import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
 import rimraf from 'rimraf';
 
-import {getBasename, NUTS_DATABASE_DIR_0, NUTS_DATABASE_DIR_1} from 'paths';
+import {
+	getBasename,
+	NUTS_DATABASE_DIR_0,
+	NUTS_DATABASE_DIR_1,
+} from 'paths';
 import {NUTS_HOME_URL} from 'urls';
 
 /* paths */
 
-const IN_SPEC_PATH = path.resolve(NUTS_DATABASE_DIR_0, 'nuts_spec.yaml');
+const inPaths = {
+	nutsSpec: path.resolve(NUTS_DATABASE_DIR_0, 'nuts_spec.yaml'),
+}
 // out: sub-dirs of NUTS_DATABASE_DIR_1, see makeDestinationPath
 
 /* utils */
@@ -75,14 +81,14 @@ const makeTopojsonUpdater = key => transformValues({
 - assign `objects` to a 'NUTS' property
 
 in:
-	- IN_SPEC_PATH
+	- inPaths.nutsSpec
 	- NUTS_HOME_URL
 out:
 	- OUT_TOPOJSON_DIR/*.topojson
 */
 const run = async () => {
 	const permutations =
-		await readFile(IN_SPEC_PATH, 'utf-8')
+		await readFile(inPaths.nutsSpec, 'utf-8')
 		.then(yaml.safeLoad)
 		.then(permute)
 		.catch(err => console.error(err));

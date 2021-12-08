@@ -10,13 +10,13 @@ mkdir $DISTRO/NUTS &&
 mkdir $DISTRO/NUTS/topojson &&
 cp		$BASE/NUTS/1/countries_by_year.yaml 	$DISTRO/NUTS/ && \
 cp -r $BASE/NUTS/1/sourceText								$DISTRO/NUTS/ && \
-cp 		$BASE/NUTS/1/topojson/*.json					$DISTRO/NUTS/topojson/ && \
-cp 		$BASE/NUTS/2/topojson/*.json					$DISTRO/NUTS/topojson/ && \
 cp 		$BASE/NUTS/2/hierarchy.json						$DISTRO/NUTS/ && \
-cp 		$BASE/NUTS/2/idToYearlyNutsIds.json		$DISTRO/NUTS/ && \
+cp 		$BASE/NUTS/2/idToNutsIdByYear.json		$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/2/recoded.json							$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/2/unifiedNuts.json					$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/2/yearlyNutsIdToId.json		$DISTRO/NUTS/ && \
+cp 		$BASE/NUTS/3/topojson/*.json					$DISTRO/NUTS/topojson/ && \
+cp 		$BASE/NUTS/4/topojson/*.json					$DISTRO/NUTS/topojson/ && \
 
 # world
 

@@ -11,19 +11,27 @@ import mkdirp from 'mkdirp';
 import prune from 'topojson-simplify/src/prune';
 import rimraf from 'rimraf';
 
-import {getBasename, NUTS_DATABASE_DIR_1, NUTS_DATABASE_DIR_2} from 'paths';
-
-/* path */
-
-const IN_COUNTRIES_BY_YEAR = path.resolve(
+import {
+	getBasename,
 	NUTS_DATABASE_DIR_1,
-	'countries_by_year.yaml'
-);
-const IN_TOPOJSON_DIR = path.resolve(NUTS_DATABASE_DIR_1, 'topojson');
-const OUT_TOPOJSON_DIR = path.resolve(NUTS_DATABASE_DIR_2, 'topojson');
+	NUTS_DATABASE_DIR_3,
+	NUTS_DATABASE_DIR_4,
+} from 'paths';
 
-rimraf.sync(OUT_TOPOJSON_DIR);
-mkdirp.sync(OUT_TOPOJSON_DIR);
+/* paths */
+
+const inPaths = {
+	countriesByYear: path.resolve(NUTS_DATABASE_DIR_1, 'countries_by_year.yaml'),
+}
+const inDirs = {
+	topojson: path.resolve(NUTS_DATABASE_DIR_3, 'topojson'),
+}
+const outDirs = {
+	topojson: path.resolve(NUTS_DATABASE_DIR_4, 'topojson'),
+}
+
+rimraf.sync(outDirs.topojson);
+mkdirp.sync(outDirs.topojson);
 
 /* utils */
 
@@ -49,18 +57,18 @@ out:
 	- NUTS_DATABASE_DIR_2/topojson/*_{country}.json
 */
 const run = async () => {
-	const filtersByYear = await readFile(IN_COUNTRIES_BY_YEAR, 'utf-8')
+	const filtersByYear = await readFile(inPaths.countriesByYear, 'utf-8')
 	.then(yaml.safeLoad)
 	.then(_.mapValuesWith(
 		_.mapWith(_.collect([_.identity, makeTopojsonFilterByCountryId]))
 	))
 	.catch(err => console.error(err));
 
-	const filenames = await readDir(IN_TOPOJSON_DIR);
+	const filenames = await readDir(inDirs.topojson);
 
 	await Promise.all(
 		_.flatMap(filenames, async filename => {
-			const inPath = path.resolve(IN_TOPOJSON_DIR, filename);
+			const inPath = path.resolve(inDirs.topojson, filename);
 			const {name} = path.parse(filename);
 			const [ , , , year] = name.split('_');
 
@@ -68,7 +76,7 @@ const run = async () => {
 			const {length} = JSON.stringify(topojson);
 
 			return filtersByYear[year].map(([id, filterByCountryId]) => {
-				const outPath = path.resolve(OUT_TOPOJSON_DIR, `${name}_${id}.json`);
+				const outPath = path.resolve(outDirs.topojson, `${name}_${id}.json`);
 
 				const filteredObjectsTopo = filterByCountryId(topojson);
 				const prunedTopo = prune(filteredObjectsTopo);

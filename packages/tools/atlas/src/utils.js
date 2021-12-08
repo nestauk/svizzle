@@ -1,3 +1,4 @@
+import yearlyNutsIdToId from '../data/dist/NUTS/yearlyNutsIdToId.json';
 import {version} from '../package.json';
 
 export const makeTopoId = ({
@@ -24,4 +25,10 @@ export const makeTopoId = ({
 
 export const atlasBase = `https://unpkg.com/@svizzle/atlas@${version}/data/dist`;
 export const makeTopoURL =
-	(id, type, base = atlasBase) => `${base}/${type}/topojson/${id}.json`
+	(id, type, base = atlasBase) => `${base}/${type}/topojson/${id}.json`;
+
+export const getAtlasId =
+	({regionId, specYear, type}) =>
+		type === 'NUTS'
+			? yearlyNutsIdToId[`${specYear}/${regionId}`]
+			: undefined;

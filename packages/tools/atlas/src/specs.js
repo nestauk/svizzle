@@ -1,8 +1,8 @@
 export default {
 	world: {
-		// epsgId: 4326, // TODO
-		// levels: undefined, // TODO
+		// epsgId: undefined, // TODO
 		// years: undefined, // TODO
+		levels: [0],
 		objectIds: ['countries', 'land'],
 		properties: ['iso_a2'],
 		resolutions: ['110m'],

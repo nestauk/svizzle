@@ -20,18 +20,21 @@ import {NUTS_HOME_URL} from 'urls';
 
 /* paths */
 
-const IN_SPEC_PATH = path.resolve(NUTS_DATABASE_DIR_0, 'nuts_spec.yaml');
-const OUT_COUNTRIES_BY_YEAR_PATH = path.resolve(
-	NUTS_DATABASE_DIR_1,
-	'countries_by_year.yaml'
-);
-const OUT_BASE_DIR = path.resolve(NUTS_DATABASE_DIR_1, 'sourceText');
+const inPaths = {
+	nutsSpec: path.resolve(NUTS_DATABASE_DIR_0, 'nuts_spec.yaml'),
+}
+const outDirs = {
+	sourceText: path.resolve(NUTS_DATABASE_DIR_1, 'sourceText'),
+}
+const outPaths = {
+	countriesByYear: path.resolve(NUTS_DATABASE_DIR_1, 'countries_by_year.yaml'),
+}
 
 /* utils */
 
 const makeURL = year => `${NUTS_HOME_URL}/csv/NUTS_AT_${year}.csv`;
 const makePathYearlyCsv = year =>
-	path.resolve(OUT_BASE_DIR, `NUTS_${year}.csv`);
+	path.resolve(outDirs.sourceText, `NUTS_${year}.csv`);
 
 const makeEuCountries = _.pipe([
 	csvParse,
@@ -42,8 +45,8 @@ const makeEuCountries = _.pipe([
 
 /* run */
 
-rimraf.sync(OUT_BASE_DIR);
-mkdirp.sync(OUT_BASE_DIR);
+rimraf.sync(outDirs.sourceText);
+mkdirp.sync(outDirs.sourceText);
 
 console.log(`\nrun: ${getBasename(__filename)}\n`);
 console.log('Fetching, please wait...');
@@ -53,13 +56,13 @@ console.log('Fetching, please wait...');
 - create `countries_by_year.yaml`
 
 in:
-	- IN_SPEC_PATH
+	- inPaths.nutsSpec
 	- NUTS_HOME_URL
 out:
-	- OUT_BASE_DIR/*.csv
+	- outDirs.sourceText/*.csv
 	- NUTS_DATABASE_DIR_1/countries_by_year.yaml
 */
-readFile(IN_SPEC_PATH, 'utf-8')
+readFile(inPaths.nutsSpec, 'utf-8')
 .then(yaml.safeLoad)
 .then(({year}) => Promise.all(
 	_.map(year,
@@ -76,8 +79,8 @@ readFile(IN_SPEC_PATH, 'utf-8')
 	)
 ))
 .then(_.pipe([_.fromPairs, yaml.safeDump]))
-.then(tapMessage(`Saving ${OUT_COUNTRIES_BY_YEAR_PATH}`))
-.then(saveString(OUT_COUNTRIES_BY_YEAR_PATH))
+.then(tapMessage(`Saving ${outPaths.countriesByYear}`))
+.then(saveString(outPaths.countriesByYear))
 .then(tapMessage('Done'))
 .catch(err => console.error(err));
 
