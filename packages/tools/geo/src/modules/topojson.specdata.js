@@ -9,7 +9,8 @@ export const geojson = {
 				"LEVL_CODE": 0,
 				"CNTR_CODE": "BE",
 				"NUTS_NAME": "Belgique-België",
-				"FID": "BE"
+				"FID": "BE",
+				"atlasId": 1
 			},
 			"geometry": {
 				"type": "Polygon",
