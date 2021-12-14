@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.3.10 (next)
+## `@svizzle/site` v0.3.10
 
 - moved all `dependencies` to `devDependencies` to [avoid having to maintain](https://github.com/sveltejs/sapper-template-rollup#using-external-components) the `external` list in `rollup.config.js` (prone to error)
 - change to accomodate `@svizzle/time_region_value@0.5.0`:

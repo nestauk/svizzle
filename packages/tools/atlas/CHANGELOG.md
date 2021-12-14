@@ -1,4 +1,4 @@
-## `@svizzle/atlas` v0.6.0 (next)
+## `@svizzle/atlas` v0.6.0
 
 - NUTS:
 	- add resolution `10M`, update some texts in `3M` files

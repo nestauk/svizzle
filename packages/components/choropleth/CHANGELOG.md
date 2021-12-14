@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.7.0 (next)
+## `@svizzle/choropleth` v0.7.0
 
 - ported some utilities to `/geo`, hence:
 	- removed `truncateGeojson`

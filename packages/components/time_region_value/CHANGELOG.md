@@ -1,4 +1,4 @@
-## `@svizzle/time_region_value` v0.5.0 (next)
+## `@svizzle/time_region_value` v0.5.0
 
 Breaking:
 	- now supports NUTS levels 0123 for the whole of Europe

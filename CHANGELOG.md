@@ -1,8 +1,8 @@
 # Svizzle changelog
 
-## next
+## 20211214
 
-## `@svizzle/choropleth` v0.7.0 (next)
+## `@svizzle/choropleth` v0.7.0
 
 - ported some utilities to `/geo`, hence:
 	- removed `truncateGeojson`
@@ -11,7 +11,7 @@
 - now exporting `projections` from `src/shared`
 - `ChoroplethG.svelte`: refactored to use the new imports
 
-## `@svizzle/time_region_value` v0.5.0 (next)
+## `@svizzle/time_region_value` v0.5.0
 
 Breaking:
 	- now supports NUTS levels 0123 for the whole of Europe
@@ -32,7 +32,7 @@ Some implementation notes:
 		- The current version does a lot of reconciliation between the pair `[NUTS_ID, region_year_spec]` and the `atlasId` for a region, resulting in the code being a bit convolute and with suboptimal performance.
 		- Some of the current reconciliation code could be avoided by using the `atlasId` property provided to topojsons features by `/atlas` but we need to release this version to test it in an app, hence we'll need to add that optimisation in a future version.
 
-## `@svizzle/site` v0.3.10 (next)
+## `@svizzle/site` v0.3.10
 
 - moved all `dependencies` to `devDependencies` to [avoid having to maintain](https://github.com/sveltejs/sapper-template-rollup#using-external-components) the `external` list in `rollup.config.js` (prone to error)
 - change to accomodate `@svizzle/time_region_value@0.5.0`:
@@ -42,7 +42,7 @@ Some implementation notes:
 	- deleted NUTS2/UK data
 	- not showing POIs anymore for now
 
-## `@svizzle/atlas` v0.6.0 (next)
+## `@svizzle/atlas` v0.6.0
 
 - NUTS:
 	- add resolution `10M`, update some texts in `3M` files
@@ -60,7 +60,7 @@ Some implementation notes:
 - add the `getAtlasId` function
 - remove the dependency on `@svizzle/geo`
 
-## `@svizzle/geo` v0.7.0 (next)
+## `@svizzle/geo` v0.7.0
 
 - port some utilities from `/choropleth`:
 	- add `truncateGeojson`

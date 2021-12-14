@@ -1,4 +1,4 @@
-## `@svizzle/geo` v0.7.0 (next)
+## `@svizzle/geo` v0.7.0
 
 - port some utilities from `/choropleth`:
 	- add `truncateGeojson`
