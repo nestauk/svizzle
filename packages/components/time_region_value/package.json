@@ -64,6 +64,7 @@
 	"homepage": "https://github.com/nestauk/svizzle",
 	"keywords": [
 		"component",
+		"data visualization",
 		"routes",
 		"sapper",
 		"svelte"
@@ -82,6 +83,7 @@
 	},
 	"scripts": {
 		"build": "rimraf dist && rollup -c",
+		"buildpack": "npm run build && npm run pack",
 		"bumppack": "npm run setprerelease && npm run pack",
 		"link": "npm link",
 		"lint": "eslint --max-warnings=0 rollup.config.js 'src/**/*.{js,svelte}'",

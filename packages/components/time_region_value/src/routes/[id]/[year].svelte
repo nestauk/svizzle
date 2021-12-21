@@ -53,7 +53,7 @@
 		_colorBins,
 		_formatFn,
 		_indicator,
-		_noData,
+		_isCurrentDataEmpty,
 		_selectedRegionAtlasIds,
 		_selectedRegionIds,
 	} from 'stores/indicator';
@@ -296,7 +296,7 @@
 	/>
 
 	<div
-		class:noData={$_noData}
+		class:noData={$_isCurrentDataEmpty}
 		class='viewport {$_viewsClasses}'
 	>
 		{#if $_isSmallScreen}
@@ -306,30 +306,34 @@
 			<!-- map -->
 
 			<div
-				class:noData={$_noData}
+				class:noData={$_isCurrentDataEmpty}
 				class='view map'
 			>
-				{#if $_noData}
+				{#if $_isCurrentDataEmpty}
 					<MessageView text={config.noDataMessage} />
 				{:else}
 					<div class='topbox'>
-						<ColorBinsDiv
-							bins={$_colorBins}
-							geometry={{
-								barThickness: 15,
-								left: 30,
-								right: 30,
-							}}
-							flags={{
-								withBackground: true,
-								showTicksExtentOnly: true,
-							}}
-							theme={{
-								backgroundColor: $_theme.colorWhite,
-								backgroundOpacity: 0.5,
-							}}
-							ticksFormatFn={$_formatFn}
-						/>
+						{#if $_colorBins}
+							<ColorBinsDiv
+								bins={$_colorBins}
+								geometry={{
+									barThickness: 15,
+									left: 30,
+									right: 30,
+								}}
+								flags={{
+									withBackground: true,
+									showTicksExtentOnly: true,
+								}}
+								theme={{
+									backgroundColor: $_theme.colorWhite,
+									backgroundOpacity: 0.5,
+								}}
+								ticksFormatFn={$_formatFn}
+							/>
+						{:else}
+							<MessageView text={config.noLegendMessage} />
+						{/if}
 					</div>
 					<div class='content'>
 						<div
@@ -381,30 +385,34 @@
 			<!-- barchart -->
 
 			<div
-				class:noData={$_noData}
+				class:noData={$_isCurrentDataEmpty}
 				class='view barchart'
 			>
-				{#if $_noData}
+				{#if $_isCurrentDataEmpty}
 					<MessageView text={config.noDataMessage} />
 				{:else}
 					<div class='topbox'>
-						<ColorBinsDiv
-							bins={$_colorBins}
-							geometry={{
-								barThickness: 15,
-								left: 30,
-								right: 30,
-							}}
-							flags={{
-								withBackground: true,
-								showTicksExtentOnly: true,
-							}}
-							theme={{
-								backgroundColor: $_theme.colorWhite,
-								backgroundOpacity: 0.5,
-							}}
-							ticksFormatFn={$_formatFn}
-						/>
+						{#if $_colorBins}
+							<ColorBinsDiv
+								bins={$_colorBins}
+								geometry={{
+									barThickness: 15,
+									left: 30,
+									right: 30,
+								}}
+								flags={{
+									withBackground: true,
+									showTicksExtentOnly: true,
+								}}
+								theme={{
+									backgroundColor: $_theme.colorWhite,
+									backgroundOpacity: 0.5,
+								}}
+								ticksFormatFn={$_formatFn}
+							/>
+						{:else}
+							<MessageView text={config.noLegendMessage} />
+						{/if}
 					</div>
 					<div class='content'>
 						<BarchartVDiv
@@ -493,11 +501,11 @@
 			<!-- content -->
 
 			<div
-				class:noData={$_noData}
+				class:noData={$_isCurrentDataEmpty}
 				class='content'
 			>
-				{#if $_noData}
-					<MessageView text='No data' />
+				{#if $_isCurrentDataEmpty}
+					<MessageView text={config.noDataMessage} />
 				{:else}
 
 					<!-- map -->
@@ -567,22 +575,24 @@
 
 								<!-- legend -->
 
-								<g transform='translate(0,{legendHeight})'>
-									<ColorBinsG
-										bins={$_colorBins}
-										flags={{
-											isVertical: true,
-											withBackground: true,
-										}}
-										height={legendHeight}
-										theme={{
-											backgroundColor: $_theme.colorWhite,
-											backgroundOpacity: 0.5,
-										}}
-										ticksFormatFn={$_formatFn}
-										width={legendBarThickness}
-									/>
-								</g>
+								{#if $_colorBins}
+									<g transform='translate(0,{legendHeight})'>
+										<ColorBinsG
+											bins={$_colorBins}
+											flags={{
+												isVertical: true,
+												withBackground: true,
+											}}
+											height={legendHeight}
+											theme={{
+												backgroundColor: $_theme.colorWhite,
+												backgroundOpacity: 0.5,
+											}}
+											ticksFormatFn={$_formatFn}
+											width={legendBarThickness}
+										/>
+									</g>
+								{/if}
 
 							</svg>
 

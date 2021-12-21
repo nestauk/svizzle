@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/time_region_value` v0.6.0 (next)
+
+- Fix the color scale and hide the legend when we have only 1 data point
+
+
 ## 20211214
 
 ## `@svizzle/choropleth` v0.7.0

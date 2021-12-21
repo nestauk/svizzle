@@ -27,13 +27,13 @@
 	import {
 		_colorBins,
 		_colorScale,
+		_currentExtext,
 		_formatFn,
 		_getIndicatorValue,
 		_indicator,
-		_noData,
+		_isCurrentDataEmpty,
 		_rankedData,
-		_selectedData,
-		_valueExtext,
+		_selectionData,
 	} from 'stores/indicator';
 	import {_isSmallScreen, _screenClasses} from 'stores/layout';
 	import {
@@ -117,9 +117,9 @@
 
 	// selection
 	$: trendsData = {
-		selectedData: $_selectedData,
 		rankedData: $_rankedData,
-		valueExtext: $_valueExtext,
+		selectionData: $_selectionData,
+		valueExtext: $_currentExtext,
 		year_extent,
 	}
 
@@ -147,7 +147,7 @@
 	/>
 
 	<div
-		class:noData={$_noData}
+		class:noData={$_isCurrentDataEmpty}
 		class='viewport {$_viewsClasses}'
 	>
 		{#if $_isSmallScreen}
@@ -157,10 +157,10 @@
 			<!-- trends -->
 
 			<div
-				class:noData={$_noData}
+				class:noData={$_isCurrentDataEmpty}
 				class='view trends'
 			>
-				{#if $_noData}
+				{#if $_isCurrentDataEmpty}
 					<MessageView text={config.noDataMessage} />
 				{:else}
 					<div class='topbox'>
@@ -262,11 +262,11 @@
 			<div
 				bind:clientHeight={mediumTrendsHeight}
 				bind:clientWidth={mediumTrendsWidth}
-				class:noData={$_noData}
+				class:noData={$_isCurrentDataEmpty}
 				class='content'
 			>
-				{#if $_noData}
-					<MessageView text='No data' />
+				{#if $_isCurrentDataEmpty}
+					<MessageView text={config.noDataMessage} />
 				{:else if trendsData && mediumTrendsWidth && mediumTrendsHeight}
 					<svg
 						height={mediumTrendsHeight}
@@ -288,22 +288,24 @@
 
 						<!-- legend -->
 
-						<g transform='translate(0,{mediumLegendHeight})'>
-							<ColorBinsG
-								bins={$_colorBins}
-								flags={{
-									isVertical: true,
-									withBackground: true,
-								}}
-								height={mediumLegendHeight}
-								theme={{
-									backgroundColor: $_theme.colorWhite,
-									backgroundOpacity: 0.5,
-								}}
-								ticksFormatFn={$_formatFn}
-								width={legendBarThickness}
-							/>
-						</g>
+						{#if $_colorBins}
+							<g transform='translate(0,{mediumLegendHeight})'>
+								<ColorBinsG
+									bins={$_colorBins}
+									flags={{
+										isVertical: true,
+										withBackground: true,
+									}}
+									height={mediumLegendHeight}
+									theme={{
+										backgroundColor: $_theme.colorWhite,
+										backgroundOpacity: 0.5,
+									}}
+									ticksFormatFn={$_formatFn}
+									width={legendBarThickness}
+								/>
+							</g>
+						{/if}
 
 					</svg>
 				{/if}	<!-- noData  -->
