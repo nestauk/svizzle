@@ -8,6 +8,7 @@
 	- move some stores from `stores/indicator.js` to `stores/indicatorCurrent.js`
 	- move some stores from `stores/indicator.js` to `stores/legend.js`
 - Use precomputed `rootIds` in `stores/selectedRegions.js`
+- Enhanced UX for `GeoFilterModal`
 
 ## `@svizzle/time_region_value` v0.5.0
 
