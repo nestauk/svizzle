@@ -33,13 +33,6 @@
 
 	// stores
 
-	import {
-		_barchartRefs,
-		_regionIdToColor,
-		_regionIdToColorFn,
-		_regionIdToValue,
-		_regionIdValuePairs,
-	} from 'stores/barchart';
 	import {_lookup} from 'stores/dataset';
 	import {
 		_filteredGeojson,
@@ -50,14 +43,21 @@
 		_topojson,
 	} from 'stores/geoBoundaries';
 	import {
-		_colorBins,
 		_formatFn,
 		_indicator,
-		_isCurrentDataEmpty,
 		_selectedRegionAtlasIds,
 		_selectedRegionIds,
 	} from 'stores/indicator';
+	import {_isCurrentDataEmpty} from 'stores/indicatorCurrent';
+	import {
+		_barchartRefs,
+		_regionIdToColor,
+		_regionIdToColorFn,
+		_regionIdToValue,
+		_regionIdValuePairs,
+	} from 'stores/indicatorYear';
 	import {_isSmallScreen, _screenClasses} from 'stores/layout';
+	import {_colorBins} from 'stores/legend';
 	import {
 		_geoModal,
 		_infoModal,
@@ -159,13 +159,17 @@
 	$: choroplethInnerWidth =
 		mapWidth - choroplethSafety.left - choroplethSafety.right;
 
-	// labels (TODO move to stores/barchart.js)
+	// labels
+
+	// TODO move to stores/indicator.js
 	$: labelUnit =
 		schema.value.unit_string ||
 		schema.value.type &&
 		_.has(types, schema.value.type) &&
 		_.has(types[schema.value.type], 'unit_string') &&
 		types[schema.value.type].unit_string;
+
+	// TODO move to stores/indicatorYear.js
 	$: barchartTitle = schema.value.label + (labelUnit ? ` [${labelUnit}]` : '');
 
 	// map

@@ -23,19 +23,18 @@
 
 	// stores
 
+	import {_colorScale} from 'stores/colors';
 	import {_lookup} from 'stores/dataset';
 	import {
-		_colorBins,
-		_colorScale,
-		_currentExtext,
 		_formatFn,
 		_getIndicatorValue,
 		_indicator,
-		_isCurrentDataEmpty,
 		_rankedData,
 		_selectionData,
 	} from 'stores/indicator';
+	import {_currentExtext, _isCurrentDataEmpty} from 'stores/indicatorCurrent';
 	import {_isSmallScreen, _screenClasses} from 'stores/layout';
+	import {_colorBins} from 'stores/legend';
 	import {
 		_geoModal,
 		_infoModal,

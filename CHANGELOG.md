@@ -5,6 +5,12 @@
 ## `@svizzle/time_region_value` v0.6.0 (next)
 
 - Fix the color scale and hide the legend when we have only 1 data point
+- Move stores in appropriate modules
+	- rename `stores/barchart.js` -> `stores/indicatorYear.js`
+	- move many stores from `stores/theme.js` to `stores/colors.js`
+	- move some stores from `stores/indicator.js` to `stores/indicatorCurrent.js`
+	- move some stores from `stores/indicator.js` to `stores/legend.js`
+- Use precomputed `rootIds` in `stores/selectedRegions.js`
 
 
 ## 20211214
