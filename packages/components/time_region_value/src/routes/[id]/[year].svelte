@@ -51,6 +51,7 @@
 	import {_isCurrentDataEmpty} from 'stores/indicatorCurrent';
 	import {
 		_barchartRefs,
+		_regionIdToBarchartLabel,
 		_regionIdToColor,
 		_regionIdToColorFn,
 		_regionIdToValue,
@@ -425,7 +426,7 @@
 							isInteractive={true}
 							items={$_regionIdValuePairs}
 							keyToColor={$_regionIdToColor}
-							keyToLabel={regionIdToName}
+							keyToLabel={$_regionIdToBarchartLabel}
 							on:entered={onEnteredBar}
 							on:exited={onExitedBar}
 							refs={$_barchartRefs}
@@ -636,7 +637,7 @@
 							isInteractive={true}
 							items={$_regionIdValuePairs}
 							keyToColor={$_regionIdToColor}
-							keyToLabel={regionIdToName}
+							keyToLabel={$_regionIdToBarchartLabel}
 							on:entered={onEnteredBar}
 							on:exited={onExitedBar}
 							refs={$_barchartRefs}

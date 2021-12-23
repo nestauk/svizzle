@@ -5,6 +5,7 @@
 ## `@svizzle/time_region_value` v0.6.0 (next)
 
 - Fix the color scale and hide the legend when we have only 1 data point
+- Show country codes in the bar chart
 - Move stores in appropriate modules
 	- rename `stores/barchart.js` -> `stores/indicatorYear.js`
 	- move many stores from `stores/theme.js` to `stores/colors.js`
