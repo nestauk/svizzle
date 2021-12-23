@@ -1,7 +1,3 @@
-/**
-* @module @svizzle/choropleth/src/shared
-*/
-
 export const defaultGeometry = {
 	bottom: 10,
 	left: 10,

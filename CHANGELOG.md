@@ -12,6 +12,10 @@
 	- move some stores from `stores/indicator.js` to `stores/legend.js`
 - Use precomputed `rootIds` in `stores/selectedRegions.js`
 
+## `@svizzle/site` v0.3.11 (next)
+
+- Avoid exposing `@svizzle/choropleth/src/shared`
+
 
 ## 20211214
 
