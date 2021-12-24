@@ -49,6 +49,8 @@
 		"outdated": "lerna run outdated",
 		"prepublishOnly": "npm run lernacleanboot && lerna run lint && lerna run test && lerna run build",
 		"publishDoc": "gh-pages --dotfiles -d packages/docs/site/__sapper__/export/svizzle",
+		"reboot": "npm run reinstall && npm run lernacleanboot",
+		"reinstall": "npm run uninstall && npm install",
 		"serveDoc": "serve packages/docs/site/__sapper__/export",
 		"serveJsDoc": "serve ${npm_package_config_jsdocpath}",
 		"setLocalDoc": "npm run buildDoc && npm run serveDoc",

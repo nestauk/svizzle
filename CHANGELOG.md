@@ -1,20 +1,21 @@
 # Svizzle changelog
 
-## next
+## 20211224
 
-## `@svizzle/time_region_value` v0.6.0 (next)
+## `@svizzle/time_region_value` v0.6.0
 
 - Fix the color scale and hide the legend when we have only 1 data point
 - Show country codes in the bar chart
-- Move stores in appropriate modules
-	- rename `stores/barchart.js` -> `stores/indicatorYear.js`
-	- move many stores from `stores/theme.js` to `stores/colors.js`
-	- move some stores from `stores/indicator.js` to `stores/indicatorCurrent.js`
-	- move some stores from `stores/indicator.js` to `stores/legend.js`
-- Use precomputed `rootIds` in `stores/selectedRegions.js`
 - Enhanced UX for `GeoFilterModal`
+- Refactor:
+	- Move stores in appropriate modules
+		- rename `stores/barchart.js` -> `stores/indicatorYear.js`
+		- move many stores from `stores/theme.js` to `stores/colors.js`
+		- move some stores from `stores/indicator.js` to `stores/indicatorCurrent.js`
+		- move some stores from `stores/indicator.js` to `stores/legend.js`
+	- Use precomputed `rootIds` in `stores/selectedRegions.js`
 
-## `@svizzle/site` v0.3.11 (next)
+## `@svizzle/site` v0.3.11
 
 - Avoid exposing `@svizzle/choropleth/src/shared`
 

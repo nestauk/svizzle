@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.3.11 (next)
+## `@svizzle/site` v0.3.11
 
 - Avoid exposing `@svizzle/choropleth/src/shared`
 
