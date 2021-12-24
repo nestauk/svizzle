@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## 20211224_2
+
+## `@svizzle/time_region_value` v0.6.1
+
+- Fix dirty regions selection not changing the globe icon color
+
+
 ## 20211224
 
 ## `@svizzle/time_region_value` v0.6.0

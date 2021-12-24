@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.6.1
+
+- Fix dirty regions selection not changing the globe icon color
+
 ## `@svizzle/time_region_value` v0.6.0
 
 - Fix the color scale and hide the legend when we have only 1 data point
