@@ -10,6 +10,7 @@
 	"dependencies": {
 		"@svizzle/dom": "^0.5.1",
 		"@svizzle/utils": "^0.16.0",
+		"@types/d3-queue": "^3.0.8",
 		"uid": "^1.0.0"
 	},
 	"description": "A set of UI components for Svelte.",
@@ -20,6 +21,7 @@
 		"@svizzle/dev": "^0.4.4",
 		"@svizzle/file": "^0.12.0",
 		"camelcase": "^6.2.0",
+		"d3-queue": "^3.0.7",
 		"eslint": "^7.24.0",
 		"eslint-plugin-import": "^2.18.2",
 		"eslint-plugin-svelte3": "^2.7.3",

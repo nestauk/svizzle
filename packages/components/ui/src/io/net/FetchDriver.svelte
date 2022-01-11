@@ -13,27 +13,18 @@
 		})
 		return mergedArray
 	}
-	const run = async (sources, priorities, defaultTransformer, prefetch, downloadSet) => {
-		await Promise.all(downloadSet(
-			_.pickIn(sources, priorities.asap),
-			defaultTransformer
-		))
-		if (prefetch) { 
-			await Promise.all(downloadSet(
-				_.pickIn(sources, priorities.next),
-				defaultTransformer
-			))
-			await Promise.all(downloadSet(
-				_.pickIn(sources, priorities.rest),
-				defaultTransformer
-			))
-		}
+
+	const nextStage = {
+		asap: 'next',
+		next: 'rest',
 	}
 
 </script>
 
 <script>
-	import {queue} from 'd3-queue'
+	import {queue as d3Queue} from 'd3-queue'
+
+	import {isClientSide} from '../../utils/env';
 
 	export let data = {}
 	export let loadingKeys = []
@@ -43,34 +34,103 @@
 	export let sources = {}
 	export let prefetch = false
 
-	const download = async ([key, {url, transformer}]) => {
-		loadingKeys = [...loadingKeys, key]
+	let stage
+
+	const abortersByKey = {}
+	const queue = d3Queue()
+
+	const sourcesUpdated = newSources => {
+		if (loadingKeys.length > 0) {
+			queue.abort()
+		}
+
+		return {
+			data: {},
+			all: _.keys(newSources)
+		}
+	}
+	const prioritiesUpdated = (allKeys, {asap, next}) => {
+		const keysToAbort = _.difference(loadingKeys, asap)
+		_.map(keysToAbort, key => {
+			abortersByKey[key]()
+		})
+
+		return {
+			rest: _.difference(allKeys, _.union(asap, next)),
+			stage: 'asap'
+		}
+	}
+	const stageCompleted = () => {
+		if (prefetch && stage in nextStage) {
+			console.log('next stage', stage, nextStage[stage])
+			stage = nextStage[stage]
+		}
+	}
+
+	const download = async (key, {url, transformer}, notifyDone) => {
+		console.log('starting download', key)
 		const response = await fetch(url)
 		const stream = await response.body
 		const reader = stream.getReader()
+
+		// update state to reflect download started
+		loadingKeys = [...loadingKeys, key]
+		abortersByKey[key] = () => {
+			reader.cancel('Aborted by priority change')
+			notifyDone()
+		}
 
 		let chunks = []
 		const processChunk = ({done, value}) => {
 			if (done) {
 				const mergedArray = mergeUint8Arrays(chunks)
-				const result = (transformer || defaultTransformer)(mergedArray)
-				data[key] = result
+
+				// update state to reflect download completed
+				data[key] = (transformer || defaultTransformer)(mergedArray)
 				loadingKeys = _.pullFrom(loadingKeys, [key])
+				delete abortersByKey[key]
+
+				console.log('download completed', key)
+				console.log(notifyDone)
+
+				notifyDone()
 			}
 			else {
 				chunks.push(value)
-				return reader.read().then(processChunk)
+				reader.read().then(processChunk)
 			}
 		}
 
-		return reader.read().then(processChunk)
+		// start reading
+		reader.read().then(processChunk)
+
+		return {
+			abort: () => {
+				reader.cancel('Aborted by source change')
+			}
+		}
 	}
-	const downloadSet = sr => _.pairs(sr).map(download)
-	
-	$: sources, (data = [])
-	$: all = _.keys(sources)
+
+	const stageChanged = newStage => {
+		console.log('stage changed', newStage)
+		const nextSources = _.pickIn(sources, priorities[newStage])
+		console.log('next sources', nextSources)
+		_.pairs(nextSources).forEach(([key, value]) => {
+			console.log('queuing download', key)
+			queue.defer(download, key, value)
+		})
+		queue.awaitAll((error, keys) => {
+			if (error) {
+				throw error
+			}
+			console.log('done', keys)
+			stageCompleted()
+		})
+	}
+	$: ({data, all} = sourcesUpdated(sources))
+	$: ({rest, stage} = prioritiesUpdated(all, priorities))
 	$: loadedKeys = _.keys(data)
-	$: rest = _.pullFrom(all, [...priorities.asap, ...priorities.next])
-	$: notLoaded = _.pullFrom(all, [...loadedKeys, ...loadingKeys])
-	$: run(sources, {...priorities, rest}, defaultTransformer, prefetch, downloadSet)
+	$: notLoaded = _.difference(all, _.union(loadedKeys, loadingKeys))
+
+	$: isClientSide && stageChanged(stage)
 </script>
