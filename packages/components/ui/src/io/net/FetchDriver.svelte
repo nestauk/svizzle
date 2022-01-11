@@ -37,7 +37,7 @@
 	let stage
 
 	const abortersByKey = {}
-	const queue = d3Queue()
+	let queue
 
 	const sourcesUpdated = newSources => {
 		if (loadingKeys.length > 0) {
@@ -77,7 +77,7 @@
 		loadingKeys = [...loadingKeys, key]
 		abortersByKey[key] = () => {
 			reader.cancel('Aborted by priority change')
-			notifyDone()
+			notifyDone(null, key)
 		}
 
 		let chunks = []
@@ -91,9 +91,8 @@
 				delete abortersByKey[key]
 
 				console.log('download completed', key)
-				console.log(notifyDone)
 
-				notifyDone()
+				notifyDone(null, key)
 			}
 			else {
 				chunks.push(value)
@@ -113,8 +112,11 @@
 
 	const stageChanged = newStage => {
 		console.log('stage changed', newStage)
-		const nextSources = _.pickIn(sources, priorities[newStage])
+		const nextSources = _.pickIn(sources, allPriorities[newStage])
 		console.log('next sources', nextSources)
+
+		queue = d3Queue()
+
 		_.pairs(nextSources).forEach(([key, value]) => {
 			console.log('queuing download', key)
 			queue.defer(download, key, value)
@@ -123,12 +125,13 @@
 			if (error) {
 				throw error
 			}
-			console.log('done', keys)
+			console.log('stage completed', keys)
 			stageCompleted()
 		})
 	}
 	$: ({data, all} = sourcesUpdated(sources))
 	$: ({rest, stage} = prioritiesUpdated(all, priorities))
+	$: allPriorities = {...priorities, rest}
 	$: loadedKeys = _.keys(data)
 	$: notLoaded = _.difference(all, _.union(loadedKeys, loadingKeys))
 
