@@ -54,9 +54,10 @@
 		_.map(keysToAbort, key => {
 			abortersByKey[key]()
 		})
+		const rest = _.difference(allKeys, _.union(asap, next))
 
 		return {
-			rest: _.difference(allKeys, _.union(asap, next)),
+			allPriorities: {asap, next, rest},
 			stage: 'asap'
 		}
 	}
@@ -130,8 +131,7 @@
 		})
 	}
 	$: ({data, all} = sourcesUpdated(sources))
-	$: ({rest, stage} = prioritiesUpdated(all, priorities))
-	$: allPriorities = {...priorities, rest}
+	$: ({allPriorities, stage} = prioritiesUpdated(all, priorities))
 	$: loadedKeys = _.keys(data)
 	$: notLoaded = _.difference(all, _.union(loadedKeys, loadingKeys))
 
