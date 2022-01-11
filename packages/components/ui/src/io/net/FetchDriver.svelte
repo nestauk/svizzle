@@ -74,10 +74,16 @@
 		const stream = await response.body
 		const reader = stream.getReader()
 
+		const abort = message => {
+			console.log('canceling', message, key)
+			reader.cancel(message)
+			loadingKeys = _.pullFrom(loadingKeys, [key])
+		}
+
 		// update state to reflect download started
 		loadingKeys = [...loadingKeys, key]
 		abortersByKey[key] = () => {
-			reader.cancel('Aborted by priority change')
+			abort('Aborted by priority change')
 			notifyDone(null, key)
 		}
 
@@ -106,14 +112,18 @@
 
 		return {
 			abort: () => {
-				reader.cancel('Aborted by source change')
+				abort('Aborted by source change')
 			}
 		}
 	}
 
 	const stageChanged = newStage => {
 		console.log('stage changed', newStage)
-		const nextSources = _.pickIn(sources, allPriorities[newStage])
+		const keysToLoad = _.difference(
+			allPriorities[newStage],
+			_.union(loadedKeys, loadingKeys)
+		)
+		const nextSources = _.pickIn(sources, keysToLoad)
 		console.log('next sources', nextSources)
 
 		queue = d3Queue()
