@@ -1,149 +1,104 @@
-<script context='module'>
-	import * as _ from 'lamb'
-	const mergeUint8Arrays = arrays => {
-		const totalLength = arrays.reduce(
-			(acc, array) => acc + array.length,
-			0
-		)
-		const mergedArray = new Uint8Array(totalLength)
-		let start = 0
-		arrays.forEach(array => {
-			mergedArray.set(array, start)
-			start += array.length
-		})
-		return mergedArray
-	}
-
-	const nextStage = {
-		asap: 'next',
-		next: 'rest',
-	}
-
-</script>
-
 <script>
-	import {queue as d3Queue} from 'd3-queue'
+	import * as _ from 'lamb'
+	import { writable } from 'svelte/store'
+	import {objectToKeyValueArray} from '@svizzle/utils'
 
-	import {isClientSide} from '../../utils/env';
+	import {isClientSide} from '../../utils/env'
+	import {mergeUint8Arrays} from './utils'
 
-	export let data = {}
-	export let loadingKeys = []
-	export let notLoaded = []
-	export let defaultTransformer = bytes => bytes
-	export let priorities = []
-	export let sources = {}
-	export let prefetch = false
+	// input props
+	export let defaultTransformer = _.identity
+	export let asapKeys = []
+	export let nextKeys = []
+	export let shouldPrefetch = false
+	export let uriMap = {}
 
-	let stage
+	// output props (for binding)
+	export let outData = {}
+	export let outLoadingKeys = []
 
-	const abortersByKey = {}
-	let queue
+	let aborters = {}
 
-	const sourcesUpdated = newSources => {
-		if (loadingKeys.length > 0) {
-			queue.abort()
-		}
-
-		return {
-			data: {},
-			all: _.keys(newSources)
-		}
-	}
-	const prioritiesUpdated = (allKeys, {asap, next}) => {
-		const keysToAbort = _.difference(loadingKeys, asap)
-		_.map(keysToAbort, key => {
-			abortersByKey[key]()
-		})
-		const rest = _.difference(allKeys, _.union(asap, next))
-
-		return {
-			allPriorities: {asap, next, rest},
-			stage: 'asap'
-		}
-	}
-	const stageCompleted = () => {
-		if (prefetch && stage in nextStage) {
-			console.log('next stage', stage, nextStage[stage])
-			stage = nextStage[stage]
-		}
-	}
-
-	const download = async (key, {url, transformer}, notifyDone) => {
-		console.log('starting download', key)
+	const download = async (key, {url, transformer}, aborters) => {
 		const response = await fetch(url)
 		const stream = await response.body
 		const reader = stream.getReader()
 
-		const abort = message => {
-			console.log('canceling', message, key)
-			reader.cancel(message)
-			loadingKeys = _.pullFrom(loadingKeys, [key])
-		}
-
-		// update state to reflect download started
-		loadingKeys = [...loadingKeys, key]
-		abortersByKey[key] = () => {
-			abort('Aborted by priority change')
-			notifyDone(null, key)
-		}
-
-		let chunks = []
-		const processChunk = ({done, value}) => {
-			if (done) {
-				const mergedArray = mergeUint8Arrays(chunks)
-
-				// update state to reflect download completed
-				data[key] = (transformer || defaultTransformer)(mergedArray)
-				loadingKeys = _.pullFrom(loadingKeys, [key])
-				delete abortersByKey[key]
-
-				console.log('download completed', key)
-
-				notifyDone(null, key)
+		// TODO failure
+		return new Promise((resolve, reject) => {
+			aborters[key] = message => {
+				reader.cancel(message)
+				delete aborters[key]
+				resolve()
 			}
-			else {
-				chunks.push(value)
-				reader.read().then(processChunk)
+
+			let chunks = []
+			const processChunk = async ({done, value}) => {
+				if (!done) {
+					chunks.push(value)
+					reader.read().then(processChunk)
+				}
+				else {
+					const mergedArray = mergeUint8Arrays(chunks)
+					const results = (transformer || defaultTransformer)(mergedArray)
+					delete aborters[key]
+					resolve(results)
+				}
 			}
-		}
 
-		// start reading
-		reader.read().then(processChunk)
-
-		return {
-			abort: () => {
-				abort('Aborted by source change')
-			}
-		}
-	}
-
-	const stageChanged = newStage => {
-		console.log('stage changed', newStage)
-		const keysToLoad = _.difference(
-			allPriorities[newStage],
-			_.union(loadedKeys, loadingKeys)
-		)
-		const nextSources = _.pickIn(sources, keysToLoad)
-		console.log('next sources', nextSources)
-
-		queue = d3Queue()
-
-		_.pairs(nextSources).forEach(([key, value]) => {
-			console.log('queuing download', key)
-			queue.defer(download, key, value)
-		})
-		queue.awaitAll((error, keys) => {
-			if (error) {
-				throw error
-			}
-			console.log('stage completed', keys)
-			stageCompleted()
+			// start reading
+			reader.read().then(processChunk)
 		})
 	}
-	$: ({data, all} = sourcesUpdated(sources))
-	$: ({allPriorities, stage} = prioritiesUpdated(all, priorities))
-	$: loadedKeys = _.keys(data)
-	$: notLoaded = _.difference(all, _.union(loadedKeys, loadingKeys))
 
-	$: isClientSide && stageChanged(stage)
+	// FIXME --- link missing...
+	$: defaultTransformer = defaultTransformer || _.identity
+
+	// Before starting downloading, we must determine what needs
+	// to be downloaded and what is currently being downloaded.
+
+	$: allKeys = _.keys(uriMap)
+	// When `sourcesMap` changes we wipe `outData`
+	// eslint-disable-next-line no-unused-expressions, no-sequences
+	$: uriMap, outData = {}
+	$: restKeys = _.difference(allKeys, _.union(asapKeys, nextKeys))
+	$: restKeys, currentGroupId = 'asap'
+	$: groups = {
+		asap: asapKeys,
+		next: nextKeys,
+		rest: restKeys
+	}
+	$: outLoadingKeys.length === 0 && (currentGroupId = currentGroupId === 'asap' ? 'next' : 'rest')
+	$: currentKeys = groups[currentGroupId]
+	$: loadedKeys = _.keys(outData)
+	$: keysToLoad = shouldPrefetch || currentGroupId === 'asap'
+		? _.difference(currentKeys, loadedKeys)
+		: []
+	$: todoKeys = _.difference(keysToLoad, outLoadingKeys)
+	$: todoUris = objectToKeyValueArray(_.pickIn(uriMap, todoKeys))
+
+	const abort = (key, reason) => {
+		outLoadingKeys = _.pullFrom(outLoadingKeys, [key])
+		aborters[key](reason)
+	}
+	// 
+	const getAbortKeys = keys => _.difference(outLoadingKeys, keys)  // warning
+	// aborting
+	$: abortKeys = getAbortKeys(asapKeys)
+	$: abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
+	$: uriMap, outLoadingKeys.forEach(() => abort(key, 'Aborted by uriMap change'))
+
+	// downloading
+	$: (async () => {
+		todoUris.forEach(async ({key, value}) => {
+			outLoadingKeys = [...outLoadingKeys, key]
+			try {
+				outData[key] = await download(key, value, aborters)
+			}
+			
+			finally {
+				outLoadingKeys = _.pullFrom(loadingKeys, [key])
+			}
+		})
+	})()
 </script>
