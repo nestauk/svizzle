@@ -1,6 +1,6 @@
 <script>
 	import * as _ from 'lamb'
-	import { writable } from 'svelte/store'
+	// import { writable } from 'svelte/store'
 	import {objectToKeyValueArray} from '@svizzle/utils'
 
 	import {isClientSide} from '../../utils/env'
@@ -17,7 +17,29 @@
 	export let outData = {}
 	export let outLoadingKeys = []
 
-	let aborters = {}
+	let abortersMap = {}
+	let currentGroupId = 'asap'
+	let shouldAdvance
+
+	/*
+	const addLoadingKey = key => outLoadingKeys = [...outLoadingKeys, key]
+	const removeLoadingKey = key => outLoadingKeys = _.pullFrom(outLoadingKeys, [key])
+	*/
+	const getNextGroupId = () => {
+		shouldAdvance = false
+		return 		!currentGroupId ?
+			'asap' : currentGroupId === 'asap' ?
+				'next' : 'rest'
+	}
+	const abort = (key, reason) => {
+		outLoadingKeys = _.pullFrom(outLoadingKeys, [key])
+		// removeLoadingKey(key)
+		abortersMap[key](reason)
+		delete abortersMap[key]
+	}
+
+	const getAbortKeys = keys => _.difference(outLoadingKeys, keys)  // warning
+	const abortAll = reason => outLoadingKeys.forEach(key => abort(key, reason))
 
 	const download = async (key, {url, transformer}, aborters) => {
 		const response = await fetch(url)
@@ -26,8 +48,8 @@
 
 		// TODO failure
 		return new Promise((resolve, reject) => {
-			aborters[key] = message => {
-				reader.cancel(message)
+			aborters[key] = reason => {
+				reader.cancel(reason)
 				delete aborters[key]
 				resolve()
 			}
@@ -50,6 +72,23 @@
 			reader.read().then(processChunk)
 		})
 	}
+	const startDownload = async uris => {
+		await Promise.all(uris.map(async ({key, value}) => {
+			outLoadingKeys = [...outLoadingKeys, key]
+			// addLoadingKey(key)
+			try {
+				const contents = await download(key, value, abortersMap)
+				if (contents) {
+					outData[key] = contents
+				}
+			}
+			finally {
+				outLoadingKeys = _.pullFrom(outLoadingKeys, [key])
+				// removeLoadingKey(key)
+			}
+		}))
+		shouldAdvance = true
+	}
 
 	// FIXME --- link missing...
 	$: defaultTransformer = defaultTransformer || _.identity
@@ -61,14 +100,18 @@
 	// When `sourcesMap` changes we wipe `outData`
 	// eslint-disable-next-line no-unused-expressions, no-sequences
 	$: uriMap, outData = {}
+	// eslint-disable-next-line no-unused-expressions, no-sequences
 	$: restKeys = _.difference(allKeys, _.union(asapKeys, nextKeys))
-	$: restKeys, currentGroupId = 'asap'
+	// eslint-disable-next-line no-unused-expressions, no-sequences
+	$: restKeys, currentGroupId
+	// eslint-disable-next-line no-unused-expressions, no-sequences
+	$: restKeys, shouldAdvance = true
 	$: groups = {
 		asap: asapKeys,
 		next: nextKeys,
 		rest: restKeys
 	}
-	$: outLoadingKeys.length === 0 && (currentGroupId = currentGroupId === 'asap' ? 'next' : 'rest')
+	$: shouldAdvance && (currentGroupId = getNextGroupId())
 	$: currentKeys = groups[currentGroupId]
 	$: loadedKeys = _.keys(outData)
 	$: keysToLoad = shouldPrefetch || currentGroupId === 'asap'
@@ -77,28 +120,12 @@
 	$: todoKeys = _.difference(keysToLoad, outLoadingKeys)
 	$: todoUris = objectToKeyValueArray(_.pickIn(uriMap, todoKeys))
 
-	const abort = (key, reason) => {
-		outLoadingKeys = _.pullFrom(outLoadingKeys, [key])
-		aborters[key](reason)
-	}
-	// 
-	const getAbortKeys = keys => _.difference(outLoadingKeys, keys)  // warning
 	// aborting
 	$: abortKeys = getAbortKeys(asapKeys)
 	$: abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
-	$: uriMap, outLoadingKeys.forEach(() => abort(key, 'Aborted by uriMap change'))
+	// eslint-disable-next-line no-unused-expressions, no-sequences
+	$: uriMap, abortAll('Aborted by uriMap change')
 
 	// downloading
-	$: (async () => {
-		todoUris.forEach(async ({key, value}) => {
-			outLoadingKeys = [...outLoadingKeys, key]
-			try {
-				outData[key] = await download(key, value, aborters)
-			}
-			
-			finally {
-				outLoadingKeys = _.pullFrom(loadingKeys, [key])
-			}
-		})
-	})()
+	$: isClientSide && startDownload(todoUris)
 </script>
