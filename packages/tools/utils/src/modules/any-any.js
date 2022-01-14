@@ -66,3 +66,43 @@ export const toFloatOrIdentity = x => {
 
 	return isValidNumber(parsed) ? parsed : x;
 };
+
+/**
+ * Return a copy of the input after stringifying it and parsing it.
+ * This can be useful to check equality of json variables with json objects
+ * obtained from a file, because e.g. stringifying strips `undefined` values.
+ *
+ * @function
+ * @arg {*} any
+ * @return {*} any
+ *
+ * @example
+ *
+> actual = {a: 1, b: undefined}
+{a: 1, b: undefined}
+>
+> // note how `JSON.stringify` works
+> JSON.stringify(actual)
+'{"a":1}'
+>
+> expectedFromFile = {a: 1}
+> assert.deepStrictEqual(actual, expectedFromFile)
+Uncaught AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    a: 1,
++   b: undefined
+  }
+>
+> sanitizedObj = sanitize(actual)
+> assert.deepStrictEqual(sanitizedObj, expectedFromFile)
+undefined
+
+> array = [1, undefined]
+> sanitize(array)
+[1, null]
+ *
+ * @since 0.17.0
+ */
+export const sanitize = _.pipe([JSON.stringify, JSON.parse]);

@@ -1,3 +1,7 @@
+## `@svizzle/utils` v0.17.0 (next)
+
+- added `sanitize`
+
 ## `@svizzle/utils` v0.16.0
 
 - added `arraySumWith`, `pluckPath`, `updateKeys`

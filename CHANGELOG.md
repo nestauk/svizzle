@@ -1,5 +1,11 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/utils` v0.17.0 (next)
+
+- added `sanitize`
+
 ## 20211224_2
 
 ## `@svizzle/time_region_value` v0.6.1

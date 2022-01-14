@@ -1,6 +1,10 @@
 import {strict as assert} from 'assert';
 
-import {makeEmptyArrayIfUndefined, toFloatOrIdentity} from './any-any';
+import {
+	makeEmptyArrayIfUndefined,
+	sanitize,
+	toFloatOrIdentity,
+} from './any-any';
 
 // function returnArgs () {
 //     return arguments;
@@ -49,6 +53,54 @@ describe('Any -> Any', function() {
 				const a = makeEmptyArrayIfUndefined(undefined);
 				const b = makeEmptyArrayIfUndefined(undefined);
 				assert.notStrictEqual(a, b);
+			});
+		});
+	});
+
+	describe('Any -> Any', function() {
+		describe('sanitize', function() {
+			it('should sanitize objects', function() {
+				assert.deepStrictEqual(
+					sanitize({a: 1, b: undefined}),
+					{a: 1}
+				);
+			});
+			it('should sanitize nested objects', function() {
+				assert.deepStrictEqual(
+					sanitize({
+						a: 1,
+						b: {c: 2, d: undefined}
+					}),
+					{a: 1, b: {c: 2}}
+				);
+			});
+			it('should sanitize arrays by substituting `undefined`s with `null`s', function() {
+				assert.deepStrictEqual(
+					sanitize([undefined]),
+					[null]
+				);
+				assert.deepStrictEqual(
+					sanitize([1, undefined, 2]),
+					[1, null, 2]
+				);
+			});
+			it('should sanitize arrays containing objects', function() {
+				assert.deepStrictEqual(
+					sanitize([{a: 1, b: undefined}, undefined]),
+					[{a: 1}, null]
+				);
+			});
+			it('should sanitize arrays containing nested objects', function() {
+				assert.deepStrictEqual(
+					sanitize([
+						{
+							a: 1,
+							b: {c: 2, d: undefined}
+						},
+						undefined
+					]),
+					[{a: 1, b: {c: 2}}, null]
+				);
 			});
 		});
 	});
