@@ -1,3 +1,8 @@
+## `@svizzle/geo` v0.8.0 (next)
+
+- added `makeFilterTopoBy`
+- remove the dependency from /atlas to avoid circular dependencies
+
 ## `@svizzle/geo` v0.7.0
 
 - port some utilities from `/choropleth`:

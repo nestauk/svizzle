@@ -1,10 +1,17 @@
 import {strict as assert} from 'assert';
 
-import NUTS_RG_03M_2003_4326_LEVL_0_BE
-	from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0_BE.json';
+import {sanitizeJson} from '@svizzle/utils';
 
-import {topoToGeo} from './topojson';
-import {geojson} from './topojson.specdata';
+import NUTS_RG_03M_2003_4326_LEVL_0
+	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0.json';
+import NUTS_RG_03M_2006_4326_LEVL_0
+	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2006_4326_LEVL_0.json';
+import NUTS_RG_03M_2003_4326_LEVL_0_BE
+	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0_BE.json';
+import NUTS_RG_03M_2006_4326_LEVL_0_BE
+	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2006_4326_LEVL_0_BE.json';
+import {geojson} from '../../testdata/topojson/topoToGeo';
+import {makeFilterTopoBy, topoToGeo} from './topojson';
 
 describe('geo/topojson', function() {
 	describe('topoToGeo', function() {
@@ -38,5 +45,29 @@ describe('geo/topojson', function() {
 		});
 
 		// TODO check it's a geojson
+	});
+
+	describe('makeFilterTopoBy', function() {
+		it('should provide a function to filter a topojson by `objects` id and `properties` key', function() {
+			const filterGeometriesBy = makeFilterTopoBy({
+				objKey: 'NUTS',
+				propKey: 'NUTS_ID'
+			});
+			const filterBE = filterGeometriesBy('BE');
+
+			// BE 2003
+			const actualBE2003 = filterBE(NUTS_RG_03M_2003_4326_LEVL_0);
+			assert.deepStrictEqual(
+				sanitizeJson(actualBE2003),
+				NUTS_RG_03M_2003_4326_LEVL_0_BE
+			);
+
+			// BE 2006
+			const actualBE2006 = filterBE(NUTS_RG_03M_2006_4326_LEVL_0);
+			assert.deepStrictEqual(
+				sanitizeJson(actualBE2006),
+				NUTS_RG_03M_2006_4326_LEVL_0_BE
+			);
+		});
 	});
 });

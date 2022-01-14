@@ -2,6 +2,11 @@
 
 ## next
 
+## `@svizzle/geo` v0.8.0 (next)
+
+- added `makeFilterTopoBy`
+- remove the dependency from /atlas to avoid circular dependencies
+
 ## `@svizzle/utils` v0.17.0 (next)
 
 - added `sanitize`

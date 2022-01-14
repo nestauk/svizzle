@@ -2,7 +2,9 @@
 * @module @svizzle/geo/src/modules/topojson
 */
 
+import * as _ from 'lamb';
 import {feature} from 'topojson-client';
+import prune from 'topojson-simplify/src/prune';
 
 /**
  * Convert a topojson to a geojson.
@@ -58,3 +60,40 @@ import {feature} from 'topojson-client';
  */
 export const topoToGeo = (topojson, id) =>
 	feature(topojson, topojson.objects[id]);
+
+/**
+ * Return a function expecting a value for the provided property in the object
+ * corresponding to the provided object id and that returns a function expecting
+ * the topojson to be filtered.
+ *
+ * @function - Object -> Any -> (Object -> Object)
+ * @arg {object} options
+ * @arg {string} options.objId - a key of `topojson.objects`
+ * @arg {string} options.propKey - a key of `topojson.objects[objId].geometries[i].properties`
+ * @return {function} - Any -> (Object -> Object)
+ *
+ * @example
+ *
+ *
+> filterGeometriesBy = makeFilterTopoBy({objId: 'NUTS', propKey: 'NUTS_ID'})
+> topoRO = filterGeometriesBy('RO')
+>
+> topoRO(NUTS_RG_03M_2003_4326_LEVL_0)
+// see `data/dist/topojson/NUTS_RG_03M_2003_4326_LEVL_0_RO.json`
+>
+> topoRO(NUTS_RG_03M_2006_4326_LEVL_0)
+// see `data/dist/topojson/NUTS_RG_03M_2006_4326_LEVL_0_RO.json`
+ *
+ * @since 0.8.0
+ */
+export const makeFilterTopoBy = ({objKey, propKey}) =>
+	value => _.pipe([
+		_.updatePath(
+			`objects.${objKey}.geometries`,
+			_.filterWith(_.pipe([
+				_.getPath(`properties.${propKey}`),
+				_.is(value),
+			]))
+		),
+		prune
+	]);
