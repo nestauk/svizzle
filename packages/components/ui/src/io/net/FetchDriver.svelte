@@ -103,8 +103,6 @@
 	// eslint-disable-next-line no-unused-expressions, no-sequences
 	$: restKeys = _.difference(allKeys, _.union(asapKeys, nextKeys))
 	// eslint-disable-next-line no-unused-expressions, no-sequences
-	$: restKeys, currentGroupId
-	// eslint-disable-next-line no-unused-expressions, no-sequences
 	$: restKeys, shouldAdvance = true
 	$: groups = {
 		asap: asapKeys,
