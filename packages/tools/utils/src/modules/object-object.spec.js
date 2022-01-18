@@ -1,48 +1,52 @@
 import {strict as assert} from 'assert';
 
 import {
-	mapValuesToNumber,
 	mapValuesToFloat,
 	mapValuesToFloatPossibly,
+	mapValuesToNumber,
 	mergeWithAppendTo,
 	mergeWithConcat,
 	mergeWithMerge,
 	mergeWithSum,
 	pickIfTruthy,
-	swapKeyValue
+	sortObjectKeysAsc,
+	sortObjectKeysDesc,
+	swapKeyValue,
 } from './object-object';
 
 describe('Object -> Object', function() {
-	describe('mapValuesToFloat', function() {
-		it('should return a copy of the object with values converted to numbers', function() {
-			const obj1 = {a: '1.2', b: '2px', c: 'h2o'};
-			const obj2 = {a: 1.2, b: 2, c: NaN};
-			assert.deepStrictEqual(mapValuesToFloat(obj1), obj2);
+	describe('mapValues*', function() {
+		describe('mapValuesToFloat', function() {
+			it('should return a copy of the object with values converted to numbers', function() {
+				const obj1 = {a: '1.2', b: '2px', c: 'h2o'};
+				const obj2 = {a: 1.2, b: 2, c: NaN};
+				assert.deepStrictEqual(mapValuesToFloat(obj1), obj2);
+			});
 		});
-	});
-	describe('mapValuesToFloatPossibly', function() {
-		it('should return a copy of the object with values converted to numbers everywhere if possible', function() {
-			const obj1 = {a: '1.2', b: '2px'};
-			const obj2 = {a: 1.2, b: 2};
-			assert.deepStrictEqual(mapValuesToFloatPossibly(obj1), obj2);
-		});
-		it('should return a copy of the object with values converted to numbers only where possible', function() {
-			const obj1 = {a: '1.2', b: '2px', c: 'h2o'};
-			const obj2 = {a: 1.2, b: 2, c: 'h2o'};
-			assert.deepStrictEqual(mapValuesToFloatPossibly(obj1), obj2);
+		describe('mapValuesToFloatPossibly', function() {
+			it('should return a copy of the object with values converted to numbers everywhere if possible', function() {
+				const obj1 = {a: '1.2', b: '2px'};
+				const obj2 = {a: 1.2, b: 2};
+				assert.deepStrictEqual(mapValuesToFloatPossibly(obj1), obj2);
+			});
+			it('should return a copy of the object with values converted to numbers only where possible', function() {
+				const obj1 = {a: '1.2', b: '2px', c: 'h2o'};
+				const obj2 = {a: 1.2, b: 2, c: 'h2o'};
+				assert.deepStrictEqual(mapValuesToFloatPossibly(obj1), obj2);
 
-			const obj3 = {a: 'a',  b: 'b'};
-			assert.deepStrictEqual(mapValuesToFloatPossibly(obj3), obj3);
+				const obj3 = {a: 'a',  b: 'b'};
+				assert.deepStrictEqual(mapValuesToFloatPossibly(obj3), obj3);
+			});
+		});
+		describe('mapValuesToNumber', function() {
+			it('should return a copy of the object with values converted to numbers', function() {
+				const obj1 = {a: '1.2',  b: '2'};
+				const obj2 = {a: 1.2,  b: 2};
+				assert.deepStrictEqual(mapValuesToNumber(obj1), obj2);
+			});
 		});
 	});
-	describe('mapValuesToNumber', function() {
-		it('should return a copy of the object with values converted to numbers', function() {
-			const obj1 = {a: '1.2',  b: '2'};
-			const obj2 = {a: 1.2,  b: 2};
-			assert.deepStrictEqual(mapValuesToNumber(obj1), obj2);
-		});
-	});
-	describe('mergeWith', function() {
+	describe('mergeWith*', function() {
 		describe('mergeWithSum', function() {
 			it('sum: should merge 2 objects by summing correspondent values', function() {
 				const obj1 = {a: 1,  b: 2};
@@ -102,6 +106,24 @@ describe('Object -> Object', function() {
 				const obj3 = {a: [1, 2, 3, 4], b: [4, 5, 6, [7]]};
 
 				assert.deepStrictEqual(mergeWithAppendTo(obj1, obj2), obj3);
+			});
+		});
+	});
+	describe('sortObjectKeys*', function() {
+		describe('sortObjectKeysAsc', function() {
+			it('should return a copy of the input object with enumerable properties sorted in ascending order', function() {
+				assert.deepStrictEqual(
+					sortObjectKeysAsc({c: 1, a: 2, b: 15}),
+					{a: 2, b: 15, c: 1}
+				);
+			});
+		});
+		describe('sortObjectKeysDesc', function() {
+			it('should return a copy of the input object with enumerable properties sorted in descending order', function() {
+				assert.deepStrictEqual(
+					sortObjectKeysDesc({c: 1, a: 2, b: 15}),
+					{c: 1, b: 15, a: 2}
+				);
 			});
 		});
 	});

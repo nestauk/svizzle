@@ -10,6 +10,8 @@
 ## `@svizzle/utils` v0.17.0 (next)
 
 - added `sanitize`
+- added `sortObjectKeysAsc`, `sortObjectKeysDesc`
+
 
 ## 20211224_2
 

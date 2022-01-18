@@ -8,6 +8,7 @@ import {toFloatOrIdentity} from './any-any';
 import {concat} from './array_proto-array';
 import {mergeWith} from './[any-any]-[object-object]';
 
+
 /* map values */
 
 /**
@@ -62,6 +63,9 @@ export const mapValuesToFloatPossibly = _.mapValuesWith(toFloatOrIdentity);
  * @since 0.1.0
  */
 export const mapValuesToNumber = _.mapValuesWith(Number);
+
+
+/* merge */
 
 /**
  * Return the merge of the two provided objects adding values of correspondent keys
@@ -134,6 +138,54 @@ export const mergeWithConcat = mergeWith(concat);
  * @since 0.1.0
  */
 export const mergeWithAppendTo = mergeWith(_.appendTo);
+
+
+/* sort keys */
+
+/**
+ * Return a copy of the input object with enumerable properties sorted
+ * in ascending order.
+ * Note that this should work from ES6 on.
+ *
+ * @function
+ * @arg {object}
+ * @return {object}
+ *
+ * @example
+> sortObjectKeysAsc({c: 1, a: 2, b: 15})
+{a: 2, b: 15, c: 1}
+ *
+ * @since 0.17.0
+ */
+export const sortObjectKeysAsc = _.pipe([
+	_.pairs,
+	_.sortWith([_.getAt(0)]),
+	_.fromPairs
+]);
+
+/**
+ * Return a copy of the input object with enumerable properties sorted
+ * in descending order.
+ * Note that this should work from ES6 on.
+ *
+ * @function
+ * @arg {object}
+ * @return {object}
+ *
+ * @example
+> sortObjectKeysDesc({c: 1, a: 2, b: 15})
+{c: 1, b: 15, a: 2}
+ *
+ * @since 0.17.0
+ */
+export const sortObjectKeysDesc = _.pipe([
+	_.pairs,
+	_.sortWith([_.sorterDesc(_.getAt(0))]),
+	_.fromPairs
+]);
+
+
+/* rest */
 
 /**
  * Return a copy of the object without falsy values
