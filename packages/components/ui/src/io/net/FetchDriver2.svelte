@@ -1,5 +1,5 @@
 <script>
-	import {makeFetchDriver} from './fetch-driver'
+	import {makeFetchDriver} from './fetchDriver'
 
 	const {
 		_asapKeys,
