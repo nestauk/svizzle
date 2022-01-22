@@ -1,35 +1,57 @@
 import * as _ from 'lamb'
-import {derived, get, writable} from 'svelte/store'
+// import {derived, get, writable} from 'svelte/store'
+import {
+	BehaviorSubject,
+	combineLatest,
+	Subject
+} from 'rxjs'
+import {map, debounceTime} from 'rxjs/operators'
+
 import {objectToKeyValueArray} from '@svizzle/utils'
 
 import {isClientSide} from '../../../components/ui/src/utils/env'
 import {mergeUint8Arrays} from './utils'
 
+const derive = (observables, fn) => combineLatest(...observables)
+.pipe(
+	debounceTime(0),
+	map(fn)
+)
+
+/*
+const derive2 = (main, observables, fn) => main
+.pipe(
+	combineLatestWith(...observables),
+	debounceTime(0),
+	map(fn)
+)
+*/
+
 export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	// input stores
-	const _asapKeys = writable([])
-	const _defaultTransformer = writable(_.identity)
-	const _nextKeys = writable([])
-	const _shouldPrefetch = writable(false)
-	const _uriMap = writable({})
+	const _asapKeys = new BehaviorSubject([])
+	const _defaultTransformer = new BehaviorSubject(_.identity)
+	const _nextKeys = new BehaviorSubject([])
+	const _shouldPrefetch = new BehaviorSubject(false)
+	const _uriMap = new BehaviorSubject({})
 
 	// output stores
-	const _outData = writable({})
-	const _outLoadingKeys = writable([])
+	const _outData = new BehaviorSubject({})
+	const _outLoadingKeys = new BehaviorSubject([])
 
 	// internal stores
-	const _currentGroupId = writable('asap')
-	const _shouldAdvance = writable(false)
+	const _currentGroupId = new BehaviorSubject()
+	const _shouldAdvance = new BehaviorSubject(false)
 
 	const abortersMap = {}
 
-	const addLoadingKey = key => _outLoadingKeys.update(outLoadingKeys => [...outLoadingKeys, key])
-	const removeLoadingKey = key => _outLoadingKeys.update(outLoadingKeys => _.pullFrom(outLoadingKeys, [key]))
-	const setData = (key, data) => _outData.update(outData => ({...outData, [key]: data}))
+	const addLoadingKey = key => _outLoadingKeys.next([..._outLoadingKeys.getValue(), key])
+	const removeLoadingKey = key => _outLoadingKeys.next(_.pullFrom(_outLoadingKeys.getValue(), [key]))
+	const setData = (key, data) => _outData.next({..._outData.getValue(), [key]: data})
 
 	const getNextGroupId = () => {
-		_shouldAdvance.set(false)
-		const currentGroupId = get(_currentGroupId)
+		_shouldAdvance.next(false)
+		const currentGroupId = _currentGroupId.getValue()
 		return !currentGroupId ?
 			'asap' : currentGroupId === 'asap' ?
 				'next' : 'rest'
@@ -41,16 +63,16 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 		delete abortersMap[key]
 	}
 
-	const getAbortKeys = keys => _.difference(get(_outLoadingKeys), keys)  // warning
-	const abortAll = reason => get(_outLoadingKeys).forEach(key => abort(key, reason))
+	const getAbortKeys = keys => _.difference(_outLoadingKeys.getValue(), keys)  // warning
+	const abortAll = reason => _outLoadingKeys.getValue().forEach(key => abort(key, reason))
 
 	const download = async (key, {url, transformer}, aborters) => {
 		const response = await myFetch(url)
 		const stream = await response.body
 		const reader = stream.getReader()
 
-		const defaultTransformer = get(_defaultTransformer)
-		// console.log('downloading', key, url)
+		const defaultTransformer = _defaultTransformer.getValue()
+		console.log('downloading', key, url)
 
 		// TODO failure
 		return new Promise((resolve/* , reject */) => {
@@ -79,37 +101,40 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	}
 
 	const startDownload = async uris => {
-		//  console.log('startDownload', uris.length)
+		console.log('startDownload', uris.length)
 		await Promise.all(uris.map(async ({key, value}) => {
-			if (get(_outLoadingKeys).includes(key)) {
+			/*
+			if (_outLoadingKeys.getValue().includes(key)) {
 				return
-			}
+			}*/
 			addLoadingKey(key)
 			try {
 				const contents = await download(key, value, abortersMap)
 				if (contents) {
 					setData(key, contents)
 				}
+			} catch (e) {
+				console.error(e)
 			} finally {
 				removeLoadingKey(key)
 			}
 		}))
-		_shouldAdvance.set(true)
+		_shouldAdvance.next(true)
 	}
 
 	// internal stores and subscriptions
 
-	const _allKeys = derived([_uriMap], ([uriMap]) => _.keys(uriMap))
+	const _allKeys = derive([_uriMap], ([uriMap]) => _.keys(uriMap))
 	// When `sourcesMap` changes we wipe `outData`
-	_uriMap.subscribe(() => _outData.set({}))
+	_uriMap.subscribe(() => _outData.next({}))
 
-	const _restKeys = derived(
+	const _restKeys = derive(
 		[_allKeys, _asapKeys, _nextKeys],
 		([allKeys, asapKeys, nextKeys]) => _.difference(allKeys, _.union(asapKeys, nextKeys)))
 
-	_restKeys.subscribe(() => _shouldAdvance.set(true)) // TODO explain this line
+	_restKeys.subscribe(() => _shouldAdvance.next(true)) // TODO explain this line
 
-	const _groups = derived([_asapKeys, _nextKeys, _restKeys],
+	const _groups = derive([_asapKeys, _nextKeys, _restKeys],
 		([asapKeys, nextKeys, restKeys]) => ({
 			asap: asapKeys,
 			next: nextKeys,
@@ -117,30 +142,30 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 		})
 	)
 
-	_shouldAdvance.subscribe(shouldAdvance => shouldAdvance && _currentGroupId.set(getNextGroupId()))
+	_shouldAdvance.subscribe(shouldAdvance => shouldAdvance && _currentGroupId.next(getNextGroupId()))
 
-	const _currentKeys = derived([_groups, _currentGroupId],
+	const _currentKeys = derive([_groups, _currentGroupId],
 		([groups, currentGroupId]) => groups[currentGroupId]
 	)
 
-	const _loadedKeys = derived([_outData], ([outData]) => _.keys(outData))
-	const _keysToLoad = derived([_shouldPrefetch, _currentGroupId, _currentKeys, _loadedKeys],
+	const _loadedKeys = derive([_outData], ([outData]) => _.keys(outData))
+	const _keysToLoad = derive([_shouldPrefetch, _currentGroupId, _currentKeys, _loadedKeys],
 		([shouldPrefetch, currentGroupId, currentKeys, loadedKeys]) =>
 			shouldPrefetch || currentGroupId === 'asap'
 				? _.difference(currentKeys, loadedKeys)
 				: []
 	)
-	const _todoKeys = derived([_keysToLoad],
-		([keysToLoad]) => _.difference(keysToLoad, get(_outLoadingKeys))
+	const _todoKeys = derive([_keysToLoad],
+		([keysToLoad]) => _.difference(keysToLoad, _outLoadingKeys.getValue())
 	)
-	const _todoUris = derived([_uriMap, _todoKeys],
+	const _todoUris = derive([_uriMap, _todoKeys],
 		([uriMap, todoKeys]) => objectToKeyValueArray(_.pickIn(uriMap, todoKeys))
 	)
 
-	//_todoUris.subscribe(todoUris => console.log('todoUris', todoUris))
+	_todoKeys.subscribe(todoKeys => console.log('todoKeys', todoKeys))
 
 	// aborting
-	const _abortKeys = derived([_asapKeys], ([asapKeys]) => getAbortKeys(asapKeys))
+	const _abortKeys = derive([_asapKeys], ([asapKeys]) => getAbortKeys(asapKeys))
 	_abortKeys.subscribe(abortKeys =>
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
 	)

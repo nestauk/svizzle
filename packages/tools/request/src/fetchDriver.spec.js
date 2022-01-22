@@ -97,7 +97,7 @@ describe('fetchDriver', function () {
 	describe('simple', function () {
 		it('should load a few files',
 			function (done) {
-				this.timeout(20000)
+				this.timeout(40000)
 				const sourcesCount = _.keys(sources).length
 				console.log('sourcesCount', sourcesCount)
 				const {
@@ -110,11 +110,11 @@ describe('fetchDriver', function () {
 					_uriMap
 				} = makeFetchDriver(fetch)
 
-				_shouldPrefetch.set(true)
-				_defaultTransformer.set(jsonParser)
-				_uriMap.set(sources)
-				_asapKeys.set(priorities.asap)
-				_nextKeys.set(priorities.next)
+				_shouldPrefetch.next(true)
+				_defaultTransformer.next(jsonParser)
+				_uriMap.next(sources)
+				_asapKeys.next(priorities.asap)
+				_nextKeys.next(priorities.next)
 
 				_outData.subscribe(data => {
 					const keys = _.keys(data)
