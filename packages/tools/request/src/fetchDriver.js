@@ -174,7 +174,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	// downloading
 	_todoUris.subscribe(todoUris => {
 		// console.log('todoUris', todoUris)
-		startDownload(todoUris)
+		todoUris.length > 0 && startDownload(todoUris)
 	})
 
 	return {
