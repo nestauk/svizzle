@@ -117,7 +117,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 		})
 	)
 
-	_shouldAdvance.subscribe(() => _currentGroupId.set(getNextGroupId()))
+	_shouldAdvance.subscribe(shouldAdvance => shouldAdvance && _currentGroupId.set(getNextGroupId()))
 
 	const _currentKeys = derived([_groups, _currentGroupId],
 		([groups, currentGroupId]) => groups[currentGroupId]
@@ -130,8 +130,8 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 				? _.difference(currentKeys, loadedKeys)
 				: []
 	)
-	const _todoKeys = derived([_keysToLoad, _outLoadingKeys],
-		([keysToLoad, outLoadingKeys]) => _.difference(keysToLoad, outLoadingKeys)
+	const _todoKeys = derived([_keysToLoad],
+		([keysToLoad]) => _.difference(keysToLoad, get(_outLoadingKeys))
 	)
 	const _todoUris = derived([_uriMap, _todoKeys],
 		([uriMap, todoKeys]) => objectToKeyValueArray(_.pickIn(uriMap, todoKeys))
