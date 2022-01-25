@@ -73,7 +73,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 		const reader = stream.getReader()
 
 		const defaultTransformer = _defaultTransformer.getValue()
-		debug('downloading', key, url)
+		debug('queuing', key, url)
 
 		// TODO failure
 		return new Promise((resolve/* , reject */) => {
@@ -85,6 +85,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 
 			let chunks = []
 			const processChunk = ({done, value}) => {
+				debug('receiving chunk from', url)
 				if (!done) {
 					chunks.push(value)
 					reader.read().then(processChunk)
