@@ -3,7 +3,6 @@ import * as _ from 'lamb'
 import {
 	BehaviorSubject,
 	combineLatest,
-	Subject
 } from 'rxjs'
 import {map, debounceTime} from 'rxjs/operators'
 
@@ -26,6 +25,8 @@ const derive2 = (main, observables, fn) => main
 	map(fn)
 )
 */
+const DEBUG = true
+const debug = (...args) => DEBUG && console.log(...args)
 
 export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	// input stores
@@ -58,7 +59,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	}
 	const abort = (key, reason) => {
 		removeLoadingKey(key)
-		console.log(key)
+		debug('aborting', key)
 		abortersMap[key] && abortersMap[key](reason)
 		delete abortersMap[key]
 	}
@@ -72,7 +73,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 		const reader = stream.getReader()
 
 		const defaultTransformer = _defaultTransformer.getValue()
-		console.log('downloading', key, url)
+		debug('downloading', key, url)
 
 		// TODO failure
 		return new Promise((resolve/* , reject */) => {
@@ -91,6 +92,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 					const mergedArray = mergeUint8Arrays(chunks)
 					const results = (transformer || defaultTransformer)(mergedArray)
 					delete aborters[key]
+					debug('finished', key)
 					resolve(results)
 				}
 			}
@@ -101,7 +103,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	}
 
 	const startDownload = async uris => {
-		console.log('startDownload', uris.length)
+		debug('startDownload', uris.length)
 		await Promise.all(uris.map(async ({key, value}) => {
 			/*
 			if (_outLoadingKeys.getValue().includes(key)) {
@@ -144,13 +146,16 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 
 	_shouldAdvance.subscribe(shouldAdvance => shouldAdvance && _currentGroupId.next(getNextGroupId()))
 
+	const _loadedKeys = derive([_outData], ([outData]) => _.keys(outData))
+	let loadedKeys = []
+	_loadedKeys.subscribe(lk => {
+		loadedKeys = lk
+	})
 	const _currentKeys = derive([_groups, _currentGroupId],
 		([groups, currentGroupId]) => groups[currentGroupId]
 	)
-
-	const _loadedKeys = derive([_outData], ([outData]) => _.keys(outData))
-	const _keysToLoad = derive([_shouldPrefetch, _currentGroupId, _currentKeys, _loadedKeys],
-		([shouldPrefetch, currentGroupId, currentKeys, loadedKeys]) =>
+	const _keysToLoad = derive([_shouldPrefetch, _currentGroupId, _currentKeys],
+		([shouldPrefetch, currentGroupId, currentKeys]) =>
 			shouldPrefetch || currentGroupId === 'asap'
 				? _.difference(currentKeys, loadedKeys)
 				: []
@@ -162,8 +167,6 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 		([uriMap, todoKeys]) => objectToKeyValueArray(_.pickIn(uriMap, todoKeys))
 	)
 
-	_todoKeys.subscribe(todoKeys => console.log('todoKeys', todoKeys))
-
 	// aborting
 	const _abortKeys = derive([_asapKeys], ([asapKeys]) => getAbortKeys(asapKeys))
 	_abortKeys.subscribe(abortKeys =>
@@ -171,9 +174,23 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	)
 	_uriMap.subscribe(() => abortAll('Aborted by uriMap change'))
 
+	// debugging
+	_uriMap.subscribe(uriMap => debug('URI map', _.keys(uriMap).length))
+	_currentGroupId.subscribe(currentGroupId => debug('current group id', currentGroupId))
+	_shouldAdvance.subscribe(shouldAdvance => debug('should advance ?', shouldAdvance))
+	_shouldPrefetch.subscribe(shouldPrefetch => debug('should prefetch ?', shouldPrefetch))
+	_keysToLoad.subscribe(keysToLoad => debug('keysToLoad', keysToLoad.length))
+	_todoKeys.subscribe(todoKeys => debug('todoKeys', todoKeys.length))
+	_currentKeys.subscribe(currentKeys => debug('currentKeys', currentKeys.length))
+	_loadedKeys.subscribe(lk => debug('loadedKeys', lk.length))
+	_asapKeys.subscribe(asapKeys => debug('asapKeys', asapKeys.length))
+	_nextKeys.subscribe(nextKeys => debug('nextKeys', nextKeys.length))
+	_restKeys.subscribe(restKeys => debug('restKeys', restKeys.length))
+	_defaultTransformer.subscribe(() => debug('default transformer'))
+
 	// downloading
 	_todoUris.subscribe(todoUris => {
-		// console.log('todoUris', todoUris)
+		// debug('todoUris', todoUris)
 		todoUris.length > 0 && startDownload(todoUris)
 	})
 
