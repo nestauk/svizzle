@@ -2,9 +2,10 @@
 import * as _ from 'lamb'
 import {fetch} from 'undici'
 import http from 'http'
-import sirv from 'sirv'
-import finalhandler from 'finalhandler'
+import serveHandler from 'serve-handler'
 import path from 'path'
+import {createReadStream} from 'fs'
+import Throttle from 'throttle'
 
 import {makeFetchDriver} from './fetchDriver.js'
 
@@ -91,10 +92,23 @@ const TIMEOUT = 40000
 
 describe('fetchDriver', function () {
 	const basePath = path.resolve('../atlas/distro')
-	debug(basePath)
-	const serve = sirv(basePath)
-	const server = http.createServer(function onRequest (req, res) {
-		serve(req, res, finalhandler(req, res))
+	console.log(basePath)
+	const server = http.createServer(async (req, res) => {
+		await serveHandler(
+			req,
+			res,
+			{
+				public: basePath
+			},
+			{
+				createReadStream (filePath, config) {
+					console.log('creating read stream for', filePath, config)
+					const throttledStream = new Throttle({bps: 1024*100})
+					createReadStream(filePath, config).pipe(throttledStream)
+					return throttledStream
+				}
+			}
+		)
 	})
 	server.listen(3000)
 
