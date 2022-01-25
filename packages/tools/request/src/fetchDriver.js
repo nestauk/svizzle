@@ -65,7 +65,6 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 		delete abortersMap[key]
 	}
 
-	const getAbortKeys = keys => _.difference(_outLoadingKeys.getValue(), keys)  // warning
 	const abortAll = reason => _outLoadingKeys.getValue().forEach(key => abort(key, reason))
 
 	const download = async (key, {url, transformer}, aborters) => {
@@ -189,20 +188,29 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 			objectToKeyValueArray(_.pickIn(uriMap, unfetchedTargetKeys))
 	)
 
-	// aborting
+	// If asapKeys changes abort al current downloads, except those in asap
 	const _abortKeys = derive(
 		[_asapKeys],
-		([asapKeys]) => getAbortKeys(asapKeys)
+		([asapKeys]) => _.difference(_outLoadingKeys.getValue(), asapKeys)
 	)
 
-	// When `sourcesMap` changes we wipe `outData`
+	// side effects
+
+	// When `_uriMap` changes we:
+	// * wipe `outData` (clear the cache)
+	// * abort all downloads
 	_uriMap.subscribe(() => _outData.next({}))
+	_uriMap.subscribe(() => abortAll('Aborted by uriMap change'))
+
 	_restKeys.subscribe(() => _shouldAdvance.next(true)) // TODO explain this line
-	_shouldAdvance.subscribe(shouldAdvance => shouldAdvance && _targetGroupId.next(getNextGroupId()))
+	_shouldAdvance.subscribe(shouldAdvance =>
+		shouldAdvance && _targetGroupId.next(getNextGroupId())
+	)
+
 	_abortKeys.subscribe(abortKeys =>
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
 	)
-	_uriMap.subscribe(() => abortAll('Aborted by uriMap change'))
+
 	// downloading
 	_unfetchedUris.subscribe(todoUris => {
 		// debug('todoUris', todoUris)
