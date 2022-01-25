@@ -25,6 +25,7 @@ const derive2 = (main, observables, fn) => main
 	map(fn)
 )
 */
+
 const DEBUG = true
 const debug = (...args) => DEBUG && console.log(...args)
 
@@ -41,7 +42,7 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	const _outLoadingKeys = new BehaviorSubject([])
 
 	// internal stores
-	const _currentGroupId = new BehaviorSubject()
+	const _targetGroupId = new BehaviorSubject()
 	const _shouldAdvance = new BehaviorSubject(false)
 
 	const abortersMap = {}
@@ -52,9 +53,9 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 
 	const getNextGroupId = () => {
 		_shouldAdvance.next(false)
-		const currentGroupId = _currentGroupId.getValue()
-		return !currentGroupId ?
-			'asap' : currentGroupId === 'asap' ?
+		const targetGroupId = _targetGroupId.getValue()
+		return !targetGroupId ?
+			'asap' : targetGroupId === 'asap' ?
 				'next' : 'rest'
 	}
 	const abort = (key, reason) => {
@@ -126,73 +127,103 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 
 	// internal stores and subscriptions
 
-	const _allKeys = derive([_uriMap], ([uriMap]) => _.keys(uriMap))
-	// When `sourcesMap` changes we wipe `outData`
-	_uriMap.subscribe(() => _outData.next({}))
+	const _allKeys = derive(
+		[_uriMap],
+		([uriMap]) => _.keys(uriMap)
+	)
 
 	const _restKeys = derive(
 		[_allKeys, _asapKeys, _nextKeys],
-		([allKeys, asapKeys, nextKeys]) => _.difference(allKeys, _.union(asapKeys, nextKeys)))
+		([allKeys, asapKeys, nextKeys]) =>
+			_.difference(allKeys, _.union(asapKeys, nextKeys))
+	)
 
-	_restKeys.subscribe(() => _shouldAdvance.next(true)) // TODO explain this line
-
-	const _groups = derive([_asapKeys, _nextKeys, _restKeys],
+	const _groups = derive(
+		[_asapKeys, _nextKeys, _restKeys],
 		([asapKeys, nextKeys, restKeys]) => ({
 			asap: asapKeys,
 			next: nextKeys,
 			rest: restKeys
 		})
 	)
-
-	_shouldAdvance.subscribe(shouldAdvance => shouldAdvance && _currentGroupId.next(getNextGroupId()))
-
-	const _loadedKeys = derive([_outData], ([outData]) => _.keys(outData))
-	let loadedKeys = []
-	_loadedKeys.subscribe(lk => {
-		loadedKeys = lk
-	})
-	const _currentKeys = derive([_groups, _currentGroupId],
-		([groups, currentGroupId]) => groups[currentGroupId]
+	// Keys that should be loaded according to targetGroupId
+	const _targetKeys = derive(
+		[_groups, _targetGroupId],
+		([groups, targetGroupId]) => groups[targetGroupId]
 	)
-	const _keysToLoad = derive([_shouldPrefetch, _currentGroupId, _currentKeys],
-		([shouldPrefetch, currentGroupId, currentKeys]) =>
-			shouldPrefetch || currentGroupId === 'asap'
-				? _.difference(currentKeys, loadedKeys)
+
+	// Keys of files that are fully fetched
+	const _fetchedKeys = derive(
+		[_outData],
+		([outData]) => _.keys(outData)
+	)
+
+	// very temporary hack TODO FIXME
+	let fetchedKeys = []
+	_fetchedKeys.subscribe(lk => {
+		fetchedKeys = lk
+	})
+
+	// Keys in target group that are not yet fully fetched
+	// Some of them might be currently downloading
+	const _fetchingOrUnfetchedTargetKeys = derive(
+		[_shouldPrefetch, _targetGroupId, _targetKeys],
+		([shouldPrefetch, targetGroupId, targetKeys]) =>
+			shouldPrefetch || targetGroupId === 'asap'
+				? _.difference(targetKeys, fetchedKeys)
 				: []
 	)
-	const _todoKeys = derive([_keysToLoad],
-		([keysToLoad]) => _.difference(keysToLoad, _outLoadingKeys.getValue())
+
+	// keys in target group that have not started downloading
+	const _unfetchedTargetKeys = derive(
+		[_fetchingOrUnfetchedTargetKeys],
+		([fetchingOrUnfetchedTargetKeys]) =>
+			_.difference(
+				fetchingOrUnfetchedTargetKeys,
+				_outLoadingKeys.getValue()
+			)
 	)
-	const _todoUris = derive([_uriMap, _todoKeys],
-		([uriMap, todoKeys]) => objectToKeyValueArray(_.pickIn(uriMap, todoKeys))
+	const _unfetchedUris = derive(
+		[_uriMap, _unfetchedTargetKeys],
+		([uriMap, unfetchedTargetKeys]) =>
+			objectToKeyValueArray(_.pickIn(uriMap, unfetchedTargetKeys))
 	)
 
 	// aborting
-	const _abortKeys = derive([_asapKeys], ([asapKeys]) => getAbortKeys(asapKeys))
+	const _abortKeys = derive(
+		[_asapKeys],
+		([asapKeys]) => getAbortKeys(asapKeys)
+	)
+
+	// When `sourcesMap` changes we wipe `outData`
+	_uriMap.subscribe(() => _outData.next({}))
+	_restKeys.subscribe(() => _shouldAdvance.next(true)) // TODO explain this line
+	_shouldAdvance.subscribe(shouldAdvance => shouldAdvance && _targetGroupId.next(getNextGroupId()))
 	_abortKeys.subscribe(abortKeys =>
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
 	)
 	_uriMap.subscribe(() => abortAll('Aborted by uriMap change'))
-
-	// debugging
-	_uriMap.subscribe(uriMap => debug('URI map', _.keys(uriMap).length))
-	_currentGroupId.subscribe(currentGroupId => debug('current group id', currentGroupId))
-	_shouldAdvance.subscribe(shouldAdvance => debug('should advance ?', shouldAdvance))
-	_shouldPrefetch.subscribe(shouldPrefetch => debug('should prefetch ?', shouldPrefetch))
-	_keysToLoad.subscribe(keysToLoad => debug('keysToLoad', keysToLoad.length))
-	_todoKeys.subscribe(todoKeys => debug('todoKeys', todoKeys.length))
-	_currentKeys.subscribe(currentKeys => debug('currentKeys', currentKeys.length))
-	_loadedKeys.subscribe(lk => debug('loadedKeys', lk.length))
-	_asapKeys.subscribe(asapKeys => debug('asapKeys', asapKeys.length))
-	_nextKeys.subscribe(nextKeys => debug('nextKeys', nextKeys.length))
-	_restKeys.subscribe(restKeys => debug('restKeys', restKeys.length))
-	_defaultTransformer.subscribe(() => debug('default transformer'))
-
 	// downloading
-	_todoUris.subscribe(todoUris => {
+	_unfetchedUris.subscribe(todoUris => {
 		// debug('todoUris', todoUris)
 		todoUris.length > 0 && startDownload(todoUris)
 	})
+
+	// debugging
+	if (DEBUG) {
+		_uriMap.subscribe(uriMap => debug('URI map', _.keys(uriMap).length))
+		_targetGroupId.subscribe(targetGroupId => debug('target group id', targetGroupId))
+		_shouldAdvance.subscribe(shouldAdvance => debug('should advance ?', shouldAdvance))
+		_shouldPrefetch.subscribe(shouldPrefetch => debug('should prefetch ?', shouldPrefetch))
+		_fetchingOrUnfetchedTargetKeys.subscribe(keysToLoad => debug('keysToLoad', keysToLoad.length))
+		_unfetchedTargetKeys.subscribe(todoKeys => debug('todoKeys', todoKeys.length))
+		_targetKeys.subscribe(targetKeys => debug('targettKeys', targetKeys.length))
+		_fetchedKeys.subscribe(lk => debug('loadedKeys', lk.length))
+		_asapKeys.subscribe(asapKeys => debug('asapKeys', asapKeys.length))
+		_nextKeys.subscribe(nextKeys => debug('nextKeys', nextKeys.length))
+		_restKeys.subscribe(restKeys => debug('restKeys', restKeys.length))
+		_defaultTransformer.subscribe(() => debug('default transformer'))
+	}
 
 	return {
 		_defaultTransformer,
