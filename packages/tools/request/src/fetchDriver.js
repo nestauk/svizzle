@@ -213,16 +213,20 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	if (DEBUG) {
 		_uriMap.subscribe(uriMap => debug('URI map', _.keys(uriMap).length))
 		_targetGroupId.subscribe(targetGroupId => debug('target group id', targetGroupId))
-		_shouldAdvance.subscribe(shouldAdvance => debug('should advance ?', shouldAdvance))
-		_shouldPrefetch.subscribe(shouldPrefetch => debug('should prefetch ?', shouldPrefetch))
-		_fetchingOrUnfetchedTargetKeys.subscribe(keysToLoad => debug('keysToLoad', keysToLoad.length))
-		_unfetchedTargetKeys.subscribe(todoKeys => debug('todoKeys', todoKeys.length))
+		_shouldAdvance.subscribe(shouldAdvance => debug('should advance?', shouldAdvance))
+		_shouldPrefetch.subscribe(shouldPrefetch => debug('should prefetch?', shouldPrefetch))
+		_fetchingOrUnfetchedTargetKeys.subscribe(fetchingOrUnfetchedTargetKeys =>
+			debug('fetchingOrUnfetchedTargetKeys', fetchingOrUnfetchedTargetKeys.length)
+		)
+		_unfetchedTargetKeys.subscribe(unfetchedTargetKeys =>
+			debug('unfetchedTargetKeys', unfetchedTargetKeys.length)
+		)
 		_targetKeys.subscribe(targetKeys => debug('targettKeys', targetKeys.length))
-		_fetchedKeys.subscribe(lk => debug('loadedKeys', lk.length))
+		_fetchedKeys.subscribe(fk => debug('fetchedKeys', fk.length))
 		_asapKeys.subscribe(asapKeys => debug('asapKeys', asapKeys.length))
 		_nextKeys.subscribe(nextKeys => debug('nextKeys', nextKeys.length))
 		_restKeys.subscribe(restKeys => debug('restKeys', restKeys.length))
-		_defaultTransformer.subscribe(() => debug('default transformer'))
+		_defaultTransformer.subscribe(() => debug('default transformer updated'))
 	}
 
 	return {
