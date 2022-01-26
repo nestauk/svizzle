@@ -26,7 +26,7 @@ const derive2 = (main, observables, fn) => main
 )
 */
 
-const DEBUG = true
+const DEBUG = false
 const debug = (...args) => DEBUG && console.log(...args)
 
 export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
@@ -198,15 +198,17 @@ export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
 	// side effects
 
 	// When `_uriMap` changes we:
-	// * wipe `outData` (clear the cache)
 	// * abort all downloads
-	_uriMap.subscribe(() => _outData.next({}))
-	_uriMap.subscribe(() => abortAll('Aborted by uriMap change'))
+	// * wipe `outData` (clear the cache)
+	_uriMap.subscribe(() => {
+		abortAll('Aborted by uriMap change')
+		_outData.next({})
+	})
 
 	_restKeys.subscribe(() => _shouldAdvance.next(true)) // TODO explain this line
 	_shouldAdvance.subscribe(shouldAdvance =>
 		shouldAdvance && _targetGroupId.next(getNextGroupId())
-	)
+		)
 
 	_abortKeys.subscribe(abortKeys =>
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
