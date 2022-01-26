@@ -15,7 +15,7 @@ const DEBUG = false
 const debug = (...args) => DEBUG && console.log(...args)
 
 // test environment
-const baseServerPath = path.resolve('../atlas/distro')
+const baseServerPath = path.resolve('../atlas/data/dist/NUTS/topojson')
 
 const fileNamesMap = _.pipe([
 	_.filterWith(fileName => fileName.endsWith('.json')),
