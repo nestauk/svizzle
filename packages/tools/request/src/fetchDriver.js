@@ -29,7 +29,7 @@ const derive2 = (main, observables, fn) => main
 const DEBUG = false
 const debug = (...args) => DEBUG && console.log(...args)
 
-export const makeFetchDriver = (myFetch = isClientSide && fetch) => {
+export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 	// input stores
 	const _asapKeys = new BehaviorSubject([])
 	const _defaultTransformer = new BehaviorSubject(_.identity)

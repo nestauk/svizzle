@@ -8,7 +8,7 @@ import {createReadStream, readdirSync} from 'fs'
 import Throttle from 'throttle'
 import {readJson} from '@svizzle/file'
 
-import {makeFetchDriver} from './fetchDriver.js'
+import {makeFetchManager} from './fetchDriver.js'
 
 // for debugging
 const DEBUG = false
@@ -50,12 +50,12 @@ const makeSources = baseUri => _.pipe([
 	_.fromPairs
 ])
 
-const startServer = ({bps, port, basePath}) => {
+const startServer = ({bandwidth, port, basePath}) => {
 	let middleware
-	if (bps) {
+	if (bandwidth) {
 		middleware = {
 			createReadStream (filePath, config) {
-				const throttledStream = new Throttle({bps: 1024 * 1024})
+				const throttledStream = new Throttle({bps: bandwidth})
 				createReadStream(filePath, config).pipe(throttledStream)
 				return throttledStream
 			}
@@ -107,7 +107,7 @@ describe('fetchDriver', function () {
 		debug('sourcesCount', sourcesCount)
 
 		const server = startServer({
-			// bps: 1024 * 512,
+			// bandwidth: 1024 * 512,
 			port: serverPort++,
 			basePath: baseServerPath
 		})
@@ -125,7 +125,7 @@ describe('fetchDriver', function () {
 				_outLoadingKeys,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchDriver(fetch)
+			} = makeFetchManager(fetch)
 
 			_shouldPrefetch.next(false)
 			_defaultTransformer.next(jsonParser)
@@ -167,7 +167,7 @@ describe('fetchDriver', function () {
 		debug('sourcesCount', sourcesCount)
 
 		const server = startServer({
-			// bps: 1024 * 512,
+			// bandwidth: 1024 * 512,
 			port: serverPort++,
 			basePath: baseServerPath
 		})
@@ -185,7 +185,7 @@ describe('fetchDriver', function () {
 				_outLoadingKeys,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchDriver(fetch)
+			} = makeFetchManager(fetch)
 
 			_shouldPrefetch.next(false)
 			_defaultTransformer.next(jsonParser)
@@ -233,7 +233,7 @@ describe('fetchDriver', function () {
 		debug('sourcesCount', sourcesCount)
 
 		const server = startServer({
-			// bps: 1024 * 512,
+			// bandwidth: 1024 * 512,
 			port: serverPort++,
 			basePath: baseServerPath
 		})
@@ -250,7 +250,7 @@ describe('fetchDriver', function () {
 				_outLoadingKeys,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchDriver(fetch)
+			} = makeFetchManager(fetch)
 
 			_shouldPrefetch.next(true)
 			_defaultTransformer.next(jsonParser)
