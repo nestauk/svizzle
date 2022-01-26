@@ -290,7 +290,6 @@ describe('fetchDriver', function () {
 				debug('loaded', keys.length)
 				if (keys.length === sourcesCount) {
 					server.close()
-					console.log(orderedKeys)
 					const actualAsap = orderedKeys.slice(
 						0,
 						priorities.asap.length
@@ -302,9 +301,9 @@ describe('fetchDriver', function () {
 					const actualRest = orderedKeys.slice(
 						priorities.asap.length + priorities.next.length
 					)
-					console.log(actualAsap)
-					console.log(actualNext)
-					console.log(actualRest)
+					debug('actualAsap', actualAsap)
+					debug('actualNext', actualNext)
+					debug('actualRest', actualRest)
 
 					assert.deepStrictEqual(
 						actualAsap.sort(),
