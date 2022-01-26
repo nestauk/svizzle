@@ -167,7 +167,7 @@ describe('fetchDriver', function () {
 					server.close()
 					try {
 						const expectedJsons = await loadJsons(keys)
-						assert.deepEqual(data, expectedJsons)
+						assert.deepStrictEqual(data, expectedJsons)
 					} catch (e) {
 						console.error(e)
 					} finally {
@@ -224,7 +224,7 @@ describe('fetchDriver', function () {
 					server.close()
 					try {
 						const expectedJsons = await loadJsons(keys)
-						assert.deepEqual(data, expectedJsons)
+						assert.deepStrictEqual(data, expectedJsons)
 					} catch (e) {
 						console.error(e)
 					} finally {
