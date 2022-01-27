@@ -317,15 +317,14 @@ describe('fetchDriver', function () {
 		const sources = makeSources(`http://localhost:${serverPort}/`)(fileNamesMap)
 
 		const priorities = {
-			asap: [
-				'NUTS-2016-1-03',
-				'NUTS-2003-0-10',
-			],
-			next: [
-				'NUTS-2013-0-10',
-				'NUTS-2016-0-10',
-				'NUTS-2016-2-03',
-			]
+			asap: _.pipe([
+				_.keys,
+				_.filterWith(key => key.includes('2021'))
+			])(sources),
+			next: _.pipe([
+				_.keys,
+				_.filterWith(key => key.includes('2016'))
+			])(sources)
 		}
 		const sourcesCount = _.keys(sources).length
 		debug('sourcesCount', sourcesCount)
@@ -385,7 +384,7 @@ describe('fetchDriver', function () {
 						const newAsap = [
 							remainingNextKeys[0],
 							'NUTS-2010-3-03',
-							'NUTS-2003-0-10'
+							'NUTS-2021-0-03'
 						]
 						const newNext = [
 							'NUTS-2003-3-03',
@@ -396,7 +395,7 @@ describe('fetchDriver', function () {
 						// should continue remainingNextKeys[0] (now in asap)
 						// should abort remainingNextKeys[1] (not in asap)
 						// should start 'NUTS-2003-0-03' (was in restKeys)
-						// should not start 'NUTS-2003-0-10' (was in asapKeys, already loaded)
+						// should not start 'NUTS-2021-0-03' (was in asapKeys, already loaded)
 						_asapKeys.next(newAsap)
 						_nextKeys.next(newNext)
 					} else if (isFirstNextKeyLoaded) {

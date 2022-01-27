@@ -114,7 +114,9 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 			try {
 				const contents = await download(key, value, abortersMap)
 				if (contents) {
+					// console.log('setting data', key)
 					setData(key, contents)
+					// console.log('data set', key)
 				}
 			} catch (e) {
 				console.error(e)
@@ -205,10 +207,13 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 		_outData.next({})
 	})
 
-	_restKeys.subscribe(() => _shouldAdvance.next(true)) // TODO explain this line
+	_restKeys.subscribe(() => {
+		// _shouldAdvance.next(true)
+		_targetGroupId.next('asap')
+	})
 	_shouldAdvance.subscribe(shouldAdvance =>
 		shouldAdvance && _targetGroupId.next(getNextGroupId())
-		)
+	)
 
 	_abortKeys.subscribe(abortKeys =>
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
