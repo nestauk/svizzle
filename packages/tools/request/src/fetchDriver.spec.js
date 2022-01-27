@@ -312,4 +312,137 @@ describe('fetchDriver', function () {
 			})
 		})
 	})
+
+	describe('priority change', function () {
+		const sources = makeSources(`http://localhost:${serverPort}/`)(fileNamesMap)
+
+		const priorities = {
+			asap: [
+				'NUTS-2016-1-03',
+				'NUTS-2003-0-10',
+			],
+			next: [
+				'NUTS-2013-0-10',
+				'NUTS-2016-0-10',
+				'NUTS-2016-2-03',
+			]
+		}
+		const sourcesCount = _.keys(sources).length
+		debug('sourcesCount', sourcesCount)
+
+		const server = startServer({
+			// bandwidth: 1024 * 512,
+			port: serverPort++,
+			basePath: baseServerPath
+		})
+		after(function () {
+			server.close()
+		})
+		it('should download files correctly after changing priority', function () {
+			this.timeout(TIMEOUT)
+			const {
+				_asapKeys,
+				_defaultTransformer,
+				_nextKeys,
+				_outData,
+				_outLoadingKeys,
+				_shouldPrefetch,
+				_uriMap
+			} = makeFetchManager(fetch)
+
+			_shouldPrefetch.next(true)
+			_defaultTransformer.next(jsonParser)
+			_uriMap.next(sources)
+			_asapKeys.next(priorities.asap)
+			_nextKeys.next(priorities.next)
+
+			let lastLoadingKeys = []
+			let isFirstNextKeyLoaded = false
+			let remainingNextKeys
+			return new Promise(resolve => {
+				_outLoadingKeys.subscribe(loadingKeys => {
+					const newKeys = _.difference(
+						loadingKeys,
+						lastLoadingKeys
+					)
+					const oldKeys = _.difference(
+						lastLoadingKeys,
+						loadingKeys
+					)
+					const nextKeysLoaded = _.intersection(
+						priorities.next,
+						oldKeys
+					)
+					newKeys.length > 0 && console.log('loadingKeys +', newKeys)
+					oldKeys.length > 0 && console.log('loadingKeys -', oldKeys)
+					if (!isFirstNextKeyLoaded && nextKeysLoaded.length > 0) {
+						isFirstNextKeyLoaded = true
+						console.log('First key in nextKeys loaded', nextKeysLoaded)
+						remainingNextKeys = _.difference(
+							priorities.next,
+							nextKeysLoaded
+						)
+						const newAsap = [
+							remainingNextKeys[0],
+							'NUTS-2010-3-03',
+							'NUTS-2003-0-10'
+						]
+						const newNext = [
+							'NUTS-2003-3-03',
+							'NUTS-2003-1-03',
+							'NUTS-2003-2-03'
+						]
+						console.log('Selected for asapKeys', newAsap)
+						// should continue remainingNextKeys[0] (now in asap)
+						// should abort remainingNextKeys[1] (not in asap)
+						// should start 'NUTS-2003-0-03' (was in restKeys)
+						// should not start 'NUTS-2003-0-10' (was in asapKeys, already loaded)
+						_asapKeys.next(newAsap)
+						_nextKeys.next(newNext)
+					} else if (isFirstNextKeyLoaded) {
+						const isReloadingRnk0 = _.intersection(
+							[remainingNextKeys[0]],
+							newKeys
+						).length > 0
+
+						const isRnk1Stopped = _.intersection(
+							[remainingNextKeys[1]],
+							oldKeys
+						).length > 0
+
+						const hasStarted2003010 = _.intersection(
+							['NUTS-2003-0-10'],
+							newKeys
+						).length > 0
+
+						const hasStarted2003003 = _.intersection(
+							['NUTS-2003-0-03'],
+							newKeys
+						).length > 0
+
+						isReloadingRnk0 && console.log('Is reloading rnk0, shouldn\'t happen!', remainingNextKeys[0])
+						isRnk1Stopped && console.log('Stopped rnk1, should happen very soon after selecting newAsap', remainingNextKeys[1])
+						hasStarted2003010 && console.log('Is restarting \'NUTS-2003-0-10\', shouldn\'t happen!')
+						hasStarted2003003 && console.log('Is starting \'NUTS-2003-0-10\', should happen very soon after selecting newAsap')
+					}
+					lastLoadingKeys = loadingKeys
+				})
+
+				let orderedKeys = []
+
+				_outData.subscribe(data => {
+					const keys = _.keys(data)
+					orderedKeys = [
+						...orderedKeys,
+						..._.difference(keys, orderedKeys)
+					]
+					debug('loaded', keys.length)
+					if (keys.length === sourcesCount) {
+						resolve()
+					}
+				})
+			})
+		})
+	})
+
 });
