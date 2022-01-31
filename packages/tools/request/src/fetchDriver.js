@@ -3,17 +3,14 @@ import * as _ from 'lamb'
 import {BehaviorSubject} from 'rxjs'
 import {debounceTime} from 'rxjs/operators'
 
-import {isClientSide} from '../../../components/ui/src/utils/env'
 import {derive} from './rxUtils'
-import {makeWebStreamsFetcher} from './webstreams'
 
 const DEBUG = false
 const debug = (...args) => DEBUG && console.log(...args)
 
-export const makeFetchManager = (myFetch = isClientSide && fetch) => {
+export const makeFetchManager = downloadFn => {
 	// input stores
 	const _asapKeys = new BehaviorSubject([])
-	const _transformer = new BehaviorSubject(_.identity)
 	const _nextKeys = new BehaviorSubject([])
 	const _shouldPrefetch = new BehaviorSubject(false)
 	const _uriMap = new BehaviorSubject({})
@@ -49,17 +46,12 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 
 	const abortAll = reason => _outLoadingKeys.getValue().forEach(key => abort(key, reason))
 
-	const download = makeWebStreamsFetcher(myFetch)
-
 	const startDownload = async uris => {
 		debug('startDownload', uris.length)
 		await Promise.all(uris.map(async ({key, value}) => {
 			addLoadingKey(key)
 			try {
-				// FIXME `_transformer.getValue()` is not reactive.
-				// If the transformer changes after starting downloading
-				// it won't be applied.
-				const contents = await download(key, value, abortersMap, _transformer.getValue())
+				const contents = await downloadFn(key, value, abortersMap)
 				if (contents) {
 					// console.log('setting data', key)
 					setData(key, contents)
@@ -169,7 +161,7 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 	// downloading
 	_unfetchedUris.pipe(debounceTime(0)).subscribe(todoUris => {
 		// debug('todoUris', todoUris)
-		myFetch && todoUris.length > 0 && startDownload(todoUris)
+		downloadFn && todoUris.length > 0 && startDownload(todoUris)
 	})
 
 	// debugging
@@ -196,7 +188,6 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 		_asapKeys,
 		_nextKeys,
 		_shouldPrefetch,
-		_transformer,
 		_uriMap,
 		_outData,
 		_outLoadingKeys

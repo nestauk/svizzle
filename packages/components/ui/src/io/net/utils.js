@@ -27,13 +27,12 @@ export const rxToWritable = observable => {
 	return store
 }
 
-export const makeWrappedFetchManager = fetch => {
-	const fetchManager = makeFetchManager(fetch)
+export const makeWrappedFetchManager = downloadFn => {
+	const fetchManager = makeFetchManager(downloadFn)
 	return {
 		_asapKeys: rxToWritable(fetchManager._asapKeys),
 		_nextKeys: rxToWritable(fetchManager._nextKeys),
 		_shouldPrefetch: rxToWritable(fetchManager._shouldPrefetch),
-		_transformer: rxToWritable(fetchManager._transformer),
 		_uriMap: rxToWritable(fetchManager._uriMap),
 		_outData: rxToReadable(fetchManager._outData),
 		_outLoadingKeys: rxToReadable(fetchManager._outLoadingKeys)
