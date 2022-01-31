@@ -58,6 +58,7 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 			'asap' : targetGroupId === 'asap' ?
 				'next' : 'rest'
 	}
+
 	const abort = (key, reason) => {
 		removeLoadingKey(key)
 		debug('aborting', key)
@@ -202,27 +203,27 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 	// When `_uriMap` changes we:
 	// * abort all downloads
 	// * wipe `outData` (clear the cache)
-	_uriMap.subscribe(() => {
+	_uriMap.pipe(debounceTime(0)).subscribe(() => {
 		abortAll('Aborted by uriMap change')
 		_outData.next({})
 	})
 
-	_restKeys.subscribe(() => {
+	_restKeys.pipe(debounceTime(0)).subscribe(() => {
 		// _shouldAdvance.next(true)
 		_targetGroupId.next('asap')
 	})
-	_shouldAdvance.subscribe(shouldAdvance =>
+	_shouldAdvance.pipe(debounceTime(0)).subscribe(shouldAdvance =>
 		shouldAdvance && _targetGroupId.next(getNextGroupId())
 	)
 
-	_abortKeys.subscribe(abortKeys =>
+	_abortKeys.pipe(debounceTime(0)).subscribe(abortKeys =>
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
 	)
 
 	// downloading
-	_unfetchedUris.subscribe(todoUris => {
+	_unfetchedUris.pipe(debounceTime(0)).subscribe(todoUris => {
 		// debug('todoUris', todoUris)
-		todoUris.length > 0 && startDownload(todoUris)
+		myFetch && todoUris.length > 0 && startDownload(todoUris)
 	})
 
 	// debugging
