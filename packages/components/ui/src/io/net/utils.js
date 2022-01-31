@@ -6,7 +6,7 @@ import {makeFetchManager} from '@svizzle/request/src/fetchDriver'
 // we would have to add the dependency there.
 
 const rxToReadable = observable => readable(
-	observable?.getValue(),
+	observable.getValue?.(),
 	set => {
 		const subscription = observable.subscribe(value => set(value))
 		return () => subscription.unsubscribe()
@@ -14,8 +14,8 @@ const rxToReadable = observable => readable(
 )
 
 export const rxToWritable = observable => {
-	const store = new writable(
-		observable?.getValue(),
+	const store = writable(
+		observable.getValue?.(),
 		set => {
 			const subscription = observable.subscribe(value =>
 				value !== get(store) && set(value)
