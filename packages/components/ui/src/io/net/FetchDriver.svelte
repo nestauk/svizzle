@@ -1,33 +1,53 @@
 <script>
+	import {makeWebStreamsFetcher} from '@svizzle/request'
+
 	import {makeWrappedFetchManager} from './utils'
 
-	const {
-		_asapKeys,
+	let _asapKeys,
 		_nextKeys,
 		_outData,
 		_outLoadingKeys,
 		_shouldPrefetch,
-		_transformer,
-		_uriMap
-	} = makeWrappedFetchManager()
+		_uriMap;
 
 	// input props
-	export let asapKeys = $_asapKeys
-	export let nextKeys = $_nextKeys
-	export let shouldPrefetch = $_shouldPrefetch
-	export let transformer = $_transformer
-	export let uriMap = $_uriMap
+	export let asapKeys
+	export let nextKeys
+	export let shouldPrefetch
+	export let transformer
+	export let uriMap
 
 	// output props (for binding)
 	export let outData = $_outData
 	export let outLoadingKeys = $_outLoadingKeys
 
-	$: $_asapKeys = asapKeys
-	$: $_transformer = transformer
-	$: $_nextKeys = nextKeys
-	$: $_shouldPrefetch = shouldPrefetch
-	$: $_uriMap = uriMap
+	const reset= dfn => {
+		({
+			_asapKeys,
+			_nextKeys,
+			_outData,
+			_outLoadingKeys,
+			_shouldPrefetch,
+			_uriMap
+		} = makeWrappedFetchManager(dfn));
+		$_asapKeys = asapKeys;
+		$_nextKeys = nextKeys;
+		$_shouldPrefetch = shouldPrefetch;
+		$_uriMap = uriMap;
+	}
+	// eslint-disable-next-line no-undef
+	$: downloadFn = makeWebStreamsFetcher(globalThis.fetch, transformer);
+	$: reset(downloadFn)
+	
+	// eslint-disable-next-line no-unused-vars
+	$: _asapKeys && ($_asapKeys = asapKeys);
+	// eslint-disable-next-line no-unused-vars
+	$: _nextKeys && ($_nextKeys = nextKeys);
+	// eslint-disable-next-line no-unused-vars
+	$: _shouldPrefetch && ($_shouldPrefetch = shouldPrefetch);
+	// eslint-disable-next-line no-unused-vars
+	$: _uriMap && ($_uriMap = uriMap);
 
-	$: outData = $_outData
-	$: outLoadingKeys = $_outLoadingKeys
+	$: _outData && (outData = $_outData);
+	$: _outLoadingKeys && (outLoadingKeys = $_outLoadingKeys);
 </script>
