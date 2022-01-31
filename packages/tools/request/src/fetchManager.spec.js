@@ -20,7 +20,7 @@ const baseServerPath = path.resolve('../atlas/data/dist/NUTS/topojson')
 
 const fileNamesMap = _.pipe([
 	_.filterWith(fileName => fileName.endsWith('.json')),
-	_.filterWith(fileName => /.*\d\.json$/.test(fileName)),
+	_.filterWith(fileName => (/.*\d\.json$/u).test(fileName)),
 	_.mapWith(fileName => [
 		`NUTS-${fileName.substr(12,4)}-${fileName.substr(27,1)}-${fileName.substr(8,2)}`,
 		fileName
@@ -116,6 +116,7 @@ describe('fetchManager', function () {
 			server.close()
 		})
 		it('should only load files in asapKeys', function () {
+			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
 
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
@@ -176,6 +177,7 @@ describe('fetchManager', function () {
 			server.close()
 		})
 		it('should load all files in sources', function () {
+			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
 
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
@@ -243,6 +245,7 @@ describe('fetchManager', function () {
 			server.close()
 		})
 		it('should load all files in correct order', function () {
+			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
 
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
@@ -341,6 +344,7 @@ describe('fetchManager', function () {
 			server.close()
 		})
 		it('should download files correctly after changing priority', function () {
+			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
 
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
