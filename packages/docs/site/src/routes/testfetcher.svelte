@@ -103,7 +103,7 @@
 	uriMap={sources}
 	asapKeys={priorities.asap}
 	nextKeys={priorities.next}
-	defaultTransformer={jsonParser}
+	transformer={jsonParser}
 	shouldPrefetch
 />
 

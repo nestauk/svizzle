@@ -30,10 +30,10 @@ export const rxToWritable = observable => {
 export const makeWrappedFetchManager = fetch => {
 	const fetchManager = makeFetchManager(fetch)
 	return {
-		_defaultTransformer: rxToWritable(fetchManager._defaultTransformer),
 		_asapKeys: rxToWritable(fetchManager._asapKeys),
 		_nextKeys: rxToWritable(fetchManager._nextKeys),
 		_shouldPrefetch: rxToWritable(fetchManager._shouldPrefetch),
+		_transformer: rxToWritable(fetchManager._transformer),
 		_uriMap: rxToWritable(fetchManager._uriMap),
 		_outData: rxToReadable(fetchManager._outData),
 		_outLoadingKeys: rxToReadable(fetchManager._outLoadingKeys)
