@@ -1,5 +1,5 @@
 import {get, readable, writable} from 'svelte/store'
-import {makeFetchManager} from '@svizzle/request/src/fetchDriver'
+import {makeFetchManager} from '@svizzle/request/src/fetchManager'
 
 // Placed these functions in `@svizzle/ui` since it already has
 // `svelte` installed. If these were to go in `@svizzle/request`

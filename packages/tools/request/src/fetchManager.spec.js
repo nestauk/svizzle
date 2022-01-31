@@ -8,7 +8,8 @@ import {createReadStream, readdirSync} from 'fs'
 import Throttle from 'throttle'
 import {readJson} from '@svizzle/file'
 
-import {makeFetchManager} from './fetchDriver.js'
+import {makeFetchManager} from './fetchManager.js'
+import { makeWebStreamsFetcher } from './webstreams.js';
 
 // for debugging
 const DEBUG = false
@@ -88,7 +89,7 @@ const loadJsons = async (keys, filesMap) => {
 	return _.fromPairs(loadedFiles)
 }
 
-describe('fetchDriver', function () {
+describe('fetchManager', function () {
 	describe('shouldPrefecth = false', function () {
 		const sources = makeSources(`http://localhost:${serverPort}/`)(fileNamesMap)
 
@@ -117,18 +118,18 @@ describe('fetchDriver', function () {
 		it('should only load files in asapKeys', function () {
 			this.timeout(TIMEOUT)
 
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+
 			const {
 				_asapKeys,
-				_defaultTransformer,
 				_nextKeys,
 				_outData,
 				_outLoadingKeys,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchManager(fetch)
+			} = makeFetchManager(downloadFn)
 
 			_shouldPrefetch.next(false)
-			_defaultTransformer.next(jsonParser)
 			_uriMap.next(sources)
 			_asapKeys.next(priorities.asap)
 			_nextKeys.next(priorities.next)
@@ -177,18 +178,19 @@ describe('fetchDriver', function () {
 		it('should load all files in sources', function () {
 			this.timeout(TIMEOUT)
 
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+
 			const {
 				_asapKeys,
-				_defaultTransformer,
 				_nextKeys,
 				_outData,
 				_outLoadingKeys,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchManager(fetch)
+			} = makeFetchManager(downloadFn)
+
 
 			_shouldPrefetch.next(false)
-			_defaultTransformer.next(jsonParser)
 			_uriMap.next(sources)
 			_asapKeys.next(priorities.asap)
 			_nextKeys.next(priorities.next)
@@ -242,18 +244,19 @@ describe('fetchDriver', function () {
 		})
 		it('should load all files in correct order', function () {
 			this.timeout(TIMEOUT)
+
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+
 			const {
 				_asapKeys,
-				_defaultTransformer,
 				_nextKeys,
 				_outData,
 				_outLoadingKeys,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchManager(fetch)
+			} = makeFetchManager(downloadFn)
 
 			_shouldPrefetch.next(true)
-			_defaultTransformer.next(jsonParser)
 			_uriMap.next(sources)
 			_asapKeys.next(priorities.asap)
 			_nextKeys.next(priorities.next)
@@ -339,18 +342,20 @@ describe('fetchDriver', function () {
 		})
 		it('should download files correctly after changing priority', function () {
 			this.timeout(TIMEOUT)
+
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+
 			const {
 				_asapKeys,
-				_defaultTransformer,
 				_nextKeys,
 				_outData,
 				_outLoadingKeys,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchManager(fetch)
+			} = makeFetchManager(downloadFn)
+
 
 			_shouldPrefetch.next(true)
-			_defaultTransformer.next(jsonParser)
 			_uriMap.next(sources)
 			_asapKeys.next(priorities.asap)
 			_nextKeys.next(priorities.next)
@@ -372,11 +377,11 @@ describe('fetchDriver', function () {
 						priorities.next,
 						oldKeys
 					)
-					newKeys.length > 0 && console.log('loadingKeys +', newKeys)
-					oldKeys.length > 0 && console.log('loadingKeys -', oldKeys)
+					newKeys.length > 0 && debug('loadingKeys +', newKeys)
+					oldKeys.length > 0 && debug('loadingKeys -', oldKeys)
 					if (!isFirstNextKeyLoaded && nextKeysLoaded.length > 0) {
 						isFirstNextKeyLoaded = true
-						console.log('First key in nextKeys loaded', nextKeysLoaded)
+						debug('First key in nextKeys loaded', nextKeysLoaded)
 						remainingNextKeys = _.difference(
 							priorities.next,
 							nextKeysLoaded
@@ -391,7 +396,8 @@ describe('fetchDriver', function () {
 							'NUTS-2003-1-03',
 							'NUTS-2003-2-03'
 						]
-						console.log('Selected for asapKeys', newAsap)
+						debug('Selected for asapKeys', newAsap)
+
 						// should continue remainingNextKeys[0] (now in asap)
 						// should abort remainingNextKeys[1] (not in asap)
 						// should start 'NUTS-2010-3-03' (was in restKeys)
@@ -419,17 +425,17 @@ describe('fetchDriver', function () {
 							newKeys
 						).length > 0
 
-						isReloadingRnk0 && console.log('Is reloading rnk0, shouldn\'t happen!', remainingNextKeys[0])
-						isRnk1Stopped && console.log('Stopped rnk1, should happen very soon after selecting newAsap', remainingNextKeys[1])
-						hasStarted2021003 && console.log('Is restarting \'NUTS-2021-0-03\', shouldn\'t happen!')
-						hasStarted2010303 && console.log('Is starting \'NUTS-2010-3-03\', should happen very soon after selecting newAsap')
+						isReloadingRnk0 && debug('Is reloading rnk0, shouldn\'t happen!', remainingNextKeys[0])
+						isRnk1Stopped && debug('Stopped rnk1, should happen very soon after selecting newAsap', remainingNextKeys[1])
+						hasStarted2021003 && debug('Is restarting \'NUTS-2021-0-03\', shouldn\'t happen!')
+						hasStarted2010303 && debug('Is starting \'NUTS-2010-3-03\', should happen very soon after selecting newAsap')
 					}
 					const loadedKeys = _.keys(_outData.getValue())
 					if (_.intersection(loadedKeys, newKeys).length > 0) {
-						console.log('started loading but it\'s already loaded', newKeys)
+						debug('started loading but it\'s already loaded', newKeys)
 					}
 					if (_.intersection(loadedKeys, oldKeys).length > 0) {
-						// console.log('finished loading but it\'s already loaded', oldKeys)
+						debug('finished loading but it\'s already loaded', oldKeys)
 					}
 					lastLoadingKeys = loadingKeys
 				})
