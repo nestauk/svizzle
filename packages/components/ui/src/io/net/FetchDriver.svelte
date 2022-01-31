@@ -1,5 +1,5 @@
 <script>
-	import {makeFetchDriver} from '@svizzle/request/fetchDriver'
+	import {makeWrappedFetchManager} from './utils'
 
 	const {
 		_asapKeys,
@@ -9,7 +9,7 @@
 		_outLoadingKeys,
 		_shouldPrefetch,
 		_uriMap
-	} = makeFetchDriver()
+	} = makeWrappedFetchManager()
 
 	// input props
 	export let defaultTransformer = $_defaultTransformer

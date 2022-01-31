@@ -394,7 +394,7 @@ describe('fetchDriver', function () {
 						console.log('Selected for asapKeys', newAsap)
 						// should continue remainingNextKeys[0] (now in asap)
 						// should abort remainingNextKeys[1] (not in asap)
-						// should start 'NUTS-2003-0-03' (was in restKeys)
+						// should start 'NUTS-2010-3-03' (was in restKeys)
 						// should not start 'NUTS-2021-0-03' (was in asapKeys, already loaded)
 						_asapKeys.next(newAsap)
 						_nextKeys.next(newNext)
@@ -409,20 +409,27 @@ describe('fetchDriver', function () {
 							oldKeys
 						).length > 0
 
-						const hasStarted2003010 = _.intersection(
-							['NUTS-2003-0-10'],
+						const hasStarted2021003 = _.intersection(
+							['NUTS-2021-0-03'],
 							newKeys
 						).length > 0
 
-						const hasStarted2003003 = _.intersection(
-							['NUTS-2003-0-03'],
+						const hasStarted2010303 = _.intersection(
+							['NUTS-2010-3-03'],
 							newKeys
 						).length > 0
 
 						isReloadingRnk0 && console.log('Is reloading rnk0, shouldn\'t happen!', remainingNextKeys[0])
 						isRnk1Stopped && console.log('Stopped rnk1, should happen very soon after selecting newAsap', remainingNextKeys[1])
-						hasStarted2003010 && console.log('Is restarting \'NUTS-2003-0-10\', shouldn\'t happen!')
-						hasStarted2003003 && console.log('Is starting \'NUTS-2003-0-10\', should happen very soon after selecting newAsap')
+						hasStarted2021003 && console.log('Is restarting \'NUTS-2021-0-03\', shouldn\'t happen!')
+						hasStarted2010303 && console.log('Is starting \'NUTS-2010-3-03\', should happen very soon after selecting newAsap')
+					}
+					const loadedKeys = _.keys(_outData.getValue())
+					if (_.intersection(loadedKeys, newKeys).length > 0) {
+						console.log('started loading but it\'s already loaded', newKeys)
+					}
+					if (_.intersection(loadedKeys, oldKeys).length > 0) {
+						// console.log('finished loading but it\'s already loaded', oldKeys)
 					}
 					lastLoadingKeys = loadingKeys
 				})
@@ -443,5 +450,4 @@ describe('fetchDriver', function () {
 			})
 		})
 	})
-
 });
