@@ -1,30 +1,11 @@
-import * as _ from 'lamb'
-// import {derived, get, writable} from 'svelte/store'
-import {
-	BehaviorSubject,
-	combineLatest,
-} from 'rxjs'
-import {map, debounceTime} from 'rxjs/operators'
-
 import {objectToKeyValueArray} from '@svizzle/utils'
+import * as _ from 'lamb'
+import {BehaviorSubject} from 'rxjs'
+import {debounceTime} from 'rxjs/operators'
 
 import {isClientSide} from '../../../components/ui/src/utils/env'
-import {mergeUint8Arrays} from './utils'
-
-const derive = (observables, fn) => combineLatest(...observables)
-.pipe(
-	debounceTime(0),
-	map(fn)
-)
-
-/*
-const derive2 = (main, observables, fn) => main
-.pipe(
-	combineLatestWith(...observables),
-	debounceTime(0),
-	map(fn)
-)
-*/
+import {derive} from './rxUtils'
+import {makeWebStreamsFetcher} from './webstreams'
 
 const DEBUG = false
 const debug = (...args) => DEBUG && console.log(...args)
@@ -32,7 +13,7 @@ const debug = (...args) => DEBUG && console.log(...args)
 export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 	// input stores
 	const _asapKeys = new BehaviorSubject([])
-	const _defaultTransformer = new BehaviorSubject(_.identity)
+	const _transformer = new BehaviorSubject(_.identity)
 	const _nextKeys = new BehaviorSubject([])
 	const _shouldPrefetch = new BehaviorSubject(false)
 	const _uriMap = new BehaviorSubject({})
@@ -68,52 +49,17 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 
 	const abortAll = reason => _outLoadingKeys.getValue().forEach(key => abort(key, reason))
 
-	const download = async (key, {url, transformer}, aborters) => {
-		const response = await myFetch(url)
-		const stream = await response.body
-		const reader = stream.getReader()
-
-		const defaultTransformer = _defaultTransformer.getValue()
-		debug('queuing', key, url)
-
-		// TODO failure
-		return new Promise((resolve/* , reject */) => {
-			aborters[key] = reason => {
-				reader.cancel(reason)
-				delete aborters[key]
-				resolve()
-			}
-
-			let chunks = []
-			const processChunk = ({done, value}) => {
-				debug('receiving chunk from', url)
-				if (!done) {
-					chunks.push(value)
-					reader.read().then(processChunk)
-				} else {
-					const mergedArray = mergeUint8Arrays(chunks)
-					const results = (transformer || defaultTransformer)(mergedArray)
-					delete aborters[key]
-					debug('finished', key)
-					resolve(results)
-				}
-			}
-
-			// start reading
-			reader.read().then(processChunk)
-		})
-	}
+	const download = makeWebStreamsFetcher(myFetch)
 
 	const startDownload = async uris => {
 		debug('startDownload', uris.length)
 		await Promise.all(uris.map(async ({key, value}) => {
-			/*
-			if (_outLoadingKeys.getValue().includes(key)) {
-				return
-			}*/
 			addLoadingKey(key)
 			try {
-				const contents = await download(key, value, abortersMap)
+				// FIXME `_transformer.getValue()` is not reactive.
+				// If the transformer changes after starting downloading
+				// it won't be applied.
+				const contents = await download(key, value, abortersMap, _transformer.getValue())
 				if (contents) {
 					// console.log('setting data', key)
 					setData(key, contents)
@@ -243,14 +189,14 @@ export const makeFetchManager = (myFetch = isClientSide && fetch) => {
 		_asapKeys.subscribe(asapKeys => debug('asapKeys', asapKeys.length))
 		_nextKeys.subscribe(nextKeys => debug('nextKeys', nextKeys.length))
 		_restKeys.subscribe(restKeys => debug('restKeys', restKeys.length))
-		_defaultTransformer.subscribe(() => debug('default transformer updated'))
+		_transformer.subscribe(() => debug('default transformer updated'))
 	}
 
 	return {
-		_defaultTransformer,
 		_asapKeys,
 		_nextKeys,
 		_shouldPrefetch,
+		_transformer,
 		_uriMap,
 		_outData,
 		_outLoadingKeys
