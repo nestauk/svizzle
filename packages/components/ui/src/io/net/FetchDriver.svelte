@@ -21,7 +21,7 @@
 	export let outData = $_outData
 	export let outLoadingKeys = $_outLoadingKeys
 
-	const reset= dfn => {
+	const reset = dfn => {
 		({
 			_asapKeys,
 			_nextKeys,
