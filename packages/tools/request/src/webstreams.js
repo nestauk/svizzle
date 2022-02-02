@@ -22,10 +22,12 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 			const reader = stream.getReader()
 
 			return new Promise((resolve/* , reject */) => {
-				aborters[key] = reason => {
-					reader.cancel(reason)
+				aborters[key] = async reason => {
+					await reader.cancel(reason)
 					delete aborters[key]
-					resolve()
+					resolve({
+						type: 'abort'
+					})
 				}
 
 				let chunks = []
@@ -37,7 +39,10 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 						const mergedArray = mergeUint8Arrays(chunks)
 						const results = (customTransformer || transformer)(mergedArray)
 						delete aborters[key]
-						resolve(results)
+						resolve({
+							type: 'complete',
+							contents: results
+						})
 					}
 				}
 

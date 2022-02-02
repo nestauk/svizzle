@@ -1,3 +1,4 @@
+import {filter} from 'rxjs/operators';
 import {strict as assert} from 'assert';
 import * as _ from 'lamb'
 import {fetch} from 'undici'
@@ -10,10 +11,6 @@ import {readJson} from '@svizzle/file'
 
 import {makeFetchManager} from './fetchManager.js'
 import { makeWebStreamsFetcher } from './webstreams.js';
-
-// for debugging
-const DEBUG = false
-const debug = (...args) => DEBUG && console.log(...args)
 
 // test environment
 const baseServerPath = path.resolve('../atlas/data/dist/NUTS/topojson')
@@ -42,7 +39,7 @@ const TIMEOUT = 20000
 let serverPort = 4000
 
 // utils
-const makeSources = baseUri => _.pipe([
+const makeUriMap = baseUri => _.pipe([
 	_.pairs,
 	_.mapWith(([key, fileName]) => [
 		key,
@@ -90,8 +87,57 @@ const loadJsons = async (keys, filesMap) => {
 }
 
 describe('fetchManager', function () {
-	describe('shouldPrefecth = false', function () {
-		const sources = makeSources(`http://localhost:${serverPort}/`)(fileNamesMap)
+	describe('`_uriMap` property', function () {
+		const uriMap = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
+
+		const priorities = {
+			asap: _.keys(uriMap),
+			next: []
+		}
+
+		const server = startServer({
+			port: serverPort++,
+			basePath: baseServerPath
+		})
+		after(function () {
+			server.close()
+		})
+		it('the content of the downloaded files should be the same as served resources', function () {
+			// eslint-disable-next-line no-invalid-this
+			this.timeout(TIMEOUT)
+
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+			const {
+				_asapKeys,
+				_outData,
+				_outLog,
+				_uriMap
+			} = makeFetchManager(downloadFn)
+
+			_uriMap.next(uriMap)
+			_asapKeys.next(priorities.asap)
+
+
+			return new Promise((resolve, reject) => {
+				_outLog.pipe(
+					filter(event => event.type === 'groupComplete')
+				).subscribe(async () => {
+					const data = _outData.getValue()
+					const keys = _.keys(data)
+					try {
+						const expectedJsons = await loadJsons(keys, fileNamesMap)
+						assert.deepStrictEqual(data, expectedJsons)
+					} catch (e) {
+						reject(e)
+					}
+					resolve()
+				})
+			})
+		})
+	})
+
+	describe('`_shouldPrefecth` property', function () {
+		const sources = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
 
 		const priorities = {
 			asap: [
@@ -105,7 +151,6 @@ describe('fetchManager', function () {
 			]
 		}
 		const sourcesCount = priorities.asap.length
-		debug('sourcesCount', sourcesCount)
 
 		const server = startServer({
 			// bandwidth: 1024 * 512,
@@ -115,7 +160,7 @@ describe('fetchManager', function () {
 		after(function () {
 			server.close()
 		})
-		it('should only load files in asapKeys', function () {
+		it('false: it should only load files in `asapKeys`', function () {
 			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
 
@@ -136,13 +181,8 @@ describe('fetchManager', function () {
 			_nextKeys.next(priorities.next)
 
 			return new Promise((resolve, reject) => {
-				DEBUG && _outLoadingKeys.subscribe(loadingKeys => {
-					debug('loadingKeys', loadingKeys.length)
-				})
-
 				_outData.subscribe(async data => {
 					const keys = _.keys(data)
-					debug('loaded', keys.length)
 					if (keys.length === sourcesCount) {
 						try {
 							const expectedJsons = await loadJsons(keys, fileNamesMap)
@@ -155,72 +195,11 @@ describe('fetchManager', function () {
 				})
 			})
 		})
+		it('true: it should load all files', function () {})
 	})
 
-	describe('asapKeys = keys(sources)', function () {
-		const sources = makeSources(`http://localhost:${serverPort}/`)(fileNamesMap)
-
-		const priorities = {
-			asap: [],
-			next: []
-		}
-		priorities.asap = _.keys(sources)
-		const sourcesCount = priorities.asap.length
-		debug('sourcesCount', sourcesCount)
-
-		const server = startServer({
-			// bandwidth: 1024 * 512,
-			port: serverPort++,
-			basePath: baseServerPath
-		})
-		after(function () {
-			server.close()
-		})
-		it('should load all files in sources', function () {
-			// eslint-disable-next-line no-invalid-this
-			this.timeout(TIMEOUT)
-
-			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
-
-			const {
-				_asapKeys,
-				_nextKeys,
-				_outData,
-				_outLoadingKeys,
-				_shouldPrefetch,
-				_uriMap
-			} = makeFetchManager(downloadFn)
-
-
-			_shouldPrefetch.next(false)
-			_uriMap.next(sources)
-			_asapKeys.next(priorities.asap)
-			_nextKeys.next(priorities.next)
-
-			return new Promise((resolve, reject) => {
-				DEBUG && _outLoadingKeys.subscribe(loadingKeys => {
-					debug('loadingKeys', loadingKeys.length)
-				})
-
-				_outData.subscribe(async data => {
-					const keys = _.keys(data)
-					debug('loaded', keys.length)
-					if (keys.length === sourcesCount) {
-						try {
-							const expectedJsons = await loadJsons(keys, fileNamesMap)
-							assert.deepStrictEqual(data, expectedJsons)
-						} catch (e) {
-							reject(e)
-						}
-						resolve()
-					}
-				})
-			})
-		})
-	})
-
-	describe('load order', function () {
-		const sources = makeSources(`http://localhost:${serverPort}/`)(fileNamesMap)
+	describe('priority properties (`_asapKeys` and `_nextKeys`)', function () {
+		const sources = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
 
 		const priorities = {
 			asap: [
@@ -234,7 +213,6 @@ describe('fetchManager', function () {
 			]
 		}
 		const sourcesCount = _.keys(sources).length
-		debug('sourcesCount', sourcesCount)
 
 		const server = startServer({
 			// bandwidth: 1024 * 512,
@@ -265,10 +243,6 @@ describe('fetchManager', function () {
 			_nextKeys.next(priorities.next)
 
 			return new Promise(resolve => {
-				DEBUG && _outLoadingKeys.subscribe(loadingKeys => {
-					debug('loadingKeys', loadingKeys.length)
-				})
-
 				let orderedKeys = []
 
 				_outData.subscribe(data => {
@@ -277,7 +251,6 @@ describe('fetchManager', function () {
 						...orderedKeys,
 						..._.difference(keys, orderedKeys)
 					]
-					debug('loaded', keys.length)
 					if (keys.length === sourcesCount) {
 						const actualAsap = orderedKeys.slice(
 							0,
@@ -290,10 +263,6 @@ describe('fetchManager', function () {
 						const actualRest = orderedKeys.slice(
 							priorities.asap.length + priorities.next.length
 						)
-						debug('actualAsap', actualAsap)
-						debug('actualNext', actualNext)
-						debug('actualRest', actualRest)
-
 						assert.deepStrictEqual(
 							actualAsap.sort(),
 							priorities.asap.sort(),
@@ -317,147 +286,148 @@ describe('fetchManager', function () {
 				})
 			})
 		})
-	})
+		describe('priority change', function () {
+			const sources = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
 
-	describe('priority change', function () {
-		const sources = makeSources(`http://localhost:${serverPort}/`)(fileNamesMap)
+			const priorities = {
+				asap: _.pipe([
+					_.keys,
+					_.filterWith(key => key.includes('2021'))
+				])(sources),
+				next: _.pipe([
+					_.keys,
+					_.filterWith(key => key.includes('2016'))
+				])(sources)
+			}
+			const sourcesCount = _.keys(sources).length
+			it('while downloading `_asapKeys` those remaining in `_asapKeys` should continue downloading', function () {})
+			it('while downloading `_asapKeys` those not remaining in `_asapKeys` should be aborted', function () {})
+			it('while downloading `_nextKeys` those moving to `_asapKeys` should continue downloading', function () {})
+			it('while downloading `_nextKeys` those not moving to `_asapKeys` should be aborted', function () {})
+			it('while downloading `_restKeys` those moving to `_asapKeys` should continue downloading', function () {})
+			it('while downloading `_restKeys` those not moving to `_asapKeys` should be aborted', function () {})
+			it(`should not redownload cached files`, function () {})
 
-		const priorities = {
-			asap: _.pipe([
-				_.keys,
-				_.filterWith(key => key.includes('2021'))
-			])(sources),
-			next: _.pipe([
-				_.keys,
-				_.filterWith(key => key.includes('2016'))
-			])(sources)
-		}
-		const sourcesCount = _.keys(sources).length
-		debug('sourcesCount', sourcesCount)
+			/*
+			it('should download files after changing priority', function () {
+				// eslint-disable-next-line no-invalid-this
+				this.timeout(TIMEOUT)
 
-		const server = startServer({
-			// bandwidth: 1024 * 512,
-			port: serverPort++,
-			basePath: baseServerPath
-		})
-		after(function () {
-			server.close()
-		})
-		it('should download files correctly after changing priority', function () {
-			// eslint-disable-next-line no-invalid-this
-			this.timeout(TIMEOUT)
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
 
-			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const {
+					_asapKeys,
+					_nextKeys,
+					_outData,
+					_outLoadingKeys,
+					_outLog,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
 
-			const {
-				_asapKeys,
-				_nextKeys,
-				_outData,
-				_outLoadingKeys,
-				_shouldPrefetch,
-				_uriMap
-			} = makeFetchManager(downloadFn)
+				_shouldPrefetch.next(true)
+				_uriMap.next(sources)
+				_asapKeys.next(priorities.asap)
+				_nextKeys.next(priorities.next)
 
-
-			_shouldPrefetch.next(true)
-			_uriMap.next(sources)
-			_asapKeys.next(priorities.asap)
-			_nextKeys.next(priorities.next)
-
-			let lastLoadingKeys = []
-			let isFirstNextKeyLoaded = false
-			let remainingNextKeys
-			return new Promise(resolve => {
-				_outLoadingKeys.subscribe(loadingKeys => {
-					const newKeys = _.difference(
-						loadingKeys,
-						lastLoadingKeys
-					)
-					const oldKeys = _.difference(
-						lastLoadingKeys,
-						loadingKeys
-					)
-					const nextKeysLoaded = _.intersection(
-						priorities.next,
-						oldKeys
-					)
-					newKeys.length > 0 && debug('loadingKeys +', newKeys)
-					oldKeys.length > 0 && debug('loadingKeys -', oldKeys)
-					if (!isFirstNextKeyLoaded && nextKeysLoaded.length > 0) {
-						isFirstNextKeyLoaded = true
-						debug('First key in nextKeys loaded', nextKeysLoaded)
-						remainingNextKeys = _.difference(
-							priorities.next,
-							nextKeysLoaded
+				let lastLoadingKeys = []
+				let isFirstNextKeyLoaded = false
+				let remainingNextKeys
+				return new Promise(resolve => {
+					_outLoadingKeys.subscribe(loadingKeys => {
+						const newKeys = _.difference(
+							loadingKeys,
+							lastLoadingKeys
 						)
-						const newAsap = [
-							remainingNextKeys[0],
-							'NUTS-2010-3-03',
-							'NUTS-2021-0-03'
-						]
-						const newNext = [
-							'NUTS-2003-3-03',
-							'NUTS-2003-1-03',
-							'NUTS-2003-2-03'
-						]
-						debug('Selected for asapKeys', newAsap)
-
-						// should continue remainingNextKeys[0] (now in asap)
-						// should abort remainingNextKeys[1] (not in asap)
-						// should start 'NUTS-2010-3-03' (was in restKeys)
-						// should not start 'NUTS-2021-0-03' (was in asapKeys, already loaded)
-						_asapKeys.next(newAsap)
-						_nextKeys.next(newNext)
-					} else if (isFirstNextKeyLoaded) {
-						const isReloadingRnk0 = _.intersection(
-							[remainingNextKeys[0]],
-							newKeys
-						).length > 0
-
-						const isRnk1Stopped = _.intersection(
-							[remainingNextKeys[1]],
+						const oldKeys = _.difference(
+							lastLoadingKeys,
+							loadingKeys
+						)
+						const nextKeysLoaded = _.intersection(
+							priorities.next,
 							oldKeys
-						).length > 0
+						)
+						newKeys.length > 0 && debug('loadingKeys +', newKeys)
+						oldKeys.length > 0 && debug('loadingKeys -', oldKeys)
+						if (!isFirstNextKeyLoaded && nextKeysLoaded.length > 0) {
+							isFirstNextKeyLoaded = true
+							debug('First key in nextKeys loaded', nextKeysLoaded)
+							remainingNextKeys = _.difference(
+								priorities.next,
+								nextKeysLoaded
+							)
+							const newAsap = [
+								remainingNextKeys[0],
+								'NUTS-2010-3-03',
+								'NUTS-2021-0-03'
+							]
+							const newNext = [
+								'NUTS-2003-3-03',
+								'NUTS-2003-1-03',
+								'NUTS-2003-2-03'
+							]
+							debug('Selected for asapKeys', newAsap)
 
-						const hasStarted2021003 = _.intersection(
-							['NUTS-2021-0-03'],
-							newKeys
-						).length > 0
+							// should continue remainingNextKeys[0] (now in asap)
+							// should abort remainingNextKeys[1] (not in asap)
+							// should start 'NUTS-2010-3-03' (was in restKeys)
+							// should not start 'NUTS-2021-0-03' (was in asapKeys, already loaded)
+							_asapKeys.next(newAsap)
+							_nextKeys.next(newNext)
+						} else if (isFirstNextKeyLoaded) {
+							const isReloadingRnk0 = _.intersection(
+								[remainingNextKeys[0]],
+								newKeys
+							).length > 0
 
-						const hasStarted2010303 = _.intersection(
-							['NUTS-2010-3-03'],
-							newKeys
-						).length > 0
+							const isRnk1Stopped = _.intersection(
+								[remainingNextKeys[1]],
+								oldKeys
+							).length > 0
 
-						isReloadingRnk0 && debug('Is reloading rnk0, shouldn\'t happen!', remainingNextKeys[0])
-						isRnk1Stopped && debug('Stopped rnk1, should happen very soon after selecting newAsap', remainingNextKeys[1])
-						hasStarted2021003 && debug('Is restarting \'NUTS-2021-0-03\', shouldn\'t happen!')
-						hasStarted2010303 && debug('Is starting \'NUTS-2010-3-03\', should happen very soon after selecting newAsap')
-					}
-					const loadedKeys = _.keys(_outData.getValue())
-					if (_.intersection(loadedKeys, newKeys).length > 0) {
-						debug('started loading but it\'s already loaded', newKeys)
-					}
-					if (_.intersection(loadedKeys, oldKeys).length > 0) {
-						debug('finished loading but it\'s already loaded', oldKeys)
-					}
-					lastLoadingKeys = loadingKeys
-				})
+							const hasStarted2021003 = _.intersection(
+								['NUTS-2021-0-03'],
+								newKeys
+							).length > 0
 
-				let orderedKeys = []
+							const hasStarted2010303 = _.intersection(
+								['NUTS-2010-3-03'],
+								newKeys
+							).length > 0
 
-				_outData.subscribe(data => {
-					const keys = _.keys(data)
-					orderedKeys = [
-						...orderedKeys,
-						..._.difference(keys, orderedKeys)
-					]
-					debug('loaded', keys.length)
-					if (keys.length === sourcesCount) {
-						resolve()
-					}
+							assert(!isReloadingRnk0, `Is reloading '${remainingNextKeys[0]}', shouldn't happen!`)
+							assert(!hasStarted2021003, `Is restarting 'NUTS-2021-0-03', shouldn't happen!`)
+							isRnk1Stopped && debug(`Stopped '${remainingNextKeys[1]}', should happen very soon after selecting newAsap`)
+							hasStarted2010303 && debug('Is starting \'NUTS-2010-3-03\', should happen very soon after selecting newAsap')
+						}
+						const loadedKeys = _.keys(_outData.getValue())
+						if (_.intersection(loadedKeys, newKeys).length > 0) {
+							debug('started loading but it\'s already loaded', newKeys)
+						}
+						if (_.intersection(loadedKeys, oldKeys).length > 0) {
+							debug('finished loading but it\'s already loaded', oldKeys)
+						}
+						lastLoadingKeys = loadingKeys
+					})
+
+					let orderedKeys = []
+
+					_outData.subscribe(data => {
+						const keys = _.keys(data)
+						orderedKeys = [
+							...orderedKeys,
+							..._.difference(keys, orderedKeys)
+						]
+						debug('loaded', keys.length)
+						if (keys.length === sourcesCount) {
+							resolve()
+						}
+					})
+
+					// _outLog.subscribe(message => console.log(message))
 				})
 			})
+			*/
 		})
 	})
 });
