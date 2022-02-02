@@ -8,9 +8,12 @@ import path from 'path'
 import {createReadStream, readdirSync} from 'fs'
 import Throttle from 'throttle'
 import {readJson} from '@svizzle/file'
+import {isKeyValue} from '@svizzle/utils'
 
 import {makeFetchManager} from './fetchManager.js'
 import { makeWebStreamsFetcher } from './webstreams.js';
+
+// TODO verify we catch all potential exceptions
 
 // test environment
 const baseServerPath = path.resolve('../atlas/data/dist/NUTS/topojson')
@@ -34,6 +37,7 @@ const jsonParser = _.pipe([
 	JSON.parse
 ])
 
+// FIXME Check if we can set default at script level
 const TIMEOUT = 20000
 
 let serverPort = 4000
@@ -109,7 +113,7 @@ describe('fetchManager', function () {
 			const {
 				_asapKeys,
 				_outData,
-				_outLog,
+				_outEvents,
 				_uriMap
 			} = makeFetchManager(downloadFn)
 
@@ -117,7 +121,7 @@ describe('fetchManager', function () {
 			_asapKeys.next(priorities.asap)
 
 			return new Promise((resolve, reject) => {
-				_outLog.pipe(
+				_outEvents.pipe(
 					filter(event => event.type === 'done')
 				).subscribe(async () => {
 					const data = _outData.getValue()
@@ -157,7 +161,7 @@ describe('fetchManager', function () {
 				_asapKeys,
 				_nextKeys,
 				_outData,
-				_outLog,
+				_outEvents,
 				_shouldPrefetch,
 				_uriMap
 			} = makeFetchManager(downloadFn)
@@ -168,7 +172,7 @@ describe('fetchManager', function () {
 			_nextKeys.next(priorities.next)
 
 			return new Promise(resolve => {
-				_outLog.pipe(
+				_outEvents.pipe(
 					filter(event => event.type === 'done')
 				).subscribe(() => {
 					const data = _outData.getValue()
@@ -190,7 +194,7 @@ describe('fetchManager', function () {
 				_asapKeys,
 				_nextKeys,
 				_outData,
-				_outLog,
+				_outEvents,
 				_shouldPrefetch,
 				_uriMap
 			} = makeFetchManager(downloadFn)
@@ -201,7 +205,7 @@ describe('fetchManager', function () {
 			_nextKeys.next(priorities.next)
 
 			return new Promise(resolve => {
-				_outLog.pipe(
+				_outEvents.pipe(
 					filter(event => event.type === 'done')
 				).subscribe(() => {
 					const data = _outData.getValue()
@@ -237,7 +241,8 @@ describe('fetchManager', function () {
 			_.union(priorities.asap, priorities.next)
 		)
 
-		it('should load all files in correct order', function () {
+		// TODO wrap in describe
+		it('should load all files in correct order (`_asapKeys` then `_nextKeys` then `_restKeys`)', function () {
 			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
 
@@ -246,7 +251,7 @@ describe('fetchManager', function () {
 			const {
 				_asapKeys,
 				_nextKeys,
-				_outLog,
+				_outEvents,
 				_shouldPrefetch,
 				_uriMap
 			} = makeFetchManager(downloadFn)
@@ -261,19 +266,21 @@ describe('fetchManager', function () {
 				let activeGroup
 				let keysForGroup = {}
 
-				_outLog.pipe(
-					filter(event => event.type === 'groupStart')
+				_outEvents.pipe(
+					// filter(event => event.type === 'groupStart'),
+					filter(isKeyValue(['type','groupStart']))
+					// filter(_.hasKeyValue('type','groupStart')) // TODO TBD deprecation
 				).subscribe(({groupId}) => {
 					groups.push(groupId)
 					activeGroup = groupId
 					keysForGroup[activeGroup] = []
 				})
-				_outLog.pipe(
+				_outEvents.pipe(
 					filter(event => event.type === 'complete')
 				).subscribe(({key}) => {
 					keysForGroup[activeGroup].push(key)
 				})
-				_outLog.pipe(
+				_outEvents.pipe(
 					filter(event => event.type === 'done')
 				).subscribe(() => {
 					assert.deepStrictEqual(
@@ -322,7 +329,7 @@ describe('fetchManager', function () {
 				const {
 					_asapKeys,
 					_nextKeys,
-					_outLog,
+					_outEvents,
 					_shouldPrefetch,
 					_uriMap
 				} = makeFetchManager(downloadFn)
@@ -335,7 +342,7 @@ describe('fetchManager', function () {
 				return new Promise((resolve, reject) => {
 					let newAsap
 
-					_outLog.pipe(
+					_outEvents.pipe(
 						// tap(console.log),
 						filter(event => event.type === 'complete')
 					).subscribe(({key}) => {
@@ -347,7 +354,7 @@ describe('fetchManager', function () {
 							_asapKeys.next(newAsap)
 						}
 					})
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(event => event.type === 'abort')
 					).subscribe(({key}) => {
 						try {
@@ -356,7 +363,7 @@ describe('fetchManager', function () {
 							reject(e)
 						}
 					})
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(event => event.type === 'done')
 					).subscribe(() => {
 						resolve()
@@ -372,7 +379,7 @@ describe('fetchManager', function () {
 				const {
 					_asapKeys,
 					_nextKeys,
-					_outLog,
+					_outEvents,
 					_shouldPrefetch,
 					_uriMap
 				} = makeFetchManager(downloadFn)
@@ -386,18 +393,18 @@ describe('fetchManager', function () {
 					let newAsap
 					const filesCompleted = []
 
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(event => event.type === 'complete')
 					).subscribe(({key}) => {
 						filesCompleted.push(key)
 						if (!newAsap) {
 							newAsap = priorities2.next
-							// console.log('newAsap', newAsap)
+							// Swapping keys to trigger restart
 							_asapKeys.next(newAsap)
 							_nextKeys.next(priorities2.asap)
 						}
 					})
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(({type}) => type === 'groupCompleted'),
 						filter(({groupId}) => groupId === 'asap')
 					).subscribe(({abortedKeys}) => {
@@ -415,7 +422,7 @@ describe('fetchManager', function () {
 						}
 					})
 
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(event => event.type === 'done')
 					).subscribe(() => {
 						resolve()
@@ -431,7 +438,7 @@ describe('fetchManager', function () {
 				const {
 					_asapKeys,
 					_nextKeys,
-					_outLog,
+					_outEvents,
 					_shouldPrefetch,
 					_uriMap
 				} = makeFetchManager(downloadFn)
@@ -445,13 +452,13 @@ describe('fetchManager', function () {
 					let nextStarted = false
 					let newAsap
 
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(({type}) => type === 'groupStart'),
 						filter(({groupId}) => groupId === 'next')
 					).subscribe(() => {
 						nextStarted = true
 					})
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(event => event.type === 'complete')
 					).subscribe(({key}) => {
 						if (nextStarted && !newAsap) {
@@ -463,7 +470,7 @@ describe('fetchManager', function () {
 							_nextKeys.next(priorities2.asap)
 						}
 					})
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(event => event.type === 'abort')
 					).subscribe(({key}) => {
 						try {
@@ -472,7 +479,7 @@ describe('fetchManager', function () {
 							reject(e)
 						}
 					})
-					_outLog.pipe(
+					_outEvents.pipe(
 						filter(event => event.type === 'done')
 					).subscribe(() => {
 						resolve()
@@ -496,7 +503,7 @@ describe('fetchManager', function () {
 					_nextKeys,
 					_outData,
 					_outLoadingKeys,
-					_outLog,
+					_outEvents,
 					_shouldPrefetch,
 					_uriMap
 				} = makeFetchManager(downloadFn)
@@ -600,7 +607,7 @@ describe('fetchManager', function () {
 						}
 					})
 
-					// _outLog.subscribe(message => console.log(message))
+					// _outEvents.subscribe(message => console.log(message))
 				})
 			})
 			*/

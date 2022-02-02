@@ -57,8 +57,9 @@ export const makeFetchManager = downloadFn => {
 	// so it's ideal to detect if downloads should restart at 'asap'
 	const _targetGroupId = _restKeys.pipe(
 		// tap(tapValue('RK')),
+		// https://rxmarbles.com/#switchMap
 		switchMapTo(_groupIds.pipe(
-			zipWith(_groupComplete),
+			zipWith(_groupComplete), // wait for download to complete
 			map(_.getAt(0)),
 		)),
 		// tap(tapValue('tvTGI')),
@@ -195,6 +196,6 @@ export const makeFetchManager = downloadFn => {
 		_uriMap,
 		_outData,
 		_outLoadingKeys,
-		_outLog: _outEvents
+		_outEvents
 	}
 }
