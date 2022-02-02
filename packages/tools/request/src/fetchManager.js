@@ -1,13 +1,20 @@
 import {objectToKeyValueArray} from '@svizzle/utils'
 import * as _ from 'lamb'
-import {BehaviorSubject, Subject, zipWith} from 'rxjs'
 import {
-	combineLatestWith,
+	BehaviorSubject,
+	from,
+	Subject,
+	zipWith
+} from 'rxjs'
+import {
 	debounceTime,
-	filter,
+	switchMapTo,
 	map,
+	share,
+	// tap,
 	withLatestFrom
 } from 'rxjs/operators'
+// import {tapValue} from '@svizzle/dev'
 
 import {derive} from './rxUtils'
 
@@ -24,8 +31,8 @@ export const makeFetchManager = downloadFn => {
 	const _outEvents = new Subject()
 
 	// # internal observables
-	const _targetGroupId = new BehaviorSubject('asap')
-	// const _targetGroupId = from(['asap', 'next', 'rest'])
+	const _groupIds = from(['asap', 'next', 'rest'])
+	const _groupComplete = new BehaviorSubject()
 
 	// # internal derived observables
 	const _allKeys = derive(
@@ -34,48 +41,63 @@ export const makeFetchManager = downloadFn => {
 	)
 	const _restKeys = derive(
 		[_allKeys, _asapKeys, _nextKeys],
-		([allKeys, asapKeys, nextKeys]) =>
-			_.difference(allKeys, _.union(asapKeys, nextKeys))
+		([allKeys, asapKeys, nextKeys]) => _.difference(allKeys, _.union(asapKeys, nextKeys))
 	)
-	const _groups = derive(
-		[_asapKeys, _nextKeys, _restKeys],
-		([asapKeys, nextKeys, restKeys]) => ({
+	const _groups = _restKeys.pipe(
+		withLatestFrom(_asapKeys, _nextKeys),
+		map(([restKeys, asapKeys, nextKeys]) => ({
 			asap: asapKeys,
 			next: nextKeys,
 			rest: restKeys
-		})
+		}))
+	)// .pipe(tap(tapValue('groups')))
+
+
+	// `_restKey` changes whenever `_uriMap`,`_asapKeys` or `_nextKeys` updates
+	// so it's ideal to detect if downloads should restart at 'asap'
+	const _targetGroupId = _restKeys.pipe(
+		// tap(tapValue('RK')),
+		switchMapTo(_groupIds.pipe(
+			zipWith(_groupComplete),
+			map(_.getAt(0)),
+		)),
+		// tap(tapValue('tvTGI')),
 	)
+
 	// ## Keys of files that are fully fetched
-	const _fetchedKeys = derive(
-		[_outData],
-		([outData]) => _.keys(outData)
-	)
+	const _fetchedKeys = _outData.pipe(map(_.keys))
+
 	// ## Keys in target group that are not yet fully fetched
 	// Some of them might be currently downloading
-	const _fetchingOrUnfetchedTargetKeys = _groups.pipe(
-		combineLatestWith(_targetGroupId),
-		debounceTime(0),
-		withLatestFrom(_shouldPrefetch, _fetchedKeys),
-		map(([[groups, targetGroupId], shouldPrefetch, fetchedKeys]) =>
+	const _fetchingOrUnfetchedTargetKeys = _targetGroupId.pipe(
+		withLatestFrom(_groups, _shouldPrefetch, _fetchedKeys),
+		map(([targetGroupId, groups, shouldPrefetch, fetchedKeys]) =>
 			shouldPrefetch || targetGroupId === 'asap'
 				? _.difference(groups[targetGroupId], fetchedKeys)
 				: []
-		)
+		),
+		// tap(tapValue('FOUTK')),
+		share()
 	)
+
 	// ## keys in target group that have not started downloading
-	const _unfetchedTargetKeys = derive(
-		[_fetchingOrUnfetchedTargetKeys],
-		([fetchingOrUnfetchedTargetKeys]) =>
+	const _unfetchedTargetKeys = _fetchingOrUnfetchedTargetKeys.pipe(
+		withLatestFrom(_outLoadingKeys),
+		map(([fetchingOrUnfetchedTargetKeys, outLoadingKeys]) =>
 			_.difference(
 				fetchingOrUnfetchedTargetKeys,
-				_outLoadingKeys.getValue()
+				outLoadingKeys
 			)
+		),
+		// tap(tapValue('UTK'))
 	)
-	const _unfetchedUris = derive(
-		[_uriMap, _unfetchedTargetKeys],
-		([uriMap, unfetchedTargetKeys]) =>
+	const _unfetchedUris = _unfetchedTargetKeys.pipe(
+		withLatestFrom(_uriMap),
+		map(([unfetchedTargetKeys, uriMap]) =>
 			objectToKeyValueArray(_.pickIn(uriMap, unfetchedTargetKeys))
+		)
 	)
+
 	// If asapKeys changes abort all current downloads, except those in asap
 	const _abortKeys = derive(
 		[_asapKeys],
@@ -84,7 +106,6 @@ export const makeFetchManager = downloadFn => {
 
 	// # side effects
 	const abortersMap = {}
-	let shouldRestart = false
 
 	const addLoadingKey = key => _outLoadingKeys.next([..._outLoadingKeys.getValue(), key])
 	const removeLoadingKey = key => _outLoadingKeys.next(_.pullFrom(_outLoadingKeys.getValue(), [key]))
@@ -94,20 +115,6 @@ export const makeFetchManager = downloadFn => {
 			key,
 			type: 'complete'
 		})
-	}
-
-	const getNextGroupId = () => {
-		// _shouldAdvance.next(false)
-		let nextGroupId
-		if (shouldRestart) {
-			nextGroupId = 'asap'
-		} else {
-			const targetGroupId = _targetGroupId.getValue()
-			nextGroupId = !targetGroupId ? 'asap' :
-				targetGroupId === 'asap' ?
-					'next' : 'rest'
-		}
-		return nextGroupId
 	}
 
 	const abort = (key, reason) => {
@@ -130,7 +137,6 @@ export const makeFetchManager = downloadFn => {
 			keys,
 			type: 'groupStart'
 		})
-		shouldRestart = false
 		let abortedKeys = []
 		await Promise.all(uris.map(async ({key, value}) => {
 			addLoadingKey(key)
@@ -156,8 +162,10 @@ export const makeFetchManager = downloadFn => {
 			groupId,
 			type: 'groupComplete'
 		})
-		_targetGroupId.next(getNextGroupId())
-		shouldRestart = false
+		_groupComplete.next()
+		groupId === 'rest' && _outEvents.next({
+			type: 'done'
+		})
 	}
 
 	// When `_uriMap` changes we:
@@ -171,18 +179,12 @@ export const makeFetchManager = downloadFn => {
 		})
 	})
 
-	_restKeys.pipe(debounceTime(0)).subscribe(() => {
-		shouldRestart = true
-	})
-
 	_abortKeys.pipe(debounceTime(0)).subscribe(abortKeys =>
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
 	)
 
-	// ## downloading
+	// ## download
 	_unfetchedUris.pipe(
-		debounceTime(0),
-		filter(uris => uris.length > 0),
 		zipWith(_targetGroupId),
 	).subscribe(startDownload)
 

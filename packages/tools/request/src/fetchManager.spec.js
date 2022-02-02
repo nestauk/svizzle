@@ -1,4 +1,4 @@
-import {filter} from 'rxjs/operators';
+import {filter, tap} from 'rxjs/operators';
 import {strict as assert} from 'assert';
 import * as _ from 'lamb'
 import {fetch} from 'undici'
@@ -87,24 +87,23 @@ const loadJsons = async (keys, filesMap) => {
 }
 
 describe('fetchManager', function () {
+	const server = startServer({
+		port: serverPort,
+		basePath: baseServerPath
+	})
+	after(function () {
+		server.close()
+	})
 	describe('`_uriMap` property', function () {
-		const uriMap = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
-
-		const priorities = {
-			asap: _.keys(uriMap),
-			next: []
-		}
-
-		const server = startServer({
-			port: serverPort++,
-			basePath: baseServerPath
-		})
-		after(function () {
-			server.close()
-		})
 		it('the content of the downloaded files should be the same as served resources', function () {
 			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
+
+			const uriMap = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
+			const priorities = {
+				asap: _.keys(uriMap),
+				next: []
+			}
 
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
 			const {
@@ -117,10 +116,9 @@ describe('fetchManager', function () {
 			_uriMap.next(uriMap)
 			_asapKeys.next(priorities.asap)
 
-
 			return new Promise((resolve, reject) => {
 				_outLog.pipe(
-					filter(event => event.type === 'groupComplete')
+					filter(event => event.type === 'done')
 				).subscribe(async () => {
 					const data = _outData.getValue()
 					const keys = _.keys(data)
@@ -137,7 +135,7 @@ describe('fetchManager', function () {
 	})
 
 	describe('`_shouldPrefecth` property', function () {
-		const sources = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
+		const uriMap = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
 
 		const priorities = {
 			asap: [
@@ -150,56 +148,77 @@ describe('fetchManager', function () {
 				'NUTS-2016-2-03',
 			]
 		}
-		const sourcesCount = priorities.asap.length
-
-		const server = startServer({
-			// bandwidth: 1024 * 512,
-			port: serverPort++,
-			basePath: baseServerPath
-		})
-		after(function () {
-			server.close()
-		})
 		it('false: it should only load files in `asapKeys`', function () {
 			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
 
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
-
 			const {
 				_asapKeys,
 				_nextKeys,
 				_outData,
-				_outLoadingKeys,
+				_outLog,
 				_shouldPrefetch,
 				_uriMap
 			} = makeFetchManager(downloadFn)
 
-			_shouldPrefetch.next(false)
-			_uriMap.next(sources)
+			_shouldPrefetch.next(false) // keep? it's the default value
+			_uriMap.next(uriMap)
 			_asapKeys.next(priorities.asap)
 			_nextKeys.next(priorities.next)
 
-			return new Promise((resolve, reject) => {
-				_outData.subscribe(async data => {
+			return new Promise(resolve => {
+				_outLog.pipe(
+					filter(event => event.type === 'done')
+				).subscribe(() => {
+					const data = _outData.getValue()
 					const keys = _.keys(data)
-					if (keys.length === sourcesCount) {
-						try {
-							const expectedJsons = await loadJsons(keys, fileNamesMap)
-							assert.deepStrictEqual(data, expectedJsons)
-						} catch (e) {
-							reject(e)
-						}
-						resolve()
-					}
+					assert.deepStrictEqual(
+						keys.sort(),
+						priorities.asap.sort()
+					)
+					resolve()
 				})
 			})
 		})
-		it('true: it should load all files', function () {})
+		it('true: it should load all files', function () {
+			// eslint-disable-next-line no-invalid-this
+			this.timeout(TIMEOUT)
+
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+			const {
+				_asapKeys,
+				_nextKeys,
+				_outData,
+				_outLog,
+				_shouldPrefetch,
+				_uriMap
+			} = makeFetchManager(downloadFn)
+
+			_shouldPrefetch.next(true)
+			_uriMap.next(uriMap)
+			_asapKeys.next(priorities.asap)
+			_nextKeys.next(priorities.next)
+
+			return new Promise(resolve => {
+				_outLog.pipe(
+					filter(event => event.type === 'done')
+				).subscribe(() => {
+					const data = _outData.getValue()
+					const keys = _.keys(data)
+					assert.deepStrictEqual(
+						keys.sort(),
+						_.keys(uriMap).sort()
+					)
+					resolve()
+				})
+			})
+
+		})
 	})
 
 	describe('priority properties (`_asapKeys` and `_nextKeys`)', function () {
-		const sources = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
+		const uriMap = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
 
 		const priorities = {
 			asap: [
@@ -212,16 +231,12 @@ describe('fetchManager', function () {
 				'NUTS-2016-2-03',
 			]
 		}
-		const sourcesCount = _.keys(sources).length
 
-		const server = startServer({
-			// bandwidth: 1024 * 512,
-			port: serverPort++,
-			basePath: baseServerPath
-		})
-		after(function () {
-			server.close()
-		})
+		const restKeys = _.difference(
+			_.keys(uriMap),
+			_.union(priorities.asap, priorities.next)
+		)
+
 		it('should load all files in correct order', function () {
 			// eslint-disable-next-line no-invalid-this
 			this.timeout(TIMEOUT)
@@ -231,65 +246,64 @@ describe('fetchManager', function () {
 			const {
 				_asapKeys,
 				_nextKeys,
-				_outData,
-				_outLoadingKeys,
+				_outLog,
 				_shouldPrefetch,
 				_uriMap
 			} = makeFetchManager(downloadFn)
 
 			_shouldPrefetch.next(true)
-			_uriMap.next(sources)
+			_uriMap.next(uriMap)
 			_asapKeys.next(priorities.asap)
 			_nextKeys.next(priorities.next)
 
 			return new Promise(resolve => {
-				let orderedKeys = []
+				let groups = []
+				let activeGroup
+				let keysForGroup = {}
 
-				_outData.subscribe(data => {
-					const keys = _.keys(data)
-					orderedKeys = [
-						...orderedKeys,
-						..._.difference(keys, orderedKeys)
-					]
-					if (keys.length === sourcesCount) {
-						const actualAsap = orderedKeys.slice(
-							0,
-							priorities.asap.length
-						)
-						const actualNext = orderedKeys.slice(
-							priorities.asap.length,
-							priorities.asap.length + priorities.next.length
-						)
-						const actualRest = orderedKeys.slice(
-							priorities.asap.length + priorities.next.length
-						)
-						assert.deepStrictEqual(
-							actualAsap.sort(),
-							priorities.asap.sort(),
-							'Asap not equal'
-						)
-						assert.deepStrictEqual(
-							actualNext.sort(),
-							priorities.next.sort(),
-							'Next not equal'
-						)
-						assert.deepStrictEqual(
-							actualRest.sort(),
-							_.difference(
-								keys,
-								_.union(priorities.asap, priorities.next)
-							).sort(),
-							'Rest not equal'
-						)
-						resolve()
-					}
+				_outLog.pipe(
+					filter(event => event.type === 'groupStart')
+				).subscribe(({groupId}) => {
+					groups.push(groupId)
+					activeGroup = groupId
+					keysForGroup[activeGroup] = []
+				})
+				_outLog.pipe(
+					filter(event => event.type === 'complete')
+				).subscribe(({key}) => {
+					keysForGroup[activeGroup].push(key)
+				})
+				_outLog.pipe(
+					filter(event => event.type === 'done')
+				).subscribe(() => {
+					assert.deepStrictEqual(
+						groups,
+						['asap', 'next', 'rest'],
+						'Groups loaded out of order'
+					)
+					assert.deepStrictEqual(
+						keysForGroup.asap.sort(),
+						priorities.asap.sort(),
+						'Asap not equal'
+					)
+					assert.deepStrictEqual(
+						keysForGroup.next.sort(),
+						priorities.next.sort(),
+						'Next not equal'
+					)
+					assert.deepStrictEqual(
+						keysForGroup.rest.sort(),
+						restKeys.sort(),
+						'Rest not equal'
+					)
+					resolve()
 				})
 			})
 		})
 		describe('priority change', function () {
 			const sources = makeUriMap(`http://localhost:${serverPort}/`)(fileNamesMap)
 
-			const priorities = {
+			const priorities2 = {
 				asap: _.pipe([
 					_.keys,
 					_.filterWith(key => key.includes('2021'))
@@ -299,10 +313,172 @@ describe('fetchManager', function () {
 					_.filterWith(key => key.includes('2016'))
 				])(sources)
 			}
-			const sourcesCount = _.keys(sources).length
-			it('while downloading `_asapKeys` those remaining in `_asapKeys` should continue downloading', function () {})
-			it('while downloading `_asapKeys` those not remaining in `_asapKeys` should be aborted', function () {})
-			it('while downloading `_nextKeys` those moving to `_asapKeys` should continue downloading', function () {})
+			it('while downloading `_asapKeys` those remaining in `_asapKeys` should continue downloading', function () {
+				// eslint-disable-next-line no-invalid-this
+				this.timeout(TIMEOUT)
+
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+
+				const {
+					_asapKeys,
+					_nextKeys,
+					_outLog,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
+
+				_shouldPrefetch.next(true)
+				_uriMap.next(uriMap)
+				_asapKeys.next(priorities2.asap)
+				_nextKeys.next(priorities2.next)
+
+				return new Promise((resolve, reject) => {
+					let newAsap
+
+					_outLog.pipe(
+						// tap(console.log),
+						filter(event => event.type === 'complete')
+					).subscribe(({key}) => {
+						if (!newAsap) {
+							newAsap = _.difference(
+								priorities2.asap,
+								[key]
+							)
+							_asapKeys.next(newAsap)
+						}
+					})
+					_outLog.pipe(
+						filter(event => event.type === 'abort')
+					).subscribe(({key}) => {
+						try {
+							assert(!_.isIn(priorities2.asap, key))
+						} catch (e) {
+							reject(e)
+						}
+					})
+					_outLog.pipe(
+						filter(event => event.type === 'done')
+					).subscribe(() => {
+						resolve()
+					})
+				})
+			})
+			it('while downloading `_asapKeys` those not remaining in `_asapKeys` should be aborted', function () {
+				// eslint-disable-next-line no-invalid-this
+				this.timeout(TIMEOUT)
+
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+
+				const {
+					_asapKeys,
+					_nextKeys,
+					_outLog,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
+
+				_shouldPrefetch.next(true)
+				_uriMap.next(uriMap)
+				_asapKeys.next(priorities2.asap)
+				_nextKeys.next(priorities2.next)
+
+				return new Promise((resolve, reject) => {
+					let newAsap
+					const filesCompleted = []
+
+					_outLog.pipe(
+						filter(event => event.type === 'complete')
+					).subscribe(({key}) => {
+						filesCompleted.push(key)
+						if (!newAsap) {
+							newAsap = priorities2.next
+							// console.log('newAsap', newAsap)
+							_asapKeys.next(newAsap)
+							_nextKeys.next(priorities2.asap)
+						}
+					})
+					_outLog.pipe(
+						filter(({type}) => type === 'groupCompleted'),
+						filter(({groupId}) => groupId === 'asap')
+					).subscribe(({abortedKeys}) => {
+						const expectedAbortedFiles = _.difference(
+							priorities2.asap,
+							filesCompleted
+						)
+						try {
+							assert.deepStrictEqual(
+								expectedAbortedFiles.sort(),
+								abortedKeys.sort()
+							)
+						} catch (e) {
+							reject(e)
+						}
+					})
+
+					_outLog.pipe(
+						filter(event => event.type === 'done')
+					).subscribe(() => {
+						resolve()
+					})
+				})
+			})
+			it('while downloading `_nextKeys` those moving to `_asapKeys` should continue downloading', function () {
+				// eslint-disable-next-line no-invalid-this
+				this.timeout(TIMEOUT)
+
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+
+				const {
+					_asapKeys,
+					_nextKeys,
+					_outLog,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
+
+				_shouldPrefetch.next(true)
+				_uriMap.next(uriMap)
+				_asapKeys.next(priorities2.asap)
+				_nextKeys.next(priorities2.next)
+
+				return new Promise((resolve, reject) => {
+					let nextStarted = false
+					let newAsap
+
+					_outLog.pipe(
+						filter(({type}) => type === 'groupStart'),
+						filter(({groupId}) => groupId === 'next')
+					).subscribe(() => {
+						nextStarted = true
+					})
+					_outLog.pipe(
+						filter(event => event.type === 'complete')
+					).subscribe(({key}) => {
+						if (nextStarted && !newAsap) {
+							newAsap = _.difference(
+								priorities2.next,
+								[key]
+							)
+							_asapKeys.next(newAsap)
+							_nextKeys.next(priorities2.asap)
+						}
+					})
+					_outLog.pipe(
+						filter(event => event.type === 'abort')
+					).subscribe(({key}) => {
+						try {
+							assert(!_.isIn(newAsap, key))
+						} catch (e) {
+							reject(e)
+						}
+					})
+					_outLog.pipe(
+						filter(event => event.type === 'done')
+					).subscribe(() => {
+						resolve()
+					})
+				})
+			})
 			it('while downloading `_nextKeys` those not moving to `_asapKeys` should be aborted', function () {})
 			it('while downloading `_restKeys` those moving to `_asapKeys` should continue downloading', function () {})
 			it('while downloading `_restKeys` those not moving to `_asapKeys` should be aborted', function () {})
