@@ -46,11 +46,6 @@ describe('fetchManager', function () {
 
 	describe('`_uriMap` property', function () {
 		it('the content of the downloaded files should be the same as served resources', function () {
-			const priorities = {
-				asap: allKeys,
-				next: []
-			}
-
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
 			const {
 				_asapKeys,
@@ -60,21 +55,174 @@ describe('fetchManager', function () {
 			} = makeFetchManager(downloadFn)
 
 			_uriMap.next(uriMap)
-			_asapKeys.next(priorities.asap)
+			_asapKeys.next(allKeys)
 
 			return new Promise((resolve, reject) => {
 				_outEvents.pipe(
 					filter(event => event.type === 'done')
 				).subscribe(async () => {
 					const data = _outData.getValue()
-					const keys = _.keys(data)
 					try {
-						const expectedJsons = await loadJsons(baseServerPath, keys, fileNamesMap)
+						const expectedJsons = await loadJsons(baseServerPath, allKeys, fileNamesMap)
 						assert.deepStrictEqual(data, expectedJsons)
 					} catch (e) {
 						reject(e)
 					}
 					resolve()
+				})
+			})
+		})
+		describe('change while in progress: should clear the cache and restart downloading', function () {
+			it('!= keys, != URIs', function () {
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const {
+					_asapKeys,
+					_outData,
+					_outEvents,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
+
+				_shouldPrefetch.next(true)
+				_uriMap.next(_.pickIn(uriMap, keysFrom2021))
+				_asapKeys.next(keysFrom2021)
+
+				return new Promise((resolve, reject) => {
+					let switchedMap
+					let totalCompleted = 0
+
+					_outEvents.pipe(
+						filter(isKeyValue(['type', 'complete']))
+					).subscribe(() => {
+						totalCompleted++
+						// switch after downloading more than half
+						if (!switchedMap && totalCompleted > keysFrom2021.length / 2) {
+							_uriMap.next(_.pickIn(uriMap, keysFrom2016))
+							_asapKeys.next(keysFrom2016)
+							switchedMap = true
+						}
+					})
+					_outEvents.pipe(
+						filter(isKeyValue(['type','done']))
+					).subscribe(() => {
+						const actualKeys = _.keys(_outData.getValue())
+						try {
+							assert.deepStrictEqual(
+								actualKeys.sort(),
+								keysFrom2016.sort()
+							)
+						} catch (e) {
+							reject(e)
+						}
+						resolve()
+					})
+				})
+			})
+			it('= keys, != URIs', function () {
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const {
+					_asapKeys,
+					_outData,
+					_outEvents,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
+
+				_shouldPrefetch.next(true)
+				_uriMap.next(_.pickIn(uriMap, keysFrom2021))
+				_asapKeys.next(keysFrom2021)
+
+				return new Promise((resolve, reject) => {
+					let switchedMap
+					let totalCompleted = 0
+
+					_outEvents.pipe(
+						filter(isKeyValue(['type', 'complete']))
+					).subscribe(() => {
+						totalCompleted++
+						// switch after downloading more than half
+						if (!switchedMap && totalCompleted > keysFrom2021.length / 2) {
+							const newMap = _.pipe([
+								_.pick(keysFrom2016),
+								_.pairs,
+								_.mapWith(([key, uri]) => [
+									key.replace('2016', '2021'),
+									uri
+								]),
+								_.fromPairs
+							])(uriMap)
+							_uriMap.next(newMap)
+							switchedMap = true
+						}
+					})
+					_outEvents.pipe(
+						filter(isKeyValue(['type','done']))
+					).subscribe(() => {
+						const actualKeys = _.keys(_outData.getValue())
+						try {
+							assert.deepStrictEqual(
+								actualKeys.sort(),
+								keysFrom2021.sort()
+							)
+						} catch (e) {
+							reject(e)
+						}
+						resolve()
+					})
+				})
+			})
+			it('!= keys, = URIs', function () {
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const {
+					_asapKeys,
+					_outData,
+					_outEvents,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
+
+				_shouldPrefetch.next(true)
+				_uriMap.next(_.pickIn(uriMap, keysFrom2021))
+				_asapKeys.next(keysFrom2021)
+
+				return new Promise((resolve, reject) => {
+					let switchedMap
+					let totalCompleted = 0
+
+					_outEvents.pipe(
+						filter(isKeyValue(['type', 'complete']))
+					).subscribe(() => {
+						totalCompleted++
+						// switch after downloading more than half
+						if (!switchedMap && totalCompleted > keysFrom2021.length / 2) {
+							const newMap = _.pipe([
+								_.pick(keysFrom2021),
+								_.pairs,
+								_.mapWith(([key, uri]) => [
+									key.replace('2021', '2016'),
+									uri
+								]),
+								_.fromPairs
+							])(uriMap)
+							_uriMap.next(newMap)
+							_asapKeys.next(keysFrom2016)
+							switchedMap = true
+						}
+					})
+					_outEvents.pipe(
+						filter(isKeyValue(['type','done']))
+					).subscribe(() => {
+						const actualKeys = _.keys(_outData.getValue())
+						try {
+							assert.deepStrictEqual(
+								actualKeys.sort(),
+								keysFrom2016.sort()
+							)
+						} catch (e) {
+							reject(e)
+						}
+						resolve()
+					})
 				})
 			})
 		})
