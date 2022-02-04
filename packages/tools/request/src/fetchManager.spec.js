@@ -299,7 +299,7 @@ describe('fetchManager', function () {
 
 		})
 		describe('change while in progress', function () {
-			it('true-> false while asap in progress: should complete and stop', function () {
+			it('true -> false while asap in progress: should complete and stop', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
 				const {
 					_asapKeys,
@@ -343,7 +343,7 @@ describe('fetchManager', function () {
 					})
 				})
 			})
-			it('true-> false after asap: should stop', function () {
+			it('true -> false after asap: should stop', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
 				const {
 					_asapKeys,
@@ -396,6 +396,95 @@ describe('fetchManager', function () {
 							reject(e)
 						}
 						resolve()
+					})
+				})
+			})
+			it('false -> true while asap in progress: should continue', function () {
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const {
+					_asapKeys,
+					_nextKeys,
+					_outData,
+					_outEvents,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
+
+				_shouldPrefetch.next(false)
+				_uriMap.next(uriMap)
+				_asapKeys.next(keysFrom2021)
+				_nextKeys.next(keysFrom2016)
+
+				return new Promise((resolve, reject) => {
+					let turnedItOn
+					_outEvents.pipe(
+						// tap(console.log),
+						filter(isKeyValue(['type', 'complete']))
+					).subscribe(() => {
+						if (!turnedItOn) {
+							_shouldPrefetch.next(true)
+							turnedItOn = true
+						}
+					})
+
+					_outEvents.pipe(
+						filter(isKeyValue(['type', 'done']))
+					).subscribe(() => {
+						const data = _outData.getValue()
+						const keys = _.keys(data)
+						try {
+							assert.deepStrictEqual(
+								keys.sort(),
+								allKeys.sort()
+							)
+						} catch (e) {
+							reject(e)
+						}
+						resolve()
+					})
+				})
+			})
+			it('false -> true after asap: should restart, skipping asap and download everything else', function () {
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const {
+					_asapKeys,
+					_nextKeys,
+					_outData,
+					_outEvents,
+					_shouldPrefetch,
+					_uriMap
+				} = makeFetchManager(downloadFn)
+
+				_shouldPrefetch.next(false)
+				_uriMap.next(uriMap)
+				_asapKeys.next(keysFrom2021)
+				_nextKeys.next(keysFrom2016)
+
+				return new Promise((resolve, reject) => {
+					let turnedItOn
+
+					_outEvents.pipe(
+						// tap(console.log),
+						filter(isKeyValue(['type', 'done']))
+					).subscribe(() => {
+						if (!turnedItOn) {
+							turnedItOn = true
+							_shouldPrefetch.next(true)
+						} else {
+							const data = _outData.getValue()
+							const keys = _.keys(data)
+							try {
+								assert(
+									_.is(
+										_.intersection(keys, keysFrom2021).length,
+										keysFrom2021.length
+									)
+								)
+							} catch (e) {
+								reject(e)
+							}
+							resolve()
+						}
 					})
 				})
 			})
