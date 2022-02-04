@@ -182,6 +182,10 @@ export const makeFetchManager = downloadFn => {
 		type: 'done'
 	}))
 
+	_shouldPrefetch.subscribe(should => {
+		should && _asapKeys.next(_asapKeys.getValue())
+	})
+
 	return {
 		_asapKeys,
 		_nextKeys,
