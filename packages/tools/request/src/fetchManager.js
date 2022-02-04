@@ -17,6 +17,7 @@ import {
 } from 'rxjs/operators'
 // import {tapValue} from '@svizzle/dev'
 
+import {makeSideEffectors} from './fetchManager.sfx'
 import {derive} from './rxUtils'
 
 export const makeFetchManager = downloadFn => {
@@ -34,6 +35,18 @@ export const makeFetchManager = downloadFn => {
 	// # internal observables
 	const _groupIds = from(['asap', 'next', 'rest'])
 	const _groupComplete = new BehaviorSubject()
+
+	const {
+		abort,
+		abortAll,
+		startDownload
+	} = makeSideEffectors({
+		_groupComplete,
+		_outEvents,
+		_outLoadingKeys,
+		_outData,
+		downloadFn
+	})
 
 	// # internal derived observables
 	const _allKeys = _uriMap.pipe(
@@ -120,66 +133,6 @@ export const makeFetchManager = downloadFn => {
 	)
 
 	// # side effects
-	const abortersMap = {}
-
-	const addLoadingKey = key => _outLoadingKeys.next([..._outLoadingKeys.getValue(), key])
-	const removeLoadingKey = key => _outLoadingKeys.next(_.pullFrom(_outLoadingKeys.getValue(), [key]))
-	const setData = (key, data) => {
-		_outData.next({..._outData.getValue(), [key]: data})
-		_outEvents.next({
-			key,
-			type: 'complete'
-		})
-	}
-
-	const abort = (key, reason) => {
-		removeLoadingKey(key)
-		_outEvents.next({
-			type: 'abort',
-			reason,
-			key
-		})
-		abortersMap[key] && abortersMap[key](reason)
-		delete abortersMap[key]
-	}
-
-	const abortAll = reason => _outLoadingKeys.getValue().forEach(key => abort(key, reason))
-
-	const startDownload = async ([[uris, groupId], alreadyFetchedOrFetching]) => {
-		const keys = _.map(uris, _.getKey('key'))
-		_outEvents.next({
-			groupId,
-			keys,
-			skipping: alreadyFetchedOrFetching,
-			type: 'groupStart'
-		})
-		let abortedKeys = []
-		await Promise.all(uris.map(async ({key, value}) => {
-			addLoadingKey(key)
-			_outEvents.next({
-				key,
-				type: 'start'
-			})
-			try {
-				const result = await downloadFn(key, value, abortersMap)
-				if (result.type === 'complete') {
-					setData(key, result.contents)
-				} else if (result.type === 'abort') {
-					abortedKeys.push(key)
-				}
-			} catch (e) {
-				console.error(e)
-			} finally {
-				removeLoadingKey(key)
-			}
-		}))
-		_outEvents.next({
-			abortedKeys,
-			groupId,
-			type: 'groupComplete'
-		})
-		_groupComplete.next()
-	}
 
 	// When `_uriMap` changes we:
 	// * abort all downloads
