@@ -142,11 +142,15 @@ export const makeFetchManager = downloadFn => {
 	);
 
 	// If asapKeys changes abort all current downloads, except those in asap
-	const _abortKeys = derive(
-		[_asapKeys],
-		([asapKeys]) => _.difference(_outLoadingKeys.getValue(), asapKeys)
-		// FIXME use `derive([_asapKeys, _outLoadingKeys])` ?
-	);
+	const _abortKeys = _asapKeys.pipe(
+		debounceTime(0),
+		// use `withLatestFrom` instead of `combineLatestWith` (in `derive`) so
+		// that it is not recomputed more than needed.
+		withLatestFrom(_outLoadingKeys),
+		map(([asapKeys, outLoadingKeys]) =>
+			_.difference(outLoadingKeys, asapKeys)
+		)
+	)
 
 	/* side effects */
 
