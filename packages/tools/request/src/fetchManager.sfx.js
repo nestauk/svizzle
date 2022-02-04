@@ -17,7 +17,7 @@ export const makeSideEffectors = (
 			reason,
 			key
 		})
-		abortersMap[key](reason)
+		abortersMap[key] && abortersMap[key](reason)
 	}
 
 	const abortAll = reason => _outLoadingKeys.getValue().forEach(key => abort(key, reason))
