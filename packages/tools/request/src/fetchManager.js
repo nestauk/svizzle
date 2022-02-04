@@ -145,6 +145,7 @@ export const makeFetchManager = downloadFn => {
 	const _abortKeys = derive(
 		[_asapKeys],
 		([asapKeys]) => _.difference(_outLoadingKeys.getValue(), asapKeys)
+		// FIXME use `derive([_asapKeys, _outLoadingKeys])` ?
 	);
 
 	/* side effects */
@@ -181,21 +182,21 @@ export const makeFetchManager = downloadFn => {
 	_fetchedKeys
 	.pipe(
 		withLatestFrom(_shouldPrefetch, _allKeys, _asapKeys),
-		skipWhile(([fetchedKeys, shouldPrefetch, allKeys, asapKeys]) => shouldPrefetch
-			? _.intersection(
-				fetchedKeys,
-				allKeys
-			).length < allKeys.length
-			: _.intersection(
-				fetchedKeys,
-				asapKeys
-			).length < asapKeys.length
+		skipWhile(
+			([fetchedKeys, shouldPrefetch, allKeys, asapKeys]) =>
+				shouldPrefetch
+					? _.intersection(
+						fetchedKeys,
+						allKeys
+					).length < allKeys.length
+					: _.intersection(
+						fetchedKeys,
+						asapKeys
+					).length < asapKeys.length
 		),
 		debounceTime(0)
 	)
-	.subscribe(() => _outEvents.next({
-		type: 'done'
-	}));
+	.subscribe(() => _outEvents.next({type: 'done'}));
 
 	_shouldPrefetch.subscribe(should => {
 		should && _asapKeys.next(_asapKeys.getValue())
