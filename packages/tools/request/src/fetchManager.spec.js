@@ -16,7 +16,7 @@ import {
 	makeUriMap,
 	startServer,
 } from './fetchManager.utils';
-import {makeWebStreamsFetcher} from './webstreams.js';
+import {makeWebStreamsFetcher} from './webstreams';
 
 // TODO verify we catch all potential exceptions
 
