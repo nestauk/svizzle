@@ -592,7 +592,7 @@ describe('fetchManager', function () {
 						filter(({groupId}) => groupId === 'next')
 					).subscribe(({abortedKeys}) => {
 						const expectedAbortedFiles = _.difference(
-							priorities.next,
+							nextKeys,
 							filesCompleted
 						)
 						try {
@@ -706,7 +706,7 @@ describe('fetchManager', function () {
 						filter(({groupId}) => groupId === 'rest')
 					).subscribe(({abortedKeys}) => {
 						const expectedAbortedFiles = _.difference(
-							priorities.next,
+							nextKeys,
 							filesCompleted,
 							newAsap
 						)
