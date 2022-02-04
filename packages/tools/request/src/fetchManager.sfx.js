@@ -1,14 +1,12 @@
 import * as _ from 'lamb'
 
-export const makeSideEffectors = (
-	{
-		_groupComplete,
-		_outEvents,
-		_outLoadingKeys,
-		_outData,
-		downloadFn
-	}
-) => {
+export const makeSideEffectors = ({
+	_groupComplete,
+	_outData,
+	_outEvents,
+	_outLoadingKeys,
+	downloadFn
+}) => {
 	const abortersMap = {}
 
 	const abort = (key, reason) => {
@@ -67,6 +65,7 @@ export const makeSideEffectors = (
 		})
 		_groupComplete.next()
 	}
+
 	return {
 		abort,
 		abortAll,

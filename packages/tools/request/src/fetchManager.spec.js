@@ -1,13 +1,13 @@
+import {strict as assert} from 'assert';
 import {readdirSync} from 'fs'
 import path from 'path'
-import {fetch} from 'undici'
 
 import {isKeyValue} from '@svizzle/utils'
-import {strict as assert} from 'assert';
 import * as _ from 'lamb'
-import {filter, tap} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
+import {fetch} from 'undici'
 
-import {makeFetchManager} from './fetchManager.js'
+import {makeFetchManager} from './fetchManager'
 import {
 	getFileNamesMap,
 	getKeysNamed,
