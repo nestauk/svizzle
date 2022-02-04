@@ -1,3 +1,4 @@
+import {getKey} from '@svizzle/utils'
 import * as _ from 'lamb'
 
 export const makeSideEffectors = ({
@@ -18,23 +19,33 @@ export const makeSideEffectors = ({
 		abortersMap[key] && abortersMap[key](reason)
 	}
 
-	const abortAll = reason => _outLoadingKeys.getValue().forEach(key => abort(key, reason))
+	const abortAll = reason =>
+		_outLoadingKeys
+		.getValue()
+		.forEach(key => abort(key, reason))
 
-	const startDownload = async ([[uris, groupId], alreadyFetchedOrFetching]) => {
-		const keys = _.map(uris, _.getKey('key'))
+	const startDownload = async ([
+		[uris, groupId],
+		alreadyFetchedOrFetching
+	]) => {
+		const keys = _.map(uris, getKey)
+
 		_outEvents.next({
 			groupId,
 			keys,
 			skipping: alreadyFetchedOrFetching,
 			type: 'groupStart'
 		})
+
 		let abortedKeys = []
+
 		await Promise.all(uris.map(async ({key, value}) => {
 			_outLoadingKeys.next([..._outLoadingKeys.getValue(), key])
 			_outEvents.next({
 				key,
 				type: 'start'
 			})
+
 			try {
 				const result = await downloadFn(key, value, abortersMap)
 				if (result.type === 'complete') {
@@ -57,12 +68,15 @@ export const makeSideEffectors = ({
 					[key]
 				))
 			}
+
 		}))
+
 		_outEvents.next({
 			abortedKeys,
 			groupId,
 			type: 'groupComplete'
 		})
+
 		_groupComplete.next()
 	}
 
