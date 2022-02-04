@@ -181,9 +181,9 @@ export const makeFetchManager = downloadFn => {
 	// without creating new arrays.
 	_fetchedKeys
 	.pipe(
-		withLatestFrom(_shouldPrefetch, _allKeys, _asapKeys),
+		withLatestFrom(_allKeys, _asapKeys, _shouldPrefetch),
 		skipWhile(
-			([fetchedKeys, shouldPrefetch, allKeys, asapKeys]) =>
+			([fetchedKeys, allKeys, asapKeys, shouldPrefetch]) =>
 				shouldPrefetch
 					? _.intersection(
 						fetchedKeys,
