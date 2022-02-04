@@ -229,10 +229,6 @@ describe('fetchManager', function () {
 	})
 
 	describe('`_shouldPrefecth` property', function () {
-		const priorities = {
-			asap: keysFrom2021,
-			next: keysFrom2016
-		}
 		it('false: it should only load files in `asapKeys`', function () {
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
 			const {
@@ -246,8 +242,8 @@ describe('fetchManager', function () {
 
 			_shouldPrefetch.next(false) // keep? it's the default value
 			_uriMap.next(uriMap)
-			_asapKeys.next(priorities.asap)
-			_nextKeys.next(priorities.next)
+			_asapKeys.next(keysFrom2021)
+			_nextKeys.next(keysFrom2016)
 
 			return new Promise(resolve => {
 				_outEvents.pipe(
@@ -257,7 +253,7 @@ describe('fetchManager', function () {
 					const keys = _.keys(data)
 					assert.deepStrictEqual(
 						keys.sort(),
-						priorities.asap.sort()
+						keysFrom2021.sort()
 					)
 					resolve()
 				})
@@ -276,8 +272,8 @@ describe('fetchManager', function () {
 
 			_shouldPrefetch.next(true)
 			_uriMap.next(uriMap)
-			_asapKeys.next(priorities.asap)
-			_nextKeys.next(priorities.next)
+			_asapKeys.next(keysFrom2021)
+			_nextKeys.next(keysFrom2016)
 
 			return new Promise(resolve => {
 				_outEvents.pipe(
@@ -297,13 +293,11 @@ describe('fetchManager', function () {
 	})
 
 	describe('priority properties (`_asapKeys` and `_nextKeys`)', function () {
-		const priorities = {
-			asap: keysFrom2021,
-			next: keysFrom2016
-		}
+		const asapKeys = keysFrom2021
+		const nextKeys = keysFrom2016
 		const restKeys = _.difference(
 			allKeys,
-			[...priorities.asap, ...priorities.next]
+			[...asapKeys, ...nextKeys]
 		)
 		describe('static', function () {
 			it('should load all files in correct order (`_asapKeys` then `_nextKeys` then `_restKeys`)', function () {
@@ -318,8 +312,8 @@ describe('fetchManager', function () {
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
-				_asapKeys.next(priorities.asap)
-				_nextKeys.next(priorities.next)
+				_asapKeys.next(asapKeys)
+				_nextKeys.next(nextKeys)
 
 				return new Promise(resolve => {
 					let groups = []
@@ -350,12 +344,12 @@ describe('fetchManager', function () {
 						)
 						assert.deepStrictEqual(
 							keysForGroup.asap.sort(),
-							priorities.asap.sort(),
+							asapKeys.sort(),
 							'Asap not equal'
 						)
 						assert.deepStrictEqual(
 							keysForGroup.next.sort(),
-							priorities.next.sort(),
+							nextKeys.sort(),
 							'Next not equal'
 						)
 						assert.deepStrictEqual(
@@ -380,7 +374,7 @@ describe('fetchManager', function () {
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
-				_asapKeys.next(priorities.asap)
+				_asapKeys.next(asapKeys)
 
 				return new Promise((resolve, reject) => {
 					_outEvents.pipe(
@@ -415,8 +409,8 @@ describe('fetchManager', function () {
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
-				_asapKeys.next(priorities.asap)
-				_nextKeys.next(priorities.next)
+				_asapKeys.next(asapKeys)
+				_nextKeys.next(nextKeys)
 
 				return new Promise((resolve, reject) => {
 					let newAsap
@@ -427,7 +421,7 @@ describe('fetchManager', function () {
 					).subscribe(({key}) => {
 						if (!newAsap) {
 							newAsap = _.difference(
-								priorities.asap,
+								asapKeys,
 								[key]
 							)
 							_asapKeys.next(newAsap)
@@ -437,7 +431,7 @@ describe('fetchManager', function () {
 						filter(event => event.type === 'abort')
 					).subscribe(({key}) => {
 						try {
-							assert(!_.isIn(priorities.asap, key))
+							assert(!_.isIn(asapKeys, key))
 						} catch (e) {
 							reject(e)
 						}
@@ -461,8 +455,8 @@ describe('fetchManager', function () {
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
-				_asapKeys.next(priorities.asap)
-				_nextKeys.next(priorities.next)
+				_asapKeys.next(asapKeys)
+				_nextKeys.next(nextKeys)
 
 				return new Promise((resolve, reject) => {
 					let newAsap
@@ -473,10 +467,10 @@ describe('fetchManager', function () {
 					).subscribe(({key}) => {
 						filesCompleted.push(key)
 						if (!newAsap) {
-							newAsap = priorities.next
+							newAsap = nextKeys
 							// Swapping keys to trigger restart
 							_asapKeys.next(newAsap)
-							_nextKeys.next(priorities.asap)
+							_nextKeys.next(asapKeys)
 						}
 					})
 					_outEvents.pipe(
@@ -484,7 +478,7 @@ describe('fetchManager', function () {
 						filter(({groupId}) => groupId === 'asap')
 					).subscribe(({abortedKeys}) => {
 						const expectedAbortedFiles = _.difference(
-							priorities.asap,
+							asapKeys,
 							filesCompleted
 						)
 						try {
@@ -516,8 +510,8 @@ describe('fetchManager', function () {
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
-				_asapKeys.next(priorities.asap)
-				_nextKeys.next(priorities.next)
+				_asapKeys.next(asapKeys)
+				_nextKeys.next(nextKeys)
 
 				return new Promise((resolve, reject) => {
 					let nextStarted = false
@@ -534,11 +528,11 @@ describe('fetchManager', function () {
 					).subscribe(({key}) => {
 						if (nextStarted && !newAsap) {
 							newAsap = _.difference(
-								priorities.next,
+								nextKeys,
 								[key]
 							)
 							_asapKeys.next(newAsap)
-							_nextKeys.next(priorities.asap)
+							_nextKeys.next(asapKeys)
 						}
 					})
 					_outEvents.pipe(
@@ -569,8 +563,8 @@ describe('fetchManager', function () {
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
-				_asapKeys.next(priorities.asap)
-				_nextKeys.next(priorities.next)
+				_asapKeys.next(asapKeys)
+				_nextKeys.next(nextKeys)
 
 				return new Promise((resolve, reject) => {
 					let nextStarted = false
@@ -629,8 +623,8 @@ describe('fetchManager', function () {
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
-				_asapKeys.next(priorities.asap)
-				_nextKeys.next(priorities.next)
+				_asapKeys.next(asapKeys)
+				_nextKeys.next(nextKeys)
 
 				return new Promise((resolve, reject) => {
 					let nextStarted = false
@@ -682,8 +676,8 @@ describe('fetchManager', function () {
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
-				_asapKeys.next(priorities.asap)
-				_nextKeys.next(priorities.next)
+				_asapKeys.next(asapKeys)
+				_nextKeys.next(nextKeys)
 
 				return new Promise((resolve, reject) => {
 					let restStarted = false
