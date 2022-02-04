@@ -21,18 +21,22 @@ import {makeSideEffectors} from './fetchManager.sfx'
 import {derive} from './rxUtils'
 
 export const makeFetchManager = downloadFn => {
-	// # input observables
+
+	/* input observables */
+
 	const _asapKeys = new BehaviorSubject([])
 	const _nextKeys = new BehaviorSubject([])
 	const _shouldPrefetch = new BehaviorSubject(false)
 	const _uriMap = new BehaviorSubject({})
 
-	// # output observables
+	/* output observables */
+
 	const _outData = new BehaviorSubject({})
 	const _outLoadingKeys = new BehaviorSubject([])
 	const _outEvents = new Subject()
 
-	// # internal observables
+	/* internal observables */
+
 	const _groupIds = from(['asap', 'next', 'rest'])
 	const _groupComplete = new BehaviorSubject()
 
@@ -42,13 +46,14 @@ export const makeFetchManager = downloadFn => {
 		startDownload
 	} = makeSideEffectors({
 		_groupComplete,
+		_outData,
 		_outEvents,
 		_outLoadingKeys,
-		_outData,
 		downloadFn
 	})
 
-	// # internal derived observables
+	/* internal derived observables */
+
 	const _allKeys = _uriMap.pipe(
 		map(_.keys),
 		share()
@@ -58,6 +63,7 @@ export const makeFetchManager = downloadFn => {
 		[_allKeys, _asapKeys, _nextKeys],
 		([allKeys, asapKeys, nextKeys]) => _.difference(allKeys, _.union(asapKeys, nextKeys))
 	)
+
 	const _groups = _restKeys.pipe(
 		withLatestFrom(_asapKeys, _nextKeys),
 		map(([restKeys, asapKeys, nextKeys]) => ({
@@ -65,7 +71,8 @@ export const makeFetchManager = downloadFn => {
 			next: nextKeys,
 			rest: restKeys
 		}))
-	)// .pipe(tap(tapValue('groups')))
+	)
+	// .pipe(tap(tapValue('groups')))
 
 	const _targetGroupId = _groups.pipe(
 		debounceTime(0),
