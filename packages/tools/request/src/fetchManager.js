@@ -8,9 +8,10 @@ import {
 } from 'rxjs'
 import {
 	debounceTime,
-	switchMapTo,
 	map,
 	share,
+	skipWhile,
+	switchMapTo,
 	// tap,
 	withLatestFrom
 } from 'rxjs/operators'
@@ -35,10 +36,11 @@ export const makeFetchManager = downloadFn => {
 	const _groupComplete = new BehaviorSubject()
 
 	// # internal derived observables
-	const _allKeys = derive(
-		[_uriMap],
-		([uriMap]) => _.keys(uriMap)
+	const _allKeys = _uriMap.pipe(
+		map(_.keys),
+		share()
 	)
+
 	const _restKeys = derive(
 		[_allKeys, _asapKeys, _nextKeys],
 		([allKeys, asapKeys, nextKeys]) => _.difference(allKeys, _.union(asapKeys, nextKeys))
@@ -52,21 +54,21 @@ export const makeFetchManager = downloadFn => {
 		}))
 	)// .pipe(tap(tapValue('groups')))
 
-
-	// `_restKey` changes whenever `_uriMap`,`_asapKeys` or `_nextKeys` updates
-	// so it's ideal to detect if downloads should restart at 'asap'
-	const _targetGroupId = _restKeys.pipe(
-		// tap(tapValue('RK')),
-		// https://rxmarbles.com/#switchMap
+	const _targetGroupId = _groups.pipe(
+		debounceTime(0),
+		// https://rxmarbles.com/#switchMap\
 		switchMapTo(_groupIds.pipe(
 			zipWith(_groupComplete), // wait for download to complete
 			map(_.getAt(0)),
 		)),
-		// tap(tapValue('tvTGI')),
+		share(),
 	)
 
 	// ## Keys of files that are fully fetched
-	const _fetchedKeys = _outData.pipe(map(_.keys))
+	const _fetchedKeys = _outData.pipe(
+		map(_.keys),
+		share()
+	)
 
 	// ## Keys in target group that are not yet fully fetched
 	// Some of them might be currently downloading
@@ -76,6 +78,18 @@ export const makeFetchManager = downloadFn => {
 			shouldPrefetch || targetGroupId === 'asap'
 				? _.difference(groups[targetGroupId], fetchedKeys)
 				: []
+		),
+		// tap(tapValue('FOUTK')),
+		share()
+	)
+
+	const _alreadyFetchedOrFetching = _targetGroupId.pipe(
+		withLatestFrom(_groups, _fetchedKeys, _outLoadingKeys),
+		map(([targetGroupId, groups, fetchedKeys, loadingKeys]) =>
+			_.intersection(
+				groups[targetGroupId],
+				_.union(fetchedKeys, loadingKeys)
+			)
 		),
 		// tap(tapValue('FOUTK')),
 		share()
@@ -131,11 +145,12 @@ export const makeFetchManager = downloadFn => {
 
 	const abortAll = reason => _outLoadingKeys.getValue().forEach(key => abort(key, reason))
 
-	const startDownload = async ([uris, groupId]) => {
+	const startDownload = async ([[uris, groupId], alreadyFetchedOrFetching]) => {
 		const keys = _.map(uris, _.getKey('key'))
 		_outEvents.next({
 			groupId,
 			keys,
+			skipping: alreadyFetchedOrFetching,
 			type: 'groupStart'
 		})
 		let abortedKeys = []
@@ -164,9 +179,6 @@ export const makeFetchManager = downloadFn => {
 			type: 'groupComplete'
 		})
 		_groupComplete.next()
-		groupId === 'rest' && _outEvents.next({
-			type: 'done'
-		})
 	}
 
 	// When `_uriMap` changes we:
@@ -187,7 +199,28 @@ export const makeFetchManager = downloadFn => {
 	// ## download
 	_unfetchedUris.pipe(
 		zipWith(_targetGroupId),
+		withLatestFrom(_alreadyFetchedOrFetching),
 	).subscribe(startDownload)
+
+	// FIXME this happens on every completed download and is rather abusive of
+	// memory allocation and the garbage collector. Should rewrite conditional
+	// without creating new arrays.
+	_fetchedKeys.pipe(
+		withLatestFrom(_shouldPrefetch, _allKeys, _asapKeys),
+		skipWhile(([fetchedKeys, shouldPrefetch, allKeys, asapKeys]) => shouldPrefetch
+			? _.intersection(
+				fetchedKeys,
+				allKeys
+			).length < allKeys.length
+			: _.intersection(
+				fetchedKeys,
+				asapKeys
+			).length < asapKeys.length
+		),
+		debounceTime(0)
+	).subscribe(() => _outEvents.next({
+		type: 'done'
+	}))
 
 	return {
 		_asapKeys,
