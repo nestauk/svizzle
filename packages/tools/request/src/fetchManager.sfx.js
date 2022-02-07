@@ -12,9 +12,9 @@ export const makeSideEffectors = ({
 
 	const abort = (key, reason) => {
 		_outEvents.next({
-			type: 'abort',
+			key,
 			reason,
-			key
+			type: 'abort',
 		})
 		abortersMap[key] && abortersMap[key](reason)
 	}

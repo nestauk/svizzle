@@ -22,37 +22,25 @@ import {derive} from './rxUtils'
 
 export const makeFetchManager = downloadFn => {
 
-	/* input observables */
+	/* input streams */
 
 	const _asapKeys = new BehaviorSubject([]);
 	const _nextKeys = new BehaviorSubject([]);
 	const _shouldPrefetch = new BehaviorSubject(false);
 	const _uriMap = new BehaviorSubject({});
 
-	/* output observables */
+	/* output streams */
 
 	const _outData = new BehaviorSubject({});
 	const _outLoadingKeys = new BehaviorSubject([]);
 	const _outEvents = new Subject();
 
-	/* internal observables */
+	/* internal streams */
 
 	const _groupIds = from(['asap', 'next', 'rest']);
 	const _groupComplete = new BehaviorSubject();
 
-	const {
-		abort,
-		abortAll,
-		startDownload
-	} = makeSideEffectors({
-		_groupComplete,
-		_outData,
-		_outEvents,
-		_outLoadingKeys,
-		downloadFn
-	});
-
-	/* internal derived observables */
+	/* internal derived streams */
 
 	const _allKeys = _uriMap.pipe(
 		map(_.keys),
@@ -76,14 +64,17 @@ export const makeFetchManager = downloadFn => {
 	// .pipe(tap(tapValue('groups')))
 
 	// https://rxmarbles.com/#switchMap
-	const _targetGroupId = _groups.pipe(
-		debounceTime(0),
-		switchMapTo(_groupIds.pipe(
-			zipWith(_groupComplete), // wait for download to complete
-			map(_.getAt(0)),
-		)),
-		share(),
-	);
+	const _targetGroupId =
+		_groups.pipe(
+			debounceTime(0),
+			switchMapTo(
+				_groupIds.pipe(
+					zipWith(_groupComplete), // wait for download to complete
+					map(_.getAt(0)),
+				)
+			),
+			share(),
+		);
 
 	// Keys of files that are fully fetched
 	const _fetchedKeys = _outData.pipe(
@@ -94,8 +85,7 @@ export const makeFetchManager = downloadFn => {
 	// Keys in target group that are not yet fully fetched
 	// Some of them might be currently downloading
 	const _fetchingOrUnfetchedTargetKeys =
-		_targetGroupId
-		.pipe(
+		_targetGroupId.pipe(
 			withLatestFrom(_groups, _shouldPrefetch, _fetchedKeys),
 			map(([targetGroupId, groups, shouldPrefetch, fetchedKeys]) =>
 				shouldPrefetch || targetGroupId === 'asap'
@@ -107,8 +97,7 @@ export const makeFetchManager = downloadFn => {
 		);
 
 	const _alreadyFetchedOrFetching =
-		_targetGroupId
-		.pipe(
+		_targetGroupId.pipe(
 			withLatestFrom(_groups, _fetchedKeys, _outLoadingKeys),
 			map(([targetGroupId, groups, fetchedKeys, loadingKeys]) =>
 				_.intersection(
@@ -122,8 +111,7 @@ export const makeFetchManager = downloadFn => {
 
 	// keys in target group that have not started downloading
 	const _unfetchedTargetKeys =
-		_fetchingOrUnfetchedTargetKeys
-		.pipe(
+		_fetchingOrUnfetchedTargetKeys.pipe(
 			withLatestFrom(_outLoadingKeys),
 			map(([fetchingOrUnfetchedTargetKeys, outLoadingKeys]) =>
 				_.difference(
@@ -134,12 +122,13 @@ export const makeFetchManager = downloadFn => {
 			// tap(tapValue('UTK'))
 		);
 
-	const _unfetchedUris = _unfetchedTargetKeys.pipe(
-		withLatestFrom(_uriMap),
-		map(([unfetchedTargetKeys, uriMap]) =>
-			objectToKeyValueArray(_.pickIn(uriMap, unfetchedTargetKeys))
-		)
-	);
+	const _unfetchedUris =
+		_unfetchedTargetKeys.pipe(
+			withLatestFrom(_uriMap),
+			map(([unfetchedTargetKeys, uriMap]) =>
+				objectToKeyValueArray(_.pickIn(uriMap, unfetchedTargetKeys))
+			)
+		);
 
 	// If asapKeys changes abort all current downloads, except those in asap
 	const _abortKeys = _asapKeys.pipe(
@@ -153,6 +142,22 @@ export const makeFetchManager = downloadFn => {
 	)
 
 	/* side effects */
+
+	// side effectors
+
+	const {
+		abort,
+		abortAll,
+		startDownload
+	} = makeSideEffectors({
+		_groupComplete,
+		_outData,
+		_outEvents,
+		_outLoadingKeys,
+		downloadFn
+	});
+
+	// subscriptions
 
 	// When `_uriMap` changes we:
 	// * abort all downloads
