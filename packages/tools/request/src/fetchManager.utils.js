@@ -6,7 +6,6 @@ import * as _ from 'lamb'
 import serveHandler from 'serve-handler'
 import Throttle from 'throttle'
 import { makePrefixed } from '@svizzle/utils'
-import { tapValue } from '@svizzle/dev'
 
 const decoder = new TextDecoder()
 const decode = bytes => decoder.decode(bytes)
@@ -20,7 +19,6 @@ export const loadJsons = async (basePath, fileNames, baseUrl) => {
 		_.mapWith(fileName =>
 			[`${baseUrl}${fileName}`, `${basePath}/${fileName}`]
 		),
-		tapValue('pairs'),
 		_.mapWith(async ([key, filePath]) =>
 			[key, await readJson(filePath)])
 	])(fileNames)
