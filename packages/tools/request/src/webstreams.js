@@ -1,4 +1,4 @@
-import {identity} from 'lamb';
+import assert from 'assert';
 
 const mergeUint8Arrays = arrays => {
 	const totalLength = arrays.reduce(
@@ -14,41 +14,44 @@ const mergeUint8Arrays = arrays => {
 	return mergedArray
 }
 
-export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
+export const makeWebStreamsFetcher = myFetch =>
 	myFetch
-		? async (key, {customTransformer, url}, aborters) => {
-			const response = await myFetch(url)
-			const stream = await response.body
-			const reader = stream.getReader()
+		? async (url, abortersMap) => {
+			const response = await myFetch(url);
+			const stream = await response.body;
+			const reader = stream.getReader();
 
-			return new Promise((resolve/* , reject */) => {
-				aborters[key] = async reason => {
-					await reader.cancel(reason)
-					delete aborters[key]
+			const fetcher = resolve => {
+				assert(!(url in abortersMap), 'Abort key already registered');
+				abortersMap[url] = async reason => {
+					delete abortersMap[url];
+					await reader.cancel(reason);
 					resolve({
-						type: 'abort'
-					})
-				}
+						type: 'abort',
+						url
+					});
+				};
 
-				let chunks = []
+				let chunks = [];
 				const processChunk = ({done, value}) => {
 					if (!done) {
-						chunks.push(value)
-						reader.read().then(processChunk)
+						chunks.push(value);
+						reader.read().then(processChunk);
 					} else {
-						const mergedArray = mergeUint8Arrays(chunks)
-						const results = (customTransformer || transformer)(mergedArray)
-						delete aborters[key]
+						delete abortersMap[url];
+						const bytes = mergeUint8Arrays(chunks);
 						resolve({
 							type: 'complete',
-							contents: results
-						})
+							bytes,
+							url
+						});
 					}
-				}
+				};
 
 				// start reading
-				reader.read().then(processChunk)
-			})
+				reader.read().then(processChunk);
+			};
+
+			return new Promise(fetcher);
 		}
-		// eslint-disable-next-line no-empty-function
-		: () => {}
+		: () => Promise.resolve();

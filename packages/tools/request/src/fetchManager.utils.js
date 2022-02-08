@@ -5,6 +5,8 @@ import {readJson} from '@svizzle/file'
 import * as _ from 'lamb'
 import serveHandler from 'serve-handler'
 import Throttle from 'throttle'
+import { makePrefixed } from '@svizzle/utils'
+import { tapValue } from '@svizzle/dev'
 
 const decoder = new TextDecoder()
 const decode = bytes => decoder.decode(bytes)
@@ -13,24 +15,27 @@ export const jsonParser = _.pipe([
 	JSON.parse
 ])
 
-export const loadJsons = async (basePath, keys, filesMap) => {
+export const loadJsons = async (basePath, fileNames, baseUrl) => {
 	const fileLoadingPromises = _.pipe([
-		_.pairs,
-		_.filterWith(([key]) => keys.includes(key)),
-		_.mapWith(([key, fileName]) =>
-			[key, `${basePath}/${fileName}`]
+		_.mapWith(fileName =>
+			[`${baseUrl}${fileName}`, `${basePath}/${fileName}`]
 		),
+		tapValue('pairs'),
 		_.mapWith(async ([key, filePath]) =>
 			[key, await readJson(filePath)])
-	])(filesMap)
+	])(fileNames)
 
 	const loadedFiles = await Promise.all(fileLoadingPromises)
 	return _.fromPairs(loadedFiles)
 }
 
-export const getFileNamesMap = _.pipe([
+export const getFilteredFileNames = _.pipe([
 	_.filterWith(fileName => fileName.endsWith('.json')),
 	_.filterWith(fileName => (/.*\d\.json$/u).test(fileName)),
+])
+
+export const getFileNamesMap = _.pipe([
+	getFilteredFileNames,
 	_.mapWith(fileName => [
 		`NUTS-${fileName.substr(12,4)}-${fileName.substr(27,1)}-${fileName.substr(8,2)}`,
 		fileName
@@ -38,6 +43,8 @@ export const getFileNamesMap = _.pipe([
 	_.fromPairs
 // eslint-disable-next-line no-sync
 ])
+
+export const makeUris = baseUri => _.mapWith(makePrefixed(baseUri))
 
 export const makeUriMap = baseUri => _.pipe([
 	_.pairs,
