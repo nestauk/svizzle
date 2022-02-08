@@ -16,20 +16,20 @@ const mergeUint8Arrays = arrays => {
 
 export const makeWebStreamsFetcher = myFetch =>
 	myFetch
-		? async (url, abortersMap) => {
-			const response = await myFetch(url);
+		? async (uri, abortersMap) => {
+			const response = await myFetch(uri);
 			const stream = await response.body;
 			const reader = stream.getReader();
 
 			const fetcher = resolve => {
-				assert(!(url in abortersMap), 'Abort key already registered');
-				abortersMap[url] = async reason => {
-					delete abortersMap[url];
-					await reader.cancel(reason);
+				assert(!(uri in abortersMap), 'Abort key already registered');
+				abortersMap[uri] = async reason => {
+					delete abortersMap[uri];
 					resolve({
-						type: 'abort',
-						url
+						type: 'file:aborted',
+						uri
 					});
+					await reader.cancel(reason);
 				};
 
 				let chunks = [];
@@ -38,12 +38,12 @@ export const makeWebStreamsFetcher = myFetch =>
 						chunks.push(value);
 						reader.read().then(processChunk);
 					} else {
-						delete abortersMap[url];
+						delete abortersMap[uri];
 						const bytes = mergeUint8Arrays(chunks);
 						resolve({
-							type: 'complete',
+							type: 'file:completed',
 							bytes,
-							url
+							uri
 						});
 					}
 				};

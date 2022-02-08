@@ -5,9 +5,10 @@ import {
 } from 'rxjs';
 import {
 	debounceTime,
+	filter,
 	finalize,
 } from 'rxjs/operators';
-// import {isIterableEmpty} from '@svizzle/utils';
+import {isKeyValue} from '@svizzle/utils';
 
 /*
 // these are global so as to share URI cache across all instances
@@ -44,7 +45,7 @@ export const makeSideEffectors = ({
 
 		_outEvents.next({
 			uri,
-			type: 'fileStarted'
+			type: 'file:started'
 		});
 
 		const promise = downloadFn(uri, abortersMap);
@@ -53,11 +54,7 @@ export const makeSideEffectors = ({
 			delete downloadObservablesMap[uri];
 			_subject.next(fetchResult);
 			_subject.complete();
-			_outEvents.next({
-				uri,
-				type: 'fileCompleted',
-				bytes: fetchResult.bytes
-			});
+			_outEvents.next(fetchResult);
 		})
 
 		return _observable;
@@ -66,34 +63,31 @@ export const makeSideEffectors = ({
 	const abortUris = (uris, reason) =>
 		Promise.all(_.map(uris, uri => abort(uri, reason)));
 
-	const startDownload = async ([[uris, groupId], urisToAbort]) => {
-		await abortUris(urisToAbort, 'Not needed ASAP');
-
+	const startDownload = ([uris, groupId]) => {
 		_outEvents.next({
 			groupId,
 			uris,
-			type: 'groupStarted'
-		})
-		let abortedUris = [];
-
+			type: 'group:started'
+		});
 		const downloadObservables = _.map(
 			uris,
 			uri => downloadUri(uri, abortersMap)
 		);
-		forkJoin(downloadObservables)
+		const sub = forkJoin(downloadObservables)
 		.pipe(
 			debounceTime(0)
 		)
 		.subscribe(() => {
 			_outEvents.next({
-				abortedUris,
 				groupId,
-				type: 'groupCompleted'
-			})
+				type: 'group:completed'
+			});
+			sub.unsubscribe();
 		});
 	};
 
 	return {
+		abortUris,
 		downloadUri,
 		startDownload
 	}

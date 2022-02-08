@@ -1,17 +1,18 @@
-import { isKeyValue } from '@svizzle/utils';
+import {tapValue} from '@svizzle/dev';
+import {isKeyValue} from '@svizzle/utils';
 import {strict as assert} from 'assert';
-import {readdirSync} from 'fs'
-import path from 'path'
+import {readdirSync} from 'fs';
+import path from 'path';
 
-import * as _ from 'lamb'
+import * as _ from 'lamb';
 import {
 	filter,
 	skipWhile,
 	tap,
 } from 'rxjs/operators';
-import {fetch} from 'undici'
+import {fetch} from 'undici';
 
-import {makeFetchManager} from './fetchManager'
+import {makeFetchManager} from './fetchManager';
 import {
 	getFilteredFileNames,
 	getKeysNamed,
@@ -38,19 +39,19 @@ const urisFrom2013 = getKeysNamed('2013')(allUris);
 
 describe('fetchManager', function () {
 	// eslint-disable-next-line no-invalid-this
-	this.timeout(TIMEOUT)
+	this.timeout(TIMEOUT);
 
 	const server = startServer({
 		port: PORT,
 		basePath: baseServerPath
-	})
+	});
 	after(function () {
 		server.close()
-	})
+	});
 
 	describe('`_allUris` property', function () {
 		it('the content of the downloaded files should be the same as served resources', function () {
-			const downloadFn = makeWebStreamsFetcher(fetch)
+			const downloadFn = makeWebStreamsFetcher(fetch);
 			const {
 				_allUris,
 				_asapUris,
@@ -59,7 +60,7 @@ describe('fetchManager', function () {
 				_outEvents,
 				_shouldPrefetch,
 				_transformer,
-			} = makeFetchManager(downloadFn)
+			} = makeFetchManager(downloadFn);
 
 			_shouldPrefetch.next(true);
 			_transformer.next(jsonParser);
@@ -68,118 +69,235 @@ describe('fetchManager', function () {
 			_nextUris.next(urisFrom2013);
 
 			return new Promise((resolve, reject) => {
-				/*
 				_outEvents.pipe(
-					filter(_.not(isKeyValue(['type','fileCompleted']))),
-				).subscribe(console.log);
-				*/
-
-				_outEvents.pipe(
-					// tap(console.log),
-					filter(event => event.type === 'done')
+					filter(event => event.type === 'cycle:done')
 				).subscribe(async () => {
 					const data = _outData.getValue()
 					try {
-						const expectedJsons = await loadJsons(baseServerPath, fileNames, baseUrl)
-						assert.deepStrictEqual(data, expectedJsons)
+						const expectedJsons = await loadJsons(baseServerPath, fileNames, baseUrl);
+						assert.deepStrictEqual(data, expectedJsons);
 					} catch (e) {
-						reject(e)
+						reject(e);
 					}
-					resolve()
-				})
-			})
-		})
-		/*
-		describe('change while in progress: should clear the cache and restart downloading', function () {
-			it('!= keys, != URIs', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+					resolve();
+				});
+			});
+		});
+		describe('change while in progress: should only keep new URIs in cache if previously downloaded', function () {
+			it('old URIs !== new URIs', function () {
+				const downloadFn = makeWebStreamsFetcher(fetch);
 				const {
-					_asapKeys,
+					_allUris,
+					_asapUris,
 					_outData,
 					_outEvents,
 					_shouldPrefetch,
-					_uriMap
-				} = makeFetchManager(downloadFn)
+					_transformer,
+				} = makeFetchManager(downloadFn);
 
-				_shouldPrefetch.next(true)
-				_uriMap.next(_.pickIn(allUris, urisFrom2021))
-				_asapKeys.next(urisFrom2021)
+				_shouldPrefetch.next(true);
+				_transformer.next(jsonParser);
+				_allUris.next(urisFrom2021);
+				_asapUris.next(urisFrom2021);
 
 				return new Promise((resolve, reject) => {
-					let switchedMap
-					let totalCompleted = 0
+					let switchedMap;
+					let totalCompleted = 0;
+
+					/*
+					_outEvents.pipe(
+						filter(_.not(isKeyValue(['type','file:completed'])))
+					).subscribe(console.log);
+					*/
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:completed']))
 					).subscribe(() => {
-						totalCompleted++
+						totalCompleted++;
 						// switch after downloading more than half
 						if (!switchedMap && totalCompleted > urisFrom2021.length / 2) {
-							_uriMap.next(_.pickIn(allUris, urisFrom2016))
-							_asapKeys.next(urisFrom2016)
-							switchedMap = true
+							_allUris.next(urisFrom2016);
+							_asapUris.next(urisFrom2016);
+							switchedMap = true;
 						}
-					})
+					});
 					_outEvents.pipe(
-						filter(isKeyValue(['type','done']))
+						filter(isKeyValue(['type','cycle:done'])),
 					).subscribe(() => {
-						const actualKeys = _.keys(_outData.getValue())
+						const actualUris = _.keys(_outData.getValue());
 						try {
 							assert.deepStrictEqual(
-								actualKeys.sort(),
+								actualUris.sort(),
 								urisFrom2016.sort()
-							)
+							);
 						} catch (e) {
-							reject(e)
+							reject(e);
 						}
-						resolve()
-					})
-				})
-			})
-			it('= keys, != URIs', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+						resolve();
+					});
+				});
+			});
+			it('old URIs included in new URIs', function () {
+				const downloadFn = makeWebStreamsFetcher(fetch);
 				const {
-					_asapKeys,
+					_allUris,
+					_asapUris,
 					_outData,
 					_outEvents,
 					_shouldPrefetch,
-					_uriMap
-				} = makeFetchManager(downloadFn)
+					_transformer,
+				} = makeFetchManager(downloadFn);
 
-				_shouldPrefetch.next(true)
-				_uriMap.next(_.pickIn(allUris, urisFrom2021))
-				_asapKeys.next(urisFrom2021)
+				_shouldPrefetch.next(true);
+				_transformer.next(jsonParser);
+				_allUris.next(urisFrom2021);
+				_asapUris.next(urisFrom2021);
+
+				const combinedUris = _.union(
+					urisFrom2021,
+					urisFrom2016
+				);
 
 				return new Promise((resolve, reject) => {
-					let switchedMap
-					let totalCompleted = 0
+					let switchedMap;
+					let totalCompleted = 0;
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:completed']))
 					).subscribe(() => {
-						totalCompleted++
+						totalCompleted++;
 						// switch after downloading more than half
 						if (!switchedMap && totalCompleted > urisFrom2021.length / 2) {
-							const newMap = _.pipe([
-								_.pick(urisFrom2016),
-								_.pairs,
-								_.mapWith(([key, uri]) => [
-									key.replace('2016', '2021'),
-									uri
-								]),
-								_.fromPairs
-							])(allUris)
-							_uriMap.next(newMap)
-							switchedMap = true
+							_allUris.next(combinedUris);
+							_asapUris.next(combinedUris);
+							switchedMap = true;
 						}
 					})
 					_outEvents.pipe(
-						filter(isKeyValue(['type','done']))
+						filter(isKeyValue(['type','cycle:done'])),
 					).subscribe(() => {
-						const actualKeys = _.keys(_outData.getValue())
+						const actualUris = _.keys(_outData.getValue());
 						try {
 							assert.deepStrictEqual(
-								actualKeys.sort(),
+								actualUris.sort(),
+								combinedUris.sort()
+							);
+						} catch (e) {
+							reject(e);
+						}
+						resolve();
+					});
+				});
+			});
+		});
+	});
+
+	describe('`_shouldPrefecth` property', function () {
+		it('false: it should only load files in `asapKeys`', function () {
+			const downloadFn = makeWebStreamsFetcher(fetch);
+			const {
+				_allUris,
+				_asapUris,
+				_nextUris,
+				_outData,
+				_outEvents,
+				_shouldPrefetch,
+			} = makeFetchManager(downloadFn);
+
+			_shouldPrefetch.next(false); // keep? it's the default value
+			_allUris.next(allUris);
+			_asapUris.next(urisFrom2021);
+			_nextUris.next(urisFrom2016);
+
+			return new Promise((resolve, reject) => {
+				_outEvents.pipe(
+					filter(event => event.type === 'cycle:done')
+				).subscribe(() => {
+					const data = _outData.getValue();
+					const keys = _.keys(data);
+					try {
+						assert.deepStrictEqual(
+							keys.sort(),
+							urisFrom2021.sort()
+						);
+					} catch (e) {
+						reject(e);
+					}
+					resolve();
+				});
+			});
+		});
+		it('true: it should load all files', function () {
+			const downloadFn = makeWebStreamsFetcher(fetch);
+			const {
+				_allUris,
+				_asapUris,
+				_nextUris,
+				_outData,
+				_outEvents,
+				_shouldPrefetch,
+			} = makeFetchManager(downloadFn);
+
+			_shouldPrefetch.next(true); // keep? it's the default value
+			_allUris.next(allUris);
+			_asapUris.next(urisFrom2021);
+			_nextUris.next(urisFrom2016);
+
+			return new Promise((resolve, reject) => {
+				_outEvents.pipe(
+					filter(event => event.type === 'cycle:done')
+				).subscribe(() => {
+					const data = _outData.getValue();
+					const keys = _.keys(data);
+					try {
+						assert.deepStrictEqual(
+							keys.sort(),
+							allUris.sort()
+						)
+					} catch (e) {
+						reject(e);
+					}
+					resolve();
+				});
+			});
+		});
+		describe('change while in progress', function () {
+			it('true -> false while asap in progress: should complete and stop', function () {
+				const downloadFn = makeWebStreamsFetcher(fetch)
+				const {
+					_allUris,
+					_asapUris,
+					_nextUris,
+					_outData,
+					_outEvents,
+					_shouldPrefetch,
+				} = makeFetchManager(downloadFn);
+
+				_shouldPrefetch.next(true); // keep? it's the default value
+				_allUris.next(allUris);
+				_asapUris.next(urisFrom2021);
+				_nextUris.next(urisFrom2016);
+
+				return new Promise((resolve, reject) => {
+					let turnedItOff;
+
+					_outEvents.pipe(
+						filter(isKeyValue(['type', 'file:completed']))
+					).subscribe(() => {
+						if (!turnedItOff) {
+							_shouldPrefetch.next(false)
+							turnedItOff = true
+						}
+					})
+
+					_outEvents.pipe(
+						filter(isKeyValue(['type', 'cycle:done']))
+					).subscribe(() => {
+						const data = _outData.getValue()
+						const keys = _.keys(data)
+						try {
+							assert.deepStrictEqual(
+								keys.sort(),
 								urisFrom2021.sort()
 							)
 						} catch (e) {
@@ -189,202 +307,32 @@ describe('fetchManager', function () {
 					})
 				})
 			})
-			it('!= keys, = URIs', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
-				const {
-					_asapKeys,
-					_outData,
-					_outEvents,
-					_shouldPrefetch,
-					_uriMap
-				} = makeFetchManager(downloadFn)
-
-				_shouldPrefetch.next(true)
-				_uriMap.next(_.pickIn(allUris, urisFrom2021))
-				_asapKeys.next(urisFrom2021)
-
-				return new Promise((resolve, reject) => {
-					let switchedMap
-					let totalCompleted = 0
-
-					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
-					).subscribe(() => {
-						totalCompleted++
-						// switch after downloading more than half
-						if (!switchedMap && totalCompleted > urisFrom2021.length / 2) {
-							const newMap = _.pipe([
-								_.pick(urisFrom2021),
-								_.pairs,
-								_.mapWith(([key, uri]) => [
-									key.replace('2021', '2016'),
-									uri
-								]),
-								_.fromPairs
-							])(allUris)
-							_uriMap.next(newMap)
-							_asapKeys.next(urisFrom2016)
-							switchedMap = true
-						}
-					})
-					_outEvents.pipe(
-						filter(isKeyValue(['type','done']))
-					).subscribe(() => {
-						const actualKeys = _.keys(_outData.getValue())
-						try {
-							assert.deepStrictEqual(
-								actualKeys.sort(),
-								urisFrom2016.sort()
-							)
-						} catch (e) {
-							reject(e)
-						}
-						resolve()
-					})
-				})
-			})
-		})
-		*/
-	})
-
-	/*
-	describe('`_shouldPrefecth` property', function () {
-		it('false: it should only load files in `asapKeys`', function () {
-			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
-			const {
-				_asapKeys,
-				_nextKeys,
-				_outData,
-				_outEvents,
-				_shouldPrefetch,
-				_uriMap
-			} = makeFetchManager(downloadFn)
-
-			_shouldPrefetch.next(false) // keep? it's the default value
-			_uriMap.next(uriMap)
-			_asapKeys.next(keysFrom2021)
-			_nextKeys.next(keysFrom2016)
-
-			return new Promise((resolve, reject) => {
-				_outEvents.pipe(
-					filter(event => event.type === 'done')
-				).subscribe(() => {
-					const data = _outData.getValue()
-					const keys = _.keys(data)
-					try {
-						assert.deepStrictEqual(
-							keys.sort(),
-							keysFrom2021.sort()
-						)
-					} catch (e) {
-						reject(e)
-					}
-					resolve()
-				})
-			})
-		})
-		it('true: it should load all files', function () {
-			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
-			const {
-				_asapKeys,
-				_nextKeys,
-				_outData,
-				_outEvents,
-				_shouldPrefetch,
-				_uriMap
-			} = makeFetchManager(downloadFn)
-
-			_shouldPrefetch.next(true)
-			_uriMap.next(uriMap)
-			_asapKeys.next(keysFrom2021)
-			_nextKeys.next(keysFrom2016)
-
-			return new Promise((resolve, reject) => {
-				_outEvents.pipe(
-					filter(event => event.type === 'done')
-				).subscribe(() => {
-					const data = _outData.getValue()
-					const keys = _.keys(data)
-					try {
-						assert.deepStrictEqual(
-							keys.sort(),
-							_.keys(uriMap).sort()
-						)
-					} catch (e) {
-						reject(e)
-					}
-					resolve()
-				})
-			})
-
-		})
-		describe('change while in progress', function () {
-			it('true -> false while asap in progress: should complete and stop', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
-				const {
-					_asapKeys,
-					_nextKeys,
-					_outData,
-					_outEvents,
-					_shouldPrefetch,
-					_uriMap
-				} = makeFetchManager(downloadFn)
-
-				_shouldPrefetch.next(true)
-				_uriMap.next(uriMap)
-				_asapKeys.next(keysFrom2021)
-				_nextKeys.next(keysFrom2016)
-
-				return new Promise((resolve, reject) => {
-					let turnedItOff
-					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
-					).subscribe(() => {
-						if (!turnedItOff) {
-							_shouldPrefetch.next(false)
-							turnedItOff = true
-						}
-					})
-
-					_outEvents.pipe(
-						filter(isKeyValue(['type', 'done']))
-					).subscribe(() => {
-						const data = _outData.getValue()
-						const keys = _.keys(data)
-						try {
-							assert.deepStrictEqual(
-								keys.sort(),
-								keysFrom2021.sort()
-							)
-						} catch (e) {
-							reject(e)
-						}
-						resolve()
-					})
-				})
-			})
 			it('true -> false after asap: should stop', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const downloadFn = makeWebStreamsFetcher(fetch)
 				const {
-					_asapKeys,
-					_nextKeys,
+					_allUris,
+					_asapUris,
+					_nextUris,
 					_outData,
 					_outEvents,
 					_shouldPrefetch,
-					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = makeFetchManager(downloadFn);
 
-				_shouldPrefetch.next(true)
-				_uriMap.next(uriMap)
-				_asapKeys.next(keysFrom2021)
-				_nextKeys.next(keysFrom2016)
+				_shouldPrefetch.next(true); // keep? it's the default value
+				_allUris.next(allUris);
+				_asapUris.next(urisFrom2021);
+				_nextUris.next(urisFrom2016);
 
 				return new Promise((resolve, reject) => {
 					let hasNextStarted
 					let turnedItOff
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'groupComplete']))
+						filter(_.not(isKeyValue(['type','file:completed'])))
+					).subscribe(console.log);
+
+					_outEvents.pipe(
+						filter(isKeyValue(['type', 'group:completed']))
 					).subscribe(() => {
 						if (!hasNextStarted) {
 							hasNextStarted = true
@@ -392,7 +340,7 @@ describe('fetchManager', function () {
 					})
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:completed']))
 					).subscribe(() => {
 						if (hasNextStarted && !turnedItOff) {
 							_shouldPrefetch.next(false)
@@ -401,15 +349,15 @@ describe('fetchManager', function () {
 					})
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'done']))
+						filter(isKeyValue(['type', 'cycle:done']))
 					).subscribe(() => {
 						const data = _outData.getValue()
 						const keys = _.keys(data)
 						try {
 							assert(
 								_.is(
-									_.intersection(keys, keysFrom2021).length,
-									keysFrom2021.length
+									_.intersection(keys, urisFrom2021).length,
+									urisFrom2021.length
 								)
 							)
 						} catch (e) {
@@ -419,6 +367,7 @@ describe('fetchManager', function () {
 					})
 				})
 			})
+			/*
 			it('false -> true while asap in progress: should continue', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
 				const {
@@ -508,9 +457,11 @@ describe('fetchManager', function () {
 					})
 				})
 			})
+			*/
 		})
 	})
 
+	/*
 	describe('priority properties (`_asapKeys` and `_nextKeys`)', function () {
 		const asapKeys = keysFrom2021
 		const nextKeys = keysFrom2016

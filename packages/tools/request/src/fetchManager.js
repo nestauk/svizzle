@@ -1,5 +1,6 @@
-// import {tapValue} from '@svizzle/dev'
+import {tapValue} from '@svizzle/dev'
 import {
+	isIterableEmpty,
 	isKeyValue
 } from '@svizzle/utils'
 import * as _ from 'lamb'
@@ -23,7 +24,7 @@ import {
 	// mergeAll,
 	// mergeMap,
 	switchMapTo,
-	// tap,
+	tap,
 	withLatestFrom
 } from 'rxjs/operators'
 
@@ -66,6 +67,7 @@ export const makeFetchManager = downloadFn => {
 	);
 
 	const _groups = _restUris.pipe(
+		debounceTime(0),
 		withLatestFrom(_asapUris, _nextUris),
 		map(([restUris, asapUris, nextUris]) => ({
 			asap: asapUris,
@@ -75,16 +77,6 @@ export const makeFetchManager = downloadFn => {
 		// tap(tapValue('_groups')),
 		share()
 	);
-
-	/*
-	const _shouldStartGroup = _outEvents.pipe(
-		filter(
-			isKeyValue(['type', 'started'])
-			// || isKeyValue(['type', 'groupCompleted'])
-		),
-		// tap(tapValue('_shouldStartGroup')),
-	);
-	*/
 
 	// https://rxmarbles.com/#switchMap
 	const _activeGroupId = _groups.pipe(
@@ -109,6 +101,7 @@ export const makeFetchManager = downloadFn => {
 	// Keys in target group that are not yet fully fetched
 	// Some of them might be currently downloading
 	const _unfetchedActiveUris = _activeGroupId.pipe(
+		// debounceTime(0),
 		withLatestFrom(_groups, _shouldPrefetch, _fetchedUris),
 		// tap(tapValue('before _unfetchedActiveUris')),
 		map(([activeGroupId, groups, shouldPrefetch, fetchedUris]) =>
@@ -122,6 +115,7 @@ export const makeFetchManager = downloadFn => {
 
 	const _urisToAbort = _unfetchedActiveUris
 	.pipe(
+		debounceTime(0),
 		withLatestFrom(_outLoadingUris),
 		map(([unfetchedActiveUris, loadingUris]) =>
 			_.difference(loadingUris, unfetchedActiveUris)
@@ -133,6 +127,7 @@ export const makeFetchManager = downloadFn => {
 
 	// side effectors
 	const {
+		abortUris,
 		startDownload
 	} = makeSideEffectors({
 		_outEvents,
@@ -141,16 +136,22 @@ export const makeFetchManager = downloadFn => {
 
 	// subscriptions
 
-	// When `_uriMap` changes we:
+	// When `_allUris` changes we:
 	// * abort all downloads
 	// * wipe `_outData` (clear the cache)
 	_allUris
 	.pipe(
 		debounceTime(0),
-		withLatestFrom(_outData)
+		withLatestFrom(_outData, _outLoadingUris)
 	)
-	.subscribe(([allUris, outData]) => {
+	.subscribe(async ([allUris, outData, loadingUris]) => {
 		_outEvents.next({type: 'allUris'})
+		const urisToAbort = _.difference(
+			loadingUris,
+			allUris
+		);
+		// console.log('aborting', urisToAbort)
+		await abortUris(urisToAbort, 'No longer in `_allUris`')
 		// Keep only cached content in new _allUris
 		_outData.next(_.pickIn(outData, allUris));
 	});
@@ -159,15 +160,29 @@ export const makeFetchManager = downloadFn => {
 		debounceTime(0)
 	)
 	.subscribe(() => {
-		_outEvents.next({type: 'started'});
+		_outEvents.next({
+			type: 'cycle:started'
+		});
 	});
 
 	// download
 
+	_urisToAbort.pipe(
+
+	).subscribe(async urisToAbort => {
+		await abortUris(urisToAbort, 'Not needed ASAP');
+	});
+
 	_unfetchedActiveUris
 	.pipe(
-		zipWith(_activeGroupId),
-		withLatestFrom(_urisToAbort),
+		debounceTime(0),
+		zipWith(
+			_activeGroupId,
+			_outEvents.pipe(
+				filter(isKeyValue(['type', 'queue:empty']))
+			)
+		),
+		// withLatestFrom(_urisToAbort),
 		// tap(tapValue('startDownload'))
 	)
 	.subscribe(startDownload);
@@ -187,9 +202,8 @@ export const makeFetchManager = downloadFn => {
 		),
 		debounceTime(0)
 	)
-	.subscribe(() => _outEvents.next({type: 'done'}));
+	.subscribe(() => _outEvents.next({type: 'cycle:done'}));
 
-	/*
 	_shouldPrefetch
 	.pipe(withLatestFrom(_asapUris))
 	.subscribe(([should, asapUris]) => {
@@ -199,29 +213,44 @@ export const makeFetchManager = downloadFn => {
 
 	_outEvents
 	.pipe(
-		filter(isKeyValue(['type', 'fileStarted'])),
+		filter(isKeyValue(['type', 'file:started'])),
 		withLatestFrom(_outLoadingUris)
 	)
-	.subscribe(({uri}, loadingUris) =>
+	.subscribe(([{uri}, loadingUris]) =>
 		_outLoadingUris.next([...loadingUris, uri])
 	);
-	*/
 
 	_outEvents
 	.pipe(
-		filter(isKeyValue(['type', 'fileCompleted'])),
-		withLatestFrom(_outLoadingUris, _outData, _transformer)
+		// filter(isKeyValue(['type', 'file:completed'])),
+		filter(({type}) => [
+			'file:completed',
+			'file:aborted'].includes(type)
+		),
+		withLatestFrom(_outLoadingUris, _outData, _transformer),
 	)
-	.subscribe(([{uri, bytes}, loadingUris, outData, transformer]) => {
-		_outLoadingUris.next(_.pullFrom(loadingUris, uri));
-		const content = transformer(bytes);
-		_outData.next({...outData, [uri]: content});
+	.subscribe(([{type, uri, bytes}, loadingUris, outData, transformer]) => {
+		_outLoadingUris.next(_.pullFrom(loadingUris, [uri]));
+		if (type === 'file:completed') {
+			const content = transformer(bytes);
+			_outData.next({...outData, [uri]: content});
+		}
 	});
 
+	_outLoadingUris
+	.pipe(
+		filter(isIterableEmpty),
+		debounceTime(0)
+	)
+	.subscribe(() => {
+		_outEvents.next({
+			type: 'queue:empty'
+		})
+	});
 
 	_outEvents
 	.pipe(
-		filter(isKeyValue(['type', 'groupCompleted'])),
+		filter(isKeyValue(['type', 'group:completed'])),
 		debounceTime(0),
 	)
 	.subscribe(() => {
