@@ -1,88 +1,100 @@
-import {getKey} from '@svizzle/utils'
-import * as _ from 'lamb'
+import * as _ from 'lamb';
+import {
+	forkJoin,
+	Subject
+} from 'rxjs';
+import {
+	debounceTime,
+	finalize,
+} from 'rxjs/operators';
+// import {isIterableEmpty} from '@svizzle/utils';
+
+/*
+// these are global so as to share URI cache across all instances
+const downloadActionsMap = {}
+*/
 
 export const makeSideEffectors = ({
-	_groupComplete,
-	_outData,
 	_outEvents,
-	_outLoadingKeys,
 	downloadFn
 }) => {
-	const abortersMap = {}
+	const downloadObservablesMap = {};
+	const abortersMap = {};
 
-	const abort = (key, reason) => {
-		_outEvents.next({
-			key,
-			reason,
-			type: 'abort',
-		})
-		abortersMap[key] && abortersMap[key](reason)
+	const abort = async (uri, reason) => {
+		abortersMap[uri] && await abortersMap[uri](reason);
 	}
 
-	const abortAll = reason =>
-		_outLoadingKeys
-		.getValue()
-		.forEach(key => abort(key, reason))
+	const downloadUri = uri => {
+		if (uri in downloadObservablesMap) {
+			return downloadObservablesMap[uri];
+		}
 
-	const startDownload = async ([
-		[uris, groupId],
-		alreadyFetchedOrFetching
-	]) => {
-		const keys = _.map(uris, getKey)
-
-		_outEvents.next({
-			groupId,
-			keys,
-			skipping: alreadyFetchedOrFetching,
-			type: 'groupStart'
-		})
-
-		let abortedKeys = []
-
-		await Promise.all(uris.map(async ({key, value}) => {
-			_outLoadingKeys.next([..._outLoadingKeys.getValue(), key])
-			_outEvents.next({
-				key,
-				type: 'start'
-			})
-
-			try {
-				const result = await downloadFn(key, value, abortersMap)
-				if (result.type === 'complete') {
-					_outData.next({
-						..._outData.getValue(),
-						[key]: result.contents
-					})
-					_outEvents.next({
-						key,
-						type: 'complete'
-					})
-				} else if (result.type === 'abort') {
-					abortedKeys.push(key)
+		const _subject = new Subject();
+		const _observable = _subject.pipe(
+			finalize(() => {
+				// callback is called before poping array
+				// so length is 1
+				if (_observable.observers.length === 1) {
+					abort(uri, 'no subscribers left')
 				}
-			} catch (e) {
-				console.error(e)
-			} finally {
-				_outLoadingKeys.next(_.pullFrom(
-					_outLoadingKeys.getValue(),
-					[key]
-				))
-			}
-
-		}))
+			})
+		)
+		downloadObservablesMap[uri] = _subject;
 
 		_outEvents.next({
-			abortedKeys,
-			groupId,
-			type: 'groupComplete'
+			uri,
+			type: 'fileStarted'
+		});
+
+		const promise = downloadFn(uri, abortersMap);
+
+		promise.then(fetchResult => {
+			delete downloadObservablesMap[uri];
+			_subject.next(fetchResult);
+			_subject.complete();
+			_outEvents.next({
+				uri,
+				type: 'fileCompleted',
+				bytes: fetchResult.bytes
+			});
 		})
 
-		_groupComplete.next()
+		return _observable;
 	}
+
+	const abortUris = (uris, reason) =>
+		Promise.all(_.map(uris, uri => abort(uri, reason)));
+
+	const startDownload = async ([[uris, groupId], urisToAbort]) => {
+		await abortUris(urisToAbort, 'Not needed ASAP');
+
+		_outEvents.next({
+			groupId,
+			uris,
+			type: 'groupStarted'
+		})
+		let abortedUris = [];
+
+		const downloadObservables = _.map(
+			uris,
+			uri => downloadUri(uri, abortersMap)
+		);
+		forkJoin(downloadObservables)
+		.pipe(
+			debounceTime(0)
+		)
+		.subscribe(() => {
+			_outEvents.next({
+				abortedUris,
+				groupId,
+				type: 'groupCompleted'
+			})
+		});
+	};
 
 	return {
-		abort,
-		abortAll,
+		downloadUri,
 		startDownload
 	}
 }
