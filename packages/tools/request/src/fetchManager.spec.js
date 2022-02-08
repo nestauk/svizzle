@@ -327,9 +327,11 @@ describe('fetchManager', function () {
 					let hasNextStarted
 					let turnedItOff
 
+					/*
 					_outEvents.pipe(
 						filter(_.not(isKeyValue(['type','file:completed'])))
 					).subscribe(console.log);
+					*/
 
 					_outEvents.pipe(
 						filter(isKeyValue(['type', 'group:completed']))
