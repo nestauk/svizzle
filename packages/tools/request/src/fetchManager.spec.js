@@ -68,9 +68,11 @@ describe('fetchManager', function () {
 			_nextUris.next(urisFrom2013);
 
 			return new Promise((resolve, reject) => {
+				/*
 				_outEvents.pipe(
 					filter(_.not(isKeyValue(['type','fileCompleted']))),
 				).subscribe(console.log);
+				*/
 
 				_outEvents.pipe(
 					// tap(console.log),
