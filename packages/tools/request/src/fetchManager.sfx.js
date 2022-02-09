@@ -5,15 +5,8 @@ import {
 } from 'rxjs';
 import {
 	debounceTime,
-	filter,
 	finalize,
 } from 'rxjs/operators';
-import {isKeyValue} from '@svizzle/utils';
-
-/*
-// these are global so as to share URI cache across all instances
-const downloadActionsMap = {}
-*/
 
 export const makeSideEffectors = ({
 	_outEvents,
