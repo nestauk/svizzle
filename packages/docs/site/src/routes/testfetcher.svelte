@@ -1,6 +1,6 @@
 <script>
-	import * as _ from 'lamb'
-	import FetchDriver from '@svizzle/ui/src/io/net/FetchDriver.svelte'
+	import * as _ from 'lamb';
+	import FetchDriver from '@svizzle/ui/src/io/net/FetchDriver.svelte';
 
 	const sources = {
 		'NUTS-2013-0-10':{
@@ -86,15 +86,15 @@
 		]
 	}
 
-	const decoder = new TextDecoder()
-	const decode = bytes => decoder.decode(bytes)
+	const decoder = new TextDecoder();
+	const decode = bytes => decoder.decode(bytes);
 	const jsonParser = _.pipe([
 		decode,
-		JSON.parse
-	])
-	let data = {}
-	let loadingKeys = []
-	let notLoaded = []
+		JSON.parse,
+	]);
+	let data = {};
+	let loadingKeys = [];
+	let notLoaded = [];
 </script>
 
 <FetchDriver
@@ -108,14 +108,14 @@
 />
 
 <h4>Not loaded</h4>
-{notLoaded.join(', ')} 
+{notLoaded.join(', ')}
 
 <h4>Loading</h4>
-{loadingKeys.join(', ')} 
+{loadingKeys.join(', ')}
 
 <h4>Loaded</h4>
 <ul>
 	{#each Object.entries(data) as i}
 		<li>{i[0]}: {i[1].arcs.length} arcs</li>
-	{/each}	
+	{/each}
 </ul>

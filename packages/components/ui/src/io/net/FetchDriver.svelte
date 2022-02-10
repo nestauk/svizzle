@@ -3,23 +3,25 @@
 
 	import {createFetchManagerStores} from './utils'
 
-	let _asapKeys,
-		_nextKeys,
-		_outData,
-		_outLoadingKeys,
-		_shouldPrefetch,
-		_uriMap;
+	let _asapKeys;
+	let _nextKeys;
+	let _outData;
+	let _outLoadingKeys;
+	let _shouldPrefetch;
+	let _uriMap;
 
 	// input props
-	export let asapKeys
-	export let nextKeys
-	export let shouldPrefetch
-	export let transformer
-	export let uriMap
+
+	export let asapKeys;
+	export let nextKeys;
+	export let shouldPrefetch;
+	export let transformer;
+	export let uriMap;
 
 	// output props (for binding)
-	export let outData = $_outData
-	export let outLoadingKeys = $_outLoadingKeys
+
+	export let outData = $_outData;
+	export let outLoadingKeys = $_outLoadingKeys;
 
 	const reset = dfn => {
 		({
@@ -51,3 +53,10 @@
 	$: _outData && (outData = $_outData);
 	$: _outLoadingKeys && (outLoadingKeys = $_outLoadingKeys);
 </script>
+<!--
+
+TBD
+
+- use `isClientSide` here
+
+-->
