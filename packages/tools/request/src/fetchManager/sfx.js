@@ -15,69 +15,70 @@ export const makeSideEffectors = ({
 			key,
 			reason,
 			type: 'abort',
-		})
-		abortersMap[key] && abortersMap[key](reason)
+		});
+		abortersMap[key] && abortersMap[key](reason);
 	}
 
 	const abortAll = reason =>
 		_outLoadingKeys
 		.getValue()
-		.forEach(key => abort(key, reason))
+		.forEach(key => abort(key, reason));
 
 	const startDownload = async ([
 		[uris, groupId],
 		alreadyFetchedOrFetching
 	]) => {
-		const keys = _.map(uris, getKey)
+		const keys = _.map(uris, getKey);
 
 		_outEvents.next({
 			groupId,
 			keys,
 			skipping: alreadyFetchedOrFetching,
 			type: 'groupStart'
-		})
+		});
 
-		let abortedKeys = []
+		let abortedKeys = [];
 
 		await Promise.all(uris.map(async ({key, value}) => {
-			_outLoadingKeys.next([..._outLoadingKeys.getValue(), key])
+			_outLoadingKeys.next([..._outLoadingKeys.getValue(), key]);
 			_outEvents.next({
 				key,
 				type: 'start'
-			})
+			});
 
 			try {
-				const result = await downloadFn(key, value, abortersMap)
+				const result = await downloadFn(key, value, abortersMap);
 				if (result.type === 'complete') {
 					_outData.next({
 						..._outData.getValue(),
 						[key]: result.contents
-					})
+					});
 					_outEvents.next({
 						key,
 						type: 'complete'
-					})
+					});
 				} else if (result.type === 'abort') {
-					abortedKeys.push(key)
+					abortedKeys.push(key);
 				}
 			} catch (e) {
-				console.error(e)
+				console.error(e);
 			} finally {
 				_outLoadingKeys.next(_.pullFrom(
 					_outLoadingKeys.getValue(),
 					[key]
-				))
+				));
 			}
 
-		}))
+		}));
 
 		_outEvents.next({
 			abortedKeys,
 			groupId,
 			type: 'groupComplete'
-		})
+		});
 
-		_groupComplete.next()
+		// TBD
+		_groupComplete.next();
 	}
 
 	return {
