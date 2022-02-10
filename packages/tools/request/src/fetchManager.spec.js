@@ -7,7 +7,7 @@ import * as _ from 'lamb'
 import {filter} from 'rxjs/operators';
 import {fetch} from 'undici'
 
-import {makeFetchManager} from './fetchManager'
+import {createFetchManagerStreams} from './fetchManager'
 import {
 	getFileNamesMap,
 	getKeysNamed,
@@ -52,7 +52,7 @@ describe('fetchManager', function () {
 				_outData,
 				_outEvents,
 				_uriMap
-			} = makeFetchManager(downloadFn)
+			} = createFetchManagerStreams(downloadFn)
 
 			_uriMap.next(uriMap)
 			_asapKeys.next(allKeys)
@@ -81,7 +81,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(_.pickIn(uriMap, keysFrom2021))
@@ -126,7 +126,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(_.pickIn(uriMap, keysFrom2021))
@@ -179,7 +179,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(_.pickIn(uriMap, keysFrom2021))
@@ -238,7 +238,7 @@ describe('fetchManager', function () {
 				_outEvents,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchManager(downloadFn)
+			} = createFetchManagerStreams(downloadFn)
 
 			_shouldPrefetch.next(false) // keep? it's the default value
 			_uriMap.next(uriMap)
@@ -272,7 +272,7 @@ describe('fetchManager', function () {
 				_outEvents,
 				_shouldPrefetch,
 				_uriMap
-			} = makeFetchManager(downloadFn)
+			} = createFetchManagerStreams(downloadFn)
 
 			_shouldPrefetch.next(true)
 			_uriMap.next(uriMap)
@@ -308,7 +308,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -352,7 +352,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -408,7 +408,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(false)
 				_uriMap.next(uriMap)
@@ -453,7 +453,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(false)
 				_uriMap.next(uriMap)
@@ -507,7 +507,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -569,7 +569,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -604,7 +604,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -650,7 +650,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -705,7 +705,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -758,7 +758,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -818,7 +818,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)
@@ -871,7 +871,7 @@ describe('fetchManager', function () {
 					_outEvents,
 					_shouldPrefetch,
 					_uriMap
-				} = makeFetchManager(downloadFn)
+				} = createFetchManagerStreams(downloadFn)
 
 				_shouldPrefetch.next(true)
 				_uriMap.next(uriMap)

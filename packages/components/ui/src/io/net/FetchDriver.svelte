@@ -1,7 +1,7 @@
 <script>
 	import {makeWebStreamsFetcher} from '@svizzle/request'
 
-	import {makeWrappedFetchManager} from './utils'
+	import {createFetchManagerStores} from './utils'
 
 	let _asapKeys,
 		_nextKeys,
@@ -29,7 +29,7 @@
 			_outLoadingKeys,
 			_shouldPrefetch,
 			_uriMap
-		} = makeWrappedFetchManager(dfn));
+		} = createFetchManagerStores(dfn));
 		$_asapKeys = asapKeys;
 		$_nextKeys = nextKeys;
 		$_shouldPrefetch = shouldPrefetch;
@@ -38,7 +38,7 @@
 	// eslint-disable-next-line no-undef
 	$: downloadFn = makeWebStreamsFetcher(globalThis.fetch, transformer);
 	$: reset(downloadFn)
-	
+
 	// eslint-disable-next-line no-unused-vars
 	$: _asapKeys && ($_asapKeys = asapKeys);
 	// eslint-disable-next-line no-unused-vars

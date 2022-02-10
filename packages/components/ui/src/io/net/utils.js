@@ -1,8 +1,8 @@
-import {makeFetchManager} from '@svizzle/request/src/fetchManager';
+import {createFetchManagerStreams} from '@svizzle/request/src/fetchManager';
 
 import {rxToReadable, rxToWritable} from '../../utils/rx';
 
-export const makeWrappedFetchManager = downloadFn => {
+export const createFetchManagerStores = downloadFn => {
 	const {
 		_asapKeys,
 		_nextKeys,
@@ -11,7 +11,7 @@ export const makeWrappedFetchManager = downloadFn => {
 		_outLoadingKeys,
 		_shouldPrefetch,
 		_uriMap,
-	} = makeFetchManager(downloadFn);
+	} = createFetchManagerStreams(downloadFn);
 
 	return {
 		_asapKeys: rxToWritable(_asapKeys),

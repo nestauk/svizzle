@@ -20,7 +20,7 @@ import {
 import {makeSideEffectors} from './fetchManager.sfx'
 import {derive} from './rxUtils'
 
-export const makeFetchManager = downloadFn => {
+export const createFetchManagerStreams = downloadFn => {
 
 	/* input streams */
 
