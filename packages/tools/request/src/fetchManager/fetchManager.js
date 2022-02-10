@@ -60,18 +60,16 @@ export const createFetchManagerStreams = downloadFn => {
 		}))
 	);
 
-	// https://rxmarbles.com/#switchMap
-	const _targetGroupId =
-		_groups.pipe(
-			debounceTime(0),
-			switchMapTo(
-				_groupIds.pipe(
-					zipWith(_groupComplete), // wait for download to complete
-					map(_.getAt(0)),
-				)
-			),
-			share(),
-		);
+	const _targetGroupId = _groups.pipe(
+		debounceTime(0),
+		switchMapTo(
+			_groupIds.pipe(
+				zipWith(_groupComplete), // wait for download to complete
+				map(_.getAt(0)),
+			)
+		),
+		share(),
+	);
 
 	// Keys of files that are fully fetched
 	const _fetchedKeys = _outData.pipe(
@@ -81,48 +79,44 @@ export const createFetchManagerStreams = downloadFn => {
 
 	// Keys in target group that are not yet fully fetched
 	// Some of them might be currently downloading
-	const _fetchingOrUnfetchedTargetKeys =
-		_targetGroupId.pipe(
-			withLatestFrom(_groups, _shouldPrefetch, _fetchedKeys),
-			map(([targetGroupId, groups, shouldPrefetch, fetchedKeys]) =>
-				shouldPrefetch || targetGroupId === 'asap'
-					? _.difference(groups[targetGroupId], fetchedKeys)
-					: []
-			),
-			share()
-		);
+	const _fetchingOrUnfetchedTargetKeys = _targetGroupId.pipe(
+		withLatestFrom(_groups, _shouldPrefetch, _fetchedKeys),
+		map(([targetGroupId, groups, shouldPrefetch, fetchedKeys]) =>
+			shouldPrefetch || targetGroupId === 'asap'
+				? _.difference(groups[targetGroupId], fetchedKeys)
+				: []
+		),
+		share()
+	);
 
-	const _alreadyFetchedOrFetching =
-		_targetGroupId.pipe(
-			withLatestFrom(_groups, _fetchedKeys, _outLoadingKeys),
-			map(([targetGroupId, groups, fetchedKeys, loadingKeys]) =>
-				_.intersection(
-					groups[targetGroupId],
-					_.union(fetchedKeys, loadingKeys)
-				)
-			),
-			share()
-		);
+	const _fetchingOrFetchedTargetKeys = _targetGroupId.pipe(
+		withLatestFrom(_groups, _fetchedKeys, _outLoadingKeys),
+		map(([targetGroupId, groups, fetchedKeys, loadingKeys]) =>
+			_.intersection(
+				groups[targetGroupId],
+				_.union(fetchedKeys, loadingKeys)
+			)
+		),
+		share()
+	);
 
 	// keys in target group that have not started downloading
-	const _unfetchedTargetKeys =
-		_fetchingOrUnfetchedTargetKeys.pipe(
-			withLatestFrom(_outLoadingKeys),
-			map(([fetchingOrUnfetchedTargetKeys, outLoadingKeys]) =>
-				_.difference(
-					fetchingOrUnfetchedTargetKeys,
-					outLoadingKeys
-				)
-			),
-		);
-
-	const _unfetchedUris =
-		_unfetchedTargetKeys.pipe(
-			withLatestFrom(_uriMap),
-			map(([unfetchedTargetKeys, uriMap]) =>
-				objectToKeyValueArray(_.pickIn(uriMap, unfetchedTargetKeys))
+	const _unfetchedTargetKeys = _fetchingOrUnfetchedTargetKeys.pipe(
+		withLatestFrom(_outLoadingKeys),
+		map(([fetchingOrUnfetchedTargetKeys, outLoadingKeys]) =>
+			_.difference(
+				fetchingOrUnfetchedTargetKeys,
+				outLoadingKeys
 			)
-		);
+		),
+	);
+
+	const _unfetchedUris = _unfetchedTargetKeys.pipe(
+		withLatestFrom(_uriMap),
+		map(([unfetchedTargetKeys, uriMap]) =>
+			objectToKeyValueArray(_.pickIn(uriMap, unfetchedTargetKeys))
+		)
+	);
 
 	// If asapKeys changes abort all current downloads, except those in asap
 	const _abortKeys = _asapKeys.pipe(
@@ -133,7 +127,7 @@ export const createFetchManagerStreams = downloadFn => {
 		map(([asapKeys, outLoadingKeys]) =>
 			_.difference(outLoadingKeys, asapKeys)
 		)
-	)
+	);
 
 	/* side effects */
 
@@ -175,7 +169,7 @@ export const createFetchManagerStreams = downloadFn => {
 	_unfetchedUris
 	.pipe(
 		zipWith(_targetGroupId),
-		withLatestFrom(_alreadyFetchedOrFetching),
+		withLatestFrom(_fetchingOrFetchedTargetKeys),
 	)
 	.subscribe(startDownload);
 
@@ -203,7 +197,7 @@ export const createFetchManagerStreams = downloadFn => {
 
 	_shouldPrefetch.subscribe(should => {
 		should && _asapKeys.next(_asapKeys.getValue())
-	})
+	});
 
 	return {
 		_asapKeys,
