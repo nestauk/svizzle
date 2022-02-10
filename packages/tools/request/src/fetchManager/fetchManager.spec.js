@@ -1,13 +1,14 @@
 import {strict as assert} from 'assert';
-import {readdirSync} from 'fs'
-import path from 'path'
+import {readdirSync} from 'fs';
+import path from 'path';
 
-import {isKeyValue} from '@svizzle/utils'
-import * as _ from 'lamb'
+import {isKeyValue} from '@svizzle/utils';
+import * as _ from 'lamb';
 import {filter} from 'rxjs/operators';
-import {fetch} from 'undici'
+import {fetch} from 'undici';
 
-import {createFetchManagerStreams} from './fetchManager'
+import {makeWebStreamsFetcher} from '../webstreams';
+import {createFetchManagerStreams} from './fetchManager';
 import {
 	getFileNamesMap,
 	getKeysNamed,
@@ -15,8 +16,7 @@ import {
 	loadJsons,
 	makeUriMap,
 	startServer,
-} from './fetchManager.utils';
-import {makeWebStreamsFetcher} from './webstreams';
+} from './utils';
 
 // TODO verify we catch all potential exceptions
 
@@ -228,7 +228,7 @@ describe('fetchManager', function () {
 		})
 	})
 
-	describe('`_shouldPrefecth` property', function () {
+	describe('`_shouldPrefetch` property', function () {
 		it('false: it should only load files in `asapKeys`', function () {
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
 			const {

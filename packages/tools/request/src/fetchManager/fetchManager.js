@@ -1,24 +1,22 @@
-import {objectToKeyValueArray} from '@svizzle/utils'
-import * as _ from 'lamb'
+import {objectToKeyValueArray} from '@svizzle/utils';
+import * as _ from 'lamb';
 import {
 	BehaviorSubject,
 	from,
 	Subject,
 	zipWith
-} from 'rxjs'
+} from 'rxjs';
 import {
 	debounceTime,
 	map,
 	share,
 	skipWhile,
 	switchMapTo,
-	// tap,
 	withLatestFrom
-} from 'rxjs/operators'
-// import {tapValue} from '@svizzle/dev'
+} from 'rxjs/operators';
 
-import {makeSideEffectors} from './fetchManager.sfx'
-import {derive} from './rxUtils'
+import {derive} from '../rxUtils';
+import {makeSideEffectors} from './sfx';
 
 export const createFetchManagerStreams = downloadFn => {
 
@@ -61,7 +59,6 @@ export const createFetchManagerStreams = downloadFn => {
 			rest: restKeys
 		}))
 	);
-	// .pipe(tap(tapValue('groups')))
 
 	// https://rxmarbles.com/#switchMap
 	const _targetGroupId =
@@ -92,7 +89,6 @@ export const createFetchManagerStreams = downloadFn => {
 					? _.difference(groups[targetGroupId], fetchedKeys)
 					: []
 			),
-			// tap(tapValue('FOUTK')),
 			share()
 		);
 
@@ -105,7 +101,6 @@ export const createFetchManagerStreams = downloadFn => {
 					_.union(fetchedKeys, loadingKeys)
 				)
 			),
-			// tap(tapValue('FOUTK')),
 			share()
 		);
 
@@ -119,7 +114,6 @@ export const createFetchManagerStreams = downloadFn => {
 					outLoadingKeys
 				)
 			),
-			// tap(tapValue('UTK'))
 		);
 
 	const _unfetchedUris =
