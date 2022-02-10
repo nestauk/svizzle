@@ -1,3 +1,3 @@
-export * from './fetchManager.js';
+export * from './fetchManager/fetchManager';
 export * from './json';
 export * from './webstreams';
