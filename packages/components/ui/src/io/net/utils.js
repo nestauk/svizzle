@@ -1,30 +1,6 @@
 import {makeFetchManager} from '@svizzle/request/src/fetchManager';
-import {get, readable, writable} from 'svelte/store';
 
-const rxToReadable = observable => readable(
-	observable.getValue?.(),
-	set => {
-		const subscription = observable.subscribe(value => set(value));
-
-		return () => subscription.unsubscribe();
-	}
-);
-
-export const rxToWritable = observable => {
-	const store = writable(
-		observable.getValue?.(),
-		set => {
-			const subscription = observable.subscribe(
-				value => value !== get(store) && set(value)
-			);
-
-			return () => subscription.unsubscribe();
-		}
-	);
-	store.subscribe(value => observable.next(value));
-
-	return store;
-}
+import {rxToReadable, rxToWritable} from '../../utils/rx';
 
 export const makeWrappedFetchManager = downloadFn => {
 	const {

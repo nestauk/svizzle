@@ -7,6 +7,7 @@ export const setupResizeObserver = () => {
 		const callback = entries => _writable.set(entries[0][type][0]);
 		const observer = new ResizeObserver(callback);
 		observer.observe(node);
+
 		return () => observer.disconnect();
 	}
 
