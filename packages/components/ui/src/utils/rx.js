@@ -1,26 +1,26 @@
 import {get, readable, writable} from 'svelte/store';
 
-export const rxToReadable = observable => readable(
-	observable.getValue?.(),
+export const rxStreamToSvReadable = rxStream => readable(
+	rxStream.getValue?.(),
 	set => {
-		const subscription = observable.subscribe(value => set(value));
+		const subscription = rxStream.subscribe(value => set(value));
 
 		return () => subscription.unsubscribe();
 	}
 );
 
-export const rxToWritable = observable => {
+export const rxStreamToSvWritable = rxStream => {
 	const store = writable(
-		observable.getValue?.(),
+		rxStream.getValue?.(),
 		set => {
-			const subscription = observable.subscribe(
+			const subscription = rxStream.subscribe(
 				value => value !== get(store) && set(value)
 			);
 
 			return () => subscription.unsubscribe();
 		}
 	);
-	store.subscribe(value => observable.next(value));
+	store.subscribe(value => rxStream.next(value));
 
 	return store;
 }

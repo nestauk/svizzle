@@ -1,6 +1,6 @@
 import {createFetchManagerStreams} from '@svizzle/request/src/fetchManager';
 
-import {rxToReadable, rxToWritable} from '../../utils/rx';
+import {rxStreamToSvReadable, rxStreamToSvWritable} from '../../utils/rx';
 
 export const createFetchManagerStores = downloadFn => {
 	const {
@@ -14,12 +14,12 @@ export const createFetchManagerStores = downloadFn => {
 	} = createFetchManagerStreams(downloadFn);
 
 	return {
-		_asapKeys: rxToWritable(_asapKeys),
-		_nextKeys: rxToWritable(_nextKeys),
-		_outData: rxToReadable(_outData),
-		_outEvents: rxToReadable(_outEvents),
-		_outLoadingKeys: rxToReadable(_outLoadingKeys),
-		_shouldPrefetch: rxToWritable(_shouldPrefetch),
-		_uriMap: rxToWritable(_uriMap),
+		_asapKeys: rxStreamToSvWritable(_asapKeys),
+		_nextKeys: rxStreamToSvWritable(_nextKeys),
+		_outData: rxStreamToSvReadable(_outData),
+		_outEvents: rxStreamToSvReadable(_outEvents),
+		_outLoadingKeys: rxStreamToSvReadable(_outLoadingKeys),
+		_shouldPrefetch: rxStreamToSvWritable(_shouldPrefetch),
+		_uriMap: rxStreamToSvWritable(_uriMap),
 	}
 }
