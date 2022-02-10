@@ -16,7 +16,7 @@ import {
 	loadJsons,
 	makeUriMap,
 	startServer,
-} from './utils';
+} from './specUtils';
 
 // TODO verify we catch all potential exceptions
 
