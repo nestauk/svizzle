@@ -1,4 +1,5 @@
-import {createFetchManagerStreams} from '@svizzle/request/src/fetchManager';
+import {createFetchManagerStreams}
+	from '@svizzle/request/src/fetchManager/fetchManager';
 
 import {rxStreamToSvReadable, rxStreamToSvWritable} from '../../utils/rx';
 
