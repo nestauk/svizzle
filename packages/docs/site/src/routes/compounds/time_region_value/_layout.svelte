@@ -5,7 +5,7 @@
 	import {_groups} from './_data/stores';
 	import {flags, hrefBase, regionSettings} from './_config';
 
-	const shouldPrefetch = false; // TODO should take it from a banner
+	const shouldPrefetch = true; // TODO should take it from a banner
 
 	export let segment;
 </script>
