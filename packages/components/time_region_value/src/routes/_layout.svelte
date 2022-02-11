@@ -1,12 +1,20 @@
 <script>
+	import {jsonBufferToAny} from '@svizzle/request/src/fetchManager/transformers';
+	import FetchDriver from '@svizzle/ui/src/io/net/FetchDriver.svelte';
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
 	import ScreenSensor from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
-	import {isServerSide} from '@svizzle/ui/src/utils/env';
+	import {isClientSide, isServerSide} from '@svizzle/ui/src/utils/env';
 
 	import Sidebar from 'components/Sidebar.svelte';
 	import Timeline from 'components/Timeline.svelte';
 	import ViewSelector from 'components/ViewSelector.svelte';
 	import {setGroups} from 'stores/dataset';
+	import {
+		_loadingTopojsonKeys,
+		_topoCache,
+		_topojsonPriorities,
+		_uriMap,
+	} from 'stores/geoBoundaries';
 	import {_availableYears} from 'stores/indicator';
 	import {
 		_isSmallScreen,
@@ -34,6 +42,7 @@
 	export let POIs = null;
 	export let regionSettings = null;
 	export let segment = null;
+	export let shouldPrefetch = false;
 	export let theme = null;
 
 	$: _groups && setGroups($_groups);
@@ -44,9 +53,23 @@
 	$: theme && customizeTheme(theme);
 	$: routeId = $_isSmallScreen && $_routes.Id;
 	$: routeIdYear = $_isSmallScreen && $_routes.IdYear;
+
+	$: console.log('$_priorities', $_topojsonPriorities);
 </script>
 
 <ScreenSensor />
+
+{#if isClientSide}
+	<FetchDriver
+		{shouldPrefetch}
+		asapKeys={$_topojsonPriorities.asapKeys}
+		bind:outData={$_topoCache}
+		bind:outLoadingKeys={$_loadingTopojsonKeys}
+		nextKeys={$_topojsonPriorities.nextKeys}
+		transformer={jsonBufferToAny}
+		uriMap={$_uriMap}
+	/>
+{/if}
 
 <!--
 	A Svelte/Sapper issue with binding `$_timelineWidth` to `clientWidth` in a
