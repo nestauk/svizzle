@@ -45,6 +45,7 @@
 	export let shouldPrefetch = false;
 	export let theme = null;
 
+	$: shouldPrefetch = Boolean(segment);
 	$: _groups && setGroups($_groups);
 	$: flags && _navFlags.set(flags);
 	$: hrefBase && _hrefBase.set(hrefBase);
