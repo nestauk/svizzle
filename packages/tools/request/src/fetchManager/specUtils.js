@@ -6,13 +6,6 @@ import * as _ from 'lamb';
 import serveHandler from 'serve-handler';
 import Throttle from 'throttle';
 
-const decoder = new TextDecoder();
-const decode = bytes => decoder.decode(bytes);
-export const jsonParser = _.pipe([
-	decode,
-	JSON.parse
-]);
-
 export const loadJsons = async (basePath, keys, filesMap) => {
 	const fileLoadingPromises = _.pipe([
 		_.pairs,

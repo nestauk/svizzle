@@ -1,7 +1,8 @@
 <script>
-	import {makeWebStreamsFetcher} from '@svizzle/request'
+	import {makeWebStreamsFetcher} from '@svizzle/request/src/webstreams';
+	import * as _ from 'lamb';
 
-	import {createFetchManagerStores} from './utils'
+	import {createFetchManagerStores} from './utils';
 
 	let _asapKeys;
 	let _nextKeys;
@@ -12,18 +13,18 @@
 
 	// input props
 
-	export let asapKeys;
-	export let nextKeys;
-	export let shouldPrefetch;
-	export let transformer;
-	export let uriMap;
+	export let asapKeys = [];
+	export let nextKeys = [];
+	export let shouldPrefetch = false;
+	export let transformer = _.identity;
+	export let uriMap = {};
 
 	// output props (for binding)
 
 	export let outData = $_outData;
 	export let outLoadingKeys = $_outLoadingKeys;
 
-	const reset = dfn => {
+	const reset = downloadFunc => {
 		({
 			_asapKeys,
 			_nextKeys,
@@ -31,7 +32,7 @@
 			_outLoadingKeys,
 			_shouldPrefetch,
 			_uriMap
-		} = createFetchManagerStores(dfn));
+		} = createFetchManagerStores(downloadFunc));
 		$_asapKeys = asapKeys;
 		$_nextKeys = nextKeys;
 		$_shouldPrefetch = shouldPrefetch;
@@ -58,5 +59,9 @@
 TBD
 
 - use `isClientSide` here
+
+binding?
+- bind:outData={$_topoCache}
+- bind:outLoadingKeys={$_loadingTopojsonKeys}
 
 -->

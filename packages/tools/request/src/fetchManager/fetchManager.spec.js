@@ -32,6 +32,18 @@ const keysFrom2021 = getKeysNamed('2021')(allKeys)
 const keysFrom2016 = getKeysNamed('2016')(allKeys)
 const keysFrom2013 = getKeysNamed('2013')(allKeys)
 
+/*
+TODO
+
+- {fetchUpTo: undefined, ...} -> idle
+- {fetchUpTo: 'end'} -> all
+- {asapKeys: ['a'], nextKeys: [..], fetchUpTo: 'asapKeys'}
+- {asapKeys: ['a'], nextKeys: [..], fetchUpTo: 'nextKeys'}
+- {asapKeys: ['a'], nextKeys: [..], fetchUpTo: 'end'}
+- {asapKeys: ['a'], fetchUpTo: 'end'}
+
+*/
+
 describe('fetchManager', function () {
 	// eslint-disable-next-line no-invalid-this
 	this.timeout(TIMEOUT)
