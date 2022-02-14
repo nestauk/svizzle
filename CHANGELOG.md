@@ -28,6 +28,7 @@
 
 - added `sanitize`
 - added `sortObjectKeysAsc`, `sortObjectKeysDesc`
+- added `jsonBufferToAny`
 
 
 ## 20211224_2

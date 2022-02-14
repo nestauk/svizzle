@@ -2,6 +2,7 @@
 
 - added `sanitize`
 - added `sortObjectKeysAsc`, `sortObjectKeysDesc`
+- added `jsonBufferToAny`
 
 ## `@svizzle/utils` v0.16.0
 

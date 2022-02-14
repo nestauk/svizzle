@@ -54,9 +54,8 @@
 	<slot/>
 </main>
 {#if showA11yMenu}
-	<section
-		role='region'
-	>
+	<!-- svelte-ignore a11y-no-redundant-roles -->
+	<section role='region'>
 		<A11yMenu {_screen} />
 	</section>
 {/if}
