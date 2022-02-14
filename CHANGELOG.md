@@ -10,6 +10,10 @@
 
 - use `readYaml` from `@svizzle/atlas`
 
+## `@svizzle/dev` v0.4.5 (next)
+
+- fix: distribute `src/index.js`
+
 ## `@svizzle/file` v0.13.0 (next)
 
 - add `readYaml`, `saveYaml`, `saveYamlPassthrough`

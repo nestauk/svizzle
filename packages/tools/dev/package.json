@@ -29,6 +29,7 @@
 	"files": [
 		"dist/*",
 		"LICENSE",
+		"index.js",
 		"src/**/*.js",
 		"!pkg/*",
 		"!*.spec.js",

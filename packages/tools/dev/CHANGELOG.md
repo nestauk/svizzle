@@ -1,3 +1,7 @@
+## `@svizzle/dev` v0.4.5 (next)
+
+- fix: distribute `src/index.js`
+
 ## `@svizzle/dev` v0.4.4
 
 - updated some dependencies

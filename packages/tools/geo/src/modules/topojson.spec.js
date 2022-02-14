@@ -1,6 +1,6 @@
 import {strict as assert} from 'assert';
 
-import {sanitizeJson} from '@svizzle/utils';
+import {sanitize} from '@svizzle/utils';
 
 import NUTS_RG_03M_2003_4326_LEVL_0
 	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0.json';
@@ -58,14 +58,14 @@ describe('geo/topojson', function() {
 			// BE 2003
 			const actualBE2003 = filterBE(NUTS_RG_03M_2003_4326_LEVL_0);
 			assert.deepStrictEqual(
-				sanitizeJson(actualBE2003),
+				sanitize(actualBE2003),
 				NUTS_RG_03M_2003_4326_LEVL_0_BE
 			);
 
 			// BE 2006
 			const actualBE2006 = filterBE(NUTS_RG_03M_2006_4326_LEVL_0);
 			assert.deepStrictEqual(
-				sanitizeJson(actualBE2006),
+				sanitize(actualBE2006),
 				NUTS_RG_03M_2006_4326_LEVL_0_BE
 			);
 		});
