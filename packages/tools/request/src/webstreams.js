@@ -22,9 +22,10 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 			const reader = stream.getReader()
 
 			return new Promise((resolve/* , reject */) => {
+				let hasAborted = false;
 				aborters[key] = async reason => {
+					hasAborted = true;
 					await reader.cancel(reason)
-					delete aborters[key]
 					resolve({
 						type: 'abort'
 					})
@@ -36,13 +37,15 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 						chunks.push(value)
 						reader.read().then(processChunk)
 					} else {
-						const mergedArray = mergeUint8Arrays(chunks)
-						const results = (customTransformer || transformer)(mergedArray)
+						if (!hasAborted) {
+							const mergedArray = mergeUint8Arrays(chunks)
+							const results = (customTransformer || transformer)(mergedArray)
+							resolve({
+								type: 'complete',
+								contents: results
+							})
+						}
 						delete aborters[key]
-						resolve({
-							type: 'complete',
-							contents: results
-						})
 					}
 				}
 
