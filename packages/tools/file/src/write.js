@@ -6,6 +6,7 @@ import fs from 'fs';
 import stream from 'stream';
 import util from 'util';
 
+import {dump as toYamlString} from 'js-yaml';
 import * as _ from 'lamb';
 
 const finished = util.promisify(stream.finished);
@@ -56,7 +57,7 @@ export const writeFile = util.promisify(fs.writeFile);
  *
  * @example
 > promiseThatReturnsAnObject()
-.then(saveObj('destination/path'))
+.then(saveObj('destination/path.json'))
 .catch(err => console.error(err));
  *
  * @since 0.1.0
@@ -64,6 +65,8 @@ export const writeFile = util.promisify(fs.writeFile);
  * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
  * @see {@link module:@svizzle/file/write.saveString|saveString}
  * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
+ * @see {@link module:@svizzle/file/write.saveYaml|saveYaml}
+ * @see {@link module:@svizzle/file/write.saveYamlPassthrough|saveYamlPassthrough}
  */
 export const saveObj = (filepath, indent = 0) => object =>
 	writeFile(filepath, JSON.stringify(object, null, indent), 'utf8');
@@ -80,7 +83,8 @@ export const saveObj = (filepath, indent = 0) => object =>
  *
  * @example
 > promiseThatReturnsAnObject()
-.then(saveObjPassthrough('destination/path'))
+.then(saveObjPassthrough('destination/path.json'))
+.then(x => console.log(x))
 .catch(err => console.error(err));
  *
  * @since 0.1.0
@@ -88,6 +92,8 @@ export const saveObj = (filepath, indent = 0) => object =>
  * @see {@link module:@svizzle/file/write.saveObjects|saveObjects}
  * @see {@link module:@svizzle/file/write.saveString|saveString}
  * @see {@link module:@svizzle/file/write.saveStringPassthrough|saveStringPassthrough}
+ * @see {@link module:@svizzle/file/write.saveYaml|saveYaml}
+ * @see {@link module:@svizzle/file/write.saveYamlPassthrough|saveYamlPassthrough}
  */
 export const saveObjPassthrough = (filepath, indent = 0) =>
 	object =>
@@ -129,6 +135,7 @@ export const saveString = filepath =>
  * @example
 > promiseThatReturnsAString()
 .then(saveStringPassthrough('destination/path'))
+.then(x => console.log(x))
 .catch(err => console.error(err));
  *
  * @since 0.7.0
@@ -200,3 +207,47 @@ export const saveObjects = array => Promise.all([
 		.then(() => console.log(`Saved ${filepath}`))
 	)
 ]);	// FIXME: untested, but works in an /atlas script
+
+/**
+ * Return a function that expects an object and returns a promise that writes
+ * to the provided YAML filepath.
+ * [node environment]
+ *
+ * @function
+ * @arg {string} filepath - The YAML filepath where to save the expected object
+ * @return {function} - Object -> Promise - @sideEffects: fs.writeFile
+ *
+ * @example
+> promiseThatReturnsAnObject()
+.then(saveYaml('destination/path.yaml'))
+.catch(err => console.error(err));
+ *
+ * @since 0.13.0
+ * @see {@link module:@svizzle/file/write.saveOb|saveOb}
+ * @see {@link module:@svizzle/file/write.saveObjPassthrough|saveObjPassthrough}
+ */
+export const saveYaml = filepath => object =>
+	writeFile(filepath, toYamlString(object), 'utf8');
+
+/**
+ * Return a function that expects an object and returns a promise that writes
+ * to the provided YAML filepath and returns the object.
+ * [node environment]
+ *
+ * @function
+ * @arg {string} filepath - The YAML filepath where to save the expected object
+ * @return {function} - Object -> Promise - @sideEffects: fs.writeFile
+ *
+ * @example
+> promiseThatReturnsAnObject()
+.then(saveYamlPassthrough('destination/path.yaml'))
+.then(x => console.log(x))
+.catch(err => console.error(err));
+ *
+ * @since 0.13.0
+ * @see {@link module:@svizzle/file/write.saveObj|saveObj}
+ * @see {@link module:@svizzle/file/write.saveObjects|saveObjects}
+ */
+export const saveYamlPassthrough = filepath => object =>
+	writeFile(filepath, toYamlString(object), 'utf8')
+	.then(() => object);

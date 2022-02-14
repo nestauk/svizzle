@@ -2,6 +2,19 @@
 
 ## next
 
+## `@svizzle/choropleth` v0.7.1 (next)
+
+- removed unused dev dependency on `js-yaml`
+
+## `@svizzle/atlas` v0.6.1 (next)
+
+- use `readYaml` from `@svizzle/atlas`
+
+## `@svizzle/file` v0.13.0 (next)
+
+- add `readYaml`, `saveYaml`, `saveYamlPassthrough`
+- removed unused dependency on `@svizzle/request`
+
 ## `@svizzle/geo` v0.8.0 (next)
 
 - added `makeFilterTopoBy`

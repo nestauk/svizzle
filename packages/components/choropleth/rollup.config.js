@@ -1,16 +1,15 @@
 import path from 'path';
 
-// import buble from 'rollup-plugin-buble';
-import {terser} from 'rollup-plugin-terser';
-import analyze from 'rollup-plugin-analyzer';
-import cleanup from 'rollup-plugin-cleanup';
+import {makeBanner, renameToMinJs} from '@svizzle/dev';
+import * as _ from 'lamb';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
+import analyze from 'rollup-plugin-analyzer';
+// import buble from 'rollup-plugin-buble';
+import cleanup from 'rollup-plugin-cleanup';
 import svelte from 'rollup-plugin-svelte';
-
-import * as _ from 'lamb';
-import {makeBanner, renameToMinJs} from '@svizzle/dev';
+import {terser} from 'rollup-plugin-terser';
 
 import pkg from './package.json';
 

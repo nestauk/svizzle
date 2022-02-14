@@ -3,9 +3,8 @@
 import path from 'path';
 
 import {tapMessage, tapValue} from '@svizzle/dev';
-import {readFile, saveObjPassthrough} from '@svizzle/file';
+import {readYaml, saveObjPassthrough} from '@svizzle/file';
 import {getLength, isPathValue, swapKeyValue} from '@svizzle/utils';
-import yaml from 'js-yaml';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
 import WORLD_110_TOPOJSON from 'world-atlas/countries-110m.json';
@@ -54,8 +53,7 @@ in:
 out:
 	- WORLD_DATABASE_DIR_1/world_110m_iso_a2_topojson.json
 */
-readFile(IN_ISO_A2_TO_NAME_PATH, 'utf-8')
-.then(yaml.safeLoad)
+readYaml(IN_ISO_A2_TO_NAME_PATH, 'utf-8')
 .then(({countries}) => {
 	const fullNameToKey = swapKeyValue(countries.full_name);
 	const alternativeNameToKey = swapKeyValue(countries.alternative_name);

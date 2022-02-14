@@ -3,9 +3,8 @@
 import path from 'path';
 
 import {tapMessage} from '@svizzle/dev';
-import {readFile, saveObj} from '@svizzle/file';
+import {readYaml, saveObj} from '@svizzle/file';
 import {makeKeyedValuesPermutations, transformValues} from '@svizzle/utils';
-import yaml from 'js-yaml';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
@@ -88,8 +87,7 @@ out:
 */
 const run = async () => {
 	const permutations =
-		await readFile(inPaths.nutsSpec, 'utf-8')
-		.then(yaml.safeLoad)
+		await readYaml(inPaths.nutsSpec, 'utf-8')
 		.then(permute)
 		.catch(err => console.error(err));
 

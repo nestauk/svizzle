@@ -1,3 +1,8 @@
+## `@svizzle/file` v0.13.0 (next)
+
+- add `readYaml`, `saveYaml`, `saveYamlPassthrough`
+- removed unused dependency on `@svizzle/request`
+
 ## `@svizzle/file` v0.12.0
 
 - add `saveObjects`

@@ -1,3 +1,7 @@
+## `@svizzle/atlas` v0.6.1 (next)
+
+- use `readYaml` from `@svizzle/atlas`
+
 ## `@svizzle/atlas` v0.6.0
 
 - NUTS:

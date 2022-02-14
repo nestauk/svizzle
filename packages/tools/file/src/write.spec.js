@@ -7,8 +7,14 @@ import tempy from 'tempy';
 import fetch from 'node-fetch';
 global.fetch = fetch;
 
-import {readJson} from './read';
-import {saveObj, saveObjPassthrough, saveResponse} from './write';
+import {readJson, readYaml} from './read';
+import {
+	saveObj,
+	saveObjPassthrough,
+	saveResponse,
+	saveYaml,
+	saveYamlPassthrough,
+} from './write';
 
 // assets/multi.json, indent = 4
 const multiIndented4 = `{
@@ -53,8 +59,8 @@ describe('write', function() {
 
 				const writtenJson = await readJson(tmpFilepath);
 
-				assert.deepStrictEqual(writtenJson, {a: 1});
 				assert.deepStrictEqual(returnedJson, {a: 1});
+				assert.deepStrictEqual(writtenJson, {a: 1});
 			}
 		);
 		it('should return a function that expects an object and returns a promise that writes to the provided filepath with indentation = 4 and then returns the object',
@@ -68,8 +74,8 @@ describe('write', function() {
 
 				const writtenJsonString = fs.readFileSync(tmpFilepath, 'utf8');
 
-				assert.deepStrictEqual(writtenJsonString, multiIndented4);
 				assert.deepStrictEqual(returnedJson, {a: 1, b: 2});
+				assert.deepStrictEqual(writtenJsonString, multiIndented4);
 			}
 		);
 	});
@@ -88,6 +94,36 @@ describe('write', function() {
 				const writtenJson = await readJson(tmpFilepath);
 
 				assert.deepStrictEqual(writtenJson, obj);
+			}
+		);
+	});
+	describe('saveYaml', function() {
+		it('should return a function that expects an object and returns a promise that writes to the provided YAML filepath',
+			async function() {
+				const jsonPath = path.resolve(__dirname, '../test_assets', 'a1.json');
+				const tmpFilepath = tempy.file();
+
+				await readJson(jsonPath).then(saveYaml(tmpFilepath));
+				const writtenYaml = await readYaml(tmpFilepath);
+
+				assert.deepStrictEqual(writtenYaml, {a: 1});
+			}
+		);
+	});
+	describe('saveYamlPassthrough', function() {
+		it('should return a function that expects an object and returns a promise that writes to the provided YAML filepath and returns the object',
+			async function() {
+				const jsonPath = path.resolve(__dirname, '../test_assets', 'a1.json');
+				const tmpFilepath = tempy.file();
+
+				const returnedYamlAsJson =
+					await readJson(jsonPath)
+					.then(saveYamlPassthrough(tmpFilepath));
+
+				const writtenYamlObject = await readYaml(tmpFilepath);
+
+				assert.deepStrictEqual(returnedYamlAsJson, {a: 1});
+				assert.deepStrictEqual(writtenYamlObject, {a: 1});
 			}
 		);
 	});

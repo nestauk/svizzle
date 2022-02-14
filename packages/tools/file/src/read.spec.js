@@ -12,6 +12,7 @@ import {
 	readJson,
 	readJsonDir,
 	readTsv,
+	readYaml,
 } from './read';
 import {hasAnyExtensionOf} from './path';
 
@@ -40,6 +41,7 @@ describe('read', function() {
 				const dirPath = path.resolve(__dirname, '../test_assets');
 				const expected = [
 					'a.txt',
+					'a.yaml',
 					'a1.json',
 					'aDir',
 					'ab.csv',
@@ -295,7 +297,7 @@ describe('read', function() {
 		);
 	});
 	describe('readJson', function() {
-		it('should return a promise that reads and then parses a json file',
+		it('should return a promise that reads and then parses a JSON file',
 			async function() {
 				const aPath = path.resolve(__dirname, '../test_assets', 'a1.json');
 				const a = await readJson(aPath);
@@ -313,6 +315,19 @@ describe('read', function() {
 				const dirPath = path.resolve(__dirname, '../test_assets');
 				const jsons = await readJsonDir(dirPath);
 				assert.deepStrictEqual(jsons, [{a: 1}, {b: 2}, {a: 1, b: 2}]);
+			}
+		);
+	});
+	describe('readYaml', function() {
+		it('should return a promise that reads and then parses a YAML file',
+			async function() {
+				const aPath = path.resolve(__dirname, '../test_assets', 'a.yaml');
+				const actual = await readYaml(aPath);
+				const expected = {
+					foo: [{a: 1}, {b: 2}],
+					bar: [1, 2, 3],
+				}
+				assert.deepStrictEqual(actual, expected);
 			}
 		);
 	});

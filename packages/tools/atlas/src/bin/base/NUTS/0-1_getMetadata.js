@@ -4,12 +4,11 @@ import path from 'path';
 
 import {tapMessage} from '@svizzle/dev';
 import {
-	readFile,
-	saveString,
-	saveStringPassthrough
+	readYaml,
+	saveStringPassthrough,
+	saveYaml,
 } from '@svizzle/file';
 import {csvParse} from 'd3-dsv';
-import yaml from 'js-yaml';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
@@ -62,8 +61,7 @@ out:
 	- outDirs.sourceText/*.csv
 	- NUTS_DATABASE_DIR_1/countries_by_year.yaml
 */
-readFile(inPaths.nutsSpec, 'utf-8')
-.then(yaml.safeLoad)
+readYaml(inPaths.nutsSpec, 'utf-8')
 .then(({year}) => Promise.all(
 	_.map(year,
 		_.pipe([
@@ -78,9 +76,9 @@ readFile(inPaths.nutsSpec, 'utf-8')
 		])
 	)
 ))
-.then(_.pipe([_.fromPairs, yaml.safeDump]))
+.then(_.fromPairs)
 .then(tapMessage(`Saving ${outPaths.countriesByYear}`))
-.then(saveString(outPaths.countriesByYear))
+.then(saveYaml(outPaths.countriesByYear))
 .then(tapMessage('Done'))
 .catch(err => console.error(err));
 

@@ -3,9 +3,8 @@
 import path from 'path';
 
 import {tapMessage} from '@svizzle/dev';
-import {readDir, readFile, readJson, saveObj} from '@svizzle/file';
+import {readDir, readJson, readYaml, saveObj} from '@svizzle/file';
 import {transformPaths} from '@svizzle/utils';
-import yaml from 'js-yaml';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
 import prune from 'topojson-simplify/src/prune';
@@ -57,8 +56,8 @@ out:
 	- NUTS_DATABASE_DIR_2/topojson/*_{country}.json
 */
 const run = async () => {
-	const filtersByYear = await readFile(inPaths.countriesByYear, 'utf-8')
-	.then(yaml.safeLoad)
+	const filtersByYear =
+	await readYaml(inPaths.countriesByYear, 'utf-8')
 	.then(_.mapValuesWith(
 		_.mapWith(_.collect([_.identity, makeTopojsonFilterByCountryId]))
 	))

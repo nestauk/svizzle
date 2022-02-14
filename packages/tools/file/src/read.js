@@ -5,6 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
+
 import {filterWith, fromPairs, identity} from 'lamb';
 import {
 	dsvFormat,
@@ -13,6 +14,7 @@ import {
 	tsvParse,
 	tsvParseRows
 } from 'd3-dsv';
+import {load as parseYaml} from 'js-yaml';
 
 import {filterJsonExtensions} from './path';
 
@@ -358,7 +360,7 @@ export const readTsv = (
  * @return {promise} - @sideEffects: fs.readFile
  *
  * @example
-> readJson('source/path')
+> readJson('source/filepath.json')
 .then(x => console.log(x))
 .catch(err => console.error(err))
 
@@ -371,7 +373,8 @@ export const readJson = jsonPath =>
 	.then(str => JSON.parse(str));
 
 /**
- * Return a promise returning an array of objects of the json files of a directory, not recursively.
+ * Return a promise returning an array of objects of the JSON files of a
+ * directory, not recursively.
  * [node environment]
  *
  * @function
@@ -397,3 +400,27 @@ export const readJsonDir = dirPath =>
 			return readFile(filepath, 'utf-8').then(JSON.parse)
 		})
 	));
+
+/**
+ * Return a promise that reads and then parses a YAML file.
+ * [node environment]
+ *
+ * @function
+ * @arg {string} yamlPath - The filepath of the YAML file to read.
+ * @return {promise} - @sideEffects: fs.readFile
+ *
+ * @example
+> readYaml('source/filepath.yaml')
+.then(x => console.log(x))
+.catch(err => console.error(err))
+
+{
+	foo: [{a: 1}, {b: 2}],
+	bar: [1, 2, 3],
+}
+ *
+ * @since 0.13.0
+ */
+export const readYaml = yamlPath =>
+	readFile(yamlPath, 'utf-8')
+	.then(parseYaml);

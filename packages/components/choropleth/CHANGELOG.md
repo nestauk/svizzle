@@ -1,3 +1,7 @@
+## `@svizzle/choropleth` v0.7.1 (next)
+
+- removed unused dev dependency on `js-yaml`
+
 ## `@svizzle/choropleth` v0.7.0
 
 - ported some utilities to `/geo`, hence:
