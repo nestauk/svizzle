@@ -26,14 +26,14 @@ export const makeSideEffectors = ({
 
 	const startDownload = async ([
 		[uris, groupId],
-		alreadyFetchedOrFetching
+		fetchingOrFetchedTargetKeys
 	]) => {
 		const keys = _.map(uris, getKey);
 
 		_outEvents.next({
 			groupId,
 			keys,
-			skipping: alreadyFetchedOrFetching,
+			skipping: fetchingOrFetchedTargetKeys,
 			type: 'groupStart'
 		});
 
