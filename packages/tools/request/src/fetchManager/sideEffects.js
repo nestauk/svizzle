@@ -39,36 +39,40 @@ export const makeSideEffectors = ({
 
 		let abortedKeys = [];
 
-		await Promise.all(uris.map(async ({key, value}) => {
-			_outLoadingKeys.next([..._outLoadingKeys.getValue(), key]);
-			_outEvents.next({
-				key,
-				type: 'start'
-			});
-
-			try {
-				const result = await downloadFn(key, value, abortersMap);
-				if (result.type === 'complete') {
-					_outData.next({
-						..._outData.getValue(),
-						[key]: result.contents
-					});
+		await Promise.all(
+			uris.map(
+				async ({key, value}) => {
+					_outLoadingKeys.next([..._outLoadingKeys.getValue(), key]);
 					_outEvents.next({
 						key,
-						type: 'complete'
+						type: 'start'
 					});
-				} else if (result.type === 'abort') {
-					abortedKeys.push(key);
+
+					try {
+						const result = await downloadFn(key, value, abortersMap);
+						if (result.type === 'complete') {
+							_outData.next({
+								..._outData.getValue(),
+								[key]: result.contents
+							});
+							_outEvents.next({
+								key,
+								type: 'complete'
+							});
+						} else if (result.type === 'abort') {
+							abortedKeys.push(key);
+						}
+					} catch (e) {
+						console.error(e);
+					} finally {
+						_outLoadingKeys.next(_.pullFrom(
+							_outLoadingKeys.getValue(),
+							[key]
+						));
+					}
 				}
-			} catch (e) {
-				console.error(e);
-			} finally {
-				_outLoadingKeys.next(_.pullFrom(
-					_outLoadingKeys.getValue(),
-					[key]
-				));
-			}
-		}));
+			)
+		);
 
 		_outEvents.next({
 			abortedKeys,

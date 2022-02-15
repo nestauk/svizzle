@@ -7,11 +7,13 @@ const mergeUint8Arrays = arrays => {
 		0
 	);
 	const mergedArray = new Uint8Array(totalLength);
+
 	let start = 0;
 	arrays.forEach(array => {
 		mergedArray.set(array, start)
 		start += array.length
 	});
+
 	return mergedArray;
 }
 
@@ -24,12 +26,12 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 
 			return new Promise((resolve/* , reject */) => {
 				let hasAborted = false;
+
 				aborters[key] = async reason => {
 					hasAborted = true;
 					await reader.cancel(reason);
-					resolve({
-						type: 'abort'
-					});
+
+					resolve({type: 'abort'});
 				}
 
 				let chunks = [];
@@ -41,11 +43,13 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 						if (!hasAborted) {
 							const mergedArray = mergeUint8Arrays(chunks);
 							const results = (customTransformer || transformer)(mergedArray);
+
 							resolve({
 								type: 'complete',
 								contents: results
 							});
 						}
+
 						delete aborters[key];
 					}
 				}
