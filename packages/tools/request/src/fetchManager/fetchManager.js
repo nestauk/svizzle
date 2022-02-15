@@ -15,7 +15,7 @@ import {
 	withLatestFrom
 } from 'rxjs/operators';
 
-import {derive} from '../rxUtils';
+import {derive} from './rxUtils';
 import {makeSideEffectors} from './sfx';
 
 export const createFetchManagerStreams = downloadFn => {
