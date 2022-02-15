@@ -16,7 +16,7 @@ import {
 } from 'rxjs/operators';
 
 import {derive} from './rxUtils';
-import {makeSideEffectors} from './sfx';
+import {makeSideEffectors} from './sideEffects';
 
 export const createFetchManagerStreams = downloadFn => {
 
