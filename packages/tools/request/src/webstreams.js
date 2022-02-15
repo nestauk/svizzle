@@ -1,3 +1,4 @@
+import {noop} from '@svizzle/utils';
 import {identity} from 'lamb';
 
 const mergeUint8Arrays = arrays => {
@@ -53,5 +54,4 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 				reader.read().then(processChunk);
 			});
 		}
-		// eslint-disable-next-line no-empty-function
-		: () => {};
+		: noop;
