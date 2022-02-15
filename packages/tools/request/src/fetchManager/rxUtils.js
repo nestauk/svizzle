@@ -1,19 +1,10 @@
-import {combineLatest} from 'rxjs';
+import {combineLatestWith} from 'rxjs';
 import {map, debounceTime, share} from 'rxjs/operators';
 
-export const derive = (observables, fn) =>
-	combineLatest(...observables)
-	.pipe(
+export const derive = ([first, ...rest], fn) =>
+	first.pipe(
+		combineLatestWith(...rest),
 		debounceTime(0),
 		map(fn),
 		share()
 	);
-
-/*
-const derive2 = (main, observables, fn) => main
-.pipe(
-	combineLatestWith(...observables),
-	debounceTime(0),
-	map(fn)
-)
-*/
