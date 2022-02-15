@@ -2,7 +2,7 @@ import {strict as assert} from 'assert';
 import {readdirSync} from 'fs';
 import path from 'path';
 
-import {isKeyValue} from '@svizzle/utils';
+import {isKeyValue, jsonBufferToAny} from '@svizzle/utils';
 import * as _ from 'lamb';
 import {filter} from 'rxjs/operators';
 import {fetch} from 'undici';
@@ -12,7 +12,6 @@ import {createFetchManagerStreams} from './fetchManager';
 import {
 	getFileNamesMap,
 	getKeysNamed,
-	jsonParser,
 	loadJsons,
 	makeUriMap,
 	startServer,
@@ -58,7 +57,7 @@ describe('fetchManager', function () {
 
 	describe('`_uriMap` property', function () {
 		it('the content of the downloaded files should be the same as served resources', function () {
-			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 			const {
 				_asapKeys,
 				_outData,
@@ -86,7 +85,7 @@ describe('fetchManager', function () {
 		});
 		describe('change while in progress: should clear the cache and restart downloading', function () {
 			it('!= keys, != URIs', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_outData,
@@ -131,7 +130,7 @@ describe('fetchManager', function () {
 				})
 			})
 			it('= keys, != URIs', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_outData,
@@ -184,7 +183,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('!= keys, = URIs', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_outData,
@@ -242,7 +241,7 @@ describe('fetchManager', function () {
 
 	describe('`_shouldPrefetch` property', function () {
 		it('false: it should only load files in `asapKeys`', function () {
-			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 			const {
 				_asapKeys,
 				_nextKeys,
@@ -276,7 +275,7 @@ describe('fetchManager', function () {
 			});
 		});
 		it('true: it should load all files', function () {
-			const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+			const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 			const {
 				_asapKeys,
 				_nextKeys,
@@ -311,7 +310,7 @@ describe('fetchManager', function () {
 		});
 		describe('change while in progress', function () {
 			it('true -> false while asap in progress: should complete and stop', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -355,7 +354,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('true -> false after asap: should stop', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny)
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -411,7 +410,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('false -> true while asap in progress: should continue', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -456,7 +455,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('false -> true after asap: should restart, skipping asap and download everything else', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -511,7 +510,7 @@ describe('fetchManager', function () {
 		);
 		describe('static', function () {
 			it('should load all files in correct order (`_asapKeys` then `_nextKeys` then `_restKeys`)', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -574,7 +573,7 @@ describe('fetchManager', function () {
 		});
 		describe('caching', function () {
 			it(`should not redownload cached files`, function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_outEvents,
@@ -608,7 +607,7 @@ describe('fetchManager', function () {
 		});
 		describe('priority change', function () {
 			it('while downloading `_asapKeys` those remaining in `_asapKeys` should continue downloading', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -654,7 +653,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('while downloading `_asapKeys` those not remaining in `_asapKeys` should be aborted', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -709,7 +708,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('while downloading `_nextKeys` those moving to `_asapKeys` should continue downloading', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -762,7 +761,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('while downloading `_nextKeys` those not moving to `_asapKeys` should be aborted', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -821,7 +820,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('while downloading `_restKeys` those moving to `_asapKeys` should continue downloading', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser)
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny)
 				const {
 					_asapKeys,
 					_nextKeys,
@@ -874,7 +873,7 @@ describe('fetchManager', function () {
 				});
 			});
 			it('while downloading `_restKeys` those not moving to `_asapKeys` should be aborted', function () {
-				const downloadFn = makeWebStreamsFetcher(fetch, jsonParser);
+				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_asapKeys,
 					_nextKeys,
