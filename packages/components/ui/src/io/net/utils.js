@@ -22,5 +22,5 @@ export const createFetchManagerStores = downloadFn => {
 		_outLoadingKeys: rxStreamToSvReadable(_outLoadingKeys),
 		_shouldPrefetch: rxStreamToSvWritable(_shouldPrefetch),
 		_uriMap: rxStreamToSvWritable(_uriMap),
-	}
-}
+	};
+};

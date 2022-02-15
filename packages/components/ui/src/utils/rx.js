@@ -23,4 +23,4 @@ export const rxStreamToSvWritable = rxStream => {
 	store.subscribe(value => rxStream.next(value));
 
 	return store;
-}
+};

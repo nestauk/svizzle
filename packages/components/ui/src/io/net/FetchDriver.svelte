@@ -40,7 +40,7 @@
 	}
 	// eslint-disable-next-line no-undef
 	$: downloadFn = makeWebStreamsFetcher(globalThis.fetch, transformer);
-	$: reset(downloadFn)
+	$: reset(downloadFn);
 
 	// eslint-disable-next-line no-unused-vars
 	$: _asapKeys && ($_asapKeys = asapKeys);
@@ -54,6 +54,7 @@
 	$: _outData && (outData = $_outData);
 	$: _outLoadingKeys && (outLoadingKeys = $_outLoadingKeys);
 </script>
+
 <!--
 
 TBD
