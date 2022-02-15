@@ -37,6 +37,7 @@ export const createFetchManagerStreams = downloadFn => {
 
 	const _groupIds = from(['asap', 'next', 'rest']);
 	const _groupComplete = new BehaviorSubject();
+	const _runChain = new BehaviorSubject();
 
 	/* internal derived streams */
 
@@ -46,7 +47,7 @@ export const createFetchManagerStreams = downloadFn => {
 	);
 
 	const _restKeys = derive(
-		[_allKeys, _asapKeys, _nextKeys],
+		[_allKeys, _asapKeys, _nextKeys, _runChain],
 		([allKeys, asapKeys, nextKeys]) =>
 			_.difference(allKeys, _.union(asapKeys, nextKeys))
 	);
@@ -129,9 +130,14 @@ export const createFetchManagerStreams = downloadFn => {
 		)
 	);
 
-	/* side effects */
+	/* subscripted updates */
 
-	// side effectors
+	// restart the chain when `_shouldPrefetch` changes
+	_shouldPrefetch.subscribe(
+		should => should && _runChain.next()
+	);
+
+	/* side effects */
 
 	const {
 		abort,
@@ -145,7 +151,7 @@ export const createFetchManagerStreams = downloadFn => {
 		downloadFn
 	});
 
-	// subscriptions
+	// aborting
 
 	// When `_uriMap` changes we:
 	// * abort all downloads
@@ -164,7 +170,7 @@ export const createFetchManagerStreams = downloadFn => {
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
 	);
 
-	// download
+	// downloading
 
 	_unfetchedUris
 	.pipe(
@@ -194,10 +200,6 @@ export const createFetchManagerStreams = downloadFn => {
 		debounceTime(0)
 	)
 	.subscribe(() => _outEvents.next({type: 'done'}));
-
-	_shouldPrefetch.subscribe(should => {
-		should && _asapKeys.next(_asapKeys.getValue())
-	});
 
 	return {
 		_asapKeys,
