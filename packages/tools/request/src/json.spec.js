@@ -9,7 +9,7 @@ global.fetch = fetch;
 
 describe('request: json', function() {
 	describe('requestJson', function() {
-		const obj = {a: 1, b: 2};
+		const obj = {a: 1, b: 2}
 
 		it('should return a request to a JSON file as a promise (with Fetch)',
 			async function() {

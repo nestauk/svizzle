@@ -8,7 +8,7 @@ export const makeSideEffectors = ({
 	_outLoadingKeys,
 	downloadFn
 }) => {
-	const abortersMap = {};
+	const abortersMap = {}
 
 	const abort = (key, reason) => {
 		_outEvents.next({
@@ -17,7 +17,7 @@ export const makeSideEffectors = ({
 			type: 'abort',
 		});
 		abortersMap[key] && abortersMap[key](reason);
-	};
+	}
 
 	const abortAll = reason =>
 		_outLoadingKeys
@@ -78,11 +78,11 @@ export const makeSideEffectors = ({
 
 		// TBD
 		_groupComplete.next();
-	};
+	}
 
 	return {
 		abort,
 		abortAll,
 		startDownload
-	};
-};
+	}
+}

@@ -207,5 +207,5 @@ export const createFetchManagerStreams = downloadFn => {
 		_outLoadingKeys,
 		_shouldPrefetch,
 		_uriMap,
-	};
-};
+	}
+}

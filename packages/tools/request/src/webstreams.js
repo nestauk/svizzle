@@ -12,7 +12,7 @@ const mergeUint8Arrays = arrays => {
 		start += array.length
 	});
 	return mergedArray;
-};
+}
 
 export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 	myFetch
@@ -29,7 +29,7 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 					resolve({
 						type: 'abort'
 					});
-				};
+				}
 
 				let chunks = [];
 				const processChunk = ({done, value}) => {
@@ -47,7 +47,7 @@ export const makeWebStreamsFetcher = (myFetch, transformer = identity) =>
 						}
 						delete aborters[key];
 					}
-				};
+				}
 
 				// start reading
 				reader.read().then(processChunk);

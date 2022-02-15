@@ -19,7 +19,7 @@ export const loadJsons = async (basePath, keys, filesMap) => {
 
 	const loadedFiles = await Promise.all(fileLoadingPromises);
 	return _.fromPairs(loadedFiles);
-};
+}
 
 export const getFileNamesMap = _.pipe([
 	_.filterWith(fileName => fileName.endsWith('.json')),
@@ -53,7 +53,7 @@ export const startServer = ({bandwidth, port, basePath}) => {
 				createReadStream(filePath, config).pipe(throttledStream);
 				return throttledStream;
 			}
-		};
+		}
 	}
 
 	const server = http.createServer(async (req, res) => {
@@ -67,4 +67,4 @@ export const startServer = ({bandwidth, port, basePath}) => {
 	server.listen(port);
 
 	return server;
-};
+}

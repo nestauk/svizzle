@@ -528,7 +528,7 @@ describe('fetchManager', function () {
 				return new Promise(resolve => {
 					let groups = [];
 					let activeGroup;
-					let keysForGroup = {};
+					let keysForGroup = {}
 
 					_outEvents.pipe(
 						// filter(event => event.type === 'groupStart'),
@@ -782,7 +782,6 @@ describe('fetchManager', function () {
 					const filesCompleted = [];
 
 					_outEvents.pipe(
-//						tap(console.log),
 						filter(({type}) => type === 'groupStart'),
 						filter(({groupId}) => groupId === 'next')
 					).subscribe(() => {
