@@ -1,5 +1,5 @@
 <script>
-	import {jsonBufferToAny} from '@svizzle/request/src/fetchManager/transformers';
+	import {jsonBufferToAny} from '@svizzle/utils/src/modules/buffer-any';
 	import FetchDriver from '@svizzle/ui/src/io/net/FetchDriver.svelte';
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
 	import ScreenSensor from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
