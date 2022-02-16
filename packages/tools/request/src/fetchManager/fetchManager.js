@@ -40,7 +40,7 @@ export const createFetchManagerStreams = downloadFn => {
 	/* internal streams */
 
 	const _groupIds = from(['asap', 'next', 'rest']);
-	const _groupComplete = new BehaviorSubject();
+	const _startNextGroup = new BehaviorSubject();
 	const _runChain = new BehaviorSubject();
 
 	/* internal derived streams */
@@ -69,7 +69,7 @@ export const createFetchManagerStreams = downloadFn => {
 		debounceTime(0),
 		switchMapTo(
 			_groupIds.pipe(
-				zipWith(_groupComplete), // wait for download to complete
+				zipWith(_startNextGroup), // wait for download to complete
 				map(_.getAt(0)),
 			)
 		),
@@ -209,7 +209,10 @@ export const createFetchManagerStreams = downloadFn => {
 		filter(isKeyValue(['type', 'group:complete'])),
 		withLatestFrom(_outLoadingKeys)
 	)
-	.subscribe(() => _groupComplete.next());
+	.subscribe(() => {
+		_startNextGroup.next();
+	}
+	);
 
 	// downloading
 
