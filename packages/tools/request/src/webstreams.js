@@ -10,8 +10,8 @@ const mergeUint8Arrays = arrays => {
 
 	let start = 0;
 	arrays.forEach(array => {
-		mergedArray.set(array, start)
-		start += array.length
+		mergedArray.set(array, start);
+		start += array.length;
 	});
 
 	return mergedArray;

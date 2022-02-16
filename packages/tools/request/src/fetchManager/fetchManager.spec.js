@@ -4,7 +4,7 @@ import path from 'path';
 
 import {isKeyValue, jsonBufferToAny} from '@svizzle/utils';
 import * as _ from 'lamb';
-import {filter,tap} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 import {fetch} from 'undici';
 
 import {makeWebStreamsFetcher} from '../webstreams';

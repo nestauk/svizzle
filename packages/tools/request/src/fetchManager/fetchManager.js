@@ -187,16 +187,18 @@ export const createFetchManagerStreams = downloadFn => {
 
 	_outEvents
 	.pipe(
-		filter(({type}) => [
-			'file:abort',
-			'file:complete',
-			'file:error'
-		].includes(type)
+		filter(
+			({type}) => [
+				'file:abort',
+				'file:complete',
+				'file:error'
+			].includes(type)
 		),
 		withLatestFrom(_outLoadingKeys, _outData),
 	)
 	.subscribe(([{data, key, type}, loadingKeys, outData]) => {
 		_outLoadingKeys.next(_.pullFrom(loadingKeys, [key]));
+
 		if (type === 'file:complete') {
 			_outData.next({...outData, [key]: data});
 		}
@@ -207,10 +209,7 @@ export const createFetchManagerStreams = downloadFn => {
 		filter(isKeyValue(['type', 'group:complete'])),
 		withLatestFrom(_outLoadingKeys)
 	)
-	.subscribe(() => {
-		_groupComplete.next();
-	}
-	);
+	.subscribe(() => _groupComplete.next());
 
 	// downloading
 

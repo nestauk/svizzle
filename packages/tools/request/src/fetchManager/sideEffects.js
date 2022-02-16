@@ -41,6 +41,7 @@ export const makeSideEffectors = ({
 
 					try {
 						const result = await downloadFn(key, value, abortersMap);
+
 						if (result.type === 'complete') {
 							_outEvents.next({
 								data: result.contents,
@@ -49,6 +50,7 @@ export const makeSideEffectors = ({
 							});
 						} else if (result.type === 'abort') {
 							abortedKeys.push(key);
+
 							_outEvents.next({
 								key,
 								type: 'file:abort'
@@ -56,6 +58,7 @@ export const makeSideEffectors = ({
 						}
 					} catch (error) {
 						console.error(error);
+
 						_outEvents.next({
 							key,
 							error,
