@@ -59,14 +59,15 @@ describe('fetchManager', function () {
 		it('the content of the downloaded files should be the same as served resources', function () {
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 			const {
-				_asapKeys,
 				_outData,
 				_outEvents,
-				_uriMap
+				_priorities,
 			} = createFetchManagerStreams(downloadFn);
 
-			_uriMap.next(uriMap);
-			_asapKeys.next(allKeys);
+			_priorities.next({
+				asapKeys: allKeys,
+				uriMap
+			});
 
 			return new Promise((resolve, reject) => {
 				_outEvents.pipe(
@@ -87,16 +88,17 @@ describe('fetchManager', function () {
 			it('!= keys, != URIs', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
 					_outData,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(_.pickIn(uriMap, keysFrom2021));
-				_asapKeys.next(keysFrom2021);
+				_priorities.next({
+					asapKeys: keysFrom2021,
+					uriMap: _.pickIn(uriMap, keysFrom2021)
+				});
 
 				return new Promise((resolve, reject) => {
 					let switchedMap;
@@ -108,8 +110,10 @@ describe('fetchManager', function () {
 						totalCompleted++
 						// switch after downloading more than half
 						if (!switchedMap && totalCompleted > keysFrom2021.length / 2) {
-							_uriMap.next(_.pickIn(uriMap, keysFrom2016));
-							_asapKeys.next(keysFrom2016);
+							_priorities.next({
+								asapKeys: keysFrom2016,
+								uriMap: _.pickIn(uriMap, keysFrom2016)
+							});
 							switchedMap = true;
 						}
 					});
@@ -132,16 +136,17 @@ describe('fetchManager', function () {
 			it('= keys, != URIs', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
 					_outData,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(_.pickIn(uriMap, keysFrom2021));
-				_asapKeys.next(keysFrom2021);
+				_priorities.next({
+					asapKeys: keysFrom2021,
+					uriMap: _.pickIn(uriMap, keysFrom2021)
+				});
 
 				return new Promise((resolve, reject) => {
 					let switchedMap;
@@ -162,7 +167,10 @@ describe('fetchManager', function () {
 								]),
 								_.fromPairs
 							])(uriMap);
-							_uriMap.next(newMap);
+							_priorities.next({
+								asapKeys: keysFrom2021,
+								uriMap: newMap
+							});
 							switchedMap = true;
 						}
 					});
@@ -185,16 +193,17 @@ describe('fetchManager', function () {
 			it('!= keys, = URIs', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
 					_outData,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(_.pickIn(uriMap, keysFrom2021));
-				_asapKeys.next(keysFrom2021);
+				_priorities.next({
+					asapKeys: keysFrom2021,
+					uriMap: _.pickIn(uriMap, keysFrom2021)
+				});
 
 				return new Promise((resolve, reject) => {
 					let switchedMap;
@@ -215,8 +224,10 @@ describe('fetchManager', function () {
 								]),
 								_.fromPairs
 							])(uriMap);
-							_uriMap.next(newMap);
-							_asapKeys.next(keysFrom2016);
+							_priorities.next({
+								asapKeys: keysFrom2016,
+								uriMap: newMap
+							});
 							switchedMap = true;
 						}
 					});
@@ -243,18 +254,18 @@ describe('fetchManager', function () {
 		it('false: it should only load files in `asapKeys`', function () {
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 			const {
-				_asapKeys,
-				_nextKeys,
 				_outData,
 				_outEvents,
-				_shouldPrefetch,
-				_uriMap
+				_priorities,
+				_shouldPrefetch
 			} = createFetchManagerStreams(downloadFn);
 
 			_shouldPrefetch.next(false); // keep? it's the default value
-			_uriMap.next(uriMap);
-			_asapKeys.next(keysFrom2021);
-			_nextKeys.next(keysFrom2016);
+			_priorities.next({
+				asapKeys: keysFrom2021,
+				nextKeys: keysFrom2016,
+				uriMap
+			});
 
 			return new Promise((resolve, reject) => {
 				_outEvents.pipe(
@@ -277,18 +288,18 @@ describe('fetchManager', function () {
 		it('true: it should load all files', function () {
 			const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 			const {
-				_asapKeys,
-				_nextKeys,
 				_outData,
 				_outEvents,
-				_shouldPrefetch,
-				_uriMap
+				_priorities,
+				_shouldPrefetch
 			} = createFetchManagerStreams(downloadFn);
 
 			_shouldPrefetch.next(true);
-			_uriMap.next(uriMap);
-			_asapKeys.next(keysFrom2021);
-			_nextKeys.next(keysFrom2016);
+			_priorities.next({
+				asapKeys: keysFrom2021,
+				nextKeys: keysFrom2016,
+				uriMap
+			});
 
 			return new Promise((resolve, reject) => {
 				_outEvents.pipe(
@@ -312,18 +323,18 @@ describe('fetchManager', function () {
 			it('true -> false while asap in progress: should complete and stop', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outData,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(keysFrom2021);
-				_nextKeys.next(keysFrom2016);
+				_priorities.next({
+					asapKeys: keysFrom2021,
+					nextKeys: keysFrom2016,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let turnedItOff
@@ -356,18 +367,18 @@ describe('fetchManager', function () {
 			it('true -> false after asap: should stop', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny)
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outData,
 					_outEvents,
+					_priorities,
 					_shouldPrefetch,
-					_uriMap
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(keysFrom2021);
-				_nextKeys.next(keysFrom2016);
+				_priorities.next({
+					asapKeys: keysFrom2021,
+					nextKeys: keysFrom2016,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let hasNextStarted;
@@ -412,23 +423,22 @@ describe('fetchManager', function () {
 			it('false -> true while asap in progress: should continue', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outData,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(false);
-				_uriMap.next(uriMap);
-				_asapKeys.next(keysFrom2021);
-				_nextKeys.next(keysFrom2016);
+				_priorities.next({
+					asapKeys: keysFrom2021,
+					nextKeys: keysFrom2016,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let turnedItOn;
 					_outEvents.pipe(
-						// tap(console.log),
 						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						if (!turnedItOn) {
@@ -457,24 +467,23 @@ describe('fetchManager', function () {
 			it('false -> true after asap: should restart, skipping asap and download everything else', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outData,
 					_outEvents,
+					_priorities,
 					_shouldPrefetch,
-					_uriMap
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(false);
-				_uriMap.next(uriMap);
-				_asapKeys.next(keysFrom2021);
-				_nextKeys.next(keysFrom2016);
+				_priorities.next({
+					asapKeys: keysFrom2021,
+					nextKeys: keysFrom2016,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let turnedItOn;
 
 					_outEvents.pipe(
-						// tap(console.log),
 						filter(isKeyValue(['type', 'done']))
 					).subscribe(() => {
 						if (!turnedItOn) {
@@ -512,17 +521,17 @@ describe('fetchManager', function () {
 			it('should load all files in correct order (`_asapKeys` then `_nextKeys` then `_restKeys`)', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(asapKeys);
-				_nextKeys.next(nextKeys);
+				_priorities.next({
+					asapKeys,
+					nextKeys,
+					uriMap
+				});
 
 				return new Promise(resolve => {
 					let groups = [];
@@ -575,15 +584,17 @@ describe('fetchManager', function () {
 			it(`should not redownload cached files`, function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(asapKeys);
+				_priorities.next({
+					asapKeys,
+					nextKeys: asapKeys,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					_outEvents.pipe(
@@ -609,17 +620,17 @@ describe('fetchManager', function () {
 			it('while downloading `_asapKeys` those remaining in `_asapKeys` should continue downloading', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(asapKeys);
-				_nextKeys.next(nextKeys);
+				_priorities.next({
+					asapKeys,
+					nextKeys,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let newAsap;
@@ -633,7 +644,11 @@ describe('fetchManager', function () {
 								asapKeys,
 								[key]
 							);
-							_asapKeys.next(newAsap);
+							_priorities.next({
+								asapKeys: newAsap,
+								nextKeys,
+								uriMap
+							});
 						}
 					});
 					_outEvents.pipe(
@@ -655,17 +670,17 @@ describe('fetchManager', function () {
 			it('while downloading `_asapKeys` those not remaining in `_asapKeys` should be aborted', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(asapKeys);
-				_nextKeys.next(nextKeys);
+				_priorities.next({
+					asapKeys,
+					nextKeys,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let newAsap;
@@ -679,8 +694,11 @@ describe('fetchManager', function () {
 						if (!newAsap) {
 							newAsap = nextKeys;
 							// Swapping keys to trigger restart
-							_asapKeys.next(newAsap);
-							_nextKeys.next(asapKeys);
+							_priorities.next({
+								asapKeys: newAsap,
+								nextKeys: asapKeys,
+								uriMap
+							});
 						}
 					});
 					_outEvents.pipe(
@@ -712,17 +730,17 @@ describe('fetchManager', function () {
 			it('while downloading `_nextKeys` those moving to `_asapKeys` should continue downloading', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(asapKeys);
-				_nextKeys.next(nextKeys);
+				_priorities.next({
+					asapKeys,
+					nextKeys,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let nextStarted = false;
@@ -742,8 +760,11 @@ describe('fetchManager', function () {
 								nextKeys,
 								[key]
 							);
-							_asapKeys.next(newAsap);
-							_nextKeys.next(asapKeys);
+							_priorities.next({
+								asapKeys: newAsap,
+								nextKeys: asapKeys,
+								uriMap
+							});
 						}
 					});
 					_outEvents.pipe(
@@ -765,17 +786,17 @@ describe('fetchManager', function () {
 			it('while downloading `_nextKeys` those not moving to `_asapKeys` should be aborted', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(asapKeys);
-				_nextKeys.next(nextKeys);
+				_priorities.next({
+					asapKeys,
+					nextKeys,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let nextStarted = false;
@@ -795,7 +816,11 @@ describe('fetchManager', function () {
 						filesCompleted.push(key);
 						if (nextStarted && !newAsap) {
 							newAsap = keysFrom2013;
-							_asapKeys.next(newAsap);
+							_priorities.next({
+								asapKeys: newAsap,
+								nextKeys,
+								uriMap
+							});
 						}
 					});
 					_outEvents.pipe(
@@ -826,17 +851,17 @@ describe('fetchManager', function () {
 			it('while downloading `_restKeys` those moving to `_asapKeys` should continue downloading', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny)
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(asapKeys);
-				_nextKeys.next(nextKeys);
+				_priorities.next({
+					asapKeys,
+					nextKeys,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let nextStarted = false;
@@ -857,7 +882,11 @@ describe('fetchManager', function () {
 								restKeys,
 								[key]
 							);
-							_asapKeys.next(newAsap);
+							_priorities.next({
+								asapKeys: newAsap,
+								nextKeys,
+								uriMap
+							});
 						}
 					});
 					_outEvents.pipe(
@@ -879,17 +908,17 @@ describe('fetchManager', function () {
 			it('while downloading `_restKeys` those not moving to `_asapKeys` should be aborted', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
-					_asapKeys,
-					_nextKeys,
 					_outEvents,
-					_shouldPrefetch,
-					_uriMap
+					_priorities,
+					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
 				_shouldPrefetch.next(true);
-				_uriMap.next(uriMap);
-				_asapKeys.next(asapKeys);
-				_nextKeys.next(nextKeys);
+				_priorities.next({
+					asapKeys,
+					nextKeys,
+					uriMap
+				});
 
 				return new Promise((resolve, reject) => {
 					let restStarted = false;
@@ -909,8 +938,11 @@ describe('fetchManager', function () {
 						filesCompleted.push(key);
 						if (restStarted && !newAsap) {
 							newAsap = keysFrom2016;
-							_asapKeys.next(newAsap);
-							_nextKeys.next(keysFrom2013);
+							_priorities.next({
+								asapKeys: newAsap,
+								nextKeys: keysFrom2013,
+								uriMap
+							});
 						}
 					});
 					_outEvents.pipe(

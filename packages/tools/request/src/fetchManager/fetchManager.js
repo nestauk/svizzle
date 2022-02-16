@@ -2,6 +2,7 @@ import {
 	isKeyValue,
 	objectToKeyValueArray
 } from '@svizzle/utils';
+import areEqual from 'just-compare';
 import * as _ from 'lamb';
 import {
 	BehaviorSubject,
@@ -11,6 +12,7 @@ import {
 } from 'rxjs';
 import {
 	debounceTime,
+	distinctUntilChanged,
 	filter,
 	map,
 	share,
@@ -26,10 +28,12 @@ export const createFetchManagerStreams = downloadFn => {
 
 	/* input streams */
 
-	const _asapKeys = new BehaviorSubject([]);
-	const _nextKeys = new BehaviorSubject([]);
+	const _priorities = new BehaviorSubject({
+		asapKeys: [],
+		nextKeys: [],
+		uriMap: {}
+	});
 	const _shouldPrefetch = new BehaviorSubject(false);
-	const _uriMap = new BehaviorSubject({});
 
 	/* output streams */
 
@@ -44,6 +48,17 @@ export const createFetchManagerStreams = downloadFn => {
 	const _runChain = new BehaviorSubject();
 
 	/* internal derived streams */
+
+	const _asapKeys = _priorities.pipe(
+		map(({asapKeys}) => asapKeys || [])
+	);
+	const _nextKeys = _priorities.pipe(
+		map(({nextKeys}) => nextKeys || [])
+	)
+	const _uriMap = _priorities.pipe(
+		map(({uriMap}) => uriMap || {}),
+		distinctUntilChanged(areEqual)
+	);
 
 	const _allKeys = _uriMap.pipe(
 		map(_.keys),
@@ -238,12 +253,10 @@ export const createFetchManagerStreams = downloadFn => {
 	.subscribe(() => _outEvents.next({type: 'done'}));
 
 	return {
-		_asapKeys,
-		_nextKeys,
 		_outData,
 		_outEvents,
 		_outLoadingKeys,
-		_shouldPrefetch,
-		_uriMap,
+		_priorities,
+		_shouldPrefetch
 	}
 }
