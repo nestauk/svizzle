@@ -209,10 +209,7 @@ export const createFetchManagerStreams = downloadFn => {
 		filter(isKeyValue(['type', 'group:complete'])),
 		withLatestFrom(_outLoadingKeys)
 	)
-	.subscribe(() => {
-		_startNextGroup.next();
-	}
-	);
+	.subscribe(() => _startNextGroup.next());
 
 	// downloading
 
