@@ -230,16 +230,11 @@ export const createFetchManagerStreams = downloadFn => {
 	.pipe(
 		withLatestFrom(_allKeys, _asapKeys, _shouldPrefetch),
 		skipWhile(
-			([fetchedKeys, allKeys, asapKeys, shouldPrefetch]) =>
-				shouldPrefetch
-					? _.intersection(
-						fetchedKeys,
-						allKeys
-					).length < allKeys.length
-					: _.intersection(
-						fetchedKeys,
-						asapKeys
-					).length < asapKeys.length
+			([fetchedUris, allKeys, asapKeys, shouldPrefetch]) =>
+				_.intersection(
+					shouldPrefetch ? allKeys : asapKeys,
+					fetchedUris
+				).length < (shouldPrefetch ? allKeys : asapKeys).length
 		),
 		debounceTime(0)
 	)
