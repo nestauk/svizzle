@@ -670,6 +670,7 @@ describe('fetchManager', function () {
 				return new Promise((resolve, reject) => {
 					let newAsap;
 					const filesCompleted = [];
+					let actualAbortedKeys = [];
 
 					_outEvents.pipe(
 						filter(event => event.type === 'file:complete')
@@ -686,24 +687,25 @@ describe('fetchManager', function () {
 						filter(({type}) => type === 'group:complete'),
 						filter(({groupId}) => groupId === 'asap')
 					).subscribe(({abortedKeys}) => {
+						actualAbortedKeys = abortedKeys;
+					});
+
+					_outEvents.pipe(
+						filter(event => event.type === 'done')
+					).subscribe(() => {
 						const expectedAbortedFiles = _.difference(
 							asapKeys,
 							filesCompleted
 						);
 						try {
 							assert.deepStrictEqual(
-								expectedAbortedFiles.sort(),
-								abortedKeys.sort()
+								actualAbortedKeys.sort(),
+								expectedAbortedFiles.sort()
 							);
+							resolve();
 						} catch (e) {
 							reject(e);
 						}
-					});
-
-					_outEvents.pipe(
-						filter(event => event.type === 'done')
-					).subscribe(() => {
-						resolve();
 					});
 				});
 			});
@@ -779,6 +781,7 @@ describe('fetchManager', function () {
 					let nextStarted = false;
 					let newAsap;
 					const filesCompleted = [];
+					let actualAbortedKeys = [];
 
 					_outEvents.pipe(
 						filter(({type}) => type === 'group:start'),
@@ -799,23 +802,24 @@ describe('fetchManager', function () {
 						filter(({type}) => type === 'group:complete'),
 						filter(({groupId}) => groupId === 'next')
 					).subscribe(({abortedKeys}) => {
+						actualAbortedKeys = abortedKeys;
+					});
+					_outEvents.pipe(
+						filter(event => event.type === 'done')
+					).subscribe(() => {
 						const expectedAbortedFiles = _.difference(
 							nextKeys,
 							filesCompleted
 						);
 						try {
 							assert.deepStrictEqual(
-								expectedAbortedFiles.sort(),
-								abortedKeys.sort()
+								actualAbortedKeys.sort(),
+								expectedAbortedFiles.sort()
 							);
+							resolve();
 						} catch (e) {
 							reject(e);
 						}
-					});
-					_outEvents.pipe(
-						filter(event => event.type === 'done')
-					).subscribe(() => {
-						resolve();
 					});
 				});
 			});
@@ -890,6 +894,7 @@ describe('fetchManager', function () {
 				return new Promise((resolve, reject) => {
 					let restStarted = false;
 					let newAsap;
+					let actualAbortedKeys;
 					const filesCompleted = [];
 
 					_outEvents.pipe(
@@ -912,23 +917,24 @@ describe('fetchManager', function () {
 						filter(({type}) => type === 'group:complete'),
 						filter(({groupId}) => groupId === 'rest')
 					).subscribe(({abortedKeys}) => {
+						actualAbortedKeys = abortedKeys;
+					});
+					_outEvents.pipe(
+						filter(event => event.type === 'done')
+					).subscribe(() => {
 						const expectedAbortedFiles = _.difference(
 							restKeys,
 							filesCompleted
 						);
 						try {
 							assert.deepStrictEqual(
-								abortedKeys.sort(),
+								actualAbortedKeys.sort(),
 								expectedAbortedFiles.sort()
 							);
+							resolve();
 						} catch (e) {
 							reject(e);
 						}
-					});
-					_outEvents.pipe(
-						filter(event => event.type === 'done')
-					).subscribe(() => {
-						resolve();
 					});
 				});
 			});
