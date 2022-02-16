@@ -4,7 +4,7 @@ import path from 'path';
 
 import {isKeyValue, jsonBufferToAny} from '@svizzle/utils';
 import * as _ from 'lamb';
-import {filter} from 'rxjs/operators';
+import {filter,tap} from 'rxjs/operators';
 import {fetch} from 'undici';
 
 import {makeWebStreamsFetcher} from '../webstreams';
@@ -103,7 +103,7 @@ describe('fetchManager', function () {
 					let totalCompleted = 0;
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						totalCompleted++
 						// switch after downloading more than half
@@ -148,7 +148,7 @@ describe('fetchManager', function () {
 					let totalCompleted = 0;
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						totalCompleted++;
 						// switch after downloading more than half
@@ -201,7 +201,7 @@ describe('fetchManager', function () {
 					let totalCompleted = 0;
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						totalCompleted++
 						// switch after downloading more than half
@@ -328,7 +328,7 @@ describe('fetchManager', function () {
 				return new Promise((resolve, reject) => {
 					let turnedItOff
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						if (!turnedItOff) {
 							_shouldPrefetch.next(false);
@@ -374,7 +374,7 @@ describe('fetchManager', function () {
 					let turnedItOff;
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'groupComplete']))
+						filter(isKeyValue(['type', 'group:complete']))
 					).subscribe(() => {
 						if (!hasNextStarted) {
 							hasNextStarted = true;
@@ -382,7 +382,7 @@ describe('fetchManager', function () {
 					});
 
 					_outEvents.pipe(
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						if (hasNextStarted && !turnedItOff) {
 							_shouldPrefetch.next(false);
@@ -429,7 +429,7 @@ describe('fetchManager', function () {
 					let turnedItOn;
 					_outEvents.pipe(
 						// tap(console.log),
-						filter(isKeyValue(['type', 'complete']))
+						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						if (!turnedItOn) {
 							_shouldPrefetch.next(true);
@@ -531,7 +531,7 @@ describe('fetchManager', function () {
 
 					_outEvents.pipe(
 						// filter(event => event.type === 'groupStart'),
-						filter(isKeyValue(['type','groupStart']))
+						filter(isKeyValue(['type','group:start']))
 						// filter(_.hasKeyValue('type','groupStart')) // TODO TBD deprecation
 					).subscribe(({groupId}) => {
 						groups.push(groupId);
@@ -539,7 +539,7 @@ describe('fetchManager', function () {
 						keysForGroup[activeGroup] = [];
 					});
 					_outEvents.pipe(
-						filter(event => event.type === 'complete')
+						filter(event => event.type === 'file:complete')
 					).subscribe(({key}) => {
 						keysForGroup[activeGroup].push(key);
 					});
@@ -587,11 +587,11 @@ describe('fetchManager', function () {
 
 				return new Promise((resolve, reject) => {
 					_outEvents.pipe(
-						filter(event => event.type === 'groupCompleted'),
+						filter(event => event.type === 'group:complete'),
 						filter(event => event.groupId === 'next')
 					).subscribe(({keys}) => {
 						try {
-							assert(keys.length > 0, 'No keys should be requested on \'next\' group');
+							assert(keys.length === 0, 'No keys should be requested on \'next\' group');
 						} catch (e) {
 							reject(e);
 						}
@@ -626,7 +626,7 @@ describe('fetchManager', function () {
 
 					_outEvents.pipe(
 						// tap(console.log),
-						filter(event => event.type === 'complete')
+						filter(event => event.type === 'file:complete')
 					).subscribe(({key}) => {
 						if (!newAsap) {
 							newAsap = _.difference(
@@ -637,7 +637,7 @@ describe('fetchManager', function () {
 						}
 					});
 					_outEvents.pipe(
-						filter(event => event.type === 'abort')
+						filter(event => event.type === 'file:abort')
 					).subscribe(({key}) => {
 						try {
 							assert(!_.isIn(asapKeys, key));
@@ -672,7 +672,7 @@ describe('fetchManager', function () {
 					const filesCompleted = [];
 
 					_outEvents.pipe(
-						filter(event => event.type === 'complete')
+						filter(event => event.type === 'file:complete')
 					).subscribe(({key}) => {
 						filesCompleted.push(key);
 						if (!newAsap) {
@@ -683,7 +683,7 @@ describe('fetchManager', function () {
 						}
 					});
 					_outEvents.pipe(
-						filter(({type}) => type === 'groupCompleted'),
+						filter(({type}) => type === 'group:complete'),
 						filter(({groupId}) => groupId === 'asap')
 					).subscribe(({abortedKeys}) => {
 						const expectedAbortedFiles = _.difference(
@@ -727,13 +727,13 @@ describe('fetchManager', function () {
 					let newAsap;
 
 					_outEvents.pipe(
-						filter(({type}) => type === 'groupStart'),
+						filter(({type}) => type === 'group:start'),
 						filter(({groupId}) => groupId === 'next')
 					).subscribe(() => {
 						nextStarted = true;
 					})
 					_outEvents.pipe(
-						filter(event => event.type === 'complete')
+						filter(event => event.type === 'file:complete')
 					).subscribe(({key}) => {
 						if (nextStarted && !newAsap) {
 							newAsap = _.difference(
@@ -745,7 +745,7 @@ describe('fetchManager', function () {
 						}
 					});
 					_outEvents.pipe(
-						filter(event => event.type === 'abort')
+						filter(event => event.type === 'file:abort')
 					).subscribe(({key}) => {
 						try {
 							assert(!_.isIn(newAsap, key));
@@ -781,13 +781,13 @@ describe('fetchManager', function () {
 					const filesCompleted = [];
 
 					_outEvents.pipe(
-						filter(({type}) => type === 'groupStart'),
+						filter(({type}) => type === 'group:start'),
 						filter(({groupId}) => groupId === 'next')
 					).subscribe(() => {
 						nextStarted = true;
 					});
 					_outEvents.pipe(
-						filter(event => event.type === 'complete')
+						filter(event => event.type === 'file:complete')
 					).subscribe(({key}) => {
 						filesCompleted.push(key);
 						if (nextStarted && !newAsap) {
@@ -796,7 +796,7 @@ describe('fetchManager', function () {
 						}
 					});
 					_outEvents.pipe(
-						filter(({type}) => type === 'groupCompleted'),
+						filter(({type}) => type === 'group:complete'),
 						filter(({groupId}) => groupId === 'next')
 					).subscribe(({abortedKeys}) => {
 						const expectedAbortedFiles = _.difference(
@@ -840,13 +840,13 @@ describe('fetchManager', function () {
 
 					_outEvents.pipe(
 						// tap(console.log),
-						filter(({type}) => type === 'groupStart'),
+						filter(({type}) => type === 'group:start'),
 						filter(({groupId}) => groupId === 'rest')
 					).subscribe(() => {
 						nextStarted = true;
 					})
 					_outEvents.pipe(
-						filter(event => event.type === 'complete')
+						filter(event => event.type === 'file:complete')
 					).subscribe(({key}) => {
 						if (nextStarted && !newAsap) {
 							newAsap = _.difference(
@@ -857,7 +857,7 @@ describe('fetchManager', function () {
 						}
 					});
 					_outEvents.pipe(
-						filter(event => event.type === 'abort')
+						filter(event => event.type === 'file:abort')
 					).subscribe(({key}) => {
 						try {
 							assert(!_.isIn(newAsap, key));
@@ -893,14 +893,13 @@ describe('fetchManager', function () {
 					const filesCompleted = [];
 
 					_outEvents.pipe(
-						// tap(console.log),
-						filter(({type}) => type === 'groupStart'),
+						filter(({type}) => type === 'group:start'),
 						filter(({groupId}) => groupId === 'rest')
 					).subscribe(() => {
 						restStarted = true;
 					})
 					_outEvents.pipe(
-						filter(event => event.type === 'complete')
+						filter(event => event.type === 'file:complete')
 					).subscribe(({key}) => {
 						filesCompleted.push(key);
 						if (restStarted && !newAsap) {
@@ -910,18 +909,17 @@ describe('fetchManager', function () {
 						}
 					});
 					_outEvents.pipe(
-						filter(({type}) => type === 'groupCompleted'),
+						filter(({type}) => type === 'group:complete'),
 						filter(({groupId}) => groupId === 'rest')
 					).subscribe(({abortedKeys}) => {
 						const expectedAbortedFiles = _.difference(
-							nextKeys,
-							filesCompleted,
-							newAsap
+							restKeys,
+							filesCompleted
 						);
 						try {
 							assert.deepStrictEqual(
-								expectedAbortedFiles.sort(),
-								abortedKeys.sort()
+								abortedKeys.sort(),
+								expectedAbortedFiles.sort()
 							);
 						} catch (e) {
 							reject(e);

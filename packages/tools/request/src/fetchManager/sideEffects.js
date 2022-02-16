@@ -2,10 +2,7 @@ import {getKey} from '@svizzle/utils';
 import * as _ from 'lamb';
 
 export const makeSideEffectors = ({
-	_groupComplete,
-	_outData,
 	_outEvents,
-	_outLoadingKeys,
 	downloadFn
 }) => {
 	const abortersMap = {}
@@ -19,11 +16,6 @@ export const makeSideEffectors = ({
 		abortersMap[key] && abortersMap[key](reason);
 	}
 
-	const abortAll = reason =>
-		_outLoadingKeys
-		.getValue()
-		.forEach(key => abort(key, reason));
-
 	const startDownload = async ([
 		[uris, groupId],
 		fetchingOrFetchedTargetKeys
@@ -34,7 +26,7 @@ export const makeSideEffectors = ({
 			groupId,
 			keys,
 			skipping: fetchingOrFetchedTargetKeys,
-			type: 'groupStart'
+			type: 'group:start'
 		});
 
 		let abortedKeys = [];
@@ -42,51 +34,48 @@ export const makeSideEffectors = ({
 		await Promise.all(
 			uris.map(
 				async ({key, value}) => {
-					_outLoadingKeys.next([..._outLoadingKeys.getValue(), key]);
 					_outEvents.next({
 						key,
-						type: 'start'
+						type: 'file:start'
 					});
 
 					try {
 						const result = await downloadFn(key, value, abortersMap);
 						if (result.type === 'complete') {
-							_outData.next({
-								..._outData.getValue(),
-								[key]: result.contents
-							});
 							_outEvents.next({
+								data: result.contents,
 								key,
-								type: 'complete'
+								type: 'file:complete'
 							});
 						} else if (result.type === 'abort') {
 							abortedKeys.push(key);
+							_outEvents.next({
+								key,
+								type: 'file:abort'
+							});
 						}
-					} catch (e) {
-						console.error(e);
-					} finally {
-						_outLoadingKeys.next(_.pullFrom(
-							_outLoadingKeys.getValue(),
-							[key]
-						));
+					} catch (error) {
+						console.error(error);
+						_outEvents.next({
+							key,
+							error,
+							type: 'file:error'
+						});
 					}
 				}
 			)
 		);
 
 		_outEvents.next({
+			keys,
 			abortedKeys,
 			groupId,
-			type: 'groupComplete'
+			type: 'group:complete'
 		});
-
-		// TBD
-		_groupComplete.next();
 	}
 
 	return {
 		abort,
-		abortAll,
 		startDownload
 	}
 }

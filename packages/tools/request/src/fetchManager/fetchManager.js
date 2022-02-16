@@ -1,4 +1,7 @@
-import {objectToKeyValueArray} from '@svizzle/utils';
+import {
+	isKeyValue,
+	objectToKeyValueArray
+} from '@svizzle/utils';
 import * as _ from 'lamb';
 import {
 	BehaviorSubject,
@@ -8,6 +11,7 @@ import {
 } from 'rxjs';
 import {
 	debounceTime,
+	filter,
 	map,
 	share,
 	skipWhile,
@@ -141,17 +145,19 @@ export const createFetchManagerStreams = downloadFn => {
 
 	const {
 		abort,
-		abortAll,
+		// abortAll,
 		startDownload
 	} = makeSideEffectors({
-		_groupComplete,
-		_outData,
 		_outEvents,
-		_outLoadingKeys,
 		downloadFn
 	});
 
 	// aborting
+
+	const abortAll = reason =>
+		_outLoadingKeys
+		.getValue()
+		.forEach(key => abort(key, reason));
 
 	// When `_uriMap` changes we:
 	// * abort all downloads
@@ -168,6 +174,42 @@ export const createFetchManagerStreams = downloadFn => {
 	.pipe(debounceTime(0))
 	.subscribe(abortKeys =>
 		abortKeys.forEach(key => abort(key, 'Aborted by priority change'))
+	);
+
+	_outEvents
+	.pipe(
+		filter(isKeyValue(['type', 'file:start'])),
+		withLatestFrom(_outLoadingKeys)
+	)
+	.subscribe(([{key}, loadingUris]) =>
+		_outLoadingKeys.next([...loadingUris, key])
+	);
+
+	_outEvents
+	.pipe(
+		filter(({type}) => [
+			'file:abort',
+			'file:complete',
+			'file:error'
+		].includes(type)
+		),
+		withLatestFrom(_outLoadingKeys, _outData),
+	)
+	.subscribe(([{data, key, type}, loadingKeys, outData]) => {
+		_outLoadingKeys.next(_.pullFrom(loadingKeys, [key]));
+		if (type === 'file:complete') {
+			_outData.next({...outData, [key]: data});
+		}
+	});
+
+	_outEvents
+	.pipe(
+		filter(isKeyValue(['type', 'group:complete'])),
+		withLatestFrom(_outLoadingKeys)
+	)
+	.subscribe(() => {
+		_groupComplete.next();
+	}
 	);
 
 	// downloading
