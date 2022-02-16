@@ -31,9 +31,9 @@ export const createFetchManagerStreams = downloadFn => {
 	const _priorities = new BehaviorSubject({
 		asapKeys: [],
 		nextKeys: [],
+		shouldPrefetch: false,
 		uriMap: {}
 	});
-	const _shouldPrefetch = new BehaviorSubject(false);
 
 	/* output streams */
 
@@ -50,14 +50,20 @@ export const createFetchManagerStreams = downloadFn => {
 	/* internal derived streams */
 
 	const _asapKeys = _priorities.pipe(
-		map(({asapKeys}) => asapKeys || [])
+		map(({asapKeys}) => asapKeys || []),
+		distinctUntilChanged(areEqual)
 	);
 	const _nextKeys = _priorities.pipe(
-		map(({nextKeys}) => nextKeys || [])
+		map(({nextKeys}) => nextKeys || []),
+		distinctUntilChanged(areEqual)
 	)
 	const _uriMap = _priorities.pipe(
 		map(({uriMap}) => uriMap || {}),
 		distinctUntilChanged(areEqual)
+	);
+	const _shouldPrefetch = _priorities.pipe(
+		map(({shouldPrefetch}) => shouldPrefetch || false),
+		distinctUntilChanged() // simple comparison sufficient for boolean
 	);
 
 	const _allKeys = _uriMap.pipe(
@@ -256,7 +262,6 @@ export const createFetchManagerStreams = downloadFn => {
 		_outData,
 		_outEvents,
 		_outLoadingKeys,
-		_priorities,
-		_shouldPrefetch
+		_priorities
 	}
 }

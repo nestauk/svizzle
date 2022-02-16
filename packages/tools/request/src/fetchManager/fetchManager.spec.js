@@ -91,12 +91,11 @@ describe('fetchManager', function () {
 					_outData,
 					_outEvents,
 					_priorities,
-					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys: keysFrom2021,
+					shouldPrefetch: true,
 					uriMap: _.pickIn(uriMap, keysFrom2021)
 				});
 
@@ -112,6 +111,7 @@ describe('fetchManager', function () {
 						if (!switchedMap && totalCompleted > keysFrom2021.length / 2) {
 							_priorities.next({
 								asapKeys: keysFrom2016,
+								shouldPrefetch: true,
 								uriMap: _.pickIn(uriMap, keysFrom2016)
 							});
 							switchedMap = true;
@@ -139,12 +139,11 @@ describe('fetchManager', function () {
 					_outData,
 					_outEvents,
 					_priorities,
-					_shouldPrefetch
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys: keysFrom2021,
+					shouldPrefetch: true,
 					uriMap: _.pickIn(uriMap, keysFrom2021)
 				});
 
@@ -169,6 +168,7 @@ describe('fetchManager', function () {
 							])(uriMap);
 							_priorities.next({
 								asapKeys: keysFrom2021,
+								shouldPrefetch: true,
 								uriMap: newMap
 							});
 							switchedMap = true;
@@ -195,13 +195,12 @@ describe('fetchManager', function () {
 				const {
 					_outData,
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys: keysFrom2021,
+					shouldPrefetch: true,
 					uriMap: _.pickIn(uriMap, keysFrom2021)
 				});
 
@@ -226,6 +225,7 @@ describe('fetchManager', function () {
 							])(uriMap);
 							_priorities.next({
 								asapKeys: keysFrom2016,
+								shouldPrefetch: true,
 								uriMap: newMap
 							});
 							switchedMap = true;
@@ -257,13 +257,12 @@ describe('fetchManager', function () {
 				_outData,
 				_outEvents,
 				_priorities,
-				_shouldPrefetch
 			} = createFetchManagerStreams(downloadFn);
 
-			_shouldPrefetch.next(false); // keep? it's the default value
 			_priorities.next({
 				asapKeys: keysFrom2021,
 				nextKeys: keysFrom2016,
+				shouldPrefetch: false,
 				uriMap
 			});
 
@@ -290,14 +289,13 @@ describe('fetchManager', function () {
 			const {
 				_outData,
 				_outEvents,
-				_priorities,
-				_shouldPrefetch
+				_priorities
 			} = createFetchManagerStreams(downloadFn);
 
-			_shouldPrefetch.next(true);
 			_priorities.next({
 				asapKeys: keysFrom2021,
 				nextKeys: keysFrom2016,
+				shouldPrefetch: true,
 				uriMap
 			});
 
@@ -325,14 +323,13 @@ describe('fetchManager', function () {
 				const {
 					_outData,
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys: keysFrom2021,
 					nextKeys: keysFrom2016,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -342,7 +339,12 @@ describe('fetchManager', function () {
 						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						if (!turnedItOff) {
-							_shouldPrefetch.next(false);
+							_priorities.next({
+								asapKeys: keysFrom2021,
+								nextKeys: keysFrom2016,
+								shouldPrefetch: false,
+								uriMap
+							});
 							turnedItOff = true;
 						}
 					});
@@ -369,14 +371,13 @@ describe('fetchManager', function () {
 				const {
 					_outData,
 					_outEvents,
-					_priorities,
-					_shouldPrefetch,
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys: keysFrom2021,
 					nextKeys: keysFrom2016,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -396,7 +397,12 @@ describe('fetchManager', function () {
 						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						if (hasNextStarted && !turnedItOff) {
-							_shouldPrefetch.next(false);
+							_priorities.next({
+								asapKeys: keysFrom2021,
+								nextKeys: keysFrom2016,
+								shouldPrefetch: false,
+								uriMap
+							});
 							turnedItOff = true;
 						}
 					});
@@ -425,14 +431,13 @@ describe('fetchManager', function () {
 				const {
 					_outData,
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(false);
 				_priorities.next({
 					asapKeys: keysFrom2021,
 					nextKeys: keysFrom2016,
+					shouldPrefetch: false,
 					uriMap
 				});
 
@@ -442,7 +447,12 @@ describe('fetchManager', function () {
 						filter(isKeyValue(['type', 'file:complete']))
 					).subscribe(() => {
 						if (!turnedItOn) {
-							_shouldPrefetch.next(true);
+							_priorities.next({
+								asapKeys: keysFrom2021,
+								nextKeys: keysFrom2016,
+								shouldPrefetch: true,
+								uriMap
+							});
 							turnedItOn = true;
 						}
 					});
@@ -470,13 +480,12 @@ describe('fetchManager', function () {
 					_outData,
 					_outEvents,
 					_priorities,
-					_shouldPrefetch,
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(false);
 				_priorities.next({
 					asapKeys: keysFrom2021,
 					nextKeys: keysFrom2016,
+					shouldPrefetch: false,
 					uriMap
 				});
 
@@ -488,7 +497,12 @@ describe('fetchManager', function () {
 					).subscribe(() => {
 						if (!turnedItOn) {
 							turnedItOn = true;
-							_shouldPrefetch.next(true);
+							_priorities.next({
+								asapKeys: keysFrom2021,
+								nextKeys: keysFrom2016,
+								shouldPrefetch: true,
+								uriMap
+							});
 						} else {
 							const data = _outData.getValue();
 							const keys = _.keys(data);
@@ -522,14 +536,13 @@ describe('fetchManager', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys,
 					nextKeys,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -585,14 +598,13 @@ describe('fetchManager', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys,
 					nextKeys: asapKeys,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -621,14 +633,13 @@ describe('fetchManager', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys,
 					nextKeys,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -647,6 +658,7 @@ describe('fetchManager', function () {
 							_priorities.next({
 								asapKeys: newAsap,
 								nextKeys,
+								shouldPrefetch: true,
 								uriMap
 							});
 						}
@@ -671,14 +683,13 @@ describe('fetchManager', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys,
 					nextKeys,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -697,6 +708,7 @@ describe('fetchManager', function () {
 							_priorities.next({
 								asapKeys: newAsap,
 								nextKeys: asapKeys,
+								shouldPrefetch: true,
 								uriMap
 							});
 						}
@@ -731,14 +743,13 @@ describe('fetchManager', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys,
 					nextKeys,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -763,6 +774,7 @@ describe('fetchManager', function () {
 							_priorities.next({
 								asapKeys: newAsap,
 								nextKeys: asapKeys,
+								shouldPrefetch: true,
 								uriMap
 							});
 						}
@@ -787,14 +799,13 @@ describe('fetchManager', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys,
 					nextKeys,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -819,6 +830,7 @@ describe('fetchManager', function () {
 							_priorities.next({
 								asapKeys: newAsap,
 								nextKeys,
+								shouldPrefetch: true,
 								uriMap
 							});
 						}
@@ -852,14 +864,13 @@ describe('fetchManager', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny)
 				const {
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys,
 					nextKeys,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -885,6 +896,7 @@ describe('fetchManager', function () {
 							_priorities.next({
 								asapKeys: newAsap,
 								nextKeys,
+								shouldPrefetch: true,
 								uriMap
 							});
 						}
@@ -909,14 +921,13 @@ describe('fetchManager', function () {
 				const downloadFn = makeWebStreamsFetcher(fetch, jsonBufferToAny);
 				const {
 					_outEvents,
-					_priorities,
-					_shouldPrefetch
+					_priorities
 				} = createFetchManagerStreams(downloadFn);
 
-				_shouldPrefetch.next(true);
 				_priorities.next({
 					asapKeys,
 					nextKeys,
+					shouldPrefetch: true,
 					uriMap
 				});
 
@@ -941,6 +952,7 @@ describe('fetchManager', function () {
 							_priorities.next({
 								asapKeys: newAsap,
 								nextKeys: keysFrom2013,
+								shouldPrefetch: true,
 								uriMap
 							});
 						}
