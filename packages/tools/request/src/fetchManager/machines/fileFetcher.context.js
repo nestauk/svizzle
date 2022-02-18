@@ -1,6 +1,4 @@
-import { BehaviorSubject } from "rxjs";
-
-export const createFetchManagerStreams = () => ({
+export const createFileFetcherContext = () => ({
 	URI: null,
 	buffer: null,
 });

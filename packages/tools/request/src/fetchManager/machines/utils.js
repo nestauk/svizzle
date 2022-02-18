@@ -1,28 +1,14 @@
+/* eslint-disable no-process-env */
+
 import {interpret, Machine} from 'xstate';
-import * as _ from 'lamb';
-import {stringify} from '@svizzle/utils';
-import { BehaviorSubject } from 'rxjs';
-
-export function bindToStream (interpreter) {
-	const machineStore = new BehaviorSubject(interpreter.initialState);
-
-	interpreter.onTransition(nextState => {
-		machineStore.next(nextState);
-	});
-
-	return {
-		subscribe: machineStore.subscribe,
-		send: interpreter.send,
-	};
-}
 
 /**
- * Creates an xstate machine and places it into a svelte store.
- * Also creates a svelte store to be passed to the machine as context
+ * Creates an xstate machine service and returns it together with contextStreams
+ * passed to it
  *
  * @param machineConfig - A valid xstate configuration object
- * @param machineOptions - A valid xstate options object: guards, actions, services, activities
- * @param contextStreams - The default store(s) to be passed to xstate as context
+ * @param machineOptions - A valid xstate options object: {actions, activities, guards, services}
+ * @param contextStreams - The default streams to be passed to xstate as context
  * @returns An object containing two objects. One being a store containing the xstate machine, the other containing the stores passed in as context.
  */
 export function createMachinaRx (machineConfig, machineOptions, contextStreams) {
@@ -40,6 +26,3 @@ export function createMachinaRx (machineConfig, machineOptions, contextStreams) 
 		contextStreams
 	};
 }
-
-
-export const stringifyContextStores = _.pipe([_.mapValuesWith(get), stringify]);

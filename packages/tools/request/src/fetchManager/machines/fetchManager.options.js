@@ -1,16 +1,7 @@
-/*
-addFileToData
-addToLoadingURIs
-computeProgress
-computeTargets
-deleteFileFetcher
-deleteUneededFetchers
-pullFromLoadingURIs
-spawnNewFetchers
-*/
+import * as _ from 'lamb';
+import {assign} from 'xstate';
 
-import { assign } from "core-js/core/object";
-import _ as * from 'lamb';
+/* utils */
 
 const pushToArrayStream = (stream, item) => {
 	const array = stream.getValue();
@@ -21,6 +12,8 @@ const pullFromArrayStream = (stream, item) => {
 	const array = stream.getValue();
 	stream.next(_.pullFrom(array, [item]));
 }
+
+/* actions */
 
 const addToLoadingURIs = ({_loadingURIs}, {URI}) => {
 	pushToArrayStream(_loadingURIs, URI);
@@ -44,6 +37,17 @@ const addFileToData = ({_data}, {URI, data}) => {
 const computeTargets = (ctx, {}) => {
 
 }
+
+/*
+computeProgress
+computeTargets
+deleteFileFetcher
+deleteUneededFetchers
+pullFromLoadingURIs
+spawnNewFetchers
+*/
+
+/* options */
 
 export const fetchManagerOptions = {
 	actions: {

@@ -1,4 +1,4 @@
-export const fetchManagerConfio = {
+export const fetchManagerConfig = {
 	id: 'manager',
 	initial: 'Active',
 	states: {

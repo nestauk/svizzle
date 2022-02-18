@@ -1,6 +1,5 @@
-import { createMachinaRx } from '../utils.js';
+import { createMachinaRx } from './utils';
 
-// import { fileFetcherOptions } from './groupFetcher.options';
 import { fetchManagerOptions } from './fetchManager.options';
 import { fetchManagerConfig } from './fetchManager.config';
 import { createFetchManagerStreams } from './fetchManager.context';
