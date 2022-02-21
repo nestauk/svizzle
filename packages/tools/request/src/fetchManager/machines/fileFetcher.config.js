@@ -13,6 +13,9 @@ export const fileFetcherConfig = {
 				},
 				ERRORED: {
 					target: '#FileFetcher.Erroring'
+				},
+				CHUNK: {
+					actions: 'storeChunk'
 				}
 			}
 		},

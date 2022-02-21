@@ -1,3 +1,4 @@
+import { assign } from 'core-js/core/object';
 import {send, sendParent} from 'xstate';
 
 /* utils */
@@ -29,7 +30,10 @@ const startFileFetching = async ({URI, myFetch, readerCell, chunks}) => {
 	const processChunk = ({done, value}) => {
 		try {
 			if (!done) {
-				chunks.push(value);
+				send({
+					type: 'CHUNK',
+					chunk: value
+				})
 				reader.read().then(processChunk);
 			} else {
 				send('SUCCESS');
@@ -44,6 +48,11 @@ const startFileFetching = async ({URI, myFetch, readerCell, chunks}) => {
 
 	// start reading
 	reader.read().then(processChunk);
+}
+
+const storeChunk = ({chunks}, {chunk}) => {
+	chunks.push(chunk);
+	return {chunks};
 }
 
 /* Success */
@@ -87,7 +96,8 @@ export const fileFetcherOptions = {
 		sendParentFileCancelled,
 		sendParentFileCompleted,
 		sendParentFileErrored,
-		startFileFetching
+		startFileFetching,
+		storeChunk: assign(storeChunk)
 	},
 	guards: {
 	}
