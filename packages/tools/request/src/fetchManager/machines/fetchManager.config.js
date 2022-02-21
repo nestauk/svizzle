@@ -4,11 +4,8 @@ export const fetchManagerConfig = {
 	states: {
 		Active: {
 			on: {
-				PRIORITIES_CHANGED: {
-					actions: [
-						'updatePriorities'
-					],
-					target: '#manager.UpdatingForPropsChange'
+				FILE_CANCELLED: {
+					target: '#manager.UpdatingForFileEvent'
 				},
 				FILE_STARTED: {
 					actions: 'addToLoadingURIs',
@@ -16,33 +13,29 @@ export const fetchManagerConfig = {
 				},
 				FILE_COMPLETED: {
 					actions: 'addFileToData',
-					target: '#manager.UpdatingForFetchEvent'
+					target: '#manager.UpdatingForFileEvent'
 				},
 				FILE_ERRORED: {
-					target: '#manager.UpdatingForFetchEvent'
+					target: '#manager.UpdatingForFileEvent'
+				},
+				PRIORITY_CHANGED: {
+					target: '#manager.UpdatingForPropsChange'
 				},
 				URIs_CHANGED: {
-					actions: [
-						'updateURIs'
-					],
 					target: '#manager.UpdatingForPropsChange'
 				}
 			}
 		},
-		UpdatingForFetchEvent: {
-			entry: [
-				'pullFromLoadingURIs',
-				'deleteFileFetcher',
-			],
+		UpdatingForFileEvent: {
+			entry: 'removeFromLoadingURIs',
 			always: {
-				target: '#manager.Active'
+				target: '#manager.UpdatingForPropsChange'
 			}
 		},
 		UpdatingForPropsChange: {
 			entry: [
-				'computeTargets',
 				'computeProgress',
-				'deleteUneededFetchers',
+				'cancelUneededFetchers',
 				'spawnNewFetchers'
 			],
 			always: {
@@ -50,4 +43,4 @@ export const fetchManagerConfig = {
 			}
 		}
 	}
-};
+}

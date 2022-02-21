@@ -35,7 +35,7 @@ const addFileToData = ({_data}, {URI, data}) => {
 	return {_data};
 }
 
-const compute = ctx => {
+const computeProgress = ctx => {
 	const {
 		inputs: {
 			_loadingURIs,
@@ -65,26 +65,25 @@ const compute = ctx => {
 	);
 	const neededNextURIs = _.difference(
 		nextURIs,
-		loadedUris
+		_.union(loadedUris, loadingUris)
 	);
 	const neededRestURIs = _.difference(
 		restURIs,
-		loadedUris
+		_.union(loadedUris, loadingUris)
 	);
 
-	const URIsToSpawn = isIterableNotEmpty(neededAsapURIs) ?
-		neededAsapURIs :
-		isIterableNotEmpty(neededNextURIs) ?
-		neededNextURIs :
-		isIterableNotEmpty(neededRestURIs) ?
-		neededRestURIs :
-		[];
+	const URIsToSpawn = isIterableNotEmpty(neededAsapURIs)
+		? neededAsapURIs
+		: isIterableNotEmpty(neededNextURIs)
+			? neededNextURIs
+			: neededRestURIs;
 
 	// 3. compute URIs that must be cancelled
 	const URIsToCancel = _.difference(
 		loadingUris,
 		URIsToSpawn
-	)
+	);
+
 	return {
 		...ctx,
 		internals: {
@@ -94,12 +93,13 @@ const compute = ctx => {
 	}
 }
 
+const spawnNewFetchers = ({internals:{URIsToSpawn, fileFetcherMachines}}) => {
+	
+}
+
 /*
-computeProgress
-computeTargets
+cancelUneededFetchers
 deleteFileFetcher
-deleteUneededFetchers
-pullFromLoadingURIs
 spawnNewFetchers
 */
 
@@ -110,7 +110,7 @@ export const fetchManagerOptions = {
 		addToLoadingURIs: assign(addToLoadingURIs),
 		addFileToData: assign(addFileToData),
 		removeFromLoadingURIs: assign(removeFromLoadingURIs),
-		computeTargets: assign(computeTargets)
+		computeProgress: assign(computeProgress)
 	},
 	guards: {
 	}

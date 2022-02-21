@@ -1,31 +1,33 @@
 export const fileFetcherConfig = {
-	id: 'fileFetcher',
-	initial: 'pending',
+	id: 'FileFetcher',
+	initial: 'Pending',
 	states: {
-		pending: {
+		Pending: {
+			entry: 'startFileFetching',
 			on: {
 				CANCEL: {
-					target: 'cancelled',
-				},
-				ERROR: {
-					target: 'errored',
+					target: '#FileFetcher.Canceling'
 				},
 				SUCCESS: {
-					target: 'successful',
+					target: '#FileFetcher.Succesful'
 				},
-			},
+				ERRORED: {
+					target: '#FileFetcher.Erroring'
+				}
+			}
 		},
-		cancelled: {
+		Canceling: {
 			type: 'final',
-			entry: 'cancelFileFetching',
+			entry: [
+				'cancelFileFetching',
+				'sendParentCanceled'
+			]
 		},
-		errored: {
-			type: 'final',
-			entry: 'sendFileErrored',
+		Succesful: {
+			entry: 'sendParentFileCompleted'
 		},
-		successful: {
-			type: 'final',
-			entry: 'sendFileCompleted',
-		},
+		Erroring: {
+			entry: 'sendParentFileErrored'
+		}
 	}
 };
