@@ -5,6 +5,9 @@ export const fetchManagerConfig = {
 		Active: {
 			on: {
 				PRIORITIES_CHANGED: {
+					actions: [
+						'updatePriorities'
+					],
 					target: '#manager.UpdatingForPropsChange'
 				},
 				FILE_STARTED: {
@@ -19,6 +22,9 @@ export const fetchManagerConfig = {
 					target: '#manager.UpdatingForFetchEvent'
 				},
 				URIs_CHANGED: {
+					actions: [
+						'updateURIs'
+					],
 					target: '#manager.UpdatingForPropsChange'
 				}
 			}
@@ -26,9 +32,7 @@ export const fetchManagerConfig = {
 		UpdatingForFetchEvent: {
 			entry: [
 				'pullFromLoadingURIs',
-				'computeProgress',
 				'deleteFileFetcher',
-				'spawnNewFetchers'
 			],
 			always: {
 				target: '#manager.Active'

@@ -1,3 +1,4 @@
+import { isIterableNotEmpty } from '@svizzle/utils';
 import * as _ from 'lamb';
 import {assign} from 'xstate';
 
@@ -34,8 +35,63 @@ const addFileToData = ({_data}, {URI, data}) => {
 	return {_data};
 }
 
-const computeTargets = (ctx, {}) => {
+const compute = ctx => {
+	const {
+		inputs: {
+			_loadingURIs,
+			_priorities,
+			_URIs
+		},
+		outputs: {_data}
+	} = ctx;
 
+	const loadedUris = _.keys(_data.getValue());
+	const loadingUris = _loadingURIs.getValue();
+	const {
+		asapURIs,
+		nextURIs
+	}= _priorities.getValue();
+	const URIs = _URIs.getValue();
+
+	// 1. compute `restURIs`
+	const restURIs = _.difference(
+		URIs,
+		_.union(asapURIs, nextURIs)
+	);
+	// 2. compute URIs that must be spawned
+	const neededAsapURIs = _.difference(
+		asapURIs,
+		_.union(loadedUris, loadingUris)
+	);
+	const neededNextURIs = _.difference(
+		nextURIs,
+		loadedUris
+	);
+	const neededRestURIs = _.difference(
+		restURIs,
+		loadedUris
+	);
+
+	const URIsToSpawn = isIterableNotEmpty(neededAsapURIs) ?
+		neededAsapURIs :
+		isIterableNotEmpty(neededNextURIs) ?
+		neededNextURIs :
+		isIterableNotEmpty(neededRestURIs) ?
+		neededRestURIs :
+		[];
+
+	// 3. compute URIs that must be cancelled
+	const URIsToCancel = _.difference(
+		loadingUris,
+		URIsToSpawn
+	)
+	return {
+		...ctx,
+		internals: {
+			URIsToCancel,
+			URIsToSpawn
+		}
+	}
 }
 
 /*

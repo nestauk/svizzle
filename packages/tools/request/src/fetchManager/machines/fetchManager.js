@@ -2,7 +2,7 @@ import { createMachinaRx } from './utils';
 
 import { fetchManagerOptions } from './fetchManager.options';
 import { fetchManagerConfig } from './fetchManager.config';
-import { createFetchManagerStreams } from './fetchManager.context';
+import { createFetchManagerContext } from './fetchManager.context';
 
 export const options = {
 	actions: {
@@ -13,8 +13,8 @@ export const options = {
 	}
 };
 
-export const createManagerMachine = () => createMachinaRx(
+export const createFetchManager = () => createMachinaRx(
 	fetchManagerConfig,
 	options,
-	createFetchManagerStreams()
+	createFetchManagerContext()
 );
