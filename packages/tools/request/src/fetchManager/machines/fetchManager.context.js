@@ -12,5 +12,10 @@ export const createFetchManagerContext = () => ({
 	outputs: {
 		_data: new BehaviorSubject({}),
 		_loadingURIs: new BehaviorSubject([]),
+	},
+	internals: {
+		URIsToCancel: [],
+		URIsToSpawn: [],
+		fileFetcherMachines: {}
 	}
 });

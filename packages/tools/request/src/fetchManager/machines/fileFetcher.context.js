@@ -1,4 +1,7 @@
+import { BehaviorSubject } from "rxjs";
+
 export const createFileFetcherContext = () => ({
 	URI: null,
-	buffer: null,
+	readerCell: [],
+	chunks: []
 });

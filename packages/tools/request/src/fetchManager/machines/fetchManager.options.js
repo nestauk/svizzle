@@ -1,6 +1,9 @@
 import { isIterableNotEmpty } from '@svizzle/utils';
 import * as _ from 'lamb';
-import {assign} from 'xstate';
+import { send } from 'process';
+import {assign, spawn} from 'xstate';
+
+import {fileFetcherTemplate} from './fileFetcher';
 
 /* utils */
 
@@ -93,9 +96,85 @@ const computeProgress = ctx => {
 	}
 }
 
-const spawnNewFetchers = ({internals:{URIsToSpawn, fileFetcherMachines}}) => {
-	
+
+const spawnNewFetchers = ({internals}) => {
+	const {URIsToSpawn, fileFetcherMachines} = internals;
+	const newMachines = _.pipe([
+		_.mapWith(URI => [
+			URI,
+			spawn(fileFetcherTemplate.withContext({
+				URI,
+				readerCell: [],
+				chunks: []
+			}))
+		]),
+		_.fromPairs
+	])(URIsToSpawn);
+
+	return {
+		internals: {
+			...internals,
+			fileFetcherMachines: {
+				...fileFetcherMachines,
+				...newMachines
+			}
+		}
+	}
 }
+
+const cancelUneededFetchers = ({internals}) => {
+	const {fileFetcherMachines, URIsToCancel} = internals;
+	const machines = _.values(_.pickIn(fileFetcherMachines, URIsToCancel));
+	_.forEach(machines, machine => machine.send('CANCEL'));
+}
+
+const deleteFileFetcher = ({internals},{URI}) => {
+	const {fileFetcherMachines} = internals;
+	const machine = fileFetcherMachines[URI];
+	machine.stop();
+	delete fileFetcherMachines[URI];
+	return {
+		internals: {
+			...internals,
+			fileFetcherMachines: {...fileFetcherMachines}
+		}
+	}
+}
+
+/*
+function createForm (ctx, id, arrayIndex) {
+	const machine = formTemplate.withContext({
+		...ctx,
+		id,
+		arrayIndex,
+		...createFormStores(),
+	});
+	const interpreter = spawn(machine, id);
+	const newForm = {
+		id,
+		text: capitalize(id),
+		value: arrayIndex,
+		disabled: false,
+		machine: bindToStore(interpreter),
+	};
+	return newForm;
+}
+
+function spawnFileFetcher (ctx) {
+	const forms = get(ctx.forms);
+	const arrayIndex = forms.length;
+	const selectedForm = get(ctx.selectedForm);
+	if (!selectedForm || selectedForm.value + 1 === arrayIndex) {
+		const nextName = AXIS_NAMES[arrayIndex];
+		const newForm = createForm(ctx, nextName, arrayIndex);
+		ctx.forms.set([
+			...forms,
+			newForm
+		]);
+		!selectedForm && ctx.selectedForm.set(newForm);
+	}
+}
+*/
 
 /*
 cancelUneededFetchers
@@ -110,7 +189,10 @@ export const fetchManagerOptions = {
 		addToLoadingURIs: assign(addToLoadingURIs),
 		addFileToData: assign(addFileToData),
 		removeFromLoadingURIs: assign(removeFromLoadingURIs),
-		computeProgress: assign(computeProgress)
+		computeProgress: assign(computeProgress),
+		spawnNewFetchers: assign(spawnNewFetchers),
+		cancelUneededFetchers,
+		deleteFileFetcher: assign(deleteFileFetcher)
 	},
 	guards: {
 	}

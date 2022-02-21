@@ -6,7 +6,7 @@ export const fileFetcherConfig = {
 			entry: 'startFileFetching',
 			on: {
 				CANCEL: {
-					target: '#FileFetcher.Canceling'
+					target: '#FileFetcher.Cancelling'
 				},
 				SUCCESS: {
 					target: '#FileFetcher.Succesful'
@@ -16,11 +16,11 @@ export const fileFetcherConfig = {
 				}
 			}
 		},
-		Canceling: {
+		Cancelling: {
 			type: 'final',
 			entry: [
 				'cancelFileFetching',
-				'sendParentCanceled'
+				'sendParentCancelled'
 			]
 		},
 		Succesful: {
