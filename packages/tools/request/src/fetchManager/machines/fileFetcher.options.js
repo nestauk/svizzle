@@ -1,5 +1,4 @@
-import { assign } from 'core-js/core/object';
-import {send, sendParent} from 'xstate';
+import {assign, send, sendParent} from 'xstate';
 
 /* utils */
 

@@ -1,3 +1,5 @@
+import {readdirSync} from 'fs';
+
 // import {strict as assert} from 'assert';
 import {fetch} from 'undici';
 import path from 'path';

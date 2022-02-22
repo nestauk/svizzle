@@ -1,6 +1,5 @@
 import { isIterableNotEmpty } from '@svizzle/utils';
 import * as _ from 'lamb';
-import { send } from 'process';
 import {assign, spawn} from 'xstate';
 
 import {fileFetcherTemplate} from './fileFetcher';
