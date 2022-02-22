@@ -6,7 +6,7 @@ export const createFetchManagerContext = () => ({
 			asapURIs: [],
 			nextURIs: []
 		}),
-		_URIs: new BehaviorSubject([]),	
+		_URIs: new BehaviorSubject([]),
 		_fetchUpTo: new BehaviorSubject('asap'),
 	},
 	outputs: {
