@@ -94,8 +94,53 @@ describe('fileFetcher', function () {
 					}
 				}
 			})
-			const service = interpret(testMachine).start();
-			// from(service).subscribe(state => console.log(state.event));
+			interpret(testMachine).start();
 		})
 	});
+	it('must error if not found', function () {
+		// const isDoneEvent = state => state.event.type === 'done.invoke.readChunk';
+		return new Promise((resolve, reject) => {
+			const testMachine = createMachine({
+				initial: 'Pending',
+				context: {},
+				states: {
+					Pending: {
+						entry: 'spawnFetcher',
+						on: {
+							FILE_COMPLETED: {
+								target: 'Done'
+							},
+							FILE_ERRORED: {
+								target: 'Done'
+							}
+						}
+					},
+					Done: {
+						entry: 'verifyResult'
+					}
+				}
+			},
+			{
+				actions: {
+					spawnFetcher: assign({
+						fetcher: () => spawn(
+							fileFetcher.withContext({
+								chunks: [],
+								done: false,
+								myFetch: fetch,
+								URI: `${baseServerPath}doesnt-exist.json`
+							}),
+							'id'
+						)
+					}),
+					verifyResult: (ctx, {type}) => {
+						assert(type === 'FILE_ERRORED', 'Fetch must fail to pass the test.')
+						resolve()
+					}
+				}
+			})
+			interpret(testMachine).start();
+		})
+	});
+
 });
