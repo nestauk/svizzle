@@ -1,15 +1,45 @@
 export const fileFetcherConfig = {
 	id: 'FileFetcher',
-	initial: 'Pending',
+	initial: 'Starting',
 	states: {
+		Starting: {
+			invoke: {
+				id: 'getReader',
+				src: 'getFetchReader',
+				onDone: {
+					actions: [
+						'storeFetchReader',
+						// (ctx) => console.log(ctx)
+					],
+					target: '#FileFetcher.Pending'
+				},
+				onError: {
+					target: '#FileFetcher.Erroring',
+				}
+			}
+		},
 		Pending: {
-			entry: 'startFileFetching',
+			invoke: {
+				id: 'readChunk',
+				src: 'readChunk',
+				onDone: {
+					actions: [
+						'storeChunk',
+						// (ctx) => console.log(ctx)
+					],
+					target: '#FileFetcher.Pending'
+				},
+				onError: {
+					target: '#FileFetcher.Erroring'
+				}
+			},
+			always: {
+				cond: 'isDone',
+				target: '#FileFetcher.Succesful'
+			},
 			on: {
 				CANCEL: {
 					target: '#FileFetcher.Cancelling'
-				},
-				SUCCESS: {
-					target: '#FileFetcher.Succesful'
 				},
 				ERRORED: {
 					target: '#FileFetcher.Erroring'
@@ -27,9 +57,11 @@ export const fileFetcherConfig = {
 			]
 		},
 		Succesful: {
+			type: 'final',
 			entry: 'sendParentFileCompleted'
 		},
 		Erroring: {
+			type: 'final',
 			entry: 'sendParentFileErrored'
 		}
 	}

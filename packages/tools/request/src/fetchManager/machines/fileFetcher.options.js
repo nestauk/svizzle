@@ -18,51 +18,34 @@ const mergeUint8Arrays = arrays => {
 	return mergedArray;
 }
 
-/* actions */
-
-const startFileFetching = async ({URI, myFetch, readerCell, chunks}) => {
+/* services */
+const getFetchReader = async (URI, myFetch) => {
 	const response = await myFetch(URI);
 	const stream = await response.body;
 	const reader = stream.getReader();
-	readerCell[0] = reader;
-
-	const processChunk = ({done, value}) => {
-		try {
-			if (!done) {
-				send({
-					type: 'CHUNK',
-					chunk: value
-				})
-				reader.read().then(processChunk);
-			} else {
-				send('SUCCESS');
-			}
-		} catch (error) {
-			send({
-				type: 'ERROR',
-				error
-			});
-		}
-	};
-
-	// start reading
-	reader.read().then(processChunk);
+	return reader;
 }
 
-const storeChunk = ({chunks}, {chunk}) => {
-	chunks.push(chunk);
-	return {chunks};
+const readChunk = ({fetchReader}) => fetchReader.read()
+
+/* actions */
+
+const storeFetchReader = (ctx, {data}) => ({fetchReader: data})
+
+const storeChunk = ({chunks}, {data: {done, value}}) => {
+	if (!done) {
+		chunks.push(value);
+	}
+	return {done, chunks};
 }
 
 /* Success */
 
-const sendParentFileCompleted = ({URI, chunks}) => {
-	sendParent({
-		bytes: mergeUint8Arrays(chunks),
-		type: 'FILE_COMPLETED',
-		URI
-	})
-}
+const sendParentFileCompleted = sendParent(({URI, chunks}) => ({
+	bytes: mergeUint8Arrays(chunks),
+	type: 'FILE_COMPLETED',
+	URI
+}));
 
 /* Cancelling */
 
@@ -71,21 +54,17 @@ const cancelFileFetching = async ({readerCell}, {reason}) => {
 	await reader.cancel(reason);
 }
 
-const sendParentFileCancelled = ({URI}) => {
-	sendParent({
-		type: 'FILE_CANCELLED',
-		URI
-	});
-}
+const sendParentFileCancelled = sendParent(({URI}) => ({
+	type: 'FILE_CANCELLED',
+	URI
+}));
 
 /* Error */
 
-const sendParentFileErrored = ({URI}) => {
-	sendParent({
-		type: 'FILE_ERRORED',
-		URI
-	});
-}
+const sendParentFileErrored = sendParent(({URI}) => ({
+	type: 'FILE_ERRORED',
+	URI
+}));
 
 /* options */
 
@@ -95,9 +74,14 @@ export const fileFetcherOptions = {
 		sendParentFileCancelled,
 		sendParentFileCompleted,
 		sendParentFileErrored,
-		startFileFetching,
-		storeChunk: assign(storeChunk)
+		storeChunk: assign(storeChunk),
+		storeFetchReader: assign(storeFetchReader)
 	},
 	guards: {
+		isDone: ({done}) => done
+	},
+	services: {
+		getFetchReader: ({URI, myFetch}) => getFetchReader(URI, myFetch),
+		readChunk
 	}
 };
