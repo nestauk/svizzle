@@ -33,6 +33,30 @@ const fileFetcher = createMachine(
 	fileFetcherOptions
 );
 
+const testMachineConfig = {
+	initial: 'Pending',
+	context: {},
+	states: {
+		Pending: {
+			entry: 'spawnFetcher',
+			on: {
+				FILE_CANCELLED: {
+					target: 'Done'
+				},
+				FILE_COMPLETED: {
+					target: 'Done'
+				},
+				FILE_ERRORED: {
+					target: 'Done'
+				}
+			}
+		},
+		Done: {
+			entry: 'verifyResult'
+		}
+	}
+}
+
 // const urisFrom2021 = getKeysNamed('2021')(allUris);
 // const urisFrom2016 = getKeysNamed('2016')(allUris);
 // const urisFrom2013 = getKeysNamed('2013')(allUris);
@@ -50,97 +74,62 @@ describe('fileFetcher', function () {
 	});
 
 	it('must download a file correctly', function () {
-		// const isDoneEvent = state => state.event.type === 'done.invoke.readChunk';
-		return new Promise((resolve, reject) => {
-			const testMachine = createMachine({
-				initial: 'Pending',
-				context: {},
-				states: {
-					Pending: {
-						entry: 'spawnFetcher',
-						on: {
-							FILE_COMPLETED: {
-								target: 'Done'
-							}
+		return new Promise(resolve => {
+			const testMachine = createMachine(testMachineConfig,
+				{
+					actions: {
+						spawnFetcher: assign({
+							fetcher: () => spawn(
+								fileFetcher.withContext({
+									chunks: [],
+									done: false,
+									myFetch: fetch,
+									URI: allUris[0]
+								}),
+								allUris[0]
+							)
+						}),
+						verifyResult: async (ctx, {type, bytes, URI}) => {
+							assert.equal(type, 'FILE_COMPLETED', 'Event type is not `FILE_COMPLETED`.')
+							const json = jsonParser(bytes);
+							const expectedJsons = await loadJsons(baseServerPath, fileNames, baseUrl);
+							assert.deepStrictEqual(
+								json,
+								expectedJsons[URI],
+								'File content is not the same.'
+							)
+							resolve()
 						}
-					},
-					Done: {
-						entry: 'verifyResult'
 					}
 				}
-			},
-			{
-				actions: {
-					spawnFetcher: assign({
-						fetcher: () => spawn(
-							fileFetcher.withContext({
-								chunks: [],
-								done: false,
-								myFetch: fetch,
-								URI: allUris[0]
-							}),
-							'id'
-						)
-					}),
-					verifyResult: async (ctx, event) => {
-						const json = jsonParser(event.bytes);
-						const expectedJsons = await loadJsons(baseServerPath, fileNames, baseUrl);
-						assert.deepStrictEqual(
-							json,
-							expectedJsons[event.URI],
-							'not the same'
-						)
-						resolve()
-					}
-				}
-			})
+			);
 			interpret(testMachine).start();
-		})
+		});
 	});
 	it('must error if not found', function () {
-		// const isDoneEvent = state => state.event.type === 'done.invoke.readChunk';
-		return new Promise((resolve, reject) => {
-			const testMachine = createMachine({
-				initial: 'Pending',
-				context: {},
-				states: {
-					Pending: {
-						entry: 'spawnFetcher',
-						on: {
-							FILE_COMPLETED: {
-								target: 'Done'
-							},
-							FILE_ERRORED: {
-								target: 'Done'
-							}
+		return new Promise(resolve => {
+			const testMachine = createMachine(testMachineConfig,
+				{
+					actions: {
+						spawnFetcher: assign({
+							fetcher: () => spawn(
+								fileFetcher.withContext({
+									chunks: [],
+									done: false,
+									myFetch: fetch,
+									URI: `${baseServerPath}doesnt-exist.json`
+								}),
+								'id'
+							)
+						}),
+						verifyResult: (ctx, {type}) => {
+							assert(type === 'FILE_ERRORED', 'Fetch must fail to pass the test.')
+							resolve()
 						}
-					},
-					Done: {
-						entry: 'verifyResult'
 					}
 				}
-			},
-			{
-				actions: {
-					spawnFetcher: assign({
-						fetcher: () => spawn(
-							fileFetcher.withContext({
-								chunks: [],
-								done: false,
-								myFetch: fetch,
-								URI: `${baseServerPath}doesnt-exist.json`
-							}),
-							'id'
-						)
-					}),
-					verifyResult: (ctx, {type}) => {
-						assert(type === 'FILE_ERRORED', 'Fetch must fail to pass the test.')
-						resolve()
-					}
-				}
-			})
+			);
 			interpret(testMachine).start();
-		})
+		});
 	});
-
 });
