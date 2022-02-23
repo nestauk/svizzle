@@ -19,7 +19,14 @@ export const fetchManagerConfig = {
 					target: '#manager.UpdatingForFileEvent'
 				},
 				PRIORITY_CHANGED: {
+					actions: 'storePriorities',
 					target: '#manager.UpdatingForPropsChange'
+				},
+				TRANSFORMER_CHANGED: {
+					actions: 'storeTransformer',
+				},
+				FETCH_CHANGED: {
+					actions: 'storeFetchFunction',
 				},
 				URIs_CHANGED: {
 					target: '#manager.UpdatingForPropsChange'

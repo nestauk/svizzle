@@ -18,33 +18,79 @@ const pullFromArrayStream = (stream, item) => {
 
 /* actions */
 
-const addToLoadingURIs = ({_loadingURIs}, {URI}) => {
+const storeTransformer = (ctx, {transformer}) => {
+	const {
+		inputs: {
+			_transformer
+		}
+	} = ctx;
+	_transformer.next(transformer);
+	return ctx;
+}
+
+const storeFetchFunction = (ctx, {fetchFunction}) => {
+	const {
+		inputs: {
+			_fetchFunction
+		}
+	} = ctx;
+	_fetchFunction.next(fetchFunction);
+	return ctx;
+}
+
+const storePriorities = (ctx, {
+	URIs,
+	priorities
+}) => {
+	const {
+		inputs: {
+			_priorities,
+			_URIs
+		}
+	} = ctx;
+	_priorities.next(priorities);
+	_URIs.next(URIs);
+	return ctx;
+}
+
+const addToLoadingURIs = (ctx, {URI}) => {
+	const {_loadingURIs} = ctx.outputs;
 	pushToArrayStream(_loadingURIs, URI);
-	return {_loadingURIs};
+	return ctx;
 }
 
-const removeFromLoadingURIs = ({_loadingURIs}, {URI}) => {
+const removeFromLoadingURIs = (ctx, {URI}) => {
+	const {_loadingURIs} = ctx.outputs;
 	pullFromArrayStream(_loadingURIs, URI);
-	return {_loadingURIs};
+	return ctx;
 }
 
-const addFileToData = ({_data}, {URI, data}) => {
+const addFileToData = (ctx, {URI, bytes}) => {
+	const {
+		inputs: {_transformer},
+		outputs: {_data}
+	} = ctx;
+
 	const obj = _data.getValue();
-	_data.next({
+	const transformer = _transformer.getValue();
+	const nextData = {
 		...obj,
-		[URI]: data
-	});
-	return {_data};
+		[URI]: transformer(bytes)
+	};
+	_data.next(nextData);
+	return ctx;
 }
 
 const computeProgress = ctx => {
 	const {
 		inputs: {
-			_loadingURIs,
 			_priorities,
 			_URIs
 		},
-		outputs: {_data}
+		outputs: {
+			_data,
+			_loadingURIs
+		}
 	} = ctx;
 
 	const loadedUris = _.keys(_data.getValue());
@@ -60,6 +106,7 @@ const computeProgress = ctx => {
 		URIs,
 		_.union(asapURIs, nextURIs)
 	);
+
 	// 2. compute URIs that must be spawned
 	const neededAsapURIs = _.difference(
 		asapURIs,
@@ -95,17 +142,21 @@ const computeProgress = ctx => {
 	}
 }
 
-
-const spawnNewFetchers = ({internals}) => {
+const spawnNewFetchers = ({inputs,internals}) => {
+	const {_fetchFunction} = inputs;
 	const {URIsToSpawn, fileFetcherMachines} = internals;
 	const newMachines = _.pipe([
 		_.mapWith(URI => [
 			URI,
-			spawn(fileFetcherTemplate.withContext({
-				URI,
-				readerCell: [],
-				chunks: []
-			}))
+			spawn(fileFetcherTemplate.withContext(
+				{
+					URI,
+					chunks: [],
+					done: false,
+					myFetch: _fetchFunction.getValue()
+				},
+				URI // id
+			))
 		]),
 		_.fromPairs
 	])(URIsToSpawn);
@@ -140,47 +191,6 @@ const deleteFileFetcher = ({internals},{URI}) => {
 	}
 }
 
-/*
-function createForm (ctx, id, arrayIndex) {
-	const machine = formTemplate.withContext({
-		...ctx,
-		id,
-		arrayIndex,
-		...createFormStores(),
-	});
-	const interpreter = spawn(machine, id);
-	const newForm = {
-		id,
-		text: capitalize(id),
-		value: arrayIndex,
-		disabled: false,
-		machine: bindToStore(interpreter),
-	};
-	return newForm;
-}
-
-function spawnFileFetcher (ctx) {
-	const forms = get(ctx.forms);
-	const arrayIndex = forms.length;
-	const selectedForm = get(ctx.selectedForm);
-	if (!selectedForm || selectedForm.value + 1 === arrayIndex) {
-		const nextName = AXIS_NAMES[arrayIndex];
-		const newForm = createForm(ctx, nextName, arrayIndex);
-		ctx.forms.set([
-			...forms,
-			newForm
-		]);
-		!selectedForm && ctx.selectedForm.set(newForm);
-	}
-}
-*/
-
-/*
-cancelUneededFetchers
-deleteFileFetcher
-spawnNewFetchers
-*/
-
 /* options */
 
 export const fetchManagerOptions = {
@@ -191,7 +201,10 @@ export const fetchManagerOptions = {
 		computeProgress: assign(computeProgress),
 		spawnNewFetchers: assign(spawnNewFetchers),
 		cancelUneededFetchers,
-		deleteFileFetcher: assign(deleteFileFetcher)
+		deleteFileFetcher: assign(deleteFileFetcher),
+		storePriorities: assign(storePriorities),
+		storeTransformer: assign(storeTransformer),
+		storeFetchFunction: assign(storeFetchFunction)
 	},
 	guards: {
 	}

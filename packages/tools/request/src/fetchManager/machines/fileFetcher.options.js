@@ -1,4 +1,4 @@
-import {assign, send, sendParent} from 'xstate';
+import {assign, sendParent} from 'xstate';
 
 /* utils */
 
@@ -19,7 +19,7 @@ const mergeUint8Arrays = arrays => {
 }
 
 /* services */
-const getFetchReader = async (URI, myFetch) => {
+const getFetchReader = async ({URI, myFetch}) => {
 	const response = await myFetch(URI);
 	const stream = await response.body;
 	const reader = stream.getReader();
@@ -31,6 +31,11 @@ const readChunk = ({fetchReader}) => fetchReader.read()
 /* actions */
 
 const storeFetchReader = (ctx, {data}) => ({fetchReader: data})
+
+const sendParentFileStarted = sendParent(({URI}) => ({
+	type: 'FILE_STARTED',
+	URI
+}));
 
 const storeChunk = ({chunks}, {data: {done, value}}) => {
 	if (!done) {
@@ -74,6 +79,7 @@ export const fileFetcherOptions = {
 		sendParentFileCancelled,
 		sendParentFileCompleted,
 		sendParentFileErrored,
+		sendParentFileStarted,
 		storeChunk: assign(storeChunk),
 		storeFetchReader: assign(storeFetchReader)
 	},
@@ -81,7 +87,7 @@ export const fileFetcherOptions = {
 		isDone: ({done}) => done
 	},
 	services: {
-		getFetchReader: ({URI, myFetch}) => getFetchReader(URI, myFetch),
+		getFetchReader,
 		readChunk
 	}
 };

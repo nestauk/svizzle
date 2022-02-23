@@ -1,16 +1,12 @@
 import {strict as assert} from 'assert';
 import {readdirSync} from 'fs';
-// import * as _ from 'lamb';
 import path from 'path';
-import {from} from 'rxjs';
-// import {filter} from 'rxjs/operators';
 import {fetch} from 'undici';
 import {createMachine, interpret, spawn, assign} from 'xstate';
 
-
 import {fileFetcherConfig} from './fileFetcher.config';
 import {fileFetcherOptions} from './fileFetcher.options';
-// import {createMachinaRx} from './utils';
+
 import {
 	getFilteredFileNames,
 	// getKeysNamed,
@@ -57,10 +53,6 @@ const testMachineConfig = {
 	}
 }
 
-// const urisFrom2021 = getKeysNamed('2021')(allUris);
-// const urisFrom2016 = getKeysNamed('2016')(allUris);
-// const urisFrom2013 = getKeysNamed('2013')(allUris);
-
 describe('fileFetcher', function () {
 	// eslint-disable-next-line no-invalid-this
 	this.timeout(TIMEOUT);
@@ -90,15 +82,15 @@ describe('fileFetcher', function () {
 							)
 						}),
 						verifyResult: async (ctx, {type, bytes, URI}) => {
-							assert.equal(type, 'FILE_COMPLETED', 'Event type is not `FILE_COMPLETED`.')
+							assert.equal(type, 'FILE_COMPLETED', 'Event type is not `FILE_COMPLETED`.');
 							const json = jsonParser(bytes);
 							const expectedJsons = await loadJsons(baseServerPath, fileNames, baseUrl);
 							assert.deepStrictEqual(
 								json,
 								expectedJsons[URI],
 								'File content is not the same.'
-							)
-							resolve()
+							);
+							resolve();
 						}
 					}
 				}
@@ -123,8 +115,8 @@ describe('fileFetcher', function () {
 							)
 						}),
 						verifyResult: (ctx, {type}) => {
-							assert(type === 'FILE_ERRORED', 'Fetch must fail to pass the test.')
-							resolve()
+							assert(type === 'FILE_ERRORED', 'To pass the test the fetch must fail.');
+							resolve();
 						}
 					}
 				}
