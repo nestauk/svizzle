@@ -1,14 +1,14 @@
-import {identity} from "lamb";
-import {BehaviorSubject} from "rxjs";
+import {identity} from 'lamb';
+import {BehaviorSubject} from 'rxjs';
 
-export const createFetchManagerContext = () => ({
+export const createFetchManagerContext = ({fetchFunction, transformer = identity}) => ({
 	inputs: {
-		_fetchFunction: new BehaviorSubject(fetch),
+		fetchFunction,
+		transformer,
 		_priorities: new BehaviorSubject({
 			asapURIs: [],
 			nextURIs: []
 		}),
-		_transformer: new BehaviorSubject(identity),
 		_URIs: new BehaviorSubject([])
 	},
 	outputs: {

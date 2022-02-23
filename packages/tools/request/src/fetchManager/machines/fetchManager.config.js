@@ -22,12 +22,6 @@ export const fetchManagerConfig = {
 					actions: 'storePriorities',
 					target: '#manager.UpdatingForPropsChange'
 				},
-				TRANSFORMER_CHANGED: {
-					actions: 'storeTransformer',
-				},
-				FETCH_CHANGED: {
-					actions: 'storeFetchFunction',
-				},
 				URIs_CHANGED: {
 					target: '#manager.UpdatingForPropsChange'
 				}

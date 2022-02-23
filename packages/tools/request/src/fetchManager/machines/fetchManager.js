@@ -13,8 +13,10 @@ export const options = {
 	}
 };
 
-export const createFetchManager = () => createMachinaRx(
-	fetchManagerConfig,
-	options,
-	createFetchManagerContext()
-);
+// FIXME should parameter properties be explicit in this signature?
+export const createFetchManager = additionalContext =>
+	createMachinaRx(
+		fetchManagerConfig,
+		options,
+		createFetchManagerContext(additionalContext)
+	);

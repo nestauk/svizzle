@@ -18,26 +18,6 @@ const pullFromArrayStream = (stream, item) => {
 
 /* actions */
 
-const storeTransformer = (ctx, {transformer}) => {
-	const {
-		inputs: {
-			_transformer
-		}
-	} = ctx;
-	_transformer.next(transformer);
-	return ctx;
-}
-
-const storeFetchFunction = (ctx, {fetchFunction}) => {
-	const {
-		inputs: {
-			_fetchFunction
-		}
-	} = ctx;
-	_fetchFunction.next(fetchFunction);
-	return ctx;
-}
-
 const storePriorities = (ctx, {
 	URIs,
 	priorities
@@ -67,16 +47,15 @@ const removeFromLoadingURIs = (ctx, {URI}) => {
 
 const addFileToData = (ctx, {URI, bytes}) => {
 	const {
-		inputs: {_transformer},
+		inputs: {transformer},
 		outputs: {_data}
 	} = ctx;
 
 	const obj = _data.getValue();
-	const transformer = _transformer.getValue();
 	const nextData = {
 		...obj,
 		[URI]: transformer(bytes)
-	};
+	}
 	_data.next(nextData);
 	return ctx;
 }
@@ -143,7 +122,7 @@ const computeProgress = ctx => {
 }
 
 const spawnNewFetchers = ({inputs,internals}) => {
-	const {_fetchFunction} = inputs;
+	const {fetchFunction} = inputs;
 	const {URIsToSpawn, fileFetcherMachines} = internals;
 	const newMachines = _.pipe([
 		_.mapWith(URI => [
@@ -153,7 +132,7 @@ const spawnNewFetchers = ({inputs,internals}) => {
 					URI,
 					chunks: [],
 					done: false,
-					myFetch: _fetchFunction.getValue()
+					myFetch: fetchFunction
 				},
 				URI // id
 			))
@@ -202,10 +181,8 @@ export const fetchManagerOptions = {
 		spawnNewFetchers: assign(spawnNewFetchers),
 		cancelUneededFetchers,
 		deleteFileFetcher: assign(deleteFileFetcher),
-		storePriorities: assign(storePriorities),
-		storeTransformer: assign(storeTransformer),
-		storeFetchFunction: assign(storeFetchFunction)
+		storePriorities: assign(storePriorities)
 	},
 	guards: {
 	}
-};
+}
