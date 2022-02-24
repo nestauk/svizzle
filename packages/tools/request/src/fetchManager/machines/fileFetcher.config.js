@@ -10,7 +10,6 @@ export const fileFetcherConfig = {
 					actions: [
 						'storeFetchReader',
 						'sendParentFileStarted'
-						// (ctx) => console.log(ctx)
 					],
 					target: '#FileFetcher.Pending'
 				},
@@ -26,7 +25,6 @@ export const fileFetcherConfig = {
 				onDone: {
 					actions: [
 						'storeChunk',
-						// (ctx) => console.log(ctx)
 					],
 					target: '#FileFetcher.Pending'
 				},
@@ -44,7 +42,7 @@ export const fileFetcherConfig = {
 				}
 			}
 		},
-		Cancelling: {
+		Cancelling: { // Rename to `Cancelled`?
 			type: 'final',
 			entry: [
 				'cancelFileFetching',
@@ -57,7 +55,7 @@ export const fileFetcherConfig = {
 				'sendParentFileCompleted',
 			]
 		},
-		Erroring: {
+		Erroring: { // Rename to `Errored`?
 			type: 'final',
 			entry: 'sendParentFileErrored'
 		}

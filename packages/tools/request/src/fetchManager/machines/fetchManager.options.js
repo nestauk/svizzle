@@ -26,10 +26,30 @@ const storePriorities = (ctx, {
 		inputs: {
 			_priorities,
 			_URIs
+		},
+		outputs: {
+			_data
 		}
 	} = ctx;
+
+	// At this point we have access to both the old value and the new value of
+	// `URIs`. Ideally we need another action immediately prior to
+	// `storePriorities` that will clear the cache of those values not in the
+	// new `URIs` list. For now we do so here so as not to change the surface
+	// of the machine.
+
+	const data = _data.getValue();
+	const nextData = {
+		..._.pickIn(
+			data,
+			_.intersection(_.keys(data), URIs)
+		)
+	}
+	_data.next(nextData);
+
 	_priorities.next(priorities);
 	_URIs.next(URIs);
+
 	return ctx;
 }
 
@@ -66,18 +86,21 @@ const computeProgress = ctx => {
 			_priorities,
 			_URIs
 		},
+		internals: {
+			fileFetcherMachines
+		},
 		outputs: {
 			_data,
-			_loadingURIs
+			// _loadingURIs
 		}
 	} = ctx;
 
-	const loadedUris = _.keys(_data.getValue());
-	const loadingUris = _loadingURIs.getValue();
+	const loadedURIs = _.keys(_data.getValue());
+	const loadingURIs = _.keys(fileFetcherMachines);
 	const {
 		asapURIs,
 		nextURIs
-	}= _priorities.getValue();
+	} = _priorities.getValue();
 	const URIs = _URIs.getValue();
 
 	// 1. compute `restURIs`
@@ -87,29 +110,48 @@ const computeProgress = ctx => {
 	);
 
 	// 2. compute URIs that must be spawned
-	const neededAsapURIs = _.difference(
+	const unfetchedAsapURIs = _.difference(
 		asapURIs,
-		_.union(loadedUris, loadingUris)
+		loadedURIs
 	);
-	const neededNextURIs = _.difference(
+	const unfetchedNextURIs = _.difference(
 		nextURIs,
-		_.union(loadedUris, loadingUris)
+		loadedURIs
 	);
-	const neededRestURIs = _.difference(
+	const unfetchedRestURIs = _.difference(
 		restURIs,
-		_.union(loadedUris, loadingUris)
+		loadedURIs
 	);
 
-	const URIsToSpawn = isIterableNotEmpty(neededAsapURIs)
+	const neededAsapURIs = _.difference(
+		unfetchedAsapURIs,
+		loadingURIs
+	);
+	const neededNextURIs = _.difference(
+		unfetchedNextURIs,
+		loadingURIs
+	);
+	const neededRestURIs = _.difference(
+		unfetchedRestURIs,
+		loadingURIs
+	);
+
+	const URIsToSpawn = isIterableNotEmpty(unfetchedAsapURIs)
 		? neededAsapURIs
-		: isIterableNotEmpty(neededNextURIs)
+		: isIterableNotEmpty(unfetchedNextURIs)
 			? neededNextURIs
 			: neededRestURIs;
 
+	const targetURIs = isIterableNotEmpty(unfetchedAsapURIs)
+		? asapURIs
+		: isIterableNotEmpty(unfetchedAsapURIs)
+			? nextURIs
+			: restURIs;
+
 	// 3. compute URIs that must be cancelled
 	const URIsToCancel = _.difference(
-		loadingUris,
-		URIsToSpawn
+		loadingURIs,
+		targetURIs
 	);
 
 	return {
@@ -121,7 +163,7 @@ const computeProgress = ctx => {
 	}
 }
 
-const spawnNewFetchers = ({inputs,internals}) => {
+const spawnNewFetchers = ({inputs, internals}) => {
 	const {fetchFunction} = inputs;
 	const {URIsToSpawn, fileFetcherMachines} = internals;
 	const newMachines = _.pipe([
@@ -153,20 +195,25 @@ const spawnNewFetchers = ({inputs,internals}) => {
 
 const cancelUneededFetchers = ({internals}) => {
 	const {fileFetcherMachines, URIsToCancel} = internals;
+	// console.log('cancel called', URIsToCancel)
 	const machines = _.values(_.pickIn(fileFetcherMachines, URIsToCancel));
-	_.forEach(machines, machine => machine.send('CANCEL'));
+	_.forEach(machines, machine => machine.send({type:'CANCEL'}));
 }
+
+/*
+const cancelUneededFetchers = pure(({internals}) => _.map(
+	internals.URIsToCancel,
+	URI => send({type:'CANCEL'}, { to: URI })
+));
+*/
 
 const deleteFileFetcher = ({internals},{URI}) => {
 	const {fileFetcherMachines} = internals;
 	const machine = fileFetcherMachines[URI];
-	machine.stop();
 	delete fileFetcherMachines[URI];
+	machine.stop();
 	return {
-		internals: {
-			...internals,
-			fileFetcherMachines: {...fileFetcherMachines}
-		}
+		internals
 	}
 }
 
