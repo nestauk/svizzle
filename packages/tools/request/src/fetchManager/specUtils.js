@@ -1,4 +1,4 @@
-import {createReadStream} from 'fs';
+import {createReadStream, readFileSync} from 'fs';
 import http from 'http';
 
 import {readJson} from '@svizzle/file';
@@ -13,6 +13,19 @@ export const jsonParser = _.pipe([
 	decode,
 	JSON.parse
 ]);
+
+export const loadJsonsSync = (basePath, fileNames, baseUrl) => {
+	const loadedFiles = _.pipe([
+		_.mapWith(fileName =>
+			[`${baseUrl}${fileName}`, `${basePath}/${fileName}`]
+		),
+		_.mapWith(([key, filePath]) =>
+			[key, JSON.parse(readFileSync(filePath))])
+	])(fileNames);
+
+	// const loadedFiles = await Promise.all(fileLoadingPromises);
+	return _.fromPairs(loadedFiles);
+}
 
 export const loadJsons = async (basePath, fileNames, baseUrl) => {
 	const fileLoadingPromises = _.pipe([

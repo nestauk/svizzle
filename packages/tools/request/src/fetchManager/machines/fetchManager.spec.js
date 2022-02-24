@@ -2,15 +2,15 @@ import {strict as assert} from 'assert';
 import {readdirSync} from 'fs';
 import path from 'path';
 import * as _ from 'lamb';
-
+import {debounceTime} from 'rxjs/operators';
 import {fetch} from 'undici';
 
 import {createFetchManager} from './fetchManager';
 
 import {
 	getFilteredFileNames,
-	// getKeysNamed,
-	loadJsons,
+	getKeysNamed,
+	loadJsonsSync,
 	makeUris,
 	startServer,
 	jsonParser
@@ -24,6 +24,16 @@ const baseUrl = `http://localhost:${PORT}/`;
 
 const fileNames = getFilteredFileNames(readdirSync(baseServerPath));
 const URIs = makeUris(baseUrl)(fileNames);
+
+const URIsFrom2021 = getKeysNamed('2021')(URIs);
+const URIsFrom2016 = getKeysNamed('2016')(URIs);
+const URIsFrom2013 = getKeysNamed('2013')(URIs);
+
+const allJsons = loadJsonsSync(
+	baseServerPath,
+	fileNames,
+	baseUrl
+);
 
 describe('Fetch Manager Machine', function () {
 	// eslint-disable-next-line no-invalid-this
@@ -71,18 +81,14 @@ describe('Fetch Manager Machine', function () {
 						const cacheCount = _.keys(cache).length;
 
 						if (cacheCount > 0 && loadingCount === 0) {
-							loadJsons(
-								baseServerPath,
-								fileNames,
-								baseUrl
-							).then(expectedJsons => {
-								assert.deepStrictEqual(
-									cache,
-									expectedJsons,
-									'File contents are not equal'
-								);
-								resolve();
-							});
+							// console.log('done', cacheCount)
+							const expectedJsons = allJsons;
+							assert.deepStrictEqual(
+								cache,
+								expectedJsons,
+								'File contents are not equal'
+							);
+							resolve();
 						}
 					}
 				);
@@ -91,6 +97,79 @@ describe('Fetch Manager Machine', function () {
 					URIs,
 					priorities: {
 						asapURIs: URIs,
+						nextURIs: []
+					}
+				});
+			});
+		});
+
+		it('change while in progress: should clear the cache and restart downloading', function () {
+			return new Promise(resolve => {
+				const firstURIs = URIsFrom2021;
+				const secondURIs = URIsFrom2016;
+
+				const {
+					contextStreams:{
+						outputs: {
+							_data,
+							_loadingURIs
+						}
+					},
+					service
+				} = createFetchManager({
+					fetchFunction: fetch,
+					transformer: jsonParser
+				});
+
+				let cache = {};
+				let hasChangedURIs = false;
+				_data.pipe(
+					// debouncing so that `service.send` is
+					// not executed inside action
+					debounceTime(0)
+				).subscribe(data => {
+					cache = data;
+					const cacheCount = _.keys(cache).length;
+					if (cacheCount > firstURIs.length / 2 && !hasChangedURIs) {
+						hasChangedURIs = true;
+						// console.log('switching URIs')
+						// from(service).subscribe(state => console.log(state));
+						service.send({
+							type: 'PRIORITY_CHANGED',
+							URIs: secondURIs,
+							priorities: {
+								asapURIs: secondURIs,
+								nextURIs: []
+							}
+						});
+					}
+				});
+				_loadingURIs.pipe(
+					debounceTime(0)
+				).subscribe(
+					loadingURIs => {
+						const loadingCount = loadingURIs.length;
+						const loadedURIs = _.keys(cache);
+
+						if (_.difference(secondURIs, loadedURIs).length === 0 && loadingCount === 0) {
+							// console.log('done', loadedURIs)
+							const expectedJsons = _.pickIn(allJsons, secondURIs);
+							// console.log('comparing', expectedJsons)
+							// console.log('comparing', cache)
+							assert.deepStrictEqual(
+								cache,
+								expectedJsons,
+								'File contents are not equal'
+							);
+							resolve();
+						}
+					}
+				);
+				service.send({
+					type: 'PRIORITY_CHANGED',
+					URIs: firstURIs,
+					priorities: {
+						asapURIs: firstURIs,
 						nextURIs: []
 					}
 				});
