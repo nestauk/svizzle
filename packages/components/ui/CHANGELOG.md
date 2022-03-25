@@ -1,3 +1,7 @@
+## `@svizzle/ui` v0.5.1 (next)
+
+- moved `@macfja/svelte-persistent-store` to dependencies to fix the `StorageIO` component
+
 ## `@svizzle/ui` v0.5.0
 
 - add components:
