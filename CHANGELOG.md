@@ -6,6 +6,10 @@
 
 - removed unused dev dependency on `js-yaml`
 
+## `@svizzle/ui` v0.5.1 (next)
+
+- moved `@macfja/svelte-persistent-store` to dependencies to fix the `StorageIO` component
+
 ## `@svizzle/atlas` v0.6.1 (next)
 
 - use `readYaml` from `@svizzle/atlas`
