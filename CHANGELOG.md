@@ -6,6 +6,10 @@
 
 - removed unused dev dependency on `js-yaml`
 
+## `@svizzle/time_region_value` v0.7.0 (next)
+
+- use `FetchDriver.svelte` so that boundaries are pre-fetched in the background
+
 ## `@svizzle/ui` v0.6.0 (next)
 
 - moved `@macfja/svelte-persistent-store` to dependencies to fix the `StorageIO` component

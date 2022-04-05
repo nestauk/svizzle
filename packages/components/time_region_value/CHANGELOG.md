@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.7.0 (next)
+
+- use `FetchDriver.svelte` so that boundaries are pre-fetched in the background
+
 ## `@svizzle/time_region_value` v0.6.1
 
 - Fix dirty regions selection not changing the globe icon color
