@@ -13,6 +13,7 @@
 ## `@svizzle/atlas` v0.6.1 (next)
 
 - use `readYaml` from `@svizzle/atlas`
+- add the `unlink` npm script
 
 ## `@svizzle/dev` v0.4.5 (next)
 
