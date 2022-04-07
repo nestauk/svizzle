@@ -6,9 +6,10 @@
 
 - removed unused dev dependency on `js-yaml`
 
-## `@svizzle/ui` v0.5.1 (next)
+## `@svizzle/ui` v0.6.0 (next)
 
 - moved `@macfja/svelte-persistent-store` to dependencies to fix the `StorageIO` component
+- added `FetchDriver` component wrapping access to `@svizzle/request/src/fetchManager/fetchManager.js`
 
 ## `@svizzle/atlas` v0.6.1 (next)
 
@@ -29,7 +30,7 @@
 - added `makeFilterTopoBy`
 - remove the dependency from /atlas to avoid circular dependencies
 
-## `@svizzle/request` v0.3.6 (next)
+## `@svizzle/request` v0.4.0 (next)
 
 - added `fetchManager` featuring three-stage-prioritized stream-based resource downloads. As a note for future developments, we agreed that this implementation is too brittle and that we should use a state machine to manage the logic rather than Rx streams.
 
