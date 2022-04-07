@@ -1,3 +1,7 @@
+## `@svizzle/request` v0.3.6 (next)
+
+- added `fetchManager` featuring three-stage-prioritized stream-based resource downloads. As a note for future developments, we agreed that this implementation is too brittle and that we should use a state machine to manage the logic rather than Rx streams.
+
 ## `@svizzle/request` v0.3.5
 
 - support object spread in builds
