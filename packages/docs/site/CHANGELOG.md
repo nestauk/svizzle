@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.3.12
+
+- removed custom line height setting for a11y menu, now using defaults
+
 ## `@svizzle/site` v0.3.11
 
 - Avoid exposing `@svizzle/choropleth/src/shared`

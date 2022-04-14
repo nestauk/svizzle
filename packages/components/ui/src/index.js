@@ -1,4 +1,5 @@
 export * from './actions/resizeObserver';
+export * from './a11y';
 export {default as FontsLoader} from './drivers/fonts/FontsLoader.svelte';
 export * from './icons';
 export {default as FetchDriver} from './io/net/FetchDriver.svelte';
@@ -15,5 +16,3 @@ export {default as MultiBanner} from './MultiBanner.svelte';
 export {default as NoScript} from './NoScript.svelte';
 export {default as ResponsiveFlex} from './ResponsiveFlex.svelte';
 export {default as Switch} from './Switch.svelte';
-
-// TODO export a11ymenu

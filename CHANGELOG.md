@@ -2,6 +2,10 @@
 
 ## next
 
+## `@svizzle/site` v0.3.12
+
+- removed custom line height setting for a11y menu, now using defaults
+
 ## `@svizzle/choropleth` v0.7.1 (next)
 
 - removed unused dev dependency on `js-yaml`
@@ -15,6 +19,8 @@
 
 - moved `@macfja/svelte-persistent-store` to dependencies to fix the `StorageIO` component
 - added `FetchDriver` component wrapping access to `@svizzle/request/src/fetchManager/fetchManager.js`
+- line height in A11y menu is now unitless
+- added A11y menu components to `ui/src/index.js`
 
 ## `@svizzle/atlas` v0.6.1 (next)
 
