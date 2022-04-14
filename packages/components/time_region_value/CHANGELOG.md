@@ -1,6 +1,7 @@
 ## `@svizzle/time_region_value` v0.7.0 (next)
 
 - use `FetchDriver.svelte` so that boundaries are pre-fetched in the background
+- text in `XorSelector.svelte` can't be selectable anymore
 
 ## `@svizzle/time_region_value` v0.6.1
 
