@@ -301,13 +301,14 @@ export const _a11yColorStyles = derived(_a11ySettings, getColorStyles);
 
 /* Text corrections CSS property formatters */
 
-const toRemPercent = _.pipe([_.divideBy(100), makePostfixed('rem')]);
+const divideBy100 = _.divideBy(100);
+const toRemPercent = _.pipe([divideBy100, makePostfixed('rem')]);
 
 const getTextStyles = applyFnMap({
 	'font-family': _.getPath('typeface.value'),
 	'font-size': _.pipe([_.getPath('fontScaling.value'), toRemPercent]),
 	'letter-spacing': _.pipe([_.getPath('letterSpacing.value'), toRemPercent]),
-	'line-height': _.pipe([_.getPath('lineHeight.value'), toRemPercent]),
+	'line-height': _.pipe([_.getPath('lineHeight.value'), divideBy100]),
 	'word-spacing': _.pipe([_.getPath('wordSpacing.value'), toRemPercent]),
 });
 
