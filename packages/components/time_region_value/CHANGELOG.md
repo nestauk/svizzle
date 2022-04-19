@@ -2,6 +2,7 @@
 
 - use `FetchDriver.svelte` so that boundaries are pre-fetched in the background
 - text in `XorSelector.svelte` can't be selectable anymore
+- for indicators with long `title` or `subtitle` the user can now expand the header to read them in full
 
 ## `@svizzle/time_region_value` v0.6.1
 
