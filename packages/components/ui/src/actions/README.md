@@ -26,7 +26,7 @@ or `contentBoxSize` to specify which dimensions to retrieve. The default value
 is `borderBoxSize`.
 
 ```svelte
-<p use:resizeObserver='contentBoxSize'>
+<p use:resizeObserver={'contentBoxSize'}>
 	Some text content.
 </p>
 ```

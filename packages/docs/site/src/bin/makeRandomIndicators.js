@@ -69,8 +69,12 @@ const createIndicatorSpec = groupId => {
 		},
 		source_name: chance.sentence({words: 4}),
 		source_url: chance.url(),
-		subtitle: chance.sentence({words: 6}),
-		title: chance.sentence({words: 4}),
+		subtitle: chance.sentence({
+			words: chance.integer({min: 6, max: 36})
+		}),
+		title: chance.sentence({
+			words: chance.integer({min: 4, max: 30})
+		}),
 		url: `/svizzle/data/${id}.csv`,
 		year_extent,
 	}
