@@ -159,7 +159,7 @@ export const mergeWithAppendTo = mergeWith(_.appendTo);
  */
 export const sortObjectKeysAsc = _.pipe([
 	_.pairs,
-	_.sortWith([_.getAt(0)]),
+	_.sortWith([_.head]),
 	_.fromPairs
 ]);
 
@@ -180,7 +180,7 @@ export const sortObjectKeysAsc = _.pipe([
  */
 export const sortObjectKeysDesc = _.pipe([
 	_.pairs,
-	_.sortWith([_.sorterDesc(_.getAt(0))]),
+	_.sortWith([_.sorterDesc(_.head)]),
 	_.fromPairs
 ]);
 

@@ -3,6 +3,7 @@
 - added `sanitize`
 - added `sortObjectKeysAsc`, `sortObjectKeysDesc`
 - added `jsonBufferToAny`
+- use `_.head` instead of `_.getAt(0)`
 
 ## `@svizzle/utils` v0.16.0
 

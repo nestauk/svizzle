@@ -2,6 +2,7 @@
 
 - use `readYaml` from `@svizzle/atlas`
 - add the `unlink` npm script
+- use `_.head` instead of `_.getAt(0)`
 
 ## `@svizzle/atlas` v0.6.0
 

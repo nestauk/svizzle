@@ -24,11 +24,13 @@
 - added `FetchDriver` component wrapping access to `@svizzle/request/src/fetchManager/fetchManager.js`
 - line height in A11y menu is now unitless
 - added A11y menu components to `ui/src/index.js`
+- use `_.head` instead of `_.getAt(0)`
 
 ## `@svizzle/atlas` v0.6.1 (next)
 
 - use `readYaml` from `@svizzle/atlas`
 - add the `unlink` npm script
+- use `_.head` instead of `_.getAt(0)`
 
 ## `@svizzle/dev` v0.4.5 (next)
 
@@ -46,13 +48,17 @@
 
 ## `@svizzle/request` v0.4.0 (next)
 
-- added `fetchManager` featuring three-stage-prioritized stream-based resource downloads. As a note for future developments, we agreed that this implementation is too brittle and that we should use a state machine to manage the logic rather than Rx streams.
+- added `fetchManager` featuring three-stage-prioritized stream-based resource
+	downloads. As a note for future developments, we agreed that this implementation
+	is too brittle and that we should use a state machine to manage the logic
+	rather than Rx streams.
 
 ## `@svizzle/utils` v0.17.0 (next)
 
 - added `sanitize`
 - added `sortObjectKeysAsc`, `sortObjectKeysDesc`
 - added `jsonBufferToAny`
+- use `_.head` instead of `_.getAt(0)`
 
 
 ## 20211224_2

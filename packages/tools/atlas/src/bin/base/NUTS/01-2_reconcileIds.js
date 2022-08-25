@@ -207,7 +207,7 @@ const getDetectedChanges = _.pipe([
 	_.groupBy(_.getAt(1)),
 	_.mapValuesWith(
 		_.pipe([
-			_.mapWith(_.pipe([_.getAt(0), x => x.split('/')[1]])),
+			_.mapWith(_.pipe([_.head, x => x.split('/')[1]])),
 			_.uniques
 		])
 	),
@@ -293,7 +293,7 @@ const makeIdToNutsIdByYear = _.pipe([
 	_.mapValuesWith(
 		_.pipe([
 			_.mapWith(_.pipe([
-				_.getAt(0),
+				_.head,
 				_.splitBy('/')
 			])),
 			_.fromPairs

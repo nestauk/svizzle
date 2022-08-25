@@ -44,7 +44,7 @@ const extractSvgBody = _.pipe([
 ]);
 const makeComponentName = _.pipe([
 	splitByDot,
-	_.getAt(0),
+	_.head,
 	camelCase,
 ]);
 const makeComponentPath = _.pipe([

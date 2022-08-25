@@ -70,7 +70,7 @@ export const createFetchManagerStreams = downloadFn => {
 		switchMapTo(
 			_groupIds.pipe(
 				zipWith(_startNextGroup), // wait for download to complete
-				map(_.getAt(0)),
+				map(_.head),
 			)
 		),
 		share(),

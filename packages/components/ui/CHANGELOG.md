@@ -4,6 +4,7 @@
 - added `FetchDriver` component wrapping access to `@svizzle/request/src/fetchManager/fetchManager.js`
 - line height in A11y menu is now unitless
 - added A11y menu components to `ui/src/index.js`
+- use `_.head` instead of `_.getAt(0)`
 
 ## `@svizzle/ui` v0.5.0
 
