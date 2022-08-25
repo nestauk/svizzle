@@ -2,6 +2,8 @@
 
 ## next
 
+- updated copyright year in various packages
+
 ## `@svizzle/site` v0.3.12
 
 - removed custom line height setting for a11y menu, now using defaults
