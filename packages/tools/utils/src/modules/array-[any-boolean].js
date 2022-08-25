@@ -9,7 +9,7 @@ import {includes} from './array_proto-boolean';
 
 /**
  * Return a function returning true if the passed value is found in the provided array
- * This function is ideal to check the presence of array or objects.
+ * This function is ideal to check the presence of arrays or objects.
  * To check primitive values best using {@link module:@svizzle/utils/array-[any-boolean].makeIsIncluded|makeIsIncluded}.
  *
  * @function

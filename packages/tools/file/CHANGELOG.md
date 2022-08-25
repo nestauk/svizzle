@@ -2,6 +2,7 @@
 
 - add `readYaml`, `saveYaml`, `saveYamlPassthrough`
 - removed unused dependency on `@svizzle/request`
+- fixed example output for `readDirFilesIndexed`
 
 ## `@svizzle/file` v0.12.0
 

@@ -146,14 +146,14 @@ export const readDirFiles = (
  * @return {promise} - @sideEffects: fs.readdir, fs.readFile
  *
  * @example
-$ ls -a source/dir
-.   .foo  01.csv  foo.txt
-..  .bar  02.csv  bar.json
-$ cat source/dir/01.csv
+$ ls -a test_assets/
+.   .foo  ab.csv    foo.txt
+..  .bar  rows.csv  bar.json
+$ cat test_assets/ab.csv
 a,b
 foo,1
 bar,2
-$ cat source/dir/02.csv
+$ cat test_assets/rows.csv
 foo,1
 bar,2
 
@@ -162,7 +162,7 @@ bar,2
 .catch(err => console.error(err))
 
 {
-	'ab.csv': [['a', 1], ['foo', '1'], ['bar', '2']],
+	'ab.csv': [['a', 'b'], ['foo', '1'], ['bar', '2']],
 	'rows.csv': [['foo', '1'], ['bar', '2']]
 }
  * @since 0.9.0

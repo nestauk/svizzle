@@ -40,6 +40,7 @@
 
 - add `readYaml`, `saveYaml`, `saveYamlPassthrough`
 - removed unused dependency on `@svizzle/request`
+- fixed example output for `readDirFilesIndexed`
 
 ## `@svizzle/geo` v0.8.0 (next)
 

@@ -89,7 +89,7 @@ export default formatExamples([
 				}
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					message='Please provide data!',
 					theme={{
@@ -117,7 +117,7 @@ export default formatExamples([
 				title
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					title='${title}'
 				/>
@@ -147,7 +147,7 @@ export default formatExamples([
 				title: 'Hover me!',
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					barHeight = ${barHeight}
 					theme={{
@@ -172,7 +172,7 @@ export default formatExamples([
 				},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					barHeight = ${barHeight}
 					theme={{
@@ -196,7 +196,7 @@ export default formatExamples([
 				},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					barHeight = ${barHeight}
 					theme={{
@@ -228,7 +228,7 @@ export default formatExamples([
 				theme: {barDefaultColor},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToColor}
 					theme={{barDefaultColor:'${barDefaultColor}'}}
@@ -242,7 +242,7 @@ export default formatExamples([
 				theme: {barDefaultColor},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToColor}
 					theme={{barDefaultColor:'${barDefaultColor}'}}
@@ -256,7 +256,7 @@ export default formatExamples([
 				theme: {barDefaultColor},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToColor}
 					theme={{barDefaultColor:'${barDefaultColor}'}}
@@ -280,7 +280,7 @@ export default formatExamples([
 				keyToColor: keyToColorWorld
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToColor}
 				/>
@@ -292,7 +292,7 @@ export default formatExamples([
 				keyToColor: keyToColorWorld
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToColor}
 				/>
@@ -304,7 +304,7 @@ export default formatExamples([
 				keyToColor: keyToColorWorld
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToColor}
 				/>
@@ -327,7 +327,7 @@ export default formatExamples([
 				keyToColorFn: keyToColorWorldFn
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{keyToColorFn}
 					{items}
 				/>
@@ -339,7 +339,7 @@ export default formatExamples([
 				keyToColorFn: keyToColorWorldFn
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{keyToColorFn}
 					{items}
 				/>
@@ -351,7 +351,7 @@ export default formatExamples([
 				keyToColorFn: keyToColorWorldFn
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{keyToColorFn}
 					{items}
 				/>
@@ -376,7 +376,7 @@ export default formatExamples([
 				theme: {focusedKeyColor: 'yellow'},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					focusedKey='CY'
 					theme={{focusedKeyColor: 'yellow'}}
@@ -391,7 +391,7 @@ export default formatExamples([
 				theme: {focusedKeyColor: 'yellow'},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					focusedKey='CY'
 					shouldScrollToFocusedKey={true}
@@ -407,7 +407,7 @@ export default formatExamples([
 				theme: {focusedKeyColor: 'yellow'},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					focusedKey='PL'
 					shouldScrollToFocusedKey={true}
@@ -422,7 +422,7 @@ export default formatExamples([
 				theme: {focusedKeyColor: 'yellow'},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					shouldScrollToFocusedKey={true}
 					theme={{focusedKeyColor: 'yellow'}}
@@ -448,7 +448,7 @@ export default formatExamples([
 				items: countryKeyValuePositive,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					selectedKeys={['HR', 'AM', 'HR', 'CY', 'DE']},
 				/>
@@ -461,7 +461,7 @@ export default formatExamples([
 				selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI'],
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToColor}
 					selectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},
@@ -476,7 +476,7 @@ export default formatExamples([
 				theme: {deselectedOpacity: 0.1}
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToColor}
 					selectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},
@@ -485,7 +485,7 @@ export default formatExamples([
 			`,
 		}],
 		doc: [
-			{tag: 'p', content: 'You can select a set of bars by passing `selectedKeys`, an array of keys. The correspondent bars will get a lower opacity.'},
+			{tag: 'p', content: 'You can select a set of bars by passing `selectedKeys`, an array of keys. The deselected bars will get a lower opacity.'},
 			{tag: 'p', content: 'If needed you can setup a custom opacity for the deselected bars by passing `deselectedOpacity` in the `theme` object.'},
 		],
 		name: 'BarchartVDiv',
@@ -501,7 +501,7 @@ export default formatExamples([
 				items: countryKeyValuePositive,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToLabel}
 				/>
@@ -513,7 +513,7 @@ export default formatExamples([
 				items: countryKeyValueNegatives,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToLabel}
 				/>
@@ -525,7 +525,7 @@ export default formatExamples([
 				items: countryKeyValueMixedWithZeroes,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					{keyToLabel}
 				/>
@@ -548,7 +548,7 @@ export default formatExamples([
 				keyToLabelFn: x => `--${x}--`,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					keyToLabelFn={x => '--' + x + '--'}
 				/>
@@ -572,7 +572,7 @@ export default formatExamples([
 				],
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'National average', value: 200}
@@ -589,7 +589,7 @@ export default formatExamples([
 				title: 'With a title'
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'National average', value: 200}
@@ -609,7 +609,7 @@ export default formatExamples([
 				title: 'Multiple refs'
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'National average', value: 200},
@@ -630,7 +630,7 @@ export default formatExamples([
 				],
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'Another value', value: -153},
@@ -654,7 +654,7 @@ export default formatExamples([
 				},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'National average', value: 200},
@@ -694,7 +694,7 @@ export default formatExamples([
 				},
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'National average', value: 200},
@@ -728,7 +728,7 @@ export default formatExamples([
 				],
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'National average', value: 1200}
@@ -746,7 +746,7 @@ export default formatExamples([
 				],
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'Another value', value: -200},
@@ -766,7 +766,7 @@ export default formatExamples([
 				],
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					refs={[
 						{key: 'Another value', value: -200},
@@ -797,7 +797,7 @@ export default formatExamples([
 				title: 'Hover and click me',
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					isInteractive={true}
 					on:clicked={onClicked}
@@ -813,7 +813,7 @@ export default formatExamples([
 				title: 'Hover and click me',
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					isInteractive={true}
 					on:clicked={onClicked}
@@ -829,7 +829,7 @@ export default formatExamples([
 				title: 'Hover and click me',
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					isInteractive={true}
 					on:clicked={onClicked}
@@ -864,7 +864,7 @@ export default formatExamples([
 				valueAccessor: item => Number(Math.sqrt(item.rawValue).toFixed(3)),
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					valueAccessor={item => Number((item.rawValue / 25.3).toFixed(3))}
 				/>
@@ -887,7 +887,7 @@ export default formatExamples([
 				formatFn: x => `${x}%`,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					formatFn={x => x + '%'}
 				/>
@@ -899,7 +899,7 @@ export default formatExamples([
 				formatFn: x => `${x}%`,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					formatFn={x => x + '%'}
 				/>
@@ -911,7 +911,7 @@ export default formatExamples([
 				formatFn: x => `${x}%`,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					formatFn={x => x + '%'}
 				/>
@@ -935,7 +935,7 @@ export default formatExamples([
 				title: `When updated, scroll doesn't reset`,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					shouldResetScroll={false}
 				/>
@@ -948,7 +948,7 @@ export default formatExamples([
 				title: `When updated, scroll doesn't reset`,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					shouldResetScroll={false}
 				/>
@@ -972,7 +972,7 @@ export default formatExamples([
 				title: `When updated, scroll resets`,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					shouldResetScroll={true}
 				/>
@@ -985,7 +985,7 @@ export default formatExamples([
 				title: `When updated, scroll resets`,
 			},
 			usage: `
-				<BarchartV
+				<BarchartVDiv
 					{items}
 					shouldResetScroll={true}
 				/>
