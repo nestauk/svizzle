@@ -32,8 +32,9 @@
 - add the `unlink` npm script
 - use `_.head` instead of `_.getAt(0)`
 
-## `@svizzle/dev` v0.4.5 (next)
+## `@svizzle/dev` v0.5.0 (next)
 
+- added: `tapTime` and `tapTimeEnd`
 - fix: distribute `src/index.js`
 
 ## `@svizzle/file` v0.13.0 (next)

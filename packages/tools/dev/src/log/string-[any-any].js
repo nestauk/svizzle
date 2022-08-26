@@ -68,6 +68,66 @@ export const tapValue = label => x => {
 };
 
 /**
+ * Return a function that starts a timer for the provided label and returns the
+ * input.
+ * To be used with `tapTimeEnd`.
+ *
+ * @function
+ * @arg {string} label
+ * @return {function} - (Any -> Any) - @sideEffects: console.log
+ *
+ * @example
+> _.pipe([
+	tapTime('all'),
+	fn1,
+	fn2,
+	tapTime('fn3'),
+	fn3,
+	tapTimeEnd('fn3'),
+	tapTimeEnd('all'),
+])
+all: 2.35693359375 ms
+fn3: 0.38475648398 ms
+ * @see {@link module:@svizzle/dev/log/string-[any-any]|tapTimeEnd}
+ *
+ * @since 0.5.0
+ */
+export const tapTime = label => x => {
+	console.time(label);
+	return x;
+}
+
+/**
+ * Return a function that stops a timer for the provided label, logs the elapsed
+ * time and returns the input.
+ * To be used with `tapTime`.
+ *
+ * @function
+ * @arg {string} label
+ * @return {function} - (Any -> Any) - @sideEffects: console.log
+ *
+ * @example
+> _.pipe([
+	tapTime('all'),
+	fn1,
+	fn2,
+	tapTime('fn3'),
+	fn3,
+	tapTimeEnd('fn3'),
+	tapTimeEnd('all'),
+])
+all: 2.35693359375 ms
+fn3: 0.38475648398 ms
+ * @see {@link module:@svizzle/dev/log/string-[any-any]|tapTime}
+ *
+ * @since 0.5.0
+ */
+export const tapTimeEnd = label => x => {
+	console.timeEnd(label);
+	return x;
+}
+
+/**
  * Return a function that prints the input type (preceded by the label, if provided) and returns the input.
  *
  * @function

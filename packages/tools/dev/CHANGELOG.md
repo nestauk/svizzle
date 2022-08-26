@@ -1,5 +1,6 @@
-## `@svizzle/dev` v0.4.5 (next)
+## `@svizzle/dev` v0.5.0 (next)
 
+- added: `tapTime` and `tapTimeEnd`
 - fix: distribute `src/index.js`
 
 ## `@svizzle/dev` v0.4.4
