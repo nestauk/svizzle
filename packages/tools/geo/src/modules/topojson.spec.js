@@ -15,6 +15,7 @@ import {makeFilterTopoBy, topoToGeo} from './topojson';
 
 describe('geo/topojson', function() {
 	describe('topoToGeo', function() {
+
 		/*
 		// NUTS_RG_03M_2003_4326_LEVL_0_BE.json
 		{
