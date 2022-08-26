@@ -4,6 +4,7 @@
 	downloads. As a note for future developments, we agreed that this implementation
 	is too brittle and that we should use a state machine to manage the logic
 	rather than Rx streams.
+- tests: updated `nock`
 
 ## `@svizzle/request` v0.3.5
 

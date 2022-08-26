@@ -42,6 +42,7 @@
 - add `readYaml`, `saveYaml`, `saveYamlPassthrough`
 - removed unused dependency on `@svizzle/request`
 - fixed example output for `readDirFilesIndexed`
+- tests: updated `nock`
 
 ## `@svizzle/geo` v0.8.0 (next)
 
@@ -54,6 +55,7 @@
 	downloads. As a note for future developments, we agreed that this implementation
 	is too brittle and that we should use a state machine to manage the logic
 	rather than Rx streams.
+- tests: updated `nock`
 
 ## `@svizzle/utils` v0.17.0 (next)
 
