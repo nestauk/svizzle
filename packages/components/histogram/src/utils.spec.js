@@ -18,12 +18,12 @@ import {
 	isNonEmptyBin,
 } from './utils';
 
-describe('histogram/utils', function() {
-	describe('areValidBins', function() {
-		it('should returns false if bins is an empty array', function() {
+describe('histogram/utils', function () {
+	describe('areValidBins', function () {
+		it('should returns false if bins is an empty array', function () {
 			assert.deepStrictEqual(areValidBins([]), false);
 		});
-		it('should returns false if some bin don\'t have a `range` key', function() {
+		it('should returns false if some bin don\'t have a `range` key', function () {
 			assert.deepStrictEqual(
 				areValidBins([
 					{values: [{a: 2}, {a: 6}]},
@@ -33,7 +33,7 @@ describe('histogram/utils', function() {
 				false
 			);
 		});
-		it('should returns false if some bins have `range` equal to `null` or `undefined`', function() {
+		it('should returns false if some bins have `range` equal to `null` or `undefined`', function () {
 			assert.deepStrictEqual(
 				areValidBins([
 					{range: null, values: [{a: 2}, {a: 6}]},
@@ -51,7 +51,7 @@ describe('histogram/utils', function() {
 				false
 			);
 		});
-		it('should returns true if bins are valid', function() {
+		it('should returns true if bins are valid', function () {
 			assert.deepStrictEqual(
 				areValidBins([
 					{range: [2, 6], values: [{a: 2}, {a: 6}]},
@@ -62,8 +62,8 @@ describe('histogram/utils', function() {
 			);
 		});
 	});
-	describe('exactAmountBins', function() {
-		it('should return an exact amount of bins – basic', function() {
+	describe('exactAmountBins', function () {
+		it('should return an exact amount of bins – basic', function () {
 			const array = [1, 2, 6, 7, 8, 14, 20];
 			const actual = exactAmountBins({
 				array,
@@ -77,7 +77,7 @@ describe('histogram/utils', function() {
 
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should return an exact amount of bins accessor within the maxExtent', function() {
+		it('should return an exact amount of bins accessor within the maxExtent', function () {
 			const array = [1, 2, 6, 7, 8, 14, 20];
 			const actual = exactAmountBins({
 				array,
@@ -92,7 +92,7 @@ describe('histogram/utils', function() {
 
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should return an exact amount of bins within the maxExtent and with an accessor', function() {
+		it('should return an exact amount of bins within the maxExtent and with an accessor', function () {
 			const array = [{a: 1}, {a: 2}, {a: 6}, {a: 7}, {a: 8}, {a: 12}, {a: 14}, {a: 20}];
 			const actual = exactAmountBins({
 				array,
@@ -109,8 +109,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
-	describe('findFirstNonEmptyBinIndex', function() {
-		it('should return the index of the first bin with non-empty `values`', function() {
+	describe('findFirstNonEmptyBinIndex', function () {
+		it('should return the index of the first bin with non-empty `values`', function () {
 			const bins = [
 				{range: [-8, -3], values: []},
 				{range: [-3, 2], values: []},
@@ -125,8 +125,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
-	describe('findLastNonEmptyBinIndex', function() {
-		it('should return the index of the last bin with non-empty `values`', function() {
+	describe('findLastNonEmptyBinIndex', function () {
+		it('should return the index of the last bin with non-empty `values`', function () {
 			const bins = [
 				{range: [-8, -3], values: []},
 				{range: [-3, 2], values: []},
@@ -141,8 +141,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
-	describe('getBinsExtent', function() {
-		it('should return the extent of the provided bins', function() {
+	describe('getBinsExtent', function () {
+		it('should return the extent of the provided bins', function () {
 			const bins = [
 				{range: [2, 7], values: [2, 6, 7]},
 				{range: [7, 12], values: [8]},
@@ -154,8 +154,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
-	describe('getBinsItems', function() {
-		it('should return all the values in the provided bins', function() {
+	describe('getBinsItems', function () {
+		it('should return all the values in the provided bins', function () {
 			const bins = [
 				{range: [2, 6], values: [{a: 2}, {a: 6}]},
 				{range: [6, 10], values: [{a: 7}, {a: 8}]},
@@ -167,8 +167,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
-	describe('getBinsMax', function() {
-		it('should return the length of the longest bin', function() {
+	describe('getBinsMax', function () {
+		it('should return the length of the longest bin', function () {
 			const bins = [
 				{range: [2, 7], values: [2, 6, 7]},
 				{range: [7, 12], values: [8]},
@@ -177,8 +177,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(getBinsMax(bins), 3);
 		});
 	});
-	describe('getBinsMin', function() {
-		it('should return the length of the shortest bin', function() {
+	describe('getBinsMin', function () {
+		it('should return the length of the shortest bin', function () {
 			const bins = [
 				{range: [2, 7], values: [2, 6, 7]},
 				{range: [7, 12], values: [8]},
@@ -187,8 +187,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(getBinsMin(bins), 1);
 		});
 	});
-	describe('isNonEmptyBin', function() {
-		it('should return `true` if the `values` property of the provided bin is not empty', function() {
+	describe('isNonEmptyBin', function () {
+		it('should return `true` if the `values` property of the provided bin is not empty', function () {
 			assert.deepStrictEqual(
 				isNonEmptyBin({range: [-8, -3], values: []}),
 				false
@@ -199,8 +199,8 @@ describe('histogram/utils', function() {
 			);
 		});
 	});
-	describe('getBinsTicks', function() {
-		it('should return the ticks for the provided bins', function() {
+	describe('getBinsTicks', function () {
+		it('should return the ticks for the provided bins', function () {
 			const bins = [
 				{range: [-8, -3], values: []},
 				{range: [-3, 2], values: []},
@@ -217,8 +217,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
-	describe('getBinsTicksExtent', function() {
-		it('should return the extent of all ticks for the provided bins', function() {
+	describe('getBinsTicksExtent', function () {
+		it('should return the extent of all ticks for the provided bins', function () {
 			const bins = [
 				{range: [-8, -3], values: []},
 				{range: [-3, 2], values: []},
@@ -235,8 +235,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
-	describe('getNonEmptyBinsTicks', function() {
-		it('should return the ticks for the provided bins using the non-empty ones', function() {
+	describe('getNonEmptyBinsTicks', function () {
+		it('should return the ticks for the provided bins using the non-empty ones', function () {
 			const bins = [
 				{range: [-8, -3], values: []},
 				{range: [-3, 2], values: []},
@@ -253,8 +253,8 @@ describe('histogram/utils', function() {
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
-	describe('getTrimmedBinsStats', function() {
-		it('should return an object containing trimmed bins and `start` and `end` – with empties', function() {
+	describe('getTrimmedBinsStats', function () {
+		it('should return an object containing trimmed bins and `start` and `end` – with empties', function () {
 			const bins = [
 				{range: [-8, -3], values: []},
 				{range: [-3, 2], values: []},
@@ -276,7 +276,7 @@ describe('histogram/utils', function() {
 
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should return an object containing trimmed bins and `start` and `end` – without empties', function() {
+		it('should return an object containing trimmed bins and `start` and `end` – without empties', function () {
 			const bins = [
 				{range: [2, 7], values: [2, 6, 7]},
 				{range: [7, 12], values: [8]},

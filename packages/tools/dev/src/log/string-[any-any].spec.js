@@ -8,8 +8,8 @@ import {
 	tapTypeAndValue
 } from './string-[any-any]';
 
-describe('log: String -> (Any -> Any)', function() {
-	describe('taps', function() {
+describe('log: String -> (Any -> Any)', function () {
+	describe('taps', function () {
 		let printer;
 		before(function () {
 			printer = makePrinter();
@@ -22,8 +22,8 @@ describe('log: String -> (Any -> Any)', function() {
 			printer.restore();
 		});
 
-		describe('tapMessage', function() {
-			it('should print and return the input - no label', function() {
+		describe('tapMessage', function () {
+			it('should print and return the input - no label', function () {
 				const tap = tapMessage();
 				const expected = [1, 2, 3];
 				const actual = tap(expected);
@@ -32,7 +32,7 @@ describe('log: String -> (Any -> Any)', function() {
 				assert.deepStrictEqual(actual, expected);
 				assert.deepStrictEqual(printer.getLog(), expectedLog);
 			});
-			it('should print and return the input - with label', function() {
+			it('should print and return the input - with label', function () {
 				const expected = [1, 2, 3];
 				const actual = tapMessage('message')(expected);
 				const expectedLog = [['message']];
@@ -41,8 +41,8 @@ describe('log: String -> (Any -> Any)', function() {
 				assert.deepStrictEqual(printer.getLog(), expectedLog);
 			});
 		});
-		describe('tapValue', function() {
-			it('should print and return the input - no label', function() {
+		describe('tapValue', function () {
+			it('should print and return the input - no label', function () {
 				const tap = tapValue();
 				const expected = [1, 2, 3];
 				const actual = tap(expected);
@@ -51,7 +51,7 @@ describe('log: String -> (Any -> Any)', function() {
 				assert.deepStrictEqual(actual, expected);
 				assert.deepStrictEqual(printer.getLog(), expectedLog);
 			});
-			it('should print and return the input - with label', function() {
+			it('should print and return the input - with label', function () {
 				const expected = [1, 2, 3];
 				const actual = tapValue('label')(expected);
 				const expectedLog = [['label:', expected]];
@@ -60,8 +60,8 @@ describe('log: String -> (Any -> Any)', function() {
 				assert.deepStrictEqual(printer.getLog(), expectedLog);
 			});
 		});
-		describe('tapType', function() {
-			it('should print the input type and return the input – Object, no label', function() {
+		describe('tapType', function () {
+			it('should print the input type and return the input – Object, no label', function () {
 				const expected = {a: 1};
 				const actual = tapType()(expected);
 				const expectedLog = [['Object']];
@@ -69,7 +69,7 @@ describe('log: String -> (Any -> Any)', function() {
 				assert.deepStrictEqual(actual, expected);
 				assert.deepStrictEqual(printer.getLog(), expectedLog);
 			});
-			it('should print the input type and return the input – Object, with label', function() {
+			it('should print the input type and return the input – Object, with label', function () {
 				const expected = {a: 1};
 				const actual = tapType('label')(expected);
 				const expectedLog = [['label:', 'Object']];
@@ -78,8 +78,8 @@ describe('log: String -> (Any -> Any)', function() {
 				assert.deepStrictEqual(printer.getLog(), expectedLog);
 			});
 		});
-		describe('tapTypeAndValue', function() {
-			it('should print the input type and the input and return the input – Array, no label', function() {
+		describe('tapTypeAndValue', function () {
+			it('should print the input type and the input and return the input – Array, no label', function () {
 				const expected = [1, 2, 3];
 				const actual = tapTypeAndValue()(expected);
 				const expectedLog = [['Array', expected]];
@@ -87,7 +87,7 @@ describe('log: String -> (Any -> Any)', function() {
 				assert.deepStrictEqual(actual, expected);
 				assert.deepStrictEqual(printer.getLog(), expectedLog);
 			});
-			it('should print the input type and the input and return the input – Array, with label', function() {
+			it('should print the input type and the input and return the input – Array, with label', function () {
 				const expected = [1, 2, 3];
 				const actual = tapTypeAndValue('label')(expected);
 				const expectedLog = [['label:', 'Array', expected]];

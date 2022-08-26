@@ -2,9 +2,9 @@ import {strict as assert} from 'assert';
 
 import {containsOneOf} from './array-[string-boolean]';
 
-describe('Array -> (String -> Boolean)', function() {
-	describe('containsOneOf', function() {
-		it('should return a function that checks if a string contains one of the provided strings', function() {
+describe('Array -> (String -> Boolean)', function () {
+	describe('containsOneOf', function () {
+		it('should return a function that checks if a string contains one of the provided strings', function () {
 			const isWeight = containsOneOf(['(g)', '(mg)', '(mcg)']);
 			const weightLabels = [
 				'id',

@@ -2,11 +2,11 @@ import {strict as assert} from 'assert';
 
 import {makeKeysGetter, pickAndConcatValues} from './array-[object-array]';
 
-describe('Array -> (Object -> Array)', function() {
-	describe('makeKeysGetter', function() {
+describe('Array -> (Object -> Array)', function () {
+	describe('makeKeysGetter', function () {
 		const getCoordinates = makeKeysGetter(['lng', 'lat']);
 
-		it('should return a function expecting an object and returning an array of values corresponding to the provided keys', function() {
+		it('should return a function expecting an object and returning an array of values corresponding to the provided keys', function () {
 			assert.deepStrictEqual(
 				getCoordinates({
 					name: 'London',
@@ -17,7 +17,7 @@ describe('Array -> (Object -> Array)', function() {
 				[-0.1275, 51.507222]
 			);
 		});
-		it('the returned array should contain undefineds for keys not contained in the provided object', function() {
+		it('the returned array should contain undefineds for keys not contained in the provided object', function () {
 			assert.deepStrictEqual(
 				getCoordinates({
 					name: 'London',
@@ -36,8 +36,8 @@ describe('Array -> (Object -> Array)', function() {
 		});
 	});
 
-	describe('pickAndConcatValues', function() {
-		it('should return a function expecting an object and concatenating values in the provided list of keys', function() {
+	describe('pickAndConcatValues', function () {
+		it('should return a function expecting an object and concatenating values in the provided list of keys', function () {
 			const getProducts = pickAndConcatValues(['food', 'beverage']);
 			const actual = getProducts({
 				food: ['bread', 'cheese', 'ham'],

@@ -5,9 +5,9 @@ import {
 	makeLinkVector
 } from './2DNetwork';
 
-describe('2DNetwork', function() {
-	describe('linkVector', function() {
-		it('should calculate the vector of a link', function() {
+describe('2DNetwork', function () {
+	describe('linkVector', function () {
+		it('should calculate the vector of a link', function () {
 			assert.deepStrictEqual(
 				linkVector({
 					source: {x: 1, y: 1},
@@ -21,7 +21,7 @@ describe('2DNetwork', function() {
 				}
 			);
 		});
-		it('should calculate the vector of a link when source/target are equal', function() {
+		it('should calculate the vector of a link when source/target are equal', function () {
 			assert.deepStrictEqual(
 				linkVector({
 					source: {x: 1, y: 1},
@@ -31,8 +31,8 @@ describe('2DNetwork', function() {
 			);
 		});
 	});
-	describe('makeLinkVector', function() {
-		it('should calculate the vector of the inner link', function() {
+	describe('makeLinkVector', function () {
+		it('should calculate the vector of the inner link', function () {
 			assert.deepStrictEqual(
 				makeLinkVector({
 					source: {x: 1, y: 1, radius: 0.1},
@@ -46,7 +46,7 @@ describe('2DNetwork', function() {
 				}
 			);
 		});
-		it('should calculate the vector of the inner link when source/target are equal', function() {
+		it('should calculate the vector of the inner link when source/target are equal', function () {
 			assert.deepStrictEqual(
 				makeLinkVector({
 					source: {x: 1, y: 1, radius: 0.1},

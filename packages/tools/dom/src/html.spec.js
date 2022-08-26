@@ -7,8 +7,8 @@ import {alignTags} from './html';
 
 const TEST_ASSETS_PATH = resolve(__dirname, '../test_assets/');
 
-describe('@svizzle/dom/html', function() {
-	describe('alignTags', function() {
+describe('@svizzle/dom/html', function () {
+	describe('alignTags', function () {
 		it('should add a newline between angle brackets', async () => {
 			const filepathInput = join(TEST_ASSETS_PATH, '01_input.html');
 			const filepathExpected = join(TEST_ASSETS_PATH, '01_expected.html');

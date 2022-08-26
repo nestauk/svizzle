@@ -2,9 +2,9 @@ import {strict as assert} from 'assert';
 
 import {noop} from './any-undefined';
 
-describe('Any -> Undefined', function() {
-	describe('noop', function() {
-		it('should do nothing and return `undefined`', function() {
+describe('Any -> Undefined', function () {
+	describe('noop', function () {
+		it('should do nothing and return `undefined`', function () {
 			assert.deepStrictEqual(noop(), undefined);
 			assert.deepStrictEqual(noop(1), undefined);
 			assert.deepStrictEqual(noop('d'), undefined);

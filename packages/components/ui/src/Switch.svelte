@@ -28,7 +28,7 @@
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: style = makeStyleVars(theme);
 
-	function toggle() {
+	function toggle () {
 		currentValue = currentValue === values[0] ? values[1] : values[0];
 		dispatch('toggled', currentValue);
 	}

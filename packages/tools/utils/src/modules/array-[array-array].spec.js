@@ -8,9 +8,9 @@ import {
 	removeAt
 } from './array-[array-array]';
 
-describe('Array -> (Array -> Array)', function() {
-	describe('makeArrayTransformer', function() {
-		it('should return a function expecting an array and that applies the provided transforms to its elements', function() {
+describe('Array -> (Array -> Array)', function () {
+	describe('makeArrayTransformer', function () {
+		it('should return a function expecting an array and that applies the provided transforms to its elements', function () {
 			const transformer1 = makeArrayTransformer([x => x * 20, x => x + 3]);
 			assert.deepStrictEqual(
 				transformer1([2, 2]),
@@ -23,7 +23,7 @@ describe('Array -> (Array -> Array)', function() {
 				['width', 32]
 			);
 		});
-		it('should return a function expecting an array shorter than the transforms array and that returns an array of the same length of the provided array', function() {
+		it('should return a function expecting an array shorter than the transforms array and that returns an array of the same length of the provided array', function () {
 			const transformer = makeArrayTransformer([x => x * 20]);
 
 			assert.deepStrictEqual(
@@ -31,7 +31,7 @@ describe('Array -> (Array -> Array)', function() {
 				[20]
 			);
 		});
-		it('should return a function expecting an array longer than the transforms array and that returns an array of the same length of the provided array', function() {
+		it('should return a function expecting an array longer than the transforms array and that returns an array of the same length of the provided array', function () {
 			const transformer = makeArrayTransformer([x => x * 20, x => x + 3]);
 
 			assert.deepStrictEqual(
@@ -41,8 +41,8 @@ describe('Array -> (Array -> Array)', function() {
 		});
 	});
 
-	describe('pluckKeys', function() {
-		it('should return a function plucking the provided keys from the expected array', function() {
+	describe('pluckKeys', function () {
+		it('should return a function plucking the provided keys from the expected array', function () {
 			let select = pluckKeys(['a', 'k']);
 			let actual = select([
 				{a: 1, b: 2, c: 3, k: 4},
@@ -51,7 +51,7 @@ describe('Array -> (Array -> Array)', function() {
 			let expected = [{a: 1, k: 4}, {a: 5, k: 6}];
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should return a function plucking the provided keys from the expected array – missing keys', function() {
+		it('should return a function plucking the provided keys from the expected array – missing keys', function () {
 			let select = pluckKeys(['a', 'k']);
 			let actual = select([
 				{a: 1, b: 2, c: 3},
@@ -62,39 +62,39 @@ describe('Array -> (Array -> Array)', function() {
 		});
 	});
 
-	describe('removeAt', function() {
+	describe('removeAt', function () {
 		const arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 		const arr2 = [0, 1, 2];
 
-		it('should remove values at the provided indices', function() {
+		it('should remove values at the provided indices', function () {
 			const removeIndices = removeAt([3, 4, 8]);
 			assert.deepStrictEqual(
 				removeIndices(arr1),
 				[0, 1, 2, 5, 6, 7, 9]
 			);
 		});
-		it('should remove the value at the first index', function() {
+		it('should remove the value at the first index', function () {
 			const removeIndices = removeAt([0]);
 			assert.deepStrictEqual(
 				removeIndices(arr1),
 				[1, 2, 3, 4, 5, 6, 7, 8, 9]
 			);
 		});
-		it('should remove the value at the last index', function() {
+		it('should remove the value at the last index', function () {
 			const removeIndices = removeAt([9]);
 			assert.deepStrictEqual(
 				removeIndices(arr1),
 				[0, 1, 2, 3, 4, 5, 6, 7, 8]
 			);
 		});
-		it('should ignore indices greater than the max index in the array', function() {
+		it('should ignore indices greater than the max index in the array', function () {
 			const removeIndices = removeAt([1, 2, 3, 4]);
 			assert.deepStrictEqual(
 				removeIndices(arr2),
 				[0]
 			);
 		});
-		it('should not remove values if the indices outside the array range', function() {
+		it('should not remove values if the indices outside the array range', function () {
 			const removeIndices = removeAt([3, 4]);
 			assert.deepStrictEqual(
 				removeIndices(arr2),

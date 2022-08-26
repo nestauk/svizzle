@@ -5,9 +5,9 @@ import {
 	reduceFromEmptyObject
 } from './reduceCb[any-any]-[array-any]';
 
-describe('(Any -> Any):reduceCb -> (Array -> Any)', function() {
-	describe('reduceFromEmptyArray', function() {
-		it('should return a reduce function expecting an array to reduce with the passed reducer with an empty array as the initial value', function() {
+describe('(Any -> Any):reduceCb -> (Array -> Any)', function () {
+	describe('reduceFromEmptyArray', function () {
+		it('should return a reduce function expecting an array to reduce with the passed reducer with an empty array as the initial value', function () {
 			const reduce = reduceFromEmptyArray((acc, x) => {
 				return acc.slice(-2).concat([x.value]);
 			});
@@ -22,7 +22,7 @@ describe('(Any -> Any):reduceCb -> (Array -> Any)', function() {
 				[0, 4, 7]
 			);
 		});
-		it('should create a different initial array each time it gets called', function() {
+		it('should create a different initial array each time it gets called', function () {
 			const reduce1 = reduceFromEmptyArray((acc, x) => {
 				acc.push(x.value);
 				return acc;
@@ -37,8 +37,8 @@ describe('(Any -> Any):reduceCb -> (Array -> Any)', function() {
 			assert.notStrictEqual(b, [1, 2, 3, 4]);
 		});
 	});
-	describe('reduceFromEmptyObject', function() {
-		it('should return a reduce function expecting an array to reduce with the passed reducer with an empty object as the initial value', function() {
+	describe('reduceFromEmptyObject', function () {
+		it('should return a reduce function expecting an array to reduce with the passed reducer with an empty object as the initial value', function () {
 			const reduce = reduceFromEmptyObject((acc, x) => {
 				acc[x.id] = x.name;
 				return acc;
@@ -51,7 +51,7 @@ describe('(Any -> Any):reduceCb -> (Array -> Any)', function() {
 				{'11': 'b', '00': 'a'}
 			);
 		});
-		it('should create a different initial object each time it gets called', function() {
+		it('should create a different initial object each time it gets called', function () {
 			const reduce1 = reduceFromEmptyObject((acc, x) => {
 				acc[x.id] = x.name;
 				return acc;

@@ -2,7 +2,7 @@
 	import {lookup} from './_utils';
 
 	// eslint-disable-next-line no-unused-vars
-	export function preload({params, query}) {
+	export function preload ({params, query}) {
 		return lookup[params.slug];
 	}
 </script>
