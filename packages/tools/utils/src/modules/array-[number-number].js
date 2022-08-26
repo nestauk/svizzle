@@ -3,7 +3,7 @@
 */
 
 import * as _ from 'lamb';
-import {reduceFromEmptyArray} from './[any-any]:accumcb-[array-any]';
+import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any]';
 
 /**
  * Return a function that computes the polynomial of the input number using the provided cofficients.

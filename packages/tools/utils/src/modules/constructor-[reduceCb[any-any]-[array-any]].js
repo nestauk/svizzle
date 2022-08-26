@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/utils/constructor-[[any-any]:accumcb-[array-any]]
+* @module @svizzle/utils/constructor-[reduceCb[any-any]-[array-any]]
 */
 
 import * as _ from 'lamb';
@@ -11,7 +11,7 @@ import * as _ from 'lamb';
  *
  * @function
  * @arg {object} constructor
- * @return {function} - (Any -> Any):accumcb -> (Array -> Any)
+ * @return {function} - (Any -> Any):reduceCb -> (Array -> Any)
  *
  * @example
 > reduceFromEmptyObject = reduceTo(Object)
@@ -24,4 +24,4 @@ Object {11: 'b', 00: 'a'}
  *
  * @since 0.3.0
  */
-export const reduceTo = ctor => fn => _.reduceWith(fn, new ctor());
+export const reduceTo = ctor => reduceCb => _.reduceWith(reduceCb, new ctor());

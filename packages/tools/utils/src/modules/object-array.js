@@ -4,12 +4,12 @@
 
 import * as _ from 'lamb';
 
-import {reduceFromEmptyArray} from './[any-any]:accumcb-[array-any]';
 import {isArray} from './any-boolean';
 import {concat} from './array_proto-array';
 import {isIterableNotEmpty} from './iterable-boolean';
 import {pairToKeyValueObject} from './iterable-object';
 import {pickIfTruthy} from './object-object';
+import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any]';
 
 /**
  * Concatenate the values of the provided object.

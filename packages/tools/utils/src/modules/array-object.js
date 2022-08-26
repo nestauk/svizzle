@@ -3,8 +3,9 @@
 */
 
 import * as _ from 'lamb';
+
 import {makeKeyed} from './any-[array-object]';
-import {reduceFromEmptyObject} from './[any-any]:accumcb-[array-any]';
+import {reduceFromEmptyObject} from './reduceCb[any-any]-[array-any]';
 
 /**
  * Return an object built using 'key's and 'value's from the objects in the provided array
