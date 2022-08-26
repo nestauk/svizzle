@@ -3,13 +3,14 @@ env:
   es6: true
   node: true
   mocha: true
-extends: 'eslint:recommended'
+extends:
+  - eslint:recommended
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
 parser: '@babel/eslint-parser'
 parserOptions:
-  ecmaVersion: 2018
+  ecmaVersion: 2020
   sourceType: module
   requireConfigFile: false
 rules:
@@ -88,7 +89,10 @@ rules:
   linebreak-style:
     - error
     - unix
-  lines-around-comment: off
+  lines-around-comment:
+    - error
+    - beforeLineComment: false
+      afterLineComment: false
   lines-around-directive: error
   lines-between-class-members: error
   max-classes-per-file: off
@@ -243,7 +247,7 @@ rules:
   sort-keys: off
   sort-vars: error
   space-before-blocks: error
-  space-before-function-paren: off
+  space-before-function-paren: error
   space-in-parens:
     - error
     - never
