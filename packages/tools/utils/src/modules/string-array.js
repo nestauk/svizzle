@@ -4,10 +4,10 @@
 
 import * as _ from 'lamb';
 
-import {reduceFromEmptyArray} from './[any-any]:accumcb-[array-any]';
 import {trim} from './string_proto-string';
 import {isTrimmedNotEmpty} from './string-boolean';
 import {makeSplitBy} from './string-[string-array]';
+import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any]';
 
 /**
  * Return an array by splitting by '.'

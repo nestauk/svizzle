@@ -63,7 +63,11 @@
 - added `sortObjectKeysAsc`, `sortObjectKeysDesc`
 - added `jsonBufferToAny`
 - use `_.head` instead of `_.getAt(0)`
-
+- removed `:` from some files names
+- arg rename from `accumcb` to `reduceCb`
+- content from `accumcb[any-number]-[array-number].js` -> `[any-number]-[array-number].js`
+- `constructor-[accumcb[any-any]-[array-any]].js` -> `constructor-[reduceCb[any-any]-[array-any]].js`
+- `accumcb[any-any]-[array-any].js` -> `reduceCb[any-any]-[array-any].js`
 
 ## 20211224_2
 

@@ -3,9 +3,9 @@ import {strict as assert} from 'assert';
 import {
 	reduceFromEmptyArray,
 	reduceFromEmptyObject
-} from './[any-any]:accumcb-[array-any]';
+} from './reduceCb[any-any]-[array-any]';
 
-describe('(Any -> Any):accumcb -> (Array -> Any)', function() {
+describe('(Any -> Any):reduceCb -> (Array -> Any)', function() {
 	describe('reduceFromEmptyArray', function() {
 		it('should return a reduce function expecting an array to reduce with the passed reducer with an empty array as the initial value', function() {
 			const reduce = reduceFromEmptyArray((acc, x) => {

@@ -1,8 +1,8 @@
 /**
-* @module @svizzle/utils/[any-any]:accumcb-[array-any]
+* @module @svizzle/utils/reduceCb[any-any]-[array-any]
 */
 
-import {reduceTo} from './constructor-[[any-any]:accumcb-[array-any]]';
+import {reduceTo} from './constructor-[reduceCb[any-any]-[array-any]]';
 
 /**
  * Return a reduce function expecting an array to reduce with the passed reducer

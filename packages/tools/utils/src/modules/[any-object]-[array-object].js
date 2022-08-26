@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {reduceFromEmptyObject} from './[any-any]:accumcb-[array-any]';
+import {reduceFromEmptyObject} from './reduceCb[any-any]-[array-any]';
 
 /**
  * Return a function expecting an array and returning an object of occurrences
