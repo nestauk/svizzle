@@ -3,9 +3,9 @@ import {strict as assert} from 'assert';
 import {makeBiPermutationsWith} from './[any-array]-[any-array]';
 import {getValue} from './object-any';
 
-describe('(Any -> Array) -> (Any -> Array)', function() {
-	describe('makeBiPermutationsWith', function() {
-		it('should return a function returning the pair-permutations of the items returned by the provided accessor', function() {
+describe('(Any -> Array) -> (Any -> Array)', function () {
+	describe('makeBiPermutationsWith', function () {
+		it('should return a function returning the pair-permutations of the items returned by the provided accessor', function () {
 			const makeBiPermutations = makeBiPermutationsWith(getValue);
 			const object = {
 				key: 'foobars',

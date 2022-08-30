@@ -9,9 +9,9 @@ import {
 	resolveToDir,
 } from './path';
 
-describe('path', function() {
-	describe('getPathExt', function() {
-		it('should return the extension of the provided file path', function() {
+describe('path', function () {
+	describe('getPathExt', function () {
+		it('should return the extension of the provided file path', function () {
 			assert.deepStrictEqual(
 				getPathExt('foo/bar.txt'),
 				'txt'
@@ -22,8 +22,8 @@ describe('path', function() {
 			);
 		});
 	});
-	describe('hasAnyExtensionOf', function() {
-		it('should detect if a file name has one of the provided extensions', function() {
+	describe('hasAnyExtensionOf', function () {
+		it('should detect if a file name has one of the provided extensions', function () {
 			const isJsonOrGeojson = hasAnyExtensionOf(['.json', '.geojson']);
 
 			assert.deepStrictEqual(
@@ -36,24 +36,24 @@ describe('path', function() {
 			);
 		});
 	});
-	describe('filterJsonExtensions', function() {
-		it('should filter an array of file names to contain only those with extension .json or .geojson.', function() {
+	describe('filterJsonExtensions', function () {
+		it('should filter an array of file names to contain only those with extension .json or .geojson.', function () {
 			assert.deepStrictEqual(
 				filterJsonExtensions(['file.json', 'file.geojson', 'file.csv']),
 				['file.json', 'file.geojson']
 			);
 		});
 	});
-	describe('isFileWithExt', function() {
-		it('should return a function that returns true if the input file name has the provided extension', function() {
+	describe('isFileWithExt', function () {
+		it('should return a function that returns true if the input file name has the provided extension', function () {
 			const isJson = isFileWithExt('json');
 
 			assert.deepStrictEqual(isJson('file.json'), true);
 			assert.deepStrictEqual(isJson('file.txt'), false);
 		});
 	});
-	describe('renameToExtension', function() {
-		it('should return a function that renames a file to the provided extension', function() {
+	describe('renameToExtension', function () {
+		it('should return a function that renames a file to the provided extension', function () {
 			const renameToJson = renameToExtension('.json');
 
 			assert.deepStrictEqual(
@@ -65,7 +65,7 @@ describe('path', function() {
 				'file.min.json'
 			);
 		});
-		it('should return a function that renames a file to the provided extension (multiples)', function() {
+		it('should return a function that renames a file to the provided extension (multiples)', function () {
 			const renameToMinJs = renameToExtension('.min.js');
 
 			assert.deepStrictEqual(
@@ -74,8 +74,8 @@ describe('path', function() {
 			);
 		});
 	});
-	describe('resolveToDir', function() {
-		it('should return a function expecting a filename and returning it resolved to the provided directory path', function() {
+	describe('resolveToDir', function () {
+		it('should return a function expecting a filename and returning it resolved to the provided directory path', function () {
 			const resolve = resolveToDir('/output/dir/');
 
 			assert.deepStrictEqual(

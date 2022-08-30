@@ -4,9 +4,9 @@ import * as _ from 'lamb';
 
 import {pairToKeyValueObjectWith} from './[any-any]-[iterable-object]';
 
-describe('(Any -> Any) -> (Iterable -> Object)', function() {
-	describe('pairToKeyValueObjectWith', function() {
-		it('should return a function expecting an pair and returning a {key, value} object', function() {
+describe('(Any -> Any) -> (Iterable -> Object)', function () {
+	describe('pairToKeyValueObjectWith', function () {
+		it('should return a function expecting an pair and returning a {key, value} object', function () {
 			const objectifySelfSum = pairToKeyValueObjectWith(x => x + x);
 
 			assert.deepStrictEqual(

@@ -12,8 +12,8 @@ import {
 	setGeometryPrecision
 } from './geojson';
 
-describe('geo/geojson', function() {
-	describe('getOrMakeBBox', function() {
+describe('geo/geojson', function () {
+	describe('getOrMakeBBox', function () {
 		const type = 'FeatureCollection';
 		const features = [{
 			type: 'Feature',
@@ -36,15 +36,15 @@ describe('geo/geojson', function() {
 		const collectionWithBBox = {type, features, bbox};
 		const collectionWithoutBBox = {type, features};
 
-		it('should return the bbox value of a collection with bbox', function() {
+		it('should return the bbox value of a collection with bbox', function () {
 			assert.deepStrictEqual(getOrMakeBBox(collectionWithBBox), bbox);
 		});
-		it('should calculate the bbox of a collection without bbox', function() {
+		it('should calculate the bbox of a collection without bbox', function () {
 			assert.deepStrictEqual(getOrMakeBBox(collectionWithoutBBox), bbox);
 		});
 	});
 
-	describe('makeUpdateFeaturesProperty', function() {
+	describe('makeUpdateFeaturesProperty', function () {
 		const geojson = {
 			type: 'FeatureCollection',
 			features: [
@@ -116,7 +116,7 @@ describe('geo/geojson', function() {
 			]
 		};
 		it('should return a function expecting a geojson and creating or updating the provided property of all features using the provided map.',
-			function() {
+			function () {
 				const keyToColor = {BF: 'red', Kosovo: 'yellow'};
 				const addColor = makeUpdateFeaturesProperty({
 					propName: 'color',
@@ -128,7 +128,7 @@ describe('geo/geojson', function() {
 			}
 		);
 		it('should return a function expecting a geojson and creating or updating the provided property of all features using the provided mapping function.',
-			function() {
+			function () {
 				const keyToColor = {BF: 'red', Kosovo: 'yellow'};
 				const keyToColorFn = key => keyToColor[key]; // silly func just for testing
 
@@ -142,9 +142,9 @@ describe('geo/geojson', function() {
 			}
 		);
 	});
-	describe('makeCentroids', function() {
+	describe('makeCentroids', function () {
 		it('should return the a collection of centroids of the provided features, each having the correspondent feature properties',
-			function() {
+			function () {
 				const features = [{
 					type: 'Feature',
 					properties: {foo: 'a'},
@@ -181,9 +181,9 @@ describe('geo/geojson', function() {
 		);
 		// TODO test more subtle cases (item without appropriate lat/lng, ...)
 	});
-	describe('makeToPointFeature', function() {
+	describe('makeToPointFeature', function () {
 		it('should return a function expecting an object and returning it as a Point feature with the passed object as properties',
-			function() {
+			function () {
 				const coordPicker = _.collect([_.getKey('lng'), _.getKey('lat')]);
 				const toPointFeature = makeToPointFeature(coordPicker);
 				const item = {foo: 'a', lng: 0.1, lat: 0.1};
@@ -196,7 +196,7 @@ describe('geo/geojson', function() {
 			}
 		);
 		it('should return a function expecting an object and returning it as a Point feature with the passed object, transformed, as properties',
-			function() {
+			function () {
 				const coordPicker = _.collect([_.getKey('lng'), _.getKey('lat')]);
 				const propsTransformer = applyFnMap({name: _.getKey('foo')});
 				const toPointFeature = makeToPointFeature(coordPicker, propsTransformer);
@@ -211,9 +211,9 @@ describe('geo/geojson', function() {
 		);
 		// TODO test more subtle cases (item without appropriate lat/lng, ...)
 	});
-	describe('makeToGeoPoints', function() {
+	describe('makeToGeoPoints', function () {
 		it('should return a function expecting an array of objects and returning them as a FeatureCollection of Point features with the passed objects as properties',
-			function() {
+			function () {
 				const coordPicker = _.collect([_.getKey('lng'), _.getKey('lat')]);
 				const toGeoPoints = makeToGeoPoints(coordPicker);
 				const items = [
@@ -237,7 +237,7 @@ describe('geo/geojson', function() {
 			}
 		);
 		it('should return a function expecting an array of objects and returning them as a FeatureCollection of Point features with the passed objects, transformed, as properties',
-			function() {
+			function () {
 				const coordPicker = _.collect([_.getKey('lng'), _.getKey('lat')]);
 				const propsTransformer = applyFnMap({name: _.getKey('foo')});
 				const toGeoPoints = makeToGeoPoints(coordPicker, propsTransformer);
@@ -263,9 +263,9 @@ describe('geo/geojson', function() {
 		);
 		// TODO test more subtle cases (empty array, items without appropriate lat/lng, ...)
 	});
-	describe('setGeometryPrecision', function() {
+	describe('setGeometryPrecision', function () {
 		it('should return a function returning a copy of the provided geojson having the geometry coordinates truncated (not rounded) to the given precision',
-			function() {
+			function () {
 				const shortenGeometry = setGeometryPrecision(4);
 				const point = {
 					'type': 'Feature',
@@ -287,7 +287,7 @@ describe('geo/geojson', function() {
 			}
 		);
 		it('should turn coordinates to integers if the precision is 0',
-			function() {
+			function () {
 				const coordsToIntegers = setGeometryPrecision(0);
 				const point = {
 					'type': 'Feature',

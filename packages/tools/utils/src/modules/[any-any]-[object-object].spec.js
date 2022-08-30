@@ -8,9 +8,9 @@ import {
 	mergeWith
 } from './[any-any]-[object-object]';
 
-describe('(Any -> Any) -> (Object -> Object)', function() {
-	describe('groupValuesWith', function() {
-		it('Return a function expecting an object and returning an object grouping its values using the provided accessor – single values', function() {
+describe('(Any -> Any) -> (Object -> Object)', function () {
+	describe('groupValuesWith', function () {
+		it('Return a function expecting an object and returning an object grouping its values using the provided accessor – single values', function () {
 			const regroupedByX = groupValuesWith(obj => obj.x);
 
 			const obj = {
@@ -27,7 +27,7 @@ describe('(Any -> Any) -> (Object -> Object)', function() {
 
 			assert.deepStrictEqual(regroupedByX(obj), expected);
 		});
-		it('Return a function expecting an object and returning an object grouping its values using the provided accessor – values being arrays', function() {
+		it('Return a function expecting an object and returning an object grouping its values using the provided accessor – values being arrays', function () {
 			const regroupedByX = groupValuesWith(obj => obj.x);
 
 			const obj = {
@@ -44,8 +44,8 @@ describe('(Any -> Any) -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('indexValuesWith', function() {
-		it('Return a function expecting an object and returning an index of all its values – single values', function() {
+	describe('indexValuesWith', function () {
+		it('Return a function expecting an object and returning an index of all its values – single values', function () {
 			const reindexedByX = indexValuesWith(obj => obj.x);
 
 			const obj = {
@@ -63,7 +63,7 @@ describe('(Any -> Any) -> (Object -> Object)', function() {
 
 			assert.deepStrictEqual(reindexedByX(obj), expected);
 		});
-		it('Return a function expecting an object and returning an index of all its values – values being arrays', function() {
+		it('Return a function expecting an object and returning an index of all its values – values being arrays', function () {
 			const reindexedByX = indexValuesWith(obj => obj.x);
 
 			const obj = {
@@ -81,8 +81,8 @@ describe('(Any -> Any) -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('mergeWith', function() {
-		it('should return a function expecting two objects to merge using the provided merge function', function() {
+	describe('mergeWith', function () {
+		it('should return a function expecting two objects to merge using the provided merge function', function () {
 			const mergeWithSubtract = mergeWith(_.subtract);
 
 			const merged = mergeWithSubtract(

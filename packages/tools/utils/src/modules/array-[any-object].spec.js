@@ -4,9 +4,9 @@ import * as _ from 'lamb';
 
 import {makeWith} from './array-[any-object]';
 
-describe('Array -> (Any -> Object)', function() {
-	describe('makeWith', function() {
-		it('should return a function expecting an array and that applies the provided transforms to its elements', function() {
+describe('Array -> (Any -> Object)', function () {
+	describe('makeWith', function () {
+		it('should return a function expecting an array and that applies the provided transforms to its elements', function () {
 			const makeCircle = makeWith([
 				['radius', 'perimeter', 'area'],
 				[_.identity, r => 2 * Math.PI * r, r => Math.PI * Math.pow(r, 2)]

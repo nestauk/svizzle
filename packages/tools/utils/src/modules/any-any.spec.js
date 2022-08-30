@@ -10,10 +10,10 @@ import {
 //     return arguments;
 // }
 
-describe('Any -> Any', function() {
-	describe('Any -> number|identity', function() {
-		describe('toFloatOrIdentity', function() {
-			it('should return a number if the input can be converted to a float, identity otherwise', function() {
+describe('Any -> Any', function () {
+	describe('Any -> number|identity', function () {
+		describe('toFloatOrIdentity', function () {
+			it('should return a number if the input can be converted to a float, identity otherwise', function () {
 				assert.deepStrictEqual(toFloatOrIdentity('2'), 2);
 				assert.deepStrictEqual(toFloatOrIdentity('2px'), 2);
 				assert.deepStrictEqual(toFloatOrIdentity(''), '');
@@ -35,21 +35,21 @@ describe('Any -> Any', function() {
 		});
 	});
 
-	describe('Any -> identity|array', function() {
-		describe('makeEmptyArrayIfUndefined', function() {
-			it('should create [] from undefined', function() {
+	describe('Any -> identity|array', function () {
+		describe('makeEmptyArrayIfUndefined', function () {
+			it('should create [] from undefined', function () {
 				assert.deepStrictEqual(makeEmptyArrayIfUndefined(undefined), []);
 			});
-			it('should leave untouched if null', function() {
+			it('should leave untouched if null', function () {
 				assert.deepStrictEqual(makeEmptyArrayIfUndefined(null), null);
 			});
-			it('should leave untouched if defined', function() {
+			it('should leave untouched if defined', function () {
 				assert.deepStrictEqual(makeEmptyArrayIfUndefined(4), 4);
 				assert.deepStrictEqual(makeEmptyArrayIfUndefined([1, 2]), [1, 2]);
 				assert.deepStrictEqual(makeEmptyArrayIfUndefined({a: 1}), {a: 1});
 				assert.deepStrictEqual(makeEmptyArrayIfUndefined('str'), 'str');
 			});
-			it('should create different objects each time it gets called', function() {
+			it('should create different objects each time it gets called', function () {
 				const a = makeEmptyArrayIfUndefined(undefined);
 				const b = makeEmptyArrayIfUndefined(undefined);
 				assert.notStrictEqual(a, b);
@@ -57,15 +57,15 @@ describe('Any -> Any', function() {
 		});
 	});
 
-	describe('Any -> Any', function() {
-		describe('sanitize', function() {
-			it('should sanitize objects', function() {
+	describe('Any -> Any', function () {
+		describe('sanitize', function () {
+			it('should sanitize objects', function () {
 				assert.deepStrictEqual(
 					sanitize({a: 1, b: undefined}),
 					{a: 1}
 				);
 			});
-			it('should sanitize nested objects', function() {
+			it('should sanitize nested objects', function () {
 				assert.deepStrictEqual(
 					sanitize({
 						a: 1,
@@ -74,7 +74,7 @@ describe('Any -> Any', function() {
 					{a: 1, b: {c: 2}}
 				);
 			});
-			it('should sanitize arrays by substituting `undefined`s with `null`s', function() {
+			it('should sanitize arrays by substituting `undefined`s with `null`s', function () {
 				assert.deepStrictEqual(
 					sanitize([undefined]),
 					[null]
@@ -84,13 +84,13 @@ describe('Any -> Any', function() {
 					[1, null, 2]
 				);
 			});
-			it('should sanitize arrays containing objects', function() {
+			it('should sanitize arrays containing objects', function () {
 				assert.deepStrictEqual(
 					sanitize([{a: 1, b: undefined}, undefined]),
 					[{a: 1}, null]
 				);
 			});
-			it('should sanitize arrays containing nested objects', function() {
+			it('should sanitize arrays containing nested objects', function () {
 				assert.deepStrictEqual(
 					sanitize([
 						{

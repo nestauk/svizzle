@@ -3,6 +3,7 @@
 ## next
 
 - updated copyright year in various packages
+- updated `eslint` configuration and enforced new settings in the code
 
 ## `@svizzle/site` v0.3.12
 

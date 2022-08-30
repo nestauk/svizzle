@@ -5,9 +5,9 @@ import * as _ from 'lamb';
 import {joinWithBlank} from './array-string';
 import {applyFnMap} from './object-[any-object]';
 
-describe('Object -> (Any -> Object)', function() {
-	describe('applyFnMap', function() {
-		it('should return a function expecting an object to be used as the argument of the provided functions', function() {
+describe('Object -> (Any -> Object)', function () {
+	describe('applyFnMap', function () {
+		it('should return a function expecting an object to be used as the argument of the provided functions', function () {
 			const object = {fname: 'John', lname: 'Woo', lng: 1, lat: 2};
 			const format = applyFnMap({
 				coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
@@ -22,7 +22,7 @@ describe('Object -> (Any -> Object)', function() {
 				{coords: [1, 2], fullname: 'John Woo'}
 			);
 		});
-		it('should work with any type of input - Number', function() {
+		it('should work with any type of input - Number', function () {
 			const checkNumber = applyFnMap({
 				range: _.collect([_.add(1), _.deduct(1)]),
 				sign: Math.sign,
@@ -37,7 +37,7 @@ describe('Object -> (Any -> Object)', function() {
 				{range: [-9, -11], sign: -1}
 			);
 		});
-		it('should work with any type of input - String', function() {
+		it('should work with any type of input - String', function () {
 			const checkString = applyFnMap({
 				parts: _.splitBy('/'),
 				hasNumbersOnly: _.testWith(/^\d+$/gu),

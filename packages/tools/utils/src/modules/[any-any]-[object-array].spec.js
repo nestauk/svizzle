@@ -7,9 +7,9 @@ import {
 	valuesWith
 } from './[any-any]-[object-array]';
 
-describe('(Any -> Any) -> (Object -> Array)', function() {
-	describe('objectToKeyValueArrayWith', function() {
-		it('should return a function expecting an object and returning an array of {key, value} objects', function() {
+describe('(Any -> Any) -> (Object -> Array)', function () {
+	describe('objectToKeyValueArrayWith', function () {
+		it('should return a function expecting an object and returning an array of {key, value} objects', function () {
 			const convertToArray = objectToKeyValueArrayWith(_.getKey('a'));
 			const obj = {k1: {a: 1}, k2: {a: 2}};
 
@@ -19,8 +19,8 @@ describe('(Any -> Any) -> (Object -> Array)', function() {
 			);
 		});
 	});
-	describe('valuesWith', function() {
-		it('should return a function expecting an object and returning an array of its value processed with the provided function', function() {
+	describe('valuesWith', function () {
+		it('should return a function expecting an object and returning an array of its value processed with the provided function', function () {
 			const triplicatedValues = valuesWith(_.add(3));
 
 			assert.deepStrictEqual(
@@ -37,7 +37,7 @@ describe('(Any -> Any) -> (Object -> Array)', function() {
 
 			assert.deepStrictEqual(getFoos(obj), [1, 15, 4]);
 		});
-		it('should return a function expecting an object and returning an array of its value processed with the provided function - using keys', function() {
+		it('should return a function expecting an object and returning an array of its value processed with the provided function - using keys', function () {
 			const keysAndValues = valuesWith((value, key) => `${value} (${key})`);
 
 			assert.deepStrictEqual(

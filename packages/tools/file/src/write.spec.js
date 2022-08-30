@@ -22,10 +22,10 @@ const multiIndented4 = `{
     "b": 2
 }`;
 
-describe('write', function() {
-	describe('saveObj', function() {
+describe('write', function () {
+	describe('saveObj', function () {
 		it('should return a function that expects an object and returns a promise that writes to the provided filepath',
-			async function() {
+			async function () {
 				const jsonPath = path.resolve(__dirname, '../test_assets', 'a1.json');
 				const tmpFilepath = tempy.file();
 
@@ -36,7 +36,7 @@ describe('write', function() {
 			}
 		);
 		it('should return a function that expects an object and returns a promise that writes to the provided filepath with indentation = 4',
-			async function() {
+			async function () {
 				const jsonPath = path.resolve(__dirname, '../test_assets', 'multi.json');
 				const tmpFilepath = tempy.file();
 
@@ -47,9 +47,9 @@ describe('write', function() {
 			}
 		);
 	});
-	describe('saveObjPassthrough', function() {
+	describe('saveObjPassthrough', function () {
 		it('should return a function that expects an object and returns a promise that writes to the provided filepath and then returns the object',
-			async function() {
+			async function () {
 				const jsonPath = path.resolve(__dirname, '../test_assets', 'a1.json');
 				const tmpFilepath = tempy.file();
 
@@ -64,7 +64,7 @@ describe('write', function() {
 			}
 		);
 		it('should return a function that expects an object and returns a promise that writes to the provided filepath with indentation = 4 and then returns the object',
-			async function() {
+			async function () {
 				const jsonPath = path.resolve(__dirname, '../test_assets', 'multi.json');
 				const tmpFilepath = tempy.file();
 
@@ -79,9 +79,9 @@ describe('write', function() {
 			}
 		);
 	});
-	describe('saveResponse', function() {
+	describe('saveResponse', function () {
 		it('should return a function that expects a response and returns a promise that saves the response body to the provided filepath',
-			async function() {
+			async function () {
 				const tmpFilepath = tempy.file();
 				const obj = {a: 1, b: 2};
 
@@ -97,9 +97,9 @@ describe('write', function() {
 			}
 		);
 	});
-	describe('saveYaml', function() {
+	describe('saveYaml', function () {
 		it('should return a function that expects an object and returns a promise that writes to the provided YAML filepath',
-			async function() {
+			async function () {
 				const jsonPath = path.resolve(__dirname, '../test_assets', 'a1.json');
 				const tmpFilepath = tempy.file();
 
@@ -110,9 +110,9 @@ describe('write', function() {
 			}
 		);
 	});
-	describe('saveYamlPassthrough', function() {
+	describe('saveYamlPassthrough', function () {
 		it('should return a function that expects an object and returns a promise that writes to the provided YAML filepath and returns the object',
-			async function() {
+			async function () {
 				const jsonPath = path.resolve(__dirname, '../test_assets', 'a1.json');
 				const tmpFilepath = tempy.file();
 

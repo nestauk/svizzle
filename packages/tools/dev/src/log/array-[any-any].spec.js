@@ -7,8 +7,8 @@ import {tapWith} from './array-[any-any]';
 
 const arraySum = reduceWith(sum, 0);
 
-describe('log: Array -> (Any -> Any)', function() {
-	describe('taps', function() {
+describe('log: Array -> (Any -> Any)', function () {
+	describe('taps', function () {
 		let printer;
 		before(function () {
 			printer = makePrinter();
@@ -21,18 +21,18 @@ describe('log: Array -> (Any -> Any)', function() {
 			printer.restore();
 		});
 
-		describe('tapWith', function() {
+		describe('tapWith', function () {
 			const expected = [1, 2, 3];
 			// eslint-disable-next-line no-shadow
 			const sum = arraySum([1, 2, 3]);
-			it('should print and return the input - no label', function() {
+			it('should print and return the input - no label', function () {
 				const tap = tapWith([arraySum]);
 				const actual = tap(expected);
 				const expectedLog = [[sum]];
 				assert.deepStrictEqual(actual, expected);
 				assert.deepStrictEqual(printer.getLog(), expectedLog);
 			});
-			it('should print and return the input - with label', function() {
+			it('should print and return the input - with label', function () {
 				const tap = tapWith([arraySum, 'label']);
 				const actual = tap(expected);
 				const expectedLog = [['label:', sum]];

@@ -8,8 +8,8 @@ import {
 	remapWith,
 } from './array-[object-object]';
 
-describe('Array -> (Object -> Object)', function() {
-	describe('applyTransformsSequence', function() {
+describe('Array -> (Object -> Object)', function () {
+	describe('applyTransformsSequence', function () {
 		const obj = {
 			a: {
 				a1: 'a1',
@@ -33,7 +33,7 @@ describe('Array -> (Object -> Object)', function() {
 			},
 		};
 
-		it('should return a function that expects an object and applies the provided sequence of transforms to the values of the correspondent paths to the input object – orthogonal transforms', function() {
+		it('should return a function that expects an object and applies the provided sequence of transforms to the values of the correspondent paths to the input object – orthogonal transforms', function () {
 			const transform = applyTransformsSequence([
 				['a.a2.a22', _.pipe([Number, Math.sqrt])],
 				['a.a3', parseInt],
@@ -65,7 +65,7 @@ describe('Array -> (Object -> Object)', function() {
 
 			assert.deepStrictEqual(transform(obj), expected);
 		});
-		it('should return a function that expects an object and applies the provided sequence of transforms to the values of the correspondent paths to the input object - modifying modified paths', function() {
+		it('should return a function that expects an object and applies the provided sequence of transforms to the values of the correspondent paths to the input object - modifying modified paths', function () {
 			const transform = applyTransformsSequence([
 				['b', _.values],
 				['b.1', _.values],
@@ -95,7 +95,7 @@ describe('Array -> (Object -> Object)', function() {
 
 			assert.deepStrictEqual(transform(obj), expected);
 		});
-		it('should return a function that expects an object and applies the provided sequence of transforms to the values of the correspondent paths to the input object - modifying paths multiple times', function() {
+		it('should return a function that expects an object and applies the provided sequence of transforms to the values of the correspondent paths to the input object - modifying paths multiple times', function () {
 			const transform = applyTransformsSequence([
 				['b', _.values],
 				['b.1', _.values],
@@ -126,8 +126,8 @@ describe('Array -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('pluckValuesKeys', function() {
-		it('should return a function plucking the provided keys from the expected object values', function() {
+	describe('pluckValuesKeys', function () {
+		it('should return a function plucking the provided keys from the expected object values', function () {
 			let select = pluckValuesKeys(['a', 'k']);
 			let actual = select({
 				foo: {a: 1, b: 2, c: 3, k: 4},
@@ -139,7 +139,7 @@ describe('Array -> (Object -> Object)', function() {
 			};
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should return a function plucking the provided keys from the expected object values – missing keys', function() {
+		it('should return a function plucking the provided keys from the expected object values – missing keys', function () {
 			let select = pluckValuesKeys(['a', 'k']);
 			let actual = select({
 				foo: {a: 1, b: 2, c: 3, k: 4},
@@ -153,18 +153,18 @@ describe('Array -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('remapWith', function() {
+	describe('remapWith', function () {
 		const remap = remapWith([
 			key => `${key}${key}`,
 			value => 3 * value,
 		]);
 
-		it('should be able to remap an object', function() {
+		it('should be able to remap an object', function () {
 			let actual = remap({a: 1, b: 2});
 			let expected = {aa: 3, bb: 6};
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should be able to remap an empty object', function() {
+		it('should be able to remap an empty object', function () {
 			let actual = remap({});
 			let expected = {};
 			assert.deepStrictEqual(actual, expected);

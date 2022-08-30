@@ -11,9 +11,9 @@ import {
 	mergeObjects,
 } from './array-object';
 
-describe('Array -> Object', function() {
-	describe('keyValueArrayToObject', function() {
-		it('should return an object built using `key`s and `value`s from the objects in the provided array', function() {
+describe('Array -> Object', function () {
+	describe('keyValueArrayToObject', function () {
+		it('should return an object built using `key`s and `value`s from the objects in the provided array', function () {
 			assert.deepStrictEqual(
 				keyValueArrayToObject([
 					{key: 'ITA', value: 0},
@@ -32,20 +32,20 @@ describe('Array -> Object', function() {
 			);
 		});
 	});
-	describe('makeIndexByKey', function() {
-		it('should return an object with the provided array elements as keys and all values equal to their index in the array - strings', function() {
+	describe('makeIndexByKey', function () {
+		it('should return an object with the provided array elements as keys and all values equal to their index in the array - strings', function () {
 			assert.deepStrictEqual(
 				makeIndexByKey(['a', 'b']),
 				{a: 0, b: 1}
 			);
 		});
-		it('should return an object with the provided array elements as keys and all values equal to their index in the array - numbers', function() {
+		it('should return an object with the provided array elements as keys and all values equal to their index in the array - numbers', function () {
 			assert.deepStrictEqual(
 				makeIndexByKey([2, -4]),
 				{'2': 0, '-4': 1}
 			);
 		});
-		it('should return an object with the provided array elements as keys and all values equal to their index in the array - arrays', function() {
+		it('should return an object with the provided array elements as keys and all values equal to their index in the array - arrays', function () {
 			assert.deepStrictEqual(
 				makeIndexByKey([[1,2,3], [3,4,5], [1,2,3]]),
 				{'3,4,5': 1, '1,2,3': 2}
@@ -55,31 +55,31 @@ describe('Array -> Object', function() {
 				{'1,2,[object Object]': 0, '3,4,5': 1, '1,2,3': 2}
 			);
 		});
-		it('should return an object with the provided array elements as keys and all values equal to their index in the array - objects', function() {
+		it('should return an object with the provided array elements as keys and all values equal to their index in the array - objects', function () {
 			assert.deepStrictEqual(
 				makeIndexByKey([{a: 1}, {b: 2}, {c: 3}]),
 				{'[object Object]': 2}
 			);
 		});
 	});
-	describe('makeKeyedFalse', function() {
-		it('should return an object with the provided array elements as keys and all values equal to false', function() {
+	describe('makeKeyedFalse', function () {
+		it('should return an object with the provided array elements as keys and all values equal to false', function () {
 			assert.deepStrictEqual(
 				makeKeyedFalse(['a', 'b']),
 				{a: false, b: false}
 			);
 		});
 	});
-	describe('makeKeyedTrue', function() {
-		it('should return an object with the provided array elements as keys and all values equal to true', function() {
+	describe('makeKeyedTrue', function () {
+		it('should return an object with the provided array elements as keys and all values equal to true', function () {
 			assert.deepStrictEqual(
 				makeKeyedTrue(['a', 'b']),
 				{a: true, b: true}
 			);
 		});
 	});
-	describe('makeKeyedZeroes', function() {
-		it('should return an object with the provided array elements as keys and all values equal to zero', function() {
+	describe('makeKeyedZeroes', function () {
+		it('should return an object with the provided array elements as keys and all values equal to zero', function () {
 			assert.deepStrictEqual(
 				makeKeyedZeroes(['a', 'b']),
 				{a: 0, b: 0}
@@ -90,8 +90,8 @@ describe('Array -> Object', function() {
 			);
 		});
 	});
-	describe('makeOccurrences', function() {
-		it('should create an object of occurrences from an array of objects given an array of target keys', function() {
+	describe('makeOccurrences', function () {
+		it('should create an object of occurrences from an array of objects given an array of target keys', function () {
 			assert.deepStrictEqual(
 				makeOccurrences([
 					{a: 1, b: 1},
@@ -111,7 +111,7 @@ describe('Array -> Object', function() {
 				{a: 2, b: 3}
 			);
 		});
-		it('should create an object with zero occurrences if some target keys aren\'t found', function() {
+		it('should create an object with zero occurrences if some target keys aren\'t found', function () {
 			assert.deepStrictEqual(
 				makeOccurrences([
 					{a: 1, b: 1},
@@ -121,8 +121,8 @@ describe('Array -> Object', function() {
 			);
 		});
 	});
-	describe('makeAllOccurrences', function() {
-		it('should create an object of occurrences from an array of objects', function() {
+	describe('makeAllOccurrences', function () {
+		it('should create an object of occurrences from an array of objects', function () {
 			assert.deepStrictEqual(
 				makeAllOccurrences([
 					{a: 1, b: 1},
@@ -134,8 +134,8 @@ describe('Array -> Object', function() {
 			);
 		});
 	});
-	describe('mergeObjects', function() {
-		it('should merge all the objects in the provided array', function() {
+	describe('mergeObjects', function () {
+		it('should merge all the objects in the provided array', function () {
 			assert.deepStrictEqual(
 				mergeObjects([{a: 1}, {a: 6, b: -1}, {b: 1}]),
 				{a: 6, b: 1}

@@ -13,8 +13,9 @@ import NUTS_RG_03M_2006_4326_LEVL_0_BE
 import {geojson} from '../../testdata/topojson/topoToGeo';
 import {makeFilterTopoBy, topoToGeo} from './topojson';
 
-describe('geo/topojson', function() {
-	describe('topoToGeo', function() {
+describe('geo/topojson', function () {
+	describe('topoToGeo', function () {
+
 		/*
 		// NUTS_RG_03M_2003_4326_LEVL_0_BE.json
 		{
@@ -39,7 +40,7 @@ describe('geo/topojson', function() {
 			"arcs":[...]
 		}
 		*/
-		it('should convert a topojson to a geojson', function() {
+		it('should convert a topojson to a geojson', function () {
 			const actual = topoToGeo(NUTS_RG_03M_2003_4326_LEVL_0_BE, 'NUTS');
 			assert.deepStrictEqual(actual, geojson);
 		});
@@ -47,8 +48,8 @@ describe('geo/topojson', function() {
 		// TODO check it's a geojson
 	});
 
-	describe('makeFilterTopoBy', function() {
-		it('should provide a function to filter a topojson by `objects` id and `properties` key', function() {
+	describe('makeFilterTopoBy', function () {
+		it('should provide a function to filter a topojson by `objects` id and `properties` key', function () {
 			const filterGeometriesBy = makeFilterTopoBy({
 				objKey: 'NUTS',
 				propKey: 'NUTS_ID'

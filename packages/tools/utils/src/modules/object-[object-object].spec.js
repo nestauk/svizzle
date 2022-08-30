@@ -15,9 +15,9 @@ import {
 
 const roundTo2 = roundTo(2);
 
-describe('Object -> (Object -> Object)', function() {
-	describe('makeMergeAppliedFnMap', function() {
-		it('should return a function that applies the provided map to the expected object and merges te result to the object', function() {
+describe('Object -> (Object -> Object)', function () {
+	describe('makeMergeAppliedFnMap', function () {
+		it('should return a function that applies the provided map to the expected object and merges te result to the object', function () {
 			const enhancer = makeMergeAppliedFnMap({
 				coords: _.collect([_.getKey('lng'), _.getKey('lat')]),
 				fullname: _.pipe([
@@ -47,8 +47,8 @@ describe('Object -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('transformPaths', function() {
-		it('should return a function that expects an object and applies the functions in the values of the input object to the values of the provided object found in the paths in the correspondent keys – orthogonal transforms', function() {
+	describe('transformPaths', function () {
+		it('should return a function that expects an object and applies the functions in the values of the input object to the values of the provided object found in the paths in the correspondent keys – orthogonal transforms', function () {
 			const transform = transformPaths({
 				'a.a2.a22': _.pipe([Number, Math.sqrt]),
 				'a.a3': parseInt,
@@ -104,14 +104,14 @@ describe('Object -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('transformValues', function() {
+	describe('transformValues', function () {
 		const obj = {
 			name: 'foo',
 			a: '9',
 			b: '2',
 			width: '10px'
 		};
-		it('should return a function expecting an object and applying the functions in the provided object to the correspondent object values', function() {
+		it('should return a function expecting an object and applying the functions in the provided object to the correspondent object values', function () {
 			const conversionFn = transformValues({
 				name: _.identity,
 				a: _.pipe([Number, Math.sqrt]),
@@ -126,7 +126,7 @@ describe('Object -> (Object -> Object)', function() {
 				width: 10
 			});
 		});
-		it('should assume identity for not provided keys', function() {
+		it('should assume identity for not provided keys', function () {
 			const conversionFn = transformValues({
 				a: _.pipe([Number, Math.sqrt]),
 			});
@@ -140,36 +140,36 @@ describe('Object -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('updateKeys', function() {
+	describe('updateKeys', function () {
 		const update = updateKeys({
 			keys: ['a', 'k', 'm'],
 			updater: x => x * 2
 		});
-		it('should return a function that expects an object and applies the provided updater function to the values correspondent to the provided keys, leaving the other properties unchanged.', function() {
+		it('should return a function that expects an object and applies the provided updater function to the values correspondent to the provided keys, leaving the other properties unchanged.', function () {
 			const actual = update({a: 1, b: 2, d: 4, k: 7, m: 2});
 			const expected = {a: 2, b: 2, d: 4, k: 14, m: 4};
 
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should work when some of the provided keys are not in the input object', function() {
+		it('should work when some of the provided keys are not in the input object', function () {
 			const actual = update({a: 1, b: 2, d: 4});
 			const expected = {a: 2, b: 2, d: 4};
 
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should work when none of the provided keys are in the input object', function() {
+		it('should work when none of the provided keys are in the input object', function () {
 			const actual = update({b: 2, d: 4});
 			const expected = {b: 2, d: 4};
 
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should work with empty input objects', function() {
+		it('should work with empty input objects', function () {
 			const actual = update({});
 			const expected = {};
 
 			assert.deepStrictEqual(actual, expected);
 		});
-		it('should not modify the input object', function() {
+		it('should not modify the input object', function () {
 			const input = {a: 1, b: 2, d: 4, k: 7, m: 2};
 			const ref = {...input};
 			update(input);
@@ -178,8 +178,8 @@ describe('Object -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('mergeObj', function() {
-		it('should return a function expecting an object to merge with the input object', function() {
+	describe('mergeObj', function () {
+		it('should return a function expecting an object to merge with the input object', function () {
 			const mergeB = mergeObj({b: 2});
 
 			assert.deepStrictEqual(mergeB({a: 1}), {a: 1, b: 2});
@@ -187,10 +187,10 @@ describe('Object -> (Object -> Object)', function() {
 		});
 	});
 
-	describe('makeMergeKeyValue', function() {
+	describe('makeMergeKeyValue', function () {
 		const mergeFooValue = makeMergeKeyValue('foo', {b: -2, c: -3});
 
-		it('should merge the value to an existing object at the provided key', function() {
+		it('should merge the value to an existing object at the provided key', function () {
 			const merged = mergeFooValue({
 				foo: {a: 1, b: 2},
 				bar: {k: 1}
@@ -202,7 +202,7 @@ describe('Object -> (Object -> Object)', function() {
 
 			assert.deepStrictEqual(merged, expected);
 		});
-		it('should merge the value to a non-existing object at the provided key', function() {
+		it('should merge the value to a non-existing object at the provided key', function () {
 			const merged = mergeFooValue({
 				bar: {k: 1}
 			});
