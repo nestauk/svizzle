@@ -1,4 +1,4 @@
-## `@svizzle/dom` v0.6.0 (next)
+## `@svizzle/dom` v0.6.0
 
 - removed build scripts
 - removed prerelease packaging scripts

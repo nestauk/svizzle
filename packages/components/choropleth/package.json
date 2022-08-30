@@ -8,9 +8,9 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.5.1",
-		"@svizzle/geo": "^0.7.0",
-		"@svizzle/utils": "^0.16.0",
+		"@svizzle/dom": "^0.6.0",
+		"@svizzle/geo": "^0.8.0",
+		"@svizzle/utils": "^0.17.0",
 		"d3-geo": "^2.0.1",
 		"lamb": "^0.60.0"
 	},
@@ -58,5 +58,5 @@
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
-	"version": "0.7.0"
+	"version": "0.8.0"
 }

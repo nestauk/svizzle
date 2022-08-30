@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.17.0 (next)
+## `@svizzle/utils` v0.17.0
 
 - added `sanitize`
 - added `sortObjectKeysAsc`, `sortObjectKeysDesc`
@@ -6,7 +6,7 @@
 - use `_.head` instead of `_.getAt(0)`
 - removed `:` from some files names
 - arg rename from `accumcb` to `reduceCb`
-- content from `accumcb[any-number]-[array-number].js` -> `[any-number]-[array-number].js`
+- content from `accumcb[any-number]-[array-number].js` merged in `[any-number]-[array-number].js`
 - `constructor-[accumcb[any-any]-[array-any]].js` -> `constructor-[reduceCb[any-any]-[array-any]].js`
 - `accumcb[any-any]-[array-any].js` -> `reduceCb[any-any]-[array-any].js`
 - removed build scripts

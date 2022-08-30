@@ -1,6 +1,6 @@
 # Svizzle changelog
 
-## next
+## 20220831
 
 - updated copyright year in various packages
 - updated `eslint` configuration and enforced new settings in the code
@@ -9,7 +9,7 @@
 - removed the global build npm scripts
 - removed the global prerelease packaging npm scripts
 
-## `@svizzle/barchart` v0.7.0 (next)
+## `@svizzle/barchart` v0.7.0
 
 - removed build scripts
 - removed prerelease packaging scripts
@@ -17,7 +17,7 @@
 - removed the `main` field in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/choropleth` v0.8.0 (next)
+## `@svizzle/choropleth` v0.8.0
 
 - removed build scripts
 - removed prerelease packaging scripts
@@ -25,7 +25,7 @@
 - removed the `main` field in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/histogram` v0.5.0 (next)
+## `@svizzle/histogram` v0.5.0
 
 - removed build scripts
 - removed prerelease packaging scripts
@@ -33,7 +33,7 @@
 - removed the `main` and `browser` fields in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/legend` v0.3.0 (next)
+## `@svizzle/legend` v0.3.0
 
 - removed build scripts
 - removed prerelease packaging scripts
@@ -41,18 +41,19 @@
 - removed the `main` and `browser` fields in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/time_region_value` v0.7.0 (next)
+## `@svizzle/time_region_value` v0.7.0
 
 - use `FetchDriver.svelte` so that boundaries are pre-fetched in the background
 - text in `XorSelector.svelte` can't be selectable anymore
-- for indicators with long `title` or `subtitle` the user can now expand the header to read them in full
+- for indicators with long `title` or `subtitle` the user can now expand the
+ header to read them in full
 - removed build scripts
 - removed prerelease packaging scripts
 - removed unneeded deps
 - removed the `main` field in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/ui` v0.6.0 (next)
+## `@svizzle/ui` v0.6.0
 
 - moved `@macfja/svelte-persistent-store` to dependencies to fix the `StorageIO` component
 - added `FetchDriver` component wrapping access to `@svizzle/request/src/fetchManager/fetchManager.js`
@@ -65,20 +66,22 @@
 - removed the `main` field in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/site` v0.3.12 (next)
+## `@svizzle/site` v0.3.12
 
 - removed custom line height setting for a11y menu, now using defaults
+- fix doc for `BarchartVDiv-selectedKeys`
+- use `BarchartVDiv` in the docs instead of `BarchartV`
 
-## `@svizzle/atlas` v0.7.0 (next)
+## `@svizzle/atlas` v0.7.0
 
-- use `readYaml` from `@svizzle/atlas`
+- use `readYaml` from `@svizzle/file`
 - add the `unlink` npm script
 - use `_.head` instead of `_.getAt(0)`
 - removed prerelease packaging scripts
 - removed unneeded deps
 - distribute `CHANGELOG.md`
 
-## `@svizzle/dev` v0.5.0 (next)
+## `@svizzle/dev` v0.5.0
 
 - added: `tapTime` and `tapTimeEnd`
 - fix: distribute `src/index.js`
@@ -88,7 +91,7 @@
 - removed the `main` field in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/dom` v0.6.0 (next)
+## `@svizzle/dom` v0.6.0
 
 - removed build scripts
 - removed prerelease packaging scripts
@@ -96,7 +99,7 @@
 - removed the `main` and `browser` fields in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/file` v0.13.0 (next)
+## `@svizzle/file` v0.13.0
 
 - add `readYaml`, `saveYaml`, `saveYamlPassthrough`
 - removed unused dependency on `@svizzle/request`
@@ -108,7 +111,7 @@
 - removed the `main` field in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/geo` v0.8.0 (next)
+## `@svizzle/geo` v0.8.0
 
 - added `makeFilterTopoBy`
 - remove the dependency from /atlas to avoid circular dependencies
@@ -118,7 +121,7 @@
 - removed the `main` and `browser` fields in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/geometry` v0.4.0 (next)
+## `@svizzle/geometry` v0.4.0
 
 - removed build scripts
 - removed prerelease packaging scripts
@@ -126,7 +129,7 @@
 - removed the `main` and `browser` fields in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/request` v0.4.0 (next)
+## `@svizzle/request` v0.4.0
 
 - added `fetchManager` featuring three-stage-prioritized stream-based resource
 	downloads. As a note for future developments, we agreed that this implementation
@@ -139,7 +142,7 @@
 - removed the `main` and `browser` fields in `package.json`
 - distribute `CHANGELOG.md`
 
-## `@svizzle/utils` v0.17.0 (next)
+## `@svizzle/utils` v0.17.0
 
 - added `sanitize`
 - added `sortObjectKeysAsc`, `sortObjectKeysDesc`
@@ -147,7 +150,7 @@
 - use `_.head` instead of `_.getAt(0)`
 - removed `:` from some files names
 - arg rename from `accumcb` to `reduceCb`
-- content from `accumcb[any-number]-[array-number].js` -> `[any-number]-[array-number].js`
+- content from `accumcb[any-number]-[array-number].js` merged in `[any-number]-[array-number].js`
 - `constructor-[accumcb[any-any]-[array-any]].js` -> `constructor-[reduceCb[any-any]-[array-any]].js`
 - `accumcb[any-any]-[array-any].js` -> `reduceCb[any-any]-[array-any].js`
 - removed build scripts

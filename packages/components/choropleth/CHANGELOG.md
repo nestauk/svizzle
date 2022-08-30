@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.8.0 (next)
+## `@svizzle/choropleth` v0.8.0
 
 - removed build scripts
 - removed prerelease packaging scripts

@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.6.0 (next)
+## `@svizzle/ui` v0.6.0
 
 - moved `@macfja/svelte-persistent-store` to dependencies to fix the `StorageIO` component
 - added `FetchDriver` component wrapping access to `@svizzle/request/src/fetchManager/fetchManager.js`

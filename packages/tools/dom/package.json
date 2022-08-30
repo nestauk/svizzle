@@ -8,12 +8,12 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/utils": "^0.16.0",
+		"@svizzle/utils": "^0.17.0",
 		"lamb": "^0.60.0"
 	},
 	"description": "Svizzle DOM contains DOM related helpers.",
 	"devDependencies": {
-		"@svizzle/file": "^0.12.0",
+		"@svizzle/file": "^0.13.0",
 		"eslint": "^7.24.0",
 		"eslint-plugin-import": "^2.18.2",
 		"esm": "^3.2.25",
@@ -54,5 +54,5 @@
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
-	"version": "0.5.1"
+	"version": "0.6.0"
 }

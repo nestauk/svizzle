@@ -1,4 +1,4 @@
-## `@svizzle/geo` v0.8.0 (next)
+## `@svizzle/geo` v0.8.0
 
 - added `makeFilterTopoBy`
 - remove the dependency from /atlas to avoid circular dependencies

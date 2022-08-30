@@ -40,45 +40,48 @@ Since packages are linked in Lerna, the components website should reload every t
 - checkout the `dev` branch.
 - for each package, check that we're exporting from all the modules in the `index.js`
 - `npm run prepublishOnly` or alternatively run its steps separately:
-   - `npm run lernacleanboot`
-   - `lerna run lint`
-   - `lerna run test`
+	- `npm run lernacleanboot`
+	- `lerna run lint`
+	- `lerna run test`
 - tree-shaking:
-   - document side effects in docstrings, for example using (`@sideEffects: console.log` or `@sideEffects: fs.writeFile`): a package is supposed to be side-effects-free if there are no occurrences of `@sideEffects`;
-   - check `sideEffects` for all of the updating packages: if even just one of a package dependencies have `sideEffects: true` or it is unknown, then the package `sideEffects` should be set to `true`;
-   - check and keep `doc/tree-shaking.md` up-to-date;
+	- document side effects in docstrings, for example using (`@sideEffects: console.log` or `@sideEffects: fs.writeFile`): a package is supposed to be side-effects-free if there are no occurrences of `@sideEffects`;
+	- check `sideEffects` for all of the updating packages: if even just one of a package dependencies have `sideEffects: true` or it is unknown, then the package `sideEffects` should be set to `true`;
+	- check and keep `doc/tree-shaking.md` up-to-date;
 - changelog:
 	- compile the changelog for all changed/new packages using the correct version;
 	- copy the changelog from all the changed/new packages onto the global changelog;
 	- make sure to title the changelog with the current date (for example 20190220);
 - based on this, for every changed packages:
-   - choose the next version depending on if it's going to be a `patch`, `minor` or `major`;
-   - check that `@version <version>` in jsdoc blocks for new functions is correct
+	- choose the next version depending on if it's going to be a `patch`, `minor` or `major`;
+	- check that `@version <version>` in jsdoc blocks for new functions is correct
 - eventually, `git rebase -i HEAD~n`:
-   - `n` being number of commits since last release
-   - as a commit message, paste what you added to the global changelog
+	- `n` being number of commits since last release
+	- as a commit message, paste what you added to the global changelog
 
-In the `dev` branch:
+### Versioning
 
-- Bump the versions: `lerna version --no-changelog --no-git-tag-version --no-push`:
-   - Follow instructions to bump changed packages with a `patch`, `minor` or `major` version, accept when ready.
-   - After accepting the final confirmation step, this will bump versions (only allowed in `dev`).
+- In `dev`:
+	- bump the versions: `lerna version --no-changelog --no-git-tag-version --no-push`:
+	- Follow instructions to bump changed packages with a `patch`, `minor` or `major` version, accept when ready.
+	- After accepting the final confirmation step, this will bump versions (only allowed in `dev`).
 
 - If something goes wrong or we forgot something and Lerna actually committed:
-   - discard the version commit, we have 2 ways:
-      - `git revert HEAD`: creates a commit to revert the version commit created by Lerna (we will rebase anyway), or
-      - `git reset --hard HEAD~1`: reset the index and the working tree to 1 commit before the commit created by Lerna;
-   - edit some code again;
-   - **rebase again** the commits since the last release.
+	- discard the version commit, we have 2 ways:
+		- `git revert HEAD`: creates a commit to revert the version commit created by Lerna (we will rebase anyway), or
+		- `git reset --hard HEAD~1`: reset the index and the working tree to 1 commit before the commit created by Lerna;
+	- edit some code again;
+	- **rebase again** the commits since the last release.
 
-- Move to a new branch and create a commit on the repo.
+- Create a new branch, commit
 
-- If everything went fine: `git push`, then create a PR. Once the PR is approved, merge it to `dev`.
+- If everything went fine: `git push`, then create a PR.
+
+- Once the PR is approved, merge it to `dev`.
 
 - Merge to `release`:
-   - `git checkout release`
-   - `git merge dev`
-   - `git push`
+	- `git checkout release`
+	- `git merge dev`
+	- `git push`
 
 ### Release candidates
 
@@ -96,9 +99,9 @@ The second time (and on):
 
 - `git checkout release`
 - `lerna publish from-package`. This will run the `prepublishOnly` script which in turn:
-    - runs cleanups,
-    - re-install dependencies,
-    - run tests,
+	- runs cleanups,
+	- re-install dependencies,
+	- run tests,
 - `npm run deployDoc` to build and publish the documentation website
 
 ## Tagging / releasing

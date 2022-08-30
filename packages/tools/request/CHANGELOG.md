@@ -1,4 +1,4 @@
-## `@svizzle/request` v0.4.0 (next)
+## `@svizzle/request` v0.4.0
 
 - added `fetchManager` featuring three-stage-prioritized stream-based resource
 	downloads. As a note for future developments, we agreed that this implementation

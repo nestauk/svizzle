@@ -1,4 +1,4 @@
-## `@svizzle/legend` v0.3.0 (next)
+## `@svizzle/legend` v0.3.0
 
 - removed build scripts
 - removed prerelease packaging scripts

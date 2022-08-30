@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.7.0 (next)
+## `@svizzle/barchart` v0.7.0
 
 - removed build scripts
 - removed prerelease packaging scripts

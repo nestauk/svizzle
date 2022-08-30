@@ -1,4 +1,4 @@
-## `@svizzle/geometry` v0.4.0 (next)
+## `@svizzle/geometry` v0.4.0
 
 - removed build scripts
 - removed prerelease packaging scripts

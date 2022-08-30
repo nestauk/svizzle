@@ -1,4 +1,4 @@
-## `@svizzle/histogram` v0.5.0 (next)
+## `@svizzle/histogram` v0.5.0
 
 - removed build scripts
 - removed prerelease packaging scripts

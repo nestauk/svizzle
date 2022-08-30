@@ -1,6 +1,8 @@
-## `@svizzle/site` v0.3.12 (next)
+## `@svizzle/site` v0.3.12
 
 - removed custom line height setting for a11y menu, now using defaults
+- fix doc for `BarchartVDiv-selectedKeys`
+- use `BarchartVDiv` in the docs instead of `BarchartV`
 
 ## `@svizzle/site` v0.3.11
 
