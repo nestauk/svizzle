@@ -4,6 +4,7 @@
 
 - updated copyright year in various packages
 - updated `eslint` configuration and enforced new settings in the code
+- moved the doc for cloning the repo to the main readme
 
 ## `@svizzle/site` v0.3.12
 
