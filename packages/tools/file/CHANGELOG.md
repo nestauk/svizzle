@@ -4,6 +4,11 @@
 - removed unused dependency on `@svizzle/request`
 - fixed example output for `readDirFilesIndexed`
 - tests: updated `nock`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/file` v0.12.0
 

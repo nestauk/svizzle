@@ -1,8 +1,11 @@
-## `@svizzle/atlas` v0.6.1 (next)
+## `@svizzle/atlas` v0.7.0 (next)
 
 - use `readYaml` from `@svizzle/atlas`
 - add the `unlink` npm script
 - use `_.head` instead of `_.getAt(0)`
+- removed prerelease packaging scripts
+- removed unneeded deps
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/atlas` v0.6.0
 

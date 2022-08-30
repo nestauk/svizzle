@@ -16,32 +16,18 @@
 	},
 	"description": "A vertical barchart component for Svelte.",
 	"devDependencies": {
-		"@rollup/plugin-commonjs": "^17.1.0",
-		"@rollup/plugin-node-resolve": "^11.1.1",
-		"@svizzle/dev": "^0.4.4",
 		"eslint": "^7.24.0",
 		"eslint-plugin-import": "^2.18.2",
 		"eslint-plugin-svelte3": "^2.7.3",
-		"esm": "^3.2.25",
-		"mkdirp": "^1.0.4",
-		"mocha": "^8.3.2",
-		"rimraf": "^3.0.2",
-		"rollup": "^2.21.0",
-		"rollup-plugin-analyzer": "^3.1.2",
-		"rollup-plugin-buble": "^0.19.8",
-		"rollup-plugin-cleanup": "^3.1.1",
-		"rollup-plugin-svelte": "^7.1.0",
-		"rollup-plugin-terser": "^7.0.2",
 		"svelte": "^3.38.3"
 	},
 	"files": [
 		"!*.spec.js",
-		"!pkg/*",
-		"dist/*",
-		"LICENSE",
-		"README.md",
 		"src/**/*.js",
-		"src/**/*.svelte"
+		"src/**/*.svelte",
+		"CHANGELOG.md",
+		"LICENSE",
+		"README.md"
 	],
 	"homepage": "https://github.com/nestauk/svizzle",
 	"keywords": [
@@ -52,7 +38,6 @@
 		"svelte"
 	],
 	"license": "MIT",
-	"main": "dist/index.js",
 	"module": "src/index.js",
 	"name": "@svizzle/barchart",
 	"publishConfig": {
@@ -64,18 +49,13 @@
 		"url": "github:nestauk/svizzle"
 	},
 	"scripts": {
-		"build": "rimraf dist && rollup -c",
-		"bumppack": "npm run setprerelease && npm run pack",
 		"link": "npm link",
-		"lint": "eslint --max-warnings=0 rollup.config.js 'src/**/*.{js,svelte}'",
+		"lint": "eslint --max-warnings=0 'src/**/*.{js,svelte}'",
 		"outdated": "npm outdated",
-		"pack": "mkdirp pkg && rimraf pkg/* && dirname=${PWD##*/} && tar -cvz -f pkg/${npm_package_config_name}@${npm_package_version}.tar.gz -C .. ${dirname}/dist/ ${dirname}/LICENSE ${dirname}/package.json ${dirname}/src/",
-		"rmdist": "rimraf dist",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
-		"unlink": "npm unlink -g",
-		"uploadPack": "curbranch=$(git branch --show-current) && echo $curbranch && pkgName=${npm_package_config_name}@${npm_package_version}.tar.gz && cp pkg/${pkgName} ../../../ && git checkout pkgs && git add ../../../$pkgName && git commit -m $pkgName && git push && git checkout -f $curbranch"
+		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
 	"version": "0.6.8"

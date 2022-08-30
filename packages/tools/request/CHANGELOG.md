@@ -5,6 +5,11 @@
 	is too brittle and that we should use a state machine to manage the logic
 	rather than Rx streams.
 - tests: updated `nock`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/request` v0.3.5
 

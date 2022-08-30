@@ -2,7 +2,6 @@ _
 .DS_Store
 /node_modules
 packages/docs/site/static/jsDocBuild
-packages/**/dist
 packages/**/package-lock.json
 packages/components/**/node_modules
 packages/docs/**/node_modules

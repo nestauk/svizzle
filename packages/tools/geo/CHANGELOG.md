@@ -2,6 +2,11 @@
 
 - added `makeFilterTopoBy`
 - remove the dependency from /atlas to avoid circular dependencies
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/geo` v0.7.0
 

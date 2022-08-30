@@ -28,7 +28,7 @@ export const renameToExtension = ext => filepath => {
 /**
  * Return a string modifying the input filepath extension to .css.
  * Used to get the location of the CSS build from the JS build:
- * dist/component.js -> dist/component.css
+ * component.js -> component.css
  *
  * @function
  * @arg {string} filepath
@@ -45,7 +45,7 @@ export const renameToCss = renameToExtension('.css');
 /**
  * Return a string modifying the input filepath extension to .min.js.
  * Used to get the location of the minified build from the JS build:
- * dist/component.js -> dist/component.min.js
+ * component.js -> component.min.js
  *
  * @function
  * @arg {string} filepath
@@ -62,7 +62,7 @@ export const renameToMinJs = renameToExtension('.min.js');
 /**
  * Return a string modifying the input filepath extension to .mjs.
  * Used to get the location of the es6 build from the JS build:
- * dist/component.js -> dist/component.mjs
+ * component.js -> component.mjs
  *
  * @function
  * @arg {string} filepath
@@ -79,7 +79,7 @@ export const renameToMjs = renameToExtension('.mjs');
 /**
  * Return a string modifying the input filepath extension to .mjs.
  * Used to get the location of the es6 build from the JS build:
- * dist/component.js -> dist/component.mjs
+ * component.js -> component.mjs
  *
  * @function
  * @arg {obj} package - object representation of package.json

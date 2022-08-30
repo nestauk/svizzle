@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.3.12
+## `@svizzle/site` v0.3.12 (next)
 
 - removed custom line height setting for a11y menu, now using defaults
 

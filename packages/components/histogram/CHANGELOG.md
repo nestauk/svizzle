@@ -1,3 +1,11 @@
+## `@svizzle/histogram` v0.5.0 (next)
+
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
+
 ## `@svizzle/histogram` v0.4.2
 
 - updated dev dependencies

@@ -2,6 +2,11 @@
 
 - added: `tapTime` and `tapTimeEnd`
 - fix: distribute `src/index.js`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/dev` v0.4.4
 

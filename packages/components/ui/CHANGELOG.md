@@ -5,6 +5,11 @@
 - line height in A11y menu is now unitless
 - added A11y menu components to `ui/src/index.js`
 - use `_.head` instead of `_.getAt(0)`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/ui` v0.5.0
 

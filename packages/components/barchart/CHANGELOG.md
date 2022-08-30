@@ -1,3 +1,11 @@
+## `@svizzle/barchart` v0.7.0 (next)
+
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
+
 ## `@svizzle/barchart` v0.6.8
 
 - updated dev dependencies

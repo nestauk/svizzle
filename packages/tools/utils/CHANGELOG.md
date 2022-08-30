@@ -9,6 +9,11 @@
 - content from `accumcb[any-number]-[array-number].js` -> `[any-number]-[array-number].js`
 - `constructor-[accumcb[any-any]-[array-any]].js` -> `constructor-[reduceCb[any-any]-[array-any]].js`
 - `accumcb[any-any]-[array-any].js` -> `reduceCb[any-any]-[array-any].js`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/utils` v0.16.0
 

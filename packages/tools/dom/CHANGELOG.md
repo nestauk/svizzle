@@ -1,3 +1,11 @@
+## `@svizzle/dom` v0.6.0 (next)
+
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
+
 ## `@svizzle/dom` v0.5.1
 
 - support object spread in builds

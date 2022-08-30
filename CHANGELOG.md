@@ -4,21 +4,53 @@
 
 - updated copyright year in various packages
 - updated `eslint` configuration and enforced new settings in the code
-- moved the doc for cloning the repo to the main readme
+- moved the doc about cloning the repo to the main readme
+- removed prerelease packaging docs and re-shuffled sections
+- removed the global build npm scripts
+- removed the global prerelease packaging npm scripts
 
-## `@svizzle/site` v0.3.12
+## `@svizzle/barchart` v0.7.0 (next)
 
-- removed custom line height setting for a11y menu, now using defaults
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
 
-## `@svizzle/choropleth` v0.7.1 (next)
+## `@svizzle/choropleth` v0.8.0 (next)
 
-- removed unused dev dependency on `js-yaml`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
+
+## `@svizzle/histogram` v0.5.0 (next)
+
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
+
+## `@svizzle/legend` v0.3.0 (next)
+
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/time_region_value` v0.7.0 (next)
 
 - use `FetchDriver.svelte` so that boundaries are pre-fetched in the background
 - text in `XorSelector.svelte` can't be selectable anymore
 - for indicators with long `title` or `subtitle` the user can now expand the header to read them in full
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/ui` v0.6.0 (next)
 
@@ -27,17 +59,42 @@
 - line height in A11y menu is now unitless
 - added A11y menu components to `ui/src/index.js`
 - use `_.head` instead of `_.getAt(0)`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
 
-## `@svizzle/atlas` v0.6.1 (next)
+## `@svizzle/site` v0.3.12 (next)
+
+- removed custom line height setting for a11y menu, now using defaults
+
+## `@svizzle/atlas` v0.7.0 (next)
 
 - use `readYaml` from `@svizzle/atlas`
 - add the `unlink` npm script
 - use `_.head` instead of `_.getAt(0)`
+- removed prerelease packaging scripts
+- removed unneeded deps
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/dev` v0.5.0 (next)
 
 - added: `tapTime` and `tapTimeEnd`
 - fix: distribute `src/index.js`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
+
+## `@svizzle/dom` v0.6.0 (next)
+
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/file` v0.13.0 (next)
 
@@ -45,11 +102,29 @@
 - removed unused dependency on `@svizzle/request`
 - fixed example output for `readDirFilesIndexed`
 - tests: updated `nock`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/geo` v0.8.0 (next)
 
 - added `makeFilterTopoBy`
 - remove the dependency from /atlas to avoid circular dependencies
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
+
+## `@svizzle/geometry` v0.4.0 (next)
+
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/request` v0.4.0 (next)
 
@@ -58,6 +133,11 @@
 	is too brittle and that we should use a state machine to manage the logic
 	rather than Rx streams.
 - tests: updated `nock`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/utils` v0.17.0 (next)
 
@@ -70,6 +150,11 @@
 - content from `accumcb[any-number]-[array-number].js` -> `[any-number]-[array-number].js`
 - `constructor-[accumcb[any-any]-[array-any]].js` -> `constructor-[reduceCb[any-any]-[array-any]].js`
 - `accumcb[any-any]-[array-any].js` -> `reduceCb[any-any]-[array-any].js`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
 
 ## 20211224_2
 

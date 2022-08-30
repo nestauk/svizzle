@@ -1,6 +1,10 @@
-## `@svizzle/choropleth` v0.7.1 (next)
+## `@svizzle/choropleth` v0.8.0 (next)
 
-- removed unused dev dependency on `js-yaml`
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` field in `package.json`
+- distribute `CHANGELOG.md`
 
 ## `@svizzle/choropleth` v0.7.0
 

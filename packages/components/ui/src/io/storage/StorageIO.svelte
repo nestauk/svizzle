@@ -5,7 +5,7 @@
 		localStorage,
 		noopStorage,
 		sessionStorage,
-	} from "@macfja/svelte-persistent-store";
+	} from '@macfja/svelte-persistent-store';
 	import isEqual from 'just-compare';
 	import {writable} from 'svelte/store';
 

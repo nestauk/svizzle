@@ -1,3 +1,11 @@
+## `@svizzle/legend` v0.3.0 (next)
+
+- removed build scripts
+- removed prerelease packaging scripts
+- removed unneeded deps
+- removed the `main` and `browser` fields in `package.json`
+- distribute `CHANGELOG.md`
+
 ## `@svizzle/legend` v0.2.2
 
 - updated dev dependencies
