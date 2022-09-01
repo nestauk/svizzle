@@ -1,3 +1,20 @@
+## `@svizzle/dev` v0.6.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `eslint`
+				- `just-compare` to avoid errors in svizzle scripts
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
 ## `@svizzle/dev` v0.5.0
 
 - added: `tapTime` and `tapTimeEnd`

@@ -1,12 +1,12 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makePrinter} from '../test';
+import {makePrinter} from '../test.js';
 import {
 	tapMessage,
 	tapValue,
 	tapType,
 	tapTypeAndValue
-} from './string-[any-any]';
+} from './string-[any-any].js';
 
 describe('log: String -> (Any -> Any)', function () {
 	describe('taps', function () {

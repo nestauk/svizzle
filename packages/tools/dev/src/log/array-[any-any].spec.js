@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {reduceWith, sum} from 'lamb';
 
-import {makePrinter} from '../test';
-import {tapWith} from './array-[any-any]';
+import {makePrinter} from '../test.js';
+import {tapWith} from './array-[any-any].js';
 
 const arraySum = reduceWith(sum, 0);
 

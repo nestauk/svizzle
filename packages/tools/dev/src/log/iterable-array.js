@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {tapValue} from './string-[any-any]';
+import {tapValue} from './string-[any-any].js';
 
 /**
  * Print the provided array and element and return the result of appending the element to the array

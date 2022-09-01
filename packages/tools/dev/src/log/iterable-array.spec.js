@@ -1,7 +1,7 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makePrinter} from '../test';
-import {tapAppendTo} from './iterable-array';
+import {makePrinter} from '../test.js';
+import {tapAppendTo} from './iterable-array.js';
 
 describe('log: Iterable -> Array', function () {
 	let printer;

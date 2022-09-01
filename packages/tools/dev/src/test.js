@@ -8,7 +8,7 @@
  * @function
  * @return {object}
  * @example
-describe('tapAppendTo', function() {
+describe('tapAppendTo', function () {
 	let printer;
 	before(function () {
 		printer = makePrinter();
@@ -21,7 +21,7 @@ describe('tapAppendTo', function() {
 		printer.restore();
 	});
 
-	it('should print the provided array and element and return the result of appending the element to the array', function() {
+	it('should print the provided array and element and return the result of appending the element to the array', function () {
 		const actual1 = tapAppendTo([1, 2, 3], 4);
 		const expected1 = [1, 2, 3, 4];
 		const actual2 = tapAppendTo([1, 2], 'a');
@@ -40,8 +40,8 @@ describe('tapAppendTo', function() {
 		printer.print('I can still log stuff') // console.log is preserved
 	});
 });
-describe('console.log still works in other tests', function() {
-	it('console.logs', function() {
+describe('console.log still works in other tests', function () {
+	it('console.logs', function () {
 		assert.deepStrictEqual(true, true);
 		console.log('foo') // 'foo'
 	});

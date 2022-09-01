@@ -12,10 +12,11 @@
 	},
 	"description": "Svizzle Dev contains development helpers.",
 	"devDependencies": {
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"esm": "^3.2.25",
+		"eslint": "^8.23.0",
 		"mocha": "^8.3.2"
+	},
+	"engines": {
+		"node": ">=17.5.0"
 	},
 	"files": [
 		"index.js",
@@ -33,6 +34,7 @@
 		"utility"
 	],
 	"license": "MIT",
+	"main": "index.js",
 	"module": "index.js",
 	"name": "@svizzle/dev",
 	"publishConfig": {
@@ -50,9 +52,10 @@
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
-		"test": "mocha -r esm --recursive src",
+		"test": "mocha --recursive src",
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": true,
+	"type":"module",
 	"version": "0.5.0"
 }
