@@ -1,3 +1,3 @@
 export {default as Icon} from './Icon.svelte';
-export * from './feather';
-export * from './svizzle';
+export * from './feather/index.js';
+export * from './svizzle/index.js';

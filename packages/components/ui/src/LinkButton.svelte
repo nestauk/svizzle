@@ -2,7 +2,7 @@
 	import {makeStyleVars} from '@svizzle/dom';
 
 	import Icon from './icons/Icon.svelte';
-	import {defaultRel} from './utils/shared';
+	import {defaultRel} from './utils/shared.js';
 
 	const {
 		defaultFill,

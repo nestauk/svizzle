@@ -1,8 +1,8 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node
 
-import path from 'path';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
-import * as _ from 'lamb';
 import {tapMessage} from '@svizzle/dev';
 import {
 	readDirFilesIndexed,
@@ -16,8 +16,11 @@ import {
 	splitByDot,
 } from '@svizzle/utils';
 import camelcase from 'camelcase';
-import toHtml from 'hast-util-to-html';
+import {toHtml} from 'hast-util-to-html';
+import * as _ from 'lamb';
 import {parse as parseSVG} from 'svg-parser';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Run after `npm run lernacleanboot` at global level.
 // Lerna installs all deps in `<root of the repo>/node_modules/`
@@ -39,7 +42,7 @@ const extractSvgBody = _.pipe([
 	_.getKey('children'),
 	_.mapWith(stringifySvgTags),
 	_.joinWith(''),
-	makePrefixed(`<svelte:options namespace='svg' />\n`),
+	makePrefixed(`<svelte:options namespace='svg'/>\n`),
 	makePostfixed('\n'),
 ]);
 const makeComponentName = _.pipe([
@@ -64,6 +67,7 @@ const writeFeatherIndex = _.pipe([
 		id => `export {default as ${id}} from './${id}.svelte';`
 	])),
 	_.joinWith('\n'),
+	makePostfixed('\n'), // linting: make sure we have a proper EOF
 	saveString(resolveToFeatherDir('index.js'))
 ]);
 const setupFeatherIcons = obj => Promise.all([

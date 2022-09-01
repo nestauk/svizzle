@@ -15,7 +15,6 @@
 	- copied `pruneTopology` as-is from `topojson-simplify` v3.0.3 because it's not an ESM module
 	- using `createRequire` to import JSON files in unit tests
 
-
 ## `@svizzle/geo` v0.8.0
 
 - added `makeFilterTopoBy`

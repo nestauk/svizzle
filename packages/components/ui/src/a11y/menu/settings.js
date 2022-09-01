@@ -1,5 +1,3 @@
-import * as _ from 'lamb';
-import {derived, get, writable} from 'svelte/store';
 import {
 	applyFnMap,
 	isNot,
@@ -10,6 +8,8 @@ import {
 	mergeWithMerge,
 	makePostfixed,
 } from '@svizzle/utils';
+import * as _ from 'lamb';
+import {derived, get, writable} from 'svelte/store';
 
 const defaultA11ySettings = {
 	brightness: {

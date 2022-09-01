@@ -8,7 +8,7 @@
 		_a11ySettings,
 		applyStyles,
 		mergeDefaultSettings,
-	} from './settings';
+	} from './settings.js';
 
 	const colorTargetSelector = 'html';
 	const textTargetSelector = 'body';

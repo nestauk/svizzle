@@ -10,7 +10,7 @@ unfixed bugs and implementation differences in browsers and operating systems.
 
 ```svelte
 <script>
-	import {setupResizeObserver} from '../../actions/resizeObserver';
+	import {setupResizeObserver} from '../../actions/resizeObserver.js';
    	const {_writable: _elementSize, resizeObserver} = setupResizeObserver();
 
 	$: console.log($_elementSize);

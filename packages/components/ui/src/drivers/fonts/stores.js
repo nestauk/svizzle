@@ -5,7 +5,7 @@ import {
 	createFontFaces,
 	isFamilyEqualTo,
 	loadFontFaces
-} from './utils';
+} from './utils.js';
 
 // main stores
 export const _firstFamilyToLoad = writable();

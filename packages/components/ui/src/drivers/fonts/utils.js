@@ -1,5 +1,5 @@
-import * as _ from 'lamb';
 import {isKeyValue} from '@svizzle/utils';
+import * as _ from 'lamb';
 
 export const getFamily = _.getKey('family');
 export const getFamilies = _.mapWith(getFamily);

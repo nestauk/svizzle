@@ -22,7 +22,7 @@
 		setNextId,
 		setPrevId,
 		updateCurrentValue,
-	} from './settings';
+	} from './settings.js';
 
 	export let _screen;
 

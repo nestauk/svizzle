@@ -8,28 +8,30 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@macfja/svelte-persistent-store": "^1.2.0",
+		"@macfja/svelte-persistent-store": "^2.1.0",
 		"@svizzle/dom": "^0.6.0",
 		"@svizzle/utils": "^0.17.0",
-		"uid": "^1.0.0"
+		"just-compare": "^2.2.2",
+		"uid": "^2.0.0"
 	},
 	"description": "A set of UI components for Svelte.",
 	"devDependencies": {
 		"@svizzle/dev": "^0.5.0",
 		"@svizzle/file": "^0.13.0",
 		"@svizzle/request": "^0.4.0",
-		"camelcase": "^6.2.0",
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"eslint-plugin-svelte3": "^2.7.3",
-		"esm": "^3.2.25",
+		"camelcase": "^7.0.0",
+		"eslint": "^8.23.0",
+		"eslint-plugin-svelte3": "^4.0.0",
 		"feather-icons": "^4.28.0",
-		"hast-util-to-html": "^7.1.2",
+		"hast-util-to-html": "^8.0.3",
 		"lamb": "^0.60.0",
 		"mkdirp": "^1.0.4",
 		"rimraf": "^3.0.2",
 		"svelte": "^3.38.3",
 		"svg-parser": "^2.0.4"
+	},
+	"engines": {
+		"node": ">=17.5.0"
 	},
 	"files": [
 		"!*.spec.js",
@@ -46,6 +48,7 @@
 		"svelte"
 	],
 	"license": "MIT",
+	"main": "src/index.js",
 	"module": "src/index.js",
 	"name": "@svizzle/ui",
 	"publishConfig": {
@@ -59,7 +62,7 @@
 	"scripts": {
 		"link": "npm link",
 		"lint": "eslint --max-warnings=0 'src/**/*.{js,svelte}'",
-		"makeFeatherIcons": "rimraf src/icons/feather && mkdirp src/icons/feather && node -r esm ./src/bin/makeFeatherIcons.js",
+		"makeFeatherIcons": "rimraf src/icons/feather && mkdirp src/icons/feather && node src/bin/makeFeatherIcons.js",
 		"outdated": "npm outdated",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
@@ -67,5 +70,6 @@
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"type": "module",
 	"version": "0.6.0"
 }

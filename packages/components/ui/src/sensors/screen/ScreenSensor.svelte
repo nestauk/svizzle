@@ -16,7 +16,7 @@
 	} from '@svizzle/utils';
 
 	import {isServerSide} from '../../utils/env.js';
-	import {setupResizeObserver} from '../../actions/resizeObserver';
+	import {setupResizeObserver} from '../../actions/resizeObserver.js';
 	import WindowBinder from './WindowBinder.svelte';
 
 	// utils

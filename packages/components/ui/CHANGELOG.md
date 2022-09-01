@@ -1,3 +1,22 @@
+## `@svizzle/ui` v0.7.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- added `just-compare`, was missing before
+			- upgraded:
+				- `@macfja/svelte-persistent-store`, `hast-util-to-html`, `uid`: updated code for the new API
+				- `camelcase`, `eslint`, `eslint-plugin-svelte3`
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+- icons: added `src/icons/feather/Table.svelte`
+
 ## `@svizzle/ui` v0.6.0
 
 - moved `@macfja/svelte-persistent-store` to dependencies to fix the `StorageIO` component

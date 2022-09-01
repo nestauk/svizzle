@@ -1,7 +1,7 @@
 <script>
-	import {createEventDispatcher} from 'svelte';
 	import {makeStyleVars} from '@svizzle/dom';
-	import uid from 'uid';
+	import {createEventDispatcher} from 'svelte';
+	import {uid} from 'uid';
 
 	const dispatch = createEventDispatcher();
 	const defaultTheme = {

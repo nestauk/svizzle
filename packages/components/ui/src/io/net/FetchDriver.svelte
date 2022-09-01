@@ -2,7 +2,7 @@
 	import {makeWebStreamsFetcher} from '@svizzle/request/src/webstreams';
 	import * as _ from 'lamb';
 
-	import {createFetchManagerStores} from './utils';
+	import {createFetchManagerStores} from './utils.js';
 
 	let _asapKeys;
 	let _nextKeys;

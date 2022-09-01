@@ -232,6 +232,7 @@ export {default as StopCircle} from './StopCircle.svelte';
 export {default as Sun} from './Sun.svelte';
 export {default as Sunrise} from './Sunrise.svelte';
 export {default as Sunset} from './Sunset.svelte';
+export {default as Table} from './Table.svelte';
 export {default as Tablet} from './Tablet.svelte';
 export {default as Tag} from './Tag.svelte';
 export {default as Target} from './Target.svelte';

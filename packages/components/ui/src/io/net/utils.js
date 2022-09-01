@@ -1,7 +1,7 @@
 import {createFetchManagerStreams}
 	from '@svizzle/request/src/fetchManager/fetchManager';
 
-import {rxStreamToSvReadable, rxStreamToSvWritable} from '../../utils/rx';
+import {rxStreamToSvReadable, rxStreamToSvWritable} from '../../utils/rx.js';
 
 export const createFetchManagerStores = downloadFn => {
 	const {

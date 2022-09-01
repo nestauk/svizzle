@@ -1,22 +1,22 @@
 <script context='module'>
 	import {
-		cookieStorage,
-		indexedDBStorage,
-		localStorage,
-		noopStorage,
-		sessionStorage,
+		createCookieStorage,
+		createIndexedDBStorage,
+		createLocalStorage,
+		createNoopStorage,
+		createSessionStorage,
 	} from '@macfja/svelte-persistent-store';
 	import isEqual from 'just-compare';
 	import {writable} from 'svelte/store';
 
-	import {isClientSide} from '../../utils/env';
+	import {isClientSide} from '../../utils/env.js';
 
 	const dbFactories = {
-		cookie: () => cookieStorage(),
-		indexedDB: () => indexedDBStorage(),
-		localStorage: isReactive => localStorage(isReactive),
-		noop: () => noopStorage(),
-		sessionStorage: isReactive => sessionStorage(isReactive),
+		cookie: () => createCookieStorage(),
+		indexedDB: () => createIndexedDBStorage(),
+		localStorage: isReactive => createLocalStorage(isReactive),
+		noop: () => createNoopStorage(),
+		sessionStorage: isReactive => createSessionStorage(isReactive),
 	};
 
 	const bind = ({_store, defaultValue, isReactive, key, type}) => {

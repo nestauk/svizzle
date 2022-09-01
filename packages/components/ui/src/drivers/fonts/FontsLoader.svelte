@@ -1,12 +1,12 @@
 <script>
-	import {isClientSide} from '../../utils/env';
+	import {isClientSide} from '../../utils/env.js';
 	import {
 		_firstFamilyToLoad,
 		_fontsInfo,
 		_runtimeFonts,
 		_status,
 		loadFonts
-	} from './stores';
+	} from './stores.js';
 
 	export let fontsInfo = [];
 	export let firstFamilyToLoad = null;
