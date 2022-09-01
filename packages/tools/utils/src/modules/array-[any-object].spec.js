@@ -1,8 +1,8 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
-import {makeWith} from './array-[any-object]';
+import {makeWith} from './array-[any-object].js';
 
 describe('Array -> (Any -> Object)', function () {
 	describe('makeWith', function () {

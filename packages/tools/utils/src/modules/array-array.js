@@ -5,7 +5,7 @@
 import * as _ from 'lamb';
 import isEqual from 'just-compare';
 
-import {getKey, getValue} from './object-any';
+import {getKey, getValue} from './object-any.js';
 
 /**
  * Return an array containing the first and the last element of the provided array.

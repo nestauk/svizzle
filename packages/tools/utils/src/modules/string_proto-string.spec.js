@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {sliceString, trim} from './string_proto-string';
+import {sliceString, trim} from './string_proto-string.js';
 
 describe('(prototype) String -> String', function () {
 	describe('sliceString', function () {

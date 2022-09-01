@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {jsonBufferToAny} from './buffer-any';
+import {jsonBufferToAny} from './buffer-any.js';
 
 describe('Stream-Any', function () {
 	describe('jsonBufferToAny', function () {

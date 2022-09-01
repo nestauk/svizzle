@@ -8,16 +8,17 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"just-compare": "^1.3.0",
+		"just-compare": "^2.2.2",
 		"lamb": "^0.60.0"
 	},
+	"description": "Svizzle Utils is a library to help transforming data.",
 	"devDependencies": {
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"esm": "^3.2.25",
+		"eslint": "^8.23.0",
 		"mocha": "^8.3.2"
 	},
-	"description": "Svizzle Utils is a library to help transforming data.",
+	"engines": {
+		"node": ">=17.5.0"
+	},
 	"files": [
 		"index.js",
 		"src/modules/*.js",
@@ -35,6 +36,7 @@
 		"utility"
 	],
 	"license": "MIT",
+	"main": "index.js",
 	"module": "index.js",
 	"name": "@svizzle/utils",
 	"publishConfig": {
@@ -46,7 +48,7 @@
 		"directory": "packages/tools/utils"
 	},
 	"scripts": {
-		"check_exports": "npm run chmod && node -r esm src/bin/check_exports.js",
+		"check_exports": "npm run chmod && node src/bin/check_exports.js",
 		"chmod": "chmod u+x src/bin/*",
 		"link": "npm link",
 		"lint": "npm run check_exports && eslint --max-warnings=0 src/**/*.js",
@@ -54,9 +56,10 @@
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
-		"test": "mocha -r esm --recursive src/modules",
+		"test": "mocha --recursive src/modules",
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"type": "module",
 	"version": "0.17.0"
 }

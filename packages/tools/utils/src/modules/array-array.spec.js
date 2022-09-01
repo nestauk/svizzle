@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	getFirstAndLast,
@@ -11,7 +11,7 @@ import {
 	sortValueDescKeyDesc,
 	swap,
 	toggleItem
-} from './array-array';
+} from './array-array.js';
 
 describe('Array -> Array', function () {
 	describe('getFirstAndLast', function () {

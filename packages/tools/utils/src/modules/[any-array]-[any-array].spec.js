@@ -1,7 +1,7 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makeBiPermutationsWith} from './[any-array]-[any-array]';
-import {getValue} from './object-any';
+import {makeBiPermutationsWith} from './[any-array]-[any-array].js';
+import {getValue} from './object-any.js';
 
 describe('(Any -> Array) -> (Any -> Array)', function () {
 	describe('makeBiPermutationsWith', function () {

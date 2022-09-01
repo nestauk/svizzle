@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {isKeyOf} from './object-[string-boolean]';
+import {isKeyOf} from './object-[string-boolean].js';
 
 describe('Object -> (String -> Boolean)', function () {
 	describe('isKeyOf', function () {

@@ -1,10 +1,10 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	makeEmptyArrayIfUndefined,
 	sanitize,
 	toFloatOrIdentity,
-} from './any-any';
+} from './any-any.js';
 
 // function returnArgs () {
 //     return arguments;

@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {arrayMaxWith, arrayMinWith} from './[any-number]-[array-number]';
+import {arrayMaxWith, arrayMinWith} from './[any-number]-[array-number].js';
 
 /**
  * Return a function expecting an object, applying the provided function to its values and returning the largest of the results.

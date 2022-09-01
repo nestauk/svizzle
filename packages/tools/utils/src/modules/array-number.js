@@ -4,9 +4,9 @@
 
 import * as _ from 'lamb';
 
-import {arraySumWith} from './[any-number]-[array-number]';
-import {getLength} from './iterable-number';
-import {getValue} from './object-any';
+import {arraySumWith} from './[any-number]-[array-number].js';
+import {getLength} from './iterable-number.js';
+import {getValue} from './object-any.js';
 
 /**
  * Return a random number in the specified range.

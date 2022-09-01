@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {getLength} from './iterable-number';
+import {getLength} from './iterable-number.js';
 
 describe('Iterable -> Number', function () {
 	describe('getLength', function () {

@@ -3,7 +3,7 @@
 */
 
 import * as _ from 'lamb';
-import {isEqualTo} from './any-[any-boolean]';
+import {isEqualTo} from './any-[any-boolean].js';
 
 /**
  * Return a function that returns true if at least one of the input object properties has the provided value.

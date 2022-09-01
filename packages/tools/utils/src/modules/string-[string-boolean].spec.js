@@ -1,11 +1,11 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	makeEndsWith,
 	makeStringEndsWith,
 	makeStartsWith,
 	makeStringStartsWith
-} from './string-[string-boolean]';
+} from './string-[string-boolean].js';
 
 describe('String -> (String -> Boolean)', function () {
 	describe('makeEndsWith', function () {

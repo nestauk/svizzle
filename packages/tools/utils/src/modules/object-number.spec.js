@@ -1,10 +1,10 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	getObjSize,
 	valuesMax,
 	valuesMin
-} from './object-number';
+} from './object-number.js';
 
 describe('Object -> Number', function () {
 	describe('getObjSize', function () {

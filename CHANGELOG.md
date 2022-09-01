@@ -39,6 +39,21 @@
 - remove `requestJson`
 - remove the dependency on `d3-request`, which is deprecated
 
+## `@svizzle/utils` v0.18.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded `just-compare` to avoid errors in svizzle scripts
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
 ## 20220831
 
 - updated copyright year in various packages

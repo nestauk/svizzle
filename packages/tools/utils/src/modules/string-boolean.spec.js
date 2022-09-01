@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {endsWithNewLine, isTrimmedNotEmpty} from './string-boolean';
+import {endsWithNewLine, isTrimmedNotEmpty} from './string-boolean.js';
 
 describe('String -> Boolean', function () {
 	describe('endsWithNewLine', function () {

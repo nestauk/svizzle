@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	makeLines,
@@ -7,7 +7,7 @@ import {
 	splitByDot,
 	splitByEOL,
 	splitBySemiColon
-} from './string-array';
+} from './string-array.js';
 
 describe('String -> Array', function () {
 	describe('makeLines', function () {

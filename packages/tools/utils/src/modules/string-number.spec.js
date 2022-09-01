@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {getEndOfLineLength} from './string-number';
+import {getEndOfLineLength} from './string-number.js';
 
 describe('String -> Number', function () {
 	describe('getEndOfLineLength', function () {

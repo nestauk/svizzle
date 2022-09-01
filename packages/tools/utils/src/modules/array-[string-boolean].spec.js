@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {containsOneOf} from './array-[string-boolean]';
+import {containsOneOf} from './array-[string-boolean].js';
 
 describe('Array -> (String -> Boolean)', function () {
 	describe('containsOneOf', function () {

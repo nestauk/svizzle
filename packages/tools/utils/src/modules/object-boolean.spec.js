@@ -1,11 +1,11 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	hasObjSize1,
 	hasSomeNullValues,
 	isObjEmpty,
 	isObjNotEmpty
-} from './object-boolean';
+} from './object-boolean.js';
 
 describe('Object -> Boolean', function () {
 	describe('hasObjSize1', function () {

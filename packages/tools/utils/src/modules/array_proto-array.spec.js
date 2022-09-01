@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {concat} from './array_proto-array';
+import {concat} from './array_proto-array.js';
 
 describe('(prototype) Array -> Array', function () {
 	describe('concat', function () {

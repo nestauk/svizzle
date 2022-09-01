@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {isValidNumber} from './any-boolean';
+import {isValidNumber} from './any-boolean.js';
 
 /**
  * Return an empty array if the input is undefined or identity otherwise.

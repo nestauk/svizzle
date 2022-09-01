@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	reduceFromEmptyArray,
 	reduceFromEmptyObject
-} from './reduceCb[any-any]-[array-any]';
+} from './reduceCb[any-any]-[array-any].js';
 
 describe('(Any -> Any):reduceCb -> (Array -> Any)', function () {
 	describe('reduceFromEmptyArray', function () {

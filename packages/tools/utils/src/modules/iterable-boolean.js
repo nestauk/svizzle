@@ -4,9 +4,9 @@
 
 import * as _ from 'lamb';
 
-import {is0, is1, isGT0, isGT1} from './number-boolean';
+import {is0, is1, isGT0, isGT1} from './number-boolean.js';
 
-import {getLength} from './iterable-number';
+import {getLength} from './iterable-number.js';
 
 /**
  * Use to check if an iterable is empty

@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {stringify} from './any-string';
+import {stringify} from './any-string.js';
 
 describe('Any -> String', function () {
 	describe('stringify', function () {

@@ -4,10 +4,10 @@
 
 import * as _ from 'lamb';
 
-import {trim} from './string_proto-string';
-import {isTrimmedNotEmpty} from './string-boolean';
-import {makeSplitBy} from './string-[string-array]';
-import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any]';
+import {trim} from './string_proto-string.js';
+import {isTrimmedNotEmpty} from './string-boolean.js';
+import {makeSplitBy} from './string-[string-array].js';
+import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any].js';
 
 /**
  * Return an array by splitting by '.'

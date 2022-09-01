@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makeOccursIn, makeIsIncluded} from './array-[any-boolean]';
+import {makeOccursIn, makeIsIncluded} from './array-[any-boolean].js';
 
 describe('Array -> (Any -> Boolean)', function () {
 	describe('makeOccursIn', function () {

@@ -1,8 +1,8 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
-import {makeAllOccurrencesWith} from './[any-object]-[array-object]';
+import {makeAllOccurrencesWith} from './[any-object]-[array-object].js';
 
 describe('(Any -> Object) -> (Array -> Object)', function () {
 	describe('makeAllOccurrencesWith', function () {

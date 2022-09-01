@@ -4,9 +4,9 @@
 
 import * as _ from 'lamb';
 
-import {toFloatOrIdentity} from './any-any';
-import {concat} from './array_proto-array';
-import {mergeWith} from './[any-any]-[object-object]';
+import {toFloatOrIdentity} from './any-any.js';
+import {concat} from './array_proto-array.js';
+import {mergeWith} from './[any-any]-[object-object].js';
 
 
 /* map values */

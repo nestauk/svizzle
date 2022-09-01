@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {endsWith, startsWith} from './string_proto-boolean';
+import {endsWith, startsWith} from './string_proto-boolean.js';
 
 /**
  * Return a function expecting a base string and checking if it ends with the provided search string.

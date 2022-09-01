@@ -4,9 +4,9 @@
 
 import * as _ from 'lamb';
 
-import {sliceString} from './string_proto-string';
-import {endsWithNewLine} from './string-boolean';
-import {getEndOfLineLength} from './string-number';
+import {sliceString} from './string_proto-string.js';
+import {endsWithNewLine} from './string-boolean.js';
+import {getEndOfLineLength} from './string-number.js';
 
 /**
  * Capitalise the input string

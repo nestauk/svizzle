@@ -1,11 +1,11 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	joinWithBlank,
 	joinWithDash,
 	joinWithColon,
 	joinWithSemicolon
-} from './array-string';
+} from './array-string.js';
 
 const arr = [0, 1, 2];
 

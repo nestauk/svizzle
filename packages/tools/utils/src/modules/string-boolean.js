@@ -4,9 +4,9 @@
 
 import * as _ from 'lamb';
 
-import {isIterableNotEmpty} from './iterable-boolean';
-import {trim} from './string_proto-string';
-import {makeEndsWith} from './string-[string-boolean]';
+import {isIterableNotEmpty} from './iterable-boolean.js';
+import {trim} from './string_proto-string.js';
+import {makeEndsWith} from './string-[string-boolean].js';
 
 /**
  * Return true if the string ends with a newline

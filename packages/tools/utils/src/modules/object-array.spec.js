@@ -1,11 +1,11 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	concatValues,
 	getTruthyValuesKeys,
 	makeKeyedValuesPermutations,
 	objectToKeyValueArray,
-} from './object-array';
+} from './object-array.js';
 
 describe('Object -> Array', function () {
 	describe('concatValues', function () {

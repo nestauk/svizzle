@@ -3,7 +3,7 @@
 */
 
 import * as _ from 'lamb';
-import {sliceString} from './string_proto-string';
+import {sliceString} from './string_proto-string.js';
 
 /**
  * Return a function extracting the portion of a string between the provided indices (first included, second excluded).

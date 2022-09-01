@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	makeWithKeys,
 	makeWithValues
-} from './array-[array-object]';
+} from './array-[array-object].js';
 
 describe('Array -> (Array -> Object)', function () {
 	describe('makeWithKeys', function () {

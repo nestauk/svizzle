@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {pluckPath} from './string-[array-array]';
+import {pluckPath} from './string-[array-array].js';
 
 describe('String -> (Array -> Array)', function () {
 	describe('pluckPath', function () {

@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {endsWith, startsWith} from './string_proto-boolean';
+import {endsWith, startsWith} from './string_proto-boolean.js';
 
 describe('(prototype) String -> Boolean', function () {
 	describe('endsWith', function () {

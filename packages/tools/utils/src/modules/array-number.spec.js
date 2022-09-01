@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
@@ -9,8 +9,8 @@ import {
 	arraySum,
 	keyValueArrayAverage,
 	makeRandomNumInRange,
-} from './array-number';
-import {makeIsWithinRange} from './array-[number-boolean]';
+} from './array-number.js';
+import {makeIsWithinRange} from './array-[number-boolean].js';
 
 describe('Array -> Number', function () {
 	describe('max/min', function () {

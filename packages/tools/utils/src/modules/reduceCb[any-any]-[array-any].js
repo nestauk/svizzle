@@ -2,7 +2,7 @@
 * @module @svizzle/utils/reduceCb[any-any]-[array-any]
 */
 
-import {reduceTo} from './constructor-[reduceCb[any-any]-[array-any]]';
+import {reduceTo} from './constructor-[reduceCb[any-any]-[array-any]].js';
 
 /**
  * Return a reduce function expecting an array to reduce with the passed reducer

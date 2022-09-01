@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {makeBiPermutations} from './array-array';
+import {makeBiPermutations} from './array-array.js';
 
 /**
  * Return a function returning the pair-permutations of the items returned by the provided accessor.

@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
-import {joinWithBlank} from './array-string';
-import {applyFnMap} from './object-[any-object]';
+import {joinWithBlank} from './array-string.js';
+import {applyFnMap} from './object-[any-object].js';
 
 describe('Object -> (Any -> Object)', function () {
 	describe('applyFnMap', function () {

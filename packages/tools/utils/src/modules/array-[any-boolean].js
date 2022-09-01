@@ -5,7 +5,7 @@
 import isEqual from 'just-compare';
 import * as _ from 'lamb';
 
-import {includes} from './array_proto-boolean';
+import {includes} from './array_proto-boolean.js';
 
 /**
  * Return a function returning true if the passed value is found in the provided array

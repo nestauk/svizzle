@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makeArrayToObjectWith} from './[any-array]-[array-object]';
+import {makeArrayToObjectWith} from './[any-array]-[array-object].js';
 
 describe('(Any -> Boolean) -> (Array -> Object)', function () {
 	describe('makeArrayToObjectWith', function () {

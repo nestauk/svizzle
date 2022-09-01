@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {capitalize, trimLastNewline} from './string-string';
+import {capitalize, trimLastNewline} from './string-string.js';
 
 describe('String -> String', function () {
 	describe('capitalize', function () {

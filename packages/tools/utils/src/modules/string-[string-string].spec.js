@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makePostfixed, makePrefixed} from './string-[string-string]';
+import {makePostfixed, makePrefixed} from './string-[string-string].js';
 
 describe('String -> (String -> String)', function () {
 	describe('makePostfixed', function () {

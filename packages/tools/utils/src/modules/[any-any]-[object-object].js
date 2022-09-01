@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {concat} from './array_proto-array';
+import {concat} from './array_proto-array.js';
 
 /* re-shaping */
 

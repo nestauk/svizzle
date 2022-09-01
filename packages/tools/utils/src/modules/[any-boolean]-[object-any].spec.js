@@ -1,7 +1,7 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {findValueWith} from './[any-boolean]-[object-any]';
-import {isKeyValue} from './array-[object-boolean]';
+import {findValueWith} from './[any-boolean]-[object-any].js';
+import {isKeyValue} from './array-[object-boolean].js';
 
 describe('(Any -> Boolean) -> (Object -> Any)', function () {
 	describe('findValueWith', function () {

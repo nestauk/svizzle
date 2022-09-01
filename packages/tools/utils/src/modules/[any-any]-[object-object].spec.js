@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
@@ -6,7 +6,7 @@ import {
 	groupValuesWith,
 	indexValuesWith,
 	mergeWith
-} from './[any-any]-[object-object]';
+} from './[any-any]-[object-object].js';
 
 describe('(Any -> Any) -> (Object -> Object)', function () {
 	describe('groupValuesWith', function () {

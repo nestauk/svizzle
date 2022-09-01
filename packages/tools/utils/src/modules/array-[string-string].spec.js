@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {sliceStringAt} from './array-[string-string]';
+import {sliceStringAt} from './array-[string-string].js';
 
 describe('Array -> (String -> String)', function () {
 	describe('sliceStringAt', function () {

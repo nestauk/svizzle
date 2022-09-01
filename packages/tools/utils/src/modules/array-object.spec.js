@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	keyValueArrayToObject,
@@ -9,7 +9,7 @@ import {
 	makeKeyedZeroes,
 	makeOccurrences,
 	mergeObjects,
-} from './array-object';
+} from './array-object.js';
 
 describe('Array -> Object', function () {
 	describe('keyValueArrayToObject', function () {

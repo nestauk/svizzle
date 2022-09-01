@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {pairToKeyValueObject} from './iterable-object';
+import {pairToKeyValueObject} from './iterable-object.js';
 
 describe('Iterable -> Object', function () {
 	describe('pairToKeyValueObject', function () {

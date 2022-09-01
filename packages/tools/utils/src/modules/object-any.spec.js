@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {getId, getKey, getValue, getValues} from './object-any';
+import {getId, getKey, getValue, getValues} from './object-any.js';
 
 describe('Object -> Any', function () {
 	describe('getters', function () {

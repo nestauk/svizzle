@@ -1,11 +1,11 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	is0,
 	is1,
 	isGT0,
 	isGT1
-} from './number-boolean';
+} from './number-boolean.js';
 
 describe('Number -> Boolean', function () {
 	describe('is0', function () {

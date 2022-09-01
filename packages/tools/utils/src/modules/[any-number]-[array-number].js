@@ -4,8 +4,8 @@
 
 import * as _ from 'lamb';
 
-import {getLength} from './iterable-number';
-import {isNumber} from './any-boolean';
+import {getLength} from './iterable-number.js';
+import {isNumber} from './any-boolean.js';
 
 /**
  * Return a function expecting an array of objects and returning the max of results

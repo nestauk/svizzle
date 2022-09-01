@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {join} from './array_proto-string';
+import {join} from './array_proto-string.js';
 
 const arr = [0, 1, 2];
 

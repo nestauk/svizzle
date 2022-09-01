@@ -1,21 +1,24 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node
 
-import path from 'path';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 import * as _ from 'lamb';
 
-// have to do this to avoid dep cycle: @svizzle/file -> @svizzle/utils -> @svizzle/file
-import {readDir, readFile} from '../../../file/src/read';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-import {sliceStringAt} from '../modules/array-[string-string]';
-import {isIterableNotEmpty} from '../modules/iterable-boolean';
-import {makeEndsWith} from '../modules/string-[string-boolean]';
-import {makePrefixed} from '../modules/string-[string-string]';
+// have to do this to avoid dep cycle: @svizzle/file -> @svizzle/utils -> @svizzle/file
+import {readDir, readFile} from '../../../file/src/read.js';
+
+import {sliceStringAt} from '../modules/array-[string-string].js';
+import {isIterableNotEmpty} from '../modules/iterable-boolean.js';
+import {makeEndsWith} from '../modules/string-[string-boolean].js';
+import {makePrefixed} from '../modules/string-[string-string].js';
 
 const INDEX_PATH = path.resolve(__dirname, '../../index.js');
 const MODULES_DIR_PATH = path.resolve(__dirname, '../modules');
 
-const regex = /export \* from '\.\/src\/modules\/(.*)'\n+/ug;
+const regex = /export \* from '\.\/src\/modules\/(.*).js';\n+/ug;
 
 const isModule = _.allOf([
 	makeEndsWith('.js'),

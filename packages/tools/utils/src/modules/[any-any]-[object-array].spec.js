@@ -1,11 +1,11 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
 import {
 	objectToKeyValueArrayWith,
 	valuesWith
-} from './[any-any]-[object-array]';
+} from './[any-any]-[object-array].js';
 
 describe('(Any -> Any) -> (Object -> Array)', function () {
 	describe('objectToKeyValueArrayWith', function () {

@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makeKeyed} from './any-[array-object]';
+import {makeKeyed} from './any-[array-object].js';
 
 describe('Any -> (Any -> Array)', function () {
 	describe('toFloatOrIdentity', function () {

@@ -1,7 +1,7 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makePrefixed} from './string-[string-string]';
-import {renameKeysWith} from './[string-string]-[object-object]';
+import {makePrefixed} from './string-[string-string].js';
+import {renameKeysWith} from './[string-string]-[object-object].js';
 
 describe('(String -> String) -> (Object -> Object)', function () {
 	describe('renameKeysWith', function () {

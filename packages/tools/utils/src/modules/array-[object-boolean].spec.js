@@ -1,11 +1,11 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	isKeyValue,
 	isNotKeyValue,
 	isNotPathValue,
 	isPathValue,
-} from './array-[object-boolean]';
+} from './array-[object-boolean].js';
 
 describe('Array -> (Object -> Array)', function () {
 	describe('isKeyValue', function () {

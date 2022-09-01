@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
@@ -6,7 +6,7 @@ import {
 	applyTransformsSequence,
 	pluckValuesKeys,
 	remapWith,
-} from './array-[object-object]';
+} from './array-[object-object].js';
 
 describe('Array -> (Object -> Object)', function () {
 	describe('applyTransformsSequence', function () {

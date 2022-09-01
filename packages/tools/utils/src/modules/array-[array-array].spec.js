@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
@@ -6,7 +6,7 @@ import {
 	makeArrayTransformer,
 	pluckKeys,
 	removeAt
-} from './array-[array-array]';
+} from './array-[array-array].js';
 
 describe('Array -> (Array -> Array)', function () {
 	describe('makeArrayTransformer', function () {

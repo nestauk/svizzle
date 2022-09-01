@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makeSplitBy, makeSplitStringBy} from './string-[string-array]';
+import {makeSplitBy, makeSplitStringBy} from './string-[string-array].js';
 
 describe('String -> (String -> Array)', function () {
 	describe('makeSplitStringBy', function () {

@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
@@ -7,7 +7,7 @@ import {
 	arrayMinWith,
 	arraySumWith,
 	makeAverageWith,
-} from './[any-number]-[array-number]';
+} from './[any-number]-[array-number].js';
 
 describe('(Any -> Number) -> (Array -> Number)', function () {
 	describe('arrayMaxWith', function () {

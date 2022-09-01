@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {valuesMaxBy, valuesMinBy} from './string-[object-number]';
+import {valuesMaxBy, valuesMinBy} from './string-[object-number].js';
 
 describe('String -> (Object -> Number)', function () {
 	describe('max/min', function () {

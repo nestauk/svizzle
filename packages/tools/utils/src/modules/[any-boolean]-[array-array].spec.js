@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {raiseWith} from './[any-boolean]-[array-array]';
+import {raiseWith} from './[any-boolean]-[array-array].js';
 
 describe('(Any -> Boolean) -> (Array -> Array)', function () {
 	describe('raiseWith', function () {

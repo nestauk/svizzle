@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
-import {roundTo} from './number-[number-number]';
-import {joinWithBlank} from './array-string';
+import {roundTo} from './number-[number-number].js';
+import {joinWithBlank} from './array-string.js';
 import {
 	makeMergeAppliedFnMap,
 	makeMergeKeyValue,
@@ -11,7 +11,7 @@ import {
 	transformPaths,
 	transformValues,
 	updateKeys,
-} from './object-[object-object]';
+} from './object-[object-object].js';
 
 const roundTo2 = roundTo(2);
 

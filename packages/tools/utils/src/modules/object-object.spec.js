@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	mapValuesToFloat,
@@ -12,7 +12,7 @@ import {
 	sortObjectKeysAsc,
 	sortObjectKeysDesc,
 	swapKeyValue,
-} from './object-object';
+} from './object-object.js';
 
 describe('Object -> Object', function () {
 	describe('mapValues*', function () {

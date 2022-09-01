@@ -1,8 +1,8 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
-import {valuesMaxWith, valuesMinWith} from './[any-any]-[object-number]';
+import {valuesMaxWith, valuesMinWith} from './[any-any]-[object-number].js';
 
 describe('(Any -> Any) -> (Object -> Number)', function () {
 	describe('max/min', function () {

@@ -1,8 +1,8 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
-import {pairToKeyValueObjectWith} from './[any-any]-[iterable-object]';
+import {pairToKeyValueObjectWith} from './[any-any]-[iterable-object].js';
 
 describe('(Any -> Any) -> (Iterable -> Object)', function () {
 	describe('pairToKeyValueObjectWith', function () {

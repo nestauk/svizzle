@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {arrayMaxBy, arrayMinBy} from './string-[array-number]';
+import {arrayMaxBy, arrayMinBy} from './string-[array-number].js';
 
 describe('String -> (Array -> Number)', function () {
 	describe('max/min', function () {

@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {truthynessTo} from './array-[any-any]';
+import {truthynessTo} from './array-[any-any].js';
 
 describe('Array -> (Any -> Any)', function () {
 	describe('truthynessTo', function () {

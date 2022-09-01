@@ -4,8 +4,8 @@
 
 import * as _ from 'lamb';
 
-import {is0, is1, isGT0} from './number-boolean';
-import {getObjSize} from './object-number';
+import {is0, is1, isGT0} from './number-boolean.js';
+import {getObjSize} from './object-number.js';
 
 /*
  * Return the size of the provided object

@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {hasValue} from './any-[object-boolean]';
+import {hasValue} from './any-[object-boolean].js';
 
 describe('Any -> (Object -> Boolean)', function () {
 	describe('hasValue', function () {

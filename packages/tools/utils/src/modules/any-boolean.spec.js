@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	isArguments,
@@ -15,7 +15,7 @@ import {
 	negate,
 	toFloatIsValidNumber,
 	toNumberisValidNumber,
-} from './any-boolean';
+} from './any-boolean.js';
 
 function returnArgs () {
 	return arguments;

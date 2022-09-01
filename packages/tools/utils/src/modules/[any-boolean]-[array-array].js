@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {concat} from './array_proto-array';
+import {concat} from './array_proto-array.js';
 
 /**
  * Return a function expecting an array and returning a new array with all items

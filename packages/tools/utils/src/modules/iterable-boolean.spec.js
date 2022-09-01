@@ -1,11 +1,11 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	hasIterableLength1,
 	isIterableLongerThan1,
 	isIterableEmpty,
 	isIterableNotEmpty,
-} from './iterable-boolean';
+} from './iterable-boolean.js';
 
 describe('Iterable -> Boolean', function () {
 	describe('isIterableEmpty', function () {

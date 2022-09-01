@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {getShorter} from './array-iterable';
+import {getShorter} from './array-iterable.js';
 
 describe('Array -> Any', function () {
 	describe('getShorter', function () {

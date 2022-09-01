@@ -4,12 +4,12 @@
 
 import * as _ from 'lamb';
 
-import {isArray} from './any-boolean';
-import {concat} from './array_proto-array';
-import {isIterableNotEmpty} from './iterable-boolean';
-import {pairToKeyValueObject} from './iterable-object';
-import {pickIfTruthy} from './object-object';
-import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any]';
+import {isArray} from './any-boolean.js';
+import {concat} from './array_proto-array.js';
+import {isIterableNotEmpty} from './iterable-boolean.js';
+import {pairToKeyValueObject} from './iterable-object.js';
+import {pickIfTruthy} from './object-object.js';
+import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any].js';
 
 /**
  * Concatenate the values of the provided object.

@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {applyFnMap} from './object-[any-object]';
+import {applyFnMap} from './object-[any-object].js';
 
 /**
  * Return a function that applies the provided map to the expected object and merges the result to the object.

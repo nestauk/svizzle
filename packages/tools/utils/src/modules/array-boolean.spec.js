@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	areAllTruthy,
 	areSomeTruthy
-} from './array-boolean';
+} from './array-boolean.js';
 
 describe('Array -> Boolean', function () {
 	describe('areAllTruthy', function () {

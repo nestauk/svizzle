@@ -3,7 +3,7 @@
 */
 
 import * as _ from 'lamb';
-import {isNot} from './any-[any-boolean]';
+import {isNot} from './any-[any-boolean].js';
 
 /**
  * Return a predicate expecting an object and returning `true` if the value at the provided `key` is the [same]{@link https://ascartabelli.github.io/lamb/module-lamb.html#areSame} as the provided `value`

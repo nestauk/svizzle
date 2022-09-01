@@ -1,3 +1,18 @@
+## `@svizzle/utils` v0.18.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded `just-compare` to avoid errors in svizzle scripts
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
 ## `@svizzle/utils` v0.17.0
 
 - added `sanitize`

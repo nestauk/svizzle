@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {roundTo} from './number-[number-number]';
+import {roundTo} from './number-[number-number].js';
 
 describe('Number -> (Number -> Number)', function () {
 	describe('roundTo', function () {
