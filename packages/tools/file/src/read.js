@@ -2,11 +2,10 @@
 * @module @svizzle/file/read
 */
 
-import fs from 'fs';
-import path from 'path';
-import util from 'util';
+import fs from 'node:fs';
+import path from 'node:path';
+import util from 'node:util';
 
-import {filterWith, fromPairs, identity} from 'lamb';
 import {
 	dsvFormat,
 	csvParse,
@@ -14,9 +13,10 @@ import {
 	tsvParse,
 	tsvParseRows
 } from 'd3-dsv';
+import {filterWith, fromPairs, identity} from 'lamb';
 import {load as parseYaml} from 'js-yaml';
 
-import {filterJsonExtensions} from './path';
+import {filterJsonExtensions} from './path.js';
 
 /**
  * [node environment]

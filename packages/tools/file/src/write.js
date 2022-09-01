@@ -2,9 +2,9 @@
 * @module @svizzle/file/write
 */
 
-import fs from 'fs';
-import stream from 'stream';
-import util from 'util';
+import fs from 'node:fs';
+import stream from 'node:stream';
+import util from 'node:util';
 
 import {dump as toYamlString} from 'js-yaml';
 import * as _ from 'lamb';

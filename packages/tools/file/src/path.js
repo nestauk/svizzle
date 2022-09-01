@@ -2,7 +2,7 @@
 * @module @svizzle/file/path
 */
 
-import path from 'path';
+import path from 'node:path';
 
 import * as _ from 'lamb';
 

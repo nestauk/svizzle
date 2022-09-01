@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	filterJsonExtensions,
@@ -7,7 +7,7 @@ import {
 	isFileWithExt,
 	renameToExtension,
 	resolveToDir,
-} from './path';
+} from './path.js';
 
 describe('path', function () {
 	describe('getPathExt', function () {

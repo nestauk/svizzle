@@ -1,5 +1,7 @@
-import {strict as assert} from 'assert';
-import path from 'path';
+import {strict as assert} from 'node:assert';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+
 import {csvParseRows} from 'd3-dsv';
 
 import {
@@ -13,8 +15,10 @@ import {
 	readJsonDir,
 	readTsv,
 	readYaml,
-} from './read';
-import {hasAnyExtensionOf} from './path';
+} from './read.js';
+import {hasAnyExtensionOf} from './path.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('read', function () {
 	describe('readFile', function () {

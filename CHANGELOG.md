@@ -19,6 +19,21 @@
 		- using file extensions
 		- use the `node:` protocol
 
+## `@svizzle/file` v0.14.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded `d3-dsv`, `eslint`, `node-fetch`
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
 ## `@svizzle/request` v0.5.0 (next)
 
 - remove `requestJson`

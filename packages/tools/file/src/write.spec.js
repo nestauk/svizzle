@@ -1,20 +1,24 @@
-import {strict as assert} from 'assert';
-import fs from 'fs';
-import path from 'path';
+import {strict as assert} from 'node:assert';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 import nock from 'nock';
-import tempy from 'tempy';
 import fetch from 'node-fetch';
+import tempy from 'tempy';
+
 global.fetch = fetch;
 
-import {readJson, readYaml} from './read';
+import {readJson, readYaml} from './read.js';
 import {
 	saveObj,
 	saveObjPassthrough,
 	saveResponse,
 	saveYaml,
 	saveYamlPassthrough,
-} from './write';
+} from './write.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // assets/multi.json, indent = 4
 const multiIndented4 = `{
