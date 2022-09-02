@@ -1,5 +1,13 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/request` v0.5.0 (next)
+
+- remove `requestJson`
+- remove the dependency on `d3-request`, which is deprecated
+
+
 ## 20220831
 
 - updated copyright year in various packages

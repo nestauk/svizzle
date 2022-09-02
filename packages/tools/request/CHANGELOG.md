@@ -1,3 +1,8 @@
+## `@svizzle/request` v0.5.0 (next)
+
+- remove `requestJson`
+- remove the dependency on `d3-request`, which is deprecated
+
 ## `@svizzle/request` v0.4.0
 
 - added `fetchManager` featuring three-stage-prioritized stream-based resource
