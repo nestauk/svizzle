@@ -1,27 +1,30 @@
 <script>
-	import {jsonBufferToAny} from '@svizzle/utils/src/modules/buffer-any';
+	import {exportedObjBufferToAny} from '@svizzle/utils';
 	import FetchDriver from '@svizzle/ui/src/io/net/FetchDriver.svelte';
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
 	import ScreenSensor from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
 	import {isClientSide, isServerSide} from '@svizzle/ui/src/utils/env';
 
-	import Sidebar from 'components/Sidebar.svelte';
-	import Timeline from 'components/Timeline.svelte';
-	import ViewSelector from 'components/ViewSelector.svelte';
-	import {setGroups} from 'stores/dataset';
+	// lib/components
+	import Sidebar from '../lib/components/Sidebar.svelte';
+	import Timeline from '../lib/components/Timeline.svelte';
+	import ViewSelector from '../lib/components/ViewSelector.svelte';
+
+	// lib/stores
+	import {setGroups} from '../lib/stores/dataset.js';
 	import {
 		_loadingTopojsonKeys,
 		_topoCache,
 		_topojsonPriorities,
 		_uriMap,
-	} from 'stores/geoBoundaries';
-	import {_availableYears} from 'stores/indicator';
+	} from '../lib/stores/geoBoundaries.js';
+	import {_availableYears} from '../lib/stores/indicator.js';
 	import {
 		_isSmallScreen,
 		_screenClasses,
 		_timelineHeight,
 		_timelineWidth,
-	} from 'stores/layout';
+	} from '../lib/stores/layout.js';
 	import {
 		_hrefBase,
 		_isTimelineHidden,
@@ -30,11 +33,11 @@
 		_views,
 		_viewsClasses,
 		showView,
-	} from 'stores/navigation';
-	import {_POIs} from 'stores/POIs';
-	import {_regionSettings} from 'stores/regionSettings';
-	import {_selectedYear} from 'stores/selectedYear';
-	import {_style, _theme, customizeTheme} from 'stores/theme';
+	} from '../lib/stores/navigation.js';
+	import {_POIs} from '../lib/stores/POIs.js';
+	import {_regionSettings} from '../lib/stores/regionSettings.js';
+	import {_selectedYear} from '../lib/stores/selectedYear.js';
+	import {_style, _theme, customizeTheme} from '../lib/stores/theme.js';
 
 	export let _groups = null;
 	export let flags = null;
@@ -64,7 +67,7 @@
 		bind:outData={$_topoCache}
 		bind:outLoadingKeys={$_loadingTopojsonKeys}
 		nextKeys={$_topojsonPriorities.nextKeys}
-		transformer={jsonBufferToAny}
+		transformer={exportedObjBufferToAny}
 		uriMap={$_uriMap}
 	/>
 {/if}

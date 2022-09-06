@@ -1,40 +1,32 @@
 <script>
-	/* ext deps */
-
-	// utils
-
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
 	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
 	import MessageView from '@svizzle/ui/src/MessageView.svelte';
 	import {onMount} from 'svelte';
 
-	/* local deps */
+	// lib/components
+	import GeoFilterModal from '../../lib/components/GeoFilterModal.svelte';
+	import Header from '../../lib/components/Header.svelte';
+	import InfoModal from '../../lib/components/Info/InfoModal.svelte';
+	import InfoView from '../../lib/components/Info/InfoView.svelte';
+	import SettingsRow from '../../lib/components/SettingsRow.svelte';
+	import SettingsView from '../../lib/components/SettingsView.svelte';
+	import TrendsDiv from '../../lib/components/TrendsDiv.svelte';
+	import TrendsG from '../../lib/components/TrendsG.svelte';
 
-	// components
-
-	import GeoFilterModal from 'components/GeoFilterModal.svelte';
-	import Header from 'components/Header.svelte';
-	import InfoModal from 'components/Info/InfoModal.svelte';
-	import InfoView from 'components/Info/InfoView.svelte';
-	import SettingsRow from 'components/SettingsRow.svelte';
-	import SettingsView from 'components/SettingsView.svelte';
-	import TrendsDiv from 'components/TrendsDiv.svelte';
-	import TrendsG from 'components/TrendsG.svelte';
-
-	// stores
-
-	import {_colorScale} from 'stores/colors';
-	import {_lookup} from 'stores/dataset';
+	// lib/stores
+	import {_colorScale} from '../../lib/stores/colors.js';
+	import {_lookup} from '../../lib/stores/dataset.js';
 	import {
 		_formatFn,
 		_getIndicatorValue,
 		_indicator,
 		_rankedData,
 		_selectionData,
-	} from 'stores/indicator';
-	import {_currentExtext, _isCurrentDataEmpty} from 'stores/indicatorCurrent';
-	import {_isSmallScreen, _screenClasses} from 'stores/layout';
-	import {_colorBins} from 'stores/legend';
+	} from '../../lib/stores/indicator.js';
+	import {_currentExtext, _isCurrentDataEmpty} from '../../lib/stores/indicatorCurrent.js';
+	import {_isSmallScreen, _screenClasses} from '../../lib/stores/layout.js';
+	import {_colorBins} from '../../lib/stores/legend.js';
 	import {
 		_geoModal,
 		_infoModal,
@@ -42,23 +34,22 @@
 		hideInfoModal,
 		toggleGeoModal,
 		toggleInfoModal,
-	} from 'stores/modals';
+	} from '../../lib/stores/modals.js';
 	import {
 		_viewsClasses,
 		setRoute,
 		showView,
-	} from 'stores/navigation';
+	} from '../../lib/stores/navigation.js';
 	import {
 		_doFilterRegions,
 		_isRegionsSelectionDirty,
 		setCurrentLevel,
-	} from 'stores/selectedRegions';
-	import {resetSelectedYear} from 'stores/selectedYear';
-	import {_theme} from 'stores/theme';
+	} from '../../lib/stores/selectedRegions.js';
+	import {resetSelectedYear} from '../../lib/stores/selectedYear.js';
+	import {_theme} from '../../lib/stores/theme.js';
 
-	/* local utils */
-
-	import config from 'config';
+	// lib
+	import config from '../../lib/config.js';
 
 	/* consts */
 

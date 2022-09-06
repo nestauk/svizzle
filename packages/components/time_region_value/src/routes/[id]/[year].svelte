@@ -1,17 +1,5 @@
 <script>
-	/* ext deps */
-
-	// utils
-
 	import {makeStyle, toPx} from '@svizzle/dom';
-	import {areAllTruthy, mergeObj} from '@svizzle/utils';
-	import {geoEqualEarth as projectionFn} from 'd3-geo';
-	import * as _ from 'lamb';
-	import {onMount} from 'svelte';
-	import {writable} from 'svelte/store';
-
-	// components
-
 	import {defaultGeometry} from '@svizzle/choropleth/src/shared';
 	import BarchartVDiv from '@svizzle/barchart/src/BarchartVDiv.svelte';
 	import ChoroplethG from '@svizzle/choropleth/src/ChoroplethG.svelte';
@@ -19,21 +7,22 @@
 	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
 	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
 	import MessageView from '@svizzle/ui/src/MessageView.svelte';
+	import {areAllTruthy, mergeObj} from '@svizzle/utils';
+	import {geoEqualEarth as projectionFn} from 'd3-geo';
+	import * as _ from 'lamb';
+	import {onMount} from 'svelte';
+	import {writable} from 'svelte/store';
 
-	/* local deps */
+	// lib/components
+	import GeoFilterModal from '../../lib/components/GeoFilterModal.svelte';
+	import Header from '../../lib/components/Header.svelte';
+	import InfoModal from '../../lib/components/Info/InfoModal.svelte';
+	import InfoView from '../../lib/components/Info/InfoView.svelte';
+	import SettingsRow from '../../lib/components/SettingsRow.svelte';
+	import SettingsView from '../../lib/components/SettingsView.svelte';
 
-	// components
-
-	import GeoFilterModal from 'components/GeoFilterModal.svelte';
-	import Header from 'components/Header.svelte';
-	import InfoModal from 'components/Info/InfoModal.svelte';
-	import InfoView from 'components/Info/InfoView.svelte';
-	import SettingsRow from 'components/SettingsRow.svelte';
-	import SettingsView from 'components/SettingsView.svelte';
-
-	// stores
-
-	import {_lookup} from 'stores/dataset';
+	// lib/stores
+	import {_lookup} from '../../lib/stores/dataset.js';
 	import {
 		_filteredGeojson,
 		_geojson,
@@ -41,14 +30,14 @@
 		_getRegionIdFromAtlasId,
 		_isTopoFetching,
 		_topojson,
-	} from 'stores/geoBoundaries';
+	} from '../../lib/stores/geoBoundaries.js';
 	import {
 		_formatFn,
 		_indicator,
 		_selectedRegionAtlasIds,
 		_selectedRegionIds,
-	} from 'stores/indicator';
-	import {_isCurrentDataEmpty} from 'stores/indicatorCurrent';
+	} from '../../lib/stores/indicator.js';
+	import {_isCurrentDataEmpty} from '../../lib/stores/indicatorCurrent.js';
 	import {
 		_barchartRefs,
 		_regionIdToBarchartLabel,
@@ -56,9 +45,9 @@
 		_regionIdToColorFn,
 		_regionIdToValue,
 		_regionIdValuePairs,
-	} from 'stores/indicatorYear';
-	import {_isSmallScreen, _screenClasses} from 'stores/layout';
-	import {_colorBins} from 'stores/legend';
+	} from '../../lib/stores/indicatorYear.js';
+	import {_isSmallScreen, _screenClasses} from '../../lib/stores/layout.js';
+	import {_colorBins} from '../../lib/stores/legend.js';
 	import {
 		_geoModal,
 		_infoModal,
@@ -66,29 +55,28 @@
 		hideInfoModal,
 		toggleGeoModal,
 		toggleInfoModal,
-	} from 'stores/modals';
+	} from '../../lib/stores/modals.js';
 	import {
 		_navFlags,
 		_viewsClasses,
 		setRoute,
 		showView,
-	} from 'stores/navigation';
-	import {_POIs} from 'stores/POIs';
-	import {_regionSettings} from 'stores/regionSettings';
+	} from '../../lib/stores/navigation.js';
+	import {_POIs} from '../../lib/stores/POIs.js';
+	import {_regionSettings} from '../../lib/stores/regionSettings.js';
 	import {
 		_doFilterRegions,
 		_isRegionsSelectionDirty,
 		setCurrentLevel,
-	} from 'stores/selectedRegions';
-	import {setSelectedYear} from 'stores/selectedYear';
-	import {_theme} from 'stores/theme';
+	} from '../../lib/stores/selectedRegions.js';
+	import {setSelectedYear} from '../../lib/stores/selectedYear.js';
+	import {_theme} from '../../lib/stores/theme.js';
 
-	/* local utils  */
+	// lib/utils
+	import {regionIdToName} from '../../lib/utils/domain.js';
 
-	import config from 'config';
-	import {regionIdToName} from 'utils/domain';
-
-	/* data */
+	// lib
+	import config from '../../lib/config.js';
 
 	/* consts */
 
