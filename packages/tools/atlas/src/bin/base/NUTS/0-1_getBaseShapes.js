@@ -1,21 +1,21 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node
 
-import path from 'path';
+import path from 'node:path';
 
 import {tapMessage} from '@svizzle/dev';
-import {readYaml, saveObj} from '@svizzle/file';
+import {readYaml} from '@svizzle/file';
 import {makeKeyedValuesPermutations, transformValues} from '@svizzle/utils';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
 import rimraf from 'rimraf';
 
+import {saveExportedObj} from '../../../lib/fileUtils.js';
 import {
-	getBasename,
 	NUTS_DATABASE_DIR_0,
 	NUTS_DATABASE_DIR_1,
-} from 'paths';
-import {NUTS_HOME_URL} from 'urls';
+} from '../../../lib/paths.js';
+import {NUTS_HOME_URL} from '../../../lib/urls.js';
 
 /* paths */
 
@@ -36,8 +36,8 @@ const makeURL = ({
 }) =>
 	`${NUTS_HOME_URL}/${format[0]}/NUTS_${spatialtype}_${resolution}_${year}_${proj_epsg_id}_LEVL_${subset}.${format[1]}`;
 
-const makeExtension = string => string === 'geojson' ? 'json' : string;
-
+// as of now we don't support saving other than topojson and geojson
+// which we save as `.js` files
 const makeDestinationPath = ({
 	format,
 	proj_epsg_id,
@@ -49,8 +49,8 @@ const makeDestinationPath = ({
 	path.resolve(
 		NUTS_DATABASE_DIR_1,
 		format[0],
-		`NUTS_${spatialtype}_${resolution}_${year}_${proj_epsg_id}_LEVL_${subset}.${makeExtension(format[1])}`
-		// e.g. NUTS_RG_03M_2003_4326_LEVL_1.json
+		`NUTS_${spatialtype}_${resolution}_${year}_${proj_epsg_id}_LEVL_${subset}.js`
+		// e.g. NUTS_RG_03M_2003_4326_LEVL_1.js
 	);
 
 const makeObjectsKey = ({
@@ -83,11 +83,11 @@ in:
 	- inPaths.nutsSpec
 	- NUTS_HOME_URL
 out:
-	- OUT_TOPOJSON_DIR/*.topojson
+	- OUT_TOPOJSON_DIR/*.js
 */
 const run = async () => {
 	const permutations =
-		await readYaml(inPaths.nutsSpec, 'utf-8')
+		await readYaml(inPaths.nutsSpec)
 		.then(permute)
 		.catch(err => console.error(err));
 
@@ -109,7 +109,7 @@ const run = async () => {
 					.then(response => response.json())
 					.then(updater)
 					.then(tapMessage(`Saving ${filePath}`))
-					.then(saveObj(filePath))
+					.then(saveExportedObj(filePath))
 					.catch(err => console.error(url, err));
 				}
 			])
@@ -117,7 +117,7 @@ const run = async () => {
 	).catch(err => console.error(err));
 }
 
-console.log(`\nrun: ${getBasename(__filename)}\n`);
+console.log(`\nrun: ${path.basename(import.meta.url)}\n`);
 console.log('Fetching, please wait...');
 
 run()

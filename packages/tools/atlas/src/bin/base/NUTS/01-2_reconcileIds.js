@@ -1,10 +1,6 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node
 
-// node
-
-import path from 'path';
-
-// npm
+import path from 'node:path';
 
 import {tapMessage} from '@svizzle/dev';
 import {
@@ -23,15 +19,17 @@ import {
 import * as _ from 'lamb';
 import {csvParse, tsvParse} from 'd3-dsv';
 
-// local
-
+import {
+	saveExportedObjects,
+	saveExportedObjPassthrough
+} from '../../../lib/fileUtils.js';
+import {getNutsName} from '../../../lib/nutsUtils.js';
 import {
 	NUTS_DATABASE_DIR_0,
 	NUTS_DATABASE_DIR_1,
 	NUTS_DATABASE_DIR_2,
 	NUTS_INSPECT_DIR,
-} from 'paths';
-import {getNutsName} from 'utils/nuts';
+} from '../../../lib/paths.js';
 
 /* paths */
 
@@ -42,18 +40,19 @@ const inDirs = {
 	// 1
 	sourceText: path.resolve(NUTS_DATABASE_DIR_1, 'sourceText'),
 };
-const outPaths = {
+const outJsPaths = {
 	// 2
-	hierarchy: path.resolve(NUTS_DATABASE_DIR_2, 'hierarchy.json'),
-	idToNutsIdByYear: path.resolve(NUTS_DATABASE_DIR_2, 'idToNutsIdByYear.json'),
-	recoded: path.resolve(NUTS_DATABASE_DIR_2, 'recoded.json'),
-	unifiedNuts: path.resolve(NUTS_DATABASE_DIR_2, 'unifiedNuts.json'),
-	yearlyNutsIdToId: path.resolve(NUTS_DATABASE_DIR_2, 'yearlyNutsIdToId.json'),
+	hierarchy: path.resolve(NUTS_DATABASE_DIR_2, 'hierarchy.js'),
+	idToNutsIdByYear: path.resolve(NUTS_DATABASE_DIR_2, 'idToNutsIdByYear.js'),
+	recoded: path.resolve(NUTS_DATABASE_DIR_2, 'recoded.js'),
+	unifiedNuts: path.resolve(NUTS_DATABASE_DIR_2, 'unifiedNuts.js'),
+	yearlyNutsIdToId: path.resolve(NUTS_DATABASE_DIR_2, 'yearlyNutsIdToId.js'),
+};
 
-	// inspect
+const outInspectPaths = {
 	detectedChangesById: path.resolve(NUTS_INSPECT_DIR, 'detectedChangesById.json'),
 	sourceText: path.resolve(NUTS_INSPECT_DIR, 'sourceText.json'),
-}
+};
 
 /* utils */
 
@@ -147,6 +146,7 @@ const makeUnifiedIds = (sourceTexts, recodes) => {
 		const changeObj = _.find(recodes, change => change.to === year);
 
 		const newSources = _.map(sources, source => {
+
 			/* id */
 
 			const oldId = changeObj && changeObj.newIdToOldId[source.NUTS_ID];
@@ -242,6 +242,7 @@ const makeHierarchy = _.pipe([
 		_.groupBy(getId),
 	]),
 	([areasByParentId, areasById]) => _.mapValues(areasById, (areas, id) => {
+
 		/* name */
 		const name = getName(areas);
 
@@ -308,12 +309,12 @@ const run = async () => {
 	const recodes =
 		await readDirFilesIndexed(inDirs.recoded, isTsvFile, tsvParse)
 		.then(makeRecodes)
-		.then(saveObjPassthrough(outPaths.recoded, 2));
+		.then(saveExportedObjPassthrough(outJsPaths.recoded, '\t'));
 
 	const sourceTexts =
 		await readDirFilesIndexed(inDirs.sourceText, isCsvFile, csvParse)
 		.then(makeSourceTexts)
-		.then(saveObjPassthrough(outPaths.sourceText, 2));
+		.then(saveObjPassthrough(outInspectPaths.sourceText, '\t'));
 
 	const {maxId, yearlyNutsIdToId, unifiedNuts} =
 		makeUnifiedIds(sourceTexts, recodes);
@@ -330,27 +331,31 @@ const run = async () => {
 
 	const detectedChangesById = getDetectedChanges(yearlyNutsIdToId);
 
-	return saveObjects([
-		{
-			filepath: outPaths.detectedChangesById,
-			object: detectedChangesById
-		},
-		{
-			filepath: outPaths.hierarchy,
-			object: hierarchy
-		},
-		{
-			filepath: outPaths.yearlyNutsIdToId,
-			object: yearlyNutsIdToId
-		},
-		{
-			filepath: outPaths.idToNutsIdByYear,
-			object: idToNutsIdByYear
-		},
-		{
-			filepath: outPaths.unifiedNuts,
-			object: unifiedNuts
-		},
+	return Promise.all([
+		saveExportedObjects([
+			{
+				filepath: outJsPaths.hierarchy,
+				object: hierarchy
+			},
+			{
+				filepath: outJsPaths.yearlyNutsIdToId,
+				object: yearlyNutsIdToId
+			},
+			{
+				filepath: outJsPaths.idToNutsIdByYear,
+				object: idToNutsIdByYear
+			},
+			{
+				filepath: outJsPaths.unifiedNuts,
+				object: unifiedNuts
+			},
+		]),
+		saveObjects([
+			{
+				filepath: outInspectPaths.detectedChangesById,
+				object: detectedChangesById
+			},
+		]),
 	])
 }
 

@@ -1,5 +1,4 @@
-import yearlyNutsIdToId from '../data/dist/NUTS/yearlyNutsIdToId.json';
-import {version} from '../package.json';
+import {default as yearlyNutsIdToId} from '../data/dist/NUTS/yearlyNutsIdToId.js';
 
 export const makeTopoId = ({
 	level = undefined,
@@ -23,7 +22,12 @@ export const makeTopoId = ({
 	return id;
 }
 
+// needed to avoid importing `package.json` with `createRequire`
+// so to make this file usable in the client
+export const version = '0.7.0';
+
 export const atlasBase = `https://unpkg.com/@svizzle/atlas@${version}/data/dist`;
+
 export const makeTopoURL =
 	(id, type, base = atlasBase) => `${base}/${type}/topojson/${id}.json`;
 

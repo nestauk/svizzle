@@ -1,26 +1,26 @@
-#! /usr/bin/env node -r esm
+#! /usr/bin/env node
 
-import path from 'path';
+import path from 'node:path';
 
 import {tapMessage} from '@svizzle/dev';
-import {readDir, readJson, readYaml, saveObj} from '@svizzle/file';
+import {readDir} from '@svizzle/file';
+import {pruneTopology} from '@svizzle/geo';
 import {transformPaths} from '@svizzle/utils';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
-import prune from 'topojson-simplify/src/prune';
 import rimraf from 'rimraf';
 
+import {saveExportedObj} from '../../../lib/fileUtils.js';
 import {
-	getBasename,
 	NUTS_DATABASE_DIR_1,
 	NUTS_DATABASE_DIR_3,
 	NUTS_DATABASE_DIR_4,
-} from 'paths';
+} from '../../../lib/paths.js';
 
 /* paths */
 
 const inPaths = {
-	countriesByYear: path.resolve(NUTS_DATABASE_DIR_1, 'countries_by_year.yaml'),
+	countriesByYear: path.resolve(NUTS_DATABASE_DIR_1, 'countries_by_year.js'),
 }
 const inDirs = {
 	topojson: path.resolve(NUTS_DATABASE_DIR_3, 'topojson'),
@@ -45,23 +45,27 @@ const makeTopojsonFilterByCountryId = countryId => transformPaths({
 /* run */
 
 /*
-- read countries_by_year.yaml
+- read countries_by_year.js
 - read topojson files
 - for all countries, filter topojsons by CNTR_CODE and save them
 
 in:
-	- NUTS_DATABASE_DIR_1/countries_by_year.yaml
+	- NUTS_DATABASE_DIR_1/countries_by_year.js
 	- NUTS_DATABASE_DIR_1/topojson/*.json
 out:
 	- NUTS_DATABASE_DIR_2/topojson/*_{country}.json
 */
 const run = async () => {
 	const filtersByYear =
-	await readYaml(inPaths.countriesByYear, 'utf-8')
-	.then(_.mapValuesWith(
-		_.mapWith(_.collect([_.identity, makeTopojsonFilterByCountryId]))
-	))
-	.catch(err => console.error(err));
+		await import(inPaths.countriesByYear)
+		.then(
+			_.pipe([
+				_.getKey('default'),
+				_.mapValuesWith(
+					_.mapWith(_.collect([_.identity, makeTopojsonFilterByCountryId]))
+				)
+			])
+		);
 
 	const filenames = await readDir(inDirs.topojson);
 
@@ -71,16 +75,16 @@ const run = async () => {
 			const {name} = path.parse(filename);
 			const [ , , , year] = name.split('_');
 
-			const topojson = await readJson(inPath, 'utf-8');
+			const {default: topojson} = await import(inPath);
 			const {length} = JSON.stringify(topojson);
 
-			return filtersByYear[year].map(([id, filterByCountryId]) => {
-				const outPath = path.resolve(outDirs.topojson, `${name}_${id}.json`);
+			return _.map(filtersByYear[year], ([id, filterByCountryId]) => {
+				const outPath = path.resolve(outDirs.topojson, `${name}_${id}.js`);
 
 				const filteredObjectsTopo = filterByCountryId(topojson);
-				const prunedTopo = prune(filteredObjectsTopo);
+				const prunedTopo = pruneTopology(filteredObjectsTopo);
 
-				return saveObj(outPath)(prunedTopo)
+				return saveExportedObj(outPath)(prunedTopo)
 				.then(tapMessage(`${year} ${id}: ${length} -> ${JSON.stringify(prunedTopo).length} Saved in ${outPath}`))
 				.catch(err => console.error(outPath, err));
 			});
@@ -88,7 +92,7 @@ const run = async () => {
 	)
 }
 
-console.log(`\nrun: ${getBasename(__filename)}\n`);
+console.log(`\nrun: ${path.basename(import.meta.url)}\n`);
 console.log('Fetching, please wait...');
 
 run()

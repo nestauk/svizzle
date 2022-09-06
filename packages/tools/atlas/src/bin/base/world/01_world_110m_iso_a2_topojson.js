@@ -1,15 +1,22 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node
 
-import path from 'path';
+import {createRequire} from 'node:module';
+import path from 'node:path';
 
 import {tapMessage, tapValue} from '@svizzle/dev';
-import {readYaml, saveObjPassthrough} from '@svizzle/file';
+import {readYaml} from '@svizzle/file';
 import {getLength, isPathValue, swapKeyValue} from '@svizzle/utils';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
-import WORLD_110_TOPOJSON from 'world-atlas/countries-110m.json';
 
-import {getBasename, WORLD_DATABASE_DIR_0, WORLD_DATABASE_DIR_1} from 'paths';
+const require = createRequire(import.meta.url);
+const WORLD_110_TOPOJSON = require('world-atlas/countries-110m.json');
+
+import {saveExportedObjPassthrough} from '../../../lib/fileUtils.js';
+import {
+	WORLD_DATABASE_DIR_0,
+	WORLD_DATABASE_DIR_1
+} from '../../../lib/paths.js';
 
 const ISO_TYPE = 'iso_a2';
 const GEOMETRIES_PATH = 'objects.countries.geometries';
@@ -17,20 +24,18 @@ const UNKNOWN = 'unknown';
 
 /* paths */
 
-const IN_ISO_A2_TO_NAME_PATH = path.resolve(
-	WORLD_DATABASE_DIR_0,
-	'iso_a2_to_name_by_type.yaml'
-);
-const OUT_TOPOJSON_DIR = path.resolve(
-	WORLD_DATABASE_DIR_1,
-	'topojson'
-);
-const OUT_TOPOJSON_PATH = path.resolve(
-	OUT_TOPOJSON_DIR,
-	`world_110m_${ISO_TYPE}.json`
-);
+const inPaths = {
+	isoA2ToNamePath: path.resolve(WORLD_DATABASE_DIR_0, 'iso_a2_to_name_by_type.yaml'),
+}
+const outDirs = {
+	topojson: path.resolve(WORLD_DATABASE_DIR_1, 'topojson'),
+}
+const outPaths = {
+	isoA2ToNamePath: path.resolve(WORLD_DATABASE_DIR_1, 'iso_a2_to_name_by_type.js'),
+	topojson: path.resolve(outDirs.topojson, `world_110m_${ISO_TYPE}.js`),
+}
 
-mkdirp.sync(OUT_TOPOJSON_DIR);
+mkdirp.sync(outDirs.topojson);
 
 /* utils */
 
@@ -42,7 +47,7 @@ const checkProperties = _.pipe([
 
 /* run */
 
-console.log(`\nrun: ${getBasename(__filename)}\n`);
+console.log(`\nrun: ${path.basename(import.meta.url)}\n`);
 console.log('Fetching, please wait...');
 
 /*
@@ -51,9 +56,11 @@ console.log('Fetching, please wait...');
 in:
 	- WORLD_DATABASE_DIR_0/iso_a2_to_name_by_type.yaml
 out:
-	- WORLD_DATABASE_DIR_1/world_110m_iso_a2_topojson.json
+	- WORLD_DATABASE_DIR_1/world_110m_iso_a2_topojson.js
 */
-readYaml(IN_ISO_A2_TO_NAME_PATH, 'utf-8')
+readYaml(inPaths.isoA2ToNamePath)
+.then(tapMessage(`Saving ${outPaths.isoA2ToNamePath}`))
+.then(saveExportedObjPassthrough(outPaths.isoA2ToNamePath, '\t'))
 .then(({countries}) => {
 	const fullNameToKey = swapKeyValue(countries.full_name);
 	const alternativeNameToKey = swapKeyValue(countries.alternative_name);
@@ -77,8 +84,8 @@ readYaml(IN_ISO_A2_TO_NAME_PATH, 'utf-8')
 		}))
 	)
 })
-.then(saveObjPassthrough(OUT_TOPOJSON_PATH))
-.then(tapMessage(`Saved topojson with ${ISO_TYPE} property in ${OUT_TOPOJSON_PATH}`))
+.then(saveExportedObjPassthrough(outPaths.topojson))
+.then(tapMessage(`Saved topojson with ${ISO_TYPE} property in ${outPaths.topojson}`))
 .then(checkProperties)
-.then(tapValue(`Amount of '${UNKNOWN}' in 'properties.${ISO_TYPE}' in ${OUT_TOPOJSON_PATH}`))
+.then(tapValue(`Amount of '${UNKNOWN}' in 'properties.${ISO_TYPE}' in ${outPaths.topojson}`))
 .catch(err => console.error(err));

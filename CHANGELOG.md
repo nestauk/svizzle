@@ -79,6 +79,35 @@
 		- use the `node:` protocol
 - icons: added `src/icons/feather/Table.svelte`
 
+## `@svizzle/atlas` v0.8.0 (next)
+
+- upgrade to ESM:
+	- moved `src/node_modules` to `src/lib`
+	- added `index.js`
+	- updated all files in `data/dist`:
+		- turned all distributed `.json` and `.yaml` files into `.js` because
+		importing json isn't supported in ESM as of now
+		- now also distributing: `nutsSpec.js`, `iso_a2_to_name_by_type.js`
+	- exported a `version` string from `src/utils.js` to avoid importing
+		`package.json` and added `src/bin/checkVersion.js`, invoked before linting
+		in order to fail in case of a mismatch
+	- added functions to port to `/file` later on:
+		- `saveExportedObj`
+		- `saveExportedObjects`
+		- `saveExportedObjPassthrough`
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- added `@svizzle/geo`
+			- upgraded `d3-dsv`, `node-fetch`, `eslint`
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
 ## `@svizzle/dom` v0.7.0 (next)
 
 - upgrade to ESM:

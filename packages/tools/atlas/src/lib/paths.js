@@ -1,9 +1,10 @@
-import path from 'path';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 import mkdirp from 'mkdirp';
 
 // data
-export const DATA_DIR = path.resolve(__dirname, '../../data');
+export const DATA_DIR = fileURLToPath(new URL('../../data', import.meta.url));
 export const DATABASE_DIR = path.resolve(DATA_DIR, 'base');
 export const INSPECT_DIR = path.resolve(DATA_DIR, 'inspect');
 
@@ -32,7 +33,3 @@ export const WORLD_DATABASE_DIR_1 = path.resolve(WORLD_DATABASE_DIR, '1');
 
 // WORLD_DATABASE_DIR_0 exists
 mkdirp.sync(WORLD_DATABASE_DIR_1);
-
-// utils
-
-export const getBasename = filepath => path.basename(filepath);

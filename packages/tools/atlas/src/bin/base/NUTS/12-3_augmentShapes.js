@@ -1,20 +1,20 @@
-#! /usr/bin/env node -r esm
+#! /usr/bin/env node
 
-import path from 'path';
+import path from 'node:path';
 
 import {tapMessage} from '@svizzle/dev';
-import {readDir, readJson, saveObj} from '@svizzle/file';
+import {readDir} from '@svizzle/file';
 import {makeMergeAppliedFnMap} from '@svizzle/utils';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
 import rimraf from 'rimraf';
 
+import {saveExportedObj} from '../../../lib/fileUtils.js';
 import {
-	getBasename,
 	NUTS_DATABASE_DIR_1,
 	NUTS_DATABASE_DIR_2,
 	NUTS_DATABASE_DIR_3,
-} from 'paths';
+} from '../../../lib/paths.js';
 
 /* paths */
 
@@ -22,7 +22,7 @@ const inDirs = {
 	topojson: path.resolve(NUTS_DATABASE_DIR_1, 'topojson'),
 }
 const inPaths = {
-	yearlyNutsIdToId: path.resolve(NUTS_DATABASE_DIR_2, 'yearlyNutsIdToId.json'),
+	yearlyNutsIdToId: path.resolve(NUTS_DATABASE_DIR_2, 'yearlyNutsIdToId.js'),
 }
 const outDirs = {
 	topojson: path.resolve(NUTS_DATABASE_DIR_3, 'topojson'),
@@ -45,8 +45,8 @@ out:
 	- NUTS_DATABASE_DIR_2/topojson/*_{country}.json
 */
 const run = async () => {
-	const yearlyNutsIdToId =
-		await readJson(inPaths.yearlyNutsIdToId, 'utf-8')
+	const {default: yearlyNutsIdToId} =
+		await import(inPaths.yearlyNutsIdToId)
 		.catch(err => console.error(err));
 
 	const filenames = await readDir(inDirs.topojson);
@@ -72,19 +72,20 @@ const run = async () => {
 						}
 					}))
 				)
-			)
-			const topojson = await readJson(inPath, 'utf-8');
-			const augmentedTopojson = augmentShape(topojson);
-			const outPath = path.resolve(outDirs.topojson, `${name}.json`);
+			);
+			const {default: topojson} = await import(inPath);
 
-			return saveObj(outPath)(augmentedTopojson)
+			const augmentedTopojson = augmentShape(topojson);
+			const outPath = path.resolve(outDirs.topojson, `${name}.js`);
+
+			return saveExportedObj(outPath)(augmentedTopojson)
 			.then(tapMessage(`Saved augmented topojson in ${outPath}`))
 			.catch(err => console.error(outPath, err));
 		})
 	)
 }
 
-console.log(`\nrun: ${getBasename(__filename)}\n`);
+console.log(`\nrun: ${path.basename(import.meta.url)}\n`);
 console.log('Fetching, please wait...');
 
 run()

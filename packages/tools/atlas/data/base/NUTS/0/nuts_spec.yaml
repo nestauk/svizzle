@@ -3,6 +3,8 @@
 format:
   topojson: json # https://github.com/topojson/topojson-specification
   # geojson: geojson # http://geojson.org
+
+  # not supported by @svizzle/atlas
   # pbf: pbf # geobuf - geojson compressed into protocol buffers, see https://github.com/mapbox/geobuf
   # shp: shp.zip # zipped shapefile (ESRI) http://downloads.esri.com/support/whitepapers/mo_/shapefile.pdf
   # svg: svg.zip # zipped SVG (scalable vector graphics) https://www.w3.org/TR/SVG2/

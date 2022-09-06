@@ -1,12 +1,11 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node
 
-import path from 'path';
+import path from 'node:path';
 
 import {tapMessage} from '@svizzle/dev';
 import {
 	readYaml,
 	saveStringPassthrough,
-	saveYaml,
 } from '@svizzle/file';
 import {csvParse} from 'd3-dsv';
 import * as _ from 'lamb';
@@ -14,8 +13,15 @@ import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
 import rimraf from 'rimraf';
 
-import {getBasename, NUTS_DATABASE_DIR_0, NUTS_DATABASE_DIR_1} from 'paths';
-import {NUTS_HOME_URL} from 'urls';
+import {
+	saveExportedObj,
+	saveExportedObjPassthrough
+} from '../../../lib/fileUtils.js';
+import {
+	NUTS_DATABASE_DIR_0,
+	NUTS_DATABASE_DIR_1
+} from '../../../lib/paths.js';
+import {NUTS_HOME_URL} from '../../../lib/urls.js';
 
 /* paths */
 
@@ -26,7 +32,8 @@ const outDirs = {
 	sourceText: path.resolve(NUTS_DATABASE_DIR_1, 'sourceText'),
 }
 const outPaths = {
-	countriesByYear: path.resolve(NUTS_DATABASE_DIR_1, 'countries_by_year.yaml'),
+	countriesByYear: path.resolve(NUTS_DATABASE_DIR_1, 'countries_by_year.js'),
+	nutsSpec: path.resolve(NUTS_DATABASE_DIR_1, 'nutsSpec.js'),
 }
 
 /* utils */
@@ -47,21 +54,24 @@ const makeEuCountries = _.pipe([
 rimraf.sync(outDirs.sourceText);
 mkdirp.sync(outDirs.sourceText);
 
-console.log(`\nrun: ${getBasename(__filename)}\n`);
+console.log(`\nrun: ${path.basename(import.meta.url)}\n`);
 console.log('Fetching, please wait...');
 
 /*
 - fetch CSVs files
-- create `countries_by_year.yaml`
+- create `countries_by_year.js`
 
 in:
 	- inPaths.nutsSpec
 	- NUTS_HOME_URL
 out:
 	- outDirs.sourceText/*.csv
-	- NUTS_DATABASE_DIR_1/countries_by_year.yaml
+	- NUTS_DATABASE_DIR_1/countries_by_year.js
+	- NUTS_DATABASE_DIR_1/nutsSpec.js
 */
-readYaml(inPaths.nutsSpec, 'utf-8')
+readYaml(inPaths.nutsSpec)
+.then(tapMessage(`Saving ${outPaths.nutsSpec}`))
+.then(saveExportedObjPassthrough(outPaths.nutsSpec))
 .then(({year}) => Promise.all(
 	_.map(year,
 		_.pipe([
@@ -78,7 +88,7 @@ readYaml(inPaths.nutsSpec, 'utf-8')
 ))
 .then(_.fromPairs)
 .then(tapMessage(`Saving ${outPaths.countriesByYear}`))
-.then(saveYaml(outPaths.countriesByYear))
+.then(saveExportedObj(outPaths.countriesByYear))
 .then(tapMessage('Done'))
 .catch(err => console.error(err));
 
