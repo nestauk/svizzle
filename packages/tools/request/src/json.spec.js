@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import nock from 'nock';
 import fetch from 'node-fetch';
 
-import {requestNdjson} from './json';
+import {requestNdjson} from './json.js';
 
 global.fetch = fetch;
 
@@ -11,8 +11,8 @@ describe('requestNdjson', function() {
 	const ndjson = '{"a":1}\n{"b":2}\n\n';
 	const array = [{a: 1}, {b: 2}];
 
-	it('should return a request to a ndjson file as a promise (with Fetch)',
-		async function() {
+	it('should return a request to a ndjson file as a promise',
+		async function () {
 			nock('http://this.test')
 			.get('/ndjson')
 			.reply(200, ndjson);

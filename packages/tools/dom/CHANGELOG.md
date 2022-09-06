@@ -1,3 +1,19 @@
+## `@svizzle/dom` v0.7.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `eslint`
+			- removed `eslint-plugin-import`, `esm`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
 ## `@svizzle/dom` v0.6.0
 
 - removed build scripts

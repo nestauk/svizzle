@@ -11,15 +11,17 @@
 		"@svizzle/dom": "^0.6.0",
 		"@svizzle/geo": "^0.8.0",
 		"@svizzle/utils": "^0.17.0",
-		"d3-geo": "^2.0.1",
+		"d3-geo": "^3.0.1",
 		"lamb": "^0.60.0"
 	},
 	"description": "A generic choropleth component for Svelte.",
 	"devDependencies": {
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"eslint-plugin-svelte3": "^2.7.3",
+		"eslint": "^8.23.0",
+		"eslint-plugin-svelte3": "^4.0.0",
 		"svelte": "^3.38.3"
+	},
+	"engines": {
+		"node": ">=17.5.0"
 	},
 	"files": [
 		"!*.spec.js",
@@ -38,6 +40,7 @@
 		"svelte"
 	],
 	"license": "MIT",
+	"main": "src/index.js",
 	"module": "src/index.js",
 	"name": "@svizzle/choropleth",
 	"publishConfig": {
@@ -58,5 +61,6 @@
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"type": "module",
 	"version": "0.8.0"
 }

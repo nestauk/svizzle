@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	vectorLength2D,
 	makeVectorFeatures
-} from './2DVector';
+} from './2DVector.js';
 
 describe('2DVector', function () {
 	describe('vectorLength2D', function () {

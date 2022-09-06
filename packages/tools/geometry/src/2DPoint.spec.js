@@ -1,10 +1,10 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	makePosition2D,
 	getDistance2D,
 	getTwoPointsCenter
-} from './2DPoint';
+} from './2DPoint.js';
 
 describe('2DPoint', function () {
 	describe('makePosition2D', function () {

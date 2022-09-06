@@ -11,17 +11,19 @@
 		"@svizzle/dom": "^0.6.0",
 		"@svizzle/geometry": "^0.4.0",
 		"@svizzle/utils": "^0.17.0",
-		"d3-scale": "^3.3.0",
+		"d3-array": "^3.2.0",
+		"d3-scale": "^4.0.2",
 		"lamb": "^0.60.0"
 	},
 	"description": "Svelte histogram component and histogram utilities.",
 	"devDependencies": {
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"eslint-plugin-svelte3": "^2.7.3",
-		"esm": "^3.2.25",
+		"eslint": "^8.23.0",
+		"eslint-plugin-svelte3": "^4.0.0",
 		"mocha": "^8.3.2",
 		"svelte": "^3.38.3"
+	},
+	"engines": {
+		"node": ">=17.5.0"
 	},
 	"files": [
 		"!*.spec.js",
@@ -42,6 +44,7 @@
 		"utilities"
 	],
 	"license": "MIT",
+	"main": "src/index.js",
 	"module": "src/index.js",
 	"name": "@svizzle/histogram",
 	"publishConfig": {
@@ -58,9 +61,10 @@
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
-		"test": "mocha -r esm --recursive src/*.spec.js",
+		"test": "mocha --recursive src/*.spec.js",
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"type": "module",
 	"version": "0.5.0"
 }

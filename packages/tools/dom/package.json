@@ -14,12 +14,14 @@
 	"description": "Svizzle DOM contains DOM related helpers.",
 	"devDependencies": {
 		"@svizzle/file": "^0.13.0",
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"esm": "^3.2.25",
+		"eslint": "^8.23.0",
 		"mocha": "^8.3.2"
 	},
+	"engines": {
+		"node": ">=17.5.0"
+	},
 	"files": [
+		"index.js",
 		"src/*.js",
 		"!*.spec.js",
 		"!*.todo.js",
@@ -33,7 +35,8 @@
 		"utility"
 	],
 	"license": "MIT",
-	"module": "src/index.js",
+	"main": "index.js",
+	"module": "index.js",
 	"name": "@svizzle/dom",
 	"publishConfig": {
 		"access": "public"
@@ -50,9 +53,10 @@
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
-		"test": "mocha -r esm --recursive src",
+		"test": "mocha --recursive src",
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"type": "module",
 	"version": "0.6.0"
 }

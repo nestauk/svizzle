@@ -2,7 +2,7 @@
 * @module @svizzle/geometry/2DNetwork
 */
 
-import {makeVectorFeatures} from './2DVector';
+import {makeVectorFeatures} from './2DVector.js';
 
 /**
  * Creates a vector from a link

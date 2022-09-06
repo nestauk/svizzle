@@ -1,5 +1,18 @@
 ## `@svizzle/request` v0.5.0 (next)
 
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `d3-fetch`, `eslint`, `node-fetch`, `rxjs`
+			- removed `eslint-plugin-import`, `esm`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
 - remove `requestJson`
 - remove the dependency on `d3-request`, which is deprecated
 
