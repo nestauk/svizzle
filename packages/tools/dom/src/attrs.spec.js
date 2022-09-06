@@ -1,6 +1,6 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import {makeStyle, makeStyleVars, toPx} from './attrs';
+import {makeStyle, makeStyleVars, toPx} from './attrs.js';
 
 describe('@svizzle/dom/attrs', function () {
 	describe('makeStyle', function () {

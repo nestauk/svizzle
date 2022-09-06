@@ -9,27 +9,26 @@
 	},
 	"dependencies": {
 		"@svizzle/utils": "^0.17.0",
-		"d3-fetch": "^2.0.0",
+		"d3-fetch": "^3.0.1",
 		"lamb": "^0.60.0"
 	},
 	"description": "Svizzle Request contains helpers for fetching data.",
 	"devDependencies": {
 		"@svizzle/file": "^0.13.0",
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"esm": "^3.2.25",
+		"eslint": "^8.23.0",
 		"mocha": "^8.3.2",
 		"nock": "^13.2.9",
-		"node-fetch": "^2.6.0",
-		"rxjs": "^7.5.2",
+		"node-fetch": "^3.1.0",
+		"rxjs": "^7.5.6",
 		"serve-handler": "^6.1.3",
 		"throttle": "^1.0.3",
 		"undici": "4.12.2"
 	},
 	"engines": {
-		"node": ">=16.0.0"
+		"node": ">=17.5.0"
 	},
 	"files": [
+		"index.js",
 		"src/*.js",
 		"!*.spec.js",
 		"!*.todo.js",
@@ -44,7 +43,8 @@
 		"utility"
 	],
 	"license": "MIT",
-	"module": "src/index.js",
+	"main": "index.js",
+	"module": "index.js",
 	"name": "@svizzle/request",
 	"repository": {
 		"type": "git",
@@ -60,9 +60,10 @@
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
-		"test": "mocha -r esm --recursive src",
+		"test": "mocha --recursive src",
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": true,
+	"type": "module",
 	"version": "0.4.0"
 }

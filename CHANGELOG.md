@@ -2,6 +2,64 @@
 
 ## next
 
+## `@svizzle/barchart` v0.8.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `eslint`, `eslint-plugin-svelte3`, `just-compare`, `yootils`
+			- removed `eslint-plugin-import`
+
+## `@svizzle/choropleth` v0.9.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `d3-geo`, `eslint`, `eslint-plugin-svelte3`
+			- removed `eslint-plugin-import`
+	- imports:
+		- using file extensions
+
+## `@svizzle/histogram` v0.6.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- added: `d3-array`
+			- upgraded:
+				- `d3-scale`, `eslint`, `eslint-plugin-svelte3`
+			- removed `eslint-plugin-import`, `esm`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
+## `@svizzle/legend` v0.4.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `eslint`, `eslint-plugin-svelte3`, `yootils`
+			- removed `eslint-plugin-import`
+
 ## `@svizzle/ui` v0.7.0 (next)
 
 - upgrade to ESM:
@@ -20,6 +78,56 @@
 		- using file extensions
 		- use the `node:` protocol
 - icons: added `src/icons/feather/Table.svelte`
+
+## `@svizzle/dom` v0.7.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `eslint`
+			- removed `eslint-plugin-import`, `esm`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
+## `@svizzle/geometry` v0.5.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `eslint`
+			- removed `eslint-plugin-import`, `esm`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
+## `@svizzle/request` v0.5.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `d3-fetch`, `eslint`, `node-fetch`, `rxjs`
+			- removed `eslint-plugin-import`, `esm`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+- remove `requestJson`
+- remove the dependency on `d3-request`, which is deprecated
 
 ## `@svizzle/dev` v0.6.0 (next)
 

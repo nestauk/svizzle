@@ -1,4 +1,4 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import * as _ from 'lamb';
 
@@ -16,7 +16,7 @@ import {
 	getNonEmptyBinsTicks,
 	getTrimmedBinsStats,
 	isNonEmptyBin,
-} from './utils';
+} from './utils.js';
 
 describe('histogram/utils', function () {
 	describe('areValidBins', function () {

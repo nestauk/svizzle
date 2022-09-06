@@ -1,21 +1,21 @@
-import {strict as assert} from 'assert';
-import {readdirSync} from 'fs';
-import path from 'path';
+import {strict as assert} from 'node:assert';
+import {readdirSync} from 'node:fs';
+import path from 'node:path';
 
 import {isKeyValue, jsonBufferToAny} from '@svizzle/utils';
 import * as _ from 'lamb';
 import {filter} from 'rxjs/operators';
 import {fetch} from 'undici';
 
-import {makeWebStreamsFetcher} from '../webstreams';
-import {createFetchManagerStreams} from './fetchManager';
+import {makeWebStreamsFetcher} from '../webstreams.js';
+import {createFetchManagerStreams} from './fetchManager.js';
 import {
 	getFileNamesMap,
 	getKeysNamed,
 	loadJsons,
 	makeUriMap,
 	startServer,
-} from './specUtils';
+} from './specUtils.js';
 
 // TODO verify we catch all potential exceptions
 

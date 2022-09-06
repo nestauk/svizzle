@@ -13,14 +13,16 @@
 		"@svizzle/histogram": "^0.5.0",
 		"@svizzle/utils": "^0.17.0",
 		"lamb": "^0.60.0",
-		"yootils": "^0.0.17"
+		"yootils": "^0.3.1"
 	},
 	"description": "Legend Svelte components",
 	"devDependencies": {
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"eslint-plugin-svelte3": "^2.7.3",
+		"eslint": "^8.23.0",
+		"eslint-plugin-svelte3": "^4.0.0",
 		"svelte": "^3.38.3"
+	},
+	"engines": {
+		"node": ">=17.5.0"
 	},
 	"files": [
 		"!*.spec.js",
@@ -41,6 +43,7 @@
 		"svelte"
 	],
 	"license": "MIT",
+	"main": "src/index.js",
 	"module": "src/index.js",
 	"name": "@svizzle/legend",
 	"publishConfig": {
@@ -61,5 +64,6 @@
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"type": "module",
 	"version": "0.3.0"
 }

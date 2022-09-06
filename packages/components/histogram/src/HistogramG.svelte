@@ -1,6 +1,4 @@
 <script>
-	import {createEventDispatcher} from 'svelte';
-	import {writable} from 'svelte/store';
 	import {makeStyleVars} from '@svizzle/dom';
 	import {vectorLength2D} from '@svizzle/geometry';
 	import {
@@ -20,11 +18,13 @@
 		sort,
 		uniques,
 	} from 'lamb';
+	import {createEventDispatcher} from 'svelte';
+	import {writable} from 'svelte/store';
 
 	import {
 		getBinsTicks,
 		getValuesLength,
-	} from './utils';
+	} from './utils.js';
 
 	const dispatch = createEventDispatcher();
 	const makeMaxBarThickness = arrayMaxWith(getKey('barThickness'));

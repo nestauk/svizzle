@@ -1,9 +1,9 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
 import {
 	linkVector,
 	makeLinkVector
-} from './2DNetwork';
+} from './2DNetwork.js';
 
 describe('2DNetwork', function () {
 	describe('linkVector', function () {
@@ -39,7 +39,9 @@ describe('2DNetwork', function () {
 					target: {x: 2, y: 2, radius: 0.1}
 				}),
 				{
+					// eslint-disable-next-line no-loss-of-precision
 					x1: 1.07071067811865475, // 1 + 0.1 * 0.707
+					// eslint-disable-next-line no-loss-of-precision
 					y1: 1.07071067811865475,
 					x2: 1.9292893218813452,  // 2 - 0.1 * 0.707
 					y2: 1.9292893218813452

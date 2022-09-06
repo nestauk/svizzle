@@ -1,3 +1,16 @@
+## `@svizzle/barchart` v0.8.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `eslint`, `eslint-plugin-svelte3`, `just-compare`, `yootils`
+			- removed `eslint-plugin-import`
+
 ## `@svizzle/barchart` v0.7.0
 
 - removed build scripts

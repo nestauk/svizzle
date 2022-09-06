@@ -5,4 +5,4 @@ export const defaultGeometry = {
 	top: 10,
 };
 
-export * as projections from './projections';
+export * as projections from './projections.js';

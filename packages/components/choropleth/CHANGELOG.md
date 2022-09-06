@@ -1,3 +1,18 @@
+## `@svizzle/choropleth` v0.9.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `d3-geo`, `eslint`, `eslint-plugin-svelte3`
+			- removed `eslint-plugin-import`
+	- imports:
+		- using file extensions
+
 ## `@svizzle/choropleth` v0.8.0
 
 - removed build scripts

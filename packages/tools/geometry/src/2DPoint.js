@@ -4,7 +4,7 @@
 
 import * as _ from 'lamb';
 
-import {vectorLength2D} from './2DVector';
+import {vectorLength2D} from './2DVector.js';
 
 /**
  * Creates a position object from an array of 2 numbers

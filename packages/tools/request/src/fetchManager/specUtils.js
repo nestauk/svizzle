@@ -1,4 +1,4 @@
-import {createReadStream} from 'fs';
+import {createReadStream} from 'node:fs';
 import http from 'http';
 
 import {readJson} from '@svizzle/file';

@@ -6,7 +6,7 @@
 	import {makeUpdateFeaturesProperty, topoToGeo} from '@svizzle/geo';
 	import {isNotNullWith} from '@svizzle/utils';
 
-	import {defaultGeometry, projections} from './shared';
+	import {defaultGeometry, projections} from './shared.js';
 
 	const dispatch = createEventDispatcher();
 	const hasColor = isNotNullWith(getPath('properties.color'));
