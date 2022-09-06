@@ -1,3 +1,21 @@
+## `@svizzle/geo` v0.9.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded `@turf/bbox`, `@turf/centroid`, `@turf/helpers`, `@turf/truncate`, `eslint`
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+	- copied `pruneTopology` as-is from `topojson-simplify` v3.0.3 because it's not an ESM module
+	- using `createRequire` to import JSON files in unit tests
+
+
 ## `@svizzle/geo` v0.8.0
 
 - added `makeFilterTopoBy`

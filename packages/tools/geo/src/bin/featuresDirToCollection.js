@@ -1,14 +1,14 @@
 #!/usr/bin/env node -r esm
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import commander from 'commander';
 import {featureCollection} from '@turf/helpers';
 
 import {readJsonDir} from '@svizzle/file';
 
-import {setGeometryPrecision} from '../modules/geojson';
+import {setGeometryPrecision} from '../modules/geojson.js';
 import {version} from '../../package.json';
 
 commander

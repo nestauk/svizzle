@@ -1,7 +1,7 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
 
-import * as _ from 'lamb';
 import {applyFnMap} from '@svizzle/utils';
+import * as _ from 'lamb';
 
 import {
 	getOrMakeBBox,
@@ -10,7 +10,7 @@ import {
 	makeToGeoPoints,
 	makeToPointFeature,
 	setGeometryPrecision
-} from './geojson';
+} from './geojson.js';
 
 describe('geo/geojson', function () {
 	describe('getOrMakeBBox', function () {

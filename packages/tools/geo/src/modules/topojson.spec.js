@@ -1,17 +1,17 @@
-import {strict as assert} from 'assert';
+import {strict as assert} from 'node:assert';
+import {createRequire} from 'node:module';
 
 import {sanitize} from '@svizzle/utils';
 
-import NUTS_RG_03M_2003_4326_LEVL_0
-	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0.json';
-import NUTS_RG_03M_2006_4326_LEVL_0
-	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2006_4326_LEVL_0.json';
-import NUTS_RG_03M_2003_4326_LEVL_0_BE
-	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0_BE.json';
-import NUTS_RG_03M_2006_4326_LEVL_0_BE
-	from '../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2006_4326_LEVL_0_BE.json';
-import {geojson} from '../../testdata/topojson/topoToGeo';
-import {makeFilterTopoBy, topoToGeo} from './topojson';
+const require = createRequire(import.meta.url);
+
+const NUTS_RG_03M_2003_4326_LEVL_0 = require('../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0.json');
+const NUTS_RG_03M_2006_4326_LEVL_0 = require('../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2006_4326_LEVL_0.json');
+const NUTS_RG_03M_2003_4326_LEVL_0_BE = require('../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2003_4326_LEVL_0_BE.json');
+const NUTS_RG_03M_2006_4326_LEVL_0_BE =  require('../../../atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2006_4326_LEVL_0_BE.json');
+
+import {geojson} from '../../testdata/topojson/topoToGeo.js';
+import {makeFilterTopoBy, topoToGeo} from './topojson.js';
 
 describe('geo/topojson', function () {
 	describe('topoToGeo', function () {

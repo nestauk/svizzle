@@ -2,11 +2,11 @@
 * @module @svizzle/geo/src/modules/geojson
 */
 
-import * as _ from 'lamb';
 import bbox from '@turf/bbox';
 import centroid from '@turf/centroid';
 import {featureCollection} from '@turf/helpers';
 import truncate from '@turf/truncate';
+import * as _ from 'lamb';
 
 /**
  * Return or create the {@link https://tools.ietf.org/html/rfc7946#section-5|bbox} of the provided geojson

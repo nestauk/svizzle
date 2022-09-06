@@ -9,21 +9,22 @@
 	},
 	"dependencies": {
 		"@svizzle/file": "^0.13.0",
-		"@turf/bbox": "6.4.0",
-		"@turf/centroid": "6.4.0",
-		"@turf/helpers": "6.4.0",
-		"@turf/truncate": "6.4.0",
-		"commander": "^7.2.0",
+		"@turf/bbox": "6.5.0",
+		"@turf/centroid": "6.5.0",
+		"@turf/helpers": "6.5.0",
+		"@turf/truncate": "6.5.0",
 		"lamb": "^0.60.0",
 		"topojson-client": "^3.1.0"
 	},
 	"description": "Svizzle Geo contains geography related helpers.",
 	"devDependencies": {
 		"@svizzle/utils": "^0.17.0",
-		"eslint": "^7.24.0",
-		"eslint-plugin-import": "^2.18.2",
-		"esm": "^3.2.25",
+		"commander": "^7.2.0",
+		"eslint": "^8.23.0",
 		"mocha": "^8.3.2"
+	},
+	"engines": {
+		"node": ">=17.5.0"
 	},
 	"files": [
 		"index.js",
@@ -41,6 +42,7 @@
 		"utility"
 	],
 	"license": "MIT",
+	"main": "index.js",
 	"module": "index.js",
 	"name": "@svizzle/geo",
 	"repository": {
@@ -58,9 +60,10 @@
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
-		"test": "mocha -r esm --recursive src/modules",
+		"test": "mocha --recursive src/modules",
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"type": "module",
 	"version": "0.8.0"
 }

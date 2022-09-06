@@ -4,7 +4,8 @@
 
 import * as _ from 'lamb';
 import {feature} from 'topojson-client';
-import prune from 'topojson-simplify/src/prune';
+
+import pruneTopology from './pruneTopology.js';
 
 /**
  * Convert a topojson to a geojson.
@@ -95,5 +96,5 @@ export const makeFilterTopoBy = ({objKey, propKey}) =>
 				_.is(value),
 			]))
 		),
-		prune
+		pruneTopology
 	]);
