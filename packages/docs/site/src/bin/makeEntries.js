@@ -1,9 +1,9 @@
-#!/usr/bin/env node -r esm -r svelte/register
+#!/usr/bin/env node -r svelte/register
 
-import * as _ from 'lamb';
 import {concatValues, joinWithBlank, makePrefixed} from '@svizzle/utils';
+import * as _ from 'lamb';
 
-import * as examples from '../routes/components/_examples';
+import * as examples from '../routes/components/_examples/index.js';
 
 const makeEntries = _.pipe([
 	concatValues,

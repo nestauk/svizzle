@@ -1,6 +1,7 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node
 
-import path from 'path';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 import {pairs, shuffle} from 'd3-array';
 import {roundTo} from '@svizzle/utils';
@@ -10,6 +11,9 @@ import * as _ from 'lamb';
 
 import colorsMap from 'app/utils/colorsMap';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// FIXME save as exported js
 const BINS_PATH_1 = path.resolve(__dirname, '../routes/components/_examples/bins.json');
 const BINS_COLOR_PATH_1 = path.resolve(__dirname, '../routes/components/_examples/binsFill.json');
 const BINS_PATH_2 = path.resolve(__dirname, '../routes/components/_examples/bins_2.json');

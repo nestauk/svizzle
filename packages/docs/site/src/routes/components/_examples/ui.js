@@ -4,7 +4,7 @@ import {default as Download} from '@svizzle/ui/src/icons/feather/Download.svelte
 import {default as Sun} from '@svizzle/ui/src/icons/feather/Sun.svelte';
 import {default as Settings} from '@svizzle/ui/src/icons/feather/Settings.svelte';
 
-import {formatExamples} from './utils';
+import {formatExamples} from './utils.js';
 
 export default formatExamples([
 	{

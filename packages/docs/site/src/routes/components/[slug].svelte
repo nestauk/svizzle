@@ -1,5 +1,5 @@
 <script context='module'>
-	import {lookup} from './_utils';
+	import {lookup} from './_utils.js';
 
 	// eslint-disable-next-line no-unused-vars
 	export function preload ({params, query}) {
@@ -8,8 +8,8 @@
 </script>
 
 <script>
-	import * as _ from 'lamb';
 	import {makeKeyed} from '@svizzle/utils';
+	import * as _ from 'lamb';
 	import JSONTree from 'svelte-json-tree';
 
 	import Elements from 'app/components/Elements.svelte';

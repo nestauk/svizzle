@@ -1,12 +1,12 @@
 import {roundTo} from '@svizzle/utils';
 
-import bins from './bins.json';
-import bins_2 from './bins_2.json';
-import bins_3 from './bins_3.json';
-import binsFill from './binsFill.json';
-import binsFill_2 from './binsFill_2.json';
-import bins_value_non_uniform from './bins_value_non_uniform.json';
-import {formatExamples} from './utils';
+import {default as bins} from './bins.js';
+import {default as bins_2} from './bins_2.js';
+import {default as bins_3} from './bins_3.js';
+import {default as binsFill} from './binsFill.js';
+import {default as binsFill_2} from './binsFill_2.js';
+import {default as bins_value_non_uniform} from './bins_value_non_uniform.js';
+import {formatExamples} from './utils.js';
 
 const bins_2_value = bins_2.map(
 	({range, values}) => ({range, value: values ? values.length : 0})

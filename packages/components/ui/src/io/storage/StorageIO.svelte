@@ -39,33 +39,39 @@
 		}
 
 		if (!bind) {
-			bind = ({_store, defaultValue, isReactive, key, type}) => {
-				const database = dbFactories[type](isReactive);
-				const initialValue = database.getValue(key) || defaultValue;
-				_store.set(initialValue);
+			bind = ({
+				_store: _store_,
+				defaultValue: defaultValue_,
+				isReactive: isReactive_,
+				key: key_,
+				type: type_
+			}) => {
+				const database = dbFactories[type_](isReactive_);
+				const initialValue = database.getValue(key_) || defaultValue_;
+				_store_.set(initialValue);
 
 				const syncStore = () => {
-					const currentValue = database.getValue(key) || defaultValue;
-					_store.set(currentValue);
+					const currentValue = database.getValue(key_) || defaultValue_;
+					_store_.set(currentValue);
 				};
 				const updateDb = newValue => {
-					if (isEqual(defaultValue, newValue)) {
-						database.deleteValue(key);
+					if (isEqual(defaultValue_, newValue)) {
+						database.deleteValue(key_);
 					} else {
-						database.setValue(key, newValue);
+						database.setValue(key_, newValue);
 					}
 				}
 
 				// When we update the store, we also update the database
-				_store.subscribe(updateDb);
+				_store_.subscribe(updateDb);
 
 				// When the database changes, we sync the store
 				// e.g. you can edit `localStorage` in dev tools and expect the UI to
 				// update because it's bound to the store.
-				database.addListener?.(key, syncStore);
+				database.addListener?.(key_, syncStore);
 
 				return () => {
-					database.removeListener?.(key, syncStore);
+					database.removeListener?.(key_, syncStore);
 				};
 			};
 

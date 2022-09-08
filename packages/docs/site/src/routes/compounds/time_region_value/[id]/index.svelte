@@ -1,8 +1,8 @@
 <script context='module'>
 	import {parseCSV}
-		from '@svizzle/time_region_value/src/node_modules/utils/domain';
+		from '@svizzle/time_region_value/src/lib/utils/domain.js';
 
-	import {lookup} from '../_data/stores';
+	import {lookup} from '../_data/stores.js';
 
 	export function preload ({params: {id}}) {
 		return this.fetch(lookup[id].url)
@@ -13,8 +13,9 @@
 </script>
 
 <script>
+	import {default as types}
+		from '@svizzle/time_region_value/src/lib/data/types.js';
 	import IdIndex from '@svizzle/time_region_value/src/routes/[id]/index.svelte';
-	import types from '@svizzle/time_region_value/src/node_modules/data/types.yaml'; // TODO use a json file
 
 	export let data;
 	export let id;

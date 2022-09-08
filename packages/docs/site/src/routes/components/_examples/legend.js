@@ -1,4 +1,4 @@
-import {formatExamples} from './utils';
+import {formatExamples} from './utils.js';
 
 const bins = [
 	{range: [0, 5], color: 'red'},

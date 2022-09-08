@@ -1,20 +1,25 @@
-#!/usr/bin/env node -r esm
+#!/usr/bin/env node
 
-import path from 'path';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
-import * as _ from 'lamb';
-import Chance from 'chance';
-import {csvFormat} from 'd3-dsv';
-import unifiedNuts from '@svizzle/atlas/data/dist/NUTS/unifiedNuts.json';
+import {default as unifiedNuts}
+	from '@svizzle/atlas/data/dist/NUTS/unifiedNuts.js';
 import {tapMessage} from '@svizzle/dev';
 import {saveObj, saveString} from '@svizzle/file';
 import {inclusiveRange} from '@svizzle/utils';
+import Chance from 'chance';
+import {csvFormat} from 'd3-dsv';
+import * as _ from 'lamb';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const chance = new Chance();
 
 /* paths */
 
 const DIR_site = path.resolve(__dirname, '../..');
+// FIXME save as exported js
 const OUT_PATH_groups = path.resolve(
 	DIR_site,
 	'src/routes/compounds/time_region_value/_data/indicatorsGroups.json'

@@ -1,9 +1,15 @@
-import world_110m_iso_a2 from '@svizzle/atlas/data/dist/world/topojson/world_110m_iso_a2.json';
-import NUTS_RG_03M_2016_4326_LEVL_0_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_0_UK.json';
-import NUTS_RG_03M_2016_4326_LEVL_1_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_1_UK.json';
-import NUTS_RG_03M_2016_4326_LEVL_2_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_2_UK.json';
-import NUTS_RG_03M_2016_4326_LEVL_3_UK from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_3_UK.json';
-import NUTS_RG_03M_2016_4326_LEVL_3_DE from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_3_DE.json';
+import {default as world_110m_iso_a2}
+	from '@svizzle/atlas/data/dist/world/topojson/world_110m_iso_a2.js';
+import {default as NUTS_RG_03M_2016_4326_LEVL_0_UK}
+	from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_0_UK.js';
+import {default as NUTS_RG_03M_2016_4326_LEVL_1_UK}
+	from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_1_UK.js';
+import {default as NUTS_RG_03M_2016_4326_LEVL_2_UK}
+	from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_2_UK.js';
+import {default as NUTS_RG_03M_2016_4326_LEVL_3_UK}
+	from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_3_UK.js';
+import {default as NUTS_RG_03M_2016_4326_LEVL_3_DE}
+	from '@svizzle/atlas/data/dist/NUTS/topojson/NUTS_RG_03M_2016_4326_LEVL_3_DE.js';
 import {topoToGeo} from '@svizzle/geo';
 import {
 	geoConicEqualArea,
@@ -15,8 +21,8 @@ import {
 	keyToColorUK2016,
 	keyToColorWorld,
 	keyToColorWorldFn,
-} from './props';
-import {formatExamples} from './utils';
+} from './props.js';
+import {formatExamples} from './utils.js';
 
 const geojson_UK3 = topoToGeo(NUTS_RG_03M_2016_4326_LEVL_3_UK, 'NUTS');
 const projection_UK3_reflected_300x300 =

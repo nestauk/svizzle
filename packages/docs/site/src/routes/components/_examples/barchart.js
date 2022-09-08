@@ -10,8 +10,8 @@ import {
 	keyToColorWorldFn,
 	keyToColorWorldShort,
 	keyToLabel,
-} from './props';
-import {formatExamples} from './utils';
+} from './props.js';
+import {formatExamples} from './utils.js';
 
 const axisColor = 'red';
 const backgroundColor = 'antiquewhite';

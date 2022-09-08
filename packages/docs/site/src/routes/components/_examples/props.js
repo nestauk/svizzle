@@ -1,6 +1,6 @@
-import * as _ from 'lamb';
 import {scaleLinear, scaleOrdinal} from 'd3-scale';
 import {hsl} from 'd3-color';
+import * as _ from 'lamb';
 
 export const countryKeyValuePositive = [
 	{key: 'AL', value: 112},
