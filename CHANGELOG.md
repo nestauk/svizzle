@@ -60,6 +60,33 @@
 				- `eslint`, `eslint-plugin-svelte3`, `yootils`
 			- removed `eslint-plugin-import`
 
+## `@svizzle/time_region_value` v0.8.0 (next)
+
+- upgrade to ESM:
+	- moved `src/node_modules` to `src/lib`
+	- `FetchManager` instance now loads exported objects instead of JSON files
+	- moved `data/types.yml` to `data/types.js`
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded `d3-array`, `d3-dsv`, `d3-format`, `d3-geo`, `d3-quadtree`, `d3-scale`, `d3-scale-chromatic`, `d3-shape`, `eslint`, `eslint-plugin-svelte3`, `topojson-simplify`, `yootils`
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+		- using relative paths in imports from `src/lib` to make sure this will be
+			compatible with Kit
+	- linting:
+		- works now because of `src/lib` not being ignored:
+		- removed some unused imports
+		- renamed some vars to avoid shadowing in:
+			- `src/lib/stores/selectedRegions.js`
+			- `src/lib/stores/indicator.js`
+			- these might cause feat changes / bugs
+
 ## `@svizzle/ui` v0.7.0 (next)
 
 - upgrade to ESM:

@@ -3,13 +3,14 @@
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
 
-	/* local stores */
+	// lib/stores
+	import {_isSmallScreen, _timelineLayout} from '../lib/stores/layout.js';
+	import {_hrefBase, setRoute, showView} from '../lib/stores/navigation.js';
+	import {resetSelectedYear} from '../lib/stores/selectedYear.js';
 
-	import {_isSmallScreen, _timelineLayout} from 'stores/layout';
-	import {_hrefBase, setRoute, showView} from 'stores/navigation';
-	import {resetSelectedYear} from 'stores/selectedYear';
-	import {shortenYear} from 'utils/format';
-	import {makeURL} from 'utils/url';
+	// lib/utils
+	import {shortenYear} from '../lib/utils/format.js';
+	import {makeURL} from '../lib/utils/url.js';
 
 	/* consts */
 
