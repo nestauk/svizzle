@@ -29,7 +29,7 @@ export const version = '0.7.0';
 export const atlasBase = `https://unpkg.com/@svizzle/atlas@${version}/data/dist`;
 
 export const makeTopoURL =
-	(id, type, base = atlasBase) => `${base}/${type}/topojson/${id}.json`;
+	(id, type, base = atlasBase) => `${base}/${type}/topojson/${id}.js`;
 
 export const getAtlasId =
 	({regionId, specYear, type}) =>

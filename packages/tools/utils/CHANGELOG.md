@@ -12,6 +12,8 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- added `exportedJsObjToAny` (untested, undocumented for now)
+- added `exportedObjBufferToAny` (untested, undocumented for now)
 
 ## `@svizzle/utils` v0.17.0
 

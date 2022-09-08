@@ -80,10 +80,10 @@ export const topoToGeo = (topojson, id) =>
 > topoRO = filterGeometriesBy('RO')
 >
 > topoRO(NUTS_RG_03M_2003_4326_LEVL_0)
-// see `svizzle/atlas/data/dist/topojson/NUTS_RG_03M_2003_4326_LEVL_0_RO.json`
+// see `svizzle/atlas/data/dist/topojson/NUTS_RG_03M_2003_4326_LEVL_0_RO.js`
 >
 > topoRO(NUTS_RG_03M_2006_4326_LEVL_0)
-// see `svizzle/atlas/data/dist/topojson/NUTS_RG_03M_2006_4326_LEVL_0_RO.json`
+// see `svizzle/atlas/data/dist/topojson/NUTS_RG_03M_2006_4326_LEVL_0_RO.js`
  *
  * @since 0.8.0
  */

@@ -77,6 +77,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+	- `StorageIO`: moved the setup in `onMount`
 - icons: added `src/icons/feather/Table.svelte`
 
 ## `@svizzle/atlas` v0.8.0 (next)
@@ -108,6 +109,23 @@
 		- using file extensions
 		- use the `node:` protocol
 
+## `@svizzle/dev` v0.6.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded:
+				- `eslint`
+				- `just-compare` to avoid errors in svizzle scripts
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+
 ## `@svizzle/dom` v0.7.0 (next)
 
 - upgrade to ESM:
@@ -123,6 +141,39 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+
+## `@svizzle/file` v0.14.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded `d3-dsv`, `eslint`, `node-fetch`
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+- added `readExportedJson` (undocumented, untested)
+
+## `@svizzle/geo` v0.9.0 (next)
+
+- upgrade to ESM:
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- added `main`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded `@turf/bbox`, `@turf/centroid`, `@turf/helpers`, `@turf/truncate`, `eslint`
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
+	- copied `pruneTopology` as-is from `topojson-simplify` v3.0.3 because it's not an ESM module
+	- using `createRequire` to import JSON files in unit tests
 
 ## `@svizzle/geometry` v0.5.0 (next)
 
@@ -155,60 +206,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
-- remove `requestJson`
-- remove the dependency on `d3-request`, which is deprecated
-
-## `@svizzle/dev` v0.6.0 (next)
-
-- upgrade to ESM:
-	- `package.json`:
-		- fields:
-			- added `"type": "module"`
-			- added `main`
-			- set `engines.node` to `>=17.5.0`
-		- deps:
-			- upgraded:
-				- `eslint`
-				- `just-compare` to avoid errors in svizzle scripts
-			- removed `esm`, `eslint-plugin-import`
-	- imports:
-		- using file extensions
-		- use the `node:` protocol
-
-## `@svizzle/file` v0.14.0 (next)
-
-- upgrade to ESM:
-	- `package.json`:
-		- fields:
-			- added `"type": "module"`
-			- added `main`
-			- set `engines.node` to `>=17.5.0`
-		- deps:
-			- upgraded `d3-dsv`, `eslint`, `node-fetch`
-			- removed `esm`, `eslint-plugin-import`
-	- imports:
-		- using file extensions
-		- use the `node:` protocol
-
-## `@svizzle/geo` v0.9.0 (next)
-
-- upgrade to ESM:
-	- `package.json`:
-		- fields:
-			- added `"type": "module"`
-			- added `main`
-			- set `engines.node` to `>=17.5.0`
-		- deps:
-			- upgraded `@turf/bbox`, `@turf/centroid`, `@turf/helpers`, `@turf/truncate`, `eslint`
-			- removed `esm`, `eslint-plugin-import`
-	- imports:
-		- using file extensions
-		- use the `node:` protocol
-	- copied `pruneTopology` as-is from `topojson-simplify` v3.0.3 because it's not an ESM module
-	- using `createRequire` to import JSON files in unit tests
-
-## `@svizzle/request` v0.5.0 (next)
-
+- `fetchManager` now downloads exported javascript objects (`export default ...`)
 - remove `requestJson`
 - remove the dependency on `d3-request`, which is deprecated
 
@@ -226,6 +224,8 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- added `exportedJsObjToAny` (untested, undocumented for now)
+- added `exportedObjBufferToAny` (untested, undocumented for now)
 
 ## 20220831
 

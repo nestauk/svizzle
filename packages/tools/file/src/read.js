@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import util from 'node:util';
 
+import {exportedJsObjToAny} from '@svizzle/utils';
 import {
 	dsvFormat,
 	csvParse,
@@ -424,3 +425,8 @@ export const readJsonDir = dirPath =>
 export const readYaml = yamlPath =>
 	readFile(yamlPath, 'utf-8')
 	.then(parseYaml);
+
+// TODO document, test
+export const readExportedJson = jsFilePath =>
+	readFile(jsFilePath, 'utf-8')
+	.then(exportedJsObjToAny);
