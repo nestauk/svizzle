@@ -2,6 +2,10 @@
 
 ## next
 
+- upgrade to ESM:
+	- removed `@babel/*` dependencies needed by `eslint`
+	- removed `babel` configuration in `package.json`
+
 ## `@svizzle/barchart` v0.8.0 (next)
 
 - upgrade to ESM:
@@ -106,6 +110,21 @@
 		- use the `node:` protocol
 	- `StorageIO`: moved the setup in `onMount`
 - icons: added `src/icons/feather/Table.svelte`
+
+## `@svizzle/site` v0.4.0 (next)
+
+- upgrade to ESM:
+	- converted all JSON files in the examples to Javascript
+	- `package.json`:
+		- fields:
+			- added `"type": "module"`
+			- set `engines.node` to `>=17.5.0`
+		- deps:
+			- upgraded all dependencies
+			- removed `esm`, `eslint-plugin-import`
+	- imports:
+		- using file extensions
+		- use the `node:` protocol
 
 ## `@svizzle/atlas` v0.8.0 (next)
 

@@ -1,0 +1,1 @@
+export default ["palegreen","darkgreen","lime","mediumturquoise","grey","aquamarine","papayawhip","peachpuff","hotpink","purple","red","mediumvioletred","lightsalmon","silver","darkblue","mediumorchid","brown","darkslateblue"];

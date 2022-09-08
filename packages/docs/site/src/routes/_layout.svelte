@@ -12,7 +12,7 @@
 	import FontsLoader from '@svizzle/ui/src/drivers/fonts/FontsLoader.svelte';
 
 	import Nav from 'app/components/Nav.svelte';
-	import {a11yFontFamilies, fontsInfo} from 'app/config';
+	import {a11yFontFamilies, fontsInfo} from 'app/config.js';
 
 	export let segment;
 

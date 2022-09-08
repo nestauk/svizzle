@@ -1,4 +1,5 @@
-[
+/* eslint-disable indent */
+export default [
   {
     "description": "Cu sitiz omre emabeviz fucasguh he nagtacu uwwaib jaccomlu keroshe od loz osuced lihuvol gilla bouro lal.",
     "id": "errog",
@@ -1764,4 +1765,4 @@
       }
     ]
   }
-]
+];

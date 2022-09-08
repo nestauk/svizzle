@@ -2,8 +2,8 @@
 	import Layout from '@svizzle/time_region_value/src/routes/_layout.svelte';
 	import Link from '@svizzle/ui/src/Link.svelte';
 
-	import {_groups} from './_data/stores';
-	import {flags, hrefBase, regionSettings} from './_config';
+	import {flags, hrefBase, regionSettings} from './_config.js';
+	import {_groups} from './_data/stores.js';
 
 	const shouldPrefetch = true; // TODO should take it from a banner
 

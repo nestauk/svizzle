@@ -1,5 +1,5 @@
-import {mapWith} from 'lamb';
 import {transformValues} from '@svizzle/utils';
+import {mapWith} from 'lamb';
 
 export const formatSvelteMarkup = str =>
 	str.trim()

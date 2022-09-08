@@ -1,7 +1,7 @@
 <script>
 	import Link from '@svizzle/ui/src/Link.svelte';
 
-	import {sidebar} from './_utils';
+	import {sidebar} from './_utils.js';
 
 	export let segment; // 'BarchartV-defaultColor'
 </script>
