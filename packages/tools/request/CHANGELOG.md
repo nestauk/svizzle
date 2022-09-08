@@ -13,6 +13,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- `fetchManager` now downloads exported javascript objects (`export default ...`)
 - remove `requestJson`
 - remove the dependency on `d3-request`, which is deprecated
 

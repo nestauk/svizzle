@@ -15,6 +15,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+	- `StorageIO`: moved the setup in `onMount`
 - icons: added `src/icons/feather/Table.svelte`
 
 ## `@svizzle/ui` v0.6.0

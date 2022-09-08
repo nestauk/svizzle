@@ -2,6 +2,8 @@
 * @module @svizzle/utils/buffer-any
 */
 
+import {exportedJsObjToAny} from './string-any.js';
+
 /**
  * Convert a buffer representing a json object into a javascript object
  *
@@ -26,4 +28,13 @@ export const jsonBufferToAny = (buffer, encoding = 'utf-8') => {
 	const decoder = new TextDecoder(encoding);
 
 	return JSON.parse(decoder.decode(buffer))
+}
+
+// TODO document and add tests
+export const exportedObjBufferToAny = (buffer, encoding = 'utf-8') => {
+	const decoder = new TextDecoder(encoding);
+	const jsStr = decoder.decode(buffer);
+	const json = exportedJsObjToAny(jsStr);
+
+	return json;
 }

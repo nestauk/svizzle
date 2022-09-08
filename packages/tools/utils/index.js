@@ -63,6 +63,7 @@ export * from './src/modules/string-[object-number].js';
 export * from './src/modules/string-[string-array].js';
 export * from './src/modules/string-[string-boolean].js';
 export * from './src/modules/string-[string-string].js';
+export * from './src/modules/string-any.js';
 export * from './src/modules/string-array.js';
 export * from './src/modules/string-boolean.js';
 export * from './src/modules/string-number.js';
