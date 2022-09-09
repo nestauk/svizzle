@@ -1,6 +1,6 @@
-export * from './actions/resizeObserver.js';
 export * from './a11y/index.js';
-export {default as FontsLoader} from './drivers/fonts/FontsLoader.svelte';
+export * from './actions/resizeObserver.js';
+export * from './drivers/fonts/index.js';
 export * from './icons/index.js';
 export {default as FetchDriver} from './io/net/FetchDriver.svelte';
 export {default as StorageIO} from './io/storage/StorageIO.svelte';

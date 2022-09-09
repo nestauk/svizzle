@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/geo/src/modules/topojson
+* @module @svizzle/geo/topojson
 */
 
 import * as _ from 'lamb';

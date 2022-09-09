@@ -1,5 +1,5 @@
 <script>
-	import Switch from '@svizzle/ui/src/Switch.svelte';
+	import {Switch} from '@svizzle/ui';
 
 	// lib/stores
 	import {

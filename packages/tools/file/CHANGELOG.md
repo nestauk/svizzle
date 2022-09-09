@@ -12,6 +12,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 - added `readExportedJson` (undocumented, untested)
 
 ## `@svizzle/file` v0.13.0

@@ -14,6 +14,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 
 ## `@svizzle/dev` v0.5.0
 

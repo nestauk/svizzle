@@ -59,7 +59,7 @@
 			{target}
 			{type}
 		>
-			<div class="clickable">
+			<div class='clickable'>
 				{#if text}
 					<span>{text}</span>
 				{/if}

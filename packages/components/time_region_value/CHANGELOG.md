@@ -24,6 +24,8 @@
 			- `src/lib/stores/selectedRegions.js`
 			- `src/lib/stores/indicator.js`
 			- these might cause feat changes / bugs
+- now internally importing directly from svizzle modules index
+- exposed some stores methods
 
 ## `@svizzle/time_region_value` v0.7.0
 

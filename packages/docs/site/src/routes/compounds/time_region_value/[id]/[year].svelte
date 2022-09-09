@@ -1,6 +1,5 @@
 <script context='module'>
-	import {parseCSV}
-		from '@svizzle/time_region_value/src/lib/utils/domain.js';
+	import {parseCSV} from '@svizzle/time_region_value';
 
 	import {lookup} from '../_data/stores.js';
 
@@ -13,9 +12,7 @@
 </script>
 
 <script>
-	import {default as types}
-		from '@svizzle/time_region_value/src/lib/data/types.js';
-	import IdYear from '@svizzle/time_region_value/src/routes/[id]/[year].svelte';
+	import {IdYear, types} from '@svizzle/time_region_value';
 
 	export let data;
 	export let id;

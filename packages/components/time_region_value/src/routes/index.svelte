@@ -1,5 +1,5 @@
 <script>
-	import {isServerSide} from '@svizzle/ui/src/utils/env';
+	import {isServerSide} from '@svizzle/ui';
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
 

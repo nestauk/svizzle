@@ -5,7 +5,7 @@
 	export let _screen;
 	export let components;
 	export let currentIndex;
-	
+
 	let isActive = false;
 
 	function init () {
@@ -25,7 +25,7 @@
 
 {#if isActive}
 	<div
-		aria-label="Banner"
+		aria-label='Banner'
 		class='Banner {$_screen?.classes}'
 		role='alert'
 	>

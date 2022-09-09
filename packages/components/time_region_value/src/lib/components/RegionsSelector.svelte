@@ -1,9 +1,11 @@
 <script>
-	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
-	import CheckSquare from '@svizzle/ui/src/icons/feather/CheckSquare.svelte';
-	import ChevronRight from '@svizzle/ui/src/icons/feather/ChevronRight.svelte';
-	import MinusSquare from '@svizzle/ui/src/icons/feather/MinusSquare.svelte';
-	import Square from '@svizzle/ui/src/icons/feather/Square.svelte';
+	import {
+		CheckSquare,
+		ChevronRight,
+		Icon,
+		MinusSquare,
+		Square,
+	} from '@svizzle/ui';
 	import {noop} from '@svizzle/utils';
 	import {createEventDispatcher} from 'svelte';
 

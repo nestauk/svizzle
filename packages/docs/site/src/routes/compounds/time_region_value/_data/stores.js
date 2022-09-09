@@ -1,7 +1,4 @@
-import {
-	getYearExtent,
-	makeIndicatorsLookup
-} from '@svizzle/time_region_value/src/lib/stores/dataset.js';
+import {getYearExtent, makeIndicatorsLookup} from '@svizzle/time_region_value';
 import {inclusiveRange} from '@svizzle/utils';
 import {derived, readable} from 'svelte/store';
 

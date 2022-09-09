@@ -1,5 +1,5 @@
 <script>
-	import {makeWebStreamsFetcher} from '@svizzle/request/src/webstreams';
+	import {makeWebStreamsFetcher} from '@svizzle/request';
 	import * as _ from 'lamb';
 
 	import {createFetchManagerStores} from './utils.js';

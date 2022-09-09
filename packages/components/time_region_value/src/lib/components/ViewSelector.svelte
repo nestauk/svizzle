@@ -1,13 +1,15 @@
 <script>
+	import {
+		Activity,
+		BarChart,
+		Clock,
+		Icon,
+		Info,
+		List,
+		MapPin,
+		Settings,
+	} from '@svizzle/ui';
 	import {truthynessTo} from '@svizzle/utils';
-	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
-	import Activity from '@svizzle/ui/src/icons/feather/Activity.svelte';
-	import BarChart from '@svizzle/ui/src/icons/feather/BarChart.svelte';
-	import Clock from '@svizzle/ui/src/icons/feather/Clock.svelte';
-	import Info from '@svizzle/ui/src/icons/feather/Info.svelte';
-	import List from '@svizzle/ui/src/icons/feather/List.svelte';
-	import MapPin from '@svizzle/ui/src/icons/feather/MapPin.svelte';
-	import Settings from '@svizzle/ui/src/icons/feather/Settings.svelte';
 	import * as _ from 'lamb';
 
 	const makeStrokes = _.mapValuesWith(truthynessTo(['black', 'grey']));

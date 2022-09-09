@@ -13,6 +13,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 
 ## `@svizzle/geometry` v0.4.0
 

@@ -14,6 +14,7 @@
 		- use the `node:` protocol
 - added `exportedJsObjToAny` (untested, undocumented for now)
 - added `exportedObjBufferToAny` (untested, undocumented for now)
+- moved `index.js` in `src/`
 
 ## `@svizzle/utils` v0.17.0
 

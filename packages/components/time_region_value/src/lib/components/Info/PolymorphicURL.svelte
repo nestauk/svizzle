@@ -1,5 +1,5 @@
 <script>
-	import Link from '@svizzle/ui/src/Link.svelte';
+	import {Link} from '@svizzle/ui';
 	import {isArray, isObject} from '@svizzle/utils';
 	import {pairs} from 'lamb';
 

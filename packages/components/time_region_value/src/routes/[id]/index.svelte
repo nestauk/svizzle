@@ -1,7 +1,6 @@
 <script>
-	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
-	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
-	import MessageView from '@svizzle/ui/src/MessageView.svelte';
+	import {ColorBinsDiv, ColorBinsG} from '@svizzle/legend';
+	import {MessageView} from '@svizzle/ui';
 	import {onMount} from 'svelte';
 
 	// lib/components

@@ -1,4 +1,4 @@
-import regionSpecs from '@svizzle/atlas/src/specs.js';
+import {regionSpecs} from '@svizzle/atlas';
 
 /* navigation */
 

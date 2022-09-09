@@ -2,7 +2,7 @@
 from https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/core/css/vision_deficiency.cc;l=24-78;drc=25c9d397f8ece542feaf21ad680b71f161edf47b:
 The filter color matrices are based on the following research paper:
 Gustavo M. Machado, Manuel M. Oliveira, and Leandro A. F. Fernandes,
-"A Physiologically-based Model for Simulation of Color Vision Deficiency".
+'A Physiologically-based Model for Simulation of Color Vision Deficiency'.
 IEEE Transactions on Visualization and Computer Graphics. Volume 15 (2009),
 Number 6, November/December 2009. pp. 1291-1298.
 https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html

@@ -10,6 +10,7 @@
 			- upgraded:
 				- `eslint`, `eslint-plugin-svelte3`, `yootils`
 			- removed `eslint-plugin-import`
+- now internally importing directly from svizzle modules index
 
 ## `@svizzle/legend` v0.3.0
 

@@ -16,6 +16,7 @@
 - `fetchManager` now downloads exported javascript objects (`export default ...`)
 - remove `requestJson`
 - remove the dependency on `d3-request`, which is deprecated
+- moved `index.js` in `src/`
 
 ## `@svizzle/request` v0.4.0
 

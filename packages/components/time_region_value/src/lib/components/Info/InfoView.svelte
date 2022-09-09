@@ -1,6 +1,5 @@
 <script>
-	import Download from '@svizzle/ui/src/icons/feather/Download.svelte';
-	import LinkButton from '@svizzle/ui/src/LinkButton.svelte';
+	import {Download, LinkButton} from '@svizzle/ui';
 	import * as _ from 'lamb';
 
 	// lib/stores

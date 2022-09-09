@@ -1,5 +1,5 @@
 <script>
-	import Link from '@svizzle/ui/src/Link.svelte';
+	import {Link} from '@svizzle/ui';
 
 	import {sidebar} from './_utils.js';
 

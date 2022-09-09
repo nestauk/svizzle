@@ -6,12 +6,14 @@
 		- fields:
 			- added `"type": "module"`
 			- set `engines.node` to `>=17.5.0`
+			- moved some dev deps in `dependencies`
 		- deps:
 			- upgraded `chance`, `d3-array`, `d3-color`, `d3-dsv`, `d3-geo`, `d3-scale`, `eslint`, `eslint-plugin-svelte3`, `svelte-json-tree`
 			- removed `esm`, `eslint-plugin-import`
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- now internally importing directly from svizzle modules index
 
 ## `@svizzle/site` v0.3.12
 

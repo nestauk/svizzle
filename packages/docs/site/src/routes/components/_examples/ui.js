@@ -1,8 +1,10 @@
-import {default as AlertTriangle} from '@svizzle/ui/src/icons/feather/AlertTriangle.svelte';
-import {default as ArrowRightCircle} from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
-import {default as Download} from '@svizzle/ui/src/icons/feather/Download.svelte';
-import {default as Sun} from '@svizzle/ui/src/icons/feather/Sun.svelte';
-import {default as Settings} from '@svizzle/ui/src/icons/feather/Settings.svelte';
+import {
+	AlertTriangle,
+	ArrowRightCircle,
+	Download,
+	Settings,
+	Sun,
+} from '@svizzle/ui';
 
 import {formatExamples} from './utils.js';
 
@@ -15,10 +17,7 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import Icon
-						from '@svizzle/ui/src/icons/Icon.svelte';
-					import Settings
-						from '@svizzle/ui/src/icons/feather/Settings.svelte';
+					import {Icon, Settings} from '@svizzle/ui';
 				</script>
 
 				<Icon glyph={Settings} />
@@ -33,10 +32,7 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import Icon
-						from '@svizzle/ui/src/icons/Icon.svelte';
-					import AlertTriangle
-						from '@svizzle/ui/src/icons/feather/AlertTriangle.svelte';
+					import {AlertTriangle, Icon} from '@svizzle/ui';
 				</script>
 
 				<Icon
@@ -54,10 +50,7 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import Icon
-						from '@svizzle/ui/src/icons/Icon.svelte';
-					import Sun
-						from '@svizzle/ui/src/icons/feather/Sun.svelte';
+					import {Icon, Sun} from '@svizzle/ui';
 				</script>
 				<Icon
 					glyph={Sun}
@@ -74,10 +67,7 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import Icon
-						from '@svizzle/ui/src/icons/Icon.svelte';
-					import ArrowRightCircle
-						from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+					import {ArrowRightCircle, Icon} from '@svizzle/ui';
 				</script>
 
 				<Icon
@@ -92,8 +82,7 @@ export default formatExamples([
 			props: {},
 			usage: `
 				<script>
-					import Icon
-						from '@svizzle/ui/src/icons/Icon.svelte';
+					import {Icon} from '@svizzle/ui';
 				</script>
 
 				<Icon />
@@ -101,7 +90,7 @@ export default formatExamples([
 		}],
 		doc: [
 			{tag: 'p', content: 'We need to pass the `glyph` prop (a Svelte component that renders SVG tags) to `Icon`.'},
-			{tag: 'p', content: 'We provide Feather icons glyphs (https://feathericons.com/) in `@svizzle/ui/src/icons/feather/`, where component names are camel cased Feather ids: e.g. `alert-triangle` => `AlertTriangle`.'},
+			{tag: 'p', content: 'We provide Feather icons glyphs (https://feathericons.com/) in `@svizzle/ui`, where component names are camel cased Feather ids: e.g. `alert-triangle` => `AlertTriangle`.'},
 			{tag: 'p', content: 'Later on we might provide more icon collections. Or of course you can use your own glyphs!'},
 			{tag: 'p', content: 'To style an icon, use `fill`, `stroke` (strings) and `strokeWidth` (a number).'},
 			{tag: 'p', content: 'To size the icon, use `size` (a number).'},
@@ -461,8 +450,7 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import ArrowRightCircle
-						from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+					import {ArrowRightCircle} from '@svizzle/ui';
 				</script>
 
 				<LoadingView
@@ -480,8 +468,7 @@ export default formatExamples([
 			},
 			usage: `
 				<script>
-					import ArrowRightCircle
-						from '@svizzle/ui/src/icons/feather/ArrowRightCircle.svelte';
+					import {ArrowRightCircle, Icon} from '@svizzle/ui';
 				</script>
 
 				<LoadingView

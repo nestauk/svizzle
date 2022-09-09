@@ -1,15 +1,13 @@
 <script>
-	import A11yMenu
-		from '@svizzle/ui/src/a11y/menu/A11yMenu.svelte';
-	import A11yMenuDriver
-		from '@svizzle/ui/src/a11y/menu/A11yMenuDriver.svelte';
 	import {
 		_a11ySettings,
-		_isA11yDirty
-	} from '@svizzle/ui/src/a11y/menu/settings';
-	import ScreenSensor, {_screen}
-		from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
-	import FontsLoader from '@svizzle/ui/src/drivers/fonts/FontsLoader.svelte';
+		_isA11yDirty,
+		_screen,
+		A11yMenu,
+		A11yMenuDriver,
+		FontsLoader,
+		ScreenSensor,
+	} from '@svizzle/ui';
 
 	import Nav from 'app/components/Nav.svelte';
 	import {a11yFontFamilies, fontsInfo} from 'app/config.js';

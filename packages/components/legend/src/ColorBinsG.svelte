@@ -17,7 +17,7 @@
 		uniques,
 	} from 'lamb';
 
-	import {getBinsTicks, getBinsTicksExtent} from '@svizzle/histogram/src/utils';
+	import {getBinsTicks, getBinsTicksExtent} from '@svizzle/histogram';
 
 	const dispatch = createEventDispatcher();
 

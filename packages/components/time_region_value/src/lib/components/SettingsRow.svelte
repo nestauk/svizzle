@@ -1,9 +1,11 @@
 <script>
-	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
-	import ChevronDown from '@svizzle/ui/src/icons/feather/ChevronDown.svelte';
-	import ChevronUp from '@svizzle/ui/src/icons/feather/ChevronUp.svelte';
-	import Globe from '@svizzle/ui/src/icons/feather/Globe.svelte';
-	import Switch from '@svizzle/ui/src/Switch.svelte';
+	import {
+		ChevronDown,
+		ChevronUp,
+		Globe,
+		Icon,
+		Switch,
+	} from '@svizzle/ui';
 
 	// lib/stores
 	import {

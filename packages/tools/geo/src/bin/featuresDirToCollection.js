@@ -3,10 +3,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import commander from 'commander';
-import {featureCollection} from '@turf/helpers';
-
 import {readJsonDir} from '@svizzle/file';
+import {featureCollection} from '@turf/helpers';
+import commander from 'commander';
 
 import {setGeometryPrecision} from '../modules/geojson.js';
 import {version} from '../../package.json';

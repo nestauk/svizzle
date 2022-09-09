@@ -249,20 +249,20 @@
 		gap: 8px;
 		grid-auto-flow: column;
 	}
-	input[type="range"] {
+	input[type='range'] {
 		-webkit-appearance: none;
 	}
-	input[type="range"]:focus {
+	input[type='range']:focus {
 		outline: none;
 	}
-	input[type="range"]::-moz-range-track {
+	input[type='range']::-moz-range-track {
 		background: black;
 		border: none;
 		box-sizing: border-box;
 		height: 1px;
 		width: 129px;
 	}
-	input[type="range"]::-webkit-slider-runnable-track {
+	input[type='range']::-webkit-slider-runnable-track {
 		-webkit-appearance: none;
 		background: black;
 		border: none;
@@ -270,7 +270,7 @@
 		height: 1px;
 		width: 129px;
 	}
-	input[type="range"]::-moz-range-thumb {
+	input[type='range']::-moz-range-thumb {
 		background: black;
 		border-radius: 50%;
 		border: none;
@@ -278,7 +278,7 @@
 		margin-top: -9px;
 		width: 19px;
 	}
-	input[type="range"]::-webkit-slider-thumb {
+	input[type='range']::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		background: black;
 		border-radius: 50%;

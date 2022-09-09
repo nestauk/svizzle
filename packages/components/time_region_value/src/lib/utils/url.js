@@ -1,4 +1,4 @@
-import {isClientSide} from '@svizzle/ui/src/utils/env';
+import {isClientSide} from '@svizzle/ui';
 
 export const makeURL = (base, id, year) => {
 	let url = year

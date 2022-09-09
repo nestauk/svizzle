@@ -1,5 +1,5 @@
 /**
-* @module @svizzle/geo/src/modules/geojson
+* @module @svizzle/geo/geojson
 */
 
 import bbox from '@turf/bbox';

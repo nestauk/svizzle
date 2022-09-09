@@ -3,5 +3,4 @@ data/base/NUTS/2
 data/base/NUTS/3
 data/base/NUTS/4
 data/base/world/1
-!src/node_modules
 !src/bin/dist

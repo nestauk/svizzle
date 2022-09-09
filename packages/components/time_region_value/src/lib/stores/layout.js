@@ -1,4 +1,4 @@
-import {_screen} from '@svizzle/ui/src/sensors/screen/ScreenSensor.svelte';
+import {_screen} from '@svizzle/ui';
 import {derived, writable} from 'svelte/store';
 import {linearScale} from 'yootils';
 

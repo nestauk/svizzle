@@ -1,9 +1,11 @@
 <script>
-	import {setupResizeObserver} from '@svizzle/ui/src/actions/resizeObserver';
-	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
-	import Info from '@svizzle/ui/src/icons/feather/Info.svelte';
-	import ChevronDown from '@svizzle/ui/src/icons/feather/ChevronDown.svelte';
-	import ChevronUp from '@svizzle/ui/src/icons/feather/ChevronUp.svelte';
+	import {
+		ChevronDown,
+		ChevronUp,
+		Icon,
+		Info,
+		setupResizeObserver,
+	} from '@svizzle/ui';
 
 	// lib/stores
 	import {_isSmallScreen} from '../stores/layout.js';

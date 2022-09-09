@@ -1,5 +1,5 @@
 <script>
-	import {isServerSide} from '@svizzle/ui/src/utils/env';
+	import {isServerSide} from '@svizzle/ui';
 	import {isNotNil} from '@svizzle/utils';
 	import * as _ from 'lamb';
 

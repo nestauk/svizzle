@@ -1,12 +1,9 @@
 <script>
+	import {BarchartVDiv} from '@svizzle/barchart';
+	import {ChoroplethG, defaultGeometry} from '@svizzle/choropleth';
 	import {makeStyle, toPx} from '@svizzle/dom';
-	import {defaultGeometry} from '@svizzle/choropleth/src/shared';
-	import BarchartVDiv from '@svizzle/barchart/src/BarchartVDiv.svelte';
-	import ChoroplethG from '@svizzle/choropleth/src/ChoroplethG.svelte';
-	import ColorBinsDiv from '@svizzle/legend/src/ColorBinsDiv.svelte';
-	import ColorBinsG from '@svizzle/legend/src/ColorBinsG.svelte';
-	import LoadingView from '@svizzle/ui/src/LoadingView.svelte';
-	import MessageView from '@svizzle/ui/src/MessageView.svelte';
+	import {ColorBinsDiv, ColorBinsG} from '@svizzle/legend';
+	import {LoadingView, MessageView} from '@svizzle/ui';
 	import {areAllTruthy, mergeObj} from '@svizzle/utils';
 	import {geoEqualEarth as projectionFn} from 'd3-geo';
 	import * as _ from 'lamb';

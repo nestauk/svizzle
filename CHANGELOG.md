@@ -63,6 +63,7 @@
 			- upgraded:
 				- `eslint`, `eslint-plugin-svelte3`, `yootils`
 			- removed `eslint-plugin-import`
+- now internally importing directly from svizzle modules index
 
 ## `@svizzle/time_region_value` v0.8.0 (next)
 
@@ -90,6 +91,8 @@
 			- `src/lib/stores/selectedRegions.js`
 			- `src/lib/stores/indicator.js`
 			- these might cause feat changes / bugs
+- now internally importing directly from svizzle modules index
+- exposed some stores methods
 
 ## `@svizzle/ui` v0.7.0 (next)
 
@@ -110,6 +113,7 @@
 		- use the `node:` protocol
 	- `StorageIO`: moved the setup in `onMount`
 - icons: added `src/icons/feather/Table.svelte`
+- now internally importing directly from svizzle modules index
 
 ## `@svizzle/site` v0.4.0 (next)
 
@@ -119,12 +123,14 @@
 		- fields:
 			- added `"type": "module"`
 			- set `engines.node` to `>=17.5.0`
+			- moved some dev deps in `dependencies`
 		- deps:
-			- upgraded all dependencies
+			- upgraded `chance`, `d3-array`, `d3-color`, `d3-dsv`, `d3-geo`, `d3-scale`, `eslint`, `eslint-plugin-svelte3`, `svelte-json-tree`
 			- removed `esm`, `eslint-plugin-import`
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- now internally importing directly from svizzle modules index
 
 ## `@svizzle/atlas` v0.8.0 (next)
 
@@ -154,6 +160,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 
 ## `@svizzle/dev` v0.6.0 (next)
 
@@ -171,6 +178,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 
 ## `@svizzle/dom` v0.7.0 (next)
 
@@ -187,6 +195,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 
 ## `@svizzle/file` v0.14.0 (next)
 
@@ -202,6 +211,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 - added `readExportedJson` (undocumented, untested)
 
 ## `@svizzle/geo` v0.9.0 (next)
@@ -220,6 +230,7 @@
 		- use the `node:` protocol
 	- copied `pruneTopology` as-is from `topojson-simplify` v3.0.3 because it's not an ESM module
 	- using `createRequire` to import JSON files in unit tests
+- moved `index.js` in `src/`
 
 ## `@svizzle/geometry` v0.5.0 (next)
 
@@ -236,6 +247,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 
 ## `@svizzle/request` v0.5.0 (next)
 
@@ -255,6 +267,7 @@
 - `fetchManager` now downloads exported javascript objects (`export default ...`)
 - remove `requestJson`
 - remove the dependency on `d3-request`, which is deprecated
+- moved `index.js` in `src/`
 
 ## `@svizzle/utils` v0.18.0 (next)
 
@@ -272,6 +285,7 @@
 		- use the `node:` protocol
 - added `exportedJsObjToAny` (untested, undocumented for now)
 - added `exportedObjBufferToAny` (untested, undocumented for now)
+- moved `index.js` in `src/`
 
 ## 20220831
 

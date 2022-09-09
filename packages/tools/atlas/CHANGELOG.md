@@ -26,6 +26,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 
 ## `@svizzle/atlas` v0.7.0
 

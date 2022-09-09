@@ -13,6 +13,7 @@
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
+- moved `index.js` in `src/`
 
 ## `@svizzle/dom` v0.6.0
 
