@@ -29,7 +29,7 @@ export default formatExamples([
 				items: countryKeyValuePositive,
 			},
 			usage: `
-				<BarchartV {items} />
+				<BarchartVDiv {items} />
 			`,
 		}, {
 			key: 'All negative values',
@@ -37,7 +37,7 @@ export default formatExamples([
 				items: countryKeyValueNegatives,
 			},
 			usage: `
-				<BarchartV {items} />
+				<BarchartVDiv {items} />
 			`,
 		}, {
 			key: 'Positive and zero values',
@@ -45,7 +45,7 @@ export default formatExamples([
 				items: countryKeyValuePositiveWithZeroes,
 			},
 			usage: `
-				<BarchartV {items} />
+				<BarchartVDiv {items} />
 			`,
 		}, {
 			key: 'Negative and zero values',
@@ -53,7 +53,7 @@ export default formatExamples([
 				items: countryKeyValueNegativesWithZeroes,
 			},
 			usage: `
-				<BarchartV {items} />
+				<BarchartVDiv {items} />
 			`,
 		}, {
 			key: 'Mixed values with zeroes',
@@ -61,14 +61,14 @@ export default formatExamples([
 				items: countryKeyValueMixedWithZeroes,
 			},
 			usage: `
-				<BarchartV {items} />
+				<BarchartVDiv {items} />
 			`,
 		}, {
 			key: 'No data',
 			props: {
 			},
 			usage: `
-				<BarchartV />
+				<BarchartVDiv />
 			`,
 		}, {
 			key: 'Empty data',
@@ -76,7 +76,7 @@ export default formatExamples([
 				items: [],
 			},
 			usage: `
-				<BarchartV {items} />
+				<BarchartVDiv {items} />
 			`,
 		}, {
 			key: 'Empty data with custom message',
@@ -168,8 +168,10 @@ export default formatExamples([
 					axisColor,
 					backgroundColor,
 					fontSize,
+					hoverColor: 'palegreen',
 					textColor,
 				},
+				title: 'Hover me!',
 			},
 			usage: `
 				<BarchartVDiv
@@ -179,7 +181,8 @@ export default formatExamples([
 						axisColor: '${axisColor}',
 						backgroundColor: '${backgroundColor}',
 						fontSize: ${fontSize},
-						textColor: '${textColor}'
+						hoverColor: 'palegreen',
+						textColor: '${textColor}',
 					}}
 				/>
 			`,
@@ -192,8 +195,10 @@ export default formatExamples([
 					axisColor,
 					backgroundColor,
 					fontSize,
+					hoverColor: 'palegreen',
 					textColor,
 				},
+				title: 'Hover me!',
 			},
 			usage: `
 				<BarchartVDiv
@@ -203,7 +208,8 @@ export default formatExamples([
 						axisColor: '${axisColor}',
 						backgroundColor: '${backgroundColor}',
 						fontSize: ${fontSize},
-						textColor: '${textColor}'
+						hoverColor: 'palegreen',
+						textColor: '${textColor}',
 					}}
 				/>
 			`,

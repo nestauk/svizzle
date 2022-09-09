@@ -9,7 +9,6 @@ import alias from 'rollup-plugin-alias';
 import svelte from 'rollup-plugin-svelte';
 import babel from 'rollup-plugin-babel';
 import {terser} from 'rollup-plugin-terser';
-import yaml from '@rollup/plugin-yaml';
 
 import config from 'sapper/config/rollup.js';
 
@@ -56,7 +55,6 @@ export default {
 			}),
 			commonjs(),
 			json(),
-			yaml(),
 			aliasConfig,
 
 			legacy && babel({
@@ -107,7 +105,6 @@ export default {
 			}),
 			commonjs(),
 			json(),
-			yaml(),
 			aliasConfig,
 		],
 		preserveEntrySignatures,
@@ -125,7 +122,6 @@ export default {
 			}),
 			commonjs(),
 			json(),
-			yaml(),
 			aliasConfig,
 			!dev && terser()
 		],

@@ -1,4 +1,4 @@
-import {getFamilies} from '@svizzle/ui/src/drivers/fonts/utils';
+import {getFamilies} from '@svizzle/ui';
 
 export const fontsInfo = [
 	{

@@ -26,7 +26,6 @@
 		"@rollup/plugin-json": "^4.1.0",
 		"@rollup/plugin-node-resolve": "^14.0.1",
 		"@rollup/plugin-replace": "^4.0.0",
-		"@rollup/plugin-yaml": "^3.1.0",
 		"@svizzle/dev": "^0.5.0",
 		"@svizzle/file": "^0.13.0",
 		"chance": "^1.1.8",
@@ -54,8 +53,6 @@
 	"private": true,
 	"scripts": {
 		"sitebuild": "sapper build --legacy",
-		"cy:open": "cypress open",
-		"cy:run": "cypress run",
 		"dev": "npm run rmsappers && sapper dev",
 		"chmod": "chmod u+x src/bin/*",
 		"export": "npm run chmod && node src/bin/makeEntries.js | xargs sapper export --legacy --basepath svizzle --concurrent 1 --entry",

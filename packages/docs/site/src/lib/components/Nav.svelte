@@ -1,6 +1,5 @@
 <script>
-	import Icon from '@svizzle/ui/src/icons/Icon.svelte';
-	import A11yPerson from '@svizzle/ui/src/icons/svizzle/A11yPerson.svelte';
+	import {A11yPerson, Icon} from '@svizzle/ui';
 
 	export let isA11yDirty = false;
 	export let segment;

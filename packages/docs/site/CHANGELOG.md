@@ -16,6 +16,7 @@
 - now internally importing directly from svizzle modules index
 - moved `src/node_modules` to `src/lib` and added `rollup-plugin-alias`
 - updated scripts
+- removed `cypress`
 
 ## `@svizzle/site` v0.3.12
 

@@ -133,6 +133,7 @@
 - now internally importing directly from svizzle modules index
 - moved `src/node_modules` to `src/lib` and added `rollup-plugin-alias`
 - updated scripts
+- removed `cypress`
 
 ## `@svizzle/atlas` v0.8.0 (next)
 
