@@ -353,8 +353,8 @@ export const readTsv = (
 	);
 
 /**
- * Return a promise that reads and then parses a json file.
  * [node environment]
+ * Return a promise that reads and then parses a json file.
  *
  * @function
  * @arg {string} jsonPath - The filepath of the JSON file to read.
@@ -374,9 +374,9 @@ export const readJson = jsonPath =>
 	.then(str => JSON.parse(str));
 
 /**
+ * [node environment]
  * Return a promise returning an array of objects of the JSON files of a
  * directory, not recursively.
- * [node environment]
  *
  * @function
  * @arg {string} dirPath - The path of the directory containing the JSON files to read.
@@ -403,8 +403,8 @@ export const readJsonDir = dirPath =>
 	));
 
 /**
- * Return a promise that reads and then parses a YAML file.
  * [node environment]
+ * Return a promise that reads and then parses a YAML file.
  *
  * @function
  * @arg {string} yamlPath - The filepath of the YAML file to read.
@@ -426,7 +426,36 @@ export const readYaml = yamlPath =>
 	readFile(yamlPath, 'utf-8')
 	.then(parseYaml);
 
-// TODO document, test
+/**
+ * [node environment]
+ * Return a promise that reads the file at the provided js path and returns the
+ * exported value.
+ *
+ * @function
+ * @arg {string} jsFilePath
+ * @return {promise} - @sideEffects: fs.readFile
+ *
+ * @example
+
+$ cat source/object.js
+export default {"a": 1}
+
+> readExportedJson('source/object.js')
+.then(x => console.log(x))
+.catch(err => console.error(err))
+
+{a: 1}
+
+$ cat source/array.js
+export default [1, 2, 3];
+
+> readExportedJson('source/array.js')
+.then(x => console.log(x))
+.catch(err => console.error(err))
+
+[1, 2, 3]
+ * @since 0.14.0
+ */
 export const readExportedJson = jsFilePath =>
 	readFile(jsFilePath, 'utf-8')
 	.then(exportedJsObjToAny);

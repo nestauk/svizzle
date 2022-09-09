@@ -7,13 +7,15 @@
 			- added `main`
 			- set `engines.node` to `>=17.5.0`
 		- deps:
-			- upgraded `d3-dsv`, `eslint`, `node-fetch`
+			- upgraded `d3-dsv`, `eslint`, `node-fetch`, `tempy`
 			- removed `esm`, `eslint-plugin-import`
 	- imports:
 		- using file extensions
 		- use the `node:` protocol
 - moved `index.js` in `src/`
-- added `readExportedJson` (undocumented, untested)
+- added `readExportedJson`
+- added `saveExportedObj`, `saveExportedObjPassthrough`, `saveExportedObjects`
+- updated/added docs/tests for the existing functions
 
 ## `@svizzle/file` v0.13.0
 

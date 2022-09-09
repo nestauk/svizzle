@@ -10,6 +10,7 @@ import {
 	readDirFiles,
 	readDirFilesIndexed,
 	readDsv,
+	readExportedJson,
 	readFile,
 	readJson,
 	readJsonDir,
@@ -46,12 +47,14 @@ describe('read', function () {
 				const expected = [
 					'a.txt',
 					'a.yaml',
+					'a1.js',
 					'a1.json',
 					'aDir',
 					'ab.csv',
 					'ab.tsv',
 					'ab.txt',
 					'b2.json',
+					'multi.js',
 					'multi.json',
 					'rows.csv',
 					'rows.tsv',
@@ -332,6 +335,19 @@ describe('read', function () {
 					bar: [1, 2, 3],
 				}
 				assert.deepStrictEqual(actual, expected);
+			}
+		);
+	});
+	describe('readExportedJson', function () {
+		it('should return a promise that reads the file at the provided js path and returns the exported value',
+			async function () {
+				const aPath = path.resolve(__dirname, '../test_assets', 'a1.js');
+				const a = await readExportedJson(aPath);
+				assert.deepStrictEqual(a, {a: 1});
+
+				const multiPath = path.resolve(__dirname, '../test_assets', 'multi.js');
+				const multi = await readExportedJson(multiPath);
+				assert.deepStrictEqual(multi, {a: 1, b: 2});
 			}
 		);
 	});
