@@ -3,14 +3,13 @@
 import path from 'node:path';
 
 import {tapMessage} from '@svizzle/dev';
-import {readYaml} from '@svizzle/file';
+import {readYaml, saveExportedObj} from '@svizzle/file';
 import {makeKeyedValuesPermutations, transformValues} from '@svizzle/utils';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
 import rimraf from 'rimraf';
 
-import {saveExportedObj} from '../../../lib/fileUtils.js';
 import {
 	NUTS_DATABASE_DIR_0,
 	NUTS_DATABASE_DIR_1,

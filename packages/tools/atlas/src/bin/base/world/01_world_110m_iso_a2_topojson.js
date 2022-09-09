@@ -4,7 +4,7 @@ import {createRequire} from 'node:module';
 import path from 'node:path';
 
 import {tapMessage, tapValue} from '@svizzle/dev';
-import {readYaml} from '@svizzle/file';
+import {readYaml, saveExportedObjPassthrough} from '@svizzle/file';
 import {getLength, isPathValue, swapKeyValue} from '@svizzle/utils';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
@@ -12,7 +12,6 @@ import mkdirp from 'mkdirp';
 const require = createRequire(import.meta.url);
 const WORLD_110_TOPOJSON = require('world-atlas/countries-110m.json');
 
-import {saveExportedObjPassthrough} from '../../../lib/fileUtils.js';
 import {
 	WORLD_DATABASE_DIR_0,
 	WORLD_DATABASE_DIR_1

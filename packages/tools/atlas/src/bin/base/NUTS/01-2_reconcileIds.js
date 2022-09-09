@@ -7,6 +7,8 @@ import {
 	isCsvFile,
 	isTsvFile,
 	readDirFilesIndexed,
+	saveExportedObjects,
+	saveExportedObjPassthrough,
 	saveObjects,
 	saveObjPassthrough,
 } from '@svizzle/file';
@@ -19,10 +21,6 @@ import {
 import * as _ from 'lamb';
 import {csvParse, tsvParse} from 'd3-dsv';
 
-import {
-	saveExportedObjects,
-	saveExportedObjPassthrough
-} from '../../../lib/fileUtils.js';
 import {getNutsName} from '../../../lib/nutsUtils.js';
 import {
 	NUTS_DATABASE_DIR_0,
@@ -353,7 +351,8 @@ const run = async () => {
 		saveObjects([
 			{
 				filepath: outInspectPaths.detectedChangesById,
-				object: detectedChangesById
+				indentation: '\t',
+				object: detectedChangesById,
 			},
 		]),
 	])

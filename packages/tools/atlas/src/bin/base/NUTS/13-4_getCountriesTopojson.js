@@ -3,14 +3,13 @@
 import path from 'node:path';
 
 import {tapMessage} from '@svizzle/dev';
-import {readDir} from '@svizzle/file';
+import {readDir, saveExportedObj} from '@svizzle/file';
 import {pruneTopology} from '@svizzle/geo';
 import {transformPaths} from '@svizzle/utils';
 import * as _ from 'lamb';
 import mkdirp from 'mkdirp';
 import rimraf from 'rimraf';
 
-import {saveExportedObj} from '../../../lib/fileUtils.js';
 import {
 	NUTS_DATABASE_DIR_1,
 	NUTS_DATABASE_DIR_3,

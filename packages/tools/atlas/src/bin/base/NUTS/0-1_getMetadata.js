@@ -5,6 +5,8 @@ import path from 'node:path';
 import {tapMessage} from '@svizzle/dev';
 import {
 	readYaml,
+	saveExportedObj,
+	saveExportedObjPassthrough,
 	saveStringPassthrough,
 } from '@svizzle/file';
 import {csvParse} from 'd3-dsv';
@@ -13,10 +15,6 @@ import mkdirp from 'mkdirp';
 import fetch from 'node-fetch';
 import rimraf from 'rimraf';
 
-import {
-	saveExportedObj,
-	saveExportedObjPassthrough
-} from '../../../lib/fileUtils.js';
 import {
 	NUTS_DATABASE_DIR_0,
 	NUTS_DATABASE_DIR_1
@@ -71,7 +69,7 @@ out:
 */
 readYaml(inPaths.nutsSpec)
 .then(tapMessage(`Saving ${outPaths.nutsSpec}`))
-.then(saveExportedObjPassthrough(outPaths.nutsSpec))
+.then(saveExportedObjPassthrough(outPaths.nutsSpec, '\t'))
 .then(({year}) => Promise.all(
 	_.map(year,
 		_.pipe([
@@ -88,7 +86,7 @@ readYaml(inPaths.nutsSpec)
 ))
 .then(_.fromPairs)
 .then(tapMessage(`Saving ${outPaths.countriesByYear}`))
-.then(saveExportedObj(outPaths.countriesByYear))
+.then(saveExportedObj(outPaths.countriesByYear, '\t'))
 .then(tapMessage('Done'))
 .catch(err => console.error(err));
 
