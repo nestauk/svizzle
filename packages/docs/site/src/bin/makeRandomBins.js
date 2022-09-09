@@ -3,23 +3,23 @@
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-import {pairs, shuffle} from 'd3-array';
-import {roundTo} from '@svizzle/utils';
-import {saveObj} from '@svizzle/file';
 import {tapMessage} from '@svizzle/dev';
+import {saveExportedObj} from '@svizzle/file';
+import {roundTo} from '@svizzle/utils';
+import {pairs, shuffle} from 'd3-array';
 import * as _ from 'lamb';
 
-import colorsMap from 'app/utils/colorsMap';
+import colorsMap from '../lib/colorsMap.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DIR_EXAMPLES = path.resolve(__dirname, '../routes/components/_examples');
 
-// FIXME save as exported js
-const BINS_PATH_1 = path.resolve(__dirname, '../routes/components/_examples/bins.json');
-const BINS_COLOR_PATH_1 = path.resolve(__dirname, '../routes/components/_examples/binsFill.json');
-const BINS_PATH_2 = path.resolve(__dirname, '../routes/components/_examples/bins_2.json');
-const BINS_COLOR_PATH_2 = path.resolve(__dirname, '../routes/components/_examples/binsFill_2.json');
-const BINS_PATH_3 = path.resolve(__dirname, '../routes/components/_examples/bins_3.json');
-const BINS_COLOR_PATH_3 = path.resolve(__dirname, '../routes/components/_examples/binsFill_3.json');
+const BINS_PATH_1 = path.resolve(DIR_EXAMPLES, 'bins.js');
+const BINS_COLOR_PATH_1 = path.resolve(DIR_EXAMPLES, 'binsFill.js');
+const BINS_PATH_2 = path.resolve(DIR_EXAMPLES, 'bins_2.js');
+const BINS_COLOR_PATH_2 = path.resolve(DIR_EXAMPLES, 'binsFill_2.js');
+const BINS_PATH_3 = path.resolve(DIR_EXAMPLES, 'bins_3.js');
+const BINS_COLOR_PATH_3 = path.resolve(DIR_EXAMPLES, 'binsFill_3.js');
 
 const roundTo2 = roundTo(2);
 
@@ -40,9 +40,16 @@ const emptyOneBinAtRandom = bins => _.setPathIn(
 const makeRandomBins = (maxAmount, extent, interval, binsPath, colorsPath) => {
 	const colorNames = shuffle(_.keys(colorsMap));
 	const bins = emptyOneBinAtRandom(makeBins(maxAmount, extent, interval));
-	const binColors = _.map(bins, (bin, index) => colorNames[index % colorNames.length]);
-	saveObj(binsPath)(bins).then(tapMessage(`Saved bins at: ${binsPath}`))
-	saveObj(colorsPath)(binColors).then(tapMessage(`Saved bins color at: ${colorsPath}`));
+	const binColors = _.map(
+		bins,
+		(bin, index) => colorNames[index % colorNames.length]
+	);
+
+	saveExportedObj(binsPath)(bins)
+	.then(tapMessage(`Saved bins at: ${binsPath}`))
+
+	saveExportedObj(colorsPath)(binColors)
+	.then(tapMessage(`Saved bins color at: ${colorsPath}`));
 }
 
 makeRandomBins(20, [0, 20], 2, BINS_PATH_1, BINS_COLOR_PATH_1);

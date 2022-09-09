@@ -12,7 +12,8 @@
 	import * as _ from 'lamb';
 	import JSONTree from 'svelte-json-tree';
 
-	import Elements from 'app/components/Elements.svelte';
+	import Elements from '$lib/components/Elements.svelte';
+
 	import components from './_components.js';
 
 	const makeKeyedEmptyString = makeKeyed('');

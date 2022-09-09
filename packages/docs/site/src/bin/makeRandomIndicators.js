@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {default as unifiedNuts}
 	from '@svizzle/atlas/data/dist/NUTS/unifiedNuts.js';
 import {tapMessage} from '@svizzle/dev';
-import {saveObj, saveString} from '@svizzle/file';
+import {saveExportedObj, saveString} from '@svizzle/file';
 import {inclusiveRange} from '@svizzle/utils';
 import Chance from 'chance';
 import {csvFormat} from 'd3-dsv';
@@ -19,10 +19,9 @@ const chance = new Chance();
 /* paths */
 
 const DIR_site = path.resolve(__dirname, '../..');
-// FIXME save as exported js
 const OUT_PATH_groups = path.resolve(
 	DIR_site,
-	'src/routes/compounds/time_region_value/_data/indicatorsGroups.json'
+	'src/routes/compounds/time_region_value/_data/indicatorsGroups.js'
 );
 const OUT_DIR_static_data = path.resolve(DIR_site, 'static/data');
 
@@ -112,7 +111,7 @@ const createGroups = amountOfGroups => _.map(
 
 const groups = createGroups(5);
 
-saveObj(OUT_PATH_groups, 2)(groups)
+saveExportedObj(OUT_PATH_groups, '\t')(groups)
 .then(tapMessage(`Saved groups at: ${OUT_PATH_groups}`));
 
 

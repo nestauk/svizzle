@@ -9,8 +9,8 @@
 		ScreenSensor,
 	} from '@svizzle/ui';
 
-	import Nav from 'app/components/Nav.svelte';
-	import {a11yFontFamilies, fontsInfo} from 'app/config.js';
+	import Nav from '$lib/components/Nav.svelte';
+	import {a11yFontFamilies, fontsInfo} from '$lib/config.js';
 
 	export let segment;
 
