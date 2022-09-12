@@ -1,4 +1,4 @@
-## `@svizzle/time_region_value` v0.8.0 (next)
+## `@svizzle/time_region_value` v0.8.0
 
 - upgrade to ESM:
 	- moved `src/node_modules` to `src/lib`

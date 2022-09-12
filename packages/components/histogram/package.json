@@ -8,9 +8,9 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.6.0",
-		"@svizzle/geometry": "^0.4.0",
-		"@svizzle/utils": "^0.17.0",
+		"@svizzle/dom": "^0.7.0",
+		"@svizzle/geometry": "^0.5.0",
+		"@svizzle/utils": "^0.18.0",
 		"d3-array": "^3.2.0",
 		"d3-scale": "^4.0.2",
 		"lamb": "^0.60.0"
@@ -66,5 +66,5 @@
 	},
 	"sideEffects": false,
 	"type": "module",
-	"version": "0.5.0"
+	"version": "0.6.0"
 }

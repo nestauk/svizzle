@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.9.0 (next)
+## `@svizzle/choropleth` v0.9.0
 
 - upgrade to ESM:
 	- `package.json`:

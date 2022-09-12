@@ -1,4 +1,4 @@
-## `@svizzle/geo` v0.9.0 (next)
+## `@svizzle/geo` v0.9.0
 
 - upgrade to ESM:
 	- `package.json`:

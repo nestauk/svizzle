@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.18.0 (next)
+## `@svizzle/utils` v0.18.0
 
 - upgrade to ESM:
 	- `package.json`:

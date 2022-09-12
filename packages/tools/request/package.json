@@ -8,13 +8,13 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/utils": "^0.17.0",
+		"@svizzle/utils": "^0.18.0",
 		"d3-fetch": "^3.0.1",
 		"lamb": "^0.60.0"
 	},
 	"description": "Svizzle Request contains helpers for fetching data.",
 	"devDependencies": {
-		"@svizzle/file": "^0.13.0",
+		"@svizzle/file": "^0.14.0",
 		"eslint": "^8.23.0",
 		"mocha": "^8.3.2",
 		"nock": "^13.2.9",
@@ -64,5 +64,5 @@
 	},
 	"sideEffects": true,
 	"type": "module",
-	"version": "0.4.0"
+	"version": "0.5.0"
 }

@@ -1,4 +1,4 @@
-## `@svizzle/atlas` v0.8.0 (next)
+## `@svizzle/atlas` v0.8.0
 
 - upgrade to ESM:
 	- moved `src/node_modules` to `src/lib`

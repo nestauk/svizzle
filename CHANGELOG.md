@@ -1,12 +1,12 @@
 # Svizzle changelog
 
-## next
+## 20220912
 
 - upgrade to ESM:
 	- removed `@babel/*` dependencies needed by `eslint`
 	- removed `babel` configuration in `package.json`
 
-## `@svizzle/barchart` v0.8.0 (next)
+## `@svizzle/barchart` v0.8.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -19,7 +19,7 @@
 				- `eslint`, `eslint-plugin-svelte3`, `just-compare`, `yootils`
 			- removed `eslint-plugin-import`
 
-## `@svizzle/choropleth` v0.9.0 (next)
+## `@svizzle/choropleth` v0.9.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -34,7 +34,7 @@
 	- imports:
 		- using file extensions
 
-## `@svizzle/histogram` v0.6.0 (next)
+## `@svizzle/histogram` v0.6.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -51,7 +51,7 @@
 		- using file extensions
 		- use the `node:` protocol
 
-## `@svizzle/legend` v0.4.0 (next)
+## `@svizzle/legend` v0.4.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -65,7 +65,7 @@
 			- removed `eslint-plugin-import`
 - now internally importing directly from svizzle modules index
 
-## `@svizzle/time_region_value` v0.8.0 (next)
+## `@svizzle/time_region_value` v0.8.0
 
 - upgrade to ESM:
 	- moved `src/node_modules` to `src/lib`
@@ -94,7 +94,7 @@
 - now internally importing directly from svizzle modules index
 - exposed some stores methods
 
-## `@svizzle/ui` v0.7.0 (next)
+## `@svizzle/ui` v0.7.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -115,7 +115,7 @@
 - icons: added `src/icons/feather/Table.svelte`
 - now internally importing directly from svizzle modules index
 
-## `@svizzle/site` v0.4.0 (next)
+## `@svizzle/site` v0.4.0
 
 - upgrade to ESM:
 	- converted all JSON files in the examples to Javascript
@@ -135,7 +135,7 @@
 - updated scripts
 - removed `cypress`
 
-## `@svizzle/atlas` v0.8.0 (next)
+## `@svizzle/atlas` v0.8.0
 
 - upgrade to ESM:
 	- moved `src/node_modules` to `src/lib`
@@ -165,7 +165,7 @@
 		- use the `node:` protocol
 - moved `index.js` in `src/`
 
-## `@svizzle/dev` v0.6.0 (next)
+## `@svizzle/dev` v0.6.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -183,7 +183,7 @@
 		- use the `node:` protocol
 - moved `index.js` in `src/`
 
-## `@svizzle/dom` v0.7.0 (next)
+## `@svizzle/dom` v0.7.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -200,7 +200,7 @@
 		- use the `node:` protocol
 - moved `index.js` in `src/`
 
-## `@svizzle/file` v0.14.0 (next)
+## `@svizzle/file` v0.14.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -219,7 +219,7 @@
 - added `saveExportedObj`, `saveExportedObjPassthrough`, `saveExportedObjects`
 - updated/added docs/tests for the existing functions
 
-## `@svizzle/geo` v0.9.0 (next)
+## `@svizzle/geo` v0.9.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -237,7 +237,7 @@
 	- using `createRequire` to import JSON files in unit tests
 - moved `index.js` in `src/`
 
-## `@svizzle/geometry` v0.5.0 (next)
+## `@svizzle/geometry` v0.5.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -254,7 +254,7 @@
 		- use the `node:` protocol
 - moved `index.js` in `src/`
 
-## `@svizzle/request` v0.5.0 (next)
+## `@svizzle/request` v0.5.0
 
 - upgrade to ESM:
 	- `package.json`:
@@ -274,7 +274,7 @@
 - remove the dependency on `d3-request`, which is deprecated
 - moved `index.js` in `src/`
 
-## `@svizzle/utils` v0.18.0 (next)
+## `@svizzle/utils` v0.18.0
 
 - upgrade to ESM:
 	- `package.json`:

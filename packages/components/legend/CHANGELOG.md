@@ -1,4 +1,4 @@
-## `@svizzle/legend` v0.4.0 (next)
+## `@svizzle/legend` v0.4.0
 
 - upgrade to ESM:
 	- `package.json`:

@@ -1,4 +1,4 @@
-## `@svizzle/request` v0.5.0 (next)
+## `@svizzle/request` v0.5.0
 
 - upgrade to ESM:
 	- `package.json`:

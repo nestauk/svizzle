@@ -8,14 +8,14 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/atlas": "^0.7.0",
-		"@svizzle/barchart": "^0.7.0",
-		"@svizzle/choropleth": "^0.8.0",
-		"@svizzle/dom": "^0.6.0",
-		"@svizzle/geo": "^0.8.0",
-		"@svizzle/legend": "^0.3.0",
-		"@svizzle/ui": "^0.6.0",
-		"@svizzle/utils": "^0.17.0",
+		"@svizzle/atlas": "^0.8.0",
+		"@svizzle/barchart": "^0.8.0",
+		"@svizzle/choropleth": "^0.9.0",
+		"@svizzle/dom": "^0.7.0",
+		"@svizzle/geo": "^0.9.0",
+		"@svizzle/legend": "^0.4.0",
+		"@svizzle/ui": "^0.7.0",
+		"@svizzle/utils": "^0.18.0",
 		"d3-array": "^3.2.0",
 		"d3-dsv": "^3.0.1",
 		"d3-format": "^3.1.0",
@@ -78,5 +78,5 @@
 	},
 	"sideEffects": false,
 	"type": "module",
-	"version": "0.7.0"
+	"version": "0.8.0"
 }

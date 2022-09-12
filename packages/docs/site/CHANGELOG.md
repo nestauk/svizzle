@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.4.0 (next)
+## `@svizzle/site` v0.4.0
 
 - upgrade to ESM:
 	- converted all JSON files in the examples to Javascript

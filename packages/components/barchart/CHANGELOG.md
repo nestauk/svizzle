@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.8.0 (next)
+## `@svizzle/barchart` v0.8.0
 
 - upgrade to ESM:
 	- `package.json`:

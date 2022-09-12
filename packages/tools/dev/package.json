@@ -55,6 +55,6 @@
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": true,
-	"type":"module",
-	"version": "0.5.0"
+	"type": "module",
+	"version": "0.6.0"
 }

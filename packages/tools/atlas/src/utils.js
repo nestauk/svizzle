@@ -24,7 +24,7 @@ export const makeTopoId = ({
 
 // needed to avoid importing `package.json` with `createRequire`
 // so to make this file usable in the client
-export const version = '0.7.0';
+export const version = '0.8.0';
 
 export const atlasBase = `https://unpkg.com/@svizzle/atlas@${version}/data/dist`;
 

@@ -8,8 +8,8 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.6.0",
-		"@svizzle/utils": "^0.17.0",
+		"@svizzle/dom": "^0.7.0",
+		"@svizzle/utils": "^0.18.0",
 		"just-compare": "^2.2.2",
 		"lamb": "^0.60.0",
 		"yootils": "^0.3.1"
@@ -62,5 +62,5 @@
 	},
 	"sideEffects": false,
 	"type": "module",
-	"version": "0.7.0"
+	"version": "0.8.0"
 }
