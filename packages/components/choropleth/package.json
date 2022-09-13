@@ -61,6 +61,7 @@
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"svelte": "src/index.js",
 	"type": "module",
 	"version": "0.9.0"
 }
