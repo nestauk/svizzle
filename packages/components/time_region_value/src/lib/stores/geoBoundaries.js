@@ -222,8 +222,6 @@ derived(
 					_geoCache.update(cache => {
 						cache[id] = geojson;
 
-						console.log('---', id, cache);
-
 						return cache
 					});
 				}

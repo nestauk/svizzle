@@ -1,11 +1,11 @@
 <script>
 	import {
-		FetchDriver,
 		isClientSide,
 		isServerSide,
 		LoadingView,
 		ScreenSensor,
 	} from '@svizzle/ui';
+	import FetchDriver from '@svizzle/ui/src/io/net/FetchDriver.svelte';
 	import {exportedObjBufferToAny} from '@svizzle/utils';
 
 	// lib/components
