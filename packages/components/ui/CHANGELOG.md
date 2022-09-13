@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.7.1 (next)
+## `@svizzle/ui` v0.7.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`

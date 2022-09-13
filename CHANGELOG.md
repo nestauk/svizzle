@@ -1,33 +1,33 @@
 # Svizzle changelog
 
-## next
+## 20220913
 
-## `@svizzle/barchart` v0.8.1 (next)
-
-- upgraded `svelte`
-- added `"svelte": "src/index.js"` field to `package.json`
-
-## `@svizzle/choropleth` v0.9.1 (next)
+## `@svizzle/barchart` v0.8.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`
 
-## `@svizzle/histogram` v0.6.1 (next)
+## `@svizzle/choropleth` v0.9.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`
 
-## `@svizzle/legend` v0.4.1 (next)
+## `@svizzle/histogram` v0.6.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`
 
-## `@svizzle/time_region_value` v0.8.1 (next)
+## `@svizzle/legend` v0.4.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`
 
-## `@svizzle/ui` v0.7.1 (next)
+## `@svizzle/time_region_value` v0.8.1
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
+## `@svizzle/ui` v0.7.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`

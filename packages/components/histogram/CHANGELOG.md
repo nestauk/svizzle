@@ -1,4 +1,4 @@
-## `@svizzle/histogram` v0.6.1 (next)
+## `@svizzle/histogram` v0.6.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`

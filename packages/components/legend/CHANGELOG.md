@@ -1,4 +1,4 @@
-## `@svizzle/legend` v0.4.1 (next)
+## `@svizzle/legend` v0.4.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`

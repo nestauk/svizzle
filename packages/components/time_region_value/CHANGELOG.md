@@ -1,4 +1,4 @@
-## `@svizzle/time_region_value` v0.8.1 (next)
+## `@svizzle/time_region_value` v0.8.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`

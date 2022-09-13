@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.9.1 (next)
+## `@svizzle/choropleth` v0.9.1
 
 - upgraded `svelte`
 - added `"svelte": "src/index.js"` field to `package.json`

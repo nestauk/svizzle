@@ -63,5 +63,5 @@
 	"sideEffects": false,
 	"svelte": "src/index.js",
 	"type": "module",
-	"version": "0.8.0"
+	"version": "0.8.1"
 }
