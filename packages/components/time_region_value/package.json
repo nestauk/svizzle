@@ -32,7 +32,7 @@
 	"devDependencies": {
 		"eslint": "^8.23.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"svelte": "^3.38.3"
+		"svelte": "^3.50.1"
 	},
 	"engines": {
 		"node": ">=17.5.0"
