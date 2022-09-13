@@ -1,3 +1,8 @@
+## `@svizzle/request` v0.5.1
+
+- rearranged `rxjs` imports to minimize impact during import
+- moved `rxjs` out of `devDependencies`
+
 ## `@svizzle/request` v0.5.0
 
 - upgrade to ESM:

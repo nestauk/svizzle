@@ -27,7 +27,7 @@
 		"lamb": "^0.60.0",
 		"mkdirp": "^1.0.4",
 		"rimraf": "^3.0.2",
-		"svelte": "^3.38.3",
+		"svelte": "^3.50.1",
 		"svg-parser": "^2.0.4"
 	},
 	"engines": {
@@ -70,6 +70,7 @@
 		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
+	"svelte": "src/index.js",
 	"type": "module",
 	"version": "0.7.0"
 }

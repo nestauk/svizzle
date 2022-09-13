@@ -6,10 +6,10 @@ import * as _ from 'lamb';
 import {
 	BehaviorSubject,
 	from,
-	Subject,
-	zipWith
+	Subject
 } from 'rxjs';
 import {
+	zipWith,
 	debounceTime,
 	filter,
 	map,
