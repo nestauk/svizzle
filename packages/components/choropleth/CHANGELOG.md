@@ -1,3 +1,8 @@
+## `@svizzle/choropleth` v0.9.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
 ## `@svizzle/choropleth` v0.9.0
 
 - upgrade to ESM:

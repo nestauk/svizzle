@@ -1,3 +1,9 @@
+## `@svizzle/ui` v0.7.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+- removed `FetchDriver` from `src/index.js` to avoid build issues
+
 ## `@svizzle/ui` v0.7.0
 
 - upgrade to ESM:

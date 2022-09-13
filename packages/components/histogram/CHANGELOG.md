@@ -1,3 +1,8 @@
+## `@svizzle/histogram` v0.6.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
 ## `@svizzle/histogram` v0.6.0
 
 - upgrade to ESM:

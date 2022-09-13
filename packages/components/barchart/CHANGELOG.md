@@ -1,3 +1,8 @@
+## `@svizzle/barchart` v0.8.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
 ## `@svizzle/barchart` v0.8.0
 
 - upgrade to ESM:

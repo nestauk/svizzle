@@ -1,5 +1,43 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/barchart` v0.8.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
+## `@svizzle/choropleth` v0.9.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
+## `@svizzle/histogram` v0.6.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
+## `@svizzle/legend` v0.4.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
+## `@svizzle/time_region_value` v0.8.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+
+## `@svizzle/ui` v0.7.1 (next)
+
+- upgraded `svelte`
+- added `"svelte": "src/index.js"` field to `package.json`
+- removed `FetchDriver` from `src/index.js` to avoid build issues
+
+## `@svizzle/request` v0.5.1
+
+- rearranged `rxjs` imports to minimize impact during import
+- moved `rxjs` out of `devDependencies`
+
 ## 20220912
 
 - upgrade to ESM:
