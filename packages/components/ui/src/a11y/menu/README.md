@@ -9,7 +9,7 @@ action.
 
 ## Usage
 
-The accessibility menu depends on measurements made by the `<ScreenSensor />` 
+The accessibility menu depends on measurements made by the `<ScreenSensor />`
 component so it must be instantiated as well. For the options selected in the
 menu to have effect, an instance of the `<A11yMenuDriver />` component must also
 be present. This component can be configured with customized default settings,
@@ -65,11 +65,16 @@ Props:
 	- `useLocalStorage`: When true, settings are stored in browser's local storage and loaded on landing.
 - `A11yMenu`
 	- `_screen`: Receives the `_screen` store from `<ScreenSensor />`.
+	- `theme`: Receives the following theme properties:
+		- `colorBackground`: default `white`
+		- `colorBorder`: default `black`
+		- `colorKnob`: default `gray`
+		- `colorDisabled`: default `silver`
+		- `colorText`: default `black`
 
 ## Caveats
 
 `A11yMenuDriver` defines font families and sizes in the body element. If you
 specify font families and absolute font sizes in your components then these
-will not be affected by the driver. Please see 
+will not be affected by the driver. Please see
 [packages/components/README.md](packages/components/README.md).
-

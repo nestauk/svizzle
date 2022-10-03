@@ -1,3 +1,7 @@
+## `@svizzle/ui` v0.8.0 (next)
+
+- `A11yMenu` is now themable
+
 ## `@svizzle/ui` v0.7.1
 
 - upgraded `svelte`

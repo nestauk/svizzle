@@ -1,4 +1,5 @@
 <script>
+	import {makeStyleVars, toPx} from '@svizzle/dom';
 	import {isNotNil, isNumber} from '@svizzle/utils';
 	import * as _ from 'lamb';
 
@@ -25,10 +26,19 @@
 	} from './settings.js';
 
 	export let _screen;
+	export let theme;
 
 	let menuWidth; // bound
 
 	const gap = 24;
+
+	const defaultTheme = {
+		colorBackground: 'white',
+		colorBorder: 'black',
+		colorKnob: 'gray',
+		colorDisabled: 'silver',
+		colorText: 'black'
+	};
 
 	$: label =
 		`${$_currentSetting.label}: ${$_formatValue($_currentSetting.value)}`;
@@ -52,11 +62,20 @@
 		() => hasPrevValue && updateCurrentValue(prevValue);
 	$: clickedNext =
 		() => hasNextValue && updateCurrentValue(nextValue);
+	$: theme = {...defaultTheme, ...theme};
+	$: switchTheme = {
+		color: theme.colorText,
+		backgroundColor: theme.colorBackground,
+		knobColor: theme.colorKnob
+	}
+
+	$: style = makeStyleVars({gap: toPx(gap), ...theme});
 </script>
 
 <dialog
+	{style}
 	aria-label='Accessibility settings'
-	class={$_screen?.classes} style='--gap: {gap}px'
+	class={$_screen?.classes}
 >
 	<nav class='resets'>
 		<button
@@ -66,7 +85,10 @@
 			on:click={() => resetGroup('text')}
 		>
 			<Icon
-				fill={$_groupsResetStatus.text ? 'silver' : 'black'}
+				fill={
+					$_groupsResetStatus.text
+					? theme.colorDisabled : theme.colorText
+				}
 				glyph={FormatClear}
 				stroke='none'
 			/>
@@ -78,7 +100,10 @@
 			on:click={() => resetGroup('color')}
 		>
 			<Icon
-				fill={$_groupsResetStatus.color ? 'silver' : 'black'}
+				fill={
+					$_groupsResetStatus.color
+					? theme.colorDisabled : theme.colorText
+				}
 				glyph={ColorClear}
 				stroke='none'
 			/>
@@ -111,7 +136,13 @@
 						disabled={!hasPrevValue}
 						on:click={clickedPrev}
 					>
-						<Icon glyph={hasNumericValues ? MinusCircle : ArrowLeftCircle} />
+						<Icon
+							glyph={hasNumericValues ? MinusCircle : ArrowLeftCircle}
+							stroke={
+								hasPrevValue
+								? theme.colorText : theme.colorDisabled
+							}
+						/>
 					</button>
 					<button
 						aria-label={`Next ${hasNumericValues ? 'numeric' : 'alphanumeric'} value`}
@@ -119,7 +150,13 @@
 						disabled={!hasNextValue}
 						on:click={clickedNext}
 					>
-						<Icon glyph={hasNumericValues ? PlusCircle : ArrowRightCircle} />
+						<Icon
+							glyph={hasNumericValues ? PlusCircle : ArrowRightCircle}
+							stroke={
+								hasNextValue
+								? theme.colorText : theme.colorDisabled
+							}
+						/>
 					</button>
 				{/if}
 			</div>
@@ -144,6 +181,7 @@
 		{:else if $_currentSetting.format === 'boolean'}
 			<Switch
 				on:toggled={({detail}) => updateCurrentValue(detail === 'Yes')}
+				theme={switchTheme}
 				value={$_formatValue($_currentSetting.value)}
 				values={['No', 'Yes']}
 			/>
@@ -156,7 +194,13 @@
 			disabled={!$_hasPrev}
 			on:click={setPrevId}
 		>
-			<Icon glyph={ChevronLeft} />
+			<Icon
+				glyph={ChevronLeft}
+				stroke={
+					$_hasPrev
+					? theme.colorText : theme.colorDisabled
+				}
+			/>
 		</button>
 		<button
 			aria-label='Next Setting'
@@ -164,17 +208,24 @@
 			disabled={!$_hasNext}
 			on:click={setNextId}
 		>
-			<Icon glyph={ChevronRight} />
+			<Icon
+				glyph={ChevronRight}
+				stroke={
+					$_hasNext
+					? theme.colorText : theme.colorDisabled
+				}
+			/>
 		</button>
 	</nav>
 </dialog>
 
 <style>
 	dialog {
-		background: white;
+		background: var(--colorBackground);
 		border: none;
-		border-bottom: thin solid black;
-		border-top: thin solid black;
+		border-bottom: thin solid var(--colorBorder);
+		border-top: thin solid var(--colorBorder);
+		color: var(--colorText);
 		display: grid;
 		font-family: sans-serif;
 		font-size: 16px;
@@ -221,11 +272,10 @@
 	}
 	button, .text, .color {
 		align-items: center;
-		background: white;
-		background: white;
+		background: var(--colorBackground);
 		border: none;
-		border-left: thin solid black;
-		border-right: thin solid black;
+		border-left: thin solid var(--colorBorder);
+		border-right: thin solid var(--colorBorder);
 		box-sizing: border-box;
 		display: block;
 		display: grid;
@@ -241,7 +291,7 @@
 		height: min-content;
 	}
 	nav :first-child {
-		border-bottom: thin solid black;
+		border-bottom: thin solid var(--colorBorder);
 	}
 	.slider {
 		align-items: center;
@@ -256,7 +306,7 @@
 		outline: none;
 	}
 	input[type='range']::-moz-range-track {
-		background: black;
+		background: var(--colorText);
 		border: none;
 		box-sizing: border-box;
 		height: 1px;
@@ -264,14 +314,14 @@
 	}
 	input[type='range']::-webkit-slider-runnable-track {
 		-webkit-appearance: none;
-		background: black;
+		background: var(--colorText);
 		border: none;
 		box-sizing: border-box;
 		height: 1px;
 		width: 129px;
 	}
 	input[type='range']::-moz-range-thumb {
-		background: black;
+		background: var(--colorText);
 		border-radius: 50%;
 		border: none;
 		height: 19px;
@@ -280,7 +330,7 @@
 	}
 	input[type='range']::-webkit-slider-thumb {
 		-webkit-appearance: none;
-		background: black;
+		background: var(--colorText);
 		border-radius: 50%;
 		border: none;
 		height: 19px;

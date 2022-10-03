@@ -1,5 +1,11 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/ui` v0.8.0 (next)
+
+- `A11yMenu` is now themable
+
 ## 20220913
 
 ## `@svizzle/barchart` v0.8.1
