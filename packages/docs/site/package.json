@@ -8,7 +8,7 @@
 		"@svizzle/histogram": "^0.6.1",
 		"@svizzle/legend": "^0.4.1",
 		"@svizzle/time_region_value": "^0.8.1",
-		"@svizzle/ui": "^0.7.1",
+		"@svizzle/ui": "^0.8.0",
 		"@svizzle/utils": "^0.18.0",
 		"d3-color": "^3.1.0",
 		"d3-geo": "^3.0.1",

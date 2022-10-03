@@ -1,8 +1,8 @@
 # Svizzle changelog
 
-## next
+## 20221003
 
-## `@svizzle/ui` v0.8.0 (next)
+## `@svizzle/ui` v0.8.0
 
 - `A11yMenu` is now themable
 
