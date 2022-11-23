@@ -1,6 +1,7 @@
 ## `@svizzle/site` v0.4.1 (next)
 
 - reinstated `/ui` docs
+- /components: made the render area scrollable
 
 ## `@svizzle/site` v0.4.0
 

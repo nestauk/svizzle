@@ -7,10 +7,12 @@
 - added `StyleDriver.svelte`
 - added `StyleSensor.svelte`
 - added `AlphabetPicker.svelte`
+- added `HighlightedText.svelte`
 
 ## `@svizzle/site` v0.4.1 (next)
 
 - reinstated `/ui` docs
+- /components: made the render area scrollable
 
 ## `@svizzle/utils` v0.19.0 (next)
 
