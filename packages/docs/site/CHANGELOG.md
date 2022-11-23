@@ -2,7 +2,9 @@
 
 - reinstated `/ui` docs
 - reorganised `/ui` examples
-- /components: made the render area scrollable
+- /components: `.col2` is now:
+	- scrollable
+	- `position: relative;` to make sure components show within it
 - support documenting components with unnamed slots
 	- caveats:
 		- as of now dynamic slots aren't supported so we can't document named slots

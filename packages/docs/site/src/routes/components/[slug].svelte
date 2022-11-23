@@ -265,6 +265,7 @@
 		box-shadow: 1px 1px 4px 1px lightgrey;
 		grid-column: 2 / span 1;
 		overflow-y: auto;
+		position: relative;
 	}
 	.col2 .svgwrapper {
 		height: 100%;

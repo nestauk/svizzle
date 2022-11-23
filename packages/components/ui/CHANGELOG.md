@@ -8,11 +8,13 @@
 - added `ScrollbarStyler.svelte`
 - added `ResponsiveButton.svelte`
 - added `CenteredView.svelte`
+- added `Banner.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `Link`:
 	- spacebar scrolling disabled when focused
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
 	- added `ariaDescribedBy` and `ariaLabel` props
+	- use `color: 'inherit'` instead of `black`
 - `MessageView`:
 	- now using `CenteredView`
 	- added props `padding`, `textAlign`

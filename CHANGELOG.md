@@ -12,11 +12,13 @@
 - added `ScrollbarStyler.svelte`
 - added `ResponsiveButton.svelte`
 - added `CenteredView.svelte`
+- added `Banner.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `Link`:
 	- spacebar scrolling disabled when focused
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
 	- added `ariaDescribedBy` and `ariaLabel` props
+	- use `color: 'inherit'` instead of `black`
 - `MessageView`:
 	- now using `CenteredView`
 	- added props `padding`, `textAlign`
@@ -32,7 +34,9 @@
 
 - reinstated `/ui` docs
 - reorganised `/ui` examples
-- /components: made the render area scrollable
+- /components: `.col2` is now:
+	- scrollable
+	- `position: relative;` to make sure components show within it
 - support documenting components with unnamed slots
 	- caveats:
 		- as of now dynamic slots aren't supported so we can't document named slots

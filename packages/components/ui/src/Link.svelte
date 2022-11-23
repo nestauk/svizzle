@@ -7,7 +7,7 @@
 	const defaultIconSize = 14;
 	const {defaultStrokeWidth} = Icon;
 	const defaultTheme = {
-		color: 'black',
+		color: 'inherit',
 		iconStroke: 'rgb(16, 174, 249)',
 		iconStrokeWidth: defaultStrokeWidth,
 		outlineColor: 'black',
