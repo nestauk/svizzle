@@ -138,6 +138,26 @@ Props:
 
 Displays a message when Javascript is disabled.
 
+## ResponsiveButton
+
+A button with 2 slots:
+- `always`: always renders
+- `optional`: renders if there's enough room for it or if disabled via `isOptionalHidden`
+
+The component measures the container size and if the `optional` slot is not disabled it automatically hides it when there's not enough room for it.
+
+Props:
+- `doesOverflow` (`bool`): if so, doesn't render the `optional` slot
+- `isActive` (`bool`): if so, renders using `theme.colorBackgroundActive` and `theme.colorTextActive`
+- `isOptionalHidden` (`bool`): if so, doesn't render the `optional` slot
+- `title` (`string`): the HTML `title` attribute for the button
+- `theme`:
+	- `borderBottom`, `borderLeft`, `borderRight`, `borderTop`: borders, useful when we have a row/column of these buttons and want to apply borders in such a way to avoid borders duplication
+	- `colorBackground`, `colorBackgroundActive`: default and active `background-color`
+	- `colorText`, `colorTextActive`: default and active `color`
+	- `colorText`, `colorTextActive`: default and active `color`
+	- `outlineColor`, `outlineStyle`, `outlineWidth`: values for the correspondent `outline-*` CSS properties
+
 ## ResponsiveFlex
 
 Handles content layout so that its children are aligned:
