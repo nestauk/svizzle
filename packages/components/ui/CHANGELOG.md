@@ -2,6 +2,7 @@
 
 - added `StyleDriver.svelte`
 - added `StyleSensor.svelte`
+- added `AlphabetPicker.svelte`
 
 ## `@svizzle/ui` v0.8.0
 

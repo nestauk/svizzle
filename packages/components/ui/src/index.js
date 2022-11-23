@@ -9,6 +9,7 @@ export * from './sensors/index.js';
 export * from './utils/env.js';
 export * from './utils/rx.js';
 export * from './utils/shared.js';
+export {default as AlphabetPicker} from './AlphabetPicker.svelte';
 export {default as Link} from './Link.svelte';
 export {default as LinkButton} from './LinkButton.svelte';
 export {default as LoadingView} from './LoadingView.svelte';

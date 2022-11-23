@@ -6,6 +6,7 @@
 
 - added `StyleDriver.svelte`
 - added `StyleSensor.svelte`
+- added `AlphabetPicker.svelte`
 
 ## `@svizzle/site` v0.4.1 (next)
 
