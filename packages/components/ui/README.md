@@ -157,6 +157,17 @@ These are components that we instantiate to measure some feature of the device/b
 
 Measures screen features reactively, see [here](src/sensors/screen).
 
+
+### ScrollbarStyler
+
+This Svelte component provides a universal styling solution for scrollbars across browsers. It uses the `::-webkit-scrollbar` pseudo-element to target the scrollbar on webkit browsers and a `:global` selector to ensure that the styling is applied globally.
+
+The component also makes use of CSS variables for the `background-color` of the scrollbar track and thumb. This allows for easy customization of the scrollbar's color to better match the design of the webpage.
+
+## Usage
+
+Simply include the Svelte component into the desired page (usually `_layout.svelte`), set the desired `--colorScrollbarTrack` and `--colorScrollbarThumb` CSS variables, and the scrollbar styling will be applied.
+
 ## Breakpoints
 
 ```
