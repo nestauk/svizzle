@@ -1,3 +1,8 @@
+## `@svizzle/ui` v0.9.0 (next)
+
+- added `StyleDriver.svelte`
+
+
 ## `@svizzle/ui` v0.8.0
 
 - `A11yMenu` is now themable

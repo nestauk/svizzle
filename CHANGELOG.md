@@ -2,6 +2,10 @@
 
 ## next
 
+## `@svizzle/ui` v0.9.0 (next)
+
+- added `StyleDriver.svelte`
+
 ## `@svizzle/site` v0.4.1 (next)
 
 - reinstated `/ui` docs
