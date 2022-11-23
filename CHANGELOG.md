@@ -14,6 +14,9 @@
 ## `@svizzle/utils` v0.19.0 (next)
 
 - added `makeTrimmedSplitBy`
+- added `isRegexpEmpty`, `isRegexpNotEmpty`
+- added `makeRegexOf`, `makeSafeRegexOf`
+- added `regexOf`, `safeRegexOf`
 
 ## 20221003
 
