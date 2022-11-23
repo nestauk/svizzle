@@ -46,6 +46,23 @@ As a commodity, icons from https://github.com/feathericons/feather/tree/master/i
 
 Note that the `makeFeatherIcons` npm script assumes the `feather` directory in the root of the Svizzle repository because Lerna is set up to hoist packages in the root `node_modules` dir.
 
+## LayoutHMF
+
+A component with a `header` (H), a `main` (M) and a `footer` (F).
+
+It has no props, but you can pass up to 3 slots with the correspondent names:
+
+```
+<LayoutHMF>
+	<h2 slot='header'>{headerText}</h2>
+	<MyComponent
+		prop={myProp}
+		slot='main'
+	/>
+	<p slot='footer'>{footerText}</p>
+</LayoutHMF>
+```
+
 ## Link
 
 Props:

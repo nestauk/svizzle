@@ -8,6 +8,7 @@ export const doc = [
 	{tag: 'p', content: 'Clicking on the semi-opaque background emits the `close` event, which you can use to dismiss the banner itself.'},
 	{tag: 'p', content: 'You can also trigger the `close` event by pressing the ESC key.'},
 	{tag: 'p', content: 'You can control the `z-index` via `theme.zIndex` (which defaults to 2000).'},
+	{tag: 'p', content: 'The `_screen` prop expects a store with the same name from `@svizzle/ui`\'s `ScreenSensor` and is used to style the component for `medium` screens.`'},
 ];
 export const data = [
 	{

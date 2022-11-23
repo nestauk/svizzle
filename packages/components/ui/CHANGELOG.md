@@ -1,15 +1,16 @@
 ## `@svizzle/ui` v0.9.0 (next)
 
+- added `AlphabetPicker.svelte`
+- added `Banner.svelte`
+- added `CenteredView.svelte`
+- added `CopyToClipboard.svelte`
+- added `HighlightedText.svelte`
+- added `LayoutHMF.svelte`
+- added `ResponsiveButton.svelte`
+- added `ScrollbarStyler.svelte`
+- added `Scroller.svelte`
 - added `StyleDriver.svelte`
 - added `StyleSensor.svelte`
-- added `AlphabetPicker.svelte`
-- added `HighlightedText.svelte`
-- added `CopyToClipboard.svelte`
-- added `ScrollbarStyler.svelte`
-- added `ResponsiveButton.svelte`
-- added `CenteredView.svelte`
-- added `Banner.svelte`
-- added `Scroller.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `Link`:
 	- spacebar scrolling disabled when focused
@@ -20,6 +21,11 @@
 	- now using `CenteredView`
 	- added props `padding`, `textAlign`
 	- added documentation
+- `MultiBanner`:
+	- now using `Banner`, `LayoutHMF`, `Scroller`
+	- props:
+		- added `footerText`, `theme`
+		- removed `currentIndex`
 - `Switch`:
 	- no longer using radio buttons nor a `fieldset`
 	- added keyboard support

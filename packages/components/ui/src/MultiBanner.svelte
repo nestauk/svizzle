@@ -1,11 +1,16 @@
 <script>
-	import Icon from './icons/Icon.svelte';
-	import XCircle from './icons/feather/XCircle.svelte';
+	import Banner from './Banner.svelte';
+	import LayoutHMF from './LayoutHMF.svelte';
+	import Scroller from './Scroller.svelte';
+
+	const defaultFooterText = 'Click on background to dismiss';
 
 	export let _screen;
 	export let components;
-	export let currentIndex;
+	export let footerText = defaultFooterText;
+	export let theme; // see `Banner.svelte`
 
+	let currentIndex = 0;
 	let isActive = false;
 
 	function init () {
@@ -20,78 +25,34 @@
 		}
 	}
 
+	$: footerText = footerText || defaultFooterText;
 	$: components?.length > 0 && init();
+	$: if (!components || components?.length === 0) {
+		isActive = false;
+	}
 </script>
 
 {#if isActive}
-	<div
-		aria-label='Banner'
-		class='Banner {$_screen?.classes}'
-		role='alert'
+	<Banner
+		{_screen}
+		{theme}
+		on:close={next}
 	>
-		<div class='inner'>
-			<div class='content'>
-				<svelte:component this={components?.[currentIndex]} />
+		<LayoutHMF>
+			<div slot='main'>
+				<Scroller>
+					<svelte:component this={components?.[currentIndex]} />
+				</Scroller>
 			</div>
-			<button
-				aria-label='Close banner'
-				class='clickable'
-				on:click={next}
-			>
-				<Icon glyph={XCircle} />
-			</button>
-		</div>
-	</div>
+			<p slot='footer'>{footerText}</p>
+		</LayoutHMF>
+	</Banner>
 {/if}
 
 <style>
-	.Banner {
-		align-items: center;
-		background-color: rgba(0, 0, 0, 0.25);
-		box-shadow: var(--box-shadow-xy);
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin: auto;
-		position: fixed;
-		left: 0;
-		top: 0;
-		user-select: none;
-		z-index: var(--z-2000);
-		width: 100%;
+	div {
 		height: 100%;
-	}
-	.inner {
-		background-color: white;
-		border-radius: 1rem;
-		padding: 2rem;
+		padding: 1.0em;
 		position: relative;
-		max-height: 90%;
-	}
-	.content {
-		height: 100%;
-		overflow: auto;
-	}
-	.small .inner {
-		width: 90%;
-	}
-	.medium .inner {
-		min-width: 50%;
-		width: min-content;
-	}
-
-	button {
-		background: none;
-		border: none;
-		padding: 0.5rem;
-		position: absolute;
-		right: 0;
-	}
-	.small button {
-		bottom: 0;
-	}
-	.medium button {
-		bottom: initial;
-		top: 0;
 	}
 </style>
