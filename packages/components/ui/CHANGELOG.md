@@ -9,6 +9,7 @@
 - added `ResponsiveButton.svelte`
 - added `CenteredView.svelte`
 - added `Banner.svelte`
+- added `Scroller.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `Link`:
 	- spacebar scrolling disabled when focused
