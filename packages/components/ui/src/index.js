@@ -10,6 +10,7 @@ export * from './utils/env.js';
 export * from './utils/rx.js';
 export * from './utils/shared.js';
 export {default as AlphabetPicker} from './AlphabetPicker.svelte';
+export {default as CopyToClipboard} from './CopyToClipboard.svelte';
 export {default as HighlightedText} from './HighlightedText.svelte';
 export {default as Link} from './Link.svelte';
 export {default as LinkButton} from './LinkButton.svelte';

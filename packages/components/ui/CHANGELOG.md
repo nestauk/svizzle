@@ -4,6 +4,7 @@
 - added `StyleSensor.svelte`
 - added `AlphabetPicker.svelte`
 - added `HighlightedText.svelte`
+- added `CopyToClipboard.svelte`
 
 ## `@svizzle/ui` v0.8.0
 

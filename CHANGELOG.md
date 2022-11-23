@@ -8,6 +8,7 @@
 - added `StyleSensor.svelte`
 - added `AlphabetPicker.svelte`
 - added `HighlightedText.svelte`
+- added `CopyToClipboard.svelte`
 
 ## `@svizzle/site` v0.4.1 (next)
 
