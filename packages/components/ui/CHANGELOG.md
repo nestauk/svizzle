@@ -1,7 +1,7 @@
 ## `@svizzle/ui` v0.9.0 (next)
 
 - added `StyleDriver.svelte`
-
+- added `StyleSensor.svelte`
 
 ## `@svizzle/ui` v0.8.0
 

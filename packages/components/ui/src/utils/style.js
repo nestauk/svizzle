@@ -1,4 +1,11 @@
+import {isIterableNotEmpty, makeTrimmedSplitBy} from '@svizzle/utils';
 import * as _ from 'lamb';
+
+const parseCssText = _.pipe([
+	_.splitBy(';'),
+	_.filterWith(isIterableNotEmpty),
+	_.mapWith(makeTrimmedSplitBy(':'))
+]);
 
 export const getStylesheet = href => _.find(
 	[...document.styleSheets], // convert collection to array
@@ -6,6 +13,39 @@ export const getStylesheet = href => _.find(
 );
 
 const getSelectorText = _.getKey('selectorText');
+
+export const makeGetStyleRulesObj = selectorRegex => _.pipe([
+	_.filterWith(_.pipe([
+		getSelectorText,
+		makeTrimmedSplitBy(','),
+		_.some(selectorRegex.test.bind(selectorRegex))
+	])),
+	_.mapWith(_.collect([
+		getSelectorText,
+		_.pipe([
+			_.getPath('style.cssText'),
+			parseCssText,
+			_.fromPairs
+		])
+	])),
+	_.reduceWith(
+		(themes, [selector, rules]) => {
+			const themeEntry = _.find(
+				themes,
+				_.hasPathValue('0', selector)
+			);
+			if (themeEntry) {
+				const [, existingRules] = themeEntry;
+				themeEntry[1] = {...existingRules, ...rules};
+			} else {
+				themes.push([selector, rules]);
+			}
+			return themes;
+		},
+		[]
+	),
+	_.fromPairs
+]);
 
 export const getAllStylesBySelector = _.pipe([
 	_.mapWith(_.collect([

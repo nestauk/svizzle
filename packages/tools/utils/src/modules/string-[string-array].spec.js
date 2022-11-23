@@ -1,6 +1,10 @@
 import {strict as assert} from 'node:assert';
 
-import {makeSplitBy, makeSplitStringBy} from './string-[string-array].js';
+import {
+	makeSplitBy,
+	makeSplitStringBy,
+	makeTrimmedSplitBy,
+} from './string-[string-array].js';
 
 describe('String -> (String -> Array)', function () {
 	describe('makeSplitStringBy', function () {
@@ -18,6 +22,20 @@ describe('String -> (String -> Array)', function () {
 			assert.deepStrictEqual(
 				splitByDoubleDot('aa...a..a.a.aa.....aa..'),
 				['aa', '.a', 'a.a.aa', '', '.aa', '']
+			);
+		});
+	});
+	describe('makeTrimmedSplitBy', function () {
+		it('should return a function that splits the expected string and trims all the elements of the returned array', function () {
+			const trimSplitByDoubleDot = makeTrimmedSplitBy('..');
+
+			assert.deepStrictEqual(
+				trimSplitByDoubleDot('  aa ..\ta\n..a'),
+				['aa', 'a', 'a']
+			);
+			assert.deepStrictEqual(
+				trimSplitByDoubleDot('  aa ...\na..a.a.aa\n.....\taa..\n'),
+				['aa', '.\na', 'a.a.aa', '', '.\taa', '']
 			);
 		});
 	});

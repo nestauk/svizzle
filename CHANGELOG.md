@@ -5,11 +5,15 @@
 ## `@svizzle/ui` v0.9.0 (next)
 
 - added `StyleDriver.svelte`
+- added `StyleSensor.svelte`
 
 ## `@svizzle/site` v0.4.1 (next)
 
 - reinstated `/ui` docs
 
+## `@svizzle/utils` v0.19.0 (next)
+
+- added `makeTrimmedSplitBy`
 
 ## 20221003
 

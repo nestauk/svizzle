@@ -1,3 +1,7 @@
+## `@svizzle/utils` v0.19.0 (next)
+
+- added `makeTrimmedSplitBy`
+
 ## `@svizzle/utils` v0.18.0
 
 - upgrade to ESM:
