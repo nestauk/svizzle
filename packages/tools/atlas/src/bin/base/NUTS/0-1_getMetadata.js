@@ -21,6 +21,12 @@ import {
 } from '../../../lib/paths.js';
 import {NUTS_HOME_URL} from '../../../lib/urls.js';
 
+/*
+- fetch CSVs files
+- create `countries_by_year.js`
+- create `nutsSpec.js`
+*/
+
 /* paths */
 
 const inPaths = {
@@ -55,18 +61,6 @@ mkdirp.sync(outDirs.sourceText);
 console.log(`\nrun: ${path.basename(import.meta.url)}\n`);
 console.log('Fetching, please wait...');
 
-/*
-- fetch CSVs files
-- create `countries_by_year.js`
-
-in:
-	- inPaths.nutsSpec
-	- NUTS_HOME_URL
-out:
-	- outDirs.sourceText/*.csv
-	- NUTS_DATABASE_DIR_1/countries_by_year.js
-	- NUTS_DATABASE_DIR_1/nutsSpec.js
-*/
 readYaml(inPaths.nutsSpec)
 .then(tapMessage(`Saving ${outPaths.nutsSpec}`))
 .then(saveExportedObjPassthrough(outPaths.nutsSpec, '\t'))

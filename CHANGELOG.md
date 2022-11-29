@@ -109,8 +109,12 @@ Notes for changelogs below:
 - a11y menu: added a `z-index` to the menu container
 - use `@svizzle/ui`'s `NoScript` component
 
-## `@svizzle/atlas` v0.8.1 (next)
+## `@svizzle/atlas` v0.9.0 (next)
 
+- NUTS:
+	- provide overseas ids (`overseaIds.js`, `overseaIdsGroups.js`)
+	- provide bounding boxes for all years/levels for the supported resolutions (`allBboxes.js`)
+	- topojsons: augment all regions with `bbox`, `centroid`, `isOversea`
 - updated license year
 
 ## `@svizzle/dev` v0.6.1 (next)
@@ -136,6 +140,13 @@ Notes for changelogs below:
 ## `@svizzle/request` v0.5.1 (next)
 
 - updated license year
+
+## `@svizzle/atlas` v0.9.0 (next)
+
+- NUTS:
+	- provide overseas ids (`overseaIds.js`, `overseaIdsGroups.js`)
+	- provide bounding boxes for all years/levels for the supported resolutions (`allBboxes.js`)
+	- topojsons: augment all regions with `bbox`, `centroid`, `isOversea`
 
 ## `@svizzle/utils` v0.19.0 (next)
 

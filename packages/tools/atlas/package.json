@@ -7,19 +7,20 @@
 		"name": "atlas",
 		"preid": "dev"
 	},
-	"dependencies": {
-		"@svizzle/geo": "^0.9.0",
-		"lamb": "^0.61.0"
-	},
 	"description": "Svizzle Atlas contains geographic boundaries for mapping.",
 	"devDependencies": {
 		"@svizzle/dev": "^0.6.0",
 		"@svizzle/file": "^0.14.0",
+		"@svizzle/geo": "^0.9.0",
 		"@svizzle/utils": "^0.18.0",
+		"@turf/bbox": "^6.5.0",
+		"@turf/centroid": "^6.5.0",
 		"d3-dsv": "^3.0.1",
 		"eslint": "^8.23.0",
+		"lamb": "^0.61.0",
+		"mkdirp": "^1.0.4",
 		"node-fetch": "^3.1.0",
-		"topojson-simplify": "^3.0.3",
+		"rimraf": "^3.0.2",
 		"world-atlas": "^2.0.2"
 	},
 	"engines": {
@@ -64,7 +65,6 @@
 		"outdated": "npm outdated",
 		"runAll": "npm run chmod && src/bin/base/runAll.sh",
 		"runNuts": "npm run chmod && src/bin/base/NUTS/run.sh",
-		"runNutsUnifiedIds": "npm run chmod && node src/bin/base/NUTS/01-2_setUnifiedId.js",
 		"runWorld": "npm run chmod && src/bin/base/world/run.sh",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",

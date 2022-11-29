@@ -13,9 +13,12 @@ cp		$BASE/NUTS/1/nutsSpec.js 							$DISTRO/NUTS/ && \
 cp -r $BASE/NUTS/1/sourceText								$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/2/hierarchy.js							$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/2/idToNutsIdByYear.js			$DISTRO/NUTS/ && \
+cp 		$BASE/NUTS/2/overseaIds.js						$DISTRO/NUTS/ && \
+cp 		$BASE/NUTS/2/overseaIdsGroups.js			$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/2/recoded.js								$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/2/unifiedNuts.js						$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/2/yearlyNutsIdToId.js			$DISTRO/NUTS/ && \
+cp 		$BASE/NUTS/3/allBboxes.js							$DISTRO/NUTS/ && \
 cp 		$BASE/NUTS/3/topojson/*.js						$DISTRO/NUTS/topojson/ && \
 cp 		$BASE/NUTS/4/topojson/*.js						$DISTRO/NUTS/topojson/ && \
 

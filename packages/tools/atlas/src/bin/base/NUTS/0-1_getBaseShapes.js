@@ -16,6 +16,13 @@ import {
 } from '../../../lib/paths.js';
 import {NUTS_HOME_URL} from '../../../lib/urls.js';
 
+/*
+- read nuts_spec.yaml
+- create permutations format/proj/resolution/spatialtype/subset/year
+- fetch topojson files
+- assign `objects` to a 'NUTS' property
+*/
+
 /* paths */
 
 const inPaths = {
@@ -72,23 +79,13 @@ const makeTopojsonUpdater = key => transformValues({
 
 /* run */
 
-/*
-- read nuts_spec.yaml
-- create permutations format/proj/resolution/spatialtype/subset/year
-- fetch topojson files
-- assign `objects` to a 'NUTS' property
-
-in:
-	- inPaths.nutsSpec
-	- NUTS_HOME_URL
-out:
-	- OUT_TOPOJSON_DIR/*.js
-*/
 const run = async () => {
 	const permutations =
 		await readYaml(inPaths.nutsSpec)
 		.then(permute)
 		.catch(err => console.error(err));
+
+	console.log('Fetching, please wait...');
 
 	await Promise.all(
 		_.map(permutations,
@@ -117,7 +114,6 @@ const run = async () => {
 }
 
 console.log(`\nrun: ${path.basename(import.meta.url)}\n`);
-console.log('Fetching, please wait...');
 
 run()
 .then(tapMessage('Done'))

@@ -1,0 +1,432 @@
+[
+	{
+		"rootId": {
+			"name": "España",
+			"id": 9,
+			"rootId": 9,
+			"level": 0,
+			"children": [
+				62,
+				63,
+				64,
+				65,
+				66,
+				67,
+				68
+			]
+		},
+		"descendantIds": [
+			{
+				"name": "Canarias",
+				"id": 68,
+				"pid": 9,
+				"rootId": 9,
+				"level": 1,
+				"children": [
+					248
+				]
+			},
+			{
+				"name": "Canarias",
+				"id": 248,
+				"pid": 68,
+				"rootId": 9,
+				"level": 2,
+				"children": [
+					1114,
+					1115,
+					1936,
+					1937,
+					1938,
+					1939,
+					1940,
+					1941,
+					1942
+				]
+			},
+			{
+				"name": "Las Palmas",
+				"id": 1114,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			},
+			{
+				"name": "Santa Cruz de Tenerife",
+				"id": 1115,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			},
+			{
+				"name": "El Hierro",
+				"id": 1936,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			},
+			{
+				"name": "Fuerteventura",
+				"id": 1937,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			},
+			{
+				"name": "Gran Canaria",
+				"id": 1938,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			},
+			{
+				"name": "La Gomera",
+				"id": 1939,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			},
+			{
+				"name": "La Palma",
+				"id": 1940,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			},
+			{
+				"name": "Lanzarote",
+				"id": 1941,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			},
+			{
+				"name": "Tenerife",
+				"id": 1942,
+				"pid": 248,
+				"rootId": 9,
+				"level": 3
+			}
+		]
+	},
+	{
+		"rootId": {
+			"name": "France",
+			"id": 11,
+			"rootId": 11,
+			"level": 0,
+			"children": [
+				71,
+				72,
+				73,
+				74,
+				75,
+				76,
+				77,
+				78,
+				79,
+				2083,
+				2204,
+				2205,
+				2206,
+				2207,
+				2208,
+				2209,
+				2210,
+				2211,
+				2212,
+				2213,
+				2214
+			]
+		},
+		"descendantIds": [
+			{
+				"name": "Départements d'outre-mer",
+				"id": 79,
+				"pid": 11,
+				"rootId": 11,
+				"level": 1,
+				"children": [
+					276,
+					277,
+					278,
+					279
+				]
+			},
+			{
+				"name": "RUP FR — Régions Ultrapériphériques Françaises",
+				"id": 2083,
+				"pid": 11,
+				"rootId": 11,
+				"level": 1,
+				"children": [
+					2084,
+					277,
+					278,
+					279,
+					2085
+				]
+			},
+			{
+				"name": "Guadeloupe",
+				"id": 276,
+				"pid": 79,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					1232
+				]
+			},
+			{
+				"name": "Martinique",
+				"id": 277,
+				"pid": 79,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					1233
+				]
+			},
+			{
+				"name": "Guyane",
+				"id": 278,
+				"pid": 79,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					1234
+				]
+			},
+			{
+				"name": "La Réunion",
+				"id": 279,
+				"pid": 79,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					1235
+				]
+			},
+			{
+				"name": "Guadeloupe",
+				"id": 2084,
+				"pid": 2083,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					2111
+				]
+			},
+			{
+				"name": "Martinique",
+				"id": 277,
+				"pid": 79,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					1233
+				]
+			},
+			{
+				"name": "Guyane",
+				"id": 278,
+				"pid": 79,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					1234
+				]
+			},
+			{
+				"name": "La Réunion",
+				"id": 279,
+				"pid": 79,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					1235
+				]
+			},
+			{
+				"name": "Mayotte",
+				"id": 2085,
+				"pid": 2083,
+				"rootId": 11,
+				"level": 2,
+				"children": [
+					2112
+				]
+			},
+			{
+				"name": "Guadeloupe",
+				"id": 1232,
+				"pid": 276,
+				"rootId": 11,
+				"level": 3
+			},
+			{
+				"name": "Martinique",
+				"id": 1233,
+				"pid": 277,
+				"rootId": 11,
+				"level": 3
+			},
+			{
+				"name": "Guyane",
+				"id": 1234,
+				"pid": 278,
+				"rootId": 11,
+				"level": 3
+			},
+			{
+				"name": "La Réunion",
+				"id": 1235,
+				"pid": 279,
+				"rootId": 11,
+				"level": 3
+			},
+			{
+				"name": "Guadeloupe",
+				"id": 2111,
+				"pid": 2084,
+				"rootId": 11,
+				"level": 3
+			},
+			{
+				"name": "Martinique",
+				"id": 1233,
+				"pid": 277,
+				"rootId": 11,
+				"level": 3
+			},
+			{
+				"name": "Guyane",
+				"id": 1234,
+				"pid": 278,
+				"rootId": 11,
+				"level": 3
+			},
+			{
+				"name": "La Réunion",
+				"id": 1235,
+				"pid": 279,
+				"rootId": 11,
+				"level": 3
+			},
+			{
+				"name": "Mayotte",
+				"id": 2112,
+				"pid": 2085,
+				"rootId": 11,
+				"level": 3
+			}
+		]
+	},
+	{
+		"rootId": {
+			"name": "Norge",
+			"id": 24,
+			"rootId": 24,
+			"level": 0,
+			"children": [
+				104
+			]
+		},
+		"descendantIds": [
+			{
+				"name": "Jan Mayen and Svalbard",
+				"id": 2293,
+				"pid": 104,
+				"rootId": 24,
+				"level": 2,
+				"children": [
+					2303,
+					2304
+				]
+			},
+			{
+				"name": "Jan Mayen",
+				"id": 2303,
+				"pid": 2293,
+				"rootId": 24,
+				"level": 3
+			},
+			{
+				"name": "Svalbard",
+				"id": 2304,
+				"pid": 2293,
+				"rootId": 24,
+				"level": 3
+			}
+		]
+	},
+	{
+		"rootId": {
+			"name": "Portugal",
+			"id": 26,
+			"rootId": 26,
+			"level": 0,
+			"children": [
+				111,
+				112,
+				113
+			]
+		},
+		"descendantIds": [
+			{
+				"name": "Região Autónoma dos Açores",
+				"id": 112,
+				"pid": 26,
+				"rootId": 26,
+				"level": 1,
+				"children": [
+					372
+				]
+			},
+			{
+				"name": "Região Autónoma da Madeira",
+				"id": 113,
+				"pid": 26,
+				"rootId": 26,
+				"level": 1,
+				"children": [
+					373
+				]
+			},
+			{
+				"name": "Região Autónoma dos Açores",
+				"id": 372,
+				"pid": 112,
+				"rootId": 26,
+				"level": 2,
+				"children": [
+					1592
+				]
+			},
+			{
+				"name": "Região Autónoma da Madeira",
+				"id": 373,
+				"pid": 113,
+				"rootId": 26,
+				"level": 2,
+				"children": [
+					1593
+				]
+			},
+			{
+				"name": "Região Autónoma dos Açores",
+				"id": 1592,
+				"pid": 372,
+				"rootId": 26,
+				"level": 3
+			},
+			{
+				"name": "Região Autónoma da Madeira",
+				"id": 1593,
+				"pid": 373,
+				"rootId": 26,
+				"level": 3
+			}
+		]
+	}
+]

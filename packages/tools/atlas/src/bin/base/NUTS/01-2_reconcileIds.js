@@ -8,7 +8,6 @@ import {
 	isTsvFile,
 	readDirFilesIndexed,
 	saveExportedObjects,
-	saveExportedObjPassthrough,
 	saveObjects,
 	saveObjPassthrough,
 } from '@svizzle/file';
@@ -17,6 +16,7 @@ import {
 	getLength,
 	isIterableLongerThan1,
 	makeMergeAppliedFnMap,
+	transformValues,
 } from '@svizzle/utils';
 import * as _ from 'lamb';
 import {csvParse, tsvParse} from 'd3-dsv';
@@ -42,7 +42,9 @@ const outJsPaths = {
 	// 2
 	hierarchy: path.resolve(NUTS_DATABASE_DIR_2, 'hierarchy.js'),
 	idToNutsIdByYear: path.resolve(NUTS_DATABASE_DIR_2, 'idToNutsIdByYear.js'),
-	recoded: path.resolve(NUTS_DATABASE_DIR_2, 'recoded.js'),
+	overseaIds: path.resolve(NUTS_DATABASE_DIR_2, 'overseaIds.js'),
+	overseaIdsGroups: path.resolve(NUTS_DATABASE_DIR_2, 'overseaIdsGroups.js'),
+	recoded: path.resolve(NUTS_DATABASE_DIR_2, 'recoded.js'), // recodes.js ?
 	unifiedNuts: path.resolve(NUTS_DATABASE_DIR_2, 'unifiedNuts.js'),
 	yearlyNutsIdToId: path.resolve(NUTS_DATABASE_DIR_2, 'yearlyNutsIdToId.js'),
 };
@@ -50,6 +52,7 @@ const outJsPaths = {
 const outInspectPaths = {
 	detectedChangesById: path.resolve(NUTS_INSPECT_DIR, 'detectedChangesById.json'),
 	sourceText: path.resolve(NUTS_INSPECT_DIR, 'sourceText.json'),
+	overseaGroups: path.resolve(NUTS_INSPECT_DIR, 'overseaGroups.json'),
 };
 
 /* utils */
@@ -300,26 +303,113 @@ const makeIdToNutsIdByYear = _.pipe([
 	)
 ]);
 
+/* overseas */
+
+// FIXME overseas should be processed in a new script because the below object
+// is based on ids that we're supposed to determine when this script runs..
+
+// https://en.wikipedia.org/wiki/Special_member_state_territories_and_the_European_Union#Outermost_regions
+const baseOverseaGroups = [
+	{
+		rootId: 9,	// ES
+		descendantIds: [
+			68	// Canarias
+		],
+	},
+	{
+		rootId: 11, // FR
+		descendantIds: [
+			// FIXME duplicate branch
+			79, 	// Départements d'outre-mer
+			2083,	// RUP FR - Régions Ultrapériphériques Françaises
+		],
+	},
+	{
+		rootId: 24, // NO
+		descendantIds: [
+			// Jan Mayen and Svalbard
+			// NOTE it's level 2, because 104 (level 1) is still a single region
+			2293
+		],
+	},
+	{
+		rootId: 26,	// PT
+		descendantIds: [
+			112, // Região Autónoma dos Açores
+			113, // Região Autónoma da Madeira
+		],
+	},
+];
+
+const makeCollectOverseasIds = hierarchy => atlasIds => {
+	let ids = [...atlasIds]; // copy descendantIds
+	let index = 0;
+
+	while (index < ids.length) {
+		const id = ids[index];
+		const {children} = hierarchy[id];
+		children && ids.push(...children);
+		index += 1;
+	}
+
+	return ids;
+}
 
 /* run */
 
 const run = async () => {
+
+	/* recodes */
+
 	const recodes =
 		await readDirFilesIndexed(inDirs.recoded, isTsvFile, tsvParse)
-		.then(makeRecodes)
-		.then(saveExportedObjPassthrough(outJsPaths.recoded, '\t'));
+		.then(makeRecodes);
+
+	/* sourceTexts */
 
 	const sourceTexts =
 		await readDirFilesIndexed(inDirs.sourceText, isCsvFile, csvParse)
 		.then(makeSourceTexts)
 		.then(saveObjPassthrough(outInspectPaths.sourceText, '\t'));
+		// FIXME save here to inspect because later on we modify `sourceTexts`
+
+	/* unifiedNuts */
 
 	const {maxId, yearlyNutsIdToId, unifiedNuts} =
 		makeUnifiedIds(sourceTexts, recodes);
 
-	const hierarchy = makeHierarchy(unifiedNuts);
-
 	const idToNutsIdByYear = makeIdToNutsIdByYear(yearlyNutsIdToId);
+
+	/* hierarchy */
+
+	const hierarchy = makeHierarchy(unifiedNuts);
+	const getHierarchyItem = id => hierarchy[id];
+
+	/* overseas */
+
+	const collectOverseasIds = makeCollectOverseasIds(hierarchy);
+
+	// save
+	const overseaIdsGroups = _.map(
+		baseOverseaGroups,
+		_.updateKey('descendantIds', collectOverseasIds)
+	);
+
+	const overseaIds = _.flatMap(
+		overseaIdsGroups,
+		_.getKey('descendantIds')
+		// ({rootId, descendantIds}) => [rootId, ...descendantIds]
+	);
+
+	// inspect
+	const overseaGroups = _.map(
+		overseaIdsGroups,
+		transformValues({
+			rootId: getHierarchyItem,
+			descendantIds: _.mapWith(getHierarchyItem)
+		})
+	);
+
 
 	/* checks */
 
@@ -329,30 +419,49 @@ const run = async () => {
 
 	const detectedChangesById = getDetectedChanges(yearlyNutsIdToId);
 
+	/* save */
+
 	return Promise.all([
+		saveObjects([
+			{
+				filepath: outInspectPaths.detectedChangesById,
+				indentation: '\t',
+				object: detectedChangesById,
+			},
+			{
+				filepath: outInspectPaths.overseaGroups,
+				indentation: '\t',
+				object: overseaGroups,
+			},
+		]),
 		saveExportedObjects([
 			{
 				filepath: outJsPaths.hierarchy,
 				object: hierarchy
 			},
 			{
-				filepath: outJsPaths.yearlyNutsIdToId,
-				object: yearlyNutsIdToId
-			},
-			{
 				filepath: outJsPaths.idToNutsIdByYear,
 				object: idToNutsIdByYear
+			},
+			{
+				filepath: outJsPaths.overseaIds,
+				object: overseaIds
+			},
+			{
+				filepath: outJsPaths.overseaIdsGroups,
+				object: overseaIdsGroups
+			},
+			{
+				filepath: outJsPaths.recoded,
+				object: recodes
 			},
 			{
 				filepath: outJsPaths.unifiedNuts,
 				object: unifiedNuts
 			},
-		]),
-		saveObjects([
 			{
-				filepath: outInspectPaths.detectedChangesById,
-				indentation: '\t',
-				object: detectedChangesById,
+				filepath: outJsPaths.yearlyNutsIdToId,
+				object: yearlyNutsIdToId
 			},
 		]),
 	])

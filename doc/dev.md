@@ -64,6 +64,9 @@ Since packages are linked in Lerna, the components website should reload every t
 	- bump the versions: `lerna version --no-changelog --no-git-tag-version --no-push`:
 	- Follow instructions to bump changed packages with a `patch`, `minor` or `major` version, accept when ready.
 	- After accepting the final confirmation step, this will bump versions (only allowed in `dev`).
+	- IMPORTANT: currently we need to manually update the `version` variable
+		in `packages/tools/atlas/src/utils.js` so make sure to change that if we
+		upgrade `@svizzle/atlas`'s version.
 
 - If something goes wrong or we forgot something and Lerna actually committed:
 	- discard the version commit, we have 2 ways:

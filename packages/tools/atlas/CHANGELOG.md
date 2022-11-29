@@ -1,5 +1,9 @@
-## `@svizzle/atlas` v0.8.1 (next)
+## `@svizzle/atlas` v0.9.0 (next)
 
+- NUTS:
+	- provide overseas ids (`overseaIds.js`, `overseaIdsGroups.js`)
+	- provide bounding boxes for all years/levels for the supported resolutions (`allBboxes.js`)
+	- topojsons: augment all regions with `bbox`, `centroid`, `isOversea`
 - updated license year
 
 ## `@svizzle/atlas` v0.8.0
