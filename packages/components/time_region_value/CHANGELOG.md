@@ -1,12 +1,20 @@
-## `@svizzle/time_region_value` v0.8.2 (next)
+## `@svizzle/time_region_value` v0.9.0 (next)
 
+- changed the shape of `regionSettings`:
+	- added:
+		- `atlasBase`
+		- `maxBbox`
+		- `processing: {clipIds: [...], excludeIds: [...]}`
+	- removed: `ignoredRegions`
+- processes features:
+	- clips features according to `processing.clipIds` and `maxBbox`
+	- filters out features according to `processing.excludeIds`
 - updated props used in `BarchartVDiv`
-- updated license year
 - keyboard support:
-	- various inner components, [b], [e], [k].
+	- various inner components, [b], [e], [k]
 	- `GeoFilterModal`: handle `keydown` event from the route
 	- `XorSelector`: add `keydown` event
-- added option to provide `atlasBase` in `_regionSettings`
+- updated license year
 
 [b] better keyboard support
 [e] use `event.key` instead of `event.keyCode` (now deprecated [1]) which is also more readable as we don't rely on numeric codes

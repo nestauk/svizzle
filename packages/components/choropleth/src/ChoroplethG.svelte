@@ -32,6 +32,9 @@
 
 	// required
 	export let height = null;
+	// `geojson` is alternative to & takes precedence over `topojson`
+	// so that if we have it we avoid the transformation topojson -> geojson
+	export let geojson = null;
 	export let topojson = null;
 	export let topojsonId = null;
 	export let width = null;
@@ -77,7 +80,7 @@
 		mapFn: keyToColorFn,
 		propName: 'color',
 	});
-	$: geojson = topojson && topoToGeo(topojson, topojsonId);
+	$: geojson = geojson || topojson && topoToGeo(topojson, topojsonId);
 	$: coloredGeojson = geojson && createColoredGeojson(geojson);
 	$: currentProjection =
 		projection ||
@@ -110,7 +113,7 @@
 		class:interactive={isInteractive}
 		class='ChoroplethG'
 	>
-		{#if !topojson || !currentProjection}
+		{#if !geojson || !currentProjection}
 
 			<text
 				class='message'

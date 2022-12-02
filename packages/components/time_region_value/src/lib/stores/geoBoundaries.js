@@ -1,8 +1,9 @@
 import {getAtlasId, makeTopoId, makeTopoURL} from '@svizzle/atlas';
 import {default as idToNutsIdByYear}
 	from '@svizzle/atlas/data/dist/NUTS/idToNutsIdByYear.js';
-import {pruneTopology, topoToGeo} from '@svizzle/geo';
-import {isNotNil, makeIsIncluded, transformPaths} from '@svizzle/utils';
+import {topoToGeo} from '@svizzle/geo';
+import {isIterableNotEmpty, isNotNil} from '@svizzle/utils';
+import bboxClip from '@turf/bbox-clip';
 import {cross} from 'd3-array';
 import * as _ from 'lamb';
 import {derived, get, writable} from 'svelte/store';
@@ -124,15 +125,6 @@ export const _isTopoFetching = derived(
 		_.isIn(loadingTopojsonKeys, topoAtlasId)
 );
 
-// current topojson
-
-export const _fetchedTopojson = derived(
-	[_topoAtlasId, _topoCache],
-	([topoAtlasId, topoCache]) => topoCache[topoAtlasId]
-);
-
-// TODO no data ?
-
 /* feature keys, paths, ids */
 
 const _getFeatureKey = derived(
@@ -164,37 +156,6 @@ export const _getRegionIdFromAtlasId = derived(
 			idToNutsIdByYear[atlasId]
 				? idToNutsIdByYear[atlasId][regionsYearSpec]
 				: null
-);
-
-const _geometriesPath = derived(
-	_regionSettings,
-	regionSettings => `objects.${regionSettings.objectId}.geometries`
-);
-
-/* processing */
-
-const _isValidRegionKey = derived(
-	[_getFeatureAtlasId, _regionSettings],
-	([getFeatureAtlasId, {ignoredRegions}]) => _.pipe([
-		getFeatureAtlasId,
-		_.not(makeIsIncluded(ignoredRegions)),
-	])
-);
-
-const _removeInvalidRegions = derived(
-	[_geometriesPath, _isValidRegionKey],
-	([geometriesPath, isValidRegionKey]) => _.pipe([
-		transformPaths({
-			[geometriesPath]: _.filterWith(isValidRegionKey)
-		}),
-		pruneTopology
-	])
-);
-
-export const _topojson = derived(
-	[_fetchedTopojson, _removeInvalidRegions],
-	([fetchedTopojson, removeInvalidRegions]) =>
-		fetchedTopojson && removeInvalidRegions(fetchedTopojson)
 );
 
 /* geojson */
@@ -230,26 +191,81 @@ derived(
 	}
 );
 
-export const _geojson = derived(
+export const _wholeGeojson = derived(
 	[_geoCache, _topoAtlasId],
 	([geoCache, topoAtlasId]) => geoCache[topoAtlasId]
 );
 
+/* processing */
+
 const _featuresIndex = derived(
-	[_geojson, _getFeatureAtlasId],
-	([geojson, getFeatureAtlasId]) =>
-		geojson && _.index(geojson.features, getFeatureAtlasId)
+	[_getFeatureAtlasId, _wholeGeojson],
+	([getFeatureAtlasId, wholeGeojson]) =>
+		wholeGeojson && _.index(wholeGeojson.features, getFeatureAtlasId)
+);
+
+const removeEmptyGeometries = _.updatePath(
+	'geometry.coordinates',
+	_.filterWith(isIterableNotEmpty)
+);
+
+export const _euGeojson = derived(
+	[_regionSettings, _wholeGeojson],
+	([{maxBbox, processing: {clipIds, excludeIds}}, wholeGeojson]) => {
+
+		const clippedGeojson =
+			wholeGeojson &&
+			_.updatePathIn(wholeGeojson, 'features',
+				_.reduceWith((acc, feature) => {
+					const clipIt = maxBbox && _.isIn(clipIds, feature.properties.atlasId);
+					const keepIt = !_.isIn(excludeIds, feature.properties.atlasId);
+
+					if (clipIt) {
+						const clippedFeature = removeEmptyGeometries(
+							bboxClip(feature, maxBbox)
+						);
+						acc.push(clippedFeature);
+					} else if (keepIt) {
+						acc.push(feature);
+					}
+
+					return acc;
+				}, [])
+			)
+			|| null;
+
+
+		return clippedGeojson;
+	}
 );
 
 export const _filteredGeojson = derived(
-	[_featuresIndex, _geojson, _selectedRegionAtlasIds],
-	([featuresIndex, geojson, selectedRegionAtlasIds]) =>
-		geojson &&
+	[_featuresIndex, _regionSettings, _selectedRegionAtlasIds, _wholeGeojson],
+	([
+		featuresIndex,
+		{maxBbox, processing: {clipIds, excludeIds}},
+		selectedRegionAtlasIds,
+		wholeGeojson,
+	]) =>
+		wholeGeojson &&
 		featuresIndex &&
-		_.setPathIn(geojson, 'features',
+		_.setPathIn(wholeGeojson, 'features',
 			_.reduce(selectedRegionAtlasIds, (acc, atlasId) => {
 				const feature = featuresIndex[atlasId];
-				feature && acc.push(feature);
+
+				if (feature) {
+					const clipIt = maxBbox && _.isIn(clipIds, feature.properties.atlasId);
+					const keepIt = !_.isIn(excludeIds, feature.properties.atlasId);
+
+					if (clipIt) {
+						const clippedFeature = removeEmptyGeometries(
+							bboxClip(feature, maxBbox)
+						);
+						acc.push(clippedFeature);
+					} else if (keepIt) {
+						acc.push(feature);
+					}
+				}
 
 				return acc;
 			}, [])

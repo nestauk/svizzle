@@ -1,5 +1,8 @@
-## `@svizzle/choropleth` v0.9.2 (next)
+## `@svizzle/choropleth` v0.10.0 (next)
 
+- added a new prop `geojson`: it's alternative to & takes precedence over the
+	`topojson` prop so that if we have a geojson we avoid the
+	topojson -> geojson transformation
 - added `keydown` event when `isInteractive` is true
 - updated license year
 

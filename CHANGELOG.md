@@ -30,9 +30,12 @@ Notes for changelogs below:
 - using `MessageView` from `@svizzle/ui`
 - updated LICENSE year
 
-## `@svizzle/choropleth` v0.9.2 (next)
+## `@svizzle/choropleth` v0.10.0 (next)
 
-- added `keydown` event when `isInteractive` is true to prevent lint errors
+- added a new prop `geojson`: it's alternative to & takes precedence over the
+	`topojson` prop so that if we have a geojson we avoid the
+	topojson -> geojson transformation
+- added `keydown` event when `isInteractive` is true
 - updated license year
 
 ## `@svizzle/histogram` v0.6.2 (next)
@@ -45,15 +48,23 @@ Notes for changelogs below:
 - added `keydown` event to dismiss the selection pressing ESC
 - updated license year
 
-## `@svizzle/time_region_value` v0.8.2 (next)
+## `@svizzle/time_region_value` v0.9.0 (next)
 
+- changed the shape of `regionSettings`:
+	- added:
+		- `atlasBase`
+		- `maxBbox`
+		- `processing: {clipIds: [...], excludeIds: [...]}`
+	- removed: `ignoredRegions`
+- processes features:
+	- clips features according to `processing.clipIds` and `maxBbox`
+	- filters out features according to `processing.excludeIds`
 - updated props used in `BarchartVDiv`
-- updated license year
 - keyboard support:
-	- various inner components, [b], [e], [k].
+	- various inner components, [b], [e], [k]
 	- `GeoFilterModal`: handle `keydown` event from the route
 	- `XorSelector`: add `keydown` event
-- added option to provide `atlasBase` in `_regionSettings`
+- updated license year
 
 ## `@svizzle/ui` v0.9.0 (next)
 
@@ -132,6 +143,7 @@ Notes for changelogs below:
 
 ## `@svizzle/geo` v0.9.1 (next)
 
+- use caret ranges for `@turf/*` packages
 - updated license year
 
 ## `@svizzle/geometry` v0.5.1 (next)

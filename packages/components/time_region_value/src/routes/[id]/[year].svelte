@@ -21,12 +21,11 @@
 	// lib/stores
 	import {_lookup} from '../../lib/stores/dataset.js';
 	import {
+		_euGeojson,
 		_filteredGeojson,
-		_geojson,
 		_getAtlasIdFromRegionId,
 		_getRegionIdFromAtlasId,
 		_isTopoFetching,
-		_topojson,
 	} from '../../lib/stores/geoBoundaries.js';
 	import {
 		_formatFn,
@@ -159,19 +158,20 @@
 	$: barchartTitle = schema.value.label + (labelUnit ? ` [${labelUnit}]` : '');
 
 	// map
-	$: baseProjection =
-		$_geojson &&
-		projectionFn().fitSize(
+
+	$: euProjection = $_euGeojson &&
+		projectionFn()
+		.fitSize(
 			[choroplethInnerWidth, choroplethInnerHeight],
-			$_geojson
+			$_euGeojson
 		);
-	$: filteredProjection =
-		$_filteredGeojson?.features.length > 0 &&
-		projectionFn().fitSize(
+	$: filteredProjection = $_filteredGeojson &&
+		projectionFn()
+		.fitSize(
 			[choroplethInnerWidth, choroplethInnerHeight],
 			$_filteredGeojson
 		);
-	$: projection = $_doFilterRegions ? filteredProjection : baseProjection;
+	$: projection = $_doFilterRegions ? filteredProjection : euProjection;
 
 	// flags
 	$: showMap = !$_isTopoFetching && areAllTruthy([mapHeight, mapWidth]);
@@ -346,6 +346,7 @@
 									<ChoroplethG
 										{projection}
 										focusedKey={focusedRegionId}
+										geojson={$_euGeojson}
 										height={mapHeight}
 										isInteractive={true}
 										key={$_regionSettings.key}
@@ -362,8 +363,6 @@
 											selectedStroke: $_theme.colorBlack,
 											selectedStrokeWidth: 0.5,
 										}}
-										topojson={$_topojson}
-										topojsonId={$_regionSettings.objectId}
 										width={mapWidth}
 									/>
 								</svg>
@@ -521,6 +520,7 @@
 								<ChoroplethG
 									{projection}
 									focusedKey={focusedRegionId}
+									geojson={$_euGeojson}
 									geometry={{left: choroplethSafety.left}}
 									height={mapHeight}
 									isInteractive={true}
@@ -538,8 +538,6 @@
 										selectedStroke: $_theme.colorBlack,
 										selectedStrokeWidth: 0.5,
 									}}
-									topojson={$_topojson}
-									topojsonId={$_regionSettings.objectId}
 									width={mapWidth}
 								/>
 

@@ -16,6 +16,7 @@
 		"@svizzle/legend": "^0.4.1",
 		"@svizzle/ui": "^0.8.0",
 		"@svizzle/utils": "^0.18.0",
+		"@turf/bbox-clip": "^6.5.0",
 		"d3-array": "^3.2.0",
 		"d3-dsv": "^3.0.1",
 		"d3-format": "^3.1.0",
@@ -28,7 +29,7 @@
 		"topojson-simplify": "^3.0.3",
 		"yootils": "^0.3.1"
 	},
-	"description": "Svelte components to be used as Sapper routes for the {time, region, value} domain.",
+	"description": "Svelte components to be used as SvelteKit/Sapper routes for the {time, region, value} domain.",
 	"devDependencies": {
 		"eslint": "^8.23.0",
 		"eslint-plugin-svelte3": "^4.0.0",
@@ -53,7 +54,8 @@
 		"data visualization",
 		"routes",
 		"sapper",
-		"svelte"
+		"svelte",
+		"sveltekit"
 	],
 	"license": "MIT",
 	"main": "src/index.js",

@@ -1,5 +1,6 @@
 ## `@svizzle/geo` v0.9.1 (next)
 
+- use caret ranges for `@turf/*` packages
 - updated license year
 
 ## `@svizzle/geo` v0.9.0
