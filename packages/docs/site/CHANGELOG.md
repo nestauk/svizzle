@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.4.1 (next)
+
+- reinstated `/ui` docs
+
 ## `@svizzle/site` v0.4.0
 
 - upgrade to ESM:

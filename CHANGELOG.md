@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/site` v0.4.1 (next)
+
+- reinstated `/ui` docs
+
+
 ## 20221003
 
 ## `@svizzle/ui` v0.8.0
