@@ -19,4 +19,5 @@ export {default as MessageView} from './MessageView.svelte';
 export {default as MultiBanner} from './MultiBanner.svelte';
 export {default as NoScript} from './NoScript.svelte';
 export {default as ResponsiveFlex} from './ResponsiveFlex.svelte';
+export {default as ScrollbarStyler} from './ScrollbarStyler.svelte';
 export {default as Switch} from './Switch.svelte';
