@@ -12,6 +12,7 @@
 		scrollbarThumbColor: 'blue',
 	};
 
+	// eslint-disable-next-line no-undef
 	const getRootElement = () => globalThis.document?.documentElement;
 	const getClassList = () => getRootElement()?.classList;
 	const enableStyle = () => getClassList()?.add('styledScrollbar');
