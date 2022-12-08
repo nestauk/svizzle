@@ -14,8 +14,8 @@
 
 	const getRootElement = () => globalThis.document?.documentElement;
 	const getClassList = () => getRootElement()?.classList;
-	const enableStyle = () => getClassList().add('styledScrollbar');
-	const disableStyle = () => getClassList().remove('styledScrollbar');
+	const enableStyle = () => getClassList()?.add('styledScrollbar');
+	const disableStyle = () => getClassList()?.remove('styledScrollbar');
 
 	onDestroy(disableStyle);
 
