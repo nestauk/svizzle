@@ -4,12 +4,15 @@
 
 	import {isClientSide} from './utils/env';
 
-	export let enabled = true;
+	export let isEnabled = true;
 	export let theme;
 
 	export let defaultTheme = {
-		scrollbarTrackColor: 'red',
-		scrollbarThumbColor: 'blue',
+		thumbColor: 'grey',
+		thumbRadius: '50px',
+		trackBorderColor: 'lightgrey',
+		trackColor: 'rgb(250,250,250)',
+		trackWidth: '9px',
 	};
 
 	// eslint-disable-next-line no-undef
@@ -21,11 +24,11 @@
 	onDestroy(disableStyle);
 
 	$: rootElement = getRootElement();
-	$: enabled = enabled ?? true;
-	$: isClientSide && enabled
+	$: isEnabled = isEnabled ?? true;
+	$: isClientSide && isEnabled
 		? enableStyle()
 		: disableStyle();
-	$: theme = {...defaultTheme, ...theme};
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: if (rootElement) {
 		rootElement.style = makeStyleVars(theme);
 	}
@@ -33,17 +36,17 @@
 
 <style>
 	:global(.styledScrollbar *::-webkit-scrollbar) {
-		width: 8px;
+		width: var(--trackWidth);
 	}
-
 	:global(.styledScrollbar *::-webkit-scrollbar-track) {
 		background-color: none;
 	}
 	:global(.styledScrollbar *::-webkit-scrollbar-track:hover) {
-		background-color: var(--scrollbarTrackColor);
+		background-color: var(--trackColor);
+		border-left: thin solid var(--trackBorderColor);
 	}
 	:global(.styledScrollbar *::-webkit-scrollbar-thumb) {
-		background-color: var(--scrollbarThumbColor);
-		border-radius: 50px;
+		background-color: var(--thumbColor);
+		border-radius: var(--thumbRadius);
 	}
 </style>
