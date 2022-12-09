@@ -1,16 +1,21 @@
 <script>
-	import ExternalLink from './icons/feather/ExternalLink.svelte';
-	import Icon from './icons/Icon.svelte';
-	import {defaultRel} from './utils/shared.js';
+	import {makeStyleVars} from '@svizzle/dom';
+	import {ExternalLink, Icon} from './icons/index';
+	import {defaultRel} from './utils/shared';
 
 	const defaultIconSize = 14;
 	const {defaultStrokeWidth} = Icon;
 	const defaultTheme = {
+		color: 'black',
 		iconStroke: 'rgb(16, 174, 249)',
 		iconStrokeWidth: defaultStrokeWidth,
-		color: 'black',
+		outlineColor: 'black',
+		outlineStyle: 'solid',
+		outlineWidth: '1px',
 	};
 
+	export let ariaDescribedBy = null;
+	export let ariaLabel = null;
 	export let download = null;
 	export let href = null;
 	export let hreflang = null;
@@ -22,6 +27,13 @@
 	export let target = null;
 	export let theme = null;
 	export let type = null;
+
+	const disableSpaceToScroll = e => {
+		console.log(e)
+		if (e.keyCode === 32) {
+			e.preventDefault()
+		}
+	}
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: download = download || null;
@@ -37,10 +49,13 @@
 
 	$: isExternal = type === 'external';
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	$: style = theme.color ? `--color: ${theme.color}` : null;
+	// $: style = theme.color ? `--color: ${theme.color}` : null;
+	$: style = makeStyleVars(theme);
 </script>
 
 <a
+	aria-describedby={ariaDescribedBy}
+	aria-label={ariaLabel}
 	download={download ? '' : null}
 	{href}
 	{hreflang}
@@ -49,6 +64,7 @@
 	{target}
 	{type}
 	class:underlined={isUnderlined}
+	on:keydown={disableSpaceToScroll}
 >
 	<span class:bold={isBold}>
 		<slot/>
@@ -78,6 +94,11 @@
 	}
 	a span:nth-child(2) {
 		margin-left: 0.1rem;
+	}
+
+	a:focus-visible {
+		outline: var(--outlineWidth) var(--outlineStyle) var(--outlineColor);
+		outline-offset: calc(-1 * var(--outlineWidth));
 	}
 
 	.bold {
