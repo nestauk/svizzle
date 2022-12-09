@@ -6,6 +6,7 @@
 - added `HighlightedText.svelte`
 - added `CopyToClipboard.svelte`
 - added `ScrollbarStyler.svelte`
+- added `PLATFORM` and `isPlatformIn(oses, browsers)`
 
 ## `@svizzle/ui` v0.8.0
 

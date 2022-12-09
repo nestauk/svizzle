@@ -11,6 +11,7 @@
 		"@macfja/svelte-persistent-store": "^2.1.0",
 		"@svizzle/dom": "^0.7.0",
 		"@svizzle/utils": "^0.18.0",
+		"bowser": "^2.11.0",
 		"just-compare": "^2.2.2",
 		"uid": "^2.0.0"
 	},
