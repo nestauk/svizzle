@@ -11,6 +11,11 @@
 	- spacebar scrolling disabled when focused
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
 	- added `ariaDescribedBy` and `ariaLabel` props
+- `Switch`:
+	- no longer using radio buttons
+	- added keyboard support
+	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
+	- added theme prop `knobColor`
 
 ## `@svizzle/ui` v0.8.0
 

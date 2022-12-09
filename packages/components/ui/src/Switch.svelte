@@ -1,14 +1,16 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 	import {createEventDispatcher} from 'svelte';
-	import {uid} from 'uid';
 
 	const dispatch = createEventDispatcher();
 	const defaultTheme = {
-		height: '24px',
 		color: 'black',
 		backgroundColor: 'white',
-		knobColor: 'lightgrey'
+		height: '24px',
+		knobColor: 'lightgrey',
+		outlineColor: 'black',
+		outlineStyle: 'solid',
+		outlineWidth: '1px',
 	}
 
 	// mandatory
@@ -19,101 +21,77 @@
 	export let theme = null;
 	export let hideLabels = false;
 
-	const id = uid();
-
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: currentValue = value || values[0];
 
 	$: isRight = currentValue === values[1];
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: style = makeStyleVars(theme);
+	$: title = `Select between ${values[0]} and ${values[1]}`;
 
 	function toggle () {
 		currentValue = currentValue === values[0] ? values[1] : values[0];
 		dispatch('toggled', currentValue);
 	}
+	const onKeypress = event => {
+		if (event.keyCode === 13 || event.key === ' ') {
+			event.preventDefault();
+			toggle();
+		}
+	}
 </script>
 
-<div class='switch' {style} on:click={toggle}>
-	<fieldset
-		role='radiogroup'
-		aria-label='Select between {values[0]} and {values[1]}'
+<div
+	{style}
+	{title}
+	aria-label={title}
+	class='switch'
+	on:keypress={onKeypress}
+	role='button'
+	tabindex=0
+>
+	{#if !hideLabels}
+		<span class='labelLeft'>{values[0]}</span>
+	{/if}
+	<span
+		class='wrapper'
+		class:isRight
+		on:click={toggle}
 	>
-		<legend>Select between {values[0]} and {values[1]}</legend>
-		{#if !hideLabels}
-			<label
-				for='left-{id}'
-			>{values[0]}</label>
-			<!-- class:greyed={currentValue !== values[0]} -->
-		{/if}
-		<span class='wrapper' class:isRight>
-			<input
-				type='radio'
-				id='left-{id}'
-				bind:group={currentValue}
-				value='{values[0]}'
-			>
-			<input
-				type='radio'
-				id='right-{id}'
-				bind:group={currentValue}
-				value='{values[1]}'
-			>
-			<span aria-hidden='true' class='bkg'></span>
-			<span aria-hidden='true' class='knob'></span>
-		</span>
-		{#if !hideLabels}
-			<label
-				for='right-{id}'
-			>{values[1]}</label>
-			<!-- class:greyed={currentValue !== values[1]} -->
-		{/if}
-	</fieldset>
+		<span aria-hidden='true' class='bkg'></span>
+		<span aria-hidden='true' class='knob'></span>
+	</span>
+	{#if !hideLabels}
+		<span class='labelRight'>{values[1]}</span>
+	{/if}
 </div>
 
 <style>
-	fieldset {
-		border: none;
-		user-select: none;
-		padding: 0;
-	}
-	legend {
-		display: none;
-	}
-
 	.switch {
+		align-items: center;
 		cursor: pointer;
 		display: flex;
-		align-items: center;
 	}
-	.switch label {
-		font-size: 1em;
-		margin: 0 .5em 0;
-	}
-	/*
-	.switch label.greyed {
-		opacity: 0.5;
-	}
-	*/
-	.switch input[type='radio'] {
-		display: inline-block;
-		margin-right: -2px;
-		width: 50%;
-		height: 100%;
-		opacity: 0;
-		position: relative;
-		z-index: 1;
-		cursor: pointer;
+	.switch:focus-visible {
+		outline: var(--outlineWidth) var(--outlineStyle) var(--outlineColor);
+		outline-offset: calc(-1 * var(--outlineWidth));
 	}
 
 	.wrapper {
-		display: inline-block;
-		vertical-align: middle;
-		width: calc(2 * var(--height));
-		height: var(--height);
 		border-radius: calc(2 * var(--height));
 		border: 1px solid var(--color);
+		display: inline-block;
+		height: var(--height);
 		position: relative;
+		vertical-align: middle;
+		width: calc(2 * var(--height));
+	}
+
+	.labelLeft {
+		margin-right: 0.5rem;
+	}
+	.labelRight {
+		margin-left: 0.5rem;
 	}
 
 	.knob {
@@ -148,8 +126,8 @@
 	}
 
 	.isRight .knob {
-		right: 0;
 		left: 50%;
+		right: 0;
 	}
 
 	.isRight .bkg {

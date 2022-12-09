@@ -3,7 +3,7 @@ export const packageName = 'ui';
 export const title = 'Switch';
 export const slug = `${packageName}-${name}`;
 export const doc = [
-	{tag: 'p', content: 'A simple toggle to select one of two values.'},
+	{tag: 'p', content: 'A simple switch to select one of two values.'},
 	{tag: 'p', content: 'By default it will be created with the first value of `values`, or you can pass the `value` prop to control it.'},
 	{tag: 'p', content: 'Passing a `theme` it is possible to style it.'},
 ];
