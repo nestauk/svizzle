@@ -15,6 +15,7 @@
 ## `@svizzle/site` v0.4.1 (next)
 
 - reinstated `/ui` docs
+- reorganised `/ui` examples
 - /components: made the render area scrollable
 
 ## `@svizzle/utils` v0.19.0 (next)
