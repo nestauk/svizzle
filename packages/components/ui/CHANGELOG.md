@@ -5,6 +5,7 @@
 - added `AlphabetPicker.svelte`
 - added `HighlightedText.svelte`
 - added `CopyToClipboard.svelte`
+- added `ScrollbarStyler.svelte`
 
 ## `@svizzle/ui` v0.8.0
 

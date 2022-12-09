@@ -9,6 +9,7 @@
 - added `AlphabetPicker.svelte`
 - added `HighlightedText.svelte`
 - added `CopyToClipboard.svelte`
+- added `ScrollbarStyler.svelte`
 
 ## `@svizzle/site` v0.4.1 (next)
 
