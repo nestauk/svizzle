@@ -1,7 +1,8 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
-	import {ExternalLink, Icon} from './icons/index';
-	import {defaultRel} from './utils/shared';
+
+	import {ExternalLink, Icon} from './icons/index.js';
+	import {defaultRel} from './utils/shared.js';
 
 	const defaultIconSize = 14;
 	const {defaultStrokeWidth} = Icon;
