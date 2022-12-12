@@ -1,4 +1,4 @@
-import {formatExamples} from './utils.js';
+import {examplesFormatter4} from './utils.js';
 
 const bins = [
 	{range: [0, 5], color: 'red'},
@@ -28,7 +28,7 @@ const bins_nonUniform = [
 ];
 const backgroundColor = '#feffd4';
 
-export default formatExamples([
+export default examplesFormatter4([
 	{
 		data: [{
 			key: 'Uniform bins',

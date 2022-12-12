@@ -11,7 +11,7 @@ import {
 	keyToColorWorldShort,
 	keyToLabel,
 } from './props.js';
-import {formatExamples} from './utils.js';
+import {examplesFormatter4} from './utils.js';
 
 const axisColor = 'red';
 const backgroundColor = 'antiquewhite';
@@ -21,7 +21,7 @@ const fontSize = 22;
 const textColor = 'green';
 const title = 'My title';
 
-export default formatExamples([
+export default examplesFormatter4([
 	{
 		data: [{
 			key: 'All positive values',

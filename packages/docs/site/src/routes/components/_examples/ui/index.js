@@ -7,9 +7,9 @@ import * as LinkButton from './LinkButton.js';
 import * as LoadingView from './LoadingView.js';
 import * as Switch from './Switch.js';
 
-import {formatExamples} from '../utils.js';
+import {examplesFormatter3} from '../utils.js';
 
-export default formatExamples([
+export default examplesFormatter3([
 	AlphabetPicker,
 	CopyToClipboard,
 	HighlightedText,

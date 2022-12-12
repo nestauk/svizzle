@@ -1,16 +1,20 @@
-import {transformValues} from '@svizzle/utils';
-import {mapWith} from 'lamb';
+import {makeRegexOf, transformValues} from '@svizzle/utils';
+import * as _ from 'lamb';
 
-export const formatSvelteMarkup = str =>
+const makeIndentSvelteMarkup = indent => str =>
 	str.trim()
-	.replace(/^\t{4}/gum, '')
+	.replace(makeRegexOf('gum')(`^\t{${indent}}`), '')
 	.replace(/^\t/gum, '  ');
 
-export const formatExamples = mapWith(transformValues({
-	doc: mapWith(transformValues({
-		content: s => s.trim(),
-	})),
-	data: mapWith(transformValues({
-		usage: formatSvelteMarkup
-	}))
-}));
+const makeExamplesFormatter = indent =>
+	_.mapWith(transformValues({
+		doc: _.mapWith(transformValues({
+			content: s => s.trim(),
+		})),
+		data: _.mapWith(transformValues({
+			usage: makeIndentSvelteMarkup(indent)
+		}))
+	}));
+
+export const examplesFormatter3 = makeExamplesFormatter(3);
+export const examplesFormatter4 = makeExamplesFormatter(4);

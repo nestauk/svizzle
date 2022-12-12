@@ -6,7 +6,7 @@ import {default as bins_3} from './bins_3.js';
 import {default as binsFill} from './binsFill.js';
 import {default as binsFill_2} from './binsFill_2.js';
 import {default as bins_value_non_uniform} from './bins_value_non_uniform.js';
-import {formatExamples} from './utils.js';
+import {examplesFormatter4} from './utils.js';
 
 const bins_2_value = bins_2.map(
 	({range, values}) => ({range, value: values ? values.length : 0})
@@ -18,7 +18,7 @@ const backgroundColor = '#feffd4';
 const binFill = 'orange';
 const selectedBins = [1, 5, 6];
 
-export default formatExamples([
+export default examplesFormatter4([
 	{
 		data: [{
 			key: 'some bins {range, values}',

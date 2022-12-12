@@ -22,7 +22,7 @@ import {
 	keyToColorWorld,
 	keyToColorWorldFn,
 } from './props.js';
-import {formatExamples} from './utils.js';
+import {examplesFormatter4} from './utils.js';
 
 const geojson_UK3 = topoToGeo(NUTS_RG_03M_2016_4326_LEVL_3_UK, 'NUTS');
 const projection_UK3_reflected_300x300 =
@@ -30,7 +30,7 @@ const projection_UK3_reflected_300x300 =
 	.reflectX(true)
 	.fitSize([300, 300], geojson_UK3);
 
-export default formatExamples([
+export default examplesFormatter4([
 	{
 		data: [{
 			key: 'world_110m_iso_a2',
