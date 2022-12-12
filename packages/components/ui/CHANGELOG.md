@@ -7,6 +7,10 @@
 - added `CopyToClipboard.svelte`
 - added `ScrollbarStyler.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
+- `Link`:
+	- spacebar scrolling disabled when focused
+	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
+	- added `ariaDescribedBy` and `ariaLabel` props
 
 ## `@svizzle/ui` v0.8.0
 
