@@ -30,7 +30,6 @@
 	export let type = null;
 
 	const disableSpaceToScroll = e => {
-		console.log(e)
 		if (e.keyCode === 32) {
 			e.preventDefault()
 		}
@@ -50,7 +49,6 @@
 
 	$: isExternal = type === 'external';
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	// $: style = theme.color ? `--color: ${theme.color}` : null;
 	$: style = makeStyleVars(theme);
 </script>
 
