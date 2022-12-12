@@ -10,22 +10,29 @@
 - added `HighlightedText.svelte`
 - added `CopyToClipboard.svelte`
 - added `ScrollbarStyler.svelte`
+- added `ResponsiveButton.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `Link`:
 	- spacebar scrolling disabled when focused
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
 	- added `ariaDescribedBy` and `ariaLabel` props
 - `Switch`:
-	- no longer using radio buttons
+	- no longer using radio buttons nor a `fieldset`
 	- added keyboard support
-	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
-	- added theme prop `knobColor`
+	- `theme`:
+		- added `outlineColor`, `outlineStyle` and `outlineWidth` props
+		- added `knobColor` prop
 
 ## `@svizzle/site` v0.4.1 (next)
 
 - reinstated `/ui` docs
 - reorganised `/ui` examples
 - /components: made the render area scrollable
+- support documenting components with unnamed slots
+	- caveats:
+		- as of now dynamic slots aren't supported so we can't document named slots
+		- it supports 1 level of depth only so slots being components with slots
+			themselves won't work
 
 ## `@svizzle/utils` v0.19.0 (next)
 

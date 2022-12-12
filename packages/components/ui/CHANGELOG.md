@@ -6,16 +6,18 @@
 - added `HighlightedText.svelte`
 - added `CopyToClipboard.svelte`
 - added `ScrollbarStyler.svelte`
+- added `ResponsiveButton.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `Link`:
 	- spacebar scrolling disabled when focused
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
 	- added `ariaDescribedBy` and `ariaLabel` props
 - `Switch`:
-	- no longer using radio buttons
+	- no longer using radio buttons nor a `fieldset`
 	- added keyboard support
-	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
-	- added theme prop `knobColor`
+	- `theme`:
+		- added `outlineColor`, `outlineStyle` and `outlineWidth` props
+		- added `knobColor` prop
 
 ## `@svizzle/ui` v0.8.0
 

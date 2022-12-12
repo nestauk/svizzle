@@ -122,6 +122,7 @@
 		</div>
 
 	</div>
+
 	<div class='col col2'>
 		{#if isSVG}
 			<div class='svgwrapper'
@@ -133,15 +134,57 @@
 						bind:this={instance}
 						this={component}
 						{...{...currentData.props, width, height}}
-					>{currentData.content}</svelte:component>
+					>
+						{#if currentData.content}
+							{currentData.content}
+						{:else if currentData.slots}
+							{#each currentData.slots as {items}}
+								<!-- `slotName` to be used when dynamic slots will be supported -->
+								{#each items as {componentName, content, elementName, props}}
+									{#if elementName}
+										<svelte:element
+											{...props}
+											this={elementName}
+										>{content}</svelte:element>
+									{:else if componentName}
+										<svelte:component
+											{...props}
+											this={components[componentName]}
+										>{content}</svelte:component>
+									{/if}
+								{/each}
+							{/each}
+						{/if}
+					</svelte:component>
 				</svg>
 			</div>
 		{:else}
 			<svelte:component
+				{...currentData.props}
 				bind:this={instance}
 				this={component}
-				{...currentData.props}
-			>{currentData.content}</svelte:component>
+			>
+				{#if currentData.content}
+					{currentData.content}
+				{:else if currentData.slots}
+					{#each currentData.slots as {items}}
+						<!-- `slotName` to be used when dynamic slots will be supported -->
+						{#each items as {componentName, content, elementName, props}}
+							{#if elementName}
+								<svelte:element
+									{...props}
+									this={elementName}
+								>{content}</svelte:element>
+							{:else if componentName}
+								<svelte:component
+									{...props}
+									this={components[componentName]}
+								>{content}</svelte:component>
+							{/if}
+						{/each}
+					{/each}
+				{/if}
+			</svelte:component>
 		{/if}
 	</div>
 </main>
