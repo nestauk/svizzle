@@ -91,7 +91,7 @@ export const data = [
 		`,
 	},
 	{
-		content: 'Svelte website',
+		content: 'Focus me to see the outline style',
 		key: 'Style',
 		props: {
 			href: 'https://svelte.dev',
@@ -99,6 +99,9 @@ export const data = [
 				color: 'orange',
 				iconStroke: 'red',
 				iconStrokeWidth: 4,
+				outlineColor: 'blue',
+				outlineStyle: 'dotted',
+				outlineWidth: '2px',
 			},
 			type: 'external'
 		},
@@ -109,10 +112,13 @@ export const data = [
 					color: 'orange',
 					iconStroke: 'red',
 					iconStrokeWidth: 4,
+					outlineColor: 'blue',
+					outlineStyle: 'dotted',
+					outlineWidth: '2px',
 				}}
 				type='external'
 			>
-				Svelte website
+				Focus me to see the outline style
 			</Link>
 		`,
 	},
