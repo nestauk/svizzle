@@ -11,11 +11,16 @@
 - added `CopyToClipboard.svelte`
 - added `ScrollbarStyler.svelte`
 - added `ResponsiveButton.svelte`
+- added `CenteredView.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `Link`:
 	- spacebar scrolling disabled when focused
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
 	- added `ariaDescribedBy` and `ariaLabel` props
+- `MessageView`:
+	- now using `CenteredView`
+	- added props `padding`, `textAlign`
+	- added documentation
 - `Switch`:
 	- no longer using radio buttons nor a `fieldset`
 	- added keyboard support
