@@ -9,6 +9,7 @@ import * as LinkButton from './LinkButton.js';
 import * as LoadingView from './LoadingView.js';
 import * as MessageView from './MessageView.js';
 import * as MultiBanner from './MultiBanner.js';
+import * as ScrollbarStyler from './ScrollbarStyler.js';
 import * as Scroller from './Scroller.js';
 import * as Switch from './Switch.js';
 
@@ -26,6 +27,7 @@ export default examplesFormatter3([
 	LoadingView,
 	MessageView,
 	MultiBanner,
+	ScrollbarStyler,
 	Scroller,
 	Switch,
 ]);

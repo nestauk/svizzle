@@ -4,7 +4,7 @@ import * as _ from 'lamb';
 const makeIndentSvelteMarkup = indent => str =>
 	str.trim()
 	.replace(makeRegexOf('gum')(`^\t{${indent}}`), '')
-	.replace(/^\t/gum, '  ');
+	.replace(/\t/gum, '  ');
 
 const makeExamplesFormatter = indent =>
 	_.mapWith(transformValues({
