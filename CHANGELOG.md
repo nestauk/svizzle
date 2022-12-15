@@ -2,6 +2,30 @@
 
 ## next
 
+## `@svizzle/barchart` v0.8.2 (next)
+
+- renamed:
+	- `focusedKey` to `heroKey`
+	- `shouldScrollToFocusedKey` to `shouldScrollToHeroKey`
+- theming:
+	- changed the `theme` props to control colors: see `theme.item*`
+	- precedence to choose an item color is now
+		- hovering
+		- hero key
+		- color map or function
+		- default color
+	- selected keys:
+		- only affect opacity
+		- only if there is at least one selected key
+	- added `refRectColor`, `refRectStrokeColor`, `refTextFill` to control ref boxes theme
+- using `MessageView` from `@svizzle/ui`
+- added keyboard support when `isInteractive` is true
+- added `outlineColor`, `outlineStyle` and `outlineWidth` styling keyboard support
+
+## `@svizzle/time_region_value` v0.8.2 (next)
+
+- updated props used in `BarchartVDiv`
+
 ## `@svizzle/ui` v0.9.0 (next)
 
 - added `AlphabetPicker.svelte`

@@ -1,4 +1,15 @@
 <script>
+	import {makeStyleVars, toPx} from '@svizzle/dom';
+	import {MessageView} from '@svizzle/ui';
+	import {
+		arrayMaxWith,
+		arrayMinWith,
+		getKey,
+		getValue,
+		isIterableEmpty,
+		makeMergeAppliedFnMap,
+		sliceString,
+	} from '@svizzle/utils';
 	import isEqual from 'just-compare';
 	import {
 		always,
@@ -15,15 +26,6 @@
 		createEventDispatcher
 	} from 'svelte';
 	import {linearScale} from 'yootils';
-	import {makeStyleVars, toPx} from '@svizzle/dom';
-	import {
-		arrayMaxWith,
-		arrayMinWith,
-		getKey,
-		getValue,
-		makeMergeAppliedFnMap,
-		sliceString,
-	} from '@svizzle/utils';
 
 	const dispatch = createEventDispatcher();
 	const sortByValue = sortWith([getValue]);
@@ -34,32 +36,39 @@
 	});
 
 	const defaultTheme = {
-		// exposed but undocumented
-		backgroundOpacity: 1,
-
-		// exposed and documented
 		axisColor: 'lightgrey',
 		backgroundColor: transparentColor,
-		barDefaultColor: 'black',
-		deselectedOpacity: 0.25,
-		focusedKeyColor: 'rgba(0, 0, 0, 0.1)',
+		backgroundOpacity: 1, // undocumented
 		fontSize: 14,
 		headerHeight: '2em',
-		hoverColor: 'rgba(0, 0, 0, 0.05)',
+		itemBackgroundColorHero: 'yellow',
+		itemBackgroundColorHover: 'rgba(0,0,0,0.1)',
+		itemBarColorDefault: 'black',
+		itemBarColorHero: null,
+		itemBarColorHover: null,
+		itemDeselectedOpacity: 0.25,
+		itemTextColorDefault: '#333',
+		itemTextColorHero: 'black',
+		itemTextColorHover: '#333',
 		messageColor: 'black',
 		messageFontSize: '1rem',
+		outlineColor: 'black',
+		outlineStyle: 'solid',
+		outlineWidth: '1px',
 		padding: 10,
 		refColor: 'grey',
 		refDasharray: '4 4',
+		refRectColor: 'black',
+		refRectStrokeColor: 'white',
+		refTextFill: 'black',
 		refWidth: 0.5,
-		textColor: 'grey',
 		titleFontSize: '1.5em',
 	};
 
 	const zeroIfNaN = when(isNaN, always(0));
 
 	export let barHeight = 4;
-	export let focusedKey = null;
+	export let heroKey = null;
 	export let formatFn = null;
 	export let isInteractive = false;
 	export let items = []; // {key, value}[]
@@ -71,7 +80,7 @@
 	export let refs = [];
 	export let selectedKeys = [];
 	export let shouldResetScroll = false;
-	export let shouldScrollToFocusedKey = false;
+	export let shouldScrollToHeroKey = false;
 	export let theme = null;
 	export let title = null;
 	export let valueAccessor = null;
@@ -85,6 +94,7 @@
 	$: selectedKeys = selectedKeys || [];
 	$: shouldResetScroll = shouldResetScroll || false;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+	$: valueAccessor = valueAccessor || getValue;
 
 	let height;
 	let hoveredKey;
@@ -94,9 +104,6 @@
 		...augmentTheme(theme),
 		refsHeightPx: toPx(refsHeight)
 	});
-
-	$: valueAccessor = valueAccessor || getValue;
-
 	$: averageCharWidth = theme.fontSize * 0.5;
 	$: barPadding = theme.fontSize / 2;
 	$: labelValueDistance = 3 * barPadding;
@@ -122,26 +129,83 @@
 	$: columnsWidth = {neg: x0, pos: width - x0};
 
 	/* layout */
+
 	$: bars = items.map(item => {
-		const value = valueAccessor(item);
-		const isNeg = value < 0;
-		const label = keyToLabel && keyToLabel[item.key]
-			? keyToLabel[item.key]
+		const {key} = item;
+
+		/* label */
+
+		const label = keyToLabel && keyToLabel[key]
+			? keyToLabel[key]
 			: keyToLabelFn
-				? keyToLabelFn(item.key)
-				: item.key;
+				? keyToLabelFn(key)
+				: key;
 		const labelLength = label.length * averageCharWidth;
 
-		return {...item, ...{
-			barColor: keyToColor
-				? keyToColor[item.key] || theme.barDefaultColor
+		/* value */
+
+		const value = valueAccessor(item);
+		const isNeg = value < 0;
+		const displayValue = formatFn ? formatFn(value) : value;
+
+		/* colors
+
+		- `selectedKeys`: controls opacity
+			- empty:
+				- all bars full-opacity
+			- not-empty:
+				- some bars full-opacity
+				- some semi-opaque
+		- `heroKey`, `hoveredKey`: bkg & text
+		*/
+
+		const isDeselected =
+			isIterableEmpty(selectedKeys)
+				? false
+				: !isIn(selectedKeys, key)
+
+		// bkg color: hoveredKey > heroKey > transparentColor
+
+		const barBackgroundColor =
+			key === hoveredKey
+				? theme.itemBackgroundColorHover
+				: key === heroKey
+					? theme.itemBackgroundColorHero
+					: transparentColor;
+
+		// bar color: hoveredKey > heroKey > key color > default
+
+		const barBaseColor =
+			keyToColor
+				? keyToColor[key] || theme.itemBarColorDefault
 				: keyToColorFn
-					? keyToColorFn(item.key)
-					: theme.barDefaultColor,
-			displayValue: formatFn ? formatFn(value) : value,
+					? keyToColorFn(key)
+					: theme.itemBarColorDefault;
+		const barColor =
+			key === hoveredKey
+				? theme.itemBarColorHover || barBaseColor
+				: key === heroKey
+					? theme.itemBarColorHero || barBaseColor
+					: barBaseColor;
+
+		// text: hoveredKey > heroKey > key color > default
+
+		const textColor =
+			key === hoveredKey
+				? theme.itemTextColorHover
+				: key === heroKey
+					? theme.itemTextColorHero || theme.itemTextColorDefault
+					: theme.itemTextColorDefault;
+
+		return {...item, ...{
+			barBackgroundColor,
+			barColor,
+			displayValue,
+			isDeselected,
 			isNeg,
 			label,
 			labelLength,
+			textColor,
 			value,
 		}}
 	});
@@ -165,6 +229,10 @@
 	$: barsLayout = bars.map((bar, idx) => {
 		let {isNeg, label, labelLength, value} = bar;
 
+		const x = getX(value);
+		const barWidth = Math.abs(x - x0);
+		const barX = x >= x0 ? x0 : x;
+
 		const room = labelsRoom.neg + labelsRoom.pos;
 		const overflowRatio = labelLength / room;
 
@@ -176,6 +244,8 @@
 		}
 
 		return {...bar, ...{
+			barWidth,
+			barX,
 			isLabelAlignedRight: crossesZero
 				? isNeg
 					? labelsMaxLengths.neg.label < labelsRoom.neg
@@ -193,10 +263,10 @@
 						? x0 + barPadding
 						: width - labelsMaxLengths.pos.value - labelValueDistance
 				: allNegatives ? width : 0,
-			x: getX(value),
 			valueX: crossesZero
 				? isNeg ? 0 : width
 				: allNegatives ? 0 : width,
+			x,
 			y: idx * itemHeight,
 		}}
 	});
@@ -243,7 +313,6 @@
 		refs && refs.length * (theme.padding + refHeight) + theme.padding
 		|| 0;
 
-
 	/* scroll */
 
 	let previousItems;
@@ -263,26 +332,26 @@
 		scrollable.scrollTop = 0;
 	}
 
-	$: focusedY =
-		shouldScrollToFocusedKey
-		&& focusedKey
-		&& barsByKey[focusedKey]
-		&& barsByKey[focusedKey].y;
+	$: heroY =
+		shouldScrollToHeroKey
+		&& heroKey
+		&& barsByKey[heroKey]
+		&& barsByKey[heroKey].y;
 
 	$: if (
-		shouldScrollToFocusedKey
-		&& focusedKey
+		shouldScrollToHeroKey
+		&& heroKey
 		&& scrollable
 	) {
-		const yAbs = -scrollable.scrollTop + focusedY;
+		const yAbs = -scrollable.scrollTop + heroY;
 		if (yAbs < 0) {
 			scrollable.scroll({
-				top: focusedY,
+				top: heroY,
 				behavior: 'smooth'
 			})
 		} else if (yAbs + itemHeight > height) {
 			scrollable.scroll({
-				top: focusedY - height + itemHeight,
+				top: heroY - height + itemHeight,
 				behavior: 'smooth'
 			})
 		}
@@ -292,6 +361,12 @@
 
 	const onClick = key => () => {
 		dispatch('clicked', {id: key})
+	}
+	const onKeypress = (event, key) => {
+		if (event.keyCode === 13 || event.key === ' ') {
+			event.preventDefault();
+			dispatch('clicked', {id: key});
+		}
 	}
 	const onMouseenter = key => () => {
 		hoveredKey = key;
@@ -314,9 +389,12 @@
 	<main class:titled={title} >
 		{#if !items || items.length === 0}
 
-			<div class='message'>
-				<span>{message}</span>
-			</div>
+			<MessageView
+				color={theme.messageColor}
+				fontSize={theme.messageFontSize}
+				textAlign='center'
+				text={message}
+			/>
 
 		{:else}
 
@@ -401,53 +479,58 @@
 					<!-- bars -->
 					<g>
 						{#each barsLayout as {
+							barBackgroundColor,
 							barColor,
+							barWidth,
+							barX,
 							displayValue,
+							isDeselected,
 							isLabelAlignedRight,
 							isValueAlignedRight,
 							key,
 							label,
 							labelX,
+							textColor,
 							valueX,
-							x
 						}, index (key)}
+							<!-- eslint seems to throw whatever dynamic value we use -->
+							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 							<g
 								class:clickable={isInteractive}
-								class:deselected={selectedKeys.length && !isIn(selectedKeys, key)}
+								class:deselected={isDeselected}
 								class='item'
 								on:click={isInteractive && onClick(key)}
 								on:mouseenter={onMouseenter(key)}
 								on:mouseleave={isInteractive && onMouseleave(key)}
+								on:keypress={isInteractive && (e => onKeypress(e, key))}
+								tabindex={isInteractive ? 0 : -1}
 								transform='translate(0, {itemHeight * index})'
 							>
 								<rect
 									{width}
-									fill={key === focusedKey
-										? theme.focusedKeyColor
-										: key === hoveredKey
-											? theme.hoverColor
-											: transparentColor
-									}
+									fill={barBackgroundColor}
 									height={itemHeight}
 								/>
-								<line
-									stroke={barColor}
-									stroke-width={barHeight}
-									x1={x0}
-									x2={x}
-									y1={barY}
-									y2={barY}
+								<rect
+									fill={barColor}
+									height={barHeight}
+									x={barX}
+									y={barY}
+									width={barWidth}
 								/>
 								<text
 									class:right={isLabelAlignedRight}
 									class='label'
+									fill={textColor}
+									stroke='none'
 									x={labelX}
 									y={textY}
 								>{label}</text>
 								<text
 									class:right={isValueAlignedRight}
 									class='value'
-									x={valueX}
+									fill={textColor}
+									x={valueX-2}
 									y={textY}
 								>{displayValue}</text>
 							</g>
@@ -501,18 +584,6 @@
 		max-height: calc(100% - var(--headerHeight));
 	}
 
-	.message {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		width: 100%;
-	}
-	.message span {
-		font-size: var(--messageFontSize);
-		color: var(--messageColor);
-	}
-
 	.refs {
 		width: 100%;
 		height: var(--refsHeightPx);
@@ -527,12 +598,12 @@
 
 	.ref rect {
 		stroke-width: 0.5;
-		stroke: black;
-		fill: white;
+		stroke: var(--refRectColor);
+		fill: var(--refRectStrokeColor);
 	}
 	.ref text {
 		dominant-baseline: middle;
-		fill: black;
+		fill: var(--refTextFill);
 		stroke: none;
 	}
 	.ref text.right {
@@ -546,12 +617,12 @@
 
 	.item.clickable {
 		cursor: pointer;
+		user-select: none;
 	}
-	.item.deselected line {
-		stroke-opacity: var(--deselectedOpacity);
+	.item.deselected rect {
+		fill-opacity: var(--itemDeselectedOpacity);
 	}
 	.item text {
-		fill: var(--textColor);
 		font-size: var(--fontSize);
 		stroke: none;
 	}
@@ -560,5 +631,12 @@
 	}
 	.item text.value.right {
 		text-anchor: end;
+	}
+	.item:focus-visible {
+		outline: none;
+	}
+	.item:focus-visible .value {
+		outline: var(--outlineWidth) var(--outlineStyle) var(--outlineColor);
+		outline-offset: calc(-1 * var(--outlineWidth));
 	}
 </style>

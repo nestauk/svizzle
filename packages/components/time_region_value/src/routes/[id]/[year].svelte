@@ -406,8 +406,8 @@
 					</div>
 					<div class='content'>
 						<BarchartVDiv
-							focusedKey={focusedAtlasId}
 							formatFn={$_formatFn}
+							heroKey={focusedAtlasId}
 							isInteractive={true}
 							items={$_regionIdValuePairs}
 							keyToColor={$_regionIdToColor}
@@ -417,10 +417,9 @@
 							refs={$_barchartRefs}
 							selectedKeys={$_selectedRegionAtlasIds}
 							shouldResetScroll={true}
-							shouldScrollToFocusedKey={true}
+							shouldScrollToHeroKey={true}
 							theme={{
-								barDefaultColor: defaultGray,
-								focusedKeyColor: 'rgb(211, 238, 253)',
+								itemBackgroundColorHero: 'rgb(211, 238, 253)',
 								titleFontSize: '1.2rem',
 							}}
 							title={barchartTitle}
@@ -617,8 +616,8 @@
 
 					<div class='barchart'>
 						<BarchartVDiv
-							focusedKey={focusedAtlasId}
 							formatFn={$_formatFn}
+							heroKey={focusedAtlasId}
 							isInteractive={true}
 							items={$_regionIdValuePairs}
 							keyToColor={$_regionIdToColor}
@@ -628,10 +627,9 @@
 							refs={$_barchartRefs}
 							selectedKeys={$_selectedRegionAtlasIds}
 							shouldResetScroll={true}
-							shouldScrollToFocusedKey={true}
+							shouldScrollToHeroKey={true}
 							theme={{
-								barDefaultColor: defaultGray,
-								focusedKeyColor: 'rgb(211, 238, 253)',
+								itemBackgroundColorHero: 'rgb(211, 238, 253)',
 								titleFontSize: '1.2rem',
 							}}
 							title={barchartTitle}

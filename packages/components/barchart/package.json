@@ -9,6 +9,7 @@
 	},
 	"dependencies": {
 		"@svizzle/dom": "^0.7.0",
+		"@svizzle/ui": "^0.8.0",
 		"@svizzle/utils": "^0.18.0",
 		"just-compare": "^2.2.2",
 		"lamb": "^0.61.0",

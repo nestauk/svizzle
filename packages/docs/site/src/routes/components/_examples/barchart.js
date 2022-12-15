@@ -15,10 +15,10 @@ import {examplesFormatter4} from './utils.js';
 
 const axisColor = 'red';
 const backgroundColor = 'antiquewhite';
-const barDefaultColor = 'orange';
+const itemBarColorDefault = 'orange';
 const barHeight = 12;
 const fontSize = 22;
-const textColor = 'green';
+const itemTextColorDefault = 'green';
 const title = 'My title';
 
 export default examplesFormatter4([
@@ -141,8 +141,10 @@ export default examplesFormatter4([
 					axisColor,
 					backgroundColor,
 					fontSize,
-					hoverColor: 'palegreen',
-					textColor,
+					itemBackgroundColorHover: 'cyan',
+					itemBarColorHover: 'red',
+					itemTextColorDefault,
+					itemTextColorHover: 'orange',
 				},
 				title: 'Hover me!',
 			},
@@ -154,8 +156,10 @@ export default examplesFormatter4([
 						axisColor: '${axisColor}',
 						backgroundColor: '${backgroundColor}',
 						fontSize: ${fontSize},
-						hoverColor: 'palegreen',
-						textColor: '${textColor}',
+						itemBackgroundColorHover: 'cyan',
+						itemBarColorHover: 'red',
+						itemTextColorDefault: '${itemTextColorDefault}',
+						itemTextColorHover: 'orange',
 					}}
 				/>
 			`,
@@ -168,8 +172,10 @@ export default examplesFormatter4([
 					axisColor,
 					backgroundColor,
 					fontSize,
-					hoverColor: 'palegreen',
-					textColor,
+					itemBackgroundColorHover: 'cyan',
+					itemBarColorHover: 'red',
+					itemTextColorDefault,
+					itemTextColorHover: 'orange',
 				},
 				title: 'Hover me!',
 			},
@@ -181,8 +187,10 @@ export default examplesFormatter4([
 						axisColor: '${axisColor}',
 						backgroundColor: '${backgroundColor}',
 						fontSize: ${fontSize},
-						hoverColor: 'palegreen',
-						textColor: '${textColor}',
+						itemBackgroundColorHover: 'cyan',
+						itemBarColorHover: 'red',
+						itemTextColorDefault: '${itemTextColorDefault}',
+						itemTextColorHover: 'orange',
 					}}
 				/>
 			`,
@@ -195,8 +203,10 @@ export default examplesFormatter4([
 					axisColor,
 					backgroundColor,
 					fontSize,
-					hoverColor: 'palegreen',
-					textColor,
+					itemBackgroundColorHover: 'cyan',
+					itemBarColorHover: 'red',
+					itemTextColorDefault,
+					itemTextColorHover: 'orange',
 				},
 				title: 'Hover me!',
 			},
@@ -208,17 +218,20 @@ export default examplesFormatter4([
 						axisColor: '${axisColor}',
 						backgroundColor: '${backgroundColor}',
 						fontSize: ${fontSize},
-						hoverColor: 'palegreen',
-						textColor: '${textColor}',
+						itemBackgroundColorHover: 'cyan',
+						itemBarColorHover: 'red',
+						itemTextColorDefault: '${itemTextColorDefault}',
+						itemTextColorHover: 'orange',
 					}}
 				/>
 			`,
 		}],
 		doc: [
-			{tag: 'p', content: 'You can setup a `backgroundColor` and the `textColor`.'},
+			{tag: 'p', content: 'You can setup a `backgroundColor` and the `itemTextColorDefault`.'},
 			{tag: 'p', content: '`barHeight` and `fontSize` contribute to determine the distance between bars.'},
 			{tag: 'p', content: 'You can configure the axis color using the `axisColor` props (used in case there are values of both signs).'},
-			{tag: 'p', content: 'You can choose the hovered bar background color by providing `hoverColor`.'},
+			{tag: 'p', content: 'You can choose the hovered bar background color by providing `theme.itemBackgroundColorHover`.'},
+			{tag: 'p', content: 'You can set the hovered bar color by providing `theme.itemBarColorHover` (`null` by default, which does not affect the bar color).'},
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
@@ -231,13 +244,13 @@ export default examplesFormatter4([
 			props: {
 				items: countryKeyValuePositive,
 				keyToColor: keyToColorWorldShort,
-				theme: {barDefaultColor},
+				theme: {itemBarColorDefault},
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
 					{keyToColor}
-					theme={{barDefaultColor:'${barDefaultColor}'}}
+					theme={{itemBarColorDefault:'${itemBarColorDefault}'}}
 				/>
 			`,
 		}, {
@@ -245,13 +258,13 @@ export default examplesFormatter4([
 			props: {
 				items: countryKeyValueNegatives,
 				keyToColor: keyToColorWorldShort,
-				theme: {barDefaultColor},
+				theme: {itemBarColorDefault},
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
 					{keyToColor}
-					theme={{barDefaultColor:'${barDefaultColor}'}}
+					theme={{itemBarColorDefault:'${itemBarColorDefault}'}}
 				/>
 			`,
 		}, {
@@ -259,23 +272,23 @@ export default examplesFormatter4([
 			props: {
 				items: countryKeyValueMixedWithZeroes,
 				keyToColor: keyToColorWorldShort,
-				theme: {barDefaultColor},
+				theme: {itemBarColorDefault},
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
 					{keyToColor}
-					theme={{barDefaultColor:'${barDefaultColor}'}}
+					theme={{itemBarColorDefault:'${itemBarColorDefault}'}}
 				/>
 			`,
 		}],
 		doc: [
-			{tag: 'p', content: 'You can provide a `barDefaultColor` to be used for bars with no correspondent key in `keyToColor`.'},
-			{tag: 'p', content: 'If not provided, `barDefaultColor` is `null`, which renders `black`.'},
+			{tag: 'p', content: 'You can provide a `itemBarColorDefault` to be used for bars with no correspondent key in `keyToColor`.'},
+			{tag: 'p', content: 'If not provided, `itemBarColorDefault` is `null`, which renders `black`.'},
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
-		slug: 'BarchartVDiv-barDefaultColor',
+		slug: 'BarchartVDiv-itemBarColorDefault',
 		title: 'Default bars color',
 	},
 	{
@@ -318,7 +331,7 @@ export default examplesFormatter4([
 		}],
 		doc: [
 			{tag: 'p', content: 'By providing `keyToColor`, an object mapping bar key -> bar color, you can assign bars color.'},
-			{tag: 'p', content: 'Notice that the default color for keys not in `keyToColor` is set by `barDefaultColor` (black if not provided, see `AL` and `AD`).'},
+			{tag: 'p', content: 'Notice that the default color for keys not in `keyToColor` is set by `itemBarColorDefault` (black if not provided, see `AL` and `AD`).'},
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
@@ -366,7 +379,7 @@ export default examplesFormatter4([
 		doc: [
 			{tag: 'p', content: 'Instead of passing `keyToColor` you can pass a function `keyToColorFn`.'},
 			{tag: 'p', content: 'Note that if you pass both `keyToColor` and `keyToColorFn`, `keyToColor` takes precedence.'},
-			{tag: 'p', content: 'Also note that if the value returned by `keyToColorFn` is falsy the fallback is `barDefaultColor` (which falls back to `black` if `barDefaultColor` is not provided).'},
+			{tag: 'p', content: 'Also note that if the value returned by `keyToColorFn` is falsy the fallback is `itemBarColorDefault` (which falls back to `black` if `itemBarColorDefault` is not provided).'},
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
@@ -375,76 +388,109 @@ export default examplesFormatter4([
 	},
 	{
 		data: [{
-			key: 'A focused key (no scroll)',
+			key: 'A hero key (no scroll)',
 			props: {
-				focusedKey: 'CY',
+				heroKey: 'CY',
 				items: countryKeyValueMixedWithZeroes,
-				theme: {focusedKeyColor: 'yellow'},
+				theme: {
+					itemBackgroundColorHero: 'palegreen',
+					itemBarColorHero: 'red',
+					itemTextColorHero: 'blue',
+				},
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
-					focusedKey='CY'
-					theme={{focusedKeyColor: 'yellow'}}
+					heroKey='CY'
+					theme={{
+						itemBackgroundColorHero: 'palegreen',
+						itemBarColorHero: 'red',
+						itemTextColorHero: 'blue',
+					}}
 				/>
 			`,
 		}, {
-			key: 'Another focused key',
+			key: 'Another hero key',
 			props: {
-				focusedKey: 'BG',
+				heroKey: 'BG',
 				items: countryKeyValueMixedWithZeroes,
-				shouldScrollToFocusedKey: true,
-				theme: {focusedKeyColor: 'yellow'},
+				shouldScrollToHeroKey: true,
+				theme: {
+					itemBackgroundColorHero: 'palegreen',
+					itemBarColorHero: 'red',
+					itemTextColorHero: 'blue',
+				},
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
-					focusedKey='CY'
-					shouldScrollToFocusedKey={true}
-					theme={{focusedKeyColor: 'yellow'}}
+					heroKey='CY'
+					shouldScrollToHeroKey={true}
+					theme={{
+						itemBackgroundColorHero: 'palegreen',
+						itemBarColorHero: 'red',
+						itemTextColorHero: 'blue',
+					}}
 				/>
 			`,
 		}, {
-			key: 'Another focused key',
+			key: 'Another hero key',
 			props: {
-				focusedKey: 'PL',
+				heroKey: 'PL',
 				items: countryKeyValueMixedWithZeroes,
-				shouldScrollToFocusedKey: true,
-				theme: {focusedKeyColor: 'yellow'},
+				shouldScrollToHeroKey: true,
+				theme: {
+					itemBackgroundColorHero: 'palegreen',
+					itemBarColorHero: 'red',
+					itemTextColorHero: 'blue',
+				},
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
-					focusedKey='PL'
-					shouldScrollToFocusedKey={true}
-					theme={{focusedKeyColor: 'yellow'}}
+					heroKey='PL'
+					shouldScrollToHeroKey={true}
+					theme={{
+						itemBackgroundColorHero: 'palegreen',
+						itemBarColorHero: 'red',
+						itemTextColorHero: 'blue',
+					}}
 				/>
 			`,
 		}, {
-			key: 'No focused key (should not scroll)',
+			key: 'No hero key (should not scroll)',
 			props: {
 				items: countryKeyValueMixedWithZeroes,
-				shouldScrollToFocusedKey: true,
-				theme: {focusedKeyColor: 'yellow'},
+				shouldScrollToHeroKey: true,
+				theme: {
+					itemBackgroundColorHero: 'palegreen',
+					itemBarColorHero: 'red',
+					itemTextColorHero: 'blue',
+				},
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
-					shouldScrollToFocusedKey={true}
-					theme={{focusedKeyColor: 'yellow'}}
+					shouldScrollToHeroKey={true}
+					theme={{
+						itemBackgroundColorHero: 'palegreen',
+						itemBarColorHero: 'red',
+						itemTextColorHero: 'blue',
+					}}
 				/>
 			`,
 		}],
 		doc: [
-			{tag: 'p', content: 'You can set the focused bar by providing its key.'},
+			{tag: 'p', content: 'You can set the hero bar by providing its key.'},
 			{tag: 'p', content: 'This is useful when we select the chosen key in another part of the application and we want to provide a way to see what bar correspond to the current selection.'},
-			{tag: 'p', content: 'You can set the focused bar background color by providing its `focusedKeyColor`.'},
-			{tag: 'p', content: 'By passing `shouldScrollToFocusedKey` to `true` you can set chart to always scroll to the focused key, if any.'},
+			{tag: 'p', content: 'You can set the hero bar background color by providing `theme.itemBackgroundColorHero`.'},
+			{tag: 'p', content: 'You can set the hero bar color by providing `theme.itemBarColorHero` (`null` by default, which does not affect the bar color).'},
+			{tag: 'p', content: 'By passing `shouldScrollToHeroKey` to `true` you can set chart to always scroll to the hero key, if any.'},
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
-		slug: 'BarchartVDiv-focusedKey',
-		title: 'Focused key',
+		slug: 'BarchartVDiv-heroKey',
+		title: 'Hero key',
 	},
 	{
 		data: [{
@@ -479,20 +525,20 @@ export default examplesFormatter4([
 				items: countryKeyValuePositive,
 				keyToColor: keyToColorWorld,
 				selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI'],
-				theme: {deselectedOpacity: 0.1}
+				theme: {itemDeselectedOpacity: 0.1}
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
 					{keyToColor}
 					selectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},
-					theme={{deselectedOpacity: 0.1}}
+					theme={{itemDeselectedOpacity: 0.1}}
 				/>
 			`,
 		}],
 		doc: [
 			{tag: 'p', content: 'You can select a set of bars by passing `selectedKeys`, an array of keys. The deselected bars will get a lower opacity.'},
-			{tag: 'p', content: 'If needed you can setup a custom opacity for the deselected bars by passing `deselectedOpacity` in the `theme` object.'},
+			{tag: 'p', content: 'If needed you can setup a custom opacity for the deselected bars by passing `itemDeselectedOpacity` in the `theme` object.'},
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
@@ -841,6 +887,32 @@ export default examplesFormatter4([
 					on:clicked={onClicked}
 					on:entered={onEntered}
 					on:exited={onExited}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes (with themed focus outline)',
+			props: {
+				isInteractive: true,
+				items: countryKeyValueMixedWithZeroes,
+				title: 'Use tab key to focus bars with the keyboard',
+				theme: {
+					outlineColor: 'red',
+					outlineStyle: 'dashed',
+					outlineWidth: '2px',
+				}
+			},
+			usage: `
+				<BarchartVDiv
+					{items}
+					isInteractive={true}
+					on:clicked={onClicked}
+					on:entered={onEntered}
+					on:exited={onExited}
+					theme={{
+						outlineColor: 'red',
+						outlineStyle: 'dashed',
+						outlineWidth: '2px',
+					}}
 				/>
 			`,
 		}],

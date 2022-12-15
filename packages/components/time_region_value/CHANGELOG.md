@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.8.2 (next)
+
+- updated props used in `BarchartVDiv`
+
 ## `@svizzle/time_region_value` v0.8.1
 
 - upgraded `svelte`
