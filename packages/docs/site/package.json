@@ -13,7 +13,7 @@
 		"d3-color": "^3.1.0",
 		"d3-geo": "^3.0.1",
 		"d3-scale": "^4.0.2",
-		"lamb": "^0.60.0",
+		"lamb": "^0.61.0",
 		"svelte-json-tree": "^1.0.0"
 	},
 	"devDependencies": {

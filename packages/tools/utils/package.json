@@ -10,7 +10,7 @@
 	"dependencies": {
 		"escape-string-regexp": "^5.0.0",
 		"just-compare": "^2.2.2",
-		"lamb": "^0.60.0"
+		"lamb": "^0.61.0"
 	},
 	"description": "Svizzle Utils is a library to help transforming data.",
 	"devDependencies": {

@@ -12,7 +12,7 @@
 		"@svizzle/geometry": "^0.5.0",
 		"@svizzle/histogram": "^0.6.1",
 		"@svizzle/utils": "^0.18.0",
-		"lamb": "^0.60.0",
+		"lamb": "^0.61.0",
 		"yootils": "^0.3.1"
 	},
 	"description": "Legend Svelte components",

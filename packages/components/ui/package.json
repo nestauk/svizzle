@@ -25,7 +25,7 @@
 		"eslint-plugin-svelte3": "^4.0.0",
 		"feather-icons": "^4.28.0",
 		"hast-util-to-html": "^8.0.3",
-		"lamb": "^0.60.0",
+		"lamb": "^0.61.0",
 		"mkdirp": "^1.0.4",
 		"rimraf": "^3.0.2",
 		"svelte": "^3.50.1",

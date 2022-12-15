@@ -24,7 +24,7 @@
 		"d3-scale": "^4.0.2",
 		"d3-scale-chromatic": "^3.0.0",
 		"d3-shape": "^3.1.0",
-		"lamb": "^0.60.0",
+		"lamb": "^0.61.0",
 		"topojson-simplify": "^3.0.3",
 		"yootils": "^0.3.1"
 	},

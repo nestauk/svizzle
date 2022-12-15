@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@svizzle/utils": "^0.18.0",
 		"d3-fetch": "^3.0.1",
-		"lamb": "^0.60.0",
+		"lamb": "^0.61.0",
 		"rxjs": "^7.5.6"
 	},
 	"description": "Svizzle Request contains helpers for fetching data.",
