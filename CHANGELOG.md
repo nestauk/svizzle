@@ -16,6 +16,7 @@
 - added `StyleDriver.svelte`
 - added `StyleSensor.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
+- `a11yMenu`: removed `z-index`
 - `Link`:
 	- spacebar scrolling disabled when focused
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props
@@ -49,6 +50,7 @@
 		- as of now dynamic slots aren't supported so we can't document named slots
 		- it supports 1 level of depth only so slots being components with slots
 			themselves won't work
+- a11y menu: added a `z-index` to the menu container
 
 ## `@svizzle/utils` v0.19.0 (next)
 

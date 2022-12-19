@@ -37,7 +37,7 @@
 		colorBorder: 'black',
 		colorKnob: 'gray',
 		colorDisabled: 'silver',
-		colorText: 'black'
+		colorText: 'black',
 	};
 
 	$: label =
@@ -68,7 +68,6 @@
 		backgroundColor: theme.colorBackground,
 		knobColor: theme.colorKnob
 	}
-
 	$: style = makeStyleVars({gap: toPx(gap), ...theme});
 </script>
 
@@ -237,7 +236,6 @@
 		position: relative;
 		width: 100%;
 		word-spacing: 0;
-		z-index: var(--z-1000);
 	}
 
 	nav {

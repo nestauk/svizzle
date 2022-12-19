@@ -12,6 +12,7 @@
 - added `StyleDriver.svelte`
 - added `StyleSensor.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
+- `a11yMenu`: removed `z-index`
 - `Link`:
 	- spacebar scrolling disabled when focused
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` theme props

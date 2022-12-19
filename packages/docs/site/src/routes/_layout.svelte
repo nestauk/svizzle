@@ -74,5 +74,6 @@
 		margin-left: -240px;
 		position: fixed;
 		width: 480px;
+		z-index: 10000;
 	}
 </style>
