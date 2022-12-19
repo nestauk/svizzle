@@ -14,6 +14,7 @@ export {default as Banner} from './Banner.svelte';
 export {default as CenteredView} from './CenteredView.svelte';
 export {default as CopyToClipboard} from './CopyToClipboard.svelte';
 export {default as HighlightedText} from './HighlightedText.svelte';
+export {default as LayoutHMF} from './LayoutHMF.svelte';
 export {default as Link} from './Link.svelte';
 export {default as LinkButton} from './LinkButton.svelte';
 export {default as LoadingView} from './LoadingView.svelte';
