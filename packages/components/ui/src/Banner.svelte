@@ -22,8 +22,7 @@
 	const dispatch = createEventDispatcher();
 	const close = () => dispatch('close');
 	const onKeyDown = event => {
-		// ESC
-		if (event.keyCode === 27) {
+		if (event.key === 'Escape') {
 			event.preventDefault();
 			close();
 		}
@@ -41,12 +40,14 @@
 	class:backdrop={hasBackdrop}
 	class='Banner {$_screen?.classes}'
 	on:click={close}
+	on:keydown={onKeyDown}
 	role='alert'
 >
 	<div
 		class:narrow={isNarrow}
 		class='inner'
 		on:click|stopPropagation
+		on:keydown|stopPropagation
 	>
 		<slot />
 	</div>

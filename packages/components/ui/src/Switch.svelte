@@ -33,8 +33,8 @@
 		currentValue = currentValue === values[0] ? values[1] : values[0];
 		dispatch('toggled', currentValue);
 	}
-	const onKeypress = event => {
-		if (event.keyCode === 13 || event.key === ' ') {
+	const onKeyDown = event => {
+		if (['Enter', ' '].includes(event.key)) {
 			event.preventDefault();
 			toggle();
 		}
@@ -46,7 +46,6 @@
 	{title}
 	aria-label={title}
 	class='switch'
-	on:keypress={onKeypress}
 	role='button'
 	tabindex=0
 >
@@ -54,9 +53,10 @@
 		<span class='labelLeft'>{values[0]}</span>
 	{/if}
 	<span
-		class='wrapper'
 		class:isRight
+		class='wrapper'
 		on:click={toggle}
+		on:keydown={onKeyDown}
 	>
 		<span aria-hidden='true' class='bkg'></span>
 		<span aria-hidden='true' class='knob'></span>
@@ -69,7 +69,6 @@
 <style>
 	.switch {
 		align-items: center;
-		cursor: pointer;
 		display: flex;
 	}
 	.switch:focus-visible {
@@ -80,6 +79,7 @@
 	.wrapper {
 		border-radius: calc(2 * var(--height));
 		border: 1px solid var(--color);
+		cursor: pointer;
 		display: inline-block;
 		height: var(--height);
 		position: relative;

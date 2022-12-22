@@ -29,11 +29,19 @@
 		- removed `currentIndex`
 - `Switch`:
 	- no longer using radio buttons nor a `fieldset`
-	- added keyboard support
+	- keyboard support:
+		- [b], [e]
+		- moved `cursor: pointer` to the `wrapper` div
 	- `theme`:
 		- added `outlineColor`, `outlineStyle` and `outlineWidth` props
 		- added `knobColor` prop
 - updated license year
+
+[b] better keyboard support
+[e] use `event.key` instead of `event.keyCode` (now deprecated [1]) which is also more readable as we don't rely on numeric codes
+
+[1] https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+
 
 ## `@svizzle/ui` v0.8.0
 

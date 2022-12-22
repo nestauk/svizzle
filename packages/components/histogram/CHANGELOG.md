@@ -1,5 +1,6 @@
 ## `@svizzle/histogram` v0.6.2 (next)
 
+- added `keydown` event to dismiss the selection pressing ESC
 - updated license year
 
 ## `@svizzle/histogram` v0.6.1

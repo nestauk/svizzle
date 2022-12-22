@@ -362,8 +362,8 @@
 	const onClick = key => () => {
 		dispatch('clicked', {id: key})
 	}
-	const onKeypress = (event, key) => {
-		if (event.keyCode === 13 || event.key === ' ') {
+	const onKeyDown = (event, key) => {
+		if (['Enter', ' '].includes(event.key)) {
 			event.preventDefault();
 			dispatch('clicked', {id: key});
 		}
@@ -502,7 +502,7 @@
 								on:click={isInteractive && onClick(key)}
 								on:mouseenter={onMouseenter(key)}
 								on:mouseleave={isInteractive && onMouseleave(key)}
-								on:keypress={isInteractive && (e => onKeypress(e, key))}
+								on:keydown={isInteractive && (e => onKeyDown(e, key))}
 								tabindex={isInteractive ? 0 : -1}
 								transform='translate(0, {itemHeight * index})'
 							>

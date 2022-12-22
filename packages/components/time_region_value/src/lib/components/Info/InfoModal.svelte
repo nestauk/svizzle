@@ -21,10 +21,14 @@
 	export let year_extent = null;
 </script>
 
-<div class='modal' on:click>
+<div class='modal'
+	on:click
+	on:keydown
+>
 	<div
 		class='panel'
 		on:click|stopPropagation={noop}
+		on:keydown|stopPropagation={noop}
 	>
 		<InfoView
 			{api_doc_url}

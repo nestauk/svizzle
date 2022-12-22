@@ -16,18 +16,37 @@
 	export let focusedId = null;
 	export let showFocusedItem = false;
 
-	const focused = id => () => dispatch('focused', id);
-	const toggledAndFocused = id => () => {
-		dispatch('toggled', id);
-		dispatch('focused', id);
+	const makeClickHandler = dispatchedEvents => id => () => {
+		dispatchedEvents.forEach(dispatchedEvent => {
+			dispatch(dispatchedEvent, id);
+		});
 	}
-	const selectedAll = () => dispatch('selectedAll');
-	const deselectedAll = () => dispatch('deselectedAll');
+	const makeKeyHandler = dispatchedEvents => id => event => {
+		if (['Enter', ' '].includes(event.key)) {
+			event.preventDefault();
+			dispatchedEvents.forEach(dispatchedEvent => {
+				dispatch(dispatchedEvent, id);
+			});
+		}
+	}
+
+	const clickSelectedAll = () => dispatch('selectedAll');
+	const keySelectedAll = () => makeKeyHandler(['selectedAll']);
+
+	const clickDeselectedAll = () => dispatch('deselectedAll');
+	const keyDeselectedAll = () => makeKeyHandler(['deselectedAll']);
+
+	const clickFocused = id => () => dispatch('focused', id);
+	const keyFocused = makeKeyHandler(['focused']);
+
+	const clickToggledAndFocused = makeClickHandler(['focused', 'toggled']);
+	const keyToggledAndFocused = makeKeyHandler(['focused', 'toggled']);
 </script>
 
 <div
 	class='RegionsSelector'
 	on:click|stopPropagation={noop}
+	on:keydown|stopPropagation={noop}
 >
 	<!-- title -->
 
@@ -44,7 +63,8 @@
 
 				<span
 					class='checker clickable'
-					on:click={toggledAndFocused(id)}
+					on:click={clickToggledAndFocused(id)}
+					on:keydown={keyToggledAndFocused(id)}
 				>
 					{#if status === 1}
 						<Icon
@@ -70,7 +90,8 @@
 					class='item'
 					class:clickable={showFocusedItem}
 					class:focused={id === focusedId}
-					on:click={focused(id)}
+					on:click={clickFocused(id)}
+					on:keydown={keyFocused(id)}
 				>
 					{name}
 				</span>
@@ -96,7 +117,8 @@
 	<ul>
 		<li
 			class='end sep clickable'
-			on:click={selectedAll}
+			on:click={clickSelectedAll}
+			on:keydown={keySelectedAll}
 		>
 			<span>Select all</span>
 			<span class='checker'>
@@ -112,7 +134,8 @@
 
 		<li
 			class='end clickable'
-			on:click={deselectedAll}
+			on:click={clickDeselectedAll}
+			on:keydown={keyDeselectedAll}
 		>
 			<span>Deselect all</span>
 			<span class='checker'>

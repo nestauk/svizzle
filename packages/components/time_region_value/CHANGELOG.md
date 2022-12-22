@@ -2,6 +2,17 @@
 
 - updated props used in `BarchartVDiv`
 - updated license year
+- keyboard support:
+	- various inner components, [b], [e], [k].
+	- `GeoFilterModal`: handle `keydown` event from the route
+	- `XorSelector`: add `keydown` event
+
+[b] better keyboard support
+[e] use `event.key` instead of `event.keyCode` (now deprecated [1]) which is also more readable as we don't rely on numeric codes
+[k] use `keydown` event instead of `keypress` (now deprecated [2])
+
+[1] https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+[2] https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event
 
 ## `@svizzle/time_region_value` v0.8.1
 

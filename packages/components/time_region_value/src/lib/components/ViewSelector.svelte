@@ -19,6 +19,13 @@
 	export let showView = null;
 
 	$: strokes = makeStrokes($_views);
+
+	const onKeyDown = id => event => {
+		if (['Enter', ' '].includes(event.key)) {
+			event.preventDefault();
+			showView(id);
+		}
+	}
 </script>
 
 <nav
@@ -29,6 +36,7 @@
 	<div
 		class='button clickable'
 		on:click={showView('sidebar')}
+		on:keydown={onKeyDown('sidebar')}
 	>
 		<Icon
 			glyph={List}
@@ -40,6 +48,7 @@
 		<div
 			class='button clickable'
 			on:click={showView('distribution')}
+			on:keydown={onKeyDown('distribution')}
 		>
 			<Icon
 				glyph={Clock}
@@ -50,6 +59,7 @@
 		<div
 			class='button clickable'
 			on:click={showView('trends')}
+			on:keydown={onKeyDown('trends')}
 		>
 			<Icon
 				glyph={Activity}
@@ -60,6 +70,7 @@
 		<div
 			class='button clickable'
 			on:click={showView('map')}
+			on:keydown={onKeyDown('map')}
 		>
 			<Icon
 				glyph={MapPin}
@@ -69,6 +80,7 @@
 		<div
 			class='button clickable rotated'
 			on:click={showView('barchart')}
+			on:keydown={onKeyDown('barchart')}
 		>
 			<Icon
 				glyph={BarChart}
@@ -81,6 +93,7 @@
 		<div
 				class='button clickable'
 				on:click={showView('info')}
+				on:keydown={onKeyDown('info')}
 			>
 				<Icon
 					glyph={Info}
@@ -90,6 +103,7 @@
 		<div
 			class='button clickable'
 			on:click={showView('settings')}
+			on:keydown={onKeyDown('settings')}
 		>
 			<Icon
 				glyph={Settings}

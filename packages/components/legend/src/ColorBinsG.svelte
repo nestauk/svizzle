@@ -299,6 +299,13 @@
 		selectedBins = [];
 		dispatch('clicked', {selectedBins});
 	}
+
+	const onKeyDown = event => {
+		if (event.key === 'Escape') {
+			event.preventDefault();
+			resetSelection();
+		}
+	}
 </script>
 
 <svelte:options namespace='svg' />
@@ -332,6 +339,7 @@
 					class:reset={selectedBins.length > 0}
 					class='bkgSensor'
 					on:click={resetSelection}
+					on:keydown={onKeyDown}
 				/>
 			{/if}
 

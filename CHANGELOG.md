@@ -2,6 +2,15 @@
 
 ## next
 
+Notes for changelogs below:
+
+[b] better keyboard support
+[e] use `event.key` instead of `event.keyCode` (now deprecated [1]) which is also more readable as we don't rely on numeric codes
+[k] use `keydown` event instead of `keypress` (now deprecated [2])
+
+[1] https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+[2] https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event
+
 ## `@svizzle/barchart` v0.9.0 (next)
 
 - renamed:
@@ -25,20 +34,27 @@
 
 ## `@svizzle/choropleth` v0.9.2 (next)
 
+- added `keydown` event when `isInteractive` is true to prevent lint errors
 - updated license year
 
 ## `@svizzle/histogram` v0.6.2 (next)
 
+- added `keydown` event to dismiss the selection pressing ESC
 - updated license year
 
 ## `@svizzle/legend` v0.4.2 (next)
 
+- added `keydown` event to dismiss the selection pressing ESC
 - updated license year
 
 ## `@svizzle/time_region_value` v0.8.2 (next)
 
 - updated props used in `BarchartVDiv`
 - updated license year
+- keyboard support:
+	- various inner components, [b], [e], [k].
+	- `GeoFilterModal`: handle `keydown` event from the route
+	- `XorSelector`: add `keydown` event
 
 ## `@svizzle/ui` v0.9.0 (next)
 
@@ -71,7 +87,9 @@
 		- removed `currentIndex`
 - `Switch`:
 	- no longer using radio buttons nor a `fieldset`
-	- added keyboard support
+	- keyboard support:
+		- [b], [e]
+		- moved `cursor: pointer` to the `wrapper` div
 	- `theme`:
 		- added `outlineColor`, `outlineStyle` and `outlineWidth` props
 		- added `knobColor` prop

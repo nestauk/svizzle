@@ -41,6 +41,13 @@
 	$: globeStroke = flags.isRegionsSelectionDirty
 		? $_theme.colorSelected
 		: $_theme.colorRef;
+
+	$: onKeyDown = event => {
+		if (['Enter', ' '].includes(event.key)) {
+			event.preventDefault();
+			handlers.toggledGeoModal && handlers.toggledGeoModal();
+		}
+	}
 </script>
 
 <div class='SettingsRow'>
@@ -49,6 +56,7 @@
 		<div
 			class='item globe clickable'
 			on:click={handlers.toggledGeoModal}
+			on:keydown={onKeyDown}
 		>
 			<Icon
 				glyph={Globe}

@@ -24,12 +24,26 @@
 			event.preventDefault();
 		}
 	}
-	const toggleHeader = ({clientX, clientY}) => {
+
+	// toggling
+
+	const toggleHeader = () => {
+		isHeaderOpen = !isHeaderOpen;
+	}
+	const clickToggleHeader = ({clientX, clientY}) => {
 		const wasMouseDragged = clientX - clickCoord.x + clientY - clickCoord.y;
 		if (!wasMouseDragged) {
-			isHeaderOpen = !isHeaderOpen;
+			toggleHeader();
 		}
 	}
+	const keyToggleHeader = event => {
+		if (['Enter', ' '].includes(event.key)) {
+			event.preventDefault();
+			toggleHeader();
+		}
+	}
+
+	// resize
 
 	const {
 		_writable: _titleSize,
@@ -59,7 +73,8 @@
 <header>
 	<div
 		class='clickable title'
-		on:click={toggleHeader}
+		on:click={clickToggleHeader}
+		on:keydown={keyToggleHeader}
 		on:mousedown={savePointerPosition}
 	>
 		<h1 use:titleObserver={'contentBoxSize'}>{title}</h1>
@@ -69,7 +84,8 @@
 	{#if showChevron}
 		<div
 			class='clickable chevron'
-			on:click={toggleHeader}
+			on:click={clickToggleHeader}
+			on:keydown={keyToggleHeader}
 			on:mousedown={savePointerPosition}
 			role='none'
 		>
@@ -82,10 +98,12 @@
 	{/if}
 
 	<!-- medium+: info icon -->
+
 	{#if !$_isSmallScreen}
 		<div
 			class='clickable info'
 			on:click
+			on:keydown
 		>
 			<Icon
 				glyph={Info}
@@ -105,7 +123,8 @@
 >
 	<div
 		class='clickable title'
-		on:click={toggleHeader}
+		on:click={clickToggleHeader}
+		on:keydown={keyToggleHeader}
 		on:mousedown={savePointerPosition}
 	>
 		<h1 use:fullTitleObserver={'contentBoxSize'}>{title}</h1>
@@ -114,7 +133,8 @@
 
 	<div
 		class='clickable chevron'
-		on:click={toggleHeader}
+		on:click={clickToggleHeader}
+		on:keydown={keyToggleHeader}
 		on:mousedown={savePointerPosition}
 	>
 		<Icon
@@ -125,10 +145,12 @@
 	</div>
 
 	<!-- medium+: info icon -->
+
 	{#if !$_isSmallScreen}
 		<div
 			class='clickable info'
 			on:click
+			on:keydown
 		>
 			<Icon
 				glyph={Info}
@@ -139,7 +161,8 @@
 
 		<p
 			class='clickable foldMessage'
-			on:click={toggleHeader}
+			on:click={clickToggleHeader}
+			on:keydown={keyToggleHeader}
 			on:mousedown={savePointerPosition}
 		>
 			Click on title to fold
@@ -147,7 +170,8 @@
 	{:else}
 		<p
 			class='clickable foldMessage'
-			on:click={toggleHeader}
+			on:click={clickToggleHeader}
+			on:keydown={keyToggleHeader}
 			on:mousedown={savePointerPosition}
 		>
 			Tap on title to fold

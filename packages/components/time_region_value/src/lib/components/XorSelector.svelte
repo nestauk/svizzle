@@ -4,7 +4,6 @@
 	import {createEventDispatcher} from 'svelte';
 
 	const dispatch = createEventDispatcher();
-	const onClick = value => () => dispatch('changed', value);
 
 	const defaultTheme = {
 		borderColor: 'black',
@@ -19,6 +18,14 @@
 
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: style = makeStyleVars(theme);
+
+	const onClick = val => () => dispatch('changed', val);
+	const onKeyDown = val => event => {
+		if (['Enter', ' '].includes(event.key)) {
+			event.preventDefault();
+			dispatch('changed', val);
+		}
+	}
 </script>
 
 <div
@@ -29,6 +36,7 @@
 		<span
 			class:selected={isNotNil(value) && val === value}
 			on:click={onClick(val)}
+			on:keydown={onKeyDown(val)}
 		>
 			{val}
 		</span>

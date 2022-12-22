@@ -27,6 +27,7 @@
 <div
 	class='clickable modal'
 	on:click
+	on:keydown
 >
 	<div
 		class='panel'

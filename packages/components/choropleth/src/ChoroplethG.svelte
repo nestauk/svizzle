@@ -93,6 +93,13 @@
 		selectedKeys.includes(getFeatureKey(feature));
 	$: isDeselected = not(isSelected);
 	$: isClickable = feature => isInteractive && hasColor(feature);
+
+	const onKeyDown = (event, key_) => {
+		if (['Enter', ' '].includes(event.key)) {
+			event.preventDefault();
+			dispatch('clicked', key_);
+		}
+	}
 </script>
 
 <svelte:options namespace='svg' />
@@ -135,6 +142,7 @@
 								on:click={() => isClickable(feature) && dispatch('clicked', getFeatureKey(feature))}
 								on:mouseenter={() => isInteractive && dispatch('entered', getFeatureKey(feature))}
 								on:mouseleave={() => isInteractive && dispatch('exited', getFeatureKey(feature))}
+								on:keydown={isInteractive && (e => onKeyDown(e, getFeatureKey(feature)))}
 							/>
 						</g>
 					{/each}

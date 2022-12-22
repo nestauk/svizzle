@@ -1,5 +1,6 @@
 ## `@svizzle/choropleth` v0.9.2 (next)
 
+- added `keydown` event when `isInteractive` is true
 - updated license year
 
 ## `@svizzle/choropleth` v0.9.1

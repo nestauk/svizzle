@@ -276,6 +276,12 @@
 	const toggledFiltering = ({detail}) => {
 		$_doFilterRegions = detail === 'Filter'
 	};
+	const keyToggleGeoMenu = event => {
+		if (['Enter', ' '].includes(event.key)) {
+			event.preventDefault();
+			toggleGeoModal();
+		}
+	}
 </script>
 
 <div class='time_region_value_IdYear {$_screenClasses}'>
@@ -641,7 +647,10 @@
 				<!-- geo modal -->
 
 				{#if $_geoModal.isVisible}
-					<GeoFilterModal on:click={toggleGeoModal} />
+					<GeoFilterModal
+						on:click={toggleGeoModal}
+						on:keydown={keyToggleGeoMenu}
+					/>
 				{/if}
 
 			</div>	<!-- .content -->

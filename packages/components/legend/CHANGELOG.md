@@ -1,5 +1,6 @@
 ## `@svizzle/legend` v0.4.2 (next)
 
+- added `keydown` event to dismiss the selection pressing ESC
 - updated license year
 
 ## `@svizzle/legend` v0.4.1
