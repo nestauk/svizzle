@@ -55,6 +55,7 @@ Notes for changelogs below:
 	- various inner components, [b], [e], [k].
 	- `GeoFilterModal`: handle `keydown` event from the route
 	- `XorSelector`: add `keydown` event
+- added option to provide `atlasBase` in `_regionSettings`
 
 ## `@svizzle/ui` v0.9.0 (next)
 

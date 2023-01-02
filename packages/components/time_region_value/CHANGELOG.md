@@ -6,6 +6,7 @@
 	- various inner components, [b], [e], [k].
 	- `GeoFilterModal`: handle `keydown` event from the route
 	- `XorSelector`: add `keydown` event
+- added option to provide `atlasBase` in `_regionSettings`
 
 [b] better keyboard support
 [e] use `event.key` instead of `event.keyCode` (now deprecated [1]) which is also more readable as we don't rely on numeric codes

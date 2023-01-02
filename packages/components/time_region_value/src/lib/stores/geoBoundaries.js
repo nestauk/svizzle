@@ -20,7 +20,7 @@ import {_currentLevel} from './selectedRegions.js';
 
 export const _uriMap = derived(
 	_regionSettings,
-	({levels, resolution, type, years}) => {
+	({atlasBase, levels, resolution, type, years}) => {
 		let uriMap = {};
 
 		if (levels && years) {
@@ -30,7 +30,7 @@ export const _uriMap = derived(
 			uriMap = _.fromPairs(
 				_.map(pairs, ([level, year]) => {
 					const id = makeTopoId({level, resolution, type, year});
-					const url = makeTopoURL(id, type);
+					const url = makeTopoURL(id, type, atlasBase);
 
 					return [id, {url}];
 				})
