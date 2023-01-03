@@ -197,15 +197,23 @@ These are components that we instantiate to measure some feature of the device/b
 Measures screen features reactively, see [here](src/sensors/screen).
 
 
-### ScrollbarStyler
+### ScrollbarStyler (Blink & WebKit browsers)
 
-This Svelte component provides a universal styling solution for scrollbars across browsers. It uses the `::-webkit-scrollbar` pseudo-element to target the scrollbar on webkit browsers and a `:global` selector to ensure that the styling is applied globally.
+This Svelte component provides a solution to style scrollbars on Blink and WebKit based browsers to allow for easy customization of the scrollbars to better match the design of the webpage.
 
-The component also makes use of CSS variables for the `background-color` of the scrollbar track and thumb. This allows for easy customization of the scrollbar's color to better match the design of the webpage.
+It uses the `::-webkit-scrollbar` pseudo-element to target the scrollbar and a `:global` selector to ensure that the styling is applied globally.
+
+It can be enabled using the `isEnabled` prop.
+
+Using the `theme` prop you can set:
+- the color of the track and the thumb
+- the track border color
+- the track width
+- the thumb radius
 
 ## Usage
 
-Simply include the Svelte component into the desired page (usually `_layout.svelte`), set the desired `--colorScrollbarTrack` and `--colorScrollbarThumb` CSS variables, and the scrollbar styling will be applied.
+Include this component with the desired `theme` in a specific page or, in the main layout to style scrollbars of the entire web app.
 
 ## Breakpoints
 

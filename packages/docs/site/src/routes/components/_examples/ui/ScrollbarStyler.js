@@ -1,9 +1,9 @@
 export const name = 'ScrollbarStyler';
 export const packageName = 'ui';
-export const title = 'ScrollbarStyler';
+export const title = 'ScrollbarStyler (Blink and WebKit)';
 export const slug = `${packageName}-${name}`;
 export const doc = [
-	{tag: 'p', content: 'You can style scrollbars adding this component to your app.'},
+	{tag: 'p', content: 'On Blink and WebKit based browsers, you can style scrollbars adding this component to your app.'},
 	{tag: 'p', content: 'When disabled, the system scrollbars style applies.'},
 	{tag: 'p', content: 'Try shortening the screen and for example look at the scrollbar in the sidebar on the left.'},
 	{tag: 'p', content: 'Note that the track bar fades off when not hovered: to check the theme works as intended, please hover the scrollbar.'},

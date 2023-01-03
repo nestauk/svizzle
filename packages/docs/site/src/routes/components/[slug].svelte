@@ -221,11 +221,11 @@
 	}
 
 	.row {
-		display: flex;
 		align-items: center;
-		width: 100%;
+		display: flex;
 		height: 2rem;
 		margin-bottom: 1rem;
+		width: 100%;
 	}
 
 	.row span:nth-child(1) {
@@ -236,19 +236,20 @@
 	}
 
 	select {
-		font-size: 1.05rem;
-		font-family: inherit;
-		position: relative;
 		appearance: none;
+		font-family: inherit;
+		font-size: 1.05rem;
 		outline: none;
+		overflow-y: auto;
+		position: relative;
 		user-select: none;
 	}
 
 	option {
-		padding: 0.5rem;
 		appearance: none;
-		outline: 0 none;
 		cursor: pointer;
+		outline: 0 none;
+		padding: 0.5rem;
 		user-select: none;
 	}
 	option[selected=true] {
