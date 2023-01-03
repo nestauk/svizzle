@@ -11,6 +11,7 @@
 		- it supports 1 level of depth only so slots being components with slots
 			themselves won't work
 - a11y menu: added a `z-index` to the menu container
+- use `@svizzle/ui`'s `NoScript` component
 
 ## `@svizzle/site` v0.4.0
 

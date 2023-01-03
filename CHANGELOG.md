@@ -109,6 +109,7 @@ Notes for changelogs below:
 		- it supports 1 level of depth only so slots being components with slots
 			themselves won't work
 - a11y menu: added a `z-index` to the menu container
+- use `@svizzle/ui`'s `NoScript` component
 
 ## `@svizzle/atlas` v0.8.1 (next)
 

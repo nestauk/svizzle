@@ -155,6 +155,8 @@ Props:
 
 Displays a message when Javascript is disabled.
 
+To test this, disable Javascript in your browser and check Svizzle's documentation website.
+
 ## ResponsiveButton
 
 A button with 2 slots:

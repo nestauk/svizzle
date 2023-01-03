@@ -6,6 +6,7 @@
 		A11yMenu,
 		A11yMenuDriver,
 		FontsLoader,
+		NoScript,
 		ScreenSensor,
 	} from '@svizzle/ui';
 
@@ -18,6 +19,7 @@
 	let showA11yMenu;
 </script>
 
+<NoScript />
 <A11yMenuDriver
 	defaults={{
 		typeface: {
