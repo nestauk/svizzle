@@ -80,8 +80,11 @@ export const arrayMinWith = fn => _.reduceWith((min, item) => {
 3
 > sumValues([{a: 'hey'}, {notA: 'b'}, {notA: 3}])
 0
+> sumValues([])
+0
  *
  * @since 0.16.0
+ * @see {@link module:@svizzle/utils/array-number.arraySum|arraySum}
  */
 export const arraySumWith = accessor => _.reduceWith((acc, item) => {
 	const value = accessor(item);
@@ -103,16 +106,13 @@ export const arraySumWith = accessor => _.reduceWith((acc, item) => {
 	{a: 10, b: 7},
 	{a: 7, b: 9},
 ])
-> makeAverageOfA([
-	{a: 11, b: 4},
-	{a: 7, b: 9},
-	{a: 9, b: 0},
-])
-9
+6
+> makeAverageOfA([])
+0
  *
  * @since 0.11.0
  */
 export const makeAverageWith = accessor => _.pipe([
 	_.collect([arraySumWith(accessor), getLength]),
-	_.apply(_.divide),
+	([sum, length]) => length ? sum / length : 0
 ]);

@@ -42,6 +42,9 @@ describe('Array -> Number', function () {
 		it('should return the average of the numbers in the provided array', function () {
 			assert.deepStrictEqual(arrayAverage([1, 23, 6]), 10);
 		});
+		it('should return zero when passed an empty array', function () {
+			assert.deepStrictEqual(arrayAverage([]), 0);
+		});
 	});
 	describe('keyValueArrayAverage', function () {
 		it('should return the average of values of a {key, value}[] array', function () {
@@ -50,6 +53,9 @@ describe('Array -> Number', function () {
 				{key: 'b', value: 23},
 				{key: 'c', value: 6},
 			]), 10);
+		});
+		it('should return zero when passed an empty array', function () {
+			assert.deepStrictEqual(keyValueArrayAverage([]), 0);
 		});
 	});
 

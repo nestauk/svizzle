@@ -64,10 +64,14 @@ describe('(Any -> Number) -> (Array -> Number)', function () {
 				{notA: 3},
 			]), 0);
 		});
+		it('should return zero when passed an empty array', function () {
+			assert.deepStrictEqual(sumValues([]), 0);
+		});
 	});
 	describe('makeAverageWith', function () {
+		const makeAverageOfA = makeAverageWith(_.getKey('a'));
+
 		it('should return a function expecting an array of objects and returning the max of results of applying the provided fuction on all of the array items', function () {
-			const makeAverageOfA = makeAverageWith(_.getKey('a'));
 
 			assert.deepStrictEqual(makeAverageOfA([
 				{a: 1, b: 2},
@@ -79,6 +83,9 @@ describe('(Any -> Number) -> (Array -> Number)', function () {
 				{a: 7, b: 9},
 				{a: 9, b: 0},
 			]), 9);
-		})
+		});
+		it('should return zero when passed an empty array', function () {
+			assert.deepStrictEqual(makeAverageOfA([]), 0);
+		});
 	})
 })

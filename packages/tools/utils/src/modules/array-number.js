@@ -74,6 +74,7 @@ export const arrayMin = _.apply(Math.min);
 0
  *
  * @since 0.3.0
+ * @see {@link module:@svizzle/utils/[any-number]-[array-number].arraySumWith|arraySumWith}
  */
 export const arraySum = _.reduceWith(_.sum, 0);
 
@@ -87,12 +88,14 @@ export const arraySum = _.reduceWith(_.sum, 0);
  * @example
 > arrayAverage([1, 23, 6])
 10
+> arrayAverage([])
+0
  *
  * @since 0.11.0
  */
 export const arrayAverage = _.pipe([
 	_.collect([arraySum, getLength]),
-	_.apply(_.divide),
+	([sum, length]) => length ? sum / length : 0
 ]);
 
 /**
@@ -109,10 +112,12 @@ export const arrayAverage = _.pipe([
 	{key: 'c', value: 6},
 ])
 10
+> keyValueArrayAverage([])
+0
  *
  * @since 0.11.0
  */
 export const keyValueArrayAverage = _.pipe([
 	_.collect([arraySumWith(getValue), getLength]),
-	_.apply(_.divide),
+	([sum, length]) => length ? sum / length : 0
 ]);

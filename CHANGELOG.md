@@ -125,8 +125,8 @@
 - added `isRegexpEmpty`, `isRegexpNotEmpty`
 - added `makeRegexOf`, `makeSafeRegexOf`
 - added `regexOf`, `safeRegexOf`
+- changed: `arrayAverage`, `keyValueArrayAverage`, `makeAverageWith` return zero when passed empty arrays
 - updated license year
-
 
 ## 20221003
 
