@@ -4,6 +4,7 @@
 - added `isRegexpEmpty`, `isRegexpNotEmpty`
 - added `makeRegexOf`, `makeSafeRegexOf`
 - added `regexOf`, `safeRegexOf`
+- updated license year
 
 ## `@svizzle/utils` v0.18.0
 

@@ -1,6 +1,7 @@
 ## `@svizzle/time_region_value` v0.8.2 (next)
 
 - updated props used in `BarchartVDiv`
+- updated license year
 
 ## `@svizzle/time_region_value` v0.8.1
 

@@ -1,3 +1,7 @@
+## `@svizzle/file` v0.14.1 (next)
+
+- updated license year
+
 ## `@svizzle/file` v0.14.0
 
 - upgrade to ESM:

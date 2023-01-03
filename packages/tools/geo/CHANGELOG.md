@@ -1,3 +1,7 @@
+## `@svizzle/geo` v0.9.1 (next)
+
+- updated license year
+
 ## `@svizzle/geo` v0.9.0
 
 - upgrade to ESM:

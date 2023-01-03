@@ -1,3 +1,7 @@
+## `@svizzle/request` v0.5.1 (next)
+
+- updated license year
+
 ## `@svizzle/request` v0.5.1
 
 - rearranged `rxjs` imports to minimize impact during import

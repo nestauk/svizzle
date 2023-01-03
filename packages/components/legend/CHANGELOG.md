@@ -1,3 +1,7 @@
+## `@svizzle/legend` v0.4.2 (next)
+
+- updated license year
+
 ## `@svizzle/legend` v0.4.1
 
 - upgraded `svelte`

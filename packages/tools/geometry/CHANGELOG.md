@@ -1,3 +1,7 @@
+## `@svizzle/geometry` v0.5.1 (next)
+
+- updated license year
+
 ## `@svizzle/geometry` v0.5.0
 
 - upgrade to ESM:

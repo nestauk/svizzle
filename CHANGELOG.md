@@ -2,14 +2,15 @@
 
 ## next
 
-## `@svizzle/barchart` v0.8.2 (next)
+## `@svizzle/barchart` v0.9.0 (next)
 
 - renamed:
 	- `focusedKey` to `heroKey`
 	- `shouldScrollToFocusedKey` to `shouldScrollToHeroKey`
+- added keyboard support when `isInteractive` is true
 - theming:
 	- changed the `theme` props to control colors: see `theme.item*`
-	- precedence to choose an item color is now
+	- precedence to choose an item color is now:
 		- hovering
 		- hero key
 		- color map or function
@@ -18,13 +19,26 @@
 		- only affect opacity
 		- only if there is at least one selected key
 	- added `refRectColor`, `refRectStrokeColor`, `refTextFill` to control ref boxes theme
+	- added `outlineColor`, `outlineStyle` and `outlineWidth` styling keyboard support
 - using `MessageView` from `@svizzle/ui`
-- added keyboard support when `isInteractive` is true
-- added `outlineColor`, `outlineStyle` and `outlineWidth` styling keyboard support
+- updated LICENSE year
+
+## `@svizzle/choropleth` v0.9.2 (next)
+
+- updated license year
+
+## `@svizzle/histogram` v0.6.2 (next)
+
+- updated license year
+
+## `@svizzle/legend` v0.4.2 (next)
+
+- updated license year
 
 ## `@svizzle/time_region_value` v0.8.2 (next)
 
 - updated props used in `BarchartVDiv`
+- updated license year
 
 ## `@svizzle/ui` v0.9.0 (next)
 
@@ -61,6 +75,7 @@
 	- `theme`:
 		- added `outlineColor`, `outlineStyle` and `outlineWidth` props
 		- added `knobColor` prop
+- updated license year
 
 ## `@svizzle/site` v0.4.1 (next)
 
@@ -76,12 +91,42 @@
 			themselves won't work
 - a11y menu: added a `z-index` to the menu container
 
+## `@svizzle/atlas` v0.8.1 (next)
+
+- updated license year
+
+## `@svizzle/dev` v0.6.1 (next)
+
+- updated license year
+
+## `@svizzle/dom` v0.7.1 (next)
+
+- updated license year
+
+## `@svizzle/file` v0.14.1 (next)
+
+- updated license year
+
+## `@svizzle/geo` v0.9.1 (next)
+
+- updated license year
+
+## `@svizzle/geometry` v0.5.1 (next)
+
+- updated license year
+
+## `@svizzle/request` v0.5.1 (next)
+
+- updated license year
+
 ## `@svizzle/utils` v0.19.0 (next)
 
 - added `makeTrimmedSplitBy`
 - added `isRegexpEmpty`, `isRegexpNotEmpty`
 - added `makeRegexOf`, `makeSafeRegexOf`
 - added `regexOf`, `safeRegexOf`
+- updated license year
+
 
 ## 20221003
 

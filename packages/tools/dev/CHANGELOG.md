@@ -1,3 +1,7 @@
+## `@svizzle/dev` v0.6.1 (next)
+
+- updated license year
+
 ## `@svizzle/dev` v0.6.0
 
 - upgrade to ESM:

@@ -1,3 +1,7 @@
+## `@svizzle/atlas` v0.8.1 (next)
+
+- updated license year
+
 ## `@svizzle/atlas` v0.8.0
 
 - upgrade to ESM:

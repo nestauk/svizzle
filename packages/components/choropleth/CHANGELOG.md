@@ -1,3 +1,7 @@
+## `@svizzle/choropleth` v0.9.2 (next)
+
+- updated license year
+
 ## `@svizzle/choropleth` v0.9.1
 
 - upgraded `svelte`

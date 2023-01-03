@@ -1,3 +1,7 @@
+## `@svizzle/histogram` v0.6.2 (next)
+
+- updated license year
+
 ## `@svizzle/histogram` v0.6.1
 
 - upgraded `svelte`

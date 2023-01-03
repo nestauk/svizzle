@@ -1,3 +1,7 @@
+## `@svizzle/dom` v0.7.1 (next)
+
+- updated license year
+
 ## `@svizzle/dom` v0.7.0
 
 - upgrade to ESM:

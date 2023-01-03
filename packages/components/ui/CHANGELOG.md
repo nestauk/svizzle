@@ -33,6 +33,7 @@
 	- `theme`:
 		- added `outlineColor`, `outlineStyle` and `outlineWidth` props
 		- added `knobColor` prop
+- updated license year
 
 ## `@svizzle/ui` v0.8.0
 
