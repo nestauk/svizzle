@@ -506,7 +506,7 @@ export default examplesFormatter4([
 				/>
 			`,
 		}, {
-			key: 'Some other selected keys (with colors, default opacity)',
+			key: 'Some other selected keys with `keyToColor`',
 			props: {
 				items: countryKeyValuePositive,
 				keyToColor: keyToColorWorld,
@@ -520,19 +520,37 @@ export default examplesFormatter4([
 				/>
 			`,
 		}, {
-			key: 'Some other selected keys (with colors and custom opacity)',
+			key: 'Some other selected keys with `keyToColor` and `theme`',
 			props: {
 				items: countryKeyValuePositive,
 				keyToColor: keyToColorWorld,
 				selectedKeys: ['AL', 'AT', 'BY', 'CZ', 'FI'],
-				theme: {itemDeselectedOpacity: 0.1}
+				theme: {
+					itemBackgroundColorHover: 'lightgrey',
+					itemBackgroundColorSelected: 'palegreen',
+					itemBarColorDefault: 'black',
+					itemBarColorHover: 'black',
+					itemBarColorSelected: 'red',
+					itemTextColorDefault: 'orange',
+					itemTextColorHover: 'pink',
+					itemTextColorSelected: 'magenta',
+				}
 			},
 			usage: `
 				<BarchartVDiv
 					{items}
 					{keyToColor}
 					selectedKeys={['AL', 'AT', 'BY', 'CZ', 'FI']},
-					theme={{itemDeselectedOpacity: 0.1}}
+					theme={{
+						itemBackgroundColorHover: 'lightgrey',
+						itemBackgroundColorSelected: 'palegreen',
+						itemBarColorDefault: 'black',
+						itemBarColorHover: 'black',
+						itemBarColorSelected: 'red',
+						itemTextColorDefault: 'orange',
+						itemTextColorHover: 'pink',
+						itemTextColorSelected: 'magenta',
+					}}
 				/>
 			`,
 		}],

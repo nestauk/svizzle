@@ -42,14 +42,16 @@
 		fontSize: 14,
 		headerHeight: '2em',
 		itemBackgroundColorHero: 'yellow',
-		itemBackgroundColorHover: 'rgba(0,0,0,0.1)',
+		itemBackgroundColorHover: 'lightgrey',
+		itemBackgroundColorSelected: 'cyan',
 		itemBarColorDefault: 'black',
 		itemBarColorHero: null,
 		itemBarColorHover: null,
-		itemDeselectedOpacity: 0.25,
+		itemBarColorSelected: null,
 		itemTextColorDefault: '#333',
 		itemTextColorHero: 'black',
 		itemTextColorHover: '#333',
+		itemTextColorSelected: 'black',
 		messageColor: 'black',
 		messageFontSize: '1rem',
 		outlineColor: 'black',
@@ -130,6 +132,7 @@
 
 	/* layout */
 
+	// eslint-disable-next-line complexity
 	$: bars = items.map(item => {
 		const {key} = item;
 
@@ -148,32 +151,25 @@
 		const isNeg = value < 0;
 		const displayValue = formatFn ? formatFn(value) : value;
 
-		/* colors
+		/* colors */
 
-		- `selectedKeys`: controls opacity
-			- empty:
-				- all bars full-opacity
-			- not-empty:
-				- some bars full-opacity
-				- some semi-opaque
-		- `heroKey`, `hoveredKey`: bkg & text
-		*/
-
-		const isDeselected =
+		const isItemDeselected =
 			isIterableEmpty(selectedKeys)
-				? false
-				: !isIn(selectedKeys, key)
+				? true
+				: !isIn(selectedKeys, key);
 
-		// bkg color: hoveredKey > heroKey > transparentColor
+		// bkg color: hoveredKey || heroKey || selectedKeys || transparentColor
 
 		const barBackgroundColor =
 			key === hoveredKey
 				? theme.itemBackgroundColorHover
 				: key === heroKey
 					? theme.itemBackgroundColorHero
-					: transparentColor;
+					: isItemDeselected
+						? transparentColor
+						: theme.itemBackgroundColorSelected;
 
-		// bar color: hoveredKey > heroKey > key color > default
+		// bar color: hoveredKey || heroKey || selectedKeys || key color || default
 
 		const barBaseColor =
 			keyToColor
@@ -186,22 +182,25 @@
 				? theme.itemBarColorHover || barBaseColor
 				: key === heroKey
 					? theme.itemBarColorHero || barBaseColor
-					: barBaseColor;
+					: isItemDeselected
+						? barBaseColor
+						: theme.itemBarColorSelected || barBaseColor;
 
-		// text: hoveredKey > heroKey > key color > default
+		// text: hoveredKey || heroKey || selectedKeys || default
 
 		const textColor =
 			key === hoveredKey
 				? theme.itemTextColorHover
 				: key === heroKey
-					? theme.itemTextColorHero || theme.itemTextColorDefault
-					: theme.itemTextColorDefault;
+					? theme.itemTextColorHero
+					: isItemDeselected
+						? theme.itemTextColorDefault
+						: theme.itemTextColorSelected;
 
 		return {...item, ...{
 			barBackgroundColor,
 			barColor,
 			displayValue,
-			isDeselected,
 			isNeg,
 			label,
 			labelLength,
@@ -484,7 +483,6 @@
 							barWidth,
 							barX,
 							displayValue,
-							isDeselected,
 							isLabelAlignedRight,
 							isValueAlignedRight,
 							key,
@@ -497,7 +495,6 @@
 							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 							<g
 								class:clickable={isInteractive}
-								class:deselected={isDeselected}
 								class='item'
 								on:click={isInteractive && onClick(key)}
 								on:mouseenter={onMouseenter(key)}
@@ -618,9 +615,6 @@
 	.item.clickable {
 		cursor: pointer;
 		user-select: none;
-	}
-	.item.deselected rect {
-		fill-opacity: var(--itemDeselectedOpacity);
 	}
 	.item text {
 		font-size: var(--fontSize);

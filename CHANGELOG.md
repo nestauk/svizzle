@@ -22,11 +22,9 @@ Notes for changelogs below:
 	- precedence to choose an item color is now:
 		- hovering
 		- hero key
+		- selected key (if there is at least one selected key)
 		- color map or function
 		- default color
-	- selected keys:
-		- only affect opacity
-		- only if there is at least one selected key
 	- added `refRectColor`, `refRectStrokeColor`, `refTextFill` to control ref boxes theme
 	- added `outlineColor`, `outlineStyle` and `outlineWidth` styling keyboard support
 - using `MessageView` from `@svizzle/ui`
