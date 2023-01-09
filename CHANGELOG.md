@@ -108,6 +108,7 @@ Notes for changelogs below:
 			themselves won't work
 - a11y menu: added a `z-index` to the menu container
 - use `@svizzle/ui`'s `NoScript` component
+- serve `@svizzle/atlas` files from `/static`
 
 ## `@svizzle/atlas` v0.9.0 (next)
 

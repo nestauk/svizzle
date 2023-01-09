@@ -12,6 +12,7 @@
 			themselves won't work
 - a11y menu: added a `z-index` to the menu container
 - use `@svizzle/ui`'s `NoScript` component
+- serve `@svizzle/atlas` files from `/static`
 
 ## `@svizzle/site` v0.4.0
 

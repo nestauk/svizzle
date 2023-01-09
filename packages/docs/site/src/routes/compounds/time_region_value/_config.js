@@ -17,6 +17,7 @@ const {levels, years} = regionSpecs[regionType];
 const [rootLevel] = levels;
 
 export const regionSettings = {
+	atlasBase: '/svizzle/atlas',
 	canSelectLevels: true,
 	filterableLevel: 0,
 	ignoredRegions: [
