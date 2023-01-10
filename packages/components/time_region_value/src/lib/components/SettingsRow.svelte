@@ -5,6 +5,7 @@
 		Globe,
 		Icon,
 		Switch,
+		XorSelector,
 	} from '@svizzle/ui';
 
 	// lib/stores
@@ -16,9 +17,6 @@
 	import {_availableLevels} from '../stores/regionSettings.js';
 	import {_currentLevel} from '../stores/selectedRegions.js';
 	import {_theme} from '../stores/theme.js';
-
-	// lib/components
-	import XorSelector from './XorSelector.svelte';
 
 	const defaultHandlers = {
 		setLevel: null,

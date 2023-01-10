@@ -12,6 +12,7 @@ import * as MultiBanner from './MultiBanner.js';
 import * as ScrollbarStyler from './ScrollbarStyler.js';
 import * as Scroller from './Scroller.js';
 import * as Switch from './Switch.js';
+import * as XorSelector from './XorSelector.js';
 
 import {examplesFormatter3} from '../utils.js';
 
@@ -30,4 +31,5 @@ export default examplesFormatter3([
 	ScrollbarStyler,
 	Scroller,
 	Switch,
+	XorSelector,
 ]);

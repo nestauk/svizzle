@@ -33,10 +33,10 @@
 	let height;
 
 	$: isSVG = namespace === 'svg';
-	$: payloads = events ? makeKeyedEmptyString(events) : null;
 	$: component = components[name];
 	$: selected = data && 0;
 	$: currentData = data[selected];
+	$: payloads = currentData && events ? makeKeyedEmptyString(events) : null;
 	$: displayProps = _.pairs(currentData.props);
 
 	const makeEventHandler = eventName =>

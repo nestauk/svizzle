@@ -60,6 +60,8 @@
 	}
 
 	nav p.selected {
+		background-color: var(--color-selected);
+		color: var(--color-selected-text);
 		font-weight: bold;
 	}
 

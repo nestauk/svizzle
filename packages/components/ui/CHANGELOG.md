@@ -11,6 +11,7 @@
 - added `Scroller.svelte`
 - added `StyleDriver.svelte`
 - added `StyleSensor.svelte`
+- added `XorSelector.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `a11yMenu`: removed `z-index`
 - `Link`:

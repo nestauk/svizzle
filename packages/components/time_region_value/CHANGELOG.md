@@ -9,11 +9,12 @@
 - processes features:
 	- clips features according to `processing.clipIds` and `maxBbox`
 	- filters out features according to `processing.excludeIds`
-- updated props used in `BarchartVDiv`
 - keyboard support:
 	- various inner components, [b], [e], [k]
 	- `GeoFilterModal`: handle `keydown` event from the route
 	- `XorSelector`: add `keydown` event
+- updated props used in `BarchartVDiv`
+- use `XorSelector` from `/ui`
 - updated license year
 
 [b] better keyboard support

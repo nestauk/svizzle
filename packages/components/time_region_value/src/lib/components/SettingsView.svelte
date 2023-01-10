@@ -1,5 +1,5 @@
 <script>
-	import {Switch} from '@svizzle/ui';
+	import {Switch, XorSelector} from '@svizzle/ui';
 
 	// lib/stores
 	import {
@@ -26,7 +26,6 @@
 
 	// lib/components
 	import RegionsSelector from './RegionsSelector.svelte';
-	import XorSelector from './XorSelector.svelte';
 
 	const defaultHandlers = {
 		toggledFiltering: null,

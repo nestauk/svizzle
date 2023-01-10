@@ -59,11 +59,12 @@ Notes for changelogs below:
 - processes features:
 	- clips features according to `processing.clipIds` and `maxBbox`
 	- filters out features according to `processing.excludeIds`
-- updated props used in `BarchartVDiv`
 - keyboard support:
 	- various inner components, [b], [e], [k]
 	- `GeoFilterModal`: handle `keydown` event from the route
 	- `XorSelector`: add `keydown` event
+- updated props used in `BarchartVDiv`
+- use `XorSelector` from `/ui`
 - updated license year
 
 ## `@svizzle/ui` v0.9.0 (next)
@@ -79,6 +80,7 @@ Notes for changelogs below:
 - added `Scroller.svelte`
 - added `StyleDriver.svelte`
 - added `StyleSensor.svelte`
+- added `XorSelector.svelte`
 - added `PLATFORM` and `isPlatformIn(oses, browsers)`
 - `a11yMenu`: removed `z-index`
 - `Link`:
@@ -120,6 +122,9 @@ Notes for changelogs below:
 - a11y menu: added a `z-index` to the menu container
 - use `@svizzle/ui`'s `NoScript` component
 - serve `@svizzle/atlas` files from `/static`
+- components route:
+	- hightlight selected slug
+	- reset events payloads when we choose a new example
 
 ## `@svizzle/atlas` v0.9.0 (next)
 

@@ -13,6 +13,9 @@
 - a11y menu: added a `z-index` to the menu container
 - use `@svizzle/ui`'s `NoScript` component
 - serve `@svizzle/atlas` files from `/static`
+- components route:
+	- hightlight selected slug
+	- reset events payloads when we choose a new example
 
 ## `@svizzle/site` v0.4.0
 

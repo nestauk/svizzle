@@ -26,3 +26,4 @@ export {default as ResponsiveFlex} from './ResponsiveFlex.svelte';
 export {default as ScrollbarStyler} from './ScrollbarStyler.svelte';
 export {default as Scroller} from './Scroller.svelte';
 export {default as Switch} from './Switch.svelte';
+export {default as XorSelector} from './XorSelector.svelte';

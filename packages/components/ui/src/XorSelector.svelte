@@ -1,29 +1,42 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
-	import {isNotNil} from '@svizzle/utils';
 	import {createEventDispatcher} from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
 	const defaultTheme = {
 		borderColor: 'black',
+		borderRadius: 0,
 		borderWidth: '1px',
 		selectedColor: 'black',
 		selectedTextColor: 'white',
+		textColor: 'black',
 	}
 
 	export let theme = null;
 	export let value = null;
 	export let values = [];
 
-	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	$: style = makeStyleVars(theme);
+	$: currentValue = value ?? values[0];
 
-	const onClick = val => () => dispatch('changed', val);
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+	$: borderRadiusLeft = `${theme.borderRadius} 0 0 ${theme.borderRadius}`;
+	$: borderRadiusRight = `0 ${theme.borderRadius} ${theme.borderRadius} 0`;
+	$: style = makeStyleVars({
+		...theme,
+		borderRadiusLeft,
+		borderRadiusRight,
+	});
+
+	const updateValue = val => {
+		currentValue = val;
+		dispatch('changed', val);
+	}
+	const onClick = val => () => updateValue(val);
 	const onKeyDown = val => event => {
 		if (['Enter', ' '].includes(event.key)) {
 			event.preventDefault();
-			dispatch('changed', val);
+			updateValue(val);
 		}
 	}
 </script>
@@ -34,7 +47,7 @@
 >
 	{#each values as val}
 		<span
-			class:selected={isNotNil(value) && val === value}
+			class:selected={currentValue === val}
 			on:click={onClick(val)}
 			on:keydown={onKeyDown(val)}
 		>
@@ -56,15 +69,16 @@
 		border-bottom: var(--border);
 		border-right: var(--border);
 		border-top: var(--border);
+		color: var(--textColor);
 		cursor: pointer;
 		padding: 0.3rem 0.6rem;
 	}
 	span:first-child {
 		border-left: var(--border);
-		border-radius: 100% 0 0 100%;
+		border-radius: var(--borderRadiusLeft);
 	}
 	span:last-child {
-		border-radius: 0 100% 100% 0;
+		border-radius: var(--borderRadiusRight);
 	}
 	span.selected {
 		background-color: var(--selectedColor);

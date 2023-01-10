@@ -8,6 +8,6 @@ export function get (req, res) {
 		{name: 'choropleth', slug: 'ChoroplethG'},
 		{name: 'histogram', slug: 'HistogramG'},
 		{name: 'legend', slug: 'ColorBinsG'},
-		{name: 'ui', slug: 'ui-Switch'},
+		{name: 'ui', slug: 'ui-AlphabetPicker'},
 	]));
 }
