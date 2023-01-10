@@ -494,6 +494,26 @@ export default examplesFormatter4([
 	},
 	{
 		data: [{
+			key: 'No selected keys',
+			props: {
+				items: countryKeyValuePositive,
+			},
+			usage: `
+				<BarchartVDiv {items} />
+			`,
+		}, {
+			key: 'Empty selected keys',
+			props: {
+				items: countryKeyValuePositive,
+				selectedKeys: [],
+			},
+			usage: `
+				<BarchartVDiv
+					{items}
+					selectedKeys={[]}
+				/>
+			`,
+		}, {
 			key: 'Some selected keys',
 			props: {
 				selectedKeys: ['AD', 'AM', 'HR', 'CY', 'DE'],

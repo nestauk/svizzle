@@ -204,6 +204,18 @@
 		}
 	});
 
+	// barchart
+
+	$: barchartSelectedKeys =
+		$_selectedRegionAtlasIds.length === $_regionIdValuePairs.length
+			? []
+			: $_selectedRegionAtlasIds;
+	const barchartTheme = {
+		itemBackgroundColorHero: 'rgb(211, 238, 253)',
+		itemBackgroundColorSelected: 'antiquewhite',
+		titleFontSize: '1.2rem',
+	};
+
 	/* map tooltip */
 
 	const _tooltip = writable({isVisible: false});
@@ -420,13 +432,10 @@
 							on:entered={onEnteredBar}
 							on:exited={onExitedBar}
 							refs={$_barchartRefs}
-							selectedKeys={$_selectedRegionAtlasIds}
+							selectedKeys={barchartSelectedKeys}
 							shouldResetScroll={true}
 							shouldScrollToHeroKey={true}
-							theme={{
-								itemBackgroundColorHero: 'rgb(211, 238, 253)',
-								titleFontSize: '1.2rem',
-							}}
+							theme={barchartTheme}
 							title={barchartTitle}
 						/>
 					</div>
@@ -629,13 +638,10 @@
 							on:entered={onEnteredBar}
 							on:exited={onExitedBar}
 							refs={$_barchartRefs}
-							selectedKeys={$_selectedRegionAtlasIds}
+							selectedKeys={barchartSelectedKeys}
 							shouldResetScroll={true}
 							shouldScrollToHeroKey={true}
-							theme={{
-								itemBackgroundColorHero: 'rgb(211, 238, 253)',
-								titleFontSize: '1.2rem',
-							}}
+							theme={barchartTheme}
 							title={barchartTitle}
 						/>
 					</div>
