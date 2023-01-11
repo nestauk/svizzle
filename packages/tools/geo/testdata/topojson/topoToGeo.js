@@ -10,7 +10,17 @@ export const geojson = {
 				"CNTR_CODE": "BE",
 				"NUTS_NAME": "Belgique-België",
 				"FID": "BE",
-				"atlasId": 1
+				"atlasId": 1,
+				"bbox": [
+					2.54545,
+					49.49726,
+					6.4079,
+					51.50511
+				],
+				"centroid": [
+					4.79188,
+					50.49716
+				]
 			},
 			"geometry": {
 				"type": "Polygon",
