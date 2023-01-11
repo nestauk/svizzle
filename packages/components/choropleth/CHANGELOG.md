@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.10.0 (next)
+## `@svizzle/choropleth` v0.9.2
 
 - added a new prop `geojson`: it's alternative to & takes precedence over the
 	`topojson` prop so that if we have a geojson we avoid the

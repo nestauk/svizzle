@@ -1,4 +1,4 @@
-## `@svizzle/atlas` v0.9.0 (next)
+## `@svizzle/atlas` v0.9.0
 
 - NUTS:
 	- provide overseas ids (`overseaIds.js`, `overseaIdsGroups.js`)

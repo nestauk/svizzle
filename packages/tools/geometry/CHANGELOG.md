@@ -1,4 +1,4 @@
-## `@svizzle/geometry` v0.5.1 (next)
+## `@svizzle/geometry` v0.5.1
 
 - updated license year
 

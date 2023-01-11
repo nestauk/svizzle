@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.9.0 (next)
+## `@svizzle/ui` v0.9.0
 
 - added `AlphabetPicker.svelte`
 - added `Banner.svelte`

@@ -1,4 +1,4 @@
-## `@svizzle/dev` v0.6.1 (next)
+## `@svizzle/dev` v0.6.1
 
 - updated license year
 

@@ -1,6 +1,6 @@
 # Svizzle changelog
 
-## next
+## 20230111
 
 Notes for changelogs below:
 
@@ -11,7 +11,7 @@ Notes for changelogs below:
 [1] https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
 [2] https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event
 
-## `@svizzle/barchart` v0.9.0 (next)
+## `@svizzle/barchart` v0.9.0
 
 - renamed:
 	- `focusedKey` to `heroKey`
@@ -30,7 +30,7 @@ Notes for changelogs below:
 - using `MessageView` from `@svizzle/ui`
 - updated LICENSE year
 
-## `@svizzle/choropleth` v0.10.0 (next)
+## `@svizzle/choropleth` v0.9.2
 
 - added a new prop `geojson`: it's alternative to & takes precedence over the
 	`topojson` prop so that if we have a geojson we avoid the
@@ -38,17 +38,17 @@ Notes for changelogs below:
 - added `keydown` event when `isInteractive` is true
 - updated license year
 
-## `@svizzle/histogram` v0.6.2 (next)
+## `@svizzle/histogram` v0.6.2
 
 - added `keydown` event to dismiss the selection pressing ESC
 - updated license year
 
-## `@svizzle/legend` v0.4.2 (next)
+## `@svizzle/legend` v0.4.2
 
 - added `keydown` event to dismiss the selection pressing ESC
 - updated license year
 
-## `@svizzle/time_region_value` v0.9.0 (next)
+## `@svizzle/time_region_value` v0.9.0
 
 - changed the shape of `regionSettings`:
 	- added:
@@ -67,7 +67,7 @@ Notes for changelogs below:
 - use `XorSelector` from `/ui`
 - updated license year
 
-## `@svizzle/ui` v0.9.0 (next)
+## `@svizzle/ui` v0.9.0
 
 - added `AlphabetPicker.svelte`
 - added `Banner.svelte`
@@ -107,13 +107,16 @@ Notes for changelogs below:
 		- added `knobColor` prop
 - updated license year
 
-## `@svizzle/site` v0.4.1 (next)
+## `@svizzle/site` v0.4.2
 
 - reinstated `/ui` docs
 - reorganised `/ui` examples
-- /components: `.col2` is now:
-	- scrollable
-	- `position: relative;` to make sure components show within it
+- /components:
+	- hightlight selected slug
+	- reset events payloads when we choose a new example
+	- `.col2` is now:
+		- scrollable
+		- `position: relative;` to make sure components show within it
 - support documenting components with unnamed slots
 	- caveats:
 		- as of now dynamic slots aren't supported so we can't document named slots
@@ -122,11 +125,8 @@ Notes for changelogs below:
 - a11y menu: added a `z-index` to the menu container
 - use `@svizzle/ui`'s `NoScript` component
 - serve `@svizzle/atlas` files from `/static`
-- components route:
-	- hightlight selected slug
-	- reset events payloads when we choose a new example
 
-## `@svizzle/atlas` v0.9.0 (next)
+## `@svizzle/atlas` v0.9.0
 
 - NUTS:
 	- provide overseas ids (`overseaIds.js`, `overseaIdsGroups.js`)
@@ -134,39 +134,32 @@ Notes for changelogs below:
 	- topojsons: augment all regions with `bbox`, `centroid`, `isOversea`
 - updated license year
 
-## `@svizzle/dev` v0.6.1 (next)
+## `@svizzle/dev` v0.6.1
 
 - updated license year
 
-## `@svizzle/dom` v0.7.1 (next)
+## `@svizzle/dom` v0.7.1
 
 - updated license year
 
-## `@svizzle/file` v0.14.1 (next)
+## `@svizzle/file` v0.14.1
 
 - updated license year
 
-## `@svizzle/geo` v0.9.1 (next)
+## `@svizzle/geo` v0.9.1
 
 - use caret ranges for `@turf/*` packages
 - updated license year
 
-## `@svizzle/geometry` v0.5.1 (next)
+## `@svizzle/geometry` v0.5.1
 
 - updated license year
 
-## `@svizzle/request` v0.5.1 (next)
+## `@svizzle/request` v0.5.2
 
 - updated license year
 
-## `@svizzle/atlas` v0.9.0 (next)
-
-- NUTS:
-	- provide overseas ids (`overseaIds.js`, `overseaIdsGroups.js`)
-	- provide bounding boxes for all years/levels for the supported resolutions (`allBboxes.js`)
-	- topojsons: augment all regions with `bbox`, `centroid`, `isOversea`
-
-## `@svizzle/utils` v0.19.0 (next)
+## `@svizzle/utils` v0.19.0
 
 - added `makeTrimmedSplitBy`
 - added `isRegexpEmpty`, `isRegexpNotEmpty`

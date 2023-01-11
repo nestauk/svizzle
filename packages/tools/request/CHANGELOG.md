@@ -1,4 +1,4 @@
-## `@svizzle/request` v0.5.1 (next)
+## `@svizzle/request` v0.5.2
 
 - updated license year
 

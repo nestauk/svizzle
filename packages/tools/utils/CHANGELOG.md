@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.19.0 (next)
+## `@svizzle/utils` v0.19.0
 
 - added `makeTrimmedSplitBy`
 - added `isRegexpEmpty`, `isRegexpNotEmpty`

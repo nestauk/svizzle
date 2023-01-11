@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.9.0 (next)
+## `@svizzle/barchart` v0.9.0
 
 - renamed:
 	- `focusedKey` to `heroKey`

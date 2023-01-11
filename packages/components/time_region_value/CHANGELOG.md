@@ -1,4 +1,4 @@
-## `@svizzle/time_region_value` v0.9.0 (next)
+## `@svizzle/time_region_value` v0.9.0
 
 - changed the shape of `regionSettings`:
 	- added:

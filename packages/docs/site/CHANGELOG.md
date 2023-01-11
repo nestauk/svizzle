@@ -1,10 +1,13 @@
-## `@svizzle/site` v0.4.1 (next)
+## `@svizzle/site` v0.4.2
 
 - reinstated `/ui` docs
 - reorganised `/ui` examples
-- /components: `.col2` is now:
-	- scrollable
-	- `position: relative;` to make sure components show within it
+- /components:
+	- hightlight selected slug
+	- reset events payloads when we choose a new example
+	- `.col2` is now:
+		- scrollable
+		- `position: relative;` to make sure components show within it
 - support documenting components with unnamed slots
 	- caveats:
 		- as of now dynamic slots aren't supported so we can't document named slots
@@ -13,9 +16,6 @@
 - a11y menu: added a `z-index` to the menu container
 - use `@svizzle/ui`'s `NoScript` component
 - serve `@svizzle/atlas` files from `/static`
-- components route:
-	- hightlight selected slug
-	- reset events payloads when we choose a new example
 
 ## `@svizzle/site` v0.4.0
 

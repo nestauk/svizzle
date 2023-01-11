@@ -8,12 +8,12 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/utils": "^0.18.0",
+		"@svizzle/utils": "^0.19.0",
 		"lamb": "^0.61.0"
 	},
 	"description": "Svizzle DOM contains DOM related helpers.",
 	"devDependencies": {
-		"@svizzle/file": "^0.14.0",
+		"@svizzle/file": "^0.14.1",
 		"eslint": "^8.23.0",
 		"mocha": "^8.3.2"
 	},
@@ -57,5 +57,5 @@
 	},
 	"sideEffects": false,
 	"type": "module",
-	"version": "0.7.0"
+	"version": "0.7.1"
 }
