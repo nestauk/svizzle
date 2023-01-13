@@ -55,7 +55,7 @@
 		"sitebuild": "sapper build --legacy",
 		"dev": "npm run rmsappers && sapper dev",
 		"chmod": "chmod u+x src/bin/*",
-		"copyAtlas": "rimraf ./static/atlas && cp -R ./node_modules/@svizzle/atlas/data/dist ./static/atlas",
+		"copyAtlas": "rimraf ./static/atlas && cp -r ./node_modules/@svizzle/atlas/data/dist ./static/atlas && rimraf ./static/atlas/.git",
 		"export": "npm run chmod && node src/bin/makeEntries.js | xargs sapper export --legacy --basepath svizzle --concurrent 1 --entry",
 		"lint": "eslint --max-warnings=0 rollup.config.js 'src/**/*.{js,svelte}'",
 		"makeEntries": "npm run chmod && node src/bin/makeEntries.js",
