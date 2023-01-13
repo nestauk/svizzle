@@ -1,0 +1,456 @@
+import { _ as _inherits, a as _classCallCheck, i as init, b as _assertThisInitialized, d as dispatch_dev, c as _createClass, S as SvelteComponentDev, e as _getPrototypeOf, f as _possibleConstructorReturn, y as validate_each_argument, z as create_slot, s as safe_not_equal, h as element, g as space, m as claim_element, n as children, k as detach_dev, l as claim_space, p as attr_dev, r as add_location, u as insert_hydration_dev, v as append_hydration_dev, A as _slicedToArray, B as transition_in, C as check_outros, D as update_slot_base, E as get_all_dirty_from_scope, F as get_slot_changes, G as transition_out, H as destroy_each, x as validate_slots, t as text, o as claim_text, I as group_outros, J as create_component, K as claim_component, L as mount_component, M as destroy_component, N as toggle_class } from './client.a726f8ff.js';
+import { L as Link } from './rgb.9472a47b.js';
+import { s as sidebar } from './_utils.5c5d274c.js';
+import './linear.ded554b7.js';
+import './defaultLocale.8c8e60d1.js';
+import './topojson.1bb16637.js';
+import './equalEarth.08e4abdb.js';
+import './Settings.5626d36d.js';
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+var file = "src/routes/components/_layout.svelte";
+function get_each_context(ctx, list, i) {
+  var child_ctx = ctx.slice();
+  child_ctx[3] = list[i].key;
+  child_ctx[4] = list[i].value;
+  return child_ctx;
+}
+function get_each_context_1(ctx, list, i) {
+  var child_ctx = ctx.slice();
+  child_ctx[7] = list[i].slug;
+  child_ctx[8] = list[i].title;
+  return child_ctx;
+}
+
+// (15:5) <Link       href='components/{slug}'       rel='prefetch'      >
+function create_default_slot(ctx) {
+  var p;
+  var t_value = /*title*/ctx[8] + "";
+  var t;
+  var block = {
+    c: function create() {
+      p = element("p");
+      t = text(t_value);
+      this.h();
+    },
+    l: function claim(nodes) {
+      p = claim_element(nodes, "P", {
+        class: true
+      });
+      var p_nodes = children(p);
+      t = claim_text(p_nodes, t_value);
+      p_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(p, "class", "svelte-kjgg8s");
+      toggle_class(p, "selected", /*slug*/ctx[7] === /*segment*/ctx[0]);
+      add_location(p, file, 18, 6, 352);
+    },
+    m: function mount(target, anchor) {
+      insert_hydration_dev(target, p, anchor);
+      append_hydration_dev(p, t);
+    },
+    p: function update(ctx, dirty) {
+      if (dirty & /*sidebar, segment*/1) {
+        toggle_class(p, "selected", /*slug*/ctx[7] === /*segment*/ctx[0]);
+      }
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(p);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_default_slot.name,
+    type: "slot",
+    source: "(15:5) <Link       href='components/{slug}'       rel='prefetch'      >",
+    ctx: ctx
+  });
+  return block;
+}
+
+// (14:4) {#each value as {slug, title}}
+function create_each_block_1(ctx) {
+  var link;
+  var current;
+  link = new Link({
+    props: {
+      href: "components/" + /*slug*/ctx[7],
+      rel: "prefetch",
+      $$slots: {
+        default: [create_default_slot]
+      },
+      $$scope: {
+        ctx: ctx
+      }
+    },
+    $$inline: true
+  });
+  var block = {
+    c: function create() {
+      create_component(link.$$.fragment);
+    },
+    l: function claim(nodes) {
+      claim_component(link.$$.fragment, nodes);
+    },
+    m: function mount(target, anchor) {
+      mount_component(link, target, anchor);
+      current = true;
+    },
+    p: function update(ctx, dirty) {
+      var link_changes = {};
+      if (dirty & /*$$scope, segment*/5) {
+        link_changes.$$scope = {
+          dirty: dirty,
+          ctx: ctx
+        };
+      }
+      link.$set(link_changes);
+    },
+    i: function intro(local) {
+      if (current) return;
+      transition_in(link.$$.fragment, local);
+      current = true;
+    },
+    o: function outro(local) {
+      transition_out(link.$$.fragment, local);
+      current = false;
+    },
+    d: function destroy(detaching) {
+      destroy_component(link, detaching);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_each_block_1.name,
+    type: "each",
+    source: "(14:4) {#each value as {slug, title}}",
+    ctx: ctx
+  });
+  return block;
+}
+
+// (11:2) {#each sidebar as {key, value}}
+function create_each_block(ctx) {
+  var div;
+  var h2;
+  var t0_value = /*key*/ctx[3] + "";
+  var t0;
+  var t1;
+  var t2;
+  var current;
+  var each_value_1 = /*value*/ctx[4];
+  validate_each_argument(each_value_1);
+  var each_blocks = [];
+  for (var i = 0; i < each_value_1.length; i += 1) {
+    each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+  }
+  var out = function out(i) {
+    return transition_out(each_blocks[i], 1, 1, function () {
+      each_blocks[i] = null;
+    });
+  };
+  var block = {
+    c: function create() {
+      div = element("div");
+      h2 = element("h2");
+      t0 = text(t0_value);
+      t1 = space();
+      for (var _i = 0; _i < each_blocks.length; _i += 1) {
+        each_blocks[_i].c();
+      }
+      t2 = space();
+      this.h();
+    },
+    l: function claim(nodes) {
+      div = claim_element(nodes, "DIV", {
+        class: true
+      });
+      var div_nodes = children(div);
+      h2 = claim_element(div_nodes, "H2", {
+        class: true
+      });
+      var h2_nodes = children(h2);
+      t0 = claim_text(h2_nodes, t0_value);
+      h2_nodes.forEach(detach_dev);
+      t1 = claim_space(div_nodes);
+      for (var _i2 = 0; _i2 < each_blocks.length; _i2 += 1) {
+        each_blocks[_i2].l(div_nodes);
+      }
+      t2 = claim_space(div_nodes);
+      div_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(h2, "class", "svelte-kjgg8s");
+      add_location(h2, file, 12, 4, 226);
+      attr_dev(div, "class", "distancer");
+      add_location(div, file, 11, 3, 198);
+    },
+    m: function mount(target, anchor) {
+      insert_hydration_dev(target, div, anchor);
+      append_hydration_dev(div, h2);
+      append_hydration_dev(h2, t0);
+      append_hydration_dev(div, t1);
+      for (var _i3 = 0; _i3 < each_blocks.length; _i3 += 1) {
+        each_blocks[_i3].m(div, null);
+      }
+      append_hydration_dev(div, t2);
+      current = true;
+    },
+    p: function update(ctx, dirty) {
+      if (dirty & /*sidebar, segment*/1) {
+        each_value_1 = /*value*/ctx[4];
+        validate_each_argument(each_value_1);
+        var _i4;
+        for (_i4 = 0; _i4 < each_value_1.length; _i4 += 1) {
+          var child_ctx = get_each_context_1(ctx, each_value_1, _i4);
+          if (each_blocks[_i4]) {
+            each_blocks[_i4].p(child_ctx, dirty);
+            transition_in(each_blocks[_i4], 1);
+          } else {
+            each_blocks[_i4] = create_each_block_1(child_ctx);
+            each_blocks[_i4].c();
+            transition_in(each_blocks[_i4], 1);
+            each_blocks[_i4].m(div, t2);
+          }
+        }
+        group_outros();
+        for (_i4 = each_value_1.length; _i4 < each_blocks.length; _i4 += 1) {
+          out(_i4);
+        }
+        check_outros();
+      }
+    },
+    i: function intro(local) {
+      if (current) return;
+      for (var _i5 = 0; _i5 < each_value_1.length; _i5 += 1) {
+        transition_in(each_blocks[_i5]);
+      }
+      current = true;
+    },
+    o: function outro(local) {
+      each_blocks = each_blocks.filter(Boolean);
+      for (var _i6 = 0; _i6 < each_blocks.length; _i6 += 1) {
+        transition_out(each_blocks[_i6]);
+      }
+      current = false;
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(div);
+      destroy_each(each_blocks, detaching);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_each_block.name,
+    type: "each",
+    source: "(11:2) {#each sidebar as {key, value}}",
+    ctx: ctx
+  });
+  return block;
+}
+function create_fragment(ctx) {
+  var section;
+  var nav;
+  var t;
+  var main;
+  var current;
+  var each_value = sidebar;
+  validate_each_argument(each_value);
+  var each_blocks = [];
+  for (var i = 0; i < each_value.length; i += 1) {
+    each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+  }
+  var out = function out(i) {
+    return transition_out(each_blocks[i], 1, 1, function () {
+      each_blocks[i] = null;
+    });
+  };
+  var default_slot_template = /*#slots*/ctx[1].default;
+  var default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ctx[2], null);
+  var block = {
+    c: function create() {
+      section = element("section");
+      nav = element("nav");
+      for (var _i7 = 0; _i7 < each_blocks.length; _i7 += 1) {
+        each_blocks[_i7].c();
+      }
+      t = space();
+      main = element("main");
+      if (default_slot) default_slot.c();
+      this.h();
+    },
+    l: function claim(nodes) {
+      section = claim_element(nodes, "SECTION", {
+        class: true
+      });
+      var section_nodes = children(section);
+      nav = claim_element(section_nodes, "NAV", {
+        class: true
+      });
+      var nav_nodes = children(nav);
+      for (var _i8 = 0; _i8 < each_blocks.length; _i8 += 1) {
+        each_blocks[_i8].l(nav_nodes);
+      }
+      nav_nodes.forEach(detach_dev);
+      t = claim_space(section_nodes);
+      main = claim_element(section_nodes, "MAIN", {
+        class: true
+      });
+      var main_nodes = children(main);
+      if (default_slot) default_slot.l(main_nodes);
+      main_nodes.forEach(detach_dev);
+      section_nodes.forEach(detach_dev);
+      this.h();
+    },
+    h: function hydrate() {
+      attr_dev(nav, "class", "svelte-kjgg8s");
+      add_location(nav, file, 9, 1, 155);
+      attr_dev(main, "class", "svelte-kjgg8s");
+      add_location(main, file, 26, 1, 472);
+      attr_dev(section, "class", "svelte-kjgg8s");
+      add_location(section, file, 8, 0, 144);
+    },
+    m: function mount(target, anchor) {
+      insert_hydration_dev(target, section, anchor);
+      append_hydration_dev(section, nav);
+      for (var _i9 = 0; _i9 < each_blocks.length; _i9 += 1) {
+        each_blocks[_i9].m(nav, null);
+      }
+      append_hydration_dev(section, t);
+      append_hydration_dev(section, main);
+      if (default_slot) {
+        default_slot.m(main, null);
+      }
+      current = true;
+    },
+    p: function update(ctx, _ref) {
+      var _ref2 = _slicedToArray(_ref, 1),
+        dirty = _ref2[0];
+      if (dirty & /*sidebar, segment*/1) {
+        each_value = sidebar;
+        validate_each_argument(each_value);
+        var _i10;
+        for (_i10 = 0; _i10 < each_value.length; _i10 += 1) {
+          var child_ctx = get_each_context(ctx, each_value, _i10);
+          if (each_blocks[_i10]) {
+            each_blocks[_i10].p(child_ctx, dirty);
+            transition_in(each_blocks[_i10], 1);
+          } else {
+            each_blocks[_i10] = create_each_block(child_ctx);
+            each_blocks[_i10].c();
+            transition_in(each_blocks[_i10], 1);
+            each_blocks[_i10].m(nav, null);
+          }
+        }
+        group_outros();
+        for (_i10 = each_value.length; _i10 < each_blocks.length; _i10 += 1) {
+          out(_i10);
+        }
+        check_outros();
+      }
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/4)) {
+          update_slot_base(default_slot, default_slot_template, ctx, /*$$scope*/ctx[2], !current ? get_all_dirty_from_scope( /*$$scope*/ctx[2]) : get_slot_changes(default_slot_template, /*$$scope*/ctx[2], dirty, null), null);
+        }
+      }
+    },
+    i: function intro(local) {
+      if (current) return;
+      for (var _i11 = 0; _i11 < each_value.length; _i11 += 1) {
+        transition_in(each_blocks[_i11]);
+      }
+      transition_in(default_slot, local);
+      current = true;
+    },
+    o: function outro(local) {
+      each_blocks = each_blocks.filter(Boolean);
+      for (var _i12 = 0; _i12 < each_blocks.length; _i12 += 1) {
+        transition_out(each_blocks[_i12]);
+      }
+      transition_out(default_slot, local);
+      current = false;
+    },
+    d: function destroy(detaching) {
+      if (detaching) detach_dev(section);
+      destroy_each(each_blocks, detaching);
+      if (default_slot) default_slot.d(detaching);
+    }
+  };
+  dispatch_dev("SvelteRegisterBlock", {
+    block: block,
+    id: create_fragment.name,
+    type: "component",
+    source: "",
+    ctx: ctx
+  });
+  return block;
+}
+function instance($$self, $$props, $$invalidate) {
+  var _$$props$$$slots = $$props.$$slots,
+    slots = _$$props$$$slots === void 0 ? {} : _$$props$$$slots,
+    $$scope = $$props.$$scope;
+  validate_slots('Layout', slots, ['default']);
+  var segment = $$props.segment;
+  $$self.$$.on_mount.push(function () {
+    if (segment === undefined && !('segment' in $$props || $$self.$$.bound[$$self.$$.props['segment']])) {
+      console.warn("<Layout> was created without expected prop 'segment'");
+    }
+  });
+  var writable_props = ['segment'];
+  Object.keys($$props).forEach(function (key) {
+    if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn("<Layout> was created with unknown prop '".concat(key, "'"));
+  });
+  $$self.$$set = function ($$props) {
+    if ('segment' in $$props) $$invalidate(0, segment = $$props.segment);
+    if ('$$scope' in $$props) $$invalidate(2, $$scope = $$props.$$scope);
+  };
+  $$self.$capture_state = function () {
+    return {
+      Link: Link,
+      sidebar: sidebar,
+      segment: segment
+    };
+  };
+  $$self.$inject_state = function ($$props) {
+    if ('segment' in $$props) $$invalidate(0, segment = $$props.segment);
+  };
+  if ($$props && "$$inject" in $$props) {
+    $$self.$inject_state($$props.$$inject);
+  }
+  return [segment, slots, $$scope];
+}
+var Layout = /*#__PURE__*/function (_SvelteComponentDev) {
+  _inherits(Layout, _SvelteComponentDev);
+  var _super = _createSuper(Layout);
+  function Layout(options) {
+    var _this;
+    _classCallCheck(this, Layout);
+    _this = _super.call(this, options);
+    init(_assertThisInitialized(_this), options, instance, create_fragment, safe_not_equal, {
+      segment: 0
+    });
+    dispatch_dev("SvelteRegisterComponent", {
+      component: _assertThisInitialized(_this),
+      tagName: "Layout",
+      options: options,
+      id: create_fragment.name
+    });
+    return _this;
+  }
+  _createClass(Layout, [{
+    key: "segment",
+    get: function get() {
+      throw new Error("<Layout>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    },
+    set: function set(value) {
+      throw new Error("<Layout>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    }
+  }]);
+  return Layout;
+}(SvelteComponentDev);
+
+export { Layout as default };

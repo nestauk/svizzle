@@ -64,6 +64,7 @@ pre {
 	--color-grey-lighter: #f7f7f7;
 	--color-main: #6d426d;
 	--color-selected: cadetblue;
+	--color-selected-text: white;
 	--color-sidebar-bkg: #f1feff;
 	--dim-header-height: 3rem;
 	--dim-main-height: calc(100% - var(--dim-header-height));
