@@ -34,7 +34,12 @@
 	}
 </script>
 
+<div></div>
+
 <style>
+	div {
+		display: none;
+	}
 	:global(.styledScrollbar *::-webkit-scrollbar) {
 		width: var(--trackWidth);
 	}
