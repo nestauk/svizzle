@@ -1,3 +1,7 @@
+## `@svizzle/ui` v0.9.1 (next)
+
+- use correct css var names in `ResponsiveButton`
+
 ## `@svizzle/ui` v0.9.0
 
 - added `AlphabetPicker.svelte`

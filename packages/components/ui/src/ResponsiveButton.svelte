@@ -91,8 +91,8 @@
 		justify-content: center;
 	}
 	.active {
-		background: var(--colorActiveBackground);
-		color: var(--colorActiveText);
+		background: var(--colorBackgroundActive);
+		color: var(--colorTextActive);
 	}
 
 	.ResponsiveButtonSensor {

@@ -1,5 +1,12 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/ui` v0.9.1 (next)
+
+- use correct css var names in `ResponsiveButton`
+
+
 ## 20230111
 
 Notes for changelogs below:
