@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.9.1 (next)
+## `@svizzle/ui` v0.9.1
 
 - use correct css var names in `ResponsiveButton`
 - fixed `ScrollbarStyler` warning [1]

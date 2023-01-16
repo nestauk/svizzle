@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.4.3
+
+- fixed a deploying error
+
 ## `@svizzle/site` v0.4.2
 
 - reinstated `/ui` docs
