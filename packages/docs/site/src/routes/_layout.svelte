@@ -47,7 +47,7 @@
 </header>
 
 <main>
-	<slot/>
+	<slot />
 </main>
 {#if showA11yMenu}
 	<!-- svelte-ignore a11y-no-redundant-roles -->

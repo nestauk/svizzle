@@ -31,7 +31,7 @@
 				<a
 					rel=prefetch
 					class:selected={segment === 'compounds'}
-					href='./compounds/time_region_value'
+					href='./compounds'
 				>Compounds</a>
 			</li>
 		</ul>

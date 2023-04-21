@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.4.4 (next)
+
+- added `@svizzle/mapbox` docs
+
 ## `@svizzle/site` v0.4.3
 
 - fixed a deploying error
