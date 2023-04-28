@@ -1,6 +1,6 @@
 import {strict as assert} from 'node:assert';
 
-import {makePosition3D} from './3D.js';
+import {makePosition3D} from './3DPoint.js';
 
 describe('3DPoint', function () {
 	describe('makePosition3D', function () {

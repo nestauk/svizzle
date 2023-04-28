@@ -19,6 +19,10 @@ https://github.com/sveltejs/vite-plugin-svelte/blob/main/docs/faq.md#where-shoul
 
 - fixed a deploying error
 
+## `@svizzle/geometry` v0.6.0 (next)
+
+- added `degToRad`, `radToDeg`
+
 ## 20230111
 
 Notes for changelogs below:

@@ -1,3 +1,7 @@
+## `@svizzle/geometry` v0.6.0 (next)
+
+- added `degToRad`, `radToDeg`
+
 ## `@svizzle/geometry` v0.5.1
 
 - updated license year
