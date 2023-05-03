@@ -1,4 +1,4 @@
-## `@svizzle/mapbox` v0.1.0 (next)
+## `@svizzle/mapbox` v0.1.0
 
 - added `CustomControl.svelte`
 - added `Mapbox.svelte`

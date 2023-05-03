@@ -22,6 +22,7 @@
 	"scripts": {
 		"buildDoc": "npm run siteexport && npm run buildJsdoc && npm run cpJsdoc && npm run disableJekyll",
 		"buildJsdoc": "rimraf ${npm_package_config_jsdocpath} && jsdoc -c jsdoc.conf.json -R README.md -d ${npm_package_config_jsdocpath} && ./bin/rename_doc.sh && ./bin/fix_doc.sh",
+		"bumpVersion": "lerna version --no-changelog --no-git-tag-version --no-push",
 		"cleanall": "npm run lernaclean && npm run cleanpacklocks && npm run cleanhiddenfiles && lerna run cleanup",
 		"cleanhiddenfiles": "rimraf **/.DS_Store",
 		"cleanpacklocks": "rimraf packages/**/package-lock.json",

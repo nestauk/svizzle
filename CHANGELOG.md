@@ -1,6 +1,21 @@
 # Svizzle changelog
 
-## next
+## 20230503
+
+## `@svizzle/mapbox` v0.1.0
+
+- added `CustomControl.svelte`
+- added `Mapbox.svelte`
+- added `MapboxglUnsupported.svelte`
+- added `SvgLayers.svelte`
+- added various utils and docs
+
+## `@svizzle/geometry` v0.6.0
+
+- added `degToRad`, `radToDeg`
+
+
+## 20230116
 
 ## `@svizzle/ui` v0.9.1
 
@@ -19,9 +34,6 @@ https://github.com/sveltejs/vite-plugin-svelte/blob/main/docs/faq.md#where-shoul
 
 - fixed a deploying error
 
-## `@svizzle/geometry` v0.6.0 (next)
-
-- added `degToRad`, `radToDeg`
 
 ## 20230111
 

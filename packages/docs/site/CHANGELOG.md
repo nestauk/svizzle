@@ -1,6 +1,7 @@
-## `@svizzle/site` v0.4.4 (next)
+## `@svizzle/site` v0.4.4
 
 - added `@svizzle/mapbox` docs
+- updated deps
 
 ## `@svizzle/site` v0.4.3
 

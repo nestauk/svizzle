@@ -1,4 +1,4 @@
-## `@svizzle/geometry` v0.6.0 (next)
+## `@svizzle/geometry` v0.6.0
 
 - added `degToRad`, `radToDeg`
 

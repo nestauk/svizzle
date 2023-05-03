@@ -9,7 +9,7 @@
 	},
 	"dependencies": {
 		"@svizzle/dom": "^0.7.1",
-		"@svizzle/geometry": "^0.5.1",
+		"@svizzle/geometry": "^0.6.0",
 		"@svizzle/utils": "^0.19.0",
 		"d3-array": "^3.2.0",
 		"d3-scale": "^4.0.2",
@@ -67,5 +67,5 @@
 	"sideEffects": false,
 	"svelte": "src/index.js",
 	"type": "module",
-	"version": "0.6.2"
+	"version": "0.6.3"
 }

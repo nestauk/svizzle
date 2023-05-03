@@ -1,3 +1,7 @@
+## `@svizzle/legend` v0.4.3
+
+- updated deps
+
 ## `@svizzle/legend` v0.4.2
 
 - added `keydown` event to dismiss the selection pressing ESC
