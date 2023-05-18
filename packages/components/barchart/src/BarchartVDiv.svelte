@@ -86,6 +86,7 @@
 	export let theme = null;
 	export let title = null;
 	export let valueAccessor = null;
+	export let valueToColorFn = null;
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: barHeight = barHeight || 4;
@@ -176,7 +177,9 @@
 				? keyToColor[key] || theme.itemBarColorDefault
 				: keyToColorFn
 					? keyToColorFn(key)
-					: theme.itemBarColorDefault;
+					: valueToColorFn
+						? valueToColorFn(value)
+						: theme.itemBarColorDefault;
 		const barColor =
 			key === hoveredKey
 				? theme.itemBarColorHover || barBaseColor

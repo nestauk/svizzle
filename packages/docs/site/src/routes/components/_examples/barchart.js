@@ -1,15 +1,16 @@
 import {
 	countryKeyRawValue,
+	countryKeyValueAlt,
+	countryKeyValueMixedWithZeroes,
+	countryKeyValueNegatives,
+	countryKeyValueNegativesWithZeroes,
 	countryKeyValuePositive,
 	countryKeyValuePositiveWithZeroes,
-	countryKeyValueNegatives,
-	countryKeyValueMixedWithZeroes,
-	countryKeyValueNegativesWithZeroes,
-	countryKeyValueAlt,
 	keyToColorWorld,
 	keyToColorWorldFn,
 	keyToColorWorldShort,
 	keyToLabel,
+	valueToColorFn,
 } from './props.js';
 import {examplesFormatter4} from './utils.js';
 
@@ -384,7 +385,55 @@ export default examplesFormatter4([
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
 		slug: 'BarchartVDiv-keyToColorFn',
-		title: 'Bars color (via function)',
+		title: 'Bars color (via mapping function)',
+	},
+	{
+		data: [{
+			key: 'All positive values',
+			props: {
+				items: countryKeyValuePositive,
+				valueToColorFn
+			},
+			usage: `
+				<BarchartVDiv
+					{items}
+					{valueToColorFn}
+				/>
+			`,
+		}, {
+			key: 'All negative values',
+			props: {
+				items: countryKeyValueNegatives,
+				valueToColorFn
+			},
+			usage: `
+				<BarchartVDiv
+					{items}
+					{valueToColorFn}
+				/>
+			`,
+		}, {
+			key: 'Mixed values with zeroes',
+			props: {
+				items: countryKeyValueMixedWithZeroes,
+				valueToColorFn
+			},
+			usage: `
+				<BarchartVDiv
+					{items}
+					{valueToColorFn}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'You can pass a function `valueToColorFn` on the value returned by `valueAccessor`.'},
+			{tag: 'p', content: 'Note that if you also pass `keyToColor` and/or `keyToColorFn`, the order of precedence will be `keyToColor`, then eventually `keyToColorFn` then eventually `valueToColorFn`.'},
+			{tag: 'p', content: 'Also note that the fallback color is `itemBarColorDefault` (which falls back to `black` if `itemBarColorDefault` is not provided).'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-valueToColorFn',
+		title: 'Bars color (via colorscale function)',
 	},
 	{
 		data: [{

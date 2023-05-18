@@ -1,4 +1,6 @@
-import {scaleLinear, scaleOrdinal} from 'd3-scale';
+import {getValue} from '@svizzle/utils';
+import {extent} from 'd3-array';
+import {scaleLinear, scaleOrdinal, scaleQuantize} from 'd3-scale';
 import {hsl} from 'd3-color';
 import * as _ from 'lamb';
 
@@ -442,6 +444,17 @@ export const keyToColorWorldFn =
 	scaleOrdinal()
 	.domain(keyToColorWorldFullKeys)
 	.range(keyToColorWorldFullKeys.map((k, i) => hsl(hueScale(i), 0.5, 0.5).toString()));
+
+const domain = extent([
+	...countryKeyValuePositive,
+	...countryKeyValueNegatives,
+	...countryKeyValueMixedWithZeroes,
+], getValue);
+export const valueToColorFn =
+	scaleQuantize()
+	.domain(domain)
+	.range(_.values(keyToColorWorldShort));
+
 
 export const keyToColorUK2016 = {
 	UK: 'cornsilk',
