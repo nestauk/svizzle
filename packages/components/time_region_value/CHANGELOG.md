@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.9.2
+
+- updated deps
+
 ## `@svizzle/time_region_value` v0.9.1
 
 - updated deps

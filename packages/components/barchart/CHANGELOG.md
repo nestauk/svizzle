@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.10.0 (next)
+## `@svizzle/barchart` v0.10.0
 
 - added `valueToColorFn` prop
 

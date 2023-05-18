@@ -1,12 +1,16 @@
 # Svizzle changelog
 
-## next
+## 20230518
 
-## `@svizzle/barchart` v0.10.0 (next)
+## `@svizzle/barchart` v0.10.0
 
 - added `valueToColorFn` prop
 
-## `@svizzle/site` v0.4.5 (next)
+## `@svizzle/time_region_value` v0.9.2
+
+- updated deps
+
+## `@svizzle/site` v0.4.5
 
 - /barchart: added doc for the `valueToColorFn` prop
 
