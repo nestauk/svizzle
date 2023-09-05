@@ -1,5 +1,11 @@
 # Svizzle changelog
 
+## 20230905
+
+## `@svizzle/histogram` v0.6.4 (next)
+
+- fixed `HistogramDiv` indefinite height growth
+
 ## 20230518
 
 ## `@svizzle/barchart` v0.10.0

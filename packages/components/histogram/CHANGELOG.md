@@ -1,3 +1,8 @@
+
+## `@svizzle/histogram` v0.6.4 (next)
+
+- fixed `HistogramDiv` indefinite height growth
+
 ## `@svizzle/histogram` v0.6.3
 
 - updated deps

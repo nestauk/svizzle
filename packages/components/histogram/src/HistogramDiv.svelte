@@ -71,21 +71,20 @@
 
 <style>
 	.HistogramDiv {
-		width: 100%;
 		height: 100%;
 		padding: var(--padding);
 		pointer-events: none;
+		width: 100%;
 	}
 	.HistogramDiv.interactive {
 		pointer-events: auto;
 	}
 
 	header {
-		width: 100%;
-		height: var(--headerHeight);
-
-		display: flex;
 		align-items: center;
+		display: flex;
+		height: var(--headerHeight);
+		width: 100%;
 	}
 	header.rightToLeft {
 		justify-content: flex-end;
@@ -96,15 +95,17 @@
 	}
 
 	main {
-		width: 100%;
 		height: 100%;
+		overflow: hidden;
 		user-select: none;
+		width: 100%;
 	}
 	main.titled {
 		height: calc(100% - var(--headerHeight));
 	}
 	main svg {
-		width: 100%;
 		height: 100%;
+		overflow: hidden;
+		width: 100%;
 	}
 </style>
