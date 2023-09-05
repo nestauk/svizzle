@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.10.0 (next)
+## `@svizzle/ui` v0.10.0
 
 - added `resizeHandler` action
 

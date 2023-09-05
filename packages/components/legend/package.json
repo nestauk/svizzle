@@ -8,10 +8,10 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.7.1",
+		"@svizzle/dom": "^0.7.2",
 		"@svizzle/geometry": "^0.6.0",
-		"@svizzle/histogram": "^0.6.3",
-		"@svizzle/utils": "^0.19.0",
+		"@svizzle/histogram": "^0.6.4",
+		"@svizzle/utils": "^0.20.0",
 		"lamb": "^0.61.0",
 		"yootils": "^0.3.1"
 	},
@@ -66,5 +66,5 @@
 	"sideEffects": false,
 	"svelte": "src/index.js",
 	"type": "module",
-	"version": "0.4.3"
+	"version": "0.4.4"
 }

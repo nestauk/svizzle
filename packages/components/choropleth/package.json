@@ -8,9 +8,9 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/dom": "^0.7.1",
-		"@svizzle/geo": "^0.9.1",
-		"@svizzle/utils": "^0.19.0",
+		"@svizzle/dom": "^0.7.2",
+		"@svizzle/geo": "^0.9.2",
+		"@svizzle/utils": "^0.20.0",
 		"d3-geo": "^3.0.1",
 		"lamb": "^0.61.0"
 	},
@@ -63,5 +63,5 @@
 	"sideEffects": false,
 	"svelte": "src/index.js",
 	"type": "module",
-	"version": "0.9.2"
+	"version": "0.9.3"
 }

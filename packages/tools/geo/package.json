@@ -8,7 +8,7 @@
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/file": "^0.14.1",
+		"@svizzle/file": "^0.14.2",
 		"@turf/bbox": "^6.5.0",
 		"@turf/centroid": "^6.5.0",
 		"@turf/helpers": "^6.5.0",
@@ -18,7 +18,7 @@
 	},
 	"description": "Svizzle Geo contains geography related helpers.",
 	"devDependencies": {
-		"@svizzle/utils": "^0.19.0",
+		"@svizzle/utils": "^0.20.0",
 		"commander": "^7.2.0",
 		"eslint": "^8.23.0",
 		"mocha": "^8.3.2"
@@ -64,5 +64,5 @@
 	},
 	"sideEffects": false,
 	"type": "module",
-	"version": "0.9.1"
+	"version": "0.9.2"
 }

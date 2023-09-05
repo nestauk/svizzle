@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.20.0 (next)
+## `@svizzle/utils` v0.20.0
 
 - added `hasKeyWith`
 - added `pickIfKeyWith`, `skipIfKeyWith`
