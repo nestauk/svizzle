@@ -1,4 +1,5 @@
 export * from './a11y/index.js';
+export * from './actions/resizeHandler.js';
 export * from './actions/resizeObserver.js';
 export * from './drivers/fonts/index.js';
 export {default as StyleDriver} from './drivers/style/StyleDriver.svelte';
