@@ -24,6 +24,24 @@ import {getEndOfLineLength} from './string-number.js';
 export const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 /**
+ * Decapitalise the input string (makes the first letter lowercase)
+ *
+ * @function
+ * @arg {string}
+ * @return {string}
+ *
+ * @example
+> decapitalize('Hello')
+'hello'
+> decapitalize('HELLO')
+'hELLO'
+ *
+ * @since 0.20.0
+ */
+export const decapitalize = s => s.charAt(0).toLowerCase() + s.slice(1);
+
+
+/**
  * Trim the last char of the provided string if it's a newline
  *
  * @function

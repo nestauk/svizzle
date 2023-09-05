@@ -1,3 +1,9 @@
+## `@svizzle/utils` v0.20.0 (next)
+
+- added `hasKeyWith`
+- added `pickIfKeyWith`, `skipIfKeyWith`
+- added `decapitalize`
+
 ## `@svizzle/utils` v0.19.0
 
 - added `makeTrimmedSplitBy`

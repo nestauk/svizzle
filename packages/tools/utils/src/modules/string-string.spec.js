@@ -1,11 +1,17 @@
 import {strict as assert} from 'node:assert';
 
-import {capitalize, trimLastNewline} from './string-string.js';
+import {capitalize, decapitalize, trimLastNewline} from './string-string.js';
 
 describe('String -> String', function () {
 	describe('capitalize', function () {
 		it('should capitalise the input string', function () {
 			assert.deepStrictEqual(capitalize('hello'), 'Hello');
+		});
+	});
+	describe('decapitalize', function () {
+		it('should decapitalise the input string', function () {
+			assert.deepStrictEqual(decapitalize('Hello'), 'hello');
+			assert.deepStrictEqual(decapitalize('HELLO'), 'hELLO');
 		});
 	});
 	describe('trimLastNewline', function () {

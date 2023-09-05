@@ -9,6 +9,8 @@ export * from './modules/[any-boolean]-[array-array].js';
 export * from './modules/[any-boolean]-[object-any].js';
 export * from './modules/[any-number]-[array-number].js';
 export * from './modules/[any-object]-[array-object].js';
+export * from './modules/[string-boolean]-[object-boolean].js';
+export * from './modules/[string-boolean]-[object-object].js';
 export * from './modules/[string-string]-[object-object].js';
 export * from './modules/any-[any-boolean].js';
 export * from './modules/any-[array-object].js';

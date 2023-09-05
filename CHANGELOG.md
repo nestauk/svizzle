@@ -1,10 +1,17 @@
 # Svizzle changelog
 
-## 20230905
+## next
 
 ## `@svizzle/histogram` v0.6.4 (next)
 
 - fixed `HistogramDiv` indefinite height growth
+
+## `@svizzle/utils` v0.20.0 (next)
+
+- added `hasKeyWith`
+- added `pickIfKeyWith`, `skipIfKeyWith`
+- added `decapitalize`
+
 
 ## 20230518
 
