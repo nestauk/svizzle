@@ -6,6 +6,10 @@
 
 - fixed `HistogramDiv` indefinite height growth
 
+## `@svizzle/ui` v0.10.0 (next)
+
+- added `resizeHandler` action
+
 ## `@svizzle/utils` v0.20.0 (next)
 
 - added `hasKeyWith`

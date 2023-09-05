@@ -1,3 +1,7 @@
+## `@svizzle/ui` v0.10.0 (next)
+
+- added `resizeHandler` action
+
 ## `@svizzle/ui` v0.9.1
 
 - use correct css var names in `ResponsiveButton`
