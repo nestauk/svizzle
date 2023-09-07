@@ -1,3 +1,6 @@
+## `@svizzle/histogram` v0.6.5 (next)
+
+- fixed `HistogramDiv` needing additional `overflow: hidden`
 
 ## `@svizzle/histogram` v0.6.4
 

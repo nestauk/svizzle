@@ -72,6 +72,7 @@
 <style>
 	.HistogramDiv {
 		height: 100%;
+		overflow: hidden;
 		padding: var(--padding);
 		pointer-events: none;
 		width: 100%;
@@ -105,7 +106,6 @@
 	}
 	main svg {
 		height: 100%;
-		overflow: hidden;
 		width: 100%;
 	}
 </style>
