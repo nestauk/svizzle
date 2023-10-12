@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.9.3 (next)
+
+- updated bar chart event handlers to adapt to the changes in `@svizzle/barchart` v0.11.0
+
 ## `@svizzle/time_region_value` v0.9.2
 
 - updated deps

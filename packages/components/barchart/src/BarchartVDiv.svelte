@@ -204,6 +204,8 @@
 						? theme.itemTextColorDefault
 						: theme.itemTextColorSelected;
 
+		const payload = {displayValue, key, label, value};
+
 		return {...item, ...{
 			barBackgroundColor,
 			barColor,
@@ -211,6 +213,7 @@
 			isNeg,
 			label,
 			labelLength,
+			payload,
 			textColor,
 			value,
 		}}
@@ -365,21 +368,21 @@
 
 	/* events */
 
-	const onClick = key => () => {
-		dispatch('clicked', {id: key})
+	const onClick = payload => () => {
+		dispatch('clicked', payload)
 	}
-	const onKeyDown = (event, key) => {
+	const onKeyDown = (event, payload) => {
 		if (['Enter', ' '].includes(event.key)) {
 			event.preventDefault();
-			dispatch('clicked', {id: key});
+			dispatch('clicked', payload);
 		}
 	}
-	const onMouseenter = key => () => {
-		hoveredKey = key;
-		isInteractive && dispatch('entered', {id: key})
+	const onMouseenter = payload => () => {
+		hoveredKey = payload.key;
+		isInteractive && dispatch('entered', payload);
 	}
-	const onMouseleave = key => () => {
-		dispatch('exited', {id: key})
+	const onMouseleave = payload => () => {
+		dispatch('exited', payload);
 	}
 </script>
 
@@ -495,6 +498,7 @@
 							key,
 							label,
 							labelX,
+							payload,
 							textColor,
 							valueX,
 						}, index (key)}
@@ -503,10 +507,10 @@
 							<g
 								class:clickable={isInteractive}
 								class='item'
-								on:click={isInteractive && onClick(key)}
-								on:mouseenter={onMouseenter(key)}
-								on:mouseleave={isInteractive && onMouseleave(key)}
-								on:keydown={isInteractive && (e => onKeyDown(e, key))}
+								on:click={isInteractive && onClick(payload)}
+								on:mouseenter={onMouseenter(payload)}
+								on:mouseleave={isInteractive && onMouseleave(payload)}
+								on:keydown={isInteractive && (e => onKeyDown(e, payload))}
 								tabindex={isInteractive ? 0 : -1}
 								transform='translate(0, {itemHeight * index})'
 							>
@@ -534,7 +538,7 @@
 									class:right={isValueAlignedRight}
 									class='value'
 									fill={textColor}
-									x={valueX-2}
+									x={valueX - 2}
 									y={textY}
 								>{displayValue}</text>
 							</g>

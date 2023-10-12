@@ -1,8 +1,10 @@
 ## `@svizzle/barchart` v0.11.0 (next)
 
+- bar events now dispatch `{displayValue, key, label, value}`
 - changed the shape of the `theme` prop
 	- removed `theme.fontSize`
 	- added `theme.glyphHeight` and `theme.glyphWidth`
+
 
 ## `@svizzle/barchart` v0.10.0
 

@@ -275,7 +275,7 @@
 
 	/* barchart hovering */
 
-	const onEnteredBar = ({detail: {id: focusedBarAtlasId}}) => {
+	const onEnteredBar = ({detail: {key: focusedBarAtlasId}}) => {
 		focusedAtlasId = focusedBarAtlasId;
 	}
 	const onExitedBar = () => {
