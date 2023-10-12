@@ -1,4 +1,4 @@
-## `@svizzle/legend` v0.4.4 (next)
+## `@svizzle/legend` v0.4.6
 
 - resolved some a11y related warnings in `ColorBinsG`
 

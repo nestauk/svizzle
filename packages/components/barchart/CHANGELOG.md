@@ -1,4 +1,4 @@
-## `@svizzle/barchart` v0.11.0 (next)
+## `@svizzle/barchart` v0.11.0
 
 - bar events now dispatch `{displayValue, key, label, value}`
 - added the `geometry` prop

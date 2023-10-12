@@ -2,15 +2,15 @@
 	"description": "Svizzle documentation site",
 	"dependencies": {
 		"@svizzle/atlas": "^0.9.1",
-		"@svizzle/barchart": "^0.10.1",
+		"@svizzle/barchart": "^0.11.0",
 		"@svizzle/choropleth": "^0.9.3",
 		"@svizzle/dom": "^0.7.2",
 		"@svizzle/geo": "^0.9.2",
-		"@svizzle/histogram": "^0.6.5",
-		"@svizzle/legend": "^0.4.5",
+		"@svizzle/histogram": "^0.6.6",
+		"@svizzle/legend": "^0.4.6",
 		"@svizzle/mapbox": "^0.1.0",
-		"@svizzle/time_region_value": "^0.9.4",
-		"@svizzle/ui": "^0.10.0",
+		"@svizzle/time_region_value": "^0.9.5",
+		"@svizzle/ui": "^0.11.0",
 		"@svizzle/utils": "^0.20.0",
 		"d3-color": "^3.1.0",
 		"d3-geo": "^3.0.1",
@@ -70,5 +70,5 @@
 		"TODO_test": "run-p --race dev cy:run"
 	},
 	"type": "module",
-	"version": "0.4.7"
+	"version": "0.4.8"
 }

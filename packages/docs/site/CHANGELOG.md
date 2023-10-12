@@ -1,4 +1,4 @@
-## `@svizzle/site` v0.4.6 (next)
+## `@svizzle/site` v0.4.8
 
 - /barchart: added doc for the `geometry` prop
 

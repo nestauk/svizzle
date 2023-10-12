@@ -1,4 +1,4 @@
-## `@svizzle/histogram` v0.6.6 (next)
+## `@svizzle/histogram` v0.6.6
 
 - resolved some a11y related warnings in `HistogramDiv`
 

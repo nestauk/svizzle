@@ -1,4 +1,4 @@
-## `@svizzle/ui` v0.11.0 (next)
+## `@svizzle/ui` v0.11.0
 
 - `Scroller`:
 	- added 2 new props

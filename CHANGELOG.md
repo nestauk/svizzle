@@ -1,8 +1,8 @@
 # Svizzle changelog
 
-## next
+## 20231018
 
-## `@svizzle/barchart` v0.11.0 (next)
+## `@svizzle/barchart` v0.11.0
 
 - bar events now dispatch `{displayValue, key, label, value}`
 - added the `geometry` prop
@@ -12,19 +12,19 @@
 - use `/ui`'s `Scroller`
 - resolved some a11y related warnings in `BarcharVDiv`
 
-## `@svizzle/histogram` v0.6.6 (next)
+## `@svizzle/histogram` v0.6.6
 
 - resolved some a11y related warnings in `HistogramDiv`
 
-## `@svizzle/legend` v0.4.4 (next)
+## `@svizzle/legend` v0.4.6
 
 - resolved some a11y related warnings in `ColorBinsG`
 
-## `@svizzle/time_region_value` v0.9.3 (next)
+## `@svizzle/time_region_value` v0.9.5
 
 - updated bar chart event handlers to adapt to the changes in `@svizzle/barchart` v0.11.0
 
-## `@svizzle/ui` v0.11.0 (next)
+## `@svizzle/ui` v0.11.0
 
 - `Scroller`:
 	- added 2 new props
@@ -34,7 +34,7 @@
 - `ScreenSensor`: fixed the measured `glyph.height` being too big
 - `Banner`, `Switch` and `XorSelector`: resolved some a11y related warnings
 
-## `@svizzle/site` v0.4.6 (next)
+## `@svizzle/site` v0.4.8
 
 - /barchart: added doc for the `geometry` prop
 
