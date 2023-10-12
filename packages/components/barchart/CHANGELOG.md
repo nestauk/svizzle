@@ -4,6 +4,7 @@
 - changed the shape of the `theme` prop
 	- removed `theme.fontSize`
 	- added `theme.glyphHeight` and `theme.glyphWidth`
+- use `/ui`'s `Scroller`
 
 
 ## `@svizzle/barchart` v0.10.0

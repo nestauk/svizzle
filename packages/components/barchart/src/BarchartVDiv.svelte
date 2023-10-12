@@ -1,6 +1,6 @@
 <script>
 	import {makeStyleVars, toPx} from '@svizzle/dom';
-	import {MessageView} from '@svizzle/ui';
+	import {MessageView, Scroller} from '@svizzle/ui';
 	import {
 		arrayMaxWith,
 		arrayMinWith,
@@ -462,100 +462,102 @@
 				class='scrollable'
 				on:mouseleave={() => {hoveredKey = null}}
 			>
-				<svg {width} height={svgHeight}>
-					<rect class='bkg' {width} height={svgHeight} />
+				<Scroller>
+					<svg {width} height={svgHeight}>
+						<rect class='bkg' {width} height={svgHeight} />
 
-					<!-- refs lines -->
-					{#if refsLayout}
-						{#each refsLayout as {
-							color,
-							dasharray,
-							linewidth,
-							valueX: x,
-						}}
+						<!-- refs lines -->
+						{#if refsLayout}
+							{#each refsLayout as {
+								color,
+								dasharray,
+								linewidth,
+								valueX: x,
+							}}
+								<line
+									class='ref'
+									stroke={color || theme.refColor}
+									stroke-dasharray={dasharray || theme.refDasharray}
+									stroke-width={linewidth || theme.refWidth}
+									x1={x}
+									x2={x}
+									y2={svgHeight}
+								/>
+							{/each}
+						{/if}
+
+						<!-- bars -->
+						<g>
+							{#each barsLayout as {
+								barBackgroundColor,
+								barColor,
+								barWidth,
+								barX,
+								displayValue,
+								isLabelAlignedRight,
+								isValueAlignedRight,
+								key,
+								label,
+								labelX,
+								payload,
+								textColor,
+								valueX,
+							}, index (key)}
+								<!-- eslint seems to throw whatever dynamic value we use -->
+								<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+								<g
+									class:clickable={isInteractive}
+									class='item'
+									on:click={isInteractive && onClick(payload)}
+									on:mouseenter={onMouseenter(payload)}
+									on:mouseleave={isInteractive && onMouseleave(payload)}
+									on:keydown={isInteractive && (e => onKeyDown(e, payload))}
+									tabindex={isInteractive ? 0 : -1}
+									transform='translate(0, {itemHeight * index})'
+								>
+									<rect
+										{width}
+										fill={barBackgroundColor}
+										height={itemHeight}
+									/>
+									<rect
+										fill={barColor}
+										height={barHeight}
+										x={barX}
+										y={barY}
+										width={barWidth}
+									/>
+									<text
+										class:right={isLabelAlignedRight}
+										class='label'
+										fill={textColor}
+										stroke='none'
+										x={labelX}
+										y={textY}
+									>{label}</text>
+									<text
+										class:right={isValueAlignedRight}
+										class='value'
+										fill={textColor}
+										x={valueX - 2}
+										y={textY}
+									>{displayValue}</text>
+								</g>
+							{/each}
+						</g>
+
+						<!-- axis -->
+						{#if crossesZero}
 							<line
-								class='ref'
-								stroke={color || theme.refColor}
-								stroke-dasharray={dasharray || theme.refDasharray}
-								stroke-width={linewidth || theme.refWidth}
-								x1={x}
-								x2={x}
+								stroke={theme.axisColor}
+								x1={x0}
+								x2={x0}
 								y2={svgHeight}
 							/>
-						{/each}
-					{/if}
+						{/if}
 
-					<!-- bars -->
-					<g>
-						{#each barsLayout as {
-							barBackgroundColor,
-							barColor,
-							barWidth,
-							barX,
-							displayValue,
-							isLabelAlignedRight,
-							isValueAlignedRight,
-							key,
-							label,
-							labelX,
-							payload,
-							textColor,
-							valueX,
-						}, index (key)}
-							<!-- eslint seems to throw whatever dynamic value we use -->
-							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-							<g
-								class:clickable={isInteractive}
-								class='item'
-								on:click={isInteractive && onClick(payload)}
-								on:mouseenter={onMouseenter(payload)}
-								on:mouseleave={isInteractive && onMouseleave(payload)}
-								on:keydown={isInteractive && (e => onKeyDown(e, payload))}
-								tabindex={isInteractive ? 0 : -1}
-								transform='translate(0, {itemHeight * index})'
-							>
-								<rect
-									{width}
-									fill={barBackgroundColor}
-									height={itemHeight}
-								/>
-								<rect
-									fill={barColor}
-									height={barHeight}
-									x={barX}
-									y={barY}
-									width={barWidth}
-								/>
-								<text
-									class:right={isLabelAlignedRight}
-									class='label'
-									fill={textColor}
-									stroke='none'
-									x={labelX}
-									y={textY}
-								>{label}</text>
-								<text
-									class:right={isValueAlignedRight}
-									class='value'
-									fill={textColor}
-									x={valueX - 2}
-									y={textY}
-								>{displayValue}</text>
-							</g>
-						{/each}
-					</g>
-
-					<!-- axis -->
-					{#if crossesZero}
-						<line
-							stroke={theme.axisColor}
-							x1={x0}
-							x2={x0}
-							y2={svgHeight}
-						/>
-					{/if}
-
-				</svg>
+					</svg>
+				</Scroller>
 			</div>
 
 		{/if} <!-- if no items -->

@@ -8,6 +8,7 @@
 - changed the shape of the `theme` prop
 	- removed `theme.fontSize`
 	- added `theme.glyphHeight` and `theme.glyphWidth`
+- use `/ui`'s `Scroller`
 
 ## `@svizzle/time_region_value` v0.9.3 (next)
 
