@@ -1,3 +1,9 @@
+## `@svizzle/barchart` v0.11.0 (next)
+
+- changed the shape of the `theme` prop
+	- removed `theme.fontSize`
+	- added `theme.glyphHeight` and `theme.glyphWidth`
+
 ## `@svizzle/barchart` v0.10.0
 
 - added `valueToColorFn` prop

@@ -13,6 +13,7 @@
 	import isEqual from 'just-compare';
 	import {
 		always,
+		identity,
 		index,
 		isIn,
 		mapWith,
@@ -32,14 +33,16 @@
 	const transparentColor = 'rgba(0,0,0,0)';
 
 	const augmentTheme = makeMergeAppliedFnMap({
-		paddingPx: pipe([x => x.padding, toPx])
+		glyphHeightPx: pipe([x => x.glyphHeight, toPx]),
+		paddingPx: pipe([x => x.padding, toPx]),
 	});
 
 	const defaultTheme = {
 		axisColor: 'lightgrey',
 		backgroundColor: transparentColor,
 		backgroundOpacity: 1, // undocumented
-		fontSize: 14,
+		glyphHeight: 14,
+		glyphWidth: 7,
 		headerHeight: '2em',
 		itemBackgroundColorHero: 'yellow',
 		itemBackgroundColorHover: 'lightgrey',
@@ -70,8 +73,8 @@
 	const zeroIfNaN = when(isNaN, always(0));
 
 	export let barHeight = 4;
+	export let formatFn;
 	export let heroKey = null;
-	export let formatFn = null;
 	export let isInteractive = false;
 	export let items = []; // {key, value}[]
 	export let keyToColor = null;
@@ -90,6 +93,7 @@
 
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: barHeight = barHeight || 4;
+	$: formatFn = formatFn ?? identity;
 	$: isInteractive = isInteractive || false;
 	$: items = items || [];
 	$: message = message || 'No data';
@@ -107,10 +111,10 @@
 		...augmentTheme(theme),
 		refsHeightPx: toPx(refsHeight)
 	});
-	$: averageCharWidth = theme.fontSize * 0.5;
-	$: barPadding = theme.fontSize / 2;
+	$: averageCharWidth = theme.glyphWidth;
+	$: barPadding = theme.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
-	$: itemHeight = theme.fontSize + barHeight + 3 * barPadding;
+	$: itemHeight = theme.glyphHeight + barHeight + 3 * barPadding;
 	$: barY = itemHeight - barPadding - barHeight / 2;
 	$: textY = itemHeight - barHeight - 2 * barPadding;
 	$: svgHeight = itemHeight * items.length;
@@ -310,7 +314,7 @@
 		})
 	]);
 	$: refsLayout = refs && refs.length && makeRefsLayout(refs);
-	$: refHeight = theme.padding + theme.fontSize;
+	$: refHeight = theme.padding + theme.glyphHeight;
 	$: refsHeight =
 		refs && refs.length * (theme.padding + refHeight) + theme.padding
 		|| 0;
@@ -620,7 +624,7 @@
 		user-select: none;
 	}
 	.item text {
-		font-size: var(--fontSize);
+		font-size: var(--glyphHeightPx);
 		stroke: none;
 	}
 	.item text.label.right {
