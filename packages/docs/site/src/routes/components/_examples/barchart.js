@@ -236,8 +236,8 @@ export default examplesFormatter4([
 		],
 		name: 'BarchartVDiv',
 		packageName: 'barchart',
-		slug: 'BarchartVDiv-styles',
-		title: 'Styles',
+		slug: 'BarchartVDiv-theming',
+		title: 'Theming',
 	},
 	{
 		data: [{
@@ -700,6 +700,68 @@ export default examplesFormatter4([
 		packageName: 'barchart',
 		slug: 'BarchartVDiv-keyToLabelFn',
 		title: 'Labels (via function)',
+	},
+	{
+		data: [{
+			key: 'Default geometry',
+			props: {
+				items: countryKeyValuePositive,
+			},
+			usage: `
+				<BarchartVDiv {items} />
+			`,
+		}, {
+			key: 'Some geometry',
+			props: {
+				items: countryKeyValuePositive,
+				geometry: {
+					padding: 30,
+					glyphHeight: 32,
+					glyphWidth: 16,
+				},
+			},
+			usage: `
+				<BarchartVDiv
+					{items}
+					geometry={{
+						padding: 30,
+						glyphHeight: 24,
+						glyphWidth: 12,
+					}}
+				/>
+			`,
+		}, {
+			key: 'With long labels (check ellipsis)',
+			props: {
+				geometry: {
+					padding: 30,
+					glyphHeight: 32,
+					glyphWidth: 16,
+				},
+				items: countryKeyValuePositive,
+				keyToLabel
+			},
+			usage: `
+				<BarchartVDiv
+					{items}
+					{keyToLabel}
+					geometry={{
+						padding: 30,
+						glyphHeight: 24,
+						glyphWidth: 12,
+					}}
+				/>
+			`,
+		}],
+		doc: [
+			{tag: 'p', content: 'In order to control padding or the font size you can pass a `geometry` prop.'},
+			{tag: 'p', content: 'The geometry of the bar chart depends on `geometry.glyphHeight` and `geometry.glyphWidth` so if you don\'t provide them the default will be used for calculations.'},
+			{tag: 'p', content: 'Note that you can get the glyph dimensions using `ScreenSensor` from `@svizzle/ui`, please see the relative doc.'},
+		],
+		name: 'BarchartVDiv',
+		packageName: 'barchart',
+		slug: 'BarchartVDiv-geometry',
+		title: 'Geometry',
 	},
 	{
 		data: [{

@@ -39,8 +39,8 @@
 	});
 
 	const defaultGeometry = {
-		glyphHeight: 16,
-		glyphWidth: 8,
+		glyphHeight: 14,
+		glyphWidth: 7,
 		headerHeight: '2em',
 		padding: 10,
 	};
@@ -78,6 +78,7 @@
 	export let barHeight = 4;
 	export let formatFn;
 	export let heroKey = null;
+	export let geometry;
 	export let isInteractive = false;
 	export let items = []; // {key, value}[]
 	export let keyToColor = null;

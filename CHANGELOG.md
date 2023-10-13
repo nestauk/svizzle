@@ -15,6 +15,10 @@
 
 - updated bar chart event handlers to adapt to the changes in `@svizzle/barchart` v0.11.0
 
+## `@svizzle/site` v0.4.6 (next)
+
+- /barchart: added doc for the `geometry` prop
+
 ## 20230907
 
 ## `@svizzle/histogram` v0.6.5

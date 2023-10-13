@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.4.6 (next)
+
+- /barchart: added doc for the `geometry` prop
+
 ## `@svizzle/site` v0.4.5
 
 - /barchart: added doc for the `valueToColorFn` prop

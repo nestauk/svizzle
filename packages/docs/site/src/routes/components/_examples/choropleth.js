@@ -197,8 +197,8 @@ export default examplesFormatter4([
 		name: 'ChoroplethG',
 		namespace: 'svg',
 		packageName: 'choropleth',
-		slug: 'ChoroplethG-styles',
-		title: 'Styles',
+		slug: 'ChoroplethG-theming',
+		title: 'Theming',
 	},
 	{
 		data: [{
