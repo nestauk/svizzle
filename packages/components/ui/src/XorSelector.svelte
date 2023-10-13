@@ -50,6 +50,8 @@
 			class:selected={currentValue === val}
 			on:click={onClick(val)}
 			on:keydown={onKeyDown(val)}
+			role='button'
+			tabindex='0'
 		>
 			{val}
 		</span>

@@ -465,6 +465,7 @@
 				class:withrefs={refs && refs.length}
 				class='scrollable'
 				on:mouseleave={() => {hoveredKey = null}}
+				role='none'
 			>
 				<Scroller>
 					<svg {width} height={svgHeight}>
@@ -516,6 +517,7 @@
 									on:mouseenter={onMouseenter(payload)}
 									on:mouseleave={isInteractive && onMouseleave(payload)}
 									on:keydown={isInteractive && (e => onKeyDown(e, payload))}
+									role={isInteractive ? 'button' : null}
 									tabindex={isInteractive ? 0 : -1}
 									transform='translate(0, {itemHeight * index})'
 								>

@@ -361,6 +361,7 @@
 					class='bkgSensor'
 					on:click={resetSelection}
 					on:keydown={onKeyDown}
+					role='button'
 				/>
 			{/if}
 
