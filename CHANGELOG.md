@@ -5,9 +5,10 @@
 ## `@svizzle/barchart` v0.11.0 (next)
 
 - bar events now dispatch `{displayValue, key, label, value}`
-- changed the shape of the `theme` prop
-	- removed `theme.fontSize`
-	- added `theme.glyphHeight` and `theme.glyphWidth`
+- added the `geometry` prop
+- `theme` prop:
+	- moved `headerHeight` and `padding` to the `geometry` prop
+	- removed `fontSize`, using `glyphHeight` and `glyphWidth` in `geometry` instead
 - use `/ui`'s `Scroller`
 
 ## `@svizzle/time_region_value` v0.9.3 (next)

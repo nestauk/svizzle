@@ -42,7 +42,11 @@
 		_regionIdToValue,
 		_regionIdValuePairs,
 	} from '../../lib/stores/indicatorYear.js';
-	import {_isSmallScreen, _screenClasses} from '../../lib/stores/layout.js';
+	import {
+		_glyph,
+		_isSmallScreen,
+		_screenClasses,
+	} from '../../lib/stores/layout.js';
 	import {_colorBins} from '../../lib/stores/legend.js';
 	import {
 		_geoModal,
@@ -143,6 +147,10 @@
 		mapHeight - choroplethSafety.top - choroplethSafety.bottom;
 	$: choroplethInnerWidth =
 		mapWidth - choroplethSafety.left - choroplethSafety.right;
+	$: barchartGeometry = {
+		glyphHeight: $_glyph?.height,
+		glyphWidth: $_glyph?.width,
+	};
 
 	// labels
 
@@ -424,6 +432,7 @@
 					<div class='content'>
 						<BarchartVDiv
 							formatFn={$_formatFn}
+							geometry={barchartGeometry}
 							heroKey={focusedAtlasId}
 							isInteractive={true}
 							items={$_regionIdValuePairs}
@@ -630,6 +639,7 @@
 					<div class='barchart'>
 						<BarchartVDiv
 							formatFn={$_formatFn}
+							geometry={barchartGeometry}
 							heroKey={focusedAtlasId}
 							isInteractive={true}
 							items={$_regionIdValuePairs}

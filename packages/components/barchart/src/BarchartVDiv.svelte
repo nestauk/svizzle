@@ -2,12 +2,12 @@
 	import {makeStyleVars, toPx} from '@svizzle/dom';
 	import {MessageView, Scroller} from '@svizzle/ui';
 	import {
+		applyFnMap,
 		arrayMaxWith,
 		arrayMinWith,
 		getKey,
 		getValue,
 		isIterableEmpty,
-		makeMergeAppliedFnMap,
 		sliceString,
 	} from '@svizzle/utils';
 	import isEqual from 'just-compare';
@@ -32,18 +32,22 @@
 	const sortByValue = sortWith([getValue]);
 	const transparentColor = 'rgba(0,0,0,0)';
 
-	const augmentTheme = makeMergeAppliedFnMap({
+	const getCssGeometry = applyFnMap({
 		glyphHeightPx: pipe([x => x.glyphHeight, toPx]),
+		headerHeight: x => x.headerHeight,
 		paddingPx: pipe([x => x.padding, toPx]),
 	});
 
+	const defaultGeometry = {
+		glyphHeight: 16,
+		glyphWidth: 8,
+		headerHeight: '2em',
+		padding: 10,
+	};
 	const defaultTheme = {
 		axisColor: 'lightgrey',
 		backgroundColor: transparentColor,
 		backgroundOpacity: 1, // undocumented
-		glyphHeight: 14,
-		glyphWidth: 7,
-		headerHeight: '2em',
 		itemBackgroundColorHero: 'yellow',
 		itemBackgroundColorHover: 'lightgrey',
 		itemBackgroundColorSelected: 'cyan',
@@ -60,7 +64,6 @@
 		outlineColor: 'black',
 		outlineStyle: 'solid',
 		outlineWidth: '1px',
-		padding: 10,
 		refColor: 'grey',
 		refDasharray: '4 4',
 		refRectColor: 'black',
@@ -100,6 +103,7 @@
 	$: refs = refs || [];
 	$: selectedKeys = selectedKeys || [];
 	$: shouldResetScroll = shouldResetScroll || false;
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: valueAccessor = valueAccessor || getValue;
 
@@ -108,13 +112,13 @@
 	let width;
 
 	$: style = makeStyleVars({
-		...augmentTheme(theme),
+		...theme,
+		...getCssGeometry(geometry),
 		refsHeightPx: toPx(refsHeight)
 	});
-	$: averageCharWidth = theme.glyphWidth;
-	$: barPadding = theme.glyphWidth;
+	$: barPadding = geometry.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
-	$: itemHeight = theme.glyphHeight + barHeight + 3 * barPadding;
+	$: itemHeight = geometry.glyphHeight + barHeight + 3 * barPadding;
 	$: barY = itemHeight - barPadding - barHeight / 2;
 	$: textY = itemHeight - barHeight - 2 * barPadding;
 	$: svgHeight = itemHeight * items.length;
@@ -148,7 +152,7 @@
 			: keyToLabelFn
 				? keyToLabelFn(key)
 				: key;
-		const labelLength = label.length * averageCharWidth;
+		const labelLength = label.length * geometry.glyphWidth;
 
 		/* value */
 
@@ -220,7 +224,7 @@
 	});
 	$: labelsMaxLengths = bars.reduce((acc, {displayValue, isNeg, labelLength}) => {
 		const signKey = isNeg ? 'neg' : 'pos';
-		const displayValueLength = String(displayValue).length * averageCharWidth;
+		const displayValueLength = String(displayValue).length * geometry.glyphWidth;
 
 		acc[signKey].label = Math.max(acc[signKey].label, labelLength);
 		acc[signKey].value = Math.max(acc[signKey].value, displayValueLength);
@@ -246,7 +250,7 @@
 		const overflowRatio = labelLength / room;
 
 		if (overflowRatio > 1) {
-			const cutIndex = Math.floor(room / averageCharWidth) - 1;
+			const cutIndex = Math.floor(room / geometry.glyphWidth) - 1;
 
 			label = `${sliceString(label, 0, cutIndex)}…`;
 			labelLength = label.length;
@@ -289,15 +293,15 @@
 			const valueX = getX(ref.value);
 			let formattedValue = ref.formatFn ? ref.formatFn(ref.value) : ref.value;
 			let label = `${ref.key} (${formattedValue})`;
-			let textLength = label.length * averageCharWidth;
-			let rectWidth = textLength + 2 * theme.padding;
+			let textLength = label.length * geometry.glyphWidth;
+			let rectWidth = textLength + 2 * geometry.padding;
 			let goesOff = valueX + rectWidth > width;
 			let isAlignedRight = goesOff && valueX > width / 2;
 
 			if (goesOff && ref.keyAbbr) {
 				label = `${ref.keyAbbr} (${formattedValue})`;
-				textLength = label.length * averageCharWidth;
-				rectWidth = textLength + 2 * theme.padding;
+				textLength = label.length * geometry.glyphWidth;
+				rectWidth = textLength + 2 * geometry.padding;
 				isAlignedRight =
 					valueX + rectWidth > width
 					&& valueX > width / 2;
@@ -309,17 +313,17 @@
 				label,
 				rectWidth,
 				textLength,
-				textX: isAlignedRight ? -theme.padding : theme.padding,
+				textX: isAlignedRight ? -geometry.padding : geometry.padding,
 				valueX,
 				x: isAlignedRight ? -rectWidth : 0,
-				y: theme.padding + idx * (theme.padding + refHeight)
+				y: geometry.padding + idx * (geometry.padding + refHeight)
 			}
 		})
 	]);
 	$: refsLayout = refs && refs.length && makeRefsLayout(refs);
-	$: refHeight = theme.padding + theme.glyphHeight;
+	$: refHeight = geometry.padding + geometry.glyphHeight;
 	$: refsHeight =
-		refs && refs.length * (theme.padding + refHeight) + theme.padding
+		refs && refs.length * (geometry.padding + refHeight) + geometry.padding
 		|| 0;
 
 	/* scroll */
