@@ -65,7 +65,6 @@
 		height: 100%;
 		overflow: auto;
 		position: relative;
-		z-index: 1;
 	}
 
 	.shadowTop {

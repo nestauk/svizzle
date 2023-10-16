@@ -15,6 +15,10 @@
 
 - updated bar chart event handlers to adapt to the changes in `@svizzle/barchart` v0.11.0
 
+## `@svizzle/ui` v0.10.1 (next)
+
+- `ScreenSensor`: fixed the measured `glyph.height` being too big
+
 ## `@svizzle/site` v0.4.6 (next)
 
 - /barchart: added doc for the `geometry` prop

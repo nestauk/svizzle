@@ -127,8 +127,10 @@
 
 <style>
 	.textSample {
-		background: blue;
+		background: palegreen;
+		font-size: 1rem;
 		left: 0;
+		line-height: 1rem;
 		overflow: hidden;
 		pointer-events: none;
 		position: fixed;

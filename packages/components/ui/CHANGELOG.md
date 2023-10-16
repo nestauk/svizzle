@@ -1,3 +1,8 @@
+## `@svizzle/ui` v0.10.1 (next)
+
+- `ScreenSensor`: fixed the measured `glyph.height` being too big
+
+
 ## `@svizzle/ui` v0.10.0
 
 - added `resizeHandler` action
