@@ -10,10 +10,13 @@
 		topShadowGeometry: 'inset 0px 12px 13px -13px',
 	};
 
+	export let extraWidth = 0;
+	export let outerScrollTop = 0;
 	export let theme;
 
 	let hasBottomShadow;
 	let hasTopShadow;
+	let previousScrollTop = 0;
 	let scroller;
 	let shadowOpacityBottom = 1;
 	let shadowOpacityTop = 1;
@@ -26,8 +29,10 @@
 	const onScroll = () => {
 		const {
 			offsetHeight,
+			offsetWidth,
 			scrollTop,
-			scrollHeight
+			scrollHeight,
+			scrollWidth
 		} = scroller;
 		const scrollEnd = scrollTop + offsetHeight;
 		const scrollBottom = scrollHeight - scrollEnd;
@@ -38,9 +43,21 @@
 		shadowOpacityBottom = scrollBottom < 10
 			? scrollBottom / 10
 			: 1;
+		extraWidth = offsetWidth - scrollWidth;
+		previousScrollTop = scrollTop;
+		if (outerScrollTop !== scrollTop) {
+			outerScrollTop = scrollTop;
+		}
 	};
 
 	$: scroller && $_size && onScroll();
+	$: if (previousScrollTop !== outerScrollTop) {
+		scroller.scroll({
+			top: outerScrollTop,
+			behavior: 'smooth'
+		})
+		// scroller.scrollTop = outerScrollTop;
+	}
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: rgb = color(theme.shadowColor).rgb();
 	$: bottomShadow = `${theme.bottomShadowGeometry} rgba(${rgb.r},${rgb.g},${rgb.b},${shadowOpacityBottom})`;
@@ -64,7 +81,9 @@
 	.Scroller {
 		height: 100%;
 		overflow: auto;
+		overflow-x: hidden;
 		position: relative;
+		width: 100%;
 	}
 
 	.shadowTop {

@@ -108,6 +108,7 @@
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: valueAccessor = valueAccessor || getValue;
 
+	let extraWidth;
 	let height;
 	let hoveredKey;
 	let width;
@@ -117,6 +118,7 @@
 		...getCssGeometry(geometry),
 		refsHeightPx: toPx(refsHeight)
 	});
+	$: availableWidth = width - extraWidth;
 	$: barPadding = geometry.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
 	$: itemHeight = geometry.glyphHeight + barHeight + 3 * barPadding;
@@ -134,11 +136,11 @@
 		? [min, max]
 		: max > 0 ? [0, max] : [min, 0];
 	$: getX = pipe([
-		linearScale(domain, [0, width]),
+		linearScale(domain, [0, availableWidth]),
 		zeroIfNaN
 	]);
 	$: x0 = getX(0);
-	$: columnsWidth = {neg: x0, pos: width - x0};
+	$: columnsWidth = {neg: x0, pos: availableWidth - x0};
 
 	/* layout */
 
@@ -275,11 +277,11 @@
 						: labelsMaxLengths.neg.value + labelValueDistance
 					: labelsMaxLengths.pos.label <= labelsRoom.pos
 						? x0 + barPadding
-						: width - labelsMaxLengths.pos.value - labelValueDistance
-				: allNegatives ? width : 0,
+						: availableWidth - labelsMaxLengths.pos.value - labelValueDistance
+				: allNegatives ? availableWidth : 0,
 			valueX: crossesZero
-				? isNeg ? 0 : width
-				: allNegatives ? 0 : width,
+				? isNeg ? 0 : availableWidth
+				: allNegatives ? 0 : availableWidth,
 			x,
 			y: idx * itemHeight,
 		}}
@@ -296,16 +298,16 @@
 			let label = `${ref.key} (${formattedValue})`;
 			let textLength = label.length * geometry.glyphWidth;
 			let rectWidth = textLength + 2 * geometry.padding;
-			let goesOff = valueX + rectWidth > width;
-			let isAlignedRight = goesOff && valueX > width / 2;
+			let goesOff = valueX + rectWidth > availableWidth;
+			let isAlignedRight = goesOff && valueX > availableWidth / 2;
 
 			if (goesOff && ref.keyAbbr) {
 				label = `${ref.keyAbbr} (${formattedValue})`;
 				textLength = label.length * geometry.glyphWidth;
 				rectWidth = textLength + 2 * geometry.padding;
 				isAlignedRight =
-					valueX + rectWidth > width
-					&& valueX > width / 2;
+					valueX + rectWidth > availableWidth
+					&& valueX > availableWidth / 2;
 			}
 
 			return {
@@ -329,21 +331,31 @@
 
 	/* scroll */
 
+	let outerScrollTop;
 	let previousItems;
-	let scrollable;
 	let wasNotResettingScroll;
+
+	const doScroll = () => {
+		const yAbs = -outerScrollTop + heroY;
+		if (yAbs < 0) {
+			outerScrollTop = heroY;
+		} else if (yAbs + itemHeight > height) {
+			outerScrollTop = heroY - height + itemHeight;
+		}
+	}
 
 	beforeUpdate(() => {
 		wasNotResettingScroll = !shouldResetScroll
 	});
 	afterUpdate(() => {
-		if (shouldResetScroll && items && items.length && !isEqual(previousItems, items) && scrollable) {
-			scrollable.scrollTop = 0;
+		if (shouldResetScroll && items && items.length && !isEqual(previousItems, items)) {
+			outerScrollTop = 0;
 			previousItems = items;
 		}
 	});
-	$: if (wasNotResettingScroll && shouldResetScroll && scrollable) {
-		scrollable.scrollTop = 0;
+
+	$: if (wasNotResettingScroll && shouldResetScroll) {
+		outerScrollTop = 0;
 	}
 
 	$: heroY =
@@ -352,23 +364,8 @@
 		&& barsByKey[heroKey]
 		&& barsByKey[heroKey].y;
 
-	$: if (
-		shouldScrollToHeroKey
-		&& heroKey
-		&& scrollable
-	) {
-		const yAbs = -scrollable.scrollTop + heroY;
-		if (yAbs < 0) {
-			scrollable.scroll({
-				top: heroY,
-				behavior: 'smooth'
-			})
-		} else if (yAbs + itemHeight > height) {
-			scrollable.scroll({
-				top: heroY - height + itemHeight,
-				behavior: 'smooth'
-			})
-		}
+	$: if (shouldScrollToHeroKey && heroKey) {
+		doScroll();
 	}
 
 	/* events */
@@ -415,7 +412,7 @@
 			<!-- ref labels -->
 			{#if refs.length}
 				<div class='refs'>
-					<svg {width} height={refsHeight}>
+					<svg width={availableWidth} height={refsHeight}>
 						{#each refsLayout as {
 							color,
 							dasharray,
@@ -462,14 +459,16 @@
 			<div
 				bind:clientHeight={height}
 				bind:clientWidth={width}
-				bind:this={scrollable}
 				class:withrefs={refs && refs.length}
 				class='scrollable'
 				on:mouseleave={() => {hoveredKey = null}}
 				role='none'
 			>
-				<Scroller>
-					<svg {width} height={svgHeight}>
+				<Scroller
+					bind:extraWidth
+					bind:outerScrollTop
+				>
+					<svg width={availableWidth} height={svgHeight}>
 						<rect class='bkg' {width} height={svgHeight} />
 
 						<!-- refs lines -->
