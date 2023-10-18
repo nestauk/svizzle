@@ -26,9 +26,11 @@
 
 ## `@svizzle/ui` v0.11.0 (next)
 
-- `Scroller`: exposed 2 new props
-	- `extraWidth`, to account for scrollbar width on Windows
-	- `outerScrollTop`, to let other components binding to its internal scroll
+- `Scroller`:
+	- added 2 new props
+		- `outerScrollTop`, to let other components binding to its internal scroll
+		- `scrollbarWidth`, to account for scrollbar width on Windows
+	- fixed not reacting to slot size changes
 - `ScreenSensor`: fixed the measured `glyph.height` being too big
 - `Banner`, `Switch` and `XorSelector`: resolved some a11y related warnings
 

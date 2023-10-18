@@ -10,8 +10,8 @@
 		topShadowGeometry: 'inset 0px 12px 13px -13px',
 	};
 
-	export let extraWidth = 0;
 	export let outerScrollTop = 0;
+	export let scrollbarWidth = 0;
 	export let theme;
 
 	let hasBottomShadow;
@@ -22,11 +22,16 @@
 	let shadowOpacityTop = 1;
 
 	const {
-		_writable: _size,
-		resizeObserver
+		_writable: _scrollerSize,
+		resizeObserver: observeScrollerSize
 	} = setupResizeObserver();
 
-	const onScroll = () => {
+	const {
+		_writable: _slotSize,
+		resizeObserver: observeSlotSize
+	} = setupResizeObserver();
+
+	const update = () => {
 		const {
 			offsetHeight,
 			offsetWidth,
@@ -43,14 +48,15 @@
 		shadowOpacityBottom = scrollBottom < 10
 			? scrollBottom / 10
 			: 1;
-		extraWidth = offsetWidth - scrollWidth;
+		scrollbarWidth = offsetWidth - scrollWidth;
 		previousScrollTop = scrollTop;
 		if (outerScrollTop !== scrollTop) {
 			outerScrollTop = scrollTop;
 		}
 	};
 
-	$: scroller && $_size && onScroll();
+	$: ({blockSize: slotHeight} = $_slotSize);
+	$: scroller && $_scrollerSize && slotHeight && update();
 	$: if (previousScrollTop !== outerScrollTop) {
 		scroller.scroll({
 			top: outerScrollTop,
@@ -71,10 +77,12 @@
 	class:shadowBottom={hasBottomShadow}
 	class:shadowTop={hasTopShadow}
 	class='Scroller'
-	on:scroll={onScroll}
-	use:resizeObserver
+	on:scroll={update}
+	use:observeScrollerSize
 >
-	<slot/>
+	<div use:observeSlotSize>
+		<slot />
+	</div>
 </div>
 
 <style>

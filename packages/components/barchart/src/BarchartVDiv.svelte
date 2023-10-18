@@ -108,9 +108,9 @@
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: valueAccessor = valueAccessor || getValue;
 
-	let extraWidth;
 	let height;
 	let hoveredKey;
+	let scrollbarWidth;
 	let width;
 
 	$: style = makeStyleVars({
@@ -118,7 +118,7 @@
 		...getCssGeometry(geometry),
 		refsHeightPx: toPx(refsHeight)
 	});
-	$: availableWidth = width - extraWidth;
+	$: availableWidth = width - scrollbarWidth;
 	$: barPadding = geometry.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
 	$: itemHeight = geometry.glyphHeight + barHeight + 3 * barPadding;
@@ -465,8 +465,8 @@
 				role='none'
 			>
 				<Scroller
-					bind:extraWidth
 					bind:outerScrollTop
+					bind:scrollbarWidth
 				>
 					<svg width={availableWidth} height={svgHeight}>
 						<rect class='bkg' {width} height={svgHeight} />
