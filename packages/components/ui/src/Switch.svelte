@@ -58,6 +58,7 @@
 		on:click={toggle}
 		on:keydown={onKeyDown}
 		role='button'
+		tabindex='0'
 	>
 		<span aria-hidden='true' class='bkg'></span>
 		<span aria-hidden='true' class='knob'></span>

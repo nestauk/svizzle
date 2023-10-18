@@ -1,3 +1,7 @@
+## `@svizzle/legend` v0.4.4 (next)
+
+- resolved some a11y related warnings in `ColorBinsG`
+
 ## `@svizzle/legend` v0.4.3
 
 - updated deps

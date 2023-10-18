@@ -6,7 +6,7 @@
 	- moved `headerHeight` and `padding` to the `geometry` prop
 	- removed `fontSize`, using `glyphHeight` and `glyphWidth` in `geometry` instead
 - use `/ui`'s `Scroller`
-
+- resolved some a11y related warnings in `BarcharVDiv`
 
 ## `@svizzle/barchart` v0.10.0
 

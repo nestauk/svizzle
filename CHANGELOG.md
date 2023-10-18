@@ -10,6 +10,15 @@
 	- moved `headerHeight` and `padding` to the `geometry` prop
 	- removed `fontSize`, using `glyphHeight` and `glyphWidth` in `geometry` instead
 - use `/ui`'s `Scroller`
+- resolved some a11y related warnings in `BarcharVDiv`
+
+## `@svizzle/histogram` v0.6.6 (next)
+
+- resolved some a11y related warnings in `HistogramDiv`
+
+## `@svizzle/legend` v0.4.4 (next)
+
+- resolved some a11y related warnings in `ColorBinsG`
 
 ## `@svizzle/time_region_value` v0.9.3 (next)
 
@@ -18,6 +27,7 @@
 ## `@svizzle/ui` v0.10.1 (next)
 
 - `ScreenSensor`: fixed the measured `glyph.height` being too big
+- `Banner`, `Switch` and `XorSelector`: resolved some a11y related warnings
 
 ## `@svizzle/site` v0.4.6 (next)
 

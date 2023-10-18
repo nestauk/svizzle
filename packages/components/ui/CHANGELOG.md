@@ -1,7 +1,7 @@
 ## `@svizzle/ui` v0.10.1 (next)
 
 - `ScreenSensor`: fixed the measured `glyph.height` being too big
-
+- `Banner`, `Switch` and `XorSelector`: resolved some a11y related warnings
 
 ## `@svizzle/ui` v0.10.0
 

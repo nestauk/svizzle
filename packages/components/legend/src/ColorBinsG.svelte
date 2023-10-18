@@ -341,15 +341,18 @@
 					on:click={resetSelection}
 					on:keydown={onKeyDown}
 					role='button'
+					tabindex='0'
 				/>
 			{/if}
 
 			<g transform='translate({origin.x},{origin.y})'>
 
 				<!-- bars -->
+				<!-- FIXME: ARIA role set to 'none' pending solution -->
 				<g
 					class='bars'
 					on:mouseleave={resetBrush}
+					role='none'
 				>
 					<rect
 						class='barsSensorBkg'
@@ -376,6 +379,7 @@
 								width={barWidth}
 							/>
 							{#if flags.isInteractive}
+								<!-- FIXME: ARIA role set to 'none' pending solution -->
 								<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 								<rect
 									class='rectsensor'
@@ -385,6 +389,7 @@
 									on:mouseout={onMouseleave(index)}
 									on:mousemove={isMousedown ? onMousemove(index) : null}
 									on:mouseup={onMouseup(index)}
+									role='none'
 									width={barWidth}
 								/>
 							{/if}

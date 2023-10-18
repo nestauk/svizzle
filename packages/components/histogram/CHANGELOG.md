@@ -1,3 +1,7 @@
+## `@svizzle/histogram` v0.6.6 (next)
+
+- resolved some a11y related warnings in `HistogramDiv`
+
 ## `@svizzle/histogram` v0.6.5
 
 - fixed `HistogramDiv` needing additional `overflow: hidden`

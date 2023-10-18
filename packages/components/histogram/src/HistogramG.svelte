@@ -362,6 +362,7 @@
 					on:click={resetSelection}
 					on:keydown={onKeyDown}
 					role='button'
+					tabindex='0'
 				/>
 			{/if}
 
@@ -401,6 +402,7 @@
 						>{displayValue}</text>
 
 						{#if flags.isInteractive}
+							<!-- FIXME: ARIA role set to 'none' pending solution -->
 							<rect
 								class='sensor'
 								height={barThickness}
@@ -409,6 +411,7 @@
 								on:mouseleave={onMouseleave(index)}
 								on:mousemove={isMousedown ? onMousemove(index) : null}
 								on:mouseup={onMouseup(index)}
+								role='none'
 								width={innerWidth}
 							/>
 						{/if}
