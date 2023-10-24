@@ -18,6 +18,7 @@ Svizzle is a mono-repo containing the source code of various npm packages: pleas
 - [`@svizzle/choropleth`](https://github.com/nestauk/svizzle/tree/release/packages/components/choropleth)
 - [`@svizzle/histogram`](https://github.com/nestauk/svizzle/tree/release/packages/components/histogram)
 - [`@svizzle/legend`](https://github.com/nestauk/svizzle/tree/release/packages/components/legend)
+- [`@svizzle/mapbox`](https://github.com/nestauk/svizzle/tree/release/packages/components/mapbox)
 - [`@svizzle/time_region_value`](https://github.com/nestauk/svizzle/tree/release/packages/components/time_region_value)
 - [`@svizzle/ui`](https://github.com/nestauk/svizzle/tree/release/packages/components/ui)
 
@@ -34,7 +35,7 @@ Svizzle is a mono-repo containing the source code of various npm packages: pleas
 
 ## Cloning
 
-Files fetched or processed via `@svizzle/atlas` are distributed in [this repo](git@github.com:nestauk/svizzle_atlas_distro.git), which is a registered as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules), so the first time you clone `svizzle` please use:
+Files fetched or processed via `@svizzle/atlas` are distributed in [this repo](https://github.com/nestauk/svizzle_atlas_distro), which is registered as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules), so the first time you clone `svizzle` please use:
 
 ```
 git clone --recurse-submodules git@github.com:nestauk/svizzle.git

@@ -2,20 +2,27 @@
 
 ## next
 
+- fixed 2 links in the main `README`
+
 ## `@svizzle/barchart` v0.12.0 (next)
 
 - added touch support
 - use a resize observer instead of binding `client*`
 - fixed some geometric variables from becoming `NaN`
 
-## `@svizzle/site` v0.4.9 (next)
+## `@svizzle/histogram` v0.6.7 (next)
 
-- /ui, Scroller: added doc for the centering props
+- `HistogramDiv`: added some prop default
 
 ## `@svizzle/ui` v0.12.0 (next)
 
 - `Scroller`: add centering props
+- `CenteredView`: added some prop default
 
+## `@svizzle/site` v0.4.9 (next)
+
+- /ui, `Scroller`: added doc for the centering props
+- /mapbox: formatted an example's code
 
 ## 20231018
 

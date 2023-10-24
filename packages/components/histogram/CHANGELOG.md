@@ -1,3 +1,7 @@
+## `@svizzle/histogram` v0.6.7 (next)
+
+- `HistogramDiv`: added some prop default
+
 ## `@svizzle/histogram` v0.6.6
 
 - resolved some a11y related warnings in `HistogramDiv`

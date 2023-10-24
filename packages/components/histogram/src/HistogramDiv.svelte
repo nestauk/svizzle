@@ -4,9 +4,9 @@
 	import HistogramG from './HistogramG.svelte';
 
 	// html
-	export let headerHeight;
-	export let padding;
-	export let title;
+	export let headerHeight = '2rem';
+	export let padding = '10px';
+	export let title = null;
 
 	// svg
 	export let bins = [];

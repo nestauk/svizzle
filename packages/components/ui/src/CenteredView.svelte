@@ -1,7 +1,7 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 
-	export let alignHorizontally;
+	export let alignHorizontally = false;
 	export let backgroundColor = null;
 	export let color = null;
 	export let fontSize = null;
