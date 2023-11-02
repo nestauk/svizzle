@@ -1,5 +1,16 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/site` v0.4.9 (next)
+
+- /ui, Scroller: added doc for the centering props
+
+## `@svizzle/ui` v0.12.0 (next)
+
+- `Scroller`: add centering props
+
+
 ## 20231018
 
 ## `@svizzle/barchart` v0.11.0

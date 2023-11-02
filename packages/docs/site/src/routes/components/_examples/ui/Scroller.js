@@ -43,6 +43,130 @@ export const data = [
 		`,
 	},
 	{
+		key: 'Aligning horizontally',
+		props: {
+			alignHorizontally: true
+		},
+		slots: [
+			{
+				slotName: 'default',
+				items: [
+					{
+						content: 'A title',
+						elementName: 'h1',
+					},
+					..._.map(_.range(0, 10), _.always({
+						content: 'something',
+						elementName: 'p',
+					}))
+				]
+			}
+		],
+		usage: `
+			<script>
+				import {Scroller} from '@svizzle/ui';
+			</script>
+
+			<Scroller alignHorizontally={true}>
+				<h1>Hi!</h1>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+			</Scroller>
+		`,
+	},
+	{
+		key: 'Aligning vertically',
+		props: {
+			alignVertically: true
+		},
+		slots: [
+			{
+				slotName: 'default',
+				items: [
+					{
+						content: 'A title',
+						elementName: 'h1',
+					},
+					..._.map(_.range(0, 10), _.always({
+						content: 'something',
+						elementName: 'p',
+					}))
+				]
+			}
+		],
+		usage: `
+			<script>
+				import {Scroller} from '@svizzle/ui';
+			</script>
+
+			<Scroller alignVertically={true}>
+				<h1>Hi!</h1>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+			</Scroller>
+		`,
+	},
+	{
+		key: 'Aligning in both directions',
+		props: {
+			alignHorizontally: true,
+			alignVertically: true
+		},
+		slots: [
+			{
+				slotName: 'default',
+				items: [
+					{
+						content: 'A title',
+						elementName: 'h1',
+					},
+					..._.map(_.range(0, 10), _.always({
+						content: 'something',
+						elementName: 'p',
+					}))
+				]
+			}
+		],
+		usage: `
+			<script>
+				import {Scroller} from '@svizzle/ui';
+			</script>
+
+			<Scroller
+				alignHorizontally={true}
+				alignHorizontally={true}
+			>
+				<h1>Hi!</h1>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+				<p>something</p>
+			</Scroller>
+		`,
+	},
+	{
 		key: 'Style',
 		props: {
 			theme: {

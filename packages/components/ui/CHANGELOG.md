@@ -1,3 +1,7 @@
+## `@svizzle/ui` v0.12.0 (next)
+
+- `Scroller`: add centering props
+
 ## `@svizzle/ui` v0.11.0
 
 - `Scroller`:

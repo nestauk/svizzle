@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.4.9 (next)
+
+- /ui, Scroller: added doc for the centering props
+
 ## `@svizzle/site` v0.4.8
 
 - /barchart: added doc for the `geometry` prop

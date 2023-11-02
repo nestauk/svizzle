@@ -10,6 +10,8 @@
 		topShadowGeometry: 'inset 0px 12px 13px -13px',
 	};
 
+	export let alignHorizontally = false;
+	export let alignVertically = false;
 	export let outerScrollTop = 0;
 	export let scrollbarWidth = 0;
 	export let theme;
@@ -74,6 +76,8 @@
 <div
 	{style}
 	bind:this={scroller}
+	class:alignedHorizontally={alignHorizontally}
+	class:alignedVertically={alignVertically}
 	class:shadowBottom={hasBottomShadow}
 	class:shadowTop={hasTopShadow}
 	class='Scroller'
@@ -88,10 +92,19 @@
 <style>
 	.Scroller {
 		height: 100%;
-		overflow: auto;
 		overflow-x: hidden;
+		overflow: auto;
 		position: relative;
 		width: 100%;
+	}
+
+	.alignedHorizontally {
+		display: grid;
+		justify-content: center;
+	}
+	.alignedVertically {
+		align-items: center;
+		display: grid;
 	}
 
 	.shadowTop {
