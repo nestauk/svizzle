@@ -2,6 +2,12 @@
 
 ## next
 
+## `@svizzle/barchart` v0.12.0 (next)
+
+- added touch support
+- use a resize observer instead of binding `client*`
+- fixed some geometric variables from becoming `NaN`
+
 ## `@svizzle/site` v0.4.9 (next)
 
 - /ui, Scroller: added doc for the centering props

@@ -1,6 +1,6 @@
 <script>
 	import {makeStyleVars, toPx} from '@svizzle/dom';
-	import {MessageView, Scroller} from '@svizzle/ui';
+	import {MessageView, Scroller, setupResizeObserver} from '@svizzle/ui';
 	import {
 		applyFnMap,
 		arrayMaxWith,
@@ -29,6 +29,10 @@
 	import {linearScale} from 'yootils';
 
 	const dispatch = createEventDispatcher();
+	const {
+		_writable: _size,
+		resizeObserver: sizeObserver
+	} = setupResizeObserver();
 	const sortByValue = sortWith([getValue]);
 	const transparentColor = 'rgba(0,0,0,0)';
 
@@ -113,12 +117,15 @@
 	let scrollbarWidth;
 	let width;
 
+	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: style = makeStyleVars({
 		...theme,
 		...getCssGeometry(geometry),
 		refsHeightPx: toPx(refsHeight)
 	});
-	$: availableWidth = width - scrollbarWidth;
+	$: availableWidth = scrollbarWidth
+		? Math.max(width - scrollbarWidth, 0)
+		: width;
 	$: barPadding = geometry.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
 	$: itemHeight = geometry.glyphHeight + barHeight + 3 * barPadding;
@@ -397,7 +404,7 @@
 			<h2>{title}</h2>
 		</header>
 	{/if}
-	<main class:titled={title} >
+	<main class:titled={title}>
 		{#if !items || items.length === 0}
 
 			<MessageView
@@ -412,7 +419,10 @@
 			<!-- ref labels -->
 			{#if refs.length}
 				<div class='refs'>
-					<svg width={availableWidth} height={refsHeight}>
+					<svg
+						height={refsHeight}
+						width={availableWidth}
+					>
 						{#each refsLayout as {
 							color,
 							dasharray,
@@ -457,19 +467,25 @@
 
 			<!-- scrollable -->
 			<div
-				bind:clientHeight={height}
-				bind:clientWidth={width}
 				class:withrefs={refs && refs.length}
 				class='scrollable'
 				on:mouseleave={() => {hoveredKey = null}}
 				role='none'
+				use:sizeObserver
 			>
 				<Scroller
 					bind:outerScrollTop
 					bind:scrollbarWidth
 				>
-					<svg width={availableWidth} height={svgHeight}>
-						<rect class='bkg' {width} height={svgHeight} />
+					<svg
+						height={svgHeight}
+						width={availableWidth}
+					>
+						<rect
+							class='bkg'
+							height={svgHeight}
+							width={availableWidth}
+						/>
 
 						<!-- refs lines -->
 						{#if refsLayout}
@@ -517,12 +533,13 @@
 									on:mouseenter={onMouseenter(payload)}
 									on:mouseleave={isInteractive && onMouseleave(payload)}
 									on:keydown={isInteractive && (e => onKeyDown(e, payload))}
+									on:touchstart={isInteractive && onMouseenter(payload)}
 									role={isInteractive ? 'button' : null}
 									tabindex={isInteractive ? 0 : -1}
 									transform='translate(0, {itemHeight * index})'
 								>
 									<rect
-										{width}
+										width={availableWidth}
 										fill={barBackgroundColor}
 										height={itemHeight}
 									/>
@@ -545,7 +562,7 @@
 										class:right={isValueAlignedRight}
 										class='value'
 										fill={textColor}
-										x={valueX - 2}
+										x={valueX}
 										y={textY}
 									>{displayValue}</text>
 								</g>

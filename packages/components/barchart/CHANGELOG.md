@@ -1,3 +1,9 @@
+## `@svizzle/barchart` v0.12.0 (next)
+
+- added touch support
+- use a resize observer instead of binding `client*`
+- fixed some geometric variables from becoming `NaN`
+
 ## `@svizzle/barchart` v0.11.0
 
 - bar events now dispatch `{displayValue, key, label, value}`
