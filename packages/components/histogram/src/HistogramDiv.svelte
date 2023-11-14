@@ -105,6 +105,7 @@
 		height: calc(100% - var(--headerHeight));
 	}
 	main svg {
+		display: block;
 		height: 100%;
 		width: 100%;
 	}

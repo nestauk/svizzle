@@ -114,7 +114,8 @@
 		height: calc(100% - var(--headerHeight));
 	}
 	main svg {
-		width: 100%;
+		display: block;
 		height: 100%;
+		width: 100%;
 	}
 </style>

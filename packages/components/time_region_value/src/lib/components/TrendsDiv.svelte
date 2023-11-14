@@ -44,4 +44,7 @@
 		height: 100%;
 		width: 100%;
 	}
+	svg {
+		display: block;
+	}
 </style>
