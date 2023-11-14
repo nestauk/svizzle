@@ -627,6 +627,9 @@
 		height: calc(100% - var(--refsHeightPx));
 		max-height: calc(100% - var(--refsHeightPx));
 		overflow-y: auto;
+
+	}
+
 	svg {
 		display: block;
 	}
