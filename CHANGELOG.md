@@ -1,28 +1,50 @@
 # Svizzle changelog
 
-## next
+## 20231114
 
 - fixed 2 links in the main `README`
 
-## `@svizzle/barchart` v0.12.0 (next)
+## `@svizzle/barchart` v0.12.0
 
 - added touch support
 - use a resize observer instead of binding `client*`
 - fixed some geometric variables from becoming `NaN`
+- set `display: block` on the inner `<svg>`
 
-## `@svizzle/histogram` v0.6.7 (next)
+## `@svizzle/choropleth` v0.9.4
 
-- `HistogramDiv`: added some prop default
+- set `display: block` on the inner `<svg>`
 
-## `@svizzle/ui` v0.12.0 (next)
+## `@svizzle/histogram` v0.6.7
 
-- `Scroller`: add centering props
+- `HistogramDiv`:
+	- added some prop default
+	- set `display: block` on the inner `<svg>`
+
+## `@svizzle/legend` v0.4.7
+
+- `ColorBinsDiv`: set `display: block` on the inner `<svg>`
+
+## `@svizzle/mapbox` v0.1.1
+
+- `SvgLayer`: set `.SvgLayers` to `display: block`
+
+## `@svizzle/time_region_value` v0.9.6
+
+- set `display: block` on the inner `<svg>` elements in various components
+
+## `@svizzle/ui` v0.12.0
+
+- `Scroller`:
+	- add centering props
+	- fixed a bug where `overflow-x` was overridden
 - `CenteredView`: added some prop default
 
-## `@svizzle/site` v0.4.9 (next)
+## `@svizzle/site` v0.4.9
 
 - /ui, `Scroller`: added doc for the centering props
 - /mapbox: formatted an example's code
+- set `display: block` on the inner `<svg>` element in `packages/docs/site/src/routes/components/[slug].svelte`
 
 ## 20231018
 

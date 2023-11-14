@@ -1,6 +1,8 @@
-## `@svizzle/histogram` v0.6.7 (next)
+## `@svizzle/histogram` v0.6.7
 
-- `HistogramDiv`: added some prop default
+- `HistogramDiv`:
+	- added some prop default
+	- set `display: block` on the inner `<svg>`
 
 ## `@svizzle/histogram` v0.6.6
 

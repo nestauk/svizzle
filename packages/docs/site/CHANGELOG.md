@@ -1,6 +1,8 @@
-## `@svizzle/site` v0.4.9 (next)
+## `@svizzle/site` v0.4.9
 
-- /ui, Scroller: added doc for the centering props
+- /ui, `Scroller`: added doc for the centering props
+- /mapbox: formatted an example's code
+- set `display: block` on the inner `<svg>` element in `packages/docs/site/src/routes/components/[slug].svelte`
 
 ## `@svizzle/site` v0.4.8
 

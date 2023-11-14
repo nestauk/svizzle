@@ -1,6 +1,8 @@
-## `@svizzle/ui` v0.12.0 (next)
+## `@svizzle/ui` v0.12.0
 
-- `Scroller`: add centering props
+- `Scroller`:
+	- add centering props
+	- fixed a bug where `overflow-x` was overridden
 - `CenteredView`: added some prop default
 
 ## `@svizzle/ui` v0.11.0

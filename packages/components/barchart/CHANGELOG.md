@@ -1,8 +1,9 @@
-## `@svizzle/barchart` v0.12.0 (next)
+## `@svizzle/barchart` v0.12.0
 
 - added touch support
 - use a resize observer instead of binding `client*`
 - fixed some geometric variables from becoming `NaN`
+- set `display: block` on the inner `<svg>`
 
 ## `@svizzle/barchart` v0.11.0
 

@@ -1,3 +1,7 @@
+## `@svizzle/legend` v0.4.7
+
+- `ColorBinsDiv`: set `display: block` on the inner `<svg>`
+
 ## `@svizzle/legend` v0.4.6
 
 - resolved some a11y related warnings in `ColorBinsG`
