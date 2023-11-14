@@ -207,6 +207,10 @@
 		width: 100%;
 	}
 
+	svg {
+		display:block;
+	}
+
 	.col {
 		grid-row: 2 / span 1;
 		padding: var(--dim-padding-minor);

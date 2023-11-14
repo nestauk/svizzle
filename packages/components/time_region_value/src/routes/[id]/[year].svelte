@@ -716,6 +716,10 @@
 		/* FIXME do we still need it? */
 	}
 
+	svg {
+		display: block;
+	}
+
 	/* small */
 
 	.small .viewport {

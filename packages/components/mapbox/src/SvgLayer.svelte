@@ -30,6 +30,7 @@
 
 <style>
 	.SvgLayers {
+		display: block;
 		height: 100%;
 		position: absolute;
 		width: 100%;

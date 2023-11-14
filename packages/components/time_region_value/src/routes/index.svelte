@@ -154,6 +154,10 @@
 		margin-top: 1rem;
 	}
 
+	svg {
+		display: block;
+	}
+
 	svg .xref line {
 		stroke: var(--colorLightgrey);
 		stroke-dasharray: 2 2;

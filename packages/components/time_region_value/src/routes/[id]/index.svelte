@@ -350,6 +350,10 @@
 		position: relative; /* info modal */
 	}
 
+	svg {
+		display: block;
+	}
+
 	/* small */
 
 	.small .viewport {

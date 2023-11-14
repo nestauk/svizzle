@@ -174,6 +174,9 @@
 		width: 100%;
 	}
 
+	svg {
+		display: block;
+	}
 	svg text {
 		dominant-baseline: middle;
 		fill: var(--colorRef);

@@ -629,6 +629,10 @@
 		overflow-y: auto;
 	}
 
+	svg {
+		display: block;
+	}
+
 	.ref rect {
 		stroke-width: 0.5;
 		stroke: var(--refRectColor);
