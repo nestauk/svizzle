@@ -69,7 +69,6 @@ https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html
 	svg {
 		position: fixed;
 		visibility: hidden;
-		display: block;
 	}
 	:global(.colorCorrected) {
 		filter: var(--color-correction); /* color vision deficiency */
