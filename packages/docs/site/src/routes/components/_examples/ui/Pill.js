@@ -4,7 +4,7 @@ export const title = 'Pill';
 export const slug = `${packageName}-${name}`;
 export const doc = [
 	{tag: 'p', content: 'A flexible and customizable pill-shaped container for labels and other small textual elements.'},
-;
+];
 export const data = [
 	{
 		content: 'Example Label',
