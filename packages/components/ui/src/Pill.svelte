@@ -1,8 +1,8 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 
-	export let label = null;
 	export let isBold;
+	export let label = null;
 	export let nowrap;
 	export let theme;
 

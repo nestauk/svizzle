@@ -23,8 +23,8 @@
 
 	const dispatch = createEventDispatcher();
 
-	const onInput = e => {
-		const tValue = e.target.value;
+	const onInput = event => {
+		const tValue = event.target.value;
 		if (value !== tValue) {
 			value = tValue;
 		}
@@ -91,9 +91,9 @@
 <style>
 	.Input {
 		background: var(--backgroundColor);
-		border: thin solid;
 		border-color: var(--borderColor);
 		border-radius: 0.125em;
+		border: thin solid;
 		display: grid;
 		grid-template-columns: 1fr min-content;
 		padding: 0.25em;
