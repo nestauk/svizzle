@@ -99,7 +99,8 @@
 		background: var(--backgroundColor);
 		border-color: var(--borderColor);
 		border-radius: 0.125em;
-		border: thin solid;
+		border-style: solid;
+		border-width: thin;
 		display: grid;
 		grid-template-columns: 1fr min-content;
 		padding: 0.25em;

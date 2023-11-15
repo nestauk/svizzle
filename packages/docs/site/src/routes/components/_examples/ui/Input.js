@@ -21,7 +21,7 @@ export const data = [
 		usage: `
 			<Input
 				placeholder='Enter text'
-				value={''}
+				value=''
 			/>
 		`,
 	},
@@ -37,7 +37,7 @@ export const data = [
 			<Input
 				autofocus={true}
 				placeholder='Focused input'
-				value={''}
+				value=''
 			/>
 		`,
 	},
@@ -53,7 +53,7 @@ export const data = [
 			<Input
 				placeholder='Enter password'
 				type='password'
-				value={''}
+				value=''
 			/>
 		`,
 	},
@@ -63,25 +63,25 @@ export const data = [
 		props: {
 			placeholder: 'Custom style',
 			theme: {
-				backgroundColor: 'lightblue',
-				borderColor: 'darkblue',
-				colorIcon: 'orange',
+				backgroundColor: 'palegreen',
+				borderColor: 'magenta',
+				colorIcon: 'red',
 				colorText: 'darkgreen',
 				outline: '2px dotted red',
 			},
-			value: '',
+			value: 'some text',
 		},
 		usage: `
 			<Input
 				placeholder='Custom style'
 				theme={{
-					backgroundColor: 'lightblue',
-					borderColor: 'darkblue',
-					colorIcon: 'orange',
+					backgroundColor: 'palegreen',
+					borderColor: 'magenta',
+					colorIcon: 'red',
 					colorText: 'darkgreen',
 					outline: '2px dotted red',
 				}}
-				value={''}
+				value='some text'
 			/>
 		`,
 	},
@@ -95,7 +95,7 @@ export const data = [
 		usage: `
 			<Input
 				placeholder='Press Enter to submit'
-				value={''}
+				value=''
 				on:submitted={() => console.log('Submitted')}
 			/>
 		`,
