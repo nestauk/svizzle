@@ -3,27 +3,30 @@ export const packageName = 'ui';
 export const title = 'Pill';
 export const slug = `${packageName}-${name}`;
 export const doc = [
-	{tag: 'p', content: 'A flexible and customizable pill-shaped container for labels and other small textual elements.'},
+	{tag: 'p', content: 'A flexible and customizable pill-shaped container for labels and other short textual elements.'},
 ];
 export const data = [
 	{
-		content: 'Example Label',
+		content: 'Example label',
 		key: 'Basic usage',
-		props: {},
+		props: {
+			label: 'A label',
+		},
 		usage: `
-			<Pill label='Example Label' />
+			<Pill label='A label' />
 		`,
 	},
 	{
-		content: 'Bold Label',
+		content: 'Bold label',
 		key: 'Bold text',
 		props: {
 			isBold: true,
+			label: 'Bold label',
 		},
 		usage: `
 			<Pill
-				label='Bold Label'
 				isBold={true}
+				label='Bold label'
 			/>
 		`,
 	},
@@ -31,6 +34,7 @@ export const data = [
 		content: 'Custom Theme',
 		key: 'Custom theme',
 		props: {
+			label: 'Custom theme',
 			theme: {
 				backgroundColor: 'blue',
 				border: 'thick solid red',
@@ -54,6 +58,7 @@ export const data = [
 		content: 'No Wrap',
 		key: 'Text nowrap',
 		props: {
+			label: 'No Wrap',
 			nowrap: false,
 		},
 		usage: `
@@ -68,6 +73,7 @@ export const data = [
 		key: 'Custom style and bold',
 		props: {
 			isBold: true,
+			label: 'Custom Style',
 			theme: {
 				backgroundColor: 'green',
 				border: 'dotted thin purple',
