@@ -22,6 +22,7 @@
 	let scroller;
 	let shadowOpacityBottom = 1;
 	let shadowOpacityTop = 1;
+	let slotHeight;
 
 	const {
 		_writable: _scrollerSize,
@@ -50,7 +51,7 @@
 		shadowOpacityBottom = scrollBottom < 10
 			? scrollBottom / 10
 			: 1;
-		scrollbarWidth = offsetWidth - scrollWidth;
+		scrollbarWidth = Math.max(offsetWidth - scrollWidth, 0);
 		previousScrollTop = scrollTop;
 		if (outerScrollTop !== scrollTop) {
 			outerScrollTop = scrollTop;

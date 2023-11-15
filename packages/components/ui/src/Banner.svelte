@@ -18,6 +18,7 @@
 	export let hasBackdrop = true;
 	export let isNarrow = true;
 	export let theme;
+	export let width;
 
 	const dispatch = createEventDispatcher();
 	const close = () => dispatch('close');
@@ -28,8 +29,12 @@
 		}
 	}
 
+	$: width = width || '90%';
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	$: style = makeStyleVars(theme);
+	$: style = makeStyleVars({
+		...theme,
+		width
+	});
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
@@ -84,7 +89,7 @@
 		overflow: auto;
 		top: 50%;
 		transform: translate(-50%, -50%);
-		width: 90%;
+		width: var(--width);
 	}
 	.medium .inner {
 		min-width: 50%;
