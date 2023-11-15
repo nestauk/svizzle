@@ -5,6 +5,11 @@ export const slug = `${packageName}-${name}`;
 export const doc = [
 	{tag: 'p', content: 'A customizable input field with integrated clear button and custom event handling.'},
 ];
+export const events = [
+	'changed',
+	'reset',
+	'submitted',
+];
 export const data = [
 	{
 		content: 'Basic input',

@@ -27,6 +27,11 @@
 		const tValue = event.target.value;
 		if (value !== tValue) {
 			value = tValue;
+			dispatch('changed', value);
+
+			if (value === '') {
+				dispatch('reset');
+			}
 		}
 	};
 
@@ -40,6 +45,7 @@
 	const resetValue = () => {
 		input.value = '';
 		value = '';
+		dispatch('reset');
 	};
 
 	onMount(() => {
