@@ -17,15 +17,15 @@
 		"@svizzle/ui": "^0.12.0",
 		"@svizzle/utils": "^0.20.0",
 		"@turf/bbox-clip": "^6.5.0",
-		"d3-array": "^3.2.0",
+		"d3-array": "^3.2.4",
 		"d3-dsv": "^3.0.1",
 		"d3-format": "^3.1.0",
-		"d3-geo": "^3.0.1",
+		"d3-geo": "^3.1.0",
 		"d3-quadtree": "^3.0.1",
 		"d3-scale": "^4.0.2",
 		"d3-scale-chromatic": "^3.0.0",
-		"d3-shape": "^3.1.0",
-		"lamb": "^0.61.0",
+		"d3-shape": "^3.2.0",
+		"lamb": "^0.61.1",
 		"topojson-simplify": "^3.0.3",
 		"yootils": "^0.3.1"
 	},
@@ -33,7 +33,7 @@
 	"devDependencies": {
 		"eslint": "^8.23.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"svelte": "^3.50.1"
+		"svelte": "^3.59.2"
 	},
 	"engines": {
 		"node": ">=17.5.0"

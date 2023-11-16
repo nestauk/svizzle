@@ -13,7 +13,7 @@
 		"@turf/centroid": "^6.5.0",
 		"@turf/helpers": "^6.5.0",
 		"@turf/truncate": "^6.5.0",
-		"lamb": "^0.61.0",
+		"lamb": "^0.61.1",
 		"topojson-client": "^3.1.0"
 	},
 	"description": "Svizzle Geo contains geography related helpers.",
@@ -21,7 +21,7 @@
 		"@svizzle/utils": "^0.20.0",
 		"commander": "^7.2.0",
 		"eslint": "^8.23.0",
-		"mocha": "^8.3.2"
+		"mocha": "^10.2.0"
 	},
 	"engines": {
 		"node": ">=17.5.0"

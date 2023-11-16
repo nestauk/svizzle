@@ -1,3 +1,7 @@
+## `@svizzle/file` v0.14.2 (next)
+
+- upgraded `lamb`, `mocha`
+
 ## `@svizzle/file` v0.14.1
 
 - updated license year

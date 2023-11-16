@@ -1,3 +1,7 @@
+## `@svizzle/geo` v0.9.1 (next)
+
+- upgraded `lamb`, `mocha`
+
 ## `@svizzle/geo` v0.9.1
 
 - use caret ranges for `@turf/*` packages

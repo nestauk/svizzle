@@ -1,3 +1,7 @@
+## `@svizzle/atlas` v0.9.1 (next)
+
+- upgraded `lamb`
+
 ## `@svizzle/atlas` v0.9.0
 
 - NUTS:

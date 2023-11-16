@@ -1,3 +1,7 @@
+## `@svizzle/request` v0.5.3 (next)
+
+- upgraded `lamb`, `mocha`, `rxjs`
+
 ## `@svizzle/request` v0.5.2
 
 - updated license year

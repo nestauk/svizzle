@@ -9,13 +9,13 @@
 	},
 	"dependencies": {
 		"escape-string-regexp": "^5.0.0",
-		"just-compare": "^2.2.2",
-		"lamb": "^0.61.0"
+		"just-compare": "^2.3.0",
+		"lamb": "^0.61.1"
 	},
 	"description": "Svizzle Utils is a library to help transforming data.",
 	"devDependencies": {
 		"eslint": "^8.23.0",
-		"mocha": "^8.3.2"
+		"mocha": "^10.2.0"
 	},
 	"engines": {
 		"node": ">=17.5.0"

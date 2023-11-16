@@ -3,7 +3,7 @@
 */
 
 import * as _ from 'lamb';
-import isEqual from 'just-compare';
+import areEqual from 'just-compare';
 
 import {getKey, getValue} from './object-any.js';
 
@@ -291,7 +291,7 @@ export const toggleItem = (array, item) => {
 	let found = false;
 
 	let result = _.reduce(array, (acc, x) => {
-		if (isEqual(x, item)) {
+		if (areEqual(x, item)) {
 			found = true;
 		} else {
 			acc.push(x);

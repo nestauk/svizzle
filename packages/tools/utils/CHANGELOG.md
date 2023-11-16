@@ -1,3 +1,7 @@
+## `@svizzle/utils` v0.20.1 (next)
+
+- upgraded `just-compare`, `lamb`, `mocha`
+
 ## `@svizzle/utils` v0.20.0
 
 - added `hasKeyWith`

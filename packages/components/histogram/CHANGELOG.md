@@ -1,3 +1,7 @@
+## `@svizzle/histogram` v0.6.8 (next)
+
+- upgraded `d3-array`, `lamb`, `mocha`, `svelte`
+
 ## `@svizzle/histogram` v0.6.7
 
 - `HistogramDiv`:

@@ -1,3 +1,7 @@
+## `@svizzle/mapbox` v0.1.2 (next)
+
+- upgraded `mapbox-gl`, `svelte`
+
 ## `@svizzle/mapbox` v0.1.1
 
 - `SvgLayer`: set `.SvgLayers` to `display: block`

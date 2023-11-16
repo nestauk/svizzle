@@ -9,13 +9,13 @@
 	},
 	"dependencies": {
 		"@svizzle/utils": "^0.20.0",
-		"lamb": "^0.61.0"
+		"lamb": "^0.61.1"
 	},
 	"description": "Svizzle DOM contains DOM related helpers.",
 	"devDependencies": {
 		"@svizzle/file": "^0.14.2",
 		"eslint": "^8.23.0",
-		"mocha": "^8.3.2"
+		"mocha": "^10.2.0"
 	},
 	"engines": {
 		"node": ">=17.5.0"

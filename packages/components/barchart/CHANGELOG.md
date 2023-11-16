@@ -1,3 +1,7 @@
+## `@svizzle/barchart` v0.12.1 (next)
+
+- upgraded `lamb`, `just-compare`, `svelte`
+
 ## `@svizzle/barchart` v0.12.0
 
 - added touch support

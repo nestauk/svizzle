@@ -1,3 +1,7 @@
+## `@svizzle/time_region_value` v0.9.7 (next)
+
+- upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`
+
 ## `@svizzle/time_region_value` v0.9.6
 
 - set `display: block` on the inner `<svg>` elements in various components

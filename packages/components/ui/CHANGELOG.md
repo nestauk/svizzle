@@ -1,3 +1,14 @@
+## `@svizzle/ui` v0.13.0 (next)
+
+- added `Input` and `Pill` components
+- updated `Banner` & `Scroller`
+- upgraded:
+	- `@macfja/svelte-persistent-store`
+	- `feather-icons`
+	- `just-compare`
+	- `lamb`
+	- `svelte`
+
 ## `@svizzle/ui` v0.12.0
 
 - `Scroller`:

@@ -1,3 +1,7 @@
+## `@svizzle/site` v0.4.10 (next)
+
+- upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`
+
 ## `@svizzle/site` v0.4.9
 
 - /ui, `Scroller`: added doc for the centering props

@@ -1,3 +1,7 @@
+## `@svizzle/legend` v0.4.8 (next)
+
+- upgraded `lamb`, `svelte`
+
 ## `@svizzle/legend` v0.4.7
 
 - `ColorBinsDiv`: set `display: block` on the inner `<svg>`

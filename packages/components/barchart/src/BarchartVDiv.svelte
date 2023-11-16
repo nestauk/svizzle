@@ -10,7 +10,7 @@
 		isIterableEmpty,
 		sliceString,
 	} from '@svizzle/utils';
-	import isEqual from 'just-compare';
+	import areEqual from 'just-compare';
 	import {
 		always,
 		identity,
@@ -355,7 +355,7 @@
 		wasNotResettingScroll = !shouldResetScroll
 	});
 	afterUpdate(() => {
-		if (shouldResetScroll && items && items.length && !isEqual(previousItems, items)) {
+		if (shouldResetScroll && items && items.length && !areEqual(previousItems, items)) {
 			outerScrollTop = 0;
 			previousItems = items;
 		}

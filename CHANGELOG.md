@@ -1,5 +1,74 @@
 # Svizzle changelog
 
+## next
+
+## `@svizzle/barchart` v0.12.1 (next)
+
+- upgraded `lamb`, `just-compare`, `svelte`
+
+## `@svizzle/choropleth` v0.9.5 (next)
+
+- upgraded `d3-geo`, `lamb`, `svelte`
+
+## `@svizzle/histogram` v0.6.8 (next)
+
+- upgraded `d3-array`, `lamb`, `mocha`, `svelte`
+
+## `@svizzle/legend` v0.4.8 (next)
+
+- upgraded `lamb`, `svelte`
+
+## `@svizzle/mapbox` v0.1.2 (next)
+
+- upgraded `mapbox-gl`, `svelte`
+
+## `@svizzle/time_region_value` v0.9.7 (next)
+
+- upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`
+
+## `@svizzle/site` v0.4.10 (next)
+
+- upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`
+
+## `@svizzle/ui` v0.13.0 (next)
+
+- added `Input` and `Pill` components
+- updated `Banner` & `Scroller`
+- upgraded:
+	- `@macfja/svelte-persistent-store`
+	- `feather-icons`
+	- `just-compare`
+	- `lamb`
+	- `svelte`
+
+## `@svizzle/atlas` v0.9.1 (next)
+
+- upgraded `lamb`
+
+## `@svizzle/dev` v0.6.2 (next)
+
+- upgraded `lamb`, `mocha`
+
+## `@svizzle/dom` v0.7.1 (next)
+
+- upgraded `lamb`, `mocha`
+
+## `@svizzle/file` v0.14.2 (next)
+
+- upgraded `lamb`, `mocha`
+
+## `@svizzle/geo` v0.9.1 (next)
+
+- upgraded `lamb`, `mocha`
+
+## `@svizzle/geometry` v0.6.1 (next)
+
+- upgraded `lamb`, `mocha`
+
+## `@svizzle/request` v0.5.3 (next)
+
+- upgraded `lamb`, `mocha`, `rxjs`
+
 ## 20231114
 
 - fixed 2 links in the main `README`

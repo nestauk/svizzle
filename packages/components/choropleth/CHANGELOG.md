@@ -1,3 +1,7 @@
+## `@svizzle/choropleth` v0.9.5 (next)
+
+- upgraded `d3-geo`, `lamb`, `svelte`
+
 ## `@svizzle/choropleth` v0.9.4
 
 - set `display: block` on the inner `<svg>`

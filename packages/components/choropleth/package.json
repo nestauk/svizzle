@@ -11,14 +11,14 @@
 		"@svizzle/dom": "^0.7.2",
 		"@svizzle/geo": "^0.9.2",
 		"@svizzle/utils": "^0.20.0",
-		"d3-geo": "^3.0.1",
-		"lamb": "^0.61.0"
+		"d3-geo": "^3.1.0",
+		"lamb": "^0.61.1"
 	},
 	"description": "A generic choropleth component for Svelte.",
 	"devDependencies": {
 		"eslint": "^8.23.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"svelte": "^3.50.1"
+		"svelte": "^3.59.2"
 	},
 	"engines": {
 		"node": ">=17.5.0"
@@ -33,10 +33,11 @@
 	],
 	"homepage": "https://github.com/nestauk/svizzle",
 	"keywords": [
-		"choropleth",
 		"chart",
+		"choropleth",
 		"component",
 		"data visualization",
+		"maps",
 		"svelte"
 	],
 	"license": "MIT",

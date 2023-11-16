@@ -9,13 +9,13 @@
 	},
 	"dependencies": {
 		"@mapbox/geo-viewport": "^0.4.1",
-		"mapbox-gl": "^2.10.0"
+		"mapbox-gl": "^2.15.0"
 	},
 	"description": "Mapbox components and utils for Svelte.",
 	"devDependencies": {
 		"eslint": "^8.23.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"svelte": "^3.50.1"
+		"svelte": "^3.59.2"
 	},
 	"engines": {
 		"node": ">=17.5.0"
