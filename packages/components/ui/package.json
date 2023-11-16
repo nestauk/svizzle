@@ -12,8 +12,7 @@
 		"@svizzle/dom": "^0.7.2",
 		"@svizzle/utils": "^0.20.0",
 		"bowser": "^2.11.0",
-		"d3-color": "^3.1.0",
-		"just-compare": "^2.3.0"
+		"d3-color": "^3.1.0"
 	},
 	"description": "A set of UI components for Svelte.",
 	"devDependencies": {

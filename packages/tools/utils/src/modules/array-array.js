@@ -2,8 +2,8 @@
 * @module @svizzle/utils/array-array
 */
 
+import areEquals from 'just-compare';
 import * as _ from 'lamb';
-import areEqual from 'just-compare';
 
 import {getKey, getValue} from './object-any.js';
 
@@ -291,7 +291,7 @@ export const toggleItem = (array, item) => {
 	let found = false;
 
 	let result = _.reduce(array, (acc, x) => {
-		if (areEqual(x, item)) {
+		if (areEquals(x, item)) {
 			found = true;
 		} else {
 			acc.push(x);

@@ -3,6 +3,7 @@
 	import {MessageView, Scroller, setupResizeObserver} from '@svizzle/ui';
 	import {
 		applyFnMap,
+		areEqual,
 		arrayMaxWith,
 		arrayMinWith,
 		getKey,
@@ -10,7 +11,6 @@
 		isIterableEmpty,
 		sliceString,
 	} from '@svizzle/utils';
-	import areEqual from 'just-compare';
 	import {
 		always,
 		identity,
@@ -355,7 +355,11 @@
 		wasNotResettingScroll = !shouldResetScroll
 	});
 	afterUpdate(() => {
-		if (shouldResetScroll && items && items.length && !areEqual(previousItems, items)) {
+		if (
+			shouldResetScroll &&
+			items?.length &&
+			!areEqual([previousItems, items])
+		) {
 			outerScrollTop = 0;
 			previousItems = items;
 		}

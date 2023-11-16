@@ -2,7 +2,7 @@
 * @module @svizzle/utils/array-[any-boolean]
 */
 
-import areEqual from 'just-compare';
+import areEquals from 'just-compare';
 import * as _ from 'lamb';
 
 import {includes} from './array_proto-boolean.js';
@@ -36,7 +36,7 @@ false
  * @since 0.5.0
  */
 export const makeOccursIn = array =>
-	input => _.someIn(array, elem => areEqual(elem, input));
+	input => _.someIn(array, elem => areEquals(elem, input));
 
 
 /**

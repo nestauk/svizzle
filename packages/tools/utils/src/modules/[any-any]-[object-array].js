@@ -34,7 +34,7 @@ export const objectToKeyValueArrayWith = accessor => _.pipe([
 * this can be useful when we need to use keys too.
 *
 * @function
-* @arg {function} processor - Any -> Any
+* @arg {function} accessor - Any -> Any
 * @return {function} - Object -> Array
 *
 * @example
@@ -52,7 +52,7 @@ export const objectToKeyValueArrayWith = accessor => _.pipe([
  *
  * @since 0.12.0
  */
-export const valuesWith = processor => _.pipe([
-	_.mapValuesWith(processor),
+export const valuesWith = accessor => _.pipe([
+	_.mapValuesWith(accessor),
 	_.values,
 ]);

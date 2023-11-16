@@ -4,7 +4,8 @@
 
 ## `@svizzle/barchart` v0.12.1 (next)
 
-- upgraded `lamb`, `just-compare`, `svelte`
+- removed `just-compare`, now using `areEqual` from `@svizzle/utils`
+- upgraded `lamb`, `svelte`
 
 ## `@svizzle/choropleth` v0.9.5 (next)
 
@@ -34,10 +35,10 @@
 
 - added `Input` and `Pill` components
 - updated `Banner` & `Scroller`
+- removed `just-compare`, now using `areEqual` from `@svizzle/utils`
 - upgraded:
 	- `@macfja/svelte-persistent-store`
 	- `feather-icons`
-	- `just-compare`
 	- `lamb`
 	- `svelte`
 
@@ -68,6 +69,11 @@
 ## `@svizzle/request` v0.5.3 (next)
 
 - upgraded `lamb`, `mocha`, `rxjs`
+
+## `@svizzle/utils` v0.21.0 (next)
+
+- added `areEqual`, `areEqualWith`, `areValuesEqual`, `areValuesEqualWith`
+- upgraded `just-compare`, `lamb`, `mocha`
 
 ## 20231114
 

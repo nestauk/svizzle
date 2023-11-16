@@ -2,10 +2,10 @@
 
 - added `Input` and `Pill` components
 - updated `Banner` & `Scroller`
+- removed `just-compare`, now using `areEqual` from `@svizzle/utils`
 - upgraded:
 	- `@macfja/svelte-persistent-store`
 	- `feather-icons`
-	- `just-compare`
 	- `lamb`
 	- `svelte`
 

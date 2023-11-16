@@ -1,6 +1,7 @@
 ## `@svizzle/barchart` v0.12.1 (next)
 
-- upgraded `lamb`, `just-compare`, `svelte`
+- removed `just-compare`, now using `areEqual` from `@svizzle/utils`
+- upgraded `lamb`, `svelte`
 
 ## `@svizzle/barchart` v0.12.0
 

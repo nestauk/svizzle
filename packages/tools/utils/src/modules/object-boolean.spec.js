@@ -1,6 +1,7 @@
 import {strict as assert} from 'node:assert';
 
 import {
+	areValuesEqual,
 	hasObjSize1,
 	hasSomeNullValues,
 	isObjEmpty,
@@ -8,6 +9,22 @@ import {
 } from './object-boolean.js';
 
 describe('Object -> Boolean', function () {
+	describe('areValuesEqual', function () {
+		it('should return `true` if all values of the provided object are equal', function () {
+			assert.deepStrictEqual(areValuesEqual({a: 1, b: 1, c: 1}), true);
+			assert.deepStrictEqual(areValuesEqual({a: [1, 2], b: [1, 2], c: [1, 2]}), true);
+		});
+		it('should return `false` if some values of the provided object are different', function () {
+			assert.deepStrictEqual(areValuesEqual({a: 1, b: 2, c: 3}), false);
+			assert.deepStrictEqual(areValuesEqual({a: [1, 2], b: [1, 3], c: [1, 2]}), false);
+		});
+		it('should return `false` if the object has size 1', function () {
+			assert.deepStrictEqual(areValuesEqual({a: 1}), false);
+		});
+		it('should return `false` if the object is empty', function () {
+			assert.deepStrictEqual(areValuesEqual({}), false);
+		});
+	});
 	describe('hasObjSize1', function () {
 		it('should return `false` if the object is empty', function () {
 			assert.deepStrictEqual(hasObjSize1({}), false);

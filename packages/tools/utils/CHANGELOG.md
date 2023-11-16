@@ -1,5 +1,6 @@
-## `@svizzle/utils` v0.20.1 (next)
+## `@svizzle/utils` v0.21.0 (next)
 
+- added `areEqual`, `areEqualWith`, `areValuesEqual`, `areValuesEqualWith`
 - upgraded `just-compare`, `lamb`, `mocha`
 
 ## `@svizzle/utils` v0.20.0

@@ -4,8 +4,35 @@
 
 import * as _ from 'lamb';
 
+import {areEqual} from './array-boolean.js';
 import {is0, is1, isGT0} from './number-boolean.js';
 import {getObjSize} from './object-number.js';
+
+/**
+ * Return `true` if all values of the provided object are equal
+ *
+ * @function
+ * @arg {object} object
+ * @return {boolean} boolean
+ *
+ * @example
+> areValuesEqual({a: 1, b: 1, c: 1})
+true
+> areValuesEqual({a: [1, 2], b: [1, 2], c: [1, 2]})
+true
+> areValuesEqual({a: 1, b: 2, c: 3})
+false
+> areValuesEqual({a: [1, 2], b: [1, 3], c: [1, 2]})
+false
+> areValuesEqual({a: 1})
+false
+> areValuesEqual({})
+false
+* @see {@link module:@svizzle/utils/[any-any]-[object-array]|areValuesEqualWith}
+ *
+ * @since 0.21.0
+ */
+export const areValuesEqual = _.pipe([_.values, areEqual]);
 
 /*
  * Return the size of the provided object

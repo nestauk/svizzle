@@ -4,7 +4,7 @@
 </script>
 
 <script>
-	import areEqual from 'just-compare';
+	import {areEqual} from '@svizzle/utils';
 	import {onMount} from 'svelte';
 	import {writable} from 'svelte/store';
 
@@ -55,7 +55,7 @@
 					_store_.set(currentValue);
 				};
 				const updateDb = newValue => {
-					if (areEqual(defaultValue_, newValue)) {
+					if (areEqual([defaultValue_, newValue])) {
 						database.deleteValue(key_);
 					} else {
 						database.setValue(key_, newValue);

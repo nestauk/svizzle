@@ -2,8 +2,8 @@
 * @module @svizzle/utils/any-[any-boolean]
 */
 
+import areEquals from 'just-compare';
 import * as _ from 'lamb';
-import areEqual from 'just-compare';
 
 /**
  * Return a function that returns true if the input is different from the provided value.
@@ -47,4 +47,4 @@ false
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#is
  * @see https://ascartabelli.github.io/lamb/module-lamb.html#isSVZ
  */
-export const isEqualTo = _.curry(areEqual);
+export const isEqualTo = _.curry(areEquals);
