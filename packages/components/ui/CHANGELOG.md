@@ -1,6 +1,10 @@
 ## `@svizzle/ui` v0.13.0 (next)
 
 - added `Input` and `Pill` components
+- added a minimal viewport system, see:
+	- `View.svelte`
+	- `ViewsSlider.svelte`
+	- `ViewsXor.svelte`
 - updated `Banner` & `Scroller`
 - removed `just-compare`, now using `areEqual` from `@svizzle/utils`
 - upgraded:

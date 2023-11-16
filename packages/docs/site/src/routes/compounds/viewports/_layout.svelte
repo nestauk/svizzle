@@ -1,16 +1,16 @@
 <script>
 	import {Link} from '@svizzle/ui';
 
-	export let segment; // 'BarchartV-defaultColor'
+	export let segment; // 'ViewsXor-view1'
 
-	const examples = ['empty', 'layers', 'custom_controls', 'all'];
+	const examples = ['ViewsSlider', 'ViewsXor'];
 </script>
 
 <section>
 	<nav>
 		{#each examples as example}
 			<Link
-				href='compounds/mapbox/{example}'
+				href='compounds/viewports/{example}'
 				rel='prefetch'
 			>
 				<p class:selected='{example === segment}'>
@@ -26,28 +26,26 @@
 
 <style>
 	section {
-		height: 100%;
-		width: 100%;
-
 		display: grid;
 		grid-template-columns: var(--dim-sidebar-width) calc(100% - var(--dim-sidebar-width));
 		grid-template-rows: 100%;
+		height: 100%;
+		width: 100%;
 	}
 
 	nav {
-		height: 100%;
-		width: 100%;
-		padding: var(--dim-padding);
-		border-right: 1px solid var(--color-main);
-		overflow-y: auto;
-
 		background-color: var(--color-sidebar-bkg);
+		border-right: 1px solid var(--color-main);
 		color: var(--color-main);
+		height: 100%;
+		overflow-y: auto;
+		padding: var(--dim-padding);
+		width: 100%;
 	}
 
 	nav p {
-		display: flex;
 		align-items: center;
+		display: flex;
 		padding-left: 0.5rem;
 	}
 
@@ -58,14 +56,14 @@
 	}
 
 	nav p:hover {
-		cursor: pointer;
 		background-color: var(--color-main);
 		color: var(--color-font-light);
+		cursor: pointer;
 	}
 
 	main {
 		height: 100%;
-		width: 100%;
 		padding: var(--dim-padding);
+		width: 100%;
 	}
 </style>

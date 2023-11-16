@@ -33,7 +33,7 @@
 	x={x + width / 2}
 	y={y + height / 2}
 	text-anchor='middle'
-	dominant-baseline="middle"
+	dominant-baseline='middle'
 >
 	Layer 1
 </text>

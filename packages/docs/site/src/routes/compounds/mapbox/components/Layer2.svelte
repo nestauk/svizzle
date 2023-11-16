@@ -34,7 +34,7 @@
 	x={cx}
 	y={cy}
 	text-anchor='middle'
-	dominant-baseline="middle"
+	dominant-baseline='middle'
 >
 	Layer 2
 </text>

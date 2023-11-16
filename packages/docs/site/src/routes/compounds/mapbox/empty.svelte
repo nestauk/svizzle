@@ -5,7 +5,7 @@
 	const styleURL = 'mapbox://styles/nesta-uk/cl8olrzo200ci16pim0h4c1pn';
 </script>
 
-<div class="map-container">
+<div class='map-container'>
 	<Mapbox
 		{accessToken}
 		{styleURL}

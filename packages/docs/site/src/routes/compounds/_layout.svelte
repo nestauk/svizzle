@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>@svizzle/time_region_value</title>
+	<title>@svizzle compounds</title>
 </svelte:head>
 
 <section>
@@ -19,6 +19,12 @@
 			rel='prefetch'
 		>
 			<span>@svizzle/time_region_value</span>
+		</Link>
+		<Link
+			href='/svizzle/compounds/viewports/ViewsSlider'
+			rel='prefetch'
+		>
+			<span>@svizzle/ui: viewports</span>
 		</Link>
 	</nav>
 	<main>

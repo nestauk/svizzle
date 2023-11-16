@@ -22,7 +22,7 @@
 	}
 </script>
 
-<div class="map-container">
+<div class='map-container'>
 	<Mapbox
 		{accessToken}
 		{bounds}
