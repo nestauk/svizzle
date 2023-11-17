@@ -1,7 +1,8 @@
 ## `@svizzle/site` v0.4.10 (next)
 
 - added examples for `@svizzle/ui`'s viewports
-- upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`
+- upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`, linted
 
 ## `@svizzle/site` v0.4.9
 

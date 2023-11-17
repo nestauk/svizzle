@@ -48,7 +48,7 @@
 		_map,
 		_projectFn
 	});
-	
+
 	/* bbox */
 
 	$: $_bbox = $_bbox_WS_EN

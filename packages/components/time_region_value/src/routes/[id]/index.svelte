@@ -126,8 +126,6 @@
 	};
 </script>
 
-<!-- svelte-ignore component-name-lowercase -->
-
 <div class='time_region_value_IdIndex {$_screenClasses}'>
 	<Header
 		{subtitle}

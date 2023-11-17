@@ -165,65 +165,6 @@
 	// TODO move to stores/indicatorYear.js
 	$: barchartTitle = schema.value.label + (labelUnit ? ` [${labelUnit}]` : '');
 
-	// map
-
-	$: euProjection = $_euGeojson &&
-		projectionFn()
-		.fitSize(
-			[choroplethInnerWidth, choroplethInnerHeight],
-			$_euGeojson
-		);
-	$: filteredProjection = $_filteredGeojson &&
-		projectionFn()
-		.fitSize(
-			[choroplethInnerWidth, choroplethInnerHeight],
-			$_filteredGeojson
-		);
-	$: projection = $_doFilterRegions ? filteredProjection : euProjection;
-
-	// flags
-	$: showMap = !$_isTopoFetching && areAllTruthy([mapHeight, mapWidth]);
-
-	// focus
-	$: focusedAtlasId = $_tooltip.isVisible ? $_tooltip.atlasId : undefined;
-	$: focusedRegionId = $_getRegionIdFromAtlasId(focusedAtlasId);
-
-	// POIs
-	$: POIsLayout = $_navFlags.showPOIs && projection && _.map($_POIs, obj => {
-		const [x, y] = projection([obj.lng, obj.lat]);
-		const X = x + choroplethSafety.left;
-		const length = obj.name.length * labelsFontSize * 0.6;
-		const isLeft =
-			obj.isLeft && X - labelDx - length < choroplethSafety.left
-				? false
-				: X + labelDx + length > mapWidth - choroplethSafety.right
-					? true
-					: obj.isLeft;
-		const dx = isLeft ? -labelDx : labelDx;
-		const dy = obj.isBottom ? 2 * markerRadius : obj.isTop ? -2 * markerRadius : 0;
-
-		return {
-			...obj,
-			dx,
-			dy,
-			isLeft,
-			X,
-			Y: y + choroplethSafety.top,
-		}
-	});
-
-	// barchart
-
-	$: barchartSelectedKeys =
-		$_selectedRegionAtlasIds.length === $_regionIdValuePairs.length
-			? []
-			: $_selectedRegionAtlasIds;
-	const barchartTheme = {
-		itemBackgroundColorHero: 'rgb(211, 238, 253)',
-		itemBackgroundColorSelected: 'antiquewhite',
-		titleFontSize: '1.2rem',
-	};
-
 	/* map tooltip */
 
 	const _tooltip = writable({isVisible: false});
@@ -279,6 +220,65 @@
 		$_tooltip.isVisible && _tooltip.update(mergeObj({
 			style: makeTooltipStyle(event),
 		}));
+	};
+
+	/* map */
+
+	$: euProjection = $_euGeojson &&
+		projectionFn()
+		.fitSize(
+			[choroplethInnerWidth, choroplethInnerHeight],
+			$_euGeojson
+		);
+	$: filteredProjection = $_filteredGeojson &&
+		projectionFn()
+		.fitSize(
+			[choroplethInnerWidth, choroplethInnerHeight],
+			$_filteredGeojson
+		);
+	$: projection = $_doFilterRegions ? filteredProjection : euProjection;
+
+	// flags
+	$: showMap = !$_isTopoFetching && areAllTruthy([mapHeight, mapWidth]);
+
+	// focus
+	$: focusedAtlasId = $_tooltip.isVisible ? $_tooltip.atlasId : undefined;
+	$: focusedRegionId = $_getRegionIdFromAtlasId(focusedAtlasId);
+
+	// POIs
+	$: POIsLayout = $_navFlags.showPOIs && projection && _.map($_POIs, obj => {
+		const [x, y] = projection([obj.lng, obj.lat]);
+		const X = x + choroplethSafety.left;
+		const length = obj.name.length * labelsFontSize * 0.6;
+		const isLeft =
+			obj.isLeft && X - labelDx - length < choroplethSafety.left
+				? false
+				: X + labelDx + length > mapWidth - choroplethSafety.right
+					? true
+					: obj.isLeft;
+		const dx = isLeft ? -labelDx : labelDx;
+		const dy = obj.isBottom ? 2 * markerRadius : obj.isTop ? -2 * markerRadius : 0;
+
+		return {
+			...obj,
+			dx,
+			dy,
+			isLeft,
+			X,
+			Y: y + choroplethSafety.top,
+		}
+	});
+
+	/* barchart */
+
+	$: barchartSelectedKeys =
+		$_selectedRegionAtlasIds.length === $_regionIdValuePairs.length
+			? []
+			: $_selectedRegionAtlasIds;
+	const barchartTheme = {
+		itemBackgroundColorHero: 'rgb(211, 238, 253)',
+		itemBackgroundColorSelected: 'antiquewhite',
+		titleFontSize: '1.2rem',
 	};
 
 	/* barchart hovering */

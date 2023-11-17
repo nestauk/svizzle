@@ -85,8 +85,7 @@
 		>
 			<Icon
 				fill={
-					$_groupsResetStatus.text
-					? theme.colorDisabled : theme.colorText
+					$_groupsResetStatus.text ? theme.colorDisabled : theme.colorText
 				}
 				glyph={FormatClear}
 				stroke='none'
@@ -100,8 +99,7 @@
 		>
 			<Icon
 				fill={
-					$_groupsResetStatus.color
-					? theme.colorDisabled : theme.colorText
+					$_groupsResetStatus.color ? theme.colorDisabled : theme.colorText
 				}
 				glyph={ColorClear}
 				stroke='none'
@@ -138,8 +136,7 @@
 						<Icon
 							glyph={hasNumericValues ? MinusCircle : ArrowLeftCircle}
 							stroke={
-								hasPrevValue
-								? theme.colorText : theme.colorDisabled
+								hasPrevValue ? theme.colorText : theme.colorDisabled
 							}
 						/>
 					</button>
@@ -152,8 +149,7 @@
 						<Icon
 							glyph={hasNumericValues ? PlusCircle : ArrowRightCircle}
 							stroke={
-								hasNextValue
-								? theme.colorText : theme.colorDisabled
+								hasNextValue ? theme.colorText : theme.colorDisabled
 							}
 						/>
 					</button>
@@ -196,8 +192,7 @@
 			<Icon
 				glyph={ChevronLeft}
 				stroke={
-					$_hasPrev
-					? theme.colorText : theme.colorDisabled
+					$_hasPrev ? theme.colorText : theme.colorDisabled
 				}
 			/>
 		</button>
@@ -210,8 +205,7 @@
 			<Icon
 				glyph={ChevronRight}
 				stroke={
-					$_hasNext
-					? theme.colorText : theme.colorDisabled
+					$_hasNext ? theme.colorText : theme.colorDisabled
 				}
 			/>
 		</button>

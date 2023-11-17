@@ -55,7 +55,7 @@
 		<b>Region types:</b>
 		{#if region_types.length > 1}
 			<ui>
-				{#each region_types as regionType, index}
+				{#each region_types as regionType}
 					<li>{regionType}</li>
 				{/each}
 			</ui>

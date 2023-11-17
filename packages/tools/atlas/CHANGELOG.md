@@ -1,6 +1,6 @@
 ## `@svizzle/atlas` v0.9.1 (next)
 
-- upgraded `lamb`
+- upgraded `lamb`, `eslint`
 
 ## `@svizzle/atlas` v0.9.0
 

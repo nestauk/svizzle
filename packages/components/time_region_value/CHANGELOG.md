@@ -1,6 +1,7 @@
 ## `@svizzle/time_region_value` v0.9.7 (next)
 
-- upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`
+- upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`, linted
 
 ## `@svizzle/time_region_value` v0.9.6
 

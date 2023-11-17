@@ -12,6 +12,8 @@
 	- `feather-icons`
 	- `lamb`
 	- `svelte`
+	- `eslint`
+- adopted `eslint-plugin-svelte`, linted
 
 ## `@svizzle/ui` v0.12.0
 

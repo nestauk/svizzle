@@ -39,7 +39,6 @@
 
 <svelte:window on:keydown={onKeyDown} />
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <div
 	{style}
 	aria-label='Banner'
@@ -49,7 +48,7 @@
 	on:keydown={onKeyDown}
 	role='alert'
 >
-	<!-- svelte-ignore a11y-interactive-supports-focus a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-interactive-supports-focus -->
 	<div
 		class:narrow={isNarrow}
 		class='inner'

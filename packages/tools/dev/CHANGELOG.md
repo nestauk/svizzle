@@ -1,6 +1,6 @@
 ## `@svizzle/dev` v0.6.2 (next)
 
-- upgraded `lamb`, `mocha`
+- upgraded `lamb`, `mocha`, `eslint`
 
 ## `@svizzle/dev` v0.6.1
 

@@ -1,6 +1,7 @@
 ## `@svizzle/mapbox` v0.1.2 (next)
 
-- upgraded `mapbox-gl`, `svelte`
+- upgraded `mapbox-gl`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`
 
 ## `@svizzle/mapbox` v0.1.1
 

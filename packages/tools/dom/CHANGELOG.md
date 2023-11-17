@@ -1,6 +1,6 @@
 ## `@svizzle/dom` v0.7.1 (next)
 
-- upgraded `lamb`, `mocha`
+- upgraded `lamb`, `mocha`, `eslint`
 
 ## `@svizzle/dom` v0.7.1
 

@@ -75,7 +75,6 @@
 			<div class='distancer'>
 				<h2>Choose an example</h2>
 				<div class='distancer'>
-					<!-- svelte-ignore a11y-no-onchange -->
 					<select
 						on:change={event => {selected = Number(event.target.value)}}
 						size={data.length}

@@ -1,5 +1,5 @@
 <script context='module'>
-	import {parseCSV} from '@svizzle/time_region_value';
+	import {IdYear, parseCSV, types} from '@svizzle/time_region_value';
 
 	import {lookup} from '../_data/stores.js';
 
@@ -12,8 +12,6 @@
 </script>
 
 <script>
-	import {IdYear, types} from '@svizzle/time_region_value';
-
 	export let data;
 	export let id;
 	export let year;

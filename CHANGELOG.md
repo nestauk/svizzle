@@ -2,35 +2,38 @@
 
 ## next
 
+- Adopted `eslint-plugin-svelte` for components and site
+
 ## `@svizzle/barchart` v0.12.1 (next)
 
 - removed `just-compare`, now using `areEqual` from `@svizzle/utils`
-- upgraded `lamb`, `svelte`
+- upgraded `lamb`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`, linted
 
 ## `@svizzle/choropleth` v0.9.5 (next)
 
-- upgraded `d3-geo`, `lamb`, `svelte`
+- upgraded `d3-geo`, `lamb`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`
 
 ## `@svizzle/histogram` v0.6.8 (next)
 
-- upgraded `d3-array`, `lamb`, `mocha`, `svelte`
+- upgraded `d3-array`, `lamb`, `mocha`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`, linted
 
 ## `@svizzle/legend` v0.4.8 (next)
 
-- upgraded `lamb`, `svelte`
+- upgraded `lamb`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`
 
 ## `@svizzle/mapbox` v0.1.2 (next)
 
-- upgraded `mapbox-gl`, `svelte`
+- upgraded `mapbox-gl`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`
 
 ## `@svizzle/time_region_value` v0.9.7 (next)
 
-- upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`
-
-## `@svizzle/site` v0.4.10 (next)
-
-- added examples for `@svizzle/ui`'s viewports
-- upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`
+- upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`, linted
 
 ## `@svizzle/ui` v0.13.0 (next)
 
@@ -46,39 +49,47 @@
 	- `feather-icons`
 	- `lamb`
 	- `svelte`
+	- `eslint`
+- adopted `eslint-plugin-svelte`, linted
+
+## `@svizzle/site` v0.4.10 (next)
+
+- added examples for `@svizzle/ui`'s viewports
+- upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`, `eslint`
+- adopted `eslint-plugin-svelte`, linted
 
 ## `@svizzle/atlas` v0.9.1 (next)
 
-- upgraded `lamb`
+- upgraded `lamb`, `eslint`
 
 ## `@svizzle/dev` v0.6.2 (next)
 
-- upgraded `lamb`, `mocha`
+- upgraded `lamb`, `mocha`, `eslint`
 
 ## `@svizzle/dom` v0.7.1 (next)
 
-- upgraded `lamb`, `mocha`
+- upgraded `lamb`, `mocha`, `eslint`
 
 ## `@svizzle/file` v0.14.2 (next)
 
-- upgraded `lamb`, `mocha`
+- upgraded `lamb`, `mocha`, `eslint`
 
 ## `@svizzle/geo` v0.9.1 (next)
 
-- upgraded `lamb`, `mocha`
+- upgraded `lamb`, `mocha`, `eslint`
 
 ## `@svizzle/geometry` v0.6.1 (next)
 
-- upgraded `lamb`, `mocha`
+- upgraded `lamb`, `mocha`, `eslint`
 
 ## `@svizzle/request` v0.5.3 (next)
 
-- upgraded `lamb`, `mocha`, `rxjs`
+- upgraded `lamb`, `mocha`, `rxjs`, `eslint`
 
 ## `@svizzle/utils` v0.21.0 (next)
 
 - added `areEqual`, `areEqualWith`, `areValuesEqual`, `areValuesEqualWith`
-- upgraded `just-compare`, `lamb`, `mocha`
+- upgraded `just-compare`, `lamb`, `mocha`, `eslint`
 
 ## 20231114
 

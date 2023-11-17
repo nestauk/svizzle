@@ -1,6 +1,6 @@
 ## `@svizzle/geo` v0.9.1 (next)
 
-- upgraded `lamb`, `mocha`
+- upgraded `lamb`, `mocha`, `eslint`
 
 ## `@svizzle/geo` v0.9.1
 

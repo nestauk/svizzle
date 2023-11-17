@@ -1,8 +1,10 @@
+extends:
+  - plugin:svelte/recommended
 overrides:
   -
     files:
       - '**/*.svelte'
-    processor: svelte3/svelte3
+    parser: svelte-eslint-parser
     rules:
       brace-style: off
   -
@@ -11,5 +13,3 @@ overrides:
     rules:
       no-invalid-this: off
       no-new: off
-plugins:
-  - svelte3

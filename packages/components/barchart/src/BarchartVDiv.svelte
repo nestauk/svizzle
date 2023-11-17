@@ -118,11 +118,6 @@
 	let width;
 
 	$: ({inlineSize: width, blockSize: height} = $_size);
-	$: style = makeStyleVars({
-		...theme,
-		...getCssGeometry(geometry),
-		refsHeightPx: toPx(refsHeight)
-	});
 	$: availableWidth = scrollbarWidth
 		? Math.max(width - scrollbarWidth, 0)
 		: width;
@@ -297,6 +292,7 @@
 
 	/* refs */
 
+	$: refHeight = geometry.padding + geometry.glyphHeight;
 	$: makeRefsLayout = pipe([
 		sortByValue,
 		mapWith((ref, idx) => {
@@ -331,25 +327,21 @@
 		})
 	]);
 	$: refsLayout = refs && refs.length && makeRefsLayout(refs);
-	$: refHeight = geometry.padding + geometry.glyphHeight;
 	$: refsHeight =
 		refs && refs.length * (geometry.padding + refHeight) + geometry.padding
 		|| 0;
+
+	$: style = makeStyleVars({
+		...theme,
+		...getCssGeometry(geometry),
+		refsHeightPx: toPx(refsHeight)
+	});
 
 	/* scroll */
 
 	let outerScrollTop;
 	let previousItems;
 	let wasNotResettingScroll;
-
-	const doScroll = () => {
-		const yAbs = -outerScrollTop + heroY;
-		if (yAbs < 0) {
-			outerScrollTop = heroY;
-		} else if (yAbs + itemHeight > height) {
-			outerScrollTop = heroY - height + itemHeight;
-		}
-	}
 
 	beforeUpdate(() => {
 		wasNotResettingScroll = !shouldResetScroll
@@ -374,6 +366,15 @@
 		&& heroKey
 		&& barsByKey[heroKey]
 		&& barsByKey[heroKey].y;
+
+	const doScroll = () => {
+		const yAbs = -outerScrollTop + heroY;
+		if (yAbs < 0) {
+			outerScrollTop = heroY;
+		} else if (yAbs + itemHeight > height) {
+			outerScrollTop = heroY - height + itemHeight;
+		}
+	}
 
 	$: if (shouldScrollToHeroKey && heroKey) {
 		doScroll();
@@ -527,7 +528,7 @@
 								payload,
 								textColor,
 								valueX,
-							}, index (key)}
+							}, idx (key)}
 								<!-- eslint seems to throw whatever dynamic value we use -->
 								<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 								<g
@@ -540,7 +541,7 @@
 									on:touchstart={isInteractive && onMouseenter(payload)}
 									role={isInteractive ? 'button' : null}
 									tabindex={isInteractive ? 0 : -1}
-									transform='translate(0, {itemHeight * index})'
+									transform='translate(0, {itemHeight * idx})'
 								>
 									<rect
 										width={availableWidth}

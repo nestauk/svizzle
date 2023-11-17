@@ -84,12 +84,12 @@
 			Sapper to scrape it during export.
 		b. Client-side:
 			1. Browser receives exported markup populating the DOM, but
-			   `clientWidth`/`clientHeight` bindings don't update bound
-			   variables (apparently a race condition).
+				`clientWidth`/`clientHeight` bindings don't update bound
+				variables (apparently a race condition).
 			2. ($_screenClasses || isServerside) === false so the DOM is cleared
 			3. After a while $_screenClasses is truthy so the DOM is repopulated
-			   and now `clientWidth`/`clientHeight` bindings are properly
-			   recreated and the bound variables/stores are properly updated.
+				and now `clientWidth`/`clientHeight` bindings are properly
+				recreated and the bound variables/stores are properly updated.
 	TODO Isolate the cause of the bug.
 -->
 {#if $_screenClasses || isServerSide}

@@ -123,18 +123,6 @@
 		x: flags.isRightToLeft ? innerWidth : 0,
 		y: flags.isTopDown ? 0 : innerHeight
 	}
-	$: direction = {
-		x: flags.isRightToLeft ? -1 : 1,
-		y: flags.isTopDown ? 1 : -1
-	}
-	$: ticksX = flags.isRightToLeft
-		? geometry.originRadius + geometry.textPadding
-		: -(geometry.originRadius + geometry.textPadding);
-	$: ticksAnchor = flags.isRightToLeft ? 'start' : 'end';
-	$: ticks = getBinsTicks(bins).map(tick => ({
-		tick: ticksFormatFn(tick),
-		y: flags.isTopDown ? scales.y(tick) : -scales.y(tick)
-	}));
 
 	$: useValue = bins.length && has(bins[0], 'value');
 	$: getBinsMax = useValue
@@ -155,6 +143,15 @@
 		y: scaleLinear().domain(rangesExtent).range([0, innerHeight])
 	}
 	/* eslint-enable indent */
+
+	$: ticksX = flags.isRightToLeft
+		? geometry.originRadius + geometry.textPadding
+		: -(geometry.originRadius + geometry.textPadding);
+	$: ticksAnchor = flags.isRightToLeft ? 'start' : 'end';
+	$: ticks = getBinsTicks(bins).map(tick => ({
+		tick: ticksFormatFn(tick),
+		y: flags.isTopDown ? scales.y(tick) : -scales.y(tick)
+	}));
 
 	$: bars = bins.map((bin, index) => {
 		const {range, values, value} = bin;

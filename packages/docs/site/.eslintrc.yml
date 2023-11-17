@@ -1,21 +1,19 @@
+extends:
+  - plugin:svelte/recommended
 overrides:
   -
     files:
       - '**/*.svelte'
-    processor: svelte3/svelte3
+    parser: svelte-eslint-parser
   -
     files:
       - '**/*.spec.js'
     rules:
       no-invalid-this: 'off'
       no-new: 'off'
-plugins:
-  - svelte3
 rules:
   brace-style: 'off'
   no-invalid-this: 'off'
   no-process-env: 'off'
   no-tabs: 'off'
   unused-export-let: 'off' # `export let prop` in components
-# settings:
-  # svelte3/ignore-styles: true

@@ -31,8 +31,8 @@
 	},
 	"description": "Svelte components to be used as SvelteKit/Sapper routes for the {time, region, value} domain.",
 	"devDependencies": {
-		"eslint": "^8.23.0",
-		"eslint-plugin-svelte3": "^4.0.0",
+		"eslint": "^8.54.0",
+		"eslint-plugin-svelte": "^2.35.0",
 		"svelte": "^3.59.2"
 	},
 	"engines": {

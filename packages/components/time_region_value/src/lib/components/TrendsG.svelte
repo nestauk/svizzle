@@ -151,8 +151,6 @@
 	}
 </script>
 
-<!-- svelte-ignore component-name-lowercase -->
-
 <g class='TrendsG'>
 	<rect
 		{height}

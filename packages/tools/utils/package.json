@@ -14,7 +14,7 @@
 	},
 	"description": "Svizzle Utils is a library to help transforming data.",
 	"devDependencies": {
-		"eslint": "^8.23.0",
+		"eslint": "^8.54.0",
 		"mocha": "^10.2.0"
 	},
 	"engines": {
