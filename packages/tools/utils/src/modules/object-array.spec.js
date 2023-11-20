@@ -5,6 +5,7 @@ import {
 	getTruthyValuesKeys,
 	makeKeyedValuesPermutations,
 	objectToKeyValueArray,
+	objectToKeyValuesArray,
 } from './object-array.js';
 
 describe('Object -> Array', function () {
@@ -64,6 +65,17 @@ describe('Object -> Array', function () {
 			assert.deepStrictEqual(
 				objectToKeyValueArray({k1: 'v1', k2: 'v2'}),
 				[{key: 'k1', value: 'v1'}, {key: 'k2', value: 'v2'}]
+			);
+		});
+	});
+	describe('objectToKeyValuesArray', function () {
+		it('should return an array of {key, values} objects from an object', function () {
+			assert.deepStrictEqual(
+				objectToKeyValuesArray({k1: ['a', 'b'], k2: ['c', 'd']}),
+				[
+					{key: 'k1', values: ['a', 'b']},
+					{key: 'k2', values: ['c', 'd']}
+				]
 			);
 		});
 	});

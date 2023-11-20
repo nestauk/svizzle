@@ -90,6 +90,35 @@ export const makeBiPermutations = items =>
 	}, []);
 
 /**
+ * Pluck the `key` property value from an array of objects.
+ *
+ * @function
+ * @arg {object[]} - key/value items
+ * @return {string[]} array of `key`s.
+ * @example
+> pluckKey([{key: 'John', value: 'Foo'}, {key: 'Jane', value: 'Bar'}])
+['John', 'Jane']
+> pluckKey([{key: 'b', value: 2}, {key: 'a', value: 1}])
+['b', 'a']
+ */
+export const pluckKey = _.mapWith(getKey);
+
+/**
+ * Pluck the `value` property value from an array of objects.
+ *
+ * @function
+ * @arg {object[]} - key/value items
+ * @return {string[]} array of `value`s.
+ * @example
+> pluckValue([{key: 'John', value: 'Foo'}, {key: 'Jane', value: 'Bar'}])
+['Foo', 'Bar']
+> pluckValue([{key: 'b', value: 2}, {key: 'a', value: 1}])
+[2, 1]
+ * @since 0.21.0
+ */
+export const pluckValue = _.mapWith(getValue);
+
+/**
  * Return a copy of the provided array of objects
  * assigning each object index to a property with the provided key
  * (defaulting to `index`)

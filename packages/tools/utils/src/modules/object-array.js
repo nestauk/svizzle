@@ -7,7 +7,7 @@ import * as _ from 'lamb';
 import {isArray} from './any-boolean.js';
 import {concat} from './array_proto-array.js';
 import {isIterableNotEmpty} from './iterable-boolean.js';
-import {pairToKeyValueObject} from './iterable-object.js';
+import {pairToKeyValueObject, pairToKeyValuesObject} from './iterable-object.js';
 import {pickIfTruthy} from './object-object.js';
 import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any].js';
 
@@ -25,6 +25,25 @@ import {reduceFromEmptyArray} from './reduceCb[any-any]-[array-any].js';
  * @since 0.4.0
  */
 export const concatValues = _.pipe([_.values, _.apply(concat)]);
+
+/**
+ * Return the keys of the provided object with a truthy value
+ *
+ * @function
+ * @arg {object} object - The input object
+ * @return {array} - The keys correspondent to truthy values
+ *
+ * @example
+> getTruthyValuesKeys({a: true, b: true, c: false})
+['a', 'b']
+> getTruthyValuesKeys({a: 1, b: 0, c: false})
+['a']
+> getTruthyValuesKeys({a: [1, 2], b: {a: 1}, c: false})
+['a', 'b']
+ *
+ * @since 0.1.0
+ */
+export const getTruthyValuesKeys = _.pipe([pickIfTruthy, _.keys]);
 
 /**
  * Return an array of the permutations of the provided object values items, by key.
@@ -83,20 +102,20 @@ export const objectToKeyValueArray = _.pipe([
 ]);
 
 /**
- * Return the keys of the provided object with a truthy value
+ * Return an array of {key, values} objects from an object
  *
  * @function
- * @arg {object} object - The input object
- * @return {array} - The keys correspondent to truthy values
+ * @arg {object} object
+ * @return {array}
  *
  * @example
-> getTruthyValuesKeys({a: true, b: true, c: false})
-['a', 'b']
-> getTruthyValuesKeys({a: 1, b: 0, c: false})
-['a']
-> getTruthyValuesKeys({a: [1, 2], b: {a: 1}, c: false})
-['a', 'b']
+> obj = {k1: ['a', 'b'], k2: ['c', 'd']}
+> objectToKeyValuesArray(obj)
+[{key: 'k1', values: ['a', 'b']}, {key: 'k2', values: ['c', 'd']}]
  *
- * @since 0.1.0
+ * @since 0.21.0
  */
-export const getTruthyValuesKeys = _.pipe([pickIfTruthy, _.keys]);
+export const objectToKeyValuesArray = _.pipe([
+	_.pairs,
+	_.mapWith(pairToKeyValuesObject)
+]);

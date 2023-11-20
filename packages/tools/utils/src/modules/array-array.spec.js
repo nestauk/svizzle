@@ -4,6 +4,8 @@ import {
 	getFirstAndLast,
 	inclusiveRange,
 	makeBiPermutations,
+	pluckKey,
+	pluckValue,
 	setIndexAsKey,
 	sortValueAscKeyAsc,
 	sortValueAscKeyDesc,
@@ -66,6 +68,26 @@ describe('Array -> Array', function () {
 		it('should return an empty array if provided an empty array', function () {
 			const actual = makeBiPermutations([]);
 			assert.deepStrictEqual(actual, []);
+		});
+	});
+	describe('pluckKey', function () {
+		it('should pluck the `key` property value from an array of objects', function () {
+			const actual = pluckKey([
+				{key: 'John', value: 'Foo'},
+				{key: 'Jane', value: 'Bar'}
+			]);
+			const expected = ['John', 'Jane'];
+			assert.deepStrictEqual(actual, expected);
+		});
+	});
+	describe('pluckValue', function () {
+		it('should pluck the `value` property value from an array of objects', function () {
+			const actual = pluckValue([
+				{key: 'John', value: 'Foo'},
+				{key: 'Jane', value: 'Bar'}
+			]);
+			const expected = ['Foo', 'Bar'];
+			assert.deepStrictEqual(actual, expected);
 		});
 	});
 	describe('setIndexAsKey', function () {

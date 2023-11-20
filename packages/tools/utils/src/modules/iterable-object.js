@@ -41,3 +41,43 @@
  * @since 0.1.0
  */
 export const pairToKeyValueObject = ([key, value]) => ({key, value});
+
+/**
+ * Return the {key, values} object from a pair
+ *
+ * @function
+ * @arg {iterable} iterable
+ * @return {object}
+ *
+ * @example
+> function func () {
+	return pairToKeyValuesObject(arguments);
+}
+> func()
+{key: undefined, values: undefined}
+> func(1)
+{key: 1, values: undefined}
+> func(1, [1, 2])
+{key: 1, values: [1, 2]}
+> func(1, [1, 2], 3)
+{key: 1, values: [1, 2]}
+> pairToKeyValuesObject([])
+{key: 'undefined', values: 'undefined'}
+> pairToKeyValuesObject([1])
+{key: 1, values: undefined}
+> pairToKeyValuesObject([1, [1, 2]])
+{key: 1, values: [1, 2]}
+> pairToKeyValuesObject([1, [1, 2], 3])
+{key: 1, values: [1, 2]}
+> pairToKeyValuesObject('')
+{key: 'undefined', values: 'undefined'}
+> pairToKeyValuesObject('a')
+{key: 'a', values: 'undefined'}
+> pairToKeyValuesObject('ab')
+{key: 'a', values: 'b'}
+> pairToKeyValuesObject('abc')
+{key: 'a', values: 'b'}
+ *
+ * @since 0.21.0
+ */
+export const pairToKeyValuesObject = ([key, values]) => ({key, values});
