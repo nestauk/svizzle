@@ -1,16 +1,12 @@
 <script>
-	import {
-		Mapbox,
-		CustomControl,
-		SvgLayer
-	} from '@svizzle/mapbox';
+	import {CustomControl, Mapbox, SvgLayer} from '@svizzle/mapbox';
 
 	import Layer1 from './components/Layer1.svelte';
 	import Layer2 from './components/Layer2.svelte';
 	import ToggleControl from './components/ToggleControl.svelte';
 
 	const accessToken = 'pk.eyJ1IjoibmVzdGEtdWsiLCJhIjoiY2ozbjUzY2drMDAwNzJxbnl6a21uM253cSJ9.3RTMySEVk0LC4gQvGoG-Zw';
-	const styleURL = 'mapbox://styles/nesta-uk/cl8olrzo200ci16pim0h4c1pn';
+	const style = 'mapbox://styles/nesta-uk/cl8olrzo200ci16pim0h4c1pn';
 
 	let isCustomControlVisible = false;
 	let isCustomLayer1Visible = false;
@@ -26,7 +22,7 @@
 	<Mapbox
 		{accessToken}
 		{bounds}
-		{styleURL}
+		{style}
 		withScaleControl={true}
 		withZoomControl={true}
 	>

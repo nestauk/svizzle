@@ -3,7 +3,7 @@
 
 	export let wsen;
 
-	const {_bbox, _projectFn} = getContext('mapBox');
+	const {_bbox, _projectFn} = getContext('Mapbox');
 	const {abs, min} = Math
 
 	let xp1, xp2, yp1, yp2;

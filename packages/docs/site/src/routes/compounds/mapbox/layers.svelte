@@ -5,13 +5,13 @@
 	import Layer2 from './components/Layer2.svelte';
 
 	const accessToken = 'pk.eyJ1IjoibmVzdGEtdWsiLCJhIjoiY2ozbjUzY2drMDAwNzJxbnl6a21uM253cSJ9.3RTMySEVk0LC4gQvGoG-Zw';
-	const styleURL = 'mapbox://styles/nesta-uk/cl8olrzo200ci16pim0h4c1pn';
+	const style = 'mapbox://styles/nesta-uk/cl8olrzo200ci16pim0h4c1pn';
 </script>
 
 <div class='map-container'>
 	<Mapbox
 		{accessToken}
-		{styleURL}
+		{style}
 		withScaleControl={true}
 		withZoomControl={true}
 	>

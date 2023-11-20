@@ -8,6 +8,7 @@
 		"preid": "dev"
 	},
 	"dependencies": {
+		"@svizzle/dom": "^0.7.2",
 		"@mapbox/geo-viewport": "^0.4.1",
 		"mapbox-gl": "^2.15.0"
 	},

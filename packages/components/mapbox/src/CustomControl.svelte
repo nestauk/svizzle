@@ -5,7 +5,7 @@
 
 	export let position;
 
-	const {_map} = getContext('mapBox');
+	const {_map} = getContext('Mapbox');
 
 	const customControl = node => {
 		const control = new CustomControl(node);

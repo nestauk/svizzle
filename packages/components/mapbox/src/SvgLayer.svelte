@@ -4,7 +4,7 @@
 	export let isInteractive = true;
 	export let order;
 
-	const {_map} = getContext('mapBox');
+	const {_map} = getContext('Mapbox');
 
 	let customLayer;
 
@@ -30,7 +30,6 @@
 
 <style>
 	.SvgLayers {
-		display: block;
 		height: 100%;
 		position: absolute;
 		width: 100%;

@@ -6,9 +6,17 @@ Svelte applications.
 ## Features
 
 - Allows for adding SVG layers and custom controls through slots
-- Layers and custom controls can obtain the mapbox instance through `getContext`
+- Layers:
+	- set visible and reactive layers
+	- control features style interactively (e.g. when hovering features of the map)
+	- dispatch events when:
+		- hovering/touching features on the map
+		- entering/leaving the map
+- Custom controls can obtain the mapbox instance through `getContext`
 - Provides stores for the bounding box and zoom level
+- Pass event handlers for Mapbox's events
 - Can enable/disable scale and zoom controls through properties
+- Supports theme the focus outline
 - Degrades to a fallback message if Mapbox GL JS is not supported in the user's browser
 
 ## Installation
@@ -44,14 +52,32 @@ the platform for adding custom SVG layers and controls through the use of the
 - `accessToken`: your Mapbox access token (*required*)
 - `bounds`: bounding box for the map viewport (optional)
 - `customControl`: custom control to be added to the map (optional)
-- `styleURL`: URL for the Mapbox style to be used (*required*)
+- `eventsHandlers`: set event handlers for Mapbox's events
+- `fitBoundsPadding`: control the padding in pixels when zooming to `bounds`
+- `getFeatureState`: control features style interactively (e.g. when hovering features of the map)
+- `isAnimated` and `isInteractive` booleans to control interactivity
+- `isDblClickEnabled`: boolean to enable/disable `map.doubleClickZoom`
+- `reactiveLayersIds`: to set reactive layers
+- `style`: a JSON object conforming to the schema described in the
+	[Mapbox Style Specification](https://docs.mapbox.com/mapbox-gl-js/style-spec/),
+	or a URL to such JSON
+- `theme`: URL for the Mapbox style to be used (*required*)
+- `visibleLayersIds`: to set visible layers
 - `withScaleControl`: whether to display the scale control (default: true)
 - `withZoomControl`: whether to display the zoom control (default: true)
+
+### Read-only props
+
+- `_projectFn`: the internal `map` projection function
 
 ### Events
 
 - `bboxChanged`: emitted when the bounding box of the map changes
+- `entered`: when entering the map
+- `exited`: when leaving the map
 - `mapClick`: emitted when the map is clicked
+- `mapFeaturesHovered`: when hovering the map on systems that support pointers
+- `mapFeaturesTouchStarted`: when hovering the map on systems that support touch
 
 ### Slots
 
