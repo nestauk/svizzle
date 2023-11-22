@@ -3,6 +3,7 @@
 - removed `just-compare`, now using `areEqual` from `@svizzle/utils`
 - upgraded `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
+- fixed horizontal and vertical length computations
 
 ## `@svizzle/barchart` v0.12.0
 

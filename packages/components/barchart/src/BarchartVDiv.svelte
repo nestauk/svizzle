@@ -81,8 +81,8 @@
 
 	export let barHeight = 4;
 	export let formatFn;
-	export let heroKey = null;
 	export let geometry;
+	export let heroKey = null;
 	export let isInteractive = false;
 	export let items = []; // {key, value}[]
 	export let keyToColor = null;
@@ -99,6 +99,14 @@
 	export let valueAccessor = null;
 	export let valueToColorFn = null;
 
+	let height;
+	let hoveredKey;
+	let outerScrollTop;
+	let previousItems;
+	let scrollbarWidth;
+	let wasNotResettingScroll;
+	let width;
+
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: barHeight = barHeight || 4;
 	$: formatFn = formatFn ?? identity;
@@ -112,15 +120,11 @@
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: valueAccessor = valueAccessor || getValue;
 
-	let height;
-	let hoveredKey;
-	let scrollbarWidth;
-	let width;
-
 	$: ({inlineSize: width, blockSize: height} = $_size);
-	$: availableWidth = scrollbarWidth
-		? Math.max(width - scrollbarWidth, 0)
-		: width;
+	$: availableWidth = Math.max(
+		width - (scrollbarWidth ?? 0),
+		0
+	);
 	$: barPadding = geometry.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
 	$: itemHeight = geometry.glyphHeight + barHeight + 3 * barPadding;
@@ -293,6 +297,11 @@
 	/* refs */
 
 	$: refHeight = geometry.padding + geometry.glyphHeight;
+	$: refsHeight =
+		refs &&
+		refs.length * (geometry.padding + refHeight) +
+		(refs.length > 0 ? geometry.padding : 0)
+		|| 0;
 	$: makeRefsLayout = pipe([
 		sortByValue,
 		mapWith((ref, idx) => {
@@ -327,9 +336,8 @@
 		})
 	]);
 	$: refsLayout = refs && refs.length && makeRefsLayout(refs);
-	$: refsHeight =
-		refs && refs.length * (geometry.padding + refHeight) + geometry.padding
-		|| 0;
+
+	/* style */
 
 	$: style = makeStyleVars({
 		...theme,
@@ -339,9 +347,20 @@
 
 	/* scroll */
 
-	let outerScrollTop;
-	let previousItems;
-	let wasNotResettingScroll;
+	$: heroY =
+		shouldScrollToHeroKey
+		&& heroKey
+		&& barsByKey[heroKey]
+		&& barsByKey[heroKey].y;
+
+	const doScroll = () => {
+		const yAbs = -outerScrollTop + heroY;
+		if (yAbs < 0) {
+			outerScrollTop = heroY;
+		} else if (yAbs + itemHeight > height) {
+			outerScrollTop = heroY - height + itemHeight;
+		}
+	}
 
 	beforeUpdate(() => {
 		wasNotResettingScroll = !shouldResetScroll
@@ -359,21 +378,6 @@
 
 	$: if (wasNotResettingScroll && shouldResetScroll) {
 		outerScrollTop = 0;
-	}
-
-	$: heroY =
-		shouldScrollToHeroKey
-		&& heroKey
-		&& barsByKey[heroKey]
-		&& barsByKey[heroKey].y;
-
-	const doScroll = () => {
-		const yAbs = -outerScrollTop + heroY;
-		if (yAbs < 0) {
-			outerScrollTop = heroY;
-		} else if (yAbs + itemHeight > height) {
-			outerScrollTop = heroY - height + itemHeight;
-		}
 	}
 
 	$: if (shouldScrollToHeroKey && heroKey) {
@@ -597,7 +601,12 @@
 	.BarchartVDiv {
 		width: 100%;
 		height: 100%;
+		overflow: hidden;
 		padding: var(--paddingPx);
+	}
+
+	svg {
+		display: block;
 	}
 
 	header {
@@ -632,10 +641,6 @@
 		height: calc(100% - var(--refsHeightPx));
 		max-height: calc(100% - var(--refsHeightPx));
 		overflow-y: auto;
-	}
-
-	svg {
-		display: block;
 	}
 
 	.ref rect {
