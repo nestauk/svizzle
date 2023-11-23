@@ -9,16 +9,16 @@
 	},
 	"dependencies": {
 		"@macfja/svelte-persistent-store": "^2.4.1",
-		"@svizzle/dom": "^0.7.2",
-		"@svizzle/utils": "^0.20.0",
+		"@svizzle/dom": "^0.7.3",
+		"@svizzle/utils": "^0.21.0",
 		"bowser": "^2.11.0",
 		"d3-color": "^3.1.0"
 	},
 	"description": "A set of UI components for Svelte.",
 	"devDependencies": {
-		"@svizzle/dev": "^0.6.1",
-		"@svizzle/file": "^0.14.2",
-		"@svizzle/request": "^0.5.3",
+		"@svizzle/dev": "^0.6.2",
+		"@svizzle/file": "^0.14.3",
+		"@svizzle/request": "^0.5.4",
 		"camelcase": "^7.0.0",
 		"eslint": "^8.54.0",
 		"eslint-plugin-svelte": "^2.35.0",
@@ -72,5 +72,5 @@
 	"sideEffects": false,
 	"svelte": "src/index.js",
 	"type": "module",
-	"version": "0.12.0"
+	"version": "0.13.0"
 }

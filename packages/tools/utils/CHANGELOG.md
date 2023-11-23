@@ -1,4 +1,4 @@
-## `@svizzle/utils` v0.21.0 (next)
+## `@svizzle/utils` v0.21.0
 
 - added `areEqual`, `areEqualWith`, `areValuesEqual`, `areValuesEqualWith`
 - added `pluckKey`, `pluckValue`

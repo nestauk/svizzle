@@ -1,4 +1,4 @@
-## `@svizzle/file` v0.14.2 (next)
+## `@svizzle/file` v0.14.3
 
 - upgraded `lamb`, `mocha`, `eslint`
 

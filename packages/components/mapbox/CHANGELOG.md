@@ -1,4 +1,4 @@
-## `@svizzle/mapbox` v0.2.0 (next)
+## `@svizzle/mapbox` v0.2.0
 
 - props:
 	- renamed `styleURL` to `style` and clarified that it can take an object or a URL

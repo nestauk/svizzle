@@ -1,4 +1,4 @@
-## `@svizzle/geometry` v0.6.1 (next)
+## `@svizzle/geometry` v0.6.1
 
 - upgraded `lamb`, `mocha`, `eslint`
 

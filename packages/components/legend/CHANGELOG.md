@@ -1,4 +1,4 @@
-## `@svizzle/legend` v0.4.8 (next)
+## `@svizzle/legend` v0.4.8
 
 - upgraded `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`

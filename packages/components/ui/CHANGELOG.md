@@ -1,11 +1,13 @@
-## `@svizzle/ui` v0.13.0 (next)
+## `@svizzle/ui` v0.13.0
 
 - added `Input` and `Pill` components
 - added a minimal viewport system, see:
 	- `View.svelte`
 	- `ViewsSlider.svelte`
 	- `ViewsXor.svelte`
+- added `XorNavigator` component
 - updated `Banner` & `Scroller`
+- `Link` component renamed to `HyperLink`
 - removed `just-compare`, now using `areEqual` from `@svizzle/utils`
 - upgraded:
 	- `@macfja/svelte-persistent-store`
@@ -14,8 +16,6 @@
 	- `svelte`
 	- `eslint`
 - adopted `eslint-plugin-svelte`, linted
-- added `XorNavigator` component
-- `Link` component renamed to `HyperLink`
 
 ## `@svizzle/ui` v0.12.0
 

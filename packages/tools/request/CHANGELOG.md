@@ -1,4 +1,4 @@
-## `@svizzle/request` v0.5.3 (next)
+## `@svizzle/request` v0.5.4
 
 - upgraded `lamb`, `mocha`, `rxjs`, `eslint`
 

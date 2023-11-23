@@ -9,10 +9,10 @@
 	},
 	"description": "Svizzle Atlas contains geographic boundaries for mapping.",
 	"devDependencies": {
-		"@svizzle/dev": "^0.6.1",
-		"@svizzle/file": "^0.14.2",
-		"@svizzle/geo": "^0.9.2",
-		"@svizzle/utils": "^0.20.0",
+		"@svizzle/dev": "^0.6.2",
+		"@svizzle/file": "^0.14.3",
+		"@svizzle/geo": "^0.9.3",
+		"@svizzle/utils": "^0.21.0",
 		"@turf/bbox": "^6.5.0",
 		"@turf/centroid": "^6.5.0",
 		"d3-dsv": "^3.0.1",
@@ -73,5 +73,5 @@
 	},
 	"sideEffects": true,
 	"type": "module",
-	"version": "0.9.1"
+	"version": "0.9.2"
 }

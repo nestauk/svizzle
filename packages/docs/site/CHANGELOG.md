@@ -1,9 +1,9 @@
-## `@svizzle/site` v0.4.10 (next)
+## `@svizzle/site` v0.4.10
 
 - added examples for `@svizzle/ui`'s viewports
+- `Link` -> `HyperLink`
 - upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
-- `Link` -> `HyperLink`
 
 ## `@svizzle/site` v0.4.9
 

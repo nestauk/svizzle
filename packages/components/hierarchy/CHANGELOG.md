@@ -1,3 +1,3 @@
-## `@svizzle/hierarchy` v0.1.0 (next)
+## `@svizzle/hierarchy` v0.1.0
 
 - added `Treemap.svelte`

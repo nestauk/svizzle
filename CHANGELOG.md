@@ -1,36 +1,36 @@
 # Svizzle changelog
 
-## next
+## 20231123
 
 - Adopted `eslint-plugin-svelte` for components and site
 
-## `@svizzle/barchart` v0.12.1 (next)
+## `@svizzle/barchart` v0.12.1
 
+- fixed horizontal and vertical length computations
 - removed `just-compare`, now using `areEqual` from `@svizzle/utils`
 - upgraded `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
-- fixed horizontal and vertical length computations
 
-## `@svizzle/choropleth` v0.9.5 (next)
+## `@svizzle/choropleth` v0.9.5
 
 - upgraded `d3-geo`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`
 
-## `@svizzle/hierarchy` v0.1.0 (next)
+## `@svizzle/hierarchy` v0.1.0
 
 - added `Treemap.svelte`
 
-## `@svizzle/histogram` v0.6.8 (next)
+## `@svizzle/histogram` v0.6.8
 
 - upgraded `d3-array`, `lamb`, `mocha`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
 
-## `@svizzle/legend` v0.4.8 (next)
+## `@svizzle/legend` v0.4.8
 
 - upgraded `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`
 
-## `@svizzle/mapbox` v0.2.0 (next)
+## `@svizzle/mapbox` v0.2.0
 
 - props:
 	- renamed `styleURL` to `style` and clarified that it can take an object or a URL
@@ -58,26 +58,28 @@
 	- upgraded `mapbox-gl`, `svelte`, `eslint`
 	- adopted `eslint-plugin-svelte`
 
-## `@svizzle/time_region_value` v0.9.7 (next)
+## `@svizzle/time_region_value` v0.9.7
 
 - upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
 - `Link` -> `HyperLink`
 
-## `@svizzle/trends` v0.1.0 (next)
+## `@svizzle/trends` v0.1.0
 
 - added `PercentilesTrends.svelte`
 - added `StreamGraph.svelte`
 - added `Trends.svelte`
 
-## `@svizzle/ui` v0.13.0 (next)
+## `@svizzle/ui` v0.13.0
 
 - added `Input` and `Pill` components
 - added a minimal viewport system, see:
 	- `View.svelte`
 	- `ViewsSlider.svelte`
 	- `ViewsXor.svelte`
+- added `XorNavigator` component
 - updated `Banner` & `Scroller`
+- `Link` component renamed to `HyperLink`
 - removed `just-compare`, now using `areEqual` from `@svizzle/utils`
 - upgraded:
 	- `@macfja/svelte-persistent-store`
@@ -86,45 +88,43 @@
 	- `svelte`
 	- `eslint`
 - adopted `eslint-plugin-svelte`, linted
-- added `XorNavigator` component
-- `Link` component renamed to `HyperLink`
 
-## `@svizzle/site` v0.4.10 (next)
+## `@svizzle/site` v0.4.10
 
 - added examples for `@svizzle/ui`'s viewports
+- `Link` -> `HyperLink`
 - upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
-- `Link` -> `HyperLink`
 
-## `@svizzle/atlas` v0.9.1 (next)
+## `@svizzle/atlas` v0.9.2
 
 - upgraded `lamb`, `eslint`
 
-## `@svizzle/dev` v0.6.2 (next)
+## `@svizzle/dev` v0.6.2
 
 - upgraded `lamb`, `mocha`, `eslint`
 
-## `@svizzle/dom` v0.7.1 (next)
+## `@svizzle/dom` v0.7.3
 
 - upgraded `lamb`, `mocha`, `eslint`
 
-## `@svizzle/file` v0.14.2 (next)
+## `@svizzle/file` v0.14.3
 
 - upgraded `lamb`, `mocha`, `eslint`
 
-## `@svizzle/geo` v0.9.1 (next)
+## `@svizzle/geo` v0.9.3
 
 - upgraded `lamb`, `mocha`, `eslint`
 
-## `@svizzle/geometry` v0.6.1 (next)
+## `@svizzle/geometry` v0.6.1
 
 - upgraded `lamb`, `mocha`, `eslint`
 
-## `@svizzle/request` v0.5.3 (next)
+## `@svizzle/request` v0.5.4
 
 - upgraded `lamb`, `mocha`, `rxjs`, `eslint`
 
-## `@svizzle/utils` v0.21.0 (next)
+## `@svizzle/utils` v0.21.0
 
 - added `areEqual`, `areEqualWith`, `areValuesEqual`, `areValuesEqualWith`
 - added `pluckKey`, `pluckValue`

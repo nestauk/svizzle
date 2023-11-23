@@ -1,4 +1,4 @@
-## `@svizzle/histogram` v0.6.8 (next)
+## `@svizzle/histogram` v0.6.8
 
 - upgraded `d3-array`, `lamb`, `mocha`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted

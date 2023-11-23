@@ -1,4 +1,4 @@
-## `@svizzle/choropleth` v0.9.5 (next)
+## `@svizzle/choropleth` v0.9.5
 
 - upgraded `d3-geo`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`
