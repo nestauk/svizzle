@@ -15,13 +15,22 @@ export const data = [
 		props: {
 			currentValue: 'value1',
 			label: null,
-			valuesToLabels: {value1: 'Label 1', value2: 'Label 2'},
+			valuesToLabels: {
+				value1: 'Label 1',
+				value2: 'Label 2',
+				value3: 'Label 3',
+			},
 		},
 		usage: `
 			<XorNavigator
 				currentValue={null}
 				label={null}
-				valuesToLabels={{}}
+				on:change={onChange}
+				valuesToLabels={{
+					value1: 'Label 1',
+					value2: 'Label 2',
+					value3: 'Label 3',
+				}}
 			/>
 		`,
 	},
@@ -37,11 +46,16 @@ export const data = [
 				colorIconDisabled: 'lightgrey',
 				textColor: 'darkblue',
 			},
-			valuesToLabels: {value1: 'Label 1', value2: 'Label 2'},
+			valuesToLabels: {
+				value1: 'Label 1',
+				value2: 'Label 2',
+				value3: 'Label 3',
+			},
 		},
 		usage: `
 			<XorNavigator
 				currentValue='value1'
+				on:change={onChange}
 				theme={{
 					border: '2px solid blue',
 					colorBackground: 'lightyellow',
@@ -49,7 +63,11 @@ export const data = [
 					colorIconDisabled: 'lightgrey',
 					textColor: 'darkblue',
 				}}
-				valuesToLabels={{value1: 'Label 1', value2: 'Label 2'}}
+				valuesToLabels={{
+					value1: 'Label 1',
+					value2: 'Label 2',
+					value3: 'Label 3',
+				}}
 			/>
 		`,
 	},
