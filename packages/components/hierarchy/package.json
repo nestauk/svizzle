@@ -1,0 +1,68 @@
+{
+	"author": "nestauk (https://www.nesta.org.uk/)",
+	"bugs": {
+		"url": "https://github.com/nestauk/svizzle/issues"
+	},
+	"config": {
+		"name": "hierarchy",
+		"preid": "dev"
+	},
+	"dependencies": {
+		"@svizzle/ui": "^0.12.0",
+		"@svizzle/utils": "^0.20.0",
+		"d3-hierarchy": "^3.1.2",
+		"lamb": "^0.61.1"
+	},
+	"description": "Svelte charts for hierarchical data.",
+	"devDependencies": {
+		"eslint": "^8.54.0",
+		"eslint-plugin-svelte": "^2.35.0",
+		"svelte": "^3.59.2"
+	},
+	"engines": {
+		"node": ">=17.5.0"
+	},
+	"files": [
+		"!*.spec.js",
+		"src/**/*.js",
+		"src/**/*.svelte",
+		"CHANGELOG.md",
+		"LICENSE",
+		"README.md"
+	],
+	"homepage": "https://github.com/nestauk/svizzle",
+	"keywords": [
+		"hierarchy",
+		"tree",
+		"treemap",
+		"chart",
+		"component",
+		"data visualization",
+		"svelte"
+	],
+	"license": "MIT",
+	"main": "src/index.js",
+	"module": "src/index.js",
+	"name": "@svizzle/hierarchy",
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"directory": "packages/components/hierarchy",
+		"type": "git",
+		"url": "github:nestauk/svizzle"
+	},
+	"scripts": {
+		"link": "npm link",
+		"lint": "eslint --max-warnings=0 'src/**/*.{js,svelte}'",
+		"outdated": "npm outdated",
+		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
+		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
+		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
+		"unlink": "npm unlink -g"
+	},
+	"sideEffects": false,
+	"svelte": "src/index.js",
+	"type": "module",
+	"version": "0.0.1"
+}
