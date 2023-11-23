@@ -1,5 +1,5 @@
 <script>
-	import {Link} from '@svizzle/ui';
+	import {HyperLink} from '@svizzle/ui';
 	import {onMount} from 'svelte';
 
 	// lib/stores
@@ -60,7 +60,7 @@
 		<div class='group'>
 			<header>{label}</header>
 			{#each indicators as {title, schema}}
-				<Link
+				<HyperLink
 					href={makeURL($_hrefBase, schema.value.id)}
 					rel='prefetch'
 					theme={{color: $_theme.colorWhite}}
@@ -75,7 +75,7 @@
 					>
 					{title}
 					</p>
-				</Link>
+				</HyperLink>
 			{/each}
 		</div>
 	{/each}

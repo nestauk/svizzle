@@ -1,5 +1,5 @@
 <script>
-	import {Link} from '@svizzle/ui';
+	import {HyperLink} from '@svizzle/ui';
 	import {isArray, isObject} from '@svizzle/utils';
 	import {pairs} from 'lamb';
 
@@ -22,7 +22,7 @@
 							{#each value as href, index}
 								<li>
 									<span>
-										<Link {href}>Link {index + 1}</Link>
+										<HyperLink {href}>Link {index + 1}</HyperLink>
 									</span>
 								</li>
 							{/each}
@@ -31,7 +31,7 @@
 				{:else}
 					<li>
 						<span>
-							<Link href={value}>{key}</Link>
+							<HyperLink href={value}>{key}</HyperLink>
 						</span>
 					</li>
 				{/if}
@@ -46,14 +46,14 @@
 			{#each item as href, index}
 				<li>
 					<span>
-						<Link {href}>Link {index + 1}</Link>
+						<HyperLink {href}>HyperLink {index + 1}</HyperLink>
 				</li>
 			{/each}
 		</ul>
 	{:else}
 		<p>
 			<b>{title}:</b>
-			<Link href={item}>{text}</Link>
+			<HyperLink href={item}>{text}</HyperLink>
 		</p>
 	{/if}
 </div>

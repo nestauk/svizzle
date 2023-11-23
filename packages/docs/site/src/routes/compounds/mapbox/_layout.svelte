@@ -1,5 +1,5 @@
 <script>
-	import {Link} from '@svizzle/ui';
+	import {HyperLink} from '@svizzle/ui';
 
 	export let segment; // 'BarchartV-defaultColor'
 
@@ -9,14 +9,14 @@
 <section>
 	<nav>
 		{#each examples as example}
-			<Link
+			<HyperLink
 				href='compounds/mapbox/{example}'
 				rel='prefetch'
 			>
 				<p class:selected='{example === segment}'>
 					{example}
 				</p>
-			</Link>
+			</HyperLink>
 		{/each}
 	</nav>
 	<main>

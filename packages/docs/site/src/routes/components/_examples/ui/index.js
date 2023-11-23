@@ -3,9 +3,9 @@ import * as Banner from './Banner.js';
 import * as CenteredView from './CenteredView.js';
 import * as CopyToClipboard from './CopyToClipboard.js';
 import * as HighlightedText from './HighlightedText.js';
+import * as HyperLink from './HyperLink.js';
 import * as Icon from './Icon.js';
 import * as Input from './Input.js';
-import * as Link from './Link.js';
 import * as LinkButton from './LinkButton.js';
 import * as LoadingView from './LoadingView.js';
 import * as MessageView from './MessageView.js';
@@ -25,9 +25,9 @@ export default examplesFormatter3([
 	CenteredView,
 	CopyToClipboard,
 	HighlightedText,
+	HyperLink,
 	Icon,
 	Input,
-	Link,
 	LinkButton,
 	LoadingView,
 	MessageView,

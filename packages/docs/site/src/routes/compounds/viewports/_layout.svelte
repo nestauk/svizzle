@@ -1,5 +1,5 @@
 <script>
-	import {Link} from '@svizzle/ui';
+	import {HyperLink} from '@svizzle/ui';
 
 	export let segment; // 'ViewsXor-view1'
 
@@ -9,14 +9,14 @@
 <section>
 	<nav>
 		{#each examples as example}
-			<Link
+			<HyperLink
 				href='compounds/viewports/{example}'
 				rel='prefetch'
 			>
 				<p class:selected='{example === segment}'>
 					{example}
 				</p>
-			</Link>
+			</HyperLink>
 		{/each}
 	</nav>
 	<main>
