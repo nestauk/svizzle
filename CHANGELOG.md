@@ -59,6 +59,12 @@
 - upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
 
+## `@svizzle/trends` v0.1.0 (next)
+
+- added `PercentilesTrends.svelte`
+- added `StreamGraph.svelte`
+- added `Trends.svelte`
+
 ## `@svizzle/ui` v0.13.0 (next)
 
 - added `Input` and `Pill` components

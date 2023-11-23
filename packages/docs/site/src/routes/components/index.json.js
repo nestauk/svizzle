@@ -8,6 +8,7 @@ export function get (req, res) {
 		{name: 'choropleth', slug: 'ChoroplethG'},
 		{name: 'histogram', slug: 'HistogramG'},
 		{name: 'legend', slug: 'ColorBinsG'},
+		{name: 'trends', slug: 'Trends'},
 		{name: 'ui', slug: 'ui-AlphabetPicker'},
 	]));
 }
