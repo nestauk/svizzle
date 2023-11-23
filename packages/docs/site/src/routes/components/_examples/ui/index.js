@@ -15,6 +15,7 @@ import * as ScrollbarStyler from './ScrollbarStyler.js';
 import * as Scroller from './Scroller.js';
 import * as Switch from './Switch.js';
 import * as XorSelector from './XorSelector.js';
+import * as XorNavigator from './XorNavigator.js';
 
 import {examplesFormatter3} from '../utils.js';
 
@@ -36,4 +37,5 @@ export default examplesFormatter3([
 	Scroller,
 	Switch,
 	XorSelector,
+	XorNavigator,
 ]);
