@@ -4,6 +4,7 @@
 - added `pluckKey`, `pluckValue`
 - added `pairToKeyValuesObject`, `objectToKeyValuesArray`
 - upgraded `just-compare`, `lamb`, `mocha`, `eslint`
+- `makeTrimmedSplitBy` now also trims before splitting
 
 ## `@svizzle/utils` v0.20.0
 

@@ -66,6 +66,7 @@ export const makeSplitBy = _.curryRight(split, 2);
  * @since 0.19.0
  */
 export const makeTrimmedSplitBy = separator => _.pipe([
+	trim,
 	_.splitBy(separator),
 	_.mapWith(trim)
 ]);

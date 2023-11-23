@@ -123,7 +123,11 @@
 ## `@svizzle/utils` v0.21.0 (next)
 
 - added `areEqual`, `areEqualWith`, `areValuesEqual`, `areValuesEqualWith`
+- added `pluckKey`, `pluckValue`
+- added `pairToKeyValuesObject`, `objectToKeyValuesArray`
 - upgraded `just-compare`, `lamb`, `mocha`, `eslint`
+- `makeTrimmedSplitBy` now also trims before splitting
+
 
 ## 20231114
 
