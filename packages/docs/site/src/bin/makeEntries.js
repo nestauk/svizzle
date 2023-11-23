@@ -20,11 +20,11 @@ const slugs = [
 ]
 .map(_.getKey('slug'))
 .concat([
+	'ui-HyperLink',
 	'ui-Icon',
-	'ui-Switch',
-	'ui-Link',
 	'ui-LinkButton',
-	'ui-LoadingView'
+	'ui-LoadingView',
+	'ui-Switch',
 ])
 
 const makeEntries = _.pipe([

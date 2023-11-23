@@ -63,7 +63,7 @@ It has no props, but you can pass up to 3 slots with the correspondent names:
 </LayoutHMF>
 ```
 
-## Link
+## HyperLink
 
 Props:
 - `download`: `string`, defaults to `null`; serves as a file name as opposed to the file name provided in `href`; use for files that the browser would otherwise display, in order to get a download dialog instead.
@@ -82,7 +82,7 @@ Props:
 - `rel`: `string`, defaults to `'noopener'`
 - `showIcon`: `boolean`, defaults to `true`
 - `target`: `string`, defaults to `null`
-- `text`: `string`, defaults to '' (if `href` isn't provided it turns into `<Link.svelte>: PLEASE PROVIDE A `href` PROP'`)
+- `text`: `string`, defaults to '' (if `href` isn't provided it turns into `<HyperLink.svelte>: PLEASE PROVIDE A `href` PROP'`)
 - `theme`: `object`, it gets merged to the default object, that is:
 	```
 	{
@@ -96,7 +96,7 @@ Props:
 ## LinkButton
 
 Props:
-- `download`: `string`, defaults to `null`; see `Link` above.
+- `download`: `string`, defaults to `null`; see `HyperLink` above.
 - `glyph`: a Svelte component for an optional icon
 - `href`: `string`, defaults to `null`
 - `hreflang`: `string`, defaults to `null`

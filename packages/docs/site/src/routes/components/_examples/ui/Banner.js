@@ -28,7 +28,7 @@ export const data = [
 						elementName: 'p',
 					},
 					{
-						componentName: 'Link',
+						componentName: 'HyperLink',
 						content: 'Here you can find more about it',
 						props: {
 							href: 'https://en.wikipedia.org/wiki/HTTP_cookie',
@@ -47,12 +47,12 @@ export const data = [
 				<h1>Welcome!</h1>
 				<p>This site uses cookies!</p>
 				<p>Below you got a link.</p>
-				<Link
+				<HyperLink
 					href='https://en.wikipedia.org/wiki/HTTP_cookie'
 					type='external'
 				>
 					Here you can find more about it
-				</Link>
+				</HyperLink>
 			</Banner>
 		`,
 	},
@@ -83,7 +83,7 @@ export const data = [
 						elementName: 'p',
 					},
 					{
-						componentName: 'Link',
+						componentName: 'HyperLink',
 						content: 'Here you can find more about it',
 						props: {
 							href: 'https://en.wikipedia.org/wiki/HTTP_cookie',
@@ -113,12 +113,12 @@ export const data = [
 				<h1>Welcome!</h1>
 				<p>This site uses cookies!</p>
 				<p>Below you got a link.</p>
-				<Link
+				<HyperLink
 					href='https://en.wikipedia.org/wiki/HTTP_cookie'
 					type='external'
 				>
 					Here you can find more about it
-				</Link>
+				</HyperLink>
 			</Banner>
 		`,
 	},

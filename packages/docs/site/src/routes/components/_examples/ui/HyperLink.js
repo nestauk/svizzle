@@ -1,6 +1,6 @@
-export const name = 'Link';
+export const name = 'HyperLink';
 export const packageName = 'ui';
-export const title = 'Link';
+export const title = 'HyperLink';
 export const slug = `${packageName}-${name}`;
 export const doc = [
 	{tag: 'p', content: 'An accessible HTML anchor.'},
@@ -14,9 +14,9 @@ export const data = [
 			href: 'https://svelte.dev',
 		},
 		usage: `
-			<Link href='https://svelte.dev'>
+			<HyperLink href='https://svelte.dev'>
 				Svelte website
-			</Link>
+			</HyperLink>
 		`,
 	},
 	{
@@ -25,7 +25,7 @@ export const data = [
 			href: 'https://svelte.dev',
 		},
 		usage: `
-			<Link href='https://svelte.dev' />
+			<HyperLink href='https://svelte.dev' />
 		`,
 	},
 	{
@@ -33,9 +33,9 @@ export const data = [
 		key: 'no href + text',
 		props: {},
 		usage: `
-			<Link>
+			<HyperLink>
 				Svelte website
-			</Link>
+			</HyperLink>
 		`,
 	},
 	{
@@ -46,12 +46,12 @@ export const data = [
 			type: 'external',
 		},
 		usage: `
-			<Link
+			<HyperLink
 				href='https://svelte.dev'
 				type='external'
 			>
 				Svelte website
-			</Link>
+			</HyperLink>
 		`,
 	},
 	{
@@ -63,13 +63,13 @@ export const data = [
 			type: 'external',
 		},
 		usage: `
-			<Link
+			<HyperLink
 				href='https://svelte.dev'
 				iconSize=30
 				type='external'
 			>
 				Svelte website
-			</Link>
+			</HyperLink>
 		`,
 	},
 	{
@@ -81,13 +81,13 @@ export const data = [
 			type: 'external',
 		},
 		usage: `
-			<Link
+			<HyperLink
 				href='https://svelte.dev'
 				showIcon={false}
 				type='external'
 			>
 				Svelte website
-			</Link>
+			</HyperLink>
 		`,
 	},
 	{
@@ -106,7 +106,7 @@ export const data = [
 			type: 'external'
 		},
 		usage: `
-			<Link
+			<HyperLink
 				href='https://svelte.dev'
 				theme={{
 					color: 'orange',
@@ -119,7 +119,7 @@ export const data = [
 				type='external'
 			>
 				Focus me to see the outline style
-			</Link>
+			</HyperLink>
 		`,
 	},
 	{
@@ -135,7 +135,7 @@ export const data = [
 			type: 'external',
 		},
 		usage: `
-			<Link
+			<HyperLink
 				href='https://svelte.dev'
 				theme={{
 					color: 'magenta',
@@ -145,7 +145,7 @@ export const data = [
 				type='external'
 			>
 				Svelte website
-			</Link>
+			</HyperLink>
 		`,
 	}
 ];

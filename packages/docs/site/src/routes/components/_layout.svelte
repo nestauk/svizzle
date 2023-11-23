@@ -1,5 +1,5 @@
 <script>
-	import {Link} from '@svizzle/ui';
+	import {HyperLink} from '@svizzle/ui';
 
 	import {sidebar} from './_utils.js';
 
@@ -12,14 +12,14 @@
 			<div class='distancer'>
 				<h2>{key}</h2>
 				{#each value as {slug, title}}
-					<Link
+					<HyperLink
 						href='components/{slug}'
 						rel='prefetch'
 					>
 						<p class:selected='{slug === segment}'>
 							{title}
 						</p>
-					</Link>
+					</HyperLink>
 				{/each}
 			</div>
 		{/each}

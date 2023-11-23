@@ -15,7 +15,7 @@ export const data = [
 				slotName: 'default',
 				items: [
 					{
-						componentName: 'Link',
+						componentName: 'HyperLink',
 						content: 'Svelte website',
 						props: {
 							href: 'https://svelte.dev',
@@ -32,11 +32,11 @@ export const data = [
 		],
 		usage: `
 			<script>
-				import {CenteredView, Link} from '@svizzle/ui';
+				import {CenteredView, HyperLink} from '@svizzle/ui';
 			</script>
 
 			<CenteredView>
-				<Link
+				<HyperLink
 					href='https://svelte.dev'
 					theme={{
 						color: 'magenta',
@@ -46,7 +46,7 @@ export const data = [
 					type='external'
 				>
 					Svelte website
-				</Link>
+				</HyperLink>
 			</CenteredView>
 		`,
 	},
@@ -59,7 +59,7 @@ export const data = [
 				slotName: 'default',
 				items: [
 					{
-						componentName: 'Link',
+						componentName: 'HyperLink',
 						content: 'Svelte website',
 						props: {
 							href: 'https://svelte.dev',
@@ -88,11 +88,11 @@ export const data = [
 		],
 		usage: `
 			<script>
-				import {CenteredView, Link, Switch} from '@svizzle/ui';
+				import {CenteredView, HyperLink, Switch} from '@svizzle/ui';
 			</script>
 
 			<CenteredView>
-				<Link
+				<HyperLink
 					href='https://svelte.dev'
 					theme={{
 						color: 'magenta',
@@ -102,7 +102,7 @@ export const data = [
 					type='external'
 				>
 					Svelte website
-				</Link>
+				</HyperLink>
 				<Switch
 					values={['Off', 'On']}
 					theme={{
@@ -125,7 +125,7 @@ export const data = [
 				slotName: 'default',
 				items: [
 					{
-						componentName: 'Link',
+						componentName: 'HyperLink',
 						content: 'Svelte website',
 						props: {
 							href: 'https://svelte.dev',
@@ -143,16 +143,16 @@ export const data = [
 		],
 		usage: `
 			<script>
-				import {CenteredView, Link, Switch} from '@svizzle/ui';
+				import {CenteredView, HyperLink, Switch} from '@svizzle/ui';
 			</script>
 
 			<CenteredView alignHorizontally={true}>
-				<Link
+				<HyperLink
 					href='https://svelte.dev'
 					type='external'
 				>
 					Svelte website
-				</Link>
+				</HyperLink>
 				<Switch
 					values={['Off', 'On']}
 				/>

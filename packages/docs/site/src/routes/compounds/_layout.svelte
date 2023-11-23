@@ -1,5 +1,5 @@
 <script>
-	import {Link} from '@svizzle/ui';
+	import {HyperLink} from '@svizzle/ui';
 </script>
 
 <svelte:head>
@@ -8,24 +8,24 @@
 
 <section>
 	<nav>
-		<Link
+		<HyperLink
 			href='/svizzle/compounds/mapbox/empty'
 			rel='prefetch'
 		>
 			<span>@svizzle/mapbox</span>
-		</Link>
-		<Link
+		</HyperLink>
+		<HyperLink
 			href='/svizzle/compounds/time_region_value'
 			rel='prefetch'
 		>
 			<span>@svizzle/time_region_value</span>
-		</Link>
-		<Link
+		</HyperLink>
+		<HyperLink
 			href='/svizzle/compounds/viewports/ViewsSlider'
 			rel='prefetch'
 		>
 			<span>@svizzle/ui: viewports</span>
-		</Link>
+		</HyperLink>
 	</nav>
 	<main>
 		<slot />
