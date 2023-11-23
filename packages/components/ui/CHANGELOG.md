@@ -14,6 +14,7 @@
 	- `svelte`
 	- `eslint`
 - adopted `eslint-plugin-svelte`, linted
+- added `XorNavigator` component
 
 ## `@svizzle/ui` v0.12.0
 

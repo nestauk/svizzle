@@ -85,6 +85,7 @@
 	- `svelte`
 	- `eslint`
 - adopted `eslint-plugin-svelte`, linted
+- added `XorNavigator` component
 
 ## `@svizzle/site` v0.4.10 (next)
 
