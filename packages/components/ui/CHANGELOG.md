@@ -15,6 +15,7 @@
 	- `eslint`
 - adopted `eslint-plugin-svelte`, linted
 - added `XorNavigator` component
+- `Link` component renamed to `HyperLink`
 
 ## `@svizzle/ui` v0.12.0
 

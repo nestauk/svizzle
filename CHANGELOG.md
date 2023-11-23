@@ -62,6 +62,7 @@
 
 - upgraded `d3-array`, `d3-geo`, `d3-shape`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
+- `Link` -> `HyperLink`
 
 ## `@svizzle/trends` v0.1.0 (next)
 
@@ -86,12 +87,14 @@
 	- `eslint`
 - adopted `eslint-plugin-svelte`, linted
 - added `XorNavigator` component
+- `Link` component renamed to `HyperLink`
 
 ## `@svizzle/site` v0.4.10 (next)
 
 - added examples for `@svizzle/ui`'s viewports
 - upgraded `d3-array`, `d3-geo`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`, linted
+- `Link` -> `HyperLink`
 
 ## `@svizzle/atlas` v0.9.1 (next)
 
