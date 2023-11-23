@@ -4,32 +4,20 @@
 		"url": "https://github.com/nestauk/svizzle/issues"
 	},
 	"config": {
-		"name": "time_region_value",
+		"name": "trends",
 		"preid": "dev"
 	},
 	"dependencies": {
-		"@svizzle/atlas": "^0.9.1",
-		"@svizzle/barchart": "^0.12.0",
-		"@svizzle/choropleth": "^0.9.4",
 		"@svizzle/dom": "^0.7.2",
-		"@svizzle/geo": "^0.9.2",
-		"@svizzle/legend": "^0.4.7",
 		"@svizzle/ui": "^0.12.0",
 		"@svizzle/utils": "^0.20.0",
-		"@turf/bbox-clip": "^6.5.0",
 		"d3-array": "^3.2.4",
-		"d3-dsv": "^3.0.1",
-		"d3-format": "^3.1.0",
-		"d3-geo": "^3.1.0",
 		"d3-quadtree": "^3.0.1",
 		"d3-scale": "^4.0.2",
-		"d3-scale-chromatic": "^3.0.0",
 		"d3-shape": "^3.2.0",
-		"lamb": "^0.61.1",
-		"topojson-simplify": "^3.0.3",
-		"yootils": "^0.3.1"
+		"lamb": "^0.61.1"
 	},
-	"description": "Svelte components to be used as SvelteKit/Sapper routes for the {time, region, value} domain.",
+	"description": "Trends charts for Svelte.",
 	"devDependencies": {
 		"eslint": "^8.54.0",
 		"eslint-plugin-svelte": "^2.35.0",
@@ -41,45 +29,45 @@
 	"files": [
 		"!*.spec.js",
 		"src/**/*.js",
-		"src/**/*.json",
 		"src/**/*.svelte",
-		"src/**/*.yaml",
 		"CHANGELOG.md",
 		"LICENSE",
 		"README.md"
 	],
 	"homepage": "https://github.com/nestauk/svizzle",
 	"keywords": [
+		"stream graph",
+		"sorted stream graph",
+		"trend chart",
+		"percentiles trends",
+		"chart",
 		"component",
 		"data visualization",
-		"routes",
-		"sapper",
-		"svelte",
-		"sveltekit"
+		"svelte"
 	],
 	"license": "MIT",
 	"main": "src/index.js",
 	"module": "src/index.js",
-	"name": "@svizzle/time_region_value",
+	"name": "@svizzle/trends",
 	"publishConfig": {
 		"access": "public"
 	},
 	"repository": {
-		"directory": "packages/components/time_region_value",
+		"directory": "packages/components/trends",
 		"type": "git",
 		"url": "github:nestauk/svizzle"
 	},
 	"scripts": {
-		"_link": "npm link",
+		"link": "npm link",
 		"lint": "eslint --max-warnings=0 'src/**/*.{js,svelte}'",
 		"outdated": "npm outdated",
 		"setpreminor": "npm --no-git-tag-version version preminor --preid=${npm_package_config_preid}",
 		"setprepatch": "npm --no-git-tag-version version prepatch --preid=${npm_package_config_preid}",
 		"setprerelease": "npm --no-git-tag-version version prerelease --preid=${npm_package_config_preid}",
-		"_unlink": "npm unlink -g"
+		"unlink": "npm unlink -g"
 	},
 	"sideEffects": false,
 	"svelte": "src/index.js",
 	"type": "module",
-	"version": "0.9.6"
+	"version": "0.0.1"
 }
