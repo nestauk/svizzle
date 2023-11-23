@@ -6,6 +6,7 @@
 		"@svizzle/choropleth": "^0.9.4",
 		"@svizzle/dom": "^0.7.2",
 		"@svizzle/geo": "^0.9.2",
+		"@svizzle/hierarchy": "^0.0.1",
 		"@svizzle/histogram": "^0.6.7",
 		"@svizzle/legend": "^0.4.7",
 		"@svizzle/mapbox": "^0.1.1",

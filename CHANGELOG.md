@@ -16,6 +16,10 @@
 - upgraded `d3-geo`, `lamb`, `svelte`, `eslint`
 - adopted `eslint-plugin-svelte`
 
+## `@svizzle/hierarchy` v0.1.0 (next)
+
+- added `Treemap.svelte`
+
 ## `@svizzle/histogram` v0.6.8 (next)
 
 - upgraded `d3-array`, `lamb`, `mocha`, `svelte`, `eslint`
