@@ -32,4 +32,5 @@ export {default as Switch} from './Switch.svelte';
 export {default as View} from './viewports/View.svelte';
 export {default as ViewsSlider} from './viewports/ViewsSlider.svelte';
 export {default as ViewsXor} from './viewports/ViewsXor.svelte';
+export {default as XorNavigator} from './XorNavigator.svelte';
 export {default as XorSelector} from './XorSelector.svelte';
