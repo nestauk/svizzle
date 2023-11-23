@@ -120,11 +120,13 @@
 		border: none;
 		border-left: var(--border);
 		color: var(--colorIcon);
+		cursor: pointer;
 		height: 100%;
 		width: var(--height);
 	}
 	button:disabled {
 		color: var(--colorIconDisabled);
+		cursor: default;
 	}
 	button:focus-visible {
 		outline: var(--outlineWidth) var(--outlineStyle) var(--outlineColor);
