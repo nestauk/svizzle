@@ -22,7 +22,7 @@
 							{#each value as href, index}
 								<li>
 									<span>
-										<HyperLink {href}>HyperLink {index + 1}</HyperLink>
+										<HyperLink {href}>Link {index + 1}</HyperLink>
 									</span>
 								</li>
 							{/each}
