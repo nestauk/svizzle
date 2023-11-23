@@ -12,7 +12,7 @@ Svelte applications.
 	- dispatch events when:
 		- hovering/touching features on the map
 		- entering/leaving the map
-- Custom controls can obtain the mapbox instance through `getContext('MapBox')`
+- Custom controls can obtain the mapbox instance through `getContext('Mapbox')`
 - You can also get the projection function from the Svelte context. Note that
   this value changes only once but because it is accessible after the context
   is initially set it must use a store to enable reactivity in child layers.
