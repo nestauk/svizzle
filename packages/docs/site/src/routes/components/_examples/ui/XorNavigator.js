@@ -14,7 +14,7 @@ export const data = [
 		key: 'Basic usage',
 		props: {
 			currentValue: 'value1',
-			label: null,
+			label: 'navigator label',
 			valuesToLabels: {
 				value1: 'Label 1',
 				value2: 'Label 2',
@@ -23,8 +23,8 @@ export const data = [
 		},
 		usage: `
 			<XorNavigator
-				currentValue={null}
-				label={null}
+				currentValue='value1'
+				label=navigator label
 				on:change={onChange}
 				valuesToLabels={{
 					value1: 'Label 1',
