@@ -24,7 +24,7 @@ export const data = [
 		usage: `
 			<XorNavigator
 				currentValue='value1'
-				label=navigator label
+				label='navigator label'
 				on:change={onChange}
 				valuesToLabels={{
 					value1: 'Label 1',
