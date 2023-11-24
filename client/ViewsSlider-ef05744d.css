@@ -1,0 +1,1 @@
+.ViewsSlider.svelte-3q15vl{height:100%;width:100%}.views.svelte-3q15vl{display:grid;grid-auto-flow:column;grid-template-columns:repeat(var(--viewsCount), calc( 100% / var(--viewsCount) ));height:100%;overflow-y:hidden;transform:translateX(calc( var(--currentViewIndex) * -100% / var(--viewsCount)));transition:transform 0.25s ease;width:calc(100% * var(--viewsCount) )}
