@@ -2,12 +2,12 @@ import {
 	exampleTrends,
 	colorByTrend,
 	geometry,
-} from "./_data";
+} from './_data.js';
 import {
 	keyFormatFn,
 	makeKeyToColorFn,
 	valueFormatFn
-} from "./_utils";
+} from './_utils.js';
 
 const keyToColorFn = makeKeyToColorFn(colorByTrend);
 

@@ -8,7 +8,7 @@ import {default as choropleth} from '../routes/components/_examples/choropleth.j
 import {default as hierarchy} from '../routes/components/_examples/hierarchy.js';
 import {default as histogram} from '../routes/components/_examples/histogram.js';
 import {default as legend} from '../routes/components/_examples/legend.js';
-import {default as trends} from '../routes/components/_examples/trends.js';
+import {default as trends} from '../routes/components/_examples/trends/index.js';
 
 const slugs = [
 	...barchart,

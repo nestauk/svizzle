@@ -2,11 +2,11 @@ import {
 	geometry,
 	percentileAreas,
 	percentilesTrendsItems
-} from './_data';
+} from './_data.js';
 import {
 	makeColorScheme,
 	makeAreaLowKeyToColor
-} from './_utils';
+} from './_utils.js';
 
 const colorScheme = makeColorScheme(percentileAreas);
 const areaLowKeyToColor = makeAreaLowKeyToColor(percentileAreas, colorScheme);

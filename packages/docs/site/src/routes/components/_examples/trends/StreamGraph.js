@@ -3,11 +3,11 @@ import {
 	geometry,
 	streamGraphGroups,
 	streamGraphPoints,
-} from './_data';
+} from './_data.js';
 import {
 	makeKeyToColorFn,
 	valueFormatFn,
-} from './_utils';
+} from './_utils.js';
 
 const groupToColorFn = makeKeyToColorFn(colorByStreamGraphGroup);
 
